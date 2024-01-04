@@ -1,0 +1,165 @@
+\documentclass[12pt]{article}
+\usepackage{fullpage}
+\usepackage[utf8]{inputenc}
+\usepackage{pict2e}
+\usepackage{amsmath}
+\usepackage{enumitem}
+\usepackage{eurosym}
+\usepackage{mathtools}
+\usepackage{amssymb, amsfonts, latexsym, cancel}
+\setlength{\parskip}{0.3cm}
+\usepackage{graphicx}
+\usepackage{fontenc}
+\usepackage{setspace}
+\usepackage{gensymb}
+\usepackage{accents}
+\usepackage{adjustbox}
+\setstretch{1.5}
+\usepackage{bold-extra}
+\usepackage[document]{ragged2e}
+\usepackage{subcaption}
+\usepackage{tcolorbox}
+\usepackage{xcolor, colortbl}
+\usepackage{wrapfig}
+\usepackage{empheq}
+\usepackage{array}
+\usepackage{parskip}
+\usepackage{arydshln}
+\renewcommand*\contentsname{\color{black}Índice} 
+\usepackage{array, multirow, multicol}
+\definecolor{lightblue}{HTML}{007AFF}
+\usepackage{color}
+\usepackage{etoolbox}
+\usepackage{listings}
+\usepackage{mdframed}
+\setlength{\parindent}{0pt}
+\usepackage{underscore}
+\usepackage{hyperref}
+\usepackage{tikz}
+\usepackage{tikz-cd}
+\usetikzlibrary{shapes, positioning, patterns}
+\usepackage{tikz-qtree}
+\usepackage{biblatex}
+\usepackage{pdfpages}
+\usepackage{pgfplots}
+\usepackage{pgfkeys}
+\addbibresource{biblatex-examples.bib}
+\usepackage[a4paper, left=1.5cm, right=1.5cm, top=1cm,
+bottom=1.5cm]{geometry}
+\everymath{\displaystyle}
+\usetikzlibrary{decorations.pathreplacing}
+\usepackage{titlesec}
+\usepackage{titletoc}
+\usepackage{tikz-3dplot}
+\usetikzlibrary{decorations.pathreplacing}
+\newcommand{\Ej}{\textcolor{lightblue}{\underline{Ejemplo}}}
+\setlength{\fboxrule}{1.5pt}
+\renewcommand{\arraystretch}{1.15}
+\setlength{\arraycolsep}{0.3cm}
+\title{Álgebra Lineal}
+\author{Francisco Javier Mercader Martínez}
+\date{}
+
+% Configura el formato de las secciones utilizando titlesec
+\titleformat{\section}
+{\color{red}\normalfont\LARGE\bfseries}
+{Tema \thesection:}
+{10 pt}
+{}
+
+% Ajusta el formato de las entradas de la tabla de contenidos
+\addtocontents{toc}{\protect\setcounter{tocdepth}{4}}
+\addtocontents{toc}{\color{black}}
+
+\titleformat{\subsection}
+{\normalfont\Large\bfseries\color{red}}{\thesubsection)}{1em}{\color{lightblue}}
+
+\titleformat{\subsubsection}
+{\normalfont\large\bfseries\color{red}}{\thesubsubsection)}{1em}{\color{lightblue}}
+
+\newcommand{\bboxed}[1]{\fcolorbox{lightblue}{lightblue!10}{$#1$}}
+
+\DeclareMathOperator{\N}{\mathbb{N}}
+\DeclareMathOperator{\Z}{\mathbb{Z}}
+\DeclareMathOperator{\R}{\mathbb{R}}
+\DeclareMathOperator{\Q}{\mathbb{Q}}
+\DeclareMathOperator{\K}{\mathbb{K}}
+\DeclareMathOperator{\im}{\imath}
+\DeclareMathOperator{\jm}{\jmath}
+\DeclareMathOperator{\col}{\mathrm{Col}}
+\DeclareMathOperator{\fil}{\mathrm{Fil}}
+\DeclareMathOperator{\rg}{\mathrm{rg}}
+\DeclareMathOperator{\nuc}{\mathrm{nuc}}
+\DeclareMathOperator{\dimf}{\mathrm{dimFil}}
+\DeclareMathOperator{\dimc}{\mathrm{dimCol}}
+\DeclareMathOperator{\dimn}{\mathrm{dimnuc}}
+\DeclareMathOperator{\dimr}{\mathrm{dimrg}}
+
+\newcommand{\bu}[1]{\textcolor{lightblue}{\underline{#1}}}
+\newcommand{\lb}[1]{\textcolor{lightblue}{#1}}
+\newcommand{\db}[1]{\textcolor{blue}{#1}}
+\newcommand{\rc}[1]{\textcolor{red}{#1}}
+\newcommand{\tr}{^\intercal}
+
+\renewcommand{\CancelColor}{\color{lightblue}}
+
+
+\newcommand{\dx}{\:\mathrm{d}x}
+\newcommand{\dt}{\:\mathrm{d}t}
+\newcommand{\dy}{\:\mathrm{d}y}
+\newcommand{\dz}{\:\mathrm{d}z}
+\newcommand{\dth}{\:\mathrm{d}\theta}
+\newcommand{\dr}{\:\mathrm{d}\rho}
+\newcommand{\du}{\:\mathrm{d}u}
+\newcommand{\dv}{\:\mathrm{d}v}
+\newcommand{\tozero}[1]{\cancelto{0}{#1}}
+\newcommand{\lbb}[2]{\textcolor{lightblue}{\underbracket[1pt]{\textcolor{black}{#1}}_{#2}}}
+\newcommand{\dbb}[2]{\textcolor{blue}{\underbracket[1pt]{\textcolor{black}{#1}}_{#2}}}
+\begin{document}
+\maketitle
+\tableofcontents 
+\newpage
+\input{Temas/Tema 1.tex}
+
+\input{Tareas/Hoja 1/Hoja 1.tex}
+
+\newpage
+
+\input{Temas/Tema 2.tex}
+
+\input{Tareas/Hoja 2/Hoja 2.tex}
+
+\newpage
+
+\input{Temas/Tema 3.tex}
+
+\newpage
+
+\input{Tareas/Hoja 3/Hoja 3.tex}
+
+\newpage
+
+\input{Temas/Tema 4.tex}
+
+\newpage
+
+\input{Tareas/Hoja 4/Hoja 4.tex}
+
+\newpage
+
+\input{Temas/Tema 5.tex}
+
+\input{Tareas/Hoja 5/Hoja 5.tex}
+
+\newpage
+
+\input{Temas/Tema 6.tex}
+
+\newpage
+
+\input{Tareas/Hoja 6/Hoja 6.tex}
+
+\newpage
+
+\input{Temas/Tema 7.tex}
+\end{document}

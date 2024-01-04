@@ -1,0 +1,186 @@
+\section{Estadística Descriptiva Multivariante}
+\subsection{Introducción}
+\subsubsection*{¿Cómo presumir si hay más de una variable?}
+\begin{itemize}
+	\item Realizar un estudio descriptivo de cada variable por separado (visto en Tema 1).
+	\item Descriptiva Bivariante. Estudiar relaciones entre pares de variables. Usaremos métodos gráficos y medidas numéricas.
+	\item Descriptiva Multivariante: Estudiar relaciones entre 3 o más variables.
+\end{itemize}
+\subsection{Estadística Descriptiva Bivariante}
+\begin{itemize}
+	\item En adelante, denotaremos por $\left\lbrace(x_1, y_1), (x_2, y_2), \hdots, (x_{n}, y_{n})\right\rbrace$ al conjunto de datos en estudio (muestra de datos bidimensionales), correspondientes a dos variables $X$ e $Y$.
+\end{itemize}
+\subsubsection*{¿Qué herramientas contemplamos?}
+\begin{itemize}
+	\item \textbf{Tablas de doble entrada:} tablas de frecuencias con dos variables.
+	\item \textbf{Medidas numéricas de asociación:} para medir la relación entre dos varaibles. Dependen del tipo de variables en estudio.
+	\item \textbf{Métodos gráficos para datos bidimensionales:} para visualizar la relación entre dos variables. Dependen del tipo de variables en estudio.
+\end{itemize}
+\subsubsection{Tablas de doble entrada}
+\begin{itemize}
+	\item Sean $A_1, A_2, \hdots, A_k$ las clases (partición) de la variable $X$ y $B_1, B_2, \hdots, B_p$ las clases (partición) de la variable $Y$. La \textbf{tabla de doble entrada} viene dada por:
+\end{itemize}
+\begin{center}
+	\begin{tabular}{|c||c|c|c|c|c|c|}
+		\hline
+		\backslashbox{X}{Y} & $B_1$    & $B_2$    & $\cdots$ & $B_j$    & $\cdots$ & $B_{p}$  \\
+		\hline
+		\hline
+		$A_1$               & $f_{11}$ & $f_{12}$ & $\cdots$ & $f_{1j}$ & $\cdots$ & $f_{1p}$ \\ \hline
+		$A_2$               & $f_{21}$ & $f_{22}$ & $\cdots$ & $f_{2j}$ & $\cdots$ & $f_{2p}$ \\ \hline
+		$\vdots$            & $\vdots$ & $\vdots$ &          & $\vdots$ &          & $\vdots$ \\ \hline
+		$A_i$               & $f_{i1}$ & $f_{i2}$ & $\cdots$ & $f_{ij}$ & $\cdots$ & $f_{ip}$ \\ \hline
+		$\vdots$            & $\vdots$ & $\vdots$ &          & $\vdots$ &          & $\vdots$ \\ \hline
+		$A_k$               & $f_{k1}$ & $f_{k2}$ & $\cdots$ & $f_{kj}$ & $\cdots$ & $f_{kp}$ \\ \hline
+	\end{tabular}
+\end{center}
+\begin{itemize}
+	\item $f_{ij} \longrightarrow$ \textbf{Frecuencia absoluta de la clase bidimensional} $A_{i}\times B_{j}$ (nº de elementos de la muestra cuya primera componente pertenece a $A_{i}$ y la segunda a $B_{j}$). \textbf{Frecuencia relativa:} $h_{ij}=\displaystyle \frac{f_{ij}}{n}$.
+	\item \textbf{Frecuencias Marginales:} Hace referencia a las frecuencias (absolutas o relativas) de cada variable individual por separado. Se obtienen sumando por filas y por columnas las frecuencias(absolutas o relativas) de la tabla de doble entrada.
+\end{itemize}
+\begin{center}
+	\noindent
+	\begin{tabular}{|c||c|c|c|c|c|c|c|}
+		\hline
+		\backslashbox{X}{Y} & $B_1$           & $B_2$           & $\cdots$ & $B_j$           & $\cdots$ & $B_{p}$         &                \\
+		\hline
+		\hline
+		$A_1$               & $f_{11}$        & $f_{12}$        & $\cdots$ & $f_{1j}$        & $\cdots$ & $f_{1p}$        & $f_{1\bullet}$ \\ \hline
+		$A_2$               & $f_{21}$        & $f_{22}$        & $\cdots$ & $f_{2j}$        & $\cdots$ & $f_{2p}$        & $f_{2\bullet}$ \\ \hline
+		$\vdots$            & $\vdots$        & $\vdots$        &          & $\vdots$        &          & $\vdots$        &                \\ \hline
+		$A_i$               & $f_{i1}$        & $f_{i2}$        & $\cdots$ & $f_{ij}$        & $\cdots$ & $f_{ip}$        & $f_{i\bullet}$ \\ \hline
+		$\vdots$            & $\vdots$        & $\vdots$        &          & $\vdots$        &          & $\vdots$        &                \\ \hline
+		$A_k$               & $f_{k1}$        & $f_{k2}$        & $\cdots$ & $f_{kj}$        & $\cdots$ & $f_{kp}$        & $f_{k\bullet}$ \\ \hline
+		& $f_{\bullet 1}$ & $f_{\bullet 2}$ & $\cdots$ & $f_{\bullet j}$ & $\cdots$ & $f_{\bullet p}$ & $n$            \\ \hline
+	\end{tabular}
+\end{center}
+\begin{itemize}
+	\item También se puede construir la \textbf{tabla de doble entrada usando frecuencias relativas}, contemplando a su vez las frecuencias marginales relativas.
+\end{itemize}
+\begin{center}
+	\noindent
+	\begin{tabular}{|c||c|c|c|c|c|c|c|}
+		\hline
+		\backslashbox{X}{Y} & $B_1$           & $B_2$           & $\cdots$ & $B_j$           & $\cdots$ & $B_{p}$         &                \\
+		\hline
+		\hline
+		$A_1$               & $h_{11}$        & $h_{12}$        & $\cdots$ & $h_{1j}$        & $\cdots$ & $h_{1p}$        & $h_{1\bullet}$ \\ \hline
+		$A_2$               & $h_{21}$        & $h_{22}$        & $\cdots$ & $h_{2j}$        & $\cdots$ & $h_{2p}$        & $h_{2\bullet}$ \\ \hline
+		$\vdots$            & $\vdots$        & $\vdots$        &          & $\vdots$        &          & $\vdots$        &                \\ \hline
+		$A_i$               & $h_{i1}$        & $h_{i2}$        & $\cdots$ & $h_{ij}$        & $\cdots$ & $h_{ip}$        & $h_{i\bullet}$ \\ \hline
+		$\vdots$            & $\vdots$        & $\vdots$        &          & $\vdots$        &          & $\vdots$        &                \\ \hline
+		$A_k$               & $h_{k1}$        & $h_{k2}$        & $\cdots$ & $h_{kj}$        & $\cdots$ & $h_{kp}$        & $h_{k\bullet}$ \\ \hline
+		& $h_{\bullet 1}$ & $h_{\bullet 2}$ & $\cdots$ & $h_{\bullet j}$ & $\cdots$ & $h_{\bullet p}$ & 1              \\ \hline
+	\end{tabular}
+\end{center}
+\begin{itemize}
+	\item Si $X$ e $Y$ son \textbf{independientes} (no relacionadas), entonces $$h_{ij}=h_{i\bullet}\times h_{\bullet j}\longleftrightarrow f_{ij} = \frac{f_{i\bullet}\times f_{\bullet j}}{n} \forall i=1, \hdots, k, \forall j=1, \hdots, p.$$
+	\item La tabla de doble entrada es una herramienta para analizar si existe relación entre dos vairables.
+	\item \textbf{Idea y si tedel test Chi-cuadrado de independencia:} comparar si hay poca o mucha discrepancia entre las frecuencias observadas de las clases $A_{i}\times B_{j}$ y las frecuencias esperadas en el caso de independencia
+\end{itemize}
+
+$\mathcal{X}_{0}^{2}=\displaystyle{\sum_{i=1}^{k} \sum_{i=1}^{k} \frac{(O_{ij}-E_{ij})^{2}}{E_{ij}}}$, donde \begin{tabular}{l}$O_{ij}=f_{ij}\rightarrow$ frecuencia observada\\ $E_{ij}=\displaystyle \frac{f_{i\bullet}\times f_{\bullet j}}{n} \rightarrow$ frecuencia esperada\end{tabular}
+
+$\mathcal{X}_{0}^{2}\longrightarrow$ discrepancia entre observado y esperado bajo independencia.
+\subsubsection{Medidas numéricas de asociación}
+
+Existen diferentes medidas según los tipos de variables.
+\begin{itemize}
+	\item Si $X$ e $Y$ son \textbf{variables cualitativas:} \underline{Coeficiente de contigencia, Phi} y \underline{V de Cramer}.
+	
+	Son medidas basadas en el estadístico Chi-cuadrado, que intentan "estandarizar" su valor entre 0 y 1, así como minimizar el efecto del tamaño de la muestra sobre la cuantificación del grado de asociación. Valores próximos a cero indican independencia y próximos a 1 indican fuerte asociación entre $X$ e $Y$. \begin{center}\begin{tabular}{ccc}$C=\sqrt{\frac{\mathcal{X}_{0}^{2}}{n+\mathcal{X}_{0}^{2}}}$ & $\phi=\sqrt{\frac{\mathcal{X}_{0}^{2}}{n}}$ & $V_{Cramer}=\sqrt{\frac{\mathcal{X}_{0}^{2}}{n \cdot \min (k-1,p-1)}}$\\ (Coeficiente de contigencia) & (Phi) & (V de Cramer)\end{tabular}\end{center}
+	\begin{itemize}
+		\item En realidad, el \textit{coeficiente de contingencia} no alcanza el valor 1.
+		\item En el caso de \textit{Phi}, su uso se suele limitar a tablas $2\times 2$ con el fin de dicho coeficiente no supere 1.
+		\item La \textit{V de Cramer} es una extensión del coeficiente de Phi, que se mueve entre 0 y 1, pero tiende a subestimar el grado de asociación.
+	\end{itemize}
+	\item Si $X$ e $Y$ son \textbf{variables cualitativas ordinales:} Si las variables cualitativas permiten establecer un orden \textbf{(variables ordinales)}, se puede usar como medida de asociación el \textit{coeficiente gamma de Goodman y Kruskall}.
+	
+	Esta medida está basada en el número de concordancias y discordancias entre los pares de datos que conforman la muestra. Si los dos valores de un caso en ambas variables son mayores (o menores) que los dos valores de otro caso, se da una concordancia.
+	
+	$\gamma = \displaystyle \frac{Con - Dis}{Con + Dis}$ donde \begin{tabular}{l}$Con=$ nº de concordancias\\ $Dis=$ nº de discordancias\end{tabular}
+	
+	$\gamma=-1$(asociación negativa), $\gamma=0$(independiente) y $\gamma=1$ (asociación positiva)
+	\item Existen otras medidas de asociación basadas en las concordancias como la \textit{"d de Sommers"} y las \textit{medidas Tau de Kendall} (Tau-a, Tau-b y Tau-c).
+	\item Si $X$ e $Y$ son \textbf{variables cuantitativas:} \underline{Covarianza} y \underline{correlación de Pearson}. Son medidas del grado de asociación lineal entre $X$ e $Y$. \begin{center}\begin{tabular}{cc}$s_{X,Y}=\frac{\displaystyle \sum_{i=1}^{n}{(x_{i}-\overline{x})(y_{i}-\overline{y})}}{n}=\overline{x \cdot y}-\overline{x}\cdot \overline{y}$ & $s_{X,Y}^{*}=\frac{\displaystyle \sum_{i=1}^{n}{(x_{i}-\overline{x})(y_{i}-\overline{y})}}{n-1}=\overline{x \cdot y}-\overline{x}\cdot \overline{y}$\\ Covarianza & Cuasi-covarianza(software)\end{tabular}\end{center} \begin{center}\begin{tabular}{c}$R_{X,Y}=\displaystyle \frac{s_{X,Y}}{s_{X}\cdot s_{Y}}=\displaystyle \frac{s_{X,Y}^{*}}{s_{X}^{*}\cdot s_{Y}^{*}}$\\Correlación de Pearson (adimensional)\end{tabular}\end{center}
+	\item La covarianza de $X$ con $X$ es su varianza, $s_{X,X}=s_{x}^2$.
+	\item Se cumple que $s_{X,Y}^{2}\le s_{X}^{2} \cdot s_{Y}^{2}$, y por tanto, $R_{X,Y}\in [-1, 1]$. \begin{center}\begin{tabular}{cc}$R_{X,Y}\simeq -1$ & (fuerte relación lineal decreciente)\\$R_{X,Y}\simeq 0$ & (ausencia de relación lineal)\\$R_{X,Y}\simeq 1$ & (fuerte relación lineal creciente)\end{tabular}\end{center}
+	\item Si $X$ e $Y$ son \textbf{variables cuantitativas pasadas a ordinales:} \underline{Correlación de Spearman}.
+	\item El \textit{coeficiente de correlación de Spearman} es un caso particular de la correlación de Pearson pero, en lugar de usar el valor numérico de los datos, se usa el valor de su posición al ordenarse de menor a mayor en cada variable (pasamos a datos ordinales). \begin{center}$RS_{X,Y}=1-\displaystyle \frac{6\sum_{i=1}^{d}{d_{i}^2}}{n(n^{2}-1)}$~~~~Correlación de Spearman\end{center} donde $d_{i}$ es la diferencia entre el orden que ocupa el sujeto $i$-ésimo en la ordenación $"X"$ y en la ordenación $"Y"$.
+	\item Mide el grado de asociación monótona (creciente o decreciente) entre las variables $X$ e $Y$, pues una relación monótonaentre ellas se traduce en un relación lineal entre sus ordenaciones.
+\end{itemize}
+
+\subsubsection{Momentos bivariantes}
+\begin{itemize}
+	\item \textbf{Momentos respecto al origen:} $$a_{rs}=\frac{\sum_{i=1}^{n}\sum_{j=1}^{n}{x_{i}^{r}\cdot y_{j}^{s}}}{n}=\frac{\sum_{i=1}^{k}\sum_{j=1}^{p}{x_{i}^{r}\cdot y_{j}^{s} \cdot f_{ij}}}{n}$$
+	\item \textbf{Momentos respecto a la media:}$$m_{rs}=\frac{\sum_{i=1}^{n}\sum_{j=1}^{n}{(x_{i}-\overline{x})^{r}(y_{j}-\overline{y})^{s}}}{n}=\frac{\sum_{i=1}^{k}\sum_{j=1}^{p}{(x_{i}-\overline{x})^{r}(y_{j}-\overline{y})^{s}f_{ij}}}{n}$$
+	\item Relaciones \begin{center}\begin{tabular}{rcl}$s_{XY}$ &=& $m_{11}=a_{11}-\overline{x}\cdot \overline{y}$\\$s_{X}^{2}$ &=& $m_{20}=a_{20}-\overline{x}^{2}$\\$s_{Y}^{2}$ &=& $m_{02}=a_{02}-\overline{y}^{2}$\end{tabular}\end{center}
+\end{itemize}
+\subsubsection{Gráficos para datos bidimensionales}
+Existen diferentes gráficos según los tipos de variables.
+\begin{itemize}
+	\item Si $X$ e $Y$ son \textbf{variables cualitativas:} diagramas de áreas y de barras comparativo.
+	\item Si $X$ e $Y$ es \textbf{cuantitativa y la otra cualitativa:} caja de bigotes por grupos.
+	\item Si $X$ e $Y$ son \textbf{cariables cuantitativas:} diagrama de dispersión o nube de puntos.
+\end{itemize}
+
+\begin{figure}[h]
+	\begin{subfigure}{0.5\textwidth}
+		\centering
+		\includegraphics[width=0.8\linewidth]{"Temas/Imagenes/Tema 2/Áreas comparativo"}
+		\caption*{Áreas comparativo}
+	\end{subfigure}
+	\begin{subfigure}{0.5\textwidth}
+		\centering
+		\includegraphics[width=0.8\linewidth]{"Temas/Imagenes/Tema 2/Caja-bigotes por grupos"}
+		\caption*{Caja-bigotes por grupos}
+	\end{subfigure}
+	\begin{subfigure}{0.5\textwidth}
+		\centering
+		\includegraphics[width=0.8\linewidth]{"Temas/Imagenes/Tema 2/Nube puntos"}
+		\caption*{Nube puntos}
+	\end{subfigure}
+\end{figure}
+\newpage
+\subsection{Ajuste por mínimos cuadrados (datos bidimensionales)}
+Sea $\{(x_{1},y{1}), (x_{2},y{2}), \hdots, (x_{n},y_{n})\}$ un conjunto de datos correspondientes a dos varaibles \underline{cuantitativas} $X$ e $Y$.
+\begin{itemize}
+	\item \textbf{La nube de puntos} informa sobre si existe o no asociación entre $X$ e $Y$, y el tipo de relación (lineal, cuadrática, exponencial, etc.).
+	\item \textbf{Las relaciones lineales} tienen especial importancia porque muchas relaciones no lineales se pueden linealizar mediante una transformación de los datos.
+	\item \textbf{Regresión Lineal (RL):} Técnica \underline{inferencial} para modelizar la relación lineal existente entre dos o más variables.
+	\item \textbf{Ajuste por mínimos cuadrados:} Técnica \underline{descriptiva} para modelizar la relación lineal existente entre dos o más variables.
+	\item En RL se hace uso del ajuste por mínimos cuadrados.
+	\item Nomenclatura:\begin{tabular}{rl}
+		$Y \longrightarrow$ & variable respuesta (explicada o dependiente), \\
+		$X \longrightarrow$ & regresor (predictor o variable independiente).
+	\end{tabular}
+	\item \textbf{Objetivo:} Encontrar la ecuación de la recta $y=a+b\cdot x$ que minimiza la suma de los cuadradados de las distancias verticales entre los puntos de la muestra y dicha recta. Es decir, buscamos $(a, b)\in \mathbb{R}^{2}$ que minimiza $\sum_{i=1}^{n}{[y_{i}-(a+b\cdot x_{i})]^{2}}$
+	\item \textbf{La solución viene dada por:} \begin{center}
+		\begin{tabular}{cc}
+			$\hat{a}=\overline{y}-\frac{s_{X,Y}}{s_{X}^{2}\cdot \overline{x}}$ & $\hat{b}=\frac{s_{X,Y}}{s_{X}^{2}\cdot \overline{x}}$\\
+			(ordenada en el origen) & (pendiente)
+		\end{tabular}
+	\end{center}
+	\item Recordar que la \textbf{corrección de Pearson} $(R_{X, Y})$ cuantifica el grado de asociación lineal (bondad del ajuste).
+	\item ¿Y si queremos la recta ajustada de $"X"$ en función de $"Y"$? $$x-\overline{x}=\frac{s_{X,Y}}{s_{Y}^{2}}(y-\overline{y})$$ 
+	\item \textbf{Valores ajustados y residuos:} \begin{center}
+		\begin{tabular}{cc}
+			$\hat{y}=\hat{a}+\hat{b}\cdot x_{i}$ & $e_{i}=y_{i}-\hat{y_{i}}$\\
+			(valores ajsutados) & (residuos)
+		\end{tabular}
+	\end{center}
+	\item \textbf{Ejemplo:} nube de puntos, recta ajustada por mínimos cuadradados y gráfico de residuos. 
+	\begin{figure}[h]
+		\centering
+		\includegraphics[width=0.8\linewidth]{"Temas/Imagenes/Tema 2/graficos de puntos"}
+		\caption*{Gráfico de puntos (izquierda) para 'Assault' (eje x) y 'Murder' (eje y) y la recta de regresión (rojo). Errores (residuos) en las predicciones para cada estado (derecha).}
+	\end{figure}
+\end{itemize}
+\subsection{Estadística Descriptiva Multivariante}
+\subsubsection*{¿Y si tenemos más de dos variables?}
+\begin{itemize}
+	\item Podemos realizar un análisis descriptivo bivariante entre cada par de variables. La información se suele poner en forma matricial: matriz de nube de puntos, matriz de covarianzas, matriz de correlaciones, etc.
+	\item Tablas de triple entrada o de dimensión superior.
+	\item Gráficos en 3D y gráficos por grupos usando varios factores.
+	\item Ajuste por mínimos cuadrados para el caso de dos o más regresores (predictores).
+\end{itemize}

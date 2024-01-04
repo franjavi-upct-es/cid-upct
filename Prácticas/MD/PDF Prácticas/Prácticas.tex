@@ -1,0 +1,1481 @@
+\documentclass[11pt]{article}
+
+    \usepackage[breakable]{tcolorbox}
+    \usepackage{parskip} % Stop auto-indenting (to mimic markdown behaviour)
+    
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % Maintain compatibility with old templates. Remove in nbconvert 6.0
+    \let\Oldincludegraphics\includegraphics
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionFormat{nocaption}{}
+    \captionsetup{format=nocaption,aboveskip=0pt,belowskip=0pt}
+
+    \usepackage{float}
+    \floatplacement{figure}{H} % forces figures to be placed at the correct location
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+
+    \usepackage{iftex}
+    \ifPDFTeX
+        \usepackage[T1]{fontenc}
+        \IfFileExists{alphabeta.sty}{
+              \usepackage{alphabeta}
+          }{
+              \usepackage[mathletters]{ucs}
+              \usepackage[utf8x]{inputenc}
+          }
+    \else
+        \usepackage{fontspec}
+        \usepackage{unicode-math}
+    \fi
+
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics
+                         % to support a larger range
+    \makeatletter % fix for old versions of grffile with XeLaTeX
+    \@ifpackagelater{grffile}{2019/11/01}
+    {
+      % Do nothing on new versions
+    }
+    {
+      \def\Gread@@xetex#1{%
+        \IfFileExists{"\Gin@base".bb}%
+        {\Gread@eps{\Gin@base.bb}}%
+        {\Gread@@xetex@aux#1}%
+      }
+    }
+    \makeatother
+    \usepackage[Export]{adjustbox} % Used to constrain images to a maximum size
+    \adjustboxset{max size={0.9\linewidth}{0.9\paperheight}}
+
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    % The default LaTeX title has an obnoxious amount of whitespace. By default,
+    % titling removes some of it. It also provides customization options.
+    \usepackage{titling}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage{array}     % table support for pandoc >= 2.11.3
+    \usepackage{calc}      % table minipage width calculation for pandoc >= 2.11.1
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    \usepackage{mathrsfs}
+    
+
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+    \definecolor{ansi-default-inverse-fg}{HTML}{FFFFFF}
+    \definecolor{ansi-default-inverse-bg}{HTML}{000000}
+
+    % common color for the border for error outputs.
+    \definecolor{outerrorbackground}{HTML}{FFDFDF}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+
+
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatibility definitions
+    \def\gt{>}
+    \def\lt{<}
+    \let\Oldtex\TeX
+    \let\Oldlatex\LaTeX
+    \renewcommand{\TeX}{\textrm{\Oldtex}}
+    \renewcommand{\LaTeX}{\textrm{\Oldlatex}}
+    % Document parameters
+    % Document title
+    \title{Prácticas MD}
+    \author{Francisco Javier Mercader Martínez}
+    \date{}
+    
+    
+    
+% Pygments definitions
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\@namedef{PY@tok@w}{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\@namedef{PY@tok@c}{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.24,0.48,0.48}{##1}}}
+\@namedef{PY@tok@cp}{\def\PY@tc##1{\textcolor[rgb]{0.61,0.40,0.00}{##1}}}
+\@namedef{PY@tok@k}{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\@namedef{PY@tok@kp}{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\@namedef{PY@tok@kt}{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\@namedef{PY@tok@o}{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\@namedef{PY@tok@ow}{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\@namedef{PY@tok@nb}{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\@namedef{PY@tok@nf}{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\@namedef{PY@tok@nc}{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\@namedef{PY@tok@nn}{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\@namedef{PY@tok@ne}{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.80,0.25,0.22}{##1}}}
+\@namedef{PY@tok@nv}{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\@namedef{PY@tok@no}{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\@namedef{PY@tok@nl}{\def\PY@tc##1{\textcolor[rgb]{0.46,0.46,0.00}{##1}}}
+\@namedef{PY@tok@ni}{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.44,0.44,0.44}{##1}}}
+\@namedef{PY@tok@na}{\def\PY@tc##1{\textcolor[rgb]{0.41,0.47,0.13}{##1}}}
+\@namedef{PY@tok@nt}{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\@namedef{PY@tok@nd}{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\@namedef{PY@tok@s}{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\@namedef{PY@tok@sd}{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\@namedef{PY@tok@si}{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.64,0.35,0.47}{##1}}}
+\@namedef{PY@tok@se}{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.36,0.12}{##1}}}
+\@namedef{PY@tok@sr}{\def\PY@tc##1{\textcolor[rgb]{0.64,0.35,0.47}{##1}}}
+\@namedef{PY@tok@ss}{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\@namedef{PY@tok@sx}{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\@namedef{PY@tok@m}{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\@namedef{PY@tok@gh}{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\@namedef{PY@tok@gu}{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\@namedef{PY@tok@gd}{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\@namedef{PY@tok@gi}{\def\PY@tc##1{\textcolor[rgb]{0.00,0.52,0.00}{##1}}}
+\@namedef{PY@tok@gr}{\def\PY@tc##1{\textcolor[rgb]{0.89,0.00,0.00}{##1}}}
+\@namedef{PY@tok@ge}{\let\PY@it=\textit}
+\@namedef{PY@tok@gs}{\let\PY@bf=\textbf}
+\@namedef{PY@tok@gp}{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\@namedef{PY@tok@go}{\def\PY@tc##1{\textcolor[rgb]{0.44,0.44,0.44}{##1}}}
+\@namedef{PY@tok@gt}{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\@namedef{PY@tok@err}{\def\PY@bc##1{{\setlength{\fboxsep}{\string -\fboxrule}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}}
+\@namedef{PY@tok@kc}{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\@namedef{PY@tok@kd}{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\@namedef{PY@tok@kn}{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\@namedef{PY@tok@kr}{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\@namedef{PY@tok@bp}{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\@namedef{PY@tok@fm}{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\@namedef{PY@tok@vc}{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\@namedef{PY@tok@vg}{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\@namedef{PY@tok@vi}{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\@namedef{PY@tok@vm}{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\@namedef{PY@tok@sa}{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\@namedef{PY@tok@sb}{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\@namedef{PY@tok@sc}{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\@namedef{PY@tok@dl}{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\@namedef{PY@tok@s2}{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\@namedef{PY@tok@sh}{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\@namedef{PY@tok@s1}{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\@namedef{PY@tok@mb}{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\@namedef{PY@tok@mf}{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\@namedef{PY@tok@mh}{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\@namedef{PY@tok@mi}{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\@namedef{PY@tok@il}{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\@namedef{PY@tok@mo}{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\@namedef{PY@tok@ch}{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.24,0.48,0.48}{##1}}}
+\@namedef{PY@tok@cm}{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.24,0.48,0.48}{##1}}}
+\@namedef{PY@tok@cpf}{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.24,0.48,0.48}{##1}}}
+\@namedef{PY@tok@c1}{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.24,0.48,0.48}{##1}}}
+\@namedef{PY@tok@cs}{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.24,0.48,0.48}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % For linebreaks inside Verbatim environment from package fancyvrb.
+    \makeatletter
+        \newbox\Wrappedcontinuationbox
+        \newbox\Wrappedvisiblespacebox
+        \newcommand*\Wrappedvisiblespace {\textcolor{red}{\textvisiblespace}}
+        \newcommand*\Wrappedcontinuationsymbol {\textcolor{red}{\llap{\tiny$\m@th\hookrightarrow$}}}
+        \newcommand*\Wrappedcontinuationindent {3ex }
+        \newcommand*\Wrappedafterbreak {\kern\Wrappedcontinuationindent\copy\Wrappedcontinuationbox}
+        % Take advantage of the already applied Pygments mark-up to insert
+        % potential linebreaks for TeX processing.
+        %        {, <, #, %, $, ' and ": go to next line.
+        %        _, }, ^, &, >, - and ~: stay at end of broken line.
+        % Use of \textquotesingle for straight quote.
+        \newcommand*\Wrappedbreaksatspecials {%
+            \def\PYGZus{\discretionary{\char`\_}{\Wrappedafterbreak}{\char`\_}}%
+            \def\PYGZob{\discretionary{}{\Wrappedafterbreak\char`\{}{\char`\{}}%
+            \def\PYGZcb{\discretionary{\char`\}}{\Wrappedafterbreak}{\char`\}}}%
+            \def\PYGZca{\discretionary{\char`\^}{\Wrappedafterbreak}{\char`\^}}%
+            \def\PYGZam{\discretionary{\char`\&}{\Wrappedafterbreak}{\char`\&}}%
+            \def\PYGZlt{\discretionary{}{\Wrappedafterbreak\char`\<}{\char`\<}}%
+            \def\PYGZgt{\discretionary{\char`\>}{\Wrappedafterbreak}{\char`\>}}%
+            \def\PYGZsh{\discretionary{}{\Wrappedafterbreak\char`\#}{\char`\#}}%
+            \def\PYGZpc{\discretionary{}{\Wrappedafterbreak\char`\%}{\char`\%}}%
+            \def\PYGZdl{\discretionary{}{\Wrappedafterbreak\char`\$}{\char`\$}}%
+            \def\PYGZhy{\discretionary{\char`\-}{\Wrappedafterbreak}{\char`\-}}%
+            \def\PYGZsq{\discretionary{}{\Wrappedafterbreak\textquotesingle}{\textquotesingle}}%
+            \def\PYGZdq{\discretionary{}{\Wrappedafterbreak\char`\"}{\char`\"}}%
+            \def\PYGZti{\discretionary{\char`\~}{\Wrappedafterbreak}{\char`\~}}%
+        }
+        % Some characters . , ; ? ! / are not pygmentized.
+        % This macro makes them "active" and they will insert potential linebreaks
+        \newcommand*\Wrappedbreaksatpunct {%
+            \lccode`\~`\.\lowercase{\def~}{\discretionary{\hbox{\char`\.}}{\Wrappedafterbreak}{\hbox{\char`\.}}}%
+            \lccode`\~`\,\lowercase{\def~}{\discretionary{\hbox{\char`\,}}{\Wrappedafterbreak}{\hbox{\char`\,}}}%
+            \lccode`\~`\;\lowercase{\def~}{\discretionary{\hbox{\char`\;}}{\Wrappedafterbreak}{\hbox{\char`\;}}}%
+            \lccode`\~`\:\lowercase{\def~}{\discretionary{\hbox{\char`\:}}{\Wrappedafterbreak}{\hbox{\char`\:}}}%
+            \lccode`\~`\?\lowercase{\def~}{\discretionary{\hbox{\char`\?}}{\Wrappedafterbreak}{\hbox{\char`\?}}}%
+            \lccode`\~`\!\lowercase{\def~}{\discretionary{\hbox{\char`\!}}{\Wrappedafterbreak}{\hbox{\char`\!}}}%
+            \lccode`\~`\/\lowercase{\def~}{\discretionary{\hbox{\char`\/}}{\Wrappedafterbreak}{\hbox{\char`\/}}}%
+            \catcode`\.\active
+            \catcode`\,\active
+            \catcode`\;\active
+            \catcode`\:\active
+            \catcode`\?\active
+            \catcode`\!\active
+            \catcode`\/\active
+            \lccode`\~`\~
+        }
+    \makeatother
+
+    \let\OriginalVerbatim=\Verbatim
+    \makeatletter
+    \renewcommand{\Verbatim}[1][1]{%
+        %\parskip\z@skip
+        \sbox\Wrappedcontinuationbox {\Wrappedcontinuationsymbol}%
+        \sbox\Wrappedvisiblespacebox {\FV@SetupFont\Wrappedvisiblespace}%
+        \def\FancyVerbFormatLine ##1{\hsize\linewidth
+            \vtop{\raggedright\hyphenpenalty\z@\exhyphenpenalty\z@
+                \doublehyphendemerits\z@\finalhyphendemerits\z@
+                \strut ##1\strut}%
+        }%
+        % If the linebreak is at a space, the latter will be displayed as visible
+        % space at end of first line, and a continuation symbol starts next line.
+        % Stretch/shrink are however usually zero for typewriter font.
+        \def\FV@Space {%
+            \nobreak\hskip\z@ plus\fontdimen3\font minus\fontdimen4\font
+            \discretionary{\copy\Wrappedvisiblespacebox}{\Wrappedafterbreak}
+            {\kern\fontdimen2\font}%
+        }%
+
+        % Allow breaks at special characters using \PYG... macros.
+        \Wrappedbreaksatspecials
+        % Breaks at punctuation characters . , ; ? ! and / need catcode=\active
+        \OriginalVerbatim[#1,codes*=\Wrappedbreaksatpunct]%
+    }
+    \makeatother
+
+    % Exact colors from NB
+    \definecolor{incolor}{HTML}{303F9F}
+    \definecolor{outcolor}{HTML}{D84315}
+    \definecolor{cellborder}{HTML}{CFCFCF}
+    \definecolor{cellbackground}{HTML}{F7F7F7}
+
+    % prompt
+    \makeatletter
+    \newcommand{\boxspacing}{\kern\kvtcb@left@rule\kern\kvtcb@boxsep}
+    \makeatother
+    \newcommand{\prompt}[4]{
+        {\ttfamily\llap{{\color{#2}[#3]:\hspace{3pt}#4}}\vspace{-\baselineskip}}
+    }
+    
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+\begin{document}
+    
+    \maketitle
+    
+    
+
+    
+    \textbf{Actividad 1.} Realizar las siguientes operaciones con Python:
+
+\[\begin{array}{lll}
+\mathrm{a)}~(2^4+3)^2 & \mathrm{b)}~\dfrac{2+4^4}{1+\frac{2}{4\cdot 3^3}} & \mathrm{c)}~\left(\dfrac{4+^3}{2}+5^3\right)^6\\
+\mathrm{d)}~1+2\dfrac{7}{2^4+5} & \mathrm{e)}~(2+3^2+5^3)^{\frac{1}{3}} & \mathrm{f)}~\left(1+2^3\dfrac{5}{2^4+1}\right)^{\frac{1}{2}}
+\end{array}\]
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{1}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{n+nb}{print}\PY{p}{(}\PY{l+s+sa}{f}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{a) }\PY{l+s+si}{\PYZob{}}\PY{p}{(}\PY{l+m+mi}{2}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{4}\PY{o}{+}\PY{l+m+mi}{3}\PY{p}{)}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2}\PY{l+s+si}{\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\PY{n+nb}{print}\PY{p}{(}\PY{l+s+sa}{f}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{b) }\PY{l+s+si}{\PYZob{}}\PY{p}{(}\PY{l+m+mi}{2}\PY{o}{+}\PY{l+m+mi}{4}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{4}\PY{p}{)}\PY{o}{/}\PY{p}{(}\PY{l+m+mi}{1}\PY{o}{+}\PY{p}{(}\PY{l+m+mi}{2}\PY{o}{/}\PY{p}{(}\PY{l+m+mi}{4}\PY{o}{*}\PY{l+m+mi}{3}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{3}\PY{p}{)}\PY{p}{)}\PY{p}{)}\PY{l+s+si}{\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\PY{n+nb}{print}\PY{p}{(}\PY{l+s+sa}{f}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{c) }\PY{l+s+si}{\PYZob{}}\PY{p}{(}\PY{p}{(}\PY{l+m+mi}{4}\PY{o}{+}\PY{l+m+mi}{4}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{3}\PY{p}{)}\PY{o}{/}\PY{l+m+mi}{2}\PY{o}{+}\PY{l+m+mi}{5}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2}\PY{p}{)}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{6}\PY{l+s+si}{\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\PY{n+nb}{print}\PY{p}{(}\PY{l+s+sa}{f}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{d) }\PY{l+s+si}{\PYZob{}}\PY{l+m+mi}{1}\PY{o}{+}\PY{l+m+mi}{2}\PY{o}{*}\PY{p}{(}\PY{l+m+mi}{7}\PY{o}{/}\PY{p}{(}\PY{l+m+mi}{2}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{4}\PY{o}{+}\PY{l+m+mi}{5}\PY{p}{)}\PY{p}{)}\PY{l+s+si}{\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\PY{n+nb}{print}\PY{p}{(}\PY{l+s+sa}{f}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{e) }\PY{l+s+si}{\PYZob{}}\PY{p}{(}\PY{l+m+mi}{2}\PY{o}{+}\PY{l+m+mi}{3}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2}\PY{o}{+}\PY{l+m+mi}{5}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{3}\PY{p}{)}\PY{o}{*}\PY{o}{*}\PY{p}{(}\PY{l+m+mi}{1}\PY{o}{/}\PY{l+m+mi}{3}\PY{p}{)}\PY{l+s+si}{\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\PY{n+nb}{print}\PY{p}{(}\PY{l+s+sa}{f}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{f) }\PY{l+s+si}{\PYZob{}}\PY{p}{(}\PY{l+m+mi}{1}\PY{o}{+}\PY{l+m+mi}{2}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{3}\PY{o}{*}\PY{p}{(}\PY{l+m+mi}{5}\PY{o}{/}\PY{p}{(}\PY{l+m+mi}{2}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{4}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)}\PY{p}{)}\PY{o}{*}\PY{o}{*}\PY{p}{(}\PY{l+m+mi}{1}\PY{o}{/}\PY{l+m+mi}{2}\PY{p}{)}\PY{l+s+si}{\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+\end{tcolorbox}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+a) 361
+b) 253.30909090909088
+c) 42180533641.0
+d) 1.6666666666666665
+e) 5.14256318131647
+f) 1.8311038136792213
+    \end{Verbatim}
+
+    \textbf{Actividad 2.} Obtener el resto y el cociente de las siguientes
+divisiones enteras: \[\begin{array}{ll}
+\mathrm{a)}~45\text{ entre } 3 & \mathrm{b) }~111\text{ entre }67\\
+\mathrm{c)}~99\text{ entre }54 & \mathrm{d)}~103964\text{ entre }78
+\end{array}\]
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{2}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{n+nb}{print}\PY{p}{(}\PY{l+s+sa}{f}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{a)}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{ Cociente:}\PY{l+s+si}{\PYZob{}}\PY{l+m+mi}{45}\PY{o}{/}\PY{o}{/}\PY{l+m+mi}{3}\PY{l+s+si}{\PYZcb{}}\PY{l+s+s2}{ }\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{ Resto:}\PY{l+s+si}{\PYZob{}}\PY{l+m+mi}{45}\PY{o}{\PYZpc{}}\PY{l+m+mi}{3}\PY{l+s+si}{\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\PY{n+nb}{print}\PY{p}{(}\PY{l+s+sa}{f}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{b)}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{ Cociente:}\PY{l+s+si}{\PYZob{}}\PY{l+m+mi}{111}\PY{o}{/}\PY{o}{/}\PY{l+m+mi}{67}\PY{l+s+si}{\PYZcb{}}\PY{l+s+s2}{ }\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{ Resto:}\PY{l+s+si}{\PYZob{}}\PY{l+m+mi}{111}\PY{o}{\PYZpc{}}\PY{l+m+mi}{67}\PY{l+s+si}{\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\PY{n+nb}{print}\PY{p}{(}\PY{l+s+sa}{f}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{c)}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{ Cociente:}\PY{l+s+si}{\PYZob{}}\PY{l+m+mi}{99}\PY{o}{/}\PY{o}{/}\PY{l+m+mi}{54}\PY{l+s+si}{\PYZcb{}}\PY{l+s+s2}{ }\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{ Resto:}\PY{l+s+si}{\PYZob{}}\PY{l+m+mi}{99}\PY{o}{\PYZpc{}}\PY{l+m+mi}{54}\PY{l+s+si}{\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\PY{n+nb}{print}\PY{p}{(}\PY{l+s+sa}{f}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{d)}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{ Cociente:}\PY{l+s+si}{\PYZob{}}\PY{l+m+mi}{103964}\PY{o}{/}\PY{o}{/}\PY{l+m+mi}{78}\PY{l+s+si}{\PYZcb{}}\PY{l+s+s2}{ }\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{ Resto:}\PY{l+s+si}{\PYZob{}}\PY{l+m+mi}{103964}\PY{o}{\PYZpc{}}\PY{l+m+mi}{78}\PY{l+s+si}{\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+\end{tcolorbox}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+a)
+ Cociente:15
+ Resto:0
+b)
+ Cociente:1
+ Resto:44
+c)
+ Cociente:1
+ Resto:45
+d)
+ Cociente:1332
+ Resto:68
+    \end{Verbatim}
+
+    \textbf{Actividad 3.} Dadas las listas \(A\) de los 10 primeros números
+naturales pares y \(B\) de los 5 primeros múltiplos de 3, hacer las
+siguientes operaciones:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\item
+  Hacer la unión de \(A\) y \(B\). LLamar \(C\) a esta nueva lista.
+\item
+  Eliminar los elementos repetidos de \(C\) eliminando el elemento
+  repetido que aparece en primer lugar.
+\item
+  Añadir a la lista resultante los números 5 y 7 al final de la lista.
+\item
+  Eliminar los elementos repetidos de \(C\) eliminando el elemento
+  repetido que aparece en último lugar.
+\item
+  Eliminar los elementos repetidos de \(C\) eliminando el elemento
+  repetido que aparece en último lugar.
+\item
+  Crear una nueva lista \(D\) con los elementos pares de \(C\), sin
+  escribir el número en cuestión, sino seleccionándolo de la lista
+  \(C\).
+\end{enumerate}
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{3}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{c+c1}{\PYZsh{} Apartado 1}
+\PY{n}{A}\PY{o}{=}\PY{p}{[}\PY{p}{]}
+\PY{n}{B}\PY{o}{=}\PY{p}{[}\PY{p}{]}
+
+\PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{10}\PY{p}{)}\PY{p}{:}
+    \PY{n}{A}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{i}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{)}
+
+\PY{k}{for} \PY{n}{j} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{5}\PY{p}{)}\PY{p}{:}
+    \PY{n}{B}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{p}{(}\PY{n}{j}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{)}\PY{o}{*}\PY{l+m+mi}{3}\PY{p}{)}
+
+\PY{n}{C} \PY{o}{=} \PY{n}{A} \PY{o}{+} \PY{n}{B}
+
+\PY{n+nb}{print}\PY{p}{(}\PY{l+s+sa}{f}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{A=}\PY{l+s+si}{\PYZob{}}\PY{n}{A}\PY{l+s+si}{\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\PY{n+nb}{print}\PY{p}{(}\PY{l+s+sa}{f}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{B=}\PY{l+s+si}{\PYZob{}}\PY{n}{B}\PY{l+s+si}{\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\PY{n+nb}{print}\PY{p}{(}\PY{l+s+sa}{f}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{C=}\PY{l+s+si}{\PYZob{}}\PY{n}{C}\PY{l+s+si}{\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+
+\PY{c+c1}{\PYZsh{} Apartado 2}
+\PY{k}{for} \PY{n}{n} \PY{o+ow}{in} \PY{n}{C}\PY{p}{:}
+    \PY{k}{while}\PY{p}{(}\PY{n}{C}\PY{o}{.}\PY{n}{count}\PY{p}{(}\PY{n}{n}\PY{p}{)} \PY{o}{\PYZgt{}} \PY{l+m+mi}{1}\PY{p}{)}\PY{p}{:}
+        \PY{n}{C}\PY{o}{.}\PY{n}{remove}\PY{p}{(}\PY{n}{n}\PY{p}{)}
+\PY{n+nb}{print}\PY{p}{(}\PY{n}{C}\PY{p}{)}
+
+\PY{c+c1}{\PYZsh{} Apartado 3}
+\PY{n}{C}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{l+m+mi}{5}\PY{p}{)}
+\PY{n}{C}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{l+m+mi}{7}\PY{p}{)}
+\PY{n+nb}{print}\PY{p}{(}\PY{n}{C}\PY{p}{)}
+
+\PY{c+c1}{\PYZsh{} Apartado 4}
+\PY{n}{lista} \PY{o}{=} \PY{p}{[}\PY{l+m+mi}{3}\PY{p}{,}\PY{l+m+mi}{4}\PY{p}{,}\PY{l+m+mi}{5}\PY{p}{]}
+
+\PY{n}{C} \PY{o}{=} \PY{n}{lista} \PY{o}{+} \PY{n}{C}
+\PY{n+nb}{print}\PY{p}{(}\PY{n}{C}\PY{p}{)} 
+
+\PY{c+c1}{\PYZsh{} Apartado 5}
+\PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{C}\PY{p}{)} \PY{o}{\PYZhy{}} \PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{,} \PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{:}
+    \PY{k}{if} \PY{n}{C}\PY{p}{[}\PY{n}{i}\PY{p}{]} \PY{o+ow}{in} \PY{n}{C}\PY{p}{[}\PY{p}{:}\PY{n}{i}\PY{p}{]}\PY{p}{:}
+        \PY{n}{C}\PY{o}{.}\PY{n}{pop}\PY{p}{(}\PY{n}{i}\PY{p}{)}
+\PY{n+nb}{print}\PY{p}{(}\PY{n}{C}\PY{p}{)}
+
+\PY{c+c1}{\PYZsh{} Apartado 6}
+\PY{n}{D} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+\PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n}{C}\PY{p}{:}
+    \PY{k}{if} \PY{n}{i}\PY{o}{\PYZpc{}}\PY{k}{2}==0:
+        \PY{n}{D}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{i}\PY{p}{)}
+
+\PY{n+nb}{print}\PY{p}{(}\PY{n}{D}\PY{p}{)}
+\end{Verbatim}
+\end{tcolorbox}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+A=[1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+B=[3, 6, 9, 12, 15]
+C=[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 3, 6, 9, 12, 15]
+[1, 2, 4, 5, 7, 8, 10, 3, 6, 9, 12, 15]
+[1, 2, 4, 5, 7, 8, 10, 3, 6, 9, 12, 15, 5, 7]
+[3, 4, 5, 1, 2, 4, 5, 7, 8, 10, 3, 6, 9, 12, 15, 5, 7]
+[3, 4, 5, 1, 2, 7, 8, 10, 6, 9, 12, 15]
+[4, 2, 8, 10, 6, 12]
+    \end{Verbatim}
+
+    \textbf{Actividad 4.} Dada la función \(f(x)=3.95x(1-x)\) y \(x_0=0.5\),
+obtener los 100 primeros elementos de la recursión \[x_{n+1}=f(x_n).\]
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{4}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+
+\PY{k}{def} \PY{n+nf}{f}\PY{p}{(}\PY{n}{x}\PY{p}{)}\PY{p}{:}
+    \PY{k}{return} \PY{p}{(}\PY{l+m+mf}{3.95}\PY{o}{*}\PY{n}{x}\PY{o}{*}\PY{p}{(}\PY{l+m+mi}{1}\PY{o}{\PYZhy{}}\PY{n}{x}\PY{p}{)}\PY{p}{)}
+
+\PY{n}{x4} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{zeros}\PY{p}{(}\PY{l+m+mi}{100}\PY{p}{)}
+
+\PY{n}{x4}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]} \PY{o}{=} \PY{l+m+mf}{0.5}
+\PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{100}\PY{p}{)}\PY{p}{:}
+    \PY{n}{x4}\PY{p}{[}\PY{n}{i}\PY{p}{]} \PY{o}{=} \PY{n}{f}\PY{p}{(}\PY{n}{x4}\PY{p}{[}\PY{n}{i}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}
+
+\PY{k}{for} \PY{n}{j} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{x4}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+    \PY{n+nb}{print}\PY{p}{(}\PY{l+s+sa}{f}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{x\PYZus{}}\PY{l+s+si}{\PYZob{}}\PY{n}{j}\PY{l+s+si}{\PYZcb{}}\PY{l+s+s2}{ = }\PY{l+s+si}{\PYZob{}}\PY{n}{x4}\PY{p}{[}\PY{n}{j}\PY{p}{]}\PY{l+s+si}{\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+\end{tcolorbox}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+x\_0 = 0.5
+x\_1 = 0.9875
+x\_2 = 0.04875781249999983
+x\_3 = 0.183202928469848
+x\_4 = 0.591076481106183
+x\_5 = 0.9547350446277946
+x\_6 = 0.17070335479006285
+x\_7 = 0.5591766918412491
+x\_8 = 0.9736675706137671
+x\_9 = 0.10127417856796533
+x\_10 = 0.35951999132722934
+x\_11 = 0.9095482002950283
+x\_12 = 0.3249675729586585
+x\_13 = 0.8664864154618691
+x\_14 = 0.4569664437635456
+x\_15 = 0.9801850464986934
+x\_16 = 0.07671816842023815
+x\_17 = 0.2797883396652044
+x\_18 = 0.7959519573777409
+x\_19 = 0.6415291337509211
+x\_20 = 0.9083795419838698
+x\_21 = 0.3287432912717266
+x\_22 = 0.8716510018764594
+x\_23 = 0.44190835457668476
+x\_24 = 0.9741701748914467
+x\_25 = 0.09939244871148847
+x\_26 = 0.35357867990995934
+x\_27 = 0.9028151482412049
+x\_28 = 0.3465728275722937
+x\_29 = 0.8945174059053136
+x\_30 = 0.3727062649290811
+x\_31 = 0.9234954047961941
+x\_32 = 0.27907398636020553
+x\_33 = 0.7947072011640559
+x\_34 = 0.6444332790490923
+x\_35 = 0.9050991602173518
+x\_36 = 0.3392839480452255
+x\_37 = 0.8854728850440775
+x\_38 = 0.4005720868383919
+x\_39 = 0.9484506558330944
+x\_40 = 0.1931234366673267
+x\_41 = 0.6155157607646546
+x\_42 = 0.9347916306091042
+x\_43 = 0.24077713991149136
+x\_44 = 0.7220738597897574
+x\_45 = 0.7926986431524128
+x\_46 = 0.6490936419721093
+x\_47 = 0.8996957893977955
+x\_48 = 0.3564609399538088
+x\_49 = 0.906116326052171
+x\_50 = 0.33602464236985274
+x\_51 = 0.8812927242557581
+x\_52 = 0.41323264079700855
+x\_53 = 0.9577621302389092
+x\_54 = 0.15979263687058687
+x\_55 = 0.5303228527864999
+x\_56 = 0.9838680721656087
+x\_57 = 0.06269317051801239
+x\_58 = 0.23211281070922665
+x\_59 = 0.7040339925648631
+x\_60 = 0.8230620130182635
+x\_61 = 0.5752421961911199
+x\_62 = 0.9651375170537312
+x\_63 = 0.13290600640490524
+x\_64 = 0.4552058994722979
+x\_65 = 0.979574279803761
+x\_66 = 0.07903361509528065
+x\_67 = 0.2875098459819941
+x\_68 = 0.8091493410593463
+x\_69 = 0.6099854054441592
+x\_70 = 0.9397176818276715
+x\_71 = 0.22376102313798982
+x\_72 = 0.6860835092658077
+x\_73 = 0.8507230639383221
+x\_74 = 0.5016236630657768
+x\_75 = 0.987489586687083
+x\_76 = 0.0487979163430452
+x\_77 = 0.18334588482930833
+x\_78 = 0.5914341768145921
+x\_79 = 0.9544771756754398
+x\_80 = 0.17162946232079807
+x\_81 = 0.5615825204378737
+x\_82 = 0.9725199930472495
+x\_83 = 0.10556318187397795
+x\_84 = 0.37295740620114665
+x\_85 = 0.9237477084753952
+x\_86 = 0.2782296242693133
+x\_87 = 0.7932307067706668
+x\_88 = 0.6478622227967622
+x\_89 = 0.9011402141249226
+x\_90 = 0.3518917880166544
+x\_91 = 0.9008526322952307
+x\_92 = 0.35280281036883904
+x\_93 = 0.9019153000905179
+x\_94 = 0.3494331616349383
+x\_95 = 0.8979520273797601
+x\_96 = 0.3619550264221378
+x\_97 = 0.9122271618160548
+x\_98 = 0.3162716298912667
+x\_99 = 0.854163349767894
+    \end{Verbatim}
+
+    \textbf{Actividad 5.} Dada la recursión de la actividad 4, obtener los
+100 primeros elementos pares, es decir, los de la sucesión
+\(x_0,x_2,x_4,x_6,\dots\)
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{5}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+
+\PY{k}{def} \PY{n+nf}{f}\PY{p}{(}\PY{n}{x}\PY{p}{)}\PY{p}{:}
+    \PY{k}{return} \PY{p}{(}\PY{l+m+mf}{3.95}\PY{o}{*}\PY{n}{x}\PY{o}{*}\PY{p}{(}\PY{l+m+mi}{1}\PY{o}{\PYZhy{}}\PY{n}{x}\PY{p}{)}\PY{p}{)}
+
+\PY{n}{x} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{zeros}\PY{p}{(}\PY{l+m+mi}{200}\PY{p}{)}
+
+\PY{n}{x}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]} \PY{o}{=} \PY{l+m+mf}{0.5}
+\PY{n+nb}{print}\PY{p}{(}\PY{l+s+sa}{f}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{x\PYZus{}0 = }\PY{l+s+si}{\PYZob{}}\PY{n}{x}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{l+s+si}{\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+
+\PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{200}\PY{p}{)}\PY{p}{:}
+    \PY{n}{x}\PY{p}{[}\PY{n}{i}\PY{p}{]} \PY{o}{=} \PY{n}{f}\PY{p}{(}\PY{n}{x}\PY{p}{[}\PY{n}{i}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}
+    \PY{k}{if} \PY{n}{i} \PY{o}{\PYZpc{}} \PY{l+m+mi}{2} \PY{o}{==} \PY{l+m+mi}{0}\PY{p}{:}
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+sa}{f}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{x\PYZus{}}\PY{l+s+si}{\PYZob{}}\PY{n}{i}\PY{l+s+si}{\PYZcb{}}\PY{l+s+s2}{ = }\PY{l+s+si}{\PYZob{}}\PY{n}{x}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{l+s+si}{\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+\end{tcolorbox}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+x\_0 = 0.5
+x\_2 = 0.04875781249999983
+x\_4 = 0.591076481106183
+x\_6 = 0.17070335479006285
+x\_8 = 0.9736675706137671
+x\_10 = 0.35951999132722934
+x\_12 = 0.3249675729586585
+x\_14 = 0.4569664437635456
+x\_16 = 0.07671816842023815
+x\_18 = 0.7959519573777409
+x\_20 = 0.9083795419838698
+x\_22 = 0.8716510018764594
+x\_24 = 0.9741701748914467
+x\_26 = 0.35357867990995934
+x\_28 = 0.3465728275722937
+x\_30 = 0.3727062649290811
+x\_32 = 0.27907398636020553
+x\_34 = 0.6444332790490923
+x\_36 = 0.3392839480452255
+x\_38 = 0.4005720868383919
+x\_40 = 0.1931234366673267
+x\_42 = 0.9347916306091042
+x\_44 = 0.7220738597897574
+x\_46 = 0.6490936419721093
+x\_48 = 0.3564609399538088
+x\_50 = 0.33602464236985274
+x\_52 = 0.41323264079700855
+x\_54 = 0.15979263687058687
+x\_56 = 0.9838680721656087
+x\_58 = 0.23211281070922665
+x\_60 = 0.8230620130182635
+x\_62 = 0.9651375170537312
+x\_64 = 0.4552058994722979
+x\_66 = 0.07903361509528065
+x\_68 = 0.8091493410593463
+x\_70 = 0.9397176818276715
+x\_72 = 0.6860835092658077
+x\_74 = 0.5016236630657768
+x\_76 = 0.0487979163430452
+x\_78 = 0.5914341768145921
+x\_80 = 0.17162946232079807
+x\_82 = 0.9725199930472495
+x\_84 = 0.37295740620114665
+x\_86 = 0.2782296242693133
+x\_88 = 0.6478622227967622
+x\_90 = 0.3518917880166544
+x\_92 = 0.35280281036883904
+x\_94 = 0.3494331616349383
+x\_96 = 0.3619550264221378
+x\_98 = 0.3162716298912667
+x\_100 = 0.49204487064067837
+x\_102 = 0.049720270839305
+x\_104 = 0.5996076384403604
+x\_106 = 0.19362394377429912
+x\_108 = 0.933679416980738
+x\_110 = 0.7298297760941513
+x\_112 = 0.6803493626260131
+x\_114 = 0.47835559976717507
+x\_116 = 0.055871010026073496
+x\_118 = 0.6515378020282968
+x\_120 = 0.36559235540186297
+x\_122 = 0.30346333026396255
+x\_124 = 0.5444105542351017
+x\_126 = 0.07852152477740656
+x\_128 = 0.8062773110444152
+x\_130 = 0.9334588325364238
+x\_132 = 0.731351998615936
+x\_134 = 0.6864277291644301
+x\_136 = 0.503025992862475
+x\_138 = 0.048897102036946666
+x\_140 = 0.5923180078073083
+x\_142 = 0.1739310704686262
+x\_144 = 0.969485605681602
+x\_146 = 0.40763631372603204
+x\_148 = 0.17405053589544103
+x\_150 = 0.9693210830054336
+x\_152 = 0.4094815187419775
+x\_154 = 0.1692648491204359
+x\_156 = 0.9753652930346579
+x\_158 = 0.33931313756757653
+x\_160 = 0.400459233166295
+x\_162 = 0.19343762952952226
+x\_164 = 0.9340945839444051
+x\_166 = 0.7269504199189561
+x\_168 = 0.6687980636722092
+x\_170 = 0.4321690151352626
+x\_172 = 0.11744620476504807
+x\_174 = 0.9550968333930211
+x\_176 = 0.555787592747178
+x\_178 = 0.09550584959890672
+x\_180 = 0.8879145764780896
+x\_182 = 0.942371928051122
+x\_184 = 0.6655637317008795
+x\_186 = 0.4194436669022315
+x\_188 = 0.14488091524723745
+x\_190 = 0.9870534288252106
+x\_192 = 0.18931941723260337
+x\_194 = 0.9429195984312224
+x\_196 = 0.661229916218985
+x\_198 = 0.4025603833594322
+    \end{Verbatim}
+
+    \textbf{Actividad 6.} Dada la recursión de la actividad 4, obtener los
+100 primeros elementos múltiplos de 4, es decir, los de la sucesión
+\(x_0,x_4,x_8,x_{12}\)
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{6}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+
+\PY{k}{def} \PY{n+nf}{f}\PY{p}{(}\PY{n}{x}\PY{p}{)}\PY{p}{:}
+    \PY{k}{return} \PY{p}{(}\PY{l+m+mf}{3.95}\PY{o}{*}\PY{n}{x}\PY{o}{*}\PY{p}{(}\PY{l+m+mi}{1}\PY{o}{\PYZhy{}}\PY{n}{x}\PY{p}{)}\PY{p}{)}
+
+\PY{n}{x} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{zeros}\PY{p}{(}\PY{l+m+mi}{400}\PY{p}{)}
+
+\PY{n}{x}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]} \PY{o}{=} \PY{l+m+mf}{0.5}
+\PY{n+nb}{print}\PY{p}{(}\PY{l+s+sa}{f}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{x\PYZus{}0 = }\PY{l+s+si}{\PYZob{}}\PY{n}{x}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{l+s+si}{\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+
+\PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{400}\PY{p}{)}\PY{p}{:}
+    \PY{n}{x}\PY{p}{[}\PY{n}{i}\PY{p}{]} \PY{o}{=} \PY{n}{f}\PY{p}{(}\PY{n}{x}\PY{p}{[}\PY{n}{i}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}
+    \PY{k}{if} \PY{n}{i} \PY{o}{\PYZpc{}} \PY{l+m+mi}{4} \PY{o}{==} \PY{l+m+mi}{0}\PY{p}{:}
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+sa}{f}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{x\PYZus{}}\PY{l+s+si}{\PYZob{}}\PY{n}{i}\PY{l+s+si}{\PYZcb{}}\PY{l+s+s2}{ = }\PY{l+s+si}{\PYZob{}}\PY{n}{x}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{l+s+si}{\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+\end{tcolorbox}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+x\_0 = 0.5
+x\_4 = 0.591076481106183
+x\_8 = 0.9736675706137671
+x\_12 = 0.3249675729586585
+x\_16 = 0.07671816842023815
+x\_20 = 0.9083795419838698
+x\_24 = 0.9741701748914467
+x\_28 = 0.3465728275722937
+x\_32 = 0.27907398636020553
+x\_36 = 0.3392839480452255
+x\_40 = 0.1931234366673267
+x\_44 = 0.7220738597897574
+x\_48 = 0.3564609399538088
+x\_52 = 0.41323264079700855
+x\_56 = 0.9838680721656087
+x\_60 = 0.8230620130182635
+x\_64 = 0.4552058994722979
+x\_68 = 0.8091493410593463
+x\_72 = 0.6860835092658077
+x\_76 = 0.0487979163430452
+x\_80 = 0.17162946232079807
+x\_84 = 0.37295740620114665
+x\_88 = 0.6478622227967622
+x\_92 = 0.35280281036883904
+x\_96 = 0.3619550264221378
+x\_100 = 0.49204487064067837
+x\_104 = 0.5996076384403604
+x\_108 = 0.933679416980738
+x\_112 = 0.6803493626260131
+x\_116 = 0.055871010026073496
+x\_120 = 0.36559235540186297
+x\_124 = 0.5444105542351017
+x\_128 = 0.8062773110444152
+x\_132 = 0.731351998615936
+x\_136 = 0.503025992862475
+x\_140 = 0.5923180078073083
+x\_144 = 0.969485605681602
+x\_148 = 0.17405053589544103
+x\_152 = 0.4094815187419775
+x\_156 = 0.9753652930346579
+x\_160 = 0.400459233166295
+x\_164 = 0.9340945839444051
+x\_168 = 0.6687980636722092
+x\_172 = 0.11744620476504807
+x\_176 = 0.555787592747178
+x\_180 = 0.8879145764780896
+x\_184 = 0.6655637317008795
+x\_188 = 0.14488091524723745
+x\_192 = 0.18931941723260337
+x\_196 = 0.661229916218985
+x\_200 = 0.18763634616776279
+x\_204 = 0.6334801720948651
+x\_208 = 0.5576887664660336
+x\_212 = 0.9002669401320579
+x\_216 = 0.889658396228557
+x\_220 = 0.7008861420609539
+x\_224 = 0.10685923426372336
+x\_228 = 0.7690558227342181
+x\_232 = 0.9707878977981979
+x\_236 = 0.21513151585969176
+x\_240 = 0.9652302833330871
+x\_244 = 0.08037386921642775
+x\_248 = 0.9542731845105783
+x\_252 = 0.10905860832617482
+x\_256 = 0.7264508196060054
+x\_260 = 0.42424487344492495
+x\_264 = 0.9806839884871316
+x\_268 = 0.6672195577407398
+x\_272 = 0.1303299103894285
+x\_276 = 0.3231593329224524
+x\_280 = 0.06813402697257925
+x\_284 = 0.7290107163276519
+x\_288 = 0.46514116018195406
+x\_292 = 0.7355399628983461
+x\_296 = 0.5711425472062732
+x\_300 = 0.9679115908713581
+x\_304 = 0.13206647659900914
+x\_308 = 0.2986186052891005
+x\_312 = 0.11065598467542272
+x\_316 = 0.6945602833238884
+x\_320 = 0.06869093504798097
+x\_324 = 0.7433170209744371
+x\_328 = 0.6944477064640189
+x\_332 = 0.06818935966399586
+x\_336 = 0.7304462438816353
+x\_340 = 0.48833169879300115
+x\_344 = 0.6092880012968456
+x\_348 = 0.8574012778210138
+x\_352 = 0.19888274418689014
+x\_356 = 0.8066416672212617
+x\_360 = 0.7257221207451932
+x\_364 = 0.41274593939786913
+x\_368 = 0.9830492280209023
+x\_372 = 0.7851067509627749
+x\_376 = 0.9639622809861216
+x\_380 = 0.06461979343242154
+x\_384 = 0.6321731710048271
+x\_388 = 0.5763105657203039
+x\_392 = 0.9817946656532536
+x\_396 = 0.7236780891275244
+    \end{Verbatim}
+
+    Actividad 7. Dada la función \(f(x)=3.95x(1-x)\) y
+\(x_0=0.5,\:x_1=0.25\), obtener los 100 primeros elementos de la
+recursión \[x_{n+1}=0.25\cdot x_{n-1}+0.75\cdot f(x_n)\]
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{7}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+
+\PY{k}{def} \PY{n+nf}{f}\PY{p}{(}\PY{n}{x}\PY{p}{)}\PY{p}{:}
+    \PY{k}{return} \PY{p}{(}\PY{l+m+mf}{3.95}\PY{o}{*}\PY{n}{x}\PY{o}{*}\PY{p}{(}\PY{l+m+mi}{1}\PY{o}{\PYZhy{}}\PY{n}{x}\PY{p}{)}\PY{p}{)}
+
+\PY{n}{x7} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{zeros}\PY{p}{(}\PY{l+m+mi}{100}\PY{p}{)}
+
+\PY{n}{x7}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]} \PY{o}{=} \PY{l+m+mf}{0.5}
+\PY{n}{x7}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]} \PY{o}{=} \PY{l+m+mf}{0.25}
+
+\PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mi}{100}\PY{p}{)}\PY{p}{:}
+    \PY{n}{x7}\PY{p}{[}\PY{n}{i}\PY{p}{]} \PY{o}{=} \PY{l+m+mf}{0.25} \PY{o}{*} \PY{n}{x7}\PY{p}{[}\PY{n}{i}\PY{o}{\PYZhy{}}\PY{l+m+mi}{2}\PY{p}{]} \PY{o}{+} \PY{l+m+mf}{0.75}\PY{o}{*}\PY{n}{f}\PY{p}{(}\PY{n}{x7}\PY{p}{[}\PY{n}{i}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}
+
+\PY{k}{for} \PY{n}{j} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{x7}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+    \PY{n+nb}{print}\PY{p}{(}\PY{l+s+sa}{f}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{x\PYZus{}}\PY{l+s+si}{\PYZob{}}\PY{n}{j}\PY{l+s+si}{\PYZcb{}}\PY{l+s+s2}{ = }\PY{l+s+si}{\PYZob{}}\PY{n}{x7}\PY{p}{[}\PY{n}{j}\PY{p}{]}\PY{l+s+si}{\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+    
+\end{Verbatim}
+\end{tcolorbox}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+x\_0 = 0.5
+x\_1 = 0.25
+x\_2 = 0.6804687500000001
+x\_3 = 0.7066394271850587
+x\_4 = 0.7842438733804189
+x\_5 = 0.6779309148666401
+x\_6 = 0.8428949648417141
+x\_7 = 0.5617859938595264
+x\_8 = 0.9400393706876955
+x\_9 = 0.3074288544900332
+x\_10 = 0.8657745411509747
+x\_11 = 0.4211263318206727
+x\_12 = 0.9386387582740082
+x\_13 = 0.27590985068443286
+x\_14 = 0.8265186193209428
+x\_15 = 0.49375727670996594
+x\_16 = 0.9471392014827857
+x\_17 = 0.27176142762585154
+x\_18 = 0.8230847443345053
+x\_19 = 0.49932849154219844
+x\_20 = 0.946394850222435
+x\_21 = 0.2751245995566608
+x\_22 = 0.8274132108466229
+x\_23 = 0.4918278958773633
+x\_24 = 0.9472804572274992
+x\_25 = 0.2709047944945801
+x\_26 = 0.821959447744622
+x\_27 = 0.5012647113722799
+x\_28 = 0.946110123432647
+x\_29 = 0.2763614852393863
+x\_30 = 0.8289855069533245
+x\_31 = 0.4890796598457889
+x\_32 = 0.9475180872696707
+x\_33 = 0.2695878161021899
+x\_34 = 0.8202260648950639
+x\_35 = 0.5042331835849462
+x\_36 = 0.9456284286880968
+x\_37 = 0.2783761326482333
+x\_38 = 0.8315225841289121
+x\_39 = 0.4846188826915552
+x\_40 = 0.9478047814271218
+x\_41 = 0.2677121959509991
+x\_42 = 0.8177267345236808
+x\_43 = 0.5084878509131706
+x\_44 = 0.9448432544270399
+x\_45 = 0.28151110673841884
+x\_46 = 0.8354137765386983
+x\_47 = 0.4777144122646974
+x\_48 = 0.9480071261508275
+x\_49 = 0.2654490872609761
+x\_50 = 0.8146474194375809
+x\_51 = 0.5136908885850094
+x\_52 = 0.9437315625847882
+x\_53 = 0.2857382869807117
+x\_54 = 0.8405551987107909
+x\_55 = 0.46847521076467463
+x\_56 = 0.9478196306313151
+x\_57 = 0.2636368787640699
+x\_58 = 0.8120723646071705
+x\_59 = 0.5180188309646669
+x\_60 = 0.942681231778893
+x\_61 = 0.28957843906968084
+x\_62 = 0.8451240042805803
+x\_63 = 0.460154521462834
+x\_64 = 0.9472025519215725
+x\_65 = 0.26319289262190193
+x\_66 = 0.8112957298949761
+x\_67 = 0.5193420674823445
+x\_68 = 0.9423406150843128
+x\_69 = 0.29080230335182544
+x\_70 = 0.846560262782982
+x\_71 = 0.4575174292075856
+x\_72 = 0.9469184380631406
+x\_73 = 0.26328618984503466
+x\_74 = 0.8113555793084702
+x\_75 = 0.5192549932904637
+x\_76 = 0.9423655338310183
+x\_77 = 0.2907152242148706
+x\_78 = 0.8464585357330376
+x\_79 = 0.45770451199371165
+x\_80 = 0.9469399930776525
+x\_81 = 0.2632758816646311
+x\_82 = 0.8113465102220021
+x\_83 = 0.5192691464874282
+x\_84 = 0.942361651286677
+x\_85 = 0.2907289386794704
+x\_86 = 0.8464745706444899
+x\_87 = 0.45767502391388976
+x\_88 = 0.946936609494079
+x\_89 = 0.26327746974426125
+x\_90 = 0.8113478917438828
+x\_91 = 0.5192669949694847
+x\_92 = 0.9423622422915766
+x\_93 = 0.29072685177937274
+x\_94 = 0.8464721307706078
+x\_95 = 0.457679510895195
+x\_96 = 0.9469371246908698
+x\_97 = 0.26327722719648283
+x\_98 = 0.8113476803500026
+x\_99 = 0.5192673242983633
+    \end{Verbatim}
+
+    \textbf{Actividad 8.} Dados los elementos obtenidos en las actividades 4
+y 7, obtener una lista que resulte de multiplicar los elementos de las
+dos lista dos a dos.
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{8}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{n}{x} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+
+\PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{x4}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+    \PY{n}{x}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{x4}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]} \PY{o}{*} \PY{n}{x7}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{)}
+    \PY{n+nb}{print}\PY{p}{(}\PY{n}{x}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+\end{tcolorbox}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+0.49375
+0.246875
+0.6719628906250001
+0.6978064343452455
+0.7744408249631637
+0.6694567784308072
+0.8323587777811927
+0.5547636689362824
+0.9282888785540994
+0.30358599380890783
+0.8549523593865876
+0.4158622526729143
+0.9269057737955831
+0.27246097755087745
+0.8161871365794311
+0.4875853107510914
+0.935299961464251
+0.2683644097805284
+0.812796185030324
+0.493086885397921
+0.9345649145946546
+0.2716855420622025
+0.8170705457110401
+0.4856800471788963
+0.9354394515121555
+0.2675184845633979
+0.8116849546478143
+0.4949989024801264
+0.9342837468897389
+0.27290696667389397
+0.818623188116408
+0.48296616409771653
+0.9356741111787998
+0.26621796840091255
+0.8099732390838756
+0.49793026879013436
+0.9338080733294957
+0.2748964309901304
+0.8211285518273007
+0.4785611466579108
+0.9359572216592827
+0.2643657935016116
+0.8075051503421349
+0.502131752776756
+0.9330327137467019
+0.2779922179041886
+0.8249711043319646
+0.4717429821113887
+0.9361570370739422
+0.26213097367021393
+0.8044643266946112
+0.5072697524776969
+0.9319349180524784
+0.2821665583934528
+0.830048258726906
+0.4626192706301162
+0.9359718852484238
+0.260341417779519
+0.8019214600495809
+0.5115435955776086
+0.9308977163816569
+0.28595870858130984
+0.8345599542270731
+0.4544025899445486
+0.9353625200225529
+0.25990298146412816
+0.8011545332712889
+0.5128502916388151
+0.930561357395759
+0.28716727455992763
+0.8359782594981948
+0.4517984613424908
+0.9350819575873514
+0.2599951124719717
+0.8012136345671144
+0.5127643058743329
+0.9305859646581306
+0.28708128391218474
+0.8358778040363747
+0.4519832055937903
+0.9351032431641819
+0.25998493314382326
+0.8012046788442271
+0.5127782821563354
+0.9305821306455936
+0.28709482694597704
+0.8358936385114338
+0.4519540861149662
+0.935099901875403
+0.259986501372458
+0.8012060430970843
+0.5127761575323662
+0.9305827142629319
+0.2870927661321306
+0.8358912291359752
+0.4519585170090051
+0.9351004106322339
+0.2599862618565268
+0.8012058343456276
+0.5127764827446338
+    \end{Verbatim}
+
+    \textbf{Actividad 9.} Definir las funciones siguientes.
+\[\begin{array}{ll}
+    f_1(x)=3x^2+x-1 & f_2(x)=\dfrac{2x+1}{x^2+1}\\
+    f_3(x)=\begin{cases}
+        2x & \text{si }x\le0\\
+        x^2 & \text{si }x>0
+    \end{cases} & f_4(x)=\begin{cases}
+    \dfrac{2x}{x+1} & \text{si }0<x\le-2\\
+    x^2+3 & \text{si }x>-2
+    \end{cases}\\
+    f_5(x)=\begin{cases}
+        2x & \text{si }x\le0\\
+        x^2 & \text{si }0<x<2\\
+        x^3+1 & \text{si }x\ge 2
+    \end{cases} & f_6(x)=\begin{cases}
+    \dfrac{2x+1}{x^2} & \text{si }x\le-1\\
+    x^2 & \text{si }0<x<2\\
+    0 & \text{si }x\ge 3
+    \end{cases}
+\end{array} \]
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{9}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{k}{def} \PY{n+nf}{f1}\PY{p}{(}\PY{n}{x}\PY{p}{)}\PY{p}{:}
+    \PY{k}{return} \PY{l+m+mi}{3} \PY{o}{*} \PY{n}{x}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2} \PY{o}{+} \PY{n}{x} \PY{o}{\PYZhy{}} \PY{l+m+mi}{1}
+
+\PY{c+c1}{\PYZsh{} Definición de f2(x) = (2x + 1) / (x\PYZca{}2 + 1)}
+\PY{k}{def} \PY{n+nf}{f2}\PY{p}{(}\PY{n}{x}\PY{p}{)}\PY{p}{:}
+    \PY{k}{return} \PY{p}{(}\PY{l+m+mi}{2} \PY{o}{*} \PY{n}{x} \PY{o}{+} \PY{l+m+mi}{1}\PY{p}{)} \PY{o}{/} \PY{p}{(}\PY{n}{x}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2} \PY{o}{+} \PY{l+m+mi}{1}\PY{p}{)}
+
+
+\PY{k}{def} \PY{n+nf}{f3}\PY{p}{(}\PY{n}{x}\PY{p}{)}\PY{p}{:}
+    \PY{k}{if} \PY{n}{x} \PY{o}{\PYZlt{}}\PY{o}{=} \PY{l+m+mi}{0}\PY{p}{:}
+        \PY{k}{return} \PY{l+m+mi}{2} \PY{o}{*} \PY{n}{x}
+    \PY{k}{else}\PY{p}{:}
+        \PY{k}{return} \PY{n}{x}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2}
+
+
+\PY{k}{def} \PY{n+nf}{f4}\PY{p}{(}\PY{n}{x}\PY{p}{)}\PY{p}{:}
+    \PY{k}{if} \PY{l+m+mi}{0} \PY{o}{\PYZlt{}} \PY{n}{x} \PY{o}{\PYZlt{}}\PY{o}{=} \PY{o}{\PYZhy{}}\PY{l+m+mi}{2}\PY{p}{:}
+        \PY{k}{return} \PY{p}{(}\PY{l+m+mi}{2} \PY{o}{*} \PY{n}{x}\PY{p}{)} \PY{o}{/} \PY{p}{(}\PY{n}{x} \PY{o}{+} \PY{l+m+mi}{1}\PY{p}{)}
+    \PY{k}{else}\PY{p}{:}
+        \PY{k}{return} \PY{n}{x}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2} \PY{o}{+} \PY{l+m+mi}{3}
+
+\PY{k}{def} \PY{n+nf}{f5}\PY{p}{(}\PY{n}{x}\PY{p}{)}\PY{p}{:}
+    \PY{k}{if} \PY{n}{x} \PY{o}{\PYZlt{}}\PY{o}{=} \PY{l+m+mi}{0}\PY{p}{:}
+        \PY{k}{return} \PY{l+m+mi}{2} \PY{o}{*} \PY{n}{x}
+    \PY{k}{elif} \PY{l+m+mi}{0} \PY{o}{\PYZlt{}} \PY{n}{x} \PY{o}{\PYZlt{}} \PY{l+m+mi}{2}\PY{p}{:}
+        \PY{k}{return} \PY{n}{x}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2}
+    \PY{k}{else}\PY{p}{:}
+        \PY{k}{return} \PY{n}{x}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{3} \PY{o}{+} \PY{l+m+mi}{1}
+
+
+\PY{k}{def} \PY{n+nf}{f6}\PY{p}{(}\PY{n}{x}\PY{p}{)}\PY{p}{:}
+    \PY{k}{if} \PY{n}{x} \PY{o}{\PYZlt{}}\PY{o}{=} \PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{:}
+        \PY{k}{return} \PY{p}{(}\PY{l+m+mi}{2} \PY{o}{*} \PY{n}{x} \PY{o}{+} \PY{l+m+mi}{1}\PY{p}{)} \PY{o}{/} \PY{p}{(}\PY{n}{x}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2}\PY{p}{)}
+    \PY{k}{elif} \PY{l+m+mi}{0} \PY{o}{\PYZlt{}} \PY{n}{x} \PY{o}{\PYZlt{}} \PY{l+m+mi}{2}\PY{p}{:}
+        \PY{k}{return} \PY{n}{x}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2}
+    \PY{k}{else}\PY{p}{:}
+        \PY{k}{return} \PY{l+m+mi}{0}
+\end{Verbatim}
+\end{tcolorbox}
+
+    \textbf{Actividad 12.} Dados los conjuntos:
+\[\begin{array}{c}A=\{1,2,3,4,5\},\\ B=\{2,4,6,8,10,12\}\end{array}\] y
+\[C=\{1,9,4,3,2,5,11\},\] obtener: \[\begin{array}{ll}
+a)\: A\cap B\cup C & b)\: B\backslash C\cup A\\
+c)\: (B\backslash C)\cup A & d)\: (A\cup C)\triangle B\\
+e)\: A\cap(C\triangle B) & f)\:(A\triangle B)\cup(B\backslash C)
+\end{array}\]
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{10}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{n}{A} \PY{o}{=} \PY{p}{\PYZob{}}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mi}{3}\PY{p}{,}\PY{l+m+mi}{4}\PY{p}{,}\PY{l+m+mi}{5}\PY{p}{\PYZcb{}}
+\PY{n}{B} \PY{o}{=} \PY{p}{\PYZob{}}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mi}{4}\PY{p}{,}\PY{l+m+mi}{6}\PY{p}{,}\PY{l+m+mi}{8}\PY{p}{,}\PY{l+m+mi}{10}\PY{p}{,}\PY{l+m+mi}{12}\PY{p}{\PYZcb{}}
+\PY{n}{C} \PY{o}{=} \PY{p}{\PYZob{}}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{9}\PY{p}{,}\PY{l+m+mi}{4}\PY{p}{,}\PY{l+m+mi}{3}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mi}{5}\PY{p}{,}\PY{l+m+mi}{11}\PY{p}{\PYZcb{}}
+
+\PY{n+nb}{print}\PY{p}{(}\PY{l+s+sa}{f}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{a) }\PY{l+s+si}{\PYZob{}}\PY{n}{A} \PY{o}{\PYZam{}} \PY{n}{B} \PY{o}{|} \PY{n}{C}\PY{l+s+si}{\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\PY{n+nb}{print}\PY{p}{(}\PY{l+s+sa}{f}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{b) }\PY{l+s+si}{\PYZob{}}\PY{n}{B} \PY{o}{\PYZhy{}} \PY{n}{C} \PY{o}{|} \PY{n}{A}\PY{l+s+si}{\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\PY{n+nb}{print}\PY{p}{(}\PY{l+s+sa}{f}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{c) }\PY{l+s+si}{\PYZob{}}\PY{p}{(}\PY{n}{B} \PY{o}{\PYZhy{}} \PY{n}{C}\PY{p}{)} \PY{o}{|} \PY{n}{A}\PY{l+s+si}{\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\PY{n+nb}{print}\PY{p}{(}\PY{l+s+sa}{f}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{d) }\PY{l+s+si}{\PYZob{}}\PY{p}{(}\PY{n}{A} \PY{o}{|} \PY{n}{C}\PY{p}{)} \PY{o}{\PYZca{}} \PY{n}{B}\PY{l+s+si}{\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\PY{n+nb}{print}\PY{p}{(}\PY{l+s+sa}{f}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{e) }\PY{l+s+si}{\PYZob{}}\PY{n}{A} \PY{o}{\PYZam{}} \PY{p}{(}\PY{n}{C} \PY{o}{\PYZca{}} \PY{n}{B}\PY{p}{)}\PY{l+s+si}{\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\PY{n+nb}{print}\PY{p}{(}\PY{l+s+sa}{f}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{f) }\PY{l+s+si}{\PYZob{}}\PY{p}{(}\PY{n}{A} \PY{o}{\PYZca{}} \PY{n}{B}\PY{p}{)} \PY{o}{|} \PY{p}{(}\PY{n}{B} \PY{o}{\PYZhy{}} \PY{n}{C}\PY{p}{)}\PY{l+s+si}{\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+\end{tcolorbox}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+a) \{1, 2, 3, 4, 5, 9, 11\}
+b) \{1, 2, 3, 4, 5, 6, 8, 10, 12\}
+c) \{1, 2, 3, 4, 5, 6, 8, 10, 12\}
+d) \{1, 3, 5, 6, 8, 9, 10, 11, 12\}
+e) \{1, 3, 5\}
+f) \{1, 3, 5, 6, 8, 10, 12\}
+    \end{Verbatim}
+
+    \textbf{Actividad 13.} Crear un módulo llamado \emph{fun1var.py} con las
+funciones definidas en la actividad 9.
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{11}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{k+kn}{from} \PY{n+nn}{fun1var} \PY{k+kn}{import} \PY{o}{*}
+\end{Verbatim}
+\end{tcolorbox}
+
+    \textbf{Actividad 17.} Demostrar que las proposiciones
+\(\neg(p\wedge q)\) y \(\neg p\vee \neg q\) son lógicamente
+equivalentes.
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{12}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{k+kn}{from} \PY{n+nn}{sympy} \PY{k+kn}{import} \PY{n}{symbols}\PY{p}{,} \PY{n}{And}\PY{p}{,} \PY{n}{Not}\PY{p}{,} \PY{n}{Or}
+
+\PY{n}{p}\PY{p}{,} \PY{n}{q}\PY{o}{=}\PY{n}{symbols}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{p q}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+
+\PY{n}{Not}\PY{p}{(}\PY{n}{And}\PY{p}{(}\PY{n}{p}\PY{p}{,} \PY{n}{q}\PY{p}{)}\PY{p}{)}\PY{o}{.}\PY{n}{equals}\PY{p}{(}\PY{n}{Or}\PY{p}{(}\PY{n}{Not}\PY{p}{(}\PY{n}{p}\PY{p}{)}\PY{p}{,} \PY{n}{Not}\PY{p}{(}\PY{n}{q}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+\end{tcolorbox}
+
+            \begin{tcolorbox}[breakable, size=fbox, boxrule=.5pt, pad at break*=1mm, opacityfill=0]
+\prompt{Out}{outcolor}{12}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+True
+\end{Verbatim}
+\end{tcolorbox}
+        
+    \textbf{Actividad 18.} Demostrar que el argumento \(\{p\to q,\neg p\}\)
+implica \(\neg q\).
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{13}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{k+kn}{from} \PY{n+nn}{sympy} \PY{k+kn}{import} \PY{n}{symbols}\PY{p}{,} \PY{n}{And}\PY{p}{,} \PY{n}{Not}\PY{p}{,} \PY{n}{Or}\PY{p}{,} \PY{n}{Implies}
+
+\PY{n}{p}\PY{p}{,} \PY{n}{q}\PY{o}{=}\PY{n}{symbols}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{p q}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+
+\PY{n+nb}{print}\PY{p}{(}\PY{n}{Implies}\PY{p}{(}\PY{n}{And}\PY{p}{(}\PY{n}{Implies}\PY{p}{(}\PY{n}{p}\PY{p}{,} \PY{n}{q}\PY{p}{)}\PY{p}{,} \PY{n}{Not}\PY{p}{(}\PY{n}{p}\PY{p}{)}\PY{p}{)}\PY{p}{,} \PY{n}{Not}\PY{p}{(}\PY{n}{q}\PY{p}{)}\PY{p}{)}\PY{o}{.}\PY{n}{subs}\PY{p}{(}\PY{p}{\PYZob{}}\PY{n}{p}\PY{p}{:}\PY{k+kc}{True}\PY{p}{,} \PY{n}{q}\PY{p}{:}\PY{k+kc}{True}\PY{p}{\PYZcb{}}\PY{p}{)}\PY{p}{)}
+\PY{n+nb}{print}\PY{p}{(}\PY{n}{Implies}\PY{p}{(}\PY{n}{And}\PY{p}{(}\PY{n}{Implies}\PY{p}{(}\PY{n}{p}\PY{p}{,} \PY{n}{q}\PY{p}{)}\PY{p}{,} \PY{n}{Not}\PY{p}{(}\PY{n}{p}\PY{p}{)}\PY{p}{)}\PY{p}{,} \PY{n}{Not}\PY{p}{(}\PY{n}{q}\PY{p}{)}\PY{p}{)}\PY{o}{.}\PY{n}{subs}\PY{p}{(}\PY{p}{\PYZob{}}\PY{n}{p}\PY{p}{:}\PY{k+kc}{True}\PY{p}{,} \PY{n}{q}\PY{p}{:}\PY{k+kc}{False}\PY{p}{\PYZcb{}}\PY{p}{)}\PY{p}{)}
+\PY{n+nb}{print}\PY{p}{(}\PY{n}{Implies}\PY{p}{(}\PY{n}{And}\PY{p}{(}\PY{n}{Implies}\PY{p}{(}\PY{n}{p}\PY{p}{,} \PY{n}{q}\PY{p}{)}\PY{p}{,} \PY{n}{Not}\PY{p}{(}\PY{n}{p}\PY{p}{)}\PY{p}{)}\PY{p}{,} \PY{n}{Not}\PY{p}{(}\PY{n}{q}\PY{p}{)}\PY{p}{)}\PY{o}{.}\PY{n}{subs}\PY{p}{(}\PY{p}{\PYZob{}}\PY{n}{p}\PY{p}{:}\PY{k+kc}{False}\PY{p}{,} \PY{n}{q}\PY{p}{:}\PY{k+kc}{True}\PY{p}{\PYZcb{}}\PY{p}{)}\PY{p}{)}
+\PY{n+nb}{print}\PY{p}{(}\PY{n}{Implies}\PY{p}{(}\PY{n}{And}\PY{p}{(}\PY{n}{Implies}\PY{p}{(}\PY{n}{p}\PY{p}{,} \PY{n}{q}\PY{p}{)}\PY{p}{,} \PY{n}{Not}\PY{p}{(}\PY{n}{p}\PY{p}{)}\PY{p}{)}\PY{p}{,} \PY{n}{Not}\PY{p}{(}\PY{n}{q}\PY{p}{)}\PY{p}{)}\PY{o}{.}\PY{n}{subs}\PY{p}{(}\PY{p}{\PYZob{}}\PY{n}{p}\PY{p}{:}\PY{k+kc}{False}\PY{p}{,} \PY{n}{q}\PY{p}{:}\PY{k+kc}{False}\PY{p}{\PYZcb{}}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+\end{tcolorbox}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+True
+True
+False
+True
+    \end{Verbatim}
+
+    \textbf{Actividad 19.} Determinar la validez del argumento
+\(\{p\to q,\neg p\}\) implica \(\neg p\).
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{14}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{k+kn}{from} \PY{n+nn}{sympy} \PY{k+kn}{import} \PY{n}{symbols}\PY{p}{,} \PY{n}{And}\PY{p}{,} \PY{n}{Not}\PY{p}{,} \PY{n}{Or}\PY{p}{,} \PY{n}{Implies}
+
+\PY{k+kn}{import} \PY{n+nn}{sympy} \PY{k}{as} \PY{n+nn}{sy}
+
+\PY{n}{p}\PY{p}{,} \PY{n}{q}\PY{o}{=}\PY{n}{symbols}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{p q}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+
+\PY{n+nb}{print}\PY{p}{(}\PY{n}{Implies}\PY{p}{(}\PY{n}{And}\PY{p}{(}\PY{n}{Implies}\PY{p}{(}\PY{n}{p}\PY{p}{,} \PY{n}{q}\PY{p}{)}\PY{p}{,} \PY{n}{Not}\PY{p}{(}\PY{n}{p}\PY{p}{)}\PY{p}{)}\PY{p}{,} \PY{n}{Not}\PY{p}{(}\PY{n}{p}\PY{p}{)}\PY{p}{)}\PY{o}{.}\PY{n}{subs}\PY{p}{(}\PY{p}{\PYZob{}}\PY{n}{p}\PY{p}{:}\PY{k+kc}{True}\PY{p}{,} \PY{n}{q}\PY{p}{:}\PY{k+kc}{True}\PY{p}{\PYZcb{}}\PY{p}{)}\PY{p}{)}
+\PY{n+nb}{print}\PY{p}{(}\PY{n}{Implies}\PY{p}{(}\PY{n}{And}\PY{p}{(}\PY{n}{Implies}\PY{p}{(}\PY{n}{p}\PY{p}{,} \PY{n}{q}\PY{p}{)}\PY{p}{,} \PY{n}{Not}\PY{p}{(}\PY{n}{p}\PY{p}{)}\PY{p}{)}\PY{p}{,} \PY{n}{Not}\PY{p}{(}\PY{n}{p}\PY{p}{)}\PY{p}{)}\PY{o}{.}\PY{n}{subs}\PY{p}{(}\PY{p}{\PYZob{}}\PY{n}{p}\PY{p}{:}\PY{k+kc}{True}\PY{p}{,} \PY{n}{q}\PY{p}{:}\PY{k+kc}{False}\PY{p}{\PYZcb{}}\PY{p}{)}\PY{p}{)}
+\PY{n+nb}{print}\PY{p}{(}\PY{n}{Implies}\PY{p}{(}\PY{n}{And}\PY{p}{(}\PY{n}{Implies}\PY{p}{(}\PY{n}{p}\PY{p}{,} \PY{n}{q}\PY{p}{)}\PY{p}{,} \PY{n}{Not}\PY{p}{(}\PY{n}{p}\PY{p}{)}\PY{p}{)}\PY{p}{,} \PY{n}{Not}\PY{p}{(}\PY{n}{p}\PY{p}{)}\PY{p}{)}\PY{o}{.}\PY{n}{subs}\PY{p}{(}\PY{p}{\PYZob{}}\PY{n}{p}\PY{p}{:}\PY{k+kc}{False}\PY{p}{,} \PY{n}{q}\PY{p}{:}\PY{k+kc}{True}\PY{p}{\PYZcb{}}\PY{p}{)}\PY{p}{)}
+\PY{n+nb}{print}\PY{p}{(}\PY{n}{Implies}\PY{p}{(}\PY{n}{And}\PY{p}{(}\PY{n}{Implies}\PY{p}{(}\PY{n}{p}\PY{p}{,} \PY{n}{q}\PY{p}{)}\PY{p}{,} \PY{n}{Not}\PY{p}{(}\PY{n}{p}\PY{p}{)}\PY{p}{)}\PY{p}{,} \PY{n}{Not}\PY{p}{(}\PY{n}{p}\PY{p}{)}\PY{p}{)}\PY{o}{.}\PY{n}{subs}\PY{p}{(}\PY{p}{\PYZob{}}\PY{n}{p}\PY{p}{:}\PY{k+kc}{False}\PY{p}{,} \PY{n}{q}\PY{p}{:}\PY{k+kc}{False}\PY{p}{\PYZcb{}}\PY{p}{)}\PY{p}{)}
+\PY{n+nb}{print}\PY{p}{(}\PY{p}{)}
+\PY{n+nb}{print}\PY{p}{(}\PY{n}{sy}\PY{o}{.}\PY{n}{simplify\PYZus{}logic}\PY{p}{(}\PY{n}{Implies}\PY{p}{(}\PY{n}{And}\PY{p}{(}\PY{n}{Implies}\PY{p}{(}\PY{n}{p}\PY{p}{,} \PY{n}{q}\PY{p}{)}\PY{p}{,} \PY{n}{Not}\PY{p}{(}\PY{n}{p}\PY{p}{)}\PY{p}{)}\PY{p}{,} \PY{n}{Not}\PY{p}{(}\PY{n}{p}\PY{p}{)}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+\end{tcolorbox}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+True
+True
+True
+True
+
+True
+    \end{Verbatim}
+
+    \textbf{Actividad 20.} Demostrar que el argumento
+\(\{p\to\neg q, r\vee q, r\}\) implica \(\neg p\)
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{15}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{k+kn}{from} \PY{n+nn}{sympy} \PY{k+kn}{import} \PY{n}{symbols}\PY{p}{,} \PY{n}{And}\PY{p}{,} \PY{n}{Not}\PY{p}{,} \PY{n}{Or}\PY{p}{,} \PY{n}{Implies}\PY{p}{,} \PY{n}{simplify\PYZus{}logic}
+
+\PY{n}{p}\PY{p}{,} \PY{n}{q}\PY{p}{,} \PY{n}{r}\PY{o}{=}\PY{n}{symbols}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{p q r}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+
+\PY{n+nb}{print}\PY{p}{(}\PY{n}{Implies}\PY{p}{(}\PY{n}{And}\PY{p}{(}\PY{n}{And}\PY{p}{(}\PY{n}{Implies}\PY{p}{(}\PY{n}{p}\PY{p}{,} \PY{n}{Not}\PY{p}{(}\PY{n}{q}\PY{p}{)}\PY{p}{)}\PY{p}{,} \PY{n}{Or}\PY{p}{(}\PY{n}{r}\PY{p}{,}\PY{n}{q}\PY{p}{)}\PY{p}{)}\PY{p}{,} \PY{n}{r}\PY{p}{)}\PY{p}{,} \PY{n}{Not}\PY{p}{(}\PY{n}{p}\PY{p}{)}\PY{p}{)}\PY{o}{.}\PY{n}{subs}\PY{p}{(}\PY{p}{\PYZob{}}\PY{n}{p}\PY{p}{:}\PY{k+kc}{True}\PY{p}{,} \PY{n}{q}\PY{p}{:}\PY{k+kc}{True}\PY{p}{,} \PY{n}{r}\PY{p}{:}\PY{k+kc}{True}\PY{p}{\PYZcb{}}\PY{p}{)}\PY{p}{)}
+\PY{n+nb}{print}\PY{p}{(}\PY{n}{Implies}\PY{p}{(}\PY{n}{And}\PY{p}{(}\PY{n}{And}\PY{p}{(}\PY{n}{Implies}\PY{p}{(}\PY{n}{p}\PY{p}{,} \PY{n}{Not}\PY{p}{(}\PY{n}{q}\PY{p}{)}\PY{p}{)}\PY{p}{,} \PY{n}{Or}\PY{p}{(}\PY{n}{r}\PY{p}{,}\PY{n}{q}\PY{p}{)}\PY{p}{)}\PY{p}{,} \PY{n}{r}\PY{p}{)}\PY{p}{,} \PY{n}{Not}\PY{p}{(}\PY{n}{p}\PY{p}{)}\PY{p}{)}\PY{o}{.}\PY{n}{subs}\PY{p}{(}\PY{p}{\PYZob{}}\PY{n}{p}\PY{p}{:}\PY{k+kc}{True}\PY{p}{,} \PY{n}{q}\PY{p}{:}\PY{k+kc}{False}\PY{p}{,} \PY{n}{r}\PY{p}{:}\PY{k+kc}{True}\PY{p}{\PYZcb{}}\PY{p}{)}\PY{p}{)}
+\PY{n+nb}{print}\PY{p}{(}\PY{n}{Implies}\PY{p}{(}\PY{n}{And}\PY{p}{(}\PY{n}{And}\PY{p}{(}\PY{n}{Implies}\PY{p}{(}\PY{n}{p}\PY{p}{,} \PY{n}{Not}\PY{p}{(}\PY{n}{q}\PY{p}{)}\PY{p}{)}\PY{p}{,} \PY{n}{Or}\PY{p}{(}\PY{n}{r}\PY{p}{,}\PY{n}{q}\PY{p}{)}\PY{p}{)}\PY{p}{,} \PY{n}{r}\PY{p}{)}\PY{p}{,} \PY{n}{Not}\PY{p}{(}\PY{n}{p}\PY{p}{)}\PY{p}{)}\PY{o}{.}\PY{n}{subs}\PY{p}{(}\PY{p}{\PYZob{}}\PY{n}{p}\PY{p}{:}\PY{k+kc}{True}\PY{p}{,} \PY{n}{q}\PY{p}{:}\PY{k+kc}{True}\PY{p}{,} \PY{n}{r}\PY{p}{:}\PY{k+kc}{False}\PY{p}{\PYZcb{}}\PY{p}{)}\PY{p}{)}
+\PY{n+nb}{print}\PY{p}{(}\PY{n}{Implies}\PY{p}{(}\PY{n}{And}\PY{p}{(}\PY{n}{And}\PY{p}{(}\PY{n}{Implies}\PY{p}{(}\PY{n}{p}\PY{p}{,} \PY{n}{Not}\PY{p}{(}\PY{n}{q}\PY{p}{)}\PY{p}{)}\PY{p}{,} \PY{n}{Or}\PY{p}{(}\PY{n}{r}\PY{p}{,}\PY{n}{q}\PY{p}{)}\PY{p}{)}\PY{p}{,} \PY{n}{r}\PY{p}{)}\PY{p}{,} \PY{n}{Not}\PY{p}{(}\PY{n}{p}\PY{p}{)}\PY{p}{)}\PY{o}{.}\PY{n}{subs}\PY{p}{(}\PY{p}{\PYZob{}}\PY{n}{p}\PY{p}{:}\PY{k+kc}{False}\PY{p}{,} \PY{n}{q}\PY{p}{:}\PY{k+kc}{True}\PY{p}{,} \PY{n}{r}\PY{p}{:}\PY{k+kc}{True}\PY{p}{\PYZcb{}}\PY{p}{)}\PY{p}{)}
+\PY{n+nb}{print}\PY{p}{(}\PY{n}{Implies}\PY{p}{(}\PY{n}{And}\PY{p}{(}\PY{n}{And}\PY{p}{(}\PY{n}{Implies}\PY{p}{(}\PY{n}{p}\PY{p}{,} \PY{n}{Not}\PY{p}{(}\PY{n}{q}\PY{p}{)}\PY{p}{)}\PY{p}{,} \PY{n}{Or}\PY{p}{(}\PY{n}{r}\PY{p}{,}\PY{n}{q}\PY{p}{)}\PY{p}{)}\PY{p}{,} \PY{n}{r}\PY{p}{)}\PY{p}{,} \PY{n}{Not}\PY{p}{(}\PY{n}{p}\PY{p}{)}\PY{p}{)}\PY{o}{.}\PY{n}{subs}\PY{p}{(}\PY{p}{\PYZob{}}\PY{n}{p}\PY{p}{:}\PY{k+kc}{False}\PY{p}{,} \PY{n}{q}\PY{p}{:}\PY{k+kc}{False}\PY{p}{,} \PY{n}{r}\PY{p}{:}\PY{k+kc}{True}\PY{p}{\PYZcb{}}\PY{p}{)}\PY{p}{)}
+\PY{n+nb}{print}\PY{p}{(}\PY{n}{Implies}\PY{p}{(}\PY{n}{And}\PY{p}{(}\PY{n}{And}\PY{p}{(}\PY{n}{Implies}\PY{p}{(}\PY{n}{p}\PY{p}{,} \PY{n}{Not}\PY{p}{(}\PY{n}{q}\PY{p}{)}\PY{p}{)}\PY{p}{,} \PY{n}{Or}\PY{p}{(}\PY{n}{r}\PY{p}{,}\PY{n}{q}\PY{p}{)}\PY{p}{)}\PY{p}{,} \PY{n}{r}\PY{p}{)}\PY{p}{,} \PY{n}{Not}\PY{p}{(}\PY{n}{p}\PY{p}{)}\PY{p}{)}\PY{o}{.}\PY{n}{subs}\PY{p}{(}\PY{p}{\PYZob{}}\PY{n}{p}\PY{p}{:}\PY{k+kc}{False}\PY{p}{,} \PY{n}{q}\PY{p}{:}\PY{k+kc}{True}\PY{p}{,} \PY{n}{r}\PY{p}{:}\PY{k+kc}{False}\PY{p}{\PYZcb{}}\PY{p}{)}\PY{p}{)}
+\PY{n+nb}{print}\PY{p}{(}\PY{n}{Implies}\PY{p}{(}\PY{n}{And}\PY{p}{(}\PY{n}{And}\PY{p}{(}\PY{n}{Implies}\PY{p}{(}\PY{n}{p}\PY{p}{,} \PY{n}{Not}\PY{p}{(}\PY{n}{q}\PY{p}{)}\PY{p}{)}\PY{p}{,} \PY{n}{Or}\PY{p}{(}\PY{n}{r}\PY{p}{,}\PY{n}{q}\PY{p}{)}\PY{p}{)}\PY{p}{,} \PY{n}{r}\PY{p}{)}\PY{p}{,} \PY{n}{Not}\PY{p}{(}\PY{n}{p}\PY{p}{)}\PY{p}{)}\PY{o}{.}\PY{n}{subs}\PY{p}{(}\PY{p}{\PYZob{}}\PY{n}{p}\PY{p}{:}\PY{k+kc}{True}\PY{p}{,} \PY{n}{q}\PY{p}{:}\PY{k+kc}{False}\PY{p}{,} \PY{n}{r}\PY{p}{:}\PY{k+kc}{False}\PY{p}{\PYZcb{}}\PY{p}{)}\PY{p}{)}
+\PY{n+nb}{print}\PY{p}{(}\PY{n}{Implies}\PY{p}{(}\PY{n}{And}\PY{p}{(}\PY{n}{And}\PY{p}{(}\PY{n}{Implies}\PY{p}{(}\PY{n}{p}\PY{p}{,} \PY{n}{Not}\PY{p}{(}\PY{n}{q}\PY{p}{)}\PY{p}{)}\PY{p}{,} \PY{n}{Or}\PY{p}{(}\PY{n}{r}\PY{p}{,}\PY{n}{q}\PY{p}{)}\PY{p}{)}\PY{p}{,} \PY{n}{r}\PY{p}{)}\PY{p}{,} \PY{n}{Not}\PY{p}{(}\PY{n}{p}\PY{p}{)}\PY{p}{)}\PY{o}{.}\PY{n}{subs}\PY{p}{(}\PY{p}{\PYZob{}}\PY{n}{p}\PY{p}{:}\PY{k+kc}{False}\PY{p}{,} \PY{n}{q}\PY{p}{:}\PY{k+kc}{False}\PY{p}{,} \PY{n}{r}\PY{p}{:}\PY{k+kc}{False}\PY{p}{\PYZcb{}}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+\end{tcolorbox}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+True
+False
+True
+True
+True
+True
+True
+True
+    \end{Verbatim}
+
+    \textbf{Actividad 21.} Demostrar que
+\((p\vee q\wedge\neg r)\wedge(p\wedge q)\) es equivalente a
+\(p\wedge q\).
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{16}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{k+kn}{from} \PY{n+nn}{sympy} \PY{k+kn}{import} \PY{n}{simplify\PYZus{}logic}\PY{p}{,} \PY{n}{And}\PY{p}{,} \PY{n}{Or}\PY{p}{,} \PY{n}{Not}\PY{p}{,} \PY{n}{Implies}\PY{p}{,} \PY{n}{Equivalent}\PY{p}{,} \PY{n}{symbols}
+
+\PY{n}{p}\PY{p}{,} \PY{n}{q}\PY{p}{,} \PY{n}{r} \PY{o}{=} \PY{n}{symbols}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{p q r}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+
+\PY{n}{And}\PY{p}{(}\PY{n}{And}\PY{p}{(}\PY{n}{Or}\PY{p}{(}\PY{n}{p}\PY{p}{,} \PY{n}{q}\PY{p}{)}\PY{p}{,} \PY{n}{Not}\PY{p}{(}\PY{n}{r}\PY{p}{)}\PY{p}{)}\PY{p}{,} \PY{n}{And}\PY{p}{(}\PY{n}{p}\PY{p}{,} \PY{n}{q}\PY{p}{)}\PY{p}{)}\PY{o}{.}\PY{n}{equals}\PY{p}{(}\PY{n}{And}\PY{p}{(}\PY{n}{p}\PY{p}{,} \PY{n}{q}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+\end{tcolorbox}
+
+            \begin{tcolorbox}[breakable, size=fbox, boxrule=.5pt, pad at break*=1mm, opacityfill=0]
+\prompt{Out}{outcolor}{16}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+False
+\end{Verbatim}
+\end{tcolorbox}
+        
+    \textbf{Actividad 22.} Demostrar que
+\((p\vee q\wedge\neg r)\wedge(p\vee q)\) es equivalente a
+\(p\vee (q\wedge \neg r)\).
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{17}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{k+kn}{from} \PY{n+nn}{sympy} \PY{k+kn}{import} \PY{n}{simplify\PYZus{}logic}\PY{p}{,} \PY{n}{And}\PY{p}{,} \PY{n}{Or}\PY{p}{,} \PY{n}{Not}\PY{p}{,} \PY{n}{Implies}\PY{p}{,} \PY{n}{Equivalent}\PY{p}{,} \PY{n}{symbols}
+
+\PY{n}{p}\PY{p}{,} \PY{n}{q}\PY{p}{,} \PY{n}{r} \PY{o}{=} \PY{n}{symbols}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{p q r}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+
+\PY{n}{And}\PY{p}{(}\PY{n}{And}\PY{p}{(}\PY{n}{Or}\PY{p}{(}\PY{n}{p}\PY{p}{,} \PY{n}{q}\PY{p}{)}\PY{p}{,} \PY{n}{Not}\PY{p}{(}\PY{n}{r}\PY{p}{)}\PY{p}{)}\PY{p}{,} \PY{n}{Or}\PY{p}{(}\PY{n}{p}\PY{p}{,} \PY{n}{q}\PY{p}{)}\PY{p}{)}\PY{o}{.}\PY{n}{equals}\PY{p}{(}\PY{n}{Or}\PY{p}{(}\PY{n}{p}\PY{p}{,} \PY{n}{And}\PY{p}{(}\PY{n}{q}\PY{p}{,} \PY{n}{Not}\PY{p}{(}\PY{n}{r}\PY{p}{)}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+\end{tcolorbox}
+
+            \begin{tcolorbox}[breakable, size=fbox, boxrule=.5pt, pad at break*=1mm, opacityfill=0]
+\prompt{Out}{outcolor}{17}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+False
+\end{Verbatim}
+\end{tcolorbox}
+        
+    \textbf{Actividad 23.} Demostrar que
+\((p\vee q\wedge\neg r)\vee(p\vee q)\) es equivalente a \(p\vee q\).
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{18}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{k+kn}{from} \PY{n+nn}{sympy} \PY{k+kn}{import} \PY{n}{simplify\PYZus{}logic}\PY{p}{,} \PY{n}{And}\PY{p}{,} \PY{n}{Or}\PY{p}{,} \PY{n}{Not}\PY{p}{,} \PY{n}{Implies}\PY{p}{,} \PY{n}{Equivalent}\PY{p}{,} \PY{n}{symbols}
+
+\PY{n}{p}\PY{p}{,} \PY{n}{q}\PY{p}{,} \PY{n}{r} \PY{o}{=} \PY{n}{symbols}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{p q r}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+
+\PY{n}{Or}\PY{p}{(}\PY{n}{And}\PY{p}{(}\PY{n}{Or}\PY{p}{(}\PY{n}{p}\PY{p}{,} \PY{n}{q}\PY{p}{)}\PY{p}{,} \PY{n}{Not}\PY{p}{(}\PY{n}{r}\PY{p}{)}\PY{p}{)}\PY{p}{,} \PY{n}{Or}\PY{p}{(}\PY{n}{p}\PY{p}{,} \PY{n}{q}\PY{p}{)}\PY{p}{)}\PY{o}{.}\PY{n}{equals}\PY{p}{(}\PY{n}{Or}\PY{p}{(}\PY{n}{p}\PY{p}{,} \PY{n}{q}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+\end{tcolorbox}
+
+            \begin{tcolorbox}[breakable, size=fbox, boxrule=.5pt, pad at break*=1mm, opacityfill=0]
+\prompt{Out}{outcolor}{18}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+False
+\end{Verbatim}
+\end{tcolorbox}
+        
+    \textbf{Actividad 24.} Simplficar los siguientes conjuntos.
+\[\begin{array}{ll}
+a)\:(A\cap B\cup C^c)\cap(C\cup A) & b)\:(A^c\cap B^c\cup C)\triangle(C\cup A)\\
+c)\:(A\cap B\cup C^c)\cap((C\cup A)\backslash B) & d)\:(A\cap B\cup C^c)\cap(C\cup A^c)\\
+e)\:(A\cap B\cup C^c)\cup(C\cup A)^c & f)\:(A\cap B)^c\cap(C\cup A)^c\backslash(C\cup B)
+\end{array}\]\textbf{Nota:} Se debe usar que \(A\backslash B=A\cap B^c\)
+y \(A\triangle B=(A\backslash B)\cup(B\backslash A)\)
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{19}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{k+kn}{from} \PY{n+nn}{sympy} \PY{k+kn}{import} \PY{n}{simplify\PYZus{}logic}\PY{p}{,} \PY{n}{symbols}
+\PY{n}{A}\PY{p}{,} \PY{n}{B}\PY{p}{,} \PY{n}{C} \PY{o}{=} \PY{n}{symbols}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{A B C}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+
+\PY{n+nb}{print}\PY{p}{(}\PY{l+s+sa}{f}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{a) }\PY{l+s+si}{\PYZob{}}\PY{n}{simplify\PYZus{}logic}\PY{p}{(}\PY{p}{(}\PY{n}{A} \PY{o}{\PYZam{}} \PY{n}{B} \PY{o}{|} \PY{o}{\PYZti{}}\PY{n}{C}\PY{p}{)} \PY{o}{\PYZam{}} \PY{p}{(}\PY{n}{C} \PY{o}{|} \PY{n}{A}\PY{p}{)}\PY{p}{)}\PY{l+s+si}{\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\PY{n+nb}{print}\PY{p}{(}\PY{l+s+sa}{f}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{b) }\PY{l+s+si}{\PYZob{}}\PY{n}{simplify\PYZus{}logic}\PY{p}{(}\PY{p}{(}\PY{p}{(}\PY{o}{\PYZti{}}\PY{n}{A} \PY{o}{\PYZam{}} \PY{o}{\PYZti{}}\PY{n}{B} \PY{o}{|} \PY{n}{C}\PY{p}{)} \PY{o}{\PYZam{}} \PY{o}{\PYZti{}}\PY{p}{(}\PY{n}{C} \PY{o}{|} \PY{o}{\PYZti{}}\PY{n}{A}\PY{p}{)}\PY{p}{)} \PY{o}{|} \PY{p}{(}\PY{p}{(}\PY{n}{C} \PY{o}{|} \PY{n}{A}\PY{p}{)} \PY{o}{\PYZam{}} \PY{o}{\PYZti{}}\PY{p}{(}\PY{o}{\PYZti{}}\PY{n}{A} \PY{o}{\PYZam{}} \PY{o}{\PYZti{}}\PY{n}{B} \PY{o}{|} \PY{n}{C}\PY{p}{)}\PY{p}{)}\PY{p}{)}\PY{l+s+si}{\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\PY{n+nb}{print}\PY{p}{(}\PY{l+s+sa}{f}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{c) }\PY{l+s+si}{\PYZob{}}\PY{n}{simplify\PYZus{}logic}\PY{p}{(}\PY{p}{(}\PY{n}{A} \PY{o}{\PYZam{}} \PY{n}{B} \PY{o}{|} \PY{o}{\PYZti{}}\PY{n}{C}\PY{p}{)} \PY{o}{\PYZam{}} \PY{p}{(}\PY{p}{(}\PY{n}{C} \PY{o}{|} \PY{n}{A}\PY{p}{)} \PY{o}{\PYZam{}} \PY{o}{\PYZti{}}\PY{n}{B}\PY{p}{)}\PY{p}{)}\PY{l+s+si}{\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\PY{n+nb}{print}\PY{p}{(}\PY{l+s+sa}{f}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{d) }\PY{l+s+si}{\PYZob{}}\PY{n}{simplify\PYZus{}logic}\PY{p}{(}\PY{p}{(}\PY{n}{A} \PY{o}{\PYZam{}} \PY{n}{B} \PY{o}{|} \PY{o}{\PYZti{}}\PY{n}{C}\PY{p}{)} \PY{o}{\PYZam{}} \PY{p}{(}\PY{n}{C} \PY{o}{|} \PY{o}{\PYZti{}}\PY{n}{A}\PY{p}{)}\PY{p}{)}\PY{l+s+si}{\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\PY{n+nb}{print}\PY{p}{(}\PY{l+s+sa}{f}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{e) }\PY{l+s+si}{\PYZob{}}\PY{n}{simplify\PYZus{}logic}\PY{p}{(}\PY{p}{(}\PY{n}{A} \PY{o}{\PYZam{}} \PY{n}{B} \PY{o}{|} \PY{o}{\PYZti{}}\PY{n}{C}\PY{p}{)} \PY{o}{|} \PY{o}{\PYZti{}}\PY{p}{(}\PY{n}{C} \PY{o}{|} \PY{n}{A}\PY{p}{)}\PY{p}{)}\PY{l+s+si}{\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\PY{n+nb}{print}\PY{p}{(}\PY{l+s+sa}{f}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{f) }\PY{l+s+si}{\PYZob{}}\PY{n}{simplify\PYZus{}logic}\PY{p}{(}\PY{o}{\PYZti{}}\PY{p}{(}\PY{n}{A} \PY{o}{\PYZam{}} \PY{n}{B}\PY{p}{)} \PY{o}{\PYZam{}} \PY{o}{\PYZti{}}\PY{p}{(}\PY{n}{C} \PY{o}{|} \PY{n}{A}\PY{p}{)} \PY{o}{\PYZam{}} \PY{o}{\PYZti{}}\PY{p}{(}\PY{n}{C} \PY{o}{|} \PY{n}{B}\PY{p}{)}\PY{p}{)}\PY{l+s+si}{\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+\end{tcolorbox}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+a) A \& (B | \textasciitilde{}C)
+b) A \& \textasciitilde{}C
+c) A \& \textasciitilde{}B \& \textasciitilde{}C
+d) (A | \textasciitilde{}C) \& (B | \textasciitilde{}C) \& (C | \textasciitilde{}A)
+e) \textasciitilde{}C | (A \& B)
+f) \textasciitilde{}A \& \textasciitilde{}B \& \textasciitilde{}C
+    \end{Verbatim}
+
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+\end{document}

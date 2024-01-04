@@ -1,0 +1,308 @@
+\begin{center}
+	\large\textbf{\rc{Hoja de ejercicios Tema 3: Sistemas de ecuaciones y determinantes}}
+\end{center}
+\renewcommand{\arraystretch}{1}
+\begin{enumerate}[label=\color{red}\textbf{\arabic*)},leftmargin=*]
+	\item \textcolor{lightblue}{Sea $\{w_1,w_2,w_3\}$ un conjunto independiente de vector de $\R^3$. Se definen los vectores $v_1=w_1+w_2,v_2=w_1+2w_2+w_3$ y $v_3=w_2+cw_3$. Si $V=[v_1,v_2,v_3]$ y $W=[w_1,w_2,w_3]$, entonces  se tiene $V=WC$ con \[ C=\begin{bmatrix}
+			1 & 1 & 0\\
+			1 & 2 & 1\\
+			0 & 1 & c
+		\end{bmatrix} \] ¿Qué condición debe cumplir $c$ para que los vectores $v_1,v_2,v_3$ sean linealmente independientes?}
+	
+	
+	\item \textcolor{lightblue}{Dadas las matrices \[ \begin{array}{ll}
+			a=\begin{bmatrix}
+				1 & 1 & -1 \\
+				2 & 4 & 2 \\
+				0 & 1 & 1 \\
+				3 & 2 & 1
+			\end{bmatrix}
+		& B=\begin{bmatrix}
+		2 & 4 & 2 \\
+		3 & 2 & 1 \\
+		1 & 1 & -1 \\
+		0 & 1 & 1
+		\end{bmatrix}\end{array} \] Halla matriz de permutación $P$ tal que $PA=B$ y escribe $P$ como producto de matrices de permutación simples.}
+	
+	
+	\item \textcolor{lightblue}{Se tiene una matriz $A=(a_{ij})$ de tamaño $5\times5$, donde $a_{ij}$ en la cantidad de mensajes que la persona $\imath$ manda a la persona $\jmath$. Las filas y columnas siguen el orden: Juan, Ana, Pedro, María, Maite. Halla una matriz de permutación $P$ tal que las columnas y filas de $PAP^\intercal $ sigan el orden: Ana, María, Juan, Maite, Pedro.}
+	
+	$I=\begin{bmatrix}
+		1 & 0 & 0 & 0 & 0 \\
+		0 & 1 & 0 & 0 & 0 \\
+		0 & 0 & 1 & 0 & 0 \\
+		0 & 0 & 0 & 1 & 0 \\
+		0 & 0 & 0 & 0 & 1
+	\end{bmatrix}\qquad A\longleftrightarrow J\quad P_{12}=\begin{bmatrix}
+		0 & 1 & 0 & 0 & 0 \\
+		1 & 0 & 0 & 0 & 0 \\
+		0 & 0 & 1 & 0 & 0 \\
+		0 & 0 & 0 & 1 & 0 \\
+		0 & 0 & 0 & 0 & 1
+	\end{bmatrix}\qquad\begin{array}{ll}
+		P\longrightarrow J & P_{34}\\
+		P\longrightarrow\mathrm{MAY} & P_{45}
+	\end{array}$
+	
+	$P_{ij}=$ permutación entre la fila $i$ y la $j\qquad J\longleftrightarrow M\quad P_{24}=\begin{bmatrix}
+		1 & 0 & 0 & 0 & 0 \\
+		0 & 0 & 0 & 1 & 0 \\
+		0 & 0 & 1 & 0 & 0 \\
+		0 & 1 & 0 & 0 & 0 \\
+		0 & 0 & 0 & 0 & 1
+	\end{bmatrix}$ 
+	
+	$P=P_{45}\,P_{34}\,P_{24}\, P_{12}$
+	
+	\item \textcolor{lightblue}{Consideremos la matriz por bloques $\begin{bmatrix}
+			A & B\\
+		\end{bmatrix}$ con $A$ una matriz de tamaño $n\times n$ y $B$ una matriz de tamaño $n\times p$. Supongamos que haciendo operaciones elementales de filas se obtiene la matriz $\begin{bmatrix}
+		I_n & X\\
+		\end{bmatrix}$. Prueba que $X=A^{-1}B$.}
+	
+	$\begin{array}{l}
+		\begin{bmatrix}
+		A & B
+	\end{bmatrix}\xrightarrow[\text{fila}]{}\begin{bmatrix}
+	I & X
+\end{bmatrix}\longrightarrow X=A^{-1}B\\
+\begin{bmatrix}
+	A & I\,B
+\end{bmatrix}\longrightarrow[
+I \quad \underbracket[1pt]{A^{-1}B}_{X}
+]\\
+	\end{array}$
+	
+	Cada operación fila se traduce es el producto de una matriz elemental por $I.\:B$ permanece inalterada.
+	\item \textcolor{lightblue}{Halla una relación de dependencia entre los vectores $u_1=(1,0,1,0),u_2=(2,1,0,1),u_3=(0,2,-1,1)$ y $u_4=(3,-1,2,0)$.}
+	\item \textcolor{lightblue}{Sean $A$ y $B$ matrices del mismo tamaño. Sea $A'$ la matriz que resulta de $A$ después de intercambiar las columnas $\imath,\jmath$ y sea $B'$ la matriz que resulta de $B$ después de intercambiar las filas $\imath,\jmath$. Escribe las matrices $A'$ y $B'$ en términos de $A,B$ y matrices elementales. ¿Por qué se verifica que $AB=A'B'$?}
+	
+	$\begin{array}{l}
+		\begin{array}{l}
+		A'=AP_{ij}^{\mathrm{columna}}\\
+		B'=P_{ij}^{\mathrm{fila}}B\\
+		A'B'=A_{ij}^cP_{ij}^fB
+	\end{array}\qquad I=\begin{bmatrix}
+	1 & & & 0\\
+	 &1 & &  &\\
+	 & & \ddots & \\
+	 0 & & & 1
+	\end{bmatrix}\\
+	P_{ij}^c=\begin{bmatrix}
+		1 & & 0\\
+		&\ddots &  \\
+		0 & & 1
+	\end{bmatrix}\qquad P_{ij}^f=\begin{bmatrix}
+	1 & & 1\\
+	&\ddots & \\
+	1 & & 1
+	\end{bmatrix}\\
+	P_{ij}^c\cdot P_{ij}^f=I
+	\end{array}$
+	\item \textcolor{lightblue}{Calcular el rango de la matriz \[ B=\begin{bmatrix}
+			a & 0 & 0 & b \\
+			b & a & 0 & 0 \\
+			0 & b & a & 0 \\
+			0 & 0 & b & a
+		\end{bmatrix} \] en función de los parámetros $a$ y $b$.}
+	
+	$B=\begin{bmatrix}
+		a & 0 & 0 & b \\
+		b & a & 0 & 0 \\
+		0 & b & a & 0 \\
+		0 & 0 & b & a
+	\end{bmatrix}$
+	
+	Calcula el rango de $B$
+	
+	\bu{Posibles casos:}
+	\begin{enumerate}[label=\color{lightblue}\arabic*)]
+		\item $a=b=0\longrightarrow B=[0]\longrightarrow\mathrm{rg}(B)=0$
+		\item $a\neq0,b=0\longrightarrow\mathrm{rg}(B)=4$
+		\item $a=0,b\neq0\longrightarrow B=\begin{bmatrix}
+			0 & 0 & 0 & b \\
+			b & 0 & 0 & 0 \\
+			0 & b & 0 & 0 \\
+			0 & 0 & b & 0
+		\end{bmatrix}\:\mathrm{rg}(B)=4$
+	\end{enumerate}
+	$\begin{array}{l}
+		a\neq0,b\neq0\\
+		\begin{bmatrix}
+			a & 0 & 0 & b \\
+			b & a & 0 & 0 \\
+			0 & b & a & 0 \\
+			0 & 0 & b & a
+		\end{bmatrix}\xrightarrow{F_2\to F_2-\frac{b}{a}F_1}\begin{bmatrix}
+		a & 0 & 0 & b \\
+		0 & a & 0 & -\frac{b^2}{a} \\
+		0 & b & a & 0 \\
+		0 & 0 & b & a
+		\end{bmatrix}\xrightarrow{F_3\to F_3-\frac{b}{a}F_2}\begin{bmatrix}
+		a & 0 & 0 & b \\
+		0 & a & 0 & -\frac{b^2}{a} \\
+		0 & b & a & \frac{b^3}{a^2} \\
+		0 & 0 & b & a
+		\end{bmatrix}\\
+		\xrightarrow{F_4\to F_4-\frac{b}{a}F_3}\begin{bmatrix}
+		a & 0 & 0 & b \\
+		0 & a & 0 & -\frac{b^2}{a} \\
+		0 & b & a & \frac{b^3}{a^2} \\
+		0 & 0 & 0 & a-\frac{b^4}{a^3}
+		\end{bmatrix}
+	\end{array}$
+	
+	Si $a-\dfrac{b^4}{a^3}=0=\left\{a^4-b^4=0\longleftrightarrow a=\pm b\right\}=\mathrm{rg}(B)=3$
+	
+	Si $a\neq\pm b\longrightarrow\mathrm{rg}(B)=4$
+	\item \textcolor{lightblue}{Dada la matriz $M=\begin{bmatrix}
+			2  & 0 & 2 & 6\\
+			1 & 1 & 0 & 2\\
+			3 & 2 & 1 & 7
+		\end{bmatrix}$ calcula matrices invertibles $P$ y $Q$ tales que \[ PMQ=\left[\begin{array}{c|c}
+		1_r & 0\\ \hline
+		0 & 0
+		\end{array}\right] \] con $r$ el rango de $M$.}
+	\item \textcolor{lightblue}{Halla la inversa de la matriz $A=\begin{bmatrix}
+			1 & 1 & -3 \\
+			3 & 4 & -2 \\
+			-1 & -1 & 2
+		\end{bmatrix}$ y expresa $A$ y $A^{-1}$ como producto de matrices elementales.}
+	\item \textcolor{lightblue}{Determina el valor del parámetro $a$ para el cual la matriz $A=\begin{bmatrix}
+			1 & 0 & 0 & 0 \\
+			a & 1 & 0 & 0 \\
+			a^2 & a & 1 & 0 \\
+			a^3 & a^2 & a & 1
+		\end{bmatrix}$ es invertible y calcula su inversa.}
+	
+	$\begin{aligned}
+		\left[\begin{array}{cccc:cccc}
+		1 & 0 & 0 & 0 & 1 & 0 & 0 & 0 \\
+		a & 1 & 0 & 0 & 0 & 1 & 0 & 0 \\
+		a^2 & a & 1 & 0 & 0 & 0 & 1 & 0 \\
+		a^3 & a^2 & a & 1 & 0 & 0 & 0 & 1
+	\end{array}\right]&\xrightarrow[\begin{subarray}{l}
+	F_4\to F_4-a^3F_1\\
+	F_3\to F_3-a^2F_1
+	\end{subarray}]{F_2\to F_2-aF_1}\left[\begin{array}{cccc:cccc}
+	1 & 0 & 0 & 0 & 1 & 0 & 0 & 0 \\
+	0 & 1 & 0 & 0 & -a & 1 & 0 & 0 \\
+	0 & a & 1 & 0 & -a^2 & 0 & 1 & 0 \\
+	0 & a^2 & a & 1 & -a^3 & 0 & 0 & 1
+	\end{array}\right]\\
+	&\xrightarrow[F_4\to F_4-a^2F_2]{F_3\to F_3-aF_2}\left[\begin{array}{cccc:cccc}
+	1 & 0 & 0 & 0 & 1 & 0 & 0 & 0 \\
+	0 & 1 & 0 & 0 & -a & 1 & 0 & 0 \\
+	0 & 0 & 1 & 0 & a^2 & 1 & 0 & 0 \\
+	0 & 0 & a & 1 & a^4-a^3 & 0 & -a^2 & 1
+	\end{array}\right]\\
+	&\xrightarrow{F_4\to F_4-aF_3}\left[\begin{array}{cccc:cccc}
+		1 & 0 & 0 & 0 & 1 & 0 & 0 & 0 \\
+		0 & 1 & 0 & 0 & -a & 1 & 0 & 0 \\
+		0 & 0 & 1 & 0 & a^2 & -a & 1 & 0 \\
+		0 & 0 & 0 & 1 & a^4-2a^3 & a^2 & -a^2+a & 1
+	\end{array}\right]
+	\end{aligned}$
+	\item \textcolor{lightblue}{Resuelve el siguiente sistema de ecuaciones lineales \[ \left.\begin{array}{r}
+			x+2y-z-2t=5\\
+			-2x-4y+2z+4t=-10\\
+			y+t=1\\
+			x+3y-z-t=6\\
+			x-z-4t=3
+		\end{array}\right\} \]}
+	\item \textcolor{lightblue}{Discute en el cuerpo de los números reales los siguientes sistemas de ecuaciones en función del parámetro $a$ \[ \left\{\begin{array}{rcrcrcrcc}
+			x & + & ay &  &  & + & at & = & a \\
+			ax & + & y & + & z & + & t & = & a \\
+			x & + & y & + & az & + & t & = & 1
+		\end{array}\right. \]}
+	\item \textcolor{lightblue}{Si $A=[u_1,\dots,u_n]$, expresa el determinante de $B=[u_nu_1\cdots u_{n-1}]$ en función del determinante de $A$.}
+	\item \textcolor{lightblue}{Una matriz $A$ que cumple $A=-A^\intercal $ se llama \textbf{antisimétrica}. Prueba que una matriz antisimétrica de tamaño impar tiene determinante nulo.}
+	
+	$A$ antisimétrica de tamaño $n$ impar
+	
+	$\begin{array}{l}
+			A=-A^\intercal \longrightarrow |A|=0\\
+		|A|=|-A^\intercal |=(-1)^n|A^\intercal |=(-1)^n|A|\longrightarrow|A|=0
+	\end{array}$
+	\item \textcolor{lightblue}{Calcula el determinante \[ \begin{vmatrix}
+			1 & 2 & 3 & \cdots & n \\
+			2 & 3 & 4 & \cdots & n+1 \\
+			\vdots & \vdots & \vdots &  &  \vdots \\
+			n & n+1 & n+2 & \cdots & 2n-1
+		\end{vmatrix} \]}
+	
+	$\left|\begin{array}{ccccc}
+		1 & 2 & 3 & \cdots & n \\
+		2 & 3 & 4 & \cdots & n+1 \\
+		3 & 4 & 5 & \cdots & n+2 \\ \hdashline
+		n & n+1 & \cdots & \cdots & 2n-1
+	\end{array}\right|\xrightarrow[F_3\to F_3-F_1]{F_2\to F_2-F_1}\left|\begin{array}{ccccc}
+	1 & 2 & 3 & \cdots & n \\
+	1 & 1 & 1 & \cdots & 1 \\
+	2 & 2 & 2 & \cdots & 2 \\ \hdashline
+	n & n+1 & \cdots & \cdots & 2n-1
+	\end{array}\right|=$
+	
+	$2\cdot\left|\begin{array}{ccccc}
+	1 & 2 & 3 & \cdots & n \\
+	1 & 1 & 1 & \cdots & 1 \\
+	1 & 1 & 1 & \cdots & 1 \\ \hdashline
+	n & n+1 & \cdots & \cdots & 2n-1
+	\end{array}\right|=0$
+	
+	\item \textcolor{lightblue}{Considera el sistema de ecuaciones \[ \left.\begin{array}{rcr}
+			2x+y+&=&0\\
+			4x-6y-2z&=&2\\
+			-2x+15y+7z&=&-4
+		\end{array}\right\} \] Observa que podemos eliminar la última ecuación pues es combinación lineal de las dos primeras. Considerando ahora los términos en $z$ como si fuesen términos independientes, observa que el sistema es un sistema de Cramer en $x,y$. Resuélvelo con la fórmula de Cramer y después expresa las soluciones en la forma $x_0+u$ ($x_0$ solución particular y $u$ solución genérica del sistema homogéneo).}
+	
+	$\begin{array}{l}
+		\begin{rcases}
+			2x+y=-z\\
+			4x-6y=2+2z
+		\end{rcases}\\
+		\begin{vmatrix}
+			2 & 1\\
+			4 & -6
+		\end{vmatrix}=-16\\
+		x=\dfrac{\begin{vmatrix}
+				-z & 1\\
+				2+2z & -6\\
+		\end{vmatrix}}{-16}=-\dfrac{1}{16}(6z-2-2z)=\dfrac{1}{8}-\dfrac{1}{4}z\\ 
+	y=\dfrac{\begin{vmatrix}
+			2 & -z\\
+			4 & 2+2z
+	\end{vmatrix}}{-16}=-\dfrac{1}{16}(4+4z+4z)=-\dfrac{1}{4}-\dfrac{1}{2}z\\
+\begin{cases}
+	x=&\dfrac{1}{8}-\dfrac{1}{4}z\\
+	y=&-\dfrac{1}{4}-\dfrac{1}{2}z\\
+	z=&z
+\end{cases}\qquad x_0=\begin{bmatrix}
+\frac{1}{8}\\
+-\frac{1}{4}\\
+0
+\end{bmatrix}
+	\end{array}$
+	
+\bu{Sistema homogéneo}
+
+$ \begin{rcases}
+	2x+y+z=0\\
+	4x-6y-2z=0
+\end{rcases}\qquad\begin{rcases}
+-4x-2y+2z=0\\
+4x-6y-2z=0
+\end{rcases}$
+
+Solución genérica del homogéneo
+
+$\begin{cases}
+	x=-\dfrac{1}{4}z\\
+	y=-\dfrac{1}{2}z\\
+	z=z
+\end{cases}\qquad\begin{array}{l}
+-8y=4z\to y=-\dfrac{1}{2}z\\
+2x=-y-z=+\dfrac{1}{2}z-z=-\dfrac{3}{2}z\\
+x=-\dfrac{1}{4}z
+\end{array}$
+\end{enumerate}

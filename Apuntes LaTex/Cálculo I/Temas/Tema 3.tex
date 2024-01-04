@@ -1,0 +1,324 @@
+\section{El concepto de integral de Riemann y sus propiedades}
+\subsection{Función integrable}
+\begin{itemize}[label=\color{red}\textbullet, leftmargin=*]
+	\item \color{lightblue}Definición
+\end{itemize}
+Dado $[a,~b]$ un intervalo de la recta real, se define una partición $\mathcal{P}$ de dicho intervalo como una sucesión finita de números reales de la forma \[ a=x_0<x_1<x_2<\cdots<x_{n-1}<x_n=b. \]A cada uno de los intervalos de la forma $[x_i,~x_{i+1}]$ con $i=0,1,\hdots,n-1$ se les conoce como intervalos de la partición $\mathcal{P}$. Se define el diámetro de la partición $\mathcal{P}$ como \[ \mathrm{diam}(\mathcal{P})=\max\{|x_{i+1}-x|:i=0,1,\hdots,n-1\}. \]Dadas dos particiones $\mathcal{P}$ y $\mathcal{P}'$ de un intervalo $[a,~b],~\mathcal{P}$ se dice más fina que $\mathcal{P}'$ si todo elemento de $\mathcal{P}$. Se verifica entonces que $\mathrm{diam}(\mathcal{P})\le\mathrm{diam}(\mathcal{P}')$.
+\begin{itemize}[label=\color{red}\textbullet, leftmargin=*]
+	\item \color{lightblue}Definición
+\end{itemize}
+Sea $f:[a,~b]\rightarrow\mathbb{R}$ una función real de variable real. Se define la suma inferior de Riemann de $f$ para la partición $\mathcal{P}$ como \[ s(\mathcal{P},f,[a,~b]) =\sum_{i=0}^{n-1}m_i\cdot(x_{i+1}-x_i),\] donde $m_i=\mathrm{inf}\{f(x):x\in[x_i,~x_{i+1}]\}$. Geométricamente, la suma inferir de Riemann coincide con la suma de las áreas de los rectángulos.
+
+Se define la suma de Riemann de $f$ en la partición $\mathcal{P}$ como \[ S(\mathcal{P},f,[a,~b]) =\sum_{i=0}^{n-1}M_i\cdot(x_{i+1}-x_i),\] donde $M_i=\sup\{f(x):x\in[x_i,~x_{i+1}]\}$.
+
+Es claro que \[ s(\mathcal{P},f,[a,~b]) =\le S(\mathcal{P},f,[a,~b]).\] Además si $\mathcal{P}'$ es más fina que $\mathcal{P}$ tenemos: \[ \begin{array}{l}
+	s(\mathcal{P},f,[a,~b])\le s(\mathcal{P}',f,[a,~b])\\
+	S(\mathcal{P},f,[a,~b])\le S(\mathcal{P}',f,[a,~b])
+\end{array} \]
+\begin{itemize}[label=\color{red}\textbullet, leftmargin=*]
+	\item \color{lightblue}Definición
+\end{itemize}
+ Sea $(\mathcal{P}_n)_n$ una sucesión de particiones de manera que $\mathcal{P}_{n+1}$ es más fina que $\mathcal{P}_n$ para cada $n\in\mathbb{N}$ y de manera que $\lim_{n\to\infty}\mathrm{diam}(\mathcal{P}_n)=0$. Diremos que una función es integrable Riemann en $[a,~b]$ o integrable en $[a,~b]$ si existen y son iguales los límites \[ \lim_{n\to\infty}s(\mathcal{P}_n,f,[a,~b]) =\lim_{n\to\infty}S(\mathcal{P}_n,f,[a,~b])\] Dicho límite se denotará como \[ \int_{a}^{b}f(x)\mathrm{d}x=\lim_{n\to\infty}s(\mathcal{P}_n,f,[a,~b])=\lim_{n\to\infty}S(\mathcal{P}_n,f,[a,~b]) ,\] y se denomina integral de Riemann de $f$ en $[a,~b]$.
+
+Geométricamente se observa que cuando la función es positiva, dicho límite coincide con el área de la superficie definida por la gráfica, el eje $OX$ y las rectas $x=a$ y $x=b$. ¿Cuándo $f$ es integrable? Estos son algunos resultados:
+\begin{itemize}[label=\color{red}\textbullet, leftmargin=*]
+	\item \color{lightblue}Teorema
+\end{itemize}
+Sea $f:[a,~b]\rightarrow\mathbb{R}$ una función, entonces $f$ es integrable en $[a,~b]$.
+
+Sea $f:[a,~b]\rightarrow\mathbb{R}$ una función acotada con un número finito de puntos de discontinuidad, entonces $f$ es integrable en $[a,~b]$.
+\subsection{Propiedades de la Integral de Riemann}
+\begin{itemize}[label=\color{red}\textbullet, leftmargin=*]
+	\item \color{lightblue}Proposición
+\end{itemize}
+Sea $f:[a,~b]\rightarrow\mathbb{R}$ integrable. Entonces se verifican las siguientes propiedades: 
+\begin{enumerate}[label=\arabic*)]
+	\item $\int_{a}^{a}f(x)\mathrm{d}x=0$.
+	\item Si $c\in(a,~b)$ entonces $\int_a^bf(x)\mathrm{d}x=\int_a^cf(x)\mathrm{d}x+\int_c^bf(x)\mathrm{d}x$.
+	\item $\int_a^bf(x)\mathrm{d}x=-\int_b^af(x)\mathrm{d}x$.
+\end{enumerate}
+\begin{itemize}[label=\color{red}\textbullet, leftmargin=*]
+	\item \color{lightblue}Propiedades
+\end{itemize}
+Sea $f,g:[a,~b]\rightarrow\mathbb{R}$ dos funciones integrables. Entonces se verifican las siguientes propiedades:
+\begin{itemize}
+	\item $f+g$ es integrable en $[a,~b]$, \[ \int_a^b(f(x)+g(x))\mathrm{d}x=\int_a^bf(x)\mathrm{d}x+\int_a^bg(x)\mathrm{d}x. \]
+	\item Para cada $\alpha\in\mathbb{R},~\alpha\cdot f$ es integrable en $[a,~b]$, \[ \int_{a}^{b}\alpha\cdot f(x)\mathrm{d}x=\alpha\cdot\int_{a}^{b}f(x)\mathrm{d}x. \]
+	\item Si $f(x)\ge0$ para cada $x\in[a,~b]$, entonces \[ \int_a^bf(x)\mathrm{d}x\ge0. \]
+	\item Si $f(x)\ge g(x)$ para cada $x\in[a,~b]$ entonces \[ \int_a^bf(x)\mathrm{d}x\ge\int_a^bg(x)\mathrm{d}x. \]
+	\item La función $|f|$ es integrable en $[a,~b]$ y \[ \left|\int_a^bf(x)\mathrm{d}x\right| \le\int_a^b|f(x)|\mathrm{d}x.\]
+\end{itemize}
+\subsection{Teorema de la Media Integral}
+\begin{itemize}[label=\color{red}\textbullet, leftmargin=*]
+	\item \color{lightblue}Proposición
+\end{itemize}
+Sea $F$ una función integrable en $[a,~b]$ y sean $m$ y $M$ los valores mínimos y máximos respectivamente de la función $f$ en ese intervalo, entonces se verifica que \[ m(b-a)\le\int_{a}^{b}f(x)\mathrm{d}x\le M(b-a). \]
+\begin{itemize}[label=\color{red}\textbullet, leftmargin=*]
+	\item \color{lightblue}Teorema
+\end{itemize}
+Si $f$ es una función continua en un intervalo $[a,~b]$, entonces existe un punto $c\in[a,~b]$ tal que \[ \int_a^bf(x)\mathrm{d}x=(b-a)f(c). \] Al valor $f(c)$ se le denomina valor medio de $f$ en $[a,~b]$.
+\subsection{El teorema Fundamental del Cálculo Integral}
+Sea $f:[a,~b]\rightarrow\mathbb{R}$ una función integrable en $[a,~b]$ y continua en $x_0\in(a,~b)$, entonces la función $F$ definida en (1) es derivable en $x_0$ y se verifica que \[ F'(x_0)=f(x_0). \]
+En general, si la función $f$ es continua en $[a,~b]$ entonces $F$ es derivable en $(a,~b)$ y $F'(x)=f(x)$ para cada $x\in(a,~b)$.
+\subsection{Regla de Barrow}
+Dadas $f,G:[a,~b]\rightarrow\mathbb{R}$, diremos que $G$ es una función \textit{primitiva} de $f$ si se verifica que $G'(x)=f(x)$ para cada $x\in[a,~b]$.
+
+El Teorema Fundamental del Cálculo Integral afirma que si $f$ es continua en $[a,~b]$ entonces existe una función primitiva.
+
+Las primitivas son únicas salvo constantes, es decir, si $G-1,G_2:[1,~b]\rightarrow\mathbb{R}$ son primitivas de $f$ entonces $G_1(x)=G_2(x)+k$ para cada $x\in[a,~b]$, donde $k$ es una constante real.
+\begin{itemize}[label=\color{red}\textbullet, leftmargin=*]
+	\item \color{lightblue}Proposición
+\end{itemize}
+Sea $G:[a,~b]\rightarrow\mathbb{R}$ una primitiva de una función $f:[a,~b]\rightarrow\mathbb{R}$ entonces \[ \int_a^bf(x)\mathrm{d}x=G(d)-G(a). \]
+\subsection{Integrales impropias}
+\subsubsection{Integrales impropias de primera especia}
+\begin{itemize}[label=\color{red}\textbullet, leftmargin=*]
+	\item \color{lightblue}Definición 
+\end{itemize}
+Sea $f:[a,~+\infty]\rightarrow\mathbb{R}$ una función integrable en cada intervalo $[a,~b]$ con $b\in[a,~+\infty)$. Se define la integral impropia \[ \int_a^\infty f(x)\mathrm{d}x =\lim_{b\to\infty}\int_a^bf(x)\mathrm{d}x.\]
+Si el límite anterior existe y es finito la integral se dice que es convergente, si el límite existe pero es $\pm\infty$ la integral es divergente. Si el límite no existe diremos que la integral es oscilante.
+
+De forma análoga se define la integral impropia \[ \int_{-\infty}^bf(x)\mathrm{d}x=\lim_{a\to-\infty}\int_a^bf(x)\mathrm{d}x. \]
+La integral \[ \int_{-\infty}^{+\infty}f(x)\mathrm{d}x.=\int_{-\infty}^{a}f(x)\mathrm{d}x+\int_{a}^{+\infty}f(x)\mathrm{d}x. \]
+El valor de $\int_{-\infty}^{+\infty}f(x)\mathrm{d}x$ no depende del punto $a\in\mathbb{R}$.
+
+Se define valor principal de la integral impropia de $f$ en $(-\infty,+\infty)$ como el límite \[ \mathrm{V.P.}\int_{-\infty}^{+\infty}f(x)\mathrm{d}x=\int_{-t}^{t}f(x)\mathrm{d}x. \]
+Si la integral es convergente, el valor principal de la integral y la integral coinciden, mientras que en el caso en el que no sea convergente esto no tiene por qué suceder.
+\begin{itemize}[label=\color{red}\textbullet, leftmargin=*]
+	\item \color{lightblue}Ejemplo
+\end{itemize}
+Consideramos la función $f(x)=x$. Puesto que $\int_{-t}^{t}x\mathrm{d}x=0$, así \[ \mathrm{V.P.} \int_{-\infty}^{+\infty}x\mathrm{d}x=\lim_{t\to-\infty}x\mathrm{d}x=0,\] mientras que \[ \int_{-\infty}^{+\infty}x\mathrm{d}x\text{ no existe.} \]
+\subsubsection{Criterios de convergencia I}
+\textcolor{lightblue}{\underline{Criterio de comparación}}
+
+\begin{itemize}[label=\color{red}\textbullet, leftmargin=*]
+	\item \color{lightblue}Proposición (Criterios de comparación)
+\end{itemize}
+Sea $f,g:[a,~\infty)\rightarrow\mathbb{R}$ dos funciones positivas e integrales en $[a,~b]$, para todo $b\in[a,~\infty)$. Si $f(x)\ge g(x)$ para cada $x\in[a,~\infty)$ se satisfacen las siguientes propiedades:
+
+\begin{enumerate}[label=\arabic*)]
+	\item Si $\int_{a}^{+\infty}f(x)\mathrm{d}x$ es convergente, entonces $\int_{a}^{+\infty}g(x)\mathrm{d}x$ es convergente.
+	\item Si $\int_{a}^{+\infty}g(x)\mathrm{d}x$ es divergente, entonces $\int_{a}^{+\infty}f(x)\mathrm{d}x$ es divergente.
+\end{enumerate}
+\begin{itemize}[label=\color{red}\textbullet, leftmargin=*]
+	\item \color{lightblue}Proposición (Criterio del límite)
+\end{itemize}
+Sea $f,g:\left[a,~\infty\right)\rightarrow\mathbb{R}$ dos funciones positivas e integrales en $[a,~b]$, para todo $b\in[a,~\infty)$. Sea $\infty\neq I=\lim_{x\to\infty}\dfrac{f(x)}{g(x)}$. Entonces: 
+\begin{enumerate}[label=\arabic*)]
+	\item Si $I>0$ entonces $\int_{a}^{\infty}f(x)\mathrm{d}x$ e $\int_{a}^{\infty}g(x)\mathrm{d}x$ son de la misma naturaleza.
+	\item Si $I=0$ y $\int_{a}^{\infty}f(x)\mathrm{d}x$ es divergente, entonces $\int_{a}^{\infty}g(x)\mathrm{d}x$ es divergente.
+	\item Si $I=0$ y $\int_{a}^{\infty}g(x)\mathrm{d}x$ es convergente, entonces $\int_{a}^{\infty}f(x)\mathrm{d}x$ es convergente.
+\end{enumerate}
+La integral $$\int_{1}^{\infty}\dfrac{1}{x^\alpha}\mathrm{d}x\text{ es}\left\{
+	\begin{array}{l}
+		\text{convergente si }\alpha>1\\
+		\text{divergente si }\alpha\le1
+	\end{array}
+\right..$$
+utilizando la integral podemos mostrar ejemplos.
+\begin{itemize}[label=\color{red}\textbullet, leftmargin=*]
+	\item \color{lightblue}Ejemplo
+\end{itemize}
+$\int_{2}^{\infty}\frac{\log(x)}{x^3}\mathrm{d}x$
+
+Tenemos que $\lim_{x\to+\infty}\frac{\log(x)}{x}=0$. Por tanto, puesto que $\int_{2}^{\infty}\frac{1}{x^2}\mathrm{d}x$ es convergente también lo es $\int_{2}^{\infty}\frac{\log(x)}{x^2}\mathrm{d}x$.
+
+Cuando la función $f:[a,+\infty)\rightarrow\mathbb{R}$ no es positiva, se introduce la noción de \textit{convergencia absoluta}. La integral es absolutamente convergente si $\int_{a}^{\infty}|f(x)|\mathrm{d}x$ es convergente. En general, toda función absolutamente convergente implica que la integral de la función es convergente.
+\begin{itemize}[label=\color{red}\textbullet, leftmargin=*]
+	\item \color{lightblue}Ejemplo
+\end{itemize}
+ $\int_{2}^{\infty}\sin(x)\frac{\log(x)}{x^2}\mathrm{d}x$ es convergente.
+\subsubsection{Integrales impropias de segunda especie}
+\begin{itemize}[label=\color{red}\textbullet, leftmargin=*]
+	\item \color{lightblue}Definición
+\end{itemize}
+Sea $f:[a,~b)\rightarrow\mathbb{R}$ integrable en $[a,~c]$ para cada $c\in[a,~b)$ de forma que $\lim_{x\to b^-}f(x)=\pm\infty$. Entonces $$\int_{a}^{b}f(x)\mathrm{d}x=\lim_{t\to b^-}\int_{a}^{t}f(x)\mathrm{d}x.$$ Si el límite anterior existe y es finito diremos que la integral es convergente, si existe pero no es finito diremos que la integral es convergente, si existe pero no es finito entonces la integral se dice divergente. Por último, cuando no se dan ninguno de los casos anteriores diremos que la integral es oscilante
+\subsubsection{Criterios de convergencia II}
+\textcolor{lightblue}{\underline{Criterio de comparación}}
+\begin{itemize}[label=\color{red}\textbullet, leftmargin=*]
+	\item \color{lightblue}Proposición (Criterio de comparación)
+\end{itemize}
+Sea $f,g:(a,~b]\rightarrow\mathbb{R}$ integrables en el intervalos $[c,~b]$ para cada $c\in(a,~b]$ de forma  que $\lim_{x\to a^+}f(x)=\lim_{x\to a^+}g(x)=\infty$. Si $f(x)\ge g(x)$ para cada $x\in/a,~b$ entonces:
+\begin{enumerate}[label=\arabic*)]
+	\item Si $\int_a^bf(x)\mathrm{d}x$ es convergente entonces $\int_a^bg(x)\mathrm{d}x$ es convergente.
+	\item Si $\int_{a}^{b}g(x)\mathrm{d}x$ es divergente entonces $\int_{a}^{b}f(x)\mathrm{d}x$ es divergente.
+\end{enumerate}
+\begin{itemize}[label=\color{red}\textbullet, leftmargin=*]
+	\item \color{lightblue}Proposición (Criterio del límite)
+\end{itemize}
+Sea $f,g:(a,~b]\rightarrow\mathbb{R}$ integrables en el intervalo $[c,~d]$ para cada $c\in(a,~b]$ de forma que $\lim_{x\to a^+}\dfrac{f(x)}{g(x)}=I\neq\infty$, se verifica:
+\begin{enumerate}[label=\arabic*)]
+	\item Si $I\neq0$, entonces $\int_{a}^{\infty}f(x)\mathrm{d}x$ y $\int_{a}^{\infty}g(x)\mathrm{d}x$ son de la misma naturaleza.
+	\item Si $I=0$ y $\int_{a}^{b}f(x)\mathrm{d}x$ es divergente, entonces $\int_{a}^{b}g(x)\mathrm{d}x$ es divergente.
+	\item Si $I=0$ y $\int_{a}^{b}g(x)\mathrm{d}x$ es convergente, entonces $\int_{a}^{b}f(x)\mathrm{d}x$ es convergente.
+\end{enumerate}
+\[ \int_{0}^{1}\dfrac{1}{x^\alpha}\mathrm{d}x\text{ es }\left\{\begin{array}{l}
+	\text{convergente si }\alpha<1\\
+	\text{divergente si }\alpha\ge1
+\end{array}\right. . \] \[ \int_{x_0}^{1+x_0}\dfrac{1}{(x-x_0)^\alpha}\mathrm{d}x\text{ es }\left\{\begin{array}{l}
+\text{convergente si }\alpha<1\\
+\text{divergente si }\alpha\ge1
+\end{array}\right. . \]
+\begin{itemize}[label=\color{red}\textbullet, leftmargin=*]
+	\item \color{lightblue} Ejemplo
+\end{itemize}
+$\int_{0}^{1}\dfrac{\sin(x)}{\sqrt{x}}\mathrm{d}x$ es convergente puesto que $\int_{0}^{1}\dfrac{1}{x^{\frac{1}{2}}}\mathrm{d}x$ es convergente.
+\subsection{Cálculo de primitivas}
+\subsubsection{Fórmula de cambio de variable}
+Sea $f:[a,~b]\rightarrow\mathbb{R}$ una función integrable en $[a,~b]$ y $g:[c,~d]\rightarrow\mathbb{R}$ una función inyectiva con derivada integrable en $[c,~d]$, de manera que $g(c)=a$ y $g(d)=b$. Entonces se satisface la fórmula: \[ \int_a^bf(x)\mathrm{d}x=\int_c^df\left(g(t)\right)g'(t)\mathrm{d}t. \]
+Sean $f,g:[a,~b]\rightarrow\mathbb{R}$ dos funciones derivables en $(a,~b)$ tales que sus derivadas $f'$ y $g'$ son integrables en $[a,~b]$. Entonces se verifica la fórmula \[ \int_{a}^{b}f(x)g'(x)\mathrm{d}x=\left[f(x)\cdot g(x)\right]_a^b-\int_{a}^{b}g(x)f'(x)\mathrm{d}x. \]
+\subsubsection{Algunos ejemplos}
+\[ \begin{array}{c}
+	\int\log(x)\mathrm{d}x\\
+	\int\arctan(x)\mathrm{d}x\\
+	\int e^x\sin(x)\mathrm{d}x\\
+	\int \sin^2(x)\mathrm{d}x
+\end{array} \]
+\subsubsection{Cambios específicos para determinadas funciones}
+\textcolor{lightblue}{\underline{Primitivas de las facciones racionales}}
+
+Sean $P(x)$ y $Q(x)$ dos funciones polinómicas de una variable real. Se demuestra en los tratados de Álgebra que toda fracción racional $f(x)=\dfrac{P(x)}{Q(x)}$ puede descomponerse en la forma \[ \dfrac{P(x)}{Q(x)}=p(x)+\sum_{k=1}^{\alpha_1}\dfrac{A_k}{(x-a_1)^k}+\sum_{k=1}^{\alpha_2}\dfrac{B_k}{(x-a_2)^k}+\cdots+\sum_{k=1}^{\alpha_m}\dfrac{M_kx+N_k}{(x^2-a_m)^k} \]
+
+Donde $a_1,a_2, \hdots,a_m$ son las raíces (reales y complejas) de la ecuación $Q(x)=0$ y $\alpha_1,\alpha_2,\hdots,\alpha_m$ son sus índices de multiplicidad respectivamente. El polinomio $P(x)$ es el cociente que se obtiene al hacer la división entera del polinomio $P$ entre el polinomio $Q$. Por último, las constantes $A_1,A_2,\hdots,A_{\alpha_1};~B_1,B_2,\hdots,B_{\alpha_2};~M_1,\hdots,M_{\alpha_m}$ que aparecen en la descomposición asociada a los ceros del polinomio $Q$ son números reales o complejos que pueden calcularse. En base a esta descomposición el problema del cálculo de la primitiva del cociente de $\dfrac{P(x)}{Q(x)}$ se simplifica.
+
+\textcolor{lightblue}{\underline{Primitivas expresiones que continen $\textstyle\frac{ax+b}{cx+b}$}}
+
+Las funciones a los que pretendemos calcular sus primitivas tienen la forma: \[ f\left(x,~\left(\dfrac{ax+b}{cx+d}\right)^{\dfrac{m_1}{n_1}},~\left(\dfrac{ax+b}{cx+d}\right)^{\dfrac{m_2}{n_2}},~\hdots,~\left(\dfrac{ax+b}{cx+d}\right)^{\dfrac{m_k}{n_k}}\right). \]
+En este caso utilizaremos el cambio de variable \[ \dfrac{ax-b}{cx-d}=t^n \] donde $n$ es el mínimo común múltiplo de los denominadores $n_1,n_2,\hdots,n_k$. Despejando $x$ obtenemos \[ x=\dfrac{dt^n-b}{a-ct^n}=f_1(t) \] apareciendo $x$ como una fracción racional de la variable $t$. El problema se reduce a la determinación de una primitiva de una fracción racional. 
+
+Sean $P(x)$ y $Q(x)$ dos funciones polinómicas de una variable real y supongamos que queremos calcular la integral: \[ \int\dfrac{P(x)}{Q(x)}\mathrm{d}x. \]
+Los pasos a seguir en el caso de un cociente de polinomios son los siguientes: En primer lugar debemos comparar los grados de los polinomios del numerador y del denominador.
+\begin{itemize}
+	\item \textbf{Grado de $\mathbf{P(x)}$ mayor o igual que $\mathbf{Q(x)}$. }Si el grado de $P(x)$ es mayor o igual que el de $Q(x)$ realizaremos la división y obtenemos utilizando la fórmula \[ \dfrac{\text{Dividendo}}{\text{Divisor}}=\text{cociente}+\dfrac{\text{resto}}{\text{divisor}}, \] obtendremos: \[\dfrac{P(x)}{Q(x)}=c(x)+\dfrac{p(x)}{q(x)},  \] donde $c(x)$ es el cociente, $p(x)$ es el resto, y $q(x)=Q(x)$. Ahora la integral inicial queda de la forma: \[ \int\dfrac{P(x)}{Q(x)}\mathrm{d}x=\int c(x)\mathrm{d}x+\int\dfrac{p(x)}{q(x)}\mathrm{d}x, \]  donde $\int c(x)\mathrm{d}x$ es inmediata y el grado de $p(x)$ es menor que el grado de $q(x)$, con lo cual la integral $\int\dfrac{p(x)}{q(x)}\mathrm{d}x$ se resuelve tal y como se describe en el punto siguiente.
+\end{itemize}
+
+\textcolor{lightblue}{\underline{Grado de $P(x)$ menor que el grado de $Q(x)$}}
+
+En este caso el siguiente paso es la factorización del denominador $Q(x)$. También aquí distinguimos dos posibilidades:
+\begin{itemize}
+	\item El denominador $Q(x)$ no tiene raíces complejas múltiples. En este caso al realizar el proceso de factorización el resultado sería de la forma: \[ Q(x)=(x-a_1)^{n_1}\cdot(x-a_2)x^{n_2}\cdot(x-a_r)^{n_r}\cdot q_1(x)^{m_1}\cdot q_s(x)^{m_s}, \] donde $a_1, a_2,\hdots,a_r\in\mathbb{R}$, con $a_i\neq a_j$ para $i\neq j$, son la raíces reales del polinomio $Q(x)$ y $n_1,n_2,\hdots,n_r\in\mathbb{N}$ son las multiplicidades de cada una de las raíces reales y $q_1(x),q_2(x),\hdots,q_s(x)\in\mathbb{R}[x]$ son polinomios de grado 2 que no poseen raíces reales y que además para cada $i\neq j~q_i(x)$ y $q_j(x)$ no poseen raíces complejas comunes. En este caso procedemos a utilizar el método de \textbf{descomposición en fracciones simples,} el cual sostiene en afirmar que el cociente original puede expresarse como suma de fracciones en la forma que sigue: \[ \dfrac{P(x)}{Q(x)}=\sum_{k=1}^{n_1}\dfrac{A_{1,k}}{(x-a_1)^k}+\sum_{k=1}^{n_2}\dfrac{A_{2,k}}{(x-a_2)^k} +\cdots+\sum_{k=1}^{n_r}\dfrac{A_{r,k}}{(x-a_r)^k}+\sum_{k=1}^{m_1}\dfrac{M_{1,k}+N_1}{q_1(x)^k}+\cdots+\sum_{k=1}^{m_s}\dfrac{M_{k,s}+N_{k,s}}{q_s(x)^k}.\]
+\end{itemize}
+Desarrollando los sumatorios la expresión queda de la forma: 
+
+$\begin{array}{ll}
+	 \dfrac{P(x)}{Q(x)}  = & \dfrac{A_{1,1}}{x-a_1}+\dfrac{A_{1,2}}{(x-a_2)^2}+\cdots+\dfrac{A_{1,n_1}}{(x-a_1)^{n_1}}+\dfrac{A_{2,1}}{x-a_2}+\dfrac{A_{2,2}}{(x-a_2)^2}+\cdots\\  
+	  & +\dfrac{A_{2,n_2}}{(x-a_2)^{n_2}}
+	 +\cdots+\dfrac{A_{r,1}}{x-a_r}+\dfrac{A_{r,2}}{(x-a_r)^2}+\cdots+\dfrac{A_{r,n_r}}{(x-a_r)^{n_r}}+\dfrac{M_{1,1}x+N_{1,1}}{q_1(x)}\\
+	 & +\dfrac{M_{1,2}x+N_{1,2}}{q_1(x)^2}+\cdots+\dfrac{M_{1,m_1}x+N_{1,m_1}}{q_1(x)^{m_1}}+\dfrac{M_{2,1}x+N_{2,1}}{q_2(x)}+\dfrac{M_{2,2}x+N_{2,2}}{q_2(x)P2}+\cdots\\
+	 & +\dfrac{M_{s,1}x+N_{s,1}}{q_s(x)}+\dfrac{M_{s,2}x+N_{s,2}}{q_s(x)}+\cdots+\dfrac{M_{s,m_s}x+N_{s,m_s}}{q_s(x)^{m_s}}.\\
+\end{array}$
+
+El siguiente paso es el cálculo de los coeficientes que aparecen en la descomposición. En base a esta descomposición el problema de la primitiva del cociente de $\dfrac{P(x)}{Q(x)}$ se simplifica al cálculo de primitivas más sencillas. \[ \begin{array}{c}
+	\int\dfrac{3x+1}{(x-1)(x-2)^2}\mathrm{d}x\\
+	\int\dfrac{x^7+x^3}{x^4-1}\mathrm{d}x
+\end{array} \]
+
+\textcolor{lightblue}{\underline{Primitivas de las diferencias binomias}}
+
+Se trata de calcular primitivas de la forma \[ \int x^r(a+b\cdot x^s)\mathrm{d}x, \] donde $r,s,p$ son números racionales y $a$ y $b$ son números reales, en intervalos donde la función integrando tome valores reales. Para resolver estas integrales procedemos de la forma que sigue, atendiendo al tipo:
+\begin{itemize}
+	\item[\color{lightblue}Tipo 1] Si $p\in\mathbb{N}$  desarrollaremos la expresión $(a+bx^s)^p$ utilizando la fórmula del binomio de Newton. Una vez obtenida la expresión multiplicamos por $x^r$ y resolvemos la integral integrando en cada uno de los sumandos.
+	\item[\color{lightblue}Tipo 2] Si $p$ es un entero negativo, la integral siempre se podrá convertir en una integral racional haciendo el cambio de variable $x=t^k$, donde $k$ es el mínimo común múltiplo de los denominadores de las fracciones $r$ y $s$.
+	\item[\color{lightblue}Tipo 3] Si $p\notin\mathbb{Z}$ , es decir, si la integral no pertenece a los tipos anteriores, pero $\dfrac{r+1}{s}\in\mathbb{Z}$, haremos el cambio de variable $(a+bx^s)=t^k$, donde $k$ es el denominador de la fracción $p$.
+	\item[\color{lightblue}Tipo 4] Si $p\notin\mathbb{Z}$ y no es de tipo 3, si $\dfrac{r+1}{s}+p\in\mathbb{Z}$ realizaremos el cambio de variable $\dfrac{a+bx^s}{x^s}=t^k$, donde $k$ es el denominador de la fracción $p$.
+\end{itemize}
+Los dos primeros cambios son bastante obvios. En cuanto a los cambios de variable restantes y tratando de esclarecer el por qué de los mismos basta con hacer los cambios que se indican a continuación. Supongamos que $p\notin\mathbb{Z}$, así realizaremos el cambio $t=x^s$, es decir, $x=t^{\frac{1}{s}}$, de aquí: 
+
+\begin{gather}
+	 x^r=\left(t^{\frac{1}{s}}\right)^r=t^{\frac{r}{s}}, \\ 
+	(a+bx^s)^p=\left(a+b\cdot\left(t^{\frac{1}{s}}\right)^s\right)^p=(a+b\cdot t)^p,\\
+	\mathrm{d}x=\dfrac{1}{s}t^{\frac{1}{s}-1}\mathrm{d}t.
+\end{gather}
+Sustituyendo la ecuación (1) obtenemos: \[ \in t^{\frac{r}{s}}(a+b\cdot t)^p\dfrac{1}{s}t^{\frac{1}{s}-1}\mathrm{d}t. \] Operando gracias a la misma base se sigue que: \[ t^{\frac{r}{s}}\cdot t^{\frac{1}{s}-1}=t^{\frac{r+1}{s}-1} \] y la primitiva a calcular será: \[ \dfrac{1}{s}\int t^{\frac{r+1}{s}-1}(a+bt)^p\mathrm{d}t. \]
+En vista de los razonamientos que nos han llevado a realizar los cambios indicados en los tipos (3) y (4) observar también que es posible realizar un cambio previo de la forma $t=x^{\frac{1}{s}}$ y posteriormente un cambio del tipo indicado (3) y (4) donde ahora el exponente $s$ se ha transformado en (1) siendo de esta forma más sencillo el procedimiento a realizar. Ejemplo: $\int x^2(4-x^2)^{-\frac{1}{2}}\mathrm{d}x$.
+
+\textcolor{lightblue}{\underline{Primitivas de expresiones que contienen $\cos(x)$ y $\sin(x)$}}
+
+Sea $f$ una fracción racional de dos variables y consideremos el calcular la primitiva \[ \int f\left(\cos(x),\sin(x)\right)\mathrm{d}x. \]
+Haciendo el cambio $t=\tan\left(\dfrac{x}{2}\right)$, se tiene que $\cos(x)=\dfrac{1-t^2}{1+t^2}$ y $\sin(x)=\dfrac{2t}{1+t^2}$, luego la integral a calcular será \[ \int f\left(\dfrac{1-t^2}{1+t^2},~\dfrac{2t}{1+t^2}\right)\dfrac{2}{1+t^2}\mathrm{d}t \] y el problema queda reducido a hallar la primitiva de una fracción racional de la nueva variable $t$.
+
+En ciertos casos particulares es más rápido hacer otros cambios de variables.
+
+\textcolor{lightblue}{\underline{Primitivas en las funciones de la forma $f(g(x))g'(x)$}}
+
+Sea $f$ una función racional y $g$ una biyección derivable y con derivada continua de un intervalo $J$ sobre un intervalo $I$. El problema de hallar una primitiva en $I$ de la función $f(t)$, sin más que hacer el cambio de variable $g(x)=t$.
+
+\textcolor{lightblue}{\underline{Primitivas de expresiones que contienen $\sqrt{ax^2+2bx+c}$}}
+
+Sea $f$ una función racional de dos variable. Nos proponemos determinar las primitivas de la forma \[ \int f(x,\sqrt{ax^2+2bx+c})\mathrm{d}x, \] donde $a,b,c$ son números reales y $a\neq0$ en aquellos casos en los cuales $ax^2+2bx+c\ge0$. Tomando $d=\dfrac{ac-b^2}{a}$ se tiene la identidad \[ ax^2+2bx+c=a\left(x+\dfrac{b}{a}\right)^2+d. \]El cambio de variable que hay que realizar es $x=t-\dfrac{b}{a}$.
+
+\textcolor{lightblue}{\underline{El método de Euler}}
+
+Otro método basado en ecuaciones paramétricas nos da el siguiente criterio que a veces resulta más sencillo, en el cual se distinguen los casos en función del signo de los parámetros:
+\begin{itemize}
+	\item $a>0$ se realiza el cambio de variable \[ \sqrt{ax^2+bx+c}=\sqrt{ax}+t. \]
+	\item $c\ge 0,$\[ \sqrt{ax^2+bx+c}=tx+\sqrt{c}. \]
+	\item $a<0$ y $0c$ hay que usar el cambio de variable \[ \sqrt{ax^2+2bx+c}=t(x-\alpha) \] donde $\alpha$ es una raíz del polinomio $ax^2+bx+c$.
+\end{itemize}
+A veces en lugar de utilizar este método es más sencillo utilizar el cambio de tipo hiperbólico, utilizando que $\cosh^2(x)=1+\sinh^2(t)$.
+
+\textcolor{lightblue}{\underline{Integrales de funciones trascendentes}}
+
+Sea $R$ una función racional entonces:
+\begin{enumerate}[label=\arabic*)]
+	\item Si tenemos $\int R(a^x)\mathrm{d}x$ puede ser adecuado el cambio $t=a^x$.
+	\item Si tenemos $\int R(\arcsin(x))\mathrm{d}x$ puede ser adecuado el cambio $t=\arcsin(x)$.
+	\item Si tenemos $\int R(\arctan(x))\mathrm{d}x$ puede ser adecuado el cambio $t=\arctan(x)$.
+	\item Si tenemos $\int R(\tan(x))\mathrm{d}x$ puede ser adecuado el cambio $t=\tan(x)$.
+	\item Ver el cambio general para funciones trigonométricas.
+\end{enumerate}
+Sea $f$ una fracción racional de dos variables y consideremos el calcular la primitiva \[ \int f(\cos(x),\sin(x))\mathrm{d}x. \] El cambio general es $t=\tan\left(\dfrac{x}{2}\right)$ de donde $\sin(x)=\dfrac{2t}{1+t^2},\cos(x)=\dfrac{1-t^2}{1+t^2}$ y $\mathrm{d}x?\dfrac{2\mathrm{d}t}{1+t^2}$. 
+
+Luego la integral a calcular una vez realizando el cambio será \[ \int f\left(\dfrac{1-t^2}{1+t^2},\dfrac{2t}{1+t^2}\right)\dfrac{2}{1+t^2}\mathrm{d}t \] y el problema queda reducido a hallar la primitiva de una fracción racional de la nueva variable $t$.
+
+En ciertos casos particulares es más rápido hacer otros cambio de variables. 
+\begin{enumerate}[label=\arabic*)]
+	\item Si $f$ es impar en seno, es decir, $f(-\sin(x), \cos(x))=-f(\sin(x),\cos(x))$ haremos el cambio $t=\cos(x)$, de donde $\sin(x)=\sqrt{1-t^2}$ y $\mathrm{d}x=\dfrac{-1}{\sqrt{1-t^2}}\mathrm{d}t$.
+	\item Si $f$ es impar en coseno, es decir, $f(\sin(x),-\cos(x))=-f(\sin(x),\cos(x))$ entonces haremos el cambio $t=\sin(x9)$ de donde $\cos(x)=\sqrt{1-t^2}$ y $\mathrm{d}x=\dfrac{1}{1+t^2}\mathrm{d}t$.
+	\item Si $f$ es par, es decir, $f(-\sin(x),-\cos(x))=f(\sin(x),\cos(x))$ entonces haremos el cambio $t=\tan(x)$ de donde $\sin(x)=\dfrac{t}{\sqrt{1+t^2}},\cos(x)=\sqrt{1+t^2}$ y $\mathrm{d}x=\dfrac{1}{1+t^2}\mathrm{d}t$.
+\end{enumerate}
+\textcolor{lightblue}{\underline{Cambios trigonométricos}}
+
+Sean $a,b\in\mathbb{R}\backslash\{0\}$ y $u$ una función. Los cambios trigonométricos e hiperbólicos se suelen usar en algunos casos cuando tenemos integrales donde aparecen raíces de los siguientes tipos:
+\begin{enumerate}[label=\arabic*)]
+	\item $\sqrt{a^2-b^2u^2}$. Haremos el cambio $u=\dfrac{a}{b}\sin(t)$. (Recordar que $\sqrt{1-\sin^2(t)}=\cos(t)$).
+	\item $\sqrt{a^2+b^2u^2}$. Haremos el cambio $u=\dfrac{a}{b}\tan(t)$. (Recordar que $\sqrt{1+\tan^2(t)}=\sec(t)$).
+	\item $\sqrt{b^2u^2-a^2}$. Haremos el cambio $u=\dfrac{a}{b}\sec(t)$. (Recordar que $\sqrt{1+\sec^2(t)}=\tan(t)$).
+\end{enumerate}
+\textbf{Observación:} La sustitución trigonométrica puede ser útil en casos en los que el término cuadrático no está debajo de un radical. Así la integral $\int\dfrac{1}{(x+a)^m}\mathrm{d}x$ se resuelve con el cambio de variable $x=a\tan(t)$ obteniendo tras el cambio: $\dfrac{1}{a^{2n-1}}\int\cos^{2(n-1)}(t)\mathrm{d}t$.
+\subsection{Aplicaciones Geométricas de la Integral}
+\subsubsection{Cálculo del área de regiones planas}
+Sea $y=f(x)$ una curva situada en el semiplano superior y definida en el intervalo $[a,~b]$ es conocido que el área limitada por la curva, el eje de abscisas y las rectas $x=a$ y $x=b$ viene dada por la integral de Riemann de la función $f$ en $[a,~b]$ es decir, \[A=\int_a^bf(x)\mathrm{d}x.\] Asimismo, el áreas comprendida entre dos funciones $f(x)$ y $g(x)$ en un intervalo $[a,~b]$ y $f(x)\ge g(x)$ viene dado por: \[A\int_a^bf(x)-g(x)\mathrm{d}x.\]En general el área comprendida entre dos funciones $f(x)$ y $g(x)$ en un intervalo $[a,~b]$ viene dada por: \[A=\int_a^b|f(x)-g(x)|\mathrm{d}x.\]
+\subsubsection{Cálculo del volumen utilizando secciones}
+Esta técnica permite el cálculo de volúmenes de sólidos de los cuales conocemos el valor de las áreas de todas las secciones. Fijada una variable $x$, si conocemos la variable de cada una de las secciones que denotamos por $S_x$ el volumen no es sino la \textcolor{lightblue}{suma de las áreas de todas las secciones}, idea que se corresponde con el concepto de integral. Así: \[\mathrm{Vol}=\int_a^bA(S_x)\mathrm{d}x\] donde $a$  y $b$ son los límites de integración entre los que toma la variable $x$ y $A(S_x)$ denota el área de la sección para $x$ fija. De forma análoga se podría considerar la fórmula sustituyendo la variable $x$ por $y$.
+\subsubsection{Cálculo de la longitud de una curva}
+Sea $f:[a,~b]\rightarrow\mathbb{R}$ una función derivable. Entonces la longitud de dicha curva viene dada por \[ L[a,b]=\int_a^b\sqrt{1+f'(x)^2}\mathrm{d}x. \] Efectivamente si $\mathcal{P}=\{a=x_0,x_1,\hdots,x_{n-1},x_n=b\}$ basta aproximar la longitud de $L$ con la poligonal $\sum_{i=0}^{n-1}\sqrt{\left(f(x_{i+1})-f(x_i)\right)^2+(x_{i+1}-x_i)^2}$, tomando una sucesión de particiones cuyo diámetro tiende a cero obtendremos la fórmula de la longitud que hemos dado.
+
+En el caso de una curva parametrizada de la forma $\gamma(t)=\left(x(t),y(t)\right)$, siendo $x$ e $y$ funciones de clase $C^1$ en el intervalo $(a,b)$ \[ L=\int_a^b\sqrt{\left(x'(t)\right)^2+\left(y'(t)\right)^2} \]
+\subsubsection{Cálculo de la superficie de un sólido de revolución sobre el eje $OX$}
+En ese caso se trata de calcular el área del sólido tridimensional que se obtiene al girar la gráfica de la función $f:[a,b]\rightarrow\mathbb{R}$ derivable sobre el eje $OX$. El área viene dada por: \[ \text{Área}=\int_a^b2\pi f(x)\sqrt{1+|f'(x)|^2}\mathrm{d}x. \] Observa si queremos realizar el cálculo del área de un sólido de revolución sobre el eje $OY$, podemos considerar $x=g(y)\ge0$ continuamente diferenciable en el intervalo $[c,d]$, el área de la superficie generada al girar la curva $x=g(y)$ alrededor del eje $OY$ es \[ \text{Área} =\int_c^d2\pi x\sqrt{1+\left(\dfrac{\mathrm{d}x}{\mathrm{d}y}\right)^2}\mathrm{d}y=\int_c^d2\pi g(y)\sqrt{1+\left(g'(y)\right)^2}\mathrm{d}y. \]
+\subsubsection{Cálculo de la superficie de un sólido de revolución generado por una curva parametrizada}
+\begin{itemize}
+	\item Revolución sobre el eje $OX,~y\ge0.$ \[ S=\int_a^b2\pi y\sqrt{\left(\dfrac{\mathrm{d}x}{\mathrm{d}y}\right)^2+\left(\dfrac{\mathrm{d}y}{\mathrm{d}t}\right)^2}\mathrm{d}t. \]
+	\item Revolución sobre el eje $OY,~x\ge0.$ \[ S=\int_a^b2\pi x\sqrt{\left(\dfrac{\mathrm{d}x}{\mathrm{d}y}\right)^2+\left(\dfrac{\mathrm{d}y}{\mathrm{d}t}\right)^2} \mathrm{d}t.\]
+\end{itemize}
+\subsubsection{Cálculo del volumen de un sólido de revolución}
+El volumen de un sólido generado al girar una curva $f:[a,b]\rightarrow\mathbb{R}$ alrededor del eje $OX$ viene dado por \[ \text{Volumen}=\pi\int_a^b|f(x)|^2\mathrm{d}x. \]Ver también las opciones para un sólido de revolución generado a partir de rotar alrededor del eje $OY$.
+\subsubsection{Otras opciones}
+Debemos tener en cuenta que a veces los sólidos se componen de giros de varias curvas, presentan huecos, $\hdots$ En esos casos hemos de razonar y eliminar los volúmenes (en el caso de los huecos) de forma correcta.
+\subsection{Integración numérica}
+En algunas ocasiones no es posible encontrar una primitiva de la función integrable $f$ en el intervalo $[a,b]$, por esta razón debemos recurrir al cálculo de la integral definida a distintos métodos numéricos. 
+
+Lo más habitual será establecer una aproximación de la integral mediante una combinación lineal de los valores de la función en los punto $x_i,~i=0,1,\hdots,n$ de una partición. A dichas fórmulas se las conoce por \textcolor{lightblue}{Fórmulas de cuadratura}. \[ \int_a^bf(x)\mathrm{d}x\approx\sum_{i=0}^{n}a_if(x_i), \] siendo $a_i\in\mathbb{R},~i=0,1,\hdots, n$. Obviamente en la aproximación se comete un error que denotaremos por $E(f)$, y así, \[ \int_a^bf(x)\mathrm{d}x=\sum_{i=0}^{n}a_if(x_i)+E(f). \] Para medir de alguna forma el \textcolor{lightblue}{tipo de error} que se comete en la estimación es habitual utilizar el concepto de orden del error. Diremos que la formula de aproximación a la integral de aproximación es de orden, al menos $p$, si el error $E(x_i)=0$ para $i=0,~1,\hdots,p$, y de orden exactamente igual a \textcolor{lightblue}{$p$} si además $E(x^{p+1})\neq0$.
+\subsubsection{Fórmula del rectángulo}
+En el caso más simple. Se aproxima la integral por la expresión: \[ \int_a^bf(x)\mathrm{d}x\approx f(a)(b-a), \] o bien, \[ \int_a^bf(x)\mathrm{d}x\approx f(b)(b-a). \] Ambas fórmulas son de orden 0, es decir, si la función es constante el error es igual a 0.
+\subsubsection{Fórmula del punto medio}
+Es similar a la anterior sólo que en este caso la aproximación se realiza utilizando el valor del punto medio del intervalo \[ \int_a^b f(x)\mathrm{d}x\approx(b-a)f\left(\dfrac{a+b}{2}\right). \] En este caso el error es de orden 1. 
+\subsubsection{Fórmula del trapecio}
+Se aproxima la integral por el área del trapecio. \[ \int_a^bf(x)\mathrm{d}x\approx\dfrac{b-a}{2}\left(f(a)+f(b)\right). \]De nuevo esta fórmula es de orden 1.
+\subsubsection{Fórmula de Newton-Côtes}
+Son fórmulas de cuadratura en las que se considera una partición del intervalo con paso idéntico, es decir, en partes iguales, realizando una interpolación en dichos puntos. La fórmula de Simpson es la más utilizada. La interpolación se realiza en tres puntos, los extremos y el punto medio, obteniendo la parábola que pasa por esos tres puntos: $\left(a,f(a)\right),\left(\dfrac{a+b}{2},f\left(\dfrac{a+b}{2}\right)\right)$ y $(f,f(b))$. \[ \int_a^bf(x)\mathrm{d}x\approx\dfrac{b-a}{6}\left(f(a)+4f\left(\dfrac{a+b}{2}\right)+f(b)\right). \] El error es de orden 3.
+
+Al igual que se hace con 3 puntos se puede extender este procedimiento a un número de puntos $n$.
+
+Los métodos anteriores se pueden aplicar a subintervalos, es decir, el intervalo $[a,b]$ lo dividimos en $n$ intervalos iguales y en cada uno de ellos se puede aplicar los métodos previamente introducidos. Sea $h=\dfrac{a-b}{n}$ y $x_i=a+hi$; para $i=1,\hdots,n$. Con esta notación, en el caso de la fórmula del \textcolor{lightblue}{trapecio compuesta} se obtendría la fórmula: \[ \int_a^bf(x)\mathrm{d}x=\sum_{i=0}^{n-1}\int_{x_i}^{x_i+1}f(x)\mathrm{d}x\approx\sum_{i=0}^{n-1}\dfrac{h}{2}\left(f(x_i)+f(x_i+1)\right), \] es decir, \[ \int_a^bf(x)\mathrm{d}x\approx\dfrac{h}{2}\left(f(a)+2\sum_{i=1}^{n-1}f(x_i)+f(b)\right). \] Del mismo modo se puede obtener la fórmula de \textcolor{lightblue}{Simpson compuesta}. \[ \int_a^bf(x)\mathrm{d}x\approx\dfrac{h}{6}\left(f(a)+2\sum_{i=1}^{n-1}f(x_i)+4\sum_{i=1}^{n-1}f\left(x_j+\dfrac{h}{2}\right)+f(b)\right). \]

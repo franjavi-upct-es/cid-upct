@@ -1,0 +1,799 @@
+% !TeX encoding = UTF-8
+% !TeX spellcheck = es_ES
+\documentclass[12pt]{article}
+\usepackage{fullpage}
+\usepackage[utf8]{inputenc}
+\usepackage{pict2e}
+\usepackage{amsmath}
+\usepackage{enumitem}
+\usepackage{eurosym}
+\usepackage{mathtools}
+\usepackage{amssymb, amsfonts, latexsym, cancel}
+\setlength{\parskip}{0.3cm}
+\usepackage{graphicx}
+\usepackage{fontenc}
+\usepackage{setspace}
+\usepackage{adjustbox}
+\setstretch{1.35}
+\usepackage{bold-extra}
+\usepackage{subcaption}
+\graphicspath{ {images/} }
+\usepackage{tcolorbox}
+\usepackage{xcolor, colortbl}
+\usepackage{wrapfig}
+\usepackage{empheq}
+\usepackage{array}
+\usepackage{parskip}
+\usepackage{arydshln}
+\renewcommand*\contentsname{\color{black}Índice} 
+\usepackage{array, multirow, multicol}
+\definecolor{lightblue}{HTML}{007AFF}
+\usepackage{color}
+\usepackage{etoolbox}
+\usepackage{listings}
+\usepackage{mdframed}
+\setlength{\parindent}{0pt}
+\usepackage{underscore}
+\usepackage{hyperref}
+\usepackage{tikz}
+\usetikzlibrary{shapes, positioning, patterns}
+\usepackage{tikz-qtree}
+\usepackage{biblatex}
+\usepackage{pdfpages}
+\usepackage{pgfplots}
+\usepackage{pgfkeys}
+\usepackage{mathrsfs}
+\addbibresource{biblatex-examples.bib}
+\usepackage[a4paper, left=1cm, right=1cm, top=1cm,
+bottom=1.5cm]{geometry}
+\everymath{\displaystyle}
+\usetikzlibrary{decorations.pathreplacing}
+\usepackage{titlesec}
+\setlength{\fboxrule}{1.5pt}
+\renewcommand{\arraystretch}{1.2}
+\title{Cálculo I}
+\author{Francisco Javier Mercader Martínez}
+\date{}
+
+% Configura el formato de las secciones utilizando titlesec
+\titleformat{\section}
+{\color{red}\normalfont\LARGE\bfseries}
+{Tema \thesection:}
+{10 pt}
+{}
+
+% Ajusta el formato de las entradas de la tabla de contenidos
+\addtocontents{toc}{\protect\setcounter{tocdepth}{4}}
+\addtocontents{toc}{\color{black}}
+
+\titleformat{\subsection}
+{\normalfont\Large\bfseries\color{red}}{\thesubsection)}{1em}{\color{lightblue}}
+
+\titleformat{\subsubsection}
+{\normalfont\large\bfseries\color{red}}{\thesubsubsection)}{1em}{\color{lightblue}}
+
+\newcommand{\bboxed}[1]{\fcolorbox{lightblue}{lightblue!10}{$#1$}}
+
+\newcommand{\bu}[1]{\textcolor{lightblue}{\underline{#1}}}
+\newcommand{\lb}[1]{\textcolor{lightblue}{#1}}
+\newcommand{\db}[1]{\textcolor{blue}{#1}}
+
+\newcommand{\dx}{\:\mathrm{d}x}
+\newcommand{\dt}{\:\mathrm{d}t}
+\newcommand{\dy}{\:\mathrm{d}y}
+\newcommand{\dz}{\:\mathrm{d}z}
+\newcommand{\dth}{\:\mathrm{d}\theta}
+\newcommand{\dr}{\:\mathrm{d}\rho}
+\newcommand{\du}{\:\mathrm{d}u}
+\newcommand{\dv}{\:\mathrm{d}v}
+\newcommand{\tozero}[1]{\cancelto{0}{#1}}
+\newcommand{\lbb}[2]{\textcolor{lightblue}{\underbracket[1pt]{\textcolor{black}{#1}}_{#2}}}
+\newcommand{\dbb}[2]{\textcolor{blue}{\underbracket[1pt]{\textcolor{black}{#1}}_{#2}}}
+\DeclareMathOperator{\N}{\mathbb{N}}
+\DeclareMathOperator{\Z}{\mathbb{Z}}
+\DeclareMathOperator{\R}{\mathbb{R}}
+\DeclareMathOperator{\Q}{\mathbb{Q}}
+\DeclareMathOperator{\K}{\mathbb{K}}
+
+\renewcommand{\CancelColor}{\color{lightblue}}
+\begin{document}
+\maketitle
+{\setstretch{1.45} \tableofcontents}
+\newpage
+\section{Los números naturales}
+
+\subsection{Los números naturales}
+
+Hemos trabajado con ellos desde que apenas tenemos memoria. Hemos aprendido a contar \[ 1,2,3,4,\hdots,n,\hdots\]
+Con un orden, \[ 1<2<3<\cdots<n-1<n<n+1 \]
+Denotaremos dicho conjunto como $\mathbb{N}$
+\begin{itemize}[label=\color{red}\textbullet, leftmargin=*]
+	\item \color{lightblue} Propiedades
+\end{itemize}
+\begin{enumerate}[label=\arabic*)]
+	\item Es infinito. Su cardinal es el infinito "más pequeño". Un conjunto para el que existe una biyección con el de los números naturales recibe el nombre de \textit{conjunto numerable}.
+	\item Todo subconjunto de $\mathbb{N}$ tiene un elemento mínimo. En esta propiedad se basa el "Principio de Inducción".
+\end{enumerate}
+Vamos a empezar realizando alguna pequeña demostración utilizando el principio de inducción.
+\subsubsection{El Principio de Inducción}
+\begin{itemize}[label=\color{red}\textbullet, leftmargin=*]
+	\item \color{lightblue} Proposición
+\end{itemize}
+Supongamos que de una determinada propiedad $P(n)$, en la cual interviene un número natural genérico $n$, si:
+\begin{enumerate}[label=\arabic*)]
+	\item La propiedad es cierta para $n=1$.
+	\item Se supone que la propiedad es cierta para un número $n$ (hipótesis de inducción) se deduce que la propiedad es cierta para $n+1$.
+\end{enumerate}
+Entonces la propiedad $P(n)$ es cierta para todo número natural $n$.
+
+\begin{itemize}[label=\color{red}\textbullet, leftmargin=*]
+	\item \color{lightblue} Ejercicio
+\end{itemize}
+Establecer la igualdad \[ 1+2+3+\cdots+n=\dfrac{n(n+1)}{2} \]
+Para $n\ge 1$ (también lo podemos indicar de la forma $n\in\mathbb{N}$).
+
+Establecer la igualdad \[ a+a^2+\cdots+a^n=\dfrac{a-a^{n+1}}{1-a},~a\neq1 \] para $n\ge1$.
+
+Como sabemos, \[ \mathbb{N}\subset\mathbb{Z}\subset\mathbb{Q}\subset\mathbb{R} \]
+\subsection{Los números reales}
+Los números reales aparecen de forma natural. ¿Cuál es la solución de la ecuación $x^2=2$?
+
+Observa que la solución no puede ser un número racional, ya que si $x=\dfrac{m}{n}$ siendo $m,n\in\mathbb{N}$, en cuyo caso \[ \dfrac{m^2}{n^2}=2, \]\[ m^2=2n^2, \]
+Lo cual nos indica que la descomposición factorial del término de la izquierda habrá una potencia par de 2, mientras que en el término de la derecha de la igualdad el número será impar, de donde se sigue que la ecuación no tiene soluciones racionales.
+
+Otro problema, en cuanto a la idea de que algo es necesario si nos quedamos únicamente con los racionales viene dada por el siguiente ejemplo.
+
+Supongamos que $A$ es un conjunto que viene dado por
+
+$A:=\{p\in\mathbb{Q}:p^2<2\}$ y $B$ es el conjunto dado por:
+
+$B=\{p\in\mathbb{Q}:p^2>2\}$. En estos casos es posible demostrar que $A$ no tiene máximo (y $B$ no tiene mínimo), es decir, para cada $p\in A$, existe $q\in A$ tal $p<q$. Veremos las definiciones formales de máximo y mínimo de un conjunto más adelante.
+
+Para demostrar esta afirmación para cada número racional $p>0$ consideramos el número racional $q$ dado de la forma \[ q=p-\dfrac{p^2-2}{p+2}=\dfrac{p^2+2p-p^2+2}{p+2}=\dfrac{2(p+1)}{p+2}. \]
+Ahora, \[ q^2-2=\dfrac{4(p+1)^2}{(p+2)^2}-2=\dfrac{4(p^2+1+2p)-2(p^2+4+4p)}{(p+2)^2}=\dfrac{2(p^2-2)}{(p+2)^2}.\]
+Si $p\in A$, entonces el numerador de la expresión anterior es negativo, es decir, $p^2-2<0$, y de ahí $q\in A$, pero por otra parte $q>p$ por la propia definición de $q$. Luego para cada $p\in A$ es posible encontrar $q\in A$ tal que $q>p$. La misma demostración se puede aplicar para el caso de $B$.
+
+\subsubsection{Construcción de los números reales}
+La construcción de los números reales puede abordarse como una ampliación partiendo de los números naturales, los números racionales y los números negativos (mediante sucesiones de números racionales), no obstante, nosotros utilizaremos la definición axiomática.
+
+\subsection{Definición axiomática de los número reales}
+Antes de dar la definición axiomática de los números reales necesitamos precisar algunos conceptos que necesitaremos.
+\begin{itemize}[label=\color{red}\textbullet, leftmargin=*]
+	\item \color{lightblue} Definición
+\end{itemize}
+Un cuerpo es una terna $(K,+,\cdot)$ donde $K$ es un conjunto no vacío y $+,\cdot$ son leyes de composición internas en $K$ tales que:
+\begin{enumerate}[label=\arabic*)]
+	\item $(K,+)$ es un grupo abeliano. Denotaremos por 0 el elemento neutro de $K$ y si $a\in K$ denotaremos por $-a$ al simétrico de $a$.
+	\begin{enumerate}[label=\alph*)]
+		\item $\cdot$ es asociativa.
+		\item  $\cdot$ es conmutativa.
+		\item Existe $1\in K\{0\}$ tal que $1\cdot a=a~~\forall a\in K\{0\}$.
+		\item $\forall a\in K\{0\}$ existe $a^{-1}\in K\{0\}$ tal que $a^{-1}\cdot a=1$. A $a^{-1}$ le llamaremos el inverso de $a$.
+		\item $a\cdot(b+c)=a\cdot b+a\cdot c~~\forall a,b,c\in K$.
+	\end{enumerate}
+\end{enumerate}
+\begin{itemize}[label=\color{red}\textbullet, leftmargin=*]
+	\item \color{lightblue} Definición
+\end{itemize}
+Dado $A$ un conjunto, una relación binaria $\le$ en $A$ se dice que es una relación binaria de orden si verifica:
+\begin{enumerate}[label=\arabic*)]
+	\item $a\le a~~\forall a\in A$. (Propiedad Reflexiva).
+	\item Si $a,b\in A$ tal que $a\le b\wedge b\le a\rightarrow a=b$. (Propiedad Antisimétrica).
+	\item Si $a,b,c\in A$ tal que $a\le b\wedge b\le c\rightarrow a\le c$. (Propiedad transitiva).
+\end{enumerate}
+Un conjunto ordenado es un par $(A,\le)$ donde $A$ es un conjunto y $\le$ es una relación binaria de orden definida en $A$.
+
+\textbf{¿Qué cuerpos conoces?}
+
+Fíjate en el conjunto $A=\{0,1\}$ con las operaciones:
+\begin{center}
+	\begin{tabular}{|c|c|c|}
+		\hline
+		+ & 0 & 1 \\
+		\hline
+		0 & 0 & 1 \\
+		\hline
+		1 & 1 & 0 \\
+		\hline
+	\end{tabular}\hspace{3cm}
+	\begin{tabular}{|c|c|c|}
+		\hline
+		* & 0 & 1 \\
+		\hline
+		0 & 0 & 0 \\
+		\hline
+		1 & 0 & 1 \\
+		\hline
+	\end{tabular}
+\end{center}
+\textbf{¿Es $\mathbb{N}$ un cuerpo? ¿Es $\mathbb{Q}$ un cuerpo?}
+
+Otro concepto a tener en cuenta es el \textbf{"orden"}. Recordaremos algunos conceptos. 
+
+Veamos:
+\begin{itemize}[label=\color{red}\textbullet, leftmargin=*]
+	\item \color{lightblue} Definición
+\end{itemize}
+Sea $(A,\le)$ un conjunto ordenado, $B\subseteq A$ y $a\in A$.
+\begin{enumerate}[label=\arabic*)]
+	\item Diremos que $a$ es cota superior de $B$ si $b\le a$ para cada $b\in B$.
+	\item Diremos que $a$ es cota inferior de $B$ si $a\le b$ para cada $b\in B$.
+	\item Diremos que $a$ es el supremo de $B$ si:
+	\begin{enumerate}[label=\arabic*)]
+		\item $a$ es cota superior de $B$.
+		\item Si $a'$ es otra cota superior de $B$ entonces $a\le a'$.
+	\end{enumerate}
+	\item Diremos que $a$ es el ínfimo de $B$ si:
+	\begin{enumerate}[label=\arabic*)]
+		\item $a$ es cota inferior de $B$.
+		\item Si $a'$ es otra cota inferior de $B$ entonces $a'\le a$.
+	\end{enumerate}
+\end{enumerate}
+Sea $A$ un conjunto ordenado, $B\subseteq A$ y $b\in B$.
+\begin{enumerate}[label=\arabic*)]
+	\item Diremos que $b$ es un elemento maximal (o máximo) de $B$ si no existe $b'\in B$ con $b\le b'$ y $b\neq b'$.
+	\item Diremos que $b$ es un elemento minimal (o mínimo) de $B$ si no existe $b'\in B$ con $b'\le b$ y $b\neq b'$.
+\end{enumerate}
+\begin{itemize}[label=\color{red}\textbullet, leftmargin=*]
+	\item \color{lightblue} Definición
+\end{itemize} 
+Llamaremos \textcolor{lightblue}{conjunto de los números reales} a un conjunto, que representaremos por $\mathbb{R}$, que verifica los siguientes axiomas:
+\begin{enumerate}[label=\arabic*)]
+	\item El conjunto $\mathbb{R}$ tiene estructura de cuerpo.
+	\item En $\mathbb{R}$ hay definida una relación de orden, (es decir, una relación que verifica las propiedades reflexivas, antisimétrica y transitiva) que es total (siempre se verifica $x\le y$ o bien $y\le x$) para cualesquiera $x,y\in\mathbb{R}$ y compatible con la estructura de cuerpo (si $x\le y$ entonces $x+z\le y+z$, y si $z\ge0$, entonces $xz\le yz$).
+	\item Existencia de supremo en $\mathbb{R}$. Todo conjunto no vacío de $\mathbb{R}$ acotado superiormente tiene extremo superior (supremo) en $\mathbb{R}$.
+\end{enumerate}
+El siguiente paso sería asegurarnos de la existencia del conjunto de los números reales, sin embargo, no nos ocuparemos aquí de ese paso. Remitimos al lector a algunas referencias en donde algunas construcciones clásicas como el método de las cortaduras en $\mathbb{Q}$ de Dedekind (1831-1916) y la construcción de Cantor (1845-1918) utilizando sucesiones de Cauchy de números racionales son algunas posibilidades. 
+
+Ver por ejemplo \textit{Constructions of the real numbers}. 
+
+Los elementos de $\mathbb{R}\backslash\mathbb{Q}$ se llaman \textit{irracionales}, y los denotaremos por $\mathbb{I}$. Más adelante hablaremos de ellos y de su cardinal. Habitualmente los números reales se representan por medio de puntos de una recta. Se elige un punto para representar el 0 y otra para representar la unidad 1. Esta elección determina la escala. El orden de los números viene dado por su representación en la recta.
+\begin{itemize}[label=\color{red}\textbullet, leftmargin=*]
+	\item \color{lightblue} Proposición (Propiedad arquimediana de los números reales)
+\end{itemize}
+Para cada par de elementos $x,y\in\mathbb{R}$, tal que $x>0$, existe $n\in\mathbb{Z}$ tal que $y<nx$.
+\begin{itemize}[label=\color{red}\textbullet, leftmargin=*]
+	\item \color{lightblue} Demostración
+\end{itemize}
+Sea el conjunto $A=\{mx:m\in\mathbb{Z}\}$. Supongamos que la afirmación no fuera cierta, es decir, para todo $n\in\mathbb{Z}$ y $y>mx$, luego el conjunto $A$ está acotado superiormente. Por el axioma del supremos existe $\alpha\in\mathrm{R}$ tal que $\alpha=\mathrm{sup}(A)$. Puesto que $x>0$, tenemos que $\alpha-x<\alpha$, luego existe $s\in\mathbb{Z}$ tal que $\alpha-x<sx$ y así: \[ a<sx+x=(s+1)x, \]lo cual es absurdo puesto que $\alpha$ es el supremo de $A$. De aquí deducimos que la propiedad es cierta. 
+
+Apoyándonos en la propiedad arquimediana podemos afirmar que para cada número real $y\in\mathbb{R}$ y $x\in\mathbb{R}$ y $x>0$, existen $m,n\in\mathbb{Z}$ tales que \[ mx<y<nx \]
+Es decir, \[ mx<(m+1)x<\cdots<px<\cdots<(n-1)x<nx \]
+Luego existirá un entero $p\in\mathbb{Z}$ tal que \[ (p-1)x\le y<px \]
+Tomando $x=1$, podemos entonces asegurar la existencia de un entero $p$ tal que \[ p-1\le y<p \]
+\begin{itemize}[label=\color{red}\textbullet, leftmargin=*]
+	\item \color{lightblue} Definición
+\end{itemize}
+Al número $p-1\in\mathbb{Z}$ se le llama parte entera de $y$ y se le denota $E(y)$ o $[y]$.
+\subsection{Valor absoluto}
+\begin{itemize}[label=\color{red}\textbullet, leftmargin=*]
+	\item \color{lightblue}Definición
+\end{itemize}
+Se llama valor absoluto de $x\in\mathbb{R}$ al número real denotado por $|x|$ dado por \[ |x|=\max\{x,-x\} .\]
+Es decir, \[ |x|=\left\lbrace\begin{array}{cl}
+	x & \text{si }x\ge0\\
+	-x & \text{si }x<0
+\end{array}\right. .\]
+\subsubsection{Propiedades del valor absoluto}
+\begin{itemize}[label=\color{red}\textbullet, leftmargin=*]
+	\item \color{lightblue}Proposición
+\end{itemize}
+\begin{enumerate}[label=\arabic*)]
+	\item $|-x|=|x|$.
+	\item Para cada $\epsilon>0,~|x|<\epsilon$ es equivalente a $-\epsilon<x<\epsilon$.
+	\item $|x|=0$ si y sólo si $x=0$.
+	\item $|x+y|\le |x|+|y|$.
+	\item $|x-y|\ge|x|-|y|$.
+	\item $|x\cdot y|=|x|\cdot|y|$.
+	\item $|x^{-1}|=|x|^{-1}$ para cada $x\neq0$.
+	\item $\left||x|-|y|\right|\le|x-y|$.
+\end{enumerate}
+Probaremos únicamente las propiedades \textcolor{lightblue}{(4)} y \textcolor{lightblue}{(5)}:
+\begin{enumerate}[label=\arabic*)]
+	\item $|x+y|=\max\{x+y,~x-y\}$. Por otro lado $-|x|\le x\le |x|$ y $-|y|\le y\le |y|$, luego $-\left(|x|+|y|\right)\le x+y\le |x|+|y|$ y por la propiedad \textcolor{lightblue}{(2)} tenemos que $|x+y|<|x|+|y|$.
+	\item $x=x-y+y$, de donde \[ |x|=\left|(x-y)+y\right|\le|x-y|+|y|, \]de donde, $|x|-|y|\le|x-y|$.
+\end{enumerate}
+\subsection{Densidad}
+\begin{itemize}[label=\color{red}\textbullet, leftmargin=*]
+	\item \color{lightblue} Proposición (Densidad de $\mathbb{Q}$ y $\mathbb{I}$)
+\end{itemize}
+\begin{enumerate}[label=\arabic*)]
+	\item Sean $x,y\in\mathbb{R}$ tales que $x<y$. Entonces existe $r\in\mathbb{Q}$ tal que $x<r<y$.
+	\item Dados $r,s\in\mathbb{Q}$ tales que $r<s$. Entonces existe $\xi\in\mathbb{I}$ tal que $r<\xi<s$.
+\end{enumerate}
+Por la propiedad arquimediana, dados $y-x>0$ y $1$, existe $n\in\mathbb{N}$ tal que \[ 1<n(y-x) .\]
+Sea $p=E(nx)\in\mathbb{Z}$. Entonces se verifica que $p\le nx<(p+1)$, luego \[ nx<p+1\le nx+1<ny ,\] de donde \[ nx<p+1<ny \] o de forma equivalente \[ x<\dfrac{p+1}{n} <y.\]
+Es decir $r=\dfrac{p+1}{n}\in\mathbb{Q}$ verifica la condición buscada. Aplicando a la misma propiedad a $x<r$ podemos afirmar la existencia de $s\in\mathbb{Q}$ tal que $x<s<r$ lo cual muestra  que existen infinitos números racionales cumpliendo la condición del enunciado.
+
+Por otra parte, es posible demostrar que entre dos números racionales $r<s$ existen infinitos irracionales. Sabemos que el número $b\in\mathbb{R}$ tal que $b^2=2$ es irracional y que $b<2$. Entonces, el número $a=\dfrac{b(s-r)}{2}$ es irracional y tenemos que $a<s-r$. Ahora el número $\xi=r+a$ es irracional y $r<\xi<s$.
+\subsection{Representación decimal de los números reales}
+\begin{itemize}[label=\color{red}\textbullet, leftmargin=*]
+	\item \color{lightblue} Definición
+\end{itemize}
+Se llama números algebraicos a aquellos que son raíces de alguna ecuación polinómica con coeficientes enteros. Los números que no son algebraicos se llaman trascendentes.
+
+Un número real de la forma \[ r=a_0+\dfrac{a_1}{10}+\dfrac{a_2}{100}+\cdots+\dfrac{a_n}{10^n} ,\] donde $a_0$ es un entero no negativo y $a_1,a_2,\hdots,a_n$ son enteros que satisfacen $0\le a_i\le 9$ se escribe de la forma \[ r=a_0,a_1,a_2,\hdots,a_n. \]
+En este caso tendríamos una representación decimal finita y el número $r$ es necesariamente racional.
+
+Sin embargo, no todos los números racionales tienen una representación decimal finita. Así, si $\dfrac{1}{3}$ tuviera representación decimal finita tendríamos que $\dfrac{1}{3}=\dfrac{a}{10^n}$ para cierto $a$ y cierto $n$, es decir, $10^n=3a$ lo cual no es posible, puesto que 3 no es divisor de ninguna potencia de 10.
+
+Sin embargo, podemos aproximar cualquier número real $x>0$ por una aproximación decimal con un error tan pequeño como se desee por medio de una suma como la expresada anteriormente basándonos en el hecho de ir dividiendo el intervalo en 10 partes iguales en cada paso de forma que 
+
+\[\begin{array}{rcl}
+	a_0&\le x<&a_0+1 \\
+	a_0+\dfrac{a_1}{10}&\le x<&a_0+\dfrac{a_1+1}{10}\\
+	a_0+\dfrac{a_1}{10}+\dfrac{a_2}{100}+\dfrac{a_2}{100}&\le x<&a_0+\dfrac{a_1}{10}+\dfrac{a_2+1}{100}\\
+	&\cdots&
+\end{array}\]
+
+Cada número irracional tiene una representación decimal infinita. Observar que es importar tener en cuenta en esta definición dónde situamos la posibilidad de igualdad, ya que utilizando esta situación la representación de $\dfrac{1}{8}$ sería \[ \begin{array}{c}
+	0\le\frac{1}{8}<1,\\
+	\frac{1}{10}\le \dfrac{1}{8}<\frac{2}{10}\\
+	\frac{1}{10}+\frac{2}{100}\le\frac{1}{8}<\frac{1}{10}+\frac{3}{100}\\
+	\frac{1}{10}+\frac{2}{100}+\frac{5}{1000}\le\frac{1}{10}+\frac{2}{100}+\frac{6}{1000}
+\end{array} \] y la representación de $\frac{1}{8}$ sería $0.125$, sin embargo si colocamos el signo menor estricto en lugar de menor o igual e incluimos la posibilidad de que sea mayor o igual por exceso tendríamos que la representación de $\frac{1}{8}$ sería $ 0.1249999\hdots$  Hemos obtenido de esta forma dos representaciones distintas para el mismo número.
+
+\subsubsection{La representación de los números reales en el ordenador (Python)}
+La representación de los números reales en el ordenador. La cantidad de números con los que el ordenador puede trabajar es finita. Esta afirmación debemos tenerla en cuenta cada vez que pensamos en simulaciones pero no sólo eso, también es importante tener en cuenta cómo trabaja y/o almacena en un ordenador un número.
+ En Python la clase "float" (64 bits):
+ \begin{itemize}
+ 	\item 1 bit para el signo del número (positivo o negativo).
+ 	\item  11 bits para el exponente (el rango es $[-1022, 1023]$).
+ 	\item 53 bits para dígitos significativos.
+ \end{itemize}
+ \subsection{Cardinal de un conjunto}
+ Se llama \textit{cardinal} de un conjunto $A$ al número de elementos de dicho conjunto y se denota $|A|$.
+ 
+ El conjunto vacío, es decir, de cardinal cero se denota por $\varnothing$.
+ 
+ \begin{itemize}[label=\color{red}\textbullet, leftmargin=*]
+ 	\item \color{lightblue} Definición
+ \end{itemize}
+ Diremos que un conjunto $B$ es un subconjunto o parte de un subconjunto $A$ o que $B$ está contenido en $A$ si, todos los elementos de $B$ son a su vez elementos de $A$. Es decir, \[ B\subseteq A\longleftrightarrow x\in B\rightarrow x\in A \]
+ Un conjunto $A$ de elementos cualesquiera se dice numerable cuando es finito o cuando siendo finito existe una biyección de $A$ sobre el conjunto de los números naturales $\mathbb{N}$.
+ \begin{itemize}[label=\color{red}\textbullet, leftmargin=*]
+ 	\item \color{lightblue}Proposición
+ \end{itemize}
+ El conjunto de los números racionales, $\mathbb{Q}$, es numerable.
+ 
+ \begin{itemize}[label=\color{red}\textbullet, leftmargin=*]
+ 	\item \color{lightblue}Demostración
+ \end{itemize}
+ Sea $Q_k$  el conjunto de todas las fracciones del denominador $k\in\mathbb{N}$. El subconjunto $Q_k^+$ de las que tienen numerador positivo es trivialmente numerable. De igual forma el conjunto $Q_k^-$ de las que tienen numerador negativo también es numerable y así $Q_k=Q_k^-\cup\{0\}\cup Q_k^+$ es numerable. Ahora el conjunto $\mathbb{Q}=\cup_{k\in\mathbb{N}}Q_k$ es numerable.
+ 
+ El cardinal de los números reales recibe el nombre de potencia del uso continuo. Se dice que un conjunto tiene la potencia del conjunto si existe una biyección de dicho conjunto sobre el $\mathbb{R}$. Durante muchos años estuvo planteado (primer problema de Hilbert) el problema de averiguar si existe subconjuntos de $\mathbb{R}$ que no sean numerables ni tengan la potencia del continuo, es decir $|\mathbb{R}|=\aleph_1$. Finalmente se ha demostrado que no se puede dar una respuesta ni afirmativa ni negativa a partir de los axiomas de definición del cuerpo de los números reales. El admitir este supuesto se convierte en una verdadera hipótesis, (hipótesis del continuo).
+ \subsection{La idea del infinito}
+ Se llama ampliación de $\mathbb{R}$ al conjunto $\overline{\mathbb{R}}=\mathbb{R}\cup\{-\infty,~\infty\}$ y se admite que $-\infty<x<+\infty$ para cada $x\in\mathbb{R}$.
+ \begin{itemize}
+ 	\item $x+(+\infty)=x-(-\infty)=+\infty;~x+(-\infty)=x-(+\infty)=-\infty$.
+ 	\item Si $x>0,~x\cdot(+\infty)=(+\infty)\cdot x=+\infty$; si $x<0$, entonces $x\cdot(+\infty)=(+\infty)\cdot x=-\infty$.
+ 	\item Si $x>0,~x\cdot(+\infty)=(-\infty)\cdot x=-\infty$; si $x<0,~x\cdot(-\infty)=(-\infty)\cdot x=+\infty$.
+ 	\item $\frac{x}{+\infty}=\frac{x}{-\infty}=0$.
+ 	\item $(+\infty)+(+\infty)=(+\infty)-(-\infty)=(+\infty)\cdot(+\infty)=(-\infty)\cdot(-\infty)=+\infty$.
+ 	\item $(-\infty)+(-\infty)=(-\infty)-(-\infty)=(-\infty)\cdot(+\infty)=(+\infty)\cdot(-\infty)=-\infty$.
+ \end{itemize}
+\subsection{Funciones elementales}
+\begin{itemize}[label=\color{red}\textbullet, leftmargin=*]
+	\item \color{lightblue}Definición
+\end{itemize} 
+Sea $I\subset\mathbb{R}$. Se llama función real de variable real a toda aplicación $f:I\Rightarrow\mathbb{R}$ tal que $y=f(x)$. $x$ recibe el nombre de variable independiente y el nombre de variable dependiente. Al conjunto $I$ se llama conjunto inicial y al conjunto $\{f(x):x\in I\}$ se le llama conjunto imagen de $I$ mediante $f$. Al conjunto de valores en que la función se encuentra bien definida se le llama dominio de definición de $f$.
+
+Seguimos algunas nociones conocidas:
+\begin{itemize}[label=\color{red}\textbullet, leftmargin=*]
+	\item \color{lightblue}Definición
+\end{itemize}
+Una función $f:I\Rightarrow\mathbb{R}$ se dice que es:
+\begin{itemize}
+	\item  Par si $f(x)=f(-x)$ para cada $x\in I$.
+	\item Impar si $f(x)=-f(x)$ para cada $x\in I$.
+	\item Creciente si para $x<y$ entonces $f(x)\le f(y)$.
+	\item Estrictamente creciente si para $x<y$ entonces $f(x)<f(y)$.
+	\item Decreciente si para $x<y$ entonces $f(x)\ge f(y)$.
+	\item Estrictamente decreciente si para $x<y$ entonces $f(x)>f(y)$.
+\end{itemize}
+\subsubsection{Potencias de base real y exponente entero}
+\fbox{$f(x)=x^n$}
+\begin{itemize}[label=\color{red}\textbullet, leftmargin=*]
+	\item \color{lightblue}Proposición (Propiedades)
+\end{itemize}
+\begin{itemize}
+	\item  Si $n>0$ entonces $x^n=x\cdot x\cdot~\cdots~\cdot x$.
+	\item Si $n=0,~x^0=1$.
+	\item Si $n<0$ entonces $x^n=\dfrac{1}{x^{-n}}$.
+	\item $(xy)^n=x^n\cdot y^n$.
+	\item $x^n\cdot x^m=x^{n+m}$.
+	\item $ \left(x^n\right)^m=x^{n\cdot m}$.
+	\item Si $n>0$, entonces $x^n$ es monótona creciente en $(0,+\infty)$
+	\item Si $n<0,~x^n$ es monótona decreciente en $(0,-\infty)$
+\end{itemize}
+\subsubsection{Función exponencial}
+Sea $a>0$, se define la función exponencial $f(x)=a^x$.
+\begin{itemize}[label=\color{red}\textbullet, leftmargin=*]
+	\item \color{lightblue}Proposición (Propiedades)
+\end{itemize}
+\begin{itemize}
+	\item Si $a=1$, la función es constantemente igual a 1.
+	\item $a^{x+y}=a^x\cdot a^y,~a^0=1$.
+	\item Si $x<y$ y $0<a<1$, entonces $a^y<a^x$.
+	\item Si $a>1,~\lim_{x\to\infty}a^x=+\infty,~\lim_{x\to-\infty}a^x=0$.
+	\item Si $0<a<1,~\lim_{x\to\infty}a^x=0,~\lim_{x\to-\infty}a^x=+\infty$.
+\end{itemize}
+\subsubsection{Función logaritmo}
+Sea $a>0~f(x)=\log_a(x)$
+
+De aquí,  $y=\log_a(x)$ sí, y sólo si, $a^y=x$.
+\begin{itemize}
+	\item $\log_a(xy)=\log_a(x)+\log_a(y)$.
+	\item $\log_a1=0$.
+	\item $\log_a\left(\dfrac{x}{y}\right)=\log_a(x)-\log_a(y)$.
+	\item $\log_a x^n=n\log_a(y)$.
+	\item Si $a>1$, y $x<y$ entonces $\log_a(x)<\log_a(y)$.
+	\item Si $0<a<1$ y $x<y$ entonces $\log_a(x)>\log_a(y)$.
+	\item Si $b>0$, entonces $\log_a(x)=\dfrac{\log_b(x)}{\log_a(a)}$.
+\end{itemize}
+\subsubsection{Funciones trigonométricas}
+\[ \begin{array}{lr}
+	\tan(x)=\dfrac{\sin(x)}{\cos(x)} & \cot(x)=\dfrac{\cos(x)}{\sin(x)}\\
+	\sec(x)=\dfrac{1}{\cos(x)} & \mathrm{cosec}(x)=\dfrac{1}{\sin(x)}
+\end{array} \]
+Para considerar la inversa (con la composición) de las funciones trigonométricas debemos tener en cuenta que la función debe ser biyectiva, por ello debemos seleccionar de forma adecuada un intervalo en el que esto suceda.
+
+Por último recordamos las definiciones de las funciones hiperbólicas. \[ \sinh(x)=\dfrac{e^x-e^{-x}}{2}\hspace{1cm}\cosh(x)=\dfrac{e^x+e^{-x}}{2} \] que verifican \[ \cosh^2(x)=1+\sinh^2(x) .\]
+Investiga: "Big O notation".
+
+Esta notación se utiliza en computación y matemáticas para describir el crecimiento asintótico de la función, \textit{lo rápido que crece o decrece}. Se emplea la letra \textcolor{lightblue}{O} porque a la tasa de crecimiento de una función se le suele llamar \textcolor{lightblue}{orden} de la función.
+
+En muchos casos necesitaremos analizar el tiempo necesario para ejecutar un algoritmo, en nuestro caso, sería el número de pasos a realizar cuando introducimos \textcolor{lightblue}{$n$} valores. Imaginamos que haciendo el cómputo de operaciones obtenemos que la función que nos informa acerca del número de pasos es $S(n)=n^2+2n+1$. En ese caso diremos que $S$ crece con orden cuadrático o lo que es lo mismo de la forma $O(n^2)$.
+
+Formalmente diremos que dadas dos funciones $f$ y $g$, \[ f(x)=O\left(g(x)\right))\hspace{0.5cm}(x\to\infty), \]si existen constantes $K$ y $c$ tales que \[ |f(x)|\le K |g(x)|, \] para $x>c$. De forma análoga \[ f(x)=O\left(g(x)\right) \hspace{0.5cm}(x\to x_0),\] si existen constantes $K$ y $\epsilon>0$ tales que \[ |f(x)|\le C|g(x)|, \] para $|x-x_0|<\epsilon$.
+\subsection{Sucesiones de números reales}
+\subsubsection{Topología en $\mathbb{R}$}
+\begin{itemize}[label=\color{red}\textbullet, leftmargin=*]
+	\item \color{lightblue}Definición
+\end{itemize}
+Diremos que un conjunto $A\subset\mathbb{R}$ es:
+\begin{enumerate}[label=\arabic*)]
+	\item Abierto, si para cada $x\in A$ existe $\delta>0$ tal que el intervalo $(x-\delta,~x+\delta)\subset A$.
+	\item Cerrado, si $\mathbb{R}\backslash A$ es abierto.
+\end{enumerate}
+Obviamente los intervalos abiertos son conjuntos abiertos, mientras que los intervalos cerrados son conjuntos cerrados.
+\begin{itemize}[label=\color{red}\textbullet, leftmargin=*]
+	\item \color{lightblue}Definición
+\end{itemize}
+Diremos que un punto $a\in\mathbb{R}$ es adherente a un conjunto $A\subset\mathbb{R}$ si para cada entorno abierto $U$ del punto $a$ se verifica que $U\cap A\neq\varnothing$.  Al conjunto de los puntos adherentes se le llama adherencia o clausura del conjunto. Se denota por $\overline{A}$.
+
+Diremos que un punto $a\in\mathbb{R}$ es de acumulación a un conjunto $A\subset\mathbb{R}$ si para cada entorno abierto $U$ del punto $a$ se verifica que $U\backslash\{a\}\cap A\neq\varnothing$. Al conjunto de los puntos de acumulación se le llama conjunto derivado y se denota por $A'$.
+\subsubsection{Límite de una sucesión de números reales}
+Una sucesión de números reales es un subconjunto de $\mathbb{R}$ ordenado según el orden de los números naturales. Es decir, es una aplicación $s:\mathbb{N}\longrightarrow\mathbb{R}$ que a cada número natural le asigna un número real, así una sucesión vendrá dada por $\{s(n):n\in\mathbb{N}\}\subset\mathbb{R}$.
+\begin{itemize}[label=\color{red}\textbullet, leftmargin=*]
+	\item \color{lightblue}Definición
+\end{itemize}
+Se dice que una sucesión $(x_n)_n$ de números reales tiene por límite al número $x\in\mathbb{R}$ cuando para cada número real positivo $\epsilon>0$ existe un número natural $v\in\mathbb{N}$ tal que si $n\ge v$ entonces $|x_n-x|\le\epsilon$.
+
+En ese caso lo denotaremos $\lim_{n\to\infty}x_n=x$. A las sucesiones que tienen límite se les llama sucesiones \textit{convergentes}.
+\begin{itemize}[label=\color{red}\textbullet, leftmargin=*]
+	\item \color{lightblue} Definición
+\end{itemize}
+Diremos que una sucesión $(x_n)_n$ tiene límite $+\infty$ si para cada $K\in\mathbb{R}$ existe $n_K\in\mathbb{N}$ tal que si $n\ge n_K$ se tiene que $x_n\ge K$, diremos que la sucesión $(x_n)_n$ tiene límite $-\infty$ y lo denotaremos $\lim_{n\to\infty}x_n=-\infty$ si para cada $K\in\mathbb{R}$ existe $n_K\in\mathbb{R}$ tal que si $n\ge n_K$ entonces $x_n\le K$.
+
+Cuando una sucesión tiene límite infinito diremos que la sucesión es divergente, mientras que aquellas sucesiones que no tienen límite finito ni infinito reciben el nombre de oscilantes.
+\subsubsection{Sucesiones convergentes}
+Obsérvese que si la sucesión $(x_n)_n$ tiene como límite $x$, la sucesión $(x-x_n)_n$ tiene límite 0. Cuando una sucesión de números reales tiene por límite a 0 se dice que esta sucesión es un infinitésimo, esto lo estudiaremos con más detalle en secciones posteriores.
+\begin{itemize}[label=\color{red}\textbullet, leftmargin=*]
+	\item \color{lightblue}Proposición
+\end{itemize}
+Si una sucesión $(x_n)_n$ tiene límite, entonces ese límite es único.
+\begin{itemize}[label=\color{red}\textbullet, leftmargin=*]
+	\item \color{lightblue}Demostración
+\end{itemize}
+Supongamos que $\lim_{n\to\infty}x_n=x$ y que $\lim_{n\to\infty}x_n=y$. Entonces para cada $\epsilon>0$ existen $v_1\in\mathbb{N}$ y $v_2\in\mathbb{N}$ tales que \[ |x_n-x|\le\frac{\epsilon}{2}, \text{ para cada }n\ge v_1,\text{ y} \]\[ |x_n-y|\le\frac{\epsilon}{2}, \text{ para cada }n\ge v_2.\]
+Ahora, utilizando la desigualdad triangular y tomando $n\ge\max\{v_1,~v_2\}$ tenemos \[ 0\le|x-y|\le|x-x_n|+|x_n-y|\le\frac{\epsilon}{2}+\dfrac{\epsilon}{2}=\epsilon. \]
+Y así, $x=y$.
+\subsection{Sucesión de Cauchy}
+\begin{itemize}[label=\color{red}\textbullet, leftmargin=*]
+	\item \color{lightblue}Definición 
+\end{itemize}
+Diremos que una sucesión $(x_n)_n$ es una sucesión de Cauchy si para todo número real positivo $\epsilon>0$ existe un número natural $v$ tal que si $n\ge v$ y $m\ge v$ entonces \[ |x_n-x_m|\le\epsilon. \]
+Un espacio métrico $X$ se dice completo si toda sucesión de Cauchy es convergente.
+
+Puede comprobarse que la suma de dos sucesiones de Cauchy es otra sucesión de Cauchy, el producto de dos sucesiones de Cauchy es otra sucesión de Cauchy y el producto de un escalar por una sucesión de Cauchy es otra sucesión de Cauchy.
+
+La siguiente proposición establece que la condición es equivalente a la convergencia en $\mathbb{R}$.
+\begin{itemize}[label=\color{red}\textbullet, leftmargin=*]
+	\item \color{lightblue}Proposición
+\end{itemize}
+Una sucesión de números reales $(x_n)_n$ es convergente si, y sólo si, es de Cauchy.
+
+Como corolario obtenemos 
+
+\begin{itemize}[label=\color{red}\textbullet, leftmargin=*]
+	\item \color{lightblue}Corolario
+\end{itemize}
+Toda sucesión de Cauchy $\mathbb{R}$ está acotada.
+\subsection{Sucesión monótona creciente (decreciente)}
+Veamos algunos casos en los que podemos afirmar que la sucesión es convergente. Antes necesitamos introducir algunas definiciones más.
+\begin{itemize}[label=\color{red}\textbullet, leftmargin=*]
+	\item \color{lightblue}Definición
+\end{itemize}
+Diremos que una sucesión $(x_n)_n$ de número reales está acotada inferiormente si existe $r\in\mathbb{R}$ tal que $r\le x_n$ para cada $n\in\mathbb{N}$. Diremos que $(x_n)_n$ está acotada superiormente si existe $R\in\mathbb{R}$ tal que $x_n\le R$ para cada $n\in\mathbb{N}$. Por último diremos que la sucesión está acotada si está acotada inferior y superiormente.
+
+Diremos que una sucesión de número reales $(x_n)_n$ es creciente (decreciente) si $x_{n+1}\ge x_n(x_{n+1}\le x_n)$ para cada $n\in\mathbb{N}$.
+\begin{itemize}[label=\color{red}\textbullet, leftmargin=*]
+	\item \color{lightblue}Proposición
+\end{itemize}
+Sea $(x_n)_n$ una sucesión de números reales. Entonces:
+\begin{enumerate}[label=\arabic*)]
+	\item Si $(x_n)_n$ es una sucesión decreciente y acotada inferiormente, entonces $(x_n)_n$ es convergente.
+	\item Si $(x_n)_n$ es una sucesión creciente y acotada superiormente, entonces $(x_n)_n$ es convergente.
+\end{enumerate}
+\begin{itemize}[label=\color{red}\textbullet, leftmargin=*]
+	\item \color{lightblue}Ejemplo
+\end{itemize}
+Demostrar que la sucesión $x_n=\sqrt{a+\sqrt{a+\cdots+\sqrt{a}}}$ donde $a>0$ es convergente probando que es creciente y acotada. Halla su límite.
+
+Observamos que $x_{n+1}=\sqrt{a+x_n}$ para $n\ge1$ y $x_1=\sqrt{a}$. También observamos que $x_n\le x_{n+1}$ para cada $n\in\mathbb{N}$ (inducción). Para $n=1$ obtenemos $\sqrt{a}\le\sqrt{a+\sqrt{a}}$ y $\sqrt{a+x_n}\le \sqrt{a+x_{n+1}}=x_{n+2}$ y queda demostrado que la sucesión es creciente. Veamos ahora que está acotada. \[ x_{n+1}=\sqrt{a+x_n}\le\sqrt{a+k}\le k \] De la última desigualdad obtenemos: \[ a+k\le k^2\Longleftrightarrow k^2-k-a\ge0\]
+Tras resolver la ecuación $k=\dfrac{1+\sqrt{1+4a}}{2}$. Así, la sucesión $(x_n)_n$ es convergente. Su límite es $I=\dfrac{1+\sqrt{1+4a}}{2}$.
+\begin{itemize}[label=\color{red}\textbullet, leftmargin=*]
+	\item \color{lightblue}Proposición
+\end{itemize}
+Sea $(x_n)_n,~(y_n)_n$ y $(z_n)_n$ sucesiones de números reales. Entonces:
+\begin{enumerate}[label=\arabic*)]
+	\item Si $x_n\le y_n$ para cada $n\ge n_0$ para cierto $n_0\in\mathbb{N}$ y ambas sucesiones son convergentes, entonces \[ \lim_{n\to\infty}x_n\le\lim_{n\to\infty}y_n. \]
+	\item Si $x_n\le y_n\le z_n$ para cada $n\ge n_0$ para cierto $n_0\in\mathbb{N}$ y $\lim_{n\to\infty}x_n=\lim_{n\to\infty}z_n$, entonces \[ \lim_{n\to\infty}x_n=\lim_{n\to\infty}y_n=\lim_{n\to\infty}z_n. \]
+\end{enumerate}
+\subsection{Sucesión contractiva}
+\begin{itemize}[label=\color{red}\textbullet, leftmargin=*]
+	\item \color{lightblue}Definición
+\end{itemize}
+Se dice que una transformación es contractiva si existe un número $\lambda$ menor que 1 se satisfaga la relación \[ |F(x)-F(y)|\le\lambda|x-y| \]
+Para todos los puntos $x$ e $y$ en el dominio de $F$.
+
+El método de Newton es un ejemplo de procedimiento mediante el cual se calcula una sucesión de puntos empleando una fórmula de recurrencia como la siguiente: \[ x_{n+1}=F(x_n)\hspace{0.5cm}(n\ge0) .\]
+El algoritmo definido de este modo se denomina iteración funcional. En el caso del método de Newton, la función $F$ viene dada por: \[ F(x)=x-\dfrac{f(x)}{f'(x)}. \]
+En aquellos casos para los que se cumple que la sucesión así obtenida es convergente $\lim_{n\to\infty}x_n=s$ es fácil observar que cuando $F$ es continua se cumple que \[ F(s)=F\left(\lim_{n\to\infty}x_n\right)=\lim_{n\to\infty}F(x_n)=\lim_{n\to\infty}x_{n+1}=s. \]
+Tenemos por tanto que $F(s)=s$ y denotaremos a $s$ punto fijo la función $F$.
+
+\begin{itemize}[label=\color{red}\textbullet, leftmargin=*]
+	\item \color{lightblue} Proposición
+\end{itemize} 
+Sea $F:C\to C$ una aplicación contractiva que va de un conjunto cerrado $C$ a un conjunto cerrado. Entonces $F$ tiene un punto fijo $s$. Además toda la sucesión que se obtenga de la forma $x_{n+1}=F(x_n)$ con $x_1\in C$ es convergente a $s$.
+
+\begin{itemize}[label=\color{red}\textbullet, leftmargin=*]
+	\item \color{lightblue}Ejemplo
+\end{itemize}
+Demuestra que la sucesión $(x_n)_n$ definida recursivamente de la forma: \[ \left\{\begin{array}{l}
+	x_0=-155\\
+	x_{n+1}=3-\dfrac{1}{2}|x_n|
+\end{array}\right.\] es convergente. Calcula su límite.
+
+Para demostrar que es convergente veremos que la sucesión es contractiva. $F(x)=3-\dfrac{1}{2}|x|$. \[ |F(x)-F(y)|=\left|3-\dfrac{1}{2}|x|-3+\dfrac{1}{2}|y|\right| =\dfrac{1}{2}\left||y|-|x|\right|\le\dfrac{1}{2}|y-x|.\]
+Así, la sucesión $(x_n)_n$ converge al punto fijo de $F,~s$. \[ 3-\dfrac{1}{2}|s|=s \]
+Si $s>0$ entonces $3=\dfrac{3}{2}s$ y de aquí $s=2$. Por otra parte si $s<0$ entonces la ecuación no tiene solución. Así concluimos que el límite es 2.
+\subsection{Sucesiones equivalentes. Infinitésimos e Infinitos}
+\begin{enumerate}[label=\arabic*)]
+	\item La suma de dos sucesiones convergentes es otra sucesión convergente \[ \lim_{n\to\infty}(x_n+y_n)=\lim_{n\to\infty}x_n+\lim_{n\to\infty} \]
+	\item El producto de dos sucesiones convergentes es otra sucesión convergente \[ \lim_{n\to\infty}(x_n+y_n)=\lim_{n\to\infty}x_n\cdot\lim_{n\to\infty}y_n \]
+	\item El producto de un escalar por una sucesión convergente es otra sucesión convergente \[ \lim_{n\to\infty}(\lambda x_n)=\lambda\lim_{n\to\infty}x_n \]
+	\item El cociente de dos sucesiones convergentes es otra sucesión convergente, siempre que esté bien definida y el límite de la sucesión del denominador sea distinto de 0. Entonces \[ \lim_{n\to\infty}\dfrac{x_n}{y_n}=\dfrac{\displaystyle\lim_{n\to\infty}x_n}{\displaystyle\lim_{n\to\infty}y_n} .\]
+\end{enumerate}
+\begin{itemize}[label=\color{red}\textbullet, leftmargin=*]
+	\item \color{lightblue}Definición
+\end{itemize}
+Dadas dos sucesiones $(x_n)_n$ e $(y_n)_n$. Diremos que son equivalentes si $\lim_{n\to\infty}\dfrac{x_n}{y_n}=1$. Se llama infinitésimo a toda sucesión cuyo límite es cero.
+
+Algunos infinitésimos equivalentes son los siguientes, donde $(a_n)_n$ es un infinitésimo:
+\begin{enumerate}[label=\arabic*)]
+	\item $\log(1+a_n)\equiv a_n$
+	\item $\sin(a_n)\equiv a_n$
+	\item $\tan(a_n)\equiv a_n$
+	\item $\arcsin(a_n)\equiv a_n$
+	\item $\arctan(a_n)\equiv a_n$
+	\item $1-\cos(a_n)\equiv \dfrac{a_n^2}{2}$
+	\item $k^{a_n}-1\equiv a_n\log(k)$
+	\item $e^{a_n}-1\equiv a_n$
+	\item $(1+a_n)^\alpha-1\equiv\alpha a_n$
+\end{enumerate}
+\begin{itemize}[label=\color{red}\textbullet, leftmargin=*]
+	\item \color{lightblue}Definición
+\end{itemize}
+Diremos que una sucesión $(x_n)_n $ es un infinito si es divergente, es decir, si su límite es $\infty$.
+
+Algunos infinitos equivalentes son:
+\begin{enumerate}[label=\arabic*)]
+	\item $a_0n^p+a_1n^{p-1}+\cdots+a_p\hspace{0.5cm}p\in\mathbb{N}$.
+	\item $\log(a_0n^p+a_1n^{p-1}+\cdots+a_p)\equiv\log(n^p)$ si $a_0>0$.
+	\item $n!\equiv e^{-n}n^n\sqrt{2\pi n}$ (Fórmula de Stirling).
+\end{enumerate}
+\begin{itemize}[label=\color{red}\textbullet, leftmargin=*]
+	\item \color{lightblue}Proposición
+\end{itemize}
+El límite de una sucesión convergente o divergente no se altera al sustituir uno de los factores o divisores por otro factor o divisor que sea equivalente (infinitésimo) a él.
+\begin{itemize}[label=\color{red}\textbullet, leftmargin=*]
+	\item \color{lightblue}Ejemplo
+\end{itemize}
+Hallar: \[ \lim_{n\to\infty}\dfrac{8n^6\log\left(1+\dfrac{1}{2n}\right)\sin^3\left(\dfrac{1}{n}\right)}{(2n^2+5n)\cos\left(\dfrac{2\pi n}{6n+3}\right)}. \]
+$\log\left(1+\dfrac{1}{2n}\right)\equiv\dfrac{1}{2n},~\sin^3\left(\dfrac{1}{n}\right)\equiv\dfrac{1}{n^3},~2n^2+5n\equiv2n^2$ y $\cos\left(\dfrac{2\pi n}{6n+3}\right)\equiv\cos\left(\dfrac{2\pi n}{6n}\right)$, por lo que el límite queda de la forma \[ \lim_{n\to\infty}\dfrac{8n^6\dfrac{1}{2n}\cdot\dfrac{1}{n^3}}{2n^2\cos\left(\dfrac{2\pi n}{6n}\right)}=4. \]
+\subsection{Criterios de convergencia}
+\subsubsection{Límites del número $e$}
+La base más frecuentemente utilizada para las funciones exponencial y logarítmica es el llamado número $e$ (en honor a Euler). Los logaritmos en base $e$ reciben el nombre de logaritmos neperianos y se denotan por $\log(x)$ o $\ln(x)$. Nosotros utilizaremos $\log(x)$.
+
+Por otra parte, la sucesión $ (r_n)_n $ es una sucesión de Cauchy que es estrictamente creciente y de ahí convergente a un número al que llamamos $e$ cuyo valor aproximado es $2.71828\hdots$
+
+\begin{itemize}[label=\color{red}\textbullet, leftmargin=*]
+	\item \color{lightblue} Proposición
+\end{itemize}
+La sucesión $\left(1+\dfrac{1}{n}\right)^n$ es monótona acotada, luego convergente. El valor de su límite es el número $e$.
+\subsubsection{Criterio de Stolz}
+Sean $(x_n)_n $ y $(y_n)_n $ dos sucesiones de número reales con $(y_n)_n $ monótona (creciente o decreciente) que cumplen una de las dos siguientes propiedades:
+\begin{enumerate}[label=\arabic*)]
+	\item $\lim_{n\to\infty}x_n=\lim_{n\to\infty}y_n=0$
+	\item $\lim_{n\to\infty}y_n=0$
+\end{enumerate}
+Entonces, si existe el límite $\lim_{n\to\infty}\dfrac{x_{n+1}-x_n}{y_{n+1}-y_n}$, también existe el límite $\lim_{n\to\infty}\dfrac{x_n}{y_n}$ y ambos límites coinciden. Esto es válido incluso si el límite es $+\infty$ o $-\infty$.
+\subsubsection{Criterio de la media aritmética}
+Si $(x_n)_n $ es una sucesión convergente de números reales, la sucesión de sus medidas también converge, y se cumple \[ \lim_{n\to\infty}\dfrac{x_1+\cdots+x_n}{n}=\lim_{n\to\infty}x_n. \]
+El recíproco no es cierto.
+\subsubsection{Criterio de la media geométrica}
+Si $(x_n)_n $ es una sucesión convergente de números reales estrictamente positivos, la sucesión de sus medidas geométricas también converge, y se cumple \[ \lim_{n\to\infty}\sqrt{x_1+x_2+\cdots+x_n}=\lim_{n\to\infty}x_n. \] El recíproco no es cierto.
+\subsubsection{Criterio de la raíz}
+Si $(x_n)_n$ es una sucesión de números reales estrictamente positivos tal que el cociente $\left(\dfrac{x_n}{x_{n-1}}\right)_{n}$ converge, entonces $\left(\sqrt[n]{x_n}\right)_n$ también converge, y se cumple \[ \lim_{n\to\infty}\sqrt[n]{x_n}=\lim_{n\to\infty}\dfrac{x_n}{x_{n-1}}. \] El recíproco no es cierto.
+\subsubsection{Regla del emparedado}
+Si $(x_n)_n,~(y_n)_n,~(z_n)_n $ son sucesiones tales que $x_n\le y_n\le z_n$ para cada $n\in\mathbb{N}$ y $\lim_{n\to\infty}y_n=0$ entonces $\lim_{n\to\infty}x_n\cdot y_n=0$.
+\subsection{Series de números reales}
+Si $(x_n)_n$ es una sucesión de números reales. A partir de ella podemos formar una nueva sucesión $(S_n)_n$ definida por: \[ \begin{array}{c}
+	S_1=x_1\\
+	S_2=x_1+x_2\\
+	S_3=x_1+x_2+x_3\\
+	\vdots\qquad\vdots\qquad\qquad\qquad\quad\\
+	S_n=x_1+x_2+\cdots+x_n\\
+	\vdots\qquad\vdots\qquad\qquad\qquad\qquad~\\
+\end{array} \] y esta sucesión la llamaremos serie asociada a la sucesión $(x_n)_n$.
+
+Si la sucesión de números reales $(S_n)_n$ tiene límite diremos que la serie es \textit{convergente}.
+
+Si la sucesión de números reales tiene límite $\pm\infty$, diremos que la serie es \textit{divergente}.
+
+Finalmente, si la sucesión $(S_n)_n$ no tiene límite diremos que la serie \textit{no es sumable}.
+
+ Se llamarán \textit{sumables} las series que sean convergentes o divergentes. Cuando la serie $\sum|x_n|$ es convergente diremos que que la serie es \textit{absolutamente convergente}.
+ 
+ Lo que generalmente interesa conocer es si una serie converge o no. El problema de hallar la suma de una serie convergente no se resuelve elementalmente más que en muy pocos casos. A continuación mostramos algunos ejemplos de series en los que será sencillo calcular la suma cuando haya convergencia.
+ \subsubsection{Series convergentes}
+ \textcolor{lightblue}{\underline{Series geométricas}}
+ 
+ Las series geométricas son de la forma $\sum_{n=0}^{n}a\cdot r^n$ donde $a$ y $r$ son números reales. Se trata de la suma de todos los términos de una progresión de razón $r$ que es fácil calcular tomando \[ S_n-rS_n=a-ar^{n+1} \] y entonces \[ \sum_{n=0}^{\infty}ar^n=\lim_{n\to\infty}S_n=\lim_{n\to\infty}\dfrac{a-ar^{n+1}}{1-r}=\dfrac{a}{1-r}+\lim_{n\to\infty}\dfrac{ar^{n+1}}{1-r}, \]donde suponemos que $r\neq1$. Tenemos entonces que:
+ \begin{enumerate}[label=\arabic*)]
+ 	\item Si $r\ge1$ el límite anterior es infinito y la serie es divergente.
+ 	\item Si $|r|<1$ el límite es cero y \[ \sum_{n=0}^{\infty}ar^n=\dfrac{a}{1-r}. \]
+ \end{enumerate}
+ \textcolor{lightblue}{\underline{Series telescópicas}}
+ 
+ Una serie $\sum_{n=0}^{\infty}x_n$ es telescópica cuando se puede poner de la forma \[ \sum_{n=1}^{\infty}x_n=\sum_{n=1}^{\infty}(a_n-a_{n+1}), \] donde $(a_n)_n$ es una sucesión de números reales. Así la serie será convergente si y sólo si la sucesión $(a_n)_n$ es convergente, ya que \[ \sum_{n=1}^{\infty}x_n=\lim_{n\to\infty}a_n-a_1. \]
+ 
+ \begin{itemize}[label=\color{red}\textbullet, leftmargin=*]
+ 	\item \color{lightblue}Ejemplo
+ \end{itemize}
+ La serie \[ \sum_{n=1}^{\infty}\dfrac{1}{n^2+n}=\sum_{n=1}^{\infty}\left(\dfrac{1}{n}-\dfrac{1}{n+1}\right). \] Y así, \[ \sum_{n=1}^{\infty}\dfrac{1}{n^2-n}=\lim_{n\to\infty}-\dfrac{1}{n}+1=1. \]
+\textcolor{lightblue}{\underline{Series Aritmético-Geométricas}}
+
+Una series aritmético-geométrica es de la forma $\sum_{n=0}^{\infty}a_nb_n$, donde $(a_n)_n$ es una sucesión aritmética y $(b_n)_n$ es una sucesión geométrica, es decir \[ \begin{array}{c}
+	a_n=a_0+d\cdot n\\
+	b_n=b_0\cdot r^n
+\end{array} \] para cada $n\in\mathbb{N}$ y ciertos $d$ y $r$ reales. Así, \[ \begin{array}{c}
+S_n=a_0b_0+a_1b_1+\cdots+a_{n-1}b_{n-1}\\
+S_nr=a_0b_1+a_1b_2+\cdot+a_{n-1}b_n
+\end{array} \] y de aquí \[ S_n(1-r)=a_0b_0+(a_1-a_0)b_1+\cdot+(a_{n-1}-a_{n-2})b_{n-1}-a_{n-1}b_n. \]
+Las diferencias que figuran entre paréntesis son todas iguales a la razón $d$ de la progresión aritmética, con lo cual \[ S_n(1-r)=a_0b_0+(b_1+b_2+\cdots+b_{n-1})d-a_{n-1}b_n. \]Ahora, \[ S_n=\dfrac{a_0b_0}{1-r}+\dfrac{db_1}{(1-r)^2}+\dfrac{b_0r^n}{1-r}\left(\dfrac{d}{r-1}-a_0-(n-1)d\right). \]
+Si $|r|<1$, es claro que el tercer sumando tiende hacia 0 cuando $n$ tiende hacia $\pm\infty$, la series es convergente y su suma es \[ \sum_{n=0}^{\infty}a_nb_n=\sum_{n=0}^{\infty}(a_0+d\cdot n)b_0\cdot r^n=\dfrac{a_0b_0}{1-r}+\dfrac{db_0}{(1-r)^2}. \]
+\begin{itemize}[label=\color{red}\textbullet, leftmargin=*]
+	\item \color{lightblue}Ejemplo
+\end{itemize}
+Ejemplo de este tipo de serie es: \[ \sum_{n=0}^{\infty}\dfrac{2n+1}{2^n}=6. \]
+\subsubsection{Condiciones generales de convergencia de las series}
+
+Sea $\sum_{n=1}^{\infty}x_n$ una serie convergente, entonces:
+\begin{enumerate}[label=\arabic*)]
+	\item La sucesión $(R_n)_n$ definida por \[ R_n=\sum_{j=n+1}^{\infty}x_j \] tiene límite 0 cuando $n$ tiende a $\infty$.
+	\item La sucesión convergente $(x_n)_n$ converge a 0.
+\end{enumerate}
+\begin{itemize}[label=\color{red}\textbullet, leftmargin=*]
+	\item \color{lightblue}Proposición
+\end{itemize}
+Una serie de términos reales $\sum_{n=1}^{\infty}x_n$ es convergente si y sólo si para cada número real $\epsilon\in0$ existe un número natural $v\in\mathbb{N}$ tal que si $n\ge v$ y $p\in\mathbb{N}$ entonces \[ |S_{n+p}-S_n|=\left|\sum_{j=n+1}^{n+p}x_j\right| \le\epsilon.\]
+En efecto, el que la serie sea convergente equivale, por definición,a que la sucesión $(S_n)_n$ de sus sumas parciales tenga límite, para lo cual es necesario y suficiente que esta sucesión sea de Cauchy.
+
+Estas propiedades de carácter general permiten en ocasiones descubrir que una serie no es convergente. Demostraremos a continuación que la \textit{serie armónica}, es decir, la serie \[  \sum_{n=0}^{\infty}\dfrac{1}{n} \] es divergente.
+\begin{itemize}[label=\color{red}\textbullet, leftmargin=*]
+	\item \color{lightblue}Demostración
+\end{itemize}
+Demostraremos que la $(T_n)_n=(S_{2n}-S_n)$ no tiene límite cero, de donde deducimos que la serie armónica $(S_n)_n=\left(\sum_{j=1}^{n}\dfrac{1}{j}\right)_n$ es divergente. efectivamente, \[ S_{2n}-S_n=\dfrac{1}{n+1}+\dfrac{1}{n+2}+\cdots+\dfrac{1}{2n}, \]  yde aquí \[ T_n>n\cdot\dfrac{1}{2n}=\dfrac{1}{2}. \] Así, $(T_n)_n$ no puede tener límite 0.
+\subsubsection{Series de números positivos}
+Si $(x_n)_n$ es una sucesión de números positivos de la serie asociada $\left(\sum_{j=1}^{\infty}\dfrac{1}{j}\right)_n$ es una sucesión creciente. Entonces, según hemos visto:
+\begin{enumerate}[label=\arabic*)]
+	\item Si $(S_n)_n$ está acotada la serie converge.
+	\item Si $(S_n)_n$ no está acotada entonces $\sum_{n=1}^{\infty}x_n=+ \infty$ y la serie es divergente.
+\end{enumerate}
+\textcolor{lightblue}{\underline{Criterios del cociente de D'Alembert}}
+
+Sea $\sum_{n=1}^{\infty}x_n$ es una serie de números reales positivos de forma que existe el límite $\lim_{n\to\infty}\dfrac{x_{n+1}}{x_n}=r\in\mathbb{R}$. Entonces se verifica que:
+\begin{enumerate}[label=\arabic*)]
+	\item Si $0\le r\le1$ la serie $\sum_{n=1}^{\infty}$ es convergente.
+	\item Si $r>1$ la serie $ \sum_{n=1}^{\infty}x_n$ es divergente.
+	\item Si $r=1$ no podemos afirmar la convergencia o divergencia de la serie.
+\end{enumerate}
+\begin{itemize}[label=\color{red}\textbullet, leftmargin=*]
+	\item \color{lightblue}Ejemplo
+\end{itemize}
+La serie $\sum_{n=1}^{\infty}\dfrac{1}{n!}$ es convergente ya que $$\lim_{n\to\infty}\dfrac{n!}{(n+1)!}=\lim_{n\to\infty}\dfrac{1}{n+1}=0<1.$$
+
+\textcolor{lightblue}{\underline{Criterio de la raíz de Cauchy}}
+
+Sea $\sum_{n=1}^{\infty}x_n$ una serie de números reales positivos de forma que existe el límite $\lim_{n\to\infty}(x_n)^{\frac{1}{n}}=r\in\mathbb{R}$. Entonces se verifica que:
+\begin{enumerate}[label=\arabic*)]
+	\item Si $0\le r\le1$ la serie $\sum_{n=1}^{\infty}$ es convergente.
+	\item Si $r>1$ la serie $ \sum_{n=1}^{\infty}x_n$ es divergente.
+	\item Si $r=1$ no podemos afirmar la convergencia o divergencia de la serie.
+\end{enumerate}
+\begin{itemize}[label=\color{red}\textbullet, leftmargin=*]
+	\item \color{lightblue}Ejemplo
+\end{itemize}
+Utilizando el criterio de la raíz tenemos que la serie $\sum_{n=1}^{\infty}\dfrac{1}{n^n}$ es convergente, ya que \[ \lim_{n\to\infty}\left(\dfrac{1}{n^n}\right) =\lim_{n\to\infty}\dfrac{1}{n}=0<1.\]
+\textcolor{lightblue}{\underline{Criterio de comparación}}
+
+Consideremos dos series de números positivos $\sum_{n=1}^{\infty}x_n$ y $\sum_{n=1}^{\infty}y_n$ de forma que existe un entero positivo $n_0$ tal que $x_n>y_n$ para cada $n \ge n_0$. Entonces se satisface las siguientes condiciones:
+\begin{enumerate}[label=\arabic*)]
+	\item Si $\sum_{n=1}^{\infty}x_n$ es convergente, entonces $\sum_{n=1}^{\infty}y_n$ es convergente.
+	\item Si $\sum_{n=1}^{\infty}y_n$ es divergente, entonces $\sum_{n=1}^{\infty}x_n$ es divergente.
+\end{enumerate}
+\textcolor{lightblue}{\underline{Criterio del límite}}
+
+Sean $\sum_{n=1}^{\infty}x_n$ y $\sum_{n=1}^{\infty}y_n$ dos series de números positivos tales que existe $\lim_{n\to\infty}\dfrac{x_n}{y_n}=r\in\mathbb{R}$. Entonces se verifica:
+\begin{enumerate}[label=\arabic*)]
+	\item Si $r\neq0$, entonces la  serie $\sum_{n=1}^{\infty}x_n$ es convergente (divergente) si y sólo si la serie $\sum_{n=1}^{\infty}y_n$ es convergente (divergente).
+	\item Si $r=0$ y la serie $\sum_{n=1}^{\infty}x_n$ es divergente, entonces la $\sum_{n=1}^{\infty}y_n$ es divergente.
+	\item Si $r=0$ y la serie $\sum_{n=1}^{\infty}y_n$ es convergente, entonces la $\sum_{n=1}^{\infty}x_n$ es convergente.
+\end{enumerate}
+Para poder aplicar este último criterio necesitamos conocer series de las cuales conozcamos si son o no convergentes. Suele ser bastante frecuente utilizar las series de la forma $\sum_{n=1}^{\infty}\dfrac{1}{n^\alpha}$ donde $\alpha$ es un número positivo. Entonces tenemos que 
+\begin{enumerate}[label=\arabic*)]
+	\item $\sum_{n=1}^{\infty}\dfrac{1}{n^\alpha}$ es convergente si $\alpha>1$.
+	\item $\sum_{n=1}^{\infty}\dfrac{1}{n^\alpha}$ es divergente si $\alpha\le 1$.
+\end{enumerate}
+\textcolor{lightblue}{\underline{Criterio de la integral}}
+\begin{itemize}[label=\color{red}\textbullet, leftmargin=*]
+	\item \color{lightblue}Proposición
+\end{itemize}
+Sea $f$ una sucesión real continua positiva, monótona decreciente definida en un intervalo de la forma $\left[a,\infty\right)$ y tal que $\lim_{n\to\infty}f(x)=0$. Entonces si la integral \[ \int_{a}^{\infty} f(x)\mathrm{d}x\]es convergente la serie \[ \sum f(x) \] es convergente, y si dicha integral es divergente la serie es también divergente.
+\subsubsection{Series de números arbitrarios}
+\begin{itemize}[label=\color{red}\textbullet, leftmargin=*]
+	\item \color{lightblue}Definición
+\end{itemize}
+Diremos que la serie de términos reales $\sum_{n=1}^{\infty}x_n$ es absolutamente convergente cuando la serie $\sum_{n=1}^{\infty}|x_n|$, formada por los valores absolutos de sus términos, sea convergente.
+
+La convergencia absoluta de una serie implica su convergencia ordinaria. En efecto, si $\sum_{n=1}^{\infty}|x_n|$ es convergente, para cada $\epsilon>0$ existe un número natural $v$ tal que \[ \sum_{j=1}^{n+p} |x_j|\le\epsilon,\] para $n>v$ y $p\ge1$. Puesto que \[ \left|\sum_{j=1}^{n+p} x_j\right| \le\sum_{j=1}^{n+p} |x_j|\] obtenemos que \[ \sum_{j=1}^{n+p} |x_j|\le\epsilon \] si $n\ge v$ y $p\ge1$.
+
+Es de señalar que no toda serie convergente es absolutamente convergente, tal es el caso de la serie $\sum_{n=1}^{\infty}\dfrac{(-1)^n}{n}$, que es convergente pero no absolutamente convergente.
+
+\textcolor{lightblue}{\underline{Criterio de Leibniz para series alternadas}}
+
+Sea $a_n>0$, la serie $\sum_{n=1}^{\infty}(-1)^na_n$ converge si:
+\begin{enumerate}[label=\arabic*)]
+	\item $\lim_{n\to\infty}a_n=0$.
+	\item $(a_n)$ es decreciente.
+\end{enumerate}
+
+\newpage
+
+\input{Temas/Tema 2.tex}
+
+\newpage
+
+\input{Temas/Tema 3.tex}
+
+\newpage
+
+\input{Temas/Tema 4.tex}
+
+\end{document}
+
+
+

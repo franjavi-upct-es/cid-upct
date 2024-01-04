@@ -1,0 +1,638 @@
+\section{Transformaciones lineales}
+
+\subsection{Introducción}
+
+$A\in M_{m\times n}$ tiene asociada los espacios vectoriales $\R^n$ y $\R^m$. Así, dado $v\in\R^n,\: Av\in\R^m$.
+
+Podemos ver $A$ como una forma de transformar vectores de $\R^n$ en $\R^m$, es decir, \[ \begin{array}{rcl}
+	\R^n&\xrightarrow[\qquad]{A}&\R^m\\
+	v&\xmapsto{\qquad} &Av
+\end{array} \]
+Veamos algunos ejemplos:
+\begin{enumerate}[label=\color{lightblue}\arabic*)]
+	\item $A=\begin{bmatrix}
+		1 & 0\\
+		0 & -1
+	\end{bmatrix}$
+	\begin{center}
+		$v=\begin{bmatrix}
+			x\\
+			y
+		\end{bmatrix}\longrightarrow Av=\begin{bmatrix}
+			1 & 0\\
+			0 & -1
+		\end{bmatrix}\cdot\begin{bmatrix}
+			x\\
+			y
+		\end{bmatrix}=\begin{bmatrix}
+			x\\
+			-y
+		\end{bmatrix}$
+		
+		\vspace{1cm}
+		
+		\begin{tikzpicture}
+			\draw[-latex] (-2,0) -- (2,0) node[right] {$x$};
+			\draw (0,-1) -- (0,2);
+			\draw[lightblue, -*, line width=1.5] (0,0) -- (1,1) node[above right] {$(x,y)$};
+			\draw[lightblue, dashed, -*, line width=1.5] (0,0) -- (1,-1) node[below right] {$(x,-y)$};
+			\draw[-latex] (2.4,0) -- (3.9,0) node[midway, above] {$A$};
+			\draw[-latex] (4,0) -- (8,0) node[right] {$x$};
+			\draw (6,-1) -- (6,2);
+			\draw[lightblue, -*, line width=1.5] (6,0) -- (7,-1) node[below right] {$A(x,y) =(x,-y)$};
+		\end{tikzpicture}
+	\end{center}
+	$A$ es una simetría respecto del eje $OX$.\\
+	Tenemos pues la aplicación \[ \begin{aligned}
+		f:&\R^2\longrightarrow\R^2\\
+		&(x,y)\longmapsto f(x,y)=A\begin{bmatrix}
+			x\\
+			y
+		\end{bmatrix}=(x,-y)
+	\end{aligned} \]
+	\item $A=\begin{bmatrix}
+		1 & 0\\
+		0 & 0
+	\end{bmatrix},\qquad A\begin{bmatrix}
+		x\\
+		y
+	\end{bmatrix}=\begin{bmatrix}
+		1 & 0\\
+		0 & 0
+	\end{bmatrix}\cdot\begin{bmatrix}
+		x\\
+		y
+	\end{bmatrix}=\begin{bmatrix}
+		x\\
+		0
+	\end{bmatrix}$
+	\begin{center}
+		\begin{tikzpicture}
+			\draw (-1, 0) -- (1.5,0);
+			\draw (0,-1) -- (0,2);
+			\draw[lightblue, line width=1.5] (0,0) -- (1,0) node[below] {$x,0$};
+			\draw[lightblue, -*, line width=1.5] (0,0) -- (1,1) node[above right] {$(x,y)$};
+			\draw[lightblue,dashed] (1,1) -- (1,0);
+			\draw[-latex] (1.6,0) -- (2.9,0) node[midway,above] {$A$};
+			\draw (3,0) -- (7,0);
+			\draw (5,-1) -- (5,2);
+			\draw[lightblue, -*, line width=1.5] (5,0) -- (6,0) node[below] {$(x,0)$};
+		\end{tikzpicture}
+	\end{center}
+	$A$ es una proyección sobre el eje $OX$.\\
+	$A$ induce una aplicación \[ \begin{aligned}
+		f:&\R^2\longmapsto\R^2\\
+		&(x,y)\longmapsto f(x,y)=(x,0)
+	\end{aligned} \]
+	\item $A=\begin{bmatrix}
+		a & 0 & 0\\
+		0 & b & 0\\
+		0 & 0 & c
+	\end{bmatrix}$ \[ \begin{bmatrix}
+		x\\
+		y\\
+		z
+	\end{bmatrix}\longrightarrow\begin{bmatrix}
+		a & 0 & 0\\
+		0 & b & 0\\
+		0 & 0 & c
+	\end{bmatrix}\cdot\begin{bmatrix}
+		x\\
+		y\\
+		z
+	\end{bmatrix}=\begin{bmatrix}
+		ax\\
+		by\\
+		cz
+	\end{bmatrix} \]
+	$A$ reescala las variables e induce la aplicación \[ \begin{aligned}
+		f:&\R^3\longrightarrow\R^3\\
+		&(x,y,z)\longmapsto f(x,y,z)=(ax,by,cz)
+	\end{aligned} \]
+\end{enumerate}
+\begin{tikzpicture}
+	\node[red, draw=red,fill=red!10, line width=1.5,text width=\textwidth] {\underline{Nota:} Nótese que las transformaciones inducidas por matrices satisfacen \[ A(\alpha y+\beta v)=\alpha Au+\beta Av \]};
+\end{tikzpicture}
+\subsection{Aplicaciones lineales}
+\begin{itemize}[label=\color{red}\textbullet, leftmargin=*]
+	\item \color{lightblue}Definición
+\end{itemize}
+Una aplicación o transformación lineal es una aplicación $f:\K^n\longrightarrow\K^m$ que cumplen que \[ f(\alpha u+\beta v)=\alpha f(u)+\beta f(v)\:\forall\alpha,\beta\in\K,\:\forall u,v\in\K^n \]
+Veamos ahora que fijadas bases de $\K^n$ y $\K^m$, toda aplicación lineal tiene una matriz asociada o que la representa.
+
+Sea $\{e_1,\dots,e_n\}$ en la base canónica de $\R^n$.\\
+SI $x=(x_1,\dots,x_n)\in\R^n$, entonces \begin{align*}
+	f(x)&=f(x_1e_1+x_2e_2+\cdots+x_ne_n)\\
+	&=x_1f(e_1)+\cdots+x_nf(e_n)
+\end{align*}
+Supongamos que $f(e_j)=(a_{1j},\dots,a_{mj})$ y que $f(x)=(y_1,\dots,y_m)$. Entonces \[ \underbrace{\begin{bmatrix}
+		a_{11} & \cdots & a_{1n}\\
+		& & \\
+		a_{m1} & \cdots & a_{mn}
+\end{bmatrix}}\cdot\begin{bmatrix}
+	x_{1}\\
+	\vdots\\
+	x_n
+\end{bmatrix}=x_1\begin{bmatrix}
+	a_{11}\\
+	\vdots\\
+	a_{m1}
+\end{bmatrix}+\cdots+x_n\begin{bmatrix}
+	a_{1n}\\
+	\vdots\\
+	a_{mn}
+\end{bmatrix}=\begin{bmatrix}
+	y_1\\
+	\vdots\\
+	y_m
+\end{bmatrix} \]
+A la matriz $(a_{ij})$ se le llama matriz de la aplicación lineal $f$ en las bases canónicas y se denota $M_{C\to C}(f)$, es decir, \[ M_{C\to C}(f)=\underset{\begin{array}{cccc}
+		\downarrow & \downarrow & & \downarrow\\
+		\text{1}^\text{a} & \text{2}^\text{a} & & \text{$n$-
+			esima}\\
+		\text{columna} & \text{columna} & & \text{columna}
+\end{array}}{\left[\begin{array}{cccc}
+		& & & \\
+		f(e_1) & f(e_2) & \cdots & f(e_n)\\
+		& & & \\
+	\end{array}\right]} \]
+\Ej
+
+$\begin{array}{l}
+	\begin{aligned}
+		f:&\R^2\longrightarrow\R^2\\
+		&(x,y)\longmapsto f(x,y)=(x\cos(\alpha)-y\sin(\alpha), x\sin(\alpha)+y\cos(\alpha))
+	\end{aligned}\\
+	f(1,0)=(\cos(\alpha),\sin(\alpha))\\
+	f(0,1)=(-\sin(\alpha),\cos(\alpha))
+\end{array}$\[ M_{C\to C}(f)=\begin{bmatrix}
+	\cos(\alpha) & -\sin(\alpha)\\
+	\sin(\alpha) & \cos(\alpha)
+\end{bmatrix} \]
+
+\begin{tikzpicture}[scale=2, baseline=(current bounding box.center)]
+	\draw[lightblue, dashed] (45:1) |- (0,0);
+	\draw[blue, dashed] (110:1) |- (0,0);
+	\draw (-1.2,0) -- (1.2,0);
+	\draw (0,-1.2) -- (0,1.2);
+	\draw[lightblue] (0,0) circle (1);
+	\draw[lightblue, -latex, line width=1.2] (0,0) -- (45:1);
+	\draw[lightblue] (0.2, 0) arc (0:45:0.2cm) node[midway, right] {$\alpha$};
+	\draw[blue, -latex, line width=1.2] (0,0) -- (110:1);
+	\draw[blue] (-0.15,0) arc (180:110:0.15cm);
+	\draw[blue] (0,0.3) arc (90:110:0.3cm) node[midway, above] {$\alpha$};
+	\draw[latex-] (0.5,0) -- (0.5,-0.2) node[below] {$\cos(1,0)$};
+	\draw[latex-] (0.8,0.25) -- (1,0.25) node[right] {$\sin(\alpha)$};
+\end{tikzpicture}
+$\begin{array}{l}
+	\text{$f$ es un giro de ángulo $\alpha$.}\\
+	\sin\left(\dfrac{\pi}{2}-\alpha\right)=\cos(\alpha)\\
+	\cos\left(\dfrac{\pi}{2}-\alpha\right)=\sin(\alpha)
+\end{array}$
+\begin{itemize}[label=\color{red}\textbullet, leftmargin=*]
+	\item \color{lightblue}Definición
+\end{itemize}
+Una transformación lineal $f:\R^n\longrightarrow\R^m$ se dice ortogonal si su matriz asociada es ortogonal.
+
+\Ej
+
+La aplicación anterior es ortogonal ya que \[ [\begin{array}{l}
+	\cos(\alpha),-\sin(\alpha)]\cdot[\sin(\alpha),\cos(\alpha)]=\cos(\alpha)\sin\alpha-\sin(\alpha)\cos(\alpha)=0\\
+	\cos^2(\alpha)+\sin^2(\alpha)=1\\
+	(-\sin(\alpha))^2+\cos^2(\alpha)=1
+\end{array} \]
+\subsection{Cambio de coordenadas (o de base en las aplicaciones lineales)}
+Sea $f:\R^n\longrightarrow\R^n$ una aplicación lineal y sea $B=\{u_1,u_2,\dots,u_n\}$ una base de $\R^n$. La matriz cuyas columnas son las coordenadas de $f(u_j)$ en la base $B$ se llama matriz asociada a la aplicación lineal $f$ en la base $B$ y se denota $M_{B\to B}(f)$, es decir, \[ M_{B\to B}(A)=\left[\begin{array}{c:c:c:c}
+	& & & \\
+	f(u_1)_B & f(u_2)_B & \cdots & f(u_n)_B\\
+	& & & \\
+\end{array}\right] \]
+\Ej 
+
+\begin{align*}
+	f:&\R^2\longrightarrow\R^2\\
+	&(x,y)\longmapsto f(x,y)=(5x+6y,-3x-4y)
+\end{align*}
+Vamos a calcular $M_{C\to C}(f),M_{B\to B}(f)$ y la relación entre estas dos matrices, donde 
+
+$B=\{u_1=(-2,1),u_2=(1,-1)\}$
+
+\begin{tikzpicture}
+	\draw (-2.2,0) -- (2.2,0);
+	\draw (0,-1.2) -- (0,2.2);
+	\foreach \x in {-2,...,2}{
+		\draw (\x,0.1) -- (\x,-0.1);
+	}
+	\foreach \y in {-1,...,2}{
+		\draw (0.1,\y) -- (-0.1,\y);
+	}
+	\draw[lightblue,-latex] (0,0) -- (1,0);
+	\draw[lightblue,-latex] (0,0) -- (1,-1) node[below right] {$u_2$};
+	\draw[lightblue,-latex] (0,0) -- (0,1);
+	\draw[lightblue,-latex] (0,0) -- (-2,1) node[below left] {$u_1$};
+	\draw[lightblue,dashed] (-2,0) |- (0,1);
+	\draw[lightblue,dashed] (1,0) |- (0,-1);
+\end{tikzpicture}
+
+$\begin{array}{l}
+	f(e_1)=f(1,0)=(5,-3)=5\cdot e_1+(-3)\cdot e_2\\
+	f(e_2)=f(0,1)=(6,-4)=6\cdot e_1+(-4)\cdot e_2
+\end{array}$\[ M_{C\to C}(f)=\begin{bmatrix}
+	5 & 6\\
+	-3 & -4
+\end{bmatrix} \]$f(u_1)=f(-2,1)=(-4,2)=a_{11}(-2,1)+a_{21}(1,-1)$\[ \begin{array}{c}
+	\begin{array}{rl}
+		-4=&-2a_{11}+a_{21}\\
+		2=&a_{11}-a_{21}\\ \hline
+		-2=&-a_{11}
+	\end{array}\begin{array}{l}
+		\\
+		\longrightarrow a_{21}=0\\
+	\end{array}\\
+	M_{B\to B}(f)=\begin{bmatrix}
+		2 & 0\\
+		0 & -1
+	\end{bmatrix}
+\end{array} \]
+$f(u_2)=f(1,-1)=(-1,1)=0\cdot (-2,1)+(-1)\cdot(1,-1)$
+
+\rc{Importante!!}
+
+La aplicación lineal es la misma pero las matrices asociadas son distintas, porque las bases cambian. El esquema es como sigue \begin{center}
+	\begin{tikzcd}
+		~_C\quad\mathbb{R}^2 \arrow[rr, "f"]            &  & \mathbb{R}^2 \quad~_C \arrow[dd] \\
+		&  &                                  \\
+		~_B\quad\mathbb{R}^2 \arrow[rr, "f"] \arrow[uu] &  & \mathbb{R}^2 \quad~_B           
+	\end{tikzcd}
+\end{center}
+$$M_{B\to B}(f)=M_{C\to B}M_{C\to C}(f)M_{B\to C}$$ donde $M_{C\to B}$ es la matriz de cambio de base de base de $C$ a $B$ y $M_{B\to C}$ es la matriz de cambio de base de $B$ a $C$. Obviamente, estas matrices son una la inversa de otra. Por tanto, la fórmula anterior queda \[ \bboxed{M_{B\to B}(f)=\left[M_{B\to C}\right]^{-1}M_{C\to C}(f)M_{B\to C}} \]
+$M_{B\to C}=\begin{bmatrix}
+	-2 & 1\\
+	1 & -1
+\end{bmatrix},\qquad M_{C\to B}=\left[M_{B\to C}\right]^{-1}=\begin{bmatrix}
+	-1 & -1 \\
+	-1 & -2
+\end{bmatrix}$
+
+$\left[\begin{array}{cc:cc}
+	-2 & 1 & 1 & 0 \\
+	1 & -1 & 0 & 1
+\end{array}\right]\xrightarrow{F_1\longleftrightarrow F_2}\left[\begin{array}{cc:cc}
+	1 & -1 & 0 & 1 \\
+	-2 & 1 & 1 & 0
+\end{array}\right]\xrightarrow{F_2\to F_2+2F_1}\left[\begin{array}{cc:cc}
+	1 & -1 & 0 & 1 \\
+	0 & 1 & 1 & 2
+\end{array}\right]\linebreak\xrightarrow{F_3\to(-1)\cdot F_3}\left[\begin{array}{cc:cc}
+	1 & -1 & 0 & 1 \\
+	0 & 1 & -1 & -2
+\end{array}\right]\xrightarrow{F_1\to F_1+ F_2}\left[\begin{array}{cc:cc}
+	-1 & 0 & -1 & -1 \\
+	0 & 1 & -1 & -2
+\end{array}\right]$
+
+$\left[M_{B\to C}\right]^{-1}M_{C\to C}(f)M_{B\to C}=\begin{bmatrix}
+	-1 & -1\\
+	-1 & -2
+\end{bmatrix}\cdot\begin{bmatrix}
+	5 & 6\\
+	-3 & -4
+\end{bmatrix}\cdot\begin{bmatrix}
+	-2 & 1\\
+	1 & -1
+\end{bmatrix}=\begin{bmatrix}
+	-1 & -1\\
+	-1 & -2
+\end{bmatrix}\cdot\begin{bmatrix}
+	-4 & -1\\
+	2 & 1
+\end{bmatrix}=\begin{bmatrix}
+	2 & 0\\
+	0 & -1
+\end{bmatrix}=M_{B\to B}(f)$
+
+\Ej\:\lb{(Simetría respecto a una recta)}
+
+Consideremos la recta $y=2x$
+\begin{center}
+	\begin{tikzpicture}
+		\draw (-2,0) -- (2,0);
+		\draw (0,-2) -- (0,2);
+		\draw[lightblue, domain=-1:1] plot (\x,2*\x) node[above right] {$y=2x$};
+		\draw[blue, -latex] (0,0) -- (0.25,1) node[above] {$v$};
+		\draw[blue,-latex] (0,0) -- (1,0.7) node[above right] {$f(v)$};
+		\draw[blue,dashed] (0.25,1) -- (1,0.7);
+	\end{tikzpicture}
+\end{center}
+Sea $f:\R^2\longrightarrow\R^2$ la aplicación lineal que hace corresponder a vector $v$ su simétrico respecto a dicha recta.\\
+Vamos a calcular $M_{C\to C}(f)$, es decir, la matriz asociada a dicha aplicación lineal en la base canónica de $\R^2,\:C=\{e_1=(1,0),e_2=(0,1)\}$. 
+
+Se tiene $M_{C\to C}(f)=\left[\begin{array}{c:c}
+	f(e_1) & f(e_2)
+\end{array}\right]$.
+
+Como es difícil de calcular $f(e_1)$ y $f(e_2)$ consideramos una base distinta \begin{center}
+	$B=\{u_1=(1,2),u_2=(-2,1)\}$\\
+	\begin{tikzpicture}
+		\draw (-2.2,0) -- (2.2,0);
+		\draw (0,-2.2) -- (0,2.2);
+		\foreach \x in {-2,...,2}{
+			\draw (\x,0.1) -- (\x,-0.1);
+			\draw (0.1,\x) -- (-0.1,\x);
+		}
+		\draw[lightblue, domain=-1:1.5] plot (\x,2*\x) node[above right] {$y=2x$};
+		\draw[blue,-latex] (0,0) -- (-2,1) node[below left] {$u_2$};
+		\draw[blue,-latex] (0,0) -- (1,2) node[below right] {$u_1$};
+		\draw[blue,dashed] (-2,0) |- (0,1);
+		\draw[blue,dashed] (1,0) |- (0,2);
+	\end{tikzpicture}
+\end{center}
+Nótese que $u_1$ está en la recta ya que $2=2\cdot1$ y $u_2$ es perpendicular a la recta ya que \[ (1,2)\cdot(-2,1)=0. \]Por tanto, $f(u_1)=u_1,\:f(u_2)=-u_2$.
+
+Además, la matriz de cambio de base \[ M_{B\to C}=\begin{bmatrix}
+	1 & -2\\
+	2 & 1
+\end{bmatrix} \]
+Calculamos la inversa de esta matriz
+
+$\left[\begin{array}{cc:cc}
+	1 & -2 & 1 & 0 \\
+	2 & 1 & 0 & 1
+\end{array}\right]\xrightarrow{F_2\to F_2-2F_1}\left[\begin{array}{cc:cc}
+	1 & -2 & 1 & 0 \\
+	0 & 5 & -2 & 1
+\end{array}\right]\xrightarrow{F_3\to\frac{1}{5}F_2}\left[\begin{array}{cc:cc}
+	1 & -2 & 1 & 0 \\
+	0 & 1 & -\frac{2}{5} & \frac{1}{5}
+\end{array}\right]\linebreak\xrightarrow{F_1\to F_1+2F_2}\left[\begin{array}{cc:cc}
+	1 & 0 & \frac{1}{5} & \frac{2}{5} \\
+	0 & 1 & -\frac{2}{5} & \frac{1}{5}
+\end{array}\right]$
+
+Tenemos el esquema
+\begin{center}
+	\begin{tikzcd}
+		~_C\quad\mathbb{R}^2 \arrow[rr, "f"]            &  & \mathbb{R}^2 \quad~_C \arrow[dd] \\
+		&  &                                  \\
+		~_B\quad\mathbb{R}^2 \arrow[uu]  \arrow[rr, "f"] &  & \mathbb{R}^2 \quad~_B
+	\end{tikzcd}
+\end{center}
+$M_{C\to C}(f)=M_{B\to C}M_{B\to B}(f)M_{C\to B}=\begin{bmatrix}
+	1 & -2\\
+	2 & 1
+\end{bmatrix}\cdot\begin{bmatrix}
+	1 & 0\\
+	0 & -1
+\end{bmatrix}\cdot\dfrac{1}{5}\begin{bmatrix}
+	1 & 2\\
+	-2 & 1
+\end{bmatrix}=\dfrac{1}{5}\begin{bmatrix}
+	1 & -2\\
+	2 & 1
+\end{bmatrix}\cdot\begin{bmatrix}
+	1 & 2\\
+	2 & -1
+\end{bmatrix}=\dfrac{1}{5}\begin{bmatrix}
+	-3 & 4\\
+	4 & 3
+\end{bmatrix}$
+\subsection{Proyecciones}
+Supongamos que el sistema $Ax=b$ es incompatible. Por tanto, $b\notin\col(A)$
+
+\begin{center}
+	\includegraphics[width=\textwidth]{"Temas/Tema 6/proyecciones.drawio"}
+\end{center}
+Nos planteamos el problema de encontrar el vector $z\in\col(A)$ que esté más próximos a $b$, es decir, $z=Ax$ y buscamos minimizar $\|Ax-b\|$, que también puede escribirse como \[ \left\{\min\|z-b\|^2=(z_1-b_1)^2+\cdots+(z_n-b_n)^2\right. \]con $z=(z_1,\dots,z_m)$ y $b=(b_1,\dots, b_m)$.
+
+El problema anterior se llama \lb{aproximación por mínimos cuadrados}.
+
+Vamos a ver que el $z$ buscado es la proyección ortogonal de $b$ sobre $\col(A)$. Gráficamente \begin{center}
+	\begin{tikzpicture}[baseline=(current bounding box.center)]
+		\draw (-1,0) -- (2,0);
+		\draw (0,-1) -- (0,2);
+		\draw[lightblue, -latex] (0,0) -- (1,1) node[above right] {$x$};
+		\node at (1,2.5) {$\R^2$};
+	\end{tikzpicture}$\xrightarrow[\hspace{3cm}]{A}$\begin{tikzpicture}[baseline=(current bounding box.center)]
+		\draw (-2,0) -- (2,0);
+		\draw (0,-1) -- (0,2) node[right] {$z=Ax$};
+		\draw[lightblue, -stealth] (0,0) -- (1/3,1/3);
+		\draw[lightblue, -stealth] (0,0) -- (2/3,2/3);
+		\draw[lightblue, -stealth] (0,0) -- (1,1) ;
+		\draw[lightblue, -stealth] (0,0) -- (-1/3,-1/3);
+		\draw[lightblue, -stealth] (0,0) -- (-2/3,-2/3);
+		\draw[blue, domain=-1:2] plot (\x,\x) node[above right] {$\col(A)$};
+		\draw[blue, -latex] (0,0) -- (2,0.5) node[above right] {$b$};
+		\draw[blue,dashed] (1,1) -- (2,0.5) node[midway, above right] {$\R^2$}; 
+	\end{tikzpicture}
+\end{center}
+\begin{itemize}[label=\color{red}\textbullet, leftmargin=*]
+	\item \color{lightblue}Recordatorio
+\end{itemize}
+Sea $U\subset\R^n$ un subespacio vectorial y $v\in\R^n$. 
+
+Entonces $v=u+u^\intercal$, con $u\in U, u^\intercal\in U^\intercal$.\\
+Recordemos $\R^n=U\oplus U^\intercal$. Al vector $u\in U$ se le llama proyección ortogonal de $v$ en $U$ y se denota $P_u(v)$. Podemos pues considerar la aplicación lineal \begin{center}
+	$\begin{aligned}
+		P_u:&\R^n\longrightarrow\R^n\\
+		&v\longmapsto P_u(v)
+	\end{aligned}$\\
+	\begin{tikzpicture}
+		\draw[-latex] (-2,0) -- (2,0) node[below] {$u$};
+		\draw[-latex] (0,-1) -- (0,2) node[right] {$u^\intercal$};
+		\draw[lightblue, -latex, line width=1.2] (0,0) -- (0,1) node[left] {$u^\perp$};
+		\draw[lightblue, -latex, line width=1.2] (0,0) -- (1,0) node[below] {$\begin{array}{c}
+				u\\
+				\rotatebox{90}{=}\\
+				P_u(v)
+			\end{array}$};
+		\draw[-*, lightblue, line width=1.2] (0,0) -- (1,1) node[above right] {$v$};
+		\draw[lightblue, dashed] (1,0) -- (1,1);
+	\end{tikzpicture}
+\end{center}
+Por tanto, si $U=\col(A)$ y $v\in U$ entonces \begin{align*}
+	\|v-b\|^2&=\|v-P_u(b)+(-b+P_u(b))\|^2\\
+	&=\underbrace{\|v-P_u(b)\|^2}_u+\underbrace{\|-b+P_u(b)\|^2}_{u^\perp}
+\end{align*}
+Así, el vector $v$ que minimiza la norma anterior es $v=P_u(b)$.
+
+\bu{¿Cómo se calcula la proyección ortogonal sobre un subespacio vectorial?}
+\begin{itemize}[label=\color{red}\textbullet, leftmargin=*]
+	\item \color{lightblue}Proposición
+\end{itemize}
+Sea $\{u_1,\dots,u_m\}$ una base ortogonal de $\R^n$ de la forma $\{u_,\dots,u_m,u_{m+1},\dots,u_n\}$, donde \[ U=<u_1,\dots,u_m>,\:u^\perp=<u_{m+1,\dots,u_n}> \]Entonces \[ x=\sum_{j=1}^{n}x_ju_j \] y multiplicando por $u_k,\:1\le k\le m$ \[ x\cdot u_k=x_k\cdot u_k\cdot u_k \] de donde \[ x_k=\dfrac{x\cdot u_k}{\|u_k\|^2} \]
+\subsection{Cálculo de la matriz asociada a la proyección sobre un subespacio vectorial}
+Supongamos que $U=<(1,0,1),(2,1,-1)>$.
+
+Buscamos una matriz $A$ tal que si $v\in\R^3$, entonces \[ P_u(v)=Av. \]Veamos varias formas de hacerlo:
+
+\begin{enumerate}[label=\color{lightblue}\arabic*)]
+	\item $A=\left[\begin{array}{c:c:c}
+		P_u(e_1) & P_u(e_2) & P_u(e_3)
+	\end{array}\right]$
+	
+	$e_1=(1,0,0),\:e_2=(0,1,0),\:e_3=(0,0,1)$\\
+	Consideramos una base ortogonal de $U$. Lo hacemos por Gram-Schmidt:
+	
+	$\begin{array}{l}
+		u_1=(1,0,1)\\
+		u_2=(2,1,-1)+\alpha(1,0,1)\\
+		\begin{aligned}
+			0=u_1\cdot u_2&=(1,0,1)\cdot(2,1,-1)+\alpha(1,0,1)\cdot(1,0,1)\\
+			&=1+2\alpha\longrightarrow\alpha=-\dfrac{1}{2}
+		\end{aligned}\\
+		u_2=(2,1,-1)-\dfrac{1}{2}(1,0,1)=\left(\dfrac{3}{2},1,-\dfrac{3}{2}\right)
+	\end{array}$
+	
+	Para evitar fracciones, consideramos la base de $U$ \[ \{u_1=(1,0,1),\:u_2=(3,2,-3)\} \]Por tanto:\[ \begin{array}{l}
+		\begin{aligned}
+			P_u(e_1)&=\dfrac{e_1\cdot u_1}{\|u_1\|^2}u_1+\dfrac{e_1\cdot u_2}{\|u_2\|^2}\\
+			&=\dfrac{(1,0,0)\cdot(1,0,1)}{2}(1,0,1)+\dfrac{(1,0,0)\cdot(3,2,-3)}{9+4+9}\cdot(3,2,-3)\\
+			&=\dfrac{1}{2}(1,0,1)+\dfrac{3}{22}(3,2,-3)\\
+			&=\dfrac{1}{11}(10,3,1)
+		\end{aligned}\\
+		P_u(e_2)=\dfrac{e_2\cdot u_1}{\|u_1\|^2}u_1+\dfrac{e_2\cdot u_2}{\|u_2\|^2}u_2=\dfrac{1}{11}(3,2,-3)\\
+		P_u(e_3)=\dfrac{e_3\cdot u_1}{\|u_1\|^2}\cdot u_1+\dfrac{e_3\cdot u_2}{\|u_2\|^2}\cdot u_2=\dfrac{1}{11}(1,-3,10)\\
+		P_u\equiv A=\dfrac{1}{11}\begin{bmatrix}
+			10 & 3 & 1\\
+			3 & 2 &-1\\
+			1 & -3 & 10
+		\end{bmatrix}
+	\end{array} \]
+	\item Otra forma de hacerlo.\\
+	Tomamos una base de $\R^3\:B=\{u_1,u_2,u_3\}$ de modo que $u_1,u_2\in U$ y $u_3\in U^\intercal$
+	
+	$\begin{array}{l}
+		u_1=(1,0,1)\\
+		u_2=(2,1,-1)\\
+		u_3=(x,y,z)\\
+		\begin{rcases}
+			0=u_1\cdot u_3=x+z\\
+			0=u_2\cdot u_3=2x+y-z
+		\end{rcases}\\
+	\end{array}$
+	
+	Tomamos un parámetro:\\
+	$\begin{array}{l}
+		z=\alpha\\
+		x=-\alpha\\
+		u=-2x+z=2\alpha+\alpha=3\alpha\\
+		u_3=(-1,3,1)
+	\end{array}$
+	
+	Por tanto, \[ B=\{u_1,u_2,u_3\} \]es una base de $\R^3=U\oplus U^\perp$ de modo que $U=<u_1,u_2>$ y $u^\intercal=<u_3>$.
+	
+	Así, \[ \begin{array}{l}
+		P_u(u_1)=u_1\\
+		P_u(u_2)=u_2\\
+		P_u(u_3)=0\text{ ya que }u_3\in U^\perp
+	\end{array} \]
+	Por tanto $M_{B\to B}(P_u)=\begin{bmatrix}
+		1 & 0 & 0 \\
+		0 & 1 & 0 \\
+		0 & 0 & 1
+	\end{bmatrix}$.\\
+	Hacemos ahora el cambio de base con la canónica.\\
+	$M_{C\to C}(P_u)=M_{B\to C}M_{B\to B}(P_u)M_{C\to B}=\begin{bmatrix}
+		1 & 2 & -1 \\
+		0 & 1 & 3 \\
+		1 & -1 & 1
+	\end{bmatrix}\cdot\begin{bmatrix}
+		1 & 0 & 0 \\
+		0 & 1 & 0 \\
+		0 & 0 & 1
+	\end{bmatrix}\cdot\begin{bmatrix}
+		1 & 2 & -1 \\
+		0 & 1 & 3 \\
+		1 & -1 & 1
+	\end{bmatrix}^{-1}=\dfrac{1}{11}
+	\begin{bmatrix}
+		10 & 3 & 1 \\
+		3 & 2 & -1 \\
+		1 & -3 & 10
+	\end{bmatrix}$
+\end{enumerate}
+\subsection{Proyección sobre $\col(A)$}
+\begin{itemize}[label=\color{red}\textbullet, leftmargin=*]
+	\item \color{lightblue}Proposición
+\end{itemize}
+Sea $A\in M_{m\times n},\rg(A)=m$ y sea $U=\col(A)$.
+
+Entonces $M_{C\to C}(P_u)=A(A^\intercal A)^{-1}A^\intercal$.
+\begin{itemize}[label=\color{red}\textbullet, leftmargin=*]
+	\item \color{lightblue}Demostración
+\end{itemize}
+\begin{enumerate}[label=\color{lightblue}\arabic*)]
+	\item $A^\intercal A$ (matrices de Gram) es simétrica y definida positiva.
+	
+	$x^\intercal A^\intercal Ax=(Ax)^{\intercal}Ax=\|Ax\|^2=0\longleftrightarrow Ax=0\xrightarrow[\rg(A)=m]{}x=0$
+	\item Dado $b\in\R^n,\:P_u(b)=Ax$ para algún $x\in\R^n$.
+	
+	Como $b-P_u(b)=b-Ax\in U^\perp)\nuc(A^\intercal)$ se cumple \begin{align*}
+		0&=A^{\intercal}(b-Ax)=A^{\intercal}b-A^{\intercal}Ax\\
+		&\longrightarrow A^{\intercal}Ax=A^{\intercal}b\longrightarrow x=(A^\intercal A)^{-1}A^\intercal b\\
+		&\longrightarrow P_u(b)=A(A^{\intercal}A)^{-1}A^{\intercal}b
+	\end{align*}
+\end{enumerate}
+\Ej
+
+$A=\begin{bmatrix}
+	1 & 2\\
+	0 & 1\\
+	1 & -1
+\end{bmatrix}$
+
+$M_{C\to C}(P_u(b))=A(A^{\intercal}A)^{-1}A^{\intercal}=\dfrac{1}{11}\begin{bmatrix}
+	10 & 3 & 1 \\
+	3 & 2 & -1 \\
+	1 & -3 & 10
+\end{bmatrix}$
+
+El sistema 
+
+$\left.\begin{array}{r}
+	x+2y=0\\
+	y=1\\
+	x-y=-2
+\end{array}\right\}$ es incompatible
+
+El vector $x$ minimiza $\|Ax-b\|,\:b=\begin{bmatrix}
+	0\\
+	1\\
+	-2
+\end{bmatrix}$ viene dado por \[ (A^{\intercal}A)^{-1}A^{\intercal}b=\begin{bmatrix}
+	-\dfrac{15}{11}\\
+	\dfrac{8}{11}
+\end{bmatrix} \]
+$A^\intercal A=\begin{bmatrix}
+	1 & 0 & 1\\
+	2 & 1 & -1
+\end{bmatrix}\cdot\begin{bmatrix}
+	1 & 2\\
+	0 & 1\\
+	1 & -1
+\end{bmatrix}=\begin{bmatrix}
+	2 & 1 \\
+	1 & 6
+\end{bmatrix}$
+
+$\left[\begin{array}{cc:cc}
+	2 & 1 & 1 & 0 \\
+	1 & 6 & 0 & 1
+\end{array}\right]\xrightarrow{F_1\longleftrightarrow F_2}\left[\begin{array}{cc:cc}
+	1 & 6 & 0 & 1 \\
+	2 & 1 & 1 & 0
+\end{array}\right]\xrightarrow{F_2\to F_2-2F_1}\left[\begin{array}{cc:cc}
+	1 & 6 & 0 & 1 \\
+	0 & 11 & 1 & -1
+\end{array}\right]\linebreak\xrightarrow{F_2\to\frac{1}{11}F_2}\left[\begin{array}{cc:cc}
+	1 & 6 & 0 & 1 \\
+	0 & 1 & \frac{1}{11} & -\frac{1}{11}
+\end{array}\right]\xrightarrow{F_1\to F_1-6F_2}\left[\begin{array}{cc:cc}
+	1 & 0 & -\frac{6}{11} & \frac{17}{11} \\
+	0 & 1 & \frac{1}{11} & -\frac{1}{11}
+\end{array}\right]$
+
+$(A^{\intercal}A)^{-1}=\dfrac{1}{11}\begin{bmatrix}
+	-6 & 17\\
+	1 & -1
+\end{bmatrix}$

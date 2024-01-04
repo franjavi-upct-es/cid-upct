@@ -1,0 +1,263 @@
+\begin{center}
+	\large\textbf{\rc{Hoja de ejercicios Tema 1: Números complejos}}
+\end{center}
+\begin{enumerate}[label=\color{red}\textbf{\arabic*)}, leftmargin=*]
+	\item \textcolor{lightblue}{Calcula las siguientes operaciones de números complejos:}
+\begin{enumerate}[label=\color{red}\alph*)]
+	\item $\textcolor{blue}{(-2+\jmath )+\left(-\dfrac{1}{2}-3\jmath\right)=}-2+\jmath -\dfrac{1}{2}-3\jmath=$ \fcolorbox{lightblue}{lightblue!10}{$-\dfrac{5}{2}-2\jmath$}
+	\item $\textcolor{blue}{(-2-\jmath )-\left(-3+\dfrac{1}{2}\jmath\right)=}-2-\jmath +3-\dfrac{1}{2}\jmath=$\fcolorbox{lightblue}{lightblue!10}{$1-\dfrac{3}{2}\jmath$}
+	\item $\textcolor{blue}{-2\cdot(-1-\jmath )-3\cdot(-2+\jmath )+2\cdot(1-2\jmath)=}2+2\jmath+6-3\jmath+2-4\jmath=$ \fcolorbox{lightblue}{lightblue!10}{$10-\jmath $}
+	\item $\textcolor{blue}{j\cdot(-1+\jmath )=}-\jmath +\jmath ^2=$ \fcolorbox{lightblue}{lightblue!10}{$j+1$}
+	\item $\textcolor{blue}{(-2-\jmath )\cdot\left(-3+\dfrac{1}{2}\jmath\right)=} 6-\jmath +3\jmath-\dfrac{1}{2}\jmath^2=6-\jmath +3\jmath+\dfrac{1}{2}=$ \fcolorbox{lightblue}{lightblue!10}{$\dfrac{13}{2}+2\jmath$}
+	\item $\textcolor{blue}{\dfrac{1}{-1-2\jmath}=}\dfrac{1}{2\jmath+1}\cdot\dfrac{2\jmath-1}{2\jmath-1}=\dfrac{2\jmath-1}{4\jmath^2-1}=\dfrac{2\jmath-1}{-4-1}=$ \fcolorbox{lightblue}{lightblue!10}{$\dfrac{1}{5}-\dfrac{2}{5}\jmath$}
+	\item $\textcolor{blue}{\dfrac{-\jmath }{2-3\jmath}=}\dfrac{-\jmath }{2-3\jmath}\cdot\dfrac{2+3\jmath}{2+3\jmath}=\dfrac{-\jmath \cdot(2+3\jmath)}{4-9j^2}=\dfrac{-2\jmath-3\jmath^2}{4+9}=\dfrac{2\jmath-3}{13}=$ \fcolorbox{lightblue}{lightblue!10}{$-\dfrac{3}{13}+\dfrac{2}{13}\jmath$}
+	\item $\textcolor{blue}{\dfrac{-1-\jmath }{-2+\jmath }=}\dfrac{-1-\jmath }{\jmath-2}\cdot\dfrac{\jmath+2}{\jmath+2}=\dfrac{(-1-\jmath )\cdot(j+2)}{\jmath^2-4}=\dfrac{-\jmath -2-\jmath ^2-2\jmath}{-1-4}=\dfrac{-3\jmath-2+1}{-5}=\dfrac{-3\jmath-1}{-5}=$ \fcolorbox{lightblue}{lightblue!10}{$\dfrac{1}{5}\cdot\dfrac{3}{5}\jmath$}
+	\item $\textcolor{blue}{\dfrac{1-\jmath }{\jmath}-\dfrac{\jmath}{1-\jmath }=}\dfrac{\jmath-1}{\jmath}\cdot\dfrac{\jmath}{\jmath}-\dfrac{\jmath}{1-\jmath }\cdot\dfrac{1+\jmath }{1+\jmath }=\dfrac{(j-1)\cdot j}{\jmath^2}-\dfrac{j(1+\jmath )}{1-\jmath ^2}=\dfrac{\jmath^2-\jmath }{\jmath^2}-\dfrac{\jmath+\jmath ^2}{1-\jmath ^2}=\dfrac{1+\jmath }{-1}-\dfrac{\jmath-1}{1+1}=-1-\jmath -\dfrac{\jmath-1}{2}=\dfrac{-2-\jmath -\jmath +1}{2}=$ \fcolorbox{lightblue}{lightblue!10}{$-\dfrac{1}{2}-\dfrac{3}{2}\jmath$}
+\end{enumerate}
+\item \textcolor{lightblue}{Obtén las formas polares y trigonométricas de los siguientes números complejos:}
+\begin{enumerate}[label=\color{red}\alph*)]
+	\item $\textcolor{blue}{1+\jmath }$
+	
+	\begin{itemize}[label=$-$]
+		\item Polar: $\sqrt{2}_{\frac{\pi}{4}}$
+		\item Trigonométrica: $|z|\cdot\left(\cos(\theta)+\jmath\sin(\theta)\right)=\sqrt{2}\cdot\left(\cos\dfrac{\pi}{4}+\jmath\sin\dfrac{\pi}{4}\right)$
+		
+		$z=\begin{cases}
+			|z|=\sqrt{1^2+1^2}=\sqrt{2}\\
+			\theta=\arctan\dfrac{y}{x}=\arctan\dfrac{1}{1}=45^\circ\equiv\dfrac{1}{4}\pi
+		\end{cases}$
+	\end{itemize}
+	\item $\textcolor{blue}{-\jmath }$
+	
+	$\begin{array}{l}
+		z_1=-\jmath \\
+		\text{Polar: }1_{\frac{3\pi}{2}}\\
+		\text{Trigonométrica: }|z_1|\cdot\left(\cos(\theta_1)+\jmath \sin(\theta_1)\right)=1\cdot\left(\cos\dfrac{3\pi}{2}+\jmath \cdot\sin\dfrac{3\pi}{2}\right)\\
+		z_1=\left\{\begin{array}{l}
+			|z_1|=1\\
+			\theta_1=\arctan\dfrac{y}{x}=\arctan\dfrac{-1}{0}=90\longrightarrow\theta=90+180=270\equiv\dfrac{3\pi}{2} \\
+		\end{array}\right.
+	\end{array}$
+	\begin{tikzpicture}[>=latex, baseline=(current bounding box.center)]
+		\draw[->] (-2, 0) -- (2,0);
+		\draw[->] (0, -2) -- (0,2);
+		\draw[->, lightblue, line width=1.5pt] (1,0) arc (0:270:1);
+		\fill[lightblue] (0,-1) circle (3pt) node[right] {\textcolor{black}{$-\jmath $}};
+	\end{tikzpicture}
+	
+	\item $\textcolor{blue}{-1+\sqrt{3}\jmath}$
+	
+	\begin{itemize}[label*=$-$]
+		\item Polar: $2\cdot e^{\left(\frac{2\pi}{3}\right)\jmath}$
+		\item Trigonométrica: $|z|\cdot\left(\cos(\theta)+\jmath\sin(\theta)\right)=2\left(-\cos\left(\dfrac{\pi}{3}\right)+\jmath\sin\left(\dfrac{\pi}{3}\right)\right)$
+		
+		$z=\begin{cases}
+			|z|=\sqrt{(-1)^2+(\sqrt{3})^2}=\sqrt{1+3}=\sqrt{4}=2\\
+			\theta=\arctan\dfrac{y}{x}=\arctan\dfrac{\sqrt{3}}{-1}=-\dfrac{\pi}{3}+\pi=\dfrac{2\pi}{3}
+		\end{cases}$
+	\end{itemize}
+	
+	\item $\textcolor{blue}{2\sqrt{3}-2\jmath}\longrightarrow 4\cdot e^{j\frac{11}{6}\pi}$
+	
+	$\begin{array}{l}
+		|z|=\sqrt{(2\sqrt{3})^2+(-2)^2}=4\\
+		\theta=\arctan\dfrac{-2}{2\sqrt{3}}=\dfrac{11}{6}\pi=330\degree
+	\end{array}$
+	\item $\textcolor{blue}{-1-\jmath }$
+	\begin{itemize}[label=$-$]
+		\item Polar:
+		\item Trigonométrica: $|z|\cdot(\cos(\theta)+\jmath\sin(\theta))$
+		
+		$z=\begin{cases}
+			|z|=\sqrt{2}\\
+			\theta=\arctan\dfrac{y}{x}=\arctan\dfrac{-1}{-1}=\dfrac{\pi}{4}+\pi=\dfrac{5\pi}{4}
+		\end{cases}$
+	\end{itemize}
+	\item $\textcolor{blue}{-2+\jmath }$
+	\begin{itemize}[label=$-$]
+		\item Polar:
+		\item Trigonométrica:
+		
+		$z=\begin{cases}
+			|z|=\sqrt{(-2)^2+1^2}=\sqrt{5}\\
+			\theta=\arctan\dfrac{y}{x}=\arctan\dfrac{1}{-2}=
+		\end{cases}$
+	\end{itemize}
+	
+\end{enumerate}
+\item \textcolor{lightblue}{Obtén la forma binómica de los siguientes números complejos:}
+\begin{enumerate}[label=\color{red}\alph*)]
+	\item $\textcolor{blue}{2_{\frac{\pi}{2}}=} 2\cos\left(\dfrac{\pi}{2}\right)+2\jmath\sin\left(\dfrac{\pi}{2}\right)=\bboxed{2\jmath}$
+	\item $\textcolor{blue}{1_{\pi}=}\cos(\pi)+\jmath\sin(\pi)=\bboxed{-1}$
+	\item $\textcolor{blue}{3_{\frac{5\pi}{4}}=}3\cos\left(\dfrac{5\pi}{4}\right)+3\jmath\sin\left(\dfrac{5\pi}{4}\right)=\bboxed{-\dfrac{3\sqrt{2}}{2}-\dfrac{3\sqrt{2}}{2}\jmath}$
+\end{enumerate}
+\item \textcolor{lightblue}{Calcula las siguientes operaciones de números complejos, expresando el resultado en forma polar:}
+\begin{enumerate}[label=\color{red}\alph*)]
+	\item $\textcolor{blue}{2_{\frac{5\pi}{3}}\cdot3_{\frac{\pi}{2}}=} \left(1-\sqrt{3}\jmath\right)\cdot3\jmath=3-3\sqrt{3}\jmath=\textcolor{lightblue}{(\ast)}=\bboxed{6_{\frac{2\pi}{3}}}$
+	
+	$\begin{cases}
+		2_{\frac{5\pi}{3}}=2\cos\left(\dfrac{5\pi}{3}\right)+2\jmath\sin\left(\dfrac{5\pi}{3}\right)=1-\sqrt{3}\jmath\\
+		3_{\frac{\pi}{2}}=3\cos\left(\dfrac{\pi}{2}\right)+\jmath\sin\left(\dfrac{\pi}{2}\right)=3\jmath
+	\end{cases}$
+	
+	$\textcolor{lightblue}{(\ast)=}\begin{cases}
+		|z|=\sqrt{3^2+(-3\sqrt{3})^2}=6\\
+		\theta=\arctan\dfrac{-3\sqrt{3}}{3}=\arctan(-\sqrt{3})=-\dfrac{\pi}{3}+\pi=\dfrac{2\pi}{3}
+	\end{cases}$
+	\item $\textcolor{blue}{1_{\frac{7\pi}{4}}\cdot2_{\frac{7\pi}{3}}=} \left(\dfrac{\sqrt{2}}{2}-\dfrac{\sqrt{2}}{2}\jmath\right)\cdot(1+\sqrt{3}\jmath)=\dfrac{\sqrt{6}+\sqrt{2}}{2}+\dfrac{\sqrt{6}-\sqrt{2}}{2}\jmath=\textcolor{lightblue}{(\ast)}=\bboxed{2_{\frac{\pi}{12}}}$
+	
+	$\begin{cases}
+		1_{\frac{7\pi}{4}}=\cos\left(\dfrac{7\pi}{4}\right)+\jmath\sin\left(\dfrac{7\pi}{4}\right)=\dfrac{\sqrt{2}}{2}-\dfrac{\sqrt{2}}{2}\jmath\\
+		2_{\frac{7\pi}{3}}=2\cos\left(\dfrac{7\pi}{3}\right)+2\jmath\sin\left(\dfrac{7\pi}{3}\right)=1+\sqrt{3}\jmath
+	\end{cases}$
+	
+	$\textcolor{lightblue}{(\ast)=}\begin{cases}
+		|z|=\sqrt{\left(\dfrac{\sqrt{6}+\sqrt{2}}{2}\right)^2+\left(\dfrac{\sqrt{6}-\sqrt{2}}{2}\right)^2}=2\\
+		\theta=\arctan\dfrac{\frac{\sqrt{6}-\sqrt{2}}{2}}{\frac{\sqrt{6}+\sqrt{2}}{2}}=\arctan(2-\sqrt{3})=\dfrac{\pi}{12}
+	\end{cases}$
+	\item $\textcolor{blue}{2\left(\cos\dfrac{\pi}{2}+\jmath \sin\dfrac{\pi}{2}\right)\cdot3_{\frac{11\pi}{6}}=}2\jmath\cdot\left(\dfrac{3\sqrt{3}}{2}-\dfrac{3}{2}\jmath\right)=3+3\sqrt{3}\jmath=\textcolor{lightblue}{(\ast)}=\bboxed{6_{\frac{\pi}{4}}}$
+	
+	$\begin{cases}
+		2\left(\cos\left(\dfrac{\pi}{2}\right)+\jmath\sin\left(\dfrac{\pi}{2}\right)\right)=2\cdot(0+\jmath)=2\jmath\\
+		3_{\frac{11\pi}{6}}=3\cdot\left(\cos\left(\dfrac{11\pi}{6}\right)+\jmath\sin\left(\dfrac{11\pi}{6}\right)\right)=3\left(\dfrac{\sqrt{3}}{2}-\dfrac{1}{2}\jmath\right)=\dfrac{3\sqrt{3}}{2}-\dfrac{3}{2}\jmath
+	\end{cases}$
+	
+	$\textcolor{lightblue}{(\ast)=}\begin{cases}
+		|z|=\sqrt{3^2+(3\sqrt{3})^2}=6\\
+		\theta=\arctan\dfrac{3\sqrt{3}}{3}=\arctan1=\dfrac{\pi}{4}
+	\end{cases}$
+	\item $\textcolor{blue}{\dfrac{4_{\frac{5\pi}{2}}}{2_{\frac{2\pi}{3}}}=}\dfrac{4\jmath}{-1+\sqrt{3}\jmath}\cdot\dfrac{-1+\sqrt{3}\jmath}{-1+\sqrt{3}\jmath}=\dfrac{4\jmath\cdot\left(-1-\sqrt{3}\jmath\right)}{(-1+\sqrt{3}\jmath)\cdot\left(-1-\sqrt{3}\jmath\right)}=\dfrac{4\sqrt{3}-4\jmath}{4}=\sqrt{3}-\jmath=\textcolor{lightblue}{(\ast)}=\bboxed{2_{\frac{2\pi}{3}}}$
+	
+	$\begin{cases}
+		4_{\frac{5\pi}{2}}=4\left(\cos \left(\dfrac{5\pi }{2}\right)+\jmath\sin \left(\dfrac{5\pi }{2}\right)\right)=4\cdot(0+\jmath)=4\jmath\\
+		2_{\frac{2\pi}{3}}=2\cdot\left(\cos\left(\dfrac{2\pi}{3}\right)+\jmath\sin\left(\dfrac{5\pi}{3}\right)\right)=2\cdot\left(-\dfrac{1}{2}+\dfrac{\sqrt{3}}{2}\jmath\right)=-1+\sqrt{3}\jmath
+	\end{cases}$
+	
+	$\textcolor{lightblue}{(\ast)=}\begin{cases}
+		|z|=\sqrt{(\sqrt{3})^2+(-1)^2}=2\\
+		\theta=\arctan\dfrac{\sqrt{3}}{-1}=-\dfrac{\pi}{3}+\pi=\dfrac{2\pi}{3}
+	\end{cases}$
+	\item $\textcolor{blue}{\dfrac{1_\pi}{2_{\frac{7\pi}{6}}}=}\dfrac{-1}{-\sqrt{3}-\jmath}=\dfrac{1}{\sqrt{3}+\jmath}\cdot\dfrac{\sqrt{3}-\jmath}{\sqrt{3}-\jmath}=\dfrac{\sqrt{3}-\jmath}{2}=\dfrac{\sqrt{3}}{2}+\dfrac{1}{2}\jmath=\textcolor{lightblue}{(\ast)}=\bboxed{1_{\frac{\pi}{6}}}$
+	
+	$ \begin{cases}
+		1_\pi=1\cdot\left(\cos\pi+\jmath\sin\pi\right)=-1\\
+		2_{\frac{7\pi}{6}}=2\cdot\left(\cos\dfrac{7\pi}{6}+\jmath\sin\left(\dfrac{7\pi}{6}\right)\right)=\cancel{2}\cdot\left(\dfrac{-\sqrt{3}}{\cancel{2}}-\dfrac{1}{\cancel{2}}\jmath\right)=-\sqrt{3}-\jmath
+	\end{cases}$
+	
+	$\textcolor{lightblue}{(\ast)=}\begin{cases}
+		|z|=\sqrt{\left(\dfrac{\sqrt{3}}{2}\right)^2+\left(\dfrac{1}{2}\right)^2}=1\\
+		\theta=\arctan\dfrac{\frac{1}{2}}{\frac{\sqrt{3}}{2}}=\arctan\dfrac{\sqrt{3}}{3}=\dfrac{\pi}{6}
+	\end{cases}$
+	\item $\textcolor{blue}{\dfrac{12\left(\cos\frac{5\pi}{4}+\jmath\sin\frac{5\pi}{4}\right)}{8_{\frac{5\pi}{4}}}=} \dfrac{-6\sqrt{2}-6\sqrt{2}\jmath}{-4\sqrt{2}-4\sqrt{2}\jmath}=\dfrac{6\sqrt{2}+6\sqrt{2}\jmath}{4\sqrt{2}+4\sqrt{2}\jmath}\cdot\dfrac{4\sqrt{2}-4\sqrt{2}\jmath}{4\sqrt{2}-4\sqrt{2}\jmath}=\dfrac{96}{64}=\bboxed{\dfrac{3}{2}}$
+	
+	$\begin{cases}
+		12\left(\cos\frac{5\pi}{4}+\jmath\sin\frac{5\pi}{4}\right)=12\cdot\left(-\dfrac{\sqrt{2}}{2}-\dfrac{\sqrt{2}}{2}\jmath\right)=-6\sqrt{2}-6\sqrt{2}\jmath\\
+		8\cdot\left(\cos\frac{5\pi}{4}+\jmath\sin\frac{5\pi}{4}\right)=8\cdot\left(-\dfrac{\sqrt{2}}{2}-\dfrac{\sqrt{2}}{2}\jmath\right)=-4\sqrt{2}-4\sqrt{2}\jmath
+	\end{cases}$
+\end{enumerate}
+
+\item \textcolor{lightblue}{Calcula las siguientes potencias de números complejos:}
+\begin{enumerate}[label=\color{red}\alph*)]
+	\item $\textcolor{blue}{(1-\sqrt{3}\jmath)^6}$
+	
+	$\begin{cases}
+		|z|=\sqrt{1^2+(-\sqrt{3})^2}=\sqrt{4}=2\\
+		\theta=\arctan\dfrac{-\sqrt{3}}{1}=-\dfrac{\pi}{3}
+	\end{cases}$
+	
+	$(1-\sqrt{3}j)^6=2^6\cdot\left(\cos\left(6\cdot\left(-\dfrac{\pi}{3}\right)\right)+\jmath\sin\left(6\cdot\left(-\dfrac{\pi}{3}\right)\right)\right)=2^6\cdot(\underbrace{\cos(-2\pi)}_1+\jmath\underbrace{\sin(-2\pi)}_{0})=2^6=64$
+	
+	$(1-\sqrt{3})^6=\bboxed{64}$
+	\item $\textcolor{blue}{(1-\jmath)^8}$
+	
+	$\begin{cases}
+		|z|=\sqrt{1^2+(-1)^2}=\sqrt{2}\\
+		\theta=\arctan\left(-\dfrac{1}{1}\right)=-\dfrac{\pi}{4}
+	\end{cases}$
+	
+	$(1-j)^8=(\sqrt{2})^8\cdot\left(\cos\left(8\cdot\left(-\dfrac{\pi}{4}\right)+\jmath\sin\left(8\cdot\left(-\dfrac{\pi}{4}\right)\right)\right)\right)=2^4\cdot(\underbrace{\cos(-2\pi)}_1+\jmath\underbrace{\sin(-2\pi)}_0)=2^4=16$
+	
+	$(1-j)^8=\bboxed{16}$
+	\item $\textcolor{blue}{(-\sqrt{3}+\jmath)^{10}}$
+	
+	$\begin{cases}
+		|z|=\sqrt{(-\sqrt{3})^2+1^2}=\sqrt{4}=2\\
+		\theta=\arctan\left(-\dfrac{\sqrt{3}}{1}\right)=-\dfrac{\pi}{3}
+	\end{cases}$\\
+	$(-\sqrt{3}+\jmath)^{10}=2^{10}\cdot\left(\cos\left(8\cdot\left(-\dfrac{\pi}{3}\right)\right)+\jmath\sin\left(8\cdot\left(-\dfrac{\pi}{3}\right)\right)\right)=2^{10}\cdot\left(\cos\left(-\dfrac{8\pi}{3}\right)+\jmath\sin\left(-\dfrac{8\pi}{3}\right)\right)=2^{10}\cdot\left(\left(-\dfrac{1}{2}\right)+\left(-\dfrac{\sqrt{3}}{2}\right)\jmath\right)=-2^9-2^9\sqrt{3}\jmath$\\
+	$(-\sqrt{3}+\jmath)^{10}=\bboxed{-512-512\sqrt{3}\jmath}$
+\end{enumerate}
+
+\item \textcolor{lightblue}{Expresar los siguientes números complejos en forma binómica y en forma polar:}
+\begin{enumerate}[label=\color{red}\alph*)]
+	\item $\textcolor{blue}{(1+\jmath)^3=}-2+2\jmath$
+	
+	$\begin{cases}
+		|z|=\sqrt{(-2)^2+2^2}=\sqrt{8}=2\sqrt{2}\\
+		\theta=\arctan\left(\dfrac{-2}{2}\right)=-\dfrac{\pi}{4}
+	\end{cases}$
+	
+	$-2+2\jmath=2\sqrt{2}\cdot\left(\cos\left(-\dfrac{\pi}{4}\right)+\jmath\sin\left(-\dfrac{\pi}{4}\right)\right)=2\sqrt{2}\cdot\left(\dfrac{\sqrt{2}}{2}-\dfrac{\sqrt{2}}{2}\jmath\right)$
+	\item $\textcolor{blue}{\jmath^5+\jmath^{16}=}(-1)^8+(-1)^2\cdot\jmath=1+\jmath$
+	
+	$\begin{cases}
+		|z|=\sqrt{1^2+1^2}=\sqrt{2}\\
+		\theta=\arctan\dfrac{1}{1}=\dfrac{\pi}{4}
+	\end{cases}$
+	
+	$1+\jmath=\sqrt{2}\cdot\left(\cos\dfrac{\pi}{4}+\jmath\sin\dfrac{\pi}{4}\right)$
+	\item $\textcolor{blue}{1+3e^{\imath\pi}}$
+	\item $\textcolor{blue}{\dfrac{2+3\jmath}{3-4\jmath}=}$
+	\item $\textcolor{blue}{2_{\frac{3\pi}{2}}+\jmath}$
+	\item $\textcolor{blue}{\dfrac{1}{\jmath}}$
+\end{enumerate}
+\item \textcolor{lightblue}{Calcula el módulo y el argumento principal de los siguientes números complejos:}
+\begin{enumerate}[label=\color{red}\alph*)]
+	\item $\textcolor{blue}{2\jmath}$
+	\item $\textcolor{blue}{1-\jmath}$
+	\item $\textcolor{blue}{-1}$
+	\item $\textcolor{blue}{\dfrac{1+\jmath}{1-\jmath}}$
+	\item $\textcolor{blue}{\dfrac{1}{\jmath\pi}}$
+	\item $\textcolor{blue}{-3+\jmath\sqrt{3}}$
+\end{enumerate}
+\item \lb{Representa gráficamente los siguientes subconjuntos del plano complejo:}
+\begin{enumerate}[label=\color{red}\alph*)]
+	\item \db{Números complejos cuyo módulo es igual a 1}
+	\item $\db{\{z^k\in\mathbb{C}:z=e^{\frac{2\pi j}{8}},\:1\le k\le8\}}$
+	\item $\db{\{z^k\in\mathbb{C}:z=e^{-\frac{2\pi j}{8}},\:1\le k\le8\}}$
+	\item $\db{\{z\in\mathbb{C}:z-\overline{z}=j\}}$
+\end{enumerate}
+\item \lb{Resuelve las siguientes ecuaciones y expresa el resultado en forma binómica:}
+\begin{enumerate}[label=\color{red}\alph*)]
+	\item $\db{3+4j+10e^{\frac{\pi}{3}j}=ze^{\frac{\pi}{3}j}}$
+	\item $\db{5_{-\frac{\pi}{6}}+z+4+\sqrt{2}j=6e^{-\frac{\pi}{4}j}z}$
+	\item $\db{2_{\frac{\pi}{3}}+j+ze^{-\frac{\pi}{3}j}=0}$
+	\item $\db{z+4jz=1}$
+\end{enumerate}
+\item \lb{Dados los números complejos $z_1=-1-j,\,z_2=2_{\frac{\pi}{3}},\,z_3=4e^{100\pi j}$, representa gráficamente los números $z_1,z_2,z_3,z_1+z_2+z_3,z_2\cdot z_2, z_1\cdot z_2\cdot z_3$.}
+\item \lb{Consideremos la función $f:\R\longrightarrow \mathbb{C}$ definida como $f(t)=4e^{-t}e^{100\pi tj}$. Representa gráficamente $\mathrm{Re}f(t)$ e $\mathrm{Im}f(t)$. Idem con la función $g(t)=4e^{100\pi tj}+7e^{\left(100\pi t+\frac{\pi}{3}\right)j}$. Indica e interpreta físicamente las siguientes magnitudes asociadas a las gráficas anteriores: amplitud de las oscilación, periodo, frecuencia y fase.}
+\item \lb{\textbf{Números complejos en Teoría de Sistemas Eléctricos.} Supongamos que tenemos una circuito de corriente alterna tipo RLC con una resistencia con valor $R=20\Omega$, un condensador con valor $C=33.3\mu F$ y una bobina con valor $L=0.01H$. Se supone que la fuente de voltaje (o fuerza electro motriz) viene dada por $\varepsilon(t)=353.5\cos(\omega t+\phi)$, con $\omega=3000\mathrm{rad}/s$ y $\phi=-10^\circ$. Nótese que la frecuencia $\omega$ está expresada en radianes mientras que la fase inicial $\phi$ en grados. Por tanto, al hacer cálculos hemos de expresar \textbf{ambas} magnitudes en radianes o grados, pero no una en radianes y la otra en grados. También hemos de tener en cuenta las unidades físicas en que expresamos las distintas magnitudes del problema. Por ejemplo, en el enunciado anterior, la Capacitancia del capacitador está dada en microfaradios por lo que hemos de multiplicar por $10^{-6}$ para expresarla en Faradios y que de esta forma todas las magnitudes estén expresadas en unidades del Sistema Internacional (S.I). Se pide:}
+\begin{enumerate}[label=\color{red}\alph*)]
+	\item \db{Calcula la impedancia compleja del circuito, la cual se define como $\vec{z}=R+\left(\omega L-\dfrac{1}{\omega C}\right)j$.}
+	
+	$\vec{z}=R+\left(\omega L-\dfrac{1}{\omega C}\right)j=20+\left(3000\cdot0.01-\dfrac{1}{3000\cdot 33.3\cdot10^{-6}}\right)j=(10+10j)\Omega$
+	\item \db{Sabiendo que $\vec{E}=353.35e^{-10j}$ y que $\vec{E}=\vec{I}\vec{z}$, calcula $\vec{I}$ expresando el resultado en forma polar.}
+	
+	Empezamos escribiendo $\vec{z}$ en forma polar. Se tiene $\vec{z}=20+20j=\sqrt{20^2+20^2}_{\arctan\frac{20}{20}}=28.8_{45^\circ}$.
+	
+	Por tanto, $\vec{I}=\dfrac{353.5_{-10}}{28.8_{45}}=12.5_{-55^\circ}$
+	\item \db{Calcula las siguientes magnitudes físicas: }
+	\begin{enumerate}[label=\color{red}\roman*)]
+		\item \db{$\vec{V}_R=R\vec{I}$}
+		
+		$\vec{V}_R=R\vec{I}=20\cdot12.5_{-55^\circ}=250_{-55^\circ}$
+		\item \db{$\vec{V}_L=\vec{I}\vec{X}_L$, donde $\vec{X}_L=\omega Lj$ se llama reactancia inductiva.}
+		
+		$\vec{V}_L=\vec{I}\vec{X}_L=12.5_{-55^\circ}\cdot30_{90^\circ}=375_{35^\circ}$
+		\item \db{$\vec{V}_C=\vec{I}\vec{X}_C$, donde $\vec{X}_C=-\dfrac{1}{\omega C}j$ se llama reactancia del capacitador.}
+		
+		$\vec{V}_C=\vec{I}\vec{X}_C=12.5_{-55^\circ}\cdot10_{-90^\circ}=125_{-145^\circ}$
+	\end{enumerate}
+\end{enumerate}
+\end{enumerate}
+

@@ -1,0 +1,2318 @@
+\documentclass[12pt]{article}
+\usepackage{fullpage}
+\usepackage[utf8]{inputenc}
+\usepackage{pict2e}
+\usepackage{amsmath}
+\usepackage{enumitem}
+\usepackage{eurosym}
+\usepackage{mathtools}
+\usepackage{amssymb, amsfonts, latexsym, cancel}
+\setlength{\parskip}{0.3cm}
+\usepackage{graphicx}
+\usepackage{fontenc}
+\usepackage{setspace}
+\DeclareMathOperator{\sen}{sen} % Nuevo comando para "sen"
+\DeclareMathOperator{\dom}{Dom}
+\DeclareMathOperator{\me}{Me}
+\DeclareMathOperator{\mo}{Mo}
+\DeclareMathOperator{\dt}{det}
+\DeclareMathOperator{\cov}{Cov}
+\DeclareMathOperator{\Exp}{Exp}
+\DeclareMathOperator{\Var}{Var}
+\DeclareMathOperator{\rot}{Rot}
+\DeclareMathOperator{\Sop}{Sop}
+\DeclareMathOperator{\rg}{rg}
+\DeclareMathOperator{\arctg}{arctg}
+\usepackage{adjustbox}
+\setstretch{1.5}
+\usepackage{bold-extra}
+\usepackage{subcaption}
+\graphicspath{ {images/} }
+\usepackage{tcolorbox}
+\usepackage{xcolor, colortbl}
+\usepackage{wrapfig}
+\usepackage{empheq}
+\usepackage{array}
+\usepackage{arydshln}
+\renewcommand*\contentsname{\color{black}Índice} 
+\usepackage{array, multirow, multicol}
+\definecolor{blueice}{rgb}{.2, .6, .8}
+\definecolor{lightblue}{HTML}{007AFF}
+\usepackage{color}
+\usepackage{etoolbox}
+\usepackage{listings}
+\usepackage{mdframed}
+\setlength{\parindent}{0pt}
+\usepackage{underscore}
+\usepackage{hyperref}
+\usepackage{tikz}
+\usetikzlibrary{shapes, positioning, patterns}
+\usepackage{tikz-qtree}
+\usepackage{biblatex}
+\usepackage{pdfpages}
+\usepackage{pgfplots}
+\usepackage{pgfkeys}
+\usepackage{nicematrix}
+\addbibresource{biblatex-examples.bib}
+\usepackage[a4paper, left=1cm, right=1cm, top=1cm,
+bottom=1.5cm]{geometry}
+\everymath{\displaystyle}
+\usetikzlibrary{decorations.pathreplacing}
+\usepackage{titlesec}
+\usepackage{titletoc}
+\setlength{\fboxrule}{2pt}
+\title{Álgebra Lineal}
+\author{Francisco Javier Mercader Martínez}
+\date{}
+
+% Configura el formato de las secciones utilizando titlesec
+\titleformat{\section}
+  {\color{red}\normalfont\Large\bfseries}
+  {\thesection}
+  {1em}
+  {}
+
+% Ajusta el formato de las entradas de la tabla de contenidos
+\addtocontents{toc}{\protect\setcounter{tocdepth}{2}}
+\addtocontents{toc}{\color{black}}
+
+
+\begin{document}
+\maketitle
+\tableofcontents
+
+\section{Número reales y complejos}
+
+\textcolor{lightblue}{\underline{Números reales y su
+representación en el ordenador}}
+
+Recordaremos los conjuntos de números más habituales:
+\begin{itemize}
+    \item Números naturales: $\mathbb{N}=\{0,1,2,3,\hdots\}$
+\item Números enteros:
+$\mathbb{Z}=\{\hdots,-2,-1,0,1,2,\hdots\}$
+\item Números racionales:
+$\mathbb{Q}=\left\{\frac{n}{m}:n,m\in\mathbb{Z},m\neq0\right\}$
+\end{itemize}
+Los números racionales se expresan en forma decimal número
+finito de cifras decimales $\left(\text{por
+ejemplo:}~\frac{1}{2}=0.5\right)$ o bien con un número infinito
+pero periódicas $\left(\underbrace{\text{e.g}}_{\text{exempli
+gratia}},~~\frac{1}{3}=0.333\hdots\right)$
+\begin{itemize}
+\item Números reales: incluye a todos los anteriores mas números
+racionales como $\pi,e,\sqrt{2},$ etc. Se denotan por
+$\mathbb{R}$ y forman un continua, una \textit{"recta real"}
+\end{itemize}
+\begin{center}
+    \begin{tikzpicture}[scale=1.5]
+\draw[lightblue] (-3,0) -- (3,0) node[right] {$\mathbb{R}$};\draw[lightblue] (-2,0.1) -- (-2,-0.1) node[below] {$-2$};\draw[lightblue] (-3/2,0.1) --
+(-3/2,-0.1) node[below]
+{$-\frac{3}{2}$};
+\draw[lightblue] (-1,0.1) -- (-1,-0.1) node[below] {$-1$};\draw[lightblue] (-0.5,0.1) -- (-0.5,-0.1) node[below]
+{$-\frac{1}{2}$};
+        \draw[lightblue] (0,0.1) -- (0,-0.1) node[below] {$0$};
+        \draw[lightblue] (1,0.1) -- (1,-0.1) node[below] {$1$};
+        \draw[lightblue] (2,0.1) -- (2,-0.1) node[below] {$2$};
+    \end{tikzpicture}
+\end{center}
+Los números irracionales contienen un número infinito de cifras
+decimales no periódicas. Los ordenadores no pueden almacenar un
+número infinito de cifras decimales lo cual implica los llamados
+\textit{"errores de representación"}, que se pueden ir
+propagando a medida que se hacen operaciones pudiendo dar
+resultados incorrectos.
+
+\textcolor{lightblue}{¿Cómo se representan los número reales en
+un ordenador?}
+
+Hay varias posibilidades o formas. Todas ellas hacen uso del
+concepto de "bit".
+
+Bit es el acrónimo de \textcolor{red}{\underline{bi}nary}
+\textcolor{lightblue}{digi\underline{t}} y representa un dígito
+en un sistema de representación binario, es decir, un bit es 0 ó
+1.
+
+En Computación, un bit es la unidad mínima de información. Se
+utiliza para representar la contraposición de dos valores (e.g.
+apagado y encendido, falso y verdadero, abierto y cerrado). Para
+obtener una mayor precisión (menor error de representación) lo
+más habitual es usar el formato de punto flotante según el
+estándar IEEE-754 de doble precisión
+\textcolor{lightblue}{(Python)}.
+
+Se usan en total 64 bits para representar un número real $x$
+según $$x=(-1)^s2^{e-1023}(1+f)$$ $s=$signo. Se usa 1 bit. Por
+tanto $s=$0 ó 1.
+
+$e=$ exponente. Se usan 11 bits
+
+$f=$ fracción. Se usan 52 bits
+
+Ejemplo:
+$$\underbrace{1}_s~~~~\underbrace{10000000010}_e~~~~\overbrace{{\underbrace{100\hdots0}_f}}^{52
+\text{ dígitos}}$$
+
+$s=1,~~(-1)^s=-1$ (número negativo)
+
+$e=1\cdot2^1+1\cdot2^10=1026$
+
+$f=1\cdot\frac{1}{2^1}+0\cdot\frac{1}{2^2}+\cdots+0\cdot\frac{1}{2^{52}}=0.5$
+
+$x=(-1)^1\cdot2^3\cdot(1+0.5)=-12.0$
+
+Debido a este sistema de representación, los número
+representables están aproximadamente $[-10^{200},10^{300}]$ con
+una precisión de 15 dígitos.
+
+Además, estos números no están uniformemente distribuidos. Están
+más juntos los número pequeños y más separados los grandes.
+
+Se llama \textit{"epsilon de la máquina"} al número
+$\varepsilon$ representable más pequeño tal que
+$1+\varepsilon>1$.
+
+$\varepsilon\approx2.22\cdot10^{-16}$ en Python
+
+\begin{itemize}[label=\color{red}\textbullet, leftmargin=*]
+    \item \textcolor{lightblue}{Números complejos}
+\end{itemize}
+
+\underline{Origen histórico:} En 1545 Cardano estudió ecuaciones
+algebraicas del tipo.
+
+\begin{tikzpicture}
+\node[draw=lightblue, fill=lightblue!20, rectangle, line
+width=2pt] {$\begin{array}{l}x^2+1=0\\x^2=-1\longrightarrow
+x=\pm\sqrt{-1}\equiv i\equiv~\text{imaginarios}\end{array}$};
+\end{tikzpicture}
+
+\underline{Su uso en Ciencia de Datos:} Entre otros campos se
+usa en el tratamiento de señal mediante series y transformadas
+de Fourier.
+
+\begin{itemize}[leftmargin=*]
+\item[\textcolor{red}{$-$}] \textcolor{lightblue}{Definición}\end{itemize}
+Se llama número complejo a todo par ordenador de números reales,
+$z=(x,y)$, con $x,y\in\mathbb{R}$. Por tnato, el conjunto de
+todos los números complejos
+$$\mathbb{C}=\mathbb{R}\times\mathbb{R}=\{z=(x,y),~~x,y\in\mathbb{R}\}$$
+
+\begin{tikzpicture}
+\draw[->] (-1, 0) -- (5, 0) node[right] {$x\equiv$ Eje real};\draw[->] (0, -1) -- (0, 5) node[above] {$y\equiv$ Eje real};\draw[->, lightblue, line
+width=1.5pt] (0, 0) -- (2, 2)
+node[right] {$(x,y)$};
+\draw[lightblue, dashed] (2,2) -- (0,2) node[left] {parte
+imaginaria$=y$};
+\draw[lightblue, dashed] (2,2) -- (2,0) node[below] {parte
+real$=x$};
+\end{tikzpicture}
+
+En $\mathbb{C}$ tenemos definidas dos operaciones:
+\begin{enumerate}
+    \item[a)] Suma: $z_1=(x_1,y_1),~z_2=(x_2,y_2)\in\mathbb{C}$
+
+\textcolor{lightblue}{$z_1+z_2=(x_1+x_2,~y_1+y_2)\in\mathbb{C}$}
+\item[b)]  Producto: $z_1=(x_1,y_1),~z_2=(x_2,y_2)\in\mathbb{C}$
+\textcolor{lightblue}{$z_1\cdot z_2=(x_1\cdot x_2-y_1\cdot
+y_2,~~ x_1\cdot y_2+y_1\cdot x_2)\in\mathbb{C}$}
+\end{enumerate}
+
+$\begin{array}{ll}
+        \text{Ejemplo:} & z_1=(0,1)     \\
+                        & z_2=(0,1)=z_1
+\end{array}$\hspace{2cm}\begin{tikzpicture}[baseline=(current
+bounding box.center)]
+    \draw[->] (-2, 0) -- (3, 0) ;
+    \draw[->] (0, -1) -- (0, 2) ;
+    \fill[lightblue] (-1,0) circle (2pt) node[below] {$z_2$};
+    \fill[lightblue] (0,1) circle (2pt) node[right] {$z_1$};
+\end{tikzpicture}
+
+$z_1^2=z_1\cdot z_2=(0,1)\cdot(0,1)=(0\cdot0-1\cdot1,
+0\cdot1+1\cdot0)=(-1,0)$
+
+$z_1^2=-1\rightarrow
+z_1=\sqrt{-1}=i=j=(0,1)$\textcolor{lightblue}{$\longrightarrow$
+unidad imaginaria pura}
+
+\textcolor{lightblue}{\underline{Algunos números complejos
+destacados}}
+
+\begin{tikzpicture}
+    \draw[->] (-1, 0) -- (3, 0) node[right] {eje real};
+    \draw[->] (0, -1) -- (0, 2) node[above] {eje imaginario};
+\fill[lightblue] (0,1) circle (2pt) node[right] {$j=(0,1)$};\end{tikzpicture}
+
+$j=(0,1)=$ unidad imaginaria pura
+
+$\{(x,0):~x\in\mathbb{R}\}$ los identificadores con los números
+reales $(x,0)\equiv x$.
+
+$\{(0,y):~y\in\mathbb{R}\}$ imaginarios puros.
+
+\underline{Vamos a calcular:}
+
+$\textcolor{lightblue}{\underbrace{\textcolor{black}{(x,0)}}_{x}}+\textcolor{lightblue}{\underbrace{\textcolor{black}{(0,1)}}_{j}}\cdot\textcolor{lightblue}{\underbrace{\textcolor{black}{(0,y)}}_{y}}=(x,0)+(0\cdot
+y-1\cdot0, ~0\cdot0+1\cdot y)=(x,0)+(0,y)=(x,y)$
+
+$\begin{array}{l}
+        x\equiv\text{ parte real} \\
+y\equiv\text{ parte imaginaria. Si }z=x+j\cdot
+y\left\{\begin{array}{l}x=\text{Re}z\\
+y=\text{Im}z\end{array}\right.
+\end{array}$\hspace{2cm}\begin{tikzpicture}[baseline=(current
+bounding box.center)]
+\node[draw=black, rectangle, line width=2pt]
+{$\begin{array}{l}(x,y)\equiv\text{forma cartesiana}\\ x+j\cdot
+y\equiv\text{forma binómica}\end{array}$};
+\end{tikzpicture}
+
+\textcolor{lightblue}{\underline{Las operaciones suma y producto
+en forma binómica}}
+
+$\textcolor{lightblue}{\underbrace{\textcolor{black}{(x_1+j\cdot
+y_1)}}_{(x_1,~j_1)}}+\textcolor{lightblue}{\underbrace{\textcolor{black}{(x_2+j\cdot
+y_2)}}_{(x_2,~j_2)}}=(x_1+x_2)+j\cdot(y_1+y_2)=
+(x_1+x_2,~y_1+y_2)$
+
+$\textcolor{lightblue}{\underbrace{\textcolor{black}{(x_1+j\cdot
+y_1)}}_{(x_1,~j_1)}}\cdot\textcolor{lightblue}{\underbrace{\textcolor{black}{(x_2+j\cdot
+y_2)}}_{(x_2,~j_2)}}=\begin{array}{l}
+        \\
+(x_1\cdot x_2-y_1\cdot y_2)+j\cdot(x_1\cdot y_2+y_1\cdot x_2) \\\nwarrow j^2=-1                                               \\    \end{array}$
+
+\newpage
+
+\begin{wrapfigure}{r}{0.4\textwidth}
+    \begin{tikzpicture}[baseline=(current bounding box.center)]
+        \draw[->] (-2, 0) -- (4, 0) ;
+        \draw[->] (0, -3) -- (0, 3) ;
+\draw[lightblue, dashed] (0,2) -- (2,2) -- (2,-2) -- (0, -2);\draw[lightblue] (0,0) -- (2,2) node[right] {$z=x+j\cdot y$};\draw[lightblue] (0,0) -- (2,-2)
+node[right]
+{$\overline{z}=x-j\cdot y$};
+        \fill[lightblue] (2,2) circle (2pt);
+        \fill[lightblue] (2,-2) circle (2pt);
+        \node[lightblue] at (-0.2, 2) {$y$};
+        \node[lightblue] at (-0.3, -2) {$-y$};
+    \end{tikzpicture}
+\end{wrapfigure}
+
+\textcolor{lightblue}{\underline{Definición (conjugado)}}
+
+Dado $z=x+j\cdot y$, se llama conjugado de $z$, denotado
+$\overline{z}$, al número complejo \[\overline{z}=x-j\cdot y\]
+
+\begin{itemize}[label=\color{red}\textbullet, leftmargin=*]
+    \item \textcolor{lightblue}{Propiedades del conjugado}
+        \begin{enumerate}[label=\alph*)]
+\item $\overline{~\overline{z}~}=z~~~~\forall z\in\mathbb{C}$\item $\overline{z+w}=\overline{z}+\overline{w}~~~~\forall
+z,w\in\mathbb{C}$
+\item $\overline{z\cdot
+w}=\overline{z}\cdot\overline{w}~~~~\forall z,w\in\mathbb{C}$
+\item $z\cdot\overline{z}=(\text{Re}z)^2+(\text{Im}z)^2$        \end{enumerate}
+\end{itemize}
+Veamos, por ejemplo, la última de estas propiedades $$z=x+j\cdot
+y,~\overline{z}=x-j\cdot y\longrightarrow
+z\cdot\overline{z}=(x+j\cdot y)\cdot(x-j\cdot
+y)=x^2-jxy+jxy+y^2=x^2+y^2$$
+
+\textcolor{lightblue}{\underline{Definición (Inverso)}}
+
+Dado $z\in\mathbb{C}, z\neq0$, se llama inverso de $z$, denotado
+$z^{-1}$ ó ${1\over z}$, al número complejo
+$z^{-1}=\frac{1}{z\cdot\overline{z}}\cdot z$
+
+Vamos a calcular $z\cdot z^{-1}$:
+
+\textcolor{lightblue}{$z\cdot
+z^{-1}=z^{-1}=\frac{1}{z\cdot\overline{z}}\cdot z\cdot
+\overline{z}=\frac{\text{Re}z^2+\text{Im}z^2}{\text{Re}z^2+\text{Im}z^2}=1$}
+
+\textcolor{lightblue}{\underline{Forma exponencial y polar de un
+número complejo}}
+
+\begin{tikzpicture}
+    \draw[->] (-1, 0) -- (3, 0) node[right] {eje real};
+    \draw[->] (0, -1) -- (0, 3) node[above] {eje imaginario};
+\draw[->, lightblue] (1, 0) arc (0:45:1) node[midway, right]
+{$\theta$};
+\draw[lightblue] (0, 0) -- (2, 2) node[midway, above] {$|z|$};    \draw[lightblue, dashed] (0, 2) -- (2, 2) -- (2,0);
+\fill[lightblue] (2,2) circle (2pt) node[right] {$z=x+j\cdot
+y$};
+\end{tikzpicture}
+\begin{itemize}
+\item Se llama módulo de $z$, denotado $|z|$, al número real.
+          $|z|=+\sqrt{x^2+y^2}=+\sqrt{z\cdot\overline{z}}$
+
+\item Dado $z\in\mathbb{C}, z\neq0$, se define el argumento de
+$z$, denotado $\arg z$, como el conjunto
+
+\textcolor{lightblue}{$\arg
+z=\left\{\theta\in\mathbb{R}:\text{Re}z=|z|\cos\theta,~~\text{Im}z=|z|\sin\theta\right\}$}
+\end{itemize}
+Si $\theta\in\arg z$, entonces $\theta +2k\pi\in\arg z\forall
+k\in\mathbb{Z}$.
+
+Al único $\theta\in\arg z$ tal que $\theta\in[0,2\pi[$ se le
+llama \textcolor{lightblue}{argumento principal de $z$}.
+
+Por tanto,
+$$z=\text{Re}z+j\cdot\text{Im}z=|z|\cos\theta+j\cdot|z|\sin\theta=|z|(\cos\theta+j\cdot\sin\theta)=|z|e^{j\theta}$$
+donde
+\textcolor{lightblue}{$e^{j\theta}=\cos\theta+j\cdot\sin\theta$}
+
+En resumen, podemos expresar $z=\text{Re}z+j\cdot\text{Im}z$
+como:
+\begin{enumerate}[label=\alph*)]
+\item Forma polar
+$z=|z|_\theta.~~\textcolor{lightblue}{\begin{array}{l}|z|=\text{
+módulo}\\ \theta =\text{ argumento principal}\end{array}}$
+    \item Forma exponencial $z=|z|\cdot e^{j\theta}$
+\item Forma trigonométrica
+$z=|z|\cdot(\cos\theta+j\cdot\sin\theta)$
+\end{enumerate}
+Las fornas exponencial y polar están especialmente diseñadas
+para realizar las operaciones producto y cociente de números
+complejos.
+
+En efecto: $$z_1\cdot z_2=|z_1|\cdot
+e^{j\theta_1}\cdot|z_2|\cdot
+e^{j\theta_2}=|z_1|\cdot|z_2|e^{j(\theta_1+\theta_2)}=|z_1|_{\theta_1}\cdot|z_2|\cdot_{\theta_2}=|z_1|~|z_2|_{\theta_1+\theta_2}$$
+es decir, se multiplican los módulos y se suman los argumentos.
+
+La división o cociente de números complejos es multiplicar por
+el inverso. Nótese que si $|z|\cdot e^{j\theta}$, entonces
+\[z^{-1}=\frac{1}{|z|}e^{-j\theta}\text{. En efecto: }z\cdot
+z^{-1}=|z|e^{j\theta}=\frac{|z|}{|z|}e^{j(\theta-\theta)}=1\]
+
+Por tanto,
+\[\frac{z_1}{z_2}=\frac{|z_1|e^{j\theta_1}}{|z_2|e^{j\theta_2}}=\frac{|z_1|}{|z_2|}e^{j(\theta_1-\theta_2)},\]
+es decir, se dividen los módulos y se restan los argumentos.
+
+\textcolor{lightblue}{\underline{Interpretación geométrica de la
+suma y el producto de números complejos}}
+\begin{itemize}[label=\color{red}\textbullet]
+    \item \textcolor{lightblue}{Suma (Forma binómica)}
+\end{itemize}
+
+$\left.\begin{array}{l}
+        z_1=\text{Re}z_1+j\cdot\text{Im}z_1 \\
+        z_2=\text{Re}z_2+j\cdot\text{Im}z_2
+\end{array}\right\}z_1+z_2=(\text{Re}z_1+\text{Re}z_2)+j\cdot(\text{Im}z_1+\text{Im}z_2)$
+
+\begin{tikzpicture}
+    \draw[->] (-2, 0) -- (5,0);
+    \draw[->] (0,-2) -- (0,5);
+\draw[->, blue, line width=1.5pt] (0,0) -- (4,4) node[right]
+{$z_1+z_2$};
+    \draw[blue] (3,1) -- (4,4);
+\draw[->, lightblue, line width=1.5pt] (0,0) -- (3,1)
+node[right] {$z_1$};
+\draw[->, lightblue, line width=1.5pt] (0,0) -- (1,2)
+node[right] {$z_2$};
+\draw[lightblue, dashed] (1, 2) -- (0, 2) node[left]
+{$\text{Im}z_2$};
+\draw[lightblue, dashed] (3, 1) -- (0, 1) node[left]
+{$\text{Im}z_1$};
+\draw[lightblue, dashed] (1, 2) -- (1, 0) node[below]
+{$\text{Re}z_2$};
+\draw[lightblue, dashed] (3, 1) -- (3, 0) node[below]
+{$\text{Re}z_1$};
+\end{tikzpicture}
+\begin{itemize}[label=\color{red}\textbullet]
+    \item \textcolor{lightblue}{Producto}
+\end{itemize}
+$\left.\begin{array}{l}
+        z_1=\text{Re}z_1+j\cdot\text{Im}z_1 \\
+        z_2=\text{Re}z_2+j\cdot\text{Im}z_2
+\end{array}\right\}z_1\cdot z_2=|z_1|~|z_2|_{\theta_1+\theta_2}$
+\begin{tikzpicture}
+    \draw[->] (-2, 0) -- (5,0);
+    \draw[->] (0,-2) -- (0,5);
+    \draw[->, lightblue] (0,0) -- (4,1) node[right] {$z_1$};
+    \draw[->, lightblue] (0,0) -- (2,1) node[right] {$z_2$};
+\draw[->, lightblue] (0,0) -- (3,4) node[right] {$z_1\cdot
+z_2$};
+\draw[->, blue] (3,0) arc (0:53:3) node[midway,right]
+{$\theta_1+ \theta_2$};
+\draw[->, blue] (1,0) arc (0:27:1) node[midway,right]
+{$\theta_2$};
+\draw[->, blue] (2,0) arc (0:14:2) node[midway,right]
+{$\theta_1$};
+\end{tikzpicture}
+
+\textcolor{lightblue}{¿Cómo pasar los números complejos de una
+forma a otra?}
+
+Binómica$\longrightarrow$ Polar/exponencial
+
+$z=x+j\cdot y\longrightarrow\left\{\begin{array}{l}
+        |z|=+\sqrt{x^2+y^2} \\
+        \theta=\arg z=\arctan \frac{y}{x}
+    \end{array}\right.$
+
+Las calculadoras solo devuelven valores del arcotangente en
+$-90^\circ$ y $90^\circ$. Dependiendo de la localización del
+número complejo en cuestión hay que sumar $180^\circ$.
+
+\begin{tikzpicture}
+    \draw[->] (-3, 0) -- (3,0);
+    \draw[->] ( 0,-3) -- (0,3);
+    \draw[lightblue] ( -2,2) -- (2,-2);
+    \fill[lightblue] (-2,2) circle (2pt) node[left] {$z_2$};
+    \fill[lightblue] (2,-2) circle (2pt) node[right] {$z_1$};
+\end{tikzpicture}
+
+$z_1$ y $z_2$ tienen el mismo arcotangente, según la
+calculadora.
+
+Veamos algunos ejemplos:
+\begin{itemize}
+    \item $1+j\longrightarrow|1+j|=+\sqrt{1^2+1^2}=\sqrt{2}$
+\end{itemize}
+\begin{tikzpicture}[scale=0.5, baseline=(current bounding
+box.center)]
+    \draw[->] (-3, 0) -- (3,0);
+    \draw[->] ( 0,-3) -- (0,3);
+\draw[->, lightblue, line width=1.5pt] (0,0) -- (2,2)
+node[right] {$1+j$};
+    \draw[dashed, lightblue, thick] (0,2) -- (2,2) -- (2,0);
+\end{tikzpicture}
+$\begin{array}{l}
+\theta=\arctan \frac{1}{1} =45^\circ=\frac{\pi}{4} \text{
+radianes} \\
+        1+j=\sqrt{2}_{45^\circ}=\sqrt{2}e^{j\frac{\pi}{4}}
+    \end{array}$
+\begin{itemize}
+\item
+$-1-j\longrightarrow|-1-j|=+\sqrt{(-1)^2+(-1)^2}=+\sqrt{2}$
+\end{itemize}
+\begin{tikzpicture}[scale=0.5, baseline=(current bounding
+box.center)]
+    \draw[->] (-3, 0) -- (3,0);
+    \draw[->] ( 0,-3) -- (0,3);
+\draw[->, lightblue, line width=1.5pt] (0,0) -- (-2,-2)
+node[below] {$-1-j$};
+\draw[dashed, lightblue, thick] (0,-2) -- (-2,-2) -- (-2,0);\end{tikzpicture}
+$\begin{array}{l}
+\theta=\arctan \frac{-1}{-1}
+=45^\circ=45^\circ+180^\circ=225^\circ=\frac{\pi}{4}+\pi=\frac{5\pi}{4}\text{
+rad.} \\
+        -1-j=\sqrt{2}_{225^\circ}=+\sqrt{2}e^{j\frac{5\pi}{4}}
+    \end{array}$
+
+Polar|Exponencial$\longrightarrow$Binómica
+
+$z=|z|_\theta=|z|e^{j\theta}\longrightarrow
+z=|z|(\cos\theta+j\cdot\sin\theta)=|z|\cos\theta+j|z|\sin\theta$
+
+\textcolor{lightblue}{\underline{Ejemplos}}
+
+\begin{multicols}{2}
+    \begin{itemize}
+        \item $1\pi=1\cdot e^{j\pi}=\cos\pi+j\cdot\sin\pi=-1$
+    \end{itemize}
+    \begin{tikzpicture}
+        \draw[->] (-2, 0) -- (2,0);
+        \draw[->] (0, -1) -- (0,2);
+\draw[lightblue] (-1, 0.1) -- (-1,-0.1) node[below] {$1\pi$};    \end{tikzpicture}
+    \columnbreak
+    \begin{itemize}
+\item $2_{\frac{\pi}{3}}=2\cdot
+e^{j\frac{\pi}{3}}=2(\cos\frac{\pi}{3}+j\cdot\sin\frac{\pi}{3})=2\cdot(0.5+j\cdot0.866)=1+j\cdot1.732$
+    \end{itemize}
+    \begin{tikzpicture}
+        \draw[->] (-2, 0) -- (2,0);
+        \draw[->] (0, -1) -- (0,2);
+\draw[lightblue] (0,0) -- (pi/3,1) node[right] {$\pi\over 3$};        \draw[->, lightblue] (0.8,0) arc (0:44:0.8);
+\draw[lightblue, dashed] (0,1) -- (pi/3, 1) -- (pi/3, 0);        \fill[lightblue] (pi/3,1) circle (2pt) ;
+    \end{tikzpicture}
+\end{multicols}
+\textcolor{lightblue}{\underline{Un ejemplo de uso de los
+números complejos en Ciencia de Datos}}
+
+En algunos campos de la Ciencia de Datos y la Inteligencia
+Artificial, e.g. reconocimiento del hablante o asistentes
+virtuales (Siri, en Apple), es necesario analizar y procesar
+señales, las cuales desde los tiempos de Fourier (siglo XIX), se
+procesan mediante una superposición de funciones trigonométricas
+con frecuencia discreta (series de Fourier) o continua
+(transformada de Fourier). En concreto, las señales periódicas
+se representan mediante series de Fourier y las no periódicas
+mediante transformadas de Fourier. Como veremos a continuación,
+los dos parámetros fundamentales de una onda son su frecuencia.
+Esto nos recuerda al módulo y argumento de un número complejo.
+Efectivamente, esto es así y es precisamente la forma
+exponencial de los números complejos la que facilita el
+procesamiento de estas señales.
+
+Antes de nada, conviene señalar la conexión entre las funciones
+trigonométricas seno y coseno, y las exponenciales complejas.
+
+Se tiene:
+
+$\cos\theta=\frac{e^{j\theta}+e^{-j\theta}}{2}$
+
+En efecto:
+
+$e^{j\theta}=\cos\theta+j\cdot\sin\theta$
+
+$e^{-j\theta}=\cos(-\theta)+j\cdot\sin(-\theta)=\cos\theta-j\cdot\sin\theta$
+
+Por tanto:$$e^{j\theta}+e^{-j\theta}=2\cos\theta$$
+
+De igual forma, $\sin\theta=\frac{e^{j\theta}-e^{-j\theta}}{2j}$
+\textcolor{lightblue}{\underline{Representación matemática de
+una honda elemental}}
+\begin{itemize}
+\item La función $\cos
+t=\frac{e^{jt}+e^{-jt}}{2},~t\equiv$tiempo.
+\end{itemize}
+\begin{tikzpicture}
+    \draw[->] (-2,0)--(9,0);
+    \draw[->] (0,-2)--(0,2);
+    \draw[dashed] (-2,1)--(9,1);
+    \draw[dashed] (-2,-1)--(9,-1);
+
+\draw[domain=2*pi:9, variable=\x, lightblue, dashed] plot
+({\x},{cos(\x r)});
+\draw[domain=-2:0, variable=\x, lightblue, dashed] plot
+({\x},{cos(\x r)});
+\draw[domain=0:2*pi, variable=\x, lightblue] plot ({\x},{cos(\x
+r)});
+    \foreach \y in {-1, 1}
+    \draw (0.1, \y) -- (-0.1, \y) node[left] {$\y$};
+\draw[lightblue] (pi/2, 0.1) -- (pi/2,-0.1) node[below]
+{$\pi\over2$};
+\draw[lightblue] (pi, 0.1) -- (pi,-0.1) node[below] {$\pi$};\draw[lightblue] (3*pi/2, 0.1) -- (3*pi/2,-0.1) node[below]
+{$3\pi\over2$};
+\draw[lightblue] (2*pi, 0.1) -- (2*pi,-0.1) node[below]
+{$2\pi$};
+\node[draw=black, rectangle, line width=1pt] at (12, 0)
+{Periodo\hspace{0.3cm}$T=2\pi$};
+\end{tikzpicture}
+\begin{itemize}
+    \item La función $A\cos t=\frac{Ae^{jt}+Ae^{-jt}}{2}$
+\end{itemize}
+\begin{tikzpicture}
+    \draw[->] (-2,0)--(7,0) node[right] {$t$};
+    \draw[->] (0,-2)--(0,2);
+    \draw[dashed] (0,1)--(7,1);
+    \draw[dashed] (0,-1)--(7,-1);
+
+\draw[domain=0:2*pi, variable=\x, lightblue] plot ({\x},{cos(\x
+r)});
+\draw[lightblue] (pi/2, 0.1) -- (pi/2,-0.1) node[below]
+{$\pi\over2$};
+\draw[lightblue] (pi, 0.1) -- (pi,-0.1) node[below] {$\pi$};\draw[lightblue] (3*pi/2, 0.1) -- (3*pi/2,-0.1) node[below]
+{$3\pi\over2$};
+\draw[lightblue] (2*pi, 0.1) -- (2*pi,-0.1) node[below]
+{$2\pi$};
+    \draw (0.1, 1) -- (-0.1, 1) node[left] {$A$};
+    \draw (0.1, -1) -- (-0.1, -1) node[left] {$-A$};
+\node[draw=black, rectangle, line width=1pt] at (12, 0)
+{Periodo\hspace{0.3cm}$A\equiv$ Amplitud de la onda};
+\end{tikzpicture}
+
+\begin{itemize}
+    \item La función $\cos(wt)=\frac{e^{jwt}+e^{-jwt}}{2}$
+\end{itemize}
+Periodo de $T$ es tal que $wT=2\pi\longrightarrow
+T=\frac{2\pi}{w}$
+
+Si $w$ es pequeño$\longrightarrow ~T$ es grande (pocas
+oscilaciones)
+
+\begin{tikzpicture}
+    \draw[->] (-2,0)--(7,0) node[right] {$t$};
+    \draw[->] (0,-2)--(0,2);
+
+\draw[domain=0:2*pi, variable=\x, lightblue] plot ({\x},{cos(\x
+r)});
+
+    \foreach \y in {-1, 1}
+    \draw (0.1, \y) -- (-0.1, \y) node[left] {$\y$};
+\draw[lightblue] (2*pi, 0.1) -- (2*pi,-0.1) node[below] {$T$};\end{tikzpicture}
+
+Si $w$ es grande$\longrightarrow ~T$ es pequeño (muchas
+oscilaciones)
+
+\begin{tikzpicture}
+    \draw[->] (-2,0)--(7,0) node[right] {$t$};
+    \draw[->] (0,-2)--(0,2);
+
+\draw[domain=0:pi, variable=\x, lightblue] plot ({\x},{cos(2*\x
+r)});
+\draw[domain=pi:2*pi, variable=\x, lightblue, dashed] plot
+({\x},{cos(2*\x r)});
+
+    \foreach \y in {-1, 1}
+    \draw (0.1, \y) -- (-0.1, \y) node[left] {$\y$};
+    \draw[lightblue] (pi, 0.1) -- (pi,-0.1) node[below] {$T$};
+\end{tikzpicture}
+
+frecuencia $f=\frac{1}{T}=\frac{w}{2\pi}$
+
+velocidad angular $\frac{2pi}{T}=w$
+
+\begin{itemize}
+\item La función $\cos
+(t-\varphi)=\frac{e^{j(t-\varphi)}+e^{-j(t-\varphi)}}{2}$
+\end{itemize}
+\begin{tikzpicture}
+    \draw[->] (-2,0)--(7,0) node[right] {$t$};
+    \draw[->] (0,-2)--(0,2);
+    \draw[dashed] (0,1)--(7,1);
+    \draw[dashed] (0,-1)--(7,-1);
+    \draw[dashed] (0.5,1)--(0.5,0) node[below] {$\varphi$};
+
+\draw[domain=0:2*pi, variable=\x, lightblue] plot ({\x},{cos(\x
+r)});
+
+    \foreach \y in {-1, 1}
+    \draw (0.1, \y) -- (-0.1, \y) node[left] {$\y$};
+\end{tikzpicture}
+
+Si $t=\varphi\longrightarrow\cos(t-\varphi)=\cos0=1$
+
+$\varphi\equiv$ fase incial
+
+$\varphi$ traslada la honda hacia la derecha
+\textcolor{red}{($\varphi$ positiva)} o hacia la izquierda
+\textcolor{lightblue}{($\varphi$ negativa)}.
+
+\textcolor{lightblue}{\underline{En resumen}}
+
+\begin{tikzpicture}
+\node at (0,0)
+{$f(t)=A\cos(wt-\varphi)=\dfrac{A\cdot\left(e^{j(wt-\varphi)}+e^{-j(wt-\varphi)}\right)}{2}$};
+\draw[lightblue, -latex] (-3.5,-1) node[below] {Amplitud} --
+(-3,-0.3);
+\draw[lightblue, -latex] (-1.8,-2) node[below, text width=2cm]
+{\small Velocidad angular (frecuencia y periodo)} --
+(-1.8,-0.3);
+\draw[lightblue, -latex] (-0.5,-1) node[below] {Fase} --
+(-1,-0.3);
+\end{tikzpicture}
+
+\textcolor{lightblue}{\underline{Raices n-ésimas y raices de
+polinomios}}
+
+Consideremos la ecuación $x^2+1=0$.
+
+Como sabemos, no existe ningún número real que sea solución de
+dicha ecuación.
+
+Veamos si hay algún número complejo.
+
+Buscamos $z=|z|e^{j\theta}$ tal que
+
+\hspace{2cm}$z^2=|z|^2e^{2j\theta}=-1=e^{j\pi}$.
+
+\begin{wrapfigure}{r}{0.3\textwidth}
+    \begin{tikzpicture}[scale=0.7]
+        \draw (-2.5,0) -- (2.5,0);
+        \draw (0,-2.5) -- (0,2.5);
+        \draw[lightblue, line width=1.5pt] (0,0) circle (2);
+    \end{tikzpicture}
+\end{wrapfigure}
+
+Para que dos números complejos sean iguales sus módulos han de
+ser iguales y sus argumentos diferir en un múltiplo de $2\pi$.
+Por tanto:
+
+$\left.\begin{array}{r}
+        |z|^2=1 \\
+        2\theta=\pi+2k\pi
+    \end{array}\right\}~~~~\begin{array}{l}
+        |z|=+\sqrt{1}=1 \\
+        \theta=\dfrac{\pi}{2}+k\pi
+    \end{array}$
+
+$k=0\longrightarrow\theta_1=\dfrac{\pi}{2}$
+
+$k=1\longrightarrow\theta_2=\dfrac{\pi}{2}+\pi=\dfrac{3\pi}{2}$
+
+$k=2\longrightarrow\theta_3=\dfrac{\pi}{2}+3\pi=\dfrac{7\pi}{2}=(\text{Como
+argumentos})=\dfrac{3\pi}{2}$
+
+$k=-1\longrightarrow\theta_4=\dfrac{\pi}{2}-\pi=-\dfrac{\pi}{2}=(\text{Como
+argumentos})=\dfrac{3\pi}{2}$
+
+\begin{tikzpicture}
+    \draw (7.5,0) -- (12.5,0);
+    \draw (10,-2.5) -- (10,2.5);
+    \draw[lightblue] (10,0) circle (2);
+    \fill[blue] (10,2) circle (3pt) node[above] {$~~~~z_1$};
+    \fill[blue] (10,-2) circle (3pt) node[below] {$~~~~z_2$};
+\node[text width=12cm] at (0,0) {Por tanto, la ecuación
+$x^2+1=0$ tiene dos soluciones en\\
+        $\mathbb{C}:\left\{\begin{array}{l}
+                z_1=e^{j\frac{\pi}{2}} \\
+                z_2=e^{j\frac{3\pi}{2}}
+            \end{array}\right.$};
+\end{tikzpicture}
+
+Veamos que los argumentos se van repartiendo.
+
+Solo hay dos argumentos en $\left[0,2\pi\right[$.
+
+Se las llamas \textcolor{lightblue}{"raíces cuadráticas de la
+unidad"}.
+
+Para la ecuación $x^3+1=0$ procedemos de igual modo: buscamos
+$z=|z|e^{j\theta}$ tal que $z^3=|z|^3e^{3j\theta}=-1=e^{j\pi}$.
+
+\begin{wrapfigure}{r}{0.3\textwidth}
+    \begin{tikzpicture}
+        \draw (-2.5,0) -- (2.5,0);
+        \draw (0,-2.5) -- (0,2.5);
+        \draw[lightblue] (0,0) circle (2);
+\draw[lightblue, dashed] (0.67,1.88) -- (0,0) -- (0.67,-1.88);\fill[blue] (0.67,1.88) circle (3pt) node[above] {$~~~~z_1$};\fill[blue] (0.67,-1.88) circle
+(3pt) node[below] {$~~~~z_3$};\fill[blue] (-2,0) circle (3pt) node[below] {$z_2$~~~~}; \end{tikzpicture}
+\end{wrapfigure}
+
+Por tanto:
+
+$|z|^3=1\longrightarrow|z|=1$
+
+$3\theta=\pi+2k\pi\longrightarrow\theta=\dfrac{\pi}{3}+\dfrac{2k\pi}{3}$
+
+$k=0\longrightarrow\theta_1=\dfrac{\pi}{3}$
+
+$k=1\longrightarrow\theta_2=\dfrac{\pi}{3}+\dfrac{2\pi}{3}$
+
+$k=2\longrightarrow\theta_3=\dfrac{\pi}{3}+\dfrac{4\pi}{3}$
+
+Las raices cúbicas de la unidad son $\left\lbrace
+e^{j\frac{\pi}{3}},e^{j\pi},e^{j\left(\frac{\pi}{3}+\frac{4\pi}{3}\right)}\right\rbrace$
+
+En general, la ecuación $x^n+1=0$ tiene n-raíces en
+$\mathbb{C}$, llamadas raices n-ésimas de la unidad y son:
+\[\left\{z=|z|e^{j\theta}:|z|=1=\dfrac{\pi}{n}+\dfrac{2k\pi}{n},k=0,1,\hdots,n-1\right\}\]
+
+Para completar, se puede demostrar (lo hizo Gauss en su tesis
+doctoral) que todo polinomio de grado $n$ tiene directamente
+n-raíces (reales y/o complejas). Es el llamado Teorema
+Fundamental del Álgebra.
+
+\newpage
+
+\section{Espacios vectoriales de dimensión finita}
+\textcolor{lightblue}{\underline{Vectores}}
+
+Sea $\mathbb{K}=\mathbb{R}$ ó $\mathbb{C}$. A los elementos de
+$\mathbb{K}$ les llamamos \textcolor{lightblue}{escalares}.
+\begin{itemize}[label=\color{red}\textbullet, leftmargin=*]
+\item \color{lightblue} Definición (Espacio vectorial de
+dimensión finita)
+\end{itemize}
+Sea $n\in\mathbb{N}$. Definimos
+\[\mathbb{K}^n=\{(x_1,x_2,\hdots,x_n)\}:x_i\in\mathbb{K},1\le
+i\le n\]
+A los elementos $v=(x_1,\hdots,x_n)\in\mathbb{K}^n$ se les llama
+vectores de componentes en $\mathbb{K}$.
+
+En Python se les llaman 1d-array.
+
+En $\mathbb{K}^n$ tenemos definidas dos operaciones:
+\begin{itemize}
+    \item Suma de vectores:
+
+\fcolorbox{lightblue}{lightblue!10}{$u+v=(x_1,x_2,\hdots,x_n)+(y_1,y_2,\hdots,y_n)=(x_1+y_1,x_2+y_2,\hdots,x_n+y_n)$}
+
+\item Producto por escalares: $\lambda\in\mathbb{K}$,
+$u\in\mathbb{K}^n$
+
+\fcolorbox{lightblue}{lightblue!10}{$\lambda\cdot
+u=\lambda\cdot(x_1,\hdots,x_n)=(\lambda x_1,\lambda
+x_2,\hdots,\lambda x_n)\in\mathbb{K}^n$}
+\end{itemize}
+Al conjunto de vectores $\mathbb{K}^n$ con las dos operaciones
+anteriores se le llama \textcolor{lightblue}{espacio vectorial
+sobre $\mathbb{K}$.}
+
+\textcolor{lightblue}{\underline{Dependencia lineal}}
+\begin{itemize}[label=\color{red}\textbullet, leftmargin=*]
+    \item \color{lightblue}Definición (Combinación lineal)
+\end{itemize}
+Dados vectores $u,u_1,u_2,\hdots,u_m\in\mathbb{K}^n$, se dice
+que $u$ es \textcolor{lightblue}{combinación lineal} de
+$u_1,u_2,\hdots,u_n$ si existen escalares
+$\lambda_1,\lambda_2,\hdots,\lambda_m\in\mathbb{K}^n$ de modo
+que $u$ puede expresarse como
+\begin{center}
+\fcolorbox{lightblue}{lightblue!10}{$\lambda_1u_1+\lambda_2u_2+\cdots+\lambda_mu_m=0=(0,\hdots,0)$}
+\end{center}
+se cumple que $\lambda_1=\lambda_2=\cdots=\lambda_m=0$.
+
+Es decir, la única forma de obtener una combinación lineal nula
+es como todos los coeficientes nulos.
+\begin{itemize}[label=\color{red}\textbullet]
+    \item \textcolor{lightblue}{Demostración}
+\end{itemize}
+\begin{itemize}[label=$\longrightarrow$]
+\item Supongamos que $\{u_1,u_2,\hdots,u_m\}$ es linealmente
+independiente y que
+
+\fcolorbox{lightblue}{lightblue!10}{$\lambda_1 u_1+\lambda_2
+u_2+\cdots+\lambda_mu_m=0$}
+
+Si algún $\lambda_i$ fuese nulo, por ejemplo $\lambda_1\neq0$,
+entonces
+
+\fcolorbox{lightblue}{lightblue!10}{$u_1=\dfrac{\lambda_2}{\lambda_1}u_2+\cdots+\dfrac{\lambda_m}{\lambda_1}u_m$}
+
+          y así $u_1$ es combinación lineal de los demás.
+
+    \item Recíprocamente, supongamos que si
+
+\fcolorbox{lightblue}{lightblue!10}{$\lambda_1u_1+\lambda_2u_2+\cdots+\lambda_mu_m=0$}
+
+          entonces $\lambda_1=\lambda_2=\cdots=\lambda_m=0$
+
+El conjunto $\{u_1,u_2,\hdots,u_m\}$ ha de ser linealmente
+independiente pues si no lo fuera entonces al giro de sus
+vectores, por ejemplo $u_2$, se podría expresar
+
+\fcolorbox{lightblue}{lightblue!10}{$u_1=\lambda_2u_2+\cdots+\lambda_mu_m$}
+
+          y entonces
+
+\fcolorbox{lightblue}{lightblue!10}{$u_1-\lambda_2u_2-\cdots-\lambda_mu_m=0$}
+
+sería una combinación lineal nula con al menos un coeficiente,
+el 1 que acompaña a $u_1$, no nulo.
+\end{itemize}
+\begin{itemize}[label=\color{red}\textbullet, leftmargin=*]
+\item \color{lightblue} Definición (Rotación de dependencia)\end{itemize}
+Dados unos vectores $u_1,u_2,\hdots,u_m$ linealmente
+dependientes, se llama \textcolor{lightblue}{relación de
+dependencia} a cualquier combinación lineal nula
+\[\lambda_1u_1,\lambda_2 u_2,\hdots,\lambda_mu_m=0\] con no
+todos los coeficientes nulos.
+\begin{itemize}[label=\color{red}\textbullet, leftmargin=*]
+    \item \color{lightblue} Definición (Base canónica)
+\end{itemize}
+El conjunto de vectores \begin{center}
+\fcolorbox{lightblue}{lightblue!10}{$C=\{e_1=(1,0,0,\hdots,0),e_2=(0,1,0,\hdots,0),\hdots,e_n=(0,0,\hdots,0,1)\subset\mathbb{K}^n\}$}
+\end{center} se llama \textcolor{lightblue}{base canónica} de
+$\mathbb{K}^n$.
+
+Se trata de un conjunto de vectores linealmente independiente y
+cada vector $u=(a_1,a_2,\hdots,a_n)\in\mathbb{K}^n$ se escribe
+como combinación lineal en $C$ en la forma
+
+\fcolorbox{lightblue}{lightblue!10}{$u=a_1e_1+a_2e_2+\cdots+a_ne_n$}
+\begin{itemize}[label=\color{red}\textbullet, leftmargin=*]
+    \item \color{lightblue} Proposición
+\end{itemize}
+Sean $S=\{u_1,u_2,\hdots,u_m\}$ un conjunto de vectores
+linealmente independientes y $u\in\mathbb{K}^n$. Entonces:
+\begin{enumerate}
+\item Todo subconjunto de $S$ no vacía es linealmente
+independiente.
+\item El conjunto $S\cup\{u\}$ es linealmente independiente si y
+sólo si $u$ no es combinación lineal de $u_1,u_2,\hdots,u_m$.
+\end{enumerate}
+\textcolor{lightblue}{\underline{Norma y producto escalar}}
+\begin{itemize}[label=\color{red}\textbullet, leftmargin=*]
+    \item \color{lightblue} Definición (Norma euclídea)
+\end{itemize}
+Sea $u=(x_1,x_2,\hdots,x_n)\in\mathbb{R}^n$. Se llama norma
+euclídea o norma 2, escalar.
+\begin{center}
+\fcolorbox{lightblue}{lightblue!10}{$\|u\|_2=+\sqrt{x_1^2+\cdots+x_n^2}$}
+\end{center}
+Si $\|u\|_2=1$, $u$ se dice unitario.
+
+Otras normas utilizadas en Ciencia de Datos son:
+
+$\|u\|_1=|x_1|+|x_2|+\cdots+|x_n|=\sum_{j=1}^{n}|x_j|$
+
+$\|u\|_p=\left(|u_1|^p+|u_2|^p+\cdots+|u_n|^p\right)^{\frac{1}{p}}$,
+$1<p<+\infty$
+
+$\|u\|_{\infty}=\max\{|x_1|+|x_2|+\cdots+|x_n|\}~~1\le j\le
+n\longrightarrow$ Norma del máximo o norma del infinito.
+
+\begin{itemize}[label=\color{red}\textbullet, leftmargin=*]
+    \item \color{lightblue} Ejemplo
+\end{itemize}
+
+$u=(1,-2,-1)$
+
+$\|u\|_1=|1|+|-2|+|-1|=4$
+
+$\|u\|_2=\sqrt{1^2+(-2)^2+(-1)^2}=+\sqrt{6}$
+
+$\|u\|_\infty=\max\{|1|,|-2|,|-1|\}=2$
+
+Todas las normas comparten las siguientes propiedades:
+\begin{itemize}
+\item Sean $\|\cdot\|$ cualquiera de las normas anteriores,
+$u\in\mathbb{R}^n$ y $\alpha\in\mathbb{R}$. Entonces:
+          \begin{enumerate}[label=\alph*)]
+              \item $\|u\|\ge0$ y $\|u\|=0$ si y sólo si $u=0$.
+              \item $\|\alpha u\|=|\alpha|\cdot\|u\|$
+\item $\|u+v\|\le\|u\|+\|v\|$ (desigualdad triangular)          \end{enumerate}
+\item[$\longrightarrow$] A partir de ahora, salvo que se indique
+lo contrario, $\|\cdot\|=\|\cdot\|_2$ la norma euclídea.
+\end{itemize}
+
+\begin{itemize}[label=\color{red}\textbullet, leftmargin=*]
+\item \color{lightblue} Definición (Producto escalar euclídeo)\end{itemize}
+Dados
+$u=(x_1,x_2,\hdots,x_n),v=(y_1,y_2,\hdots,y_n)\in\mathbb{R}^n$,
+se define el producto escalar euclídeo de $u$ por $v$ como
+\[u\cdot v=x_1\cdot y_1+x_2\cdot y_2+\cdots+x_n\cdot y_n\]
+Nótese que entonces $\|u\|_2=\sqrt{u\cdot u}$
+\begin{itemize}[label=\color{red}\textbullet, leftmargin=*]
+    \item \color{lightblue} Propiedades del producto escalar
+\end{itemize}
+\begin{enumerate}[label=\alph*)]
+    \item $(u_1+u_2)\cdot v=u_1\cdot v+u_2\cdot v$.
+    \item $u\cdot(v_1+v_2)=u\cdot v_1+u\cdot v_2$.
+\item $(\alpha\cdot u)\cdot v=u\cdot(\alpha\cdot
+v)=\alpha(u\cdot v)$.
+    \item $u\cdot v=v\cdot u$.
+    \item $u\cdot u\ge0$ y $u\cdot u=0$ si y sólo si $u=0$.
+\end{enumerate}
+\begin{itemize}[label=\color{red}\textbullet, leftmargin=*]
+    \item \color{lightblue} Propiedades de la norma euclídea.
+\end{itemize}
+\begin{enumerate}
+    \item $\|u+v\|^2=\|u\|^2+\|v\|^2+2(u\cdot v)$
+    \item $\|u-v\|^2=\|u\|^2+\|v\|^2-2(u\cdot v)$
+\item $|u\cdot v|\le\|u\|\cdot\|v\|\longrightarrow$ Desigualdad
+de Cauchy-Schwarz
+\end{enumerate}
+\begin{itemize}[label=\color{red}\textbullet, leftmargin=*]
+    \item \color{lightblue} Demostración
+\end{itemize}
+Veamos el punto \textcolor{lightblue}{(3)}.
+
+Si $u=0$ los dos miembros son nulos y se cumple la desigualdad.
+Supongamos $v\neq0$. Entonces:
+
+$0\le\left(u-\frac{u\cdot
+v}{\|v\|^2}v\right)\cdot\left(u-\frac{u\cdot
+v}{\|v\|^2}v\right)=u\cdot\left(u-\frac{u\cdot
+v}{\|v\|^2}v\right)-\frac{u\cdot v}{\|v\|^2}\cdot
+v\cdot\left(u-\frac{u\cdot v}{\|v\|^2}v\right)=$
+
+$u\cdot u-\frac{u\cdot v}{\|v\|^2}\cdot u\cdot v-\frac{u\cdot
+v}{\|v\|^2}\cdot v\cdot u+\frac{u\cdot
+v}{\|v\|^2}\cdot\frac{u\cdot v}{\|v\|^2}\cdot v\cdot
+v=\|u\|^2-\frac{2(u\cdot v)^2}{\|v\|^2}+\frac{(u\cdot
+v)^2}{\|v\|^2}=\|u\|^2-\frac{|u\cdot v|^2}{\|v\|^2}$
+
+Nótese que como consecuencia de la desigualdad de
+Cauchy-Schwarz, si $u,v$ son vectores no nulos, entonces
+$-1\le\dfrac{u\cdot v}{\|u\|\cdot\|v\|}\le1$.
+
+Por tanto, existe un único ángulo $0\le\varphi\le\pi$ tal que
+$\cos\varphi=\frac{u\cdot v}{\|u\|\cdot\|v\|}$.
+
+A este ángulo se le llama ángulo formado por los vectores $u$ y
+$v$ y su coseno se denota $\cos(u,v)$. Así, $u\cdot
+v=\|u\|\cdot\|v\|\cos(u,v)$.
+\begin{itemize}[label=\color{red}\textbullet, leftmargin=*]
+    \item \color{lightblue} Ejemplo:
+\end{itemize}
+\begin{tikzpicture}[scale=2.5]
+    \draw[->] (-0.5,0) -- (1.5,0);
+    \draw[->] (0,-0.5) -- (0,1.5);
+\draw[-latex, lightblue, line width=2pt] (0,0) -- (0,1)
+node[right] {$v=(0,1)$};
+\draw[-latex, lightblue, line width=2pt] (0,0) -- (1,0)
+node[below] {$u=(1,0)$};
+    \node[text width=6cm] at (3,1) {$\begin{array}{l}
+u\cdot v=(1,0)\cdot(0,1)=1\cdot0+0\cdot 1=0 \\\cos(u,v)=0\longrightarrow\varphi=90\text{º}=\frac{\pi}{2} \\\|u\|=\|v\|=1 \\ \end{array}$};
+\end{tikzpicture}
+
+$u\cdot v$ son perpendiculares (ortogonales).
+\begin{itemize}[label=\color{red}\textbullet, leftmargin=*]
+    \item \color{lightblue} Definición (ortogonalidad)
+\end{itemize}
+Dos vectores $u,v\in\mathbb{K}^n$ se llaman ortogonales o
+perpendiculares si $u\cdot v=0$.
+
+Como consecuencia $\|u\pm v\|^2=\|u\|^2+\|v\|^2$ si $u$ y $v$
+son perpendiculares (Teorema de Pitágoras).
+
+\begin{tikzpicture}[scale=2.5]
+    \draw[->] (-0.5,0) -- (1.5,0);
+    \draw[->] (0,-0.5) -- (0,1.5);
+\draw[-latex, lightblue, line width=2pt] (0,0) -- (0,1)
+node[left] {$v$};
+\draw[-latex, lightblue, line width=2pt] (0,0) -- (1,0)
+node[below] {$u$};
+\draw[-latex, lightblue, line width=2pt] (0,0) -- (1,1)
+node[right] {$u+v$};
+    \draw[lightblue, dashed, line width=1.5pt] (1,1) -- (1,0);
+\end{tikzpicture}
+\begin{itemize}[label=\color{red}\textbullet, leftmargin=*]
+    \item \color{lightblue} Definición
+\end{itemize}
+Un conjunto de vectores $\{u_1,\hdots,u_n\}\subset\mathbb{K}^n$
+se dice \textcolor{lightblue}{ortogonal} si $u_i\cdot
+u_i=0,i\neq j$. Si además los vectores son unitarios, el
+conjunto se dice ortonormal.
+\begin{itemize}[label=\color{red}\textbullet, leftmargin=*]
+    \item \color{lightblue} Ejemplo:
+\end{itemize}
+La base canónica $C=\{e_1,\hdots,e_n\}$ es ortonormal.
+\begin{itemize}[label=\color{red}\textbullet, leftmargin=*]
+    \item \color{lightblue} Propiedades
+\end{itemize}
+Todo conjunto ortogonal es linealmente independiente.
+\begin{itemize}[label=\color{red}\textbullet, leftmargin=*]
+    \item \color{lightblue} Demostración
+\end{itemize}
+Sea $\{u_1,\hdots,u_m\}$ ortogonal.
+$\lambda_1u_1+\lambda_2u_2+\cdots+\lambda_mu_m=0$. Multiplicando
+por $u_j$:
+
+$\lambda_1u_1u_j+\lambda_2u_2u_j+\cdots+\lambda_ju_j\cdot
+u_j+\cdots+\lambda_mu_m\cdot
+u_j=0\longrightarrow\lambda_j\|u_j\|^2=0\longrightarrow
+\lambda_j=0$
+
+\textcolor{lightblue}{\underline{Matrices}}
+
+\begin{itemize}[label=\color{red}\textbullet, leftmargin=*]
+\item \color{lightblue} Definición: (Matriz de tamaño $m\times
+n$)
+\end{itemize}
+Sean $m,n\in\mathbb{N}$. Se llama matriz de tamaño $m\times n$
+al conjunto formado por m-vectores de n-componentes apilados
+verticalmente. En Python, a las matriz se les llama 2d-array.
+\begin{itemize}[label=\color{red}\textbullet, leftmargin=*]
+    \item \color{lightblue} Ejemplo (Matriz de Hilbert)
+\end{itemize}
+Matriz $H$ con entradas $H_{ij}=\dfrac{1}{i+j-1}$
+
+\begin{tikzpicture}
+    \node at (0,0) {$H_4=\begin{bmatrix}
+1 & \textstyle{\frac{1}{2}} & \textstyle{\frac{1}{3}} &
+\textstyle{\frac{1}{4}} \\
+\textstyle{\frac{1}{2}} & \textstyle{\frac{1}{3}} &
+\textstyle{\frac{1}{4}} & \textstyle{\frac{1}{5}} \\
+\textstyle{\frac{1}{3}} & \textstyle{\frac{1}{4}} &
+\textstyle{\frac{1}{5}} & \textstyle{\frac{1}{6}} \\
+\textstyle{\frac{1}{4}} & \textstyle{\frac{1}{5}} &
+\textstyle{\frac{1}{6}} & \textstyle{\frac{1}{7}}
+            \end{bmatrix}$};
+    \draw[-latex] (3,1) node[right] {filas} -- (2,1);
+    \draw[-latex] (3,-2) node[right] {columnas} -- (1.5, -1.6);
+\end{tikzpicture}
+
+Denotaremos por $M_{m\times n}(\mathbb{K})$ al conjunto de
+matrices de m-filas y n-columnas con entradas en
+$\mathbb{K}=\mathbb{R}$ ó $\mathbb{C}$.
+
+Si $m=n$, es decir, la matriz cuadrada (tiene el mismo número de
+filas que de columnas), entonces escribimos $M_n(\mathbb{K})$.
+
+\begin{itemize}[label=\color{red}\textbullet, leftmargin=*]
+\item \color{lightblue} Algunos tipos importantes de matrices\end{itemize}
+\begin{itemize}
+\item Diagonal: $A=(a_{ij})_{m\times n}, a_{ij}=0$ si $i\neq j$.
+          $A=\begin{pmatrix}
+                  a_{11} &        &        & 0      \\
+                         & a_{22} &        &        \\
+                         &        & \ddots &        \\
+                  0      &        &        & a_{mn}
+              \end{pmatrix}$
+
+\item Escalar: $A\in M_n(\mathbb{K}), A$ diagonal
+$a_{ii}=\alpha,1\le i\le n$.
+
+          $A=\begin{pmatrix}
+                  \alpha &        &        & 0      \\
+                         & \alpha &        &        \\
+                         &        & \ddots &        \\
+                  0      &        &        & \alpha
+              \end{pmatrix}$
+
+    \item Matriz identidad: matriz escalar con $\alpha=1$
+
+          $A=\begin{pmatrix}
+                  1 &   &        & 0 \\
+                    & 1 &        &   \\
+                    &   & \ddots &   \\
+                  0 &   &        & 1
+              \end{pmatrix}$
+
+\item Triangular superior (o inferior): $A\in M_{m\times
+n}(\mathbb{K})$
+
+          $A=\begin{pmatrix}
+                  a_{11} & a_{12} & \cdots & a_{1n} \\
+                         & a_{22} & \cdots & a_{2n} \\
+                         &        & \ddots &        \\
+                  0      &        &        & a_{mn}
+              \end{pmatrix}\longleftarrow$ Triangular superior
+
+    \item Matriz a banda (banded matrix)
+
+          \begin{tikzpicture}
+              \node at (0,0) {$A=\begin{pmatrix}
+                            & ~~~~ & ~~~~ & 0    \\
+                            & ~~~~ & ~~~~ & ~~~~ \\
+                            & ~~~~ & ~~~~ & ~~~~ \\
+                          0 & ~~~~ & ~~~~ & ~~~~
+                      \end{pmatrix}$};
+              \node at (-0.5,1) {en};
+              \node at (0,0.5) {general};
+              \node at (0.3,0) {no};
+              \node at (0.8,-0.5) {nulos};
+              \draw (0,1.5) -- (1.7,-0.6);
+              \draw (-1,0.5) -- (0.5,-1.2);
+          \end{tikzpicture}
+\end{itemize}
+
+\begin{itemize}[label=\color{red}\textbullet, leftmargin=*]
+    \item \color{lightblue} Operaciones con matrices
+\end{itemize}
+\begin{itemize}[label=$\longrightarrow$]
+\item Suma: $A=(a_{ij}), B=(b_{ij})\in M_{m\times
+n}(\mathbb{K})$
+
+$A+B=C,~C=(C_{ij})\in M_{m\times
+n}(\mathbb{K})\xrightarrow{\hspace{1cm}}C_{ij}=a_{ij}+b_{ij}$
+
+          \underline{Ejemplo:}
+
+          $A=\begin{bmatrix}
+                  1 & 2 \\
+                  3 & 4
+              \end{bmatrix}, B=\begin{bmatrix}
+                  5 & 6 \\
+                  7 & 8
+\end{bmatrix}\xrightarrow{\hspace{2cm}}A+B=\begin{bmatrix}                  6  & 8  \\
+                  10 & 12
+              \end{bmatrix} $
+
+    \item Producto de un escalar por una matriz.
+
+$\alpha\in\mathbb{K}, A=(a_{ij})\in M_{m\times n}(\mathbb{K})$
+          $(\alpha A)=(\alpha a_{ij})$
+
+          $t_j:A=\begin{bmatrix}
+                  1 & 2 \\
+                  3 & 4
+\end{bmatrix}\hspace{0.5cm}\alpha=2\xrightarrow{\hspace{3cm}}(\alpha
+A)=\begin{bmatrix}
+                  2 & 6 \\
+                  6 & 8
+              \end{bmatrix}$
+
+\underline{Propiedades de la suma y el producto por escalares}
+          \begin{enumerate}
+              \item $A+B=B+A$
+              \item $(A+B)+C=A+(B+C)$
+              \item $(\alpha + \beta)\cdot A=\alpha A+\beta A$
+              \item $\alpha(A+B)=\alpha A+\alpha B$
+              \item $\alpha(\beta A)=(\alpha\cdot\beta)A$
+          \end{enumerate}
+    \item Producto de matrices
+
+$A=(a_{ij})\in M_{m\times n}(\mathbb{K}),B=(b_{ij})\in
+M_{m\times n}(\mathbb{K})$
+
+          $A\cdot B=(C_{ij})\in M_{m\times k}$
+
+          $C_{ij}=\sum_{k=1}^{n}a_{ik}\cdot b_{kj}$
+
+          \underline{Ejemplo:}
+
+          \begin{tikzpicture}
+              \node at (0,0) {$A=\begin{bmatrix}
+                      1 & 1 & 1
+\end{bmatrix}_{1\times 3},\hspace{0.5cm}B=\begin{bmatrix}                      1 \\
+                      0 \\
+                      1
+                  \end{bmatrix}_{3\times 1}$};
+\draw[-latex] (3,0) -- (5,1) node[right] {$(A\cdot
+B)_{1\times1}=(2)$};
+\draw[-latex] (3,0) -- (5,-1) node[right] {$(B\cdot
+A)_{3\times3}=
+                      \begin{pmatrix}
+                          1 & 1 & 1 \\
+                          0 & 0 & 0 \\
+                          1 & 1 & 1
+                      \end{pmatrix}
+                  $};
+          \end{tikzpicture}
+\item[\textbullet] En Python, este producto de matrices se llama
+dotproduct.
+\item[\textbullet] En Ciencia de Datos también se trabaja con
+otros productos diferentes de matrices.
+
+        \underline{Propiedades del producto de matrices}
+        \begin{enumerate}
+            \item $(A\cdot B)\cdot C=A(B\cdot C)$
+            \item $A\cdot 0=0\cdot A=0$
+            \item $A(B+C)=A\cdot B+A\cdot C$
+            \item $\alpha(A\cdot B)=(\alpha \cdot A)\cdot B$
+            \item $A\cdot I=I\cdot A=A$
+        \end{enumerate}
+\item Como hemos visto antes, el producto de matrices no es
+commutativo, es decir, en general $A\cdot B\neq B\cdot A$.
+\end{itemize}
+\begin{itemize}[label=\color{red}\textbullet, leftmargin=*]
+    \item \color{lightblue} Definición (Traspuesta)
+\end{itemize}
+Dada $A=(a_{ij})\in M_{m\times n}(\mathbb{K})$, se llama
+traspuesta de $A$ a la matriz. \[A^T=(a_{ij})\in M_{n\times
+m}(\mathbb{K}),\]es decir, la traspuesta consiste en cambiar
+filas por columnas.
+
+Una matriz se dice simétrica si $A=A^T$ y antisimétrica si
+$A=-A^T$.
+
+\underline{Ejemplos:}
+
+$A=\begin{bmatrix}
+        a & x & y \\
+        x & b & z \\
+        y & z & c
+    \end{bmatrix}~~~~A^T=\begin{bmatrix}
+        a & x & y \\
+        x & b & z \\
+        y & z & c
+    \end{bmatrix}$
+
+$A=A^T\xrightarrow{\hspace{1.5cm}}A$ simétrica
+
+$B=\begin{bmatrix}
+        0  & j  & -2 \\
+        -j & 0  & 5  \\
+        2  & -5 & 0
+    \end{bmatrix}~~~~B^T=\begin{bmatrix}
+        0  & -j & 2  \\
+        j  & 0  & -5 \\
+        -2 & 5  & 0
+    \end{bmatrix}$
+
+$B=-B^T\xrightarrow{\hspace{0.5cm}}B$ antisimétrica
+
+\underline{Propiedades de la traspuesta}
+
+\begin{enumerate}
+    \item $(A^T)^T=A$
+    \item $(A+B)^T=A^T+B^T$
+    \item $(\alpha A)^T=\alpha A^T$
+    \item $(A\cdot B)^T=B^T\cdot A^T$
+\end{enumerate}
+\begin{itemize}[label=\color{red}\textbullet, leftmargin=*]
+    \item \color{lightblue} Definición (Inversa)
+\end{itemize}
+Dada $A=(a_{ij})\in M_n(\mathbb{K})$, se dice que $A$ es
+invertible si existe una matriz $B\in M_n(\mathbb{K})$ tal que
+\[A\cdot B=B\cdot A=I.\]
+Dicha matriz $B$, si existe es única y se denota $A^{-1}$.
+
+\underline{Propiedades de la inversa}
+
+Sean $A,B\in M_n(\mathbb{K})$ invertibles. Se tiene:
+
+\begin{enumerate}
+\item $A\cdot B$ es invertible y $(A\cdot B)^{-1}=B^{-1}\cdot
+A^{-1}$
+    \item $A^T$ es invertible y $(A^T)^{-1}=(A^{-1})^T$.
+\item Una matriz triangular (superior o inferior) es invertible
+si y solo si los elementos de la diagonal son todos no nulos.
+\item Sean $u_1,u_2,\hdots,u_m$ vectores de $\mathbb{K}^n$ que
+representamos como vectores columna, y sea $A\in
+M_n(\mathbb{K})$ invertible. Entonces $u_1,u_2,\hdots,u_m$ son
+linealmente independientes si y sólo si $Au_1,Au_2,\hdots,Au_m$
+son linealmente independientes.
+\end{enumerate}
+\underline{Veamos la demostración de 4}
+\begin{itemize}[label=$\longrightarrow$]
+\item Supongamos que $u_1,u_2,\hdots,u_m$ y veamos que
+$Au_1,Au_2,\hdots,Au_m$ son linealmente independientes.
+\end{itemize}
+Tomamos una combinación lineal nula
+
+\fcolorbox{lightblue}{lightblue!10}{$\lambda_1Au_1,\lambda_2Au_2,\hdots,\lambda_mAu_m=0$}
+
+Por las propiedades del producto de matrices:
+
+\fcolorbox{lightblue}{lightblue!10}{$A(\lambda_1u_1,\hdots,\lambda_mu_m)=0$}
+
+Como $A$ es invertible:
+
+\fcolorbox{lightblue}{lightblue!10}{$A^{-1}A(\lambda_1u_1,\hdots,\lambda_mu_m)=0\xrightarrow{\hspace{0.5cm}}\lambda_1u_1,\hdots,\lambda_mu_m=0$}
+
+Y como $u_1,u_2,\hdots,u_m$ son linealmente independientes.
+
+\fcolorbox{lightblue}{lightblue!10}{$\lambda_1=\lambda_2=\cdots=\lambda_m=0$}
+
+\begin{itemize}[label=\color{red}\textbullet, leftmargin=*]
+    \item \color{lightblue} Definición (Matriz ortogonal)
+\end{itemize}
+Sea $Q\in M_n(\mathbb{R})$. Se dice que $Q$ es ortogonal si es
+invertible (o no singular) y si su inversa coincide con su
+traspuesta, es decir,
+\fcolorbox{lightblue}{lightblue!10}{$Q^T\cdot Q=Q\cdot Q^T=I$}.
+
+Como consecuencia, si $Q$ un ortogonal, entonces las columnas de
+$Q$ forman un conjunto ortogonal de vectores.
+
+\underline{Ejemplo}
+
+$Q=\begin{bmatrix}
+\textstyle\frac{1}{\sqrt{2}} & \textstyle-\frac{1}{\sqrt{2}} \\\textstyle\frac{1}{\sqrt{2}} & \textstyle\frac{1}{\sqrt{2}}
+\end{bmatrix}\hspace{0.5cm}Q^T=\begin{bmatrix}
+\textstyle\frac{1}{\sqrt{2}}  & \textstyle\frac{1}{\sqrt{2}} \\\textstyle-\frac{1}{\sqrt{2}} & \textstyle\frac{1}{\sqrt{2}}    \end{bmatrix}$
+
+$Q^T\cdot Q=\begin{bmatrix}
+\textstyle\frac{1}{\sqrt{2}}  & \textstyle\frac{1}{\sqrt{2}} \\\textstyle-\frac{1}{\sqrt{2}} & \textstyle\frac{1}{\sqrt{2}}\end{bmatrix}\cdot\begin{bmatrix}
+\textstyle\frac{1}{\sqrt{2}} & \textstyle-\frac{1}{\sqrt{2}} \\    \textstyle\frac{1}{\sqrt{2}} & \textstyle\frac{1}{\sqrt{2}}
+\end{bmatrix}=\begin{bmatrix}
+    1 & 0\\
+    0 & 1
+\end{bmatrix}\hspace{0.5cm}Q\cdot Q^T=\begin{bmatrix}
+\textstyle\frac{1}{\sqrt{2}} & \textstyle-\frac{1}{\sqrt{2}} \\    \textstyle\frac{1}{\sqrt{2}} & \textstyle\frac{1}{\sqrt{2}}
+\end{bmatrix}\cdot\begin{bmatrix}
+\textstyle\frac{1}{\sqrt{2}}  & \textstyle\frac{1}{\sqrt{2}} \\\textstyle-\frac{1}{\sqrt{2}} & \textstyle\frac{1}{\sqrt{2}}\end{bmatrix}=\begin{bmatrix}
+    1 & 0\\
+    0 & 1
+\end{bmatrix}$
+
+\fcolorbox{lightblue}{lightblue!10}{$u_1=\left(\frac{1}{\sqrt{2}},\frac{1}{\sqrt{2}}\right),
+u_2=\left(-\frac{1}{\sqrt{2}},\frac{1}{\sqrt{2}}\right)\longrightarrow\|u_1\|=\|u_2\|=1\longrightarrow
+u_1\cdot u_2=0$}
+\begin{itemize}[label=\color{red}\textbullet, leftmargin=*]
+    \item \color{lightblue} Definición (Traza de una matriz)
+\end{itemize}
+Dada $A=(a_{ij})\in M_n(\mathbb{K})$, se define la traza de $A$,
+denotada $tr(A)=\sum_{i=1}^{n}a_{ii}$, es decir, la traza
+escalar que se obtiene sumiendo los elementos de la diagonal.
+
+\underline{Propiedades de la traza}
+\begin{enumerate}
+    \item $tr(A+B)=tr(A)+tr(B)$
+    \item $tr(\alpha A)=\alpha\cdot tr(A)$
+    \item $tr(A)=tr(A^T)$
+    \item $tr(A\cdot B)=tr(B\cdot A)$
+\item $tr(P^{-1}\cdot A\cdot P)=tr(A)$ para cualquier matriz
+invertible.
+\end{enumerate}
+\textcolor{lightblue}{\underline{Matrices por bloques}}
+
+\begin{tikzpicture}
+    \node at (0,0) {Sea $A=
+    \begin{bmatrix}
+        a_{11} & a_{12} & \cdots & a_{1n} \\
+        a_{21} & a_{22} & \cdots & a_{2n} \\
+         \\
+        a_{m1} & a_{m2} & \cdots & a_{mn} \\
+    \end{bmatrix}
+    $};
+    \draw[dashed] (-0.95,-0.5) -- (2.5,-0.5);
+    \draw[latex-] (2.8,1) -- (3.5,1) node[right] {$u_1^T$};
+    \draw[latex-] (2.8,0.2) -- (3.5,0.2) node[right] {$u_2^T$};
+\draw[latex-] (2.8,-1.25) -- (3.5,-1.25) node[right] {$u_m^T$};    \node at (3.25,-1.5) {\footnotesize$m\times n$};
+\end{tikzpicture}
+
+En algunas ocasiones conviene escribir $A$ en la forma
+$$A=\left[v_1,v_2,\hdots,v_n\right]$$ donde $v_i$ son las
+columnas de $A$ o también
+
+$A=\begin{bmatrix}
+    u_1^T\\
+    \vdots \\
+    u_m^T\\
+\end{bmatrix}$
+
+Con $u_j^T$ las filas de $A$.
+
+Con esta notación, el producto de una matriz por un vector
+columna es:
+\begin{center}
+    \begin{tikzpicture}
+        \node at (0,0) {$\overbrace{
+            \begin{bmatrix}
+                -1 & 1\\
+                2 & 3
+            \end{bmatrix}
+        }^{\text{Bloques}}\cdot\overbrace{
+            \begin{bmatrix}
+                a \\
+                b
+            \end{bmatrix}
+        }^{x}=a\cdot\begin{bmatrix}
+            -1\\
+            2
+        \end{bmatrix}+b\cdot\begin{bmatrix}
+            1\\
+            3
+        \end{bmatrix}$};
+\draw[latex-] (-2.8,-1) -- (-2.8,-1.5) node[below] {$v_1$};\draw[latex-] (-2.1,-1) -- (-2.1,-1.5) node[below] {$v_2$};\draw[latex-] (-1,-1) -- (-1,-1.5)
+node[below] {\footnotesize
+coeficiente};
+\node[below] at (1,-1) {\footnotesize$a\cdot v_1+b\cdot v_2$};    \end{tikzpicture}
+\end{center}
+es decir, el producto por la derecha de una matriz $B$ por un
+vector columna $x$ es una combinación lineal de las columnas de
+$A$ con coeficientes los elementos de $x$.
+
+De manera similar, el producto de un vector fila por una matriz:$$\left[a,b\right]\cdot\begin{bmatrix}
+    -1 & 1\\
+    2 & 3\\
+\end{bmatrix}=a\cdot\left[-1,1\right]+b\cdot\left[2,3\right]$$
+es decir, una combinación lineal de las filas de la matriz con
+coeficientes los componentes del vector.
+
+Combinando ambas tenemos:
+\[\begin{bmatrix}
+1 & 4 \\ 
+2 & 5 \\ 
+3 & 6
+\end{bmatrix}\cdot\begin{bmatrix}
+7 & 8 & 9 \\ 
+10 & 11 & 12
+\end{bmatrix}=\begin{bmatrix}
+1\\
+2\\
+3
+\end{bmatrix}\cdot\begin{bmatrix}
+7 & 8 & 9\\
+\end{bmatrix}+\begin{bmatrix}
+4 \\ 
+5 \\ 
+6
+\end{bmatrix}\cdot\begin{bmatrix}
+10 & 11 & 12
+\end{bmatrix}\] que podemos expresar:
+
+$A=\left[v_1,\hdots,v_n\right],~~B=\begin{bmatrix}
+u_1^T\\
+\vdots\\
+u_m^T
+\end{bmatrix}~~~~A\cdot B=v_1u_1^T+\cdots+v_nu_m^T$
+
+Es habitual en Machine Learning tener que separar los datos
+contenidos en una matriz en varios bloques. Por ejemplo, en
+primer lugar los datos de la matriz se dividen en dos bloques:
+uno de ellos se utiliza para "entrenar" un modelo de predicción,
+y el otro para "testear" cuánto de bueno es dicho modelo. Es lo
+que se llama descomponer un \textcolor{lightblue}{dataset} en
+\textcolor{lightblue}{data training} y
+\textcolor{lightblue}{data test}.
+
+\begin{tikzpicture}
+\node at (0,0) {Sea $A=\begin{bmatrix}
+a_{11} & ~~ & ~~ & ~~ a_{1n}\\
+\\
+\\
+\\
+a_{m1} & ~~ & ~~ & ~~ a_{mn}
+\end{bmatrix}$};
+\draw[dashed] (-0.15,1.5) -- (1.75,1.5) ;
+\draw[dashed] (-0.15,-1.55) -- (1.75,-1.55) ;
+\draw[dashed] (-0.4,1.25) -- (-0.4,-1.5) ;
+\draw (-1.5, -0.5) -- (3,-0.5) node[midway, above] {training}
+node[midway, below] {test};
+\end{tikzpicture}
+
+Además en el llamado \textcolor{lightblue}{"supervised
+learning"} todas las columnas excepto la última contienen un
+tipo de datos llamados \textcolor{lightblue}{"features"} y la
+última columna los llamados \textcolor{lightblue}{"labels"}.
+Tenemos así:
+
+\begin{tikzpicture}
+\node at (0,0) {Sea $A=\begin{bmatrix}
+a_{11} & ~~ & ~~ & a_{1,n-1} & a_{1n}\\
+a_{21} & ~~ & ~~ & a_{2,n-1} & a_{2n}\\
+\\
+\\
+
+a_{m1} & ~~ & ~~ & a_{m,n-1} & a_{mn}
+\end{bmatrix}$};
+\draw[dashed] (-0.7,1.45) -- (0.8, 1.45) ;
+\draw[dashed] (-0.7,0.65) -- (0.8,0.65) ;
+\draw[dashed] (-1.5,0) -- (3,0) ;
+\draw[dashed] (-1.5,-0.7) -- (3,-0.7) ;
+\draw (2.2,1.8) -- (2.2,-1.8) ;
+\draw[decorate,decoration={brace,amplitude=5pt,mirror},line
+width=0.7pt]
+(-1.5,-2) -- (2.2,-2) node[midway,below=3pt]{features};
+\draw[latex-] (2.6,-1.8) -- (2.6,-2.3) node[below] {lable} ;
+\end{tikzpicture}
+
+
+Así, $A$ queda descompuesto en 4 bloques.
+
+\begin{tikzpicture}
+\node at (0,0) {Sea $A=\begin{bmatrix}
+~~~~~~~~ & ~~~~~~~~ & ~~~~~~~~ & ~~~~~~~~ \\ 
+~~~~~~~~ & ~~~~~~~~ & ~~~~~~~~ & ~~~~~~~~ \\ 
+~~~~~~~~ & ~~~~~~~~ & ~~~~~~~~ & ~~~~~~~~ \\ 
+~~ & ~~ & ~~ & ~~ \\ 
+~~ & ~~ & ~~ & ~~ \\ 
+~~ & ~~ & ~~ & ~~
+\end{bmatrix}$};
+\node at (7.2,0) {$=\begin{bmatrix}
+    ~~~~~~~~ & ~~~~~~~~ & ~~~~~~~~ & ~~~~~~~~ \\ 
+    ~~~~~~~~ & ~~~~~~~~ & ~~~~~~~~ & ~~~~~~~~ \\ 
+    ~~~~~~~~ & ~~~~~~~~ & ~~~~~~~~ & ~~~~~~~~ \\ 
+    ~~~~~~~~ & ~~~~~~~~ & ~~~~~~~~ & ~~~~~~~~ \\ 
+    \end{bmatrix}$};
+\node[text width=4cm] at (0.5,1.5) {\small features\\[4pt]
+training};
+\node[text width=4cm] at (4,1.5) {\small labels\\[4pt]
+training};
+\node[text width=4cm] at (0.5,-1.25) {\small features\\[4pt]
+test};
+\node[text width=4cm] at (4,-1.25) {\small labels\\[4pt] test};
+\draw (1.5,2.5) -- (1.5,-2);
+\draw (-1.8,-0.5) -- (3,-0.5);
+\draw (8.5,1.5) -- (8.5,-1.5);
+\draw (5,-0.5) -- (10,-0.5);
+\node at (6.5,0.5) {\Large $A_{11}$};
+\node at (6.5,-1) {\Large $A_{21}$};
+\node at (9.5,0.5) {\Large $A_{12}$};
+\node at (9.5,-1) {\Large $A_{22}$};
+\end{tikzpicture}
+
+El producto de matrices opera por bloques de igual manera a como
+se hace por entradas.
+
+\textcolor{lightblue}{\underline{Operaciones y matrices
+elementales}}
+
+Muchos de los cálculos habituales del Álgebra Lineal requieren
+realizar las siguientes \textcolor{lightblue}{"operaciones
+elementales"} sobre las filas y/o columnas de una matriz:
+
+\begin{enumerate}
+    \item Intercambiar dos filas (columnas)
+    \item Multiplicar una fila (columna) por un escalar.
+\item Añadir a cada fila (columna) otra fila (columna)
+multiplicada por un escalar.
+\end{enumerate}
+
+Estas operaciones se pueden realizar de manera sistemática
+multiplicando la matriz en cuestión por una determinada matriz,
+que llamaremos \textcolor{lightblue}{matriz elemental}.
+
+Hay tres tipos de matrices elementales:
+
+\begin{enumerate}
+\item Matriz de \textcolor{lightblue}{permutación simple} (Pst)
+obtenida al intercambiar las filas (o columnas) \emph{st}.
+    
+    \underline{Ejemplo:}
+
+    $A=\begin{bmatrix}
+        a_{11} & a_{12}\\
+        a_{21} & a_{22}\\
+    \end{bmatrix}; P_{12}=\begin{bmatrix}
+        0 & 1\\ 
+        1 & 0
+    \end{bmatrix}\begin{array}{l}
+        \longleftarrow 1,~~1\longrightarrow 2\\
+        \longleftarrow 1,~~2\longrightarrow 1\\
+    \end{array}$
+
+    $P_{12}\cdot A=\begin{bmatrix}
+        0 & 1\\
+        1 & 0
+    \end{bmatrix}\cdot    \begin{bmatrix}
+        a_{11} & a_{12}\\
+        a_{21} & a_{22}\\
+    \end{bmatrix}=    \begin{bmatrix}
+        a_{21} & a_{22}\\
+        a_{11} & a_{12}\\
+    \end{bmatrix}$
+
+    $    \begin{bmatrix}
+        a_{11} & a_{12}\\
+        a_{21} & a_{22}\\
+\end{bmatrix}\overset{F_1\longleftrightarrow
+F_2}{\xrightarrow{\hspace*{2cm}}} \begin{bmatrix}
+        a_{21} & a_{22}\\
+        a_{11} & a_{12}\\
+    \end{bmatrix};$
+    \item Matriz de \textcolor{lightblue}{dilatación} $D_s(r)$
+    
+    $D_2(5)=\begin{bmatrix}
+        1 & 0 \\
+        0 & 1
+    \end{bmatrix}; ~~D_2(5)\cdot A=\begin{bmatrix}
+        1 & 0\\
+        0 & 1\\
+    \end{bmatrix}\cdot    \begin{bmatrix}
+        a_{11} & a_{12}\\
+        a_{21} & a_{22}\\
+    \end{bmatrix}
+    =    \begin{bmatrix}
+        a_{11} & a_{12}\\
+        5a_{21} & 5a_{22}\\
+    \end{bmatrix}$
+
+    \item Matriz de \textcolor{lightblue}{adición}:
+    
+$S_{st}(r)=$ a la fila $s$ se le suma la fila $t$ multiplicada
+por $r$.
+
+    $S_{12}(2)=\begin{bmatrix}
+        1 & 2\\
+        0 & 1 
+    \end{bmatrix}; S_{12}(2)\cdot A=\begin{bmatrix}
+        1 & 2\\
+        0 & 1
+    \end{bmatrix}\cdot    \begin{bmatrix}
+        a_{11} & a_{12}\\
+        a_{21} & a_{22}\\
+    \end{bmatrix}=    \begin{bmatrix}
+        a_{11}+2a_{21} & a_{12}+2a_{22}\\
+        a_{21} & a_{22}\\
+    \end{bmatrix};$
+\end{enumerate}
+\begin{itemize}[label=\color{red}\textbullet, leftmargin=*]
+    \item \color{lightblue} Propiedades:
+\end{itemize}
+Las matrices elementales son invertibles. Además:
+\begin{enumerate}[label=\arabic*)]
+    \item $P_{st}^{-1}=Pst$
+    \item $Ds(r)^{-1}=Ds\frac{1}{r}$
+    \item $S_{st}(r)^{-1}=S_{st}(-r)$
+\end{enumerate}
+En algunas ocasiones es necesario combinar operaciones
+elementales fila y también columna sobre una misma matriz $A$.
+De esta forma obtenemos una nueva matriz $B$, equivalente a $A$,
+y que se expresan en la forma.
+
+\begin{tikzpicture}
+\node[draw=black, rectangle] {$B=PAQ$};
+\draw[latex-] (0.1,-0.1) -- (-0.5,-0.7) node[below] {fila};
+\draw[latex-] (0.7,-0.2) -- (1,-0.7) node[below] {columna};
+\end{tikzpicture}
+\begin{itemize}[label=\color{red}\textbullet, leftmargin=*]
+    \item \color{lightblue} Definición (Matriz de permutación)
+\end{itemize}
+Llamaremos matriz de permutación $P$ a aquella que se expresa
+como producto de matrices de permutación elementales.
+
+\textcolor{lightblue}{\underline{Matrices escalonadas. Rango}}
+\begin{itemize}[label=\color{red}\textbullet, leftmargin=*]
+    \item \color{lightblue} Definición
+\end{itemize}
+Dada una matriz se llama \textcolor{lightblue}{pivote} de una
+fila no nula a la primera entrada (contando izquierda a derecha)
+no nula a esa fila. Se dice que la \textcolor{lightblue}{matriz}
+es \textcolor{lightblue}{escalonada} por filas si:
+\begin{enumerate}[label=\arabic*)]
+\item El pivote de cada fila no nula está estrictamente a la
+derecha del pivote de la fila anterior.
+    \item Las filas nulas, si las hay, son las últimas.
+\end{enumerate}
+Se dice que la matriz es \textcolor{lightblue}{escalonada
+reducida} por filas si además:
+\begin{enumerate}
+\item[1º)] El pivote de cada fila no nula vale 1.
+\item[2º)] Cada pivote es el único no nulo de su columna.
+\end{enumerate}
+De manera análoga se puede definir el concepto de matriz
+escalonada (reducida) por columnas.
+
+\underline{Ejemplo}
+
+$A=\underbrace{\begin{bmatrix}
+2 & 0 & 0 & 5 \\ 
+0 & 1 & 0 & 2 \\ 
+0 & 3 & 1 & 4
+\end{bmatrix} }_{\text{No escalonada}}$\hspace{0.5cm}
+$B=\underbrace{\begin{bmatrix}
+1 & 2 & 0 & 4 & 5 \\ 
+0 & 0 & -1 & 1 & 5 \\ 
+0 & 0 & 0 & 2 & 2
+\end{bmatrix} }_{\text{Escalonada pero no
+reducida}}$\hspace{0.5cm} $C=\underbrace{\begin{bmatrix}
+1 & 0 & 2 & 0 & 5 \\ 
+0 & 1 & 6 & 0 & 2 \\ 
+0 & 0 & 0 & 1 & 4
+\end{bmatrix}}_{\text{Escalonada reducida}}$
+\begin{itemize}[label=\color{red}\textbullet, leftmargin=*]
+    \item \color{lightblue} Teorema (Factorización $PAQ$)
+\end{itemize}
+Toda matriz $A$ es equivalente a una matriz de la forma 
+\begin{center}
+\begin{tikzpicture}
+\node at (0,0) {$B=\begin{bmatrix}
+Ir &  0 \\ 
+0 & 0
+\end{bmatrix},$};
+\draw (0.4,0.7) -- (0.4,-0.7);
+\draw (-0.2,0) -- (0.9,0);
+\end{tikzpicture}
+\end{center}
+es decir, existen matrices invertibles $P$ y $Q$ tales que 
+
+\fcolorbox{lightblue}{lightblue!10}{$B=PAQ$}
+
+\begin{itemize}[label=$\longrightarrow$]
+\item La forma de llegar de $A$ a $B$ es realizando operaciones
+elementales. Este proceso se llama
+\textcolor{lightblue}{eliminación gausiana}
+\end{itemize}
+
+Al número $r$, es decir, al número de filas no nulas que
+resultan después de escalonar una matriz se le llama
+\textcolor{lightblue}{rango} de la matriz y se denota por
+$r=\rg(A)$
+
+\underline{Ejemplo}
+
+$A=\begin{bmatrix}
+1 & 2 & -1 & 2 \\ 
+2 & 4 & 1 & 1 \\ 
+3 & 6 & 0 & 3
+\end{bmatrix} $
+
+Hacemos operaciones elementales fila con la matriz.
+
+$(A|I_3)=\left[\begin{array}{cccc:ccc}
+1 & 2 & -1 & 2 & 1 & 0 & 0 \\ 
+2 & 4 & 1 & 1 & 0 & 1 & 0 \\ 
+3 & 6 & 0 & 3 & 0 & 0 & 1
+\end{array} \right]\overset{F_2\rightarrow
+F_2-2F_1}{\underset{F_3\rightarrow
+F_3-3F_1}{\xrightarrow{\hspace{1.5cm}}}}\left[\begin{array}{cccc:ccc}
+1 & 2 & -1 & 2 & 1 & 0 & 0 \\ 
+0 & 0 & 3 & -3 & -2 & 1 & 0 \\ 
+0 & 0 & 3 & -3 & -3 & 0 & 1
+\end{array} \right]\overset{F_3\rightarrow
+F_3-F_2}{\xrightarrow{\hspace{1.5cm}}}$
+
+$\left[\begin{array}{cccc:ccc}
+1 & 2 & -1 & 2 & 1 & 0 & 0 \\ 
+0 & 0 & 3 & -3 & -2 & 1 & 0 \\ 
+0 & 0 & 0 & 0 & -1 & -1 & 1
+\end{array} \right]$
+
+El rango de $A$ es $r=\rg(A)=2$
+
+Seguimos haciendo operaciones fila para conseguir la forma
+reducida, donde los pivotes son 1s y cada pivote es el único
+elemento no nulo de su columna.
+
+$\overset{F_2\rightarrow
+\frac{1}{3}F_2}{\xrightarrow{\hspace{1.5cm}}}\left[\begin{array}{cccc:ccc}
+1 & 2 & -1 & 2 & 1 & 0 & 0 \\ 
+0 & 0 & 1 & -1 & -\textstyle\frac{2}{3} & \textstyle\frac{1}{3}
+& 0 \\
+0 & 0 & 0 & 0 & -1 & -1 & 1
+\end{array} \right]\overset{F_1\rightarrow
+F_1+F_2}{\xrightarrow{\hspace{1.5cm}}}\left[\begin{array}{cccc:ccc}
+1 & 2 & 0 & 1 & \textstyle\frac{1}{3} & \textstyle\frac{1}{3} &
+0 \\
+0 & 0 & 1 & -1 & \textstyle-\frac{2}{3} & \textstyle\frac{1}{3}
+& 0 \\
+0 & 0 & 0 & 0 & -1 & -1 & 1
+\end{array} \right]$
+
+Se tiene que 
+
+$\begin{bmatrix}
+1 & 2 & 0 & 1 \\ 
+0 & 0 & 1 & -1 \\ 
+0 & 0 & 0 & 0
+\end{bmatrix}=PA$, con $\begin{bmatrix}
+\textstyle\frac{1}{3} & \textstyle\frac{1}{3} & 0 \\ 
+-\textstyle\frac{2}{3} & \textstyle\frac{1}{3} & 0 \\ 
+-1 & -1 & 1	
+\end{bmatrix} $
+
+Ahora realizamos operaciones columna para obtener la forma
+$\left[\begin{array}{c|c}
+Ir & 0 \\ 
+\hline
+0 & 0
+\end{array} \right]$
+
+$\begin{bmatrix}
+1 & 2 & 0 & 1 \\ 
+0 & 0 & 1 & -1 \\ 
+0 & 0 & 0 & 0 \\ \hdashline
+1 & 0 & 0 & 0 \\ 
+0 & 1 & 0 & 0 \\ 
+0 & 0 & 1 & 0 \\ 
+0 & 0 & 0 & 1
+\end{bmatrix}\overset{C_2\longleftrightarrow
+C_3}{\xrightarrow{\hspace{1.5cm}}}\begin{bmatrix}
+1 & 0 & 2 & 1 \\ 
+0 & 1 & 0 & -1 \\ 
+0 & 0 & 0 & 0 \\ \hdashline
+1 & 0 & 0 & 0 \\ 
+0 & 1 & 0 & 0 \\ 
+0 & 0 & 1 & 0 \\ 
+0 & 0 & 0 & 1
+\end{bmatrix}\overset{C_3\rightarrow
+C_3-2C_1}{\underset{C_4\rightarrow
+C_4-C_1}{\xrightarrow{\hspace{1.5cm}}}}\begin{bmatrix}
+1 & 0 & 0 & 0 \\ 
+0 & 1 & 0 & 0 \\ 
+0 & 0 & 0 & 1 \\ 
+\hdashline
+1 & 0 & -2 & -1 \\ 
+0 & 1 & 0 & 0 \\ 
+0 & 0 & 1 & 0 \\ 
+0 & 0 & 0 & 1
+\end{bmatrix} $
+
+$Q=\begin{bmatrix}
+1 & 0 & -2 & -1 \\ 
+0 & 0 & 1 & 0 \\ 
+0 & 1 & 0 & 1 \\ 
+0 & 0 & 0 & 1
+\end{bmatrix} $\hspace{2cm} $\left[\begin{array}{c|c}
+Ir_2 & 0 \\ \hline
+0 & 0
+\end{array} \right]=PAQ$
+
+\textcolor{lightblue}{\underline{Sistemas de ecuaciones}}
+\begin{itemize}[label=\color{red}\textbullet, leftmargin=*]
+    \item \color{lightblue} Definición
+\end{itemize}
+Un sistema lineal de $m$-ecuaciones con $n$-incógnitas es un
+sistema del tipo
+
+$(*)\left\lbrace
+\begin{array}{l}
+a_{11}x_1+a_{12}x_2+\cdots+a_{1n}x_n=b_1\\
+a_{21}x_1+a_{22}x_2+\cdots+a_{2n}x_n=b_2\\
+\hdashline
+a_{m1}x_1+a_{m2}x_2+\cdots+a_{mn}x_n=b_m\\
+\end{array}
+\right.$
+
+que en forma matricial escribimos como 
+
+$(*)$\hspace{1cm}$Ax=b$
+
+donde 
+\begin{itemize}
+\item $A=(a_{ij})$ es la matriz del sistema
+\item $b=(b_{ij})$ es el término independiente
+\item $x=(x_{ij})$ es el vector incógnita
+\end{itemize}
+El sistema $(*)$ se dice:
+\begin{itemize}
+\item Homogéneo: si $b=0$
+\item Incompatible: si no tiene solución
+\item Compatible determinado: si tiene una única solución.
+\item Compatible indeterminado: infinitas soluciones.
+\end{itemize}
+\begin{itemize}[label=\color{red}\textbullet, leftmargin=*]
+    \item \color{lightblue}Teorema (Rouché-Frobenius)
+\end{itemize}
+
+Consideremos el sistema $(*)$ y sea $(A|b)$ la llamada matriz
+ampliada. Entonces:
+\begin{enumerate}[label=\arabic*)]
+\item Si $r(A)=r(A|b)=$ número de incógnitas, entonces el
+sistema $(*)$ es compatible determinado (CD).
+\item Si $r(A)=r(A|b)<$ número de incógnitas, entonces el
+sistema $(*)$ es compatible indeterminado (CI) y la solución
+depende del número de incógnitas $-$ $r(A)$ parámetros.
+\item Si $r(A)\neq r(A|b)$, el sistema $(*)$ es incompatible.\end{enumerate}
+\begin{itemize}[label=\color{red}\textbullet, leftmargin=*]
+\item \color{lightblue} Resolución de sistemas lineales mediante
+el método de Gauss
+\end{itemize}
+Consiste en realizar operaciones elementales fila sobre la
+matriz ampliada $(A|b)$ hasta conseguir una matriz escalonada,
+cuyo sistema asociado tiene la misma solución que el sistema
+original, pero que se resuelve muy fácilmente.
+
+\underline{Ejemplo}
+
+$\left.\begin{array}{l}
+2x+y+2z+3t=6\\
+x+2y-2z-t=3\\
+4x+5y-2z+t=12
+\end{array}\right\rbrace(A|b)=\left[\begin{array}{cccc:c}
+2 & 1 & 2 & 3 & 6 \\ 
+1 & 2 & 2 & -1 & 3 \\ 
+4 & 5 & -2 & 1 & 12
+\end{array} \right]\overset{F_1\longleftrightarrow
+F_2}{\xrightarrow{\hspace{1.5cm}}}\left[\begin{array}{cccc:c}
+1 & 2 & 2 & -1 & 3 \\ 
+2 & 1 & 2 & 3 & 6 \\ 
+4 & 5 & -2 & 1 & 12
+\end{array} \right]\overset{F_2\rightarrow
+F_2-2F_1}{\underset{F_3\rightarrow
+F_3-4F_1}{\xrightarrow{\hspace{2cm}}}}$
+
+$\left[\begin{array}{cccc:c}
+1 & 2 & 2 & -1 & 3 \\ 
+0 & -3 & 6 & 5 & 0 \\ 
+0 & -3 & 6 & 5 & 0
+\end{array} \right]\overset{F_3\rightarrow
+F_3-F_3}{\xrightarrow{\hspace{1.5cm}}}\left[\begin{array}{cccc:c}
+1 & 2 & 2 & -1 & 3 \\ 
+0 & -3 & 6 & 5 & 0 \\ 
+0 & 0 & 0 & 0 & 0
+\end{array} \right]$
+
+\begin{wrapfigure}{r}{0.3\textwidth}
+	\begin{tikzpicture}
+\node[draw=black, rectangle, text width=4cm]
+{$x=3-\frac{7}{3}\lambda-6\mu$\\
+	$y=\frac{5}{3}\lambda+2\mu$\\
+	$z=\mu$\\
+	$t=\lambda$};
+	\end{tikzpicture}
+\end{wrapfigure}
+
+$\rg(A)=2=\rg(A|b)<4=$ nº de incógnitas $\longrightarrow$ S.C.I
+tomamos 4-2 parámetros $t=\lambda,~z=\mu$
+
+$\left.\begin{array}{r}
+x+2y-2\mu-\lambda=3\\
+-3y+6\mu+5\lambda=0
+\end{array}\right\rbrace$
+
+$y=2\mu+\frac{5}{3}\lambda$
+
+$x=3-2\left(2\mu+\frac{5}{3}\lambda\right)+2\mu+\lambda=3-4\mu-\frac{10}{3}\lambda+2\mu+\lambda=3-6\mu-\frac{7}{3}\lambda$
+
+\begin{itemize}[label=\color{red}\textbullet, leftmargin=*]
+\item \color{lightblue} Cálculo de la inversa de una matriz
+mediante eliminación gaussiana
+\end{itemize}
+
+\begin{itemize}
+\item[$\longrightarrow$] Método: realizar operaciones
+elementales fila sobre la matriz $(A|I)$ hasta conseguir que a
+la izquierda aparezca la identidad. La matriz que resulta a la
+derecha es $A^{-1}$
+\end{itemize}
+
+\underline{Ejemplo}
+
+$A=\begin{bmatrix}
+1 & 2 & -1 \\ 
+2 & 4 & 1 \\ 
+3 & 7 & 0
+\end{bmatrix} $
+
+$\left[\begin{array}{ccc:ccc}
+1 & 2 & -1 & 1 & 0 & 0 \\ 
+2 & 4 & 1 & 0 & 1 & 0 \\ 
+3 & 7 & 0 & 0 & 0 & 1
+\end{array} \right]\overset{F_2\rightarrow
+F_2-2F_1}{\underset{F_3\rightarrow
+F_3-3F_1}{\xrightarrow{\hspace{1.5cm}}}}\left[\begin{array}{ccc:ccc}
+1 & 2 & -1 & 1 & 0 & 0 \\ 
+0 & 0 & 3 & -2 & 1 & 0 \\ 
+0 & 1 & 3 & -3 & 0 & 1
+\end{array} \right]\overset{F_2\longleftrightarrow
+F_3}{\xrightarrow{\hspace{1.5cm}}}\left[\begin{array}{ccc:ccc}
+1 & 2 & -1 & 1 & 0 & 0 \\ 
+0 & 1 & 3 & -3 & 0 & 1 \\ 
+0 & 0 & 3 & -2 & 1 & 0
+\end{array} \right]$
+
+$\overset{F_2\rightarrow F_2-F_3}{\underset{F_3\rightarrow
+\frac{1}{3}F_3}{\xrightarrow{\hspace{1.5cm}}}}\left[\begin{array}{ccc:ccc}
+1 & 2 & -1 & 1 & 0 & 0 \\ 
+0 & 1 & 0 & -1 & -1 & 1 \\ 
+0 & 0 & 1 & -\textstyle\frac{2}{3} & \textstyle\frac{1}{3} & 0
+\end{array} \right]\overset{F_1\rightarrow
+F_1+F_3}{\xrightarrow{\hspace{1.5cm}}}\left[\begin{array}{ccc:ccc}
+1 & 2 & 0 & \textstyle\frac{1}{3} & \textstyle\frac{1}{3} & 0 \\0 & 1 & 0 & -1 & -1 & 1 \\ 
+0 & 0 & 1 & -\textstyle\frac{2}{3} & \textstyle\frac{1}{3} & 0
+\end{array} \right]\overset{F_1\rightarrow
+F_1-2F_2}{\xrightarrow{\hspace{1.5cm}}}$
+
+$\left[\begin{array}{ccc:ccc}
+1 & 0 & 0 & \textstyle\frac{7}{3} & \textstyle\frac{7}{3} & -2
+\\
+0 & 1 & 0 & -1 & -1 & 1 \\ 
+0 & 0 & 1 & -\textstyle\frac{2}{3} & \textstyle\frac{1}{3} & 0
+\end{array} \right]\hspace{2cm}A^{-1}=\begin{bmatrix}
+\textstyle\frac{7}{3} & \textstyle\frac{7}{3} & -2 \\ 
+-1 & -1 & 1 \\ 
+-\textstyle\frac{2}{3} & \textstyle\frac{1}{3} & 0
+\end{bmatrix} $
+
+\textcolor{lightblue}{\underline{Determinantes}}
+
+Sea $A\in M_2(\mathbb{K})$. Se define el determinante de $A$,
+denotado $|A|$ o $\dt(A)$, como
+
+$\begin{vmatrix}
+a_{11} & a_{12} \\ 
+a_{21} & a_{22}
+\end{vmatrix}=a_{11}a_{22}-a_{12}a_{21}$
+
+Sea $A\in M_3(\mathbb{K})$. Se define el determinante de $A$
+mediante la llamada regla de Sarrus como
+
+$\begin{vmatrix}
+a_{11} & a_{12} & a_{13} \\ 
+a_{21} & a_{22} & a_{23} \\ 
+a_{31} & a_{32} & a_{33}
+\end{vmatrix}=a_{11}a_{22}a_{33}+a_{12}a_{23}a_{31}+a_{13}a_{21}a_{32}-\left(a_{13}a_{22}a_{31}+a_{12}a_{21}a_{33}+a_{11}a_{23}a_{32}\right)$
+
+Para matrices de orden superior, el determinante se define de
+manera recurrente.
+
+\begin{itemize}[label=\color{red}\textbullet, leftmargin=*]
+    \item \color{lightblue} Definición
+\end{itemize}
+
+Sea $A=\left(a_{ij}\right)\in M_n(\mathbb{K})$.
+
+Se llama \textcolor{lightblue}{menor complementario} el elemento
+$a_{ij}$ al determinante $\left(\left|A_{ij}\right|\right)$ de
+la submatriz $A_{ij}$ que se obtiene la fila $i$ y la columna
+$j$ de la matriz original $A$.
+
+Se llama \textcolor{lightblue}{adjunto} de $a_{ij}$, denotado
+$\triangle_{ij}$, al escalar
+$\triangle_{ij}=(-1)^{i+j}\cdot|A_{ij}|$.
+
+\underline{Ejemplo}
+
+\renewcommand{\arraystretch}{1}
+\setlength{\arraycolsep}{10pt}
+
+$A=\begin{bmatrix}
+1 & 2 & 3 & 4 \\ 
+2 & 3 & 4 & 5 \\ 
+2 & 0 & 1 & 1 \\ 
+4 & 3 & 1 & 2
+\end{bmatrix}\hspace{2cm}A_{23}=\begin{vmatrix}
+1 & 2 & 4 \\ 
+2 & 0 & 1 \\ 
+4 & 3 & 2
+\end{vmatrix}=21\longrightarrow\triangle_{23}=(-1)^{2+3}\cdot
+A_{23}=-21$
+
+\begin{itemize}[label=\color{red}\textbullet, leftmargin=*]
+    \item \color{lightblue}Definición
+\end{itemize}
+Sea $A\in M_n(\mathbb{K})$. El determinante de $A$ se aplica de
+forma recurrente como
+\begin{itemize}
+\item Si $n=1,~|(a)|=a$
+\item Si
+$n>1,|A|=a_{ij}\triangle_{ij}+a_{i2}\triangle_{i2}+\cdots+a_{in}\triangle_{in}$
+\end{itemize}
+
+\underline{Ejemplo}
+
+$A=\begin{bmatrix}
+1 & 2 & 4 \\ 
+2 & 0 & 1 \\ 
+4 & 3 & 2
+\end{bmatrix} $
+
+Desarrollado por la primera fila:
+
+$|A|=1\cdot\begin{vmatrix}
+0 & 1 \\ 
+3 & 2
+\end{vmatrix}-2\cdot\begin{vmatrix}
+2 & 1 \\ 
+4 & 2
+\end{vmatrix} +4\cdot\begin{vmatrix}
+2 & 0 \\ 
+4 & 3
+\end{vmatrix}=-3-2(4-4)+4\cdot6=21$
+
+Y si desarrollamos por la segunda columna:
+
+$|A|=-2\cdot\begin{vmatrix}
+2 & 1 \\ 
+4 & 2
+\end{vmatrix}+0\cdot\begin{vmatrix}
+~~ & ~~ \\ 
+~ & ~
+\end{vmatrix}-3\cdot\begin{vmatrix}
+1 & 4 \\ 
+2 & 1
+\end{vmatrix}=-3\cdot(-7)=21$
+
+\hspace{0.5cm}\underline{Propiedades básicas}
+\begin{enumerate}[label=\arabic*), leftmargin=*]
+    \item $|A|=|A^T|$
+    \item $|A\cdot B|=|A|\cdot|B|$
+\item $A$ no es singular si y sólo si $|A|\neq0$. En este caso
+$|A^{-1}|=\frac{1}{|A|}$
+    \item Si $Q$ es ortogonal, entonces $|Q|=I\cdot 1$.
+\end{enumerate}
+
+\begin{itemize}[label=$\longrightarrow$]
+\item Veamos 4)
+\end{itemize}
+Si $Q$ es ortogonal, entonces $Q^{-1}=Q^T$.
+
+$I=Q\cdot Q^{-1}\longrightarrow 1=|I|=|Q\cdot
+Q^{-1}|=|Q|\cdot|Q^{-1}|=|Q|\cdot|Q^{T}|=|Q|\cdot|Q|=|Q|^2$
+
+Por tanto $Q=\pm1$
+
+\hspace{1cm}\underline{Propiedades de los determinantes y las
+operaciones elementales}
+
+\begin{enumerate}[label=\arabic*), leftmargin=*]
+\item
+$\left|\left[u_1,u_2,\hdots,u_j+u_j',\hdots,u_n\right]\right|=\left|\left[u_1,\hdots,u_j,\hdots,u_n\right]\right|+\left|\left[u_1,\hdots,u_j',\hdots,u_n\right]\right|$
+\item $\left|\left[u_1,u_2,\hdots,\alpha
+u_j,\hdots,u_n\right]\right|=\alpha\left|\left[u_1,u_2,\hdots,u_n\right]\right|$
+\item $\left|\left[u_1,\hdots,u_i,\hdots,u_j,\hdots,
+u_n\right]\right|=-\left|\left[u_1,\hdots,u_j,\hdots,u_i,\hdots,
+u_n\right]\right|$
+\item Si a una columna (o fila) se le suma otra columna (o fila)
+multiplicada por un escalar, entonces el determinante no cambia.
+\end{enumerate}
+
+\underline{Ejemplo}
+
+$\begin{vmatrix}
+a & a+1 & a+2 \\ 
+a+3 & a+4 & a+5 \\ 
+a+6 & a+7 & a+8
+\end{vmatrix} \overset{F_2\rightarrow
+F-2-F_1}{\underset{F_3\rightarrow
+F_3-F_1}{\xrightarrow{\hspace{1.5cm}}}}\begin{vmatrix}
+a & a+1 & a+2 \\ 
+3 & 3 & 3 \\ 
+6 & 6 & 6
+\end{vmatrix}\xrightarrow{\hspace{1.5cm}}2\cdot\begin{vmatrix}
+a & a+1 & a+2 \\ 
+3 & 3 & 3 \\ 
+3 & 3 & 3
+\end{vmatrix}\overset{F_3\rightarrow
+F-2-F_2}{\xrightarrow{\hspace{1.5cm}}}$
+
+$2\cdot\begin{vmatrix}
+a & a+1 & a+2 \\ 
+3 & 3 & 3 \\ 
+0 & 0 & 0
+\end{vmatrix}=0$
+
+\hspace{1cm}\underline{Resolución de sistemas lineales usando
+determinantes}
+
+Consideramos el sistema $Ax=b$ y denotamos por $\triangle_i$ el
+determinante de la matriz $A$ donde se ha sustituido la columna
+$i$-ésima por $b$, es decir,
+
+\begin{center}
+\begin{tikzpicture}
+\node {$\triangle_i=\left[u_1,~\hdots,~b,~\hdots,~u_n\right]$};
+\draw[latex-] (0.5,-0.2) -- (0.25,-0.7) node[below] {$i$-ésimo};\end{tikzpicture}
+\end{center}
+Entonces, si $|A|\neq0$ se cumple $x_i=\frac{a_i}{|A|}$ (regla
+de Cramer)
+
+\underline{Ejemplo}
+
+$\left.\begin{array}{r}
+x+y+z=1\\
+-x\quad+z=1\\
+x+y-z=1
+\end{array}\right\rbrace\xrightarrow{\hspace{1.5cm}}|A|=\begin{vmatrix}
+1 & 1 & 1 \\ 
+-1 & 0 & 1 \\ 
+1 & 1 & -1
+\end{vmatrix}=1-1-(1+1)=-2$
+
+$\triangle_1=\begin{vmatrix}
+1 & 1 & 1 \\ 
+1 & 0 & 1 \\ 
+1 & 1 & -1
+\end{vmatrix}=1+1-(1-1)=2$
+
+$\triangle_2=\begin{vmatrix}
+1 & 1 & 1 \\ 
+-1 & 1 & 1 \\ 
+1 & 1 & -1
+\end{vmatrix}=-1+1-1-(1+1+1)=-4$
+
+$\triangle_3=\begin{vmatrix}
+1 & 1 & 1 \\ 
+-1 & 0 & 1 \\ 
+1 & 1 & 1
+\end{vmatrix}=0$
+
+$x_1=\frac{\triangle_1}{|A|}=\frac{2}{-2}=-1,~x_2=\frac{\triangle_2}{|A|}=\frac{-4}{-2}=2,~x_3=\frac{\triangle_3}{|A|}=0$.
+
+\textcolor{lightblue}{\underline{Cálculo de la inversa mediante
+determinantes}}
+\begin{itemize}[label=\color{red}\textbullet, leftmargin=*]
+    \item \color{lightblue} Definición (Matriz adjunta)
+\end{itemize}
+Sea $A\in M_n(\mathbb{K})$. Se llama matriz adjunta de $A$,
+denotada $\hat{A}$, a la matriz cuyas entradas son los adjuntos
+de las entradas de $A$, es decir, si $A=(a_{ij})$, entonces
+$\hat{A}=(\triangle_{ij})$.
+\begin{itemize}[label=\color{red}\textbullet, leftmargin=*]
+    \item \color{lightblue} Proposición
+\end{itemize}
+Si $A\in M_n(\mathbb{K})$ es invertible, entonces
+$A^{-1}=\frac{1}{|A|}\cdot\hat{A}^T$
+
+\underline{Ejemplo}
+
+Sea $Q=\begin{bmatrix}
+a & c \\ 
+b & d
+\end{bmatrix} $ una matriz ortogonal con determinante $|Q|=+1$
+
+Vamos a calcular su inversa:
+
+$\begin{array}{ll}
+\triangle_{11}=|d|=d, & \triangle_{12}=-b\\
+\triangle_{21}=-c & \triangle_{22}=a
+\end{array}$
+
+Por tanto,
+
+$Q^{-1}=\frac{1}{\underbrace{|Q|}_{1}} \cdot\begin{bmatrix}
+d & -c \\ 
+-b & a
+\end{bmatrix}=\begin{bmatrix}
+d & -c \\ 
+-b & a
+\end{bmatrix}$
+
+y como $Q^T=Q^{-1}$, al set $Q$ ortogonal, $d=a,~-c=b$.
+
+En resumen, 
+
+$Q^{-1}=\begin{bmatrix}
+a & b \\ 
+-b & a
+\end{bmatrix}$ con $a^2+b^2=1$
+
+\newpage
+
+\input{Temas/Tema 3.tex}
+\end{document}
+
+\begin{itemize}[label=\color{red}\textbullet, leftmargin=*]
+    \item \color{lightblue}
+\end{itemize}
+
+\begin{enumerate}[label=\arabic*)]
+    \item 
+\end{enumerate}
+
+\overset{}{\underset{}{\xrightarrow{\hspace{1.5cm}}}}
+\overset{}{\xrightarrow{\hspace{1.5cm}}}

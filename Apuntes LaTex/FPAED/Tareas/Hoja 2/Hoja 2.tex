@@ -1,0 +1,143 @@
+\includepdf[pages=-]{"Tareas/Hoja 2/Hoja 2"}
+\begin{enumerate}[label=\color{red}\textbf{\arabic*)}, leftmargin=*]
+	\item \lb{Las calificaciones obtenidas por un grupo de alumnos en Biología y Física son las siguientes:\begin{center}
+			\begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|}
+				\hline
+				Bio. & 3 & 4 & 6 & 7 & 5 & 8 & 7 & 3 & 5 & 4 & 8 & 5 & 5 & 8 & 8 & 8 & 5 \\ \hline
+				Fís. & 5 & 5 & 8 & 7 & 7 & 9 & 10 & 4 & 7 & 4 & 10 & 5 & 7 & 9 & 10 & 5 & 7\\ \hline
+			\end{tabular}
+	\end{center}(Cada pareja de datos corresponde a un alumno)}
+\begin{enumerate}[label=\color{red}\alph*)]
+	\item \db{¿Cuántos alumnos tiene el grupo?}
+	
+	En grupo tiene 17 alumnos
+	\item \db{Escribir la tabla de doble entrada de frecuencias absolutas}
+	
+	\begin{tabular}{|c|c|c|c|c|c|c|c|}
+		\hline
+		\backslashbox{X}{Y}& 4 & 5 & 7 & 8 & 9 & 10 & $f_{i\bullet}$ \\
+		\hline
+		3 & 1 & 1 & 0 & 0 & 0 & 0 & 2 \\
+		\hline
+		4 & 1 & 1 & 0 & 0 & 0 & 0 & 2 \\
+		\hline
+		5 & 0 & 1 & 4 & 0 & 0 & 0 & 5 \\
+		\hline
+		6 & 0 & 0 & 0 & 1 & 0 & 0 & 1 \\
+		\hline
+		7 & 0 & 0 & 1 & 0 & 0 & 1 & 2 \\
+		\hline
+		8 & 0 & 1 & 0 & 0 & 2 & 2 & 5 \\
+		\hline
+		$f_{\bullet j}$& 2 & 4 & 5 & 1 & 2 & 3 &  \\
+		\hline
+	\end{tabular}
+	\item \db{Hallar las distribuciones de frecuencias marginales, así como la media y la varianza de dichas distribuciones.}
+	
+	$\begin{array}{l}
+		\overline{x}=\dfrac{3\cdot 2+4\cdot2+5\cdot5+6\cdot1+7\cdot2+8\cdot5}{17}=5.82\\
+		\overline{y}=\dfrac{4\cdot2+5\cdot4+\cdots+10\cdot3}{17}=7\\
+		s_X^2=\overline{x^2}-(\overline{x})^2=\overline{x^2}-(5.82)^2=3.08\longrightarrow s_X=\sqrt{3.08}\\
+		\overline{x^2}=\dfrac{3^2\cdot2+4^2\cdot2+5^2\cdot5+6^2\cdot1+7^2\cdot2+8^2\cdot5}{17}=37
+	\end{array}$
+	\item \db{Calcular la recta por mínimos cuadrados que nos ayuda a predecir la nota de Física conocida de la Biología.}
+	
+	$\begin{array}{l}
+		y-\overline{y}=\dfrac{s_{XY}}{s_X^2}(x-\overline{x})\longrightarrow y-7=\dfrac{2.7095}{3.08}(x-5.82)\longleftrightarrow y=0.877x+1.888\\
+		s_{XY}=\overline{xy}-\overline{x}\cdot\overline{y}=43.47-5.82\cdot7=2.7095\\
+		\overline{xy}=\dfrac{3\cdot5+4\cdot5+\cdots+5\cdot7}{17}=43.47\\
+		\dfrac{s_{XY}}{s_X^2}=\dfrac{2.7095}{3.08}=0.877
+	\end{array}$
+	\item \db{¿Cómo de buena es esta predicción?}
+	
+	Calculamos la correlación de Pearson. 
+	
+	$R_{xy}=\dfrac{S_{xy}}{S_x\cdot S_y}=\dfrac{2.7095}{1.75\cdot2.029}=0.76$ (Ajuste no muy bueno pero aceptable)
+\end{enumerate}
+\item \lb{De una variable estadística bidimensional se conoce la recta por mínimos cuadrados de $Y$ sobre $X:y=\dfrac{1}{2}x+2$, la recta por mínimos cuadrados de $X$ sobre $Y:x=2y-4$ y la desviación típica de $X:s_X=3$.}
+\begin{enumerate}[label=\color{red}\alph*)]
+	\item \db{Estudiar si es posible determinar el punto $(\overline{x},\overline{y})$.}
+	
+	¿$\overline{x},\overline{y}$? En general, este punto $(\overline{x},\overline{y})$ se obtiene resolviendo el sistema de ecuaciones dado por las dos rectas. En este caso, ese sistema es compatible indeterminado porque ambas rectas coinciden $\longrightarrow$ no pueda calcular $(\overline{x},\overline{y})$.
+	\item \db{Hallar el coeficiente de correlación lineal, así como la varianza y la desviación típica de $Y$.}
+	
+	$\begin{array}{l}
+		y=\dfrac{1}{x}+2,\:S_x=3\longrightarrow S_x^2=9\\
+		y-\overline{y}=\dfrac{S_{xy}}{S_x^2}(x-\overline{x})
+	\end{array}$
+	\begin{itemize}[leftmargin=*]
+		\item $\dfrac{S_{xy}}{S_x^2}=\dfrac{1}{2}\longleftrightarrow S_{xy}=\dfrac{1}{2}\cdot S_x^2=\dfrac{1}{2}\cdot9=\dfrac{9}{2}$
+		
+		Recta de $x$ sobre $y:x=2y+4$\[ x-\overline{x}=\dfrac{S_{xy}}{S_y^2}(y-\overline{y}) \]
+		\item $\dfrac{S_{xy}}{S_y^2}=2\longrightarrow\dfrac{\frac{9}{2}}{S_y^2}=2\longrightarrow S_y^2=\dfrac{9}{4}\longrightarrow S_y=\dfrac{3}{2}$
+	\end{itemize}
+	\item \db{Si $\overline{x}=2$ determinar $\overline{y},a_{20},a_{02}$ y $a_{11}$.}
+	
+	$\begin{array}{l}
+		y=\dfrac{1}{2}x+2\longrightarrow\overline{y}=\dfrac{1}{2}\overline{x}+2=\dfrac{1}{2}\cdot2+2=3\\
+		a_{20}=\dfrac{\sum_{i=1}^{n}x_i^2}{n}=\overline{x^2},\quad a_{02}=\dfrac{\sum y_i^2}{n}=\overline{y^2}\\
+		S_x^2=\overline{x^2}-(\overline{x})^2\longrightarrow\overline{x^2}=S_x^2+(\overline{x})^2=9+2^2=13\\
+		a_{11}=\dfrac{\sum x_i\cdot y_i}{n}=\overline{xy}\\
+		S_{xy}=\overline{xy}-\overline{x}\cdot\overline{y}\longrightarrow\dfrac{9}{2}=\overline{xy}-2\cdot3\longrightarrow\overline{xy}=\dfrac{9}{2}+6=10.5
+	\end{array}$
+\end{enumerate}
+\item \lb{Conocemos la siguiente información sobre las medidas de una variable estadísticas bidimensional $(X,Y)$:\[ (CV)_x=2(CV)_y,\quad \overline{x}=4,\quad\overline{y}=7,\quad R=1 \]Determinar la recta por mínimos cuadrados de la variable $Y$ sobre la variable $X$.}
+
+$\begin{array}{l}
+	(y-\overline{y})=\dfrac{S_{xy}}{S_x^2}(x-\overline{x})\\
+	\dfrac{S_{xy}}{S_x^2}=\dfrac{S_{xy}}{S_x^2}\cdot\dfrac{S_y}{S_y}=\lbb{\dfrac{S_{xy}}{S_x\cdot S_y}}{1}\cdot\dfrac{S_y}{S_x}=1\cdot\dfrac{7}{8}=\bboxed{\dfrac{7}{8}}\\
+	R_{xy}\longleftrightarrow\dfrac{S_{xy}}{S_x\cdot S_y}=1\\
+	\begin{array}{l}
+		(CV_x)=\dfrac{S_x}{\overline{x}}\\
+		(CV_y)=\dfrac{S_y}{\overline{y}}
+	\end{array}\begin{cases}
+	\text{Sabemos que}\\
+	\dfrac{S_x}{\overline{x}}=2\left(\dfrac{S_y}{\overline{y}}\right)\longrightarrow\dfrac{S_y}{S_x}=\dfrac{\overline{y}}{2\overline{x}}=\dfrac{7}{2\cdot4}=\dfrac{7}{8}
+	\end{cases}\\
+	\bboxed{y-7=\dfrac{7}{8}(x-4)\longrightarrow y=\dfrac{7}{8}x-\dfrac{7\cdot4}{8}+7\longrightarrow y=\dfrac{7}{8}+\dfrac{7}{2}}
+\end{array}$
+\item \lb{Consideremos los siguientes datos de la variable bidimensional $(X,Y)$:\[ \begin{array}{|c|c|}
+		\hline
+		X & Y \\ \hline
+		6.5 & 20.3 \\ \hline
+		11.5 & 14.6 \\ \hline
+		20.1 & 11.4 \\ \hline
+		25.7 & 7.2 \\ \hline
+		34.2 & 6.3 \\ \hline
+	\end{array} \]}
+\begin{enumerate}[label=\color{red}\alph*)]
+	\item \db{Representar gráfica la nube de puntos.}
+	
+	\begin{tikzpicture}
+		\begin{axis}[
+			xmin=-1,
+			ymin=-1,
+			samples=100,
+			axis lines=center,
+			]
+			\addplot[lightblue, mark=ball] plot coordinates {
+			(6.5,20.3)
+			(11.5,14.6)
+			(20.1, 11.4)
+			(25.7,7.2)
+			(34.2,6.3)
+			};
+		\end{axis}
+	\end{tikzpicture}
+	\item \db{Realzar un ajuste exponencial del tipo $y=a\cdot e^{bx}$ a estos datos y representar gráficamente el resultado.}
+	
+	Ajuste exponencial de $y=a\cdot e^{bx}$\\
+	Hay que pasarlo a lineal tomando logaritmos y dando sus valores nuevos a $y$.\\
+	$(y_{\mathrm{new}}-\overline{y}_{\mathrm{new}}=\dfrac{S_{x,y_{\mathrm{new}}}}{S_x^2})(x-\overline{x}))\longrightarrow y_{\mathrm{new}}-2.35=\dfrac{-4.7}{97.56}(x-19.6)\longrightarrow y_{\mathrm{new}}=-0.048x+3.299\equiv\ln(y)\longrightarrow y=e^{-0.48x}\cdot e^{3.299}=\lbb{27.086}{a}\cdot\lbb{e^{0.048x}}{b=-0.048}$\\
+	$\overline{y}_{new}=\dfrac{3.01+\cdot1.66}{5}=2.35$\\
+	$\overline{x}=\dfrac{6.5+\cdots+34.2}{5}=19.6$\\
+	$S_{x,y_{\mathrm{new}}}=\overline{xy}_{new}-\overline{x}\cdot \overline{y}_{new}=\dfrac{6.5\cdot3.01+\cdots+34.2\cdot1.66}{5}-(19.6)\cdot(2.35)=-4.7$\\
+	$S_x^2=\overline{x^2}-(\overline{x})^2=\dfrac{6.5^2+\cdots+34.2^2}{5}=97.56$
+	\item \db{Comprovar la bondad del ajuste realizado}
+	
+	$\begin{array}{l}
+		R_{x,y_{\mathrm{new}}}\dfrac{S_{x,y_{\mathrm{new}}}}{S_x\cdot S_{y_{\mathrm{new}}}}=\dfrac{-4.7}{9.87\cdot0.48}=-0.99\\
+		S_x=\sqrt{97.56}=9.87;\:S_{y_{\mathrm{new}}}=0.48
+	\end{array}$
+\end{enumerate}
+\end{enumerate}

@@ -1,0 +1,547 @@
+% !TeX spellcheck = es_ES
+\section{Cálculo diferencial de una variable}
+\subsection{Límite de una función en un punto}
+\subsubsection{Definición de límite de una función}
+\begin{itemize}[label=\color{red}\textbullet, leftmargin=*]
+	\item \color{lightblue}Definición
+\end{itemize}
+Sea $A\subset\mathbb{R}$ un subconjunto de $\mathbb{R},~A\rightarrow\mathbb{R}$ una función de $A$ en $\mathbb{R}$ y a un punto de acumulación(es decir. para cada entorno abierto $I_a$ de $a$ se verifica que $\left((I_a\backslash\{a\})\cap A\neq\varnothing\right)$. Diremos que $I\in\mathbb{R}$ es el límite de la función $f$ en $a$ si para cada $\epsilon>0$ existe $\delta>0$ tal que si $|x-a|<\delta,~x\in A$ entonces $|f(x)-I|<\epsilon$. Lo denotaremos por \[ \lim_{x\to a}f(x)=I. \]
+\begin{itemize}[label=\color{red}\textbullet, leftmargin=*]
+	\item \color{lightblue}Ejemplo
+\end{itemize}
+\begin{itemize}
+	\item Probar que $\lim_{x\to2}(x^2+2)=6$.
+\end{itemize}
+Fijado $\epsilon>0$ tenemos que encontrar $\delta>0$ tal que si $|x-2|<\delta,~|x|<\delta+2$ entonces $|x^2+2-6|<\epsilon$. Basta definir $\delta:=\dfrac{-4\pm2\sqrt{4+\epsilon}}{2}$ para obtener la definición (ejercicio).
+
+Para demostrar que una función no tiene límite basta con negar la definición. Es decir, una función $f:A\subset\mathbb{R}\longrightarrow\mathbb{R}$ no tiene límite como límite $I$ en un punto $a$ perteneciente a la adherencia de $A$ si existe $\epsilon>0$ tal que para cada $\delta>0$ existe $x_\delta\in A$ tal que $|x_\delta-a|<\delta $ pero $|f(x_\delta)-I|>\epsilon$.
+
+\subsubsection{Caracterización mediante sucesiones}
+Podemos dar una definición alternativa de límite de una función esta vez probando sucesiones.
+\begin{itemize}[label=\color{red}\textbullet, leftmargin=*]
+	\item \color{lightblue}Definición
+\end{itemize}
+Sea $f:A\subset\mathbb{R}\longrightarrow\mathbb{R}$ una función y $a$ un punto en la adherencia de $A$. Diremos que la función $f$ tiene límite $I$ en el punto $a$ si para cada sucesión $(x_n)_n$ de puntos $A$ tal que si $\lim_{n\to\infty}x_n=a$ se verifica que $\lim_{n\to\infty}f(x_n)=I$.
+
+Al igual que en el caso anterior podemos utilizar la definición para demostrar la no existencia del límite.
+\subsection{Propiedades}
+\begin{enumerate}[label=\arabic*)]
+	\item El límite de una función en un punto único.
+	\item Si una función tiene límite en un punto $a$, está acotada en un entorno de ese punto.
+	\item SI $\lim_{x\to a}f(x)=I<\alpha(>\beta)$, entonces existe un entorno de $a$ donde la función toma valores menores de $\alpha$ (mayores que $\beta$).
+	\item Sea $f,g,h:I\rightarrow\mathbb{R}$ funciones definidas en un intervalo $I$ que verifican $g(x)\le f(x)\le h(x)$ en un entorno de $a$ perteneciente a la adherencia de $I$. Si $\lim_{x\to a}g(x)=\lim_{x\to a}h(x)=I$ entonces $\lim_{x\to a}f(x)=I$.
+	\item Si $f,g:I\rightarrow\mathbb{R}$ son dos funciones con límites $I$ y $m$ en $a$, y $k\in\mathbb{R}$. Entonces:
+	\begin{enumerate}[label=\alph*)]
+		\item $\lim_{x\to a}f+g=I+m$
+		\item $\lim_{x\to a}f\cdot g=I\cdot m$
+		\item $\lim_{x\to a}k\cdot f=k\cdot I$
+		\item Si $m\neq 0,~\lim_{x\to a}\left(\dfrac{f}{g}\right)=\dfrac{k}{m}$
+	\end{enumerate}
+\end{enumerate}
+\subsection{Límites laterales}
+\begin{itemize}[label=\color{red}\textbullet, leftmargin=*]
+	\item \color{lightblue}Definición
+\end{itemize}
+Sea $f:I\rightarrow\mathbb{R},~a\in I$. Se dice que $f(x)$ tiende a $I$ cuando $x$ tiende al punto $a$ por la izquierda (por la derecha), si para cada $\epsilon>0$ existe $\delta>0$ tal que si $0<a-x<\delta~(0<x-a<\delta)$ entonces $|f(x)-I|<\epsilon$ y se representa por $\lim_{x\to a^-}f(x)=I\left(\lim_{x\to a^+}f(x)=I\right)$.
+
+Para que exista el límite de una función en un punto es necesario y suficiente que existan ambos límites laterales y que además ambos coincidan.
+\subsection{Límites infinitos y límites en el infinito}
+\subsubsection{Límites infinitos}
+\begin{itemize}[label=\color{red}\textbullet, leftmargin=*]
+	\item \color{lightblue}Definición
+\end{itemize}
+\begin{enumerate}[label=\arabic*)]
+	\item Sea $f:I\rightarrow\mathbb{R},~a\in I$. Se dice que $\lim_{x\to a}f(x)=+\infty$, si para cada $K>0$, existe $\delta>0$ tal que si $|x-a|<\delta,~x\neq a$ entonces $f(x)\ge K$.
+	\item  Sea $f:I\rightarrow\mathbb{R},~a\in I$. Se dice que $\lim_{x\to a}f(x)=-\infty$, si para cada $K>0$, existe $\delta>0$ tal que si $|x-a|<\delta,~x\neq a$ entonces $f(x)\le -K$.
+\end{enumerate}
+\begin{itemize}[label=\color{red}\textbullet, leftmargin=*]
+	\item \color{lightblue}Propiedades
+\end{itemize}
+\begin{enumerate}[label=\arabic*)]
+	\item Si $\lim_{x\to a}f(x)=0$ con $f(x)>0$ (resp. $f(x)<0$) entonces $\lim_{x\to a}\dfrac{1}{f(x)}=+\infty$ (resp. $-\infty$).
+	\item Si $\lim_{x\to a}f(x)=\pm\infty$ entonces $\lim_{x\to a}\dfrac{1}{f(x)}=0$.
+\end{enumerate}
+\subsubsection{Límites en el infinito}
+\begin{itemize}[label=\color{red}\textbullet, leftmargin=*]
+	\item \color{lightblue}Definición
+\end{itemize}
+\begin{enumerate}[label=\arabic*)]
+	\item Sea $f:\left[a,+\infty\right)\rightarrow\mathbb{R}$. Se dice que $f(x)$ tiende a $I$ cuando $x$ tiende a $+\infty$ y se representa por $\lim_{x\to+\infty}f(x)=I$ si para cada $\epsilon>0$ existen $K>0$ tal que si $x>K$ entonces $\left|f(x)-I\right|<\epsilon$.
+	\item Sea $f:\left(-\infty,~a\right]\rightarrow\mathbb{R}$. Se dice que $f(x)$ tiende a $I$ cuando $x$ tiende a $-\infty$ y se representa por $\lim_{x\to-\infty}f(x)=I$ para cada $\epsilon>0$ existe $K>0$ tal que si $x<-K$ entonces $\left|f(x)-I\right|<\epsilon$.
+\end{enumerate}
+\subsection{Infinitésimos e Infinitos. Indeterminaciones}
+\subsubsection{Infinitésimos}
+\begin{itemize}[label=\color{red}\textbullet, leftmargin=*]
+	\item \color{lightblue}Definición
+\end{itemize}
+Se llama infinitésimo cuando $x$ tiende al punto $a$ (donde $a$ puede tomar valores infinitos) a toda función $f$ que tenga límite cero en el punto $a$.
+\begin{itemize}[label=\color{red}\textbullet, leftmargin=*]
+	\item \color{lightblue} Propiedades
+\end{itemize}
+Son equivalentes:
+\begin{enumerate}[label=\arabic*)]
+	\item $\lim_{x\to a}f(x)=I$
+	\item La función $\psi(x)=f(x)-I$ es un infinitésimo.
+\end{enumerate}
+El producto de un infinitésimo por una función acotada es un infinitésimo. Ejemplo: La función $f(x)=x\cdot\sin\left(\dfrac{1}{x}\right)$ es un infinitésimo.
+
+El cociente de un infinitésimo por una función que en valor absoluto se conserva mayor que una constante positiva, es un infinitésimo. $\left(\dfrac{0}{0}\text{ es una indeterminación}\right)$.
+\subsubsection{Infinitos}
+\begin{itemize}[label=\color{red}\textbullet, leftmargin=*]
+	\item \color{lightblue}Definición
+\end{itemize}
+Se llama infinito cuando $x$ tiende al punto $a$ (donde $a$ puede tomar valores infinitos) a toda función $f(x)$ que tiende a $\infty$ cuando $x$ tiende a $a$.
+\begin{itemize}[label=\color{red}\textbullet, leftmargin=*]
+	\item \color{lightblue}Propiedades
+\end{itemize}
+\begin{enumerate}[label=\arabic*)]
+	\item La suma de un infinito en el punto  $a$ con una cantidad finita de funciones acotadas en un entorno de $a$ en un infinito. (La diferencia de dos infinitos puede tener límite distinto $\infty-\infty$ es una indeterminación).
+	\item El producto de un infinito por un número finito de funciones acotadas inferiormente en valor absoluto por un número positivo (no nulo), es un infinito ($0\cdot\infty$ es una indeterminación).
+	\item El cociente de un infinito por una función acotada superiormente en valor absoluto es un infinito. $\left(\dfrac{\infty}{\infty}\text{ es una indeterminación}\right)$.
+\end{enumerate}
+\subsubsection{Indeterminaciones}
+
+\[ 	\begin{array}{ccccccc}
+		\dfrac{0}{0} &  & \infty-\infty &  & 0\cdot\infty &  & \dfrac{\infty}{\infty} \\
+		& 1^\infty &  & \infty^0 &  & 0^0 & 
+	\end{array} \]
+
+\begin{center}
+	\begin{tabular}{|ll|}
+	\hline
+	\rowcolor{blue!40}\multicolumn{2}{|c|}{Tabla de equivalencias} \\ \hline
+
+	$\sin(x)\equiv x\quad(x\to0)$&  $\sinh(x)\equiv x\quad(x\to0)$\\
+
+	$1-\cos(x)\equiv\dfrac{x^2}{2}\quad(x\to0)$ &  $\cosh(x)-1\equiv\dfrac{x^2}{2}\quad(x\to0)$\\
+
+	$\tan(x)\equiv x\quad(x\to0)$&  $\tanh(x)\equiv x\quad(x\to0)$\\
+
+	$\arcsin(x)\equiv x\quad(x\to0)$&  $\arctan(x)\equiv x\quad(x\to0)$\\
+
+	$a^x-1\equiv x\cdot\log(a)\quad(x\to0)$&  $e^x-1\equiv x\quad(x\to0)$\\
+
+	$\log(x+1)\equiv x\quad(x\to0)$&  $(1+x)^\alpha-1\equiv\alpha x\quad(x\to0)$\\
+
+	$a_nx^n+\cdots+a_1x+a_0\equiv a_0\quad(x\to0)$&  $a_nx^n+\cdots+a_1x+a_0\equiv a_nx^n\quad(x\to0)$\\
+
+	$\log(a_nx^n+\cdots+a_0)\equiv\log x^n\quad(x\to\infty)$&  \\
+	\hline
+\end{tabular}
+\end{center}
+A partir de las equivalencias y del principio de sustitución puede obtenerse la siguiente igualdad para resolver la indeterminación del tipo $1^\infty$. \[ \lim_{x\to a}f(x)^{g(x)} =e^{\lim_{x\to a}g(x)\cdot(f(x)-1)}\] cuando $\lim_{x\to a}f(x)=1$ y $\lim_{x\to a}g(x)=\infty$.
+\subsection{Continuidad de una función en un punto}
+\subsubsection{Continuidad}
+\begin{itemize}[label=\color{red}\textbullet, leftmargin=*]
+	\item \color{lightblue}Definición
+\end{itemize}
+Sea $f:I\rightarrow\mathbb{R}$ una función tal que $a\in I$. Diremos que $f$ es continua en $a$ si \[ \lim_{x\to a}f(x)=f(a). \]
+\begin{itemize}[label=\color{red}\textbullet, leftmargin=*]
+	\item \color{lightblue}Ejemplo
+\end{itemize}
+\begin{enumerate}[label=\arabic*)]
+	\item Las funciones constantes son continuas.
+	\item La función identidad $f(x)=x$ es continua en $\mathbb{R}$.
+\end{enumerate}
+\subsubsection{Continuidad lateral}
+\begin{itemize}[label=\color{red}\textbullet, leftmargin=*]
+	\item \color{lightblue}Definición
+\end{itemize}
+Sea $f:I\rightarrow\mathbb{R},~a\in I$.
+\begin{enumerate}[label=\arabic*)]
+	\item Se dice que la función $f$ es continua por la derecha en $x=a$ si $\lim_{x\to a^+}f(x)=f(a)$.
+	\item Se dice que la función $f$ es continua por la izquierda en $x=a$ si $\lim_{x\to a^-}f(x)=f(a)$.
+\end{enumerate}
+\begin{itemize}[label=\color{red}\textbullet, leftmargin=*]
+	\item \color{lightblue}Ejemplo
+\end{itemize}
+La función $f(x)=E(x)$ es continua por la derecha en todos los punto $x\in\mathbb{Z}$.
+\subsubsection{Discontinuidad}
+\begin{itemize}[label=\color{red}\textbullet, leftmargin=*]
+	\item \color{lightblue}Definición
+\end{itemize}
+Sea $f:I\rightarrow\mathbb{R},~a\in I$. Si existe $\lim_{x\to a}f(x)=I$ y $I\neq f(a)$ o bien no existe $f(a)$ se dice que $f(x)$ presenta una discontinuidad evitable en $a$.
+\begin{itemize}[label=\color{red}\textbullet, leftmargin=*]
+	\item \color{lightblue}Ejemplo
+\end{itemize}
+La función $f(x)=\dfrac{x^3-8}{x^2-4}$ no está definida en $x=2$, y por lo tanto no puede ser continua en 2, sin embargo $\lim_{x\to 2}f(x)=3$, es decir, en $a=2$ tenemos una discontinuidad evitable.
+\subsubsection{Discontinuidades II}
+\begin{itemize}[label=\color{red}\textbullet, leftmargin=*]
+	\item \color{lightblue}Definición
+\end{itemize}
+Una función $f:I\rightarrow\mathbb{R}$ presenta en $x=a$ una discontinuidad de primera especie o de salto si existen los límites laterales en el punto $a$ pero estos son distintos. Se llama salto en $a$ a la diferencia entre ambos valores.
+\begin{itemize}[label=\color{red}\textbullet, leftmargin=*]
+	\item \color{lightblue}Ejemplo
+\end{itemize}
+La función $f(x)=e^{\frac{1}{x}}$ tiene en $x=0$ una discontinuidad de salto infinito.
+\begin{itemize}[label=\color{red}\textbullet, leftmargin=*]
+	\item \color{lightblue}Definición
+\end{itemize}
+Si no existe alguno de los límites laterales o no existen ambos, se dice que $f$ presenta en $x=a$ una discontinuidad de segunda especie.
+\begin{itemize}[label=\color{red}\textbullet, leftmargin=*]
+	\item \color{lightblue}Ejemplo
+\end{itemize}
+La función $f(x)=e^{\frac{1}{x}}\cdot\sin\left(\dfrac{\pi}{x}\right)$ presenta en $x=0$ una discontinuidad de segunda especie.
+\subsection{Operaciones con funciones continuas}
+\begin{itemize}[label=\color{red}\textbullet, leftmargin=*]
+	\item \color{lightblue}Proposición
+\end{itemize}
+Sean $f$ y $g$ dos funciones continuas en $x=a$. Entonces:
+\begin{enumerate}[label=\arabic*)]
+	\item $f\pm g$ es continua en $x=a$.
+	\item $f\cdot g$ es continua en $x=a$.
+	\item Si $g(a)\neq0,~\dfrac{f}{g}$ es continua en $x=a$.
+\end{enumerate}
+\begin{itemize}[label=\color{red}\textbullet, leftmargin=*]
+	\item \color{lightblue}Ejemplo
+\end{itemize}
+El polinomio $P(x)=a_nx^n+\cdots+a_1x+a_0$ es continuo para cada $x\in\mathbb{R}$.
+\subsubsection{Continuidad de la función compuesta}
+Sea $f:I \rightarrow\mathbb{R},~g:J\rightarrow\mathbb{R}$ con $f(I)\subset J,~f$ continua en $a$ y continua $g$ continua en $g(a)$. Entonces la función compuesta $g\circ f:I\rightarrow\mathbb{R}$ es continua en $x=a$.
+\subsection{Teorema de Bolzano}
+Sea $f:[a,b]\rightarrow\mathbb{R}$ una función continua tal que $f(a)\cdot f(b)<0$, entonces existe $x\in (a,~b)$ tal que $f(x)=0$.
+\subsection{Teorema de Weiertrass}
+Toda función continua $f$ definida en un intervalo $I$ compacto está acotada superior e inferiormente y alcanza el máximo y el mínimo absoluto.
+
+La imagen por una función continua de un intervalo compacto es un intervalo compacto.
+\subsection{Homeomorfismo}
+\begin{itemize}[label=\color{red}\textbullet, leftmargin=*]
+	\item \color{lightblue}Definición
+\end{itemize}
+Diremos que una función $f:A\rightarrow B$ es un homeomorfismo si la función es biyectiva, continua y la inversa es continua.
+\subsubsection{Continuidad de la función inversa}
+Si la función $f:A \rightarrow B$ es una biyección estrictamente monótona creciente o decreciente, entonces $f$ es continua en $I$ y $f^{-1}$ es continua en $J$.
+\begin{itemize}[label=\color{red}\textbullet, leftmargin=*]
+	\item \color{lightblue}Ejemplo
+\end{itemize}
+La función logarítmica es continua por ser la inversa de la función exponencial. La función $\sin(x)$ en $\left[-\dfrac{\pi}{2},~\dfrac{\pi}{2}\right]$ es continua y estrictamente creciente, esta función tiene inversa $\arcsin(x):[-1,1]\rightarrow\left[-\dfrac{\pi}{2},~\dfrac{\pi}{2}\right]$ que también es continua.
+\subsection{Derivada de una función en un punto}
+\subsubsection{Definición de derivada de una función en un punto. Derivadas laterales}
+\begin{itemize}[label=\color{red}\textbullet, leftmargin=*]
+	\item \color{lightblue}Definición
+\end{itemize}
+Dada una función $f:(a,~b)\rightarrow\mathbb{R}$ y dado un punto $x\in(a,~b)$, se define la derivada de la función $f$ (resp. \textit{Derivada por la derecha, derivada por la izquierda}) en el punto $c$ y se representa por $f'(c)$ (resp. $f'(c^+),~f(c^-)$), como el límite (si existe):
+
+$f'(x)=\lim_{h\to0}\dfrac{f(c+h)-f(c)}{h}$
+
+$\left(\text{resp. }f'(x^+)=\lim_{h\to0^+}\dfrac{f(c+h)-f(c)}{h},~f'(c^-)=\lim_{h\to0^-}\dfrac{f(d+h)-f(c)}{h}\right)$
+
+\begin{itemize}[label=\color{red}\textbullet, leftmargin=*]
+	\item \color{lightblue}Ejercicio
+\end{itemize}
+{\color{lightblue} Estudiar si existe en $x=1$ la derivada de la función \[ f(x)=\left\lbrace\begin{array}{ll}
+		x & \text{si }x\le1\\
+		2x-1 &\text{si }x>1
+	\end{array}\right. \]}
+
+$\lim_{h\to0^-}\dfrac{1+h-1}{h}=1$, es decir, $f_{\mathrm{izq}}'(1)=1.~\lim_{h\to0^+}\dfrac{(2(1+h)-1)-1}{h}=2$, es decir $f_{\mathrm{der}}'(1)=2$.
+
+Otra forma de definir si una función es derivables en un punto es la que sigue:
+\begin{itemize}[label=\color{red}\textbullet, leftmargin=*]
+	\item \color{lightblue}Proposición
+\end{itemize}
+Una función $f$ es derivables en $x=a$ si y sólo si \[ f(a+h)-f(a)=f'(a)+h\cdot \alpha(h), \] con $\lim_{h\to0}\alpha(h)=0$.
+
+En virtud de los teoremas de límites anteriormente introducidos es claro que una función será derivable en un punto si y sólo si, en dicho punto, es derivable por la derecha y por la izquierda y coinciden ambos valores. Por otro lado mostraremos gráficamente que la derivada de una función $f:(a,~b)\rightarrow\mathbb{R}$ en un punto $f:(a,~b)\rightarrow\mathbb{R}$ en un punto $c\in(a,~b)$ representa la pendiente de la recta tangente a la gráfica de $f$ en el punto $(c,~f(c))$.
+\subsubsection{Relación entre derivabilidad y continuidad}
+Es conveniente dejar claro la relación entre continuidad y derivabilidad, resultado que recogemos en la siguiente proposición.
+\begin{itemize}[label=\color{red}\textbullet, leftmargin=*]
+	\item \color{lightblue}Proposición
+\end{itemize}
+Toda función derivables es continua
+\subsection{Interpretación geométrica}
+\subsubsection{Recta tangente y recta normal a una función en un punto}
+\begin{itemize}[label=\color{red}\textbullet, leftmargin=*]
+	\item \color{lightblue}Proposición
+\end{itemize}
+\begin{enumerate}[label=\arabic*)]
+	\item A la derecha que pasa por $(a,~f(a))$ y tiene como pendiente el número real $f'(a)$ se le llama recta tangente a $f(x)$ en el punto $(a,~f(a))$. La ecuación de la recta tangente es \[ y-f(a)=f'(a)(x-a).\]
+	\item La recta perpendicular a la recta tangente en el punto $(a,~f(a))$ se llama recta normal a la curva en dicho punto. Por tanto, la ecuación de esta recta normal es \[ y-f(a)=\dfrac{-1}{f'(a)} (x-a).\]
+\end{enumerate}
+\subsubsection{Función derivada. Derivadas sucesivas}
+\begin{itemize}[label=\color{red}\textbullet, leftmargin=*]
+	\item \color{lightblue}Definición
+\end{itemize}
+Una función $f:(a,~b)\rightarrow\mathbb{R}$ se dice \textit{derivables} si es derivable en cada uno de los puntos de su dominio.
+
+Si $f$ es una función derivables, podemos definir a partir de ella una nueva función que recibe el nombre de \textit{función derivada}. Dicha función se denota por $f'$ y su definición la siguiente: \[ \begin{array}{c}
+	f':(a,~b)\rightarrow\mathbb{R}\\
+	x\rightarrow f'(x).
+\end{array} \]
+Si la función $f'$ vuelve a ser derivables se puede definir la derivada segunda de $f$ como la derivada de $f'$ y así sucesivamente definiríamos $f'',~f''',~f^{\mathrm{IV}},~f^{\mathrm{V}},~\hdots$
+
+\begin{itemize}[label=\color{red}\textbullet, leftmargin=*]
+	\item \color{lightblue}Definición función de clase $C^k$
+\end{itemize}
+Una función $f:(a,~b)\rightarrow\mathbb{R}$ se dice de \textit{clase }$C^k$ sí y sólo si la función $f$ es derivable $k$ veces y la derivable $k$-ésima, $f^k$, es continua. El conjunto de las funciones de clase $C^k$ definidas en el intervalo $(a,~b)$ se denota por $C^k\left((a,~b)\right)$. Cuando $k=0$, obtenemos el conjunto de las funciones continuas.
+
+A continuación damos las propiedades de las derivadas con respecto a las operaciones entre funciones.
+
+\begin{itemize}[label=\color{red}\textbullet, leftmargin=*]
+	\item \color{lightblue}Álgebra de las funciones de clase $C^k$
+\end{itemize}
+Sea $k$ un número natural, entonces el conjunto $\left(C^k(a,~b),~+,~\cdot\right)$ tiene estructura de anillo conmutativo con elemento neutro para la multiplicación. Además, si $f,~g\in C^k\left((a,~b)\right)$ se tiene que:
+\begin{enumerate}[label=\arabic*)]
+	\item $(f+g)'(x_0)=f'(x_0)+g'(x_0)$
+	\item $(f\cdot g)'(x_0)=f'(x_0)\cdot g(x_0)+f(x_0)\cdot g'(x_0)$
+\end{enumerate}
+Además. si $f$ y $g$ son dos funciones que admiten derivadas hasta el orden $n$, entonces se verifican:
+\begin{enumerate}[label=\arabic*)]
+	\item $(f+g)^n=f^n+g^n$.
+	\item $(c\cdot f)^n=c\cdot f^n$ para cada $c\in\mathbb{R}$.
+	\item $(f\cdot g)^n=\left(\dfrac{n}{0}\right)f^n\cdot g+\left(\dfrac{n}{1}\right)f^{n-1}\cdot g'+\cdots+\left(\dfrac{n}{n-1}\right)f'\cdot g^{n-1}+\left(\dfrac{n}{n}\right)g^n$. 
+\end{enumerate}
+\subsubsection{Composición de funciones: Regla de la cadena}
+Con respecto a la composición de funciones, la regla de la cadena da la respuesta a cómo calcular la derivada de composiciones de funciones.
+\begin{itemize}[label=\color{red}\textbullet, leftmargin=*]
+	\item \color{lightblue}Regla de la cadena
+\end{itemize}
+Sea $f:(a,~b)\rightarrow(c,~d)$ y $g:(c,~d)\rightarrow\mathbb{R}$ funciones reales de variable real, sea $x_0\in(a,~b)$ tal que $f$ es derivable en $x_0$ y $g$ es derivable en $f(x_0)$. Entonces $g\circ f$ es derivable en $x_0$ y la derivada se obtiene mediante la expresión \[ (g\circ f)'(x_0)=g'\left(f(x_0)\right)f'(x_0). \]
+\subsection{Diferencial de una función en un punto}
+Se dirá que una función $f(x)$, definida en un entorno de $a$ es diferenciable en $a$ si $f(x)$ puede aproximarse, en un entorno de $a$, por una función afín, de ecuación \[ y-f(a)=A(x-a) \] con $ A\in \mathbb{R}. $
+\begin{itemize}[label=\color{red}\textbullet, leftmargin=*]
+	\item \color{lightblue}Definición
+\end{itemize}
+Una función $f:I\rightarrow\mathbb{R,~I\subset\mathbb{R}}$ abierto, es diferenciable en $a\in I$ si verifica \[ f(x)-f(a)=(x-a)(A+\alpha_a(x)) \] para cada $x$ perteneciente a cierto intervalo de $a$ contenido en $I$ y $\alpha_a$ es una función con $\lim_{x\to a}\alpha_a(x)=0$.
+
+Si en la anterior definición se toma $x=a+h$ se tendrá que $f$ es diferenciable si y sólo si \[ f(a+h)=f(a)+Ah+h\in_a(h)\] con $\lim_{h\to0}\in_a(h)=0$.
+\begin{itemize}[label=\color{red}\textbullet, leftmargin=*]
+	\item \color{lightblue}Definición
+\end{itemize}
+A la función lineal definida para cada valor de $\mathbb{R}$ con valores en $\mathbb{R}$ que asigna a cada $h\in \mathbb{R}$ el valor $A\cdot h$ se le llama diferencial de la función $f$ en $a$ y se denotará por $df_a$, es decir, $df_a:\mathbb{R}\rightarrow\mathbb{R}$ y $df_a(h)=A\cdot h$.
+
+Para una función $f:I\rightarrow\mathbb{R}$, con $I\subset\mathbb{R}$ abierto, $a\in I$ con equivalentes que la función $f$ es diferenciable en $a$ y el que la función sea derivable en $a$. Además si $df_a(h)=A\cdot h$, entonces  $A=f'(a)$.
+\subsection{Teoremas sobre valores medios de funciones derivables}
+\subsubsection{Extremos relativos}
+\begin{itemize}[label=\color{red}\textbullet, leftmargin=*]
+	\item \color{lightblue}Definición de función creciente (decreciente)
+\end{itemize}
+Sea $f:(a,~b)\rightarrow\mathbb{R}$ una función. Diremos que $f$ es creciente (decreciente) en $c\in(a,~b)$ si existe $\delta>0$ tal que para cada par de punto $x,~y\in(c-\delta,~c+\delta)\subset(a,~b)$ con $x<c<y$ y se verifica $f(x)\le f(c)\le f(y)~\left(f(x)\ge f(c)\ge f(y)\right)$.
+\begin{itemize}[label=\color{red}\textbullet, leftmargin=*]
+	\item \color{lightblue}Proposición
+\end{itemize}
+Sea $f:(a,~b)\rightarrow\mathbb{R}$ creciente (decreciente) y derivable en $c\in(a,~b)$. Entonces $f'8c)\ge0~\left(f'8c)\le0\right)$.
+
+Sea $f:(a,~b)\rightarrow\mathbb{R}$ derivable en $c\in(a,~b)$, con $f'(c)>0$ (resp. $f'(c)<0$) entonces $f$ es estrictamente creciente (resp. estrictamente decreciente) en $c$.
+\subsubsection{Extremos relativos y absolutos}
+\begin{itemize}[label=\color{red}\textbullet, leftmargin=*]
+	\item \color{lightblue} Definición
+\end{itemize}
+Una función $f:(a,~b)\rightarrow\mathbb{R}$ tiene un máximo (mínimo) relativo en $c\in(a,~b)$ si existe $\delta>0$ tal que $(c-\delta,~c+\delta)\subset(a,~b)$ y tal que $f(x)\le f(x)~\left(f(x)\ge f(c)\right)$ para cada $x\in(c-\delta,~c+\delta)$.
+\begin{itemize}[label=\color{red}\textbullet, leftmargin=*]
+	\item \color{lightblue}Condición necesaria de extremo relativo
+\end{itemize}
+Sea $f:(a,~b)\rightarrow\mathbb{R}$ derivable en $c\in(a,~b)$. Si en $c$ hay un extremo relativo entonces $f'(c)=0$.
+\begin{itemize}[label=\color{red}\textbullet, leftmargin=*]
+	\item \color{lightblue}Ejemplo
+\end{itemize}
+La función $f(x)=x^3$ verifica que $f'(x)=3x^2$ y $f'(0)=0$ pero $c=0$ no es un extremo relativo de la función.
+\subsubsection{Cálculo de máximos y mínimos relativos y absolutos} 
+Dada una función $f$ definida en un intervalo $[a,~b]$ con valores reales sabemos por el teorema de Weiertrass que la función alcanza el máximo y mínimo absolutos.
+
+Procedimiento para el cálculo de los extremos absolutos.
+\begin{enumerate}[label=\arabic*)]
+	\item Hallar los puntos críticos de $f$ en $[a,~b]$ (es decir, aquellos en los que la derivada se anula) y evaluar $f$ en dichos puntos.
+	\item Evaluar $f$ en los extremos del intervalo (puntos $a$ y $b$) y en aquellos puntos en los que la función no sea derivable.
+	\item Elegir, entre todos los puntos obtenidos, aquellos donde la función alcance los valores mayor y menor.
+\end{enumerate}
+En el caso en el que el intervalo fuese abierto $(a,~b)$ no tenemos asegurada la existencia de los extremos absolutos, el procedimiento para calcularla es similar sólo que en este caso calcularemos $\lim_{x\to a^+}f(x)$ y $\lim_{x\to b^-}f(x)$.
+\subsubsection{Teorema de Rolle}
+\begin{itemize}[label=\color{red}\textbullet, leftmargin=*]
+	\item \color{lightblue}Teorema
+\end{itemize}
+Sea $f:[a,~b]\rightarrow\mathbb{R}$ continua y derivable en $(a,~b)$. Si $f(a)=f(b)$ entonces existe $c\in(a,~b)$ tal que $f'(c)=0$.
+
+El teorema de Rolle es importante a la hora de la búsqueda de raíces de funciones derivables, pues entre dos de ellas la derivada de la función a la que buscamos las raíces se tiene que anular. Por otro lado, mostraremos con los siguientes ejemplos, que las hipótesis no se pueden debilitar.
+\begin{itemize}[label=\color{red}\textbullet, leftmargin=*]
+	\item \color{lightblue}Ejemplo
+\end{itemize}
+La función \[ f:\begin{array}{c}
+	[0,~1]\rightarrow\mathbb{R}\\
+	x\rightarrow f(x)=\left\lbrace\begin{array}{ll}
+		x & \text{si }0\le x<1\\
+		0 & \text{si } x=1
+	\end{array}\right.
+\end{array} \] no es continua en $[0,1]$, no es derivable en $(0,1),~f(0)=f(1)$ y sin embargo $f'(x)=1\neq0$ si $0<x<1$.
+\begin{itemize}[label=\color{red}\textbullet, leftmargin=*]
+	\item \color{lightblue}Ejemplo
+\end{itemize}
+La función \[ f:\begin{array}{c}
+	[-1,~1]\rightarrow\mathbb{R}\\
+	x\rightarrow f(x)=|x|
+\end{array} \] es continua en $[-1,~1]$, no es derivable en $(-1,1)$, ya que no lo es en $x=0$ y la derivada de f no se anula en ningún punto de $(-1,1)\backslash\{0\}$.
+\subsubsection{Teorema del valor medio de Lagrange (Teorema de los incrementos finitos)}
+\begin{itemize}[label=\color{red}\textbullet, leftmargin=*]
+	\item \color{lightblue}Teorema de los incrementos finitos de Lagrange
+\end{itemize}
+Sea $f:[a,~b]\rightarrow\mathbb{R}$ una función continua en $[a.b]$ y derivable en $(a,b)$. Entonces existe al menos un punto $c\in(a,b)$ tal que se verifica \[ f(b)-f(a)=f'(c)\cdot(b-a). \]
+Como aplicación obtenemos la caracterización de las funciones constantes.
+\begin{itemize}[label=\color{red}\textbullet, leftmargin=*]
+	\item \color{lightblue}Proposición
+\end{itemize}
+Sea $f$ una función definida y derivable en un intervalo \\
+$(a,~b)$ y tal que $f'(x)=0$ para cada $x\in(a,~b)$ entonces $f(x)=K$ para cada $x\in(a,~b)~(K\in\mathbb{R})$. Recíprocamente si $f$ es una constante entonces $f'(x)=0$ para cada $x\in(a,~b)$.
+\subsubsection{Aplicación: Separación de raíces de una ecuación $f(x)=0$}
+Sea $f:(a,~b)\rightarrow\mathbb{R}$ derivable en $(a,b)$. Entonces:
+\begin{enumerate}[label=\arabic*)]
+	\item Entre cada dos raíces de $f(x)=0$ existe al menos una raíz de $f'(x)=0$.
+	\item Entre dos raíces consecutivas de $f'(x)=0$ existe  a lo sumo una raíz de $f(x)=0$.
+\end{enumerate}
+\subsubsection{Aplicación: Desigualdades}
+\textcolor{lightblue}{Usar el teorema de los incrementos finitos para probar la desigualdad $e^x\le1+x$ para cada $x\in\mathbb{R}$.}
+
+Para $x=0$ se tiene desigualdad $e^0=1+x$. Supongamos que $x>0$, utilizando el teorema de los incrementos finitos de Lagrange en el intervalo $[0,~x]$ sobre la función $f(x)=e^x$ tenemos que $f(x)-f(0)=f'(x)\cdot(x-0)$, es decir, $e^x-1=e^c\cdot(x-0)>0$ puesto que la función exponencial es estrictamente creciente. Así $e^x>x+1$. De forma similar se demuestra el caso en el que $x<0$.
+\subsubsection{Aplicación: Cálculos aproximado, acotación de valores}
+\textcolor{lightblue}{Calcular de forma aproximada el valor de $\sqrt{105}$}
+
+Consideramos la función $f(x)=\sqrt{x}$ y el intervalo $[100,105]$. Aplicamos el teorema de los incrementos finitos de Lagrange en dicho intervalo y obtenemos \[ f(105)-f(100)=\dfrac{1}{2\sqrt{c}}(105-100), \] es decir, \[ \sqrt{105}10=\dfrac{1}{2\sqrt{c}} \cdot5\]
+Por otra parte la función $f(x)$ es creciente, así $10<\sqrt{c}<\sqrt{105}<\sqrt{121}=11$, y \[ \dfrac{5}{2\cdot11} <\sqrt{105}-10<\dfrac{5}{2\cdot10}.\]
+Se sigue entonces que $10.22<\sqrt{105}<10.25$.
+\subsection{Regla de L'Hôpital}
+Esta regla permite, directamente o con ligeras modificaciones, calcular límites en indeterminaciones de los tipos $\dfrac{0}{0},~\dfrac{\infty}{\infty},~0\cdot\infty,~1^\infty,~\infty^0,~0^0,~\infty-\infty$.
+\begin{itemize}[label=\color{red}\textbullet, leftmargin=*]
+	\item \color{lightblue}Proposición
+\end{itemize}
+Sean $f$ y $g$ dos funciones derivables en un intervalo abierto que contiene a $x_0$. Si \[ \lim_{x\to0}f(x)=\lim_{x\to0}g(x)=0 \] (resp. $\lim_{x\to x_0}f(x)=\lim_{x\to x_0}g(x)=\infty$) y existe el límite \[ \lim_{x\to x_0}\dfrac{f'(x)}{g'(x)}, \] entonces: \[ \lim_{x\to x_0}\dfrac{f(x)}{g(x)}=\lim_{x\to x_0}\dfrac{f'(x)}{g'(x)}. \]
+Esta regla tiene un análogo cuando calculamos límites en $\pm\infty$, es el siguiente.
+
+\textcolor{lightblue}{Regla de Bernoulli-L'Hôpital}
+
+Sean $f$ y $g$ dos funciones derivables en la semirrecta $(a,+\infty)$ (resp. $(-\infty,~a)$). Si \[ \lim_{x\to+\infty}f(x)=\lim_{x\to+\infty}0 \text{ o } \lim_{x\to+\infty}f(x)=\lim_{x\to+\infty}g(x)=\infty \] (resp. $\lim_{x\to-\infty}f(x)=\lim_{x\to-\infty}g(x)=0$ o $\lim_{x\to-\infty}f(x)=\lim_{x\to-\infty}g(x)=\infty$) y existe el límite \[ \lim_{x\to+\infty}\dfrac{f'(x)}{g'(x)} \] $\left(\text{resp. }\dfrac{f'(x)}{g'(x)}\right)$, entonces: \[ \lim_{x\to+\infty}\dfrac{f(x)}{g(x)}=\lim_{x\to+\infty}\dfrac{f'(x)}{g'(x)}~\left(\text{resp. }\lim_{x\to-\infty}\dfrac{f(x)}{g(x)}=\lim_{x\to-\infty}\dfrac{f'(x)}{g'(x)}\right) \]
+La regla de L'Hôpital no resuelve todas las indeterminaciones que se pueden presentar, por ejemplo, si se aplica L'Hôpital al límite $\lim_{x\to\infty}\dfrac{x^2-\sin^2(x)}{x^2\cdot\sin^2(x)}$ no desaparece la  indeterminación, es más, el nuevo límite que aparece es más complicado que el primero y el primero también se resuelve por L'Hôpital. Por otro lado, es importante tener en cuenta que, a veces, existe el límite $\lim_{x\to x_0}\dfrac{f(x)}{g(x)}$ y no el límite $\lim_{x\to x_0}\dfrac{f'(x)}{g'(x)}$, un ejemplo de este caso se obtiene tomando $f(x)=x^2\sin\left(\dfrac{1}{x}\right),~g(x)=\sin(x)$ y $x_0=0$.
+\subsection{Aproximación local de funciones mediante polinomios}
+\subsubsection{Polinomio de Taylor de grado $n$}
+Abordaremos el problema de la aproximación de funciones reales por polinomios. La idea es la siguiente: dada una función real, por ejemplo $f(x)=e^x$, se conocen ciertos aspectos de dicha función como que es continua y derivable, su gráfica aproximada, etc $\hdots$ Sin embargo, si queremos calcular el valor de $e^{\frac{1}{2}}$ nos encontraremos con que no sabemos calcular dicho valor. Si la función pudiera sustituirse por el polinomio $P(x)$, y el error que se cometiera en dicha aproximación fuera pequeño, podríamos tomar $P\left(\frac{1}{2}\right)$ como un valor aproximado de $e^{\frac{1}{2}}$.
+
+Esto puede hacerse de una manera local siempre que la función que estemos considerando cumpla ciertas condiciones de derivabilidad.
+
+\begin{itemize}[label=\color{red}\textbullet, leftmargin=*]
+	\item \color{lightblue} Fórmula de Taylor
+\end{itemize}
+Sea $f:(a,~b)\rightarrow\mathbb{R}$ una función de clase $C^k$ y $x_0\in(a,~b)$. Entonces: \[ f(x)=f(x_0)+f'(x_0)(x-x_0)+\cdots+\dfrac{f^k(x_0)}{k!}(x-x_0)^k+R_k(x-x_0), \]
+Donde $R_k(x-x_0)$ es el término del error que puede presentar diferentes formas y tal que \[ \lim_{x\to x_0}\dfrac{R_{k}(x-x_0)}{(x-x_0)^k}=0. \]
+Llamamos polinomio de Taylor de grado $k$ a \[ P_{k-1,f,x_0}(x)=f(x_0)+f'(x_0)(x-x_0)+\dfrac{1}{2!}f''(x_0)(x-x_0)^2+\cdots+\dfrac{1}{k!}x_0f^k(x_0)(x-x_0) \]
+En el caso en el que $x_0=0$ a la fórmula de Taylor se le llama fórmula de McLaurin.
+
+El error cometido en la aproximación también llamado resto, puede estimarse estudiante $R_k(x-x_0)$. La fórmula más usual de hacer esta estimación es usando la fórmula del resto de Lagrange: \[ R_k(x-x_0)=\dfrac{f^k(c)}{k!}(x-x_0)^k \]
+Donde $c$ es un número indeterminado de depende de cada valor $x$ y pertenece al intervalo abierto $(x_0-|x_0-x|,~x_0+|x_0+x|)$. Otra forma de expresar el término complementario o resto es la forma infinitésimas: \begin{center}
+	$R_k(x-X_0)=\alpha(x)(x-x_0)^k$, donde $\lim_{x\to x_0}\alpha(x)=0$.
+\end{center}
+Por ejemplo, en nuestro caso el polinomio de grado 3 de $e^x$ es \[ P_3(x)=1+x+\dfrac{x^2}{2}+\dfrac{x^3}{6} \]$P_3\left(\dfrac{1}{2}\right)=1.64583$ valor aproximado de $e^{\frac{1}{2}}$ con un error \[ R_4\left(\dfrac{1}{2}\right)=\dfrac{1}{24}e^c\dfrac{1}{24} \]
+Donde $c\in\left(-\dfrac{1}{2},~\dfrac{1}{2}\right)$. Como $e^x\le 2$ en $\left(-\dfrac{1}{2},~\dfrac{1}{2}\right)$, una acotación del error será \[ E\le\left|R_4\left(\dfrac{1}{2}\right)\right| \le\dfrac{1}{24}\cdot\dfrac{1}{2^3}=\dfrac{1}{384}=2.6042\cdot10^{-3}\]
+
+\textcolor{lightblue}{\underline{Aplicaciones de la fórmula de Taylor}}
+\begin{enumerate}[label=\arabic*)]
+	\item El cálculo de expresiones con una acotación del error.
+	\item Cálculo de límites
+\end{enumerate}
+Veamos algunos ejemplos de las aplicaciones.
+
+{\color{lightblue}Determinar el polinomio que aproxima a la función $f(x)=\sin(x)$ con un error menor que 0.001 en el intervalo $[-2,~2]$ }
+
+El error viene determinado por el resto, así debemos calcular en este caso $n$ tal que \[ \left|R_{n,0,x}\right| =\left|\dfrac{1}{(n+1)!}f^{n+1}(c)x^{n+1}\right|\le0.001\]
+Calculamos las derivadas de $f(x)=\sin(x)\cdot f'(x)=\cos(x)=\sin\left(x+\dfrac{\pi}{2}\right)$, $f''(x)=\sin\left(x+\dfrac{2\pi}{2}\right),~f'''(x)=\sin\left(x+\dfrac{3\pi}{2}\right),~f^{\mathrm{IV}}(x)=\sin\left(x+\dfrac{4\pi}{2}\right),\hdots,$ así tenemos que $f^n=\sin\left(x+\dfrac{n\pi}{2}\right)$. Acotamos el resto \[ \left|\dfrac{1}{(n+1)!}\sin\left(x+\dfrac{(n+1)\pi}{2}\right)\right| \cdot|x|^{n+1}\le\dfrac{1}{(n+1)!}2^{n+1}\le0.001\]
+Esta desigualdad se verifica para $n=10$. Así que tomaremos el polinomio de Taylor de grado nueve. Evaluamos la fórmula de Taylor y tenemos que \[ \sin(x)=x-\dfrac{x^3}{6}+\dfrac{x^5}{5!}-\dfrac{x^7}{7!}+\dfrac{x^9}{9!} \]
+
+\textcolor{lightblue}{\underline{Aplicación de la fórmula de Taylor al cálculo de límites}}
+
+\begin{itemize}[label=\color{red}\textbullet, leftmargin=*]
+	\item \color{lightblue}Calcular $\lim_{x\to0}\dfrac{\sin(x^3)-\tan(x^3)}{x^9}$
+\end{itemize}
+Calculamos los desarrollos limitados de las funciones $\sin(x^3)$ y $\tan(x^3)$ \[ \begin{array}{c}
+	\sin(x)=x-\dfrac{x^3}{3!}+o(x^3)\\
+	\sin(x^3)=x^3-\dfrac{x^9}{3!}+o(x^9)
+\end{array} \]
+De forma análoga tenemos que \[ \begin{array}{c}
+	\tan(x)=x+\dfrac{x^3}{3}+0(x^3)\\
+	\tan(x^3)=x^3+\dfrac{x^9}{3!}+0(x^9)\\
+\end{array} \]
+Sustituyendo en la expresión tenemos que \[ \lim_{x\to0}\dfrac{x^3-\dfrac{x^9}{3!}+o(x^9)-x^3-\dfrac{x^9}{3}-o(x^9)}{x^9}=-\dfrac{1}{2}. \]
+
+\textcolor{lightblue}{\underline{El método de Newton}}
+
+Método iterativo para el cálculo de raíces de funciones. La fórmula viene dada por \[ x_{n+1}=x_n-\dfrac{f(x_n)}{f'(x_n)} \]
+\subsubsection{Interpolación}
+\begin{itemize}[label=\color{red}\textbullet, leftmargin=*]
+	\item \color{lightblue}Definición
+\end{itemize}
+Dada  una función $f:\mathbb{R}\rightarrow\mathbb{R}$ de la cual conocemos el valor de $n+1$ puntos $\{x_0,\hdots,x_n\}$, es decir, conocemos \[ \{f(x_0),\hdots,f(x_n)\}, \] entonces existe un único polinomio $P_n(x)$ de grado a lo sumo $n$ tal que $P_n(x_i)=f(x_i)$ para $i=0,1,\hdots,n$.
+
+El polinomio $P_n(x)$ recibe el nombre de polinomio interpolador de $f$ en los puntos $x_i$ para $i=0,\hdots,n$ la expresión de $P_n(x)$ viene dada por: \begin{center}
+	\fbox{$P_n(x)=\sum_{i=0}^{n}f(x_i)\cdot\dfrac{(x-x_0)(x-x_1))\cdots(x-x_{i-1})(x-x_{i+1})\cdots(x-x_n)}{(x_i-x_0)(x_i-x_1))\cdots(x_i-x_{i-1})(x_i-x_{i+1})\cdots(x_i-x_n)}.$}
+\end{center}
+Además, si $x$ es un número real arbitrario y la función $f$ es derivable $n+1$ veces, se verifica que el error cometido en la aproximación, viene dado por \[ f(x)-P_n(x)=E_n(x)=\dfrac{f^{n+1}(c(x))}{(n+1)!}(x-x_0)\cdot(x-x_1)\cdot~\cdots~\cdot(x-x_n), \]
+Donde $c(x)$ es una función que toma valores en el intervalo $(m,~M)$, donde $m=\min\{x_i:i=0,\hdots,n\}$ y $M=\max\{x_i:i=0,\hdots,n\}$.
+
+\textcolor{lightblue}{\underline{Representación gráfica de funciones}}
+
+Elementos para la representación gráfica de funciones:
+\begin{enumerate}[label=\arabic*)]
+	\item Dominio de definición
+	\item Simetrías
+	\item Periodicidad
+	\item Puntos de corte con los ejes
+	\item Cálculo de asíntotas
+	\item Crecimiento y decrecimiento\item Cálculo de extremos relativos
+	\item Concavidad y convexidad
+	\item Puntos de inflexión
+	\item Puntos donde la función no es continua o derivable
+\end{enumerate}
+\textcolor{lightblue}{\underline{Cálculo de asíntotas}}
+
+\begin{itemize}[label=\color{red}\textbullet, leftmargin=*]
+	\item {\color{lightblue}Asíntotas verticales}
+	
+	Si $\lim_{x\to a}f(x)=\pm\infty$ la recta $x=a$ es una asíntota vertical de $f(x)$.
+	
+	\item {\color{lightblue} Asíntotas horizontales}
+	
+	Si $\lim_{x\to\infty}=\lambda\in\mathbb{R}$ la recta $y=\lambda$ es una asíntota horizontal. Análogo para el caso $x$ tiende a $-\infty$.
+	
+	\item {\color{lightblue}Asíntotas oblicuas}
+	
+	Son de la forma $y=mx+n$ donde $m=\lim_{x\to\infty}\dfrac{f(x)}{x}$ y $n=\lim_{n\to\infty}(f(x)-mx)$ siendo $m\neq0,~m\neq\pm\infty,~n\neq\pm\infty$. Análogo para caso cuando x tiende a $-\infty$.
+\end{itemize}
+\textcolor{lightblue}{\underline{Concavidad y convexidad}}
+\begin{itemize}[label=\color{red}\textbullet, leftmargin=*]
+	\item \color{lightblue}Definición
+\end{itemize}
+Sea $f$ una función derivable en un intervalo $(a,~b)$. Se dice que la función es \textit{convexa (cóncava)} en dicho intervalo si su derivada es una función creciente (decreciente) en dicho intervalo.
+\subsection{Soluciones de ecuaciones de una variable}
+\subsubsection{Newton-Raphson}
+\textcolor{lightblue}{\underline{El método de Newton}}
+
+Sea una función $f$ de clase $C([a,~b])$. Sea $x_0\in[a,~b]$ así \[ f(x)=f(x_0)+f'(x_0)(x-x_0)+\dfrac{f''(\xi)}{2}(x-x_0)^2. \]
+Tomamos valores de $x$ "suficientemente cerca" de $x_0$ y que $f(x)=0$, tenemos que \[ 0\approx f(x_0)+f'(x_0)(x-x_0), \]y así \[ x\approx x_0-\dfrac{f(x_0)}{f'(x_0)}. \]
+De donde, podemos introducir el método de Newton en el cual, con condición inicial $p_0$ construimos una sucesión de puntos \[ p_n=p_{n-1}-\dfrac{f(p_{n-1})}{f'(p_{n-1})},\quad n\ge1. \]
+\begin{itemize}[label=\color{red}\textbullet, leftmargin=*]
+	\item \color{lightblue}Teorema
+\end{itemize}
+Sea $f\in C`2([a,~b])$ y $p\in[a,~b]$ tal que $f(p)=0$ y $f'(p)\neq0$, entonces existe $\delta>0$ tal que el método de Newton genera una sucesión $(p_n)_{n=1}^\infty$ que converge a $p$ para cualquier valor $p_0\in(p-\delta,~p+\delta)$.
+
+Si sustituimos el valor de la derivada por una aproximación de la misma mediante la secante obtenemos el \textcolor{lightblue}{método de la secante}. \[ p_n=p_{n-1}-\dfrac{f(p_{n-1})(p_{n-1}-p_{n-2})}{f(p_{n-1}-p_{n-2})} \]
+Observa que en este caso necesitamos inicializar el proceso con dos datos.
+
+Para analizar el error de los métodos necesitamos previamente la siguiente definición:
+\begin{itemize}[label=\color{red}\textbullet, leftmargin=*]
+	\item \color{lightblue}Definición
+\end{itemize}
+Sea $(p_n)_n$ una sucesión de números reales que converge a $p$, con $p_n\neq p$ para cada $n\in\mathbb{N}$. Si existen constantes positivas $\lambda$ y $\alpha$ con \[ \lim_{n\to\infty}\dfrac{|p_{n-1}-p|}{|p_n-p|^\alpha}=\lambda, \] entonces $(p_n)_n$ converge a $p$ con orden $\alpha$ y una constante de error asintótica $\lambda$.
+\begin{itemize}[label=\color{red}\textbullet, leftmargin=*]
+	\item \color{lightblue}Teorema
+\end{itemize}
+Sea $p$ una solución de la ecuación $x=g(x)$ y supongamos que $g'(p)=0$ y $g''$ es continua y está estrictamente acotada por $M$ en un intervalo abierto $I$ que contiene a $p$. Entonces existe una $\delta>0$ tal que para $p_0\in[p-\delta,~p+\delta]$ la sucesión definida por $p_n=g(p_{n-1})$, cuando $n\ge1$, converge al menos con orden 2 a $p$. Además, para valores suficientemente grandes de $n$ se tiene que \[ |p_{n+1}-p|<\dfrac{M}{2}|p_n-p|^2. \]
+\begin{itemize}[label=\color{red}\textbullet, leftmargin=*]
+	\item \color{lightblue}Teorema (Convergencia local)
+\end{itemize}
+Sea $f''$ continua y $f'$ no nula en algún intervalo abierto que contenga la raíz de $f(x)=0$. Entonces, existe $\epsilon>0$ tal que el método de Newton es convergente para todo $x_0$ tal que $|x_0-r|\le\epsilon$. Además, si $f'''$ es continua la convergencia es, al menos, cuadrática.
+\begin{itemize}[label=\color{red}\textbullet, leftmargin=*]
+	\item \color{lightblue}Teorema (Convergencia global)
+\end{itemize}
+Sea $f\in C^2([a,~b])$ tal que:
+\begin{enumerate}[label=\arabic*)]
+	\item $f(a)\cdot f(b)<0$
+	\item Para cada $x\in[a,~b]$ es $f'(x)\neq0$ (estrictamente monótona)
+	\item Para cada $x\in(a,~b)$ es $f''(x)\ge0$ (o $f''(x)\le0$ para todo $x\in(a,~b)$ concavidad en el mismo sentido).
+\end{enumerate}
+Entonces, si existe una única raíz de $r$ de la ecuación $f(x)=0$ en $[a,~b]$ y la sucesión $(x_n)_n$ definida por el algoritmo  de Newton converge hacia $r$ para todo $x_0\in[a,~b]$ tal que $f(x_0)\cdot f''(x_0)>0$. Si además $f\in C^3([a,~b])$ la convergencia es, al menos, cuadrática.
