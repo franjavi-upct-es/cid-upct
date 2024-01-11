@@ -35,3 +35,20 @@ class ArrayQueue:
         if self.is_empty():
             raise Empty('Queue is empty')
         return self._data[self._front]
+
+if __name__ == '__main__':
+    S = ArrayQueue()
+    S.enqueue(5)
+    S.enqueue(3)
+    print(S.dequeue())
+    S.enqueue(2)
+    S.enqueue(8)
+    print(S.dequeue())
+    print(S.dequeue())
+    S.enqueue(9)
+    S.enqueue(1)
+    print(S.dequeue())
+    print(S.dequeue())
+    S.enqueue(4)
+    print(S.dequeue())
+    print(S.dequeue())
