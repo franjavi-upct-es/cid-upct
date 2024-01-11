@@ -70,3 +70,5 @@ if __name__ == '__main__':
     print(fraccion3.__le__(fraccion1))
     print(fraccion5.__ge__(fraccion2))
     print(fraccion2.__ne__(fraccion7))
+
+    print(Fraccion(1, 4).__sub__(Fraccion(1, 4)))
