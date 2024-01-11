@@ -34,13 +34,29 @@ class ArrayStack:
         self._top -= 1
         return answer
 
+    def __str__(self):
+        return str(self._data)
+
 if __name__ == '__main__':
-    s = ArrayStack(10)
-    for i in range(10):
-        s.push(i)
-    print(s.top())
-    print(s.pop())
-    print(s.is_empty())
-    print(len(s))
-    print(s.top())
-    print(s.pop())
+    S = ArrayStack(4)
+    S.push(5)
+    S.push(3)
+    print(f'{S}')
+    print(S.pop())
+    S.push(2)
+    S.push(8)
+    print(f'{S}')
+    print(S.pop())
+    print(S.pop())
+    S.push(9)
+    S.push(1)
+    print(f'{S}')
+    print(S.pop())
+    S.push(7)
+    S.push(6)
+    print(S.pop())
+    S.push(4)
+    print(f'{S}')
+    print(S.pop())
+    print(S.pop())
+    print(f'{S}')
