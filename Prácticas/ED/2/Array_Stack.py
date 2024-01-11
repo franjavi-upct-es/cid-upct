@@ -49,3 +49,4 @@ if __name__ == '__main__':
     S.push(6)
     S.push(8)
     print(S.pop())
+    print(f'[{S}]')
