@@ -48,4 +48,4 @@ if __name__ == '__main__':
     print(S.pop())
     S.push(6)
     S.push(8)
-    S.pop()
+    print(S.pop())
