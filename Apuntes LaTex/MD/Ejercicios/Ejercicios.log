@@ -1,11 +1,11 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (MiKTeX 23.10.12) (preloaded format=pdflatex 2023.10.17)  13 DEC 2023 17:18
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (MiKTeX 23.10) (preloaded format=pdflatex 2024.1.2)  12 JAN 2024 16:47
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
 **./Ejercicios.tex
 (Ejercicios.tex
 LaTeX2e <2023-06-01> patch level 1
-L3 programming layer <2023-10-10>
+L3 programming layer <2023-08-29>
 (C:\Users\fcoja\AppData\Local\Programs\MiKTeX\tex/latex/base\article.cls
 Document Class: article 2023/05/17 v1.4n Standard LaTeX document class
 (C:\Users\fcoja\AppData\Local\Programs\MiKTeX\tex/latex/base\size12.clo
@@ -779,15 +779,15 @@ Package: mdframed 2013/07/01 1.9b: mdframed
 (C:\Users\fcoja\AppData\Local\Programs\MiKTeX\tex/latex/l3packages/xparse\xpars
 e.sty
 (C:\Users\fcoja\AppData\Local\Programs\MiKTeX\tex/latex/l3kernel\expl3.sty
-Package: expl3 2023-10-10 L3 programming layer (loader) 
+Package: expl3 2023-08-29 L3 programming layer (loader) 
 
 (C:\Users\fcoja\AppData\Local\Programs\MiKTeX\tex/latex/l3backend\l3backend-pdf
 tex.def
-File: l3backend-pdftex.def 2023-10-10 L3 backend support: PDF output (pdfTeX)
+File: l3backend-pdftex.def 2023-04-19 L3 backend support: PDF output (pdfTeX)
 \l__color_backend_stack_int=\count336
 \l__pdf_internal_box=\box129
 ))
-Package: xparse 2023-10-10 L3 Experimental document command parser
+Package: xparse 2023-08-29 L3 Experimental document command parser
 )
 (C:\Users\fcoja\AppData\Local\Programs\MiKTeX\tex/latex/zref\zref-abspage.sty
 Package: zref-abspage 2023-09-14 v2.35 Module abspage for zref (HO)
@@ -1443,7 +1443,7 @@ File: biblatex.cfg
 Package biblatex Info: Input encoding 'utf8' detected.
 Package biblatex Info: Document encoding is UTF8 ....
 Package biblatex Info: ... and expl3
-(biblatex)             2023-10-10 L3 programming layer (loader) 
+(biblatex)             2023-08-29 L3 programming layer (loader) 
 (biblatex)             is new enough (at least 2020/04/06),
 (biblatex)             setting 'casechanger=expl3'.
 
@@ -1817,107 +1817,108 @@ File: ursfs.fd 1998/03/24 rsfs font definition file (jk)
 
 {C:/Users/fcoja/AppData/Local/MiKTeX/fonts/map/pdftex/pdftex.map}] [2]
 [3] [4] [5] [6] [7] [8] [9] [10] [11] [12] [13] [14] [15] [16] [17] [18]
-Overfull \hbox (6.10103pt too wide) in paragraph at lines 804--805
+[19] [20]
+Overfull \hbox (6.10103pt too wide) in paragraph at lines 859--860
 []\OT1/cmr/m/n/12 Supongamos que la f^^Sormula es cierta para $\OML/cmm/m/it/12
  n \OT1/cmr/m/n/12 = \OML/cmm/m/it/12 k$\OT1/cmr/m/n/12 , es de-cir, $1[] + 2[]
  + 3[] + [] + \OML/cmm/m/it/12 k[] \OT1/cmr/m/n/12 = []$. 
  []
 
-[19] [20] [21] [22]
-<Imágenes/Grafos 1.20.drawio.png, id=270, 500.87125pt x 130.4875pt>
+[21] [22] [23] [24]
+<Imágenes/Grafos 1.20.drawio.png, id=282, 500.87125pt x 130.4875pt>
 File: Imágenes/Grafos 1.20.drawio.png Graphic file (type png)
 <use Imágenes/Grafos 1.20.drawio.png>
-Package pdftex.def Info: Imágenes/Grafos 1.20.drawio.png  used on input line 9
-49.
+Package pdftex.def Info: Imágenes/Grafos 1.20.drawio.png  used on input line 1
+004.
 (pdftex.def)             Requested size: 500.87001pt x 130.48717pt.
-<Imágenes/Grafos 1.21.drawio.png, id=272, 303.1325pt x 142.5325pt>
+<Imágenes/Grafos 1.21.drawio.png, id=284, 303.1325pt x 142.5325pt>
 File: Imágenes/Grafos 1.21.drawio.png Graphic file (type png)
 <use Imágenes/Grafos 1.21.drawio.png>
-Package pdftex.def Info: Imágenes/Grafos 1.21.drawio.png  used on input line 9
-64.
+Package pdftex.def Info: Imágenes/Grafos 1.21.drawio.png  used on input line 1
+019.
 (pdftex.def)             Requested size: 303.13176pt x 142.53214pt.
- [23 <./Imágenes/Grafos 1.20.drawio.png> <./Imágenes/Grafos 1.21.drawio.png>]
-<Imágenes/Grafos 1.22.drawio.png, id=294, 242.9075pt x 142.5325pt>
+ [25 <./Imágenes/Grafos 1.20.drawio.png> <./Imágenes/Grafos 1.21.drawio.png>]
+<Imágenes/Grafos 1.22.drawio.png, id=307, 242.9075pt x 142.5325pt>
 File: Imágenes/Grafos 1.22.drawio.png Graphic file (type png)
 <use Imágenes/Grafos 1.22.drawio.png>
-Package pdftex.def Info: Imágenes/Grafos 1.22.drawio.png  used on input line 9
-78.
+Package pdftex.def Info: Imágenes/Grafos 1.22.drawio.png  used on input line 1
+033.
 (pdftex.def)             Requested size: 242.90689pt x 142.53214pt.
-<Imágenes/Grafos 1.23.drawio.png, id=295, 620.3175pt x 199.74625pt>
+<Imágenes/Grafos 1.23.drawio.png, id=308, 620.3175pt x 199.74625pt>
 File: Imágenes/Grafos 1.23.drawio.png Graphic file (type png)
 <use Imágenes/Grafos 1.23.drawio.png>
-Package pdftex.def Info: Imágenes/Grafos 1.23.drawio.png  used on input line 9
-84.
+Package pdftex.def Info: Imágenes/Grafos 1.23.drawio.png  used on input line 1
+039.
 (pdftex.def)             Requested size: 526.376pt x 169.49556pt.
-<Imágenes/Grafos 1.24.drawio.png, id=296, 178.6675pt x 98.3675pt>
+<Imágenes/Grafos 1.24.drawio.png, id=309, 178.6675pt x 98.3675pt>
 File: Imágenes/Grafos 1.24.drawio.png Graphic file (type png)
 <use Imágenes/Grafos 1.24.drawio.png>
-Package pdftex.def Info: Imágenes/Grafos 1.24.drawio.png  used on input line 9
-94.
+Package pdftex.def Info: Imágenes/Grafos 1.24.drawio.png  used on input line 1
+049.
 (pdftex.def)             Requested size: 178.66705pt x 98.36723pt.
 File: Imágenes/Grafos 1.24.drawio.png Graphic file (type png)
 <use Imágenes/Grafos 1.24.drawio.png>
 Package pdftex.def Info: Imágenes/Grafos 1.24.drawio.png  used on input line 1
-001.
+056.
 (pdftex.def)             Requested size: 178.66705pt x 98.36723pt.
 
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-[24 <./Imágenes/Grafos 1.22.drawio.png> <./Imágenes/Grafos 1.23.drawio.png> <
+[26 <./Imágenes/Grafos 1.22.drawio.png> <./Imágenes/Grafos 1.23.drawio.png> <
 ./Imágenes/Grafos 1.24.drawio.png>]
-<Imágenes/Grafos 1.26.drawio.png, id=314, 563.10374pt x 209.78375pt>
+<Imágenes/Grafos 1.26.drawio.png, id=327, 563.10374pt x 209.78375pt>
 File: Imágenes/Grafos 1.26.drawio.png Graphic file (type png)
 <use Imágenes/Grafos 1.26.drawio.png>
 Package pdftex.def Info: Imágenes/Grafos 1.26.drawio.png  used on input line 1
-015.
+070.
 (pdftex.def)             Requested size: 526.376pt x 196.11157pt.
-<Imágenes/Grafos 1.27.drawio.png, id=315, 500.87125pt x 239.89626pt>
+<Imágenes/Grafos 1.27.drawio.png, id=328, 500.87125pt x 239.89626pt>
 File: Imágenes/Grafos 1.27.drawio.png Graphic file (type png)
 <use Imágenes/Grafos 1.27.drawio.png>
 Package pdftex.def Info: Imágenes/Grafos 1.27.drawio.png  used on input line 1
-021.
+076.
 (pdftex.def)             Requested size: 500.87001pt x 239.89566pt.
 
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-[25 <./Imágenes/Grafos 1.26.drawio.png>]
-<Imágenes/16b.drawio.png, id=335, 185.69376pt x 115.43124pt>
+[27 <./Imágenes/Grafos 1.26.drawio.png>]
+<Imágenes/16b.drawio.png, id=347, 185.69376pt x 115.43124pt>
 File: Imágenes/16b.drawio.png Graphic file (type png)
 <use Imágenes/16b.drawio.png>
-Package pdftex.def Info: Imágenes/16b.drawio.png  used on input line 1050.
+Package pdftex.def Info: Imágenes/16b.drawio.png  used on input line 1105.
 (pdftex.def)             Requested size: 185.6933pt x 115.43095pt.
- [26 <./Imágenes/Grafos 1.27.drawio.png> <./Imágenes/16b.drawio.png>]
-<Imágenes/16c.drawio.png, id=345, 302.12875pt x 131.49126pt>
+ [28 <./Imágenes/Grafos 1.27.drawio.png> <./Imágenes/16b.drawio.png>]
+<Imágenes/16c.drawio.png, id=357, 302.12875pt x 131.49126pt>
 File: Imágenes/16c.drawio.png Graphic file (type png)
 <use Imágenes/16c.drawio.png>
-Package pdftex.def Info: Imágenes/16c.drawio.png  used on input line 1059.
+Package pdftex.def Info: Imágenes/16c.drawio.png  used on input line 1114.
 (pdftex.def)             Requested size: 302.128pt x 131.49092pt.
-<Imágenes/Grafos 1.28.drawio.png, id=346, 246.9225pt x 219.82124pt>
+<Imágenes/Grafos 1.28.drawio.png, id=358, 246.9225pt x 219.82124pt>
 File: Imágenes/Grafos 1.28.drawio.png Graphic file (type png)
 <use Imágenes/Grafos 1.28.drawio.png>
 Package pdftex.def Info: Imágenes/Grafos 1.28.drawio.png  used on input line 1
-063.
+118.
 (pdftex.def)             Requested size: 246.92188pt x 219.8207pt.
- [27 <./Imágenes/16c.drawio.png> <./Imágenes/Grafos 1.28.drawio.png>] [28] [2
-9] [30] [31] [32] [33]
-Overfull \hbox (9.07826pt too wide) in paragraph at lines 1357--1358
+ [29 <./Imágenes/16c.drawio.png> <./Imágenes/Grafos 1.28.drawio.png>] [30] [3
+1] [32] [33] [34] [35]
+Overfull \hbox (9.07826pt too wide) in paragraph at lines 1412--1413
 []$\OT1/cmr/m/n/12 12\OML/cmm/m/it/12 x \OMS/cmsy/m/n/12 ^^Q \OT1/cmr/m/n/12 1(
 []  5) [][]\OMS/cmsy/m/n/12 ! \OML/cmm/m/it/12 x \OMS/cmsy/m/n/12 ^^Q \OT1/cmr/
 m/n/12 12[][]  (5) = 12[]([]  5) = 12[]([]  5) = 3([]  5) [][]\OMS/cmsy/m/n/12 
 !
  []
 
-[34] [35] [36]
+[36] [37] [38]
 
 Package caption Warning: Unused \captionsetup[sub] on input line 56.
 See the caption package documentation for explanation.
 
-[37] (Ejercicios.aux)
+[39] (Ejercicios.aux)
  ***********
 LaTeX2e <2023-06-01> patch level 1
-L3 programming layer <2023-10-10>
+L3 programming layer <2023-08-29>
  ***********
 Package rerunfilecheck Info: File `Ejercicios.out' has not changed.
 (rerunfilecheck)             Checksum: 3A285444788470F677FF7F4334A03280;376.
@@ -1926,10 +1927,10 @@ Package logreq Info: Writing requests to 'Ejercicios.run.xml'.
 
  ) 
 Here is how much of TeX's memory you used:
- 51039 strings out of 474824
- 1146092 string characters out of 5750976
- 2067043 words of memory out of 5000000
- 71874 multiletter control sequences out of 15000+600000
+ 51045 strings out of 475248
+ 1146133 string characters out of 5757814
+ 2063803 words of memory out of 5000000
+ 71451 multiletter control sequences out of 15000+600000
  566631 words of font info for 72 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  84i,14n,131p,1201b,854s stack positions out of 10000i,1000n,20000p,200000b,200000s
@@ -1947,9 +1948,9 @@ C:/Users/fcoja/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/latxfo
 nt/line10.pfb><C:/Users/fcoja/AppData/Local/Programs/MiKTeX/fonts/type1/public/
 amsfonts/symbols/msam10.pfb><C:/Users/fcoja/AppData/Local/Programs/MiKTeX/fonts
 /type1/public/amsfonts/symbols/msbm10.pfb>
-Output written on Ejercicios.pdf (37 pages, 290072 bytes).
+Output written on Ejercicios.pdf (39 pages, 294310 bytes).
 PDF statistics:
- 588 PDF objects out of 1000 (max. 8388607)
- 303 named destinations out of 1000 (max. 500000)
+ 600 PDF objects out of 1000 (max. 8388607)
+ 308 named destinations out of 1000 (max. 500000)
  95 words of extra memory for PDF output out of 10000 (max. 10000000)
 

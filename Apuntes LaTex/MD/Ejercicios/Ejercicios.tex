@@ -458,6 +458,13 @@ bottom=1.5cm]{geometry}
             \item $\db{q\to r}$
             \item $\db{p}$
       \end{enumerate}
+      
+      Para deducir $r$ primero vamos a comprobar los datos que nos dan: 
+      \begin{itemize}[label=$-$]
+      \item Nos dicen que $p$ es verdad, por lo tanto para que $p\longrightarrow q$ sea verdad, $q$ debe ser verdad.
+      \item Ahora que sabemos que $q$ es verdad, entonces para que $q\longrightarrow r$ sea verdad, $r$ tiene que ser verdad.
+      \end{itemize}
+      Con esto deducimos que $r$ es verdad.
       \item \lb{Demostrar $p\wedge q\to r$ a partir de la premisa $p\to(q\to r)$.}
       \item \lb{Demostrar $\neg q$ a partir de las siguientes premisas:}
       \begin{enumerate}[label=\color{red}\alph*)]
@@ -551,8 +558,33 @@ bottom=1.5cm]{geometry}
       \item \lb{Dado el conjunto universo $X=\{1,2,3\}$ en el que toman sus valores dos variables, $x$ e $y$, determinar la veracidad de las siguientes proposiciones:}
       \begin{enumerate}[label=\color{red}\alph*)]
             \item $\db{\exists x\:\forall y\;(x^2<y+1)}$
+            
+            Vamos a comprobarlo:
+            \begin{itemize}[label=$-$]
+            \item $x=1, y=1\longrightarrow 1^2<1+1\longrightarrow1<2 \lb{\checkmark}$
+            \item $x=1, y=2\longrightarrow 1^2<2+1\longrightarrow 1<3\lb{\checkmark}$
+            \item $x=1,y=3\longrightarrow 1^2<3+1\longrightarrow1<4\lb{\checkmark}$
+            \end{itemize}
+            Este argumento es verdadero
             \item $\db{\forall x\:\exists y\;(x^2+y^2<12)}$
+            
+            Vamos a comprobarlo:
+            \begin{itemize}[label*=$-$]
+            \item $x=1,y=1\longrightarrow 1^2+1^2<12\longrightarrow 2<12\lb{\checkmark}$
+            \item $x=2,y=1\longrightarrow 2^2+1^2<12\longrightarrow 5<12\lb{\checkmark}$
+            \item $x=3,y=1\longrightarrow 3^2+1^2<12\longrightarrow10<12\lb{\checkmark}$
+            \end{itemize}
+            Este argumento es verdadero.
             \item $\db{\forall x\:\forall y\;(x^2+y^2<12)}$
+            
+            Vamos a comprobarlo:
+            \begin{itemize}[label=$-$]
+            \item $x=1,y=1\longrightarrow 1^2+1^2<12\longrightarrow2<12\lb{\checkmark}$
+            \item $x=2,y=2\longrightarrow 2^2+2^2<12\longrightarrow8<12\lb{\checkmark}$
+            \item $x=3,y=3\longrightarrow 3^2+3^2<12\longrightarrow18\nless12~\rc{\times}$
+            \end{itemize}
+            
+            Este argumento es falso.
       \end{enumerate}
       \item \lb{Negar cada una de las siguientes proposiciones:}
       \begin{enumerate}[label=\color{red}\alph*)]
@@ -571,6 +603,29 @@ bottom=1.5cm]{geometry}
             \item $\db{\forall x\;P(x)\longleftrightarrow Q(x)}$
             \item $\db{P(a)\vee Q(b)}$
       \end{enumerate}
+      
+      Para deducir $\exists x\;P(x) \wedge Q(x)$ a partir de las premisas dadas, podemos seguir los siguientes pasos de razonamiento:
+      
+      \begin{enumerate}[label=\arabic*)]
+      \item  Dada la premisa $\forall x\;P(x) \longleftrightarrow Q(x)$, podemos usar la propiedad de equivalencia bicondicional para obtener dos implicaciones:
+         \begin{align*}
+\forall x\;P(x) \longrightarrow Q(x) \\
+Q(x) \longrightarrow \forall x\;P(x)
+         \end{align*}
+      
+      \item Ahora, analicemos la premisa $P(a) \vee Q(b)$:
+        \begin{itemize}[label=$-$]
+         \item  Si $P(a)$ es verdadero, entonces, por la segunda implicación obtenida en el paso 1, tenemos $\forall x\;P(x)$. Esto cumple con la condición $\exists x\;P(x)$.
+         \item  Si $Q(b)$ es verdadero, entonces, por la primera implicación obtenida en el paso 1, tenemos $\forall x\;P(x) \longrightarrow Q(x)$. Como ya sabemos que $Q(b)$ es verdadero, esto implica que existe al menos un $x$ para el cual $P(x)$ también es verdadero. Esto cumple con la condición $\exists x\;P(x)$.
+        \end{itemize}
+      
+      \item  En ambos casos, hemos demostrado que $\exists x\;P(x)$. Ahora, analicemos la condición $\exists x\;P(x) \wedge Q(x)$:
+         \begin{itemize}[label=$-$]
+         \item  Si $\exists x\;P(x)$ es verdadero, entonces, como ya hemos establecido que $\forall x\;P(x) \longleftrightarrow Q(x)$, también se cumple $\exists x\;Q(x)$. En otras palabras, hemos demostrado $\exists x\;P(x) \wedge Q(x)$.
+         \end{itemize}
+      \end{enumerate}
+      
+      En resumen, hemos deducido $\exists x\;P(x) \wedge Q(x)$ a partir de las premisas dadas.
       \item \lb{Deducir $\exists x\;Q(x)$ a partir de las siguientes premisas:}
       \begin{enumerate}[label=\color{red}\alph*)]
             \item $\db{\forall x\:\exists y\;P(y)\longrightarrow Q(x)}$
@@ -1450,3 +1505,4 @@ bottom=1.5cm]{geometry}
 	\end{enumerate}
 \end{enumerate}
 \end{document}
+

@@ -4,8 +4,10 @@ def patata_caliente(niños):
 
     cola = deque(niños)
     
+    print("Presiona Enter para pasar el item al siguiente niño ('p' para parar el juego): ")
+    
     while len(cola) > 1:
-        print("Presiona Enter para pasar el item al siguiente niño ('p' para parar el juego): ")
+        
 
         accion = input()
 
