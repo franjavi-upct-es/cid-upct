@@ -95,6 +95,10 @@ bottom=1.5cm]{geometry}
 \DeclareMathOperator{\K}{\mathbb{K}}
 \DeclareMathOperator{\lcm}{lcm}
 
+\renewcommand{\mod}{~\mathrm{mod}~}
+
+\newcommand{\rbinom}[2]{\dfrac{#1!}{#2!\cdot(#1-#2)!}}
+
 \renewcommand{\CancelColor}{\color{lightblue}}
 
 \begin{document}
@@ -1040,6 +1044,10 @@ Q(x) \longrightarrow \forall x\;P(x)
 		\caption*{Figura 1.23: Grafos diversos}
 	\end{figure}
 	\item \lb{Determinar cuáles de los grafos de la figura 1.23 son Eulerianos.}
+    
+    Para que un grafo sea Euleriano, $\mathrm{def}(v)$ debe ser par $\forall v\in V$.
+    
+    El único grafo euleriano es $G_2$.
 	\item \lb{Determinar cuáles de los grafos de la figura 1.23 son Hamiltonianos}
 	\item \lb{Trazar todos los árboles que hay con exactamente seis vértices.}
 	\item \lb{Encontrar todos los árboles generados del grafo de la figura 1.24.}
@@ -1425,11 +1433,53 @@ Q(x) \longrightarrow \forall x\;P(x)
 	\item \lb{Encontrar $a^{-1}$ en $\Z_m$ donde:}
 	\begin{enumerate}[label=\color{red}\alph*)]
 		\item \db{$a=37$ y $m=249$}
+        
+        $37^{-1}$ en $\Z_{249}\longrightarrow\gcd(37,249)=1$ Tiene inversa
+        
+        $\left(\begin{array}{c|cc}
+        37 & 1 & 0 \\
+        249 & 0 & 1
+        \end{array}\right)\xrightarrow{F_2-6F_1}\left(\begin{array}{c|cc}
+        37 & 1 & 0\\
+        27 & -6 & 1
+        \end{array}\right)\xrightarrow{F_1\longleftrightarrow F_2}\left(\begin{array}{c|cc}
+        27 & -6 & 1\\
+        37 & 1 & 0
+        \end{array}\right)\xrightarrow{F_2-F_1}\left(\begin{array}{c|cc}
+        27 & -6 & 1\\
+        10 & 7 &-1
+        \end{array}\right)\xrightarrow{F_1\longleftrightarrow F_2}\left(\begin{array}{c|cc}
+        10 & 7 &-1\\
+        27 & -6 & 1
+        \end{array}\right)\xrightarrow{F_2-2F_1}\left(\begin{array}{c|cc}
+        10 & 7 & -1\\
+        7 & -20 & 3
+        \end{array}\right)\xrightarrow{F_1\longleftrightarrow F_2}\left(\begin{array}{c|cc}
+        7 & -20 & 3\\
+        10 & 7 & -1
+        \end{array}\right)\xrightarrow{F_2-F_1}\left(\begin{array}{c|cc}
+        7 & -20 & 3\\
+        3 & 27 & -4
+        \end{array}\right)\linebreak\xrightarrow{F_1\longleftrightarrow F_2}\left(\begin{array}{c|cc}
+        3 & 27 & -4\\
+        7 & -20 & 3
+        \end{array}\right)\xrightarrow{F_2-2F_1}\left(\begin{array}{c|cc}
+        3 & 27 & -4\\
+        1 & -74 & 11
+        \end{array}\right)$
+        
+        $1=37\cdot(-74)+249\cdot11$
+        
+        $37^{-1}=-74\equiv175(\mod249)$
 		\item \db{$a=15$ y $m=234$}
+        
+        $\gcd(15,234)=3\neq1$ No tiene inverso
 	\end{enumerate}
 	\item \lb{Resolver si es posible las siguientes ecuaciones en $\Z_5$.}
 	\begin{enumerate}[label=\color{red}\alph*)]
 		\item $\db{3x^2-7x+1=0}$
+        
+        $x=\dfrac{7\pm\sqrt{(-7)^2-4\cdot3\cdot1}}{2\cdot3}=\dfrac{7\pm\sqrt{49-12}}{den}$
 		\item $\db{x^2+5x=1}$
 	\end{enumerate}
 	
@@ -1460,25 +1510,88 @@ Q(x) \longrightarrow \forall x\;P(x)
 		\end{array}$
 	\end{enumerate}
 	\item \lb{Encontrar el menor entero positivo $x$ tal que cuando $x$ se divide entre 3 se obtiene un resto igual a 2, cuando $x$ se divide entre 7 se obtiene un resto igual a 4 y cuando $x$ se divide entre 10 se obtiene un resto igual a 6.}
+    
+        $\begin{cases}
+        x\equiv2(\mod3)\\
+        x\equiv4(\mod7)\\
+        x\equiv6(\mod10)
+        \end{cases}\longrightarrow\begin{cases}
+        70x\equiv1(\mod3)\\
+        30x\equiv1(\mod7)\\
+        21x\equiv1(\mod10)
+        \end{cases}\longrightarrow\begin{array}{l}
+        s_1=70^{\varphi(3)-1}(\mod3)=1\\
+        s_2=30^{\varphi(7)-1}(\mod 7)=4\\
+        s_3=21^{\varphi(10)-1}(\mod10)=1
+        \end{array}$
+        
+        $x_0=2\cdot70\cdot1+4\cdot30\cdot4+6\cdot21\cdot1=746\equiv116(\mod210)$
 	\item \lb{Encontrar soluciones enteras de las siguientes ecuaciones, cuando sea posible.}
 	\begin{enumerate}[label=\color{red}\alph*)]
 		\item $\db{5x+7y=4}$
+        
+        $5x\equiv4(\mod7)\longrightarrow x\equiv5^{\varphi(7)-1}\cdot4\longrightarrow x\equiv5(\mod7)$
 		\item $\db{6x+24y=21}$
+        
+        $\begin{array}{l}
+        6x\equiv21(\mod24)\longrightarrow x\equiv6^{\varphi(24)-1}\cdot21(\mod24)\longrightarrow x\equiv 0(\mod24)\\
+        \varphi(24)=\varphi(2^3\cdot3)=\varphi(2^3)\cdot\varphi(3)=(2^3-2^2)\cdot\varphi(3)=4\cdot2=8
+        \end{array}$
 		\item $\db{14x+21y=49}$
+        
+        $14x\equiv49(\mod21)\longrightarrow14x\equiv7(\mod21)=\left\{14x\equiv\cancel{21x}-7x(\mod21)\right\}=-7x\equiv7(\mod21)\longrightarrow7x\equiv-7(\mod21)\longrightarrow7x\equiv14(\mod21)$
+        
+        $\begin{array}{l}
+        x\equiv7^{\varphi(21)-1}\cdot14(\mod21)\longrightarrow x\equiv0(\mod21)\\
+        \varphi(21)=\varphi(3)\cdot\varphi(7)=12
+        \end{array}$
+        
 	\end{enumerate}
 	\item \lb{Encontrar los inversos siguientes a partir de la función $\varphi$ de Euler:}
 	\begin{enumerate}[label=\color{red}\alph*)]
 		\item \db{$20^{-1}$ en $\Z_9$}
+        
+        $20^{\varphi(9)-1}(\mod 9)=20^5(\mod 9)=5(\mod 9)$
+        
+        $\varphi(9)=\varphi(3^2)=3^2-3=6$
 		\item \db{$7^{-1}$ en $\Z_{12}$}
+        
+        $7^{\varphi(12)-1}(\mod12)=7^3(\mod12)=7$
+        
+        $\varphi(12)=\varphi(2^2)\cdot\varphi(3)=(2^2-2)\cdot\varphi(3)=4$
 	\end{enumerate}
 	\item \lb{Resolver el siguiente sistema:\[ \begin{cases}
-			2x\equiv2(\mod 7)\\
+			2x\equiv3(\mod 7)\\
 			x\equiv 1(\mod9)\\
 			x\equiv3(\mod 8)\\
 			x\equiv0(\mod11)
 		\end{cases} \]}
 	
-	\item \lb{Probar que si son ciertas las siguientes propiedades, y si no lo son, dar un ejemplo que muestre que son falsas.}
+    $\begin{cases}
+    			x\equiv5(\mod 7)\\
+    			x\equiv 1(\mod9)\\
+    			x\equiv3(\mod 8)\\
+    			x\equiv0(\mod11)
+    		\end{cases}\longrightarrow\begin{cases}
+            			792x\equiv1(\mod 7)\\
+            			616x\equiv 1(\mod9)\\
+            			693x\equiv1(\mod 8)\\
+            			504x\equiv1(\mod11)
+            		\end{cases}\longrightarrow\begin{cases}
+                    			x\equiv1(\mod 7)\\
+                    			4x\equiv 1(\mod9)\\
+                    			5x\equiv1(\mod 8)\\
+                    			9x\equiv1(\mod11)
+                    		\end{cases}\longrightarrow\begin{array}{l}
+                            s_1=1^{\varphi(7)-1}(\mod 7)=1\\
+                            s_2=4^{\varphi(9)-1}(\mod 9)=7\\
+                            s_3=5^{\varphi(8)-1}(\mod8)=5\\
+                            s_4=9^{\varphi(11)-1}(\mod11)=5
+                            \end{array}
+                    	$
+                        
+    $x_0=5\cdot792\cdot1+1\cdot616\cdot7+3\cdot693\cdot5+\cancel{0\cdot504\cdot5}=18667\equiv2035(\mod5544)$
+   	\item \lb{Probar que si son ciertas las siguientes propiedades, y si no lo son, dar un ejemplo que muestre que son falsas.}
 	\begin{enumerate}[label=\color{red}\alph*)]
 		\item \db{Si $a|b,a|c,a|d$, entonces $a|b\cdot p+c\cdot q+d\cdot r$, donde $a,b,c,d,p,q,r\in\Z$.}
 		\item \db{Si $a|b,a|c\cdot d$ entonces $a|b\cdot k`c\cdot l$, donde $a,b,c,d,k,l\in\Z$.}
@@ -1503,6 +1616,90 @@ Q(x) \longrightarrow \forall x\;P(x)
 		\item \db{Si el uno de mayo se requirieron 224 tornillos, ¿cuántos coches se hicieron de cada modelo?}
 		\item \db{Si el primer modelo se vende por 10000 euros, mientras que el segundo se vende por 12000 euros, ¿cuántos modelos debería vender la empresa para obtener el máximo beneficio?}
 	\end{enumerate}
+\end{enumerate}
+\newpage
+\section{Combinatoria}
+\begin{enumerate}[label=\color{red}\textbf{\arabic*)}, leftmargin=*]
+	\item \lb{Calcular $\dfrac{7!}{10!}$ y $\dfrac{12!}{10!}$}
+    \begin{itemize}[label=$-$]
+    \item $\dfrac{7!}{10!}=\dfrac{1}{720}$
+    \item $\dfrac{12!}{10!}=132$
+    \end{itemize}
+    \item \lb{Simplificar $\dfrac{n!}{(n-1)!}$ y $\dfrac{(n+2)!}{n!}$}
+    \begin{itemize}[label=$-$]
+    \item $\dfrac{n!}{(n-1)!}=\dfrac{\cancel{n!}}{(n-1)\cdot\cancel{n!}}=\dfrac{1}{(n-1)}$
+    \item $\dfrac{(n-2)!}{n!}=\dfrac{\cancel{n!}\cdot(n+1)\cdot(n+2)}{\cancel{n!}}=(n+1)\cdot(n+2)=n^2+3n+2$
+    \end{itemize}
+    \item \lb{Supongamos que tenemos 5 libros de historia, 3 de sociología, 6 de antropología y 4 de psicología. Encontrar el número $n$ de posibilidades entre las que un estudiante puede escoger:}
+    \begin{enumerate}[label=\color{red}\alph*)]
+    	\item \db{Uno de los libros.}
+        
+        $n_a=5+3+6+4=18$ casos posibles.
+        \item \db{Un libro de cada tema.}
+        
+        $n_b=5\cdot3\cdot6\cdot4=360$ casos posibles.
+    \end{enumerate}
+    \item \lb{En un curso de historia hay 8 estudiantes hombres, 6 estudiantes mujeres y 2 no binarios. Encontrar los posibles casos de elegir:}
+    \begin{enumerate}[label=\color{red}\alph*)]
+    	\item \db{Un representante del curso.}
+        
+        $n_a=8+6+2=16$ casos posibles.
+        \item \db{Dos representantes del curso: un hombre y una mujer.}
+        
+        $n_b=8\cdot6=48$ casos posibles.
+        \item \db{Dos representantes del curso: una mujer y un no binario.}
+        
+        $n_c=6\cdot2=12$ casos posibles.
+        \item \db{Un presidente y un vicepresidente.}
+        
+        $n_d=$ total de estudiantes $\cdot$ (total de estudiantes $- 1$) $=(8+6+2)\cdot(8+6+2-1)=16\cdot15=240$ casos posibles
+    \end{enumerate}
+    \item \lb{Entre $A$ y $B$ hay cuatro líneas de autobuses, y entre $B$ y $C$ hay tres líneas de autobuses. Encontrar el número de formas en que una persona puede viajar en autobús:}
+    \begin{enumerate}[label=\color{red}\alph*)]
+        \item \db{De $A$ a $C$ pasando por $B$.}
+        
+        $n_a=4\cdot3=12$ posibles
+        \item \db{En viaje de ida y vuelta de $A$ a $C$ pasando por $B$.}
+        
+        $n_b=12\cdot12=144$ formas posibles
+        \item \db{En viaje de ida y vuelta de $A$ a $C$ pasando por $B$ pero sin usar una línea de autobús más de una vez.}
+        
+        $n_c=4\cdot 3\cdot(4-1)=36$ formas posibles
+    \end{enumerate}
+    \item \lb{Encontrar todas las posibles de permutaciones distintas que pueden formarse con todas las letras de las palabras PATOS, PARADAS y SOCIOLÓGICAS.}
+    \begin{itemize}[label=$-$]
+    \item PATOS $\longrightarrow n=5\longrightarrow P(n)=n!\longrightarrow P(5)=5!=120$ formas posibles.
+    \item PARADAS $\longrightarrow n=7\longrightarrow P(7)=7!=5\,040$ formas posibles.
+    \item SOCIOLÓGICAS $\longrightarrow n=12\longrightarrow P(12)=12!=479\,001\,600$ formas posibles.
+    \end{itemize}
+    
+    \item \lb{En un curso hay 16 hombre, 14 mujeres y 3 no binarios. Encuentre el número de maneras de elegir:}
+    \begin{enumerate}[label=\color{red}\alph*)]
+    	\item \db{Un comité de 4 miembros.}
+        
+        $C_a(16+14+3,\,4)=C_a(33,4)=\dbinom{33}{4}=\dfrac{33!}{4!\cdot(33-4)!}=40\,920$ formas posibles de elegir un comité de 4 personas.
+        \item \db{Un comité de 6 miembros con 2 hombres, mujeres y 2 no binarios.}
+        
+        $C_b=C_b(16,2) \cdot C(14,2)\cdot C(3,2)=\dbinom{16}{2}\cdot\dbinom{14}{2}\cdot\dbinom{3}{2}=\dfrac{16}{2!\cdot(16-2)!}\cdot\dfrac{14!}{2!\cdot(14-2)!}\cdot\dfrac{3!}{2!\cdot(3-2)!}=120\cdot91\cdot3=32\,760$
+        \item \db{Un presidente, un vicepresidente y un tesorero.}
+        
+        $n_c=n\cdot(n-1)\cdot(n-2)=33\cdot32\cdot31=32\,736$ formas de elegir un presidente, un vicepresidente y un tesorero.
+    \end{enumerate}
+    \item \lb{Una caja contiene 8 calcetines azules y 6 calcetines rojos. Encontrar el número de formas en que es posible extraer dos calcetines de la caja si:}
+    \begin{enumerate}[label=\color{red}\alph*)]
+    	\item \db{Pueden ser de cualquier color.}
+        
+        $n_a=8\cdot6=48$ formas posibles.
+        \item \db{Deben ser  del mismo color.}
+        
+        $n_b=\dbinom{8}{2}+\dbinom{6}{2}=\dfrac{8!}{2!\cdot(8-2)!}+\dfrac{6!}{2!\cdot(6-2)!}=43$ formas posibles.
+    \end{enumerate}
+    \item \lb{Encontrar el número de comités de 5 miembros con un director que es posible escoger entre un grupo de 12 personas.}
+    
+    Seleccionamos una persona del grupo de 12 como director y luego seleccionamos 4 personas de las 11 restantes para completar el comitée:
+    
+    $\dbinom{12}{1}\cdot\dbinom{11}{4}=\dfrac{12!}{1!\cdot(12-1)!}\cdot\rbinom{11}{4}=$
+    \item \lb{Encontrar el número mínimo de estudiantes necesario para garantizar que al menos cinco de ellos están en cada uno de los cursos de un grado de cuatro años.}
 \end{enumerate}
 \end{document}
 
