@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (MiKTeX 23.10) (preloaded format=pdflatex 2024.1.2)  16 JAN 2024 22:05
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (MiKTeX 23.10) (preloaded format=pdflatex 2024.1.2)  16 JAN 2024 23:13
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -2571,11 +2571,16 @@ Overfull \hbox (27.20734pt too wide) in paragraph at lines 671--672
  []
 
 ) [132] (Tareas/Ejercicios_examen.tex [133]
-Overfull \hbox (23.19696pt too wide) detected at line 133
+Overfull \hbox (83.12564pt too wide) detected at line 150
 [][]
  []
 
-[134]) [135] (AL.aux)
+[134] [135] [136]
+Overfull \hbox (175.68431pt too wide) in paragraph at lines 212--228
+[]$[] [] [] [] [] [] 
+ []
+
+[137] [138]) [139] (AL.aux)
  ***********
 LaTeX2e <2023-06-01> patch level 1
 L3 programming layer <2023-08-29>
@@ -2587,8 +2592,8 @@ Package logreq Info: Writing requests to 'AL.run.xml'.
 
  ) 
 Here is how much of TeX's memory you used:
- 54127 strings out of 475248
- 1222459 string characters out of 5757814
+ 54131 strings out of 475248
+ 1222491 string characters out of 5757814
  2104883 words of memory out of 5000000
  74249 multiletter control sequences out of 15000+600000
  573063 words of font info for 99 fonts, out of 8000000 for 9000
@@ -2619,9 +2624,9 @@ line10.pfb><C:/Users/fcoja/AppData/Local/Programs/MiKTeX/fonts/type1/public/ams
 fonts/symbols/msam10.pfb><C:/Users/fcoja/AppData/Local/Programs/MiKTeX/fonts/ty
 pe1/public/amsfonts/symbols/msam7.pfb><C:/Users/fcoja/AppData/Local/Programs/Mi
 KTeX/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
-Output written on AL.pdf (137 pages, 817799 bytes).
+Output written on AL.pdf (141 pages, 827207 bytes).
 PDF statistics:
- 1360 PDF objects out of 1440 (max. 8388607)
- 490 named destinations out of 1000 (max. 500000)
+ 1378 PDF objects out of 1440 (max. 8388607)
+ 494 named destinations out of 1000 (max. 500000)
  436 words of extra memory for PDF output out of 10000 (max. 10000000)
 
