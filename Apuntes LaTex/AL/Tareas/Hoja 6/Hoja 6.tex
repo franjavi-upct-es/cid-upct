@@ -1,5 +1,5 @@
 \begin{center}
-	\large\textbf{\rc{Hoja de ejercicios Tema 6: Transformaciones Lineales}}
+	{\large\textbf{\rc{Hoja de ejercicios Tema 6: Transformaciones Lineales}}}
 \end{center}
 \begin{enumerate}[label=\color{red}\textbf{\arabic*)}, leftmargin=*]
 	\item \lb{Comprueba que si $v=(a_1,a_2,a_3)$ es un vector fijo, entonces la aplicación $T_v:\R^3\longrightarrow\R^3$ definida por $T_v(x)=x+v$ \underline{no} es lineal. Este tipo de aplicación se llama una \textbf{traslación de vector} $v$ y no se puede representar por medio de una matriz $3\times 3$. Sin embargo, esta dificultad se soluciona aumentando en uno el tamaño de la matriz de modo que la traslación de vector $v=(a_1,a_2,a_3)$ se calcula por medio de la matriz \[ T=\begin{bmatrix}
@@ -130,17 +130,17 @@ $x=(x_1,x_2,x_3)\equiv(x_1,x_2,x_3,1)\equiv$ coordenadas homogéneas.
     \draw[lightblue, line width=1.5, -latex] (0,0,0) -- (0,0,0.5);
     \end{tikzpicture}\begin{tikzpicture}[baseline=(current bounding box.center),scale=2]
     \draw[blue, dashed] (135:1) |- (0,0);
-    \draw[blue,dashed] (125:1) -| (0,0);
+    \draw[blue,dashed] (135:1) -| (0,0);
     \draw (-1.2,0) -- (1.2,0) node[right] {$x_2$};
     \draw (0,-1.2) -- (0,1.2) node[above] {$x_3$};
-    \draw[lightblue,-latex, line width=1.5] (0,0) -- (1,0) node[below] {$e_2=(1,0)$};
-    \draw[lightblue,-latex, line width=1.5] (0,0) -- (0,1) node[right] {$e_1=(0,1)$};
+    \draw[lightblue,-latex, line width=1.5] (0,0) -- (1,0) node[below right] {$e_2=(1,0)$};
+    \draw[lightblue,-latex, line width=1.5] (0,0) -- (0,1) node[above right] {$e_1=(0,1)$};
     \draw[lightblue] (0,0) circle (1);
     \draw[blue,-latex] (0,0) -- (45:1) node[right] {$\left(\cos(\alpha),\sin(\alpha)\right)$};
     \draw[blue,-latex] (0,0) -- (135:1);
     \draw[blue] (0.2,0) arc (0:45:0.2) node[midway, right] {$\alpha$};
-    \draw[blue] (0,0.2) arc (0:45:0.2) node[midway, above] {$\alpha$};
-    \draw[-latex] (0.5,0) -- (-2,-1.5) node[below] {$(-\sin(\alpha),\cos(\alpha))$};
+    \draw[blue] (0,0.2) arc (90:135:0.2) node[midway, above] {$\alpha$};
+    \draw[-latex] (0.5,0) -- (-1,-1.5) node[below] {$(-\sin(\alpha),\cos(\alpha))$};
     \end{tikzpicture}
     
     $\begin{array}{l}
