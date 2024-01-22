@@ -1,16 +1,16 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (MiKTeX 23.10) (preloaded format=pdflatex 2024.1.2)  22 JAN 2024 15:23
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (MiKTeX 23.10) (preloaded format=pdflatex 2024.1.2)  22 JAN 2024 11:53
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
-**./AEM.tex
-(AEM.tex
+**./SS.tex
+(SS.tex
 LaTeX2e <2023-06-01> patch level 1
 L3 programming layer <2023-08-29>
 (../../../Macros.tex
 (C:\Users\fcoja\AppData\Local\Programs\MiKTeX\tex/latex/base\article.cls
 Document Class: article 2023/05/17 v1.4n Standard LaTeX document class
-(C:\Users\fcoja\AppData\Local\Programs\MiKTeX\tex/latex/base\size10.clo
-File: size10.clo 2023/05/17 v1.4n Standard LaTeX file (size option)
+(C:\Users\fcoja\AppData\Local\Programs\MiKTeX\tex/latex/base\size11.clo
+File: size11.clo 2023/05/17 v1.4n Standard LaTeX file (size option)
 )
 \c@part=\count185
 \c@section=\count186
@@ -1726,94 +1726,43 @@ aryarrows.code.tex
 File: pgflibraryarrows.code.tex 2023-01-15 v3.1.10 (3.1.10)
 \arrowsize=\dimen403
 ))))
-(C:\Users\fcoja\AppData\Local\Programs\MiKTeX\tex/latex/venndiagram\venndiagram
-.sty
-Package: venndiagram 2018/06/07 v1.2 (NLCT) Venn diagrams
-\@venn@Ax=\skip172
-\@venn@Ay=\skip173
-\@venn@Bx=\skip174
-\@venn@By=\skip175
-\@venn@Cx=\skip176
-\@venn@Cy=\skip177
-\@venn@w=\skip178
-\@venn@h=\skip179
-\@venn@intersect@i@x=\skip180
-\@venn@intersect@i@y=\skip181
-\@venn@intersect@ii@x=\skip182
-\@venn@intersect@ii@y=\skip183
-)
-(C:\Users\fcoja\AppData\Local\Programs\MiKTeX\tex/generic/pgf/frontendlayer/tik
-z/libraries/circuits\tikzlibrarycircuits.code.tex
-(C:\Users\fcoja\AppData\Local\Programs\MiKTeX\tex/generic/pgf/frontendlayer/tik
-z/libraries\tikzlibrarydecorations.markings.code.tex
-(C:\Users\fcoja\AppData\Local\Programs\MiKTeX\tex/generic/pgf/libraries/decorat
-ions\pgflibrarydecorations.markings.code.tex))
-\tikz@lib@circ@count=\count511
-\tikzcircuitssizeunit=\dimen404
-)
-(C:\Users\fcoja\AppData\Local\Programs\MiKTeX\tex/generic/pgf/frontendlayer/tik
-z/libraries\tikzlibraryintersections.code.tex
-(C:\Users\fcoja\AppData\Local\Programs\MiKTeX\tex/generic/pgf/libraries\pgflibr
-aryintersections.code.tex
-\pgf@intersect@solutions=\count512
-))
-(C:\Users\fcoja\AppData\Local\Programs\MiKTeX\tex/generic/pgfplots/libs\tikzlib
-rarypgfplots.fillbetween.code.tex
-(C:\Users\fcoja\AppData\Local\Programs\MiKTeX\tex/generic/pgfplots/pgfcontrib\t
-ikzlibraryfillbetween.code.tex
-(C:\Users\fcoja\AppData\Local\Programs\MiKTeX\tex/generic/pgfplots/pgfcontrib\t
-ikzlibrarydecorations.softclip.code.tex
-(C:\Users\fcoja\AppData\Local\Programs\MiKTeX\tex/generic/pgfplots/pgfcontrib\p
-gflibraryfillbetween.code.tex)))
-(C:\Users\fcoja\AppData\Local\Programs\MiKTeX\tex/generic/pgfplots/libs\tikzlib
-rarypgfplots.decorations.softclip.code.tex))
-(C:\Users\fcoja\AppData\Local\Programs\MiKTeX\tex/latex/listings\lstlang1.sty
-File: lstlang1.sty 2023/02/27 1.9 listings language file
-)
-(C:\Users\fcoja\AppData\Local\Programs\MiKTeX\tex/latex/listings\lstlang2.sty
-File: lstlang2.sty 2023/02/27 1.9 listings language file
-)
-(C:\Users\fcoja\AppData\Local\Programs\MiKTeX\tex/latex/listings\lstlang3.sty
-File: lstlang3.sty 2023/02/27 1.9 listings language file
-)
-\@quotelevel=\count513
-\@quotereset=\count514
+\@quotelevel=\count511
+\@quotereset=\count512
+ (SS.aux)
+\openout1 = `SS.aux'.
 
-(AEM.aux)
-\openout1 = `AEM.aux'.
-
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 38.
-LaTeX Font Info:    ... okay on input line 38.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 38.
-LaTeX Font Info:    ... okay on input line 38.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 38.
-LaTeX Font Info:    ... okay on input line 38.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 38.
-LaTeX Font Info:    ... okay on input line 38.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 38.
-LaTeX Font Info:    ... okay on input line 38.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 38.
-LaTeX Font Info:    ... okay on input line 38.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 38.
-LaTeX Font Info:    ... okay on input line 38.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 38.
-LaTeX Font Info:    ... okay on input line 38.
-LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 38.
-LaTeX Font Info:    ... okay on input line 38.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 6.
+LaTeX Font Info:    ... okay on input line 6.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 6.
+LaTeX Font Info:    ... okay on input line 6.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 6.
+LaTeX Font Info:    ... okay on input line 6.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 6.
+LaTeX Font Info:    ... okay on input line 6.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 6.
+LaTeX Font Info:    ... okay on input line 6.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 6.
+LaTeX Font Info:    ... okay on input line 6.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 6.
+LaTeX Font Info:    ... okay on input line 6.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 6.
+LaTeX Font Info:    ... okay on input line 6.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 6.
+LaTeX Font Info:    ... okay on input line 6.
 
 (C:\Users\fcoja\AppData\Local\Programs\MiKTeX\tex/context/base/mkii\supp-pdf.mk
 ii
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count515
-\scratchdimen=\dimen405
+\scratchcounter=\count513
+\scratchdimen=\dimen404
 \scratchbox=\box165
-\nofMPsegments=\count516
-\nofMParguments=\count517
+\nofMPsegments=\count514
+\nofMParguments=\count515
 \everyMPshowfont=\toks65
-\MPscratchCnt=\count518
-\MPscratchDim=\dimen406
-\MPnumerator=\count519
-\makeMPintoPDFobject=\count520
+\MPscratchCnt=\count516
+\MPscratchDim=\dimen405
+\MPnumerator=\count517
+\makeMPintoPDFobject=\count518
 \everyMPtoPDFconversion=\toks66
 )
 (C:\Users\fcoja\AppData\Local\Programs\MiKTeX\tex/latex/epstopdf-pkg\epstopdf-b
@@ -1826,29 +1775,28 @@ Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 4
 fg
 File: epstopdf-sys.cfg 2021/03/18 v2.0 Configuration of epstopdf for MiKTeX
 ))
-LaTeX Info: Redefining \celsius on input line 38.
-Package gensymb Info: Faking symbols for \degree and \celsius on input line 38.
-
+LaTeX Info: Redefining \celsius on input line 6.
+Package gensymb Info: Faking symbols for \degree and \celsius on input line 6.
 
 
 Package gensymb Warning: Not defining \perthousand.
 
-LaTeX Info: Redefining \ohm on input line 38.
-Package gensymb Info: Using \Omega for \ohm on input line 38.
+LaTeX Info: Redefining \ohm on input line 6.
+Package gensymb Info: Using \Omega for \ohm on input line 6.
 
 Package gensymb Warning: Not defining \micro.
 
-Package ragged2e Info: ABD: executing \RaggedRight on input line 38.
+Package ragged2e Info: ABD: executing \RaggedRight on input line 6.
 Package caption Info: Begin \AtBeginDocument code.
 Package caption Info: hyperref package is loaded.
 Package caption Info: listings package is loaded.
 Package caption Info: wrapfig package is loaded.
 Package caption Info: End \AtBeginDocument code.
-\c@lstlisting=\count521
-Package hyperref Info: Link coloring OFF on input line 38.
-(AEM.out) (AEM.out)
+\c@lstlisting=\count519
+Package hyperref Info: Link coloring OFF on input line 6.
+(SS.out) (SS.out)
 \@outlinefile=\write5
-\openout5 = `AEM.out'.
+\openout5 = `SS.out'.
 
 Package biblatex Info: Trying to load language 'english'...
 Package biblatex Info: ... file 'english.lbx' found.
@@ -1860,14 +1808,14 @@ File: english.lbx 2023/03/05 v3.19 biblatex localization (PK/MW)
 Package biblatex Info: Input encoding 'utf8' detected.
 Package biblatex Info: Automatic encoding selection.
 (biblatex)             Assuming data encoding 'utf8'.
-\openout4 = `AEM.bcf'.
+\openout4 = `SS.bcf'.
 
 Package biblatex Info: Trying to load bibliographic data...
-Package biblatex Info: ... file 'AEM.bbl' not found.
+Package biblatex Info: ... file 'SS.bbl' not found.
 
-No file AEM.bbl.
-Package biblatex Info: Reference section=0 on input line 38.
-Package biblatex Info: Reference segment=0 on input line 38.
+No file SS.bbl.
+Package biblatex Info: Reference section=0 on input line 6.
+Package biblatex Info: Reference segment=0 on input line 6.
 
 (C:\Users\fcoja\AppData\Local\Programs\MiKTeX\tex/latex/pdflscape\pdflscape.sty
 Package: pdflscape 2022-10-27 v0.13 Display of landscape pages in PDF
@@ -1886,7 +1834,7 @@ Package pdflscape Info: Auto-detected driver: pdftex on input line 81.
 Package pgfplots Warning: running in backwards compatibility mode (unsuitable t
 ick labels; missing features). Consider writing \pgfplotsset{compat=1.18} into 
 your preamble.
- on input line 38.
+ on input line 6.
 
 *geometry* driver: auto-detecting
 *geometry* detected driver: pdftex
@@ -1907,12 +1855,12 @@ your preamble.
 * \topmargin=-43.81725pt
 * \headheight=0.0pt
 * \headsep=0.0pt
-* \topskip=10.0pt
+* \topskip=11.0pt
 * \footskip=30.0pt
-* \marginparwidth=65.0pt
-* \marginparsep=11.0pt
+* \marginparwidth=59.0pt
+* \marginparsep=10.0pt
 * \columnsep=10.0pt
-* \skip\footins=9.0pt plus 4.0pt minus 2.0pt
+* \skip\footins=10.0pt plus 4.0pt minus 2.0pt
 * \hoffset=0.0pt
 * \voffset=0.0pt
 * \mag=1000
@@ -1922,122 +1870,63 @@ your preamble.
 * \@reversemarginfalse
 * (1in=72.27pt=25.4mm, 1cm=28.453pt)
 
-LaTeX Font Info:    Trying to load font information for U+msa on input line 40.
-
+LaTeX Font Info:    Trying to load font information for U+msa on input line 8.
 (C:\Users\fcoja\AppData\Local\Programs\MiKTeX\tex/latex/amsfonts\umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Trying to load font information for U+msb on input line 40.
-
+LaTeX Font Info:    Trying to load font information for U+msb on input line 8.
 
 (C:\Users\fcoja\AppData\Local\Programs\MiKTeX\tex/latex/amsfonts\umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )
-LaTeX Font Info:    Trying to load font information for U+lasy on input line 40
-.
+LaTeX Font Info:    Trying to load font information for U+lasy on input line 8.
+
 
 (C:\Users\fcoja\AppData\Local\Programs\MiKTeX\tex/latex/base\ulasy.fd
 File: ulasy.fd 1998/08/17 v2.2e LaTeX symbol font definitions
-) (AEM.toc)
+) (SS.toc)
 \tf@toc=\write6
-\openout6 = `AEM.toc'.
+\openout6 = `SS.toc'.
 
- [1
+[1
 
 {C:/Users/fcoja/AppData/Local/MiKTeX/fonts/map/pdftex/pdftex.map}]
-(Temas/Tema 1.tex
-Overfull \hbox (8.16595pt too wide) in paragraph at lines 36--37
-[][]  
- []
-
-
+(Temas/Tema 1.tex)
 pdfTeX warning (ext4): destination with the same identifier (name{page.1}) has 
 been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.38 \subsection{Vector aleatorio discreto}
-                                            [1]) [2] (Tareas/Tema 1/Hoja 1.tex
-<Tareas/Tema 1/Hoja 1.pdf, id=63, 614.295pt x 794.97pt>
-File: Tareas/Tema 1/Hoja 1.pdf Graphic file (type pdf)
-<use Tareas/Tema 1/Hoja 1.pdf>
-Package pdftex.def Info: Tareas/Tema 1/Hoja 1.pdf  used on input line 1.
-(pdftex.def)             Requested size: 614.29349pt x 794.96806pt.
-File: Tareas/Tema 1/Hoja 1.pdf Graphic file (type pdf)
-<use Tareas/Tema 1/Hoja 1.pdf>
-Package pdftex.def Info: Tareas/Tema 1/Hoja 1.pdf  used on input line 1.
-(pdftex.def)             Requested size: 614.29349pt x 794.96806pt.
-<Tareas/Tema 1/Hoja 1.pdf, id=66, page=1, 614.295pt x 794.97pt>
-File: Tareas/Tema 1/Hoja 1.pdf Graphic file (type pdf)
-<use Tareas/Tema 1/Hoja 1.pdf, page 1>
-Package pdftex.def Info: Tareas/Tema 1/Hoja 1.pdf , page1 used on input line 1.
-
-(pdftex.def)             Requested size: 614.29349pt x 794.96806pt.
-File: Tareas/Tema 1/Hoja 1.pdf Graphic file (type pdf)
-<use Tareas/Tema 1/Hoja 1.pdf, page 1>
-Package pdftex.def Info: Tareas/Tema 1/Hoja 1.pdf , page1 used on input line 1.
-
-(pdftex.def)             Requested size: 597.78697pt x 773.60669pt.
-File: Tareas/Tema 1/Hoja 1.pdf Graphic file (type pdf)
-<use Tareas/Tema 1/Hoja 1.pdf, page 1>
-Package pdftex.def Info: Tareas/Tema 1/Hoja 1.pdf , page1 used on input line 1.
-
-(pdftex.def)             Requested size: 597.78697pt x 773.60669pt.
-File: Tareas/Tema 1/Hoja 1.pdf Graphic file (type pdf)
-<use Tareas/Tema 1/Hoja 1.pdf, page 1>
-Package pdftex.def Info: Tareas/Tema 1/Hoja 1.pdf , page1 used on input line 1.
-
-(pdftex.def)             Requested size: 597.78697pt x 773.60669pt.
-File: Tareas/Tema 1/Hoja 1.pdf Graphic file (type pdf)
-<use Tareas/Tema 1/Hoja 1.pdf, page 1>
-Package pdftex.def Info: Tareas/Tema 1/Hoja 1.pdf , page1 used on input line 1.
-
-(pdftex.def)             Requested size: 597.78697pt x 773.60669pt.
-
-[3 <./Tareas/Tema 1/Hoja 1.pdf>] [4]) [5] (AEM.aux)
+l.20 \end{document}
+                    [1] (SS.aux)
  ***********
 LaTeX2e <2023-06-01> patch level 1
 L3 programming layer <2023-08-29>
  ***********
-Package rerunfilecheck Info: File `AEM.out' has not changed.
-(rerunfilecheck)             Checksum: 07FD522A5B1F76BE475E27D0CB5694B2;1184.
-Package logreq Info: Writing requests to 'AEM.run.xml'.
-\openout1 = `AEM.run.xml'.
+Package rerunfilecheck Info: File `SS.out' has not changed.
+(rerunfilecheck)             Checksum: F83E713FA2E661D449FCFE67FAAFA9CC;1673.
+Package logreq Info: Writing requests to 'SS.run.xml'.
+\openout1 = `SS.run.xml'.
 
  ) 
 Here is how much of TeX's memory you used:
- 53197 strings out of 475248
- 1212035 string characters out of 5757814
- 2125659 words of memory out of 5000000
- 73799 multiletter control sequences out of 15000+600000
- 567210 words of font info for 75 fonts, out of 8000000 for 9000
+ 52237 strings out of 475248
+ 1183783 string characters out of 5757814
+ 2064853 words of memory out of 5000000
+ 72902 multiletter control sequences out of 15000+600000
+ 566205 words of font info for 69 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 92i,18n,134p,1194b,854s stack positions out of 10000i,1000n,20000p,200000b,200000s
- <C:\Users\fcoja\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\tcrm
-1000.pk><C:/Users/fcoja/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfon
-ts/cm/cmbx10.pfb><C:/Users/fcoja/AppData/Local/Programs/MiKTeX/fonts/type1/publ
-ic/amsfonts/cm/cmbx12.pfb><C:/Users/fcoja/AppData/Local/Programs/MiKTeX/fonts/t
-ype1/public/amsfonts/cm/cmex10.pfb><C:/Users/fcoja/AppData/Local/Programs/MiKTe
-X/fonts/type1/public/amsfonts/cm/cmmi10.pfb><C:/Users/fcoja/AppData/Local/Progr
-ams/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi5.pfb><C:/Users/fcoja/AppData/Loc
-al/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi7.pfb><C:/Users/fcoja/App
-Data/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi8.pfb><C:/Users/f
-coja/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr10.pfb><C:
-/Users/fcoja/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr12
-.pfb><C:/Users/fcoja/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/
-cm/cmr17.pfb><C:/Users/fcoja/AppData/Local/Programs/MiKTeX/fonts/type1/public/a
-msfonts/cm/cmr5.pfb><C:/Users/fcoja/AppData/Local/Programs/MiKTeX/fonts/type1/p
-ublic/amsfonts/cm/cmr6.pfb><C:/Users/fcoja/AppData/Local/Programs/MiKTeX/fonts/
-type1/public/amsfonts/cm/cmr7.pfb><C:/Users/fcoja/AppData/Local/Programs/MiKTeX
-/fonts/type1/public/amsfonts/cm/cmr8.pfb><C:/Users/fcoja/AppData/Local/Programs
-/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy10.pfb><C:/Users/fcoja/AppData/Local
-/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy5.pfb><C:/Users/fcoja/AppDa
-ta/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy7.pfb><C:/Users/fco
-ja/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/latxfont/line10.pf
-b><C:/Users/fcoja/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/sym
-bols/msbm10.pfb>
-Output written on AEM.pdf (6 pages, 325192 bytes).
+ 92i,13n,134p,1193b,854s stack positions out of 10000i,1000n,20000p,200000b,200000s
+<C:/Users/fcoja/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/
+cmbx10.pfb><C:/Users/fcoja/AppData/Local/Programs/MiKTeX/fonts/type1/public/ams
+fonts/cm/cmbx12.pfb><C:/Users/fcoja/AppData/Local/Programs/MiKTeX/fonts/type1/p
+ublic/amsfonts/cm/cmmi10.pfb><C:/Users/fcoja/AppData/Local/Programs/MiKTeX/font
+s/type1/public/amsfonts/cm/cmr10.pfb><C:/Users/fcoja/AppData/Local/Programs/MiK
+TeX/fonts/type1/public/amsfonts/cm/cmr12.pfb><C:/Users/fcoja/AppData/Local/Prog
+rams/MiKTeX/fonts/type1/public/amsfonts/cm/cmr17.pfb><C:/Users/fcoja/AppData/Lo
+cal/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy10.pfb>
+Output written on SS.pdf (2 pages, 96975 bytes).
 PDF statistics:
- 307 PDF objects out of 1000 (max. 8388607)
- 16 named destinations out of 1000 (max. 500000)
- 81 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 90 PDF objects out of 1000 (max. 8388607)
+ 9 named destinations out of 1000 (max. 500000)
+ 69 words of extra memory for PDF output out of 10000 (max. 10000000)
 

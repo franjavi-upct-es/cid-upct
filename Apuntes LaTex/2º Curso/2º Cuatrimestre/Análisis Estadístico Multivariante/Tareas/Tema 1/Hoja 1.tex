@@ -1,0 +1,103 @@
+\includepdf{"Tareas/Tema 1/Hoja 1"}
+
+\begin{enumerate}[label=\color{red}\arabic*), leftmargin=*]
+	\item \lb{Sea $(X,Y)$ un \vea con función de densidad conjunta \[f(x,y)=\begin{cases}
+	1 & \text{si }0<x<1,\;0<y<1\\
+	0 & \text{en otro caso}
+	\end{cases}\] Hallar las distribuciones marginales y condicionadas}
+	
+	$\underset{0<x<1}{f_X(x)=}\int_{\infty}^{+\infty}f(x,y)\dy=\cancel{\int_{-\infty}^{0}0\dy}+\int_{0}^{1}1\dy+\cancel{\int_{0}^{+\infty}0\dy}=\left[y\right]_{y=0}^{y=1}=1\qquad f_X(x)=\begin{cases}
+	1 & \text{si }0<x<1\\
+	0 & \text{en otro caso}
+	\end{cases}$
+	
+	$\underset{0<y<1}{f_Y(y)=}\int_{-\infty}^{+\infty}f(x,y)\dx=\int_{0}^{1}1\dx=\left[x\right]_{x=0}^{x=1}=1\qquad f_Y(y)=\begin{cases}
+	1 & \text{si }0<y<1\\
+	0 & \text{en otro caso}
+	\end{cases}$
+	
+	$f(x,y)=\begin{cases}
+	1 & 0<x<1,\;0<y<1\\
+	0 & \text{en otro caso}
+	\end{cases}$
+	
+	$\underset{f_X(x^*)>0}{y|x=x^*}\longrightarrow f_{\begin{subarray}{l}
+	y|x=x^*\\
+	0<x^*<1
+	\end{subarray}}=\dfrac{f(x^*,y)}{f_X(x^*)}=\begin{cases}
+	1 & 0<y<1\\
+	0 & \text{en otro caso}
+	\end{cases}$
+	
+	$f(x,y)=f_X(x)\cdot f_Y(y)$\quad $X$ e $Y$ independientes
+	
+	\item \lb{Obtener las distribuciones marginales y condicionadas asociadas al vector aleatorio $(X,Y)$ con función de densidad \[ f(x,y)=\begin{cases}
+	2 & \text{si }0<x<1,\;0<y<x\\
+	0 & \text{en otro caso}
+	\end{cases} \]}
+	
+	$\underset{0<x<1}{f_X(x)=}\int_{-\infty}^{+\infty}f(x,y)\dy=\int_{0}^{x}2\dy=\left[2y\right]_{y=0}^{y=x}=2x\longrightarrow\begin{cases}
+	2x & \text{si }0<x<1\\
+	0 & \text{en otro caso}
+	\end{cases}$
+	
+	$\underset{0<y<1}{f_Y(y)=}\int_{-\infty}^{+\infty}f(x,y)\dx=\int_{y}^{1}2\dx=[2x]_{x=y}^{x=1}=2-2y\longrightarrow\begin{cases}
+	2-2y & \text{si }0<y<1\\
+	0 & \text{en otro caso}
+	\end{cases}$
+	
+	Los recintos son dependientes.
+	
+	$\begin{array}{l}
+	y|x=x^*\\
+	f_{X}(x^*)>0\\
+	\underset{0<x^*<1}{f_{y|x=x^*}}(y|x^*)=\dfrac{f(x^*,y)}{f(x^*)}=\begin{cases}
+	\dfrac{2}{2x^*} & 0<y<x^*\\
+	0 & \text{en otro caso}
+	\end{cases}=\begin{cases}
+		\dfrac{1}{x^*} & 0<y<x^*\\
+		0 & \text{en otro caso}
+		\end{cases}
+	\end{array}$
+	
+	$\begin{array}{l}
+	x|y=y^*\\
+	f_Y(y^*)>0\\
+	\underset{0<y^*<1}{f_{x|y=y^*}}(x|y^*)=\dfrac{f(x,y^*)}{f_Y(y^*)}=\begin{cases}
+	\dfrac{2}{2-2y^*} & \text{si } y^*<x<1\\
+	0 & \text{en otro caso}
+	\end{cases}=\begin{cases}
+	\dfrac{1}{1-y^*} & \text{si }y^*<x<1\\
+	0 & \text{en otro caso}
+	\end{cases}
+	\end{array}$
+	
+	\begin{tikzpicture}[scale=2]
+	\fill[lightblue!10] (0,0) -- (1,1) -- (1,0) -- cycle;
+	\draw (-0.5,0) -- (2,0);
+	\draw (0,-0.5) -- (0,2);
+	\draw[lightblue, domain=-0.5:2] plot (\x,\x);
+	\draw[lightblue, dashed] (0,1) node[left] {1} -- (1,1) -- (1,0) node[below ] {1};
+	\end{tikzpicture}
+	
+	\item \lb{Sea $(X,Y)$ un \vea con función de densidad \[ f(x,y)=\begin{cases}
+	\dfrac{3}{4}\left[xy+\dfrac{x^2}{2}\right] & \text{si }0<x<1,\;0<y<2\\
+	0 & \text{en otro caso}
+	\end{cases} \]Hallar la distribución marginal de $X$ y la distribución de $Y$ condicionada a $X=\dfrac{1}{2}$.}
+	
+	
+	$\underset{0<x<1}{f_X(x)=}\int_{-\infty}^{+\infty}f(x,y)\dy=\int_{0}^{2}\dfrac{3}{4}\left[xy+\dfrac{x^2}{2}\right]=\dfrac{3}{4}\left[\dfrac{xy^2}{2}+\dfrac{x^2}{2}\right]_{y=0}^{y=2}=\dfrac{3}{4}\left(2x+\dfrac{x^2}{2}\right)\longrightarrow\begin{cases}
+	\dfrac{3}{4}\left(2x+\dfrac{x^2}{2}\right) & \text{si }0<x<1\\
+	0 & \text{en otro caso}
+	\end{cases}$
+	
+	$\begin{array}{l}
+	y|x=x^*\\
+	\underset{0<x^*<1}{f_{y|x=x^*}}(y|x^*)=\dfrac{f(x^*,y)}{f(x^*)}=\dfrac{\frac{3}{4}\left(x^*y+\frac{(x^*)^2}{2}\right)}{\frac{3}{4}\left(2x^*+\frac{(x^*)^2}{2}\right)}=\dfrac{x^*y+\frac{(x^*)^2}{2}}{2x^*+\frac{(x^*)^2}{2}}=\dfrac{2x^*y+(x^*)^2}{4x^*+(x^*)^2}\xrightarrow{x^*=\frac{1}{2}}\dfrac{y+\frac{1}{4}}{2+\frac{1}{4}}=\dfrac{4y+1}{9}\\
+	\begin{cases}
+	\dfrac{4y+1}{9} & \text{si }0<y<2\\
+	0 & \text{en otro caso}
+	\end{cases}
+	\end{array}$
+	\item \lb{Sea $X=(X_1,X_2)$ un \vea con función masa de probabilidad \[ P[X_1=x_1,X_2=x_2]=\dfrac{k}{2^{x_1+x_2}},x_1,x_2\in\N \]donde $k$ es una constante. Obtener las distribuciones marginales y condicionadas.}
+\end{enumerate}

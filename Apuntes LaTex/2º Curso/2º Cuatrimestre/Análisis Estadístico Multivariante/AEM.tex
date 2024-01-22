@@ -3,6 +3,38 @@
 \author{Francisco Javier Mercader Martínez}
 \date{}
 
+\everymath{\displaystyle}
+\usepackage{venndiagram}
+\usetikzlibrary{circuits}
+\usetikzlibrary{intersections, arrows.meta,pgfplots.fillbetween}
+\DeclareMathOperator{\sop}{Sop}
+\newcommand{\fpp}{función puntual de probabilidad }
+\newcommand{\Fpp}{Función puntual de probabilidad }
+\newcommand{\va}{variable aleatoria }
+\newcommand{\vas}{variables aleatorias }
+\newcommand{\vea}{vector aleatorio }
+\newcommand{\bunderset}[2]{\underset{\lb{#1}}{#2}}
+\DeclareMathOperator{\var}{Var}
+\DeclareMathOperator{\cov}{Cov}
+
+\lstset{
+    language=R,
+    basicstyle=\ttfamily,
+    keywordstyle=\color{blue},
+    commentstyle=\color{green!70!black},
+    stringstyle=\color{red},
+    showstringspaces=false,
+    breaklines=true,
+    numbers=left,
+    numberstyle=\tiny,
+    stepnumber=1,
+    numbersep=5pt,
+    frame=single,
+    backgroundcolor=\color{gray!10},
+    captionpos=b,
+    tabsize=2
+}
+
 \begin{document}
 \maketitle
 
@@ -17,4 +49,8 @@
 \setcounter{page}{1}
 
 \input{"Temas/Tema 1.tex"}
+
+\newpage
+
+\input{"Tareas/Tema 1/Hoja 1.tex"}
 \end{document}
