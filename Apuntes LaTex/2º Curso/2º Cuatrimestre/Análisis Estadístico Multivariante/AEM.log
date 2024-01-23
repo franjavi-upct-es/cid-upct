@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (MiKTeX 23.10) (preloaded format=pdflatex 2024.1.2)  22 JAN 2024 15:23
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (MiKTeX 23.10) (preloaded format=pdflatex 2024.1.2)  22 JAN 2024 19:45
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1946,18 +1946,24 @@ File: ulasy.fd 1998/08/17 v2.2e LaTeX symbol font definitions
 
 {C:/Users/fcoja/AppData/Local/MiKTeX/fonts/map/pdftex/pdftex.map}]
 (Temas/Tema 1.tex
-Overfull \hbox (8.16595pt too wide) in paragraph at lines 36--37
-[][]  
- []
-
-
 pdfTeX warning (ext4): destination with the same identifier (name{page.1}) has 
 been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.38 \subsection{Vector aleatorio discreto}
-                                            [1]) [2] (Tareas/Tema 1/Hoja 1.tex
-<Tareas/Tema 1/Hoja 1.pdf, id=63, 614.295pt x 794.97pt>
+l.44 ...+\infty,x_{i_m},+\infty,\dots,+\infty). \]
+                                                   [1]
+Overfull \hbox (8.16595pt too wide) in paragraph at lines 61--62
+[][]  
+ []
+
+[2] [3]
+Overfull \hbox (26.74026pt too wide) detected at line 128
+\OML/cmm/m/it/10 f[]\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 x[]; [] ; x[]; x[]; [] ; 
+x[]; x[]; [] ; x[]\OMS/cmsy/m/n/10 j\OML/cmm/m/it/10 x[]\OT1/cmr/m/n/10 ) = []
+ []
+
+) (Tareas/Tema 1/Hoja 1.tex
+<Tareas/Tema 1/Hoja 1.pdf, id=99, 614.295pt x 794.97pt>
 File: Tareas/Tema 1/Hoja 1.pdf Graphic file (type pdf)
 <use Tareas/Tema 1/Hoja 1.pdf>
 Package pdftex.def Info: Tareas/Tema 1/Hoja 1.pdf  used on input line 1.
@@ -1966,7 +1972,7 @@ File: Tareas/Tema 1/Hoja 1.pdf Graphic file (type pdf)
 <use Tareas/Tema 1/Hoja 1.pdf>
 Package pdftex.def Info: Tareas/Tema 1/Hoja 1.pdf  used on input line 1.
 (pdftex.def)             Requested size: 614.29349pt x 794.96806pt.
-<Tareas/Tema 1/Hoja 1.pdf, id=66, page=1, 614.295pt x 794.97pt>
+<Tareas/Tema 1/Hoja 1.pdf, id=102, page=1, 614.295pt x 794.97pt>
 File: Tareas/Tema 1/Hoja 1.pdf Graphic file (type pdf)
 <use Tareas/Tema 1/Hoja 1.pdf, page 1>
 Package pdftex.def Info: Tareas/Tema 1/Hoja 1.pdf , page1 used on input line 1.
@@ -1977,6 +1983,7 @@ File: Tareas/Tema 1/Hoja 1.pdf Graphic file (type pdf)
 Package pdftex.def Info: Tareas/Tema 1/Hoja 1.pdf , page1 used on input line 1.
 
 (pdftex.def)             Requested size: 597.78697pt x 773.60669pt.
+ [4]
 File: Tareas/Tema 1/Hoja 1.pdf Graphic file (type pdf)
 <use Tareas/Tema 1/Hoja 1.pdf, page 1>
 Package pdftex.def Info: Tareas/Tema 1/Hoja 1.pdf , page1 used on input line 1.
@@ -1992,23 +1999,23 @@ File: Tareas/Tema 1/Hoja 1.pdf Graphic file (type pdf)
 Package pdftex.def Info: Tareas/Tema 1/Hoja 1.pdf , page1 used on input line 1.
 
 (pdftex.def)             Requested size: 597.78697pt x 773.60669pt.
-
-[3 <./Tareas/Tema 1/Hoja 1.pdf>] [4]) [5] (AEM.aux)
+ [5 <./Tareas/Tema 1/Hoja 1.pdf>] [6]) [7]
+(AEM.aux)
  ***********
 LaTeX2e <2023-06-01> patch level 1
 L3 programming layer <2023-08-29>
  ***********
 Package rerunfilecheck Info: File `AEM.out' has not changed.
-(rerunfilecheck)             Checksum: 07FD522A5B1F76BE475E27D0CB5694B2;1184.
+(rerunfilecheck)             Checksum: AB896F48A2F1016E6452B38E63321BC7;2097.
 Package logreq Info: Writing requests to 'AEM.run.xml'.
 \openout1 = `AEM.run.xml'.
 
  ) 
 Here is how much of TeX's memory you used:
- 53197 strings out of 475248
- 1212035 string characters out of 5757814
- 2125659 words of memory out of 5000000
- 73799 multiletter control sequences out of 15000+600000
+ 53212 strings out of 475248
+ 1212263 string characters out of 5757814
+ 2126662 words of memory out of 5000000
+ 73805 multiletter control sequences out of 15000+600000
  567210 words of font info for 75 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  92i,18n,134p,1194b,854s stack positions out of 10000i,1000n,20000p,200000b,200000s
@@ -2035,9 +2042,9 @@ ta/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy7.pfb><C:/Users/fco
 ja/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/latxfont/line10.pf
 b><C:/Users/fcoja/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/sym
 bols/msbm10.pfb>
-Output written on AEM.pdf (6 pages, 325192 bytes).
+Output written on AEM.pdf (8 pages, 339435 bytes).
 PDF statistics:
- 307 PDF objects out of 1000 (max. 8388607)
- 16 named destinations out of 1000 (max. 500000)
- 81 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 350 PDF objects out of 1000 (max. 8388607)
+ 25 named destinations out of 1000 (max. 500000)
+ 129 words of extra memory for PDF output out of 10000 (max. 10000000)
 
