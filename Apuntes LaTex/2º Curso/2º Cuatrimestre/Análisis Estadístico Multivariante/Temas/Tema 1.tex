@@ -528,7 +528,7 @@ La variable $Y$ solo se usará para detonar la variable respuesta en regresión.
 En algunos casos usaremos la matriz $M=(X_{i,j})$ que será una matriz aleatoria.
 \subsubsection{¿Cómo se muestran los valores muestrales?}
 
-\begin{wrapfigure}[5]{r}{0.4\textwidth}
+\begin{wrapfigure}{r}{0.4\textwidth}
 \begin{tikzpicture}
 	\node[red, draw=red, fill=red!10, line width=1.5, text width=0.4\textwidth] {Si no hay grupos, supondremos que los vectores \[ o_i=(x_{i,1},x_{i,2},\dots,x_{i,k})' \] son una realización de una \mas de $X$, es decir, serán vectores (columna) con los datos muestrales.\\
 	Si hay grupos supondremos lo mismo en cada grupo.
@@ -539,6 +539,7 @@ En algunos casos usaremos la matriz $M=(X_{i,j})$ que será una matriz aleatoria
 \begin{itemize}[label=\color{red}\textbullet, leftmargin=*]
 	\item \color{lightblue}Matriz de datos
 \end{itemize}
+
 En general, nuestra muestra se representará como: 
 \[ \begin{array}{cccccc}
 i & x_1 & x_2 & \cdots & x_k & y \\ \hline
@@ -551,3 +552,173 @@ o_n & x_{n,1} & x_{n,2} & \cdots & x_{n,k} & y_n \\ \hline
 La variable $Y$ solo se usará para detonar la variable respuesta en regresión.
 
 En algunos casos usaremos la matriz de datos $M=(x_{i,j})$
+
+\subsubsection{El conjunto de datos \textbf{\texttt{LifeCycleSavings}}}
+
+\begin{itemize}[label=\color{red}\textbullet, leftmargin=*]
+	\item \color{lightblue}Cargamos los datos y visualizamos las primeras filas
+\end{itemize}
+
+\begin{lstlisting}
+datos <- LifeCycleSavings
+head(datos, n = 6)
+\end{lstlisting}
+
+\begin{verbatim}
+##              sr pop15 pop75     dpi ddpi
+## Australia 11.43 29.35  2.87 2329.68 2.87
+## Austria   12.07 23.32  4.41 1507.99 3.93
+## Belgium   13.17 23.80  4.43 2108.47 3.82
+## Bolivia    5.75 41.89  1.67  189.13 0.22
+## Brazil    12.88 42.19  0.83  728.47 4.56
+## Canada     8.79 31.72  2.85 2982.88 2.43
+\end{verbatim}
+
+\begin{itemize}[label=\color{red}\textbullet, leftmargin=*]
+	\item \color{lightblue}¿Qué información está recogida en el conjunto de datos?
+\end{itemize}
+Con la instrucción \lb{\texttt{help(LifeCycleSavings)}} conocemos qué información está contenida en el conjunto:
+\begin{itemize}
+\item \lb{\texttt{sr}:} incremento de los ahorros personales 1960-1970.
+\item \lb{\texttt{pop15}:} \% población menor de 15 años.
+\item \lb{\texttt{pop75}:} \% población menor de 75.
+\item \lb{\texttt{dpi}:} ingresos per-capita.
+\end{itemize}
+\subsection{Estimador para el vector de medias $\mu$}
+Vector de \lb{medias muestrales}, también llamado \lb{objeto medio}, se define como: \[ \overline{O}=\overline{X}=\left(\overline{X}_1,\dots,\overline{X}_k\right)'=\dfrac{1}{n}\sum_{i=1}^{n}O_i, \] donde $ \overline{X}_j=\dfrac{1}{n}\sum_{i=1}^{n}X_{i,j}$.
+
+Se puede demostrar fácilmente que:
+\begin{itemize}[label=$\to$]
+\item $E(\overline{O})=\mu$ (estimador centrado de $\mu$)
+\item $\cov(\overline{O})=\dfrac{V}{n}$
+\end{itemize}
+\subsubsection{¿Dónde se encuentra el vector de medias muestrales?}
+\begin{itemize}[label=\color{red}\textbullet, leftmargin=*]
+	\item \color{lightblue}Propiedad
+\end{itemize}
+$\overline{O}$ es el punto de $\R^k$ que minimiza la suma de las distancias al cuadrado (\lb{error cuadrático medio}, MSE), es decir, es la solución de \[ \underset{P\in\R^k}{\min}MSE=\sum_{i=}^{n}d^2(O_i,P), \] donde $d$ representa la distancia Euclídea, definida para dos vectores $x,y\in\R^k$ como \[ d(x,y)=\sqrt{\sum_{j=1}^{k}(x_j-y_j)^2}. \]
+\subsection{Estimador para la matriz de covarianzas $V$}
+
+Para estimar $\sigma_{i,j}$ usaremos
+\begin{itemize}[label=$\to$]
+\item La \lb{covarianza muestral:} $\hat{\sigma}_{i,j}=\dfrac{1}{n}\sum_{l=1}^{n}(X_{l,i}-\overline{X}_i)(X_{l,j}-\overline{X}_j)$
+\item La \lb{cuasi-covarianza muestral:} \[ \mathcal{S}_{i,j}=\dfrac{1}{n-1}\sum_{l=1}^{n}(X_{l,i}-\overline{X}_i)(X_{l,j}-\overline{X}_j) \]
+\end{itemize}
+Para estimar $V$ usaremos:
+\begin{itemize}[label=$\to$]
+\item $\hat{V}=(\hat{\sigma}_{i,j})=\dfrac{1}{n}\sum_{l=1}^{n}(O_l-\overline{O})(O_l-\overline{O})'$
+\item $\mathcal{S}=(\mathcal{S}_{i,j})=\dfrac{1}{n-1}\sum_{n-1}^{n}(O_l-\overline{O})(O_l-\overline{O})'$
+\end{itemize}
+Se verifica que $E(\mathcal{S})=V$ (estimador centrado de $V$).
+
+\subsubsection{Para una distribución normal}
+\begin{itemize}[label=\color{red}\textbullet, leftmargin=*]
+	\item \color{lightblue}Proposición
+\end{itemize}
+Si $X\longrightarrow\mathcal{N}_k(\mu,V)$ entonces se verifica que: 
+\begin{itemize}
+\item $\overline{O}\longrightarrow\mathcal{N}_k\left(\mu,\tfrac{V}{n}\right)$
+\item $\overline{O}$ y $\hat{V}$ son los \lb{estimadores máximos verosímiles} de $\mu$ y $V$, respectivamente.
+\item Además, $\overline{O}$ y $\hat{V}$ son \lb{independientes entre sí}. Por tanto, también $\overline{O}$ y $\mathcal{S}$ son independientes entre sí.
+\item La distribución aleatoria \[ n\hat{V}=(n-1)\mathcal{S} \]se conoce como \lb{distribuidor de Wishart}.
+\end{itemize}
+\begin{itemize}[label=\color{red}\textbullet, leftmargin=*]
+	\item \color{lightblue}Test de normalidad multivariante: Test de Shapiro-Wilk
+\end{itemize}
+Para la aplicación de algunas técnicas multivariantes la hipótesis de normalidad es importante y debe ser contrastada. \[ \begin{array}{l}
+H_0:(X_1,\dots,X_k)\rightarrow\mathcal{N}_k(\mu,V)\\
+H_1:(X_1,\dots,X_k)\nrightarrow\mathcal{N}_k(\mu,V)\\
+\end{array} \]
+Podremos utilizar la función \lb{\texttt{mshapiro.test}} de la librería \lb{\texttt{mvnormtest}} de \lb{\texttt{R}} para realizar el test de normalidad multivariante de Shapiro-Wilk.
+\begin{itemize}[label=$\to$]
+\item Si aplicamos el test a los 50 datos simulados de la normal bivariante lógicamente obtnedremos un $p$-valor que apoya la hipótesis nula.
+\end{itemize}
+
+\begin{lstlisting}
+library("mvnormtest")
+V <- matrix(c(1, 1/2,
+              1/2, 1), nrow = 2, ncol = 2, byrow = TRUE)
+mu <- c(0, 0)
+seed = set.seed(2023)
+d <- rmvnorm(50, mu, V)
+mshapiro.test(t(d))
+\end{lstlisting}
+
+\begin{verbatim}
+## [1]  0.6922
+\end{verbatim}
+\begin{itemize}[label=\color{red}\textbullet, leftmargin=*]
+	\item \color{lightblue}Seguimos con \textbf{\texttt{LifeCycleSavings}}
+\end{itemize}
+
+Cálculo de las medias muestrales para cada variable.
+
+\begin{lstlisting}
+mean(datos$sr); mean(datos$pop15); mean(datos$pop75);  mean(datos$dpi); mean(datos$ddpi)
+\end{lstlisting}
+
+\begin{verbatim}
+## [1] 9.671
+## [1] 35.0896
+## [1] 2.293
+## [1] 1106.758
+## [1] 3.7576
+\end{verbatim}
+
+O bien, podemos calcular todas las características de estas variables
+
+\begin{lstlisting}
+summary(datos)
+\end{lstlisting}
+
+\begin{verbatim}
+##        sr             pop15           pop75            dpi         
+##  Min.   : 0.600   Min.   :21.44   Min.   :0.560   Min.   :  88.94  
+##  1st Qu.: 6.970   1st Qu.:26.21   1st Qu.:1.125   1st Qu.: 288.21  
+##  Median :10.510   Median :32.58   Median :2.175   Median : 695.66  
+##  Mean   : 9.671   Mean   :35.09   Mean   :2.293   Mean   :1106.76  
+##  3rd Qu.:12.617   3rd Qu.:44.06   3rd Qu.:3.325   3rd Qu.:1795.62  
+##  Max.   :21.100   Max.   :47.64   Max.   :4.700   Max.   :4001.89  
+##       ddpi       
+##  Min.   : 0.220  
+##  1st Qu.: 2.002  
+##  Median : 3.000  
+##  Mean   : 3.758  
+##  3rd Qu.: 4.478  
+##  Max.   :16.710
+\end{verbatim}
+
+Cálculo de la matriz de covarianzas muestrales
+
+\begin{lstlisting}
+cov(d)
+\end{lstlisting}
+
+\begin{verbatim}
+##           [,1]      [,2]
+## [1,] 1.1101259 0.8347425
+## [2,] 0.8347425 1.2075240
+\end{verbatim}
+
+Cálculo de la matriz de correlaciones muestrales
+
+En este caso es mejor usar correlaciones muestrales que eliminan el efecto de las unidades: \[ R_{i,j}=\dfrac{\mathcal{S}_{i,j}}{\mathcal{S}_i\mathcal{S}_j}, \] donde $\mathcal{S}_i=\sqrt{\mathcal{S}_{i,i}}$ y $\mathcal{S}_j=\sqrt{\mathcal{S}_{j,j}}$.
+
+Cálculo de la matriz de correlaciones muestrales
+
+\begin{lstlisting}
+cor(datos)
+\end{lstlisting}
+
+\begin{verbatim}
+##               sr       pop15       pop75        dpi        ddpi
+## sr     1.0000000 -0.45553809  0.31652112  0.2203589  0.30478716
+## pop15 -0.4555381  1.00000000 -0.90847871 -0.7561881 -0.04782569
+## pop75  0.3165211 -0.90847871  1.00000000  0.7869995  0.02532138
+## dpi    0.2203589 -0.75618810  0.78699951  1.0000000 -0.12948552
+## ddpi   0.3047872 -0.04782569  0.02532138 -0.1294855  1.00000000
+\end{verbatim}
+
+\begin{tikzpicture}
+	\node[red, draw=red, fill=red!10, line width=1.5] {Observamos que algunas variables tienen correlaciones positivas y otras negativas};
+\end{tikzpicture}
