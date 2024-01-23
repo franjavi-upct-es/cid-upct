@@ -13,9 +13,12 @@
 \newcommand{\va}{variable aleatoria }
 \newcommand{\vas}{variables aleatorias }
 \newcommand{\vea}{vector aleatorio }
+\newcommand{\veas}{vectores aleatorios }
 \newcommand{\bunderset}[2]{\underset{\lb{#1}}{#2}}
 \DeclareMathOperator{\var}{Var}
 \DeclareMathOperator{\cov}{Cov}
+\DeclareMathOperator{\corr}{Corr}
+\newcommand{\mas}{muestra aleatoria simple }
 
 \lstset{
     language=R,
@@ -32,7 +35,9 @@
     frame=single,
     backgroundcolor=\color{lightgray!10},
     captionpos=b,
-    tabsize=2
+    tabsize=2,
+    inputencoding=utf8,
+    literate={á}{{\'a}}1 {é}{{\'e}}1 {í}{{\'i}}1 {ó}{{\'o}}1 {ú}{{\'u}}1{ñ}{{\~n}}1
 }
 
 \begin{document}
