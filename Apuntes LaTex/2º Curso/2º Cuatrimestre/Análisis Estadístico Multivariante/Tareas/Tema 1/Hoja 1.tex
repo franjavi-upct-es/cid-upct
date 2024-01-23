@@ -101,5 +101,16 @@
 	\end{array}$
 	\item \lb{Sea $X=(X_1,X_2)$ un \vea con función masa de probabilidad \[ P[X_1=x_1,X_2=x_2]=\dfrac{k}{2^{x_1+x_2}},x_1,x_2\in\N \]donde $k$ es una constante. Obtener las distribuciones marginales y condicionadas.}
 	
-	$ $
+	Primero hay que encontrar $k$ para que la función masa de probabilidad sume 1. Para ello, sumamos sobre todos los posibles valores de $x_1$ y $x_2$: \[ \sum_{x_1=0}^{\infty}\sum_{x_2=0}^{\infty}P[X_1=x_1,X_2=x_2]=\sum_{x_1=0}^{\infty}\sum_{x_2=0}^{\infty}\dfrac{k}{2^{x_1+x_2}}=k\sum_{x_1=0}^{\infty}\sum_{x_2=0}^{\infty}\left(\dfrac{1}{2}\right)^{x_1+x_2} \]
+	Dado que la serie $\sum_{n=0}^{\infty}\left(\dfrac{1}{2}\right)^n$ es una serie geométrica de suma a 2, la doble suma es 4. Por lo tanto, para que la función masa de probabilidad sume 1: \[ 4k=1\longrightarrow k=\dfrac{1}{4} \]
+	
+	La distribución marginal de $X_1$ se obtiene sumando la función masa de probabilidad conjunta de todos los posibles valores de $X_2$: \[
+	P[X_1=x_1]=\sum_{x_2=0}^{\infty}P[X_1=x_1,X_2=x_2]=\sum_{x_2=0}^{\infty}\dfrac{1}{4}\left(\dfrac{1}{2}\right)^{x_1+x_2}=\dfrac{1}{4}\left(\dfrac{1}{2}\right)^{x_1}\sum_{x_2=0}^{\infty}\left(\dfrac{1}{2}\right)^{x_2}=\dfrac{1}{4}\cdot\left(\dfrac{1}{2}\right)^{x_1}\cdot2=\dfrac{1}{2^{x_1+1}}\]
+	
+	\[P[X_2=x_2]=\sum_{x_1=0}^{\infty}P[X_1=x_1,X_2=x_2]=\sum_{x_1=0}^{\infty}\dfrac{1}{4}\left(\dfrac{1}{2}\right)^{x_1+x_2}=\dfrac{1}{4}\left(\dfrac{1}{2}\right)^{x_2}\sum_{x_1=0}^{\infty}\left(\dfrac{1}{2}\right)^{x_1}=\dfrac{1}{4}\cdot\left(\dfrac{1}{2}\right)^{x_2}\cdot2=\dfrac{1}{2^{x_2+1}} \]
+	
+	Ahora obtenemos las distribuciones condicionadas:
+	\[ P[X_1=x_1|X_2=x_2]=\dfrac{P[X_1=x_1,X_2=x_2]}{P[X_2=x_2]}=\dfrac{\frac{1}{4}\left(\frac{1}{2}\right)^{x_1+x_2}}{\frac{1}{2^{x_2+1}}}=\dfrac{1}{2^{x_1+1}} \]
+	\[P[X_2=x_2|X_1=x_1]=\dfrac{P[X_1=x_1,X_2=x_2]}{P[X_1=x_1]}=\dfrac{\frac{1}{4}\left(\frac{1}{2}\right)^{x_1+x_2}}{\frac{1}{2^{x_1+1}}}=\dfrac{1}{2^{x_2+1}} \]
+	Por lo tanto, las distribuciones condicionadas son las mismas que las marginales, lo que indica que $X_1$ y $X_2$ son variables aleatorias independientes.
 \end{enumerate}

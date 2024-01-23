@@ -148,4 +148,33 @@ Sea $X=(X_1,\dots,X_k)$ un vector aleatorio discreto.
 Sea $X_{i_1},\dots,X_{i_m}$ un subvector arbitrario y $(x_{i_1}^*,\dots,x_{i_m}^*)\in\R^m$ tal que \[ P[X_{i_1}=x_{i_1}^*,\dots,X_{i_m}=x_{i_m}^*]>0. \]
 Se define la \lb{distribución condicionada} de $(X_1,\dots,X_{i_1-1},X_{i_1+1},\dots,X_{i_m-1},X_{i_m+1},\dots,X_k)$ a $(X_{i_1}=x_{i_1}^*,\dots,X_{i_m}=x_{i_m}^*)$ como la determinada por la función masa de probabilidad:
 
-$P[X_1,\dots,X_{i_{1}-1},X_{i_1+1},\dots,X_{i_m-1};X_{i_m+1},\dots,X_k|X_{i_1}=x_{i_1}^*,\dots,X_{i_m}=x_{i_m^*}]= $
+\begin{center}
+$P[X_1=x_1,\dots,X_{i_{1}-1}=x_{i_1-1},X_{i_1+1}=x_{i_1+1},\dots,X_{i_m-1}=x_{i_m-1},X_{i_m+1}=x_{i_m+1},\dots,X_k=x_k|X_{i_1}=x_{i_1}^*,\dots,X_{i_m}=x_{i_m^*}]=\dfrac{P[X_1=x_1,\dots,X_{i_1}=x_{i_1}^*,\dots,X_{i_m}=x_{i_m}^*,\dots,X_k=x_k]}{P[X_{i_1}=x_{i_1}^*,\dots,X_{i_m}=x_{i_m}^*]}$
+\end{center}
+para todo $(x_1,\dots,x_{i_1},x_{i_1+1},\dots,x_{i_m-1},x_{i_m+1},\dots,x_k)$, tal que $(x_1,\dots,x_{i_1}^*,\dots,x_{i_m}^*,\dots,x_k)\in\mathcal{S}$
+
+\subsection{Distribución normal multivariante $\mathcal{N}_k(\mu,V)$}
+\begin{enumerate}[label=\arabic*)]
+	\item Función de densidad
+\end{enumerate}
+\[ f(x)=\dfrac{1}{\sqrt{|V|(2\pi)^k}}\exp\left(-\dfrac{1}{2}(x-\mu)'V^{-1}(x-\mu)\right), \]para $x\in\R^k$, donde $\mu$ es un vector $k$-dimesional y $V$ es una matriz $k\times k$ simétrica y definida positiva.
+
+\begin{itemize}[label=\color{red}\textbullet, leftmargin=*]
+	\item \color{lightblue}Definiciones
+\end{itemize}
+Una matriz simétrica $A$, de dimensión $k\times k$, se dice que es \lb{definida positiva} si se verifica que $x'Ax>0$ para cualquier vector no nulo $x\in\R^k$.
+
+Una matriz simétrica $A$, de dimensión $k\times k$, se dice que es \lb{semidefinida positiva} si se verifica que $x'Ax\ge0$ para cualquier vector $x\in\R^k$.
+
+¿Cómo calcular la inversa de $V=\begin{pmatrix}
+1 & \tfrac{1}{2}\\
+\tfrac{1}{2} & 1
+\end{pmatrix}$ con \lb{\texttt{R}}?
+
+\vspace{0.5cm}
+
+\begin{lstlisting}
+V <- matrix(c(1, 1/2,
+						1/2, 1), nrow = 2, ncol = 2, byrow = TRUE)
+solve(V)
+\end{lstlisting}

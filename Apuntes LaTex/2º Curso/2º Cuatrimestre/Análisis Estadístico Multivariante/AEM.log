@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (MiKTeX 23.10) (preloaded format=pdflatex 2024.1.2)  22 JAN 2024 19:45
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (MiKTeX 23.10) (preloaded format=pdflatex 2024.1.2)  23 JAN 2024 09:55
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1962,8 +1962,20 @@ Overfull \hbox (26.74026pt too wide) detected at line 128
 x[]; x[]; [] ; x[]\OMS/cmsy/m/n/10 j\OML/cmm/m/it/10 x[]\OT1/cmr/m/n/10 ) = []
  []
 
-) (Tareas/Tema 1/Hoja 1.tex
-<Tareas/Tema 1/Hoja 1.pdf, id=99, 614.295pt x 794.97pt>
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `math shift' on input line 156.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `\mu' on input line 156.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `math shift' on input line 156.
+
+[4]) (Tareas/Tema 1/Hoja 1.tex
+<Tareas/Tema 1/Hoja 1.pdf, id=110, 614.295pt x 794.97pt>
 File: Tareas/Tema 1/Hoja 1.pdf Graphic file (type pdf)
 <use Tareas/Tema 1/Hoja 1.pdf>
 Package pdftex.def Info: Tareas/Tema 1/Hoja 1.pdf  used on input line 1.
@@ -1972,7 +1984,7 @@ File: Tareas/Tema 1/Hoja 1.pdf Graphic file (type pdf)
 <use Tareas/Tema 1/Hoja 1.pdf>
 Package pdftex.def Info: Tareas/Tema 1/Hoja 1.pdf  used on input line 1.
 (pdftex.def)             Requested size: 614.29349pt x 794.96806pt.
-<Tareas/Tema 1/Hoja 1.pdf, id=102, page=1, 614.295pt x 794.97pt>
+<Tareas/Tema 1/Hoja 1.pdf, id=113, page=1, 614.295pt x 794.97pt>
 File: Tareas/Tema 1/Hoja 1.pdf Graphic file (type pdf)
 <use Tareas/Tema 1/Hoja 1.pdf, page 1>
 Package pdftex.def Info: Tareas/Tema 1/Hoja 1.pdf , page1 used on input line 1.
@@ -1983,7 +1995,7 @@ File: Tareas/Tema 1/Hoja 1.pdf Graphic file (type pdf)
 Package pdftex.def Info: Tareas/Tema 1/Hoja 1.pdf , page1 used on input line 1.
 
 (pdftex.def)             Requested size: 597.78697pt x 773.60669pt.
- [4]
+ [5]
 File: Tareas/Tema 1/Hoja 1.pdf Graphic file (type pdf)
 <use Tareas/Tema 1/Hoja 1.pdf, page 1>
 Package pdftex.def Info: Tareas/Tema 1/Hoja 1.pdf , page1 used on input line 1.
@@ -1999,52 +2011,54 @@ File: Tareas/Tema 1/Hoja 1.pdf Graphic file (type pdf)
 Package pdftex.def Info: Tareas/Tema 1/Hoja 1.pdf , page1 used on input line 1.
 
 (pdftex.def)             Requested size: 597.78697pt x 773.60669pt.
- [5 <./Tareas/Tema 1/Hoja 1.pdf>] [6]) [7]
-(AEM.aux)
+ [6 <./Tareas/Tema 1/Hoja 1.pdf>] [7]
+[8]) [9] (AEM.aux)
  ***********
 LaTeX2e <2023-06-01> patch level 1
 L3 programming layer <2023-08-29>
  ***********
 Package rerunfilecheck Info: File `AEM.out' has not changed.
-(rerunfilecheck)             Checksum: AB896F48A2F1016E6452B38E63321BC7;2097.
+(rerunfilecheck)             Checksum: FBAAA42BB3562D33F1E5FA738E990187;2381.
 Package logreq Info: Writing requests to 'AEM.run.xml'.
 \openout1 = `AEM.run.xml'.
 
  ) 
 Here is how much of TeX's memory you used:
- 53212 strings out of 475248
- 1212263 string characters out of 5757814
- 2126662 words of memory out of 5000000
- 73805 multiletter control sequences out of 15000+600000
- 567210 words of font info for 75 fonts, out of 8000000 for 9000
+ 54188 strings out of 475248
+ 1221897 string characters out of 5757814
+ 2132666 words of memory out of 5000000
+ 74772 multiletter control sequences out of 15000+600000
+ 568731 words of font info for 82 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 92i,18n,134p,1194b,854s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 92i,18n,134p,1194b,1778s stack positions out of 10000i,1000n,20000p,200000b,200000s
  <C:\Users\fcoja\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\tcrm
 1000.pk><C:/Users/fcoja/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfon
 ts/cm/cmbx10.pfb><C:/Users/fcoja/AppData/Local/Programs/MiKTeX/fonts/type1/publ
 ic/amsfonts/cm/cmbx12.pfb><C:/Users/fcoja/AppData/Local/Programs/MiKTeX/fonts/t
 ype1/public/amsfonts/cm/cmex10.pfb><C:/Users/fcoja/AppData/Local/Programs/MiKTe
 X/fonts/type1/public/amsfonts/cm/cmmi10.pfb><C:/Users/fcoja/AppData/Local/Progr
-ams/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi5.pfb><C:/Users/fcoja/AppData/Loc
-al/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi7.pfb><C:/Users/fcoja/App
-Data/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi8.pfb><C:/Users/f
-coja/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr10.pfb><C:
-/Users/fcoja/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr12
+ams/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi12.pfb><C:/Users/fcoja/AppData/Lo
+cal/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi5.pfb><C:/Users/fcoja/Ap
+pData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi7.pfb><C:/Users/
+fcoja/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi8.pfb><C
+:/Users/fcoja/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr1
+0.pfb><C:/Users/fcoja/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts
+/cm/cmr12.pfb><C:/Users/fcoja/AppData/Local/Programs/MiKTeX/fonts/type1/public/
+amsfonts/cm/cmr17.pfb><C:/Users/fcoja/AppData/Local/Programs/MiKTeX/fonts/type1
+/public/amsfonts/cm/cmr5.pfb><C:/Users/fcoja/AppData/Local/Programs/MiKTeX/font
+s/type1/public/amsfonts/cm/cmr6.pfb><C:/Users/fcoja/AppData/Local/Programs/MiKT
+eX/fonts/type1/public/amsfonts/cm/cmr7.pfb><C:/Users/fcoja/AppData/Local/Progra
+ms/MiKTeX/fonts/type1/public/amsfonts/cm/cmr8.pfb><C:/Users/fcoja/AppData/Local
+/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy10.pfb><C:/Users/fcoja/AppD
+ata/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy5.pfb><C:/Users/fc
+oja/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy7.pfb><C:/
+Users/fcoja/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmtt10
 .pfb><C:/Users/fcoja/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/
-cm/cmr17.pfb><C:/Users/fcoja/AppData/Local/Programs/MiKTeX/fonts/type1/public/a
-msfonts/cm/cmr5.pfb><C:/Users/fcoja/AppData/Local/Programs/MiKTeX/fonts/type1/p
-ublic/amsfonts/cm/cmr6.pfb><C:/Users/fcoja/AppData/Local/Programs/MiKTeX/fonts/
-type1/public/amsfonts/cm/cmr7.pfb><C:/Users/fcoja/AppData/Local/Programs/MiKTeX
-/fonts/type1/public/amsfonts/cm/cmr8.pfb><C:/Users/fcoja/AppData/Local/Programs
-/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy10.pfb><C:/Users/fcoja/AppData/Local
-/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy5.pfb><C:/Users/fcoja/AppDa
-ta/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy7.pfb><C:/Users/fco
-ja/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/latxfont/line10.pf
-b><C:/Users/fcoja/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/sym
-bols/msbm10.pfb>
-Output written on AEM.pdf (8 pages, 339435 bytes).
+latxfont/line10.pfb><C:/Users/fcoja/AppData/Local/Programs/MiKTeX/fonts/type1/p
+ublic/amsfonts/symbols/msbm10.pfb>
+Output written on AEM.pdf (10 pages, 374938 bytes).
 PDF statistics:
- 350 PDF objects out of 1000 (max. 8388607)
- 25 named destinations out of 1000 (max. 500000)
- 129 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 379 PDF objects out of 1000 (max. 8388607)
+ 33 named destinations out of 1000 (max. 500000)
+ 137 words of extra memory for PDF output out of 10000 (max. 10000000)
 
