@@ -109,4 +109,44 @@
 	\dfrac{\frac{k}{2^{x_1+x_2}}}{\frac{2k}{2^{x_1}}} = \dfrac{1}{2\cdot 2^{x_2}} & x_2\in\N\\
 	0 & \text{en otro caso}
 	\end{cases}$
+	
+	\item \lb{Calcular la función de densidad de una distribución normal bidimensional en $(1,1)$ si las medias son cero, las varianzas 1 y 4, y la covarianza 1.}
+	
+	Fórmula de la función de densidad de una distribución normal bidimensional: \[ f(x,y)=\dfrac{1}{2\pi\sigma_x\sigma_y\sqrt{1-\rho^2}}\exp\left(-\dfrac{1}{2(1-\rho^2)}\left[\dfrac{(x-\mu_x)^2}{\sigma_x^2}+\dfrac{(y-\mu_y)^2}{\sigma_y^2}-\dfrac{2\rho(x-\mu_x)(y-\mu_y)}{\sigma_x\sigma_y}\right]\right) \]
+	
+	$\begin{array}{l}
+	\mu_x = \mu_y = 0\\
+	\sigma^2_x = 1\\
+	\sigma^2_y = 4\\
+	\rho=\dfrac{\sigma_{xy}}{\sigma_x\cdot\sigma_y}=\dfrac{1}{\sqrt{1}\cdot\sqrt{4}}=\dfrac{1}{2}
+	\end{array}\qquad \begin{aligned}
+	f(1,1)&=\dfrac{1}{2\pi\cdot1\cdot2\sqrt{1-\left(\frac{1}{2}\right)^2}}\exp\left(-\dfrac{1}{2\left(1-\left(\frac{1}{2}\right)^2\right)}\cdot\left[1^2+\dfrac{1^2}{4}-\dfrac{2\cdot\frac{1}{2}}{1\cdot2}\right]\right)\\
+	&=\dfrac{1}{2\pi\sqrt{3}}\exp\left(-\dfrac{2}{3}\cdot\dfrac{3}{4}\right)\\
+	&=\dfrac{1}{2\pi\sqrt{3}}\exp\left(-\dfrac{1}{2}\right)\simeq\bboxed{0.0557}
+	\end{aligned}$
+	\item \lb{Sea $(X,Y)$ un \vea con distribución uniforme en el cuadradado unidad, $[0,1]\times[0,1]$, con función de densidad conjunta \[ f(x,y)=\begin{cases}
+	1 & \text{si }0<x<1,\;0<y<1\\
+	0 & \text{en otro caso}
+	\end{cases} \]Calcular el valor esperado de $g(X,Y)=XY^2$, es decir, $E[XY^2]$.}
+	
+	
+	\item \lb{$(X,Y)$ vector aleatorio discreto con función masa de probabilidad conjunta: \begin{center}
+	\begin{tabular}{|c|c|c|}
+	\hline
+	\backslashbox{X}{Y} & 1 & 2\\ \hline
+	1 & $\tfrac{1}{9}$ & $\tfrac{2}{9}$\\
+	2 & $\tfrac{2}{9}$ & $\tfrac{4}{9}$ \\ \hline
+	\end{tabular}
+	\end{center}}
+	\begin{enumerate}[label=\color{red}\alph*)]
+		\item \db{Calcular $E[X+Y],E[2X+3Y]$.}
+		
+		
+		\item \db{Obtener el vector de medias, la matriz de covarianzas y la matriz de correlaciones del vector $(X,Y)$.}
+		
+		
+		\item \db{¿Son independientes? ¿Están incorreladas?}
+		
+		
+	\end{enumerate}
 \end{enumerate}
