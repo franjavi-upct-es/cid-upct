@@ -1,0 +1,62 @@
+\input{"../../Macros.tex"}
+\title{Análisis Estadístico Multivariante}
+\author{Francisco Javier Mercader Martínez}
+\date{}
+
+\everymath{\displaystyle}
+\usepackage{venndiagram}
+\usetikzlibrary{circuits}
+\usetikzlibrary{intersections, arrows.meta,pgfplots.fillbetween}
+\DeclareMathOperator{\sop}{Sop}
+\newcommand{\fpp}{función puntual de probabilidad }
+\newcommand{\Fpp}{Función puntual de probabilidad }
+\newcommand{\va}{variable aleatoria }
+\newcommand{\vas}{variables aleatorias }
+\newcommand{\vea}{vector aleatorio }
+\newcommand{\veas}{vectores aleatorios }
+\newcommand{\bunderset}[2]{\underset{\lb{#1}}{#2}}
+\DeclareMathOperator{\var}{Var}
+\DeclareMathOperator{\cov}{Cov}
+\DeclareMathOperator{\corr}{Corr}
+\newcommand{\mas}{muestra aleatoria simple }
+
+\lstset{
+    language=R,
+    basicstyle=\ttfamily,
+    keywordstyle=\color{blue},
+    commentstyle=\color{green!70!black},
+    stringstyle=\color{red},
+    showstringspaces=false,
+    breaklines=true,
+    numbers=left,
+    numberstyle=\tiny,
+    stepnumber=1,
+    numbersep=5pt,
+    frame=single,
+    backgroundcolor=\color{lightgray!10},
+    captionpos=b,
+    tabsize=2,
+    inputencoding=utf8,
+    literate={á}{{\'a}}1 {é}{{\'e}}1 {í}{{\'i}}1 {ó}{{\'o}}1 {ú}{{\'u}}1{ñ}{{\~n}}1
+}
+
+\begin{document}
+\maketitle
+
+\thispagestyle{empty}
+
+\tableofcontents
+
+\thispagestyle{empty}
+
+\newpage
+
+\setcounter{page}{1}
+
+\input{"Temas/Tema 1.tex"}
+
+\input{"Tareas/Tema 1/Hoja 1.tex"}
+
+\newpage
+\end{document}
+
