@@ -129,7 +129,19 @@
 	0 & \text{en otro caso}
 	\end{cases} \]Calcular el valor esperado de $g(X,Y)=XY^2$, es decir, $E[XY^2]$.}
 	
+	El valor esperado de una función $g(X,Y)$ para una variable aleatoria conjunta $(X,Y)$ se define como:
 	
+	$$E[g(X,Y)] = \int_{-\infty}^{\infty} \int_{-\infty}^{\infty} g(x,y) f(x,y) \dx \dy$$
+	
+	En este caso, $g(X,Y) = XY^2$ y la función de densidad conjunta $f(x,y)$ es 1 para $0<x<1$ y $0<y<1$, y 0 en otro caso. Por lo tanto, el valor esperado se convierte en:
+	
+	$$E[XY^2] = \int_{0}^{1} \int_{0}^{1} xy^2 \dx \dy$$
+	
+	Resolviendo la integral obtenemos:
+	
+	$$E[XY^2] = \int_{0}^{1} \left[ \frac{1}{2}x^2y^2 \right]_{0}^{1} \dy = \int_{0}^{1} \frac{1}{2}y^2 \dy = \left[ \frac{1}{6}y^3 \right]_{0}^{1} = \frac{1}{6}$$
+	
+	Por lo tanto, el valor esperado de $XY^2$ es $\frac{1}{6}$.
 	\item \lb{$(X,Y)$ vector aleatorio discreto con función masa de probabilidad conjunta: \begin{center}
 	\begin{tabular}{|c|c|c|}
 	\hline
@@ -141,12 +153,63 @@
 	\begin{enumerate}[label=\color{red}\alph*)]
 		\item \db{Calcular $E[X+Y],E[2X+3Y]$.}
 		
+		$\begin{array}{l}
+		E[X+Y]=E[X]+E[Y]=\dfrac{5}{3}+\dfrac{5}{3}=\dfrac{10}{3}\\
+		E[X]=1\cdot P(X=1)+2\cdot P(X=2)=1\cdot\left(\dfrac{1}{9}+\dfrac{2}{9}\right)+2\cdot\left(\dfrac{2}{9}+\dfrac{4}{9}\right)=\dfrac{1}{3}+\dfrac{4}{3}=\dfrac{5}{3}\\
+		E[Y]=1\cdot P(Y=1)+2\cdot P(Y=2)=1\cdot\left(\dfrac{1}{9}+\dfrac{2}{9}\right)+2\cdot\left(\dfrac{2}{9}+\dfrac{4}{9}\right)=\dfrac{1}{3}+\dfrac{4}{3}=\dfrac{5}{3}
+		\end{array}$
+		
+		$\begin{array}{l}
+		E[2X+3Y]=2E[X]+3E[Y]=2\cdot\dfrac{5}{3}+3\cdot\dfrac{5}{3}=\dfrac{25}{3}
+		\end{array}$
 		
 		\item \db{Obtener el vector de medias, la matriz de covarianzas y la matriz de correlaciones del vector $(X,Y)$.}
+		\begin{itemize}[label=\color{lightblue}\textbullet, leftmargin=*]
+		\item Vector de medias: \[ \mu=\begin{bmatrix}
+		E[X]\\
+		E[Y]
+		\end{bmatrix}=\begin{bmatrix}
+		\tfrac{5}{3}\\
+		\tfrac{5}{3}
+		\end{bmatrix}=\dfrac{5}{3}\begin{bmatrix}
+		1\\
+		1
+		\end{bmatrix} \]
+		\item Matriz de covarianzas: \[ \Sigma=\begin{bmatrix}
+		\var(X) & \cov(X,Y)\\
+		\cov(Y,X) & \var(Y)
+		\end{bmatrix}=\begin{bmatrix}
+		\tfrac{2}{9} & 0\\
+		0 & \tfrac{2}{9}
+		\end{bmatrix} \]
+		$\begin{array}{l}
+		\var(X)=E[X^2]-(E[X])^2=3-\left(\dfrac{5}{3}\right)^2=\dfrac{2}{9}\\
+		\cov(X,Y)=E[XY]-E[X]E[Y]=\dfrac{25}{9}-\dfrac{5}{3}\cdot\dfrac{5}{3}=0\\
+		\var(Y)=E[Y^2]-(E[Y])^2=3-\left(\dfrac{5}{3}\right)^2=\dfrac{2}{9}\\
+		E[X^2]=1^2\cdot P(X=1)+2^2\cdot P(X=2)=1^2\cdot\left(\dfrac{1}{9}+\dfrac{2}{9}\right)+2^2\cdot\left(\dfrac{2}{9}+\dfrac{4}{9}\right)=\dfrac{1}{3}+\dfrac{8}{3}=3\\
+		E[Y^2]=1^2\cdot P(Y=1)+2^2\cdot P(Y=2)=1^2\cdot\left(\dfrac{1}{9}+\dfrac{2}{9}\right)+2^2\cdot\left(\dfrac{2}{9}+\dfrac{4}{9}\right)=\dfrac{1}{3}+\dfrac{8}{3}=3\\
+		\end{array}$
 		
+		$E[XY]=1\cdot1\cdot P(X=1,Y=1)+1\cdot 2\cdot P(X=1,Y=2)+2\cdot1\cdot P(X=2,Y=1)+2\cdot2\cdot P(X=2,Y=2)=\dfrac{1}{9}+2\cdot\dfrac{2}{9}+2\cdot\dfrac{2}{9}+4\cdot\dfrac{4}{9}=\dfrac{25}{9}$
+		
+		\item Matriz de correlaciones: \[ \rho=\begin{bmatrix}
+		1 & \corr(X,Y)\\
+		\corr(Y,X) & 1
+		\end{bmatrix}=\begin{bmatrix}
+		1 & 0\\
+		0 & 1
+		\end{bmatrix}=I \]
+		$\corr(X,Y)=\dfrac{\cov(X,Y)}{\sqrt{\var(X)\cdot\var(Y)}}=\dfrac{0}{\sqrt{\frac{2}{9}\cdot\frac{2}{9}}}=0$
+		\end{itemize}
 		
 		\item \db{¿Son independientes? ¿Están incorreladas?}
 		
+		Las \vas $X$ e $Y$ serán independientes si se cumple la condición: $P(X=x,Y=y)=P(X=x)\cdot P(Y=y)\forall x,y\in\N$
 		
+		$P(X=1,Y=1)=P(X=1)\cdot P(Y=1)\longrightarrow \dfrac{1}{9}=\left(\dfrac{1}{9}+\dfrac{2}{9}\right)\cdot\left(\dfrac{1}{9}+\dfrac{2}{9}\right)\longrightarrow\dfrac{1}{9}=\dfrac{1}{3}\cdot\dfrac{1}{3}$
+		
+		Por lo tanto, son independientes.
+		
+		Las \vas $X$ e $Y$ están incorreladas si su covarianza vale 0. En este caso sí están incorreladas.
 	\end{enumerate}
 \end{enumerate}

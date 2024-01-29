@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (MiKTeX 23.10) (preloaded format=pdflatex 2024.1.2)  27 JAN 2024 11:58
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (MiKTeX 23.10) (preloaded format=pdflatex 2024.1.2)  29 JAN 2024 14:17
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1929,7 +1929,17 @@ Underfull \hbox (badness 3108) in paragraph at lines 327--328
 [] \OT1/cmr/m/n/10 = [] = 
  []
 
-[9] [10] [11] (Ejercicios_academia.aux)
+[9] [10]
+Overfull \hbox (8.16595pt too wide) in paragraph at lines 482--483
+[][]  
+ []
+
+[11] [12] [13]
+Overfull \hbox (24.65462pt too wide) in paragraph at lines 636--641
+[]$[]$  
+ []
+
+[14] [15] [16] (Ejercicios_academia.aux)
  ***********
 LaTeX2e <2023-06-01> patch level 1
 L3 programming layer <2023-08-29>
@@ -1941,13 +1951,13 @@ Package logreq Info: Writing requests to 'Ejercicios_academia.run.xml'.
 
  ) 
 Here is how much of TeX's memory you used:
- 52274 strings out of 475248
- 1183940 string characters out of 5757814
- 2093847 words of memory out of 5000000
- 72882 multiletter control sequences out of 15000+600000
+ 52349 strings out of 475248
+ 1184846 string characters out of 5757814
+ 2110904 words of memory out of 5000000
+ 72937 multiletter control sequences out of 15000+600000
  565991 words of font info for 71 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 92i,15n,134p,1210b,910s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 92i,21n,134p,1210b,910s stack positions out of 10000i,1000n,20000p,200000b,200000s
  <C:\Users\fcoja\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\tcrm
 1000.pk><C:/Users/fcoja/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfon
 ts/cm/cmbx10.pfb><C:/Users/fcoja/AppData/Local/Programs/MiKTeX/fonts/type1/publ
@@ -1964,9 +1974,9 @@ cmsy10.pfb><C:/Users/fcoja/AppData/Local/Programs/MiKTeX/fonts/type1/public/ams
 fonts/cm/cmsy7.pfb><C:/Users/fcoja/AppData/Local/Programs/MiKTeX/fonts/type1/pu
 blic/amsfonts/latxfont/line10.pfb><C:/Users/fcoja/AppData/Local/Programs/MiKTeX
 /fonts/type1/public/amsfonts/symbols/msbm10.pfb>
-Output written on Ejercicios_academia.pdf (11 pages, 195134 bytes).
+Output written on Ejercicios_academia.pdf (16 pages, 224496 bytes).
 PDF statistics:
- 197 PDF objects out of 1000 (max. 8388607)
- 69 named destinations out of 1000 (max. 500000)
+ 237 PDF objects out of 1000 (max. 8388607)
+ 89 named destinations out of 1000 (max. 500000)
  13 words of extra memory for PDF output out of 10000 (max. 10000000)
 

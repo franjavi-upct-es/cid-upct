@@ -369,7 +369,7 @@
 		
 		$\forall(x,y)\longrightarrow f(x,y)$ es continua por ser un cociente de funciones continuas con denominador distinto de cero.
 		
-		Veamos si es continua en el punto $(0,0)$. Para ello deberemos lo primero comrpobar si $\exists\lim$ en el punto $(0,0)$ y en caso de que exista deberá coincidir con $f(0,0)=0$. Estudiamos la existencia del límite de $f(x,y)$ en el punto $(0,0)$.
+		Veamos si es continua en el punto $(0,0)$. Para ello deberemos lo primero comprobar si $\exists\lim$ en el punto $(0,0)$ y en caso de que exista deberá coincidir con $f(0,0)=0$. Estudiamos la existencia del límite de $f(x,y)$ en el punto $(0,0)$.
 		\begin{enumerate}[label=\arabic*)]
 			\item \underline{Límites direccionales:}
 			
@@ -459,5 +459,299 @@
 		Sustituyendo tenemos que: 
 		
 		$E=x\cdot\dfrac{\partial f}{\partial x}+y\cdot\dfrac{\partial f}{\partial y}=x\cdot\cos\left(\dfrac{2x+y}{2x-y}\right)\cdot\left(\dfrac{-4y}{(2x-y)^2}\right)+y\cdot\cos\left(\dfrac{2x+y}{2x-y}\right)\cdot\left(\dfrac{4x}{(2x-y)^2}\right)=\cancel{\dfrac{-4xy}{(2x-y)^2}\cdot\cos\left(\dfrac{2x+y}{2x-y}\right)}+\cancel{\dfrac{4xy}{(2x-y)^2}\cdot\cos\left(\dfrac{2x+y}{2x-y}\right)}=0\longrightarrow\bboxed{E=0}$
+		
+		\item \lb{Hallar la ecuación del plano tangente a la superficie $z=x^2+y^2$ en los punto $(0,0)$ y $(1,2)$.}
+		
+		\begin{minipage}{0.45\textwidth}
+		$c=f(x,y)=x^2+y^2$
+		\begin{itemize}[label=\color{lightblue}\textbullet, leftmargin=*]
+			\item $P(0,0)$
+		
+		La ecuación de plano tangente viene dada por \begin{center}
+				$ z-c=\dfrac{\partial f}{\partial x}(a,b)(x-a)+\dfrac{\partial f}{\partial y}(a,b)(y-b) $
+				\end{center}
+				$\begin{array}{l}
+						a=0\\
+						b=0\\
+						c=f(0,0)=0
+						\end{array}$
+		\end{itemize}
+		\end{minipage}\qquad\begin{minipage}{0.45\textwidth}
+						\begin{tikzpicture}
+							\node[red, draw=red, fill=red!10, line width=1.5, text width=\linewidth] {\underline{Nota:} Si tenemos una superficie de $\R^3$ definida por $z=f(x,y)$ en el punto $P(a,b)$, debemos saber que la ecuación de su plano tangente viene dada por \[ z-c=\dfrac{\partial f}{\partial x}(a,b)(x-a)+\dfrac{\partial f}{\partial y}(a,b)(y-b) \]donde $c=f(a,b)$};
+						\end{tikzpicture}
+				\end{minipage}
+
+		$\begin{array}{l}
+		\dfrac{\partial f}{\partial x}=2x\longrightarrow\dfrac{\partial f}{\partial x}(0,0)=0\\
+		\dfrac{\partial f}{\partial y}=2y\longrightarrow\dfrac{\partial f}{\partial y}(0,0)=0
+		\end{array}\quad\bboxed{z=0}$
+		
+		Ecuación del plano tangente en el punto (0,0).
+		
+		\begin{itemize}[label=\color{lightblue}\textbullet,leftmargin=*]
+		\item $P(1,2)$
+		
+		La ecuación del plano tangente viene dada por: \[ z-c=\dfrac{\partial f}{\partial x}(a,b)(x-a)+\dfrac{\partial f}{\partial y}(a,b)(y-b) \]
+		
+		$\begin{array}{l}
+		a=1\\
+		b=2\\
+		c=f(1,2)=5\\
+		\dfrac{\partial f}{\partial x}=2x\longrightarrow\dfrac{\partial f}{\partial x}(1,2)=2
+		\dfrac{\partial f}{\partial y}=2y\longrightarrow\dfrac{\partial f}{\partial y}(1,2)=4
+		\end{array}$
+		
+		Por lo tanto: $\bboxed{z-5=2(x-1)+4(y-2)}$
+		
+		Ecuación del planto tangente en el punto $(1,2)$
+		\end{itemize}
+	\item \lb{Calcular las derivadas parciales de la función \[ f(x,y)=x^2\tan\dfrac{y^2}{x^2+y^2} \] definida para todo punto de $\R^2\backslash\{(0,0)\}$, y comprobar que \[ xD_1f(x,y)+yD_2f(x,y)=2f(x,y). \]}
+	$\begin{array}{l}
+	\dfrac{\partial f}{\partial x}=2x\tan\left(\dfrac{y^2}{x^2+y^2}\right)+x^2\cdot\dfrac{1}{\cos^2\left(\frac{y^2}{x^2+y^2}\right)}\cdot\dfrac{-2xy^2}{(x^2+y^2)^2}=2x\tan\left(\dfrac{y^2}{x^2+y^2}\right)-\dfrac{2x^3y^2}{(x^2+y^2)^2}\cdot\dfrac{1}{\cos^2\left(\frac{y^2}{x^2+y^2}\right)}\\
+	\dfrac{\partial f}{\partial y}=x^2\cdot\dfrac{1}{\cos^2\left(\frac{y^2}{x^2+y^2}\right)}\cdot\dfrac{2y(x^2+y^2)-2y\cdot y^2}{(x^2+y^2)^2}=\dfrac{2yx^4}{(x^2+y^2)^2}\cdot\dfrac{1}{\cos^2\left(\frac{y^2}{x^2+y^2}\right)}
+	\end{array}$
+	
+	Sustituyendo:
+	
+	$x\cdot\dfrac{\partial f}{\partial x}+y\cdot\dfrac{\partial f}{\partial y}=x\left[2x\tan\left(\dfrac{y^2}{x^2+y^2}\right)-\dfrac{2x^3y^2}{(x^2+y^2)^2}\cdot\dfrac{1}{\cos^2\left(\frac{y^2}{x^2+y^2}\right)}\right]+y\left[\dfrac{2yx^4}{(x^2+y^2)^2}\cdot\dfrac{1}{\cos^2\left(\frac{y^2}{x^2+y^2}\right)}\right]=\linebreak2x^2\tan\left(\frac{y^2}{x^2+y^2}\right)-\cancel{\dfrac{2x^4y^2}{(x^2+y^2)^2}\cdot\dfrac{1}{\cos^2\left(\frac{y^2}{x^2+y^2}\right)}}+\cancel{\dfrac{2x^4y^2}{(x^2+y^2)^2}\cdot\dfrac{1}{\cos^2\left(\frac{y^2}{x^2+y^2}\right)}}=2\cdot\left(x^2\tan\left(\dfrac{y^2}{x^2+y^2}\right)\right)=\linebreak2f(x,y)$
+	\item \lb{Determinar si la función \[ f(x,y)=\begin{cases}
+	\frac{x^2y}{x^2+y^2} & \text{si }(x,y)\neq(0,0)\\
+	0 & \text{si }(x,y)=(0,0)
+	\end{cases} \]es diferenciable.}
+	
+	Como sabemos, antes de estudiar la diferenciabilidad vamos a estudiar la continuidad, ya que en aquellos puntos donde no es continua, diremos directamente que no es diferencial.
+	\begin{itemize}
+	\item \underline{Continuidad:} 
+	
+	$\forall(x,y)\neq(0,0),\:f(x,y)$ es continua por ser un cociente de funciones continuas con denominador distinto de cero.
+	\end{itemize}
+	Veamos ahora si es continua en el punto $(0,0):$
+	\begin{enumerate}[label=\arabic*)]
+		\item \underline{Límites direccionales:}
+		
+		 $\lim_{(x,y)\to(0,0)}\dfrac{x^2y}{x^2+y^2}=\{y=mx\}=\lim_{x\to0}\dfrac{x^2mx}{x^2+m^2x^2}=\lim_{x\to0}\dfrac{x^{\cancel{3}}m}{\cancel{x^2}(1+m^2)}=\lim_{x\to0}\dfrac{xm}{1+m^2}=0$
+		
+		No sabemos si existe el límite, pero en caso de existir valdría 0.
+		\item \underline{Límites por coordenadas polares:}
+		
+		$\lim_{(x,y)\to(0,0)}\dfrac{x^2y}{x^2+y^2}=\left\{\begin{array}{l}
+		x=\rho\cos\theta\\
+		y=\rho\sin\theta
+		\end{array}\right\}=\lim_{\rho\to0}\dfrac{\rho^2\cos^2\theta\cdot\rho\sin\theta}{\rho^2\cos^2\theta+\rho^2\sin^2\theta}=\dfrac{\rho^{\cancel{3}}\cos^2\theta\sin\theta}{\cancel{\rho^2}\underset{\begin{subarray}{c}
+		\rotatebox{90}{=}\\
+		1
+		\end{subarray}}{(\cos^2\theta+\sin^2\theta)}}=\lim_{\rho\to0}\rho\cos^2\theta\sin\theta$
+		
+		No sabemos si existe el límite, pero en caso de existir valdría 0.
+		
+		\item \underline{Límites iterados o reiterados:}
+		\begin{itemize}
+		\item $\lim_{y\to0}\left(\lim_{x\to0}\dfrac{x^2y}{x^2+y^2}\right)=0$
+		\item $\lim_{x\to0}\left(\lim_{y\to0}\dfrac{x^2y}{x^2+y^2}\right)=0$
+		\end{itemize}
+		\item \underline{Definición de límite:} \[ \forall\vare\quad\exists\delta>0/\left|\tfrac{x^2y}{x^2+y^2}-0\right| -\vare\text{ si }\|\overset{\begin{subarray}{c}
+		\sqrt{x^2+y^2}\\
+		\rotatebox{90}{=}
+		\end{subarray}}{(x,y)}-(0,0)\|<\delta\] En coordenadas polares: \[ \forall\vare>0\quad\exists\delta>0/|\rho\cos^2\theta\sin\theta|<\vare\text{ si }\rho<\delta \] $|\rho\cos^2\theta\sin\theta|=\underset{\lb{\begin{array}{c}
+		|\cos\theta|\le1\\
+		|\sin\theta|\le1
+		\end{array}}}{\rho\cdot|\cos\theta|^2\cdot|\sin\theta|}\le\rho<\boxed{\delta=\vare}\longrightarrow$ Queda demostrada la definición.
+		
+		\fcolorbox{lightblue}{lightblue!10}{$f(x,y)$ en continua en todo $\R^2$.}
+	\end{enumerate}
+	\begin{itemize}
+		\item \underline{Estudiamos ahora la diferenciabilidad de $f(x,y)$:}
+		
+		$\forall(x,y)\neq(0,0)$ es diferenciable por ser un cociente de funciones con denominador distinto de cero.
+		
+		Veamos ahora si es diferenciable en $(0,0)$: \[ \lim_{(h,k)\to(0,0)}\dfrac{f(0+h,0+k)-f(0,0)-\frac{\partial f}{\partial x}(0,0)h-\frac{\partial f}{\partial y}(0,0)k}{\sqrt{h^2+k^2}}=0? \]
+		$\begin{array}{l}
+		\dfrac{\partial f}{\partial x}(0,0)=D_{(1,0)}f(0,0)=\lim_{t\to0}\dfrac{f\left((0,0)+t(1,0)\right)-\tozero{f(0,0)}}{t}=\lim_{t\to0}\dfrac{f(t,0)}{t}=\lim_{t\to0}\dfrac{0}{t}=0\\
+		\dfrac{\partial f}{\partial y}(0,0)=D_{(0,1)}f(0,0)=\lim_{t\to0}\dfrac{f\left((0,0)+t(0,1)\right)-\tozero{f(0,0)}}{t}=\lim_{t\to0}\dfrac{f(0,t)}{t}=\lim_{t\to0}\dfrac{0}{t}=0
+		\end{array}$
+		
+		Tenemos que: \[ \lim_{(h,k)\to(0,0)}\dfrac{f(h,k)}{\sqrt{h^2+k^2}}=\lim_{(h,k)\to(0,0)}\dfrac{\frac{h^2k}{h^2+k^2}}{(h^2+k^2)^{\frac{1}{2}}}=\lim_{(h,k)\to(0,0)}\dfrac{h^k}{(h^2+k^2)^{\frac{3}{2}}} \]
+		\begin{enumerate}[label=\arabic*)]
+			\item \underline{Límites direccionales:} 
+			
+			$\lim_{(h,k)\to(0,0)}\dfrac{h^2k}{(h^2+k^2)^{\frac{3}{2}}}=\{k=mh\}=\lim_{h\to0}\dfrac{h^2\cdot mh}{(h^2+m^2h^2)^{\frac{3}{2}}}=\lim_{h\to0}\dfrac{mh^3}{(h^2(1+m^2))^{\frac{3}{2}}}=\lim_{h\to0}\dfrac{m\cancel{h^3}}{\cancel{h^3}(1+m^2)^{\frac{3}{2}}}=\dfrac{m}{(1+m^2)^{\frac{3}{2}}}$
+			
+			Como depende de $m$ entonces \underline{no} existe el límite porque depende de la direcicón de acercamiento al punto.
+		\end{enumerate}
+		Como no existe el límite entonces \underline{no} es diferenciable en $(0,0)$.
+	\end{itemize}
+	\item \lb{Comprobar que la función $\vec{f}:\R^3\to\R^3$ definida por \[ \vec{f}(x,y,z)=(x^2+yz,xy-xz+2z^2,xyz) \]es diferenciable en todo punto de $\R^3$ y calcularla en el punto $(3,2,1)$.}
+	
+	Como la función $f(x,y,z)$ tiene como funciones coordenadas $\begin{cases}
+	f_1(x,y,z)=x^2+y^2-z^2\\
+	f_2(x,y,z)=xy-xz+2z^2\\
+	f_3(x,y,z)=xyz
+	\end{cases}$. Como las funciones son todas $C^1$ (continuas y con derivadas primeras continuas) entonces podemos asegurar que todas son diferenciables, por lo tanto, como todas las funciones coordenadas son diferenciables entonces la función vectorial $\vec{f}(x,y,z)$ es diferenciable.
+	
+	Para calcular la diferencial de una función vectorial, necesitamos calcular su matriz Jacobiana. 
+	\[ J(f)=\lb{\begin{array}{c}
+	f_1\\
+	f_2\\
+	f_3
+	\end{array}}\overset{\lb{\begin{array}{ccc}
+	x & ~~~y~~~ & z
+	\end{array}}}{\begin{pmatrix}
+	\tfrac{\partial f_1}{\partial x} & \tfrac{\partial f_1}{\partial y} & \tfrac{\partial f_1}{\partial z}\\
+	\tfrac{\partial f_2}{\partial x} & \tfrac{\partial f_2}{\partial y} & \tfrac{\partial f_2}{\partial z}\\
+	\tfrac{\partial f_3}{\partial x} & \tfrac{\partial f_3}{\partial y} & \tfrac{\partial f_3}{\partial z}\\
+	\end{pmatrix}}=\begin{pmatrix}
+	2x & 2 & y-2z\\
+	y-z & x& -x+4z\\
+	yz & xz & zy
+	\end{pmatrix} \]
+	
+	$\begin{array}{l}
+	J(f)(3,2,1)=\begin{pmatrix}
+	6 & 1 & 0\\
+	1 & 3 & 1\\
+	2 & 3 & 6
+	\end{pmatrix}\\
+	df(3,2,1)(h,k,j)=J(f)(3,2,1)\begin{pmatrix}
+	h\\
+	k\\
+	j
+	\end{pmatrix}=\begin{pmatrix}
+		6 & 1 & 0\\
+		1 & 3 & 1\\
+		2 & 3 & 6
+		\end{pmatrix}\cdot\begin{pmatrix}
+		h\\
+		k\\
+		j
+		\end{pmatrix}=\begin{pmatrix}
+		6h+k\\
+		h+3k+j\\
+		2h+3k+6j
+		\end{pmatrix}\\
+	\bboxed{df(3,2,1)(h,k,j)=\left[6h+k,\: h+3k+j,\:2h+3k+6j\right]}
+	\end{array}$
+	\item \lb{Calcular las derivadas parciales de la función \[ f(x,y)=y\log\dfrac{x^3y}{x^2+y^2} \]definida en el conjunto $\{(x,y):x>0,\:y>0\}$, y calcular su diferencial en el punto $(1,1)$.}
+	
+	$\begin{array}{l}
+	\dfrac{\partial f}{\partial x}=y\cdot\dfrac{1}{\frac{x^3y}{\cancel{x^2+y^2}}}\cdot\dfrac{3x^2y(x^2+y^2)-2x\cdot x^3y}{(x^2+y^2)^{\cancel{2}}}=y\cdot\dfrac{3x^4y+3x^2y^3-2x^4y}{x^3y(x^2+y^2)}=y\cdot\dfrac{x^4y+3x^2y^3}{x^3y(x^2+y^2)}=y\cdot\dfrac{\cancel{x^2}\cancel{y}(x^2+3y^2)}{x^{\cancel{3}}\cancel{y}(x^2+y^2)}=\dfrac{y(x^2+3y^2)}{x(x^2+y^2)}\\
+	\dfrac{\partial f}{\partial y}=\log\left(\dfrac{x^3y}{x^2+y^2}\right)+\cancel{y}\cdot\dfrac{1}{\frac{\cancel{x^3y}}{\cancel{x^2+y^2}}}\cdot\dfrac{\cancel{x^3}(x^2+y^2)-2y\cdot\cancel{x^3}y}{(x^2+y^2)^{\cancel{2}}}=\log\left(\dfrac{x^3y}{x^2+y^2}\right)+\dfrac{x^2-y^2}{x^2+y^2}\\
+	df(1,1)(h,k)=\dfrac{\partial f}{\partial x}(1,1)h+\dfrac{\partial f}{\partial y}(1,1)k
+	\end{array}$
+	
+	$\begin{array}{l}
+	\dfrac{\partial f}{\partial x}(1,1)=\dfrac{4}{2}=2\\
+	\dfrac{\partial f}{\partial y}(1,1)=\log\left(\dfrac{1}{2}\right)
+	\end{array}\qquad\bboxed{df(1,1)(h,k)=2h+\log\left(\dfrac{1}{2}\right)k}$
+	
+	\item \lb{Sea $f:\R\to\R$ una función de clase $C^2(\R,\R)$ y sea $F:\R^2\to\R$ definida por  \begin{center}
+	$F(x,y)=f\left(\dfrac{1}{y}-\dfrac{1}{x}\right) $ con $x,y\neq0$.
+	\end{center}Comprobar que se satisfacen las igualdades:}
+	\begin{enumerate}[label=\color{red}\alph*)]
+		\item \db{$x^2\dfrac{\partial F}{\partial x}(x,y)+y^2\dfrac{\partial F}{\partial y}(x,y)=0$.}
+		
+		Lo que tenemos realmente en este problema es:
+		
+		\begin{tikzpicture}
+		\node (a)  at (0,0) {$\begin{array}{l}
+		F(x,y)=f(u)\\
+		u=\dfrac{1}{y}-\dfrac{1}{x}
+		\end{array}$};
+		\node[right=of a] at (2,0) {$F=f\longrightarrow u$};
+		\draw[-latex] (5.2,0) -- (6,0.7) node[right] {$x$};
+		\draw[-latex] (5.2,0) -- (6,-0.7) node[right] {$y$};
+		\end{tikzpicture}
+		
+		$\begin{array}{l}
+		\begin{array}{ll}
+		\dfrac{\partial F}{\partial x}=f'(u)\cdot\dfrac{\partial u}{\partial x}=f'(u)\cdot\dfrac{1}{x^2} & \rc{\bullet}\\
+		\dfrac{\partial F}{\partial y}=f'(u)\cdot\dfrac{\partial u}{\partial y}=f'(u)\cdot\left(\dfrac{-1}{y^2}\right) & \lb{\bullet}
+		\end{array}\\
+		x^2\cdot\dfrac{\partial F}{\partial x}+y^2\cdot\dfrac{\partial F}{\partial y}=x^2\cdot\left[f'(u)\cdot\dfrac{1}{x^2}\right]+y^2\cdot\left[f'(u)\cdot\left(\dfrac{-1}{y^2}\right)\right]=f'(u)-f'(u)
+		\end{array}$
+		
+		Se verifica la ecuación.
+		\item \db{$xy(x+y)\dfrac{\partial^2 F}{\partial x\partial y}(x,y)+x^2\dfrac{\partial^2F}{\partial x^2}(x,y)+y^2\dfrac{\partial^2F}{\partial y^2}(x,y)=0$.}
+		
+		Calcularemos las derivadas segundas, aplicando la regla de la cadena:
+		
+		$\dfrac{\partial^2 F}{\partial x^2}=\dfrac{\partial }{\partial x}\left(\dfrac{\partial F}{\partial x}\right)=\dfrac{\partial }{\partial x}\left(f'(u)\cdot\dfrac{1}{x^2}\right)=\rboxed{\dfrac{\partial f'(u)}{\partial x}}\cdot\dfrac{1}{x^2}+f'(u)\cdot\left(\dfrac{-2}{x^3}\right)=\left(f''(u)\cdot\dfrac{1}{x^2}\right)\cdot\dfrac{1}{x^2}-f'(u)\cdot\dfrac{2}{x^3}=f''(u)\cdot\dfrac{1}{x^4}-f'(u)\cdot\dfrac{2}{x^3}$\\
+		$\dfrac{\partial^2F}{\partial y^2}=\dfrac{\partial }{\partial y}\left(\dfrac{\partial F}{\partial y}\right)=\dfrac{\partial }{\partial y}\left(f'(u)\cdot\left(-\dfrac{1}{y^2}\right)\right)=\bboxed{\dfrac{\partial f'(u)}{\partial y}}\cdot\left(-\dfrac{1}{y^2}\right)+f'(u)\cdot\dfrac{2}{y^3}=\left(f''(u)\cdot\left(-\dfrac{1}{y^2}\right)\right)\cdot\left(-\dfrac{1}{y^2}\right)+f'(u)\cdot\dfrac{2}{y^3}=f''(u)\cdot\dfrac{1}{y^4}+f'(u)\cdot\dfrac{2}{y^3}$\\
+		$\dfrac{\partial^2F}{\partial x\partial y}=\dfrac{\partial}{\partial x}\left(\dfrac{\partial F}{\partial y}\right)=\dfrac{\partial}{\partial x}\left(f'(u)\cdot\left(-\dfrac{1}{y^2}\right)\right)=\dfrac{\partial f'(u)}{\partial x}\cdot\left(-\dfrac{1}{y^2}\right)+f'(u)\cdot0=\left(f''(u)\cdot\dfrac{1}{x^2}\right)\cdot\left(-\dfrac{1}{y^2}\right)=\dfrac{1}{x^2y^2}\cdot f''(u)$\\
+		$xy(x+y)\dfrac{\partial^2 F}{\partial x\partial y}+x^2\dfrac{\partial^2F}{\partial x^2}+y^2\dfrac{\partial^2F}{\partial y^2}=\cancel{x}\cancel{y}(x+y)\left(\dfrac{-1}{x^{\cancel{2}}y^{\cancel{2}}}\right)f''(u)+x^3\left[f''(u)\dfrac{1}{x^4}+f'(u)\dfrac{2}{x^3}\right]+y^3\left[f''(u)\dfrac{1}{y^4}+f'(u)\dfrac{2}{y^3}\right]=\dfrac{-(x+y)}{xy}f''(u)+\dfrac{1}{x}f''(u)-\cancel{2f'(u)}+f''(u)\dfrac{1}{y}+\cancel{2f'(u)}=\left[\dfrac{-x}{xy}-\dfrac{y}{xy}+\dfrac{1}{x}+\dfrac{1}{y}\right]f''(u)=\left[-\dfrac{1}{y}-\dfrac{1}{x}+\dfrac{1}{x}+\dfrac{1}{y}\right]f''(u)=0$\\
+		Por lo tanto, se cumple la ecuación.
+	\end{enumerate}
+	\item \lb{Se consideran las funciones $\vec{f}:\R^2\to\R^2$ y $\vec{g}:\R^2\to\R^2$ definidas por $\vec{f}(x,y)=(x^2y^4,\:x^2y^3+4xy^2)$ y $\vec{g}(x,y)=(x\sin y,y\sin x)$. Sea $\vec{F}=\vec{g}\circ\vec{f}$. Calcular la matriz jacobiana de $\vec{F}$ en el punto $(2,-1)$.}
+	\begin{center}
+	\begin{tikzpicture}
+	\node (a) at (0,0) {$\R^2$};
+	\node[right=of a] (b) {$\R^2$};
+	\node[right=of b] (c) {$\R^2$};
+	\draw[-latex] (a) -- (b) node[midway, above] {$f$};
+	\draw[-latex] (b) -- (c) node[midway, above] {$g$};
+	\draw[-latex] (a) .. controls (1,1) and (2,1) .. (c) ;
+	\node[above] at (1.5,1) {$g\circ f=F$};
+	\node[below=0.2cm of a] (d) {$(2,-1)$};
+	\node[below=0.2cm of b] (e) {$(2,-1)$};
+	\draw[-latex] (d) -- (e);
+	\node[below=1pt of e] {$\begin{subarray}{c}
+	\rotatebox{90}{=}\\
+	(4,0)
+	\end{subarray}$};
+	\end{tikzpicture}
+	\end{center}
+	
+	$\begin{array}{l}
+	J(f)=\lb{\begin{array}{c}
+	f_1\\
+	f_2
+	\end{array}}\overset{\lb{\begin{array}{cc}
+	x~~ & ~~y
+	\end{array}}}{\begin{pmatrix}
+	\tfrac{\partial f_1}{\partial x} & \tfrac{\partial f_1}{\partial y}\\
+	\tfrac{\partial f_2}{\partial x} & \tfrac{\partial f_2}{\partial y}\\
+	\end{pmatrix}}=\begin{pmatrix}
+	2xy^4 & 4x^2y^3\\
+	3x^2y^3+4y^2 & 3x^3y^2+8xy
+	\end{pmatrix}\longrightarrow J(f)(2,-1)=\begin{pmatrix}
+	4 & -16\\
+	-8 & 8
+	\end{pmatrix}\\
+	J(g)=\lb{\begin{array}{c}
+		g_1\\
+		g_2
+		\end{array}}\overset{\lb{\begin{array}{cc}
+		x~~ & ~~y
+		\end{array}}}{\begin{pmatrix}
+		\tfrac{\partial g_1}{\partial x} & \tfrac{\partial g_1}{\partial y}\\
+		\tfrac{\partial g_2}{\partial x} & \tfrac{\partial g_2}{\partial y}\\
+		\end{pmatrix}}=\begin{pmatrix}
+		\sin y & x\cos y\\
+		y\cos x & \sin x
+		\end{pmatrix}\longrightarrow J(g)(4,0)=\begin{pmatrix}
+		0 & 4\\
+		0 & \sin4
+		\end{pmatrix}\\
+		J(F)(2,-1)=F(g)(4,0)\cdot J(f)(2,-1)=\begin{pmatrix}
+				0 & 4\\
+				0 & \sin4
+				\end{pmatrix}\cdot\begin{pmatrix}
+					4 & -16\\
+					-8 & 8
+					\end{pmatrix}=\begin{pmatrix}
+					-32 & 32\\
+					-8\sin4 & 8\sin4
+					\end{pmatrix}\\
+		\bboxed{J(F)(2,-1)=\begin{pmatrix}
+							-32 & 32\\
+							-8\sin4 & 8\sin4
+							\end{pmatrix}}
+	\end{array}$
+	
+	\item \lb{Dada $f(x,y,z)$ se define el gradiente de $f$ como \[ \mathrm{grad}f(x,y,z)=\left(\dfrac{\partial f}{\partial x}(x,y,z),\:\dfrac{\partial f}{\partial y}(x,y,z),\:\dfrac{\partial f}{\partial z}(x,y,z)\right). \] Dadas las coordenadas cilíndricas de $\R^3$ \[ \begin{cases}
+	x=r\cos\theta\\
+	y=r\sin\theta\\
+	z=z
+	\end{cases} \], obtneer el gradiente de $f$ en estas coordenadas.}
 \end{enumerate}
 \end{document}
