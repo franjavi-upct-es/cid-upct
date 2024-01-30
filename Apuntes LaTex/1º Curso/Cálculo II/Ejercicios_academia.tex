@@ -2,6 +2,8 @@
 \title{Academia Optativa}
 \everymath{\displaystyle}
 \newcommand{\vare}{\varepsilon}
+\renewcommand{\r}{\rho}
+\DeclareMathOperator{\ta}{\theta}
 
 \begin{document}
 \maketitle
@@ -753,5 +755,160 @@
 	y=r\sin\theta\\
 	z=z
 	\end{cases} \] obtener el gradiente de $f$ en estas coordenadas.}
+	
+	Realmente, el cambio de coordenadas cilíndricas, lo interpretamos como:
+	
+	$\begin{array}{l}
+	x=x(r,\theta,z)=r\cos\theta\\
+	y=y(r,\theta,z)=r\sin\theta\\
+	z=z(r,\theta,z)=z
+	\end{array}$
+	
+	\begin{tikzpicture}[grow=right, sloped, baseline=(current bounding box.center)]
+	
+		\tikzstyle{level 2} = [sibling distance=0.5cm]
+		
+		\node{$f$}
+			child{
+				node{$x$}
+				child{
+					node{$z$}}
+				child{
+					node{$\theta$}}
+				child{
+					node{$r$}}
+			}
+			child{
+				node{$y$}
+				child{
+					node{$z$}}
+				child{
+					node{$\theta$}}
+				child{
+					node{$r$}}
+			}
+			child{
+				node{$z$}
+				child{
+					node{$z$}}
+				child{
+					node{$\theta$}}
+				child{
+					node{$r$}}
+			};
+	\end{tikzpicture}\qquad$\begin{cases}
+	\dfrac{\partial f}{\partial r}=\dfrac{\partial f}{\partial x}\cdot\dfrac{\partial x}{\partial r}+\dfrac{\partial f}{\partial y}\cdot\dfrac{\partial y}{\partial r}+\dfrac{\partial f}{\partial z}\cdot\cancel{\dfrac{\partial z}{\partial r}}\\
+	\\
+	\dfrac{\partial f}{\partial \theta}=\dfrac{\partial f}{\partial x}\cdot\dfrac{\partial x}{\partial \theta}+\dfrac{\partial f}{\partial y}\cdot\dfrac{\partial y}{\partial \theta}+\dfrac{\partial f}{\partial z}\cdot\cancel{\dfrac{\partial z}{\partial \theta}}\\
+	\\
+	\dfrac{\partial f}{\partial z}=\dfrac{\partial f}{\partial x}\cdot\cancel{\dfrac{\partial x}{\partial z}}+\dfrac{\partial f}{\partial y}\cdot\cancel{\dfrac{\partial y}{\partial z}}+\dfrac{\partial f}{\partial z}\cdot\dfrac{\partial z}{\partial z}\\
+	\end{cases}$
+	
+	$\begin{array}{l}
+	\dfrac{\partial f}{\partial r}=\dfrac{\partial f}{\partial x}(\cos\theta)+\dfrac{\partial f}{\partial y}(\sin\theta)\longrightarrow\dfrac{\partial f}{\partial r}=\dfrac{\partial f}{\partial x}\cos\theta+\dfrac{\partial f}{\partial y}\sin\theta\\
+	\dfrac{\partial f}{\partial \theta}=\dfrac{\partial f}{\partial x}(-r\sin\theta)+\dfrac{\partial f}{\partial y}r\cos\theta\longrightarrow-\dfrac{\partial f}{\partial \theta}r\sin\theta+\dfrac{\partial f}{\partial y}r\cos\theta\\
+	\dfrac{\partial f}{\partial z}=\dfrac{\partial z}{\partial z}\cdot1\longrightarrow\dfrac{\partial f}{\partial z}=\dfrac{\partial z}{\partial z}
+	\end{array}$
+	
+	\begin{minipage}{0.45\textwidth}
+	$\begin{cases}
+	\cos\theta\cdot\dfrac{\partial f}{\partial x}+\sin\theta\cdot\dfrac{\partial f}{\partial y}=\dfrac{\partial f}{\partial r}\\
+	\\
+	-r\sin\theta\cdot\dfrac{\partial f}{\partial x}+r\cos\theta\dfrac{\partial f}{\partial y}=\dfrac{\partial f}{\partial \theta}
+	\end{cases}$
+	\\
+	$|A|=\begin{vmatrix}
+	cos\theta & \sin\theta \\
+	-r\sin\theta & r\cos\theta
+	\end{vmatrix}=r\cos^2\theta+r\sin^2\theta=r$
+	\end{minipage}\qquad\begin{minipage}{0.45\textwidth}
+	\begin{tikzpicture}
+		\node[red, draw=red, fill=red!10, line width=1.5, text width=\linewidth] {\underline{Nota} Regla de Cramer:$\begin{cases}
+		a_{11}x+a_{12}y=b_1\\
+		a_{21}x+a_{22}y=b_2
+		\end{cases}$\\
+		$|A|=\begin{vmatrix}
+		a_{11} & a_{12}\\
+		a_{21} & a_{22}
+		\end{vmatrix}$\\
+		$x=\dfrac{\begin{vmatrix}
+		b_1 & a_{12}\\
+		b_2 & a_{22}
+		\end{vmatrix}}{|A|}\quad y=\dfrac{\begin{vmatrix}
+		a_{11} & b_1\\
+		a_{21} & b_2
+		\end{vmatrix}}{|A|}$};
+	\end{tikzpicture}
+	\end{minipage}
+	
+	$\begin{array}{l}
+	\dfrac{\partial f}{\partial x}=\dfrac{\begin{vmatrix}
+	\frac{\partial f}{\partial r} & \sin\theta\\
+	\frac{\partial f}{\partial \theta} & r\cos\theta
+	\end{vmatrix}}{r}=\dfrac{\frac{\partial f}{\partial r}r\cos\theta-\left(\frac{\partial f}{\partial \theta}\sin\theta\right)}{r}=\dfrac{\partial f}{\partial x}\cos\theta+\dfrac{1}{r}\cdot\dfrac{\partial f}{\partial y}\sin\theta\\
+	\dfrac{\partial f}{\partial y}=\dfrac{\begin{vmatrix}
+	\cos\theta & \frac{\partial f}{\partial r}\\
+	-r\sin\theta & \frac{\partial f}{\partial \theta}
+	\end{vmatrix}}{r}=\dfrac{\cos\theta\frac{\partial f}{\partial\theta}+r\sin\theta\frac{\partial f}{\partial r}}{r}=\sin\theta\dfrac{\partial f}{\partial\theta}+\dfrac{1}{r}\cdot\dfrac{\partial f}{\partial \theta}\\
+	\bboxed{\mathrm{grad}(f)=\left(\dfrac{\partial f}{\partial x},\dfrac{\partial f}{\partial y},\dfrac{\partial f}{\partial z}\right)=\left(\dfrac{\partial f}{\partial x}\cos\theta+\dfrac{1}{r}\dfrac{\partial f}{\partial y}\sin\theta,\:\sin\theta\dfrac{\partial f}{\partial \theta}+\dfrac{1}{r}\cdot\dfrac{\partial f}{\partial \theta},\:\dfrac{\partial f}{\partial z}\right)}
+	\end{array}$
+	\item \lb{Sea la función $f:\R^2\to\R$ definida por \[ f(x,y)=\begin{cases}
+	\dfrac{x^2(x-y)}{x^2+y^2} & \text{si }(x,y)\neq(0,0)\\
+	0 & \text{si }(x,y)=(0,0)
+	\end{cases} \]Estudiar la continuidad y diferenciabilidad de dicha función en todo punto de $\R^2$.}
+	\begin{itemize}[leftmargin=*]
+	\item \underline{Continuidad:}
+	
+	$\forall(x,y)\neq(0,0)\to f(x,y)$ es continua por ser un cociente de funciones continuas con denominador distinto de cero.
+	
+	Veamos ahora si es continua en el punto $(0,0)$:
+	\begin{enumerate}[label=\arabic*)]
+		\item \underline{Límites direccionales:} \[ \lim_{(x,y)\to(0,0)}\dfrac{x^3-x^2y}{x^2+y^2}=\{y=mx\}=\lim_{x\to0}\dfrac{x^3-x^2mx}{x^2-m^2x^2}=\lim_{x\to0}\dfrac{x^{\cancel{3}}(1-m)}{\cancel{x^2}(1-m^2)}=\lim_{x\to0}\dfrac{x(1-m)}{1+m^2}=0 \]No sabemos si existe el límite pero en caso de existir valdría 0.
+		\item \underline{Definición de límite:}
+		
+		$f(x,y)=\dfrac{x^3-x^2y}{x^2+y^2}\longrightarrow f(\rho,\theta)=\dfrac{\rho^3\cos^3\theta}{\r^2\cos^2\ta+\r^2\sin^2\ta}=\dfrac{\r^{\cancel{3}}(\cos^3\ta-\cos^2\ta\sin\ta)}{\cancel{\r^2}\underset{\begin{subarray}{c}
+		\rotatebox{90}{=}\\
+		1
+		\end{subarray}}{(\cos^2\ta+\sin^2\ta)}}\longrightarrow f(\r,\theta)=\r(\cos^3\ta-\cos^2\ta\sin\ta)$
+		\[ \forall\vare>0\quad\exists\delta>0/|f(\r,\ta)-0|<\vare\text{ si }\r<\delta \] $|\r(\cos^3\ta-\cos^2\ta\sin\ta)-0|=\r|\cos^3\ta-\cos^2\ta\sin\ta|\le2\r<\boxed{2\delta=\vare}$
+		
+		Queda demostrada la definición.
+		\end{enumerate}
+		Por lo tanto existe $\lim_{(x,y)\to(0,0)}f(x,y)=0=f(0,0)\longrightarrow f(x,y)$ es continua en $(0,0)$. Por lo que $f(x,y)$ es continua en todo $\R^2$.
+		\item \underline{Diferenciabilidad:}
+		
+		$\forall(x,y)\neq(0,0)\quad f(x,y)$ es diferenciable por ser un cociente de funciones diferenciables con denominador distinto de cero.
+		
+		Veamos ahora si es diferenciable en $(0,0)$. Para ello \[ \text{¿}\lim_{(h,k)\to(0,0)}\dfrac{f(0+h,0+k)-f(0,0)-\frac{\partial f}{\partial x}(0,0)h-\frac{\partial f}{\partial y}(0,0)k}{\sqrt{h^2+k^2}}=0? \]
+		$\begin{array}{l}
+		\dfrac{\partial f}{\partial x}(0,0)=D_{(1,0)}f(0,0)=\lim_{t\to0}\dfrac{f\left((0,0)+t(1,0)\right)-f(0,0)}{t}=\lim_{t\to0}\dfrac{f(t,0)}{t}=\dfrac{t}{t}=1\\
+		\dfrac{\partial f}{\partial y}(0,0)=D_{(0,1)}f(0,0)=\lim_{t\to0}\dfrac{f\left((0,0)+t(0,1)\right)-f(0,0)}{t}=\lim_{t\to0}\dfrac{f(0,t)}{t}=\dfrac{0}{t}=0
+		\end{array}$
+		
+		$\lim_{(h,k)\to(0,0)}\dfrac{f(h,k)-h}{\sqrt{h^2+k^2}}=\lim_{(h,k)\to(0,0)}\dfrac{\frac{h^3-h^2k}{h^2k^2}-h}{\sqrt{h^2+k^2}}=\lim_{(h,k)\to(0,0)}\dfrac{\cancel{h^3}-h^2k-\cancel{h^3}-hk^2}{(h^2+k^2)^{\frac{3}{2}}}=\lim_{(h,k)\to(0,0)}\dfrac{-h^2k-hk^2}{(h^2+k^2)^{\frac{3}{2}}}$
+		\begin{enumerate}[label=\arabic*)]
+			\item \underline{Límites direccionales:}\[ \lim_{(h,k)\to(0,0)}\dfrac{-h^2k-hk^2}{(h^2+k^2)^{\frac{3}{2}}}=\{k=mh\}=\lim_{h\to0}\dfrac{-h^2mh-hm^2h^2}{(h^2+m^2h^2)^{\frac{3}{2}}}=\lim_{h\to0}\dfrac{\cancel{h^3}(-m-m^2)}{\cancel{h^3}(1+m^2)^{\frac{3}{2}}}=\dfrac{-m-m^2}{(1+m^2)^{\frac{3}{2}}} \] $\nexists$ límite porque depende de $m\longrightarrow f(x,y)$ no es diferenciable en $(0,0)$.
+		\end{enumerate}
+		\end{itemize}
+		\item \lb{Calcular el desarrollo de Taylor hasta orden 2 de la función $f(x,y)=e^{x+2y}$ en el punto $P(2,-1)$.}
+		
+		$T_2(x,y)=f(a,b)+\dfrac{1}{1!}\left(\dfrac{\partial f}{\partial x}(a,b)(x-a)+\dfrac{\partial f}{\partial y}(a,b)(y-b)\right)+\dfrac{1}{2!}\left(\dfrac{\partial^2f }{\partial x^2}(a,b)(x-a)^2+\dfrac{\partial^2 f}{\partial y\partial x}(x-a)(y-b)+\dfrac{\partial^2f}{\partial y^2}(a,b)(y-b)^2\right)$
+		
+		En concreto queremos que $P(a,b)=P(2,-1)$
+		
+		$T_2(x,y)=f(2,-1)+\dfrac{1}{1!}\left(\dfrac{\partial f}{\partial x}(2,-1)(x-2)+\dfrac{\partial f}{\partial y}(2,-1)(y+1)\right)+\linebreak\dfrac{1}{2!}\left(\dfrac{\partial^2f }{\partial x^2}(2,-1)(x-2)^2+\dfrac{\partial^2 f}{\partial y\partial x}(2,-1)(x-2)(y-1)+\dfrac{\partial^2f}{\partial y^2}(2,-1)(y+1)^2\right)$
+		
+		$\begin{array}{l:l}
+		f(x,y)=e^{x+2y}\longrightarrow (2,-1)=1 & \dfrac{\partial^2 f}{\partial x^2}(x,y)=e^{x+2y}\longrightarrow(2,-1)=1\\
+		\dfrac{\partial f}{\partial x}(x,y)=e^{x+2y}\longrightarrow(2,-1)=1 & \dfrac{\partial^2f}{\partial y^2}(x,y)=4e^{x+2y}\longrightarrow(2,-1)=4\\
+		\dfrac{\partial f}{\partial y}(x,y)=2e^{x+2y}\longrightarrow(2,-1)=2&\dfrac{\partial^2f}{\partial y\partial x}(x,y)=2e^{x+2y}\longrightarrow(2,-1)=2\\
+		\end{array}$
+		
+		Sustituyendo tenemos que:
+		
+		$\begin{array}{l}
+		T_2(x,y)=1+(x-2)+2(y+1)+\dfrac{1}{2}\left((x-2)^2+2\cdot2\cdot(x-2)(y+1)+4(y+1)^2\right)\\
+		\bboxed{T_2(x,y)=1+(x-2)+\dfrac{1}{2}(x-2)^2+2(x-2)(y+1)+2(y+1)^2}
+		\end{array}$
 \end{enumerate}
 \end{document}
