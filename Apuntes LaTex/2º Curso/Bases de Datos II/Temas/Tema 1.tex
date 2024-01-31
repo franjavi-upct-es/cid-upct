@@ -1,1 +1,274 @@
-Hola
+\section{Recuperación de datos y formatos de serialización}
+\subsection{Necesidad de formatos de serialización}
+\begin{itemize}
+\item Los formatos de \lb{serialización}
+\end{itemize}
+\subsection{Características a analizar}
+\begin{itemize}[leftmargin=*]
+	\item \lb{¿Es un protocolo estándar?-} Con ello nos referimos a si está avalado por  cuerpo de estándares o su especificación 
+\end{itemize}
+\begin{itemize}[label=\color{red}\textbullet, leftmargin=*]
+	\item \color{lightblue}Tabla resumen
+\end{itemize}
+\begin{tabular}{cccccccc}
+\hline
+ & Estándar & Bin? & Humano? & Ref? & IDL? & Ext? & API? \\
+\hline
+Apache Avro & Sí & Sí  & No & N/A & Sí (acoplado) & Sí & N/A \\
+\hline
+CSV & Parcial (RFC4180) & No & Sí & No & No & Parcial  & No \\
+\hline
+JSON & Sí (RFC7159) & No (BSON) & Sí & Sí (RFC6901) & Parcial  & Sí & No \\
+\hline
+Thrift & No & Sí & Parcial  & No & Sí (acoplado) &  &  \\
+\hline
+XML &  &  &  &  &  &  &  \\
+\hline
+\end{tabular}
+\subsubsection{Pandas}
+\begin{itemize}
+\item La herramienta más conocida y usada de Pandas son los \texttt{DataFrames}.
+\item Permite almacenar datos tabulares en dos dimensiones similar a una hoja de cálculo o una base de datos relacional.
+\item Las columnas de datos 
+\end{itemize}
+\begin{lstlisting}[language=Python]
+df = pd.DataFrame(rand)
+\end{lstlisting}
+\subsubsection{XML (eXtensible Markup Language)}
+\begin{itemize}
+\item Meta-lenguaje de etiquetas derivado de SGML.
+\item Motivación:
+\begin{itemize}
+\item Intercambio de datos en Internet
+\end{itemize}
+\item Reúne los requisitos de un lenguaje de intercambio de información:
+\begin{itemize}
+\item Simple: al estar basado en etiquetas y legible
+\item Independiente de la plataforma: codificación UNICODE
+\item Estándar y amplia difusión: W3C
+\item Definición de estructuras complejas: DTD, Schemas
+\item Validación y transformación: DTD, XSLT
+\item Integración con otros sistemas
+\end{itemize}
+\item Facilita procesamiento lado cliente.
+\item \textbf{No muy utilizado para BigData. Ha perdido tracción, es demasiado complejo finalmente y es muy poco eficiente en cual al porcentaje datos/metadatos}
+\end{itemize}
+\Ej
+\begin{lstlisting}[language=XML, inputencoding=utf8, literate={Ñ}{{\~N}}1]
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<DISCO CODIGO="B000067FSG">
+	<TITULO>Estrella de Mar</TITULO>
+	<ARTISTA>Amaral</ARTISTA>
+	<ESTILO>Pop</ESTILO>
+	<REFERENCIA>
+		<EDITORA>Virgin</EDITORA>
+		<AÑO_EDICION>2002<AÑO_EDICION>
+	</REFERENCIA>
+	<MUSICOS>
+		<MUSICO ROL="cantante">Amaral</MUSICO>
+		<MUSICO ROL="guitarra">Juan Aguirre</MUSICO>
+	</MUSICOS>
+</DISCO>
+\end{lstlisting}
+\begin{itemize}
+\item Instrucciones de procesamiento (línea 1)
+\item Raíz (línea 2)
+\item Etiquetas y atributos
+\end{itemize}
+\begin{itemize}[label=\color{red}\textbullet, leftmargin=*]
+	\item \color{lightblue}DTD
+\end{itemize}
+\begin{lstlisting}[language=XML, inputencoding=utf8, literate={Ñ}{{\~N}}1]
+<!ELEMENT DISCO (TITULO, ARTISTA, ESTILO?, REFERENCIA, MUSICOS)>
+<!ATTLIST DISCO CODIGO ID #REQUIERED>
+<!ATTLIST DISCO TIPO=(CD | LP | DVD) "CD">
+<!ELEMENT TITULO (#PCDATA)>
+...
+<!ELEMENT REFERENCIA (EDITORA, AÑO_EDICION) >
+<!ELEMENT MUSICOS (MUSICO*)>
+...
+\end{lstlisting}
+
+Describe los documentos XML $\Longrightarrow$ \lb{Validación}
+\begin{itemize}[label=\color{red}\textbullet, leftmargin=*]
+	\item \color{lightblue}DTD (ii)
+\end{itemize}
+Documento XML:
+\begin{itemize}
+\item \textbf{Válido:} sigue la estructura de un DTD
+\begin{lstlisting}[language=XML, inputencoding=utf8, literate={Ñ}{{\~N}}1]
+<!DOCTYPE web-app
+	PUBLIC "-//Sun Microsystems, Inc.//DTD Web Application 2.2//EN"
+	"http://java.sun.com/j2ee/dtds/web-app_2_2.dtd">
+\end{lstlisting}
+\item \textbf{Bien formado:} Sigue las reglas de XML
+\end{itemize}
+Limitaciones:
+\begin{itemize}
+\item No es XML
+\item Tipado limitado de datos
+\item No soporta espacios de nombres
+\end{itemize}
+
+\begin{itemize}[label=\color{red}\textbullet, leftmargin=*]
+	\item \color{lightblue}API SAX
+\end{itemize}
+
+Librería \texttt{\lb{xml.sax}}
+\begin{lstlisting}[language=python]
+import xml.sax
+
+class XMLHandler(xml.sax.ContentHandler):
+    def __init__(self):
+        # Inicializamos variables de interés
+
+    # Se llama cuando comienza un nuevo elemento
+    def StartElement(self, tag, attributes):
+        pass
+    # Se llama cuando un elemento acaba
+    def endElement(self, tag):
+        pass
+
+parser = xml.sax.make_parser()
+parser.setFeature(xml.sax.handler.feature_namespaces, 0)
+Handler = XMLHandler()
+parser.setContentHandler(Handler)
+parser.parse('models.xml') # nombre del documento a analizar
+\end{lstlisting}
+Cómo podríamos procesar con \texttt{\lb{xml.sax}} este documento
+\begin{lstlisting}[language=XML]
+<collection shelf="New Arrivals">
+    <model number="ST001">
+        <price>35000</price>
+        <qty>12</qty>
+        <company>Samsung</company>
+    </model>
+    <model number="RW345">
+        <price>46500</price>
+        <qty>14</qty>
+        <company>Onida</company>
+    </model>
+</collection>
+\end{lstlisting}
+\begin{itemize}[label=\color{red}\textbullet, leftmargin=*]
+	\item \color{lightblue}Parser DOM
+\end{itemize}
+Librería \lb{\texttt{xml.dom}}
+
+\begin{minipage}{0.55\textwidth}
+\begin{lstlisting}[language=python]
+# Procesar un determinado fichero
+file = minidom.parse('model.xml')
+
+# Obtener los elementos con un determinado tag
+modelos = fil.getElementosByTagName('modelo')
+
+# Obtener el atributo 'nombre' del segundo modelo
+print('modelo #2 atributos:')
+print(modelos[1].attributes['nombre'].value)
+
+# El datos de un item específico
+print('\nmodelo #2 datos:')
+print(modelos[1].firstChild.data)
+\end{lstlisting}
+\end{minipage}\qquad\begin{minipage}{0.4\textwidth}
+\begin{lstlisting}[language=XML]
+<data>
+    <modelos>
+        <modelo name='modelo1'>
+            modelo1abc
+        </modelo>
+        <modelo name="modelo2">
+            modelo2abc
+        </modelo>
+    </modelos>
+</data>
+\end{lstlisting}
+\end{minipage}
+
+\begin{itemize}[label=\color{red}\textbullet, leftmargin=*]
+	\item \color{lightblue}Librería \texttt{BeatifulSoup}
+\end{itemize}
+\begin{minipage}{0.55\textwidth}
+\begin{lstlisting}[language=python]
+from bs4 import BeatifulSoup
+
+# Leemos el fichero
+with open('models.xml', 'r') as f:
+    data = f.read()
+
+# Pasamos los datos al parse
+bs_data = BeatifulSoup(data, 'xml')
+
+# Buscamos todas las instancias 'unique'
+b_unique = bs_data.find_all('unique')
+print(b_unique)
+
+# Usamos .find búsquedas más concretas
+b_name = bs_data.find('child', {'name':'Acer'})
+print(b_name)
+\end{lstlisting}
+\end{minipage}\qquad\begin{minipage}{0.4\textwidth}
+\begin{lstlisting}[language=XML]
+<modelo>
+    <child name="Acer" qty="12">
+        Portátil Acer
+    </child>
+    <unique>
+        Número de modelo
+    </unique>
+    <child name="Acer" qty="7">
+        Exclusive
+    </child>
+    <unique>
+        1.200€
+    </unique>
+</modelo>
+\end{lstlisting}
+\end{minipage}
+\subsubsection{CSV (Comma-Separated Values)}
+\begin{itemize}
+\item Formato basado en columnas normalmente separado por coma
+\item Sin embargo, el formato admite variaciones:
+\begin{itemize}
+\item Con o sin cabecera con los nombres de las columnas
+\item Separador de columans (comas, tabuladores, etc.)
+\item Codificación de caracteres (UTF-8, latin-1, etc.)
+\item Escapado de caracteres (por ejemplo, una comilla doble como dos comillas dobles(" ") ó como \textbackslash")
+\item Comillas opcionales (sólo si hacen falta) o en todos los campos siempre
+\end{itemize}
+\end{itemize}
+\begin{itemize}[label=\color{red}\textbullet, leftmargin=*]
+	\item \color{lightblue}Carga en SQL
+\end{itemize}
+\begin{lstlisting}[language=SQL]
+LOAD DATA [LOW_PRIORITY | CONCURRENT] [LOCAL] INFLINE 'file_name'
+    [RELACE | IGNORE]
+    INTO TABLE tbl_name
+    [PARCTITION (parctition_name, ...)]
+    [CHARACTER SET charset_name]
+    [{FIELDS | COLUMS}
+        [TERMINATE BY 'string']
+        [[OPTIONALL] ENCLOSED BY 'char']
+        [ESCAPED BY 'char']
+    ]
+    [LINES
+        [STARTING BY 'string']
+        [TERMINATE BY 'string']
+    ]
+    [IGNORE number {LINES | ROWS}]
+    [(col_name_or_user_var, ...)]
+    [SET col_name = expr, ...]
+\end{lstlisting}
+
+\begin{lstlisting}[language=SQL]
+LOAD DATA LOCAL INFILE "/tmp/Posts.csv"
+    INTO TABLE Posts
+    COLUMNAS TERMINATED BY ',' ENCLOSED BY '"' ESCAPED BY '"'
+    LINES TERMINATED BY '\r\n'
+    IGNORE 1 LINES;
+\end{lstlisting}
+
+\begin{itemize}[label=\color{red}\textbullet, leftmargin=*]
+	\item \color{lightblue}Programación: Lectura con \texttt{Pandas DataFrame}
+\end{itemize}
