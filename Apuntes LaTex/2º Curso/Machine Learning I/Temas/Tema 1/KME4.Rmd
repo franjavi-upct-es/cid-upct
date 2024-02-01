@@ -1,0 +1,99 @@
+---
+title: "K-means"
+author: "Equipo 4: Carlos Angulo, Fernando Bocardo, Josue Flores, Oscar Roman"
+date: "5/4/2022"
+output: 
+  rmdformats::downcute:
+    highlight: tango
+    code_folding: hide
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# K-means
+
+K-means es un algoritmo de clasificación no supervisada (clusterización) que agrupa objetos en k grupos basándose en sus características. El agrupamiento se realiza minimizando la suma de distancias entre cada objeto y el centroide de su grupo o cluster. 
+
+![](https://ichi.pro/assets/images/max/724/0*ipBIcsy9jjvqEpbK.png)
+
+
+# Desarrollo
+
+## Datos y Paquetes
+
+Importando datos y paquetes.
+
+```{r}
+library(ggplot2)
+library(DT)
+df <- iris
+```
+
+Visualización de datos en una tabla.
+
+```{r}
+datatable(df)
+```
+
+## Representación gráfica
+
+Haciendo uso de un diagrama de dispersión.
+
+```{r}
+ggplot(df, aes(Petal.Length, Petal.Width) ) + geom_point(aes(col=Species), size=4)
+```
+
+Podemos observar claramente que en el caso de los datos para setosa, se tiene un grupo con datos muy diferentes al resto de especies, por lo que el algoritmo lo identificará rapidamente, mientras tanto en el caso de veriscolor y virginica existe ruido ya que tienen datos parecidos.
+
+
+## Implementación del algoritmo k-means
+
+Para iniciar la implementación del algoritmo k-means, necesitamos determinar la cantidad de clusters que utilizaremos en el modelo, viendo la representación gráfica podemos definir facilmente que serán 3 clusters, correspondientes a cada una de las especies de iris.
+
+Realizamos el primer modelo de clusterización utilizando k-means.
+
+```{r}
+set.seed(777)
+clusterIris <- kmeans(df[,1:4], center=3, nstart = 20)
+clusterIris
+```
+### Representación gráfica de los clusters modelados
+
+```{r}
+library(cluster)
+clusplot(iris, clusterIris$cluster, color=TRUE, shade = TRUE, lines=0, main = "Representación de los clusters modelados")
+```
+
+Como mencionabamos podemos ver setosa completamente identificada sin nada de ruido, mientras que entre virginica y versicolor existe ruido por su similitud.
+
+Lo analizaremos de manera más clara.
+
+```{r}
+ggplot(iris,aes(x = Petal.Length, y = Petal.Width, shape= Species, col= as.factor(clusterIris$cluster))) + geom_point()
+```
+En esta gráfica podemos observar todos los puntos rojos (Cluster 1) son setosa, mientras que en el caso de los puntos azules (Cluster 3) podemos notar una combinación considerable entre veriscolor (triangulos) y virginica (cuadrados), y en menor medida también lo observamos con los cuadrados (Cluster 2), de esta forma podemos ver que nuestro modelo ha logrado clasificar la mayoria de los datos correctamente, aunque sigue existiendo una cantidad considerable de ruido. Para comprobarlo vamos a calcular la precisión del modelo.
+
+
+### Calculo de la precisión del modelo
+
+```{r}
+table(clusterIris$cluster, df$Species)
+```
+Esta tabla representa numéricamente lo que observamos en la gráfica anterior. Todas las Setosa están clasificadas en un único grupo, y existe una minima variación en versicolor y una más notable en virginica. 
+
+Para calcular la precisión, sumamos las observaciones correctas del modelo y lo dividimos entre las observaciones totales, viendo la gráfica sabemos que el primer cluster representa a setosa, el segundo a virginica y el tercero a versicolor.
+
+```{r}
+(50+36+48) / 150
+```
+Con esto tenemos que nuestro modelo tiene una precisión de aproximadamente un 90%, por lo tanto se puede concluir que el algoritmo k-means hizo un buen trabajo en la clusterización de los datos.
+
+## Descarga este código
+
+```{r}
+xfun::embed_file("KME4.Rmd")
+```
+
+
