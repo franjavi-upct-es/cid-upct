@@ -109,7 +109,7 @@
 	\dfrac{\frac{k}{2^{x_1+x_2}}}{\frac{2k}{2^{x_1}}} = \dfrac{1}{2\cdot 2^{x_2}} & x_2\in\N\\
 	0 & \text{en otro caso}
 	\end{cases}$
-	
+
 	\item \lb{Calcular la función de densidad de una distribución normal bidimensional en $(1,1)$ si las medias son cero, las varianzas 1 y 4, y la covarianza 1.}
 	
 	Fórmula de la función de densidad de una distribución normal bidimensional: \[ f(x,y)=\dfrac{1}{2\pi\sigma_x\sigma_y\sqrt{1-\rho^2}}\exp\left(-\dfrac{1}{2(1-\rho^2)}\left[\dfrac{(x-\mu_x)^2}{\sigma_x^2}+\dfrac{(y-\mu_y)^2}{\sigma_y^2}-\dfrac{2\rho(x-\mu_x)(y-\mu_y)}{\sigma_x\sigma_y}\right]\right) \]
@@ -124,6 +124,40 @@
 	&=\dfrac{1}{2\pi\sqrt{3}}\exp\left(-\dfrac{2}{3}\cdot\dfrac{3}{4}\right)\\
 	&=\dfrac{1}{2\pi\sqrt{3}}\exp\left(-\dfrac{1}{2}\right)\simeq\bboxed{0.0557}
 	\end{aligned}$
+	
+	\hrule
+	
+	$\underset{x\in\R^k}{f(x)=}\dfrac{1}{|V|(2\pi)^k}e^{-\frac{1}{2}(x-\mu)^\intercal\Sigma^{-1}(x-\mu)}$
+	
+	$V=\begin{pmatrix}
+	1 & 1\\
+	1 & 4
+	\end{pmatrix}\qquad|V|=3$
+	
+	$\mathrm{Adj}(V^\intercal)=\begin{pmatrix}
+	4 & -1\\
+	-1 & 1
+	\end{pmatrix}\qquad V^{-1}=\dfrac{1}{|V|}\mathrm{Adj}(V^\intercal)=\begin{pmatrix}
+	\tfrac{4}{3} & -\tfrac{1}{3}\\
+	-\tfrac{1}{3} & \tfrac{1}{3}
+	\end{pmatrix}$
+	
+	$\begin{pmatrix}
+	x-0 & y-0
+	\end{pmatrix}\cdot\begin{pmatrix}
+		\tfrac{4}{3} & -\tfrac{1}{3}\\
+		-\tfrac{1}{3} & \tfrac{1}{3}
+		\end{pmatrix}\cdot\begin{pmatrix}
+		x-0\\
+		y-0
+		\end{pmatrix}=\begin{pmatrix}
+		\dfrac{4}{3}x\dfrac{y}{3} & -\dfrac{x}{3}+\dfrac{y}{3}
+		\end{pmatrix}\cdot\begin{pmatrix}
+		x\\
+		y
+		\end{pmatrix}=\dfrac{4}{3}x^2-\dfrac{xy}{3}-\dfrac{x}{y}+\dfrac{y^2}{3}$
+		
+		$f(x,y)=\dfrac{1}{\sqrt{3(2\pi)^k}}\cdot e^{-\frac{1}{2}\left(\frac{4}{3}x^2-\frac{2xy}{3}-\frac{x}{y}+\frac{y^2}{3}\right)}\longrightarrow f(1,1)\simeq0.0557$
 	\item \lb{Sea $(X,Y)$ un \vea con distribución uniforme en el cuadradado unidad, $[0,1]\times[0,1]$, con función de densidad conjunta \[ f(x,y)=\begin{cases}
 	1 & \text{si }0<x<1,\;0<y<1\\
 	0 & \text{en otro caso}
@@ -142,6 +176,14 @@
 	$$E[XY^2] = \int_{0}^{1} \left[ \frac{1}{2}x^2y^2 \right]_{0}^{1} \dy = \int_{0}^{1} \frac{1}{2}y^2 \dy = \left[ \frac{1}{6}y^3 \right]_{0}^{1} = \frac{1}{6}$$
 	
 	Por lo tanto, el valor esperado de $XY^2$ es $\frac{1}{6}$.
+	
+	\hrule
+	
+	$\begin{array}{l}
+	E[XY^2]=E[X]\cdot E[Y^2]=\lb{(\ast)}=\dfrac{1}{2}\cdot\dfrac{1}{3}=\dfrac{1}{6}\\
+	E[X]=\int_{0}^{1}x\dx=\left[\dfrac{x^2}{2}\right]_0^1=\dfrac{1}{2}\\
+	E[Y^2]=\int_{0}^{1}y^2\dy=\left[\dfrac{y^3}{3}\right]_0^1=\dfrac{1}{3}
+	\end{array}$
 	\item \lb{$(X,Y)$ vector aleatorio discreto con función masa de probabilidad conjunta: \begin{center}
 	\begin{tabular}{|c|c|c|}
 	\hline
@@ -192,7 +234,7 @@
 		
 		$E[XY]=1\cdot1\cdot P(X=1,Y=1)+1\cdot 2\cdot P(X=1,Y=2)+2\cdot1\cdot P(X=2,Y=1)+2\cdot2\cdot P(X=2,Y=2)=\dfrac{1}{9}+2\cdot\dfrac{2}{9}+2\cdot\dfrac{2}{9}+4\cdot\dfrac{4}{9}=\dfrac{25}{9}$
 		
-		\item Matriz de correlaciones: \[ \rho=\begin{bmatrix}
+		\item Matriz de correlaciones: \[ R=\begin{bmatrix}
 		1 & \corr(X,Y)\\
 		\corr(Y,X) & 1
 		\end{bmatrix}=\begin{bmatrix}

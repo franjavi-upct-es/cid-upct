@@ -52,15 +52,17 @@ Cada hipótesis representa una posible aproximación de la relación subyacente 
 
 El objetivo del \textbf{aprendizaje supervisado} es encontrar la hipótesis que mejor se ajuste a los datos de entrenamiento manteniendo la capacidad de hacer predicciones precisas para datos nuevos \textbf{(capacidad de generalización)}.
 
+\begin{center}
 \begin{tikzpicture}
     % Define los nodos
     \node (A) at (0,0) {$x_j$};
-    \node[draw=blue, right= of A, text width=2cm] (B) {\begin{center}
+    \node[draw=blue, right=2cm of A, text width=2cm, fill=lightblue!10] (B) {\begin{center}
     Máquina de \\ Aprendizaje \\ $y(x,w)$
     \end{center}};
-    \node[right= of B] (C) {$y(x_j,w)$};
+    \node[right=2cm of B] (C) {$y(x_j,w)$};
 
     % Dibuja las flechas
-    \draw[-{latex[length=1cm, width=1cm]}, blue, fill=blue] (A) -- (B);
-    \draw[-{latex[length=3mm, width=3mm]}, blue, fill=blue] (B) -- (C);
+    \draw[double -latex=4pt colored by lightblue and lightblue!10] (A) -- (B);
+    \draw[double -latex=4pt colored by lightblue and lightblue!10] (B) -- (C);
 \end{tikzpicture}
+\end{center}

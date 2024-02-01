@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (MiKTeX 23.10) (preloaded format=pdflatex 2024.1.2)  29 JAN 2024 09:13
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (MiKTeX 23.10) (preloaded format=pdflatex 2024.1.2)  1 FEB 2024 13:56
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1725,22 +1725,30 @@ File: tikzlibraryarrows.code.tex 2023-01-15 v3.1.10 (3.1.10)
 aryarrows.code.tex
 File: pgflibraryarrows.code.tex 2023-01-15 v3.1.10 (3.1.10)
 \arrowsize=\dimen403
-))))
+)))
+(C:\Users\fcoja\AppData\Local\Programs\MiKTeX\tex/generic/genmisc\kbordermatrix
+.sty
+Package: kbordermatrix 2011/09/21 Bordered matrix with brackets
+\kbcolsep=\skip172
+\kbrowsep=\skip173
+\br@kwd=\skip174
+\k@bordht=\skip175
+))
 (C:\Users\fcoja\AppData\Local\Programs\MiKTeX\tex/latex/venndiagram\venndiagram
 .sty
 Package: venndiagram 2018/06/07 v1.2 (NLCT) Venn diagrams
-\@venn@Ax=\skip172
-\@venn@Ay=\skip173
-\@venn@Bx=\skip174
-\@venn@By=\skip175
-\@venn@Cx=\skip176
-\@venn@Cy=\skip177
-\@venn@w=\skip178
-\@venn@h=\skip179
-\@venn@intersect@i@x=\skip180
-\@venn@intersect@i@y=\skip181
-\@venn@intersect@ii@x=\skip182
-\@venn@intersect@ii@y=\skip183
+\@venn@Ax=\skip176
+\@venn@Ay=\skip177
+\@venn@Bx=\skip178
+\@venn@By=\skip179
+\@venn@Cx=\skip180
+\@venn@Cy=\skip181
+\@venn@w=\skip182
+\@venn@h=\skip183
+\@venn@intersect@i@x=\skip184
+\@venn@intersect@i@y=\skip185
+\@venn@intersect@ii@x=\skip186
+\@venn@intersect@ii@y=\skip187
 )
 (C:\Users\fcoja\AppData\Local\Programs\MiKTeX\tex/generic/pgf/frontendlayer/tik
 z/libraries/circuits\tikzlibrarycircuits.code.tex
@@ -2485,86 +2493,6 @@ LaTeX Font Info:    Font shape `OT1/cmtt/bx/n' in size <12> not available
 (Font)              Font shape `OT1/cmtt/b/n' tried instead on input line 556.
 
 
-Package wrapfig Warning: wrapfigure used inside a conflicting environment on in
-put line 562.
-
-
-Package wrapfig Warning: wrapfigure used inside a conflicting environment on in
-put line 563.
-
-
-Package wrapfig Warning: wrapfigure used inside a conflicting environment on in
-put line 563.
-
-
-Package wrapfig Warning: wrapfigure used inside a conflicting environment on in
-put line 563.
-
-
-Package wrapfig Warning: wrapfigure used inside a conflicting environment on in
-put line 563.
-
-
-Package wrapfig Warning: wrapfigure used inside a conflicting environment on in
-put line 563.
-
-
-Package wrapfig Warning: wrapfigure used inside a conflicting environment on in
-put line 563.
-
-
-Package wrapfig Warning: wrapfigure used inside a conflicting environment on in
-put line 564.
-
-
-Package wrapfig Warning: wrapfigure used inside a conflicting environment on in
-put line 564.
-
-
-Package wrapfig Warning: wrapfigure used inside a conflicting environment on in
-put line 564.
-
-
-Package wrapfig Warning: wrapfigure used inside a conflicting environment on in
-put line 564.
-
-
-Package wrapfig Warning: wrapfigure used inside a conflicting environment on in
-put line 564.
-
-
-Package wrapfig Warning: wrapfigure used inside a conflicting environment on in
-put line 564.
-
-
-Package wrapfig Warning: wrapfigure used inside a conflicting environment on in
-put line 564.
-
-
-Package wrapfig Warning: wrapfigure used inside a conflicting environment on in
-put line 564.
-
-
-Package wrapfig Warning: wrapfigure used inside a conflicting environment on in
-put line 564.
-
-
-Package wrapfig Warning: wrapfigure used inside a conflicting environment on in
-put line 564.
-
-
-Package wrapfig Warning: wrapfigure used inside a conflicting environment on in
-put line 564.
-
-
-Package wrapfig Warning: wrapfigure used inside a conflicting environment on in
-put line 565.
-
-
-Package wrapfig Warning: wrapfigure used inside a conflicting environment on in
-put line 565.
-
-
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
 (hyperref)                removing `math shift' on input line 587.
 
@@ -2641,10 +2569,10 @@ Package logreq Info: Writing requests to 'AEM.run.xml'.
 
  ) 
 Here is how much of TeX's memory you used:
- 54468 strings out of 475248
- 1226279 string characters out of 5757814
- 2343909 words of memory out of 5000000
- 74904 multiletter control sequences out of 15000+600000
+ 54501 strings out of 475248
+ 1227129 string characters out of 5757814
+ 2344364 words of memory out of 5000000
+ 74933 multiletter control sequences out of 15000+600000
  569364 words of font info for 85 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  92i,18n,134p,1194b,1790s stack positions out of 10000i,1000n,20000p,200000b,200000s
@@ -2656,30 +2584,34 @@ m/dpi600\cmttb10.pk><C:/Users/fcoja/AppData/Local/Programs/MiKTeX/fonts/type1/p
 ublic/amsfonts/cm/cmbx10.pfb><C:/Users/fcoja/AppData/Local/Programs/MiKTeX/font
 s/type1/public/amsfonts/cm/cmbx12.pfb><C:/Users/fcoja/AppData/Local/Programs/Mi
 KTeX/fonts/type1/public/amsfonts/cm/cmex10.pfb><C:/Users/fcoja/AppData/Local/Pr
-ograms/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi10.pfb><C:/Users/fcoja/AppData
-/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi12.pfb><C:/Users/fcoj
-a/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi5.pfb><C:/Us
-ers/fcoja/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi7.pf
-b><C:/Users/fcoja/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/
-cmmi8.pfb><C:/Users/fcoja/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsf
-onts/cm/cmr10.pfb><C:/Users/fcoja/AppData/Local/Programs/MiKTeX/fonts/type1/pub
-lic/amsfonts/cm/cmr12.pfb><C:/Users/fcoja/AppData/Local/Programs/MiKTeX/fonts/t
-ype1/public/amsfonts/cm/cmr17.pfb><C:/Users/fcoja/AppData/Local/Programs/MiKTeX
-/fonts/type1/public/amsfonts/cm/cmr5.pfb><C:/Users/fcoja/AppData/Local/Programs
-/MiKTeX/fonts/type1/public/amsfonts/cm/cmr6.pfb><C:/Users/fcoja/AppData/Local/P
-rograms/MiKTeX/fonts/type1/public/amsfonts/cm/cmr7.pfb><C:/Users/fcoja/AppData/
-Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr8.pfb><C:/Users/fcoja/A
-ppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy10.pfb><C:/User
-s/fcoja/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy5.pfb>
-<C:/Users/fcoja/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cm
-sy7.pfb><C:/Users/fcoja/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfon
-ts/cm/cmtt10.pfb><C:/Users/fcoja/AppData/Local/Programs/MiKTeX/fonts/type1/publ
-ic/amsfonts/latxfont/line10.pfb><C:/Users/fcoja/AppData/Local/Programs/MiKTeX/f
-onts/type1/public/amsfonts/symbols/msbm10.pfb><C:/Users/fcoja/AppData/Local/Pro
-grams/MiKTeX/fonts/type1/public/amsfonts/symbols/msbm7.pfb>
-Output written on AEM.pdf (23 pages, 517369 bytes).
+ograms/MiKTeX/fonts/type1/public/amsfonts/cmextra/cmex7.pfb><C:/Users/fcoja/App
+Data/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi10.pfb><C:/Users/
+fcoja/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi12.pfb><
+C:/Users/fcoja/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmm
+i5.pfb><C:/Users/fcoja/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfont
+s/cm/cmmi7.pfb><C:/Users/fcoja/AppData/Local/Programs/MiKTeX/fonts/type1/public
+/amsfonts/cm/cmmi8.pfb><C:/Users/fcoja/AppData/Local/Programs/MiKTeX/fonts/type
+1/public/amsfonts/cm/cmr10.pfb><C:/Users/fcoja/AppData/Local/Programs/MiKTeX/fo
+nts/type1/public/amsfonts/cm/cmr12.pfb><C:/Users/fcoja/AppData/Local/Programs/M
+iKTeX/fonts/type1/public/amsfonts/cm/cmr17.pfb><C:/Users/fcoja/AppData/Local/Pr
+ograms/MiKTeX/fonts/type1/public/amsfonts/cm/cmr5.pfb><C:/Users/fcoja/AppData/L
+ocal/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr6.pfb><C:/Users/fcoja/Ap
+pData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr7.pfb><C:/Users/f
+coja/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr8.pfb><C:/
+Users/fcoja/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy10
+.pfb><C:/Users/fcoja/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/
+cm/cmsy5.pfb><C:/Users/fcoja/AppData/Local/Programs/MiKTeX/fonts/type1/public/a
+msfonts/cm/cmsy7.pfb><C:/Users/fcoja/AppData/Local/Programs/MiKTeX/fonts/type1/
+public/amsfonts/cm/cmtt10.pfb><C:/Users/fcoja/AppData/Local/Programs/MiKTeX/fon
+ts/type1/public/amsfonts/latxfont/line10.pfb><C:/Users/fcoja/AppData/Local/Prog
+rams/MiKTeX/fonts/type1/public/amsfonts/symbols/msam5.pfb><C:/Users/fcoja/AppDa
+ta/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/symbols/msam7.pfb><C:/User
+s/fcoja/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/symbols/msbm1
+0.pfb><C:/Users/fcoja/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts
+/symbols/msbm7.pfb>
+Output written on AEM.pdf (23 pages, 545884 bytes).
 PDF statistics:
- 707 PDF objects out of 1000 (max. 8388607)
+ 722 PDF objects out of 1000 (max. 8388607)
  176 named destinations out of 1000 (max. 500000)
  272 words of extra memory for PDF output out of 10000 (max. 10000000)
 

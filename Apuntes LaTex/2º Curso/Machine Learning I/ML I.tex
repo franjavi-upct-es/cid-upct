@@ -2,6 +2,15 @@
 
 \title{Machine Learning I}
 \usepackage{quoting}
+\usetikzlibrary{shapes.arrows, decorations.markings}
+
+
+\tikzset{
+  double -latex/.style args={#1 colored by #2 and #3}{    
+    -latex,line width=#1,#2,
+    postaction={draw,-latex,#3,line width=(#1)/2,shorten <=(#1)/4,shorten >=4.5*(#1)/4},
+  },
+}
 
 \begin{document}
 \maketitle
