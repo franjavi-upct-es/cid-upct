@@ -66,3 +66,60 @@ El objetivo del \textbf{aprendizaje supervisado} es encontrar la hipótesis que 
     \draw[double -latex=4pt colored by lightblue and lightblue!10] (B) -- (C);
 \end{tikzpicture}
 \end{center}
+
+\begin{itemize}[label=\color{red}\textbullet, leftmargin=*]
+	\item \lb{Necesario: Conjunto de entrenamiento}
+	
+	Pares: $\{x_j,t_j\}$ con $j=1,2,\dots,N$.\\
+	$x_j=\{x_{j1},x_{j2},\dots,x_{jD}\}$ entrada $j$-ésima; vector con $D$ \textbf{componentes o características}.\\
+	$t_j=\{x_{j1},x_{j2},\dots,x_{jT}\}$ target $j$-ésimo; vector con $T$ componentes.
+	\item \lb{Objetivo: Aprendizaje supervisado}
+	
+	Encontrar las \textbf{variables o pesos} del modelo $(\mathbf{w})$ que resuelvan el problema: $y(x_j,\mathbf{w})\eqsim t_j$ para $j=1,2,\dots,N$. A esta tarea se la denomina \textbf{entrenamiento}.
+\end{itemize}
+\bu{Ejemplo: Problema de \textbf{regresión}}
+
+$y=\sin(2\pi x)+n(x)$, donde $n(x)$ es un ruido gausiano pequeño.
+
+\begin{wrapfigure}[3]{l}{0.3\textwidth}
+\includegraphics{"Temas/Tema 1/Entrenamiento.png"}
+\end{wrapfigure}
+
+Conjunto de entrenamiento: $\{x_j,t_j\}_{j=1}^{N=10}$
+
+\begin{flushright}
+\begin{tikzpicture}
+    % Define los nodos
+    \node (A) at (0,0) {$x_j$};
+    \node[draw=blue, right=2cm of A, text width=2cm, fill=lightblue!10] (B) {\begin{center}
+    Máquina de \\ Aprendizaje \\ $y(x,w)$
+    \end{center}};
+    \node[right=2cm of B] (C) {$y(x_j,w)$};
+
+    % Dibuja las flechas
+    \draw[double -latex=4pt colored by lightblue and lightblue!10] (A) -- (B);
+    \draw[double -latex=4pt colored by lightblue and lightblue!10] (B) -- (C);
+\end{tikzpicture}
+\end{flushright}
+
+Aproximador polinómico: $y(x,\mathbf{w})=w_0+w_1x+w_2x^2+\cdots+x_Mx^M=\sum_{j=0}^{M}x_jx^j$
+
+\begin{itemize}
+\item $M$ es un parámetro que determina la complejidad del modelo (orden del polinomio).
+\item Los parámetros no entrenables que determinan el modelo o el entrenamiento se denominan en Machine Learning \textbf{hiperparámetros}.
+\end{itemize}
+\subsection{Planteamiento de la solución}
+Se quiere encontrar las variables del modelos (coeficientes del polinomio) para que éste minimice una función de coste o error, por ejemplo, la función de error SSE ("Sum of Square Error") dada por \[ E(\mathbf{w})=\dfrac{1}{2}\sum_{n=1}^{N}\left\{y(x_n,\mathbf{w})-t_n\right\}^2 \]Existe una solución analítica única mediante álgebra lineal.
+\begin{center}
+\begin{tikzpicture}
+\begin{axis}[
+    title={$\displaystyle E(w) = \frac{1}{2}\sum_{n=1}^{N}(y(x_n, w) - t_n)^2$},
+    xlabel={$w$},
+    ylabel={$E(w)$},
+    domain=-2:2,
+    samples=20,
+]
+\addplot {x^2};
+\end{axis}
+\end{tikzpicture}
+\end{center}
