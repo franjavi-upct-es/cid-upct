@@ -22,8 +22,37 @@ summary(cars)
 
 You can also embed plots, for example:
 
-```{r pressure, echo=FALSE}
-plot(pressure)
+```{r}
+d <- USArrests
+head(d, n = 6)
 ```
 
-Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+```{r}
+x <- d$UrbanPop #Elegimos x
+y <- d$Murder #Elegimos y
+plot(x, y, xlab = 'UrbanPop', ylab = 'Murder')
+```
+
+```{r}
+x <- d$Assault #Elegimos x
+y <- d$Murder #Elegimos y
+plot(x, y, xlab = 'Assault', ylab = 'Murder')
+```
+
+```{r}
+plot(d)
+```
+
+```{r}
+summary(d)
+```
+
+```{r}
+#calculo directo de la varianza y cuasivarianza para Murder
+mu <- mean(d$Murder)
+n <- length(d)
+hat_sigma = sum((d$Murder-mu)^ 2)/n #varianza muestral
+S = sum((d$Murder-mu)^ 2)/(n-1) #cuasivarianza muestral
+#calculo de la matriz de covarianzas
+var(d)
+```

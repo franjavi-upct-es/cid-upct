@@ -288,13 +288,13 @@
 		\item $\db{x(3t)}$
 		\item $\db{x\left(\dfrac{t}{3}\right)}$
 	\end{enumerate}
-	\item
+	\item\lb{Determine si cada una de las siguientes señales es periódica:}
 	\begin{enumerate}[label=\color{red}\alph*)]
-		\item
+		\item $\db{x(t)=2e^{j(t+\frac{pi}{4})}u(t)}$
 
 		$x(t)=\lbb{2e^{j(t+\frac{pi}{4})}}{\text{per}}\cdot\lbb{u(t)}{\text{no per}}\longrightarrow\text{ no periódica}$
 
-		\item
+		\item $\db{x[n]=u[n]+u[-n]}$
 
 		$x[n]=u[n]+u[-n]\longrightarrow$ no periódica
 
@@ -331,10 +331,8 @@
 			\draw[-latex] (0,-1) -- (0,1.5) node[right] {x[n]+x[-n]};
 
 		\end{tikzpicture}
-		\item
-
-		$x[n]=\sum_{k=-\infty}^{\infty}\left\{\delta[n-4k]-\delta[n-1-4k]\right\}$
-
+		\item $\db{x[n]=\sum_{k=-\infty}^{\infty}\left(\delta[n-4k]-\delta[n-1-4k]\right)}$
+		
 		\begin{tikzpicture}
 			\foreach \x in {-4,0,4}{
 					\fill[lightblue] (\x,1) circle (2pt);
@@ -351,53 +349,66 @@
 				}
 		\end{tikzpicture}
 	\end{enumerate}
-	\item
-	\item
-	\item
+	\item \lb{Para cada una de las señales siguientes determine los valores de la variable independiente en los que se garantice que la parte par de la señal es cero.}
 	\begin{enumerate}[label=\color{red}\alph*)]
-		\item
+		\item $\db{x[n]=u[n]-u[n-4]}$
+		\item $\db{x(t)=\sin\left(\dfrac{t}{2}\right)}$
+		\item $\db{x[n]=\left(\dfrac{1}{2}\right)^nu[n-3]}$
+		\item $\db{x(t)=e^{-5t}u(t+2)}$
+	\end{enumerate}
+	\item \lb{Exprese la parte real de cada una de las siguientes señales de la forma $Ae^{-at}\cos(\omega t+\varphi)$, donde $A,a,\omega$ y $\varphi$ son números reales con $A\ge0$ y $-\pi\le\varphi\le\pi$.}
+	\begin{enumerate}[label=\color{red}\alph*)]
+		\item $\db{x(t)=-2}$
+		\item $\db{x(t)=\sqrt{2}e^{j\frac{\pi}{4}}\cos(3t+2\pi)}$
+		\item $\db{x(t)=e^{-t}\sin(3t+\pi)}$
+		\item $\db{x(t)=je^{(-2+j100)t}}$
+	\end{enumerate}
+	\item \lb{Determine si cada una de las siguientes señales es periódica. En caso afirmativo especifiquen su periodo fundamental.}
+	\begin{enumerate}[label=\color{red}\alph*)]
+		\item $\db{x(t)=je^{j10t}}$
 
 		$x(t)=\lbb{j}{e^{j\frac{\pi}{2}}}e^{j10t}=e^{j\left(10t+\frac{\pi}{2}\right)}\longrightarrow$ periódica
 
 		$\omega_0=10\longrightarrow T=\dfrac{2\pi}{\omega_0}=\dfrac{\pi}{5}$
 
-		\item
+		\item $\db{x(t)=e^{(-1+j)t}}$
 
 		$x(t)=e^{(-1+j)t}=e^{-t}\cdot e^{jt}\longrightarrow$ no periódica
 
-		\item
+		\item $\db{x[n]=e^{j7\pi n}}$
 
 		$x[n]=e^{j7\pi n}\longrightarrow$ periódica
 
 		$\omega_0=7\pi\longrightarrow N=\dfrac{2\pi}{\omega_0}K=\dfrac{2\cancel{\pi}}{7\cancel{\pi}}K=\left\{K=7\right\}=2$
-		\item
-
+		\item $\db{x[n]=3e^{j\frac{3\pi}{5}\left(n+\frac{1}{2}\right)}}$
+ 
 		$x[n]=3e^{j\frac{3\pi}{5}\left(n+\frac{1}{2}\right)}=3e^{j\frac{3\pi}{10}}\cdot e^{j\frac{3\pi}{5}n}$
 
 		$\omega_0=\dfrac{3\pi}{5}\longrightarrow N=\dfrac{2\pi}{\omega_0}K=\dfrac{10\cancel{\pi}}{3\cancel{\pi}}K=\left\{k=3\right\}=10$
 
-		\item
+		\item $\db{x[n]=3e^{j\frac{3}{5}\left(n+\frac{1}{2}\right)}}$
 
 		$x[n]=3e^{j\frac{3}{5}\left(n+\frac{1}{2}\right)}\longrightarrow$ no periódica
 	\end{enumerate}
-	\item
-
+	\item \lb{Determine el periodo fundamental de la señal $x(t)=2\cos(10t+1)-\sin(4t-1)$.}
+	
 	$x(t)=2\cos(10t+1)-\sin(4t-1)$
-
-	$\begin{array}{l}
-			T=k_1\cdot T_1=k_2\cdot T_2  \\
-			\begin{rcases}
-				x_1=10\longrightarrow T_1=\dfrac{2\pi}{10}=\dfrac{\pi}{5} \\
-				w_2=4\longrightarrow T_2=\dfrac{2\pi}{4}=\dfrac{\pi}{2}
-			\end{rcases}k_1\dfrac{\cancel{\pi}}{5}=k_2\dfrac{\cancel{\pi}}{2} \\
-			2k_1=5k_2\begin{cases}
-				k_1=5 \\
-				k_2=2
-			\end{cases}\longrightarrow\bboxed{T=5\cdot\dfrac{\pi}{5}=\pi}
-		\end{array}$
-	\item
-	\item
-	\item
+	
+		$\begin{array}{l}
+				T=k_1\cdot T_1=k_2\cdot T_2  \\
+				\begin{rcases}
+					x_1=10\longrightarrow T_1=\dfrac{2\pi}{10}=\dfrac{\pi}{5} \\
+					w_2=4\longrightarrow T_2=\dfrac{2\pi}{4}=\dfrac{\pi}{2}
+				\end{rcases}k_1\dfrac{\cancel{\pi}}{5}=k_2\dfrac{\cancel{\pi}}{2} \\
+				2k_1=5k_2\begin{cases}
+					k_1=5 \\
+					k_2=2
+				\end{cases}\longrightarrow\bboxed{T=5\cdot\dfrac{\pi}{5}=\pi}
+			\end{array}$
+	\item \lb{Determine el periodo fundamental de la señal $x[n]=1+e^{j\frac{4\pi n}{7}}-e^{j\frac{2\pi n}{5}}$.}
+	
+	\item \lb{Considere la señal en  tiempo discreto $x[n]=1-\sum_{k=3}^{\infty}\delta[n-1-k]$. Determine los valores de los números enteros $M$ y $n_0$ que permite que $x[n]$ pueda expresarse como $x[n]=u[Mn+n_0]$.}
+	\item \lb{Considere la señal en tiempo continuo $x(t)=\delta(t+2)-\delta(t-2)$. Calcule la energía de la señal $y(t)=\int_{-\infty}^{t}x(\tau)\mathrm{d}\tau$.}
 	\item \lb{La figura 1 muestra la señal continua $x(t)$. Represente cada una de las siguientes señales}
 	\begin{figure}[htb]
 		\centering

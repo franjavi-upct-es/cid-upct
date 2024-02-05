@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (MiKTeX 23.10) (preloaded format=pdflatex 2024.1.2)  5 FEB 2024 10:49
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (MiKTeX 23.10) (preloaded format=pdflatex 2024.1.2)  5 FEB 2024 20:45
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1993,13 +1993,13 @@ Package hyperref Warning: Token not allowed in a PDF string (Unicode):
 (hyperref)                removing `math shift' on input line 156.
 
 [4] [5]
-<Temas/Imágenes/Tema 1/000012.png, id=258, 499.8675pt x 308.352pt>
+<Temas/Imágenes/Tema 1/000012.png, id=313, 499.8675pt x 308.352pt>
 File: Temas/Imágenes/Tema 1/000012.png Graphic file (type png)
 <use Temas/Imágenes/Tema 1/000012.png>
 Package pdftex.def Info: Temas/Imágenes/Tema 1/000012.png  used on input line 
 260.
 (pdftex.def)             Requested size: 499.86627pt x 308.35124pt.
-<Temas/Imágenes/Tema 1/000014.png, id=259, 505.89pt x 361.35pt>
+<Temas/Imágenes/Tema 1/000014.png, id=314, 505.89pt x 361.35pt>
 File: Temas/Imágenes/Tema 1/000014.png Graphic file (type png)
 <use Temas/Imágenes/Tema 1/000014.png>
 Package pdftex.def Info: Temas/Imágenes/Tema 1/000014.png  used on input line 
@@ -2019,7 +2019,7 @@ Package pdftex.def Info: Temas/Imágenes/Tema 1/000014.png  used on input line
 342.
 (pdftex.def)             Requested size: 505.88875pt x 361.34912pt.
  [8]
-<Temas/Imágenes/Tema 1/000015.png, id=318, 505.89pt x 361.35pt>
+<Temas/Imágenes/Tema 1/000015.png, id=373, 505.89pt x 361.35pt>
 File: Temas/Imágenes/Tema 1/000015.png Graphic file (type png)
 <use Temas/Imágenes/Tema 1/000015.png>
 Package pdftex.def Info: Temas/Imágenes/Tema 1/000015.png  used on input line 
@@ -2527,7 +2527,7 @@ LaTeX Font Info:    Trying to load font information for TS1+cmtt on input line
 File: ts1cmtt.fd 2023/04/13 v2.5m Standard LaTeX font definitions
 )
 [16]) (Tareas/Tema 1/Hoja 1.tex
-<Tareas/Tema 1/Hoja 1.pdf, id=406, 614.295pt x 794.97pt>
+<Tareas/Tema 1/Hoja 1.pdf, id=461, 614.295pt x 794.97pt>
 File: Tareas/Tema 1/Hoja 1.pdf Graphic file (type pdf)
 <use Tareas/Tema 1/Hoja 1.pdf>
 Package pdftex.def Info: Tareas/Tema 1/Hoja 1.pdf  used on input line 1.
@@ -2536,7 +2536,7 @@ File: Tareas/Tema 1/Hoja 1.pdf Graphic file (type pdf)
 <use Tareas/Tema 1/Hoja 1.pdf>
 Package pdftex.def Info: Tareas/Tema 1/Hoja 1.pdf  used on input line 1.
 (pdftex.def)             Requested size: 614.29349pt x 794.96806pt.
-<Tareas/Tema 1/Hoja 1.pdf, id=409, page=1, 614.295pt x 794.97pt>
+<Tareas/Tema 1/Hoja 1.pdf, id=464, page=1, 614.295pt x 794.97pt>
 File: Tareas/Tema 1/Hoja 1.pdf Graphic file (type pdf)
 <use Tareas/Tema 1/Hoja 1.pdf, page 1>
 Package pdftex.def Info: Tareas/Tema 1/Hoja 1.pdf , page1 used on input line 1.
@@ -2565,179 +2565,681 @@ Package pdftex.def Info: Tareas/Tema 1/Hoja 1.pdf , page1 used on input line 1.
 (pdftex.def)             Requested size: 597.78697pt x 773.60669pt.
  [18 <./Tareas/Tema 1/Hoja 1.pdf>] [19]
 [20] [21]) [22] (Temas/Tema 2.tex
-Overfull \hbox (4.17964pt too wide) in paragraph at lines 10--11
+Overfull \hbox (1.9818pt too wide) in paragraph at lines 7--8
+[]\OT1/cmr/m/n/10 Para ello nece-si-ta-mos disponer de una mues-tra en la que s
+e conoz-can dichas vari-ables (apren-dizaje su-per-visado), esta mues- 
+ []
+
+
+Overfull \hbox (4.17964pt too wide) in paragraph at lines 11--12
 \OT1/cmr/m/n/10 Se trata de pre-de-cir el valor (num^^Serico) de una vari-able 
 aleato-ria (v.a.) $\OML/cmm/m/it/10 Y$ \OT1/cmr/m/n/10 a par-tir de unas vari-a
 bles pre-dic-toras $\OML/cmm/m/it/10 X[]; [] ; X[]$\OT1/cmr/m/n/10 .  
  []
 
-
-Package hyperref Warning: Difference (2) between bookmark levels is greater 
-(hyperref)                than one, level fixed on input line 19.
-
+LaTeX Font Info:    Font shape `OT1/cmtt/bx/n' in size <14.4> not available
+(Font)              Font shape `OT1/cmtt/b/n' tried instead on input line 41.
 [23]
+Overfull \hbox (8.16595pt too wide) in paragraph at lines 75--76
+[][]  
+ []
+
+
+Package wrapfig Warning: wrapfigure used inside a conflicting environment on in
+put line 80.
+
+
+Package wrapfig Warning: wrapfigure used inside a conflicting environment on in
+put line 81.
+
+
+Package wrapfig Warning: wrapfigure used inside a conflicting environment on in
+put line 81.
+
+
+Package wrapfig Warning: wrapfigure used inside a conflicting environment on in
+put line 81.
+
+
+Package wrapfig Warning: wrapfigure used inside a conflicting environment on in
+put line 81.
+
+
+Package wrapfig Warning: wrapfigure used inside a conflicting environment on in
+put line 81.
+
+
+Package wrapfig Warning: wrapfigure used inside a conflicting environment on in
+put line 81.
+
+
+Package wrapfig Warning: wrapfigure used inside a conflicting environment on in
+put line 81.
+
+
+Package wrapfig Warning: wrapfigure used inside a conflicting environment on in
+put line 81.
+
+
+Package wrapfig Warning: wrapfigure used inside a conflicting environment on in
+put line 81.
+
+
+Package wrapfig Warning: wrapfigure used inside a conflicting environment on in
+put line 81.
+
+
+Package wrapfig Warning: wrapfigure used inside a conflicting environment on in
+put line 81.
+
+
+Package wrapfig Warning: wrapfigure used inside a conflicting environment on in
+put line 81.
+
+
+Package wrapfig Warning: wrapfigure used inside a conflicting environment on in
+put line 81.
+
+
+Package wrapfig Warning: wrapfigure used inside a conflicting environment on in
+put line 81.
+
+
+Package wrapfig Warning: wrapfigure used inside a conflicting environment on in
+put line 82.
+
+
+Package wrapfig Warning: wrapfigure used inside a conflicting environment on in
+put line 82.
+
+
+Package wrapfig Warning: wrapfigure used inside a conflicting environment on in
+put line 82.
+
+
+Package wrapfig Warning: wrapfigure used inside a conflicting environment on in
+put line 82.
+
+
+Package wrapfig Warning: wrapfigure used inside a conflicting environment on in
+put line 82.
+
+
+Package wrapfig Warning: wrapfigure used inside a conflicting environment on in
+put line 82.
+
+
+Package wrapfig Warning: wrapfigure used inside a conflicting environment on in
+put line 82.
+
+
+Package wrapfig Warning: wrapfigure used inside a conflicting environment on in
+put line 82.
+
+
+Package wrapfig Warning: wrapfigure used inside a conflicting environment on in
+put line 82.
+
+
+Package wrapfig Warning: wrapfigure used inside a conflicting environment on in
+put line 82.
+
+
+Package wrapfig Warning: wrapfigure used inside a conflicting environment on in
+put line 82.
+
+
+Package wrapfig Warning: wrapfigure used inside a conflicting environment on in
+put line 82.
+
+
+Package wrapfig Warning: wrapfigure used inside a conflicting environment on in
+put line 82.
+
+
+Package wrapfig Warning: wrapfigure used inside a conflicting environment on in
+put line 82.
+
+
+Package wrapfig Warning: wrapfigure used inside a conflicting environment on in
+put line 83.
+
+
+Package wrapfig Warning: wrapfigure used inside a conflicting environment on in
+put line 83.
+
+
+Package wrapfig Warning: wrapfigure used inside a conflicting environment on in
+put line 83.
+
+
+Package wrapfig Warning: wrapfigure used inside a conflicting environment on in
+put line 83.
+
+
+Package wrapfig Warning: wrapfigure used inside a conflicting environment on in
+put line 83.
+
+
+Package wrapfig Warning: wrapfigure used inside a conflicting environment on in
+put line 83.
+
+
+Package wrapfig Warning: wrapfigure used inside a conflicting environment on in
+put line 83.
+
+
+Package wrapfig Warning: wrapfigure used inside a conflicting environment on in
+put line 83.
+
+
+Package wrapfig Warning: wrapfigure used inside a conflicting environment on in
+put line 83.
+
+
+Package wrapfig Warning: wrapfigure used inside a conflicting environment on in
+put line 83.
+
+
+Package wrapfig Warning: wrapfigure used inside a conflicting environment on in
+put line 83.
+
+
+Package wrapfig Warning: wrapfigure used inside a conflicting environment on in
+put line 83.
+
+
+Package wrapfig Warning: wrapfigure used inside a conflicting environment on in
+put line 83.
+
+
+Package wrapfig Warning: wrapfigure used inside a conflicting environment on in
+put line 83.
+
+
+Package wrapfig Warning: wrapfigure used inside a conflicting environment on in
+put line 83.
+
+
+Package wrapfig Warning: wrapfigure used inside a conflicting environment on in
+put line 83.
+
+
+Package wrapfig Warning: wrapfigure used inside a conflicting environment on in
+put line 83.
+
+
+Package wrapfig Warning: wrapfigure used inside a conflicting environment on in
+put line 83.
+
+
+Package wrapfig Warning: wrapfigure used inside a conflicting environment on in
+put line 83.
+
+
+Package wrapfig Warning: wrapfigure used inside a conflicting environment on in
+put line 83.
+
+
+Package wrapfig Warning: wrapfigure used inside a conflicting environment on in
+put line 83.
+
+
+Package wrapfig Warning: wrapfigure used inside a conflicting environment on in
+put line 83.
+
+
+Package wrapfig Warning: wrapfigure used inside a conflicting environment on in
+put line 83.
+
+
+Package wrapfig Warning: wrapfigure used inside a conflicting environment on in
+put line 83.
+
+
+Package wrapfig Warning: wrapfigure used inside a conflicting environment on in
+put line 83.
+
+
+Package wrapfig Warning: wrapfigure used inside a conflicting environment on in
+put line 83.
+
+
+Package wrapfig Warning: wrapfigure used inside a conflicting environment on in
+put line 83.
+
+
+Package wrapfig Warning: wrapfigure used inside a conflicting environment on in
+put line 83.
+
+
+Package wrapfig Warning: wrapfigure used inside a conflicting environment on in
+put line 84.
+
+
+Package wrapfig Warning: wrapfigure used inside a conflicting environment on in
+put line 84.
+
+<Temas/Imágenes/Tema 2/000005.png, id=663, 497.4585pt x 307.1475pt>
+File: Temas/Imágenes/Tema 2/000005.png Graphic file (type png)
+<use Temas/Imágenes/Tema 2/000005.png>
+Package pdftex.def Info: Temas/Imágenes/Tema 2/000005.png  used on input line 
+87.
+(pdftex.def)             Requested size: 348.21857pt x 215.00177pt.
+[24 <./Temas/Imágenes/Tema 2/000005.png>]
+Overfull \hbox (8.16595pt too wide) in paragraph at lines 95--96
+[][]  
+ []
+
+
+Package wrapfig Warning: wrapfigure used inside a conflicting environment on in
+put line 100.
+
+
+Package wrapfig Warning: wrapfigure used inside a conflicting environment on in
+put line 101.
+
+
+Package wrapfig Warning: wrapfigure used inside a conflicting environment on in
+put line 101.
+
+
+Package wrapfig Warning: wrapfigure used inside a conflicting environment on in
+put line 101.
+
+
+Package wrapfig Warning: wrapfigure used inside a conflicting environment on in
+put line 101.
+
+
+Package wrapfig Warning: wrapfigure used inside a conflicting environment on in
+put line 101.
+
+
+Package wrapfig Warning: wrapfigure used inside a conflicting environment on in
+put line 101.
+
+
+Package wrapfig Warning: wrapfigure used inside a conflicting environment on in
+put line 101.
+
+
+Package wrapfig Warning: wrapfigure used inside a conflicting environment on in
+put line 101.
+
+
+Package wrapfig Warning: wrapfigure used inside a conflicting environment on in
+put line 101.
+
+
+Package wrapfig Warning: wrapfigure used inside a conflicting environment on in
+put line 101.
+
+
+Package wrapfig Warning: wrapfigure used inside a conflicting environment on in
+put line 101.
+
+
+Package wrapfig Warning: wrapfigure used inside a conflicting environment on in
+put line 101.
+
+
+Package wrapfig Warning: wrapfigure used inside a conflicting environment on in
+put line 101.
+
+
+Package wrapfig Warning: wrapfigure used inside a conflicting environment on in
+put line 101.
+
+
+Package wrapfig Warning: wrapfigure used inside a conflicting environment on in
+put line 102.
+
+
+Package wrapfig Warning: wrapfigure used inside a conflicting environment on in
+put line 102.
+
+
+Package wrapfig Warning: wrapfigure used inside a conflicting environment on in
+put line 102.
+
+
+Package wrapfig Warning: wrapfigure used inside a conflicting environment on in
+put line 102.
+
+
+Package wrapfig Warning: wrapfigure used inside a conflicting environment on in
+put line 102.
+
+
+Package wrapfig Warning: wrapfigure used inside a conflicting environment on in
+put line 102.
+
+
+Package wrapfig Warning: wrapfigure used inside a conflicting environment on in
+put line 102.
+
+
+Package wrapfig Warning: wrapfigure used inside a conflicting environment on in
+put line 102.
+
+
+Package wrapfig Warning: wrapfigure used inside a conflicting environment on in
+put line 102.
+
+
+Package wrapfig Warning: wrapfigure used inside a conflicting environment on in
+put line 102.
+
+
+Package wrapfig Warning: wrapfigure used inside a conflicting environment on in
+put line 102.
+
+
+Package wrapfig Warning: wrapfigure used inside a conflicting environment on in
+put line 102.
+
+
+Package wrapfig Warning: wrapfigure used inside a conflicting environment on in
+put line 102.
+
+
+Package wrapfig Warning: wrapfigure used inside a conflicting environment on in
+put line 102.
+
+
+Package wrapfig Warning: wrapfigure used inside a conflicting environment on in
+put line 103.
+
+
+Package wrapfig Warning: wrapfigure used inside a conflicting environment on in
+put line 103.
+
+
+Package wrapfig Warning: wrapfigure used inside a conflicting environment on in
+put line 103.
+
+
+Package wrapfig Warning: wrapfigure used inside a conflicting environment on in
+put line 103.
+
+
+Package wrapfig Warning: wrapfigure used inside a conflicting environment on in
+put line 103.
+
+
+Package wrapfig Warning: wrapfigure used inside a conflicting environment on in
+put line 103.
+
+
+Package wrapfig Warning: wrapfigure used inside a conflicting environment on in
+put line 103.
+
+
+Package wrapfig Warning: wrapfigure used inside a conflicting environment on in
+put line 103.
+
+
+Package wrapfig Warning: wrapfigure used inside a conflicting environment on in
+put line 103.
+
+
+Package wrapfig Warning: wrapfigure used inside a conflicting environment on in
+put line 103.
+
+
+Package wrapfig Warning: wrapfigure used inside a conflicting environment on in
+put line 103.
+
+
+Package wrapfig Warning: wrapfigure used inside a conflicting environment on in
+put line 103.
+
+
+Package wrapfig Warning: wrapfigure used inside a conflicting environment on in
+put line 103.
+
+
+Package wrapfig Warning: wrapfigure used inside a conflicting environment on in
+put line 103.
+
+
+Package wrapfig Warning: wrapfigure used inside a conflicting environment on in
+put line 103.
+
+
+Package wrapfig Warning: wrapfigure used inside a conflicting environment on in
+put line 103.
+
+
+Package wrapfig Warning: wrapfigure used inside a conflicting environment on in
+put line 103.
+
+
+Package wrapfig Warning: wrapfigure used inside a conflicting environment on in
+put line 103.
+
+
+Package wrapfig Warning: wrapfigure used inside a conflicting environment on in
+put line 103.
+
+
+Package wrapfig Warning: wrapfigure used inside a conflicting environment on in
+put line 103.
+
+
+Package wrapfig Warning: wrapfigure used inside a conflicting environment on in
+put line 103.
+
+
+Package wrapfig Warning: wrapfigure used inside a conflicting environment on in
+put line 103.
+
+
+Package wrapfig Warning: wrapfigure used inside a conflicting environment on in
+put line 103.
+
+
+Package wrapfig Warning: wrapfigure used inside a conflicting environment on in
+put line 103.
+
+
+Package wrapfig Warning: wrapfigure used inside a conflicting environment on in
+put line 103.
+
+
+Package wrapfig Warning: wrapfigure used inside a conflicting environment on in
+put line 103.
+
+
+Package wrapfig Warning: wrapfigure used inside a conflicting environment on in
+put line 103.
+
+
+Package wrapfig Warning: wrapfigure used inside a conflicting environment on in
+put line 103.
+
+
+Package wrapfig Warning: wrapfigure used inside a conflicting environment on in
+put line 104.
+
+
+Package wrapfig Warning: wrapfigure used inside a conflicting environment on in
+put line 104.
+
+<Temas/Imágenes/Tema 2/000010.png, id=677, 497.4585pt x 307.1475pt>
+File: Temas/Imágenes/Tema 2/000010.png Graphic file (type png)
+<use Temas/Imágenes/Tema 2/000010.png>
+Package pdftex.def Info: Temas/Imágenes/Tema 2/000010.png  used on input line 
+107.
+(pdftex.def)             Requested size: 348.21857pt x 215.00177pt.
+<Temas/Imágenes/Tema 2/000002.png, id=678, 497.4585pt x 307.1475pt>
+File: Temas/Imágenes/Tema 2/000002.png Graphic file (type png)
+<use Temas/Imágenes/Tema 2/000002.png>
+Package pdftex.def Info: Temas/Imágenes/Tema 2/000002.png  used on input line 
+118.
+(pdftex.def)             Requested size: 348.21857pt x 215.00177pt.
+[25 <./Temas/Imágenes/Tema 2/000010.png> <./Temas/Imágenes/Tema 2/000002.png>
+]
+Overfull \hbox (8.16595pt too wide) in paragraph at lines 136--137
+[]  
+ []
+
+[26] [27]
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `math shift' on input line 56.
+(hyperref)                removing `math shift' on input line 240.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `math shift' on input line 56.
+(hyperref)                removing `math shift' on input line 240.
 
-[24]) (Tareas/Tema 2/Hoja 2.tex
+[28]
 
-! Package pdfpages Error: Cannot find file `"Tareas/Hoja 2/Hoja 2"'.
-
-See the pdfpages package documentation for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.1 \includepdf[pages=-]{"Tareas/Hoja 2/Hoja 2"}
-                                                
-This error message was generated by an \errmessage
-command, so I can't give any explicit help.
-Pretend that you're Hercule Poirot: Examine all clues,
-and deduce the truth by order and method.
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `math shift' on input line 269.
 
 
-! Package pdfpages Error: Cannot find file `-'.
-
-See the pdfpages package documentation for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.1 \includepdf[pages=-]{"Tareas/Hoja 2/Hoja 2"}
-                                                
-(That was another \errmessage.)
-
-! Undefined control sequence.
-\AM@expand@range ...M@i \relax \@tempcntb =\AM@ii 
-                                                  \relax \ifnum \@tempcnta <...
-l.1 \includepdf[pages=-]{"Tareas/Hoja 2/Hoja 2"}
-                                                
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
-
-! Missing number, treated as zero.
-<to be read again> 
-                   \relax 
-l.1 \includepdf[pages=-]{"Tareas/Hoja 2/Hoja 2"}
-                                                
-A number should have been here; I inserted `0'.
-(If you can't figure out why I needed to see a number,
-look up `weird error' in the index to The TeXbook.)
-
-! Undefined control sequence.
-\AM@checkpagenumber #1->\ifnum #1>\AM@pagecount 
-                                                \relax \ifthenelse {\boolean...
-l.1 \includepdf[pages=-]{"Tareas/Hoja 2/Hoja 2"}
-                                                
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
-
-! Missing number, treated as zero.
-<to be read again> 
-                   \relax 
-l.1 \includepdf[pages=-]{"Tareas/Hoja 2/Hoja 2"}
-                                                
-A number should have been here; I inserted `0'.
-(If you can't figure out why I needed to see a number,
-look up `weird error' in the index to The TeXbook.)
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `math shift' on input line 269.
 
 
-! Package pdfpages Error: Page 1 of `\AM@currentdocname ' does not exist.
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `math shift' on input line 269.
 
-See the pdfpages package documentation for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.1 \includepdf[pages=-]{"Tareas/Hoja 2/Hoja 2"}
-                                                
-You have set a wrong page number in the `pages' option. Document 
-`\AM@currentdocname ' does not have 1 pages.
 
-! Undefined control sequence.
-\AM@checkpagenumber #1->\ifnum #1>\AM@pagecount 
-                                                \relax \ifthenelse {\boolean...
-l.1 \includepdf[pages=-]{"Tareas/Hoja 2/Hoja 2"}
-                                                
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `math shift' on input line 269.
 
-! Missing number, treated as zero.
-<to be read again> 
-                   \relax 
-l.1 \includepdf[pages=-]{"Tareas/Hoja 2/Hoja 2"}
-                                                
-A number should have been here; I inserted `0'.
-(If you can't figure out why I needed to see a number,
-look up `weird error' in the index to The TeXbook.)
+[29]) (Tareas/Tema 2/Hoja 2.tex
+<Tareas/Tema 2/Hoja 2.pdf, id=719, 614.295pt x 794.97pt>
+File: Tareas/Tema 2/Hoja 2.pdf Graphic file (type pdf)
+<use Tareas/Tema 2/Hoja 2.pdf>
+Package pdftex.def Info: Tareas/Tema 2/Hoja 2.pdf  used on input line 1.
+(pdftex.def)             Requested size: 614.29349pt x 794.96806pt.
+File: Tareas/Tema 2/Hoja 2.pdf Graphic file (type pdf)
+<use Tareas/Tema 2/Hoja 2.pdf>
+Package pdftex.def Info: Tareas/Tema 2/Hoja 2.pdf  used on input line 1.
+(pdftex.def)             Requested size: 614.29349pt x 794.96806pt.
+<Tareas/Tema 2/Hoja 2.pdf, id=722, page=1, 614.295pt x 794.97pt>
+File: Tareas/Tema 2/Hoja 2.pdf Graphic file (type pdf)
+<use Tareas/Tema 2/Hoja 2.pdf, page 1>
+Package pdftex.def Info: Tareas/Tema 2/Hoja 2.pdf , page1 used on input line 1.
 
-[25]) [26] (AEM.aux)
+(pdftex.def)             Requested size: 614.29349pt x 794.96806pt.
+File: Tareas/Tema 2/Hoja 2.pdf Graphic file (type pdf)
+<use Tareas/Tema 2/Hoja 2.pdf, page 1>
+Package pdftex.def Info: Tareas/Tema 2/Hoja 2.pdf , page1 used on input line 1.
+
+(pdftex.def)             Requested size: 597.78697pt x 773.60669pt.
+ [30]
+File: Tareas/Tema 2/Hoja 2.pdf Graphic file (type pdf)
+<use Tareas/Tema 2/Hoja 2.pdf, page 1>
+Package pdftex.def Info: Tareas/Tema 2/Hoja 2.pdf , page1 used on input line 1.
+
+(pdftex.def)             Requested size: 597.78697pt x 773.60669pt.
+File: Tareas/Tema 2/Hoja 2.pdf Graphic file (type pdf)
+<use Tareas/Tema 2/Hoja 2.pdf, page 1>
+Package pdftex.def Info: Tareas/Tema 2/Hoja 2.pdf , page1 used on input line 1.
+
+(pdftex.def)             Requested size: 597.78697pt x 773.60669pt.
+File: Tareas/Tema 2/Hoja 2.pdf Graphic file (type pdf)
+<use Tareas/Tema 2/Hoja 2.pdf, page 1>
+Package pdftex.def Info: Tareas/Tema 2/Hoja 2.pdf , page1 used on input line 1.
+
+(pdftex.def)             Requested size: 597.78697pt x 773.60669pt.
+ [31 <./Tareas/Tema 2/Hoja 2.pdf>]
+<Tareas/Tema 2/Hoja 2.pdf, id=887, page=2, 614.295pt x 794.97pt>
+File: Tareas/Tema 2/Hoja 2.pdf Graphic file (type pdf)
+<use Tareas/Tema 2/Hoja 2.pdf, page 2>
+Package pdftex.def Info: Tareas/Tema 2/Hoja 2.pdf , page2 used on input line 1.
+
+(pdftex.def)             Requested size: 597.78697pt x 773.60669pt.
+File: Tareas/Tema 2/Hoja 2.pdf Graphic file (type pdf)
+<use Tareas/Tema 2/Hoja 2.pdf, page 2>
+Package pdftex.def Info: Tareas/Tema 2/Hoja 2.pdf , page2 used on input line 1.
+
+(pdftex.def)             Requested size: 597.78697pt x 773.60669pt.
+File: Tareas/Tema 2/Hoja 2.pdf Graphic file (type pdf)
+<use Tareas/Tema 2/Hoja 2.pdf, page 2>
+Package pdftex.def Info: Tareas/Tema 2/Hoja 2.pdf , page2 used on input line 1.
+
+(pdftex.def)             Requested size: 597.78697pt x 773.60669pt.
+ [32 <./Tareas/Tema 2/Hoja 2.pdf>]
+<Tareas/Tema 2/Hoja 2.pdf, id=892, page=3, 614.295pt x 794.97pt>
+File: Tareas/Tema 2/Hoja 2.pdf Graphic file (type pdf)
+<use Tareas/Tema 2/Hoja 2.pdf, page 3>
+Package pdftex.def Info: Tareas/Tema 2/Hoja 2.pdf , page3 used on input line 1.
+
+(pdftex.def)             Requested size: 597.78697pt x 773.60669pt.
+File: Tareas/Tema 2/Hoja 2.pdf Graphic file (type pdf)
+<use Tareas/Tema 2/Hoja 2.pdf, page 3>
+Package pdftex.def Info: Tareas/Tema 2/Hoja 2.pdf , page3 used on input line 1.
+
+(pdftex.def)             Requested size: 597.78697pt x 773.60669pt.
+File: Tareas/Tema 2/Hoja 2.pdf Graphic file (type pdf)
+<use Tareas/Tema 2/Hoja 2.pdf, page 3>
+Package pdftex.def Info: Tareas/Tema 2/Hoja 2.pdf , page3 used on input line 1.
+
+(pdftex.def)             Requested size: 597.78697pt x 773.60669pt.
+ [33 <./Tareas/Tema 2/Hoja 2.pdf>] [34]) [35] (AEM.aux)
  ***********
 LaTeX2e <2023-06-01> patch level 1
 L3 programming layer <2023-08-29>
  ***********
 Package rerunfilecheck Info: File `AEM.out' has not changed.
-(rerunfilecheck)             Checksum: AE3CD4A1D6E8E8FD9780DEF2947552F0;7929.
+(rerunfilecheck)             Checksum: 1476CD10CB7D74F9AFBF2E04AD5DA3F5;10321.
 Package logreq Info: Writing requests to 'AEM.run.xml'.
 \openout1 = `AEM.run.xml'.
 
  ) 
 Here is how much of TeX's memory you used:
- 54568 strings out of 475248
- 1228663 string characters out of 5757814
- 2344383 words of memory out of 5000000
- 74970 multiletter control sequences out of 15000+600000
- 569364 words of font info for 85 fonts, out of 8000000 for 9000
+ 54678 strings out of 475248
+ 1231385 string characters out of 5757814
+ 2344392 words of memory out of 5000000
+ 75033 multiletter control sequences out of 15000+600000
+ 570772 words of font info for 90 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 92i,20n,134p,1194b,1790s stack positions out of 10000i,1000n,20000p,200000b,200000s
- <C:\Users\fcoja\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\tctt
-1000.pk> <C:\Users\fcoja\AppData\Local\MiKTeX\fonts/pk/ljfour/public/cm/dpi720\
-cmttb10.pk> <C:\Users\fcoja\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dp
-i600\tcrm1000.pk> <C:\Users\fcoja\AppData\Local\MiKTeX\fonts/pk/ljfour/public/c
-m/dpi600\cmttb10.pk><C:/Users/fcoja/AppData/Local/Programs/MiKTeX/fonts/type1/p
-ublic/amsfonts/cm/cmbx10.pfb><C:/Users/fcoja/AppData/Local/Programs/MiKTeX/font
-s/type1/public/amsfonts/cm/cmbx12.pfb><C:/Users/fcoja/AppData/Local/Programs/Mi
-KTeX/fonts/type1/public/amsfonts/cm/cmex10.pfb><C:/Users/fcoja/AppData/Local/Pr
-ograms/MiKTeX/fonts/type1/public/amsfonts/cmextra/cmex7.pfb><C:/Users/fcoja/App
-Data/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi10.pfb><C:/Users/
-fcoja/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi12.pfb><
-C:/Users/fcoja/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmm
-i5.pfb><C:/Users/fcoja/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfont
-s/cm/cmmi7.pfb><C:/Users/fcoja/AppData/Local/Programs/MiKTeX/fonts/type1/public
-/amsfonts/cm/cmmi8.pfb><C:/Users/fcoja/AppData/Local/Programs/MiKTeX/fonts/type
-1/public/amsfonts/cm/cmr10.pfb><C:/Users/fcoja/AppData/Local/Programs/MiKTeX/fo
-nts/type1/public/amsfonts/cm/cmr12.pfb><C:/Users/fcoja/AppData/Local/Programs/M
-iKTeX/fonts/type1/public/amsfonts/cm/cmr17.pfb><C:/Users/fcoja/AppData/Local/Pr
-ograms/MiKTeX/fonts/type1/public/amsfonts/cm/cmr5.pfb><C:/Users/fcoja/AppData/L
-ocal/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr6.pfb><C:/Users/fcoja/Ap
-pData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr7.pfb><C:/Users/f
-coja/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr8.pfb><C:/
-Users/fcoja/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy10
-.pfb><C:/Users/fcoja/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/
-cm/cmsy5.pfb><C:/Users/fcoja/AppData/Local/Programs/MiKTeX/fonts/type1/public/a
-msfonts/cm/cmsy7.pfb><C:/Users/fcoja/AppData/Local/Programs/MiKTeX/fonts/type1/
-public/amsfonts/cm/cmtt10.pfb><C:/Users/fcoja/AppData/Local/Programs/MiKTeX/fon
-ts/type1/public/amsfonts/latxfont/line10.pfb><C:/Users/fcoja/AppData/Local/Prog
-rams/MiKTeX/fonts/type1/public/amsfonts/symbols/msam10.pfb><C:/Users/fcoja/AppD
-ata/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/symbols/msam5.pfb><C:/Use
-rs/fcoja/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/symbols/msam
-7.pfb><C:/Users/fcoja/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts
-/symbols/msbm10.pfb><C:/Users/fcoja/AppData/Local/Programs/MiKTeX/fonts/type1/p
-ublic/amsfonts/symbols/msbm7.pfb>
-Output written on AEM.pdf (28 pages, 582817 bytes).
+ 92i,20n,134p,1194b,1961s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ <C:\Users\fcoja\AppData\Local\MiKTeX\fonts/pk/ljfour/public/cm/dpi864\cmttb1
+0.pk> <C:\Users\fcoja\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\t
+ctt1000.pk> <C:\Users\fcoja\AppData\Local\MiKTeX\fonts/pk/ljfour/public/cm/dpi7
+20\cmttb10.pk> <C:\Users\fcoja\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec
+/dpi600\tcrm1000.pk> <C:\Users\fcoja\AppData\Local\MiKTeX\fonts/pk/ljfour/publi
+c/cm/dpi600\cmttb10.pk><C:/Users/fcoja/AppData/Local/Programs/MiKTeX/fonts/type
+1/public/amsfonts/cm/cmbx10.pfb><C:/Users/fcoja/AppData/Local/Programs/MiKTeX/f
+onts/type1/public/amsfonts/cm/cmbx12.pfb><C:/Users/fcoja/AppData/Local/Programs
+/MiKTeX/fonts/type1/public/amsfonts/cm/cmex10.pfb><C:/Users/fcoja/AppData/Local
+/Programs/MiKTeX/fonts/type1/public/amsfonts/cmextra/cmex7.pfb><C:/Users/fcoja/
+AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi10.pfb><C:/Use
+rs/fcoja/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi12.pf
+b><C:/Users/fcoja/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/
+cmmi5.pfb><C:/Users/fcoja/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsf
+onts/cm/cmmi7.pfb><C:/Users/fcoja/AppData/Local/Programs/MiKTeX/fonts/type1/pub
+lic/amsfonts/cm/cmmi8.pfb><C:/Users/fcoja/AppData/Local/Programs/MiKTeX/fonts/t
+ype1/public/amsfonts/cm/cmr10.pfb><C:/Users/fcoja/AppData/Local/Programs/MiKTeX
+/fonts/type1/public/amsfonts/cm/cmr12.pfb><C:/Users/fcoja/AppData/Local/Program
+s/MiKTeX/fonts/type1/public/amsfonts/cm/cmr17.pfb><C:/Users/fcoja/AppData/Local
+/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr5.pfb><C:/Users/fcoja/AppDat
+a/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr6.pfb><C:/Users/fcoja
+/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr7.pfb><C:/User
+s/fcoja/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr8.pfb><
+C:/Users/fcoja/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cms
+y10.pfb><C:/Users/fcoja/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfon
+ts/cm/cmsy5.pfb><C:/Users/fcoja/AppData/Local/Programs/MiKTeX/fonts/type1/publi
+c/amsfonts/cm/cmsy7.pfb><C:/Users/fcoja/AppData/Local/Programs/MiKTeX/fonts/typ
+e1/public/amsfonts/cm/cmsy8.pfb><C:/Users/fcoja/AppData/Local/Programs/MiKTeX/f
+onts/type1/public/amsfonts/cm/cmtt10.pfb><C:/Users/fcoja/AppData/Local/Programs
+/MiKTeX/fonts/type1/public/amsfonts/latxfont/line10.pfb><C:/Users/fcoja/AppData
+/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/symbols/msam10.pfb><C:/Users
+/fcoja/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/symbols/msam5.
+pfb><C:/Users/fcoja/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/s
+ymbols/msam7.pfb><C:/Users/fcoja/AppData/Local/Programs/MiKTeX/fonts/type1/publ
+ic/amsfonts/symbols/msbm10.pfb><C:/Users/fcoja/AppData/Local/Programs/MiKTeX/fo
+nts/type1/public/amsfonts/symbols/msbm7.pfb>
+Output written on AEM.pdf (37 pages, 770960 bytes).
 PDF statistics:
- 805 PDF objects out of 1000 (max. 8388607)
- 198 named destinations out of 1000 (max. 500000)
- 344 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 1118 PDF objects out of 1200 (max. 8388607)
+ 241 named destinations out of 1000 (max. 500000)
+ 477 words of extra memory for PDF output out of 10000 (max. 10000000)
 
