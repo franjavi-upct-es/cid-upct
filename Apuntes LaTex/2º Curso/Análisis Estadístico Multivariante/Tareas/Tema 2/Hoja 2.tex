@@ -1,0 +1,72 @@
+\includepdf[pages=-]{"Tareas/Hoja 2/Hoja 2"}
+\begin{enumerate}[label=\color{red}\arabic*),leftmargin=*]
+	\item \lb{Dado el \vea $(X,Y)$ con función de densidad \[ f(x,y)=\begin{cases}
+	2 & \text{si }0<x<1,\:0<y<x\\
+	0 & \text{en otro caso}
+	\end{cases} \]}
+	\begin{enumerate}[label=\color{red}\alph*)]
+		\item \db{Obtener la curva de regresión para predecir $Y$ en función de valores de la variable $X$.}
+		
+		Primero saco las distribución marginal $f_X$:
+		
+		$\underset{0<x<1}{f_X(x)=}\infi f(x,y)\dy=\int_0^12\dy=\left[2y\right]_0^1=2\longrightarrow\begin{cases}
+		2 & \text{si }0<y<1\\
+		0 & \text{en caso contrario}
+		\end{cases}$
+		
+		$\underset{0<x<1}{f_{Y|X}(y|x)}=\dfrac{f(x,y)}{f(x)}=\begin{cases}
+		\dfrac{1}{x} & \text{si }0<y<x\\
+		0 & \text{en caso contrario}
+		\end{cases}$
+		
+		Curva de regresión: $h_{\mathrm{opt}}(X)=E[Y|X=x]=\infi y\cdot f_{Y|X}(y|x)\dy=\int_0^xy\cdot\dfrac{1}{x}\dy=\dfrac{1}{x}\left[\dfrac{y^2}{2}\right]_{y=0}^{y=x}=\dfrac{1}{x}\cdot\dfrac{x^2}{2}=\dfrac{x}{2}$
+
+		\item \db{¿Coincide con la recta de regresión?}
+		
+		Recta de regresión de $Y|X=x$: $Y-\mu_Y=\dfrac{\cos(X,Y)}{\sigma_X^2}(x-\mu_X)\longrightarrow y-\dfrac{1}{3}-\dfrac{\frac{1}{36}}{\frac{1}{18}}\left(x-\dfrac{2}{3}\right)\longrightarrow \bboxed{y=\dfrac{x}{2}}
+		$
+		
+		$\begin{array}{l}
+		E[X]=\int_{0}^{1}2x\dx=\left[2\cdot\dfrac{x^3}{3}\right]_{x=0}^{x=1}=\dfrac{2}{3}\\
+		E[Y]=\int_{0}^{1}y\cdot2(1-y)\dy=2\int_0^1(y-y^2)\dy=2\left[\dfrac{y^2}{2}-\dfrac{y^3}{3}\right]_{y=0}^{y=1}=2\cdot\dfrac{1}{6}=\dfrac{1}{3}\\
+		\sigma_X^2=E[X^2]-(E[X])^2=\dfrac{1}{2}-\left(\dfrac{2}{3}\right)^2=\dfrac{1}{2}-\dfrac{4}{9}=\dfrac{1}{18}\\
+		E[X^2]=\int_0^1x^2\cdot2x\dx=2\int_0^1x^3\dx=2\left[\dfrac{x^4}{4}\right]_{x=0}^{x=1}=\dfrac{1}{2}\\
+		\cov(X,Y)=E[X\cdot Y]-E[X]\cdot E[Y]=\dfrac{1}{4}-\dfrac{2}{3}\cdot\dfrac{1}{3}=\dfrac{1}{36}\\
+		E[X\cdot Y]=\int_0^1\int_0^x2xy\dy\dx=2\int_0^1x\left[\dfrac{y^2}{2}\right]_{y=0}^{y=x}\dx=\cancel{2}\int_{0}^{1}x\cdot\dfrac{x^2}{\cancel{2}}\dx=2\cdot\left[\dfrac{x^4}{4}\right]_{x=0}^{x=1}=\dfrac{1}{4}
+		\end{array}$
+		
+		\item \db{$\rho_{X,Y}^2,\:\var(R),\:ECM$}
+	\end{enumerate}
+	\item \lb{Sea $(X,Y)$ un vector aleatorio con función de densidad \[ f(x,y)=\begin{cases}
+	\frac{3}{4}\left[xy+\frac{x^2}{2}\right] & \text{si }0<x<1,\:0<y<2\\
+	0 & \text{en otro caso}
+	\end{cases} \]A partir de la distribución de $Y$ condicionada a $X=x$, obtener la curva de regresión para predecir $Y$ a partir de los valores de $X$ y proporcionar una predicción para $X=\dfrac{2}{3}$}
+	
+	$h_{\mathrm{opt}}(x)=E[Y|X=x]=\infi y\cdot f_{Y|X}(y|x)\dy=\int_{0}^{2}y\cdot\dfrac{y+\frac{x}{2}}{x+2}\dy=\dfrac{1}{x+2}\int_0^2y\cdot(y+\dfrac{x}{2})\dy=\dfrac{1}{x+2}\cdot\left[\dfrac{y^3}{3}-\dfrac{y^2x}{4}\right]_0^2=\dfrac{1}{x+2}\left(\dfrac{8}{3}-x\right)$
+	
+	$f_X(x)=\begin{cases}
+	\frac{3}{4}(x^2+2x) & \text{si }0<x<1\\
+	0 & \text{en otro caso}
+	\end{cases}$
+	
+	$\underset{0<x<1}{f_{Y|X}(y|x)=}\begin{cases}
+	\dfrac{y+\frac{x}{2}}{x+2} & \text{si }0<y<2\\
+	0 & \text{en otro caso}
+	\end{cases}$
+	
+	Para $x=\dfrac{2}{3},\:h_{\mathrm{opt}}\left(\dfrac{2}{3}\right)=\dfrac{1}{\frac{2}{3}+2}\cdot\left(\dfrac{8}{3}+\dfrac{2}{3}\right)=\bboxed{1.25}$
+	
+	\item \lb{Sabiendo que el vector $(X,Y)$ tiene una distribución normal con medias 1 y 2, varianzas 2 y correlación $-\dfrac{1}{2}$, calcular la curva de regresión para predecir $Y$ a partir de valores de $X$ y obtener una predicción para $X=1.5$}
+	
+	$(X,Y)\rightsquigarrow \mathcal{N}_2(\mu, V)$
+	
+	$\begin{array}{l}
+	\mu=(1,2)\\
+	V=\begin{pmatrix}
+	2 & -1\\
+	-1 & 2
+	\end{pmatrix}
+	\end{array}\qquad f_{X,Y}=-\dfrac{1}{2}=\dfrac{\cov(X,Y)}{\sqrt{\sigma_X^2\cdot\sigma_Y^2}}\longrightarrow\cov(X,Y)=-\dfrac{1}{2}\cdot\sqrt{2\cdot2}=-1$
+	
+	$h_{\mathrm{top}}=\mu_Y+\dfrac{\cov(X,Y)}{\sigma_X^2}(x-\mu_X)=2+\dfrac{-1}{2}(x-1)=-\dfrac{x}{2}+\dfrac{5}{2}\longrightarrow h_{\mathrm{opt}}(1.5)=2-\dfrac{1}{2}\cdot\dfrac{1}{2}=\bboxed{\dfrac{7}{4}}$
+\end{enumerate}

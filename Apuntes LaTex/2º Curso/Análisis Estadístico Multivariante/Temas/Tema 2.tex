@@ -1,0 +1,70 @@
+\section{Regresión Lineal }
+\begin{itemize}[label=\color{red}\textbullet, leftmargin=*]
+	\item \color{lightblue}Introducción
+\end{itemize}
+\lb{Objetivo:} predecir una variable numérica a partir de $k$ variables numéricas (variables predictoras) minimizando el error en la predicción.
+Para ello necesitamos disponer de una muestra en la que se conozcan dichas variables (aprendizaje supervisado)
+\begin{itemize}[label=\color{red}\textbullet, leftmargin=*]
+	\item \color{lightblue}Planteamiento
+\end{itemize}
+Se trata de predecir el valor (numérico) de una \va (v.a.) $Y$ a partir de unas variables predictoras $X_1,\dots,X_k$.
+
+Para ello usaremos una función predictora lineal \[ h_\theta \]
+
+Si usamos como predictor la variable \code{Assault} y representamos gráficamente:
+
+\begin{lstlisting}
+x <-
+\end{lstlisting}
+\subsubsection{Modelo completo}
+Podemos incluir todas las variables en el modelo considerado \[ h_\theta=\theta_0+\theta_1\text{Assault}+\theta_2\text{UrbanPop}+\theta_3\text{Rape} \]donde $\theta=(\theta_0,\theta_1,\theta_2,\theta_3)'\in\R^4$ son los parámetros del modelo que debemos ajustar para obtener las mejores aproximaciones posibles.
+
+Los casos en los que solo usamos una variable están incluidos en este modelo haciendo que los parámetros de las otras variables sean cero.
+
+\subsection{Regresión lineal simples}
+\subsubsection{Modelo teórico}
+Partiremos de un \vea $(X,Y)$.
+
+\lb{Objetivo:} Construir una nueva variable $h(X)$ que se \lb{parezca} (aproxime) a $Y$.
+
+Los errores (residuos) serán otra variable aleatoria \[ R=Y-h(X) \](notemos que pueden ser positivos o negativos).
+
+Existen diversas reglas para determinar una función objetivo que mida cómo son esos errores y trate de minimizarlos.
+
+La más usada es el denominado \lb{error cuadrático medio} (EMC) definido como: \[ EMC=E\left[(h(X)-Y)^2\right] \] (MSE, \lb{Mean Square Error})
+
+\subsubsection{Función óptima}
+
+Supongamos que $(X,Y)$ tiene una distribución absolutamente continua con función de densidad conjunta $f$ y marginales $f_X$ y $f_Y$.
+
+Entonces se puede demostrar que la función $h$ que \lb{minimiza} el $EMC$ es \[ h_{\mathrm{opt}}(x)=E(Y|X=x)=\infi yf_{Y|X}(y|x)\dy, \]donde\[ f_{Y|X}(y|x)=f(x,y)|f_X(x), \] para tales $f_X(x)>0$, es la \lb{función de densidad condicionada} de $(Y|X=x)$.
+
+Esta función se denomina \lb{curva de regresión} y es el mejor predictor de $Y$ dado $X$ según el $ECM$.
+\subsection{Caso de normalidad}
+El vector $(X,Y)$ tiene una distribución normal $\mathcal{N}_2(\mu,V)$:
+
+Entonces la \lb{distribución condicionada} $(Y|X=x)$ se comporta también coomo una \lb{distribución normal}, \[ (Y|X=x)\longrightarrow \mathcal{N}_1(\overline{\mu},\overline{\sigma}^2), \] con \[ \begin{array}{c}
+\begin{aligned}
+h_{\mathrm{opt}}(x)=\overline{\mu}&=E(Y|X=x)
+\end{aligned}
+\end{array} \]
+
+\begin{itemize}[label=\color{red}\textbullet, leftmargin=*]
+	\item \color{lightblue}Observaciones
+\end{itemize}
+Bajo la hipótesis de normalidad, la \lb{curva de la}
+\subsection{Restricción sobre la función $h$}
+En \textbf{Regresión Lineal Simple} supondremos que la función $h$ es una recta
+\begin{itemize}
+\item Limitamos nuestra funciín $h$ a una recta, es decir, \[ h_\theta(x)\coloneq\theta_0+\theta_1x \]
+\item Usamos como criterio minimizar el ECM.
+\item El objetivo será \[ \min_{\theta_0,\theta_1}J(\theta_0,\theta_1), \] donde \[ J(\theta_0,\theta_1)\coloneq E[(h_\theta(X)-Y)^2]=E[(\theta_0+\theta_1X+Y)^2] \]se conoce como \lb{función costo} y $J(\theta_0,\theta_1)\ge0$.
+\begin{itemize}[label=$\to$]
+\item Por lo tanto, se trata de minimizar una función costo
+\end{itemize}
+\end{itemize}
+\subsection{Minimizar la función costo}
+\subsubsection{Ecuaciones normales de la recta}
+La función $J(\theta)$ es convexa por lo que tendrá un único ,ínimo que se puede obtener resolviendo el sistema \[ \begin{array}{l}
+\dfrac{\partial J(\theta_0,\theta_1)}{}
+\end{array} \]
