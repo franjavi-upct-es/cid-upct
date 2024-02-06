@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (MiKTeX 23.10) (preloaded format=pdflatex 2024.1.2)  5 FEB 2024 19:20
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (MiKTeX 23.10) (preloaded format=pdflatex 2024.1.2)  6 FEB 2024 09:56
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -2037,54 +2037,58 @@ Overfull \hbox (3.1669pt too wide) in paragraph at lines 283--288
 
 [11 <./Temas/Tema 1/screenshot001.png> <./Temas/Tema 1/screenshot002.png>]
 [12]
-<Temas/Tema 1/screenshot003.png, id=156, 332.74312pt x 239.39438pt>
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+[13]
+<Temas/Tema 1/screenshot003.png, id=173, 332.74312pt x 239.39438pt>
 File: Temas/Tema 1/screenshot003.png Graphic file (type png)
 <use Temas/Tema 1/screenshot003.png>
-Package pdftex.def Info: Temas/Tema 1/screenshot003.png  used on input line 431
+Package pdftex.def Info: Temas/Tema 1/screenshot003.png  used on input line 435
 .
 (pdftex.def)             Requested size: 332.7423pt x 239.39378pt.
- [13]
-<Temas/Tema 1/screenshot004.png, id=175, 319.4334pt x 229.8186pt>
+<Temas/Tema 1/screenshot004.png, id=174, 319.4334pt x 229.8186pt>
 File: Temas/Tema 1/screenshot004.png Graphic file (type png)
 <use Temas/Tema 1/screenshot004.png>
-Package pdftex.def Info: Temas/Tema 1/screenshot004.png  used on input line 439
+Package pdftex.def Info: Temas/Tema 1/screenshot004.png  used on input line 443
 .
 (pdftex.def)             Requested size: 378.42001pt x 272.2777pt.
-<Temas/Tema 1/screenshot005.png, id=176, 319.4334pt x 229.8186pt>
+ [14 <./Temas/Tema 1/screenshot003.png>]
+<Temas/Tema 1/screenshot005.png, id=183, 319.4334pt x 229.8186pt>
 File: Temas/Tema 1/screenshot005.png Graphic file (type png)
 <use Temas/Tema 1/screenshot005.png>
-Package pdftex.def Info: Temas/Tema 1/screenshot005.png  used on input line 443
+Package pdftex.def Info: Temas/Tema 1/screenshot005.png  used on input line 447
 .
 (pdftex.def)             Requested size: 378.42001pt x 272.2777pt.
- [14 <./Temas/Tema 1/screenshot003.png> <./Temas/Tema 1/screenshot004.png>]
-<Temas/Tema 1/screenshot006.png, id=185, 2375.87625pt x 2378.8875pt>
+<Temas/Tema 1/screenshot006.png, id=184, 2375.87625pt x 2378.8875pt>
 File: Temas/Tema 1/screenshot006.png Graphic file (type png)
 <use Temas/Tema 1/screenshot006.png>
-Package pdftex.def Info: Temas/Tema 1/screenshot006.png  used on input line 452
+Package pdftex.def Info: Temas/Tema 1/screenshot006.png  used on input line 456
 .
 (pdftex.def)             Requested size: 378.42001pt x 378.88744pt.
- [15 <./Temas/Tema 1/screenshot005.png> <./Temas/Tema 1/screenshot006.png>]
+ [15 <./Temas/Tema 1/screenshot004.png> <./Temas/Tema 1/screenshot005.png>]
 <Temas/Tema 1/screenshot007.png, id=192, 594.72188pt x 594.72188pt>
 File: Temas/Tema 1/screenshot007.png Graphic file (type png)
 <use Temas/Tema 1/screenshot007.png>
-Package pdftex.def Info: Temas/Tema 1/screenshot007.png  used on input line 461
+Package pdftex.def Info: Temas/Tema 1/screenshot007.png  used on input line 465
 .
 (pdftex.def)             Requested size: 324.36473pt x 324.35748pt.
-<Temas/Tema 1/screenshot008.png, id=193, 593.96906pt x 593.96906pt>
+ [16 <./Temas/Tema 1/screenshot006.png>]
+<Temas/Tema 1/screenshot008.png, id=198, 593.96906pt x 593.96906pt>
 File: Temas/Tema 1/screenshot008.png Graphic file (type png)
 <use Temas/Tema 1/screenshot008.png>
-Package pdftex.def Info: Temas/Tema 1/screenshot008.png  used on input line 469
+Package pdftex.def Info: Temas/Tema 1/screenshot008.png  used on input line 473
 .
 (pdftex.def)             Requested size: 352.36461pt x 352.37823pt.
- [16 <./Temas/Tema 1/screenshot007.png>]
-<Temas/Tema 1/screenshot009.png, id=201, 614.295pt x 576.65437pt>
+ [17 <./Temas/Tema 1/screenshot007.png> <./Temas/Tema 1/screenshot008.png>]
+<Temas/Tema 1/screenshot009.png, id=206, 614.295pt x 576.65437pt>
 File: Temas/Tema 1/screenshot009.png Graphic file (type png)
 <use Temas/Tema 1/screenshot009.png>
-Package pdftex.def Info: Temas/Tema 1/screenshot009.png  used on input line 475
+Package pdftex.def Info: Temas/Tema 1/screenshot009.png  used on input line 479
 .
 (pdftex.def)             Requested size: 276.86064pt x 259.89682pt.
-) [17 <./Temas/Tema 1/screenshot008.png> <./Temas/Tema 1/screenshot009.png>] (E
-jercicios.aux)
+)
+[18 <./Temas/Tema 1/screenshot009.png>] (Ejercicios.aux)
  ***********
 LaTeX2e <2023-06-01> patch level 1
 L3 programming layer <2023-08-29>
@@ -2096,8 +2100,8 @@ Package logreq Info: Writing requests to 'Ejercicios.run.xml'.
 
  ) 
 Here is how much of TeX's memory you used:
- 52682 strings out of 475248
- 1194622 string characters out of 5757814
+ 52683 strings out of 475248
+ 1194629 string characters out of 5757814
  2106290 words of memory out of 5000000
  73292 multiletter control sequences out of 15000+600000
  560394 words of font info for 48 fonts, out of 8000000 for 9000
@@ -2116,9 +2120,9 @@ oja/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy10.pfb><C:
 /Users/fcoja/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy7
 .pfb><C:/Users/fcoja/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/
 latxfont/line10.pfb>
-Output written on Ejercicios.pdf (17 pages, 1083654 bytes).
+Output written on Ejercicios.pdf (18 pages, 1084409 bytes).
 PDF statistics:
- 271 PDF objects out of 1000 (max. 8388607)
- 71 named destinations out of 1000 (max. 500000)
+ 275 PDF objects out of 1000 (max. 8388607)
+ 72 named destinations out of 1000 (max. 500000)
  108 words of extra memory for PDF output out of 10000 (max. 10000000)
 
