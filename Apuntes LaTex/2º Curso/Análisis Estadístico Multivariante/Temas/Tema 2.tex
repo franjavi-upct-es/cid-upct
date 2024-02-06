@@ -123,12 +123,12 @@ Podemos obtener los estadísticos descriptivos de estas variables con \code{summ
 summary(d)
 \end{lstlisting}
 \begin{verbatim}
-##      Murder          Assault         UrbanPop          Rape      
-##  Min.   : 0.800   Min.   : 45.0   Min.   :32.00   Min.   : 7.30  
-##  1st Qu.: 4.075   1st Qu.:109.0   1st Qu.:54.50   1st Qu.:15.07  
-##  Median : 7.250   Median :159.0   Median :66.00   Median :20.10  
-##  Mean   : 7.788   Mean   :170.8   Mean   :65.54   Mean   :21.23  
-##  3rd Qu.:11.250   3rd Qu.:249.0   3rd Qu.:77.75   3rd Qu.:26.18  
+##      Murder          Assault         UrbanPop          Rape
+##  Min.   : 0.800   Min.   : 45.0   Min.   :32.00   Min.   : 7.30
+##  1st Qu.: 4.075   1st Qu.:109.0   1st Qu.:54.50   1st Qu.:15.07
+##  Median : 7.250   Median :159.0   Median :66.00   Median :20.10
+##  Mean   : 7.788   Mean   :170.8   Mean   :65.54   Mean   :21.23
+##  3rd Qu.:11.250   3rd Qu.:249.0   3rd Qu.:77.75   3rd Qu.:26.18
 ##  Max.   :17.400   Max.   :337.0   Max.   :91.00   Max.   :46.00
 \end{verbatim}
 \begin{tikzpicture}
@@ -276,8 +276,102 @@ La \va \[ \hat{Y}=h_{\hat{\theta}}(X)=\hat{\theta}_0+\hat{\theta}_1X \]se usará
 
 Los residuos se definen como $R=Y-\hat{Y}$.
 
-Se verifica: 
+Se verifica:
 \begin{itemize}[label=\color{lightblue}$\to$]
 \item $E(\hat{Y})=E(Y)$
 \item $E(R)=0$
 \end{itemize}
+\subsection{Descomposición de la varianza}
+\subsubsection{Relaciones entre las varianzas}
+Expresando $Y=\hat{Y}+R$, se tiene que: \[ \sigma_y=\var(Y)=\var(\hat{Y})+\var(R) \]
+Puesto que \[ \begin{array}{c}
+\var(\hat{Y})=\hat{\theta}_1^2\sigma_X^2=\dfrac{\sigma_{X,Y}P2}{\sigma_X^2}=\rho_{X,Y}^2\sigma_Y^2\\
+\var(R)=\var(Y-\hat{\theta}_1X)=(1-\rho_{X,Y}^2)\sigma_Y^2.
+\end{array} \]
+Es decir, la información (varianza) contenida en $Y$ se descompone como \[ \sigma_Y^2=\rho_{X,Y}^2\sigma_Y^2+(1-\rho_{X,Y}^2)\sigma_Y^2. \]
+\subsection{Coeficiente de determinación}
+\begin{itemize}[label=\color{red}\textbullet, leftmargin=*]
+	\item \color{lightblue}Definición
+\end{itemize}
+El \lb{coeficiente de determinación} $d_{X,Y}=\rho_{X,Y}^2$ es el porcentaje (en tanto por 1) de la información de $Y$ explicada por la recta de regresión (por relaciones lineales de $X$). Denotado habitualmente en los paquetes estadísticos por $R^2$.
+
+Análogamente, $1-d_{X,Y}=1-\rho_{X,Y}^2$ indicaría la parte de $Y$ no explicada por esa recta y que se queda en el residuo.
+
+Además, se tiene que \[ E(\hat{Y}R)=0, \] es decir, la variable que se obtiene con la recta de regresión y los residuos son incorrelados.
+
+Bajo normalidad, ambas variables serán normales (por ser combinaciones lineales de $X$ e $Y$) y, por lo tanto, serán independientes.
+\subsection{Inferencia y predicción}
+\begin{itemize}[label=\color{red}\textbullet, leftmargin=*]
+	\item \color{lightblue}Una muestra
+\end{itemize}
+En la práctica tanto la distribución conjunta (densidad) de $(X,Y)$ como todas esas medidas serán desconocidas por lo que tendrán que ser estimadas a partir de una muestra de esas variables (\lb{training sample}).
+
+Si la muestra es grande, podemos extraer algunos datos (no usados en el cálculo de la recta) para comprobar cómo de fiables serán nuestras estimaciones.
+
+La muestra se denotará como \[ \left(x^{(i)},y^{(i)}\right),\quad i=1,\dots,n, \]donde $n$ será el tamaño muestral.
+
+Los datos de cada variable se representarán como columnas y todos lo datos como una matriz $D$.
+\subsection{Función costo empírica}
+\subsubsection{Objetivo}
+Queremos aproximar los valores de $Y$ mediante una recta (función lineal) de $X$, es decir, \[ h_\theta\coloneq\theta_0+\theta_1x, \]donde $\mathbf{\theta}=(\theta_0,\theta_1)$ son parámetros desconocidos.
+
+Para calcular estos parámetros minimizaremos una función coste empírica $J$ que nos mida el error cometido.
+
+La más utilizada es el \lb{error cuadrático medio} (o una función proporcional a él), por ejemplo podemos considerar \[ J(\theta_0,\theta_1)\coloneq\dfrac{1}{2n}\sum_{i=1}^{n}\left(h_\theta\left(x^{(i)} \right) - y^{(i)}\right)^2=\dfrac{1}{2n}\sum_{i=1}^{n}\left(\theta_0+\theta_1x^{(i)}-y^{(i)}\right)^2 \]
+El objetivo es minimizar esta función en $\R^2$.
+\subsubsection{Diferenciar $J$}
+
+Para obtener la solución exacta debemos diferencias $J$ con respecto a los parámetros obteniendo \[ \begin{array}{l}
+	\dfrac{\partial}{\partial \theta_0}J(\theta_0,\theta_1)=\dfrac{1}{n}\sum_{i=1}^{n}\left(h\theta\left(x^{(i)}\right)-y^{(i)}\right)\\
+	\dfrac{\partial}{\partial\theta_1}J(\theta_0,\theta_1)=\dfrac{1}{n}\sum_{i=1}^{n}\left(h_\theta\left(x^{(i)}\right)-y^{(i)}\right)x^{(i)}
+\end{array} \]
+Igualando a cero obtenemos las \lb{ecuaciones normales empíricas}:
+
+$\begin{array}{l}
+	\dfrac{\partial}{\partial \theta_0}J(\theta_0,\theta_1)=\dfrac{1}{n}\sum_{i=1}^{n}\left(h\theta\left(x^{(i)}\right)-y^{(i)}\right)=\dfrac{1}{n}\sum_{i=1}^{n}\left(\theta_0+\theta x^{(i)}-y^{(i)}\right)=0\\
+	\dfrac{\partial}{\partial\theta_1}J(\theta_0,\theta_1)=\dfrac{1}{n}\sum_{i=1}^{n}\left(h_\theta\left(x^{(i)}\right)-y^{(i)}\right)x^{(i)}=\dfrac{1}{n}\sum_{i=1}^{n}\left(\theta_0+\theta_1x^{(i)}-y^{(i)}\right)x^{(i)}=0
+\end{array}$
+\subsubsection{Solución exacta}
+De la primera ecuación, \[ \theta_0+\theta_1\overline{x}-\overline{y}=0 \]donde $\overline{x}=\dfrac{1}{n}\sum_{i=1}^{n}x^{(i)}$ e $\overline{y}=\dfrac{1}{n}\sum_{i=1}^{n}y^{(i)}$ son las medias muestrales de $x$ e $y$, respectivamente.
+
+La solución óptima pasa por el punto medio $(\overline{x},\overline{y})$ (individuo promedio).
+
+De la segunda, \[ \theta_0\overline{x}+\theta_1a(x,x)-a(x,y)=0,\] donde $a(x,x)=\dfrac{1}{n}\sum_{i=1}^{n}\left(x^{(i)}\right)^2$ y $a(x,y)=\dfrac{1}{n}\sum_{i=1}^{n}x^{(i)}y^{(i)}$.
+
+Resolviendo este sistema de ecuaciones obtenemos \[ \theta_1\left(a(x,x)-(\overline{x})^2\right)=a(x,y)-\overline{xy} \]
+Obtenemos: \[ \hat{\theta}_1=\dfrac{s_{x,y}}{s_x^2},\quad \hat{\theta}_0=\overline{y}-\hat{\theta}_1\overline{x}, \] donde $s_{x,y}=a(x,y)-\overline{xy}=\dfrac{1}{n}\sum_{i=1}^{n}x^{(i)}y^{(i)}-\overline{xy}=\dfrac{1}{n}\sum_{i=1}^{n}\left(x^{(i)}-\overline{x}\right)\left(y^{(i)}.\overline{y}\right)$ es la covarianza muestral y $s_x^2=a(x,x)-(\overline{x})^2=\dfrac{1}{n}\sum_{i=1}^{n}\left(x^{(i)}\right)^2-(\overline{x})^2=\dfrac{1}{n}\sum_{i=1}^{n}\left(x^{(i)}-\overline{x}\right)^2$ es la varianza muestral de $x$.
+
+Supondremos que $s_x^2$ no es cero, es decir, que $x$ presenta más de un valor. Si no, el sistema tendría infinitas soluciones.
+
+Puede comprobarse que $J$ es convexa y por lo tanto la solución que hemos obtenido de las ecuaciones normales empíricas es un mínimo local.
+\begin{itemize}[label=\color{lightblue}$\to$]
+	\item Además, como es único y $J$ es continua, se trata del único mínimo global.
+\end{itemize}
+
+\subsubsection*{¿Es un mínimo local?}
+Las segundas derivadas parciales son \[ \begin{array}{l}
+	D_{1,1}=\dfrac{\partial^2}{\partial\theta_0^2}J(\theta_0,\theta_1)=\dfrac{1}{n}\sum_{i=1}^{n}1=1\\
+	D_{1,2}=\dfrac{\partial^2}{\partial\theta_0\theta_1}J(\theta_0,\theta_1)=\dfrac{1}{n}\sum_{i=1}^{n}x^{(i)}=\overline{x}\\
+	D_{2,2}=\dfrac{\partial}{\partial\theta_1^2}J(\theta_0,\theta_1)=\dfrac{1}{n}\sum_{i=1}^{n}\left(x^{(i)}\right)^2=a(x,x)
+\end{array} \]
+Se verifica que $D_{1,1}=1>0$ y si $D=(D_{i,j})$ es la matriz con esas derivadas, tenemos \[ |D|=\begin{vmatrix}
+	1 & \overline{x}\\
+	\overline{x} & a(x,x)
+\end{vmatrix}=a(x,x)-(\overline{x})^2=s_x^2>0 \]por lo que el punto sería un mínimo local de $J$.
+
+\begin{tikzpicture}
+	\node[red, draw=red, fill=red!10, line width=1.5, text width=\linewidth] {
+	Como es el único mínimo local en $\R$ y $J$ es continua, será el único mínimo global.
+
+	La solución óptima empírica coincide con la que obtendríamos sustituyendo en la solución teórica las medias, varianzas y covarianzas por sus estimaciones.
+	};
+\end{tikzpicture}
+\subsection{Regresión lineal múltiple}
+\subsubsection{Modelo teórico}
+En el caso general queremos \lb{predecir} $Y$ (o $X_{k+1}$) a partir de $k$ variables $X_1,\dots,X_k$ (sobre el mismo espacio de probabilidad).
+
+En el modelo lineal queremos construir una función \[ h_\theta(x_1,\dots,x_k)\coloneq\theta_0+\theta_1x_1+\cdots+\theta_kx_K, \]de forma que $h_\theta(X_1,\dots,X_k)$ esté lo más cerca posible de $Y$.
+
+Para \lb{medir el error} usaremos de nuevo el \lb{error cuadrático medio} \[ EMC(\theta)=E\left[(h_\theta(X_1,\dots,X_k)-Y)^2\right]. \]
+Si consideramos una nueva variable constante (degenerada) $X_0=1$, podemos escribir ese error como \[ ECM(\theta)=E\left[(\mathbf{\theta'X}-Y)^2\right], \] donde $\mathbf{X}=(X_0,X_1,\dots,X_k)'$ y $\mathbf{\theta'}=(\theta_0,\theta_1,\dots,\theta_k)\in\R^{k+1}$.
+\subsubsection{Obtención del mínimo}
