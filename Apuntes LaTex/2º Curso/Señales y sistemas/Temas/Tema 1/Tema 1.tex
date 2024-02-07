@@ -480,6 +480,56 @@
 			\end{minipage}\qquad\begin{minipage}{0.35\textwidth}
 			Se trata de la suma de la señal original $x(t)$ multiplicando por dos deltas centradas en $t=-1.5$ segundos y $t=1.5$ segundos, tal como se muestra en la figura. La salida son dos deltas ponderadas por el valor de $x(t)$ en $t_0=-1.5$ y $t_1=1.5$
 			\end{minipage}
+		\end{enumerate}
+		\item \lb{La figura 2 muestra la señal discreta $x[n]$. Representa cada una de las siguientes señales:}
+		\begin{figure}[h]
+			\centering
+			\begin{tikzpicture}
+				\draw (-6,0) -- (6,0);
+				\foreach \x in {-5.5, 5.5}{\node[above] at (\x,0) {$\cdots$};}
+				\foreach \x in {-5, 4, 5}{
+				\fill[lightblue] (\x,0) circle (2pt) node[below] {$\x$};
+				}
+				\foreach \x in {-2,3}{\draw[lightblue, -*] (\x, 0) node[below] {$\x$} -- (\x,0.5) node[above] {$\frac{1}{2}$};}
+				\foreach \x in {-1,0,...,2}{\draw[lightblue, -*] (\x,0) node[below] {$\x$} -- (\x,1);}
+				\draw[lightblue, -*] (-4,0) node[below left] {$-4$} -- (-4,-1) node[below] {$-1$};
+				\draw[lightblue, -*] (-3,0) node[below left] {$-3$} -- (-3,-0.5) node[below] {$-\frac{1}{2}$};
+			\end{tikzpicture}
+			\caption*{Figura 2}
+		\end{figure}
+		\begin{enumerate}[label=\color{red}\alph*)]
+			\item $\db{x[n-4]}$
+			\item $\db{x[3-n]}$
+			\item $\db{x[3n]}$
 			
+			\begin{minipage}{0.55\textwidth}
+				\begin{center}
+				\includegraphics[width=\linewidth]{"Temas/Tema 1/screenshot010"}
+				
+				\includegraphics[width=\linewidth]{"Temas/Tema 1/screenshot011"}
+			\end{center}
+			\end{minipage}\qquad\begin{minipage}{0.35\textwidth}
+			Se trata de una compresión en el tiempo por un factor de $a=3$. La duración de la señal se reduce un tercio.\\
+			Se puede considerar que ahora el periodo de muestreo se baja a un tercio.
+			
+			\end{minipage}
+			
+			\item $\db{x[3n+1]}$
+			
+			\begin{minipage}{0.55\textwidth}
+				\begin{center}
+				\includegraphics[width=\linewidth]{"Temas/Tema 1/screenshot010"}
+				
+				\includegraphics[width=\linewidth]{"Temas/Tema 1/screenshot012"}
+			\end{center}
+			\end{minipage}\qquad\begin{minipage}{0.35\textwidth}
+			Se trata de una compresión en el tiempo por un factor de $a=3$ y un desplazamiento.\\
+			Primero se aplica el desplazamiento y después la compresión.
+			\end{minipage}
+			
+			\item $\db{x[n]u[3-n]}$
+			\item $\db{x[n-2]\delta[n-2]}$
+			\item $\db{\dfrac{1}{2}x[n]+\dfrac{1}{2}(-1)^nx[n]}$
+			\item $\db{x[(n-1)^2]}$
 		\end{enumerate}
 \end{enumerate}

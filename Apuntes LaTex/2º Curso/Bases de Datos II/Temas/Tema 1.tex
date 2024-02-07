@@ -12,7 +12,7 @@
 \end{itemize}
 \subsection{Características a analizar}
 \begin{itemize}[label=\color{lightblue}\textbullet,leftmargin=*]
-	\item \textbf{¿Es un protocolo estándar?-} Con ello nos referimos a si está avalado por  cuerpo de estándares o su especificación
+	\item \textbf{¿Es un protocolo estándar?-} Con ello nos referimos a si está avalado por  cuerpo de estándares o su especificación 
 	\item \textbf{¿Permite la codificación binaria?-} A la hora de transmitir grandes cantidades de información (ya sea en forma almacenada o bien a través de la red) es fundamental un protocolo binario para ahorrar espacio/tiempo.
 	\item \textbf{¿Es legible por los humanos?-} A veces es interesante poder depurar un protocolo por parte de un humano. Esta idea comenzó con protocolos como XML, pero se ha ido abandonando porque no resulta muy factible salvo en ocasiones muy específicas.
 	\item \textbf{¿Soporta referencias?-} A veces tenemos que relacionar partes de un conjunto de datos. Es interesante que los mecanismos de serialización permitan referenciar otras partes de un documento o de una comunicación.
@@ -53,11 +53,19 @@ XML & Sí & Parcial & Sí & Sí & Sí & No & No \\
 \begin{itemize}
 \item La herramienta más conocida y usada de Pandas son los \texttt{DataFrames}.
 \item Permite almacenar datos tabulares en dos dimensiones similar a una hoja de cálculo o una base de datos relacional.
-\item Las columnas de datos
+\item Las columnas de datos 
 \end{itemize}
 \begin{lstlisting}[language=Python]
 df = pd.DataFrame(randn(5,4),index='A B C D E'.split(),columns='W X Y Z'.split())
 \end{lstlisting}
+\begin{verbatim}
+	          W         X         Y         Z
+	A -1.040684 -1.692150  1.707399 -1.257771
+	B -0.403809 -1.024655  2.060558 -0.242150
+	C -0.856354  0.173779  1.124053 -0.434952
+	D  0.282316 -1.349518 -0.076797  1.077644
+	E -0.152517 -0.603708 -0.812906  0.807102
+\end{verbatim}
 \subsubsection{XML (eXtensible Markup Language)}
 \begin{itemize}
 \item Meta-lenguaje de etiquetas derivado de SGML.
@@ -132,6 +140,82 @@ Limitaciones:
 \item No es XML
 \item Tipado limitado de datos
 \item No soporta espacios de nombres
+\end{itemize}
+
+\begin{itemize}[label=\color{red}\textbullet, leftmargin=*]
+	\item \color{lightblue}Familias de estándares
+\end{itemize}
+\begin{itemize}[label=$-$]
+	\item Schemas
+	\begin{itemize}[label=\textbullet]
+		\item Mismo propósito que un DTD, pero con mayor riqueza semántica.
+		\item Sintaxis basada en XML.
+		\item Contiene tipos predefinidos
+		\item Espacios de nombres (\textit{namespaces})
+	\end{itemize}
+	\begin{lstlisting}[language=XML]
+	<?xml version="1.0">
+	<xsd:schema xmlns:xsd="http://www.w3c.org/2000/08/XMLSchema">
+	<xsd:element name="Disco" type="DiscoTipo"/>
+	<xsd:complexType name="DiscoTipo">
+		<xsd:attribute name="codigo" type="String"/>
+		<xsd:sequence>
+		<xsd:attribute name="Titulo" type="String"/>
+		<xsd:attribute name="Artista" type="String"/>
+		<xsd:attribute name="Referencia" type="ReferenciaTipo"/>
+		...
+	\end{lstlisting}
+	\item NameSpaces:
+	\begin{itemize}[label=\textbullet]
+		\item Espacios de nombres para cualificar elementos y atributos evitando la colisión de nombres.
+		\item \texttt{xmlns:xsd="http://www.w3c.org/2000/08/XMLSchema"}
+	\end{itemize}
+	\item XSLT:
+	\begin{itemize}[label=\textbullet]
+		\item Definición de reglas de transformación de documentos
+	\end{itemize}
+	\item XSL:
+	\begin{itemize}[label=\textbullet]
+		\item Definición de hojas de estilos.
+	\end{itemize}
+	\item XPath:
+	\begin{itemize}[label=\textbullet]
+		\item Para hacer referencia a partes de un documento
+		\item \texttt{/DISCO[Titulo="Estrella de Mar"], /DISCO//MUSICOS[1]}
+	\end{itemize}
+	\item XLink:
+	\begin{itemize}[label=\textbullet]
+		\item Enlace documentos entre sí.
+	\end{itemize}
+	\item XPointer:
+	\begin{itemize}[label=\textbullet]
+		\item Enlace de secciones dentro de un documento.
+	\end{itemize}
+	\item XQuery:
+	\begin{itemize}[label=\textbullet]
+		\item Consultas XML.
+	\end{itemize}
+\end{itemize}
+
+\begin{itemize}[label=\color{red}\textbullet, leftmargin=*]
+	\item \color{lightblue}Parsers
+\end{itemize}
+\begin{itemize}
+	\item API SAX:
+	\begin{itemize}
+		\item Acceso secuencial al documento 
+		\item Modelo de programación basado en eventos (\textit{callbacks})
+		\item Simple y rápido: consume pocos recursos.
+		\item Sólo consulta.
+	\end{itemize}
+	\item API DOM:
+	\begin{itemize}
+		\item Construye una estructura arbórea a partir del documento
+		\item Potente, pero más costoso.
+		\item Permite actualizaciones.
+		\item Ideal para estructuras complejas.
+	\end{itemize}
+	\item En Python, existen numerosas formas de poder leer documentos XML.
 \end{itemize}
 
 \begin{itemize}[label=\color{red}\textbullet, leftmargin=*]
@@ -295,4 +379,70 @@ LOAD DATA LOCAL INFILE "/tmp/Posts.csv"
 
 \begin{itemize}[label=\color{red}\textbullet, leftmargin=*]
 	\item \color{lightblue}Programación: Lectura con \texttt{Pandas DataFrame}
+\end{itemize}
+\begin{itemize}
+	\item Lectura básica de un fichero CSV
+	\begin{lstlisting}[language=python]
+import pandas as pd
+# Read the CSV file
+airbnb_data = pd.read_csv("airbnb.csv")
+	\end{lstlisting}
+	\item Si queremos establecer la columna \lb{id} como índice
+	\begin{lstlisting}[language=python]
+airbnb_data = pd.read_csv("airbnb.csv", index_col="id")
+	\end{lstlisting}
+	\item Si queremos leer solo un conjunto de columnas
+	\begin{lstlisting}[language=python]
+usecols = ["id", "nombre", "barrio", "precio", "noches_minimias"]
+airbnb_data = pd.read_csv("airbnb.csv", index_col="id", usecols=usecols)
+	\end{lstlisting}
+	\item Si queremos indicar un separador de columnas determinado
+	\begin{lstlisting}[language=python]
+usecols = ["id", "nombre", "barrio", "precio", "noches_minimias"]
+airbnb_data = pd.read_csv("airbnb.csv", index_col="id", usecols=usecols, sep="|")
+	\end{lstlisting}
+	\item Si queremos definir el tipo de datos de determinadas columnas
+	\begin{lstlisting}[language=python]
+usecols = ["id", "nombre", "barrio", "precio", "noches_minimias"]
+airbnb_data = pd.read_csv("airbnb.csv", index_col="id", usecols=usecols, sep="|", dtype:{'precio': float, 'barrio':str, 'noches_minimas':int}, decimal=',')
+	\end{lstlisting}
+\end{itemize}
+\subsubsection{JSON (JavaScript Object Notation)}
+Es, al mismo tiempo, un formato de archivo estándar abierto y un formato de intercambio de datos.\\
+JSON se utiliza a menudo cuando los datos se envían desde un servidor a una página web.\\
+En muchas ocasiones se define a JSON como \textit{autodescriptivo} y fácil de entender.
+
+\begin{center}
+	\includegraphics[scale=0.7]{"Temas/Tema 1/screenshot001"}
+	
+	\includegraphics[scale=0.7]{"Temas/Tema 1/screenshot002"}
+	
+	\includegraphics[scale=0.7]{"Temas/Tema 1/screenshot003"}
+\end{center}
+\begin{itemize}[label=\color{red}\textbullet, leftmargin=*]
+	\item \color{lightblue}JSON Lines (JSONL)
+\end{itemize}
+\textit{JSON Lines} es un formato práctico para almacenar datos estructurados que pueden procesarse de uno en uno.\\
+Ficheros con extensión \texttt{.jsonl}\\
+Es un gran formato para archivos de registros.\\
+Sigue las mismas convenciones que JSON salvo que el carácter \texttt{\textbackslash n} se usa como delimitador de líneas.\\
+Cada línea de un fichero \texttt{.jsonl} es un JSON válido.
+
+\begin{lstlisting}[language=json]
+{"nombre": "Gilbert", "victorias": [["escalera"], ["pareja"]]}
+{"nombre": "Alexa", "victorias": [["dobles parejas"], ["dobles parejas"]]}
+{"nombre": "Maya", "victorias": []}
+{"nombre": "Marisa", "victorias": [["trio"]]}
+\end{lstlisting}
+
+\begin{itemize}[label=\color{red}\textbullet, leftmargin=*]
+	\item \color{lightblue}Lectura con \textbf{\texttt{Pandas DataFrame}}
+\end{itemize}
+\begin{itemize}
+	\item Lectura básica de un fichero JSON
+	\begin{lstlisting}[language=python]
+import pandas as pd
+df = pd.read_json('data.json')
+	\end{lstlisting}
+	\item Por defecto, Pandas sigue una orientación basada en columnas en la lectura de los ficheros \texttt{\{columna -> \{indice -> valor\}\}}
 \end{itemize}
