@@ -1,11 +1,24 @@
 \section{Recuperación de datos y formatos de serialización}
 \subsection{Necesidad de formatos de serialización}
 \begin{itemize}
-\item Los formatos de \lb{serialización}
+\item Los formatos de \textbf{serialización} son vitales para el intercambio de datos
+\item Más en el ámbito \textit{Big Data} (atacan a la "V" de la \textit{variabilidad})
+\item A lo largo de los años se han diseñado formatos de serialización
+\item Algunos son \textbf{más eficientes} que otros.
+\item Algunos se han \textbf{estandarizado}.
+\item En cualquier caso, son fundamentales para transmitir información, ya sea a través´s de \textbf{ficheros de disco} o bien para \textbf{comunicación por red}.
+\item La mayoría de los formatos son \textbf{de propósito general}, por lo que una misma información se pude codificar \textbf{de varias formas} (por ejemplo, como \texttt{INSERT} en SQL, ficheros CSV, etc.)
+\item Nuestro objetivo es conocer los formatos más usados para elegir el correcto en cada ocasión.
 \end{itemize}
 \subsection{Características a analizar}
-\begin{itemize}[leftmargin=*]
-	\item \lb{¿Es un protocolo estándar?-} Con ello nos referimos a si está avalado por  cuerpo de estándares o su especificación 
+\begin{itemize}[label=\color{lightblue}\textbullet,leftmargin=*]
+	\item \textbf{¿Es un protocolo estándar?-} Con ello nos referimos a si está avalado por  cuerpo de estándares o su especificación
+	\item \textbf{¿Permite la codificación binaria?-} A la hora de transmitir grandes cantidades de información (ya sea en forma almacenada o bien a través de la red) es fundamental un protocolo binario para ahorrar espacio/tiempo.
+	\item \textbf{¿Es legible por los humanos?-} A veces es interesante poder depurar un protocolo por parte de un humano. Esta idea comenzó con protocolos como XML, pero se ha ido abandonando porque no resulta muy factible salvo en ocasiones muy específicas.
+	\item \textbf{¿Soporta referencias?-} A veces tenemos que relacionar partes de un conjunto de datos. Es interesante que los mecanismos de serialización permitan referenciar otras partes de un documento o de una comunicación.
+	\item \textbf{¿Su estructura está definida por un Esquema o IDL?-} Al igual como sucedía con el lenguaje DDL de SQL, a veces es interesante que los datos sean conformes a algún esquema, también llamado IDL (\textit{Interface Definition Language}).
+	\item \textbf{¿Es extensible?-} A veces es necesario acomodar datos que no se ajustan estrictamente a un esquema, o que son directamente no-estructurados.
+	\item \textbf{¿Poseen un API estandarizado?-} Si los formatos de serialización poseen un API estandarizado será más sencillo no sólo compartir los datos, sino también compartir el código de serialización/deserialización (también llamado \textbf{marshalling})
 \end{itemize}
 \begin{itemize}[label=\color{red}\textbullet, leftmargin=*]
 	\item \color{lightblue}Tabla resumen
@@ -20,19 +33,30 @@ CSV & Parcial (RFC4180) & No & Sí & No & No & Parcial  & No \\
 \hline
 JSON & Sí (RFC7159) & No (BSON) & Sí & Sí (RFC6901) & Parcial  & Sí & No \\
 \hline
-Thrift & No & Sí & Parcial  & No & Sí (acoplado) &  &  \\
+Thrift & No & Sí & Parcial  & No & Sí (acoplado) & Sí & No \\
 \hline
-XML &  &  &  &  &  &  &  \\
+XML & Sí & Parcial & Sí & Sí & Sí & No & No \\
 \hline
 \end{tabular}
 \subsubsection{Pandas}
 \begin{itemize}
+\item Pandas es una librería open source construida sobre \texttt{Numpy}.
+\item Permite una preparación, limpueza y análisis rápido de los datos.
+\item Una de sus principales características es la de visualización de datos.
+\item Puede trabajar con una gran variedad de fuentes musicales.
+\item Para instalar pandas es tan sencillo como ejecutar una de dichas instrucciones en el terminal \begin{center}
+	\texttt{pip install pandas}\\
+	\texttt{conda install pandas}
+\end{center}
+\bu{Dataframe}
+\end{itemize}
+\begin{itemize}
 \item La herramienta más conocida y usada de Pandas son los \texttt{DataFrames}.
 \item Permite almacenar datos tabulares en dos dimensiones similar a una hoja de cálculo o una base de datos relacional.
-\item Las columnas de datos 
+\item Las columnas de datos
 \end{itemize}
 \begin{lstlisting}[language=Python]
-df = pd.DataFrame(rand)
+df = pd.DataFrame(randn(5,4),index='A B C D E'.split(),columns='W X Y Z'.split())
 \end{lstlisting}
 \subsubsection{XML (eXtensible Markup Language)}
 \begin{itemize}
@@ -89,7 +113,7 @@ df = pd.DataFrame(rand)
 ...
 \end{lstlisting}
 
-Describe los documentos XML $\Longrightarrow$ \lb{Validación}
+Describe los documentos XML $\Longrightarrow$ \textbf{Validación}
 \begin{itemize}[label=\color{red}\textbullet, leftmargin=*]
 	\item \color{lightblue}DTD (ii)
 \end{itemize}
@@ -114,7 +138,7 @@ Limitaciones:
 	\item \color{lightblue}API SAX
 \end{itemize}
 
-Librería \texttt{\lb{xml.sax}}
+Librería \texttt{\textbf{xml.sax}}
 \begin{lstlisting}[language=python]
 import xml.sax
 
@@ -135,7 +159,7 @@ Handler = XMLHandler()
 parser.setContentHandler(Handler)
 parser.parse('models.xml') # nombre del documento a analizar
 \end{lstlisting}
-Cómo podríamos procesar con \texttt{\lb{xml.sax}} este documento
+Cómo podríamos procesar con \texttt{\textbf{xml.sax}} este documento
 \begin{lstlisting}[language=XML]
 <collection shelf="New Arrivals">
     <model number="ST001">
@@ -153,7 +177,7 @@ Cómo podríamos procesar con \texttt{\lb{xml.sax}} este documento
 \begin{itemize}[label=\color{red}\textbullet, leftmargin=*]
 	\item \color{lightblue}Parser DOM
 \end{itemize}
-Librería \lb{\texttt{xml.dom}}
+Librería \textbf{\texttt{xml.dom}}
 
 \begin{minipage}{0.55\textwidth}
 \begin{lstlisting}[language=python]
