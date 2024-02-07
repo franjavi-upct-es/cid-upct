@@ -527,9 +527,103 @@
 			Primero se aplica el desplazamiento y después la compresión.
 			\end{minipage}
 			
-			\item $\db{x[n]u[3-n]}$
+			\item $\db{x[n]\:u[3-n]}$
 			\item $\db{x[n-2]\delta[n-2]}$
 			\item $\db{\dfrac{1}{2}x[n]+\dfrac{1}{2}(-1)^nx[n]}$
 			\item $\db{x[(n-1)^2]}$
+		\end{enumerate}
+		\item 
+		\item 
+		\item 
+		\item 
+		\item 
+		\item 
+		\item 
+		\item 
+		\item 
+		\item 
+		\item 
+		\item 
+		\item 
+		\item 
+		\item 
+		\item 
+		\item 
+		\item 
+		\item 
+		\item 
+		\item 
+		\item \lb{Considere un sistema discreto cuya señal de entrada es $x[n]$ y la señal de salida es $y[n]$. La relación entre la entrada y la salida viene dada por \[ y[n]=x[n]\,x[n-2] \]}
+		\begin{enumerate}[label=\color{red}\alph*)]
+			\item \db{¿Tiene memoria el sistema?}
+			
+			Tiene memoria porque no solamente depende de $n$, sino que también depende de otro instante de $[n-2]$
+			\item \db{Determine la señal de salida del sistema cuando la entrada es $A\delta[n]$, siendo $A$ una constante real o compleja.}
+			
+			$y[n]=A\:\delta[n]\cdot A\:\delta[n-2]=0$
+			
+			\begin{center}
+				\includegraphics[scale=0.6]{"Temas/Tema 1/screenshot013"}\includegraphics[scale=0.6]{"Temas/Tema 1/screenshot014"}
+			\end{center}
+			
+			\item \db{¿Es invertible el sistema?}
+			
+			$\begin{cases}
+				\delta[n]\longrightarrow 0\\
+				\delta[n-n_0]\longrightarrow0
+			\end{cases}$
+		\end{enumerate}
+		\item 
+		\begin{enumerate}[label=\color{red}\alph*)]
+			\item \db{Es causal el sistema}
+			
+			Es no causal por la función $\sin(t)$
+			
+			\Ej
+			
+			$\begin{array}{l}
+				y(0)=x(0)\\
+				y\left(\dfrac{\pi}{2}\right)=x(1)\\
+				y(\pi)=x(0)\\
+				\begin{rcases}
+					y\left(-\dfrac{\pi}{2}\right)=x(-1)\\
+					y(-\pi)=x(0)
+				\end{rcases}\text{no causal, porque hay que hayar valores posteriores}
+			\end{array}$
+			\item \db{¿Es lineal?}
+			
+			$\begin{array}{l}
+				x_1(t)\longrightarrow y_1(t)=x_1(\sin(t))\\
+				x_2(t)\longrightarrow y_2(t)=x_2(\sin(t))\\
+				ax_1(t)+bx_2(t)\longrightarrow y_3(t)=a\lbb{x_1(\sin(t))}{y_1}+b\lbb{x_2(\sin(t))}{y_2}
+			\end{array}$
+			
+			La misma combinación de entradas produce la misma combinación de salidas.
+		\end{enumerate}
+		\item 
+		\begin{enumerate}[label=\color{red}\alph*)]
+			\item \db{$y(t)=t^2x(t-1)$}
+			
+			$\begin{rcases}
+				x_1(t)=x(t-t_0)\longrightarrow y_1(t)=t^2\cdot x(t-t_0-1)\\
+				\neq\\
+			y(t-t_0)=(t-t_0)^2\cdot x(t-t_0-1)
+			\end{rcases}$ No es invariante
+			
+			$\begin{array}{l}
+				x_1(t)\longrightarrow y_1(t)\\
+				x_2(t)\longrightarrow y_2(t)
+			\end{array}\quad\begin{aligned}
+			ax_1(t)+bx_2(t)\longrightarrow&t^2[ax_1(t-1)+bx_2(t-1)]\\
+			&=a\lbb{t^2x_1(t-1)}{y_1(t)}+b\lbb{t^2x_2(t-1)}{y_2(t)}
+			\end{aligned}\longrightarrow$ Es lineal
+			\item $\db{y[n]=x^2[n-2]}$
+			\item $\db{y[m]=x[n+1]-x[n-1]}$
+			\item $\db{y(t)=\mathrm{Impar}\{x(t)\}}$
+		\end{enumerate}
+		\item 
+		\item \lb{En este ejercicio se ilustra una de las consecuencias más importantes de las propiedades de linealidad e invarianza temporal. En concreto, cuando se conoce la respuesta de un sistema lineal e invariante en el tiempo (linear time-invariant system, LTI) a una respuesta dada o la respuesta a varias entradas, se puede calcular la respuesta del sistema a otras señales de entrada.}
+		\begin{enumerate}[label=\color{red}\alph*)]
+			\item \db{Considere un sistema LTI}
 		\end{enumerate}
 \end{enumerate}
