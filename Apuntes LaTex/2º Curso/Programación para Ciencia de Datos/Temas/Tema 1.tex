@@ -1,0 +1,261 @@
+\section{Control de Versiones \& Desarrollo basado en Test}
+\subsection{Metodologías de Desarrollo de Software}
+\subsubsection{Introducción}
+A lo largo de la historia, se han descrito una serie de metodologías para mejorar y facilitar el proceso de desarrollo software.\\
+Cada metodología divide el trabajo en fases, cada una con un conjunto distinto de actividades.\\
+El proceso de dividir el trabajo de desarrollo, normalmente en distintas fases, se conoce como \textbf{metodología de desarrollo de software.}\\
+Estas diferentes fases de trabajo pueden incluir:
+\begin{itemize}
+	\item Especificación de entregables o artefactos
+	\item Desarrollo y verificación del código con respecto a la especificación
+	\item Despliegue del código a sus clientes finales o entorno de producción.
+\end{itemize}
+\subsubsection{Tipos de metodologías}
+\begin{itemize}[label=\color{red}\textbullet, leftmargin=*]
+	\item \color{lightblue}Metodología clásica - En cascada
+\end{itemize}
+Es un proceso de gestión de proyectos que hace hincapié en una progresión secuencial de una etapa del proceso a la siguiente.
+
+Originario de las industrias manufacturera y de la construcción, y adoptado más tarde por la ingeniería de hardware.
+
+Las etapas originales eran la especificación de requisitos, el diseño, la implementación, la integración, las pruebas, la instalación y el mantenimiento.
+
+El progreso se visualizaba como un flujo de una etapa a otra (de ahí el nombre).
+\begin{itemize}[label=\color{red}\textbullet, leftmargin=*]
+	\item \color{lightblue}Metodologías ágiles - Scrum
+\end{itemize}
+Es un grupo de metodologías diseñadas para ser más ligeras y flexibles que las metodologías clásicas.
+
+Scrum utiliza ciclos de desarrollo predefinidos llamados \textit{sprints}, normalmente de entre una semana y un mes de duración.
+\begin{itemize}
+	\item Comienzan con una reunión de planificación del sprint para definir los objetivos y terminan con una revisión del sprint y una retrospectiva del sprint para discutir el progreso y cualquier problema que haya surgido durante ese sprint.
+\end{itemize}
+En estas reuniones, son facilitadas por el \textit{Scrum master}.
+
+Con dichas metodologías en mente, durante las fases de desarrollo e implantación de software surgen cuestiones que el equipo de desarrollo debe de manejar con cuidado.
+\begin{itemize}
+	\item ¿Cómo se van a registrar los cambios realizados en el código fuente?
+	\item ¿Cómo deshacer determinados cambios y volver a una versión anterior del proyecto?
+	\item ¿Podemos llevar en paralelo diferentes versiones del proyecto?
+	\item ¿Cómo podemos planificar las pruebas que hagamos a nuestro código?
+	\item ¿Qué tipo de pruebas debemos de implementar? ¿A qué nivel?
+	\item En el resto del tema veremos las herramientas que van a permitir responder y gestionar dichas herramientas en un proyecto de desarrollo del software.
+\end{itemize}
+\subsection{Sistema de Control de Versiones}
+\subsubsection{Introducción}
+Un Sistema de Control de Versiones (en adelante SCV), es un software que controla y organiza las distintas revisiones que se realicen sobre uno o varios documentos
+
+Pero, ¿qué es una revisión?
+\begin{itemize}
+	\item Una revisión es un cambio realizado sobre un documento, por ejemplo, añadir un párrafo, borrar un fragmento o algo similar.
+\end{itemize}
+
+\begin{center}
+	\includegraphics{"Temas/Tema 1/screenshot001"}
+\end{center}
+
+
+Un SVC guarda el historial de las distintas modificaciones sobre un fichero.
+
+En cualquier momento podemos restaurar la revisión que queramos de un fichero.
+
+Permite mantener una copia de seguridad de todas las modificaciones realizadas sobre un fichero, lo cual nos facilita la tarea de deshacer algo que esté mal.
+
+Su mayor potencial surge cuando el desarrollo se hace en grupo.
+
+\begin{itemize}[label=\color{red}\textbullet, leftmargin=*]
+	\item \color{lightblue}Riesgos del desarrollo en grupo sin SCV
+\end{itemize}
+\begin{center}
+	\includegraphics{"Temas/Tema 1/screenshot002"}
+	
+	\includegraphics{"Temas/Tema 1/screenshot003"}
+\end{center}
+\subsubsection{Tipos}
+\begin{itemize}
+	\item Sistema Centralizado
+	\begin{itemize}
+		\item Funcionan como un entorno clásico Cliente- Servidor
+		\begin{itemize}[label=$\to$]
+			\item Servidor: alojara el repositorio del proyecto, con toda la información de los cambios, ficheros binarios añadidos, ...
+			\item  El cliente trabaja con una "copia de trabajo" del servidor. Es una copia de cómo estaba el servidor en una revisión determinada.
+		\end{itemize}
+		\item El desarrollador hace cambios sobre esa copia de trabajo, y cuando considera que ha terminado con esa modificación la sube (\texttt{commit}) al servidor, el cual se encargará de fundir esos cambios en el repositorio.
+		\item Según la forma de controlar conflictos sobre un fichero podemos distinguir:
+		\begin{itemize}[label=$\to$]
+			\item Bloqueo de archivo: cuando alguien está trabajando con un archivo, se bloquea su acceso para el resto de usuarios.
+			\item Fusión de versiones: controla qué líneas se han modificado por cada usuario.
+		\end{itemize}
+	\end{itemize}
+	\item Sistema Distribuido
+	\begin{itemize}
+		\item Similar a un sistema \textit{Peer-to-Peer} (P2P).
+		\item La copia de trabajo de cada cliente es un repositorio en sí mismo, una rama nueva del proyecto central.
+		\item La sincronización de las distintas ramas se realiza intercambiando “parches” con otros clientes del proyecto.
+		\item No hay una copia original del código del proyecto, solo existen las distintas copias de trabajo.
+		\item Operaciones como los \texttt{commits}, no necesitan de una conexión con un servidor central.
+		\begin{itemize}[label=$\to$]
+			\item Dicha conexión solo es necesaria al “compartir” tu rama con otro cliente del sistema.
+		\end{itemize}
+		\item Cada copia de trabajo es una copia remota del código fuente y de la historia de cambios, dando una seguridad muy natural contra la pérdida de los datos.
+	\end{itemize}
+\end{itemize}
+\subsubsection{Git}
+\subsubsection*{\rc{1.2.3.1)}\hspace{10pt} Introducción}
+Escrito en C y en gran parte construido para trabajar en el kernel de Linux.
+
+Su principal potencial es su modelo de ramas (lo veremos más adelante).
+
+Diseñado para operar en local de forma rápida y sin conexión.
+
+\begin{itemize}
+	\item Pocos comandos que accedan al servidor
+\end{itemize}
+
+Los repositorios ocupan muy poco espacio.
+\subsubsection*{\rc{1.2.3.2)}\hspace{10pt}Estructura general}
+
+	Cada desarrollador tiene su repositorio local.
+	
+	Si un usuario realiza un cambio, lo hace localmente y cuando crea oportuno puede compartirlo con el resto de usuarios.
+	
+	Existe una rama principal (Trunk) en la cual todos los usuarios registran los cambios realizados obteniendo de esta forma la versión final.
+\begin{center}
+	\includegraphics{"Temas/Tema 1/screenshot004"}
+\end{center}
+
+\subsubsection*{\rc{1.2.3.3)}\hspace{10pt}Git Workflow}
+\begin{center}
+	\includegraphics{"Temas/Tema 1/screenshot006"}
+\end{center}
+\begin{minipage}{0.5\textwidth}
+	El primer paso es generar un \textit{repositorio Git} asociado a
+	nuestro directorio de trabajo (\texttt{working directory})
+	mediante el comando con \code{git init}.
+	\begin{itemize}
+		\item Esto creará dos directorios virtuales, un almacén de objetos (\texttt{.git}) y un área de montaje (o Index) que permitirán registrar los cambios realizados en el \texttt{working directory}.
+	\end{itemize}
+	En este punto hemos creado el repositorio Git, pero este se encuentra vacío.
+	\begin{itemize}
+		\item  En la figura de la derecha, el fichero \texttt{index.html} está en el directorio de trabajo pero \textbf{no} en el repositorio...
+	\end{itemize}
+	Con \code{git init} asociamos a nuestro directorio de trabajo donde tenemos todos los archivos de un proyecto:
+	\begin{enumerate}[label=\arabic*)]
+		\item Nuestro repositorio local
+		\item Nuestro repositorio \texttt{git}
+	\end{enumerate}
+\end{minipage}\qquad\begin{minipage}{0.45\textwidth}
+\begin{center}
+	\includegraphics{"Temas/Tema 1/screenshot005"}
+\end{center}
+\end{minipage}
+
+\begin{minipage}{0.5\textwidth}
+	Para añadir los ficheros del \texttt{working directory} que queramos tener controlados dentro del repositorio Git, deberemos ejecutar el comando \code{git add} (Ej: \texttt{git add index.html}). Esto deja el archivo en una fase o área preparatoria (\texttt{staging area}).
+	
+	Con esto indicamos a Git que queremos incluir la versión más reciente del fichero como parte de la revisión del repositorio.
+	
+	De forma análoga, podemos indicar a git que queremos quitar un determinado fichero del repositorio mediante \code{git rm}.
+\end{minipage}\qquad\begin{minipage}{0.45\textwidth}
+\begin{center}
+	\includegraphics[width=\linewidth]{"Temas/Tema 1/screenshot006"}
+\end{center}
+\end{minipage}
+
+\begin{minipage}{0.5\textwidth}
+	El siguiente paso lógico es consignar el nuevo fichero en el repositorio mediante el comando \code{git commit}.
+	
+	Todos estos comandos lo que han hecho ha sido mover el fichero \texttt{index.html} del directorio de trabajo al directorio índice (\texttt{index}) y finalmente al subdirectorio con el historial local.
+\end{minipage}\qquad\begin{minipage}{0.45\textwidth}
+\begin{center}
+	\includegraphics[width=\linewidth]{"Temas/Tema 1/screenshot006"}
+\end{center}
+\end{minipage}
+\begin{center}
+	\includegraphics{"Temas/Tema 1/screenshot007"}
+\end{center}
+\begin{minipage}{0.5\textwidth}
+	El \textit{commit} que hemos realizado anteriormente es local, para actualizar la rama principal (Trunk) que se encuentra en un servidor deberemos usar el comando \code{git push}.
+	
+	También, podríamos bajarnos los cambios que se realizado en dicha rama principal con \code{git pull}.
+\end{minipage}\qquad\begin{minipage}{0.45\textwidth}
+	\includegraphics[width=\linewidth]{"Temas/Tema 1/screenshot006"}
+\end{minipage}
+\subsubsection*{\rc{1.2.3.4)}\hspace{10pt}Componentes de un repositorio Git}
+\begin{minipage}{0.5\textwidth}
+	Dentro de un repositorio Git nos encontramos con dos estructuras de datos
+\begin{itemize}
+	\item El almacén de objetos: contiene los ficheros de datos originales y todos los mensajes de log, fechas y otra información necesaria para reconstruir el estado del proyecto en una determinada fecha.
+\begin{itemize}
+	\item Tiende a crecer de tamaño conforme editamos $\longrightarrow$ Git comprime dicho almacén en \textit{packfiles}.
+\item Cada fichero se almacena como un \textit{blob} y se indexa por su hash SHA-1 por lo que es muy difícil encontrar dos objetos con el mismo nombre.
+\item Se copia a un nuevo repositorio cuando se ejecuta \code{git clone}.
+\end{itemize}
+\item Área de intercambio o Índice: es el área intermedia donde se puede configurar el "aspecto" que tendrá la entrega antes de hacer \code{git commit}. Es privado del repositorio Git al cual
+pertenece.
+\end{itemize}
+\end{minipage}\qquad\begin{minipage}{0.45\textwidth}
+\begin{center}
+	\includegraphics{"Temas/Tema 1/screenshot008"}
+\end{center}
+\end{minipage}
+\begin{center}
+	\includegraphics{"Temas/Tema 1/screenshot009"}
+\end{center}
+\subsubsection*{\rc{1.2.3.5)}\hspace{10pt}Gestión de ramas}
+Una rama es una línea de desarrollo que existe de forma independiente a otra, pero que comparte una historia común en algún punto temporal anterior.
+
+Se puede decir que una rama siempre nace como una copia de algo y a partir de ahí pasa a generar su propia historia.
+\begin{center}
+	\includegraphics{"Temas/Tema 1/screenshot010"}
+\end{center}
+Git permite generar muchas ramas (branches) dentro de un proyecto (y por tanto múltiples líneas de desarrollo).
+
+Una rama se implementa en git como un puntero a un commit ya existente.
+
+Git lleva un control de los commits realizados sobre dicha rama de forma independiente.
+
+Existen múltiples razones que justifican el uso de ramas dentro de un proyecto:
+\begin{itemize}
+	\item Para representar diferentes estados en un proyecto (estable, en desarrollo, release candidate, etc.)
+\item Para representar una nueva versión del proyecto (porque sabes que determinados clientes van a querer seguir usando la versión anterior).
+\item Permite centrarse en una determinada funcionalidad del producto que estemos desarrollando.
+\end{itemize}
+Cuando se crea un repositorio, se crea una rama principal con nombre \texttt{master}.
+
+Aunque un proyecto pueda contener múltiples ramas, un desarrollador trabajará sobre una rama en concreto en un momento determinado.
+
+En cada momento, se tendrá una única rama activa.
+
+\begin{itemize}
+	\item Inicialmente, al crear un repositorio, la rama master constituirá la rama activa.
+\end{itemize}
+Cada vez que ejecutemos \code{git commit} se aplicará sobre la rama activa.
+
+El nombre de la rama hace en realidad referencia al \texttt{commit} más reciente realizado (\texttt{HEAD} en terminología \texttt{git})
+\begin{itemize}
+	\item En la figura de la derecha vemos una rama \texttt{development} que se ha fusionado con la rama \texttt{main}, de ahí que solo haya un \texttt{HEAD}.
+\end{itemize}
+\subsubsection*{\rc{1.2.3.6)}\hspace{10pt}Creación de ramas}
+Para crear una rama derivada de la rama activa en la que nos encontremos
+debemos ejecutar el comando \code{git branch <nombre_de_la_rama>
+<punto_inicial>}.
+\begin{itemize}
+	\item Por defecto \texttt{punto_inicial} hace referencia al HEAD de la rama activa.
+\end{itemize}
+Al ejecutar dicho comando simplemente hemos creado un nueva rama \textbf{pero} no nos hemos movido a la misma (el HEAD sigue apuntando a la rama origen)
+
+En el ejemplo de la figura hemos creado una nueva rama \texttt{new-branch} pero la rama activa sigue siendo \texttt{main}.
+\begin{center}
+	\includegraphics{"Temas/Tema 1/screenshot011"}
+\end{center}
+Para poder movernos a una rama que hayamos creado previamente deberemos ejecutar \linebreak \code{git checkout <nombre_de_la_rama> }
+
+Podemos obtener un listado de todas las ramas que tenemos en nuestro proyecto con el comando \code{git branch}.
+
+Existe la posibilidad de crear una rama y moverse automáticamente a ella mediante el comando \linebreak \code{git checkout -b <nombre_de_la_rama>}
+
+Para eliminar una rama podemos ejecutar \code{git branch -d <nombre_de_la_rama>}
+\begin{itemize}
+	\item \textbf{No debe de ser la rama activa.}
+\end{itemize}

@@ -1,0 +1,158 @@
+\section{Aprendizaje Supervisado}
+\subsection{Árboles de Decisión}
+\begin{itemize}[label=\color{red}\textbullet, leftmargin=*]
+	\item \color{lightblue}Definición
+\end{itemize}
+Los árboles de decisión son máquinas de aprendizaje supervisado que sirven para clasificar o aproximar.
+
+Supongamos el siguiente problema
+
+\begin{center}
+	\begin{tabular}{|c|c|c|c|c|c|}
+		\hline
+		\rowcolor{lightblue!10}
+		\hline
+		Paciente & Presión Arterial & Urea en sangre & Gota & Hipotiroidismo & Administrar Tratamiento \\
+		\hline
+		1 & Alta & Alta & Sí & No & No \\
+		\hline
+		2 & Alta & Alta & Sí & Sí & No \\
+		\hline
+		3 & Normal & Alta & Sí & No & Sí \\
+		\hline
+		4 & Baja & Normal & Sí & No & Sí \\
+		\hline
+		5 & Baja & Baja & No & No & Sí \\
+		\hline
+		6 & Baja & Baja & No & Sí & No \\
+		\hline
+		7 & Normal & Baja & No & Sí & Sí \\
+		\hline
+		8 & Alta & Normal & Sí & No & No \\
+		\hline
+		9 & Alta & Baja & No & No & Sí \\
+		\hline
+		10 & Baja & Normal & No & No & Sí \\
+		\hline
+		11 & Alta & Normal & No & Sí & Sí \\
+		\hline
+		12 & Normal & Normal & Sí & Sí & Sí \\
+		\hline
+		13 & Normal & Alta & No & No & Sí \\
+		\hline
+		14 & Baja & Normal & Si & Sí & No \\
+		\hline
+	\end{tabular}
+\end{center}
+\begin{itemize}
+	\item Planteamiento del problema: ¿Cuál es la \textbf{mejor secuencia de preguntas} para saber la clase a la que pertenece un objeto descrito por sus atributos?
+	\item Evidentemente, la "mejor respuesta" es aquella que con el \textbf{menor número de preguntas}, devuelve una respuesta suficientemente buena.
+	\item ¿Qué es mejor preguntar primero si tiene gota o cómo tiene la presión arterial?
+\end{itemize}
+\subsubsection{Arquitectura}
+Un árbol de decisión es una estructura jerárquica que consta de un nodo raíz, ramas, nodos internos y nodos hoja.
+\begin{itemize}
+	\item Comienzo con un \textbf{nodo raíz} sin ramas entrantes. Las ramas salientes del nodo raíz alimentan los nodos internos.
+	\item Los \textbf{nodos internos} evalúan características disponibles para formar subconjuntos homogéneos, indicados por nodos hoja o nodos terminales.
+	\item Los \textbf{nodos hoja} representan todos los resultados posibles dentro del conjunto de datos.
+\end{itemize}
+\begin{center}
+	\includegraphics{"Temas/Tema 1/Screenshot002"}
+\end{center}
+\subsubsection{Ventajas y desventajas}
+\begin{itemize}[label=\color{lightblue}\textbullet]
+	\item Pros
+	\begin{itemize}
+		\item Fáciles de entender e interpretar.
+		\item Sirven también para establecer reglas
+		\item No lineales
+		\item Menos pre-procesado de los datos: son robustos ante presencia de datos erróneos (outlier), valores faltantes o tipo de datos.
+		\item Es un método no paramétrico (por ejemplo, no hay suposición acerca del espacio de distribución y la estructura del clasificador).
+	\end{itemize}
+	\item Contras
+	\begin{itemize}
+		\item \textbf{Sobreajuste:} Los árboles más pequeños son más fáciles de interpretar, pero los más grandes pueden resultar en sobreajuste.
+		\item Perdida de información al categorizar variables continuas.
+		\item \textbf{Precisión:} Otros métodos (por ejemplo, SVM) a menudo tienen tasas de error 30\% más bajas que los árboles básico (ID.3 y CART).
+		\item \textbf{Inestabilidad:} un pequeño cambio en los datos puede modificar ampliamente la estructura del árbol (distintos conjuntos, distintos árboles). Varianza elevada.
+	\end{itemize}
+\end{itemize}
+\begin{itemize}[label=\color{red}\textbullet, leftmargin=*]
+	\item \color{lightblue}Definición alternativa: \textbf{recursividad}
+\end{itemize}
+Un árbol de decisión es una estructura recursiva formada por nodos, en el que existe:
+\begin{itemize}
+	\item Un nodo raíz
+	\item El nodo raíz tiene uno o más subnodos.
+	\item Cada uno de los subnodos puede ser, a su vez, raíz de un árbol
+\end{itemize}
+Esta característica recursiva hace que muchos de los algoritmos para crearlos se comporten también de manera recursiva.
+\begin{center}
+	\includegraphics{"Temas/Tema 1/Screenshot003"}
+\end{center}
+\subsubsection{Clasificación vs Regresión}
+\begin{itemize}[label=\color{lightblue}\textbullet]
+	\item Clasificación
+	\begin{itemize}
+		\item La variable dependiente es categórica.
+		\item Los valores de los nodos hoja son la \textbf{moda} de las observaciones de la región
+	\end{itemize}
+	\begin{center}
+		\includegraphics{"Temas/Tema 1/Screenshot004"}
+	\end{center}
+	\item Regresión
+	\begin{itemize}
+		\item La variable dependiente es continua.
+		\item Los valores de los nodos hoja son la \textbf{media} de las observaciones de la región.
+	\end{itemize}
+	\begin{center}
+		\includegraphics{"Temas/Tema 1/Screenshot005"}
+	\end{center}
+	
+\end{itemize}
+\subsection{Construcción de árboles de decisión}
+\subsubsection{Particiones}
+Cada nodo define una \textbf{partición} del conjunto de entrenamiento en función de los datos que representa.\\
+Las particiones producen subconjuntos que son \textbf{exhaustivos} y \textbf{excluyentes}.\\
+Cuestiones clave:
+\begin{itemize}
+	\item \textbf{Tipos de particiones:} cuantos más, más posibilidad de encontrar patrones y, por tanto, los árboles más precisos y expresivos.
+	\item \textbf{Número de particiones:} A más particiones mayor complejidad. Equilibrio entre complejidad y precisión.
+	\item Selección del \textbf{mejor atributo} en cada paso.
+	\item Selección del \textbf{mejor valor} de umbral de los valores.
+\end{itemize}
+\subsubsection{Particiones posibles}
+Los algoritmos más populares sólo proponen un tipo de partición para valores nominales y otro para valores numéricos:
+\begin{itemize}
+	\item \textbf{Particiones nominales:} En el caso que tengamos un atributo $x_i$ que tenga como posibles valores $\{v_1,v_2,\dots,v_n\}$ sólo es posible la partición \[ (x_1=v_1,x_2=v_2,\cdots,x_n=v_n) \]que da lugar a árboles con nodos con más de dos nodos hijos.
+	\begin{center}
+		\includegraphics{"Temas/Tema 1/Screenshot006"}
+	\end{center}
+	En el caso de árboles binarios se tienen que evaluar $n$ particiones (una por cada posible valor), definidas por $(x_i=v_i,x_i\neq v_i)$.
+	\item \textbf{Particiones numéricas:} Si el atributo $x_i$ es numérico y continuo, se intenta definir particiones que separe las instancias en intervalos de la forma \begin{center}
+		$(x_i\le a,x_i>a)$\qquad\begin{minipage}{0.3\textwidth}
+			\includegraphics{"Temas/Tema 1/Screenshot007"}
+		\end{minipage}
+	\end{center}
+	eligiendo diferentes valores de $a$ tenemos diferentes particiones. La expresividad resultante se conoce como \textit{expresividad cuadrangular} y que no relacionan atributos (sólo un atributo cada vez).
+	\begin{center}
+		\includegraphics{"Temas/Tema 1/Screenshot008"}
+	\end{center}
+	
+\end{itemize}
+\subsection{ID3: Algoritmo básico de aprendizaje}
+
+\begin{quote}
+	El algoritmo básico de aprendizaje es el \textbf{ID3 (Iterative Dichotomiser 3)}, J. Ross Quinlan, investigador australiano que propuso el método en 1983
+\end{quote}
+El método ID3 trata de encontrar una partición que asegure la \textbf{máxima capacidad predictiva y la máxima homogeneidad} de las clases\\
+Medida de homogeneidad: la \textbf{entropía}\\
+Repetición de \textbf{"cortes en dos"} hasta que se cumpla una determinada condición
+\subsubsection{Entropía}
+Para determinar el mejor atributo, el ID3 utiliza la \textbf{entropía}.
+
+\begin{tikzpicture}
+	\node[draw=lightblue, fill=lightblue!10, line width=1.5, text width=\linewidth] {Sea $S$ un conjunto de entrenamiento. Sea $p_\oplus$ la proporción de instancias positivas en $S$ y $p_\ominus$ la proporción de instancias negativas en $S$. La \textbf{entropía de $S$} es: \[ H(S)=p_\oplus\log_2\dfrac{1}{p_\oplus}+p_\ominus\log_2\dfrac{1}{p_\ominus}=-p_\oplus\log_2p_\oplus-p_\ominus\log_2p_\ominus \]};
+\end{tikzpicture}
+
+(Relación de la entropía con los conceptos de desorden, equiprobabilidad y homogeneidad).

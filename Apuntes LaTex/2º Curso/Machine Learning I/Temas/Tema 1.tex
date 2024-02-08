@@ -110,16 +110,31 @@ Aproximador polinómico: $y(x,\mathbf{w})=w_0+w_1x+w_2x^2+\cdots+x_Mx^M=\sum_{j=
 \end{itemize}
 \subsection{Planteamiento de la solución}
 Se quiere encontrar las variables del modelos (coeficientes del polinomio) para que éste minimice una función de coste o error, por ejemplo, la función de error SSE ("Sum of Square Error") dada por \[ E(\mathbf{w})=\dfrac{1}{2}\sum_{n=1}^{N}\left\{y(x_n,\mathbf{w})-t_n\right\}^2 \]Existe una solución analítica única mediante álgebra lineal.
+
+
 \begin{center}
-\begin{tikzpicture}
-\begin{axis}[
-    title={$\displaystyle E(w) = \frac{1}{2}\sum_{n=1}^{N}(y(x_n, w) - t_n)^2$},
-    xlabel={$w$},
-    ylabel={$E(w)$},
-    domain=-2:2,
-    samples=20,
-]
-\addplot {x^2};
-\end{axis}
-\end{tikzpicture}
+    \includegraphics[width=0.3\textwidth]{"Temas/Tema 1/SSE.png"}
 \end{center}
+
+\subsection{Peligros}
+\subsubsection{Subajuste y sobreajuste}
+
+\begin{center}
+	\includegraphics{"Temas/Tema 1/Ajustes.png"}
+\end{center}
+\subsection{Complejidad del modelo vs número de datos}
+\begin{minipage}{0.6\textwidth}
+	\begin{itemize}[label=\color{red}\textbullet, leftmargin=*]
+		\item \color{lightblue}Comoportamiento con $M(N\text{ fijo})$
+	\end{itemize}
+	Fijado $N$, la complejidad del modelo determina la generalización
+\end{minipage}\qquad\begin{minipage}{0.4\textwidth}
+\includegraphics{"Temas/Tema 1/Screenshot001"}
+\end{minipage}
+
+\begin{minipage}{0.4\textwidth}
+	\begin{itemize}[label=\color{red}\textbullet, leftmargin=*]
+		\item \color{lightblue}Comportamiento con $N$ ($M$ fijo)
+	\end{itemize}
+	Fijado $N(M=9)$, $N$ condiciona la solución del problema: si es bajo, se puede sobreajustar, si es alto (con relación a la dimensión) se reduce el sobreajuste.
+\end{minipage}
