@@ -445,4 +445,68 @@ import pandas as pd
 df = pd.read_json('data.json')
 	\end{lstlisting}
 	\item Por defecto, Pandas sigue una orientación basada en columnas en la lectura de los ficheros \texttt{\{columna -> \{indice -> valor\}\}}
+\begin{lstlisting}[language=python]
+json_str = '{"Cursos":{"r1":"Spark"},"Tasas":{"r1":"25000"},"Duracion":{"r1":"50 días"}}'
+df = pd.read_json(json_str)
+print(df)
+\end{lstlisting}
+\begin{center}
+	\begin{verbatim}
+		   Cursos  Tasas Duracion
+		r1  Spark  25000  50 días
+	\end{verbatim}
+\end{center}
+\item Otras opciones son \texttt{index, records, split} y \texttt{values}.
+\item Si usaramos la orientación records \dots
+\begin{lstlisting}[language=python]
+json_str = '[{"Cursos":"Spark","Tasas":"25000","Duracion":"50
+	días","Descuento":"2000"}]'
+df = pd.read_json(json_str, orient='records')
+print(df)
+\end{lstlisting}
+\begin{center}
+	\begin{verbatim}
+		   Cursos  Tasas Duracion Descuento
+		0   Spark  25000  50 días   2000
+	\end{verbatim}
+\end{center}
+\item Estableciend el parámetro \texttt{lines} a \texttt{True}
+\begin{lstlisting}[language=python]
+df = pd.read_json('cursos.json', orient='records', nrows=2, lines=True)
+\end{lstlisting}
+\end{itemize}
+\begin{itemize}[label=\color{red}\textbullet, leftmargin=*]
+	\item \color{lightblue}Resumen
+\end{itemize}
+\begin{center}
+	\includegraphics[width=0.7\linewidth]{screenshot001}
+\end{center}
+\subsubsection{Apache Avro}
+Avro ofrece una serie de características:
+\begin{itemize}
+	\item Estructuras de datos ricas
+	\item Un formato de datos compacto, rápido y binario
+	\item Un lenguaje de especificación de esquema (Proto + IDL)
+	\item Un formato de fichero contenedor para almacenar datos
+	\item Un esquema de llamada a procedimiento remoto (RPC)
+	\item Integración con lenguajes dinámicos, donde no hace falta recompilar el IDL (opcionalmente se puede hacer para lenguajes estáticos)
+\end{itemize}
+\begin{enumerate}[label=\arabic*)]
+	\item Schema
+\end{enumerate}
+\begin{itemize}
+	\item Una declaración de esquema se escribe en JSON. Bien un nombre de un objeto predefinido, o bien un objeto JSON de la forma:
+	\begin{lstlisting}[language=python]
+{"type": "nombreTipo", ... atributos ... }
+	\end{lstlisting}
+	\item Ofrece tipos primitivos y complejos. Primitivos: \texttt{null, boolean, int, long, float, bytes, string, . . .}
+	\item \texttt{"{"type": "string"}"} es equivalente a "\texttt{string}".
+	\item Tipos complejos permitidos: registros (records), enums, mapas, arrays, uniones.
+	\item Tipos complejos: Récords (registros)
+	\begin{itemize}
+		\item El campo \texttt{type} se establece a \texttt{"record"}.
+		\item El campo \texttt{name} establece su nombre.
+		\item El campo \texttt{fields} establece sus campos. Cada campo:
+		
+	\end{itemize}
 \end{itemize}
