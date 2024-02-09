@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (MiKTeX 23.10) (preloaded format=pdflatex 2024.1.2)  8 FEB 2024 10:33
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (MiKTeX 23.10) (preloaded format=pdflatex 2024.1.2)  9 FEB 2024 11:20
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1783,30 +1783,36 @@ Package: ntheorem 2011/08/15 1.33
 \qedsymbol=\toks82
 \thm@topsep=\skip183
 \thm@topsepadd=\skip184
+) (C:\Users\fcoja\AppData\Local\Programs\MiKTeX\tex/latex/wasysym\wasysym.sty
+Package: wasysym 2020/01/19 v2.4 Wasy-2 symbol support package
+\symwasy=\mathgroup7
+LaTeX Font Info:    Overwriting symbol font `wasy' in version `bold'
+(Font)                  U/wasy/m/n --> U/wasy/b/n on input line 93.
 )
 \@quotelevel=\count511
 \@quotereset=\count512
- (ML I.aux)
+
+(ML I.aux)
 \openout1 = `"ML I.aux"'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 16.
-LaTeX Font Info:    ... okay on input line 16.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 16.
-LaTeX Font Info:    ... okay on input line 16.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 16.
-LaTeX Font Info:    ... okay on input line 16.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 16.
-LaTeX Font Info:    ... okay on input line 16.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 16.
-LaTeX Font Info:    ... okay on input line 16.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 16.
-LaTeX Font Info:    ... okay on input line 16.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 16.
-LaTeX Font Info:    ... okay on input line 16.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 16.
-LaTeX Font Info:    ... okay on input line 16.
-LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 16.
-LaTeX Font Info:    ... okay on input line 16.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 17.
+LaTeX Font Info:    ... okay on input line 17.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 17.
+LaTeX Font Info:    ... okay on input line 17.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 17.
+LaTeX Font Info:    ... okay on input line 17.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 17.
+LaTeX Font Info:    ... okay on input line 17.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 17.
+LaTeX Font Info:    ... okay on input line 17.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 17.
+LaTeX Font Info:    ... okay on input line 17.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 17.
+LaTeX Font Info:    ... okay on input line 17.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 17.
+LaTeX Font Info:    ... okay on input line 17.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 17.
+LaTeX Font Info:    ... okay on input line 17.
 
 (C:\Users\fcoja\AppData\Local\Programs\MiKTeX\tex/context/base/mkii\supp-pdf.mk
 ii
@@ -1833,26 +1839,26 @@ Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 4
 fg
 File: epstopdf-sys.cfg 2021/03/18 v2.0 Configuration of epstopdf for MiKTeX
 ))
-LaTeX Info: Redefining \celsius on input line 16.
-Package gensymb Info: Faking symbols for \degree and \celsius on input line 16.
+LaTeX Info: Redefining \celsius on input line 17.
+Package gensymb Info: Faking symbols for \degree and \celsius on input line 17.
 
 
 
 Package gensymb Warning: Not defining \perthousand.
 
-LaTeX Info: Redefining \ohm on input line 16.
-Package gensymb Info: Using \Omega for \ohm on input line 16.
+LaTeX Info: Redefining \ohm on input line 17.
+Package gensymb Info: Using \Omega for \ohm on input line 17.
 
 Package gensymb Warning: Not defining \micro.
 
-Package ragged2e Info: ABD: executing \RaggedRight on input line 16.
+Package ragged2e Info: ABD: executing \RaggedRight on input line 17.
 Package caption Info: Begin \AtBeginDocument code.
 Package caption Info: hyperref package is loaded.
 Package caption Info: listings package is loaded.
 Package caption Info: wrapfig package is loaded.
 Package caption Info: End \AtBeginDocument code.
 \c@lstlisting=\count519
-Package hyperref Info: Link coloring OFF on input line 16.
+Package hyperref Info: Link coloring OFF on input line 17.
 (ML I.out) (ML I.out)
 \@outlinefile=\write5
 \openout5 = `"ML I.out"'.
@@ -1873,8 +1879,8 @@ Package biblatex Info: Trying to load bibliographic data...
 Package biblatex Info: ... file '"ML I".bbl' not found.
 
 No file "ML I".bbl.
-Package biblatex Info: Reference section=0 on input line 16.
-Package biblatex Info: Reference segment=0 on input line 16.
+Package biblatex Info: Reference section=0 on input line 17.
+Package biblatex Info: Reference segment=0 on input line 17.
 
 (C:\Users\fcoja\AppData\Local\Programs\MiKTeX\tex/latex/pdflscape\pdflscape.sty
 Package: pdflscape 2022-10-27 v0.13 Display of landscape pages in PDF
@@ -1893,7 +1899,7 @@ Package pdflscape Info: Auto-detected driver: pdftex on input line 81.
 Package pgfplots Warning: running in backwards compatibility mode (unsuitable t
 ick labels; missing features). Consider writing \pgfplotsset{compat=1.18} into 
 your preamble.
- on input line 16.
+ on input line 17.
 
 *geometry* driver: auto-detecting
 *geometry* detected driver: pdftex
@@ -1929,22 +1935,28 @@ your preamble.
 * \@reversemarginfalse
 * (1in=72.27pt=25.4mm, 1cm=28.453pt)
 
-LaTeX Font Info:    Trying to load font information for U+msa on input line 18.
+LaTeX Font Info:    Trying to load font information for U+msa on input line 19.
 
 (C:\Users\fcoja\AppData\Local\Programs\MiKTeX\tex/latex/amsfonts\umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Trying to load font information for U+msb on input line 18.
+LaTeX Font Info:    Trying to load font information for U+msb on input line 19.
 
 
 (C:\Users\fcoja\AppData\Local\Programs\MiKTeX\tex/latex/amsfonts\umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )
-LaTeX Font Info:    Trying to load font information for U+lasy on input line 18
+LaTeX Font Info:    Trying to load font information for U+lasy on input line 19
 .
 
 (C:\Users\fcoja\AppData\Local\Programs\MiKTeX\tex/latex/base\ulasy.fd
 File: ulasy.fd 1998/08/17 v2.2e LaTeX symbol font definitions
+)
+LaTeX Font Info:    Trying to load font information for U+wasy on input line 19
+.
+
+(C:\Users\fcoja\AppData\Local\Programs\MiKTeX\tex/latex/wasysym\uwasy.fd
+File: uwasy.fd 2020/01/19 v2.4 Wasy-2 symbol font definitions
 )
 (ML I.toc)
 \tf@toc=\write6
@@ -1954,76 +1966,207 @@ File: ulasy.fd 1998/08/17 v2.2e LaTeX symbol font definitions
 
 {C:/Users/fcoja/AppData/Local/MiKTeX/fonts/map/pdftex/pdftex.map}] (Temas/Tema 
 1.tex
-<Temas/Tema 1/K-means.png, id=96, 563.10374pt x 284.06125pt>
+<Temas/Tema 1/K-means.png, id=146, 563.10374pt x 284.06125pt>
 File: Temas/Tema 1/K-means.png Graphic file (type png)
 <use Temas/Tema 1/K-means.png>
-Package pdftex.def Info: Temas/Tema 1/K-means.png  used on input line 37.
+Package pdftex.def Info: Temas/Tema 1/K-means.png  used on input line 38.
 (pdftex.def)             Requested size: 394.16994pt x 198.84149pt.
 
 pdfTeX warning (ext4): destination with the same identifier (name{page.1}) has 
 been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.38 \end{center}
+l.39 \end{center}
                   [1]
-Overfull \hbox (12.03943pt too wide) in paragraph at lines 49--50
+Overfull \hbox (12.03943pt too wide) in paragraph at lines 51--52
 \OT1/cmr/m/n/10 En el con-texto del Ma-chine Learn-ing, el \OT1/cmr/bx/n/10 con
 -junto de hip^^Sotesis \OT1/cmr/m/n/10 se re-fiere a un con-junto de fun-ciones
  o mod-e-los matem^^Saticos 
  []
 
-<Temas/Tema 1/Entrenamiento.png, id=102, 155.3805pt x 115.02975pt>
+[2 <./Temas/Tema 1/K-means.png>]
+<Temas/Tema 1/Entrenamiento.png, id=161, 155.3805pt x 115.02975pt>
 File: Temas/Tema 1/Entrenamiento.png Graphic file (type png)
 <use Temas/Tema 1/Entrenamiento.png>
-Package pdftex.def Info: Temas/Tema 1/Entrenamiento.png  used on input line 85.
+Package pdftex.def Info: Temas/Tema 1/Entrenamiento.png  used on input line 87.
 
 (pdftex.def)             Requested size: 155.3801pt x 115.02946pt.
-[2 <./Temas/Tema 1/K-means.png>]
-<Temas/Tema 1/SSE.png, id=113, 1532.72626pt x 1582.91376pt>
+<Temas/Tema 1/SSE.png, id=163, 205.5178pt x 154.32657pt>
 File: Temas/Tema 1/SSE.png Graphic file (type png)
 <use Temas/Tema 1/SSE.png>
-Package pdftex.def Info: Temas/Tema 1/SSE.png  used on input line 116.
-(pdftex.def)             Requested size: 162.18236pt x 167.4789pt.
-<Temas/Tema 1/Ajustes.png, id=114, 302.93175pt x 122.25674pt>
+Package pdftex.def Info: Temas/Tema 1/SSE.png  used on input line 118.
+(pdftex.def)             Requested size: 205.5173pt x 154.32617pt.
+<Temas/Tema 1/Ajustes.png, id=164, 302.93175pt x 122.25674pt>
 File: Temas/Tema 1/Ajustes.png Graphic file (type png)
 <use Temas/Tema 1/Ajustes.png>
-Package pdftex.def Info: Temas/Tema 1/Ajustes.png  used on input line 123.
+Package pdftex.def Info: Temas/Tema 1/Ajustes.png  used on input line 125.
 (pdftex.def)             Requested size: 302.931pt x 122.25644pt.
-<Temas/Tema 1/Screenshot001.png, id=115, 124.0635pt x 95.75775pt>
+<Temas/Tema 1/Screenshot001.png, id=165, 124.0635pt x 95.75775pt>
 File: Temas/Tema 1/Screenshot001.png Graphic file (type png)
 <use Temas/Tema 1/Screenshot001.png>
-Package pdftex.def Info: Temas/Tema 1/Screenshot001.png  used on input line 132
+Package pdftex.def Info: Temas/Tema 1/Screenshot001.png  used on input line 134
 .
 (pdftex.def)             Requested size: 124.06319pt x 95.7575pt.
 
-Overfull \hbox (20.00002pt too wide) in paragraph at lines 126--134
+Overfull \hbox (20.00002pt too wide) in paragraph at lines 128--136
 $[]$ $[]$  
  []
 
 [3 <./Temas/Tema 1/Entrenamiento.png> <./Temas/Tema 1/SSE.png> <./Temas/Tema 1/
-Ajustes.png>]) [4 <./Temas/Tema 1/Screenshot001.png>] (Temas/Tema 2.tex
-<Temas/Tema 1/Screenshot002.png, id=130, 495.0495pt x 181.27725pt>
+Ajustes.png>]
+<Temas/Tema 1/Screenshot009.png, id=175, 331.2375pt x 130.98938pt>
+File: Temas/Tema 1/Screenshot009.png Graphic file (type png)
+<use Temas/Tema 1/Screenshot009.png>
+Package pdftex.def Info: Temas/Tema 1/Screenshot009.png  used on input line 144
+.
+(pdftex.def)             Requested size: 331.23668pt x 130.98904pt.
+
+Overfull \hbox (114.99904pt too wide) in paragraph at lines 144--145
+ [] 
+ []
+
+[4 <./Temas/Tema 1/Screenshot001.png> <./Temas/Tema 1/Screenshot009.png>]
+<Temas/Tema 1/Screenshot010.png, id=185, 409.53pt x 271.76532pt>
+File: Temas/Tema 1/Screenshot010.png Graphic file (type png)
+<use Temas/Tema 1/Screenshot010.png>
+Package pdftex.def Info: Temas/Tema 1/Screenshot010.png  used on input line 191
+.
+(pdftex.def)             Requested size: 286.66904pt x 190.23442pt.
+<Temas/Tema 1/Screenshot011.png, id=186, 241.65282pt x 185.94469pt>
+File: Temas/Tema 1/Screenshot011.png Graphic file (type png)
+<use Temas/Tema 1/Screenshot011.png>
+Package pdftex.def Info: Temas/Tema 1/Screenshot011.png  used on input line 203
+.
+(pdftex.def)             Requested size: 241.65222pt x 185.94421pt.
+
+[5 <./Temas/Tema 1/Screenshot010.png>]
+Overfull \hbox (20.07596pt too wide) detected at line 207
+\OMS/cmsy/m/n/10 f\OML/cmm/m/it/10 y\OT1/cmr/m/n/10 (\OT1/cmr/bx/n/10 x\OML/cmm
+/m/it/10 ; D\OT1/cmr/m/n/10 ) \OMS/cmsy/m/n/10 ^^@ \OML/cmm/m/it/10 E[]\OT1/cmr
+/m/n/10 [\OML/cmm/m/it/10 y\OT1/cmr/m/n/10 (\OT1/cmr/bx/n/10 x\OML/cmm/m/it/10 
+; D\OT1/cmr/m/n/10 )] \OMS/cmsy/m/n/10 ^^@ \OML/cmm/m/it/10 h\OT1/cmr/m/n/10 (\
+OT1/cmr/bx/n/10 x\OT1/cmr/m/n/10 )\OMS/cmsy/m/n/10 g[] \OT1/cmr/m/n/10 = \OMS/c
+msy/m/n/10 f\OML/cmm/m/it/10 y\OT1/cmr/m/n/10 (\OT1/cmr/bx/n/10 x\OML/cmm/m/it/
+10 ; D\OT1/cmr/m/n/10 ) \OMS/cmsy/m/n/10 ^^@ \OML/cmm/m/it/10 E[]\OT1/cmr/m/n/1
+0 [\OML/cmm/m/it/10 y\OT1/cmr/m/n/10 (\OT1/cmr/bx/n/10 x\OML/cmm/m/it/10 ; D\OT
+1/cmr/m/n/10 )]\OMS/cmsy/m/n/10 g[] \OT1/cmr/m/n/10 + \OMS/cmsy/m/n/10 f\OML/cm
+m/m/it/10 E[]\OT1/cmr/m/n/10 [\OML/cmm/m/it/10 y\OT1/cmr/m/n/10 (\OT1/cmr/bx/n/
+10 x\OML/cmm/m/it/10 ; D\OT1/cmr/m/n/10 )] \OMS/cmsy/m/n/10 ^^@ \OML/cmm/m/it/1
+0 h\OT1/cmr/m/n/10 (\OT1/cmr/bx/n/10 x\OT1/cmr/m/n/10 )\OMS/cmsy/m/n/10 g[] \OT
+1/cmr/m/n/10 + 2\OMS/cmsy/m/n/10 f\OML/cmm/m/it/10 y\OT1/cmr/m/n/10 (\OT1/cmr/b
+x/n/10 x\OML/cmm/m/it/10 ; D\OT1/cmr/m/n/10 ) \OMS/cmsy/m/n/10 ^^@ \OML/cmm/m/i
+t/10 E[]\OT1/cmr/m/n/10 [\OML/cmm/m/it/10 y\OT1/cmr/m/n/10 (\OT1/cmr/bx/n/10 x\
+OML/cmm/m/it/10 ; D\OT1/cmr/m/n/10 )]\OMS/cmsy/m/n/10 gf\OML/cmm/m/it/10 E[]\OT
+1/cmr/m/n/10 [\OML/cmm/m/it/10 y\OT1/cmr/m/n/10 (\OT1/cmr/bx/n/10 x\OML/cmm/m/i
+t/10 ; D\OT1/cmr/m/n/10 )] \OMS/cmsy/m/n/10 ^^@ \OML/cmm/m/it/10 h\OT1/cmr/m/n/
+10 (\OT1/cmr/bx/n/10 x\OT1/cmr/m/n/10 )\OMS/cmsy/m/n/10 g
+ []
+
+<Temas/Tema 1/Screenshot012.png, id=193, 377.91188pt x 265.74281pt>
+File: Temas/Tema 1/Screenshot012.png Graphic file (type png)
+<use Temas/Tema 1/Screenshot012.png>
+Package pdftex.def Info: Temas/Tema 1/Screenshot012.png  used on input line 223
+.
+(pdftex.def)             Requested size: 377.91095pt x 265.74216pt.
+[6 <./Temas/Tema 1/Screenshot011.png>]
+<Temas/Tema 1/Screenshot013.png, id=204, 328.22626pt x 220.57407pt>
+File: Temas/Tema 1/Screenshot013.png Graphic file (type png)
+<use Temas/Tema 1/Screenshot013.png>
+Package pdftex.def Info: Temas/Tema 1/Screenshot013.png  used on input line 234
+.
+(pdftex.def)             Requested size: 328.22545pt x 220.57352pt.
+<Temas/Tema 1/Screenshot014.png, id=205, 395.97937pt x 259.7203pt>
+File: Temas/Tema 1/Screenshot014.png Graphic file (type png)
+<use Temas/Tema 1/Screenshot014.png>
+Package pdftex.def Info: Temas/Tema 1/Screenshot014.png  used on input line 242
+.
+(pdftex.def)             Requested size: 395.97841pt x 259.71967pt.
+ [7 <./Temas/Tema 1/Screenshot012.png> <./Temas/Tema 1/Screenshot013.png>]
+<Temas/Tema 1/sesgo-varianza.drawio.png, id=213, 1792.6975pt x 418.56375pt>
+File: Temas/Tema 1/sesgo-varianza.drawio.png Graphic file (type png)
+<use Temas/Tema 1/sesgo-varianza.drawio.png>
+Package pdftex.def Info: Temas/Tema 1/sesgo-varianza.drawio.png  used on input 
+line 248.
+(pdftex.def)             Requested size: 540.60239pt x 126.22153pt.
+<Temas/Tema 1/Screenshot015.png, id=214, 300.3722pt x 322.20375pt>
+File: Temas/Tema 1/Screenshot015.png Graphic file (type png)
+<use Temas/Tema 1/Screenshot015.png>
+Package pdftex.def Info: Temas/Tema 1/Screenshot015.png  used on input line 267
+.
+(pdftex.def)             Requested size: 243.26941pt x 260.95901pt.
+ [8 <./Temas/Tema 1/Screenshot014.png> <./Temas/Tema 1/sesgo-varianza.drawio.pn
+g> <./Temas/Tema 1/Screenshot015.png>]
+<Temas/Tema 1/Screenshot016.png, id=222, 438.8897pt x 184.43906pt>
+File: Temas/Tema 1/Screenshot016.png Graphic file (type png)
+<use Temas/Tema 1/Screenshot016.png>
+Package pdftex.def Info: Temas/Tema 1/Screenshot016.png  used on input line 294
+.
+(pdftex.def)             Requested size: 438.88863pt x 184.4386pt.
+File: Temas/Tema 1/Entrenamiento.png Graphic file (type png)
+<use Temas/Tema 1/Entrenamiento.png>
+Package pdftex.def Info: Temas/Tema 1/Entrenamiento.png  used on input line 300
+.
+(pdftex.def)             Requested size: 155.3801pt x 115.02946pt.
+
+[9 <./Temas/Tema 1/Screenshot016.png>]
+<Temas/Tema 1/Screenshot017.png, id=229, 563.10374pt x 186.6975pt>
+File: Temas/Tema 1/Screenshot017.png Graphic file (type png)
+<use Temas/Tema 1/Screenshot017.png>
+Package pdftex.def Info: Temas/Tema 1/Screenshot017.png  used on input line 329
+.
+(pdftex.def)             Requested size: 540.60239pt x 179.2475pt.
+<Temas/Tema 1/Screenshot018.png, id=230, 567.62062pt x 310.15875pt>
+File: Temas/Tema 1/Screenshot018.png Graphic file (type png)
+<use Temas/Tema 1/Screenshot018.png>
+Package pdftex.def Info: Temas/Tema 1/Screenshot018.png  used on input line 333
+.
+(pdftex.def)             Requested size: 540.60239pt x 295.42056pt.
+ [10 <./Temas/Tema 1/Screenshot017.png>]
+<Temas/Tema 1/Screenshot019.png, id=237, 292.84406pt x 197.23688pt>
+File: Temas/Tema 1/Screenshot019.png Graphic file (type png)
+<use Temas/Tema 1/Screenshot019.png>
+Package pdftex.def Info: Temas/Tema 1/Screenshot019.png  used on input line 339
+.
+(pdftex.def)             Requested size: 243.26941pt x 163.85402pt.
+
+[11 <./Temas/Tema 1/Screenshot018.png> <./Temas/Tema 1/Screenshot019.png>]
+<Temas/Tema 1/Screenshot020.png, id=244, 264.99pt x 283.81032pt>
+File: Temas/Tema 1/Screenshot020.png Graphic file (type png)
+<use Temas/Tema 1/Screenshot020.png>
+Package pdftex.def Info: Temas/Tema 1/Screenshot020.png  used on input line 393
+.
+(pdftex.def)             Requested size: 232.17685pt x 248.67119pt.
+
+[12]
+<Temas/Tema 1/Screenshot021.png, id=250, 456.95718pt x 115.18031pt>
+File: Temas/Tema 1/Screenshot021.png Graphic file (type png)
+<use Temas/Tema 1/Screenshot021.png>
+Package pdftex.def Info: Temas/Tema 1/Screenshot021.png  used on input line 419
+.
+(pdftex.def)             Requested size: 456.95605pt x 115.18001pt.
+) [13 <./Temas/Tema 1/Screenshot020.png> <./Temas/Tema 1/Screenshot021.png>] (T
+emas/Tema 2.tex
+<Temas/Tema 1/Screenshot002.png, id=257, 495.0495pt x 181.27725pt>
 File: Temas/Tema 1/Screenshot002.png Graphic file (type png)
 <use Temas/Tema 1/Screenshot002.png>
 Package pdftex.def Info: Temas/Tema 1/Screenshot002.png  used on input line 60.
 
 (pdftex.def)             Requested size: 495.04828pt x 181.27681pt.
-
-[5]
-<Temas/Tema 1/Screenshot003.png, id=135, 409.53pt x 187.29974pt>
+ [14]
+<Temas/Tema 1/Screenshot003.png, id=262, 409.53pt x 187.29974pt>
 File: Temas/Tema 1/Screenshot003.png Graphic file (type png)
 <use Temas/Tema 1/Screenshot003.png>
 Package pdftex.def Info: Temas/Tema 1/Screenshot003.png  used on input line 91.
 
 (pdftex.def)             Requested size: 409.52899pt x 187.29927pt.
- [6 <./Temas/Tema 1/Screenshot002.png>]
-<Temas/Tema 1/Screenshot004.png, id=142, 419.76825pt x 143.3355pt>
+ [15 <./Temas/Tema 1/Screenshot002.png>]
+<Temas/Tema 1/Screenshot004.png, id=268, 419.76825pt x 143.3355pt>
 File: Temas/Tema 1/Screenshot004.png Graphic file (type png)
 <use Temas/Tema 1/Screenshot004.png>
 Package pdftex.def Info: Temas/Tema 1/Screenshot004.png  used on input line 101
 .
 (pdftex.def)             Requested size: 419.76721pt x 143.33513pt.
-<Temas/Tema 1/Screenshot005.png, id=143, 520.94624pt x 150.5625pt>
+<Temas/Tema 1/Screenshot005.png, id=269, 520.94624pt x 150.5625pt>
 File: Temas/Tema 1/Screenshot005.png Graphic file (type png)
 <use Temas/Tema 1/Screenshot005.png>
 Package pdftex.def Info: Temas/Tema 1/Screenshot005.png  used on input line 109
@@ -2034,28 +2177,28 @@ Overfull \hbox (5.34262pt too wide) in paragraph at lines 109--110
  [] 
  []
 
-[7 <./Temas/Tema 1/Screenshot003.png> <./Temas/Tema 1/Screenshot004.png> <./Tem
-as/Tema 1/Screenshot005.png>]
-<Temas/Tema 1/Screenshot006.png, id=151, 279.444pt x 80.7015pt>
+[16 <./Temas/Tema 1/Screenshot003.png> <./Temas/Tema 1/Screenshot004.png> <./Te
+mas/Tema 1/Screenshot005.png>]
+<Temas/Tema 1/Screenshot006.png, id=277, 279.444pt x 80.7015pt>
 File: Temas/Tema 1/Screenshot006.png Graphic file (type png)
 <use Temas/Tema 1/Screenshot006.png>
 Package pdftex.def Info: Temas/Tema 1/Screenshot006.png  used on input line 129
 .
 (pdftex.def)             Requested size: 279.44331pt x 80.70131pt.
-<Temas/Tema 1/Screenshot007.png, id=152, 99.9735pt x 69.861pt>
+<Temas/Tema 1/Screenshot007.png, id=278, 99.9735pt x 69.861pt>
 File: Temas/Tema 1/Screenshot007.png Graphic file (type png)
 <use Temas/Tema 1/Screenshot007.png>
 Package pdftex.def Info: Temas/Tema 1/Screenshot007.png  used on input line 134
 .
 (pdftex.def)             Requested size: 99.97324pt x 69.86081pt.
-<Temas/Tema 1/Screenshot008.png, id=153, 432.4155pt x 127.677pt>
+<Temas/Tema 1/Screenshot008.png, id=279, 432.4155pt x 127.677pt>
 File: Temas/Tema 1/Screenshot008.png Graphic file (type png)
 <use Temas/Tema 1/Screenshot008.png>
 Package pdftex.def Info: Temas/Tema 1/Screenshot008.png  used on input line 139
 .
 (pdftex.def)             Requested size: 432.41444pt x 127.67668pt.
- [8 <./Temas/Tema 1/Screenshot006.png> <./Temas/Tema 1/Screenshot007.png> <./Te
-mas/Tema 1/Screenshot008.png>]
+ [17 <./Temas/Tema 1/Screenshot006.png> <./Temas/Tema 1/Screenshot007.png> <./T
+emas/Tema 1/Screenshot008.png>]
 Overfull \hbox (8.16595pt too wide) in paragraph at lines 156--157
 [][]  
  []
@@ -2064,7 +2207,7 @@ Overfull \hbox (8.16595pt too wide) in paragraph at lines 156--157
 \tf@thm=\write7
 \openout7 = `"ML I.thm"'.
 
- [9] (ML I.aux)
+ [18] (ML I.aux)
  ***********
 LaTeX2e <2023-06-01> patch level 1
 L3 programming layer <2023-08-29>
@@ -2074,7 +2217,7 @@ L3 programming layer <2023-08-29>
 LaTeX Warning: There were undefined references.
 
 Package rerunfilecheck Info: File `"ML I".out' has not changed.
-(rerunfilecheck)             Checksum: 8AAD2509465836ECF820CD37287B3BC0;2943.
+(rerunfilecheck)             Checksum: FD861DF9B58907030CE88D0B9E92C4A3;5178.
 
 Package biblatex Warning: Please (re)run Biber on the file:
 (biblatex)                "ML I"
@@ -2085,32 +2228,35 @@ Package logreq Info: Writing requests to '"ML I".run.xml'.
 
  ) 
 Here is how much of TeX's memory you used:
- 52877 strings out of 475248
- 1198721 string characters out of 5757814
- 2083633 words of memory out of 5000000
- 73490 multiletter control sequences out of 15000+600000
- 568175 words of font info for 78 fonts, out of 8000000 for 9000
+ 53319 strings out of 475248
+ 1208258 string characters out of 5757814
+ 2084918 words of memory out of 5000000
+ 73894 multiletter control sequences out of 15000+600000
+ 569490 words of font info for 84 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 92i,9n,134p,1197b,919s stack positions out of 10000i,1000n,20000p,200000b,200000s
- <C:\Users\fcoja\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\tcrm
-1000.pk><C:/Users/fcoja/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfon
-ts/cm/cmbx10.pfb><C:/Users/fcoja/AppData/Local/Programs/MiKTeX/fonts/type1/publ
-ic/amsfonts/cm/cmbx12.pfb><C:/Users/fcoja/AppData/Local/Programs/MiKTeX/fonts/t
-ype1/public/amsfonts/cm/cmex10.pfb><C:/Users/fcoja/AppData/Local/Programs/MiKTe
-X/fonts/type1/public/amsfonts/cm/cmmi10.pfb><C:/Users/fcoja/AppData/Local/Progr
-ams/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi7.pfb><C:/Users/fcoja/AppData/Loc
-al/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr10.pfb><C:/Users/fcoja/App
-Data/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr12.pfb><C:/Users/f
-coja/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr17.pfb><C:
-/Users/fcoja/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr7.
-pfb><C:/Users/fcoja/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/c
-m/cmsy10.pfb><C:/Users/fcoja/AppData/Local/Programs/MiKTeX/fonts/type1/public/a
-msfonts/cm/cmsy7.pfb><C:/Users/fcoja/AppData/Local/Programs/MiKTeX/fonts/type1/
-public/amsfonts/cm/cmti10.pfb><C:/Users/fcoja/AppData/Local/Programs/MiKTeX/fon
-ts/type1/public/amsfonts/symbols/msbm10.pfb>
-Output written on "ML I.pdf" (10 pages, 642817 bytes).
+ 92i,17n,134p,1197b,919s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ <C:\Users\fcoja\AppData\Local\MiKTeX\fonts/pk/ljfour/public/wasy/dpi600\wasy
+10.pk> <C:\Users\fcoja\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\
+tcrm1000.pk><C:/Users/fcoja/AppData/Local/Programs/MiKTeX/fonts/type1/public/am
+sfonts/cm/cmbx10.pfb><C:/Users/fcoja/AppData/Local/Programs/MiKTeX/fonts/type1/
+public/amsfonts/cm/cmbx12.pfb><C:/Users/fcoja/AppData/Local/Programs/MiKTeX/fon
+ts/type1/public/amsfonts/cm/cmbx7.pfb><C:/Users/fcoja/AppData/Local/Programs/Mi
+KTeX/fonts/type1/public/amsfonts/cm/cmex10.pfb><C:/Users/fcoja/AppData/Local/Pr
+ograms/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi10.pfb><C:/Users/fcoja/AppData
+/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi7.pfb><C:/Users/fcoja
+/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr10.pfb><C:/Use
+rs/fcoja/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr12.pfb
+><C:/Users/fcoja/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/c
+mr17.pfb><C:/Users/fcoja/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfo
+nts/cm/cmr5.pfb><C:/Users/fcoja/AppData/Local/Programs/MiKTeX/fonts/type1/publi
+c/amsfonts/cm/cmr7.pfb><C:/Users/fcoja/AppData/Local/Programs/MiKTeX/fonts/type
+1/public/amsfonts/cm/cmsy10.pfb><C:/Users/fcoja/AppData/Local/Programs/MiKTeX/f
+onts/type1/public/amsfonts/cm/cmsy7.pfb><C:/Users/fcoja/AppData/Local/Programs/
+MiKTeX/fonts/type1/public/amsfonts/cm/cmti10.pfb><C:/Users/fcoja/AppData/Local/
+Programs/MiKTeX/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
+Output written on "ML I.pdf" (19 pages, 1130534 bytes).
 PDF statistics:
- 233 PDF objects out of 1000 (max. 8388607)
- 27 named destinations out of 1000 (max. 500000)
- 201 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 377 PDF objects out of 1000 (max. 8388607)
+ 53 named destinations out of 1000 (max. 500000)
+ 351 words of extra memory for PDF output out of 10000 (max. 10000000)
 

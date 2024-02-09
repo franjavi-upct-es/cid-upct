@@ -69,4 +69,26 @@
 	\end{array}\qquad f_{X,Y}=-\dfrac{1}{2}=\dfrac{\cov(X,Y)}{\sqrt{\sigma_X^2\cdot\sigma_Y^2}}\longrightarrow\cov(X,Y)=-\dfrac{1}{2}\cdot\sqrt{2\cdot2}=-1$
 	
 	$h_{\mathrm{top}}=\mu_Y+\dfrac{\cov(X,Y)}{\sigma_X^2}(x-\mu_X)=2+\dfrac{-1}{2}(x-1)=-\dfrac{x}{2}+\dfrac{5}{2}\longrightarrow h_{\mathrm{opt}}(1.5)=2-\dfrac{1}{2}\cdot\dfrac{1}{2}=\bboxed{\dfrac{7}{4}}$
+	
+	\item \lb{Encontrar la recta de regresión para el conjunto de datos: \[ \{(x_i,y_i)\}=\{(1,4),(2,2),(1,5),(5,3),(6,2)\} \]Estimar $y$ para $x=3$. ¿Será fiable esa aproximación?}
+	
+	$\begin{aligned}
+		\text{Recta de regresión: } & y=\hat{\theta}_0+\hat{\theta}_1x\\
+		&\hat{\theta}_0=\overline{y}-\hat{\theta}_1\overline{x}=3.2-(-0.\overline{36})\cdot3=4.29\\
+		&\hat{\theta}_1=\dfrac{S_{xy}}{S_x^2}=-\dfrac{1.6}{4.4}=-0.\overline{36}
+	\end{aligned}$
+	
+	$\begin{array}{l}
+		n=5\\
+		\overline{x}=3\\
+		\overline{y}=3.2\\
+		S_x^2=\overline{x^2}-\overline{x}^2=\dfrac{67}{3}-3^2=13.4-9=4.4\\
+		S_{xy}=\overline{xy}-\overline{x}\cdot\overline{y}=8-3*3.2=-1.6\\
+	\end{array}$
+	
+	Recta de regresión: $y=4.29-0.\overline{36}x\xrightarrow{x=3}y=4.29-0.\overline{36}\cdot3=3.2$
+	
+	Coeficiente de correlación lineal al cuadrado: \[ r_{xy}^2=\dfrac{S_{xy}^2}{s_x^2\cdot s_y^2}=\dfrac{(-1.6)^2}{4.4\cdot1.36}=0.428\text{ Ajuste malo} \]
+	
+	$s_y^2=\overline{y^2}-\overline{y}^2=\dfrac{58}{5}-3.2^2=1.36$
 \end{enumerate}

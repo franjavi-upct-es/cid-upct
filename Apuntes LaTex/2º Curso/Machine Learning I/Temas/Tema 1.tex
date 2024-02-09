@@ -1,5 +1,6 @@
 \section{Introducción al Machine Learning}
-\subsection*{¿Qué es el Machine Learning?}
+\subsection{Tareas básicas del Machine Learning}
+\subsubsection*{¿Qué es el Machine Learning?}
 \begin{itemize}[label=\color{red}\textbullet, leftmargin=*]
 	\item \color{lightblue}Definición de Machine Learning
 \end{itemize}
@@ -45,7 +46,8 @@ La tarea de \textbf{asociación} se centra en descubrir reglas de asociación en
 La asociación es una tarea \underline{no supervisada}, los datos a menudo provienen de transacciones o eventos, y no se requieren etiquetas previas.
 
 Algoritmos como Apriori se utilizan comúnmente para generar reglas de asociación en los datos, reglas como "Si A, entonces B". Estas reglas se utilizan en análisis de mercado y sistemas de recomendación.
-\subsection{Planteamiento del problema}
+\subsection{Generalización: subajuste y sobreajuste}
+\subsubsection{Planteamiento del problema}
 En el contexto del Machine Learning, el \textbf{conjunto de hipótesis} se refiere a un conjunto de funciones o modelos matemáticos que se utilzian para aproximar una relación desconocida entre las \textbf{entradas $(x)$} y las \textbf{salidas deseadas o targets $(t)$} de un conjunto de datos.
 
 Cada hipótesis representa una posible aproximación de la relación subyacente en los datos.
@@ -108,21 +110,21 @@ Aproximador polinómico: $y(x,\mathbf{w})=w_0+w_1x+w_2x^2+\cdots+x_Mx^M=\sum_{j=
 \item $M$ es un parámetro que determina la complejidad del modelo (orden del polinomio).
 \item Los parámetros no entrenables que determinan el modelo o el entrenamiento se denominan en Machine Learning \textbf{hiperparámetros}.
 \end{itemize}
-\subsection{Planteamiento de la solución}
+\subsubsection{Planteamiento de la solución}
 Se quiere encontrar las variables del modelos (coeficientes del polinomio) para que éste minimice una función de coste o error, por ejemplo, la función de error SSE ("Sum of Square Error") dada por \[ E(\mathbf{w})=\dfrac{1}{2}\sum_{n=1}^{N}\left\{y(x_n,\mathbf{w})-t_n\right\}^2 \]Existe una solución analítica única mediante álgebra lineal.
 
 
 \begin{center}
-    \includegraphics[width=0.3\textwidth]{"Temas/Tema 1/SSE.png"}
+    \includegraphics{"Temas/Tema 1/SSE.png"}
 \end{center}
 
-\subsection{Peligros}
+\subsubsection{Peligros}
 \subsubsection{Subajuste y sobreajuste}
 
 \begin{center}
 	\includegraphics{"Temas/Tema 1/Ajustes.png"}
 \end{center}
-\subsection{Complejidad del modelo vs número de datos}
+\subsubsection{Complejidad del modelo vs número de datos}
 \begin{minipage}{0.6\textwidth}
 	\begin{itemize}[label=\color{red}\textbullet, leftmargin=*]
 		\item \color{lightblue}Comoportamiento con $M(N\text{ fijo})$
@@ -137,4 +139,282 @@ Se quiere encontrar las variables del modelos (coeficientes del polinomio) para 
 		\item \color{lightblue}Comportamiento con $N$ ($M$ fijo)
 	\end{itemize}
 	Fijado $N(M=9)$, $N$ condiciona la solución del problema: si es bajo, se puede sobreajustar, si es alto (con relación a la dimensión) se reduce el sobreajuste.
+\end{minipage}\qquad\begin{minipage}{0.4\textwidth}
+\begin{center}
+	\includegraphics{"Temas/Tema 1/Screenshot009"}
+\end{center}
 \end{minipage}
+\subsubsection{Conclusión}
+Hay que limitar la complejidad del modelo acorde con el número de datos disponibles.
+
+En número de muestras ($N$) suele ser un parámetro fijo condicionado por el problema.
+
+Hay que lidiar con el compromiso entre la complejidad y el error de generalización.
+
+\subsubsection{Descomposición sesgo-varianza. Coste cuadrático}
+\begin{itemize}[label=\color{red}\textbullet, leftmargin=*]
+	\item \color{lightblue}Solución óptima
+\end{itemize}
+En el contexto de machine learning y desde un punto de vista teórico, los datos de un problema se considera extraídos de una disposición $p(\mathbf{x},t)$. Definamos: 
+\begin{itemize}
+	\item Salida del modelo regresor: $y(\mathbf{x})$, aporta la solución $(y(\mathbf{x})\eqsim t)$.
+	\item Coste cuadrático para una entrada $\mathbf{x}$: $L=(y(\mathbf{x})-t)^2$.
+	\item Coste cuadrático promedio (MSE): \begin{align}
+		E[L]&=\int_\mathbf{x}\int_t L(t,y(\mathbf{x}))p(\mathbf{x},t)\dt\mathrm{d}\mathbf{x}\\
+		&=\int_\mathbf{x}\int_t(y(\mathbf{x})-t)^2p(\mathbf{x},t)\dt\mathrm{d}\mathbf{x}
+	\end{align}
+\end{itemize}
+
+El término cuadrático de la Ecuación (1), se puede escribir como \[\begin{aligned}
+\{y(\mathbf{x})-t\}^2&=\{y(\mathbf{x})-E_t[t|\mathbf{x}]+E_t[t|\mathbf{x}]-t\}^2\\
+&=\{y(\mathbf{x})-E_t[t|\mathbf{x}]\}^2+\{E_t[t|\mathbf{x}]-t\}^2+2\{y(\mathbf{x})-E_t[t|\mathbf{x}]\}\{E_t[t|\mathbf{x}]-t\}
+\end{aligned}\] que insertado en (1) produce \[
+E[L]=\int\mathbf{x}\int_t\{y(\mathbf{x})-E_t[t|\mathbf{x}]\}^2p(\mathbf{x},t)\dt\mathrm{d}\mathbf{x}+\int_\mathbf{x}\int_t\{E_t[t|\mathbf{x}]-t\}^2P(\mathbf{x},t)\dt\mathrm{d}\mathbf{x}+\int_\mathbf{x}\int_t2\{y(x)-E_t[t|\mathbf{x}]\}\{E_t[t|\mathbf{x}]-t\}p(\mathbf{x},t)\dt\mathrm{d}\mathbf{x}
+\] y realizando la integral sobre $t$, se obtiene  \begin{align}
+	E[L]=\int_{\mathbf{x}}\{y(\mathbf{x})-E_t[t|\mathbf{x}]\}^2p(\mathbf{x})\mathrm{d}\mathbf{x}+\int_\mathbf{x}\mathrm{var}(t|\mathrm{x})+0 
+\end{align}
+\begin{itemize}
+	\item El primer término queda así debido a que el integrando no depende de $t$.
+	\item El segundo término representa la variabilidad intrínseca del target $t$ promediada sobre $t$ y $\mathbf{x}$, y el valor mínimo posible del coste esperado ($E[L]$). Se considera, por tanto, un ruido irreducible del problema.
+	\item El tercer término se anula ya que al realizar la integral sobre $t$ se tiene \begin{align*}
+		\int_t2\{y(\mathbf{x})-E_t[t|\mathbf{x}]\}\{E_t[t|\mathbf{x}]-t\}p(\mathbf{x},t)\dt&=2\{y(\mathbf{x})-E_t[t|\mathbf{x}]\}\int_t\{E_t[t|\mathbf{x}]-t\}p(\mathbf{x},t)\dt\\
+		&=E_t[t|\mathbf{x}]-E_t[t|\mathbf{x}]\\
+		&=0
+	\end{align*}
+\end{itemize}
+Como el segundo término de (3) no depende de nuestro regresor $y(\mathbf{x})$, la solución óptima que minimiza $E[L]$, y que llamaremos $h(\mathbf{x})$, es: \[ \boxed{h(\mathbf{x})=E_t[t|\mathbf{x}]} \]que anula el primer término de (3).
+\begin{itemize}[label=$-$]
+	\item Representación gráfica de la solución óptima (mínimo MSE). Ejemplo unidimensional.
+	\item Como acabamos de ver, la solución es $y(x)=E_t[t|x]$, es decir, $h(x)$.
+\end{itemize}
+\begin{center}
+	\includegraphics[scale=0.7]{"Temas/Tema 1/Screenshot010"}
+\end{center}
+En la práctica, \textbf{nunca tendremos infinitas muestras}, sino un conjuto finito $D$ de $N$ datos: $D=\{x_j,t_h\}_{j=1}^{N}$. Por esto, no podemos conocer $h(\mathbf{x})$ con exactitud.
+
+\begin{minipage}{0.5\textwidth}
+	Si modelamos $h(\mathbf{x})$ con una función paramétrica $y(\mathbf{x}, \mathbf{w})$ gobernada por el vector $\mathbf{w}$, entonces la incertidumbre del modelo se puede tratar de dos formas:
+	\begin{enumerate}[label=\arabic*)]
+		\item Considerando un único conjunto de datos $D$, de forma que la incertidumbre se expresa tratando $\mathbf{w}$ como una variable aleatoria (con una distribución a posteriori de $\mathbf{w}$, teoría bayesiana).
+		\item Considerando que se dispone de un gran número de conjuntos de datos diferentes, cada uno con $N$ muestras extraídas independientemente de $p(\mathbf{x}, t)$, de forma que para cada uno de ellos, se obtiene –mediante algún algoritmo de entrenamiento– un predictor $y(\mathbf{x}, D)$ definido por un único vector $\mathbf{w}$ (estimación única para cada $D$).
+	\end{enumerate}
+\end{minipage}\qquad\begin{minipage}{0.45\textwidth}
+\begin{center}
+	\includegraphics{"Temas/Tema 1/Screenshot011"}
+\end{center}
+\end{minipage}
+Siguiendo la segunda opción, para cada conjunto $D$ y muestra $\mathbf{x}$, se obtiene un error dado por: \[ \{y(\mathbf{x},\mathbf{D})-\mathbf{h(x)}\}^2 \]
+Introduciendo el promedio sobre $D$ de nuestro regresor para $\mathbf{x}$, podemos re-escribir el error como \[ \{y(\mathbf{x},D)-E_D[y(\mathbf{x},D)]-h(\mathbf{x})\}^2=\{y(\mathbf{x},D)-E_D[y(\mathbf{x},D)]\}^2+\{E_D[y(\mathbf{x},D)]-h(\mathbf{x})\}^2+2\{y(\mathbf{x},D)-E_D[y(\mathbf{x},D)]\}\{E_D[y(\mathbf{x},D)]-h(\mathbf{x})\} \]
+Promediando con respecto a $D$, se anula el tercer término y se obtiene el \textbf{error esperado para la muestra $x$}: \begin{align}
+	\boxed{E_D[\{y(\mathbf{x},D)-h(\mathbf{x})\}^2]=\underbrace{E_D[\{y(\mathbf{x},D)-E_D[y(\mathbf{x},D)]\}^2]}_{\mathrm{varianza}}+\underbrace{\{E_D[y(\mathbf{x},D)]-h(\mathbf{x})\}^2}_{(\mathrm{sesgo})^2}}
+\end{align}
+\begin{itemize}[label=\color{red}\textbullet, leftmargin=*]
+	\item \color{lightblue}Error esperado total: sesgo, varianza y ruido
+\end{itemize}
+Hasta ahora tenemos considerado el error producido por una única muestra $\mathbf{x}$. Incluyendo (4) en el primer término de (3), se obtiene el \textbf{error global esperado} \begin{center}
+	\fbox{Error esperado = varianza + $(\mathrm{sesgo})^2$ + ruido}
+\end{center}
+donde \[ \mathrm{varianza}=\int_\mathbf{x}E_D[\{y(\mathbf{x},D)-E_D[y(\mathbf{x},D)]\}^2]p(\mathbf{x})\dbx \] es la diferencia cuadrática entre las predicciones de nuestro modelo y la media de dichas predicciones; \[ (\mathrm{sesgo})^2=\int_\mathbf{x}\{E_D[y(\mathbf{x},D)]-h(\mathbf{x})\}^2p(\mathbf{x})\dbx \]es la diferencia entre la predicción esperada de nuestro modelo y los valores verdaderos; y \[ \mathrm{ruido}=\int_\mathbf{x}\int_t\{h(\mathbf{x})-y\}^2p(\mathbf{x},t)\dt\dbx \]es el error irreductible que siempre está presente. Es el segundo término de (3).
+\subsubsection*{Representaciones gráficas}
+\begin{itemize}[label=\color{red}\textbullet, leftmargin=*]
+	\item \color{lightblue}Error esperado vs Complejidad
+\end{itemize}
+\begin{center}
+	\includegraphics{"Temas/Tema 1/Screenshot012"}
+\end{center}
+\begin{itemize}
+	\item Modelos complejos (alta capacidad, flexibles) producen varianzas elevadas y sesgos bajos
+	\item Modelos simples (baja capacidad, rígidos) producen varianzas bajas y sesgos elevados
+\end{itemize}
+\begin{itemize}[label=\color{red}\textbullet, leftmargin=*]
+	\item \color{lightblue}Sesgo
+\end{itemize}
+Sea $f(\mathbf{x})$ una función desconocida que queremos aproximar, la llamaremos \textit{"true function"}. Supongamos que tenemos diferentes conjuntos de entrenamiento extraídos de función de distribución definida como "$f(\mathbf{x})$ + noise". La siguiente figura muestra tres regresores lineales, uno para cada conjunto de entrenamiento.
+\begin{center}
+	\includegraphics{"Temas/Tema 1/Screenshot013"}
+\end{center}
+
+\begin{itemize}[label=\color{red}\textbullet, leftmargin=*]
+	\item \color{lightblue}Varianza
+\end{itemize}
+En este caso, las regresiones se realizan perfectamente mediante árboles de decisión sin podar. Cada uno, se ajusta perfectamente a los datos.
+\begin{center}
+	\includegraphics{"Temas/Tema 1/Screenshot014"}
+\end{center}
+\begin{itemize}[label=\color{red}\textbullet, leftmargin=*]
+	\item \color{lightblue}Compromiso sesgo-varianza
+\end{itemize}
+\begin{center}
+	\includegraphics[width=\linewidth]{"Temas/Tema 1/sesgo-varianza.drawio.png"}
+\end{center}
+
+\begin{minipage}{0.5\textwidth}
+	\begin{itemize}
+		\item Mismo ejemplo de regresión considerado anteriormente.
+		\item 100 conjuntos de datos, cada uno con 25 muestras. Se realizan 100 entrenamientos.
+		\item Regresores: mezclas de 24 guasianas.
+		\item $\lambda$ parámetro que determina la complejidad del modelo. Aumenta hacia abajo.
+		\item En la primer columna, se muestran 20 entrenamientos (modelos).
+		\item Resultados:
+		\begin{itemize}
+			\item Primera fila: complejidad baja, varianza pequeña y sesgo grande.
+			\item Última fila: complejidad alta, varianza grande y sesgo bajo.
+			\item Fila centro: solución intermedia. Mejor compromiso sesgo-varianza.
+		\end{itemize}
+	\end{itemize}
+\end{minipage}\qquad\begin{minipage}{0.45\textwidth}
+\begin{center}
+	\includegraphics[width=\linewidth]{"Temas/Tema 1/Screenshot015"}
+\end{center}
+\end{minipage}
+\subsubsection{Algunas técnicas de generalización}
+\subsubsection*{¿Cómo evitar el \textbf{sobre}-ajuste?}
+\begin{itemize}
+	\item \textbf{"Early stopping":} Se detiene el entrenamiento del modelo antes de que alcance la convergencia total en los datos de entrenamiento. Se emplea un conjunto de parada.
+	\item \textbf{Regularización L1 y L2} (Regresión Ridge y Lasso): Se agregan términos de penalización (normas L1 ó L2 de los coeficientes del modelo) a la función de pérdida durante el entrenamiento. Son técnicas \textbf{'Wight decay'}.
+	\item \textbf{Dropout:} Es una técnica específica para redes neuronales. Durante el entrenamiento aleatoriamente se desactivan (ponen a cero) ciertas neuronas en cada paso. Esto evita que el modelo depende demasiado de neuronas específicas y promueve una mejor generalización.
+	\item \textbf{Aumento de datos:} Se aumenta el tamaño del conjunto de datos mediante técnicas como la rotación, la inversión y el recorte de imágenes. Esto ayuda a exponer al modelo a una mayor variedad de datos y reduce el riesgo de sobresaliente.
+	\item \textbf{Feature Selection:} La selección adecuada de características es esencial para evitar el sobreajuste. Eliminar características irrelevantes o altamente correlacionadas puede reducir la complejidad del modelo y mejorar su generalización.
+	\item \textbf{Ensemble learning:} Combina múltiples modelos más simples y menos propensos al sobreajuste. El Bagging (Bootstrap Aggregating) y el Boosting son ejemplos de ensemble learning.
+\end{itemize}
+\subsubsection*{¿Cómo evitar el \textbf{sub}-ajuste?}
+\textbf{Evitar el sub-ajuste es tan importante como evitar el sobre-ajuste.}
+\begin{itemize}
+	\item Aumentar la complejidad del modelo.
+	\item Aumentando el tiempo de entrenamiento.
+	\item Añadiendo más características.
+	\item Reducir la regularización.
+\end{itemize}
+\subsubsection{Evitar el sobreajuste: "early stopping"}
+\begin{itemize}[label=\color{lightblue}$\RHD$]
+	\item \textbf{Sobreentrenamiento:} demasiados ciclos adaptan en exceso la red a las muestras de entrenamiento, no generalizando bien.
+\end{itemize}
+Para evitarlo (mantener la generalización), se emplea un conjunto adicional, extraído del conjunto de entrenamiento llamado \textbf{conjunto de validación} (en este caso, actúa como conjunto de parada)
+\begin{center}
+	\includegraphics{"Temas/Tema 1/Screenshot016"}
+\end{center}
+\subsubsection{Evitar el sobreajuste: "Weight Decay"}
+Retomamos el problema de \textbf{regresión}: $y=\sin(2\pi\mathbf{x})+n(\mathbf{x})$, donde $n(\mathbf{x})$ es un ruido gausiano pequeño.
+
+\begin{wrapfigure}[3]{l}{0.3\textwidth}
+	\includegraphics{"Temas/Tema 1/Entrenamiento.png"}
+\end{wrapfigure}
+
+Conjunto de entrenamiento: $\{x_j,t_j\}_{j=1}^{N=10}$
+
+\begin{flushright}
+	\begin{tikzpicture}
+		% Define los nodos
+		\node (A) at (0,0) {$x_j$};
+		\node[draw=blue, right=2cm of A, text width=2cm, fill=lightblue!10] (B) {\begin{center}
+				Máquina de \\ Aprendizaje \\ $y(x,w)$
+		\end{center}};
+		\node[right=2cm of B] (C) {$y(x_j,w)$};
+		
+		% Dibuja las flechas
+		\draw[double -latex=4pt colored by lightblue and lightblue!10] (A) -- (B);
+		\draw[double -latex=4pt colored by lightblue and lightblue!10] (B) -- (C);
+	\end{tikzpicture}
+\end{flushright}
+
+Aproximador polinómico: $y(x,\mathbf{w})=w_0+w_1x+w_2x^2+\cdots+x_Mx^M=\sum_{j=0}^{M}x_jx^j$
+
+\hspace{1cm}
+
+\begin{itemize}[label=\color{red}\textbullet, leftmargin=*]
+	\item \color{lightblue}Técnica de regularización
+\end{itemize}
+Valores de los \underline{pesos} para varios $M$
+\begin{center}
+	\includegraphics[width=\linewidth]{"Temas/Tema 1/Screenshot017"}
+\end{center}
+\textbf{"Weight Decay":} Se regulariza la solución mediante la minimización adicional (cuadrática) de los pesos \[ \tilde{E}(\mathbf{w})=\dfrac{1}{2}\sum_{i=1}^{N}\{y(x_n,\mathbf{w})-t_n\}^2+\underbrace{\dfrac{\lambda}{2}\|\mathbf{w}\|^2}_{\text{Regularización}} \]
+\begin{center}
+	\includegraphics[width=\linewidth]{"Temas/Tema 1/Screenshot018"}
+\end{center}
+\begin{minipage}{0.5\textwidth}
+	En la figura, se observa como $\lambda$ determina la generalización de la solución
+\end{minipage}\qquad\begin{minipage}{0.45\textwidth}
+\begin{center}
+	\includegraphics[width=\linewidth]{"Temas/Tema 1/Screenshot019"}
+\end{center}
+\end{minipage}
+
+Una forma sencilla de encontrar el valor óptimo de $\lambda$ (la complejidad del modelo) es mediante la evaluación de las prestaciones del \textbf{Conjunto de Validación} (el mismo conjunto empleado para early-stopping).
+\subsection{Evaluación de prestaciones}
+Para evaluar las prestaciones (\textbf{rendimiento}) de un modelo de machine learning ya entrenado, se utilizan diversas métricas de evaluación dependiendo del tipo de problema (clasificación, regresión, etc.) y las características del conjunto de datos.
+
+Métricas más comunes:
+\begin{itemize}
+	\item Problemas de regresión.
+	\begin{itemize}
+		\item Error cuadrático medio (Mean Square Error, MSE)
+		\item Error absoluto medio (Mean Absolute Error, MAE)
+		\item Coeficiente de Determinación $R^2$.
+	\end{itemize}
+	\item Problemas de clasificación.
+	\begin{itemize}
+		\item Matriz de confusión.
+		\item Exactitud (Accuracy)
+		\item Precisión (Precision)
+		\item Sensibilidad (Recall) y Especificidad (Specificty)
+		\item F1-score
+		\item ROC
+	\end{itemize}
+\end{itemize}
+\subsubsection{Regresión}
+\begin{itemize}
+	\item \textbf{Error Cuadrático Medio (MSE):} \[ MSE(\mathbf{w})=\dfrac{1}{N}\sum_{i=1}^{N}\{y(x_n,\mathbf{w})-t_n\}^2 \]
+	\item \textbf{Error Absoluto Medio (MAE):} \[ MAE(\mathbf{x})=\dfrac{1}{N}\sum_{i=1}^{N}|y(x_n,\mathbf{w})-t_n| \]
+\end{itemize}
+En estas fórmulas, $N$ el número total de instancias, $y(x_n,w)$ la salida obtenida del modelo $w$ y $t_n$ la salida real de la instancia $n$. Interpretación de MSE y MAE: A menor error mejor siempre será el modelo.
+\begin{itemize}
+	\item \textbf{Coeficiente de Determinación $R^2$}
+	
+	Métrica a utilizar en tareas de regresión. Infica la cantidad proporcional de variación en la variable de respuesta $y$, explicada según las variables independietnes $X$. Es una medida adimensional. Toma valores en el intervalo $[0,1]$. Cuando mayor es el valor mejor es el ajuste del modelo.
+\end{itemize}
+La fórmula es: \[ R^2=1-\dfrac{\sum(t_i-y_i)^2}{\sum(y_i-\mu_t)^2}. \] Siendo $t_i$ la salida esperada de la instancia $i,\,y_i$ la salida del modelo para la instancia $i$ y $\mu_t$ la media de los valores de salida de todas las instancias. Interpretación de $R^2$.
+\begin{itemize}
+	\item Valor entre 0 y 1.
+	\item Más cercano a 0 $\longrightarrow$ modelo con poco ajuste.
+	\item Más cercano a 1 $\longrightarrow$ modelo con mayor ajuste.
+	\item Umbral entre el nivel de ajuste se encuentra superior a 0.5, para algunas áreas superior a 0.75.
+\end{itemize}
+\subsubsection{Clasificación}
+\begin{minipage}{0.5\textwidth}
+	Supongamos un problema de clasificación binario con datos bidimensionales positivos (clase P) y negativos (clase N). En la figura anexa, se muestra el espacio de los datos y la frontera real (ideal) del problema.
+	
+	\hspace{2cm}
+	
+	Cuando se entrena un modelo con los datos disponibles, se obtendrá una frontera diferente a la ideal, como se muestra en la figura.
+\end{minipage}\qquad
+\begin{minipage}{0.45\textwidth}
+	\begin{center}
+		\includegraphics[width=0.3\textheight]{"Temas/Tema 1/Screenshot020"}
+	\end{center}
+\end{minipage}
+
+
+El objetivo es conseguir un clasificador que produzca una frontera lo más parecida a la real, es decir, \[ \begin{array}{c}
+	VP = P\longrightarrow FN=0\\
+	\mathrm{y}\\
+	VN=N\longrightarrow FP=0
+\end{array} \]
+
+\subsubsection*{¿Cómo medir este parecido?}
+Con \textbf{métricas} como:
+\begin{itemize}
+	\item Matriz de Confusión
+	\item Exactitud (Accuray)
+	\item Precisión (Precision)
+	\item Sensibilidad (Recall) y Especificidad (Specificty)
+	\item F1-score
+	\item ROC
+\end{itemize}
+
+\begin{itemize}[label=\color{red}\textbullet, leftmargin=*]
+	\item \color{lightblue}Matriz de confusión
+\end{itemize}
+\begin{center}
+	\includegraphics{"Temas/Tema 1/Screenshot021"}
+\end{center}
