@@ -6,7 +6,7 @@ N = floor(length(x)/2);
 n = [-N:N];
 
 figure(1)
-stem(n,x,'.')
+stem(n,x,'.', 'LineWidth', 2)
 x(find(n==-3)) % Valor de la señal en el instante n=-3
 x(find(n==-3))=-0.6;
 
@@ -22,6 +22,20 @@ E = x .^ 2
 energia = sum(x .^ 2)
 potencia = (1 / (2 * N + 1)) *  sum(x .^ 2)
 
+% Abrir el archivo de texto para escritura:
+fid = fopen('resultados.txt', 'w');
+
+% Escribir los resultados en el archivo de texto:
+fprintf(fid, 'y =\n'); dlmwrite(fid, y, 'precision', 5);
+fprintf(fid, 'x2 =\n'); dlmwrite(fid, x2, 'precision', 5);
+fprintf(fid, 'z =\n'); dlmwrite(fid, z, 'precision', 5);
+fprintf(fid, 'E =\n'); dlmwrite(fid, E, 'precision', 5);
+fprintf(fid, 'energia = %f\n', energia);
+fprintf(fid, 'potencia = %f\n', potencia);
+
+% Cerrar el archivo de texto:
+fclose(fid);
+
 % Cuestiones ejercicio 2: Desplazamiento temporal
 
 x = rand(1,15);
@@ -29,29 +43,29 @@ n = -7:7;
 y = desplazamiento(x,1);
 figure(2)
 subplot(2,1,1)
-stem(n,x,'.')
+stem(n,x,'.', 'LineWidth', 2)
 subplot(2,1,2)
-stem(n,y,'.')
+stem(n,y,'.', 'LineWidth', 2)
 
 
 y1 = desplazamiento(x,2);
 figure(3)
-stem(n,y1,'.')
+stem(n,y1,'.', 'LineWidth', 2)
 
 y2 = desplazamiento(x,-3);
 figure(4)
-stem(n,y2,'.')
+stem(n,y2,'.', 'LineWidth', 2)
 
 % Cuestiones ejercicio 2: Inversión temporal
-x1=[1 1 2 3 5 8 13 21 34]; 
+x1=[1 1 2 3 5 8 13 21 34];
 n = 0:8;
 
 y1 = inversion(x1,n);
 figure(5)
 subplot(2,1,1)
-stem(n,x1,'.')
+stem(n,x1,'.', 'LineWidth', 2)
 subplot(2,1,2)
-stem(n,y1,'.')
+stem(n,y1,'.', 'LineWidth', 2)
 
 x2=[1 -2 3 -4 5 -4 3 -2 1]
 n = -4:4;
@@ -59,9 +73,9 @@ n = -4:4;
 y2 =inversion(x1,n);
 figure(6)
 subplot(2,1,1)
-stem(n,x2,'.')
+stem(n,x2,'.', 'LineWidth', 2)
 subplot(2,1,2)
-stem(n,y2,'.')
+stem(n,y2,'.', 'LineWidth', 2)
 % Lo que ocurre con y2 es que se invierte pero podemos apreciar que no es
 % simétrica, al contrario que y1, que si lo es.
 
@@ -74,14 +88,14 @@ n=[-N:N];
 
 figure(7)
 subplot(2,1,1)
-stem(n,x,'.')
+stem(n,x,'.', 'LineWidth', 2)
 
 n2=[-20:20];
 i0=find(n==n2(1));
 
 
 subplot(2,1,2)
-stem(n2,x(i0:i0+length(n2)-1))
+stem(n2,x(i0:i0+length(n2)-1), 'LineWidth', 2)
 
 n=[-100:100];
 x = sin(pi / 5 * n)
@@ -94,7 +108,25 @@ x = sin(pi / 5 * n)
 y = desplazamiento(x,-N)
 figure(8)
 subplot(2,1,1)
-stem(n,x,'.')
+stem(n,x,'.', 'LineWidth', 2)
 
 subplot(2,1,2)
-stem(n2,y)
+stem(n2,y, 'LineWidth', 2)
+
+% Obtener todas las figuras abiertas:
+figs = get(0, 'children');
+
+% Obtener todas las figuras abiertas:
+figs = get(0, 'children');
+
+% Recorrer todas las figuras:
+for i = 1:length(figs)
+    % Seleccionar la figura actual:
+    figure(figs(i));
+
+    % Crear el nombre del archivo:
+    filename = sprintf('figure%d.png', i);
+
+    % Guardar la figura en un archivo PNG:
+    print(filename, '-dpng');
+end
