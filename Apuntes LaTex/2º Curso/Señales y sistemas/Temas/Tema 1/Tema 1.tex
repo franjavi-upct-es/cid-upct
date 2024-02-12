@@ -618,10 +618,88 @@
 			&=a\lbb{t^2x_1(t-1)}{y_1(t)}+b\lbb{t^2x_2(t-1)}{y_2(t)}
 			\end{aligned}\longrightarrow$ Es lineal
 			\item $\db{y[n]=x^2[n-2]}$
+			
+			$ax_1[n]+bx_2[n]\longrightarrow (ax_{1}[n-1]+x_{2}[n-1])^2=a^2x_{1}^2[n-1]+b^2x^2[n-1]+2abx_{1}[n-1]x_{2}[n-1]\neq ay_{1}[n]by_{2}[n]=ax_{1}^2[-1]+bx_{2}^2[n-1]\longrightarrow$ no lineal\\
+			
+			$\left\{\begin{array}{l}x_1[n]\longrightarrow y_1[n]\\ x_2[n]\longrightarrow y_2[n]\end{array}  \right.$
+			
+			$\begin{array}{l}
+				x_{1}[n]=x[n-n_{0}]\longrightarrow y_{1}[n]=\underline{x_{1}^2[n-1]}=x^2[n-n_{0}-1]\\
+				y[n-n_{0}]=x^2[n-n_{0}-1]
+			\end{array}\longrightarrow$ Invariante
+			
+			Sistema no lineal e invariante.
 			\item $\db{y[m]=x[n+1]-x[n-1]}$
-			\item $\db{y(t)=\mathrm{Impar}\{x(t)\}}$
+			
+			$ax_{1}[n]+bx_{2}[n]\longrightarrow ax_{1}[n+1]+bx_{2}[n+1]-ax_{1}[n-1]-bx_{2}[n-1]=a\lbb{\left[ x_{1}[n+1]-x_{1}[n-1] \right]}{y_1[n]}+b\lbb{[x_{2}[n+1]-x_{2}[n-1]]}{y2[n]}\longrightarrow$ Lineal
+			
+			$\begin{array}{l}
+				x_{1}[n]=x[n-n_{0}] \\
+				\left.\begin{array}{c}
+					y_{1}[n]=x[n-n_{0}+1]-x[n-n_{0}-1] \\ 
+					\rotatebox{90}{=}\\
+					y[n-n_{0}]=x[n-n_{0}+1]-x[n-n_{0}-1]
+				\end{array}\right\}\text{Invariante}
+			\end{array}$
+			\item $\db{y(t)=\mathrm{Impar}\{x(t)\}=}\dfrac{x(t)-x(-t)}{2}$
+			
+			$ax_1(t)+bx_2(t)\longrightarrow\dfrac{1}{2}\left[ax_1(t)+bx_2(t)-ax_1(-t)-bx_2(-t)\right]=a\lbb{\dfrac{x_1(t)-x_1(-t)}{2}}{y_1(t)}+b\lbb{\dfrac{x_2(t)-x_2(-t)}{2}}{y_2(t)}\longrightarrow$ Lineal
+			
+			$\left.\begin{array}{l}
+				x_1(t)=x(t-t_0)\longrightarrow\dfrac{1}{2}\left[x(t-t_0)-x(-t-t_0)\right]\\
+				y(t-t_0)=\dfrac{1}{2}[x(t-t_0)-\lbb{x(-(t-t_0))}{x(-t+t_0)}]
+			\end{array}\right\}$ No invariante
 		\end{enumerate}
-		\item 
+		\item \lb{Determine si cada uno de los siguientes sistemas es invertible. En caso afiramtivo, construya el sistema inverso y, en caso negativo, encuentre dos señales de entrada al sistema que generen la misma señal de salida.}
+		\begin{enumerate}[label=\color{red}\alph*)]
+			\item $\db{y(t)=x(t-4)}\longrightarrow$ Invertible
+			
+			$\lbb{z(t)=y(t+4)}{}=x(t-4+4)=x(t)$
+			
+			$\xrightarrow{~~ x(t)~~}\bboxed{~~S~~}\xrightarrow{~~y(t)~~}\bboxed{S_{\mathrm{inv}}}\xrightarrow{~~x(t)}$
+			\item $\db{y(t)=\cos(x(t))}\longrightarrow$ No invertible
+			
+			$\cos(x(t))=\cos(x(t)-2\pi k)$
+			\item $\db{y[n]=nx[n]}$
+			
+			$\begin{array}{l}
+				z[n]=\dfrac{1}{n}y[n]\\
+				n=0
+			\end{array}$
+			
+			\begin{tikzpicture}
+				\node (a) at (0,0) {\begin{tikzpicture}
+				\draw[-latex] (-3.5,0) -- (3.5,0) node[right] {$n$};
+				\draw[-latex] (0,-1) -- (0,2) node[right] {$x_1[n]$};
+				\foreach \x in {-3,-2,2,3}{\fill[lightblue] (\x,0) circle (2pt);}
+				\foreach \x in {-1,0,1}{\fill[lightblue] (\x,1) circle (2pt); \draw[lightblue, line width=1.5] (\x,0) -- (\x,1);}
+			\end{tikzpicture}};
+			
+			\node[below=of a] (b) {\begin{tikzpicture}
+				\draw[-latex] (-2.5,0) -- (2.5,0) node[right] {$n$};
+				\draw[-latex] (0,-1) -- (0,2.5) node[right] {$x_2[n]$};
+				\foreach \x in {-1,1}{\fill[lightblue] (\x,1) circle (2pt); \draw[lightblue, line width=1.5] (\x,0) -- (\x,1);}
+				\draw[lightblue, line width=1.5] (0,0) -- (0,2);
+				\fill[lightblue] (0,2) circle (2pt);
+			\end{tikzpicture}};
+		
+		\node[right=2cm of a] (c) {
+		\begin{tikzpicture}
+			\draw[-latex] (-2.5,0) -- (2.5,0) node[right] {$n$};
+			\draw[-latex] (0,-1) -- (0,1.5) node[right] {$y[n]$};
+			\foreach \x in {-2,0,2}{\fill[lightblue] (\x,0) circle (2pt);}
+			\foreach \x in {-1,1}{\fill[lightblue] (\x,\x) circle (2pt); \draw[lightblue, line width=1.5pt] (\x,0) -- (\x,\x);}
+		\end{tikzpicture}
+		};
+		\draw[-latex] (a) -- (c);
+		\draw[-latex] (b) -- (c);
+			\end{tikzpicture}
+			\item $\db{y(t)=\int_{-\infty}^{t}x(\tau)\mathrm{d}\tau}$
+			
+			Sistema inverso: $z(t)=\dfrac{\mathrm{d}x(t)}{\dt}\qquad\begin{array}{l}
+				x_1(t)
+			\end{array}$
+		\end{enumerate}
 		\item \lb{En este ejercicio se ilustra una de las consecuencias más importantes de las propiedades de linealidad e invarianza temporal. En concreto, cuando se conoce la respuesta de un sistema lineal e invariante en el tiempo (linear time-invariant system, LTI) a una respuesta dada o la respuesta a varias entradas, se puede calcular la respuesta del sistema a otras señales de entrada.}
 		\begin{enumerate}[label=\color{red}\alph*)]
 			\item \db{Considere un sistema LTI}
