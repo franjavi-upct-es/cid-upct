@@ -377,3 +377,94 @@ En el modelo lineal queremos construir una función \[ h_\theta(x_1,\dots,x_k)\c
 Para \lb{medir el error} usaremos de nuevo el \lb{error cuadrático medio} \[ EMC(\theta)=E\left[(h_\theta(X_1,\dots,X_k)-Y)^2\right]. \]
 Si consideramos una nueva variable constante (degenerada) $X_0=1$, podemos escribir ese error como \[ ECM(\theta)=E\left[(\mathbf{\theta'X}-Y)^2\right], \] donde $\mathbf{X}=(X_0,X_1,\dots,X_k)'$ y $\mathbf{\theta'}=(\theta_0,\theta_1,\dots,\theta_k)\in\R^{k+1}$.
 \subsubsection{Obtención del mínimo}
+Como en el caso $k=1$ se puede comprobar que esta función es convexa por lo que tendrá un único minimo $\hat{\theta}'\in\R^{k+1}$.
+
+Para detectarlo hacemos las derivadas parciales iguales a cero \[ \dfrac{\partial}{\partial\theta_j}ECM(\mathbf{\theta})=E[2(\theta'\mathbf{X}-Y)X_j]=0 \]
+Obteniendo \[ \mathbf{\theta}'E(\mathbf{X}X_j)=E(YX_j), \]para $j=0,\dots,k$, es decir, \[ \mathbf{\theta}'E(\mathbf{XX'})=E(Y\mathbf{X}') \]
+O equivalente, \[ E(\mathbf{XX'})\mathbf{\theta}=E(\mathbf{X}Y). \]
+Con lo que la solución es \[ \hat{\theta}=(E(\mathbf{XX'}))^{-1}E(\mathbf{X}Y) \]siempre que existe la inversa de la matriz simétrica \[ A=E(\mathbf{XX'})=(E(X_iX_j))_{ij} \]y donde (por convenio)\[ E(\mathbf{X}Y)=(E(X_0Y),\dots,E(X_kY))'. \]
+\subsection{Coeficiente de correlación múltiple}
+\begin{itemize}[label=\color{red}\textbullet, leftmargin=*]
+	\item \color{lightblue}Definición
+\end{itemize}
+Si $\mathbf{Z}=(X_1,\dots,X_k,Y)'$ es un vector aleatorio se llama \lb{coeficiente de correlación múltiple al cuadrado} de $Y$ respecto de $\mathbf{X}=(X_1,\dots,X_k)'$ a \[ \corr^2(\mathbf{X},Y)=\rho_{k+1,(1,\dots,k)}^2=\dfrac{v_{1,2}'V_\mathbf{X}^{-1}v_{1,2}}{\sigma_Y^2} \]donde $\cov(\mathbf{Z})=\begin{pmatrix}
+	V_\mathbf{X} & v_{1,2}\\
+	v_{1,2}' & \sigma_Y^2
+\end{pmatrix},\:V_\mathbf{X}=\cov(\mathbf{X}),\:\sigma_Y^2=\var(Y),$ y $v_{1,2}'=(\sigma_{1,k+1},\dots,\sigma_{k,k+1})=\cov(X_1,Y),\dots,\cov(X_k,Y)$.
+
+\begin{tikzpicture}
+	\node[red, draw=red, fill=red!10, line width=1.5, text width=\linewidth] {\underline{Nota:}
+	
+	Si $k=1$, es decir, si tenemos el \vea bidimensional $(X,Y)$, entonces el \textbf{coeficiente de correlación múltiple al cuadrado} se corresponde con la \textbf{correlación de Pearson al cuadrado} (de $X$ e $Y$), esto es, \[ \rho_{2,(1)}^2=\dfrac{\sigma_{1,2}\sigma_{1,1}^{-1}\sigma_{1,2}}{\sigma_{2,2}}=\rho_{1,2}^2 \]};
+\end{tikzpicture}
+\begin{itemize}[label=\color{red}\textbullet, leftmargin=*]
+	\item \color{lightblue}Proposición
+\end{itemize}
+El \lb{coeficiente de correlación múltiple} es el máximo de las correlaciones lineales al cuadrado de $Y$ con combinaciones lineales de $\mathbf{X}=(X_1,\dots,X_k)'$, es decir, \[ \max_{\alpha}\corr^2(Y,\mathbf{\alpha'X})=\rho_{k+1,(1,\dots,k)}^2 \]y ese máximo se obtiene con $\mathbf{\alpha}=\lambda V_\mathbf{X}^{-1}v_{1,2}$, para $\lambda\neq0$.
+\begin{itemize}[label=\color{red}\textbullet, leftmargin=*]
+	\item \color{lightblue}Demostración
+\end{itemize}
+De la definición se tiene \[ \begin{aligned}
+	\corr^2(Y,\mathbf{\alpha'X})&=\dfrac{(\cov(Y,\mathbf{\alpha'X}))^2}{\sigma_Y^2\var(\mathbf{\alpha'X})}=\dfrac{(\cov(Y,\mathbf{X})\mathbf{\alpha})^2}{\sigma_Y^2\cov(\mathbf{\alpha'X},\mathbf{\alpha'X})}\\
+	&=\dfrac{(\mathbf{\alpha'}v_{1,2})^2}{\sigma_Y^2\mathbf{\alpha}V_\mathbf{X}\mathbf{\alpha}}=\dfrac{\left(\mathbf{\alpha'}V_{\mathbf{X}}^{\frac{1}{2}}V_{\mathbf{X}}^{-\frac{1}{2}}v_{1,2}\right)^2}{\sigma_Y^2\mathbf{\alpha'}V_{\mathbf{X}}\mathbf{\alpha}}
+\end{aligned} \]
+Y usando la desigualdad de Cauchy-Schwarz, para $\mathbf{x'}=\mathbf{\alpha'}V_{\mathbf{X}}^{\frac{1}{2}}$ e $y=V_{\mathbf{X}}^{-\frac{1}{2}}v_{1,2}$, se tiene \[ \corr^2(Y,\mathbf{\alpha'X})\le\dfrac{\mathbf{\alpha'}V_\mathbf{X}\mathbf{\alpha}v_{1,2}'V_\mathbf{X}^{-1}v_{1,2}}{\sigma_Y^2\mathbf{\alpha'}V_{\mathbf{X}}\mathbf{\alpha}}=\dfrac{v_{1,2}'V_{\mathbf{X}}^{-1}v_{1,2}}{\sigma_Y^2}, \]es decir, $\rho_{k+1,(1,\dots,k)}^2$ es un cota superior.
+
+Además, la igualdad en Cauchy-Schwarz se obtiene si y solo si los vectores $\mathbf{x}$ e $\mathbf{y}$ tienen la misma dirección\[ \mathbf{x}=V_{\mathbf{X}}^{-\frac{1}{2}}\alpha=\lambda\mathbf{y}=\lambda V_{\mathbf{X}}^{-\frac{1}{2}}v_{1,2}, \]es decir, si $\mathbf{\alpha}=\lambda V_{\mathbf{X}}^{-1}v_{1,2}$ para $\lambda\neq0$.
+\subsubsection{Desigualdad de Cauchy-Schwarz}
+Para vectores columna $\mathbf{x,y}\in\R^m$, se verifica \[ (\mathbf{x'y})^2\le(\mathbf{x'x})(\mathbf{y'y}), \]y se obtiene la igualdad si y solo si los vectores $\mathbf{x}$ e $\mathbf{y}$ tienen la misma dirección, esto es, $\mathbf{x}=\lambda\mathbf{y}$.
+\subsubsection{Consecuencia}
+\begin{itemize}[label=\color{red}\textbullet, leftmargin=*]
+	\item \color{lightblue}Proposición
+\end{itemize}
+Si las variables $\mathbf{X}=(X_1,\dots,X_k)'$ son independientes (o incorreladas) entre sí, entonces \[ \corr^2(\mathbf{X},Y)=\sum_{j=1}^{k}\corr^2(X_j,Y). \]
+\begin{itemize}[label=\color{red}\textbullet, leftmargin=*]
+	\item \color{lightblue}Demostración
+\end{itemize}
+La demostración es inmediata ya que si $\sigma_{i,j}=0$ para $i\neq j,\,i,\,j\in\{1,\dots,k\},\:V_{\mathbf{X}}$ es diagonal, y se tiene \[ \corr^2(\mathbf{X},Y)=\dfrac{v_{1,2}'V_{\mathbf{X}}^{-1}v_{1,2}}{\sigma_Y^2}=\sum_{j=1}^{k}\dfrac{\sigma_{j,k+1}}{\sigma_Y^2\sigma_{j,j}}=\sum_{j=1}^{k}\rho_{j,k+1}^2. \]
+
+Note que si sustituimos $X_i$ e $Y$ por $X_i-\mu_i$ e $Y-\mu_Y$ en la expresión de $\hat{\theta}$, podemos eliminar $X_0$ (como la solución pasa por el vectore de medias, en este caso $\theta_0=0$), la correlación no varía y tenemos \[ \hat{\theta}=\{E[(\mathbf{X-\mu_X})(\mathbf{X-\mu_X})']\}^{-1}E[(\mathbf{X-\mu_X})(Y-\mu_Y)]=V_{\mathbf{X}}^{-1}\sigma_{1,2}, \]es decir, ambas soluciones coinciden.
+
+Así, podemos predecir $Y$ usando \[ Y-\mu_Y=\cov(Y,\mathbf{X})V_{\mathbf{X}}^{-1}(\mathbf{X-\mu_X}), \]es decir, \[ h_{\hat{\theta}}(x)=\mu_Y+\cov(Y,\mathbf{X})V_{\mathbf{X}}^{-1}(\mathbf{x-\mu_X}) \]donde $\cov(Y,\mathbf{X})=(\cov(Y,X_1),\dots,\cov(Y,X_k))$.
+\subsection{Selección de variables}
+En algunos casos podemos querer detectar las variables del conjunto $X_1,\dots,X_k$ que mejor predicen $Y$.
+\subsubsection{Una opción}
+Seleccionar la variable $Z_1=X_{j1}$ que maximice la correlación al cuadrado con $Y$:\[ j_1=\max_{j=1,\dots,k}\corr^2(X_j,Y). \]
+Calcular la recta de regresión $h_1$ basada en $Z_1$ y el residuo $R_1=h_1(Z_1)-Y$.
+
+Seleccionar la variable $Z_2=X_{j2}$ con $j\neq j_1$ que más información tenga sobre ese residuo: \[ j_2=\max_{j=1,\dots,k,j\neq j_1}\corr^2(X_j,R_1). \]
+Calcular el segundo residuo $R_2=h_2(Z_2)-R_1$.
+
+Continuar así hasta obtener el número de variables deseado o hasta que la correlacón múltiple sea tan grande como se desee.
+\subsubsection{Otra opción}
+Fijar de antemano el número de variables deseadas $p<k$.
+
+Calcular las correlaciones múltiples de todos los subconjuntos con $p$ variables.
+
+Seleccionar al que tenga una mayor correlación múltiple.
+
+\subsubsection{Otra opción más sencilla}
+Considerar desde el inicio vairables estandarizadas.
+
+Calcular $\hat{\theta}^*/$ para estas variables.
+
+Seleccionar primero las que tengan un mayor coeficiente $\hat{\theta}_j^*$ en valor absoluto.
+\begin{itemize}
+	\item Son las que más influyen en el valor $Y$ ya que todas las variables tienen magnitudes similares.
+\end{itemize}
+\subsection{Inferencia y predicción}
+\subsubsection*{¡No se conocen los valores teóricos!}
+En la práctica los valores teóricos deben ser estimados:
+\begin{itemize}[leftmargin=*]
+	\item \lb{Una primera opción:}
+	\begin{itemize}
+		\item Seleccionar una muestra aleatoria simple.
+		\item Estimar las medias, varianzas y cuasivarianzas y usarlas para estimar sus respectivos valores teóricos en las expresiones obtenidas en la sección anterior.
+	\end{itemize}
+	\item \lb{Otra opción:}
+	\begin{itemize}
+		\item Considerar el problema empírico.
+		\item Partiremos de una muestra (\lb{training sample}): $\left(x_1^{(i)},\dots,x_k^{(i)},y^{(i)}\right)$, para $i=1,\dots,n$, donde concoemos los valores de $y$ para esos valores de $x$.
+		\item Los datos se colocarán como $k+1$ columnas (variables) y $n$ filas
+	\end{itemize}
+\end{itemize}

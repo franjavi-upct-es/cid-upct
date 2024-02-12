@@ -91,4 +91,78 @@
 	Coeficiente de correlación lineal al cuadrado: \[ r_{xy}^2=\dfrac{S_{xy}^2}{s_x^2\cdot s_y^2}=\dfrac{(-1.6)^2}{4.4\cdot1.36}=0.428\text{ Ajuste malo} \]
 	
 	$s_y^2=\overline{y^2}-\overline{y}^2=\dfrac{58}{5}-3.2^2=1.36$
+	\item \lb{En el rendimiento de una reacción química depende de la concetración del reactivo y de la temperatura de la operación. \begin{center}
+			\begin{tabular}{ccc}
+				\hline
+				Rendimiento & Concentración & Temperatura \\
+				\hline
+				81 & 1.00 & 150 \\
+				89 & 1.00 & 180 \\
+				83 & 2.00 & 150 \\
+				91 & 2.00 & 180 \\
+				79 & 1.00 & 150 \\
+				87 & 1.00 & 180 \\
+				84 & 2.00 & 150 \\
+				90 & 2.00 & 180 \\ \hline
+			\end{tabular}
+	\end{center}En el modelo de regresión del rendimiento sobre la temperatura y la concentración, los valores ajustados son \[ \hat{y}=\begin{pmatrix}
+	80.25, & 87.75, & 83.25, & 90.75, & 87.75, & 83.25, & 90.75
+	\end{pmatrix}' \]Calcular el error cuadrático medio y el coeficiente de determinación e interpretar su valor.}
+
+$\begin{array}{c|c|c}
+	\mathrm{Rend.}(y)& \hat{y} & y-\hat{y} \\ \hline
+	81 & 80.25 & 0.75 \\
+	89 & 87.75 & 1.25 \\
+	83 & 83.25 & -0.25 \\
+	91 & 90.75 & 0.25 \\
+	79 & 80.25 & -1.25 \\
+	87 & 87.75 & -0.75 \\
+	84 & 83.25 & 0.75 \\
+	90 & 90.75 & -0.75 \\ \hline
+\end{array}$
+
+$\begin{array}{l}
+	ECM=\dfrac{1}{n}\sum_{i=1}^{n}(y_i-\hat{y}_i)^2=\dfrac{5.5}{8}=\bboxed{0.6875}\\
+	R^2=1-\dfrac{SCR}{SCT}=1-\dfrac{\sum_{i=1}^{n}(y_i-\hat{y}_i)^2}{\sum_{i=1}^{n}(y_i-\overline{y})^2}=1-\dfrac{5.5}{136}=\bboxed{0.9595}\text{ Ajuste muy bueno}\\\\
+	\overline{y}=\dfrac{1}{n}\sum_{i=1}^{n}y_i=85.5\\
+	R^2=\dfrac{SCE}{SCT}=\dfrac{\sum_{i=1}^{n}(\hat{y}_i-\overline{y}_i)^2}{\sum_{i=1}^{n}(y_i-\overline{y})^2}
+\end{array}$
+\item \lb{Un modelo ajustado para predecir la extracción de manganeso en \% ($y$) a partir del tamaño de partícula en mm $(x_1)$, la cantidad de dióxido de azufre en múltiplos}
+
+\begin{enumerate}[label=\color{red}\alph*)]
+	\item 
+	
+	$\hat{y}_{x_1=3,x_2=1.5,x_3=20}=56.145-9.0469\cdot3-33.421\cdot1.5+0.243\cdot20-0.5963\cdot3\cdot1.5-0.0394\cdot3\cdot20+0.60022\cdot1.5\cdot20+0.6901\cdot3^2+11.7244\cdot(1.5)^2-0.0097\cdot20^2=25.4028$
+	\item 
+	
+	$x_3\longrightarrow x_3+1$
+	
+	$\begin{aligned}
+		\hat{y}_{x_1,x_2,x_3+1}-\hat{y}_{x_1,x_2,x_3}&=56.145-9.0496\cdot x_1-\cdots-0.0097\cdot(x_3+1)^2-56.145-9.0496\cdot x_1-\cdots-0.0097\cdot(x_3)^2\\
+		&=0.243\cdot(x_3+1)-0.0394\cdot x_1(x_3+1)+0.60022\cdot x_2\cdot(x_3+1)-0.0097(x_3+1)^2-0.243x_3\\
+		&+0.0394\cdot x_1\cdot x_3-0.60022\cdot x_2\cdot x_3+0.0097 x_3^2\\
+		&=0.243-0.0394\cdot x_1+0.60022\cdot x_2-0.0097\cdot 2\cdot x_3-0.0097
+	\end{aligned}$
+	\item 
+	
+	$R^2=1-\dfrac{SCR}{SCT}=1-\dfrac{\sum_{i=1}^{n}(y_i-\hat{y}_i)^2}{\sum_{i=1}^{n}(y_i-\overline{y})^2}=1-\dfrac{209.55}{6777.5}=0.969$
+	
+	Ajuste bueno.
+\end{enumerate}
+\item 
+
+\begin{enumerate}[label=\color{red}\alph*)]
+	\item 
+	
+	$\hat{\sigma}^2=\dfrac{SCR}{n},\tilde{\sigma}^2=\dfrac{SCR}{n-k-1}$
+	
+	$\begin{array}{l}
+		\hat{\sigma}^2=\dfrac{SCR}{n}=\dfrac{1950.7292}{6}=325.0705\\
+		\tilde{\sigma}^2=\dfrac{SCR}{n-k-1}=\dfrac{\sum_{i=1}^{n}(y_i-\hat{y}_i)^2}{n-k-1}=650.141\\
+		R^2==1-\dfrac{\sum_{i=1}^{n}(y_i-\hat{y}_i)^2}{\sum_{i=1}^{n}(y_i-\overline{y})^2}=1-\dfrac{1950.423}{14112}=1-0.1382=\bboxed{0.8618}
+	\end{array}$
+	\item 
+	
+	$\hat{y}_{x_1=25,x_2=1000}=350.994-1.2799\cdot25-0.15390\cdot1000=\bboxed{165.29}$
+\end{enumerate}
 \end{enumerate}
