@@ -57,18 +57,4 @@ S = sum((d$Murder-mu)^ 2)/(n-1) #cuasivarianza muestral
 var(d)
 ```
 
-> Hola
 
-```{r}
-# Define the x values
-x <- seq(-pi, pi, length.out = 100)
-
-# Calculate the sine of x
-y <- sin(x)
-
-# Get the upper part of the sine function
-y_upper <- pmax(y, 0)
-
-# Plot the upper part of the sine function
-plot(x, y_upper, type = "l", ylim = c(-1, 1))
-```

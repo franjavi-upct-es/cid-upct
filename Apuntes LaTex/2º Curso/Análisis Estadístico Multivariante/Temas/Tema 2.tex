@@ -465,6 +465,223 @@ En la práctica los valores teóricos deben ser estimados:
 	\begin{itemize}
 		\item Considerar el problema empírico.
 		\item Partiremos de una muestra (\lb{training sample}): $\left(x_1^{(i)},\dots,x_k^{(i)},y^{(i)}\right)$, para $i=1,\dots,n$, donde concoemos los valores de $y$ para esos valores de $x$.
-		\item Los datos se colocarán como $k+1$ columnas (variables) y $n$ filas
+		\item Los datos se colocarán como $k+1$ columnas (variables) y $n$ filas (objetos o individuos).
+		\item Cada variable (sus datos) también se puede ver como un punto de $\R^n$.
 	\end{itemize}
 \end{itemize}
+\subsection{Función costo empírica}
+Función de predicción lineal será: \[ h_\theta(x)\coloneq\theta'x=\theta_0+\theta_1x_1+\cdots+\theta_kx_k, \]donde $\theta=(\theta_0,\dots,\theta_k)'$ y $x=(x_0,\dots,x_k)'$.
+
+Para simplificar la notación es conveniente añadir una variable (columna) $x_0$ con $n$ unos.
+
+La matriz de datos para $x$ se representará como $M=(m_{i,j})=\left(x_j^{(i)}\right)$, para $i=1,\dots,n$ (fila) y $j=0,\dots,k$ (columna).
+\lb{Objetivo:} Minimizar la función coste (proporcional al error cuadrático medio) \[ J(\theta)\coloneq\dfrac{1}{2n}\sum_{i=1}^{n}\left(h_\theta(\mathrm{x}^{(i)})-y^{(i)}\right)^2=\dfrac{1}{2n}\sum_{i=1}^{n}\left(\mathbf{\theta'x}^{(i)}-y^{(i)}\right)^2, \]donde $\mathbf{x}^{(i)}=\left(x_0^{(i)},\dots,x_k^{(i)}\right)$ e $y^{(i)}$ representan las medidas del individuo $i$-ésimo.
+
+Función en forma matricial: \[ J(\theta)=\dfrac{1}{2n}\sum_{i=1}^{n}\left(\theta'\mathbf{x}^{(i)}-y^{(i)}\right)^2=\dfrac{1}{2n}(M\theta-y)'(M\theta-y), \]siendo $y=\left(y^{(1)},\dots,y^{(n)}\right)$.
+
+Alternativamente, \[ J(\theta)=\dfrac{1}{2n}(M\theta-y)'(M\theta-y)=\dfrac{1}{2n}(\theta'M'M\theta-2\theta'M'y+y'y). \]
+De nuevo tenemos una función $J$ convexa y para detectar su valor mínimo haremos las derivadas parciales y trataremos de resolver \[ \dfrac{\partial}{\partial\theta_j}J(\theta)=\dfrac{1}{n}\sum_{i=1}^{n}\left(\theta'x^{(i)}-y^{(i)}\right)x_j^{(i)}=0, \]para $j=0,1,\dots,k$.
+
+Lo que es equivalente a \[ \dfrac{1}{n}(\theta'M'-y')M=0. \]
+Equivalente también a las denominadas \lb{ecuaciones normales}\[ M'M\theta-M'y=0, \]siendo $0$ el vector de ceros con la dimensión adecuada.
+
+Por lo tanto la solución es \[ \hat{\theta}=(M'M)^{-1}M'y \]siempre que exista la inversa de $M'M$.
+\subsubsection*{Existe la inversa de $M'M$}
+Esta inversa puede no existir:
+\begin{itemize}[label=$-$]
+	\item Porque haya pocos datos $(n<k)$.
+	\item Porque algunas variables sean dependientes (por ejemplo, si $X_2=\lambda X_1$).
+\end{itemize}
+En esos casos la solución no es única.
+
+Para evitarlos debemos:
+\begin{itemize}[label=$-$]
+	\item Tomar más datos en el primer caso.
+	\item Eliminar variables redundantes en el segundo.
+\end{itemize}
+Como la matriz de datos $M$ es una matriz $n\times k,\:M'M$ es una matriz $k\times k$.
+\begin{itemize}[label=$-$]
+	\item Si el número de variables, $k$, es muy grande (mayor que 10000).
+	\begin{itemize}[label=\textbullet]
+		\item Podemos tener problemas al calcular su inversa.
+		\item En esos casos usaremos el algoritmo gradiente descendiente para $J$.
+	\end{itemize}
+\end{itemize}
+\subsubsection{Descomposición de la variabilidad}
+\begin{itemize}
+	\item \lb{Variabilidad total:} $SCT=\sum_{i=1}^{n}(y_i-\overline{y})^2$ (\lb{suma de cuadrados total}).
+	\item Podemos descomponer la variabilidad total en dos sumandos: \[ SCT=SCE+SCR \]
+	\item \lb{SCE} es la \lb{variabilidad explicada} por la regresión: $SCE=\sum_{i=1}^{n}(\hat{y}_i-\overline{y})^2$ (\lb{suma de cuadrados explicada}).
+	\item \lb{SCR} es la \lb{variabilidad no explicada} por la regresión: $SCR=\sum_{i=1}^{n}(y_i-\hat{y}_i)^2$ (\lb{suma de cuadrados residual}).
+\end{itemize}
+\subsubsection{Coeficiente de determinación: $R^2$}
+El \lb{coeficiente de determinación} se define como la proposición de variabilidad de la variable dependiente que es explicada por los regresores: \[  R^2=\dfrac{SCE}{SCT}=\dfrac{\displaystyle\sum_{i=1}^{n}(\hat{y}_i-\overline{y}_i)^2}{\displaystyle\sum_{i=1}^{n}(y_i-\overline{y})^2};\qquad R^2=1-\dfrac{SCR}{SCT}=1-\dfrac{\displaystyle\sum_{i=1}^{n}(y_i-\hat{y}_i)^2}{\displaystyle\sum_{i=1}^{n}(y_i-\overline{y})^2} \]
+Análogamente, \[ 1-R^2=\dfrac{SCR}{SCT}=\dfrac{\displaystyle\sum_{i=1}^{n}(y_i-\hat{y}_i)^2}{\displaystyle\sum_{i=1}^{n}(y_i-\overline{y})^2} \]indicaría la parte de $Y$ no explicada por los regresores y que se queda en el residuo.
+\subsubsection{Propiedades}
+\begin{itemize}
+	\item $0\le R^2\le1$.
+	\item Cuando $R^2=1$ existe una relación exacta entre los valores ajustados y la variable respuesta.
+	\item Cuando $R^2=0,\,\hat{y}_i=\overline{y}$, para todo $i=1,\dots,n$.
+	\item $R^2$ coincide con el coeficiente de correlación múltiple al cuadrado entre $y$ y las $k$ variables regresoras.
+	\begin{itemize}
+		\item En regresión lineal simple $R^2=\rho^2$, donde $\rho$ es el coeficiente de correlación lineal.
+	\end{itemize}
+	\item Además $R^2=\rho_{y,\hat{y}'}^2$, es decir, $R^2$ coincide con el coeficiente de correlación lineal simple entre las variables $y$ e $\hat{y}$.
+\end{itemize}
+\begin{tikzpicture}
+	\node[red, draw=red, fill=red!10, line width=1.5, text width=\linewidth] {El coeficiente de determinación presenta el inconveniente de aumentar siempre que aumenta el número de variables regresoras (algunas veces de forma artificial).};
+\end{tikzpicture}
+\subsubsection{Coeficiente de determinación ajustado}
+Para penalizar el número de variables regresoras que se incluyen en el modelo de regresión, es conveniente utilizar el coeficiente de determinación corregido por el número de grados de libertad, denominado \lb{coeficiente de determinación ajustado}, definido como: \[ \overline{R}^2=1-\dfrac{\frac{SCR}{n-k-1}}{\frac{SCT}{n-1}} \]
+O equivalente, \[ \overline{R}^2=1-(1-R^2)\dfrac{n-1}{n-k-1} \]
+\subsection{Extensiones del modelo de regresión múltiple}
+\subsubsection{Planteamiento}
+El modelo de regresión lineal se puede usar para añadir variables a nuestro modelo inicial (univariante o multivariante).
+
+El modelo más típico es el modelo polinómico: \[ h_\theta(x)=\theta_0+\theta_1x+\cdots+\theta_gx^g, \] donde el entero $g$ representa el grado del polinomio que consideremos más adecuado.
+
+\begin{itemize}
+	\item En el modelo de regresión lineal multivariante consideraremos: \[ X_1=X,X_2=X^2,\dots,X_g=X^g \]
+\end{itemize}
+\lb{Otro ejemplo:} Si queremos predecir $Y$ a partir de $X_1,X_2$ y $X_3$, pero el modelo lineal no funciona bien, podemos considerar el modelo: \[ h_\theta(x)=\theta_0+\theta_1x_1+\theta_2x_2+\theta_3x_3+\theta_4x_1x_2+\theta_5x_1x_3+\theta_6x_2x_3. \]
+Las gráficas bidimensionales (nubes de puntos) nos pueden dar una idea de las relaciones que pueden mejorar nuestras estimaciones.
+\subsubsection{Problema de sobreajuste (\texttt{\textbf{overfitting}})}
+Es evidente que aumentando el grado de la regresión polinómica, disminuirá el valor de $J$.
+
+Si no hay más de un dato para cada $x$ y consideramos $g=n$ podemos conseguir un ajuste prefecto (interpolación polinómica).
+\begin{itemize}
+	\item Sin embargo, este ajuste perfecto para los datos de la muestra de entrenamiento, no tiene por qué funcionar mejor cuando lo usemos en otros datos.
+	\item De hecho, casi siempre funciona peor.
+\end{itemize}
+También se nos puede dar el caso contrario, denominado subajuste (\code{underfitting})
+\subsubsection*{Un caso sencillo}
+Para ilustrar este hecho consideremos un caso sencillo en el que ajustamos a los datos una recta (\code{underfitting}), un polinomio cúbico y un polinomio de orden $g=n$ (\code{overfitting}).
+
+\begin{lstlisting}
+par(mfrow = c(1,3))
+x = seq(-1, 1, 0.25)
+y = c(1.93, 0.73, -0.40, -0.46, 1.24, 1.78, 3.80, 3.31, 1.09)
+
+model1 = lm(y ~ x)
+r2.model1 = summary(model1)$r.squared
+model2 = lm(y ~ x + I(x^2) + I(x^3))
+r2.model2 = summary(model2)$r.squared
+model3 = lm(y ~ x + I(x^2) + I(x^3) +  I(x^4) + I(x^5) +  I(x^6) + I(x^7) + I(x^8))
+r2.model3 = summary(model3)$r.squared
+
+x1 = seq(-1, 1, length = 50)
+
+plot(x, y, type = "p", col = "blue", cex = 3, pch = 15, main = "Recta", cex.lab = 3, cex.axis = 3, cex.main = 3)
+lines(x1, predict(model1, newdata = data.frame(x = x1)), col = "red", lwd = 4, lty = 1, cex = 0.2)
+text(-0.75, 3.5, bquote(R^2 == .(format(r2.model1, digits = 3))), adj = c(0, 0), cex = 3)
+plot(x, y, type = "p", col = "blue", cex = 3, pch = 15, main = "Polinomio de grado 3", cex.lab = 3, cex.axis = 3, cex.main = 3)
+lines(x1, predict(model2, newdata = data.frame(x = x1)), col="purple", lwd=4, lty = 1, cex = 0.2)
+text(-0.75, 3.5, bquote(R^2 == .(format(r2.model2, digits = 3))), adj = c(0, 0), cex = 3)
+plot(x, y, type = "p", col ="blue", cex = 3, pch = 15, main = "Polinomio de orden 8", cex.lab = 3, cex.axis = 3, cex.main = 3)
+lines(x1, predict(model3, newdata = data.frame(x = x1)), col = "green4", lwd = 4, lty = 1, cex = 0.2)
+text(-0.75, 3.5, bquote(R^2 == .(format(r2.model3, digits = 3))), adj = c(0, 0), cex = 3)
+\end{lstlisting}
+
+\begin{center}
+	\includegraphics[width=\linewidth]{"Temas/Imágenes/Tema 2/000020"}
+\end{center}
+\subsubsection*{Otro ejemplo}
+Ajustamos a unos datos una recta, una parábola y un polinomio cúbico.
+
+¿Realmente se mejora el ajuste?
+
+\begin{lstlisting}
+par(mfrow = c(1,3))
+x = 1:7
+y = c(3.2, 4.1, 7.5, 9.9, 10.5, 12.2, 17)
+
+model1 = lm(y ~ x)
+r2.model1 = summary(model1)$r.squared
+model2 = lm(y ~ x + I(x^2))
+r2.model2 = summary(model2)$r.squared
+model3 = lm(y ~ x + I(x^2) + I(x^3))
+r2.model3 = summary(model3)$r.squared
+
+x1 = seq(1, 7, length = 50)
+
+plot(x, y, type = "p", col = "blue", cex = 3, pch = 15, main = "Recta", cex.lab = 3, cex.axis = 3, cex.main = 3)
+lines(x1, predict(model1, newdata = data.frame(x = x1)), col = "red", lwd = 4, lty = 1, cex = 0.2)
+text(2, 16, bquote(R^2 == .(format(r2.model1, digits = 3))), adj = c(0, 0), cex = 3)
+plot(x, y, type = "p", col = "blue", cex = 3, pch = 15, main = "Parábola", cex.lab = 3, cex.axis = 3, cex.main = 3)
+lines(x1, predict(model2, newdata = data.frame(x = x1)), col="purple", lwd=4, lty = 1, cex = 0.2)
+text(2, 16, bquote(R^2 == .(format(r2.model2, digits = 3))), adj = c(0, 0), cex = 3)
+plot(x, y, type = "p", col ="blue", cex = 3, pch=15, main = "Polinomio cúbico", cex.lab = 3, cex.axis = 3, cex.main = 3)
+lines(x1, predict(model3, newdata = data.frame(x = x1)), col = "green4", lwd = 4, lty = 1, cex = 0.2)
+text(2, 16, bquote(R^2 == .(format(r2.model3, digits = 3))), adj = c(0, 0), cex = 3)
+\end{lstlisting}
+
+\begin{center}
+	\includegraphics[width=\linewidth]{"Temas/Imágenes/Tema 2/000030"}
+\end{center}
+\subsubsection*{Para nuestro ejemplo}
+¿Cómo se comporta el coeficiente de determinación ajustado?
+
+¿Qué modelo seleccionaría?
+
+\begin{lstlisting}
+par(mfrow = c(1,3))
+x = 1:7
+y = c(3.2, 4.1, 7.5, 9.9, 10.5, 12.2, 17)
+
+model1 = lm(y ~ x)
+r2.model1 = summary(model1)$r.squared
+adj.r2.model1 = summary(model1)$adj.r.squared
+model2 = lm(y ~ x + I(x^2))
+r2.model2 = summary(model2)$r.squared
+adj.r2.model2 = summary(model2)$adj.r.squared
+model3 = lm(y ~ x + I(x^2) + I(x^3))
+r2.model3 = summary(model3)$r.squared
+adj.r2.model3 = summary(model3)$adj.r.squared
+
+x1 = seq(1, 7, length = 50)
+
+plot(x, y, type = "p", col = "blue", cex = 3, pch = 15, main = "Recta", cex.lab = 3, cex.axis = 3, cex.main = 3)
+lines(x1, predict(model1, newdata = data.frame(x = x1)), col = "red", lwd = 4, lty = 1, cex = 0.2)
+text(2, 16, bquote(R^2 == .(format(r2.model1, digits = 3))), adj = c(0, 0), cex = 3)
+text(2, 14, bquote(Adj-R^2 == .(format(adj.r2.model1, digits = 3))), adj = c(0, 0), cex = 3)
+plot(x, y, type = "p", col = "blue", cex = 3, pch = 15, main = "Parábola", cex.lab = 3, cex.axis = 3, cex.main = 3)
+lines(x1, predict(model2, newdata = data.frame(x = x1)), col="purple", lwd=4, lty = 1, cex = 0.2)
+text(2, 16, bquote(R^2 == .(format(r2.model2, digits = 3))), adj = c(0, 0), cex = 3)
+text(2, 14, bquote(Adj-R^2 == .(format(adj.r2.model2, digits = 3))), adj = c(0, 0), cex = 3)
+plot(x, y, type = "p", col ="blue", cex = 3, pch = 15, main = "Polinomio cúbico", cex.lab = 3, cex.axis = 3, cex.main = 3)
+lines(x1, predict(model3, newdata = data.frame(x = x1)), col = "green4", lwd = 4, lty = 1, cex = 0.2)
+text(2, 16, bquote(R^2 == .(format(r2.model3, digits = 3))), adj = c(0, 0), cex = 3)
+text(2, 14, bquote(Adj-R^2 == .(format(adj.r2.model3, digits = 3))), adj = c(0, 0), cex = 3)
+\end{lstlisting}
+
+\begin{center}
+	\includegraphics[width=\linewidth]{"Temas/Imágenes/Tema 2/000040"}
+\end{center}
+\subsection*{¿Cómo evitar estos problemas?}
+\subsubsection*{Procedimiento para muestras grandes}
+¿Cómo elegir el número óptimo de variables? ¿Y cúales son las más adecuadas?
+\begin{itemize}
+	\item Separaremos nuestra muestra (de forma aleatoria) en dos grupos.
+	\begin{itemize}
+		\item El primer grupo se usará para estimar los coeficientes óptimos para cada $g$.
+		\item El segundo grupo se utilizará para calcular los errores cuadráticos medios para cada $g$.
+		\begin{itemize}[label=$\to$]
+			\item Obviamente, escogeremos el grado (o grupo de variables) con menor error.
+			\item De nuevo ese error nos dará una estimación menor del error real que se obtendrá con ese $g$ óptimo.
+		\end{itemize}
+	\end{itemize}
+	\item Para hacernos una idea del error real deberemos guardar un tercer grupo de datos para calcular el error en ellos.
+\end{itemize}
+El número de datos en cada grupo dependen de muchos factores:
+\begin{itemize}
+	\item Tamaño muestral $n$.
+	\item Número de variables consideradas $k$.
+	\item Tiempo de programación, etc.
+\end{itemize}
+Por ejemplo, si tenemos $n=100$ datos, podríamos dividir el conjunto en:
+\begin{itemize}
+	\item Un subconjunto con 60 datos para el cálculo de $h$.
+	\item Un subconjunto con 20 datos para determinar el $g$ óptimo.
+	\item Un subconjunto con los otros 20 para estimar el error real en las predicciones futuras.
+\end{itemize}
+Si nuestra muestra tienen pocos datos, para aplicar este procedimiento deberemos aplicarlo a cada dato eliminándolo del procedimiento para estimar $h$.
