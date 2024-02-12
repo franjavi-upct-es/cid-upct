@@ -22,20 +22,6 @@ E = x .^ 2
 energia = sum(x .^ 2)
 potencia = (1 / (2 * N + 1)) *  sum(x .^ 2)
 
-% Abrir el archivo de texto para escritura:
-fid = fopen('resultados.txt', 'w');
-
-% Escribir los resultados en el archivo de texto:
-fprintf(fid, 'y =\n'); dlmwrite(fid, y, 'precision', 5);
-fprintf(fid, 'x2 =\n'); dlmwrite(fid, x2, 'precision', 5);
-fprintf(fid, 'z =\n'); dlmwrite(fid, z, 'precision', 5);
-fprintf(fid, 'E =\n'); dlmwrite(fid, E, 'precision', 5);
-fprintf(fid, 'energia = %f\n', energia);
-fprintf(fid, 'potencia = %f\n', potencia);
-
-% Cerrar el archivo de texto:
-fclose(fid);
-
 % Cuestiones ejercicio 2: Desplazamiento temporal
 
 x = rand(1,15);
@@ -112,9 +98,6 @@ stem(n,x,'.', 'LineWidth', 2)
 
 subplot(2,1,2)
 stem(n2,y, 'LineWidth', 2)
-
-% Obtener todas las figuras abiertas:
-figs = get(0, 'children');
 
 % Obtener todas las figuras abiertas:
 figs = get(0, 'children');
