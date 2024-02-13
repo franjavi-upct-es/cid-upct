@@ -1,0 +1,408 @@
+---
+title: " Práctica 2A: Regresión Lineal Múltiple"
+author: " Francisco Javier Mercader Martínez "
+# date: " "
+output:
+  pdf_document: default
+  html_document: default
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+**PRÁCTICA 2A: REGRESIÓN LINEAL MÚLTIPLE**
+
+ANÁLISIS ESTADÍSTICO MULTIVARIANTE
+
+GRADO EN CIENCIA E INGENIERÍA DE DATOS
+
+**Sumario**: En esta práctica veremos cómo llevar a cabo un análisis de Regresión Lineal Múltiple (RLM) usando R. La estimación de los parámetros del modelo la haremos directamente usando la función *lm()* de R, que resuelve el problema de mínimos cuadrados a través del método de factorización QR (descomposición de una matriz como producto de una matriz ortogonal por una triangular superior). La práctica contempla aspectos fundamentales en RLM como son: la transformación de los datos (familia Box-Cox), la selección del modelo (o selección de regresores), la validación del modelo y la realización de predicciones. Además, se muestra cómo introducir en el modelo potencias de los predictores e interacciones entre los mismos (modelos polinómicos).
+
+# 1. Conjunto de datos y análisis descriptivo previo
+
+Los datos que usaremos en esta práctica han sido simulados con el fin de poder comparar el resultado del análisis RLM con el verdadero modelo simulado. Las variables empleadas y las simulaciones generadas están inspiradas en datos reales.
+
+En el tratamiento de aguas residuales, el oxígeno (OXIGENO) consumido por unos microorganismos en el proceso de depuración puede venir influenciado por las siguientes variables: BOD (*biological oxigen demand*), TKN (*total Kjeldahl nitrogen*), TS (*total solids*), TVS (*total volatile solids*) y COD (*chemical oxygen demand*).
+
+**Objetivo del estudio**: averiguar qué variables influyen principalmente en la cantidad de oxígeno consumida por los microorganismos y proporcionar una ecuación que modelice la relación con el fin de realizar predicciones para nuevas observaciones de las variables predictoras. Por tanto, el OXIGENO es la variable respuesta, mientras que el resto son los regresores o predictores del modelo.
+
+**Datos simulados**:
+
+• Los datos de los regresores TS, BOD, COD y TKN se han simulado usando distribuciones independientes. Sin embargo, el regresor TVS se ha simulado usando una relación lineal estrecha con TS, concretamente:
+
+$$TVS=0.65+0.003 \cdot TS+Normal(0,0.01)$$
+
+• Los tres modelos que hemos simulado (tres variables respuesta), se han obtenido mediante la siguiente relación en cada caso:
+
+```{=latex}
+\begin{equation*}
+\begin{split}
+& OXIGENO_{-}lineal = -0.3+0.04 \cdot TS+0.02 \cdot COD+Normal(0,0.3) \\
+& OXIGENO_{-}cubica = (-0.3+0.04 \cdot TS+0.02 \cdot COD+Normal(0,0.3))^3 \\
+& OXIGENO_{-}exponencial = exp(-0.3+0.04 \cdot TS+0.02 \cdot COD+Normal(0,0.3))
+\end{split}
+\end{equation*}
+```
+• En la última fila (caso número 33), se ha introducido un dato atípico (outlier) para cada variable respuesta.
+
+En una situación real, no dispondremos de la ecuación que relaciona las variables en estudio sino que debemos determinar qué variables influyen y estimar la ecuación que las relaciona.
+
+Comenzaremos cargando el fichero de datos **moore_simulado_def.xlsx**. Hemos descargado el fichero previamente en la subcarpeta "data" del proyecto de R.
+
+**Importante**: Recordar que, si trabajamos con un script de R-Markdown (.Rmd), el directorio de trabajo parte de la carpeta donde se encuentra ubicado dicho script. Sin embargo, cuando trabajamos con un script de R (fichero .R), el directorio de trabajo parte de la carpeta donde se encuentra ubicado el proyecto, de manera que no necesitaríamos iniciar el **path** con "../".
+
+```{r}
+library("readxl")
+datos <- read_xlsx("../../data/moore_simulado_def.xlsx")
+
+```
+
+Como hemos indicado anteriormente, en realidad se han simulado 3 modelos diferentes (uno lineal y dos no lineales). Creamos 3 dataframes, uno por cada variable respuesta:
+
+```{r}
+datos_lin <- datos[, -c(7,8)]
+datos_cub <- datos[, -c(6,8)]
+datos_exp <- datos[, -c(6,7)]
+show(datos_lin)
+```
+
+**Comenzamos considerando la variable respuesta OXIGENO_lineal**, que no requiere ninguna transformación previa en los datos, como veremos más adelante. En una sección posterior, veremos cómo abordar los casos para usar a OXIGENO_cubica y a OXIGENO_exponencial como variables respuesta, que sí requieren una transformación en los datos.
+
+Por tanto, **en adelante usaremos sólo el dataframe "datos_lin"**. En la sección dedicada a transformación de los datos veremos cómo analizar los dos modelos no lineales correspondientes a los dataframes "datos_cub" y "datos_exp".
+
+El **análisis descriptivo inicial** debe contemplar, entre otros, diagramas de caja para cada variable por separado, con el fin de identificar outliers, y diagramas de dispersión por pares, con el fin de identificar relaciones lineales entre predictores o con la variable respuesta. También debemos hacer pruebas de normalidad de la variable respuesta para determinar si es necesario una transformación en los datos.
+
+```{r}
+#Diagramas de caja
+
+
+#Podemos realizar cada boxplot por separado para visualizarlo mejor. 
+#Para la variable respuesta tenemos:
+boxplot(datos_lin$OXIGENO_lineal, xlab = "OXIGENO_lineal")
+
+#Para detectar la observación atípica haremos:
+which.max(datos_lin$OXIGENO_lineal)
+```
+
+```{r}
+#Nube de puntos por pares de variables
+plot(datos_lin)
+```
+
+Podemos ver relaciones lineales claras entre algunas variables predictoras (TS y TVS), pero la mayoría parecen independientes. En general, hay una baja relación lineal con la variable respuesta, de manera individual. En las gráficas de la variable respuesta aparece la observación atípica de la línea 33.
+
+```{r}
+#Pruebas de normalidad de la variable respuesta
+
+shapiro.test(datos_lin$OXIGENO_lineal)
+qqnorm(datos_lin$OXIGENO_lineal)
+qqline(datos_lin$OXIGENO_lineal)
+```
+
+Los gráficos muestran que la variable respuesta toma un valor especialmente alto (outlier) para la observación número 33. Además la hipótesis de Normalidad para la variable respuesta está en entredicho, quizás provocado por dicho valor.
+
+En esta situación, optaremos por eliminar la observación número 33 y repetir el análisis descriptivo previo, comprobando que ahora sí se puede asumir la hipótesis de Normalidad para la variable respuesta.
+
+**Importante**: En general, los datos atípicos no deben eliminarse de forma automática, sino que debemos realizar el análisis con y sin dichos datos para evaluar su efecto sobre el modelo, si se trata verdaderamente de observaciones influyentes o no.
+
+```{r}
+datos_lin <- datos_lin[-33, ]
+
+boxplot(datos_lin$OXIGENO_lineal)
+#Repetir el diagrama de caja y las pruebas de normalidad eliminado el dato
+
+
+```
+
+```{r}
+shapiro.test(datos_lin$OXIGENO_lineal)
+qqnorm(datos_lin$OXIGENO_lineal)
+qqline(datos_lin$OXIGENO_lineal)
+```
+
+```{r}
+(datos_lin)
+```
+
+Para comprobar que ya no hay observaciones atípicas en las nubes de puntos por pares haremos:
+
+```{r}
+plot(datos_lin)
+
+```
+
+# 2. Estimación de los parámetros del modelo RLM y métodos de selección de regresores
+
+Para realizar la estimación de los coeficientes del modelo RLM podemos usar la función *lm()* de R. Esta función requiere indicar la variable respuesta y la fórmula que la relaciona con los predictores. Indicar que si se aplica la función *lm()* a un dataframe sin especificar fórmula, se toma como variable respuesta a la primera columna.
+
+Comenzamos realizando el ajuste del modelo RLM usando todos los predictores:
+
+```{r}
+
+modelo_completo <- lm(OXIGENO_lineal ~ BOD + TKN + TS + COD + TVS ,
+data = datos_lin)
+summary(modelo_completo)
+
+
+#También se puede usar la siguiente fórmula para indicar que consideramos como regresores todas las variables del dataframe:
+# modelo_completo <- lm(OXIGENO_lineal ~. , data = datos_lin)
+```
+
+Por lo tanto, la variable respuesta se predice con la fórmula: $OXIGENO_{-}lineal = -5.28448 +0.01494 \cdot BOD + 0.05676 \cdot TKN + 0.02326 \cdot TS + 0.02668 \cdot COD + 6.65127 \cdot TVS$
+
+La bondad del ajuste se mide con el valor de R-cuadrado (multiple R-squared) o el R-cuadrado ajustado (adjusted R-squared), que al ser superiores a 0.8 nos indican un buen ajuste. Recordemos que es preferible usar el R-cuadrado ajustado cuando pretendemos comparar la bondad del ajuste de modelos con distinto número de predictores (regresores).
+
+Además de la estimación de los coeficientes de regresión, obtenemos los p-valores (última columna) correspondientes a los contrastes sobre si los coeficientes son significativos o no, $$
+\left .
+\begin{array}{l}
+H_0: \theta_i = 0 \\
+H_1: \theta_i \neq 0 \\
+\end{array}
+\right \}
+$$ Observamos que existen varios predictores con p-valores altos (superiores a 0.10), indicativo de que el modelo es reducible.
+
+Aplicaremos los métodos de selección de regresores *backward*, *fordward* y *stepwise*. Por ejemplo, en el método *backward* (regresión hacia atrás), se parte del modelo completo y en cada iteración se saca del modelo el predictor que más mejora la bondad del ajuste atendiendo al criterio de Akaike (menor AIC).
+
+```{r}
+#Backward Regression
+modelo_backward <- step(modelo_completo, direction = "backward")
+```
+
+Observamos que primero se elimina la variable TKN (la que mayor p-valor tenía), después BOD y finalmente TS, quedándose con solo dos variables COD y TVS. Ahora los coeficientes serían:
+
+```{r}
+modelo_backward$coefficients
+```
+
+Para aplicar los modelos forward y stepwise, tendremos que indicar que partiremos de un modelo que contempla sólo la constante y que llegaremos a lo sumo al modelo completo con todos los predictores.
+
+```{r}
+#Ajuste usando solo la cte
+modelo_cte <- lm(OXIGENO_lineal ~ 1 , data = datos_lin)
+
+#Forward Regression
+modelo_forward <- step(modelo_cte, direction = "forward", 
+                       scope = formula(modelo_completo))
+modelo_forward$coefficients
+```
+
+Observamos que se obtiene el mismo modelo con dos variables que se obtuvo con el método backward.
+
+Finalmente, el método stepwise permite ir en ambas direcciones (añadiendo o quitando variables).
+
+```{r}
+#Stepwise Regression  
+
+modelo_setpwise <- step(modelo_cte, direction = "both",
+                        scope=formula(modelo_completo))
+modelo_setpwise$coefficients
+
+```
+
+Obsérvese que en este caso se ha llegado al mismo modelo por los tres métodos, auque esto no ocurre siempre. El modelo final propuesto por los tres métodos contempla sólo a los predictores TVS y COD. Teniendo en cuenta la estrecha relación lineal entre los regresores TS y TVS, propondremos como alternativa el modelo que contempla los predictores TS y COD, para comparar con el modelo teórico usado para simular los datos (véase sección 1).
+
+```{r}
+modelo_final_1 <- lm(OXIGENO_lineal ~ TVS + COD, data = datos_lin)
+summary(modelo_final_1) 
+
+modelo_final_2 <- lm(OXIGENO_lineal ~ TS + COD, data = datos_lin)
+summary(modelo_final_2)
+```
+
+Obsérvese que todos los regresores del modelo final son significativos. Por ejemplo, para el modelo_final_1 la significación (p-valor del contraste) correspondiente a las variables TVS y COD es prácticamente cero, y lo mismo ocurre con TS y COD para el modelo_final_2. Por tanto, estos modelos ya no serían reducibles.
+
+La **bondad del ajuste** del modelo se puede medir a través del "Multiple R-squared" (coeficiente de determinación o R-cuadrado). Observamos bondades del ajuste altas en ambos casos (`r round(summary(modelo_final_1)$r.squared, 4)` para modelo_final_1 y `r round(summary(modelo_final_1)$r.squared, 4)` para modelo_final_2), es decir, los modelos de regresión obtenidos explican aproximadamente el `r round(100*summary(modelo_final_1)$r.squared, 0)`% de la variabilidad del oxígeno consumido por los microorganismos.
+
+# 3. Inferencias en el modelo RLM. Predicciones
+
+Una vez validado el modelo RLM, lo cual se realizará en una sección posterior, tenemos garantías para realizar inferencias con dicho modelo. Estas inferencias incluyen la obtención de intervalos de confianza para los parámetros de regresión, intervalos de confianza para la media de la variable respuesta e intervalos de predicción para la respuesta.
+
+```{r}
+#Intervalos de confianza al 95% para los parámetros del modelo_final_1
+confint(modelo_final_1, level=0.95)
+
+#Intervalos de confianza al 99% para los parámetros del modelo_final_2
+
+confint(modelo_final_2, level=0.99)
+```
+
+Por tanto, cualquier modelo teórico con coeficientes incluidos en los intervalos anteriores serían también válidos teniendo en cuenta nuestros datos muestrales. En particular, fijado un nivel de confianza del 99%, el modelo simulado con el que se generaron los datos de nuestro fichero debería aceptarse como posible modelo que explica la relación entre el oxígeno consumido y el resto de variabes químicas, ya que cada uno de los tres coeficientes del modelo ($\theta_0$ = -0.3, $\theta_1$ = 0.04 y $\theta_2$ = 0.02) están contenidos en el correspondiente intervalo de confianza del **modelo_final_2**.
+
+Para la predicción de nuevos valores utilizaremos la función **predict** que permitirá obtener tanto valores de predicción como intervalos de confianza para el valor medio de la respuesta y para el valor de la respuesta utilizando la opción en el argumento **interval = "confidence"** e **interval = "prediction"**, respectivamente. Así por ejemplo, para los valores TVS = 0.85 y COD = 70,
+
+```{r}
+#Predicciones
+nuevos <- data.frame(TVS = 0.85, COD = 70)
+
+predict(modelo_final_1, newdata = nuevos, interval = "confidence", level = 0.95)
+
+predict(modelo_final_1, newdata = nuevos, interval = "prediction", level = 0.95)
+```
+
+Una vez validado el modelo, podemos decir que el valor esperado para el oxígeno (cuando el agua tiene esos valores de TVS y COD) estaría entre 3.92644 y 4.364941, y su predicción entre 3.338115 4.953266, con una confianza del 95%.
+
+# 4. Validación del modelo
+
+De forma resumida, para que la inferencia y las predicciones realizadas anteriormente sean válidas, debemos verificar:
+
+1)  Hipótesis de Normalidad: los residuos siguen una distribución Normal. Podemos analizarlo con el test de Shapiro o bien con gráfico de cuantiles.
+
+2)  Hipótesis de Homocedasticidad: varianza constante en las perturbaciones aleatorias. Podemos analizarlo realizando un gráfico de residuos frente a valores ajustados. Dicho gráfico debe presentar un comportamiento aleatorio con dispersión aproximadamente constante.
+
+3)  Hipótesis de Independencia: los residuos son independientes. Podemos analizarlo representando la serie temporal de residuos o con el test de Durbin-Watson.
+
+Además, debemos verificar que no se da el problema de multicolinealidad entre los predictores del modelo y que no haya observaciones influyentes.
+
+```{r}
+# 1) Hipótesis de Normalidad
+shapiro.test(modelo_final_1$residuals)
+qqnorm(modelo_final_1$residuals)
+qqline(modelo_final_1$residuals)
+
+```
+
+Así comprobamos que los residuos pasan el test de normalidad. Para ver los residuos podemos hacer:
+
+```{r}
+ plot(modelo_final_1$residuals)
+```
+
+```{r}
+# 2) Hipótesis de Homocedasticidad
+
+plot(modelo_final_1$fitted.values, modelo_final_1$residuals)
+```
+
+Con el gráfico anterior observamos que los residuos no dependen de la magnitud de la variable predicha.
+
+```{r, warning = FALSE, message = FALSE}
+# 3) Hipótesis de Independencia
+ts.plot(modelo_final_1$residuals)
+library("lmtest")
+dwtest(modelo_final_1, alternative="two.sided")
+```
+
+Con el gráfico anterior observamos que los residuos no dependen de la fila que ocupan en el dataframe y el p-valor alto (superior a 0.10) del contraste de Durbin-Watson nos indica que podemos suponer independencia.
+
+Para comprobar la multicolinealidad, calcularemos el factor de varianza inflada (VIF) para cada predictor. Pretende medir la relación lineal de cada predictor con el resto de predictores. Como regla empírica, valores del VIF superiores a 7 son indicativos de existencia de multicolinealidad.
+
+```{r, warning = FALSE, message = FALSE}
+#Comprobamos que no hay multicolinealidad en el modelo final calculando los VIFs 
+library("rms")
+vif(modelo_final_1)
+
+#Sí existe multicolinealidad en el modelo completo 
+#(recordar que TS y TVS tienen fuerte relación lineal)
+vif(modelo_completo)
+```
+
+Por último, para comprobar que no hay observaciones influyentes, podemos calcular la distancia de Cook para cada observación. Como regla empírica, valores por encima de 1 indican que se trata de una observación influyente. En general, conviene representar los valores de la distancia de Cook con el fin de identificar si hay alguna observación con valores especialmente altos comparados con el resto.
+
+```{r}
+cook <- cooks.distance(modelo_final_1)
+plot(cook)
+```
+
+En resumen, viendo los resultados de los procedimientos anteriores, podemos asumir la validez del modelo.
+
+**Nota**: Se deja al lector como ejercicio comprobar que si no se hubiera eliminado la observación número 33 al comienzo del análisis, entonces se obtendría una distancia de Cook elevada para dicha observación indicando que es influyente. Recordar que las observaciones influyentes sí deben eliminarse del modelo con el fin de disponer de modelos fiables.
+
+# 5. Transformaciones de los datos (familia Box-Cox)
+
+Para identificar la transformación más adecuada sobre la variable respuesta, usaremos la función *boxcox()* del paquete MASS. Indicar que la familia de transformaciones de Box-Cox consiste en elevar la variable respuesta a un exponente $\lambda >0$, o bien tomar logaritmos neperianos si resulta $\lambda =0$.
+
+Primero eliminaremos la fila número 33 de los otros dataframes a analizar:
+
+```{r}
+datos_cub <- datos_cub[-33, ]
+datos_exp <- datos_exp[-33, ]
+```
+
+Para el dataframe **"datos_lin"**, representamos la verosimilitud para diferentes valores del exponente lambda ($\lambda$) en la familia de transformaciones de Box-Cox:
+
+```{r}
+library("MASS")
+
+boxcox(lm(OXIGENO_lineal ~ 1, data = datos_lin), lambda = seq(-3, 3, 1/10))
+boxcox(lm(OXIGENO_lineal ~ 1, data = datos_lin), lambda = seq(-3, 3, 1/10), 
+       plotit = FALSE)
+```
+
+Para el modelo lineal, se observa que la trasformacion identidad es adecuada (para lambda igual a 1 se alcanza aproximadamente la máxima verosimilitud). Por tanto, no hay que transformar la variable respuesta OXIGENO_lineal.
+
+Repetimos el proceso para el dataframe **"datos_cub"**:
+
+```{r}
+boxcox(lm(OXIGENO_cubica ~ 1, data = datos_cub), lambda = seq(-3, 3, 1/10))
+boxcox(lm(OXIGENO_cubica ~ 1, data = datos_cub), lambda = seq(-3, 3, 1/10), plotit = FALSE)
+```
+
+En este caso se observa que la trasformacion adecuada es tomar raíz cúbica sobre la variable respuesta (para lambda igual a 1/3 aproximadamente se alcanza la máxima verosimilitud). Por tanto, hay que transformar la variable respuesta OXIGENO_cubica elevándola a 1/3. Esa variable transformada (que llamaremos por ejemplo Ynew), será nuestra nueva variable respuesta para ajustar el modelo RLM del dataframe **"datos_cub"**. Lógicamente, tras esta transformación se obtiene el mismo modelo del caso lineal anterior (véase la sección 1).
+
+```{r}
+datos_cub$Ynew <- datos_cub$OXIGENO_cubica ^ (1/3)
+modelo_cubico <- lm(Ynew ~ TVS + COD, data = datos_cub)
+summary(modelo_cubico)
+```
+
+Repetimos el proceso para el dataframe "datos_exp":
+
+```{r}
+
+boxcox(lm(OXIGENO_exponencial ~ 1, data = datos_exp), lambda = seq(-3, 3, 1/10))
+
+boxcox(lm(OXIGENO_exponencial ~ 1, data = datos_exp), lambda = seq(-3, 3, 1/10), plotit = FALSE)
+
+```
+
+En este caso se observa que la trasformacion adecuada es tomar logaritmos neperianos sobre la variable respuesta (para lambda igual a cero aproximadamente se alcanza la máxima verosimilitud). Por tanto, hay que transformar la variable respuesta OXIGENO_exponencial tomando logaritmos neperianos. Esa variable transformada (que llamaremos por ejemplo Ynew), será nuestra nueva variable respuesta para ajustar el modelo RLM del dataframe **"datos_exp"**. Lógicamente, tras esta transformación se obtiene el mismo modelo del caso lineal (véase la sección 1).
+
+```{r}
+datos_exp$Ynew <- log(datos_exp$OXIGENO_exponencial)
+modelo_exponencial <- lm(Ynew ~ TVS + COD, data = datos_exp)
+summary(modelo_exponencial)
+```
+
+# 6. Consideraciones adicionales
+
+En ocasiones, necesitamos ajustar modelos con alguna o varias variables predictoras elevadas a una potencia, así como considerar interacciones entre las variables predictoras.
+
+A continuación se muestran algunos ejemplos de este tipo de ajustes. Poniendo I(COD\^3) se incluye esa potencia de la variable COD y poniendo pol(TVS,3) se incluye un polinomio de grado hasta tres de TVS.
+
+```{r}
+#Modelo con predictores elevados a potencias
+modelo_polinomial <- lm(OXIGENO_lineal ~ I(COD^3) + COD + pol(TVS,3), 
+                        data = datos_lin )
+
+summary(modelo_polinomial)
+```
+
+Introduciendo el término COD:TVS en la fórmula, estamos indicando que se incluya interacción a través del predictor producto de COD por TVS.
+
+```{r}
+#Modelo con interacción
+modelo_interaccion <- lm(OXIGENO_lineal ~ COD + TVS + COD:TVS, 
+                         data = datos_lin)
+summary(modelo_interaccion)
+
+```
+
+Una forma alternativa de ajustar el mismo modelo que antes sería:
+
+```{r}
+#Fórmula alternativa
+modelo_interaccion_2 <- lm(OXIGENO_lineal ~ COD*TVS, 
+                           data = datos_lin)
+summary(modelo_interaccion_2)
+```
+
+Obsérvese que la introducción de varias potencias de un mismo regresor puede dar lugar a problemas de multicolinealidad.
+
+```{r}
+vif(modelo_polinomial)
+```
+
+Por último, comentar que los paquetes *MASS*, *olsrr* y *StepReg* contemplan funciones para ajuste y selección del modelo. En particular, el paquete *olsrr* resulta bastante didáctico y completo para la validación y diagnosis del modelo. El uso de estos paquetes no se exigirá en la evaluación de esta práctica.
+
+**Importante**: (1) Siempre se puede llegar a un ajuste perfecto sobre los datos aumentado los grados de los polinomios, pero que estos modelos darán peores predicciones que modelos más sencillos (sobreajuste). (2) No debemos realizar predicciones para valores muy alejados de nuestro rango de valores observados de los predictores (regresores).

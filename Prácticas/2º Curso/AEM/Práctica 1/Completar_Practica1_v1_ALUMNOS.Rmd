@@ -1,15 +1,17 @@
 ---
+title : "Práctica 1"
+author : "Francisco Javier Mercader Martínez"
 output:
   pdf_document: default
   html_document: default
   word_document: default
+editor_options: 
+  chunk_output_type: inline
 ---
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
-
-![](../figures/Escudos.jpg)
 
 COMPLETAR PRÁCTICA 1: ANÁLISIS INICIAL DE DATOS MULTIVARIANTES.
 
@@ -17,10 +19,10 @@ ANÁLISIS ESTADÍSTICO MULTIVARIANTE.
 
 GRADO EN CIENCIA E INGENIERÍA DE DATOS.
 
-**Sumario**:
-En esta práctica mostramos cómo realizar un estudio previo de datos multivariantes. Esta parte es fundamental y se repetirá en todas las prácticas posteriores. Usaremos algunas de las técnicas vistas en la asignatura de primero.
+**Sumario**: En esta práctica mostramos cómo realizar un estudio previo de datos multivariantes. Esta parte es fundamental y se repetirá en todas las prácticas posteriores. Usaremos algunas de las técnicas vistas en la asignatura de primero.
 
 ## 1) EL MODELO NORMAL MULTIVARIANTE
+
 Para poder trabajar con la función de densidad y para obtener probabilidades con el modelo Normal multivariante, debemos cargar el paquete "mvtnomr".
 
 ```{r}
@@ -32,30 +34,32 @@ Consideremos un modelo Normal bivariante $(X, Y)$ con vector de medias (0,0), $V
 Primero definimos el vector de medias (mu) y la matriz de covarianzas (V), así como el punto $x$ donde queremos evaluar densidad y distribución:
 
 ```{r}
-mu <- 
 V <- matrix(NA, 2, 2)
-V[1,] <- 
-V[2,] <- 
-x <- 
-
+V[1,] <- c(1, 1/2)
+V[2,] <- c(1/2, 1)
+mu <- c(0,0)
+x <- c(1,1)
+dmvnorm(x, mu, sigma=V)
 ```
 
 ### 1.1) Función de densidad, función de distribución y probabilidades
 
 Evaluamos la función de densidad en $x=(1,1)$:
+
 ```{r}
 dmvnorm(x, mean = mu, sigma = V)
 ```
+
 Evaluamos la función de distribución en $x=(1,1)$. Indicar que se trata de una aproximación que R permite calcular a través de diferentes algoritmos:
 
 ```{r}
-pmvnorm(lower = -Inf, upper = , mean = , sigma = )
+pmvnorm(lower = -Inf, upper = x, mean = mu, sigma = V)
 ```
 
-Si queremos calcular la probabilidad en un rectángulo, usaremos la función de distribución indicando los límites inferiores y superiores de cada componente. Por ejemplo, la probabilidad $Pr(-1<X<1, -1<Y<1)$  se obtendría tecleando:
+Si queremos calcular la probabilidad en un rectángulo, usaremos la función de distribución indicando los límites inferiores y superiores de cada componente. Por ejemplo, la probabilidad $Pr(-1<X<1, -1<Y<1)$ se obtendría tecleando:
 
 ```{r}
-
+pmvnorm(lower=c(-1,-1), upper = x, mean = mu, sigma=V)
 ```
 
 Para representar la función de densidad el modelo Normal bivariante con el que estamos trabajando haremos:
@@ -68,7 +72,7 @@ x<-seq(-3,3,length=50)
 y<-seq(-3,3,length=50)
 z<-outer(x,y,f)
 persp(x,y,z,xlab='x',ylab='y',zlab='f(x,y)',col='red')
-contour(x,y,z,col='red')
+contour(x,y,z,col='#007AFF')
 ```
 
 ### 1.2) Generar valores aleatorios del modelo Normal multivariante
@@ -76,16 +80,19 @@ contour(x,y,z,col='red')
 Para generar (simular) 50 pares de datos de nuestro modelo Normal bivariante haremos:
 
 ```{r}
+library(MASS)
 set.seed(123)
-d <-
+d <- mvrnorm(n=50, mu=mu, Sigma = V)
+print(d)
 ```
 
 Representemos los datos simulados junto con las curvas de nivel de la densidad teórica:
 
 ```{r}
-plot(d,xlab="X",ylab="Y",pch=20,xlim=c(-3,3),lim=c(-3,3))
+plot(d,xlab="X",ylab="Y",pch=20,xlim=c(-3,3),ylim=c(-3,3))
 contour(x,y,z,add=TRUE,col="red")
 ```
+
 En esta gráfica podemos ver como los datos se sitúan alrededor de la media (0, 0) en elipses con diagonal principal en la recta $y = x$.
 
 Podemos calcular medidas descriptivas de los datos simulados, que deben tomar valores parecidos a los parámetros teóricos del modelo:
@@ -102,7 +109,7 @@ cor(d) # matriz de correlaciones muestrales
 Como ocurre en el caso univariante, también podemos usar un test para contrastar si un conjunto de datos multivariante se puede asumir Normal multivariante. Para ello, necesitamos cargar el paquete "mvnormtest".
 
 ```{r}
-library()
+library(mvnormtest)
 ```
 
 Y aplicamos la función de R para llevar a cabo el test:
@@ -111,6 +118,7 @@ Y aplicamos la función de R para llevar a cabo el test:
 mshapiro.test(t(d))  #Necesitamos trasponer los datos del dataframe porque lee 
                     #las variables por filas en lugar de por columnas
 ```
+
 Observar que el $p-valor = 0.6014$, lo que conduce a aceptar que los datos provienen de una distribución Normal (lo cual sabemos que es cierto, pues se generaron a partir de dicho modelo).
 
 ### 1.4) Distancia de Mahalanobis
@@ -118,10 +126,10 @@ Observar que el $p-valor = 0.6014$, lo que conduce a aceptar que los datos provi
 Veamos cómo calcular la **distancia de Mahalanobis al cuadrado** de cada fila de datos al vector de medias (teórico o muestral). Esta distancia tiene en cuenta las diferentes escalas de los datos y sus correlaciones y nos servirá para detectar las observaciones más “raras” (alejadas de la media) que podrían ser observaciones atípicas (outliers) que no provengan de nuestra población o contengan errores.
 
 ```{r}
-dM1<-mahalanobis(d, center = , cov = ) #dist Mahalanobis al cuadrado  
+dM1<-mahalanobis(d, center = mu, cov = V) #dist Mahalanobis al cuadrado  
                                           #usando parámetros teóricos del modelo
 
-dM2<-                                  #dist Mahalanobis al cuadrado  
+dM2<- mahalanobis(d, center = colMeans(d), cov = cov(d))                                 #dist Mahalanobis al cuadrado  
                                         #usando parámetros muestrales del modelo
 
 View(data.frame(d[,1],d[,2],dM1,dM2))
@@ -137,7 +145,6 @@ which.max(dM2)
 d[49,]
 ```
 
-
 ## 2) ESTUDIO DESCRIPTIVO DE DATOS MULTIVARIANTES
 
 Cargamos el fichero iris de R y vemos su estructura:
@@ -146,10 +153,11 @@ Cargamos el fichero iris de R y vemos su estructura:
 d2 <- iris
 str(d2)
 ```
+
 Hacemos resumen descriptivo global:
 
 ```{r}
-summary()
+summary(d2)
 ```
 
 Resumen numérico por especies para la variable longitud del sépalo:
@@ -174,8 +182,9 @@ Estos gráficos demuestran que en realidad tenemos k = 4 variables medidas en tr
 Podemos realizar el test de normalidad multivariante sin distinguir las 3 poblaciones:
 
 ```{r}
-
+mshapiro.test(t(d2[,1:4]))
 ```
+
 O bien podemos realizar dicho test para cada especie. Primero podemos separar las especies en distintos dataframes:
 
 ```{r}
@@ -185,8 +194,8 @@ list2env(list, .GlobalEnv)
 
 ```{r}
 mshapiro.test(t(setosa[, 1:4]))
-mshapiro.test()
-mshapiro.test()
+mshapiro.test(t(versicolor[, 1:4]))
+mshapiro.test(t(virginica[, 1:4]))
 ```
 
 Hacemos las nubes de puntos por pares de variables, sin distinguir especies:
@@ -225,16 +234,17 @@ legend('bottomright',legend=c('setosa negro','versic. rojo','virgin. azul'),cex=
 
 ```
 
-
-Calculemos la **distancia de Mahalanobis al cuadrado* para los datos de cada especie respecto a su vector de medias muestral.
+Calculemos la \*\*distancia de Mahalanobis al cuadrado\* para los datos de cada especie respecto a su vector de medias muestral.
 
 ```{r}
 Msetosa<-mahalanobis(setosa[,1:4],colMeans(setosa[,1:4]),cov(setosa[,1:4]))
 sort(Msetosa)
 
-Mversicolor <- 
+Mversicolor <- mahalanobis(versicolor[,1:4], colMeans(versicolor[,1:4]), cov(versicolor[,1:4]))
+sort(Mversicolor)
 
-Mvirginica <-
+Mvirginica <- mahalanobis(virginica[,1:4], colMeans(virginica[,1:4]), cov(virginica[,1:4]))
+sort(Mvirginica)
 
 ```
 
@@ -245,6 +255,5 @@ La verosimilitud de un dato en un modelo estadístico será el valor de la funci
 ```{r}
 mu1<-colMeans(setosa[,1:4])
 V1<-cov(setosa[,1:4])
-dmvnorm()
+dmvnorm(setosa[42, 1:4], mean=mu1, sigma = V1)
 ```
-

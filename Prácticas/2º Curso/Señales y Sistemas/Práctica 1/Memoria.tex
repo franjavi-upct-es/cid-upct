@@ -55,7 +55,7 @@ bottom=1.5cm]{geometry}
 \usetikzlibrary{decorations.pathreplacing}
 \newcommand{\Ej}{\textcolor{lightblue}{\underline{Ejemplo}}}
 \setlength{\fboxrule}{1.5pt}
-
+\usepackage{subcaption}
 \newcommand{\bboxed}[1]{\fcolorbox{lightblue}{lightblue!10}{$#1$}}
 \newcommand{\rboxed}[1]{\fcolorbox{red}{red!10}{$#1$}}
 
@@ -150,6 +150,10 @@ stem(n,x,'.')
 \begin{lstlisting}
 x(find(n==-3))
 \end{lstlisting}
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=\linewidth]{Imagénes/figure1}
+\end{figure}
 	\item Modifique el valor de la señal, $x[-3]=-0.6$
 \begin{lstlisting}
 x(find(n==-3))=-0.6;
@@ -237,4 +241,176 @@ figure(4)
 stem(n,y2,'.')
 	\end{lstlisting}
 \end{itemize}
+
+
+\begin{center}
+\includegraphics[width=0.45\linewidth]{Imagénes/figure3}
+\qquad
+\includegraphics[width=0.45\linewidth]{Imagénes/figure4}
+\end{center}
+\subsection{Inversión temporal}
+\begin{itemize}
+	\item Apartado 1
+	\begin{lstlisting}
+		x1=[1 1 2 3 5 8 13 21 34];
+		n = 0:8;
+		
+		y1 = inversion(x1,n);
+		figure(5)
+		subplot(2,1,1)
+		stem(n,x1,'.', "LineWidth", 1.5)
+		subplot(2,1,2)
+		stem(n,y1,'.', "LineWidth", 1.5)
+		
+		x2=[1 -2 3 -4 5 -4 3 -2 1]
+		n = -4:4;
+		
+		y2 =inversion(x1,n);
+		figure(6)
+		subplot(2,1,1)
+		stem(n,x2,'.', "LineWidth", 1.5)
+		subplot(2,1,2)
+		stem(n,y2,'.', "LineWidth", 1.5)
+	\end{lstlisting}
+	
+	\begin{center}
+			\includegraphics[width=0.45\linewidth]{Imagénes/figure5}
+		\qquad
+		\includegraphics[width=0.45\linewidth]{Imagénes/figure6}
+	\end{center}
+	\item Apartado 2
+	
+	Lo que ocurre con \texttt{y2} es que se invierte pero podemos apreciar que no es simétrica, al contrario que \texttt{y1}, que si lo es.
+\end{itemize}
+\section{Señales periódicas}
+\textbf{Ejercicios:}
+\begin{lstlisting}
+x=randn(1,9);
+x=[x x x x x];
+N=floor(length(x)/2);
+n=[-N:N];
+
+figure(7)
+subplot(2,1,1)
+stem(n,x,'.', "LineWidth", 1.5)
+
+n2=[-20:20];
+i0=find(n==n2(1));
+
+
+subplot(2,1,2)
+stem(n2,x(i0:i0+length(n2)-1), "LineWidth", 1.5)
+\end{lstlisting}
+\begin{center}
+	\includegraphics[width=\linewidth]{Imagénes/figure7}
+\end{center}
+\textbf{Cuestiones:}
+\begin{lstlisting}
+n=[-100:100];
+x = sin(pi / 5 * n)
+N_x = (2*pi) / (pi/5)
+% N_x = 10
+
+n=[-20:20];
+x = sin(pi / 5 * n)
+
+y = sin(pi / 5 * (n - N))
+figure(8)
+subplot(2,1,1)
+stem(n,x,'.', "LineWidth", 1.5)
+
+subplot(2,1,2)
+stem(n,y, "LineWidth", 1.5)
+\end{lstlisting}
+\begin{center}
+	\includegraphics[width=\linewidth]{Imagénes/figure8}
+\end{center}
+\begin{lstlisting}
+n = [-100:100];
+y = sin(0.6 .* n);
+
+n = [-20:20];
+y = sin(0.6 .* n);
+
+figure(9)
+stem(n,y,'.', "LineWidth", 1.5)
+\end{lstlisting}
+\begin{center}
+	\includegraphics[width=\linewidth]{Imagénes/figure9}
+\end{center}
+Es similar porque se trata de una función seno, que es periódica pero al multiplicarse por 0.6 se produce una expansión, como se puede apreciar en la gráfica
+
+\begin{lstlisting}
+n = [-20:20];
+
+N=floor(length(y)/2);
+
+y2 = desplazamiento(y, -N)
+z = y - y2
+
+figure(10)
+stem(n,z,'.', "LineWidth", 1.5)
+\end{lstlisting}
+
+Se puede ver en la gráfica que z[n] no es periódica
+\section{Exponenciales complejas}
+\textbf{Ejercicio}
+
+\begin{lstlisting}
+z1 = 1.2 + 0.75*j;
+z2 = 0.5 + 0.8*j;
+
+cla reset
+axis([-2 2 -2 2])
+hold on
+
+figure(11)
+plot(z1, 'b.', 'MarkerSize', 20)
+plot(z2, 'g.', 'MarkerSize', 20)
+plot(z1*z2, 'r.', 'MarkerSize', 20)
+
+abs(z1)
+angle(z1)
+
+n = [-30:30];
+
+x = exp(j*0.01*pi*n);
+
+figure(12)
+plot(x, '.', 'MarkerSize', 20)
+
+hold off
+figure(13)
+subplot(2,1,1)
+stem(n,real(x),'.')
+subplot(2,1,2)
+stem(n,imag(x),'.')
+\end{lstlisting}
+
+\begin{center}
+	\includegraphics[width=0.5\linewidth]{Imagénes/figure11}
+	\qquad
+	\includegraphics[width=0.5\linewidth]{Imagénes/figure12}
+	\qquad
+	\includegraphics[width=0.5\linewidth]{Imagénes/figure13}
+\end{center}
+\textbf{Cuestiones:}
+\begin{lstlisting}
+n = [0:40];
+x = exp(-n/10+j*n/4);
+figure(14)
+subplot(2,1,1)
+stem(n,real(x),'.')
+subplot(2,1,2)
+stem(n,imag(x),'.')
+
+modulo = abs(x);
+fase = angle(x);
+
+% modulo = 1.4151
+% fase = 0.5586
+\end{lstlisting}
+\begin{center}
+	\includegraphics[width=\linewidth]{Imagénes/figure14}
+\end{center}
 \end{document}

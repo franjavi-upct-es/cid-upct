@@ -1,0 +1,24 @@
+---
+title: "Problemas propuestos de Regresión Lineal Múltiple"
+author: "Francisco Javier Mercader Martínez"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Problema 1
+
+En el fichero **cemento_RLM.xlsx**, contiene los datos correspondientes a la presencia (en %) de cuatro componentes químicos en un tipo de cemento, así como el calor emitido (en calorías por gramo de cemento) durante el proceso de endurecimiento. Se desea proponer un modelo que permita predecir el calor emitido en función de los componentes químicos presentes del cemento.
+
+```{r}
+library(readxl)
+cemento <- read_excel("../../data/cemento_RLM.xlsx")
+```
+
+1)  Realiza un análisis descriptivo previo de las variables del problema y comenta los resultados más relevantes. ¿Podemos suponer que nuestra variable respuesta es Normal?
+
+```{r}
+summary(cemento)
+```
