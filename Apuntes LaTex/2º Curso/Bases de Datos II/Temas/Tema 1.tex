@@ -479,8 +479,9 @@ df = pd.read_json('cursos.json', orient='records', nrows=2, lines=True)
 	\item \color{lightblue}Resumen
 \end{itemize}
 \begin{center}
-	\includegraphics[width=0.7\linewidth]{screenshot001}
+	\includegraphics{"Temas/Tema 1/screenshot005"}
 \end{center}
+
 \subsubsection{Apache Avro}
 Avro ofrece una serie de características:
 \begin{itemize}
@@ -491,12 +492,12 @@ Avro ofrece una serie de características:
 	\item Un esquema de llamada a procedimiento remoto (RPC)
 	\item Integración con lenguajes dinámicos, donde no hace falta recompilar el IDL (opcionalmente se puede hacer para lenguajes estáticos)
 \end{itemize}
-\begin{enumerate}[label=\arabic*)]
-	\item Schema
-\end{enumerate}
+\begin{itemize}[label=\color{red}\textbullet, leftmargin=*]
+	\item \color{lightblue}Schema
+\end{itemize}
 \begin{itemize}
 	\item Una declaración de esquema se escribe en JSON. Bien un nombre de un objeto predefinido, o bien un objeto JSON de la forma:
-	\begin{lstlisting}[language=python]
+	\begin{lstlisting}
 {"type": "nombreTipo", ... atributos ... }
 	\end{lstlisting}
 	\item Ofrece tipos primitivos y complejos. Primitivos: \texttt{null, boolean, int, long, float, bytes, string, . . .}
@@ -507,6 +508,337 @@ Avro ofrece una serie de características:
 		\item El campo \texttt{type} se establece a \texttt{"record"}.
 		\item El campo \texttt{name} establece su nombre.
 		\item El campo \texttt{fields} establece sus campos. Cada campo:
-		
+		\begin{itemize}[label=$\to$]
+			\item Atributos \texttt{name, doc, type} y \texttt{default}
+		\end{itemize}
 	\end{itemize}
+\begin{lstlisting}
+{
+	"type": "record",
+	"name": "LongList",
+	"fields" : [
+		{"name": "value", "type": "long"}, // el campo 'value' toma valores long
+		{"name": "next", "type": ["null", "LongList"]} // 'next' es opcional
+	]
+}
+\end{lstlisting}
+
+	\item Tipos complejos: Arrays
+	\begin{lstlisting}
+{"type": "array", "items": "string"}
+	\end{lstlisting}
+	\item Tipos complejos: Mapas (los índices se suponen siempre \texttt{string})
+
+\begin{lstlisting}
+{"type": "map", "values": "long"}
+\end{lstlisting}
+\item Los protocolos permiten especificar la parte RPC del protocolo y especificar funciones y mensajes entrantes y salientes.
+\item Ejemplo (\texttt{mail.avpr}):
+\begin{lstlisting}
+{"namespace": "example.proto",
+	"protocol": "Mail",
+
+	"types": [
+		{"name": "Message", "type": "record",
+		"fields": [
+			{"name": "to", "type": "string"},
+			{"name": "from", "type": "string"},
+			{"name": "body", "type": "string"}
+		  ]
+		}
+	],
+
+	"messages": {
+		"send": {
+			"request": [{"name": "message", "type": "Message"}],
+			"response": "string"
+		}
+	}
+}
+\end{lstlisting}
 \end{itemize}
+\begin{itemize}[label=\color{red}\textbullet, leftmargin=*]
+	\item \color{lightblue}Programación
+\end{itemize}
+\bu{Librería \texttt{\textbf{avro}}}
+
+Instalación con ejecutando el comando
+\begin{lstlisting}
+pip install avro
+\end{lstlisting}
+Vamos a suponer el siguiente esquema:
+\begin{lstlisting}
+{"namespace": "example.avro",
+	"type": "record",
+	"name": "User",
+	"fields": [
+		{"name": "name", "type": "string"},
+		{"name": "favorite_number", "type": ["int", "null"]},
+		{"name": "favorite_color", "type": ["string", "null"]}
+	]
+}
+\end{lstlisting}
+
+Para serializar dos usuarios en el fichero \texttt{users.avsc}:
+
+\begin{lstlisting}[language=python]
+import avro.schema
+from avro.datafile import DataFileReader, DataFileWriter
+from avro.io import DatumReader, DatumWriter
+
+schema = avro.schema.parse(open("user.avsc", "rb").read())
+
+writer = DataFileWriter(open("users.avro", "wb"), DatumWriter(), schema)
+writer.append({"name": "Alyssa", "favorite_number": 256})
+writer.append({"name": "Ben", "favorite_number": 7, "favorite_color": "red"})
+writer.close()
+\end{lstlisting}
+
+Para leer dichos usuarios de fichero
+\begin{lstlisting}[language=python]
+reader = DataFileReader(open("users.avro", "rb"), DatumReader())
+for user in reader:
+	print user
+reader.close()
+\end{lstlisting}
+\bu{Librería \texttt{\textbf{avro}} con Protocols}
+
+Uso del protocolo definido anteriormente.
+\begin{lstlisting}[language=python]
+import avro.ipc as ipc
+import avro.protocol as protocol
+
+PROTOCOL = protocol.Parse(open("mail.avpr").read())
+server_addr = ('localhost', 9090)
+
+client = ipc.HTTPTransceiver(server_addr[0], server_addr[1])
+requestor = ipc.Requestor(PROTOCOL, client)
+
+message = dict()
+message['to'] = sys.argv[1]
+message['from'] = sys.argv[2]
+message['body'] = sys.argv[3]
+
+params = dict()
+params['message'] = message
+print("Result: " + requestor.Request('send', params))
+
+client.Close()
+\end{lstlisting}
+\subsubsection{Thrift}
+\textit{Framework} de serialización + RPC desarrollado por Facebook.
+
+Requiere de compilador siempre.
+
+Genera \textit{stubs} en muchos lenguajes de programación, incluyendo C++, Java, Python, . . .
+
+Incluye un lenguaje completo de especificación de interfaces (IDL) (\texttt{.thrift}), parecido a C++.
+
+Cada elemento de estructura o parámetro de función debe ir precedido por su etiqueta de identificación numérica.
+
+El formato de serialización puede cambiarse, y acepta formatos binarios y de texto.
+
+Además del modelo, genera un \textit{processor}, que hace de procesador de mensajes del servicio.
+
+\begin{minipage}{0.45\textwidth}
+	Permite el uso de varios protocolos:
+	\begin{itemize}
+		\item \texttt{TBinaryProtocol, TDenseProtocol, TJSONProtocol, TSimpleJSONProtol}
+	\end{itemize}
+	Permite el uso de varios transportes:
+	\begin{itemize}
+		\item \texttt{TSocket, TFileTransport} (a fichero), \texttt{TZlibTransport} (compresión)
+	\end{itemize}
+	\textit{Processor} – Permite leer y escribir mensajes del modelo de datos
+\end{minipage}\qquad\begin{minipage}{0.45\textwidth}
+\begin{center}
+	\includegraphics[scale=1]{"Temas/Tema 1/screenshot004"}
+\end{center}
+\end{minipage}
+\begin{itemize}[label=\color{red}\textbullet, leftmargin=*]
+	\item \color{lightblue}IDL
+\end{itemize}
+Tipos básicos: \texttt{bool, byte, i16, string}, etc.
+
+Estructuras:
+\begin{lstlisting}[language=C++]
+struct Example {
+	1:i32 number=10,
+	2:i64 bigNumber,
+	3:double decimals,
+	4:string name="thrifty"
+}
+\end{lstlisting}
+Contenedores: \texttt{list, set, map} con sintaxis C++.
+
+Servidores RPC:
+\pagebreak
+\begin{lstlisting}[language=C++]
+service StringCache {
+	void set(1:i32 key, 2:string value),
+	string get(1:i32 key) throws (1:KeyNotFound knf),
+	void delete(1:i32 key)
+}
+\end{lstlisting}
+\begin{itemize}[label=\color{red}\textbullet, leftmargin=*]
+	\item \color{lightblue}Código
+\end{itemize}
+\textbf{Implementar un servicio \texttt{\textbf{Calculator}} que sume dos números}
+\begin{enumerate}[label=\color{lightblue}\arabic*)]
+	\item Definir el fichero \texttt{.thrift} con la especificación del servicio
+\begin{lstlisting}[language=C++]
+service Calculator extends shared.SharedService {
+	
+	void ping(),
+	
+	i32 add (1:i32 num1, 2:i32 num2),
+}
+\end{lstlisting}
+\item Generar el código en Python ejecutando el siguiente comando
+\begin{lstlisting}
+thrift --gen py multiple.thrift
+\end{lstlisting}
+\item Definir el \texttt{handler} en el servidor
+\begin{lstlisting}[language=python]
+class CalculatorHandler:
+	def __ init__(self):
+		self.log = {}
+		
+	def ping(self):
+		print('ping()')
+		
+	def add(self, n1, n2):
+		print('add(%d, %d)') % (n1, n2)
+		return n1+ n2
+\end{lstlisting}
+\item Arrancar el servidor
+\begin{lstlisting}[language=python]
+handler = CalculatorHandler()
+processor = Calculator.Processor(handler)
+transport = TSocket.TServerSocket(host='127.0.0.1', port=9090)
+tfactory = TTransport.TBufferedTransportFactory()
+pfactory = TBinaryProtocol.TBinaryProtocolFactory()
+
+server = TServer.TSimpleServer(processor, transport, tfactory, pfactory)
+
+print('Arrancando el servidor...', end='')
+server.serve()
+print('HECHO!')
+\end{lstlisting}
+\item Lanzar el cliente que hace uso del servicio
+\begin{lstlisting}[language=python]
+# Creamos un socket
+transport = TSocket.TSocket('localhost', 9090)
+
+# Los sockets pueden ser lentos. Necesitamos bufferizar
+transport = TTransport.TBufferedTransport(transport)
+
+# Definimos el protocolo Thrift a usar
+protocol = TBinaryProtocol.TBinaryProtocol(transport)
+
+# Creamos un cliente para usar el protocolo definido.
+client = Calculator.Client(protocol)
+
+#Conectamos con el servidor
+transport.open()
+
+client.ping()
+print('ping()')
+
+sum_ = client.add(1,1)
+print('1+1=%d', % sum_)
+\end{lstlisting}
+\end{enumerate}
+\subsubsection{Pre-procesamiento de datos con \texttt{\textbf{Pandas}}}
+\begin{itemize}[label=\color{red}\textbullet, leftmargin=*]
+	\item \color{lightblue}Datos faltantes
+\end{itemize}
+\begin{wrapfigure}[9]{r}{0.4\textwidth}
+	\begin{center}
+		\includegraphics{"Temas/Tema 1/screenshot006"}
+	\end{center}
+\end{wrapfigure}
+
+En muchos escenarios, nos encontraremos que los conjuntos de datos que con los que tenemos que trabajar se encuentran con valores faltantes.
+
+La librería \texttt{Pandas} nos permite tratar dichos casos con algunos métodos de su herramienta \texttt{Dataframe}.
+
+El método \texttt{.dropna} permite eliminar las filas (\texttt{axis=0}) o columnas (\texttt{axis=1}) de un dataframe
+\begin{lstlisting}[language=python]
+d= {'A':[1,2,np.nan], 'B':[5, np.nan, np.nan].
+	'C':[1,2,3]}
+df= pd.DataFrame(d)
+df.dropna() #axis=0
+\end{lstlisting}
+El método \texttt{.dropna} permite definir cuántos valores no \textbf{NaN} deben existir en una fila o columna para no ser borrada con el parámetro \texttt{thresh}
+\begin{lstlisting}[language=python]
+d= {'A':[1,2,np.nan], 'B':[5, np.nan, np.nan].
+	'C':[1,2,3]}
+df= pd.DataFrame(d)
+df.dropna(thresh=2) #axis=0
+\end{lstlisting}
+Otra alternativa cuando tenemos datos faltantes puede ser sustituir dichos datos.
+
+Esto puede realizarse con el método \texttt{.fillna} especificando un valor por defecto
+\begin{lstlisting}[language=python]
+d= {'A':[1,2,np.nan], 'B':[5, np.nan, np.nan].
+	'C':[1,2,3]}
+df= pd.DataFrame(d)
+df.fillna(valiue='FILL VALUE')
+\end{lstlisting}
+Sin embargo una estrategia más acertada podría ser usar la media de cada columna
+\begin{lstlisting}[language=python]
+df['A'].fillna(value=df['A'].mean())
+\end{lstlisting}
+\begin{wrapfigure}[8]{r}{0.4\textwidth}
+	\begin{center}
+		\includegraphics{"Temas/Tema 1/screenshot007"}
+	\end{center}
+	
+	\hspace{2cm}
+	
+	\begin{center}
+		\includegraphics{"Temas/Tema 1/screenshot008"}
+	\end{center}
+\end{wrapfigure}
+La propagación de valores es también otra alternativa. Sobre todo cuando existe cierto orden pre-establecido entre filas y columnas
+
+Con .\texttt{ffill} podemos propagar el último valor válido hacia adelante
+\begin{lstlisting}[language=python, fontadjust, basicstyle=\small\ttfamily]
+df = pd.DataFrame([[np.nan, 2, np.nan, 0],
+                   [3, 4, np.nan, 1],
+                   [np.nan, np.nan, np.nan, np.nan],
+                   [np.nan, 3, np.nan, 4]],
+                  columnas=list("ABCD"))
+df.ffill()
+\end{lstlisting}
+
+De forma similar, \texttt{.bfill} propaga hacia atrás el siguiente valor válido.
+
+En caso de una relación temporal entre filas o columnas de un Dataframe, lo más conveniente res relllenar los valores faltantes con el método \texttt{.interpolate}.
+\begin{lstlisting}[language=python]
+s = pd.Series([0, 1, np.nan, 3])
+s.interpolate()
+\end{lstlisting}
+Dicho método permite aplicar diferentes técnicas de regresión para imputar los valores faltantes (\texttt{quadratic, cubic, polinomial}\dots)
+\begin{lstlisting}[language=python]
+s.interpolate(method='polynomial', order=2)
+\end{lstlisting}
+Otro tipo de \textit{impureza} frecuente que suele darse en los conjuntos de datos son las filas o columnas duplicadas. Podemos eliminarlas con el método \texttt{.drop_duplicates}
+\begin{lstlisting}[language=python]
+df.drop_duplicates()
+\end{lstlisting}
+También podemos forzar que determinadas columnas se conviertan al tipo de datos \texttt{Date} con \texttt{.to_datetime}
+\begin{lstlisting}[language=python]
+df['Date'] = pd.to_datetime(df['Date'])
+\end{lstlisting}
+\subsection{Conclusiones}
+En el ecosistema digital actual, existe una gran variedad de alternativas para llevar a cabo la serialización de datos 
+
+XML, JSON y CSV son los formatos más extendidos
+
+Otras soluciones, como Avro o Thrift, van más allá al definir un modelo de datos y un RPC para la implementación de sistemas distribuidos
+
+No existe una \textit{bala de plata} sino que dependiendo de la naturaleza de los datos y el contexto, deberemos optar por uno u otro enfoque
+
+Independientemente del formato de serialización escogido es imprescindible un pre-procesado y limpieza de los datos para eliminar o sustituir valores incorrectos o imprecisos

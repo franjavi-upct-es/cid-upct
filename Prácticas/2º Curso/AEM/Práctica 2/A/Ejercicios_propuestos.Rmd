@@ -4,7 +4,7 @@ author: "Francisco Javier Mercader Martínez"
 output: pdf_document
 ---
 
-```{r setup, include=FALSE}
+```{r setup, include=TRUE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
@@ -15,10 +15,82 @@ En el fichero **cemento_RLM.xlsx**, contiene los datos correspondientes a la pre
 ```{r}
 library(readxl)
 cemento <- read_excel("../../data/cemento_RLM.xlsx")
+print.data.frame(cemento)
 ```
 
 1)  Realiza un análisis descriptivo previo de las variables del problema y comenta los resultados más relevantes. ¿Podemos suponer que nuestra variable respuesta es Normal?
 
 ```{r}
+colnames(cemento) <- c("A", "B", "C", "D", "Calor")
+
+# Análisis descriptivo
 summary(cemento)
+# Histograma de la variable respuesta
+hist(cemento$Calor, main = "Histograma de Calor", xlab = "Calor", col = "#007AFF", border = "black")
+```
+
+2)  Calcula la matriz de correlaciones de las cinco variables. ¿Qué información proporciona esta matriz? ¿Qué regresores del modelo presentan una más estrecha relación lineal entre sí? ¿Cuál es la primera variable que debería entrar en el modelo?
+
+```{r}
+cor(cemento)
+
+```
+
+La matriz de correlaciones nos proporciona información sobre la relación lineal entre las variables.
+
+-   Las variables B y D tienen la correlación más fuerte entre sí (-0.9729550), lo que indica una fuerte relación lineal negativa.
+
+-   La variable Calor (la variable de respuesta) tiene la correlación más fuerte con la variable B (0.8162526), seguida de la variable A (0.7307175).
+
+3)  Realiza la selección del modelo mediante regresión por pasos, hacia delante y hacia atrás. Indica el orden de entrada y salida de las variables para cada uno de los métodos. Comenta los resultados obtenidos.
+
+```{r}
+# Ajustar el modelo de regresión lineal completo
+full.model <- lm(Calor ~ ., data = cemento)
+
+# Selección de modelo hacia adelante
+forward.model <- step(lm(Calor ~ 1, data = cemento), scope = list(lower = ~1, upper = full.model), direction = "forward")
+
+# Selección de modelo hacia atrás
+backward.model <- step(full.model, direction = "backward")
+
+# Imprimir los modelos
+summary(forward.model)
+summary(backward.model)
+```
+
+4)  Estudia si hay colinealidad entre los regresores de los modelos resultantes en el apartado anterior y en caso afirmativo explica cuál es tu decisión para solventarlo.
+
+```{r}
+
+```
+
+5)  ¿Propondrías un único modelo o varios? ¿Cuál o cuáles y por qué?
+
+```{r}
+
+```
+
+6)  Determina el (los) modelo(s) ajustado(s) y los intervalos de confianza al 95% para los parámetros de regresión.
+
+```{r}
+
+```
+
+7)  Para el modelo que contempla sólo los regresores A y D, estudia si se verifican las hipótesis del modelo de regresión múltiple, comentando los procesos utilizados. Estudia si hay colinealidad entre los regresores y si aparecen observaciones influyentes, comentando los procesos utilizados. En caso de que se presente alguno de estos problemas, explica cuál es tu decisión para solventarlo.
+
+```{r}
+
+```
+
+8)  Obtén una estimación puntual del calor emitido por el cemento sabiendo que A=15, B=39, C=4.5 y D=40. Determina también un intervalo de confianza para el calor emitido en ese caso, así como un intervalo de predicción. ¿Podemos concluir que el calor emitido por el cemento superará las 95 cal/gr? ¿Y en promedio?
+
+```{r}
+
+```
+
+9)  Responde a la cuestión anterior sabiendo que A=45 y D=40.
+
+```{r}
+
 ```
