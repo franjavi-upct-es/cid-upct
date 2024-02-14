@@ -23,21 +23,23 @@
 \begin{itemize}[label=\color{red}\textbullet, leftmargin=*]
 	\item \color{lightblue}Tabla resumen
 \end{itemize}
+\begin{center}
 \begin{tabular}{cccccccc}
 \hline
  & Estándar & Bin? & Humano? & Ref? & IDL? & Ext? & API? \\
 \hline
 Apache Avro & Sí & Sí  & No & N/A & Sí (acoplado) & Sí & N/A \\
-\hline
+
 CSV & Parcial (RFC4180) & No & Sí & No & No & Parcial  & No \\
-\hline
+
 JSON & Sí (RFC7159) & No (BSON) & Sí & Sí (RFC6901) & Parcial  & Sí & No \\
-\hline
+
 Thrift & No & Sí & Parcial  & No & Sí (acoplado) & Sí & No \\
-\hline
+
 XML & Sí & Parcial & Sí & Sí & Sí & No & No \\
 \hline
 \end{tabular}
+\end{center}
 \subsubsection{Pandas}
 \begin{itemize}
 \item Pandas es una librería open source construida sobre \texttt{Numpy}.
@@ -512,6 +514,8 @@ Avro ofrece una serie de características:
 			\item Atributos \texttt{name, doc, type} y \texttt{default}
 		\end{itemize}
 	\end{itemize}
+	
+\pagebreak
 \begin{lstlisting}
 {
 	"type": "record",
@@ -567,6 +571,7 @@ Instalación con ejecutando el comando
 pip install avro
 \end{lstlisting}
 Vamos a suponer el siguiente esquema:
+\pagebreak
 \begin{lstlisting}
 {"namespace": "example.avro",
 	"type": "record",

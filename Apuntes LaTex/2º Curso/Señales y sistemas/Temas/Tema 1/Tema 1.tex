@@ -43,8 +43,8 @@
 				\foreach \x in {0,...,4}
 				\fill[lightblue] (\x,{pow(0.5,\x)}) circle (1.5pt);
 
-				\draw[domain=0:5, samples=150, lightblue] plot (\x, {pow(0.5,\x)});
-				\draw[lightblue] (-2,0) -- (0,0) -- (0,1);
+				\draw[domain=0:5, samples=150, lightblue, line width=1.2] plot (\x, {pow(0.5,\x)});
+				\draw[lightblue, line width=1.2] (-2,0) -- (0,0) -- (0,1);
 
 				\foreach \x in {-2,-1}
 				\fill[lightblue] (\x,0) circle (1.5pt);
