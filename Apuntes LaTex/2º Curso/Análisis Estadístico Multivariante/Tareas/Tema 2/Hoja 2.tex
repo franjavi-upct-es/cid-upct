@@ -165,4 +165,160 @@ $\begin{array}{l}
 	
 	$\hat{y}_{x_1=25,x_2=1000}=350.994-1.2799\cdot25-0.15390\cdot1000=\bboxed{165.29}$
 \end{enumerate}
+\item \lb{En un proceso industrial se sospecha que la dureza de las láminas de acero reducido en frío depende del contenido en cobre ($x_1$) y de la temperatura de recocido ($x_{2}$). Para comprobar esta suposición se mide en doce especímenes de láminas de acero la dureza para varios valores del contenido de cobre y de la temperatura, obteniéndose los siguientes resultados:
+\begin{center}
+	\begin{tabular}{ccc}
+		Dureza (Rockwell 30-T) & Contenido de cobre (\%) ($x_1$) & Temperatura de recocido (? F)($x_2$) \\
+		\hline
+		79.1 & 0.025 & 1000 \\
+		65.3 & 0.025 & 1100 \\
+		55.5 & 0.025 & 1200 \\
+		56.6 & 0.025 & 1300 \\
+		81.1 & 0.15 & 1000 \\
+		69.9 & 0.15 & 1100 \\
+		57.6 & 0.15 & 1200 \\
+		55.6 & 0.15 & 1300 \\
+		85.5 & 0.2 & 1000 \\
+		72.0 & 0.2 & 1100 \\
+		60.9 & 0.2 & 1200 \\
+		59.1 & 0.2 & 1300 \\
+	\end{tabular}
+	\end{center}}
+\begin{enumerate}[label=\color{red}\alph*)]
+	\item \db{Plantear el modelo de regresión lineal múltiple para explicar la dureza de la lámina en función del contenido de cobre y de la temperatura.}
+	
+	PLanteamiento general del modelo \[ Y=\theta'x+u=(\theta_0,\theta_1,\theta_2)\cdot\begin{pmatrix}
+		1\\
+		x_1\\
+		x_2
+	\end{pmatrix}+u=\theta_0+\theta_1x_1+\theta_2x_2+u \]
+	
+	$\begin{array}{l}
+		y^{(i)}=\theta_0+\theta_1x_1^{(i)}+\theta_2x_2^{(i)}+u^{(i)},\quad i=1,\dots,k\\
+		\underbrace{\begin{pmatrix}
+				y^{(1)}\\
+				y^{(2)}\\
+				\vdots\\
+				y^{(n)}
+		\end{pmatrix}}_Y=\underbrace{\begin{pmatrix}
+		1 & x_1^{(1)} & x_2^{(1)}\\
+		1 & x_1^{(2)} & x_2^{(2)}\\
+		\vdots & & \\
+		1 & x_1^{(n)} & x_2^{(n)}
+	\end{pmatrix}}_M\cdot\underbrace{\begin{pmatrix}
+	\theta_0\\
+	\theta_1\\
+	\theta_2
+\end{pmatrix}}_\theta+\underbrace{\begin{pmatrix}
+u^{(1)}\\
+u^{(2)}\\
+\vdots\\
+u^{(n)}
+\end{pmatrix}}_U\longrightarrow\begin{array}{l}
+Y=M\cdot\theta+U\\
+U=Y-M\cdot\theta
+\end{array}\\
+	\end{array}$
+	
+	$M'M=\begin{pmatrix}
+		1 & 1 & \cdots & 1\\
+		x_1^{(1)} & x_1^{(2)} & \cdots & x_1^{(n)}\\
+		x_2^{(1)} & x_2^{(2)} & \cdots & x_2^{(n)}
+	\end{pmatrix}\cdot\begin{pmatrix}
+		1 & x_1^{(1)} & x_2^{(1)}\\
+		1 & x_1^{(2)} & x_2^{(2)}\\
+		\vdots & & \\
+		1 & x_1^{(n)} & x_2^{(n)}
+	\end{pmatrix}=\begin{pmatrix}
+		n & \sum_{i=1}^{n}x_1^{(i)} & \sum_{i=1}^{n}x_2^{(i)}\\
+		\sum_{i=1}^{n}x_1^{(i)} & \sum_{i=1}^{n}x_1^{(i)2} & \sum_{i=1}^{n}x_1^{(i)}x_2^{(i)}\\
+		\sum_{i=1}^{n}x_2^{(i)} & \sum_{i=1}^{n}x_1^{(i)}x_2^{(i)} & \sum_{i=1}^{n}x_2^{(i)2}
+	\end{pmatrix}=\linebreak\begin{pmatrix}
+		12 & 1.5 & 13800\\
+		1.5 & 0.2525 & 1725\\
+		13800 & 1725 & 16020000
+	\end{pmatrix}$\\
+	$M'Y=\begin{pmatrix}
+		1 & 1 & \cdots & 1\\
+		x_1^{(1)} & x_1^{(2)} & \cdots & x_1^{(n)}\\
+		x_2^{(1)} & x_2^{(2)} & \cdots & x_2^{(n)}
+	\end{pmatrix}\cdot\begin{pmatrix}
+		y^{(1)}\\
+		y^{(2)}\\
+		\vdots\\
+		y^{(n)}
+	\end{pmatrix}=\begin{pmatrix}
+		\sum_{i=1}^{n}y^{(i)}\\
+		\sum_{i=1}^{n}x_1^{(i)}y^{(i)}\\
+		\sum_{i=1}^{n}x_2^{(i)}y^{(i)}
+	\end{pmatrix}=\begin{pmatrix}
+		798.2\\
+		101.5425\\
+		905110
+	\end{pmatrix}$
+	
+	$\hat{\theta}=(M'M)^{-1}M'Y=\begin{pmatrix}
+		9.14038 & -9230 & -0.076 \\
+		-1.9230 & 15.384 & 0 \\
+		-0.0076 & 0 & 0
+	\end{pmatrix}\cdot\begin{pmatrix}
+	798.2\\
+	101.5425\\
+	905110
+	\end{pmatrix}=\begin{pmatrix}
+	161.4042\\
+	27.1923\\
+	-0.08549
+	\end{pmatrix}$
+	\item \db{Sabiendo que $\hat{\theta}=(161.404,\,27.1923,\,-0.08549)'$, obtener una estimación para la varianza del error y el valor de $R^2$. Comentar la bondad del ajuste.}
+	
+	
+	\begin{tabular}{|c|c|c|c|c|}
+		\hline
+		$y$ & $x_1$ & $x_2$ & $\hat{y}$ & $(y-\hat{y})^2$\\
+		\hline
+		79.1 & 0.025 & 1000 & 76.59 & 6.28\\
+		65.3 & 0.025 & 1100 & 68.05 & 7.54\\
+		55.5 & 0.025 & 1200 & 59.5 & 15.97\\
+		56.6 & 0.025 & 1300 & 50.95 & 31.96\\
+		81.1 & 0.15 & 1000 & 79.99 & 1.23\\
+		69.9 & 0.15 & 1100 & 71.44 & 2.38\\
+		57.6 & 0.15 & 1200 & 62.9 & 28.04\\
+		55.6 & 0.15 & 1300 & 54.35 & 1.57\\
+		85.5 & 0.2 & 1000 & 81.35 & 17.2\\
+		72.0 & 0.2 & 1100 & 72.8 & 0.65\\
+		60.9 & 0.2 & 1200 & 34.25 & 11.25\\
+		59.1 & 0.2 & 1300 & 55.71 & 11.52\\ \hline
+		 & & & & 135.58 \\ \hline
+	\end{tabular}
+	
+	$\begin{array}{l}
+		ECM=\dfrac{135.572}{12}=11.298\\
+		\sigma^2=\dfrac{135.572}{9}=15.064\\
+		\sum_{i=1}^{n}(y^{(i)}-\overline{y})^2=1271.312\\
+		R^2=0.894
+	\end{array}$
+	\item \db{Se decide eliminar la variable $x_1$ del modelo y ajustar un modelo de regresión lineal simple para predecir la dureza en función de $x_2$.}
+	\begin{enumerate}[label=\color{red}\arabic*)]
+		\item \db{¿Qué modelo se obtendría?}
+		
+		$\begin{array}{l}
+			y=\beta_0+\beta_1x_1+U\\
+			\hat{\beta_0}=\overline{y}-\hat{\beta_1}\overline{x_2}\simeq=165.159
+		\end{array}$
+		\item \db{¿Qué cambio se espera en la dureza promedio si la temperatura se incrementa en 100 grados Farenheith?}
+		
+		$\begin{array}{l}
+			\begin{aligned}
+				\sum_{i=1}^{n}d^2(O_i,P)&=\sum_{i=1}^{n}\sum_{j=1}^{n}(x_{ij}-P_j)^2=\sum_{i=1}^{n}\sum_{j=1}^{n}(x_{ij}-\overline{x}_j+\overline{x}_j-P_j)^2\\
+				&=\sum_{i=1}^{n}\sum_{j=1}^{n}\left((x_{ij}-\overline{x}_j)^2+(\overline{x}_j-P_j)^2+2(x_{ij}-\overline{x}_j)(\overline{x}_j-P_j)\right)\\
+				&=\sum_{i=1}^{n}d^2(O_i,\overline{O})+\sum_{i=1}^{n}\sum_{j=1}^{n}(\overline{x}_j-P_j)^2\ge\sum_{i=1}^{n}d^2(P_i,\overline{O})
+			\end{aligned}\\
+			\sum_{i=1}^{n}\sum_{j=1}^{n}(x_{ij}-\overline{x}_j)(\overline{x}_j-P_j)=\sum_{j=1}^{n}(\overline{x}_j-P_j)\cdot\tozero{\lbb{\sum_{i=1}^{n}(x_{ij}-\overline{x_j})}{\sum_{i=1}^{n}x_{ij}-n\overline{x}_j}}=0\\
+			O_i=(x_{i,1},\dots,x_{i,k})=(x_{1}^{(i)},\dots,x_k^{(i)})\\
+			P=(P_1,\dots,P_k)\\
+			\overline{x}_j=\dfrac{1}{n}\sum_{i=1}^{n}x_j^{(i)}
+		\end{array}$
+	\end{enumerate}
+\end{enumerate}
 \end{enumerate}

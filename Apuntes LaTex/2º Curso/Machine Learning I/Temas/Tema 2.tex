@@ -49,7 +49,7 @@ Supongamos el siguiente problema
 	\item Evidentemente, la "mejor respuesta" es aquella que con el \textbf{menor número de preguntas}, devuelve una respuesta suficientemente buena.
 	\item ¿Qué es mejor preguntar primero si tiene gota o cómo tiene la presión arterial?
 \end{itemize}
-\subsubsection{Arquitectura}
+\subsubsubsection{Arquitectura}
 Un árbol de decisión es una estructura jerárquica que consta de un nodo raíz, ramas, nodos internos y nodos hoja.
 \begin{itemize}
 	\item Comienzo con un \textbf{nodo raíz} sin ramas entrantes. Las ramas salientes del nodo raíz alimentan los nodos internos.
@@ -59,7 +59,7 @@ Un árbol de decisión es una estructura jerárquica que consta de un nodo raíz
 \begin{center}
 	\includegraphics{"Temas/Tema 1/Screenshot002"}
 \end{center}
-\subsubsection{Ventajas y desventajas}
+\subsubsubsection{Ventajas y desventajas}
 \begin{itemize}[label=\color{lightblue}\textbullet]
 	\item Pros
 	\begin{itemize}
@@ -90,7 +90,7 @@ Esta característica recursiva hace que muchos de los algoritmos para crearlos s
 \begin{center}
 	\includegraphics{"Temas/Tema 1/Screenshot003"}
 \end{center}
-\subsubsection{Clasificación vs Regresión}
+\subsubsubsection{Clasificación vs Regresión}
 \begin{itemize}[label=\color{lightblue}\textbullet]
 	\item Clasificación
 	\begin{itemize}
@@ -110,8 +110,8 @@ Esta característica recursiva hace que muchos de los algoritmos para crearlos s
 	\end{center}
 	
 \end{itemize}
-\subsection{Construcción de árboles de decisión}
-\subsubsection{Particiones}
+\subsubsection{Construcción de árboles de decisión}
+\subsubsubsection{Particiones}
 Cada nodo define una \textbf{partición} del conjunto de entrenamiento en función de los datos que representa.\\
 Las particiones producen subconjuntos que son \textbf{exhaustivos} y \textbf{excluyentes}.\\
 Cuestiones clave:
@@ -121,7 +121,7 @@ Cuestiones clave:
 	\item Selección del \textbf{mejor atributo} en cada paso.
 	\item Selección del \textbf{mejor valor} de umbral de los valores.
 \end{itemize}
-\subsubsection{Particiones posibles}
+\subsubsubsection{Particiones posibles}
 Los algoritmos más populares sólo proponen un tipo de partición para valores nominales y otro para valores numéricos:
 \begin{itemize}
 	\item \textbf{Particiones nominales:} En el caso que tengamos un atributo $x_i$ que tenga como posibles valores $\{v_1,v_2,\dots,v_n\}$ sólo es posible la partición \[ (x_1=v_1,x_2=v_2,\cdots,x_n=v_n) \]que da lugar a árboles con nodos con más de dos nodos hijos.
@@ -140,7 +140,7 @@ Los algoritmos más populares sólo proponen un tipo de partición para valores 
 	\end{center}
 	
 \end{itemize}
-\subsection{ID3: Algoritmo básico de aprendizaje}
+\subsubsection{ID3: Algoritmo básico de aprendizaje}
 
 \begin{quote}
 	El algoritmo básico de aprendizaje es el \textbf{ID3 (Iterative Dichotomiser 3)}, J. Ross Quinlan, investigador australiano que propuso el método en 1983
@@ -148,7 +148,7 @@ Los algoritmos más populares sólo proponen un tipo de partición para valores 
 El método ID3 trata de encontrar una partición que asegure la \textbf{máxima capacidad predictiva y la máxima homogeneidad} de las clases\\
 Medida de homogeneidad: la \textbf{entropía}\\
 Repetición de \textbf{"cortes en dos"} hasta que se cumpla una determinada condición
-\subsubsection{Entropía}
+\subsubsubsection{Entropía}
 Para determinar el mejor atributo, el ID3 utiliza la \textbf{entropía}.
 
 \begin{tikzpicture}
@@ -173,7 +173,7 @@ La entropía nos mide la homogeneidad de los datos (relación inversa).
 \end{center}
 \end{minipage}
 A la hora de construir un árbol es preferible crear nodos con nodos hoja homogéneos, es decir, de \textbf{baja entropía}.
-\subsubsection{Ganancia de Información}
+\subsubsubsection{Ganancia de Información}
 Sea un conjunto de datos $\chi$ con entropía $H(\chi)$.
 
 Si elegimos un atributo $A$ para crear un nodo del árbol, la entropía esperada es: \[ H(\chi,A)=\sum_{v\in\mathrm{valores}(A)}\dfrac{|\chi_v|}{\chi}H(\chi_v) \]siendo $\chi_v$ el subconjunto de $\chi$ con todas las instancias con $A=v$.
@@ -262,14 +262,14 @@ Por lo tanto, el árbol resultante sería
 	\includegraphics{"Temas/Tema 2/screenshot006"}
 \end{center}
 Todos los nodos hoja tienen una entropía nula (solo instancias de una clase).
-\subsubsection{Error global}
+\subsubsubsection{Error global}
 Es la probabilidad de error, es decir, suma ponderada de los errores de todas las hojas del árbol. \[ E=\sum_{i=1}^{n_h}w_ie_i \]donde
 \begin{itemize}
 	\item $n_h$ es el numero de hojas del árbol.
 	\item $w_i$ es el peso o probabilidad de la hoja $i$, es decir, la probabilidad de que una instancia sea clasificada por la partición representada por la rama que acaba en la hoja $i$.
 	\item $e_i$ es el error correspondiente a la rama que acaba en la hoja $i$ (número de instancia erróneas que caen en la hoja $i$ entre el número de instancias que caen en la hoja $i$).
 \end{itemize}
-\subsubsection{Algoritmo}
+\subsubsubsection{Algoritmo}
 El algoritmo básico de aprendizaje es el ID3 (Iterative Dichotomiser 3).
 
 \begin{algorithm}
@@ -316,8 +316,8 @@ El algoritmo básico de aprendizaje es el ID3 (Iterative Dichotomiser 3).
 	\ENDFOR
 	\RETURN nodo raíz
 \end{algorithmic}
-\subsection{Sobre-ajuste}
-\subsubsection{Espacio de hipótesis y sobre-ajuste}
+\subsubsection{Sobre-ajuste}
+\subsubsubsection{Espacio de hipótesis y sobre-ajuste}
 El \textbf{espacio de hipótesis} $H$ (no confundir con la entropía) en árboles de decisión
 abarca todas las posibles combinaciones de atributos y valores que pueden formar
 árboles de decisión, y nuestra tarea es encontrar la hipótesis más adecuada para
@@ -329,7 +329,7 @@ En general, se prefieren hipótesis cortas para evitar el sobre-ajuste (\textbf{
 	\item \color{lightblue}Sobre-ajuste
 \end{itemize}
 Dado un espacio de hipótesis $H$, se dice que una hipótesis particular $h\in H$ sobreajusta los datos de entrenamiento si existe un hipótesis alternativa $h'\in H$, tal que $h$ presenta un error menor que $h'$ sobre los ejemplos de entrenamiento, pero $h'$ presenta un error menor que $h$ sobre el conjunto total de observaciones.
-\subsubsection{Proceso de poda}
+\subsubsubsection{Proceso de poda}
 \begin{itemize}[label=\color{red}\textbullet, leftmargin=*]
 	\item \color{lightblue}¿Cómo podemos evitar el sobre-aprendizaje o sobre-ajuste?
 \end{itemize}
@@ -346,7 +346,7 @@ Dado un espacio de hipótesis $H$, se dice que una hipótesis particular $h\in H
 	\end{itemize}
 \end{itemize}
 Se pueden combinar ambas aproximaciones.
-\subsubsection{Otras medidas}
+\subsubsubsection{Otras medidas}
 \textbf{Medidas alternativas:} En algunos casos se suele utilizar otras medidas como:
 \begin{itemize}
 	\item El \textit{Ratio} de la ganancia de información, para evitar el hecho de que se favorece la selección de los atributos con más valores.
@@ -354,8 +354,8 @@ Se pueden combinar ambas aproximaciones.
 	\item Índice Gini empleado por el algoritmo CART
 	\item DKM, basados en AUC, MDL
 \end{itemize}
-\subsection{Algoritmo CART y Otros}
-\subsubsection{CART}
+\subsubsection{Algoritmo CART y Otros}
+\subsubsubsection{CART}
 \textbf{Cart} (\textbf{C}lasificación \textbf{A}nd \textbf{R}egression \textbf{T}rees). Similar al ID3 pero:
 \begin{itemize}
 	\item Permite que la variable que define la clase sea continua y no construye un conjunto de reglas.
@@ -371,7 +371,7 @@ Se elige la partición que produce el menor valor de la función de coste.
 Prepoda: Utiliza como criterio de parada el número mínimo de instancias asignadas al nodo.
 
 Postpoda: Utiliza un criterio que controla la improtancia relativa del error frente la complejidad (tamaño del árbol).
-\subsubsection{C4.5, C5.0}
+\subsubsubsection{C4.5, C5.0}
 \textbf{C4.5:} Permite, a diferenciaque ID3, que las características puedan ser continuas, definiendo de forma dinámica un atributo discreto particionando los atributos continuos en un conjunto discreto de intervalos.
 \begin{itemize}
 	\item C4.5 transforma los árboles obtenidos en un conjunto de reglas del tipo \textit{if-then}. La precisión de cada regla es evaluada de forma independiente para determinar el orden en el que deben ser aplicadas.
@@ -379,7 +379,7 @@ Postpoda: Utiliza un criterio que controla la improtancia relativa del error fre
 	\item C5.0, utiliza menos memoria y obtiene un conjunto de reglas menor y más preciso.
 	\item J48 es la implementación en código abierto de C4.5
 \end{itemize}
-\subsection{Random Forests}
+\subsubsection{Random Forests}
 Random Forest es una técnica que construye un grán número de árboles de decisión no correlacionados.
 
 Se basa en la técnica de Agregación de Bootstrap (Bagging), técnica de agregación de clasificadores o regresores que:
@@ -389,7 +389,7 @@ Se basa en la técnica de Agregación de Bootstrap (Bagging), técnica de agrega
 	\item Ayuda a evitar el sobre ajuste.
 \end{itemize}
 La predicción del modelo se elige analizando las predicciones de cada uno de los árboles considerados en el modelo.
-\subsubsection{Algoritmo}
+\subsubsubsection{Algoritmo}
 \begin{algorithm}
 	\caption{RF $\gets$ RandomForest(\textit{datos})}
 	\begin{algorithmic}[1]
@@ -419,3 +419,22 @@ Una vez se han construido los árboles para hacer predicciones:
 	\item Clasificación: La clase más votada por los árboles.
 	\item Regresión: La media de todas las predicciones
 \end{itemize}
+\subsubsubsection{OBB e importancia de las variables}
+\textbf{OBB (out of the bag) error estime:} Para cada muestra se predice el error utilizando sólo los árboles en los que no ha sido utilizada (no ha sido elegida en bootstrapping)
+\begin{itemize}
+	\item Los valores son parecidos a los que se obtienen mediante una validación cruzada de $N$-pliegues.
+\end{itemize}
+\textbf{Importancia de los atributos:}
+\begin{itemize}
+	\item En cada partición del árbol se registra la mejora del criterio de división.
+	\item Este valor se considera la importancia del atributo.
+	\item Para cada variable se agregan los valores generados en cada árbol.
+\end{itemize}
+\subsubsection{Conclusiones}
+La utilización de árboles de decisión es muy popular en muchas disciplinas.
+
+Experimentalmente han demostrado una buena capacidad de clasificación.
+
+La clave reside en la función a optimizar a la hora de elegir el atributo para disgregar el árbol.
+
+Los ensambles nos permiten mejorar los resultados combinando información.
