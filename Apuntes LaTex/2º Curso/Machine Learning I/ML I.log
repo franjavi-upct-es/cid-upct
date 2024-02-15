@@ -1,25 +1,25 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (MiKTeX 23.10) (preloaded format=pdflatex 2024.1.2)  9 FEB 2024 11:20
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (MiKTeX 24.1) (preloaded format=pdflatex 2024.2.15)  15 FEB 2024 11:57
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
 **"./ML I.tex"
 (ML I.tex
-LaTeX2e <2023-06-01> patch level 1
-L3 programming layer <2023-08-29>
+LaTeX2e <2023-11-01> patch level 1
+L3 programming layer <2024-01-22>
 (../../Macros.tex
 (C:\Users\fcoja\AppData\Local\Programs\MiKTeX\tex/latex/base\article.cls
 Document Class: article 2023/05/17 v1.4n Standard LaTeX document class
 (C:\Users\fcoja\AppData\Local\Programs\MiKTeX\tex/latex/base\size10.clo
 File: size10.clo 2023/05/17 v1.4n Standard LaTeX file (size option)
 )
-\c@part=\count185
-\c@section=\count186
-\c@subsection=\count187
-\c@subsubsection=\count188
-\c@paragraph=\count189
-\c@subparagraph=\count190
-\c@figure=\count191
-\c@table=\count192
+\c@part=\count187
+\c@section=\count188
+\c@subsection=\count189
+\c@subsubsection=\count190
+\c@paragraph=\count191
+\c@subparagraph=\count192
+\c@figure=\count193
+\c@table=\count194
 \abovecaptionskip=\skip48
 \belowcaptionskip=\skip49
 \bibindent=\dimen140
@@ -80,14 +80,14 @@ Package: amsbsy 1999/11/29 v1.2d Bold Symbols
 (C:\Users\fcoja\AppData\Local\Programs\MiKTeX\tex/latex/amsmath\amsopn.sty
 Package: amsopn 2022/04/08 v2.04 operator names
 )
-\inf@bad=\count193
+\inf@bad=\count195
 LaTeX Info: Redefining \frac on input line 234.
-\uproot@=\count194
-\leftroot@=\count195
+\uproot@=\count196
+\leftroot@=\count197
 LaTeX Info: Redefining \overline on input line 399.
 LaTeX Info: Redefining \colon on input line 410.
-\classnum@=\count196
-\DOTSCASE@=\count197
+\classnum@=\count198
+\DOTSCASE@=\count199
 LaTeX Info: Redefining \ldots on input line 496.
 LaTeX Info: Redefining \dots on input line 499.
 LaTeX Info: Redefining \cdots on input line 620.
@@ -100,20 +100,20 @@ LaTeX Info: Redefining \Bigg on input line 725.
 \big@size=\dimen151
 LaTeX Font Info:    Redeclaring font encoding OML on input line 743.
 LaTeX Font Info:    Redeclaring font encoding OMS on input line 744.
-\macc@depth=\count198
+\macc@depth=\count266
 LaTeX Info: Redefining \bmod on input line 905.
 LaTeX Info: Redefining \pmod on input line 910.
 LaTeX Info: Redefining \smash on input line 940.
 LaTeX Info: Redefining \relbar on input line 970.
 LaTeX Info: Redefining \Relbar on input line 971.
-\c@MaxMatrixCols=\count199
+\c@MaxMatrixCols=\count267
 \dotsspace@=\muskip16
-\c@parentequation=\count266
-\dspbrk@lvl=\count267
+\c@parentequation=\count268
+\dspbrk@lvl=\count269
 \tag@help=\toks21
-\row@=\count268
-\column@=\count269
-\maxfields@=\count270
+\row@=\count270
+\column@=\count271
+\maxfields@=\count272
 \andhelp@=\toks22
 \eqnshift@=\dimen152
 \alignsep@=\dimen153
@@ -135,8 +135,8 @@ Package: enumitem 2019/06/20 v3.9 Customized lists
 \enit@outerparindent=\dimen158
 \enit@toks=\toks26
 \enit@inbox=\box53
-\enit@count@id=\count271
-\enitdp@description=\count272
+\enit@count@id=\count273
+\enitdp@description=\count274
 )
 (C:\Users\fcoja\AppData\Local\Programs\MiKTeX\tex/latex/eurosym\eurosym.sty
 Package: eurosym 1998/08/06 v1.1 European currency symbol ``Euro''
@@ -149,22 +149,22 @@ Package: keyval 2022/05/29 v1.15 key=value parser (DPC)
 \KV@toks@=\toks27
 )
 (C:\Users\fcoja\AppData\Local\Programs\MiKTeX\tex/latex/tools\calc.sty
-Package: calc 2017/05/25 v4.3 Infix arithmetic (KKT,FJ)
-\calc@Acount=\count273
-\calc@Bcount=\count274
+Package: calc 2023/07/08 v4.3 Infix arithmetic (KKT,FJ)
+\calc@Acount=\count275
+\calc@Bcount=\count276
 \calc@Adimen=\dimen159
 \calc@Bdimen=\dimen160
 \calc@Askip=\skip55
 \calc@Bskip=\skip56
 LaTeX Info: Redefining \setlength on input line 80.
 LaTeX Info: Redefining \addtolength on input line 81.
-\calc@Ccount=\count275
+\calc@Ccount=\count277
 \calc@Cskip=\skip57
 )
 (C:\Users\fcoja\AppData\Local\Programs\MiKTeX\tex/latex/mathtools\mhsetup.sty
 Package: mhsetup 2021/03/18 v1.4 programming setup (MH)
 )
-\g_MT_multlinerow_int=\count276
+\g_MT_multlinerow_int=\count278
 \l_MT_multwidth_dim=\dimen161
 \origjot=\skip58
 \l_MT_shortvdotswithinadjustabove_dim=\dimen162
@@ -216,8 +216,8 @@ slashbox style by K.Yasuoka, May 1993.
 \@slashboxa=\box56
 \@slashboxb=\box57
 \@slashboxc=\box58
-\@slashboxwd=\count277
-\@slashboxht=\count278
+\@slashboxwd=\count279
+\@slashboxht=\count280
 \@slashsepl=\dimen171
 \@slashsepr=\dimen172
 ) (C:\Users\fcoja\AppData\Local\Programs\MiKTeX\tex/latex/setspace\setspace.sty
@@ -229,9 +229,9 @@ Package: gensymb 2022/10/17 v1.0.2 (KJH)
 Package: accents 2006/05/12 v1.4 Math Accent Tools
 \cc@skew=\dimen173
 \cc@wd=\dimen174
-\cc@code=\count279
-\cc@group=\count280
-\cc@skewchar=\count281
+\cc@code=\count281
+\cc@group=\count282
+\cc@skewchar=\count283
 )
 (C:\Users\fcoja\AppData\Local\Programs\MiKTeX\tex/latex/adjustbox\adjustbox.sty
 Package: adjustbox 2022/10/17 v1.3a Adjusting TeX boxes (trim, clip, ...)
@@ -243,7 +243,7 @@ Package: xkeyval 2022/06/16 v2.9 package option processing (HA)
 \XKV@toks=\toks28
 \XKV@tempa@toks=\toks29
 )
-\XKV@depth=\count282
+\XKV@depth=\count284
 File: xkeyval.tex 2014/12/03 v2.7a key=value parser (HA)
 ))
 (C:\Users\fcoja\AppData\Local\Programs\MiKTeX\tex/latex/adjustbox\adjcalc.sty
@@ -278,11 +278,11 @@ File: tc-pdftex.def 2019/01/04 v2.2 Clipping driver for pdftex
 
 (C:\Users\fcoja\AppData\Local\Programs\MiKTeX\tex/latex/ifoddpage\ifoddpage.sty
 Package: ifoddpage 2022/10/18 v1.2 Conditionals for odd/even page detection
-\c@checkoddpage=\count283
+\c@checkoddpage=\count285
 ) (C:\Users\fcoja\AppData\Local\Programs\MiKTeX\tex/latex/varwidth\varwidth.sty
 Package: varwidth 2009/03/30 ver 0.92;  Variable-width minipages
 \@vwid@box=\box60
-\sift@deathcycles=\count284
+\sift@deathcycles=\count286
 \@vwid@loff=\dimen187
 \@vwid@roff=\dimen188
 ))
@@ -343,16 +343,16 @@ Package: caption3 2023/07/31 v2.4d caption3 kernel (AR)
 \caption@hangindent=\dimen198
 Package caption Info: Standard document class detected.
 )
-\c@caption@flags=\count285
-\c@continuedfloat=\count286
+\c@caption@flags=\count287
+\c@continuedfloat=\count288
 )
 Package caption Info: New subtype `subfigure' on input line 238.
-\c@subfigure=\count287
+\c@subfigure=\count289
 Package caption Info: New subtype `subtable' on input line 238.
-\c@subtable=\count288
+\c@subtable=\count290
 )
 (C:\Users\fcoja\AppData\Local\Programs\MiKTeX\tex/latex/tcolorbox\tcolorbox.sty
-Package: tcolorbox 2023/09/26 version 6.1.0 text color boxes
+Package: tcolorbox 2024/01/10 version 6.2.0 text color boxes
 (C:\Users\fcoja\AppData\Local\Programs\MiKTeX\tex/latex/pgf/basiclayer\pgf.sty
 (C:\Users\fcoja\AppData\Local\Programs\MiKTeX\tex/latex/pgf/utilities\pgfrcs.st
 y
@@ -402,14 +402,14 @@ libraryfiltered.code.tex
 \pgf@yd=\dimen266
 \w@pgf@writea=\write3
 \r@pgf@reada=\read2
-\c@pgf@counta=\count289
-\c@pgf@countb=\count290
-\c@pgf@countc=\count291
-\c@pgf@countd=\count292
+\c@pgf@counta=\count291
+\c@pgf@countb=\count292
+\c@pgf@countc=\count293
+\c@pgf@countd=\count294
 \t@pgf@toka=\toks35
 \t@pgf@tokb=\toks36
 \t@pgf@tokc=\toks37
-\pgf@sys@id@count=\count293
+\pgf@sys@id@count=\count295
 
 (C:\Users\fcoja\AppData\Local\Programs\MiKTeX\tex/generic/pgf/systemlayer\pgf.c
 fg
@@ -428,30 +428,30 @@ File: pgfsys-common-pdf.def 2023-01-15 v3.1.10 (3.1.10)
 (C:\Users\fcoja\AppData\Local\Programs\MiKTeX\tex/generic/pgf/systemlayer\pgfsy
 ssoftpath.code.tex
 File: pgfsyssoftpath.code.tex 2023-01-15 v3.1.10 (3.1.10)
-\pgfsyssoftpath@smallbuffer@items=\count294
-\pgfsyssoftpath@bigbuffer@items=\count295
+\pgfsyssoftpath@smallbuffer@items=\count296
+\pgfsyssoftpath@bigbuffer@items=\count297
 )
 (C:\Users\fcoja\AppData\Local\Programs\MiKTeX\tex/generic/pgf/systemlayer\pgfsy
 sprotocol.code.tex
 File: pgfsysprotocol.code.tex 2023-01-15 v3.1.10 (3.1.10)
 ))
 (C:\Users\fcoja\AppData\Local\Programs\MiKTeX\tex/latex/xcolor\xcolor.sty
-Package: xcolor 2022/06/12 v2.14 LaTeX color extensions (UK)
+Package: xcolor 2023/11/15 v3.01 LaTeX color extensions (UK)
 
 (C:\Users\fcoja\AppData\Local\Programs\MiKTeX\tex/latex/graphics-cfg\color.cfg
 File: color.cfg 2016/01/02 v1.6 sample color configuration
 )
-Package xcolor Info: Driver file: pdftex.def on input line 227.
+Package xcolor Info: Driver file: pdftex.def on input line 274.
 (C:\Users\fcoja\AppData\Local\Programs\MiKTeX\tex/latex/graphics\mathcolor.ltx)
-Package xcolor Info: Model `cmy' substituted by `cmy0' on input line 1353.
-Package xcolor Info: Model `hsb' substituted by `rgb' on input line 1357.
-Package xcolor Info: Model `RGB' extended on input line 1369.
-Package xcolor Info: Model `HTML' substituted by `rgb' on input line 1371.
-Package xcolor Info: Model `Hsb' substituted by `hsb' on input line 1372.
-Package xcolor Info: Model `tHsb' substituted by `hsb' on input line 1373.
-Package xcolor Info: Model `HSB' substituted by `hsb' on input line 1374.
-Package xcolor Info: Model `Gray' substituted by `gray' on input line 1375.
-Package xcolor Info: Model `wave' substituted by `hsb' on input line 1376.
+Package xcolor Info: Model `cmy' substituted by `cmy0' on input line 1350.
+Package xcolor Info: Model `hsb' substituted by `rgb' on input line 1354.
+Package xcolor Info: Model `RGB' extended on input line 1366.
+Package xcolor Info: Model `HTML' substituted by `rgb' on input line 1368.
+Package xcolor Info: Model `Hsb' substituted by `hsb' on input line 1369.
+Package xcolor Info: Model `tHsb' substituted by `hsb' on input line 1370.
+Package xcolor Info: Model `HSB' substituted by `hsb' on input line 1371.
+Package xcolor Info: Model `Gray' substituted by `gray' on input line 1372.
+Package xcolor Info: Model `wave' substituted by `hsb' on input line 1373.
 )
 (C:\Users\fcoja\AppData\Local\Programs\MiKTeX\tex/generic/pgf/basiclayer\pgfcor
 e.code.tex
@@ -464,7 +464,7 @@ code.tex)
 (C:\Users\fcoja\AppData\Local\Programs\MiKTeX\tex/generic/pgf/math\pgfmathparse
 r.code.tex
 \pgfmath@dimen=\dimen267
-\pgfmath@count=\count296
+\pgfmath@count=\count298
 \pgfmath@box=\box62
 \pgfmath@toks=\toks38
 \pgfmath@stack@operand=\toks39
@@ -492,7 +492,7 @@ ions.integerarithmetics.code.tex)
 code.tex)
 (C:\Users\fcoja\AppData\Local\Programs\MiKTeX\tex/generic/pgf/math\pgfmathfloat
 .code.tex
-\c@pgfmathroundto@lastzeros=\count297
+\c@pgfmathroundto@lastzeros=\count299
 ))
 (C:\Users\fcoja\AppData\Local\Programs\MiKTeX\tex/generic/pgf/math\pgfint.code.
 tex)
@@ -532,7 +532,7 @@ File: pgfcorescopes.code.tex 2023-01-15 v3.1.10 (3.1.10)
 \pgfpic=\box63
 \pgf@hbox=\box64
 \pgf@layerbox@main=\box65
-\pgf@picture@serial@count=\count298
+\pgf@picture@serial@count=\count300
 )
 (C:\Users\fcoja\AppData\Local\Programs\MiKTeX\tex/generic/pgf/basiclayer\pgfcor
 egraphicstate.code.tex
@@ -567,8 +567,8 @@ File: pgfcorearrows.code.tex 2023-01-15 v3.1.10 (3.1.10)
 eshade.code.tex
 File: pgfcoreshade.code.tex 2023-01-15 v3.1.10 (3.1.10)
 \pgf@max=\dimen291
-\pgf@sys@shading@range@num=\count299
-\pgf@shadingcount=\count300
+\pgf@sys@shading@range@num=\count301
+\pgf@shadingcount=\count302
 )
 (C:\Users\fcoja\AppData\Local\Programs\MiKTeX\tex/generic/pgf/basiclayer\pgfcor
 eimage.code.tex
@@ -615,7 +615,7 @@ mp-version-1-18.sty
 Package: pgfcomp-version-1-18 2023-01-15 v3.1.10 (3.1.10)
 ))
 (C:\Users\fcoja\AppData\Local\Programs\MiKTeX\tex/latex/tools\verbatim.sty
-Package: verbatim 2022-07-02 v1.5u LaTeX2e package for verbatim enhancements
+Package: verbatim 2023-11-06 v1.5v LaTeX2e package for verbatim enhancements
 \every@verbatim=\toks41
 \verbatim@line=\toks42
 \verbatim@in@stream=\read3
@@ -629,62 +629,64 @@ Package: trimspaces 2009/09/17 v1.1 Trim spaces around a token list
 ))
 (C:\Users\fcoja\AppData\Local\Programs\MiKTeX\tex/latex/etoolbox\etoolbox.sty
 Package: etoolbox 2020/10/05 v2.5k e-TeX tools for LaTeX (JAW)
-\etb@tempcnta=\count301
+\etb@tempcnta=\count303
 )
 \tcb@titlebox=\box68
 \tcb@upperbox=\box69
 \tcb@lowerbox=\box70
 \tcb@phantombox=\box71
-\c@tcbbreakpart=\count302
-\c@tcblayer=\count303
-\c@tcolorbox@number=\count304
-\tcb@temp=\box72
+\c@tcbbreakpart=\count304
+\c@tcblayer=\count305
+\c@tcolorbox@number=\count306
+\l__tcobox_tmpa_box=\box72
+\l__tcobox_tmpa_dim=\dimen294
 \tcb@temp=\box73
 \tcb@temp=\box74
 \tcb@temp=\box75
+\tcb@temp=\box76
 ) (C:\Users\fcoja\AppData\Local\Programs\MiKTeX\tex/latex/colortbl\colortbl.sty
 Package: colortbl 2022/06/20 v1.0f Color table columns (DPC)
 
 (C:\Users\fcoja\AppData\Local\Programs\MiKTeX\tex/latex/tools\array.sty
-Package: array 2022/09/04 v2.5g Tabular extension package (FMi)
-\col@sep=\dimen294
-\ar@mcellbox=\box76
-\extrarowheight=\dimen295
+Package: array 2023/10/16 v2.5g Tabular extension package (FMi)
+\col@sep=\dimen295
+\ar@mcellbox=\box77
+\extrarowheight=\dimen296
 \NC@list=\toks43
 \extratabsurround=\skip73
 \backup@length=\skip74
-\ar@cellbox=\box77
+\ar@cellbox=\box78
 )
 \everycr=\toks44
 \minrowclearance=\skip75
-\rownum=\count305
+\rownum=\count307
 )
 (C:\Users\fcoja\AppData\Local\Programs\MiKTeX\tex/latex/wrapfig\wrapfig.sty
-\wrapoverhang=\dimen296
-\WF@size=\dimen297
-\c@WF@wrappedlines=\count306
-\WF@box=\box78
+\wrapoverhang=\dimen297
+\WF@size=\dimen298
+\c@WF@wrappedlines=\count308
+\WF@box=\box79
 \WF@everypar=\toks45
 Package: wrapfig 2003/01/31  v 3.6
 )
 (C:\Users\fcoja\AppData\Local\Programs\MiKTeX\tex/latex/mathtools\empheq.sty
 Package: empheq 2017/03/31 v2.15 Emphasizing equations
-\l_EQ_equationtype_int=\count307
-\l_EQ_alignmentmode_int=\count308
-\l_EQ_totalwidth_dim=\dimen298
-\l_EQ_displaywidth_dim=\dimen299
-\l_EQ_temp_linewidth_dim=\dimen300
-\l_EQ_linewidth_dim=\dimen301
-\EmphEqdelimitershortfall=\dimen302
-\EmphEqdelimiterfactor=\count309
-\g_EQ_toptag_height_dim=\dimen303
-\g_EQ_bottomtag_depth_dim=\dimen304
-\g_EQ_toprow_height_dim=\dimen305
-\g_EQ_bottomrow_depth_dim=\dimen306
-\g_EQ_widesttag_dim=\dimen307
-\EQ_mathdisplay_box=\box79
-\EQ_tag_box=\box80
-\g_EQ_temprow_int=\count310
+\l_EQ_equationtype_int=\count309
+\l_EQ_alignmentmode_int=\count310
+\l_EQ_totalwidth_dim=\dimen299
+\l_EQ_displaywidth_dim=\dimen300
+\l_EQ_temp_linewidth_dim=\dimen301
+\l_EQ_linewidth_dim=\dimen302
+\EmphEqdelimitershortfall=\dimen303
+\EmphEqdelimiterfactor=\count311
+\g_EQ_toptag_height_dim=\dimen304
+\g_EQ_bottomtag_depth_dim=\dimen305
+\g_EQ_toprow_height_dim=\dimen306
+\g_EQ_bottomrow_depth_dim=\dimen307
+\g_EQ_widesttag_dim=\dimen308
+\EQ_mathdisplay_box=\box80
+\EQ_tag_box=\box81
+\g_EQ_temprow_int=\count312
 )
 (C:\Users\fcoja\AppData\Local\Programs\MiKTeX\tex/latex/parskip\parskip.sty
 Package: parskip 2021-03-14 v2.0h non-zero parskip adjustments
@@ -692,66 +694,65 @@ Package: parskip 2021-03-14 v2.0h non-zero parskip adjustments
 (C:\Users\fcoja\AppData\Local\Programs\MiKTeX\tex/latex/kvoptions\kvoptions.sty
 Package: kvoptions 2022-06-15 v3.15 Key value format for package options (HO)
 (C:\Users\fcoja\AppData\Local\Programs\MiKTeX\tex/generic/ltxcmds\ltxcmds.sty
-Package: ltxcmds 2020-05-10 v1.25 LaTeX kernel commands for general use (HO)
+Package: ltxcmds 2023-12-04 v1.26 LaTeX kernel commands for general use (HO)
 )
 (C:\Users\fcoja\AppData\Local\Programs\MiKTeX\tex/latex/kvsetkeys\kvsetkeys.sty
 Package: kvsetkeys 2022-10-05 v1.19 Key value parser (HO)
 )))
 (C:\Users\fcoja\AppData\Local\Programs\MiKTeX\tex/latex/arydshln\arydshln.sty
 Package: arydshln 2019/02/21 v1.76 
-\dashlinedash=\dimen308
-\dashlinegap=\dimen309
-\adl@box=\box81
-\adl@height=\dimen310
-\adl@heightsave=\dimen311
-\adl@depth=\dimen312
-\adl@depthsave=\dimen313
-\adl@finaldepth=\dimen314
-\adl@columns=\count311
-\adl@ncol=\count312
-\adl@currentcolumn=\count313
-\adl@currentcolumnsave=\count314
-\adl@totalheight=\count315
-\adl@totalheightsave=\count316
-\adl@dash=\count317
-\adl@gap=\count318
-\adl@cla=\count319
-\adl@clb=\count320
+\dashlinedash=\dimen309
+\dashlinegap=\dimen310
+\adl@box=\box82
+\adl@height=\dimen311
+\adl@heightsave=\dimen312
+\adl@depth=\dimen313
+\adl@depthsave=\dimen314
+\adl@finaldepth=\dimen315
+\adl@columns=\count313
+\adl@ncol=\count314
+\adl@currentcolumn=\count315
+\adl@currentcolumnsave=\count316
+\adl@totalheight=\count317
+\adl@totalheightsave=\count318
+\adl@dash=\count319
+\adl@gap=\count320
+\adl@cla=\count321
+\adl@clb=\count322
 \adl@everyvbox=\toks46
-\adl@LTpagetotal=\dimen315
+\adl@LTpagetotal=\dimen316
 )
 (C:\Users\fcoja\AppData\Local\Programs\MiKTeX\tex/latex/multirow\multirow.sty
 Package: multirow 2021/03/15 v2.8 Span multiple rows of a table
 \multirow@colwidth=\skip76
-\multirow@cntb=\count321
+\multirow@cntb=\count323
 \multirow@dima=\skip77
-\bigstrutjot=\dimen316
+\bigstrutjot=\dimen317
 )
 (C:\Users\fcoja\AppData\Local\Programs\MiKTeX\tex/latex/tools\multicol.sty
 Package: multicol 2023/03/30 v1.9f multicolumn formatting (FMi)
-\c@tracingmulticols=\count322
-\mult@box=\box82
-\multicol@leftmargin=\dimen317
-\c@unbalance=\count323
-\c@collectmore=\count324
-\doublecol@number=\count325
-\multicoltolerance=\count326
-\multicolpretolerance=\count327
-\full@width=\dimen318
-\page@free=\dimen319
-\premulticols=\dimen320
-\postmulticols=\dimen321
+\c@tracingmulticols=\count324
+\mult@box=\box83
+\multicol@leftmargin=\dimen318
+\c@unbalance=\count325
+\c@collectmore=\count326
+\doublecol@number=\count327
+\multicoltolerance=\count328
+\multicolpretolerance=\count329
+\full@width=\dimen319
+\page@free=\dimen320
+\premulticols=\dimen321
+\postmulticols=\dimen322
 \multicolsep=\skip78
 \multicolbaselineskip=\skip79
-\partial@page=\box83
-\last@line=\box84
-\mc@boxedresult=\box85
-\maxbalancingoverflow=\dimen322
-\mult@rightbox=\box86
-\mult@grightbox=\box87
-\mult@firstbox=\box88
-\mult@gfirstbox=\box89
-\@tempa=\box90
+\partial@page=\box84
+\last@line=\box85
+\mc@boxedresult=\box86
+\maxbalancingoverflow=\dimen323
+\mult@rightbox=\box87
+\mult@grightbox=\box88
+\mult@firstbox=\box89
+\mult@gfirstbox=\box90
 \@tempa=\box91
 \@tempa=\box92
 \@tempa=\box93
@@ -787,35 +788,36 @@ Package: multicol 2023/03/30 v1.9f multicolumn formatting (FMi)
 \@tempa=\box123
 \@tempa=\box124
 \@tempa=\box125
-\c@minrows=\count328
-\c@columnbadness=\count329
-\c@finalcolumnbadness=\count330
-\last@try=\dimen323
-\multicolovershoot=\dimen324
-\multicolundershoot=\dimen325
-\mult@nat@firstbox=\box126
-\colbreak@box=\box127
-\mc@col@check@num=\count331
+\@tempa=\box126
+\c@minrows=\count330
+\c@columnbadness=\count331
+\c@finalcolumnbadness=\count332
+\last@try=\dimen324
+\multicolovershoot=\dimen325
+\multicolundershoot=\dimen326
+\mult@nat@firstbox=\box127
+\colbreak@box=\box128
+\mc@col@check@num=\count333
 )
 (C:\Users\fcoja\AppData\Local\Programs\MiKTeX\tex/latex/listings\listings.sty
-\lst@mode=\count332
-\lst@gtempboxa=\box128
+\lst@mode=\count334
+\lst@gtempboxa=\box129
 \lst@token=\toks47
-\lst@length=\count333
-\lst@currlwidth=\dimen326
-\lst@column=\count334
-\lst@pos=\count335
-\lst@lostspace=\dimen327
-\lst@width=\dimen328
-\lst@newlines=\count336
-\lst@lineno=\count337
-\lst@maxwidth=\dimen329
+\lst@length=\count335
+\lst@currlwidth=\dimen327
+\lst@column=\count336
+\lst@pos=\count337
+\lst@lostspace=\dimen328
+\lst@width=\dimen329
+\lst@newlines=\count338
+\lst@lineno=\count339
+\lst@maxwidth=\dimen330
 
 (C:\Users\fcoja\AppData\Local\Programs\MiKTeX\tex/latex/listings\lstmisc.sty
 File: lstmisc.sty 2023/02/27 1.9 (Carsten Heinz)
-\c@lstnumber=\count338
-\lst@skipnumbers=\count339
-\lst@framebox=\box129
+\c@lstnumber=\count340
+\lst@skipnumbers=\count341
+\lst@framebox=\box130
 )
 (C:\Users\fcoja\AppData\Local\Programs\MiKTeX\tex/latex/listings\listings.cfg
 File: listings.cfg 2023/02/27 1.9 listings configuration
@@ -827,15 +829,15 @@ Package: mdframed 2013/07/01 1.9b: mdframed
 (C:\Users\fcoja\AppData\Local\Programs\MiKTeX\tex/latex/l3packages/xparse\xpars
 e.sty
 (C:\Users\fcoja\AppData\Local\Programs\MiKTeX\tex/latex/l3kernel\expl3.sty
-Package: expl3 2023-08-29 L3 programming layer (loader) 
+Package: expl3 2024-01-22 L3 programming layer (loader) 
 
 (C:\Users\fcoja\AppData\Local\Programs\MiKTeX\tex/latex/l3backend\l3backend-pdf
 tex.def
-File: l3backend-pdftex.def 2023-04-19 L3 backend support: PDF output (pdfTeX)
-\l__color_backend_stack_int=\count340
-\l__pdf_internal_box=\box130
+File: l3backend-pdftex.def 2024-01-04 L3 backend support: PDF output (pdfTeX)
+\l__color_backend_stack_int=\count342
+\l__pdf_internal_box=\box131
 ))
-Package: xparse 2023-08-29 L3 Experimental document command parser
+Package: xparse 2023-10-10 L3 Experimental document command parser
 )
 (C:\Users\fcoja\AppData\Local\Programs\MiKTeX\tex/latex/zref\zref-abspage.sty
 Package: zref-abspage 2023-09-14 v2.35 Module abspage for zref (HO)
@@ -871,14 +873,14 @@ Package zref Info: New property list: main on input line 767.
 Package zref Info: New property: default on input line 768.
 Package zref Info: New property: page on input line 769.
 )
-\c@abspage=\count341
+\c@abspage=\count343
 Package zref Info: New property: abspage on input line 67.
 )
 (C:\Users\fcoja\AppData\Local\Programs\MiKTeX\tex/latex/needspace\needspace.sty
 Package: needspace 2010/09/12 v1.3d reserve vertical space
 )
 \mdf@templength=\skip80
-\c@mdf@globalstyle@cnt=\count342
+\c@mdf@globalstyle@cnt=\count344
 \mdf@skipabove@length=\skip81
 \mdf@skipbelow@length=\skip82
 \mdf@leftmargin@length=\skip83
@@ -922,11 +924,11 @@ Package: needspace 2010/09/12 v1.3d reserve vertical space
 (C:\Users\fcoja\AppData\Local\Programs\MiKTeX\tex/latex/mdframed\md-frame-0.mdf
 File: md-frame-0.mdf 2013/07/01\ 1.9b: md-frame-0
 )
-\mdf@frametitlebox=\box131
-\mdf@footnotebox=\box132
-\mdf@splitbox@one=\box133
-\mdf@splitbox@two=\box134
-\mdf@splitbox@save=\box135
+\mdf@frametitlebox=\box132
+\mdf@footnotebox=\box133
+\mdf@splitbox@one=\box134
+\mdf@splitbox@two=\box135
+\mdf@splitbox@save=\box136
 \mdfsplitboxwidth=\skip120
 \mdfsplitboxtotalwidth=\skip121
 \mdfsplitboxheight=\skip122
@@ -954,16 +956,16 @@ File: md-frame-0.mdf 2013/07/01\ 1.9b: md-frame-0
 \mdf@horizontalspaceofbox=\skip144
 \mdfsubtitleheight=\skip145
 \mdfsubsubtitleheight=\skip146
-\c@mdfcountframes=\count343
+\c@mdfcountframes=\count345
 
 ****** mdframed patching \endmdf@trivlist
 
 ****** -- success******
 
-\mdf@envdepth=\count344
-\c@mdf@env@i=\count345
-\c@mdf@env@ii=\count346
-\c@mdf@zref@counter=\count347
+\mdf@envdepth=\count346
+\c@mdf@env@i=\count347
+\c@mdf@env@ii=\count348
+\c@mdf@zref@counter=\count349
 Package zref Info: New property: mdf@pagevalue on input line 895.
 )
 (C:\Users\fcoja\AppData\Local\Programs\MiKTeX\tex/latex/underscore\underscore.s
@@ -971,21 +973,21 @@ ty
 Package: underscore 2006/09/13
 LaTeX Info: Redefining \_ on input line 42.
 )
+(C:\Users\fcoja\AppData\Local\Programs\MiKTeX\tex/latex/firstaid\underscore-ltx
+.sty
+Package: underscore-ltx 2023/09/20 LaTeX firstaid to make underscore protected 
+
+)
 (C:\Users\fcoja\AppData\Local\Programs\MiKTeX\tex/latex/hyperref\hyperref.sty
-Package: hyperref 2023-07-08 v7.01b Hypertext links for LaTeX
+Package: hyperref 2024-01-20 v7.01h Hypertext links for LaTeX
 
 (C:\Users\fcoja\AppData\Local\Programs\MiKTeX\tex/generic/pdfescape\pdfescape.s
 ty
 Package: pdfescape 2019/12/09 v1.15 Implements pdfTeX's escape features (HO)
 ) (C:\Users\fcoja\AppData\Local\Programs\MiKTeX\tex/latex/hycolor\hycolor.sty
 Package: hycolor 2020-01-27 v1.10 Color options for hyperref/bookmark (HO)
-)
-(C:\Users\fcoja\AppData\Local\Programs\MiKTeX\tex/latex/letltxmacro\letltxmacro
-.sty
-Package: letltxmacro 2019/12/03 v1.6 Let assignment for LaTeX macros (HO)
-)
-(C:\Users\fcoja\AppData\Local\Programs\MiKTeX\tex/latex/hyperref\nameref.sty
-Package: nameref 2023-08-07 v2.53 Cross-referencing by name of section
+) (C:\Users\fcoja\AppData\Local\Programs\MiKTeX\tex/latex/hyperref\nameref.sty
+Package: nameref 2023-11-26 v2.56 Cross-referencing by name of section
 
 (C:\Users\fcoja\AppData\Local\Programs\MiKTeX\tex/latex/refcount\refcount.sty
 Package: refcount 2019/12/15 v3.6 Data extraction from label references (HO)
@@ -994,42 +996,42 @@ Package: refcount 2019/12/15 v3.6 Data extraction from label references (HO)
 lestring.sty
 Package: gettitlestring 2019/12/15 v1.6 Cleanup title references (HO)
 )
-\c@section@level=\count348
+\c@section@level=\count350
 )
-\@linkdim=\dimen330
-\Hy@linkcounter=\count349
-\Hy@pagecounter=\count350
+\@linkdim=\dimen331
+\Hy@linkcounter=\count351
+\Hy@pagecounter=\count352
 
 (C:\Users\fcoja\AppData\Local\Programs\MiKTeX\tex/latex/hyperref\pd1enc.def
-File: pd1enc.def 2023-07-08 v7.01b Hyperref: PDFDocEncoding definition (HO)
+File: pd1enc.def 2024-01-20 v7.01h Hyperref: PDFDocEncoding definition (HO)
 Now handling font encoding PD1 ...
 ... no UTF-8 mapping file for font encoding PD1
 )
 (C:\Users\fcoja\AppData\Local\Programs\MiKTeX\tex/generic/intcalc\intcalc.sty
 Package: intcalc 2019/12/15 v1.3 Expandable calculations with integers (HO)
 )
-\Hy@SavedSpaceFactor=\count351
+\Hy@SavedSpaceFactor=\count353
 
 (C:\Users\fcoja\AppData\Local\Programs\MiKTeX\tex/latex/hyperref\puenc.def
-File: puenc.def 2023-07-08 v7.01b Hyperref: PDF Unicode definition (HO)
+File: puenc.def 2024-01-20 v7.01h Hyperref: PDF Unicode definition (HO)
 Now handling font encoding PU ...
 ... no UTF-8 mapping file for font encoding PU
 )
-Package hyperref Info: Hyper figures OFF on input line 4167.
-Package hyperref Info: Link nesting OFF on input line 4172.
-Package hyperref Info: Hyper index ON on input line 4175.
-Package hyperref Info: Plain pages OFF on input line 4182.
-Package hyperref Info: Backreferencing OFF on input line 4187.
+Package hyperref Info: Hyper figures OFF on input line 4179.
+Package hyperref Info: Link nesting OFF on input line 4184.
+Package hyperref Info: Hyper index ON on input line 4187.
+Package hyperref Info: Plain pages OFF on input line 4194.
+Package hyperref Info: Backreferencing OFF on input line 4199.
 Package hyperref Info: Implicit mode ON; LaTeX internals redefined.
-Package hyperref Info: Bookmarks ON on input line 4434.
-\c@Hy@tempcnt=\count352
+Package hyperref Info: Bookmarks ON on input line 4446.
+\c@Hy@tempcnt=\count354
 
 (C:\Users\fcoja\AppData\Local\Programs\MiKTeX\tex/latex/url\url.sty
 \Urlmuskip=\muskip17
 Package: url 2013/09/16  ver 3.4  Verb mode for urls, etc.
 )
-LaTeX Info: Redefining \url on input line 4772.
-\XeTeXLinkMargin=\dimen331
+LaTeX Info: Redefining \url on input line 4784.
+\XeTeXLinkMargin=\dimen332
 
 (C:\Users\fcoja\AppData\Local\Programs\MiKTeX\tex/generic/bitset\bitset.sty
 Package: bitset 2019/12/09 v1.3 Handle bit-vector datatype (HO)
@@ -1039,37 +1041,37 @@ Package: bitset 2019/12/09 v1.3 Handle bit-vector datatype (HO)
 Package: bigintcalc 2019/12/15 v1.5 Expandable calculations on big integers (HO
 )
 ))
-\Fld@menulength=\count353
-\Field@Width=\dimen332
-\Fld@charsize=\dimen333
-Package hyperref Info: Hyper figures OFF on input line 6051.
-Package hyperref Info: Link nesting OFF on input line 6056.
-Package hyperref Info: Hyper index ON on input line 6059.
-Package hyperref Info: backreferencing OFF on input line 6066.
-Package hyperref Info: Link coloring OFF on input line 6071.
-Package hyperref Info: Link coloring with OCG OFF on input line 6076.
-Package hyperref Info: PDF/A mode OFF on input line 6081.
+\Fld@menulength=\count355
+\Field@Width=\dimen333
+\Fld@charsize=\dimen334
+Package hyperref Info: Hyper figures OFF on input line 6063.
+Package hyperref Info: Link nesting OFF on input line 6068.
+Package hyperref Info: Hyper index ON on input line 6071.
+Package hyperref Info: backreferencing OFF on input line 6078.
+Package hyperref Info: Link coloring OFF on input line 6083.
+Package hyperref Info: Link coloring with OCG OFF on input line 6088.
+Package hyperref Info: PDF/A mode OFF on input line 6093.
 
 (C:\Users\fcoja\AppData\Local\Programs\MiKTeX\tex/latex/base\atbegshi-ltx.sty
 Package: atbegshi-ltx 2021/01/10 v1.0c Emulation of the original atbegshi
 package with kernel methods
 )
-\Hy@abspage=\count354
-\c@Item=\count355
-\c@Hfootnote=\count356
+\Hy@abspage=\count356
+\c@Item=\count357
+\c@Hfootnote=\count358
 )
 Package hyperref Info: Driver (autodetected): hpdftex.
 (C:\Users\fcoja\AppData\Local\Programs\MiKTeX\tex/latex/hyperref\hpdftex.def
-File: hpdftex.def 2023-07-08 v7.01b Hyperref driver for pdfTeX
+File: hpdftex.def 2024-01-20 v7.01h Hyperref driver for pdfTeX
 
 (C:\Users\fcoja\AppData\Local\Programs\MiKTeX\tex/latex/base\atveryend-ltx.sty
 Package: atveryend-ltx 2020/08/19 v1.0a Emulation of the original atveryend pac
 kage
 with kernel methods
 )
-\HyAnn@Count=\count357
-\Fld@listcount=\count358
-\c@bookmark@seq@number=\count359
+\HyAnn@Count=\count359
+\Fld@listcount=\count360
+\c@bookmark@seq@number=\count361
 
 (C:\Users\fcoja\AppData\Local\Programs\MiKTeX\tex/latex/rerunfilecheck\rerunfil
 echeck.sty
@@ -1098,8 +1100,8 @@ ty
 (C:\Users\fcoja\AppData\Local\Programs\MiKTeX\tex/generic/pgf/utilities\pgffor.
 code.tex
 Package: pgffor 2023-01-15 v3.1.10 (3.1.10)
-\pgffor@iter=\dimen334
-\pgffor@skip=\dimen335
+\pgffor@iter=\dimen335
+\pgffor@skip=\dimen336
 \pgffor@stack=\toks48
 \pgffor@toks=\toks49
 ))
@@ -1110,34 +1112,34 @@ Package: tikz 2023-01-15 v3.1.10 (3.1.10)
 (C:\Users\fcoja\AppData\Local\Programs\MiKTeX\tex/generic/pgf/libraries\pgflibr
 aryplothandlers.code.tex
 File: pgflibraryplothandlers.code.tex 2023-01-15 v3.1.10 (3.1.10)
-\pgf@plot@mark@count=\count360
-\pgfplotmarksize=\dimen336
+\pgf@plot@mark@count=\count362
+\pgfplotmarksize=\dimen337
 )
-\tikz@lastx=\dimen337
-\tikz@lasty=\dimen338
-\tikz@lastxsaved=\dimen339
-\tikz@lastysaved=\dimen340
-\tikz@lastmovetox=\dimen341
-\tikz@lastmovetoy=\dimen342
-\tikzleveldistance=\dimen343
-\tikzsiblingdistance=\dimen344
-\tikz@figbox=\box136
-\tikz@figbox@bg=\box137
-\tikz@tempbox=\box138
-\tikz@tempbox@bg=\box139
-\tikztreelevel=\count361
-\tikznumberofchildren=\count362
-\tikznumberofcurrentchild=\count363
-\tikz@fig@count=\count364
+\tikz@lastx=\dimen338
+\tikz@lasty=\dimen339
+\tikz@lastxsaved=\dimen340
+\tikz@lastysaved=\dimen341
+\tikz@lastmovetox=\dimen342
+\tikz@lastmovetoy=\dimen343
+\tikzleveldistance=\dimen344
+\tikzsiblingdistance=\dimen345
+\tikz@figbox=\box137
+\tikz@figbox@bg=\box138
+\tikz@tempbox=\box139
+\tikz@tempbox@bg=\box140
+\tikztreelevel=\count363
+\tikznumberofchildren=\count364
+\tikznumberofcurrentchild=\count365
+\tikz@fig@count=\count366
 
 (C:\Users\fcoja\AppData\Local\Programs\MiKTeX\tex/generic/pgf/modules\pgfmodule
 matrix.code.tex
 File: pgfmodulematrix.code.tex 2023-01-15 v3.1.10 (3.1.10)
-\pgfmatrixcurrentrow=\count365
-\pgfmatrixcurrentcolumn=\count366
-\pgf@matrix@numberofcolumns=\count367
+\pgfmatrixcurrentrow=\count367
+\pgfmatrixcurrentcolumn=\count368
+\pgf@matrix@numberofcolumns=\count369
 )
-\tikz@expandcount=\count368
+\tikz@expandcount=\count370
 
 (C:\Users\fcoja\AppData\Local\Programs\MiKTeX\tex/generic/pgf/frontendlayer/tik
 z/libraries\tikzlibrarytopaths.code.tex
@@ -1159,10 +1161,10 @@ File: tikzlibraryquotes.code.tex 2023-01-15 v3.1.10 (3.1.10)
 (C:\Users\fcoja\AppData\Local\Programs\MiKTeX\tex/generic/pgf/libraries\pgflibr
 aryarrows.meta.code.tex
 File: pgflibraryarrows.meta.code.tex 2023-01-15 v3.1.10 (3.1.10)
-\pgfarrowinset=\dimen345
-\pgfarrowlength=\dimen346
-\pgfarrowwidth=\dimen347
-\pgfarrowlinewidth=\dimen348
+\pgfarrowinset=\dimen346
+\pgfarrowlength=\dimen347
+\pgfarrowwidth=\dimen348
+\pgfarrowlinewidth=\dimen349
 )))
 (C:\Users\fcoja\AppData\Local\Programs\MiKTeX\tex/generic/pgf/frontendlayer/tik
 z/libraries\tikzlibraryshapes.code.tex
@@ -1211,26 +1213,26 @@ File: tikzlibraryshapes.multipart.code.tex 2023-01-15 v3.1.10 (3.1.10)
 (C:\Users\fcoja\AppData\Local\Programs\MiKTeX\tex/generic/pgf/libraries/shapes\
 pgflibraryshapes.multipart.code.tex
 File: pgflibraryshapes.multipart.code.tex 2023-01-15 v3.1.10 (3.1.10)
-\pgfnodepartlowerbox=\box140
-\pgfnodeparttwobox=\box141
-\pgfnodepartthreebox=\box142
-\pgfnodepartfourbox=\box143
-\pgfnodeparttwentybox=\box144
-\pgfnodepartnineteenbox=\box145
-\pgfnodeparteighteenbox=\box146
-\pgfnodepartseventeenbox=\box147
-\pgfnodepartsixteenbox=\box148
-\pgfnodepartfifteenbox=\box149
-\pgfnodepartfourteenbox=\box150
-\pgfnodepartthirteenbox=\box151
-\pgfnodeparttwelvebox=\box152
-\pgfnodepartelevenbox=\box153
-\pgfnodeparttenbox=\box154
-\pgfnodepartninebox=\box155
-\pgfnodeparteightbox=\box156
-\pgfnodepartsevenbox=\box157
-\pgfnodepartsixbox=\box158
-\pgfnodepartfivebox=\box159
+\pgfnodepartlowerbox=\box141
+\pgfnodeparttwobox=\box142
+\pgfnodepartthreebox=\box143
+\pgfnodepartfourbox=\box144
+\pgfnodeparttwentybox=\box145
+\pgfnodepartnineteenbox=\box146
+\pgfnodeparteighteenbox=\box147
+\pgfnodepartseventeenbox=\box148
+\pgfnodepartsixteenbox=\box149
+\pgfnodepartfifteenbox=\box150
+\pgfnodepartfourteenbox=\box151
+\pgfnodepartthirteenbox=\box152
+\pgfnodeparttwelvebox=\box153
+\pgfnodepartelevenbox=\box154
+\pgfnodeparttenbox=\box155
+\pgfnodepartninebox=\box156
+\pgfnodeparteightbox=\box157
+\pgfnodepartsevenbox=\box158
+\pgfnodepartsixbox=\box159
+\pgfnodepartfivebox=\box160
 )))
 (C:\Users\fcoja\AppData\Local\Programs\MiKTeX\tex/generic/pgf/frontendlayer/tik
 z/libraries\tikzlibrarypositioning.code.tex
@@ -1251,34 +1253,34 @@ ty
 y
 (C:\Users\fcoja\AppData\Local\Programs\MiKTeX\tex/generic/tikz-qtree\pgfsubpic.
 tex
-\pgf@subpicminx=\dimen349
-\pgf@subpicminy=\dimen350
-\pgf@subpicmaxx=\dimen351
-\pgf@subpicmaxy=\dimen352
+\pgf@subpicminx=\dimen350
+\pgf@subpicminy=\dimen351
+\pgf@subpicmaxx=\dimen352
+\pgf@subpicmaxy=\dimen353
 ))
 (C:\Users\fcoja\AppData\Local\Programs\MiKTeX\tex/generic/tikz-qtree\pgftree.te
 x
-\levelsep=\dimen353
-\subtreesep=\dimen354
-\smuggle@levelsep=\dimen355
-\smuggle@subtreesep=\dimen356
-\this@levelsep=\dimen357
-\this@subtreesep=\dimen358
-\pgftree@childx=\dimen359
-\pgftree@savechildx=\dimen360
-\pgftree@childy=\dimen361
-\pgftree@savechildy=\dimen362
-\pgftree@childi=\count369
-\pgftree@savechildi=\count370
-\pgftree@level=\count371
-\pgftree@depth=\dimen363
-\pgf@subpic@hbox@children=\box160
-\pgf@subpic@minx@children=\dimen364
-\pgf@subpic@miny@children=\dimen365
-\pgf@subpic@maxx@children=\dimen366
-\pgf@subpic@maxy@children=\dimen367
-\pgftree@lastchildx=\dimen368
-\pgftree@lastchildy=\dimen369
+\levelsep=\dimen354
+\subtreesep=\dimen355
+\smuggle@levelsep=\dimen356
+\smuggle@subtreesep=\dimen357
+\this@levelsep=\dimen358
+\this@subtreesep=\dimen359
+\pgftree@childx=\dimen360
+\pgftree@savechildx=\dimen361
+\pgftree@childy=\dimen362
+\pgftree@savechildy=\dimen363
+\pgftree@childi=\count371
+\pgftree@savechildi=\count372
+\pgftree@level=\count373
+\pgftree@depth=\dimen364
+\pgf@subpic@hbox@children=\box161
+\pgf@subpic@minx@children=\dimen365
+\pgf@subpic@miny@children=\dimen366
+\pgf@subpic@maxx@children=\dimen367
+\pgf@subpic@maxy@children=\dimen368
+\pgftree@lastchildx=\dimen369
+\pgftree@lastchildy=\dimen370
 ))
 (C:\Users\fcoja\AppData\Local\Programs\MiKTeX\tex/generic/tikz-qtree\tikz-qtree
 .tex
@@ -1291,7 +1293,7 @@ Package: biblatex 2023/03/05 v3.19 programmable bibliographies (PK/MW)
 
 (C:\Users\fcoja\AppData\Local\Programs\MiKTeX\tex/latex/logreq\logreq.sty
 Package: logreq 2010/08/04 v1.0 xml request logger
-\lrq@indent=\count372
+\lrq@indent=\count374
 
 (C:\Users\fcoja\AppData\Local\Programs\MiKTeX\tex/latex/logreq\logreq.def
 File: logreq.def 2010/08/04 v1.0 logreq spec v1.0
@@ -1299,49 +1301,49 @@ File: logreq.def 2010/08/04 v1.0 logreq spec v1.0
 (C:\Users\fcoja\AppData\Local\Programs\MiKTeX\tex/latex/base\ifthen.sty
 Package: ifthen 2022/04/13 v1.1d Standard LaTeX ifthen package (DPC)
 )
-\c@tabx@nest=\count373
-\c@listtotal=\count374
-\c@listcount=\count375
-\c@liststart=\count376
-\c@liststop=\count377
-\c@citecount=\count378
-\c@citetotal=\count379
-\c@multicitecount=\count380
-\c@multicitetotal=\count381
-\c@instcount=\count382
-\c@maxnames=\count383
-\c@minnames=\count384
-\c@maxitems=\count385
-\c@minitems=\count386
-\c@citecounter=\count387
-\c@maxcitecounter=\count388
-\c@savedcitecounter=\count389
-\c@uniquelist=\count390
-\c@uniquename=\count391
-\c@refsection=\count392
-\c@refsegment=\count393
-\c@maxextratitle=\count394
-\c@maxextratitleyear=\count395
-\c@maxextraname=\count396
-\c@maxextradate=\count397
-\c@maxextraalpha=\count398
-\c@abbrvpenalty=\count399
-\c@highnamepenalty=\count400
-\c@lownamepenalty=\count401
-\c@maxparens=\count402
-\c@parenlevel=\count403
-\blx@tempcnta=\count404
-\blx@tempcntb=\count405
-\blx@tempcntc=\count406
-\c@blx@maxsection=\count407
-\blx@maxsegment@0=\count408
-\blx@notetype=\count409
-\blx@parenlevel@text=\count410
-\blx@parenlevel@foot=\count411
-\blx@sectionciteorder@0=\count412
-\blx@sectionciteorderinternal@0=\count413
-\blx@entrysetcounter=\count414
-\blx@biblioinstance=\count415
+\c@tabx@nest=\count375
+\c@listtotal=\count376
+\c@listcount=\count377
+\c@liststart=\count378
+\c@liststop=\count379
+\c@citecount=\count380
+\c@citetotal=\count381
+\c@multicitecount=\count382
+\c@multicitetotal=\count383
+\c@instcount=\count384
+\c@maxnames=\count385
+\c@minnames=\count386
+\c@maxitems=\count387
+\c@minitems=\count388
+\c@citecounter=\count389
+\c@maxcitecounter=\count390
+\c@savedcitecounter=\count391
+\c@uniquelist=\count392
+\c@uniquename=\count393
+\c@refsection=\count394
+\c@refsegment=\count395
+\c@maxextratitle=\count396
+\c@maxextratitleyear=\count397
+\c@maxextraname=\count398
+\c@maxextradate=\count399
+\c@maxextraalpha=\count400
+\c@abbrvpenalty=\count401
+\c@highnamepenalty=\count402
+\c@lownamepenalty=\count403
+\c@maxparens=\count404
+\c@parenlevel=\count405
+\blx@tempcnta=\count406
+\blx@tempcntb=\count407
+\blx@tempcntc=\count408
+\c@blx@maxsection=\count409
+\blx@maxsegment@0=\count410
+\blx@notetype=\count411
+\blx@parenlevel@text=\count412
+\blx@parenlevel@foot=\count413
+\blx@sectionciteorder@0=\count414
+\blx@sectionciteorderinternal@0=\count415
+\blx@entrysetcounter=\count416
+\blx@biblioinstance=\count417
 \labelnumberwidth=\skip148
 \labelalphawidth=\skip149
 \biblabelsep=\skip150
@@ -1353,9 +1355,9 @@ Package: ifthen 2022/04/13 v1.1d Standard LaTeX ifthen package (DPC)
 \blx@bcfin=\read4
 \blx@bcfout=\write4
 \blx@langwohyphens=\language79
-\c@mincomprange=\count416
-\c@maxcomprange=\count417
-\c@mincompwidth=\count418
+\c@mincomprange=\count418
+\c@maxcomprange=\count419
+\c@mincompwidth=\count420
 Package biblatex Info: Trying to load biblatex default data model...
 Package biblatex Info: ... file 'blx-dm.def' found.
 
@@ -1364,74 +1366,74 @@ File: blx-dm.def 2023/03/05 v3.19 biblatex localization (PK/MW)
 )
 Package biblatex Info: Trying to load biblatex custom data model...
 Package biblatex Info: ... file 'biblatex-dm.cfg' not found.
-\c@afterword=\count419
-\c@savedafterword=\count420
-\c@annotator=\count421
-\c@savedannotator=\count422
-\c@author=\count423
-\c@savedauthor=\count424
-\c@bookauthor=\count425
-\c@savedbookauthor=\count426
-\c@commentator=\count427
-\c@savedcommentator=\count428
-\c@editor=\count429
-\c@savededitor=\count430
-\c@editora=\count431
-\c@savededitora=\count432
-\c@editorb=\count433
-\c@savededitorb=\count434
-\c@editorc=\count435
-\c@savededitorc=\count436
-\c@foreword=\count437
-\c@savedforeword=\count438
-\c@holder=\count439
-\c@savedholder=\count440
-\c@introduction=\count441
-\c@savedintroduction=\count442
-\c@namea=\count443
-\c@savednamea=\count444
-\c@nameb=\count445
-\c@savednameb=\count446
-\c@namec=\count447
-\c@savednamec=\count448
-\c@translator=\count449
-\c@savedtranslator=\count450
-\c@shortauthor=\count451
-\c@savedshortauthor=\count452
-\c@shorteditor=\count453
-\c@savedshorteditor=\count454
-\c@labelname=\count455
-\c@savedlabelname=\count456
-\c@institution=\count457
-\c@savedinstitution=\count458
-\c@lista=\count459
-\c@savedlista=\count460
-\c@listb=\count461
-\c@savedlistb=\count462
-\c@listc=\count463
-\c@savedlistc=\count464
-\c@listd=\count465
-\c@savedlistd=\count466
-\c@liste=\count467
-\c@savedliste=\count468
-\c@listf=\count469
-\c@savedlistf=\count470
-\c@location=\count471
-\c@savedlocation=\count472
-\c@organization=\count473
-\c@savedorganization=\count474
-\c@origlocation=\count475
-\c@savedoriglocation=\count476
-\c@origpublisher=\count477
-\c@savedorigpublisher=\count478
-\c@publisher=\count479
-\c@savedpublisher=\count480
-\c@language=\count481
-\c@savedlanguage=\count482
-\c@origlanguage=\count483
-\c@savedoriglanguage=\count484
-\c@pageref=\count485
-\c@savedpageref=\count486
+\c@afterword=\count421
+\c@savedafterword=\count422
+\c@annotator=\count423
+\c@savedannotator=\count424
+\c@author=\count425
+\c@savedauthor=\count426
+\c@bookauthor=\count427
+\c@savedbookauthor=\count428
+\c@commentator=\count429
+\c@savedcommentator=\count430
+\c@editor=\count431
+\c@savededitor=\count432
+\c@editora=\count433
+\c@savededitora=\count434
+\c@editorb=\count435
+\c@savededitorb=\count436
+\c@editorc=\count437
+\c@savededitorc=\count438
+\c@foreword=\count439
+\c@savedforeword=\count440
+\c@holder=\count441
+\c@savedholder=\count442
+\c@introduction=\count443
+\c@savedintroduction=\count444
+\c@namea=\count445
+\c@savednamea=\count446
+\c@nameb=\count447
+\c@savednameb=\count448
+\c@namec=\count449
+\c@savednamec=\count450
+\c@translator=\count451
+\c@savedtranslator=\count452
+\c@shortauthor=\count453
+\c@savedshortauthor=\count454
+\c@shorteditor=\count455
+\c@savedshorteditor=\count456
+\c@labelname=\count457
+\c@savedlabelname=\count458
+\c@institution=\count459
+\c@savedinstitution=\count460
+\c@lista=\count461
+\c@savedlista=\count462
+\c@listb=\count463
+\c@savedlistb=\count464
+\c@listc=\count465
+\c@savedlistc=\count466
+\c@listd=\count467
+\c@savedlistd=\count468
+\c@liste=\count469
+\c@savedliste=\count470
+\c@listf=\count471
+\c@savedlistf=\count472
+\c@location=\count473
+\c@savedlocation=\count474
+\c@organization=\count475
+\c@savedorganization=\count476
+\c@origlocation=\count477
+\c@savedoriglocation=\count478
+\c@origpublisher=\count479
+\c@savedorigpublisher=\count480
+\c@publisher=\count481
+\c@savedpublisher=\count482
+\c@language=\count483
+\c@savedlanguage=\count484
+\c@origlanguage=\count485
+\c@savedoriglanguage=\count486
+\c@pageref=\count487
+\c@savedpageref=\count488
 \shorthandwidth=\skip156
 \shortjournalwidth=\skip157
 \shortserieswidth=\skip158
@@ -1456,19 +1458,19 @@ Package biblatex Info: Trying to load generic definitions...
 Package biblatex Info: ... file 'biblatex.def' found.
  (C:\Users\fcoja\AppData\Local\Programs\MiKTeX\tex/latex/biblatex\biblatex.def
 File: biblatex.def 2023/03/05 v3.19 biblatex compatibility (PK/MW)
-\c@textcitecount=\count487
-\c@textcitetotal=\count488
-\c@textcitemaxnames=\count489
-\c@biburlbigbreakpenalty=\count490
-\c@biburlbreakpenalty=\count491
-\c@biburlnumpenalty=\count492
-\c@biburlucpenalty=\count493
-\c@biburllcpenalty=\count494
+\c@textcitecount=\count489
+\c@textcitetotal=\count490
+\c@textcitemaxnames=\count491
+\c@biburlbigbreakpenalty=\count492
+\c@biburlbreakpenalty=\count493
+\c@biburlnumpenalty=\count494
+\c@biburlucpenalty=\count495
+\c@biburllcpenalty=\count496
 \biburlbigskip=\muskip18
 \biburlnumskip=\muskip19
 \biburlucskip=\muskip20
 \biburllcskip=\muskip21
-\c@smartand=\count495
+\c@smartand=\count497
 )
 Package biblatex Info: Trying to load bibliography style 'numeric'...
 Package biblatex Info: ... file 'numeric.bbx' found.
@@ -1482,8 +1484,8 @@ Package biblatex Info: ... file 'standard.bbx' found.
 (C:\Users\fcoja\AppData\Local\Programs\MiKTeX\tex/latex/biblatex/bbx\standard.b
 bx
 File: standard.bbx 2023/03/05 v3.19 biblatex bibliography style (PK/MW)
-\c@bbx:relatedcount=\count496
-\c@bbx:relatedtotal=\count497
+\c@bbx:relatedcount=\count498
+\c@bbx:relatedtotal=\count499
 ))
 Package biblatex Info: Trying to load citation style 'numeric'...
 Package biblatex Info: ... file 'numeric.cbx' found.
@@ -1512,7 +1514,7 @@ File: biblatex.cfg
 Package biblatex Info: Input encoding 'utf8' detected.
 Package biblatex Info: Document encoding is UTF8 ....
 Package biblatex Info: ... and expl3
-(biblatex)             2023-08-29 L3 programming layer (loader) 
+(biblatex)             2024-01-22 L3 programming layer (loader) 
 (biblatex)             is new enough (at least 2020/04/06),
 (biblatex)             setting 'casechanger=expl3'.
 
@@ -1521,28 +1523,28 @@ Package biblatex Info: ... and expl3
 Package: blx-case-expl3 2023/03/05 v3.19 expl3 case changing code for biblatex
 ))
 (C:\Users\fcoja\AppData\Local\Programs\MiKTeX\tex/latex/pdfpages\pdfpages.sty
-Package: pdfpages 2022/12/19 v0.5x Insert pages of external PDF documents (AM)
+Package: pdfpages 2024/01/21 v0.5y Insert pages of external PDF documents (AM)
 
 (C:\Users\fcoja\AppData\Local\Programs\MiKTeX\tex/latex/eso-pic\eso-pic.sty
 Package: eso-pic 2023/05/03 v3.0c eso-pic (RN)
-\ESO@tempdima=\dimen370
-\ESO@tempdimb=\dimen371
+\ESO@tempdima=\dimen371
+\ESO@tempdimb=\dimen372
 )
-\AM@pagewidth=\dimen372
-\AM@pageheight=\dimen373
-\AM@fboxrule=\dimen374
+\AM@pagewidth=\dimen373
+\AM@pageheight=\dimen374
+\AM@fboxrule=\dimen375
 
 (C:\Users\fcoja\AppData\Local\Programs\MiKTeX\tex/latex/pdfpages\pppdftex.def
-File: pppdftex.def 2022/12/19 v0.5x Pdfpages driver for pdfTeX (AM)
+File: pppdftex.def 2024/01/21 v0.5y Pdfpages driver for pdfTeX (AM)
 )
-\pdfpages@includegraphics@status=\count498
-\AM@pagebox=\box161
+\pdfpages@includegraphics@status=\count500
+\AM@pagebox=\box162
 \AM@global@opts=\toks53
-\AM@pagecnt=\count499
+\AM@pagecnt=\count501
 \AM@toc@title=\toks54
 \AM@lof@heading=\toks55
-\c@AM@survey=\count500
-\AM@templatesizebox=\box162
+\c@AM@survey=\count502
+\AM@templatesizebox=\box163
 ) (C:\Users\fcoja\AppData\Local\Programs\MiKTeX\tex/latex/pgfplots\pgfplots.sty
 
 (C:\Users\fcoja\AppData\Local\Programs\MiKTeX\tex/generic/pgfplots\pgfplots.rev
@@ -1556,9 +1558,9 @@ e.tex
 \t@pgfplots@toka=\toks56
 \t@pgfplots@tokb=\toks57
 \t@pgfplots@tokc=\toks58
-\pgfplots@tmpa=\dimen375
-\c@pgfplots@coordindex=\count501
-\c@pgfplots@scanlineindex=\count502
+\pgfplots@tmpa=\dimen376
+\c@pgfplots@coordindex=\count503
+\c@pgfplots@scanlineindex=\count504
 
 (C:\Users\fcoja\AppData\Local\Programs\MiKTeX\tex/generic/pgfplots/sys\pgfplots
 sysgeneric.code.tex))
@@ -1583,13 +1585,13 @@ e\pgfplotsliststructure.code.tex)
 e\pgfplotsliststructureext.code.tex)
 (C:\Users\fcoja\AppData\Local\Programs\MiKTeX\tex/generic/pgfplots/liststructur
 e\pgfplotsarray.code.tex
-\c@pgfplotsarray@tmp=\count503
+\c@pgfplotsarray@tmp=\count505
 )
 (C:\Users\fcoja\AppData\Local\Programs\MiKTeX\tex/generic/pgfplots/liststructur
 e\pgfplotsmatrix.code.tex)
 (C:\Users\fcoja\AppData\Local\Programs\MiKTeX\tex/generic/pgfplots/numtable\pgf
 plotstableshared.code.tex
-\c@pgfplotstable@counta=\count504
+\c@pgfplotstable@counta=\count506
 \t@pgfplotstable@a=\toks62
 )
 (C:\Users\fcoja\AppData\Local\Programs\MiKTeX\tex/generic/pgfplots/liststructur
@@ -1602,7 +1604,7 @@ sbinary.data.code.tex))
 sutil.verb.code.tex)
 (C:\Users\fcoja\AppData\Local\Programs\MiKTeX\tex/generic/pgfplots/libs\pgflibr
 arypgfplots.surfshading.code.tex
-\c@pgfplotslibrarysurf@no=\count505
+\c@pgfplotslibrarysurf@no=\count507
 
 (C:\Users\fcoja\AppData\Local\Programs\MiKTeX\tex/generic/pgfplots/sys\pgflibra
 rypgfplots.surfshading.pgfsys-pdftex.def)))
@@ -1634,16 +1636,16 @@ hs.code.tex)
 z/libraries\tikzlibrarydecorations.code.tex
 (C:\Users\fcoja\AppData\Local\Programs\MiKTeX\tex/generic/pgf/modules\pgfmodule
 decorations.code.tex
-\pgfdecoratedcompleteddistance=\dimen376
-\pgfdecoratedremainingdistance=\dimen377
-\pgfdecoratedinputsegmentcompleteddistance=\dimen378
-\pgfdecoratedinputsegmentremainingdistance=\dimen379
-\pgf@decorate@distancetomove=\dimen380
-\pgf@decorate@repeatstate=\count506
-\pgfdecorationsegmentamplitude=\dimen381
-\pgfdecorationsegmentlength=\dimen382
+\pgfdecoratedcompleteddistance=\dimen377
+\pgfdecoratedremainingdistance=\dimen378
+\pgfdecoratedinputsegmentcompleteddistance=\dimen379
+\pgfdecoratedinputsegmentremainingdistance=\dimen380
+\pgf@decorate@distancetomove=\dimen381
+\pgf@decorate@repeatstate=\count508
+\pgfdecorationsegmentamplitude=\dimen382
+\pgfdecorationsegmentlength=\dimen383
 )
-\tikz@lib@dec@box=\box163
+\tikz@lib@dec@box=\box164
 )
 (C:\Users\fcoja\AppData\Local\Programs\MiKTeX\tex/generic/pgf/frontendlayer/tik
 z/libraries\tikzlibrarydecorations.pathmorphing.code.tex
@@ -1655,13 +1657,13 @@ z/libraries\tikzlibrarydecorations.pathreplacing.code.tex
 ions\pgflibrarydecorations.pathreplacing.code.tex))
 (C:\Users\fcoja\AppData\Local\Programs\MiKTeX\tex/generic/pgfplots/libs\tikzlib
 rarypgfplots.contourlua.code.tex)
-\pgfplots@numplots=\count507
-\pgfplots@xmin@reg=\dimen383
-\pgfplots@xmax@reg=\dimen384
-\pgfplots@ymin@reg=\dimen385
-\pgfplots@ymax@reg=\dimen386
-\pgfplots@zmin@reg=\dimen387
-\pgfplots@zmax@reg=\dimen388
+\pgfplots@numplots=\count509
+\pgfplots@xmin@reg=\dimen384
+\pgfplots@xmax@reg=\dimen385
+\pgfplots@ymin@reg=\dimen386
+\pgfplots@ymax@reg=\dimen387
+\pgfplots@zmin@reg=\dimen388
+\pgfplots@zmax@reg=\dimen389
 )
 (C:\Users\fcoja\AppData\Local\Programs\MiKTeX\tex/generic/pgf/frontendlayer/tik
 z/libraries\tikzlibraryplotmarks.code.tex
@@ -1677,35 +1679,35 @@ Package: geometry 2020/01/02 v5.9 Page Geometry
 (C:\Users\fcoja\AppData\Local\Programs\MiKTeX\tex/generic/iftex\ifvtex.sty
 Package: ifvtex 2019/10/25 v1.7 ifvtex legacy package. Use iftex instead.
 )
-\Gm@cnth=\count508
-\Gm@cntv=\count509
-\c@Gm@tempcnt=\count510
-\Gm@bindingoffset=\dimen389
-\Gm@wd@mp=\dimen390
-\Gm@odd@mp=\dimen391
-\Gm@even@mp=\dimen392
-\Gm@layoutwidth=\dimen393
-\Gm@layoutheight=\dimen394
-\Gm@layouthoffset=\dimen395
-\Gm@layoutvoffset=\dimen396
+\Gm@cnth=\count510
+\Gm@cntv=\count511
+\c@Gm@tempcnt=\count512
+\Gm@bindingoffset=\dimen390
+\Gm@wd@mp=\dimen391
+\Gm@odd@mp=\dimen392
+\Gm@even@mp=\dimen393
+\Gm@layoutwidth=\dimen394
+\Gm@layoutheight=\dimen395
+\Gm@layouthoffset=\dimen396
+\Gm@layoutvoffset=\dimen397
 \Gm@dimlist=\toks63
 
 (C:\Users\fcoja\AppData\Local\Programs\MiKTeX\tex/latex/geometry\geometry.cfg))
 (C:\Users\fcoja\AppData\Local\Programs\MiKTeX\tex/latex/titlesec\titlesec.sty
-Package: titlesec 2021/07/05 v2.14 Sectioning titles
-\ttl@box=\box164
+Package: titlesec 2023/10/27 v2.16 Sectioning titles
+\ttl@box=\box165
 \beforetitleunit=\skip170
 \aftertitleunit=\skip171
-\ttl@plus=\dimen397
-\ttl@minus=\dimen398
+\ttl@plus=\dimen398
+\ttl@minus=\dimen399
 \ttl@toksa=\toks64
-\titlewidth=\dimen399
-\titlewidthlast=\dimen400
-\titlewidthfirst=\dimen401
+\titlewidth=\dimen400
+\titlewidthlast=\dimen401
+\titlewidthfirst=\dimen402
 )
 (C:\Users\fcoja\AppData\Local\Programs\MiKTeX\tex/latex/titlesec\titletoc.sty
-Package: titletoc 2021/07/05 v2.14 TOC entries
-\ttl@leftsep=\dimen402
+Package: titletoc 2023/10/27 v2.16 TOC entries
+\ttl@leftsep=\dimen403
 )
 (C:\Users\fcoja\AppData\Local\Programs\MiKTeX\tex/latex/tikz-3dplot\tikz-3dplot
 .sty
@@ -1724,7 +1726,7 @@ File: tikzlibraryarrows.code.tex 2023-01-15 v3.1.10 (3.1.10)
 (C:\Users\fcoja\AppData\Local\Programs\MiKTeX\tex/generic/pgf/libraries\pgflibr
 aryarrows.code.tex
 File: pgflibraryarrows.code.tex 2023-01-15 v3.1.10 (3.1.10)
-\arrowsize=\dimen403
+\arrowsize=\dimen404
 )))
 (C:\Users\fcoja\AppData\Local\Programs\MiKTeX\tex/generic/genmisc\kbordermatrix
 .sty
@@ -1742,92 +1744,75 @@ Package: quoting 2014/01/28 v0.1c Consolidated environment for displayed text
 z/libraries\tikzlibrarydecorations.markings.code.tex
 (C:\Users\fcoja\AppData\Local\Programs\MiKTeX\tex/generic/pgf/libraries/decorat
 ions\pgflibrarydecorations.markings.code.tex))
-(C:\Users\fcoja\AppData\Local\Programs\MiKTeX\tex/latex/hyperref\ntheorem-hyper
-.sty
-Package: ntheorem-hyper 2021/02/07
-
-
-Package ntheorem-hyper Warning: This package is obsolete,
-(ntheorem-hyper)                please use ntheorem instead.
-
-) (C:\Users\fcoja\AppData\Local\Programs\MiKTeX\tex/latex/ntheorem\ntheorem.sty
-Style `ntheorem', Version 1.33 <2011/08/15>
-Package: ntheorem 2011/08/15 1.33
-\theorem@style=\toks65
-\theorem@@style=\toks66
-\theorembodyfont=\toks67
-\theoremnumbering=\toks68
-\theorempreskipamount=\skip177
-\theorempostskipamount=\skip178
-\theoremframepreskipamount=\skip179
-\theoremframepostskipamount=\skip180
-\theoreminframepreskipamount=\skip181
-\theoreminframepostskipamount=\skip182
-\theorem@preskip=\toks69
-\theorem@postskip=\toks70
-\theorem@framepreskip=\toks71
-\theorem@framepostskip=\toks72
-\theorem@inframepreskip=\toks73
-\theorem@inframepostskip=\toks74
-\theoremindent=\dimen404
-\theorem@indent=\dimen405
-\theoremrightindent=\dimen406
-\theorem@rightindent=\dimen407
-\theoremheaderfont=\toks75
-\theoremseparator=\toks76
-\theoremprework=\toks77
-\theorempostwork=\toks78
-\theoremsymbol=\toks79
-\qedsymbol=\toks80
-\theoremkeyword=\toks81
-\qedsymbol=\toks82
-\thm@topsep=\skip183
-\thm@topsepadd=\skip184
-) (C:\Users\fcoja\AppData\Local\Programs\MiKTeX\tex/latex/wasysym\wasysym.sty
+(C:\Users\fcoja\AppData\Local\Programs\MiKTeX\tex/latex/wasysym\wasysym.sty
 Package: wasysym 2020/01/19 v2.4 Wasy-2 symbol support package
 \symwasy=\mathgroup7
 LaTeX Font Info:    Overwriting symbol font `wasy' in version `bold'
 (Font)                  U/wasy/m/n --> U/wasy/b/n on input line 93.
 )
-\@quotelevel=\count511
-\@quotereset=\count512
-
-(ML I.aux)
+(C:\Users\fcoja\AppData\Local\Programs\MiKTeX\tex/latex/algorithms\algorithm.st
+y
+Package: algorithm 2009/08/24 v0.1 Document Style `algorithm' - floating enviro
+nment
+ (C:\Users\fcoja\AppData\Local\Programs\MiKTeX\tex/latex/float\float.sty
+Package: float 2001/11/08 v1.3d Float enhancements (AL)
+\c@float@type=\count513
+\float@exts=\toks65
+\float@box=\box166
+\@float@everytoks=\toks66
+\@floatcapt=\box167
+)
+\@float@every@algorithm=\toks67
+\c@algorithm=\count514
+)
+(C:\Users\fcoja\AppData\Local\Programs\MiKTeX\tex/latex/algorithms\algorithmic.
+sty
+Package: algorithmic 2009/08/24 v0.1 Document Style `algorithmic'
+\c@ALC@unique=\count515
+\c@ALC@line=\count516
+\c@ALC@rem=\count517
+\c@ALC@depth=\count518
+\ALC@tlm=\skip177
+\algorithmicindent=\skip178
+)
+\@quotelevel=\count519
+\@quotereset=\count520
+ (ML I.aux)
 \openout1 = `"ML I.aux"'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 17.
-LaTeX Font Info:    ... okay on input line 17.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 17.
-LaTeX Font Info:    ... okay on input line 17.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 17.
-LaTeX Font Info:    ... okay on input line 17.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 17.
-LaTeX Font Info:    ... okay on input line 17.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 17.
-LaTeX Font Info:    ... okay on input line 17.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 17.
-LaTeX Font Info:    ... okay on input line 17.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 17.
-LaTeX Font Info:    ... okay on input line 17.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 17.
-LaTeX Font Info:    ... okay on input line 17.
-LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 17.
-LaTeX Font Info:    ... okay on input line 17.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 35.
+LaTeX Font Info:    ... okay on input line 35.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 35.
+LaTeX Font Info:    ... okay on input line 35.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 35.
+LaTeX Font Info:    ... okay on input line 35.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 35.
+LaTeX Font Info:    ... okay on input line 35.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 35.
+LaTeX Font Info:    ... okay on input line 35.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 35.
+LaTeX Font Info:    ... okay on input line 35.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 35.
+LaTeX Font Info:    ... okay on input line 35.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 35.
+LaTeX Font Info:    ... okay on input line 35.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 35.
+LaTeX Font Info:    ... okay on input line 35.
 
 (C:\Users\fcoja\AppData\Local\Programs\MiKTeX\tex/context/base/mkii\supp-pdf.mk
 ii
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count513
-\scratchdimen=\dimen408
-\scratchbox=\box165
-\nofMPsegments=\count514
-\nofMParguments=\count515
-\everyMPshowfont=\toks83
-\MPscratchCnt=\count516
-\MPscratchDim=\dimen409
-\MPnumerator=\count517
-\makeMPintoPDFobject=\count518
-\everyMPtoPDFconversion=\toks84
+\scratchcounter=\count521
+\scratchdimen=\dimen405
+\scratchbox=\box168
+\nofMPsegments=\count522
+\nofMParguments=\count523
+\everyMPshowfont=\toks68
+\MPscratchCnt=\count524
+\MPscratchDim=\dimen406
+\MPnumerator=\count525
+\makeMPintoPDFobject=\count526
+\everyMPtoPDFconversion=\toks69
 )
 (C:\Users\fcoja\AppData\Local\Programs\MiKTeX\tex/latex/epstopdf-pkg\epstopdf-b
 ase.sty
@@ -1839,26 +1824,27 @@ Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 4
 fg
 File: epstopdf-sys.cfg 2021/03/18 v2.0 Configuration of epstopdf for MiKTeX
 ))
-LaTeX Info: Redefining \celsius on input line 17.
-Package gensymb Info: Faking symbols for \degree and \celsius on input line 17.
+LaTeX Info: Redefining \celsius on input line 35.
+Package gensymb Info: Faking symbols for \degree and \celsius on input line 35.
 
 
 
 Package gensymb Warning: Not defining \perthousand.
 
-LaTeX Info: Redefining \ohm on input line 17.
-Package gensymb Info: Using \Omega for \ohm on input line 17.
+LaTeX Info: Redefining \ohm on input line 35.
+Package gensymb Info: Using \Omega for \ohm on input line 35.
 
 Package gensymb Warning: Not defining \micro.
 
-Package ragged2e Info: ABD: executing \RaggedRight on input line 17.
+Package ragged2e Info: ABD: executing \RaggedRight on input line 35.
 Package caption Info: Begin \AtBeginDocument code.
+Package caption Info: float package is loaded.
 Package caption Info: hyperref package is loaded.
 Package caption Info: listings package is loaded.
 Package caption Info: wrapfig package is loaded.
 Package caption Info: End \AtBeginDocument code.
-\c@lstlisting=\count519
-Package hyperref Info: Link coloring OFF on input line 17.
+\c@lstlisting=\count527
+Package hyperref Info: Link coloring OFF on input line 35.
 (ML I.out) (ML I.out)
 \@outlinefile=\write5
 \openout5 = `"ML I.out"'.
@@ -1879,8 +1865,8 @@ Package biblatex Info: Trying to load bibliographic data...
 Package biblatex Info: ... file '"ML I".bbl' not found.
 
 No file "ML I".bbl.
-Package biblatex Info: Reference section=0 on input line 17.
-Package biblatex Info: Reference segment=0 on input line 17.
+Package biblatex Info: Reference section=0 on input line 35.
+Package biblatex Info: Reference segment=0 on input line 35.
 
 (C:\Users\fcoja\AppData\Local\Programs\MiKTeX\tex/latex/pdflscape\pdflscape.sty
 Package: pdflscape 2022-10-27 v0.13 Display of landscape pages in PDF
@@ -1899,7 +1885,7 @@ Package pdflscape Info: Auto-detected driver: pdftex on input line 81.
 Package pgfplots Warning: running in backwards compatibility mode (unsuitable t
 ick labels; missing features). Consider writing \pgfplotsset{compat=1.18} into 
 your preamble.
- on input line 17.
+ on input line 35.
 
 *geometry* driver: auto-detecting
 *geometry* detected driver: pdftex
@@ -1935,38 +1921,37 @@ your preamble.
 * \@reversemarginfalse
 * (1in=72.27pt=25.4mm, 1cm=28.453pt)
 
-LaTeX Font Info:    Trying to load font information for U+msa on input line 19.
+LaTeX Font Info:    Trying to load font information for U+msa on input line 37.
 
 (C:\Users\fcoja\AppData\Local\Programs\MiKTeX\tex/latex/amsfonts\umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Trying to load font information for U+msb on input line 19.
+LaTeX Font Info:    Trying to load font information for U+msb on input line 37.
 
 
 (C:\Users\fcoja\AppData\Local\Programs\MiKTeX\tex/latex/amsfonts\umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )
-LaTeX Font Info:    Trying to load font information for U+lasy on input line 19
+LaTeX Font Info:    Trying to load font information for U+lasy on input line 37
 .
 
 (C:\Users\fcoja\AppData\Local\Programs\MiKTeX\tex/latex/base\ulasy.fd
 File: ulasy.fd 1998/08/17 v2.2e LaTeX symbol font definitions
 )
-LaTeX Font Info:    Trying to load font information for U+wasy on input line 19
+LaTeX Font Info:    Trying to load font information for U+wasy on input line 37
 .
 
 (C:\Users\fcoja\AppData\Local\Programs\MiKTeX\tex/latex/wasysym\uwasy.fd
 File: uwasy.fd 2020/01/19 v2.4 Wasy-2 symbol font definitions
 )
-(ML I.toc)
+(ML I.toc [1
+
+{C:/Users/fcoja/AppData/Local/MiKTeX/fonts/map/pdftex/pdftex.map}])
 \tf@toc=\write6
 \openout6 = `"ML I.toc"'.
 
- [1
-
-{C:/Users/fcoja/AppData/Local/MiKTeX/fonts/map/pdftex/pdftex.map}] (Temas/Tema 
-1.tex
-<Temas/Tema 1/K-means.png, id=146, 563.10374pt x 284.06125pt>
+[2] (Temas/Tema 1.tex
+<Temas/Tema 1/K-means.png, id=210, 563.10374pt x 284.06125pt>
 File: Temas/Tema 1/K-means.png Graphic file (type png)
 <use Temas/Tema 1/K-means.png>
 Package pdftex.def Info: Temas/Tema 1/K-means.png  used on input line 38.
@@ -1984,24 +1969,31 @@ Overfull \hbox (12.03943pt too wide) in paragraph at lines 51--52
  o mod-e-los matem^^Saticos 
  []
 
+
+pdfTeX warning (ext4): destination with the same identifier (name{page.2}) has 
+been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.84 $
+      y=\sin(2\pi x)+n(x)$, donde $n(x)$ es un ruido gausiano pequeño.
 [2 <./Temas/Tema 1/K-means.png>]
-<Temas/Tema 1/Entrenamiento.png, id=161, 155.3805pt x 115.02975pt>
+<Temas/Tema 1/Entrenamiento.png, id=224, 155.3805pt x 115.02975pt>
 File: Temas/Tema 1/Entrenamiento.png Graphic file (type png)
 <use Temas/Tema 1/Entrenamiento.png>
 Package pdftex.def Info: Temas/Tema 1/Entrenamiento.png  used on input line 87.
 
 (pdftex.def)             Requested size: 155.3801pt x 115.02946pt.
-<Temas/Tema 1/SSE.png, id=163, 205.5178pt x 154.32657pt>
+<Temas/Tema 1/SSE.png, id=226, 205.5178pt x 154.32657pt>
 File: Temas/Tema 1/SSE.png Graphic file (type png)
 <use Temas/Tema 1/SSE.png>
 Package pdftex.def Info: Temas/Tema 1/SSE.png  used on input line 118.
 (pdftex.def)             Requested size: 205.5173pt x 154.32617pt.
-<Temas/Tema 1/Ajustes.png, id=164, 302.93175pt x 122.25674pt>
+<Temas/Tema 1/Ajustes.png, id=227, 302.93175pt x 122.25674pt>
 File: Temas/Tema 1/Ajustes.png Graphic file (type png)
 <use Temas/Tema 1/Ajustes.png>
 Package pdftex.def Info: Temas/Tema 1/Ajustes.png  used on input line 125.
 (pdftex.def)             Requested size: 302.931pt x 122.25644pt.
-<Temas/Tema 1/Screenshot001.png, id=165, 124.0635pt x 95.75775pt>
+<Temas/Tema 1/Screenshot001.png, id=228, 124.0635pt x 95.75775pt>
 File: Temas/Tema 1/Screenshot001.png Graphic file (type png)
 <use Temas/Tema 1/Screenshot001.png>
 Package pdftex.def Info: Temas/Tema 1/Screenshot001.png  used on input line 134
@@ -2014,7 +2006,7 @@ $[]$ $[]$
 
 [3 <./Temas/Tema 1/Entrenamiento.png> <./Temas/Tema 1/SSE.png> <./Temas/Tema 1/
 Ajustes.png>]
-<Temas/Tema 1/Screenshot009.png, id=175, 331.2375pt x 130.98938pt>
+<Temas/Tema 1/Screenshot009.png, id=238, 331.2375pt x 130.98938pt>
 File: Temas/Tema 1/Screenshot009.png Graphic file (type png)
 <use Temas/Tema 1/Screenshot009.png>
 Package pdftex.def Info: Temas/Tema 1/Screenshot009.png  used on input line 144
@@ -2026,13 +2018,13 @@ Overfull \hbox (114.99904pt too wide) in paragraph at lines 144--145
  []
 
 [4 <./Temas/Tema 1/Screenshot001.png> <./Temas/Tema 1/Screenshot009.png>]
-<Temas/Tema 1/Screenshot010.png, id=185, 409.53pt x 271.76532pt>
+<Temas/Tema 1/Screenshot010.png, id=248, 409.53pt x 271.76532pt>
 File: Temas/Tema 1/Screenshot010.png Graphic file (type png)
 <use Temas/Tema 1/Screenshot010.png>
 Package pdftex.def Info: Temas/Tema 1/Screenshot010.png  used on input line 191
 .
 (pdftex.def)             Requested size: 286.66904pt x 190.23442pt.
-<Temas/Tema 1/Screenshot011.png, id=186, 241.65282pt x 185.94469pt>
+<Temas/Tema 1/Screenshot011.png, id=249, 241.65282pt x 185.94469pt>
 File: Temas/Tema 1/Screenshot011.png Graphic file (type png)
 <use Temas/Tema 1/Screenshot011.png>
 Package pdftex.def Info: Temas/Tema 1/Screenshot011.png  used on input line 203
@@ -2062,33 +2054,33 @@ t/10 ; D\OT1/cmr/m/n/10 )] \OMS/cmsy/m/n/10 ^^@ \OML/cmm/m/it/10 h\OT1/cmr/m/n/
 10 (\OT1/cmr/bx/n/10 x\OT1/cmr/m/n/10 )\OMS/cmsy/m/n/10 g
  []
 
-<Temas/Tema 1/Screenshot012.png, id=193, 377.91188pt x 265.74281pt>
+<Temas/Tema 1/Screenshot012.png, id=257, 377.91188pt x 265.74281pt>
 File: Temas/Tema 1/Screenshot012.png Graphic file (type png)
 <use Temas/Tema 1/Screenshot012.png>
 Package pdftex.def Info: Temas/Tema 1/Screenshot012.png  used on input line 223
 .
 (pdftex.def)             Requested size: 377.91095pt x 265.74216pt.
 [6 <./Temas/Tema 1/Screenshot011.png>]
-<Temas/Tema 1/Screenshot013.png, id=204, 328.22626pt x 220.57407pt>
+<Temas/Tema 1/Screenshot013.png, id=267, 328.22626pt x 220.57407pt>
 File: Temas/Tema 1/Screenshot013.png Graphic file (type png)
 <use Temas/Tema 1/Screenshot013.png>
 Package pdftex.def Info: Temas/Tema 1/Screenshot013.png  used on input line 234
 .
 (pdftex.def)             Requested size: 328.22545pt x 220.57352pt.
-<Temas/Tema 1/Screenshot014.png, id=205, 395.97937pt x 259.7203pt>
+<Temas/Tema 1/Screenshot014.png, id=268, 395.97937pt x 259.7203pt>
 File: Temas/Tema 1/Screenshot014.png Graphic file (type png)
 <use Temas/Tema 1/Screenshot014.png>
 Package pdftex.def Info: Temas/Tema 1/Screenshot014.png  used on input line 242
 .
 (pdftex.def)             Requested size: 395.97841pt x 259.71967pt.
  [7 <./Temas/Tema 1/Screenshot012.png> <./Temas/Tema 1/Screenshot013.png>]
-<Temas/Tema 1/sesgo-varianza.drawio.png, id=213, 1792.6975pt x 418.56375pt>
+<Temas/Tema 1/sesgo-varianza.drawio.png, id=276, 1792.6975pt x 418.56375pt>
 File: Temas/Tema 1/sesgo-varianza.drawio.png Graphic file (type png)
 <use Temas/Tema 1/sesgo-varianza.drawio.png>
 Package pdftex.def Info: Temas/Tema 1/sesgo-varianza.drawio.png  used on input 
 line 248.
 (pdftex.def)             Requested size: 540.60239pt x 126.22153pt.
-<Temas/Tema 1/Screenshot015.png, id=214, 300.3722pt x 322.20375pt>
+<Temas/Tema 1/Screenshot015.png, id=277, 300.3722pt x 322.20375pt>
 File: Temas/Tema 1/Screenshot015.png Graphic file (type png)
 <use Temas/Tema 1/Screenshot015.png>
 Package pdftex.def Info: Temas/Tema 1/Screenshot015.png  used on input line 267
@@ -2096,7 +2088,7 @@ Package pdftex.def Info: Temas/Tema 1/Screenshot015.png  used on input line 267
 (pdftex.def)             Requested size: 243.26941pt x 260.95901pt.
  [8 <./Temas/Tema 1/Screenshot014.png> <./Temas/Tema 1/sesgo-varianza.drawio.pn
 g> <./Temas/Tema 1/Screenshot015.png>]
-<Temas/Tema 1/Screenshot016.png, id=222, 438.8897pt x 184.43906pt>
+<Temas/Tema 1/Screenshot016.png, id=285, 438.8897pt x 184.43906pt>
 File: Temas/Tema 1/Screenshot016.png Graphic file (type png)
 <use Temas/Tema 1/Screenshot016.png>
 Package pdftex.def Info: Temas/Tema 1/Screenshot016.png  used on input line 294
@@ -2109,20 +2101,20 @@ Package pdftex.def Info: Temas/Tema 1/Entrenamiento.png  used on input line 300
 (pdftex.def)             Requested size: 155.3801pt x 115.02946pt.
 
 [9 <./Temas/Tema 1/Screenshot016.png>]
-<Temas/Tema 1/Screenshot017.png, id=229, 563.10374pt x 186.6975pt>
+<Temas/Tema 1/Screenshot017.png, id=292, 563.10374pt x 186.6975pt>
 File: Temas/Tema 1/Screenshot017.png Graphic file (type png)
 <use Temas/Tema 1/Screenshot017.png>
 Package pdftex.def Info: Temas/Tema 1/Screenshot017.png  used on input line 329
 .
 (pdftex.def)             Requested size: 540.60239pt x 179.2475pt.
-<Temas/Tema 1/Screenshot018.png, id=230, 567.62062pt x 310.15875pt>
+<Temas/Tema 1/Screenshot018.png, id=293, 567.62062pt x 310.15875pt>
 File: Temas/Tema 1/Screenshot018.png Graphic file (type png)
 <use Temas/Tema 1/Screenshot018.png>
 Package pdftex.def Info: Temas/Tema 1/Screenshot018.png  used on input line 333
 .
 (pdftex.def)             Requested size: 540.60239pt x 295.42056pt.
  [10 <./Temas/Tema 1/Screenshot017.png>]
-<Temas/Tema 1/Screenshot019.png, id=237, 292.84406pt x 197.23688pt>
+<Temas/Tema 1/Screenshot019.png, id=300, 292.84406pt x 197.23688pt>
 File: Temas/Tema 1/Screenshot019.png Graphic file (type png)
 <use Temas/Tema 1/Screenshot019.png>
 Package pdftex.def Info: Temas/Tema 1/Screenshot019.png  used on input line 339
@@ -2130,7 +2122,7 @@ Package pdftex.def Info: Temas/Tema 1/Screenshot019.png  used on input line 339
 (pdftex.def)             Requested size: 243.26941pt x 163.85402pt.
 
 [11 <./Temas/Tema 1/Screenshot018.png> <./Temas/Tema 1/Screenshot019.png>]
-<Temas/Tema 1/Screenshot020.png, id=244, 264.99pt x 283.81032pt>
+<Temas/Tema 1/Screenshot020.png, id=308, 264.99pt x 283.81032pt>
 File: Temas/Tema 1/Screenshot020.png Graphic file (type png)
 <use Temas/Tema 1/Screenshot020.png>
 Package pdftex.def Info: Temas/Tema 1/Screenshot020.png  used on input line 393
@@ -2138,7 +2130,7 @@ Package pdftex.def Info: Temas/Tema 1/Screenshot020.png  used on input line 393
 (pdftex.def)             Requested size: 232.17685pt x 248.67119pt.
 
 [12]
-<Temas/Tema 1/Screenshot021.png, id=250, 456.95718pt x 115.18031pt>
+<Temas/Tema 1/Screenshot021.png, id=313, 456.95718pt x 115.18031pt>
 File: Temas/Tema 1/Screenshot021.png Graphic file (type png)
 <use Temas/Tema 1/Screenshot021.png>
 Package pdftex.def Info: Temas/Tema 1/Screenshot021.png  used on input line 419
@@ -2146,27 +2138,27 @@ Package pdftex.def Info: Temas/Tema 1/Screenshot021.png  used on input line 419
 (pdftex.def)             Requested size: 456.95605pt x 115.18001pt.
 ) [13 <./Temas/Tema 1/Screenshot020.png> <./Temas/Tema 1/Screenshot021.png>] (T
 emas/Tema 2.tex
-<Temas/Tema 1/Screenshot002.png, id=257, 495.0495pt x 181.27725pt>
+<Temas/Tema 1/Screenshot002.png, id=320, 495.0495pt x 181.27725pt>
 File: Temas/Tema 1/Screenshot002.png Graphic file (type png)
 <use Temas/Tema 1/Screenshot002.png>
 Package pdftex.def Info: Temas/Tema 1/Screenshot002.png  used on input line 60.
 
 (pdftex.def)             Requested size: 495.04828pt x 181.27681pt.
  [14]
-<Temas/Tema 1/Screenshot003.png, id=262, 409.53pt x 187.29974pt>
+<Temas/Tema 1/Screenshot003.png, id=325, 409.53pt x 187.29974pt>
 File: Temas/Tema 1/Screenshot003.png Graphic file (type png)
 <use Temas/Tema 1/Screenshot003.png>
 Package pdftex.def Info: Temas/Tema 1/Screenshot003.png  used on input line 91.
 
 (pdftex.def)             Requested size: 409.52899pt x 187.29927pt.
  [15 <./Temas/Tema 1/Screenshot002.png>]
-<Temas/Tema 1/Screenshot004.png, id=268, 419.76825pt x 143.3355pt>
+<Temas/Tema 1/Screenshot004.png, id=331, 419.76825pt x 143.3355pt>
 File: Temas/Tema 1/Screenshot004.png Graphic file (type png)
 <use Temas/Tema 1/Screenshot004.png>
 Package pdftex.def Info: Temas/Tema 1/Screenshot004.png  used on input line 101
 .
 (pdftex.def)             Requested size: 419.76721pt x 143.33513pt.
-<Temas/Tema 1/Screenshot005.png, id=269, 520.94624pt x 150.5625pt>
+<Temas/Tema 1/Screenshot005.png, id=332, 520.94624pt x 150.5625pt>
 File: Temas/Tema 1/Screenshot005.png Graphic file (type png)
 <use Temas/Tema 1/Screenshot005.png>
 Package pdftex.def Info: Temas/Tema 1/Screenshot005.png  used on input line 109
@@ -2179,19 +2171,19 @@ Overfull \hbox (5.34262pt too wide) in paragraph at lines 109--110
 
 [16 <./Temas/Tema 1/Screenshot003.png> <./Temas/Tema 1/Screenshot004.png> <./Te
 mas/Tema 1/Screenshot005.png>]
-<Temas/Tema 1/Screenshot006.png, id=277, 279.444pt x 80.7015pt>
+<Temas/Tema 1/Screenshot006.png, id=340, 279.444pt x 80.7015pt>
 File: Temas/Tema 1/Screenshot006.png Graphic file (type png)
 <use Temas/Tema 1/Screenshot006.png>
 Package pdftex.def Info: Temas/Tema 1/Screenshot006.png  used on input line 129
 .
 (pdftex.def)             Requested size: 279.44331pt x 80.70131pt.
-<Temas/Tema 1/Screenshot007.png, id=278, 99.9735pt x 69.861pt>
+<Temas/Tema 1/Screenshot007.png, id=341, 99.9735pt x 69.861pt>
 File: Temas/Tema 1/Screenshot007.png Graphic file (type png)
 <use Temas/Tema 1/Screenshot007.png>
 Package pdftex.def Info: Temas/Tema 1/Screenshot007.png  used on input line 134
 .
 (pdftex.def)             Requested size: 99.97324pt x 69.86081pt.
-<Temas/Tema 1/Screenshot008.png, id=279, 432.4155pt x 127.677pt>
+<Temas/Tema 1/Screenshot008.png, id=342, 432.4155pt x 127.677pt>
 File: Temas/Tema 1/Screenshot008.png Graphic file (type png)
 <use Temas/Tema 1/Screenshot008.png>
 Package pdftex.def Info: Temas/Tema 1/Screenshot008.png  used on input line 139
@@ -2203,21 +2195,65 @@ Overfull \hbox (8.16595pt too wide) in paragraph at lines 156--157
 [][]  
  []
 
-)
-\tf@thm=\write7
-\openout7 = `"ML I.thm"'.
+<Temas/Tema 2/screenshot001.png, id=351, 331.83975pt x 85.5195pt>
+File: Temas/Tema 2/screenshot001.png Graphic file (type png)
+<use Temas/Tema 2/screenshot001.png>
+Package pdftex.def Info: Temas/Tema 2/screenshot001.png  used on input line 162
+.
+(pdftex.def)             Requested size: 331.83894pt x 85.51927pt.
+<Temas/Tema 2/screenshot002.png, id=352, 139.722pt x 99.37125pt>
+File: Temas/Tema 2/screenshot002.png Graphic file (type png)
+<use Temas/Tema 2/screenshot002.png>
+Package pdftex.def Info: Temas/Tema 2/screenshot002.png  used on input line 172
+.
+(pdftex.def)             Requested size: 139.72165pt x 99.371pt.
+[18 <./Temas/Tema 2/screenshot001.png> <./Temas/Tema 2/screenshot002.png>]
+<Temas/Tema 2/screenshot003.png, id=360, 404.10976pt x 316.18124pt>
+File: Temas/Tema 2/screenshot003.png Graphic file (type png)
+<use Temas/Tema 2/screenshot003.png>
+Package pdftex.def Info: Temas/Tema 2/screenshot003.png  used on input line 227
+.
+(pdftex.def)             Requested size: 404.10876pt x 316.18047pt.
+<Temas/Tema 2/screenshot004.png, id=361, 280.6485pt x 193.32225pt>
+File: Temas/Tema 2/screenshot004.png Graphic file (type png)
+<use Temas/Tema 2/screenshot004.png>
+Package pdftex.def Info: Temas/Tema 2/screenshot004.png  used on input line 233
+.
+(pdftex.def)             Requested size: 280.64781pt x 193.32178pt.
 
- [18] (ML I.aux)
+[19 <./Temas/Tema 2/screenshot003.png>]
+<Temas/Tema 2/screenshot005.png, id=367, 272.81924pt x 189.70876pt>
+File: Temas/Tema 2/screenshot005.png Graphic file (type png)
+<use Temas/Tema 2/screenshot005.png>
+Package pdftex.def Info: Temas/Tema 2/screenshot005.png  used on input line 239
+.
+(pdftex.def)             Requested size: 272.81857pt x 189.70828pt.
+
+Overfull \hbox (29.54916pt too wide) in paragraph at lines 239--240
+ [] 
+ []
+
+<Temas/Tema 2/screenshot006.png, id=368, 514.3215pt x 190.311pt>
+File: Temas/Tema 2/screenshot006.png Graphic file (type png)
+<use Temas/Tema 2/screenshot006.png>
+Package pdftex.def Info: Temas/Tema 2/screenshot006.png  used on input line 262
+.
+(pdftex.def)             Requested size: 514.32025pt x 190.31052pt.
+[20 <./Temas/Tema 2/screenshot004.png> <./Temas/Tema 2/screenshot005.png>]
+Package hyperref Info: bookmark level for unknown algorithm defaults to 0 on in
+put line 276.
+
+[21 <./Temas/Tema 2/screenshot006.png>] [22] [23]) [24] (ML I.aux)
  ***********
-LaTeX2e <2023-06-01> patch level 1
-L3 programming layer <2023-08-29>
+LaTeX2e <2023-11-01> patch level 1
+L3 programming layer <2024-01-22>
  ***********
 
 
 LaTeX Warning: There were undefined references.
 
 Package rerunfilecheck Info: File `"ML I".out' has not changed.
-(rerunfilecheck)             Checksum: FD861DF9B58907030CE88D0B9E92C4A3;5178.
+(rerunfilecheck)             Checksum: C08055F44967E44B4A40AF7E72D3BBFB;6905.
 
 Package biblatex Warning: Please (re)run Biber on the file:
 (biblatex)                "ML I"
@@ -2228,11 +2264,11 @@ Package logreq Info: Writing requests to '"ML I".run.xml'.
 
  ) 
 Here is how much of TeX's memory you used:
- 53319 strings out of 475248
- 1208258 string characters out of 5757814
- 2084918 words of memory out of 5000000
- 73894 multiletter control sequences out of 15000+600000
- 569490 words of font info for 84 fonts, out of 8000000 for 9000
+ 53574 strings out of 474542
+ 1215036 string characters out of 5744446
+ 2096216 words of memory out of 5000000
+ 74792 multiletter control sequences out of 15000+600000
+ 570356 words of font info for 87 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  92i,17n,134p,1197b,919s stack positions out of 10000i,1000n,20000p,200000b,200000s
  <C:\Users\fcoja\AppData\Local\MiKTeX\fonts/pk/ljfour/public/wasy/dpi600\wasy
@@ -2243,20 +2279,25 @@ public/amsfonts/cm/cmbx12.pfb><C:/Users/fcoja/AppData/Local/Programs/MiKTeX/fon
 ts/type1/public/amsfonts/cm/cmbx7.pfb><C:/Users/fcoja/AppData/Local/Programs/Mi
 KTeX/fonts/type1/public/amsfonts/cm/cmex10.pfb><C:/Users/fcoja/AppData/Local/Pr
 ograms/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi10.pfb><C:/Users/fcoja/AppData
-/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi7.pfb><C:/Users/fcoja
-/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr10.pfb><C:/Use
-rs/fcoja/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr12.pfb
+/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi5.pfb><C:/Users/fcoja
+/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi7.pfb><C:/Use
+rs/fcoja/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr10.pfb
 ><C:/Users/fcoja/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/c
-mr17.pfb><C:/Users/fcoja/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfo
-nts/cm/cmr5.pfb><C:/Users/fcoja/AppData/Local/Programs/MiKTeX/fonts/type1/publi
-c/amsfonts/cm/cmr7.pfb><C:/Users/fcoja/AppData/Local/Programs/MiKTeX/fonts/type
-1/public/amsfonts/cm/cmsy10.pfb><C:/Users/fcoja/AppData/Local/Programs/MiKTeX/f
-onts/type1/public/amsfonts/cm/cmsy7.pfb><C:/Users/fcoja/AppData/Local/Programs/
-MiKTeX/fonts/type1/public/amsfonts/cm/cmti10.pfb><C:/Users/fcoja/AppData/Local/
-Programs/MiKTeX/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
-Output written on "ML I.pdf" (19 pages, 1130534 bytes).
+mr12.pfb><C:/Users/fcoja/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfo
+nts/cm/cmr17.pfb><C:/Users/fcoja/AppData/Local/Programs/MiKTeX/fonts/type1/publ
+ic/amsfonts/cm/cmr5.pfb><C:/Users/fcoja/AppData/Local/Programs/MiKTeX/fonts/typ
+e1/public/amsfonts/cm/cmr7.pfb><C:/Users/fcoja/AppData/Local/Programs/MiKTeX/fo
+nts/type1/public/amsfonts/cm/cmr8.pfb><C:/Users/fcoja/AppData/Local/Programs/Mi
+KTeX/fonts/type1/public/amsfonts/cm/cmsy10.pfb><C:/Users/fcoja/AppData/Local/Pr
+ograms/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy7.pfb><C:/Users/fcoja/AppData/
+Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmti10.pfb><C:/Users/fcoja
+/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmti7.pfb><C:/Use
+rs/fcoja/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmtt10.pf
+b><C:/Users/fcoja/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/sym
+bols/msbm10.pfb>
+Output written on "ML I.pdf" (26 pages, 1463527 bytes).
 PDF statistics:
- 377 PDF objects out of 1000 (max. 8388607)
- 53 named destinations out of 1000 (max. 500000)
- 351 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 550 PDF objects out of 1000 (max. 8388607)
+ 112 named destinations out of 1000 (max. 500000)
+ 477 words of extra memory for PDF output out of 10000 (max. 10000000)
 

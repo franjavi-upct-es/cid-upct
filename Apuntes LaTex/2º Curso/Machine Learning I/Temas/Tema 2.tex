@@ -156,3 +156,266 @@ Para determinar el mejor atributo, el ID3 utiliza la \textbf{entropía}.
 \end{tikzpicture}
 
 (Relación de la entropía con los conceptos de desorden, equiprobabilidad y homogeneidad).
+
+La entropía nos mide la homogeneidad de los datos (relación inversa).
+\begin{center}
+	\includegraphics{"Temas/Tema 2/screenshot001"}
+\end{center}
+\begin{minipage}{0.45\textwidth}
+	Para el caso binario:
+	\begin{itemize}
+		\item Entropía igual a 1 $\to$ mínima homogeneidad (equiprobabilidad: $p_\ominus=p_\oplus$).
+		\item Entropía igual a 0 $\to$ máxima homogeneidad (todas las instancias de una clase)
+	\end{itemize}
+\end{minipage}\qquad\begin{minipage}{0.45\textwidth}
+\begin{center}
+	\includegraphics{"Temas/Tema 2/screenshot002"}
+\end{center}
+\end{minipage}
+A la hora de construir un árbol es preferible crear nodos con nodos hoja homogéneos, es decir, de \textbf{baja entropía}.
+\subsubsection{Ganancia de Información}
+Sea un conjunto de datos $\chi$ con entropía $H(\chi)$.
+
+Si elegimos un atributo $A$ para crear un nodo del árbol, la entropía esperada es: \[ H(\chi,A)=\sum_{v\in\mathrm{valores}(A)}\dfrac{|\chi_v|}{\chi}H(\chi_v) \]siendo $\chi_v$ el subconjunto de $\chi$ con todas las instancias con $A=v$.
+
+Por lo tanto, la reducción esperada de la entropía, o lo que es lo mismo la \textbf{Ganancia de Información}, al elegir el atributo $A$ como nodo de decisión del árbol es \[ \bboxed{\mathrm{Ganacia}(\chi,A))H(\chi)-H(\chi,A)} \]
+Por tanto, se elige el atributo que produzca hojas homogéneas, es decir, la \textbf{máxima} ganancia de información.
+
+\Ej
+
+Atributos nominales (no numéricos)
+
+\begin{center}
+	\begin{tabular}{|cccccc|}
+		\hline
+		\rowcolor[HTML]{A5FFC4} 
+		\hline
+		Día & Cielo & Temperatura & Humedad & Viento & \cellcolor[HTML]{FF8787}Jugar \\ \hline
+		\rowcolor[HTML]{34CDF9} 
+		\hline
+		{\color[HTML]{333333} D1} & {\color[HTML]{333333} Soleado} & {\color[HTML]{333333} Calor} & {\color[HTML]{333333} Alta} & {\color[HTML]{333333} Flojo} & \cellcolor[HTML]{FF8787}No \\
+		\rowcolor[HTML]{007AFF} 
+		D2 & Soleado & Calor & Alta & Fuerte & \cellcolor[HTML]{FC5D5D}No \\
+		\rowcolor[HTML]{34CDF9} 
+		D3 & Nublado & Calor & Alta & Flojo & \cellcolor[HTML]{FF8787}Si \\
+		\rowcolor[HTML]{007AFF} 
+		D4 & Lluvia & Templado & Alta & Flojo & \cellcolor[HTML]{FC5D5D}Si \\
+		\rowcolor[HTML]{34CDF9} 
+		D5 & Lluvia & Frío & Normal & Flojo & \cellcolor[HTML]{FF8787}Si \\
+		\rowcolor[HTML]{007AFF} 
+		D6 & Lluvia & Ario & Normal & Fuerte & \cellcolor[HTML]{FC5D5D}No \\
+		\rowcolor[HTML]{34CDF9} 
+		D7 & Nublado & Ario & Normal & Fuerte & \cellcolor[HTML]{FF8787}Si \\
+		\rowcolor[HTML]{007AFF} 
+		D8 & Soleado & Templado & Alta & Flojo & \cellcolor[HTML]{FC5D5D}No \\
+		\rowcolor[HTML]{34CDF9} 
+		D9 & Soleado & Ario & Normal & Flojo & \cellcolor[HTML]{FF8787}Si \\
+		\rowcolor[HTML]{007AFF} 
+		D10 & Lluvia & Templado & Normal & Flojo & \cellcolor[HTML]{FC5D5D}Si \\
+		\rowcolor[HTML]{34CDF9} 
+		D11 & Soleado & Templado & Normal & Fuerte & \cellcolor[HTML]{FF8787}Si \\
+		\rowcolor[HTML]{007AFF} 
+		D12 & Nublado & Templado & Alta & Fuerte & \cellcolor[HTML]{FC5D5D}Si \\
+		\rowcolor[HTML]{34CDF9} 
+		D13 & Nublado & Calor & Normal & Flojo & \cellcolor[HTML]{FF8787}Si \\
+		\rowcolor[HTML]{007AFF} 
+		D14 & Lluvia & Templado & Alta & Fuerte & \cellcolor[HTML]{FC5D5D}No \\ \hline
+	\end{tabular}
+\end{center}
+En el ejemplo del tenis tenemos 9 objetos clasificados como $\oplus$ y 5 como $\ominus$, con lo que \[ H([9\oplus,5\ominus])=-0.642\cdot\log_20.642-0.58\cdot\log_20.358=0.94 \]
+\begin{center}
+	\includegraphics{"Temas/Tema 2/screenshot003"}
+\end{center}
+Por lo tanto, el atributo que ofrece una mayor ganancia de información es el atributo \textbf{Cielo}.
+
+Utilizando \textbf{Cielo} como nodo raíz el árbol inicial quedaría:
+\begin{center}
+	\includegraphics{"Temas/Tema 2/screenshot004"}
+\end{center}
+\begin{minipage}{0.45 \textwidth}
+	Ahora habría que repetir el proceso con los nodos correspondientes a los valores \textbf{soleado} y \textbf{lluvia} (el nodo \textbf{nublado} sólo contiene una clase).
+\end{minipage}\qquad\begin{minipage}{0.45\textwidth}
+\begin{center}
+	\includegraphics{"Temas/Tema 2/screenshot005"}
+\end{center}
+\end{minipage}
+
+\begin{itemize}
+	\item Para el nodo Cielo = Soleado:
+	\begin{itemize}
+		\item $\chi_{\mathrm{soleado}}=\{D_1,D_2,D_8,D_9,D_11\}$ con $H(\chi_{\mathrm{soelado}})=0.971$
+		\item $\mathrm{Ganancia}(\chi_{\mathrm{soleado}},\mathrm{Temperatura})=0.971-\dfrac{2}{5}\cdot0-\dfrac{2}{5}\cdot1-\dfrac{1}{5}\cdot0=0.570$
+		\item $\mathrm{Ganancia}(\chi_{\mathrm{soelado}},\mathrm{Humedad})=0.971-\dfrac{3}{5}\cdot0-\dfrac{2}{5}\cdot0=0.971$
+		\item $\mathrm{Ganancia}(\chi_{\mathrm{soleado}},\mathrm{Viento})=0.971-\dfrac{2}{5}\cdot1-\dfrac{3}{5}\cdot0.918=0.019$
+	\end{itemize}
+	\item Para el nodo Cielo = Lluvia:
+	\begin{itemize}
+		\item $\chi_{\mathrm{lluvia}}=\{D_4,D_5,D_6,D_{10},D_{14}\}$ con $H(\chi_{\mathrm{lluvia}})=0.971$
+		\item $\mathrm{Ganancia}(\chi_{\mathrm{lluvia}},\mathrm{Temperatura})=0.971-\dfrac{3}{5}\cdot0.918-\dfrac{2}{5}\cdot1-\dfrac{1}{5}\cdot0=0.820$
+		\item $\mathrm{Ganancia}(\chi_{\mathrm{lluvia}},\mathrm{Humedad})=0.971-\dfrac{2}{5}\cdot1-\dfrac{3}{5}\cdot0.918=0.820$
+		\item $\mathrm{Ganancia}(\chi_{\mathrm{lluvia}},\mathrm{Viento})=0.971-\dfrac{3}{5}\cdot0-\dfrac{2}{5}\cdot0=0.971$
+	\end{itemize}
+\end{itemize}
+
+Por lo tanto, el árbol resultante sería
+\begin{center}
+	\includegraphics{"Temas/Tema 2/screenshot006"}
+\end{center}
+Todos los nodos hoja tienen una entropía nula (solo instancias de una clase).
+\subsubsection{Error global}
+Es la probabilidad de error, es decir, suma ponderada de los errores de todas las hojas del árbol. \[ E=\sum_{i=1}^{n_h}w_ie_i \]donde
+\begin{itemize}
+	\item $n_h$ es el numero de hojas del árbol.
+	\item $w_i$ es el peso o probabilidad de la hoja $i$, es decir, la probabilidad de que una instancia sea clasificada por la partición representada por la rama que acaba en la hoja $i$.
+	\item $e_i$ es el error correspondiente a la rama que acaba en la hoja $i$ (número de instancia erróneas que caen en la hoja $i$ entre el número de instancias que caen en la hoja $i$).
+\end{itemize}
+\subsubsection{Algoritmo}
+El algoritmo básico de aprendizaje es el ID3 (Iterative Dichotomiser 3).
+
+\begin{algorithm}
+	\caption{árbol $\gets$ aprenderArbol(\textit{datos})}
+	\begin{algorithmic}[1]
+		\IF{todos los ejemplos en datos tienen la misma etiqueta}
+		\RETURN un nodo hoja con dicha etiqueta
+		\ELSE
+		\STATE Sea $A$ el atributo que clasifica mejor a los objetos en datos
+		\FORALL{posible valor $v$ de $A$}
+		\STATE $data(v) \leftarrow$ todos los objetos con $A = v$
+		\STATE Añadir nueva rama $\leftarrow$ aprenderArbol($data(v)$)
+		\ENDFOR
+		\RETURN árbol
+		\ENDIF
+	\end{algorithmic}
+\end{algorithm}
+
+\pagebreak
+
+\textbf{ID3(Instancias, Etiquetas, Atributos)}
+
+\begin{algorithmic}
+	\REQUIRE \texttt{Instancias:} el conjunto de datos
+	\REQUIRE \texttt{Etiquetas:} el conjunto de posibles clases.
+	\REQUIRE \texttt{Atributos:} el conjunto de atributos en el conjunto \texttt{Instancias}.
+	\IF{todas las instancias son positivas}
+	\RETURN el nodo raíz con etiqueta $+$.
+	\ELSIF{todas las instncias son negativas}
+	\RETURN el nodo raíz con la etiqueta $-$.
+	\ELSIF{\texttt{Atributos}=$\varnothing$}
+	\RETURN el nodo raíz con el valor de \texttt{Etiquetas} más probable en \texttt{Instancias}.
+	\ENDIF
+	\STATE Sea $A$ el atributo que clasifica mejor las instancias en \textit{datos}.
+	\STATE Crear un árbol con un nodo etiquetado con $A$
+	\FORALL{posible valor $v_i$ del atributo $A$}
+	\STATE añadir un arco bajo la raíz con la comprobación $A=v_i$.
+	\STATE sea \texttt{Instancias} $v_i$ el subconjunto de \texttt{Instancias} con $A=v_i$.
+	\IF{\texttt{Instancias}$_{v_i}=\varnothing$}
+	\STATE añadir un nodo hoja al arco añadido con el valor de \texttt{Etiquetas} más probable en \texttt{Ejemplos}.
+	\ELSE 
+	\STATE añadir al nuevo árbol el subárbol generado por \textbf{ID3} (\texttt{Instancias}$_{v_i}$,\texttt{Etiquetas}, \texttt{Atributos}$-\{A\}$).
+	\ENDIF
+	\ENDFOR
+	\RETURN nodo raíz
+\end{algorithmic}
+\subsection{Sobre-ajuste}
+\subsubsection{Espacio de hipótesis y sobre-ajuste}
+El \textbf{espacio de hipótesis} $H$ (no confundir con la entropía) en árboles de decisión
+abarca todas las posibles combinaciones de atributos y valores que pueden formar
+árboles de decisión, y nuestra tarea es encontrar la hipótesis más adecuada para
+clasificar correctamente las instancias de entrada.
+
+En general, se prefieren hipótesis cortas para evitar el sobre-ajuste (\textbf{overfitting}).
+
+\begin{itemize}[label=\color{red}\textbullet, leftmargin=*]
+	\item \color{lightblue}Sobre-ajuste
+\end{itemize}
+Dado un espacio de hipótesis $H$, se dice que una hipótesis particular $h\in H$ sobreajusta los datos de entrenamiento si existe un hipótesis alternativa $h'\in H$, tal que $h$ presenta un error menor que $h'$ sobre los ejemplos de entrenamiento, pero $h'$ presenta un error menor que $h$ sobre el conjunto total de observaciones.
+\subsubsection{Proceso de poda}
+\begin{itemize}[label=\color{red}\textbullet, leftmargin=*]
+	\item \color{lightblue}¿Cómo podemos evitar el sobre-aprendizaje o sobre-ajuste?
+\end{itemize}
+\textbf{Poda:} Eliminar condiciones de las ramas del árbol encontrar más pequeños. Existe dos tipos de poda:\begin{itemize}
+	\item \textbf{Prepoda:} El proceso se realiza durante la construcción del árbol, estableciendo un criterio de parada.
+	\begin{itemize}
+		\item El número de instancias por nodo.
+		\item El error esperado.
+		\item MDL (Minimun Description Lenght).
+	\end{itemize}
+	\item \textbf{Postpoda:} El proceso se realiza después de la construcción del árbol
+	\begin{itemize}
+		\item Consiste en ir eliminando nodos de abajo a arriba mientras se vaya cumpliendo un criterio determinado.
+	\end{itemize}
+\end{itemize}
+Se pueden combinar ambas aproximaciones.
+\subsubsection{Otras medidas}
+\textbf{Medidas alternativas:} En algunos casos se suele utilizar otras medidas como:
+\begin{itemize}
+	\item El \textit{Ratio} de la ganancia de información, para evitar el hecho de que se favorece la selección de los atributos con más valores.
+	\item MSE para regresión
+	\item Índice Gini empleado por el algoritmo CART
+	\item DKM, basados en AUC, MDL
+\end{itemize}
+\subsection{Algoritmo CART y Otros}
+\subsubsection{CART}
+\textbf{Cart} (\textbf{C}lasificación \textbf{A}nd \textbf{R}egression \textbf{T}rees). Similar al ID3 pero:
+\begin{itemize}
+	\item Permite que la variable que define la clase sea continua y no construye un conjunto de reglas.
+	\item Utiliza el índice de Gini en vez de la ganancia de información para seleccionar el mejor atributo (la mejor partición).
+	\item Utiliza también el esquema de partición recursiva utilizando una estrategia voraz.
+	\item También permite resolver problemas de regresión.
+\end{itemize}
+Se elige la partición que produce el menor valor de la función de coste.
+\begin{itemize}
+	\item Para regresión: RSME.
+	\item Para clasificación: GINI \[ \mathrm{Gini}(p)=\sum_{i=1}^{n}p_i(1-p_i) \] con $p_i$ las proposiciones de instancias de la clase $i$ en la partición.
+\end{itemize}
+Prepoda: Utiliza como criterio de parada el número mínimo de instancias asignadas al nodo.
+
+Postpoda: Utiliza un criterio que controla la improtancia relativa del error frente la complejidad (tamaño del árbol).
+\subsubsection{C4.5, C5.0}
+\textbf{C4.5:} Permite, a diferenciaque ID3, que las características puedan ser continuas, definiendo de forma dinámica un atributo discreto particionando los atributos continuos en un conjunto discreto de intervalos.
+\begin{itemize}
+	\item C4.5 transforma los árboles obtenidos en un conjunto de reglas del tipo \textit{if-then}. La precisión de cada regla es evaluada de forma independiente para determinar el orden en el que deben ser aplicadas.
+	\item Un proceso de poda elimina antecedentes de las reglas si con esto se mejora la precisión de la misma.
+	\item C5.0, utiliza menos memoria y obtiene un conjunto de reglas menor y más preciso.
+	\item J48 es la implementación en código abierto de C4.5
+\end{itemize}
+\subsection{Random Forests}
+Random Forest es una técnica que construye un grán número de árboles de decisión no correlacionados.
+
+Se basa en la técnica de Agregación de Bootstrap (Bagging), técnica de agregación de clasificadores o regresores que:
+\begin{itemize}
+	\item Aumenta la precisión y estabilidad reduciendo los efectos del ruido.
+	\item Reduce la varianza en las predicciones.
+	\item Ayuda a evitar el sobre ajuste.
+\end{itemize}
+La predicción del modelo se elige analizando las predicciones de cada uno de los árboles considerados en el modelo.
+\subsubsection{Algoritmo}
+\begin{algorithm}
+	\caption{RF $\gets$ RandomForest(\textit{datos})}
+	\begin{algorithmic}[1]
+		\FOR{$i\gets1\to$ \textit{n_arboles}}
+		\STATE Extraer una muestra de tamaño \textit{size(data)} de \textit{datos} por bootstrapping
+		\STATE Construir un árbol $T_i$ repitiendo recurivamente para cada nodo hoja
+		\STATE \begin{enumerate}[leftmargin=1.5cm]
+			\item Selecionar aleatoriamente $m$ atributos.
+			\item Seleccionar la mejor partición de las inducidas por los $m$ atributos.
+			\item Dividir el nodo en dos nodos hijos.
+			\item Si el tamaño de nodo alcanza $n_{\min}$ no continuar dividiendo.
+		\end{enumerate}
+		\ENDFOR
+		\RETURN El conjunto de árboles $\{T_i\}_1^{\text{\textit{n_arboles}}}$.
+	\end{algorithmic}
+\end{algorithm}
+
+Si tenemos $p$ atributos las recomendaciones para el valor de $m$ son:
+\begin{itemize}
+\item Clasificación: $\lfloor\sqrt{m}\rfloor$
+
+\item Regresión: $\lfloor p/3\rfloor$
+\item Siendo el valor mínimo 1.
+\end{itemize}
+Una vez se han construido los árboles para hacer predicciones:
+\begin{itemize}
+	\item Clasificación: La clase más votada por los árboles.
+	\item Regresión: La media de todas las predicciones
+\end{itemize}
