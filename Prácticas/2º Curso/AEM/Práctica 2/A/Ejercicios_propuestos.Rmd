@@ -1,10 +1,16 @@
 ---
 title: "Problemas propuestos de Regresión Lineal Múltiple"
 author: "Francisco Javier Mercader Martínez"
-output: pdf_document
+output: 
+  pdf_document:
+    latex_engine: xelatex
+    extra_dependencies: ["fvextra"]
+header-includes:
+  - \usepackage{fvextra}
+  - \DefineVerbatimEnvironment{Highlighting}{Verbatim}{breaklines, commandchars=\\\{\}}
 ---
 
-```{r setup, include=TRUE}
+```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
@@ -46,50 +52,153 @@ La matriz de correlaciones nos proporciona información sobre la relación linea
 
 ```{r}
 # Ajustar el modelo de regresión lineal completo
-full.model <- lm(Calor ~ ., data = cemento)
+modelo_completo <- lm(Calor ~ ., data = cemento)
 
 # Selección de modelo hacia adelante
-forward.model <- step(lm(Calor ~ 1, data = cemento), scope = list(lower = ~1, upper = full.model), direction = "forward")
+modelo_forward <- step(lm(Calor ~ 1, data = cemento), scope = list(lower = ~1, upper = modelo_completo), direction = "forward")
 
 # Selección de modelo hacia atrás
-backward.model <- step(full.model, direction = "backward")
+modelo_backward <- step(modelo_completo, direction = "backward")
 
 # Imprimir los modelos
-summary(forward.model)
-summary(backward.model)
+summary(modelo_forward)
+summary(modelo_forward)
 ```
 
 4)  Estudia si hay colinealidad entre los regresores de los modelos resultantes en el apartado anterior y en caso afirmativo explica cuál es tu decisión para solventarlo.
 
-```{r}
-
+```{r, include=FALSE}
+library("rms")
 ```
+
+```{r}
+# Comprobar la colinealidad
+
+vif(modelo_completo)
+vif(modelo_forward)
+vif(modelo_backward)
+```
+
+En el `modelo_completo` y el `modelo_forward`, todos los regresores tienen un VIF muy alto, lo que indica una fuerte colinealidad. Para solucionar esto, podrías considerar eliminar uno o más de los regresores, o combinarlos de alguna manera si tiene sentido en el contexto de tus datos.
+
+En el `modelo_backward`, los regresores A tienen un VIF bajo, lo que indica que no hay colinealidad. Sin embargo, B y D tienen un VIF mayor a 5, lo que sugiere alguna colinealidad.
 
 5)  ¿Propondrías un único modelo o varios? ¿Cuál o cuáles y por qué?
 
-```{r}
-
-```
+El `modelo_backward` muestra una colinealidad moderada entre las variables B y D, pero la variable A no muestra colinealidad. Por lo tanto, este modelo puede ser más adecuado para la predicción.
 
 6)  Determina el (los) modelo(s) ajustado(s) y los intervalos de confianza al 95% para los parámetros de regresión.
 
 ```{r}
-
+# Modelo ajustado
+modelo_backward
+confint(modelo_backward, level=0.95)
 ```
 
 7)  Para el modelo que contempla sólo los regresores A y D, estudia si se verifican las hipótesis del modelo de regresión múltiple, comentando los procesos utilizados. Estudia si hay colinealidad entre los regresores y si aparecen observaciones influyentes, comentando los procesos utilizados. En caso de que se presente alguno de estos problemas, explica cuál es tu decisión para solventarlo.
 
 ```{r}
-
+# Comprobar la colinealidad
+modelo_ajustado <- lm(Calor ~ A + D, data = cemento)
+vif(modelo_ajustado)
 ```
 
+Los valores de `vif` para los regresores A y D son ambos 1.064105. En este caso, los valores de `vif` son muy bajos, lo que indica que no hay colinealidad entre los regresores A y D. Por lo tanto, no es necesario tomar ninguna medida para tratar la colinealidad en este modelo.
+
 8)  Obtén una estimación puntual del calor emitido por el cemento sabiendo que A=15, B=39, C=4.5 y D=40. Determina también un intervalo de confianza para el calor emitido en ese caso, así como un intervalo de predicción. ¿Podemos concluir que el calor emitido por el cemento superará las 95 cal/gr? ¿Y en promedio?
+
+```{r}
+predict(modelo_ajustado, newdata = data.frame(A = 15, D = 40), interval = "confidence", level = 0.95)
+predict(modelo_ajustado, newdata = data.frame(A = 15, D = 40), interval = "prediction", level = 0.95)
+```
+
+El intervalo de confianza al 95% para el calor emitido por el cemento es (96.87177, 103.4055) cal/gr. El intervalo de predicción al 95% para el calor emitido por el cemento es (93.22567, 107.0515) cal/gr.
+
+Dado que la estimación puntual del calor emitido por el cemento es de 100.1386 cal/gr, que está por encima de 95 cal/gr, podemos concluir que, en promedio, es probable que el calor emitido por el cemento supere las 95 cal/gr.
+
+9)  Responde a la cuestión anterior sabiendo que A=45 y D=40.
+
+```{r}
+predict(modelo_ajustado, newdata = data.frame(A = 45, D = 40), interval = "confidence", level = 0.95)
+predict(modelo_ajustado, newdata = data.frame(A = 45, D = 40), interval = "prediction", level = 0.95)
+```
+
+Dado que la estimación puntual del calor emitido por el cemento es de 143.3374 cal/gr, que está muy por encima de 95 cal/gr, podemos concluir que, en promedio, es más que probable que el calor emitido por el cemento supere las 95 cal/gr.
+
+# Problema 2
+
+En el fichero **motor.dat** se encuentran los datos correspondientes a 200 ensayos, donde se midieron las siguientes variables: VRP (velocidad de rotación primaria), VRS (velocidad de rotación secundaria), Presion (presión), Temp_Esc (temperatura de escape), Temp_Amb (temperatura ambiente a la hora de efectuar la prueba), LN_RFC (logaritmo neperiano de la rapidez de flujo de combustible) y Empuje (empuje del motor). Se desea proponer un modelo que permita predecir el "Empuje del motor" en función del resto de variables, analizando si serían necesarias todas o no.
+
+```{r}
+motor <- read.table("../../data/motor.dat", header = TRUE)
+```
+
+1)  Indica la variable respuesta y los regresores del problema. Las variables del problema, ¿presentan datos atípicos? NO eliminies ningún dato. ¿Podemos suponer que nuestra variable respuesta es Normal? En caso negativo, justificar si la transformación logarítmica sería adecuada y realizarla.
+
+```{r}
+summary(motor) # Los valores de la columna EMPUJE son caracteres, por lo que necesitamos convertirlos a numéricos
+motor$EMPUJE <- gsub(",", ".", motor$EMPUJE) # Reemplazar las comas por puntos para que el programa los reconozca
+options(digits = 10) # Aumentar el número de dígitos para ver los valores completos
+motor$EMPUJE <- as.numeric(motor$EMPUJE) # Convertir la columna EMPUJE a numérica
+summary(motor) # Verificar que la columna EMPUJE ahora es numérica
+
+shapiro.test(motor$EMPUJE)
+```
+El `p-value` es 0.003448391, es menor que 0.05. Por lo tanto, rechazaríamos la hipótesis nula y concluiríamos que los datos no están normalmente distribuidos.
+
+```{r}
+motor$EMPUJE <- log(motor$EMPUJE)
+shapiro.test(motor$EMPUJE)
+qqnorm(motor$EMPUJE)
+qqline(motor$EMPUJE)
+```
+Utilizando la tranformación logarítmica los valores de la variable respuesta se han normalo y hemos obtenido `p-value` con un valor mayor que 0.05, concluyendo que ahora los datos están normalmente distribuidos.
+
+2)  Calcula la matriz de correlaciones de las variables del problema. ¿Existen regresores altamente correlados dos a dos? ¿Cuál es la primera variable que debería entrar en el modelo? (indica el coeficiente de correlación en cada caso e interprétalo).
+
+```{r}
+# Para poder hacer la matriz de correlaciones primero habría que convertir en valores 
+# numéricos la columna LN_RFC ya que nos encontramos el mismo problema que con la 
+# columna EMPUJE
+motor$LN_RFC <- gsub(',', '.', motor$LN_RFC)
+motor$LN_RFC <- as.numeric(motor$LN_RFC)
+cor(motor)
+```
+Mirando tu matriz de correlaciones, la correlación más alta es entre las variables `PRESION` y `EMPUJE`, con un coeficiente de correlación de $0.84392883530$. Esto indica una fuerte correlación positiva entre estas dos variables, lo que significa que cuando `PRESION` aumenta, `EMPUJE` también tiende a aumentar, y viceversa.
+
+Por lo tanto, `PRESION` sería la primera variable que debería entrar en el modelo, ya que es la que tiene la correlación más alta con la variable de respuesta.
+
+3)  Realiza la selección del modelo mediante regresión por pasos, hacia delante y hacia atrás. Para cada uno de los tres métodos, indica el modelo teórico resultante y estudia si existe multicolinealidad.
+
+```{r}
+modelo_completo <- lm(EMPUJE ~ ., data = motor)
+modelo_forward <- step(modelo_completo, scope = list(lower = ~ 1, upper = modelo_completo), direction = "forward")
+modelo_backward <- step(modelo_completo, direction = "backward")
+
+# Comprobar la colinealidad
+vif(modelo_completo)
+vif(modelo_forward)
+vif(modelo_backward)
+```
+Todos los valores de `VIF` son muy bajos por lo que suponemos que no hay colinealidad.
+
+4)  ¿Qué modelo(s) de regresión propondrías y por qué? Indica el modelo ajustado que explica el "empuje del motor" y comenta la bondad del ajuste.
 
 ```{r}
 
 ```
 
-9)  Responde a la cuestión anterior sabiendo que A=45 y D=40.
+5)  Para el modelo propuesto, estudia si se verifican las hipótesis del modelo de regresión múltiple y si existen observaciones influyentes. Comenta los procesos utilizados.
+
+```{r}
+
+```
+
+6)  Porporciona una estimación puntual del "empuje del motor" para un ensayo de las siguientes características:
+
+    VRP= 2000, VRS=19000, LN_RFC= 10.3089, Presion = 180, Temp_Esc = 1700 y Temp_Amb= 95.
+
+    Determinar también un intervalo predicción individual para el "empuje" en ese caso, así como un intervalo de confianza para el "empuje" promedio. ¿Podemos concluir que el "empuje del motor" será superior a 4000? ¿Y en promedio para los ensayos de esas características?
 
 ```{r}
 

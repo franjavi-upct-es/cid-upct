@@ -10,21 +10,21 @@
 \end{itemize}
 Fundamentalmente cuatro:
 \begin{itemize}[label=\color{lightblue}\textbullet]
-\item Clasificación
-\begin{itemize}[label=\color{lightblue}$\to$]
-\item \textbf{Detección de spam:} Se trata de clasificar, mediante identificación de patrones, los correos electrónicos como spam o no spam.
-\item \textbf{Detección de fraudes:} Distinción entre transacciones legítimas y sospechosas basándose en patrones y características relevantes.
-\item \textbf{Análisis de sentimientos:} Los algoritmos de clasificación pueden utilizarse para determinar el sentimiento expresado en un texto, como positivo, negativo o neutro. Esto es útil para el análisis de opiniones en redes sociales, comentarios de clientes, revisiones de productos, etc.
-\item \textbf{Detección de objetos en imágenes:} Especialmente útil en la conducción de coches autónomos.
-\end{itemize}
-\item Regresión
-\begin{itemize}[label=\color{lightblue}$\to$]
-\item \textbf{Estimación de la demanda de un producto:} Predicción de la demanda de un producto en función de variables como el precio, la publicidad, las tendencias del mercado, entre otras.
-\item \textbf{Predicción de la contaminación atmosférica:} Utilizando datos históricos de contaminantes, meteorología y otras variables relevantes, se puede aplicar la regresión para predecir los niveles de contaminación en una ubicación específica.
-\item \textbf{Análisis de la relación entre variables económicas:} La regresión puede utilizarse para explorar la relación entre variables económicas, como el crecimiento del PIB y el desempleo, con el fin de entender mejor su interdependencia y tomar decisiones políticas o empresariales informadas.
-\end{itemize}
-\item Agrupamiento
-\item Asociación
+	\item Clasificación
+	\begin{itemize}[label=\color{lightblue}$\to$]
+		\item \textbf{Detección de spam:} Se trata de clasificar, mediante identificación de patrones, los correos electrónicos como spam o no spam.
+		\item \textbf{Detección de fraudes:} Distinción entre transacciones legítimas y sospechosas basándose en patrones y características relevantes.
+		\item \textbf{Análisis de sentimientos:} Los algoritmos de clasificación pueden utilizarse para determinar el sentimiento expresado en un texto, como positivo, negativo o neutro. Esto es útil para el análisis de opiniones en redes sociales, comentarios de clientes, revisiones de productos, etc.
+		\item \textbf{Detección de objetos en imágenes:} Especialmente útil en la conducción de coches autónomos.
+	\end{itemize}
+	\item Regresión
+	\begin{itemize}[label=\color{lightblue}$\to$]
+		\item \textbf{Estimación de la demanda de un producto:} Predicción de la demanda de un producto en función de variables como el precio, la publicidad, las tendencias del mercado, entre otras.
+		\item \textbf{Predicción de la contaminación atmosférica:} Utilizando datos históricos de contaminantes, meteorología y otras variables relevantes, se puede aplicar la regresión para predecir los niveles de contaminación en una ubicación específica.
+		\item \textbf{Análisis de la relación entre variables económicas:} La regresión puede utilizarse para explorar la relación entre variables económicas, como el crecimiento del PIB y el desempleo, con el fin de entender mejor su interdependencia y tomar decisiones políticas o empresariales informadas.
+	\end{itemize}
+	\item Agrupamiento
+	\item Asociación
 \end{itemize}
 \begin{itemize}[label=\color{red}\textbullet, leftmargin=*]
 	\item \color{lightblue}Tarea de agrupación en Machine Learning
@@ -35,7 +35,7 @@ Algoritmos populares para clustering incluyen el K-Means, el DSCAN, el clusterin
 
 \bu{Ejemplo K-Means}
 \begin{center}
-\includegraphics[scale=0.7]{"Temas/Tema 1/K-means.png"}
+	\includegraphics[scale=0.7]{"Temas/Tema 1/K-means.png"}
 \end{center}
 \begin{itemize}[label=\color{red}\textbullet, leftmargin=*]
 	\item \color{lightblue}Tarea de asociación en Machine Learning
@@ -55,18 +55,18 @@ Cada hipótesis representa una posible aproximación de la relación subyacente 
 El objetivo del \textbf{aprendizaje supervisado} es encontrar la hipótesis que mejor se ajuste a los datos de entrenamiento manteniendo la capacidad de hacer predicciones precisas para datos nuevos \textbf{(capacidad de generalización)}.
 
 \begin{center}
-\begin{tikzpicture}
-    % Define los nodos
-    \node (A) at (0,0) {$x_j$};
-    \node[draw=blue, right=2cm of A, text width=2cm, fill=lightblue!10] (B) {\begin{center}
-    Máquina de \\ Aprendizaje \\ $y(x,w)$
-    \end{center}};
-    \node[right=2cm of B] (C) {$y(x_j,w)$};
-
-    % Dibuja las flechas
-    \draw[double -latex=4pt colored by lightblue and lightblue!10] (A) -- (B);
-    \draw[double -latex=4pt colored by lightblue and lightblue!10] (B) -- (C);
-\end{tikzpicture}
+	\begin{tikzpicture}
+		% Define los nodos
+		\node (A) at (0,0) {$x_j$};
+		\node[draw=blue, right=2cm of A, text width=2cm, fill=lightblue!10] (B) {\begin{center}
+				Máquina de \\ Aprendizaje \\ $y(x,w)$
+		\end{center}};
+		\node[right=2cm of B] (C) {$y(x_j,w)$};
+		
+		% Dibuja las flechas
+		\draw[double -latex=4pt colored by lightblue and lightblue!10] (A) -- (B);
+		\draw[double -latex=4pt colored by lightblue and lightblue!10] (B) -- (C);
+	\end{tikzpicture}
 \end{center}
 
 \begin{itemize}[label=\color{red}\textbullet, leftmargin=*]
@@ -84,38 +84,38 @@ El objetivo del \textbf{aprendizaje supervisado} es encontrar la hipótesis que 
 $y=\sin(2\pi x)+n(x)$, donde $n(x)$ es un ruido gausiano pequeño.
 
 \begin{wrapfigure}[3]{l}{0.3\textwidth}
-\includegraphics{"Temas/Tema 1/Entrenamiento.png"}
+	\includegraphics{"Temas/Tema 1/Entrenamiento.png"}
 \end{wrapfigure}
 
 Conjunto de entrenamiento: $\{x_j,t_j\}_{j=1}^{N=10}$
 
 \begin{flushright}
-\begin{tikzpicture}
-    % Define los nodos
-    \node (A) at (0,0) {$x_j$};
-    \node[draw=blue, right=2cm of A, text width=2cm, fill=lightblue!10] (B) {\begin{center}
-    Máquina de \\ Aprendizaje \\ $y(x,w)$
-    \end{center}};
-    \node[right=2cm of B] (C) {$y(x_j,w)$};
-
-    % Dibuja las flechas
-    \draw[double -latex=4pt colored by lightblue and lightblue!10] (A) -- (B);
-    \draw[double -latex=4pt colored by lightblue and lightblue!10] (B) -- (C);
-\end{tikzpicture}
+	\begin{tikzpicture}
+		% Define los nodos
+		\node (A) at (0,0) {$x_j$};
+		\node[draw=blue, right=2cm of A, text width=2cm, fill=lightblue!10] (B) {\begin{center}
+				Máquina de \\ Aprendizaje \\ $y(x,w)$
+		\end{center}};
+		\node[right=2cm of B] (C) {$y(x_j,w)$};
+		
+		% Dibuja las flechas
+		\draw[double -latex=4pt colored by lightblue and lightblue!10] (A) -- (B);
+		\draw[double -latex=4pt colored by lightblue and lightblue!10] (B) -- (C);
+	\end{tikzpicture}
 \end{flushright}
 
 Aproximador polinómico: $y(x,\mathbf{w})=w_0+w_1x+w_2x^2+\cdots+x_Mx^M=\sum_{j=0}^{M}x_jx^j$
 
 \begin{itemize}
-\item $M$ es un parámetro que determina la complejidad del modelo (orden del polinomio).
-\item Los parámetros no entrenables que determinan el modelo o el entrenamiento se denominan en Machine Learning \textbf{hiperparámetros}.
+	\item $M$ es un parámetro que determina la complejidad del modelo (orden del polinomio).
+	\item Los parámetros no entrenables que determinan el modelo o el entrenamiento se denominan en Machine Learning \textbf{hiperparámetros}.
 \end{itemize}
 \subsubsection{Planteamiento de la solución}
 Se quiere encontrar las variables del modelos (coeficientes del polinomio) para que éste minimice una función de coste o error, por ejemplo, la función de error SSE ("Sum of Square Error") dada por \[ E(\mathbf{w})=\dfrac{1}{2}\sum_{n=1}^{N}\left\{y(x_n,\mathbf{w})-t_n\right\}^2 \]Existe una solución analítica única mediante álgebra lineal.
 
 
 \begin{center}
-    \includegraphics{"Temas/Tema 1/SSE.png"}
+	\includegraphics{"Temas/Tema 1/SSE.png"}
 \end{center}
 
 \subsubsection{Peligros}
@@ -131,7 +131,7 @@ Se quiere encontrar las variables del modelos (coeficientes del polinomio) para 
 	\end{itemize}
 	Fijado $N$, la complejidad del modelo determina la generalización
 \end{minipage}\qquad\begin{minipage}{0.4\textwidth}
-\includegraphics{"Temas/Tema 1/Screenshot001"}
+	\includegraphics{"Temas/Tema 1/Screenshot001"}
 \end{minipage}
 
 \begin{minipage}{0.4\textwidth}
@@ -140,9 +140,9 @@ Se quiere encontrar las variables del modelos (coeficientes del polinomio) para 
 	\end{itemize}
 	Fijado $N(M=9)$, $N$ condiciona la solución del problema: si es bajo, se puede sobreajustar, si es alto (con relación a la dimensión) se reduce el sobreajuste.
 \end{minipage}\qquad\begin{minipage}{0.4\textwidth}
-\begin{center}
-	\includegraphics{"Temas/Tema 1/Screenshot009"}
-\end{center}
+	\begin{center}
+		\includegraphics{"Temas/Tema 1/Screenshot009"}
+	\end{center}
 \end{minipage}
 \subsubsection{Conclusión}
 Hay que limitar la complejidad del modelo acorde con el número de datos disponibles.
@@ -166,8 +166,8 @@ En el contexto de machine learning y desde un punto de vista teórico, los datos
 \end{itemize}
 
 El término cuadrático de la Ecuación (1), se puede escribir como \[\begin{aligned}
-\{y(\mathbf{x})-t\}^2&=\{y(\mathbf{x})-E_t[t|\mathbf{x}]+E_t[t|\mathbf{x}]-t\}^2\\
-&=\{y(\mathbf{x})-E_t[t|\mathbf{x}]\}^2+\{E_t[t|\mathbf{x}]-t\}^2+2\{y(\mathbf{x})-E_t[t|\mathbf{x}]\}\{E_t[t|\mathbf{x}]-t\}
+	\{y(\mathbf{x})-t\}^2&=\{y(\mathbf{x})-E_t[t|\mathbf{x}]+E_t[t|\mathbf{x}]-t\}^2\\
+	&=\{y(\mathbf{x})-E_t[t|\mathbf{x}]\}^2+\{E_t[t|\mathbf{x}]-t\}^2+2\{y(\mathbf{x})-E_t[t|\mathbf{x}]\}\{E_t[t|\mathbf{x}]-t\}
 \end{aligned}\] que insertado en (1) produce \[
 E[L]=\int\mathbf{x}\int_t\{y(\mathbf{x})-E_t[t|\mathbf{x}]\}^2p(\mathbf{x},t)\dt\mathrm{d}\mathbf{x}+\int_\mathbf{x}\int_t\{E_t[t|\mathbf{x}]-t\}^2P(\mathbf{x},t)\dt\mathrm{d}\mathbf{x}+\int_\mathbf{x}\int_t2\{y(x)-E_t[t|\mathbf{x}]\}\{E_t[t|\mathbf{x}]-t\}p(\mathbf{x},t)\dt\mathrm{d}\mathbf{x}
 \] y realizando la integral sobre $t$, se obtiene  \begin{align}
@@ -199,9 +199,9 @@ En la práctica, \textbf{nunca tendremos infinitas muestras}, sino un conjuto fi
 		\item Considerando que se dispone de un gran número de conjuntos de datos diferentes, cada uno con $N$ muestras extraídas independientemente de $p(\mathbf{x}, t)$, de forma que para cada uno de ellos, se obtiene –mediante algún algoritmo de entrenamiento– un predictor $y(\mathbf{x}, D)$ definido por un único vector $\mathbf{w}$ (estimación única para cada $D$).
 	\end{enumerate}
 \end{minipage}\qquad\begin{minipage}{0.45\textwidth}
-\begin{center}
-	\includegraphics{"Temas/Tema 1/Screenshot011"}
-\end{center}
+	\begin{center}
+		\includegraphics{"Temas/Tema 1/Screenshot011"}
+	\end{center}
 \end{minipage}
 Siguiendo la segunda opción, para cada conjunto $D$ y muestra $\mathbf{x}$, se obtiene un error dado por: \[ \{y(\mathbf{x},\mathbf{D})-\mathbf{h(x)}\}^2 \]
 Introduciendo el promedio sobre $D$ de nuestro regresor para $\mathbf{x}$, podemos re-escribir el error como \[ \{y(\mathbf{x},D)-E_D[y(\mathbf{x},D)]-h(\mathbf{x})\}^2=\{y(\mathbf{x},D)-E_D[y(\mathbf{x},D)]\}^2+\{E_D[y(\mathbf{x},D)]-h(\mathbf{x})\}^2+2\{y(\mathbf{x},D)-E_D[y(\mathbf{x},D)]\}\{E_D[y(\mathbf{x},D)]-h(\mathbf{x})\} \]
@@ -263,17 +263,17 @@ En este caso, las regresiones se realizan perfectamente mediante árboles de dec
 		\end{itemize}
 	\end{itemize}
 \end{minipage}\qquad\begin{minipage}{0.45\textwidth}
-\begin{center}
-	\includegraphics[width=\linewidth]{"Temas/Tema 1/Screenshot015"}
-\end{center}
+	\begin{center}
+		\includegraphics[width=\linewidth]{"Temas/Tema 1/Screenshot015"}
+	\end{center}
 \end{minipage}
 \subsubsection{Algunas técnicas de generalización}
 \subsubsection*{¿Cómo evitar el \textbf{sobre}-ajuste?}
 \begin{itemize}
 	\item \textbf{"Early stopping":} Se detiene el entrenamiento del modelo antes de que alcance la convergencia total en los datos de entrenamiento. Se emplea un conjunto de parada.
-	\item \textbf{Regularización L1 y L2} (Regresión Ridge y Lasso): Se agregan términos de penalización (normas L1 ó L2 de los coeficientes del modelo) a la función de pérdida durante el entrenamiento. Son técnicas \textbf{'Wight decay'}.
-	\item \textbf{Dropout:} Es una técnica específica para redes neuronales. Durante el entrenamiento aleatoriamente se desactivan (ponen a cero) ciertas neuronas en cada paso. Esto evita que el modelo depende demasiado de neuronas específicas y promueve una mejor generalización.
-	\item \textbf{Aumento de datos:} Se aumenta el tamaño del conjunto de datos mediante técnicas como la rotación, la inversión y el recorte de imágenes. Esto ayuda a exponer al modelo a una mayor variedad de datos y reduce el riesgo de sobresaliente.
+	\item \textbf{Regularización L1 y L2} (Regresión Ridge y Lasso): Se agregan términos de penalización (normas L1 ó L2 de los coeficientes del modelo) a la función de pérdida durante el entrenamiento. Son técnicas \textbf{'Weight decay'}.
+	\item \textbf{Dropout:} Es una técnica específica para redes neuronales. Durante el entrenamiento aleatoriamente se desactivan (ponen a cero) ciertas neuronas en cada paso. Esto evita que el modelo dependa demasiado de neuronas específicas y promueve una mejor generalización.
+	\item \textbf{Aumento de datos:} Se aumenta el tamaño del conjunto de datos mediante técnicas como la rotación, la inversión y el recorte de imágenes. Esto ayuda a exponer al modelo a una mayor variedad de datos y reduce el riesgo de sobreajuste.
 	\item \textbf{Feature Selection:} La selección adecuada de características es esencial para evitar el sobreajuste. Eliminar características irrelevantes o altamente correlacionadas puede reducir la complejidad del modelo y mejorar su generalización.
 	\item \textbf{Ensemble learning:} Combina múltiples modelos más simples y menos propensos al sobreajuste. El Bagging (Bootstrap Aggregating) y el Boosting son ejemplos de ensemble learning.
 \end{itemize}
@@ -335,9 +335,9 @@ Valores de los \underline{pesos} para varios $M$
 \begin{minipage}{0.5\textwidth}
 	En la figura, se observa como $\lambda$ determina la generalización de la solución
 \end{minipage}\qquad\begin{minipage}{0.45\textwidth}
-\begin{center}
-	\includegraphics[width=\linewidth]{"Temas/Tema 1/Screenshot019"}
-\end{center}
+	\begin{center}
+		\includegraphics[width=\linewidth]{"Temas/Tema 1/Screenshot019"}
+	\end{center}
 \end{minipage}
 
 Una forma sencilla de encontrar el valor óptimo de $\lambda$ (la complejidad del modelo) es mediante la evaluación de las prestaciones del \textbf{Conjunto de Validación} (el mismo conjunto empleado para early-stopping).
@@ -371,7 +371,7 @@ En estas fórmulas, $N$ el número total de instancias, $y(x_n,w)$ la salida obt
 \begin{itemize}
 	\item \textbf{Coeficiente de Determinación $R^2$}
 	
-	Métrica a utilizar en tareas de regresión. Infica la cantidad proporcional de variación en la variable de respuesta $y$, explicada según las variables independietnes $X$. Es una medida adimensional. Toma valores en el intervalo $[0,1]$. Cuando mayor es el valor mejor es el ajuste del modelo.
+	Métrica a utilizar en tareas de regresión. Indica la cantidad proporcional de variación en la variable de respuesta $y$, explicada según las variables independientes $X$. Es una medida adimensional. Toma valores en el intervalo $[0,1]$. Cuanto mayor es el valor, mejor es el ajuste del modelo.
 \end{itemize}
 La fórmula es: \[ R^2=1-\dfrac{\sum(t_i-y_i)^2}{\sum(y_i-\mu_t)^2}. \] Siendo $t_i$ la salida esperada de la instancia $i,\,y_i$ la salida del modelo para la instancia $i$ y $\mu_t$ la media de los valores de salida de todas las instancias. Interpretación de $R^2$.
 \begin{itemize}
@@ -405,7 +405,7 @@ El objetivo es conseguir un clasificador que produzca una frontera lo más parec
 Con \textbf{métricas} como:
 \begin{itemize}
 	\item Matriz de Confusión
-	\item Exactitud (Accuray)
+	\item Exactitud (Accuracy)
 	\item Precisión (Precision)
 	\item Sensibilidad (Recall) y Especificidad (Specificty)
 	\item F1-score
@@ -418,3 +418,31 @@ Con \textbf{métricas} como:
 \begin{center}
 	\includegraphics{"Temas/Tema 1/Screenshot021"}
 \end{center}
+
+\begin{wrapfigure}{r}{0.4\textwidth}
+	\begin{center}
+		\includegraphics{"Temas/Tema 1/Screenshot022"}
+	\end{center}
+\end{wrapfigure}
+
+\begin{itemize}[label=\color{red}\textbullet, leftmargin=*]
+	\item \color{lightblue}Exactitud (Accuracy)
+\end{itemize}
+Es el porcentaje de acierto (con independencia de la clase) \[ \mathrm{Exactitud}=\dfrac{\mathrm{VP}+\mathrm{VN}}{\mathrm{P}+\mathrm{N}} \]
+\textbf{Desventaja:} mala métrica para problemas desbalanceados
+\begin{itemize}[label=\color{red}\textbullet, leftmargin=*]
+	\item \color{lightblue}Precisión (Precision)
+\end{itemize}
+Es el porcentaje de acierto de las predicciones positivas. \[ \text{Precisión}=\dfrac{\mathrm{VP}}{\mathrm{VP}+\mathrm{FP}}=\dfrac{\mathrm{VP}}{P'} \]
+\begin{itemize}[label=\color{red}\textbullet, leftmargin=*]
+	\item \color{lightblue}Sensibilidad (Recall)
+\end{itemize}
+Es el porcentaje de casos positivos detectados \[ \mathrm{Sensibilidad}=\dfrac{\mathrm{VP}}{\mathrm{VP}+\mathrm{FN}}=\dfrac{\mathrm{VP}}{\mathrm{P}} \]
+Ejemplo en diagnóstico médico: probabilidad de detectar a un enfermo.\\
+También se denomina TPR (True Positive Ratio) o Probabilidad de detección ($P_D$).
+\begin{itemize}[label=\color{red}\textbullet, leftmargin=*]
+	\item \color{lightblue}Especificidad (Specificity)
+\end{itemize}
+Es el porcentaje de casos negativos detectados. \[ \mathrm{Especificidad}=\dfrac{\mathrm{VN}}{\mathrm{VN}+\mathrm{FP}}=\dfrac{\mathrm{VN}}{\mathrm{N}} \]
+Ejemplo en diagnóstico médico: probabilidad de detectar a un sano.\\
+También se denomina TNR (True Negative Ratio).
