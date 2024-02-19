@@ -419,13 +419,8 @@ Con \textbf{métricas} como:
 	\includegraphics{"Temas/Tema 1/Screenshot021"}
 \end{center}
 
-\begin{wrapfigure}{r}{0.4\textwidth}
-	\begin{center}
-		\includegraphics{"Temas/Tema 1/Screenshot022"}
-	\end{center}
-\end{wrapfigure}
-
-\begin{itemize}[label=\color{red}\textbullet, leftmargin=*]
+\begin{minipage}{0.55\textwidth}
+	\begin{itemize}[label=\color{red}\textbullet, leftmargin=*]
 	\item \color{lightblue}Exactitud (Accuracy)
 \end{itemize}
 Es el porcentaje de acierto (con independencia de la clase) \[ \mathrm{Exactitud}=\dfrac{\mathrm{VP}+\mathrm{VN}}{\mathrm{P}+\mathrm{N}} \]
@@ -446,3 +441,92 @@ También se denomina TPR (True Positive Ratio) o Probabilidad de detección ($P_
 Es el porcentaje de casos negativos detectados. \[ \mathrm{Especificidad}=\dfrac{\mathrm{VN}}{\mathrm{VN}+\mathrm{FP}}=\dfrac{\mathrm{VN}}{\mathrm{N}} \]
 Ejemplo en diagnóstico médico: probabilidad de detectar a un sano.\\
 También se denomina TNR (True Negative Ratio).
+\end{minipage}\qquad\begin{minipage}{0.4\textwidth}
+	\begin{center}
+		\includegraphics[width=\linewidth]{"Temas/Tema 1/Screenshot022"}
+	\end{center}
+\end{minipage}
+
+\subsubsubsection{Interpretación de la Precisión y la Sensibilidad}
+\textbf{Conjuntamente } indican si existe un sesgo hacia valores positivos o negativos
+
+\begin{minipage}{0.5\textwidth}
+	\textbf{Precisión baja + Sensibilidad alta =} Sesgo hacia la clase de negativos (frontera desplazada hacia la clase de negativos). Se puede tener un 100\% de sensibilidad con una muestra negativa acertada.
+	
+	\textbf{Precisión alta + Sensibilidad baja =} Sesgo hacia la clase de positivos (frontera desplaza hacia la clase de positivos). Se puede tener un 100\% de precisión con una sola muestra positiva acertada.
+	
+	Típico de \lb{conjuntos \textbf{desbalanceados}}.
+\end{minipage}\qquad\begin{minipage}{0.4\textwidth}
+\begin{center}
+	\includegraphics[width=\linewidth]{"Temas/Tema 1/Screenshot023"}
+\end{center}
+\end{minipage}
+\begin{itemize}
+	\item \textbf{Puntuación F1} (F1 score): La puntuación F1 es la \lb{media armónica} de la precisión y sensibilidad, donde la puntuación de la F1 alcanza su mejor valor en 1 (precisión y sensibilidad perfectas) y el peor en 0.
+	\item Esta es una métrica muy utilizada en problemas desbalanceados.
+\end{itemize}
+Se define como: \[ \mathrm{F1}=2\times\dfrac{\mathrm{sensibilidad}\times\text{precisión}}{\mathrm{sensibilidad}+\text{precisión}} \]
+\begin{itemize}[label=\color{red}\textbullet, leftmargin=*]
+	\item \color{lightblue}ROC (Receiver Operating Characteristic)
+\end{itemize}
+Es la representación gráfica de la \textbf{Sensibilidad} vs \textbf{Probabilidad de Falsa Alarma} para un sistema clasificador binario según se varía el umbral de discriminación (valor a partir del cual decidimos que un caso es un positivo).
+\begin{itemize}[label=\color{red}\textbullet, leftmargin=*]
+	\item \color{lightblue}Probabilidad de Falsa Alarma, FPR
+\end{itemize}
+
+Es la probabilidad de detección incorrecta de un negativo, es decir, 1 $-$ (la probabilidad de detección correcta de un negativo). Así \[ \text{Falsa alarma}=1-\text{Especificidad}=1-\dfrac{\mathrm{VN}}{\mathrm{N}}=\dfrac{\mathrm{FP}}{N} \]
+\textbf{RECORDAR:}\\
+Sensibilidad = TPR ó $P_D$\\
+Falsa Alarma = FPR (False Positive Ratio) ó $P_{FA}$
+\begin{itemize}[label=\color{red}\textbullet, leftmargin=*]
+	\item \color{lightblue}AUC (Área Bajo la Curva)
+\end{itemize}
+\begin{center}
+	\includegraphics[width=\linewidth]{"Temas/Tema 1/ScreenShot024.drawio"}
+\end{center}
+\begin{center}
+	\includegraphics{"Temas/Tema 1/Screenshot025"}
+\end{center}
+\subsubsubsection{Puntuación Kappa}
+La métrica de puntuación kappa $k$ tiene sus orígenes se remontan al campo de la psicología: se utiliza para medir la concordancia entre dos evaluadores o clasificadores humanos a la hora de calificar sujetos. En el área del machine learning se utiliza para medir el rendimiento de la clasificación. Se trata de un coeficiente para medir la concordancia existente en la observación de un fenómeno por dos observaciones distintos \[ k=\dfrac{P_o-P_e}{1-P_e} \]donde:
+\begin{itemize}
+	\item $P_o$ representa la probabilidad observada de que coincida el modelo con la clase real y se calcula simplemente como las instancias correctamente clasificadas frente al total: $P_o=\dfrac{VP+VN}{N}$
+	\item $P_e$ representa la probabilidad de que ambos coincidan por mera casualidad (probabilidad esperada):\\ $P_e=\left(\dfrac{VP+FN}{N}\cdot\dfrac{VP+FP}{N}\right)+\left(\dfrac{FP+VN}{N}\cdot\dfrac{FN+VN}{N}\right)$
+\end{itemize}
+Interpretación de $k$:
+\begin{itemize}
+	\item Si el modelo coincide con la realidad será perfecto $k=1$
+	\item A partir de 0.6 y/o 0.8 según autor se considera un buen modelo de predicción.
+\end{itemize}
+\subsubsection{Hold-out}
+Las métricas deben evaluarse tras el entrenamiento con \textbf{datos nuevos} para medir la capacidad de generalización del modelo. 
+\begin{itemize}[label=\color{red}\textbullet, leftmargin=*]
+	\item \color{lightblue}El método Hold-out
+\end{itemize}
+Técnica del machine learning para evaluar el rendimiento y la precisión de un modelo de aprendizaje supervisado.
+\begin{itemize}
+	\item Se divide el conjunto de datos disponible en dos subconjuntos mutuamente excluyentes: el conjunto de entrenamiento y el conjunto de test (o de prueba).
+	\item Porcentaje típicos 75\% para entrenamiento y 25\% para test.
+	\item En general, depende del tamaño del conjunto de datos y la complejidad del problema.
+\end{itemize}
+\begin{center}
+	\includegraphics{"Temas/Tema 1/Screenshot026"}
+\end{center}
+En la práctica, el conjunto de entrenamiento se divide, a sus vez, en dos: entrenamiento y validación. Así, tenemos:
+\begin{itemize}
+	\item Conjunto de \textbf{Entrenamiento:} para entrenar modelo (cálculo de pesos).
+	\item Conjunto de \textbf{Validación:} para tareas de diseño (por ejemplo, cálculo de $\lambda$) y otras tareas (por ejemplo, parada del entrenamiento).
+	\item Conjunto de \textbf{Test:} para evaluar la capacidad de generalización del modelo final seleccionado. Este conjunto se retiene hasta el final (Método de Retención o Hold Out).
+\end{itemize}
+\lb{Evaluación de un modelo concreto}
+
+Una vez que el conjunto de datos ha sido dividido, se procede de la siguiente manera:
+\begin{enumerate}[label=\color{lightblue}\arabic*)]
+	\item Se entrena el modelo empleando el conjunto de entrenamiento y el de validación.
+	\item Se evalúa su rendimiento del modelo utilizando el conjunto de test para medir la capacidad de generalización. Se calculan las métricas oportunas.
+\end{enumerate}
+\lb{Selección del mejor modelo (entre varios posibles) y de la red final:}
+\begin{enumerate}[label=\color{lightblue}\arabic*)]
+	\item Se entrena un número de modelos (por ejemplo, para valores distintos de $\lambda$) y se escoge aquel que produce menor error de validación.
+	\item Después, el modelo seleccionado se entrena con todas las muestras disponibles (entrenamiento y validación) y se evalúa con el conjunto test.
+\end{enumerate}

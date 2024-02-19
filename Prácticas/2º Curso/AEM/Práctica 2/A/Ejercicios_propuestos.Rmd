@@ -176,7 +176,6 @@ modelo_forward <- step(modelo_completo, scope = list(lower = ~ 1, upper = modelo
 modelo_backward <- step(modelo_completo, direction = "backward")
 
 # Comprobar la colinealidad
-vif(modelo_completo)
 vif(modelo_forward)
 vif(modelo_backward)
 ```
@@ -185,12 +184,43 @@ Todos los valores de `VIF` son muy bajos por lo que suponemos que no hay colinea
 4)  ¿Qué modelo(s) de regresión propondrías y por qué? Indica el modelo ajustado que explica el "empuje del motor" y comenta la bondad del ajuste.
 
 ```{r}
+# Imprimir los modelos
+summary(modelo_forward)
+summary(modelo_backward)
+
+# Comparar los R-cuadrados ajustados
+cat("R-cuadrado ajustado del modelo forward: ", summary(modelo_forward)$adj.r.squared, "\n")
+cat("R-cuadrado ajustado del modelo backward: ", summary(modelo_backward)$adj.r.squared, "\n")
+
+# Comparar los AIC
+cat("AIC del modelo forward: ", AIC(modelo_forward), "\n")
+cat("AIC del modelo backward: ", AIC(modelo_backward), "\n")
+
+# Comparar los BIC
+cat("BIC del modelo forward: ", BIC(modelo_forward), "\n")
+cat("BIC del modelo backward: ", BIC(modelo_backward), "\n")
 
 ```
+El `modelo_backward` parece ser el mejor modelo, ya que tiene el R-cuadrado ajustado más alto y el AIC y BIC más bajos.
+
 
 5)  Para el modelo propuesto, estudia si se verifican las hipótesis del modelo de regresión múltiple y si existen observaciones influyentes. Comenta los procesos utilizados.
 
 ```{r}
+# Normalidad de los residuos
+shapiro.test(resid(modelo_backward))
+qqnorm(resid(modelo_backward))
+qqline(resid(modelo_backward))
+
+# Homocedasticidad
+library("lmtest")
+bptest(modelo_backward)
+
+# Independencia de los residuos
+acf(resid(modelo_backward), main = "ACF de los residuos")
+
+# Observaciones influyentes
+influence.measures(modelo_backward)
 
 ```
 

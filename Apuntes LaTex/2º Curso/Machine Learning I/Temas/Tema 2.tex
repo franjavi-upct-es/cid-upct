@@ -174,11 +174,11 @@ La entropía nos mide la homogeneidad de los datos (relación inversa).
 \end{minipage}
 A la hora de construir un árbol es preferible crear nodos con nodos hoja homogéneos, es decir, de \textbf{baja entropía}.
 \subsubsubsection{Ganancia de Información}
-Sea un conjunto de datos $\chi$ con entropía $H(\chi)$.
+Sea un conjunto de datos $\mathcal{X}$ con entropía $H(\mathcal{X})$.
 
-Si elegimos un atributo $A$ para crear un nodo del árbol, la entropía esperada es: \[ H(\chi,A)=\sum_{v\in\mathrm{valores}(A)}\dfrac{|\chi_v|}{\chi}H(\chi_v) \]siendo $\chi_v$ el subconjunto de $\chi$ con todas las instancias con $A=v$.
+Si elegimos un atributo $A$ para crear un nodo del árbol, la entropía esperada es: \[ H(\mathcal{X},A)=\sum_{v\in\mathrm{valores}(A)}\dfrac{|\mathcal{X}_v|}{\mathcal{X}}H(\mathcal{X}_v) \]siendo $\mathcal{X}_v$ el subconjunto de $\mathcal{X}$ con todas las instancias con $A=v$.
 
-Por lo tanto, la reducción esperada de la entropía, o lo que es lo mismo la \textbf{Ganancia de Información}, al elegir el atributo $A$ como nodo de decisión del árbol es \[ \bboxed{\mathrm{Ganacia}(\chi,A))H(\chi)-H(\chi,A)} \]
+Por lo tanto, la reducción esperada de la entropía, o lo que es lo mismo la \textbf{Ganancia de Información}, al elegir el atributo $A$ como nodo de decisión del árbol es \[ \bboxed{\mathrm{Ganacia}(\mathcal{X},A))H(\mathcal{X})-H(\mathcal{X},A)} \]
 Por tanto, se elige el atributo que produzca hojas homogéneas, es decir, la \textbf{máxima} ganancia de información.
 
 \Ej
@@ -243,17 +243,17 @@ Utilizando \textbf{Cielo} como nodo raíz el árbol inicial quedaría:
 \begin{itemize}
 	\item Para el nodo Cielo = Soleado:
 	\begin{itemize}
-		\item $\chi_{\mathrm{soleado}}=\{D_1,D_2,D_8,D_9,D_11\}$ con $H(\chi_{\mathrm{soelado}})=0.971$
-		\item $\mathrm{Ganancia}(\chi_{\mathrm{soleado}},\mathrm{Temperatura})=0.971-\dfrac{2}{5}\cdot0-\dfrac{2}{5}\cdot1-\dfrac{1}{5}\cdot0=0.570$
-		\item $\mathrm{Ganancia}(\chi_{\mathrm{soelado}},\mathrm{Humedad})=0.971-\dfrac{3}{5}\cdot0-\dfrac{2}{5}\cdot0=0.971$
-		\item $\mathrm{Ganancia}(\chi_{\mathrm{soleado}},\mathrm{Viento})=0.971-\dfrac{2}{5}\cdot1-\dfrac{3}{5}\cdot0.918=0.019$
+		\item $\mathcal{X}_{\mathrm{soleado}}=\{D_1,D_2,D_8,D_9,D_11\}$ con $H(\mathcal{X}_{\mathrm{soelado}})=0.971$
+		\item $\mathrm{Ganancia}(\mathcal{X}_{\mathrm{soleado}},\mathrm{Temperatura})=0.971-\dfrac{2}{5}\cdot0-\dfrac{2}{5}\cdot1-\dfrac{1}{5}\cdot0=0.570$
+		\item $\mathrm{Ganancia}(\mathcal{X}_{\mathrm{soelado}},\mathrm{Humedad})=0.971-\dfrac{3}{5}\cdot0-\dfrac{2}{5}\cdot0=0.971$
+		\item $\mathrm{Ganancia}(\mathcal{X}_{\mathrm{soleado}},\mathrm{Viento})=0.971-\dfrac{2}{5}\cdot1-\dfrac{3}{5}\cdot0.918=0.019$
 	\end{itemize}
 	\item Para el nodo Cielo = Lluvia:
 	\begin{itemize}
-		\item $\chi_{\mathrm{lluvia}}=\{D_4,D_5,D_6,D_{10},D_{14}\}$ con $H(\chi_{\mathrm{lluvia}})=0.971$
-		\item $\mathrm{Ganancia}(\chi_{\mathrm{lluvia}},\mathrm{Temperatura})=0.971-\dfrac{3}{5}\cdot0.918-\dfrac{2}{5}\cdot1-\dfrac{1}{5}\cdot0=0.820$
-		\item $\mathrm{Ganancia}(\chi_{\mathrm{lluvia}},\mathrm{Humedad})=0.971-\dfrac{2}{5}\cdot1-\dfrac{3}{5}\cdot0.918=0.820$
-		\item $\mathrm{Ganancia}(\chi_{\mathrm{lluvia}},\mathrm{Viento})=0.971-\dfrac{3}{5}\cdot0-\dfrac{2}{5}\cdot0=0.971$
+		\item $\mathcal{X}_{\mathrm{lluvia}}=\{D_4,D_5,D_6,D_{10},D_{14}\}$ con $H(\mathcal{X}_{\mathrm{lluvia}})=0.971$
+		\item $\mathrm{Ganancia}(\mathcal{X}_{\mathrm{lluvia}},\mathrm{Temperatura})=0.971-\dfrac{3}{5}\cdot0.918-\dfrac{2}{5}\cdot1-\dfrac{1}{5}\cdot0=0.820$
+		\item $\mathrm{Ganancia}(\mathcal{X}_{\mathrm{lluvia}},\mathrm{Humedad})=0.971-\dfrac{2}{5}\cdot1-\dfrac{3}{5}\cdot0.918=0.820$
+		\item $\mathrm{Ganancia}(\mathcal{X}_{\mathrm{lluvia}},\mathrm{Viento})=0.971-\dfrac{3}{5}\cdot0-\dfrac{2}{5}\cdot0=0.971$
 	\end{itemize}
 \end{itemize}
 
