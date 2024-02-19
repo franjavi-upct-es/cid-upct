@@ -10,4 +10,41 @@
 		\dfrac{t^2}{2}+tT+\dfrac{3T^2}{2} & 2T<t<3T\\
 		0 & t>3T
 	\end{cases}$
+	
+	\item \lb{Calcule $\left(\dfrac{t}{T_1}+1\right)\prod\left(\dfrac{t-\frac{T_1}{2}}{T_1}\right)\cdot\prod\left(\dfrac{t-\frac{T_2}{2}}{T_2}\right)$, con $T_2>T_1$.}
+	
+	$\lbb{\left(\dfrac{t}{T_1}+1\right)\prod\left(\dfrac{t-\frac{T_1}{2}}{T_1}\right)}{x(t)}\cdot\lbb{\prod\left(\dfrac{t-\frac{T_2}{2}}{T_2}\right)}{h(t)}$
+	
+	\begin{enumerate}[label=\color{lightblue}\arabic*)]
+		\item $t<0\longrightarrow y(t)=0$
+		\item $0<t<T_1\longrightarrow y(t)=\int_0^t\left(\dfrac{\tau}{T_1}+1\right)\dtau=\left[\dfrac{\tau^2}{2T_1}+\tau\right]_0^t=\dfrac{t^2}{2T_1}+t$
+		\item $t-T_2<0,\:t>T_1\longrightarrow T_1<t<T_2\longrightarrow y(t)=\int_0^{T_1}\left(\dfrac{\tau}{T_1}+1\right)\dtau=\left[\dfrac{\tau^2}{2T_1}+\tau\right]_0^{T_1}=\dfrac{T_1^2}{2T_1}+T_1=\dfrac{3T_1}{2}$
+		\item $0<t-T_2<T_1\longrightarrow T_2<t<T_1+T_2$
+		
+		$\begin{aligned}
+			y(t) &=\int_{t-T_2}^{T_1}\left(\dfrac{\tau}{2T_1}+2\right)\dtau=\left[\dfrac{\tau^2}{2T_1}+2\right]_{t-T_2}^{T_1}=\left[\dfrac{T_1^2}{2T_1}+T_1\right]-\left[\dfrac{(t-T_2)^2}{2T_1}+(t-T_2)\right]\\
+			&=-\dfrac{t^2}{2T_1}-\left(1-\dfrac{T_2}{T_1}\right)t+\dfrac{3T_1}{2}+T_2+\dfrac{T_2^2}{2T_1}
+		\end{aligned}$
+		\item $t-T_2>T_1\longrightarrow t>T_1+T_2\longrightarrow y(t)=0$
+	\end{enumerate}
+	
+	\begin{center}
+		\includegraphics[width=\linewidth]{"Temas/Tema 2/ScreenShot001.drawio"}
+	\end{center}
+	
+	\item \lb{Calcule la convolución de $x(t)=e^{2t}u(-t)$ con $h(t)=u(t-3)$.}
+	
+	\item \lb{Sea $x[n]=\delta[n]+2\delta[n-1]-\delta[n-3]$ y $h[n]=2\delta[n+1]+2\delta[n-1]$.} Calcule y dibuje cada una de las siguientes convoluciones:
+	\begin{enumerate}[label=\color{red}\alph*)]
+		\item $\db{y_1[n]=x[n]\cdot h[n]}$
+		\item $\db{y_2[n]=x[n+2]\cdot h[n]}$
+		\item $\db{y_3[n]=x[n]\cdot h[n+2]}$
+	\end{enumerate}
+	\item \lb{Un sistema lineal $S$ relaciona su entrada $x[n]$ y su salida $y[n]$ como \[ y[n]=\sum_{k=-\infty}^{\infty}x[k]g[n-2k] \] donde $g[n]=u[n]-u[n-4]$.}
+	\begin{enumerate}[label=\color{red}\alph*)]
+		\item \db{Determine $y[n]$ cuando $x[n]=\delta[n-1]$}
+		\item \db{Determine $y[n]$ cuando $x[n]=\delta[n-2]$}
+		\item \db{¿Es $S$ un sistema LTI?}
+		\item \db{Determine $y[n]$ cuando $x[n]=u[n]$}
+	\end{enumerate}
 \end{enumerate}

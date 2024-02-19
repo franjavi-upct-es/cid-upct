@@ -1,13 +1,15 @@
 ---
 title: "Problemas propuestos de Regresión Lineal Múltiple"
 author: "Francisco Javier Mercader Martínez"
-output: 
+output:
+  html_document:
+    df_print: paged
   pdf_document:
     latex_engine: xelatex
-    extra_dependencies: ["fvextra"]
+    extra_dependencies: fvextra
 header-includes:
-  - \usepackage{fvextra}
-  - \DefineVerbatimEnvironment{Highlighting}{Verbatim}{breaklines, commandchars=\\\{\}}
+- \usepackage{fvextra}
+- \DefineVerbatimEnvironment{Highlighting}{Verbatim}{breaklines, commandchars=\\\{\}}
 ---
 
 ```{r setup, include=FALSE}
@@ -222,6 +224,17 @@ acf(resid(modelo_backward), main = "ACF de los residuos")
 # Observaciones influyentes
 influence.measures(modelo_backward)
 
+```
+```{r}
+library("nnet")
+X1 <-c(1, 2, 1, 2, 3, 2, 2, 5, 5, 3, 4, 4, 5, 1)
+X2 <-c(2, 1, 5, 4, 1, 2, 5, 1, 3, 2, 3, 4, 4, 4)
+Y  <-c(2, 2, 3, 3, 2, 2, 3, 1, 1, 2, 1, 1, 1, 3)
+df = data.frame(X1, X2, Y)
+df$Y_factor = factor(df$Y, levels = c("1", "2", "3"))
+df$Y_factor <- relevel(df$Y_factor, ref = "3")
+mymultinom <- multinom(Y_factor ~ X1 +  X2, data = df)
+summary(mymultinom)$coefficients
 ```
 
 6)  Porporciona una estimación puntual del "empuje del motor" para un ensayo de las siguientes características:
