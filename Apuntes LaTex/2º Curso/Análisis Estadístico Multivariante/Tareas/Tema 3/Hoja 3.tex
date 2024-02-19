@@ -1,0 +1,37 @@
+\begin{enumerate}[label=\color{red}\textbf{\arabic*)}, leftmargin=*]
+	\item \lb{}
+	
+	$n=20$ datos\\
+	$x\equiv$ horas de estudio\\
+	$y=\begin{cases}
+		1 & \text{aprueba examen}\\
+		0 & \text{no aprueba examen}
+	\end{cases}$
+	
+	$\begin{array}{c|c}
+		X & Y\\ \hline
+		0.5 & 0\\
+		0.75 & 0\\
+		\vdots & \vdots\\
+		5 & 1\\
+		5.5 & 1
+	\end{array}$
+	
+	Modelo de regresión logística: $\hat{\theta}_0=-4.072$ y $\hat{\theta}_1=1.5046$
+	\begin{enumerate}[label=\color{red}\alph*)]
+		\item \db{¿Como se interpreta $\hat{\theta}_1$?}
+		
+		$\begin{array}{l}
+			\log\dfrac{p}{1-p}=\hat{\theta}_0+\hat{\theta}_1\cdot x\\
+			P\equiv Pr[Y=1]\\
+			\log\dfrac{p}{1-p}=\exp(\hat{\theta}_0+\hat{\theta}_1x)\\
+			p=(1-p)\exp(\hat{\theta}_0+\hat{\theta}_1x)
+		\end{array}$
+		\item 
+		
+		$Pr[Y=1/X=2]=\dfrac{1}{1+\exp(-(-40.77+1.5046\cdot2))}\simeq0.25$\\
+		$Pr[Y=1/X=3]=\dfrac{1}{1+\exp(-(-40.77+1.5046\cdot3))}\simeq0.607$\\
+		$\dfrac{Pr[Y=1/X=3]}{Pr[Y=1/X=2]}=\dfrac{0.607}{0.2556}=2.428$
+		
+	\end{enumerate}
+\end{enumerate}
