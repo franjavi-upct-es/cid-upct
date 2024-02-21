@@ -1,1 +1,93 @@
 \section{Introducción a los sistemas NoSQL}
+\subsection{Introducción a NoSQL}
+\textbf{NoSQL} $\longrightarrow$ \textit{hastag} llamativo que se eligió para una conferencia en 2009 (Johan Oskarsson de Last.fm)
+
+Ahora se asocia a cientos de bases de datos diferentes, que se han clasificado en varios tipos (las veremos después), caracterizadas por \textbf{no usar SQL} como modelo de datos.
+
+Más recientemente \textbf{NoSQL $\longrightarrow$ \textit{Not Only SQL}} (no sólo SQL) $\longrightarrow$ Persistencia políglota (\textit{polyglot persistence})
+
+\subsubsection{¿Por qué se plantearon?}
+\begin{enumerate}
+	\item \textbf{Mayor escalabilidad horizontal}
+	\begin{itemize}
+		\item conjuntos de datos muy muy grandes
+		\item sistemas de alto volumen de escrituras (\textbf{streaming} de eventos, aplicaciones sociales)
+	\end{itemize}
+	\item \textbf{Demanda de productos de software libre} (crecimiento de las \textit{start-ups})
+	\item \textbf{Consultas especializadas} no eficientes en el modelo relacional (JOINs)
+	\item \textbf{Expresividad, flexibilidad, dinamismo.} Frustración con \textbf{restricciones} del modelo relacional
+\end{enumerate}
+\subsubsection{Características}
+No se basan en SQL
+
+Modelos de datos más ricos
+
+Orientadas a la \textbf{Escalabilidad}
+
+Generalmente no obligan a definir un esquema
+\begin{itemize}
+	\item \textbf{Schemaless}
+\end{itemize}
+Surgidos de la comunidad para solucionar problemas
+\begin{itemize}
+	\item  muchas \textbf{libres/\emph{open source}}
+\end{itemize}
+Diseño basado en\textbf{ procesamiento distribuido}
+
+Principios funcionales
+\begin{itemize}
+	\item \textbf{MapReduce}
+\end{itemize}
+\subsubsubsection{Categorías de NoSQL}
+\begin{itemize}
+\item Bases de datos \textit{key-value}\\
+\item Bases de datos documentales\\
+\item Bases de datos columnares (\textit{wide column})\\
+\item Bases de datos de grafos\\
+\item Bases de datos de arrays
+\end{itemize}
+\subsubsection{Evolución desde el modelo relacional}
+El \textbf{modelo relacional $\Rightarrow$ predominante en los últimos ˜30 años}\\
+Tiene sus raíces en el denominado \textit{business data processing}, procesamiento de
+transacciones y \textit{batch}\\
+Propuesto por Codd en los 70, \textbf{de alto nivel}\\
+Actualmente los \textbf{sistemas SQL están muy optimizados:}
+\begin{itemize}
+	\item el \textbf{grado de implantación es mayoritario}
+\item para el 99 \% de los problemas (que caben en un ordenador) es eficiente y adecuado
+\end{itemize}
+\subsection{Adopción de NoSQL}
+\subsubsection{Análisis}
+Dominan los grandes SGBDR\\
+El \textit{Open Source} tiene una importancia crucial (PostgreSQL, MySQL, MongoDB, etc.)\\
+Varias bases de datos NoSQL entre las 10 primeras. Muchas en las 20 primeras\\
+La distancia entre los grandes SGBDR y el primer NoSQL (MongoDB) es de $5\times$\\
+Paradigmas más "atrevidos" como el de grafos están entre los 20 primeros (Neo4j)\\
+\subsection{Cambio de perspectiva: Red}
+\begin{center}
+	\includegraphics{"Temas/Tema 2/screenshot001"}
+\end{center}
+\subsubsubsection{Almacenamiento distribuido}
+Desde los 90’s: Clústers/NOC/COW: procesamiento masivamente paralelo
+
+Almacenamiento no distribuido
+
+Ahora los nodos $\Rightarrow$ también \textbf{almacenamiento}
+
+Minimizar el verdadero cuello de botella: \textbf{trasiego de información por la red}.
+
+\subsubsubsection{Procesamiento distribuido}
+Necesidad de \textbf{paralelización máxima}\\
+\textbf{Escalabilidad}\\
+Explotar de la \textbf{localidad de los datos}:
+\begin{itemize}
+	\item Datos producidos se utilizan localmente en siguientes iteraciones
+\item Datos recibidos directamente en los \textit{hosts} (clientes simultáneos)
+\end{itemize}
+Vuelta al modelo funcional inherentemente paralelo: (e.g. \textbf{Map-Reduce})\\
+Almacenamiento distribuido: (e.g. \textbf{HDFS})\\
+Coordinación distribuida: (e.g. \textbf{Zookeeper})
+\subsubsubsection{Modelo de datos}
+El modelo relacional limita a tablas con valores primitivos y relaciones \textit{Primary Key/Foreign Key}\\
+En programación se utilizan \textbf{listas, arrays, tipos de datos compuestos} (\textit{gap semántico})\\
+ACID es \textbf{muy compleja y costosa} en ambientes distribuidos (quizá \textbf{no necesaria} en algunas aplicaciones).

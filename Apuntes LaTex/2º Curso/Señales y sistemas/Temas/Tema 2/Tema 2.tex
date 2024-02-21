@@ -47,4 +47,103 @@
 		\item \db{¿Es $S$ un sistema LTI?}
 		\item \db{Determine $y[n]$ cuando $x[n]=u[n]$}
 	\end{enumerate}
+	\item 
+	\item 
+	\item 
+	\item 
+	\item 
+	\item 
+	\item \lb{Para las siguientes respuestas al impulso de sistemas LTI, determine si cada sistema es causal  y/o estable, justificando la repuesta.}
+	\begin{enumerate}[label=\color{red}\alph*)]
+		\item $\db{h[n]=\left(\dfrac{1}{5}\right)^nu[n]}$
+		
+		Causal $(h[n]=0\:\forall n<0)$
+		
+		$\sum_{k=-\infty}^{\infty}\left|h[k]\right|=\sum_{k=0}^{\infty}\left(\dfrac{1}{5}\right)^n\longrightarrow$ Converge a un valor, por lo tanto es un sistema estable.
+		
+		Como es un sistema casual y estable $\longrightarrow$ es realizable
+		\item $\db{h[n]=0.8^nu[n+2]}$
+		
+		$h[n]\neq0$ para $-1,-2\longrightarrow$ No es causal
+		
+		$\sum_{k=-\infty}^{\infty}\left|h[k]\right|=\sum_{k=-2}^{\infty}0.8^n=\dfrac{0.8^{-2}-\tozero{0.8^{\infty}}}{1-0.8}\simeq7.8\longrightarrow$ Estable
+		
+		Como es un sistema estable pero no es causal, entonces diremos que no es realizable
+		\item $\db{h[n]=\left(\dfrac{1}{2}\right)^nu[-n]}$
+		
+		No es causal
+		
+		$\sum_{k=-\infty}^{\infty}\left|h[k]\right|=\sum_{k=-\infty}^{0}\cancelto{\infty}{\left(\dfrac{1}{2}\right)^n}\longrightarrow$ No es estable
+	\end{enumerate}
+	\item \lb{Considere un sistema LTI que se encuentra inicialmente en reposo y cuya entrada $x(t)$ y salida $y(t)$ se relacionan por la ecuación diferencial \[ \dfrac{\mathrm{d}}{\dt}y(t)+4y(t)=x(t) \]}
+	\begin{enumerate}[label=\color{red}\alph*)]
+		\item \db{Obtenga la respuesta al impulso del sistema.}
+		
+		Solución homogénea normal:
+		
+		$\begin{rcases}
+			\dfrac{\dy_h(t)}{\dt}+4y_h(t)\\
+			y_h(t)=C_h\cdot e^{st}
+		\end{rcases}s\cdot C_h e^{st}+4C_he^{st}=0\longrightarrow C_h(s+4)=0\longrightarrow s=4$
+		
+		$\begin{array}{l}
+			y_h(t)=C_he^{-4t}\\
+			h(t)=b_0\cdot e^{-4t}\cdot u(t)\\
+			\bboxed{h(t)=e^{-4t}\cdot u(t)}
+		\end{array}$
+		
+		\item \db{Si $x(t)=e^{(-1+3j)t}u(t)$, calcule $y(t)$.}
+		Solución particular:
+		
+		$y_p(t)=A\cdot x(t)=Ae^{(-1+3j)t}\:\forall t>0$
+		
+		$\lbb{(-1+3j)A}{}\cdot e^{(-1+3j)t}+\lbb{4A}{}\cdot e^{(-1+3j)t}=e^{(-1+3j)t}$
+		
+		$(-1+3j)A+4A=1\longrightarrow A=\dfrac{1}{3(1+j)}=\dfrac{1-j}{6}$
+		
+		$y_p(t)=\dfrac{1-j}{6}e^{(-1+3j)t}$
+		
+		$y(t)=y_h(t)+y_p(t)=C_he^{-4t}\cdot u(t)+\dfrac{1-j}{6}e^{(-1+3j)t}\cdot u(t)$
+		
+		$y(0)=0\longrightarrow C_h\cdot 1+\dfrac{1-j}{6}\cdot 1=0\longrightarrow C_h=\dfrac{j-1}{6}$
+		
+		$\bboxed{y(t)=1-j\left[e^{(-1+3j)t}-e^{-4t}\right]\cdot u(t)}$
+	\end{enumerate}
+	\item \lb{Considere un sistema LTI que se encuetra inicialmente en reposo y cuya entrada $x(t)$ y salida $y(t)$ se relacionan por la ecuación diferencial \[ \dfrac{\mathrm{d}}{\dt}y(t)+3y(t)=2x(t) \]}
+	\begin{enumerate}[label=\color{red}\alph*)]
+		\item \db{Si $x(t)=\cos(2t)u(t)$, calcule $y(t)$}
+		
+		Solución partida
+		
+		$\begin{array}{l}
+			x_1=\dfrac{e^{2tj}}{2}\longrightarrow y_{p_1}(t)=C_{p_1}e^{2tj}\longrightarrow \lbb{j2C_{p_1}}{}e^{2tj}+\lbb{3C_{p_1}}{}e^{2tj}=e^{2tj}\longrightarrow j2C_{p_1}+3C_{p_1}=1\longrightarrow C_{p_1}=\dfrac{1}{3+2j}\\
+			x_2=\dfrac{e^{-2tj}}{2}\longrightarrow  \lbb{-j2C_{p_2}}{}e^{-2tj}+\lbb{3C_{p_2}}{}e^{-2tj}=e^{-2tj}\longrightarrow -j2C_{p_2}+3C_{p_2}=1\longrightarrow C_{p_2}=\dfrac{1}{3-2j}\\
+			x(t)=\dfrac{1}{2}\left[e^{j2t}+e^{-j2t}\right]\longrightarrow y_p=\dfrac{1}{3+2j}e^{j2t}+\dfrac{1}{3-2j}e^{-j2t}
+		\end{array}$
+		
+		Solución homogénea:
+		
+		$y_h(t)=C_he^{st}\longrightarrow sC_he^{st}+3C_he^{st}=0\longrightarrow s+3=0\longrightarrow s=-3\longrightarrow y_h(t)=C_h\cdot e^{-3t}\cdot u(t)$
+		
+		$y(t)=C_he^{-st}+\dfrac{1}{3+2j}e^{2tj}+\dfrac{1}{3-2j}e^{-2tj}$
+		
+		$y(0)=0\longrightarrow C_h+\dfrac{1}{3+2j}+\dfrac{1}{3-2j}=0\longrightarrow C_h=\dfrac{3-\cancel{2j}+3+\cancel{2j}}{13}=-\dfrac{6}{13}$
+		
+		$y(t)=-\dfrac{6}{13}e^{-3t}+\lbb{\dfrac{3-2j}{13}e^{2jt}}{a}+\lbb{\dfrac{3+2j}{13}e^{-2jt}}{a^*}$
+		
+		$a+a^*=2\cdot\mathrm{Re}\{a\}$
+		
+		$\begin{aligned}
+			a&=\dfrac{3-2j}{13}e^{2tj}=\dfrac{3-2j}{13}\cdot\left(\cos(2t)+j\cdot\sin(2t)\right)\\
+			&=\dfrac{1}{13}\left[\underbrace{3\cos(2t)}+j\cdot3\sin(2t)-j\cdot2\cos(2t)+\underbrace{2\sin(2t)}\right]\\
+		\end{aligned}\\
+		2\cdot\mathrm{Re}\{a\}=\dfrac{1}{13}\left[6\cos(2t)+4\sin(2t)\right]\\
+		\bboxed{y(t)=\dfrac{1}{13}\left[-6e^{-3t}+6\cos(2t)+4\sin(2t)\right]\cdot u(t)}$
+		\item \db{Obtenga la respuesta al impulso del sistema.}
+		
+		$\begin{rcases}
+			y_h(t)=\dfrac{-6}{13}e^{-3t}\\
+			b_0=2
+		\end{rcases}h(t)=b_0\cdot e^{-3t}\cdot u(t)\longrightarrow\bboxed{h(t)=2\cdot e^{-3t}\cdot u(t)}$
+	\end{enumerate}
 \end{enumerate}
