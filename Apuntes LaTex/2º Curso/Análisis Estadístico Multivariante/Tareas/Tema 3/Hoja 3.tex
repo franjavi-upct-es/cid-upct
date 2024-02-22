@@ -56,4 +56,36 @@
 		
 		\item \db{Para una persona con 40 años y electrocardiograma normal, ¿cómo influye el nivel de colesterol en el riesgo de padecer una enfermedad coronaria?}
 	\end{enumerate}
+	
+	\item \lb{Se desea evaluar la satisfacción con la enseñanza pública de 1500 estudiantes mediante la variable \textit{Satisfecho}($Y$, con valores 1 sí, 0 no) y tres variables periódicas: Nacionalidad (España=1, Ecuador=2, Colombia=3), Género (Hombre=0, Mujer=1) y Estudios (ESO=0, Primaria=1). Se ajusta al siguiente modelo logístico: \[ \log\dfrac{p}{1-p}=-0.877-0.052\cdot\text{Nacionalidad2} + 1.72\cdot\text{Nacionalidad3}+0.256\cdot\text{Género}-0.008\cdots\text{Estudios} \] donde $p=Pr[Y=1]$. Las variables \textit{Nacionalidad2} y \textit{Nacionalidad3} son variables dicotómicas ficticias (\textit{dummy}) que toman el valor 1 si el valor de nacionalidad se corresponde con su índice y valen cero en caso contrario. Por ejemplo, Si Nacionalidad = 3, entonces Nacionalidad2 = 0 y Nacionalidad3 = 1.}
+	\begin{enumerate}[label=\color{red}\alph*)]
+		\item \db{Predecir la probabilidad de que una alumna colombiana de primaria no esté satisfecha con la enseñanza pública. ¿Cuál sería dicha probabilidad si la alumna tuviera nacionalidad española y estudiara primaria? ¿Y si fuera un alumno de secundaria con nacionalidad española?}
+		
+		\item \db{Comparar el grado de satisfacción con la enseñanza pública de los alumnos de primaria con nacionalidad española según el género.}
+	\end{enumerate}
+	
+	\item \lb{Una determinada compañía desea mejorar el marketing de cinco variedades de cereales para el desayuno. Para ello planifica un estudio encuestando a 900 personas, registrando su edad, género y si tiene o no un estilo de vida activo. Cada participante degustó los cinco tipos de cereales y se le preguntó sobre su preferencia. En la tabla adjunta se presenta las definiciones de las variables
+	\begin{center}
+		\begin{tabular}{ll}
+			Variable & Categoría \\ \hline
+			\hline
+			Tipo de cereal preferido& 1: Cebada\\
+			& 2: Centeno\\
+			& 3: Avena\\
+			& 4: Esbelta\\
+			& 5: Trigo\\ \hline
+			Edad & 1: Menor de 30 años\\
+			 & 2: 31 a 50 años\\
+			& 3: Más de 50 años \\ \hline
+			Género & 1: Hombre\\
+			& 2: Mujer \\ \hline
+			Estilo de vida & 0: No activo\\
+			(realiza o no actividad física) & 1: Activo \\ \hline
+		\end{tabular}
+		\end{center}}
+	\begin{enumerate}[label=\color{red}\alph*)]
+		\item \db{Con el objetivo de explicar la preferencia del tipo de cereal en función de la edad, el género y el estilo de vida se desea ajustar un modelo logístico multinomial. ¿Qué variables ficticias (\textit{dummy}) debemos crear para la formulación del modelo?}
+		\item \db{Especificar el modelo tomando el trigo como la categoría de referencia para la variable respuesta $(g=5)$.}
+		\item \db{¿Cómo se interpretan las estimaciones de los coeficientes del modelo $\hth_{ij}$ que verifican que $\exp(\hth_{ij})>1$? ¿Y si $\exp(\hth_{ij})<1$?}
+	\end{enumerate}
 \end{enumerate}
