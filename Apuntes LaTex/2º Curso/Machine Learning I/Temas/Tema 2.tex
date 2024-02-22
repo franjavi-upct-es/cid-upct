@@ -370,9 +370,9 @@ Se elige la partición que produce el menor valor de la función de coste.
 \end{itemize}
 Prepoda: Utiliza como criterio de parada el número mínimo de instancias asignadas al nodo.
 
-Postpoda: Utiliza un criterio que controla la improtancia relativa del error frente la complejidad (tamaño del árbol).
+Postpoda: Utiliza un criterio que controla la importancia relativa del error frente la complejidad (tamaño del árbol).
 \subsubsubsection{C4.5, C5.0}
-\textbf{C4.5:} Permite, a diferenciaque ID3, que las características puedan ser continuas, definiendo de forma dinámica un atributo discreto particionando los atributos continuos en un conjunto discreto de intervalos.
+\textbf{C4.5:} Permite, a diferencia que ID3, que las características puedan ser continuas, definiendo de forma dinámica un atributo discreto particionando los atributos continuos en un conjunto discreto de intervalos.
 \begin{itemize}
 	\item C4.5 transforma los árboles obtenidos en un conjunto de reglas del tipo \textit{if-then}. La precisión de cada regla es evaluada de forma independiente para determinar el orden en el que deben ser aplicadas.
 	\item Un proceso de poda elimina antecedentes de las reglas si con esto se mejora la precisión de la misma.
@@ -380,7 +380,7 @@ Postpoda: Utiliza un criterio que controla la improtancia relativa del error fre
 	\item J48 es la implementación en código abierto de C4.5
 \end{itemize}
 \subsubsection{Random Forests}
-Random Forest es una técnica que construye un grán número de árboles de decisión no correlacionados.
+Random Forest es una técnica que construye un gran número de árboles de decisión no correlacionados.
 
 Se basa en la técnica de Agregación de Bootstrap (Bagging), técnica de agregación de clasificadores o regresores que:
 \begin{itemize}
@@ -395,9 +395,9 @@ La predicción del modelo se elige analizando las predicciones de cada uno de lo
 	\begin{algorithmic}[1]
 		\FOR{$i\gets1\to$ \textit{n_arboles}}
 		\STATE Extraer una muestra de tamaño \textit{size(data)} de \textit{datos} por bootstrapping
-		\STATE Construir un árbol $T_i$ repitiendo recurivamente para cada nodo hoja
+		\STATE Construir un árbol $T_i$ repitiendo recursivamente para cada nodo hoja
 		\STATE \begin{enumerate}[leftmargin=1.5cm]
-			\item Selecionar aleatoriamente $m$ atributos.
+			\item Seleccionar aleatoriamente $m$ atributos.
 			\item Seleccionar la mejor partición de las inducidas por los $m$ atributos.
 			\item Dividir el nodo en dos nodos hijos.
 			\item Si el tamaño de nodo alcanza $n_{\min}$ no continuar dividiendo.
@@ -438,3 +438,271 @@ Experimentalmente han demostrado una buena capacidad de clasificación.
 La clave reside en la función a optimizar a la hora de elegir el atributo para disgregar el árbol.
 
 Los ensambles nos permiten mejorar los resultados combinando información.
+\subsubsection{Bosques Aleatorios (\textit{"Random Forest"})}
+\subsubsubsection{Motivación}
+Surgen para resolver el \textbf{"overfitting"} producido por los árboles de decisión.
+
+El gran problema de los árboles de decisión: sesgo bajo y varianza alta.
+
+Cambios imperceptibles en la distribución de los datos modifican totalmente la partición generada por un Árbol de Decisión (varianza alta).
+
+\begin{center}
+	\includegraphics{"Temas/Tema 2/screenshot007"}
+	
+	¿Cómo reducir la varianza?
+\end{center}
+\subsubsubsection{Solución}
+
+\textbf{Muchos árboles} de decisión
+
+\textbf{Aleatoriedad doble}
+\begin{itemize}
+	\item Conjuntos de entrenamiento 
+\item Características 
+\end{itemize}
+\textbf{Agregación} de resultados 
+\begin{itemize}
+	\item Árboles malos, poco impacto en la predicción
+\end{itemize}
+\begin{center}
+	\includegraphics{"Temas/Tema 2/screenshot008"}
+	
+	\includegraphics{"Temas/Tema 2/screenshot009"}
+\end{center}
+\subsubsubsection{Número de árboles}
+
+\begin{minipage}{0.5\textwidth}
+	Lo primero es fijar el \textbf{número de árboles}
+	\begin{itemize}
+		\item Normalmente es elevado, cientos.
+	\item En este ejemplo, \textbf{5}
+	\end{itemize}
+	
+	\hspace{2cm}
+	
+	Ruido en los datos afectará a algunos árboles
+\end{minipage}\quad\begin{minipage}{0.5\textwidth}
+\begin{center}
+	\includegraphics[width=\linewidth]{"Temas/Tema 2/screenshot010"}
+\end{center}
+\end{minipage}
+\subsubsubsection{Generación conjuntos de entrenamiento}
+\begin{minipage}{0.5\textwidth}
+\begin{center}
+Una vez fijado el \textbf{número de árboles}, se construyen los conjuntos de entrenamiento.
+	
+	\begin{tikzpicture}
+		\draw[double -latex=4pt colored by lightblue and lightblue] (0,0) -- (0,-1);
+	\end{tikzpicture}
+	
+	{\Large \lb{\textbf{BOOSTRAPPING}}}
+	
+	Muestreo con reemplazo
+\end{center}
+\begin{itemize}[label=\color{red}\textbullet, leftmargin=*]
+	\item \color{lightblue}Obtención de muestras \textbf{“Bootstrap”}
+\end{itemize}
+
+Supongamos un conjunto de datos $X$ (población) de tamaño $N$.
+Se construyen muestras bootstrap de la población a partir de los datos:
+\begin{enumerate}[label=\color{lightblue}\arabic*)]
+	\item Elegir el tamaño de la muestra $N'\le N$.
+	\item For $i=1:N'$
+	\begin{enumerate}[label=\color{lightblue}\arabic*)]
+		\item Elegir aleatoriamente una observación de $X$ con \textit{reemplazo}
+		\item Añadirlo a la muestra
+	\end{enumerate}
+\end{enumerate}
+En machine learning, $N'=N$.
+\end{minipage}\qquad\begin{minipage}{0.45\textwidth}
+\begin{center}
+	\includegraphics[width=\linewidth]{"Temas/Tema 2/screenshot011"}
+\end{center}
+\end{minipage}
+\begin{center}
+	\includegraphics{"Temas/Tema 2/screenshot012"}
+\end{center}
+
+\subsubsubsection{Entrenamiento de los árboles}
+Se introduce una \lb{segunda aleatoriedad} en la selección de las características que se emplean para realizar las particiones.
+\begin{center}
+	\includegraphics{"Temas/Tema 2/screenshot013"}
+\end{center}
+
+\begin{minipage}{0.5\textwidth}
+	De la misma forma, se van entrenando (y construyendo) los demás árboles
+\end{minipage}\quad\begin{minipage}{0.5\textwidth}
+\begin{center}
+	\includegraphics[width=\linewidth]{"Temas/Tema 2/screenshot014"}
+\end{center}
+
+\end{minipage}
+\subsubsubsection{Modo operación}
+\begin{center}
+	\includegraphics{"Temas/Tema 2/screenshot015"}
+\end{center}
+\subsubsubsection{Bagging y Conjunto de Validación}
+
+\textbf{Bagging:} es la la combinación del bootstrapping y la agregación, que es precisamente el nombre genérico con que se conoce a los algoritmos como los Bosques Aleatorios y otros similares.
+
+\lb{\textbf{Conjunto de validación o "out-of-bag":}} se emplea para selección de hiperparámetros
+\begin{center}
+	\begin{tabular}{rl}
+		$\dfrac{1}{N}$ & $\to$ probabilidad de seleccionar una instancia\\
+		$1-\dfrac{1}{N}$ & $\to$ probabilidad de que no se seleccione una instancia\\
+		$\left(1-\dfrac{1}{N}\right)^N\approx e^{-1}=0.368$ & $\to$ probabilidad que una instancia no se seleccione tras $N$ veces
+	\end{tabular}
+	
+	\begin{tabular}{ll}
+		Por tanto, aproximadamente: & conjunto de \textbf{validación} ("out-of-bag") $\to 36.8\%$\\
+		&conjunto de \textbf{entrenamiento} $\to63.2\%$
+	\end{tabular}
+\end{center}
+\subsubsubsection{Selección del número de árboles}
+\begin{minipage}{0.4\textwidth}
+Se fija el número de características y el criterio de parada, y se entrenan múltiples bosques cambiando progresivamente el número de árboles que lo conforman.
+
+Se selecciona el que menor error de validación proporciona.
+
+Usualmente, en aplicaciones prácticas, se usan entre 100 y 200 árboles
+\end{minipage}\qquad\begin{minipage}{0.55\textwidth}
+\begin{center}
+	\includegraphics[width=\linewidth]{"Temas/Tema 2/screenshot016"}
+\end{center}
+
+\end{minipage}
+\subsubsubsection{Seleccionar del número de características}
+\begin{minipage}{0.4\textwidth}
+	Con el número de árboles ya
+	determinado, fijamos el
+	criterio de parada y repetimos
+	el procedimiento cambiando
+	el número de características, y
+	escogemos aquel que genere
+	el menor error.
+\end{minipage}\qquad\begin{minipage}{0.55\textwidth}
+\begin{center}
+	\includegraphics[width=\linewidth]{"Temas/Tema 2/screenshot017"}
+\end{center}
+
+\end{minipage}
+\subsubsubsection{Selección del criterio de parada}
+\begin{minipage}{0.4\textwidth}
+Finalmente, con el número de árboles
+y de características fijo, variamos el
+criterio de parada y escogemos el que
+arroje el menor error. El criterio de
+parada puede ser, por ejemplo, el
+mínimo número de datos de una hoja
+(algún método de prepoda).
+\end{minipage}\qquad\begin{minipage}{0.55\textwidth}
+\begin{center}
+	\includegraphics[width=\linewidth]{"Temas/Tema 2/screenshot018"}
+\end{center}
+
+\end{minipage}
+\subsubsubsection{Relevancia de las características}
+\begin{minipage}{0.5\textwidth}
+	Los valores de los índice Gini (para el caso de la clasificación)
+o el error cuadrático medio (para el caso de la regresión)
+aportan una medida de la bondad de la partición hecha en
+cada nodo. Con estos valores, se puede establecer un \textbf{orden de importancia} de las características. 
+\end{minipage}\qquad\begin{minipage}{0.5\textwidth}
+\begin{center}
+	\includegraphics[width=\linewidth]{"Temas/Tema 2/screenshot019"}
+\end{center}
+\end{minipage}
+\begin{center}
+	\includegraphics{"Temas/Tema 2/screenshot020"}
+\end{center}
+\subsection{Perceptrón monocapa y multicapa (MLP)}
+\subsubsection{Teoría de la decisión}
+Tres escenarios para resolver un problema de decisión
+\begin{itemize}
+	\item \textbf{Decisión analítica.} Se fundamentan en la teoría bayesiana para inferir las probabilidades a posteriori de las las clases
+	\item \textbf{Modelos discriminatorios.} Infieren directamente las probabilidades a posteriori.
+	\item \textbf{Funciones discriminantes.} Encuentran una función $f(x)$ que mapea directamente una entrada $x$ a una determinada clase.
+\end{itemize}
+\subsubsubsection{Decisión analítica}
+Se fundamentan en la inferencia de $p(\mathrm{x}|C_k)$ y $p(C_k)$ (o, equivalente $p(\mathbf{x},C_k)$).
+\begin{minipage}{0.6\textwidth}
+	Procedimiento:
+	\begin{enumerate}[label=\color{lightblue}\arabic*)]
+		\item A partir de los datos, se infieren verosimilitudes y probabilidades a priori: $p(\mathbf{x}|C_k)$ y $p(C_k)$.
+		\item Se aplica el Teorema de Bayes para calcular las probabilidades a posteriori \[ p(C_k|\mathrm{x})=\dfrac{p(\mathrm{x}|C_k)p(C_k)}{p(\mathrm{x})}=\dfrac{p(\mathrm{x}|C_k)p(C_k)}{\displaystyle\sum_kp(\mathrm{x}|C_k)p(C_k)} \]
+		\item Se emplea la teoría de la decisión para determinar la clase de una entrada $x$
+	\end{enumerate}
+	Los métodos que explícita o implícitamente modelan las distribuciones de las entradas así como las salidas, $p(\mathrm{x},C_k)$, se llaman \textbf{modelos generativos} pues mediante \textit{muestreo} se pueden generar datos sintéticos.
+\end{minipage}\qquad\begin{minipage}{0.4\textwidth}
+\begin{center}
+	\includegraphics[width=\linewidth]{"Temas/Tema 2/screenshot021"}
+\end{center}
+\end{minipage}
+\subsubsubsection{Modelos discriminatorios}
+Producen directamente una estima de las probabilidades a posteriori de las clases para una entrada dada.
+\begin{enumerate}[label=\color{lightblue}\arabic*)]
+	\item El procedimiento ahora consiste en, con los datos disponibles, diseñar y entrenar un modelo que minimice una determinada función de error entre las entradas y sus salidas deseadas
+	\item Las salidas del modelos representan, mediante algún código, las probabilidades a posteriori de las clases para la entrada dada.
+	\item El ejemplo más claro de modelos discriminativos son las \textbf{redes neuronales progresivas} como, por ejemplo, los MLPs entrenados para minimizar la entropía cruzada con unidades de salida tipo softmax
+\end{enumerate}
+\begin{center}
+	\includegraphics{"Temas/Tema 2/screenshot022"}
+\end{center}
+\subsubsubsection{Funciones discriminantes}
+Encuentran una función $f(x)$, llamada \textit{función discriminante}, que directamente mapea cada entrada $x$ a la etiqueta de una clase.
+
+\begin{minipage}{0.5\textwidth}
+	\begin{itemize}[label=\color{red}\textbullet, leftmargin=*]
+		\item \color{lightblue}Ejemplo: problema de dos clases
+	\end{itemize}
+	\[ \begin{array}{ll}
+		f(x)=1, & \text{si }y(x)=\mathrm{w}^\intercal\mathrm{x}+w_0>0\\
+		f(x)=0, & \text{si }y(x)=\mathrm{w}^\intercal\mathrm{x}+w_0<0
+	\end{array} \]
+\end{minipage}\qquad\begin{minipage}{0.5\textwidth}
+\begin{center}
+	\includegraphics[width=\linewidth]{"Temas/Tema 2/screenshot023"}
+\end{center}
+
+\end{minipage}
+\subsubsection{Fundamento biológico}
+Membrana permeable para ciertas sustancias iónicas. Se crea una diferencia de potencial.
+
+\begin{center}
+	\includegraphics{"Temas/Tema 2/screenshot024"}
+\end{center}
+Tras la activación sináptica, se propagan diferencias de potencial.entre el soma y el entorno.
+\begin{center}
+	\includegraphics{"Temas/Tema 2/screenshot025"}
+\end{center}
+\subsubsection{Perceptrón monocapa}
+\subsubsubsection{(Widrow): filtro transversal (adaptativo) + umbral duro}
+\begin{center}
+	\includegraphics{"Temas/Tema 2/screenshot026"}
+\end{center}
+\begin{minipage}{0.5\textwidth}
+	División según hiperplano: \[ z=\mathbf{w^\intercal x}+b=0 \]donde la \lb{Función discriminante} (lineal) es \[ z=\mathbf{w^\intercal x}+b \]
+\end{minipage}\qquad\begin{minipage}{0.5\textwidth}
+\begin{center}
+	\includegraphics{"Temas/Tema 2/screenshot027"}
+\end{center}
+\end{minipage}
+\subsubsubsection{(Rosenblatt): dados $N$ pares entrada-salida: $\{\mathbf{x}_k,\mathbf{d}_k\}_1^N$}
+Muestra a muestra: \[ \mathbf{w}(k+1)=\mathrm{w}(k)+\dfrac{\alpha}{2}(d_k-o_k)x_k,\quad(\alpha>0) \]
+Bloque: \[ \mathrm{w}(m+1)=\mathrm{w}(m)=\dfrac{\alpha}{2}\sum_{k=1}^{N}(d_k-o_k(m))\mathrm{x}_k,\quad(\alpha>0) \]
+Es aprendizaje:
+\begin{itemize}
+	\item \textbf{Supervisado:} pares de entrenamiento dados.
+	\item \textbf{No lineal:} se emplea la salida $(o)$ en el error.
+	\item \textbf{Hebbiano:} refuerza las intervenciones correctas ($\pm\alpha\mathrm{x}_k$ en $\mathbf{w}$ según el signo del error).
+\end{itemize}
+Solo converge si hay separabilidad lineal
+
+Ejemplo gráficos: $D=2,b=0$ y una muestra $\{\mathbf{x}_k,\lbb{d_k=-1}{\text{salida deseada}}\}$
+\begin{center}
+	\includegraphics[width=\linewidth]{"Temas/Tema 2/screenshot028.drawio"}
+\end{center}
+
+Las rectas narajas y amarillan se sacan sumando a $\mathrm{w}(k+1)$ y $\mathrm{w}(\alpha)$ respectivamente el $-\alpha x$.
+
+Es decir, aplicando la fórmula de muestra a muestra.

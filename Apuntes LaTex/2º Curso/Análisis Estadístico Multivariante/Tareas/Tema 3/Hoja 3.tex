@@ -1,25 +1,38 @@
+\includepdf[pages=-]{"Tareas/Tema 3/Hoja 3"}
+
 \begin{enumerate}[label=\color{red}\textbf{\arabic*)}, leftmargin=*]
-	\item \lb{}
+	\item \lb{En la siguiente tabla se ha recopilado una serie de 20 datos que relacionan las horas de estudio de cada alumno y si han aprobado o suspendido un examen de estadística. \begin{center}
+			\begin{tabular}{c|c}
+				Horas de estudio & Aprobado (1 sí, 0 no) \\
+				\hline
+				0.5 & 0 \\
+				0.75 & 0 \\
+				1 & 0 \\
+				1.25 & 0 \\
+				1.5 & 0 \\
+				1.75 & 0 \\
+				1.75 & 1 \\
+				2 & 0 \\
+				2.25 & 1 \\
+				2.5 & 0 \\
+			\end{tabular}\qquad\begin{tabular}{c|c}
+			Horas de estudio & Aprobado (1 sí, 0 no) \\
+			\hline
+			2.75 & 1 \\
+			3 & 0 \\
+			3.25 & 1 \\
+			3.5 & 0 \\
+			4 & 1 \\
+			4.25 & 1 \\
+			4.5 & 1 \\
+			4.75 & 1 \\
+			5 & 1 \\
+			5.5 & 1 \\
+			\end{tabular}
+	\end{center} Se ha ajustado un modelo de regresión y los parámetros estimados han sido $\hat{\theta}_0=-4.077$ y $\hat{\theta}_1=1.5046$}
 	
-	$n=20$ datos\\
-	$x\equiv$ horas de estudio\\
-	$y=\begin{cases}
-		1 & \text{aprueba examen}\\
-		0 & \text{no aprueba examen}
-	\end{cases}$
-	
-	$\begin{array}{c|c}
-		X & Y\\ \hline
-		0.5 & 0\\
-		0.75 & 0\\
-		\vdots & \vdots\\
-		5 & 1\\
-		5.5 & 1
-	\end{array}$
-	
-	Modelo de regresión logística: $\hat{\theta}_0=-4.072$ y $\hat{\theta}_1=1.5046$
 	\begin{enumerate}[label=\color{red}\alph*)]
-		\item \db{¿Como se interpreta $\hat{\theta}_1$?}
+		\item \db{¿Como se interpreta el valor de $\hat{\theta}_1$?}
 		
 		$\begin{array}{l}
 			\log\dfrac{p}{1-p}=\hat{\theta}_0+\hat{\theta}_1\cdot x\\
@@ -27,11 +40,20 @@
 			\log\dfrac{p}{1-p}=\exp(\hat{\theta}_0+\hat{\theta}_1x)\\
 			p=(1-p)\exp(\hat{\theta}_0+\hat{\theta}_1x)
 		\end{array}$
-		\item 
+		\item \db{A partir del modelo ajustado, obtener una predicción para la probabilidad de que un alumno apruebe si ha estudiado 2 horas. ¿Cuál sería dicha probabilidad si dedicara una hora más al estudio? ¿Cómo ha variado la razón de estas probabilidades?}
 		
 		$Pr[Y=1/X=2]=\dfrac{1}{1+\exp(-(-40.77+1.5046\cdot2))}\simeq0.25$\\
 		$Pr[Y=1/X=3]=\dfrac{1}{1+\exp(-(-40.77+1.5046\cdot3))}\simeq0.607$\\
 		$\dfrac{Pr[Y=1/X=3]}{Pr[Y=1/X=2]}=\dfrac{0.607}{0.2556}=2.428$
 		
+		La razón de ambas propiedades presenta una gran diferencia.
+	\end{enumerate}
+	\item \lb{En un estudio clínico se desea predecir la probabilidad de padecer una enfermedad coronaria ($Y$, con valores 1 sí, 0 no) a partir de las covarianzas siguientes: Nivel de colesterol ($X_1$, 1 alto, 0 bajo), Edad ($X_2$) y Resultado del electrocardiograma ($X_3$, 1 anormal, 0 normal). Para ello, se analizaron 750 casos y se propuso un modelo logístico para estimar el riesgo de padecer una enfermedad coronaria, obteniendo las siguientes estimaciones para los parámetros: $\hat{\theta}_0=-3.912,\hat{\theta}_1=0.852,\hat{\theta}=0.025$ y $\hat{\theta}_3=0.441$.}
+	\begin{enumerate}[label=\color{red}\alph*)]
+		\item \db{Interpretar el significado de los coeficientes $\hth_1,\hth_2$ y $\hth_3$.}
+		
+		\item \db{Obtener una predicción para la probabilidad de padecer una enfermedad coronaria para una persona con 40 años, electrocardiograma normal y nivel de colesterol bajo. ¿Cuál sería dicha probabilidad si tuviera un nivel de colesterol alto?}
+		
+		\item \db{Para una persona con 40 años y electrocardiograma normal, ¿cómo influye el nivel de colesterol en el riesgo de padecer una enfermedad coronaria?}
 	\end{enumerate}
 \end{enumerate}
