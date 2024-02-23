@@ -1,0 +1,64 @@
+\section{Bases de datos basadas en documentos}
+\subsection{Introducción a las bases de datos de documentos}
+\subsubsection{Bases datos Documentales}
+En general, organizadas como un conjunto de \textbf{Colecciones} que contienen \textbf{documentos}:
+\begin{itemize}
+\item Tablas relacionales $\leftrightarrow$ Colecciones
+\item Filas (\textit{rows}) $\leftrightarrow$ Documentos
+\item No restringen la estructura de cada documento y no tienen esquema
+\end{itemize}
+Cada colección es un \textit{array} donde cada documento tiene asociado un identificador
+
+La base de datos puede ver el contenido del documento, y utilizar su información como parte de las búsquedas y actualizaciones
+
+Documentos $\Rightarrow$ formatos jerárquicos tipo JSON o XML
+
+No utilizan SQL y tienen su lenguaje de consulta propio
+
+Utilizan normalmente \textbf{Map-Reduce} para cálculos distribuidos
+
+Algunas implementan otros lenguajes de consulta y procesado, como N1QL (Couchbase) y Aggregation Framework (MongoDB)
+
+Bases de datos de Documentos: Couchbase, MongoDB, OrientDB
+\subsubsection{Modelado de bases de datos de documentos}
+\subsubsubsection{Modelado de datos en NoSQL}
+El modelado de datos debe ser:
+\begin{itemize}
+\item Realizado al mayor nivel de abstracción posible
+\item Independiente de la tecnología subyacente
+\end{itemize}
+Sin embargo, en NoSQL:
+\begin{itemize}
+\item  Se tiene que tener en cuenta el diseño \textbf{distribuido}
+\item \textbf{Optimización guiada por las consultas}
+\end{itemize}
+Con respecto al modelo de datos:
+\begin{itemize}
+\item Se mantienen los conceptos de entidad, relación, cardinalidades, etc.
+\item El modelado relacional se centra en especificar \textbf{qué datos tenemos y podemos ofrecer}
+\item El modelo NoSQL se centra en \textbf{optimizar qué consultas vamos a servir}
+\item Es "barato" \textbf{duplicar (desnormalizar)} los datos si con ello se consigue \textbf{mayor eficiencia de acceso}
+\end{itemize}
+\subsubsubsection{Representación de CV como tablas}
+\begin{center}
+	\includegraphics[scale=0.7]{"Temas/Tema 3/screenshot001"}
+\end{center}
+\subsubsection{Representación de relaciones}
+\subsubsubsection{Relaciones uno a muchos}
+Las relaciones uno a muchos (por ejemplo en el CV: \texttt{positions}) en el modelo relacional:
+\begin{itemize}
+	\item Normalización usando varias tablas (\texttt{Positions} con \texttt{user_id})
+\begin{itemize}
+	\item Necesidad de más de una tabla
+\item Necesidad de uso de \texttt{JOIN} $\Rightarrow$ ineficiencia
+\end{itemize}
+\item Algunos SGBDR ofrecen la posibilidad de tener tipos de datos estructurados y campos XML o JSON. (P. ej. PostgreSQL)
+\begin{itemize}
+	\item Usualmente no se pueden usar para buscar dentro
+\item No son estándar
+\end{itemize}
+\end{itemize}
+\subsubsection{CV como un documento}
+\begin{lstlisting}[language=C++]
+
+\end{lstlisting}
