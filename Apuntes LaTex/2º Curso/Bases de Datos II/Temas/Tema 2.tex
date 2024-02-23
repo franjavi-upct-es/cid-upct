@@ -68,7 +68,7 @@ Paradigmas más "atrevidos" como el de grafos están entre los 20 primeros (Neo4
 	\includegraphics{"Temas/Tema 2/screenshot001"}
 \end{center}
 \subsubsubsection{Almacenamiento distribuido}
-Desde los 90’s: Clústers/NOC/COW: procesamiento masivamente paralelo
+Desde los 90's: Clústers/NOC/COW: procesamiento masivamente paralelo
 
 Almacenamiento no distribuido
 
@@ -91,3 +91,296 @@ Coordinación distribuida: (e.g. \textbf{Zookeeper})
 El modelo relacional limita a tablas con valores primitivos y relaciones \textit{Primary Key/Foreign Key}\\
 En programación se utilizan \textbf{listas, arrays, tipos de datos compuestos} (\textit{gap semántico})\\
 ACID es \textbf{muy compleja y costosa} en ambientes distribuidos (quizá \textbf{no necesaria} en algunas aplicaciones).
+
+¿Y si se pudiera ver como un \textbf{GRAN ARRAY}?
+\begin{itemize}
+\item Cada nodo almacenaría una parte del array
+\item Búsqueda aleatoria \textbf{muy rápida} (árboles B)
+\item Uso de \textbf{filtros de Bloom}
+\item Uso de \textbf{objetos complejos} (p. ej. \textbf{documentos JSON}), para mantener la \textbf{localidad espacial de datos relacionados} 
+\item Transacciones limitadas al \textbf{objeto complejo}
+\end{itemize}
+\subsection{Schemaless}
+Las Bases de Datos NoSQL (en general) \textbf{no quieren de un esquema}
+
+\textbf{Flexibilidad:} Posibilidad de almacenar entidades con una estructura diferente
+\begin{itemize}
+	\item Tratar información incompleta.
+	\item Evolucionar la base de datos/esquema.
+	\item Añadir nuevas características a las aplicaciones
+\end{itemize}
+\begin{center}
+	\includegraphics[width=\linewidth]{"Temas/Tema 2/screenshot002"}
+\end{center}
+\textbf{Ejemplo:} Añadir el campo \texttt{first_name} a partir del campo \texttt{name}
+
+Los nuevos objetos se crean con el nuevo formato
+
+A la hora de leerlos, se puede hacer:
+
+\begin{lstlisting}[language=c++]
+if (user && user.name && !user.first_name) {
+	// Docs anteriores a 2013 no tienen first_name
+	user.first_name = user.name.split(" ")[0];
+}
+\end{lstlisting}
+En SQL puede ser un proceso muy costoso (procesa toda la tabla, locking, puede que haya que parar las aplicaciones):
+
+\begin{lstlisting}[language=SQL]
+ALTER TABLE users ADD COLUMN first_name text;
+UPDATE users SET first_name =
+	substring_index(name, ' ', 1);
+\end{lstlisting}
+\subsubsection{¿Cuándo es apropiado \textit{schemaless}?}
+\textbf{Objetos heterogéneos}
+
+Estructura de los datos \textbf{impuesta externamente}
+
+Si intuimos que los datos \textbf{cambiarán en el futuro}
+
+\textbf{Sin embargo}
+
+A veces \textbf{un esquema es conveniente}
+\begin{itemize}
+	\item Facilita el desarrollo y evita inconsistencias
+	\begin{itemize}
+		\item \texttt{Mongoose} para MongoDB:
+	\end{itemize}
+	\begin{lstlisting}[language=C++]
+var Comment = new Schema({
+	name: {type: String, default: 'Anonymous'},
+	date: {type: Date, default: Date.now},
+	text: Buffer
+});
+// a setter with on-line modification
+Comment.path('name').set(function (v) {
+	return capitalize(v);
+});
+	\end{lstlisting}
+\end{itemize}
+\subsection{Map-Reduce}
+Map-Reduce: origen lenguajes funcionales:
+\begin{itemize}
+\item \texttt{map()}: Ejecuta una misma función sobre todos los elementos de un conjunto
+\item \texttt{reduce()}: Sumariza un conjunto de valores para producir un valor de salida
+\end{itemize}
+Map-Reduce combina ambas operaciones:
+\begin{itemize}
+\item Una misma operación \texttt{map()} a cada dato residente en un nodo es realizada de forma paralela en \textbf{todos} los nodos simultáneamente
+\item Con los resultados parciales de cada nodo, una función \texttt{reduce()} genera un resultado (o un conjunto de resultados) final
+\item Proceso intermedio de \textit{shuffle} para agrupar valores \textbf{con la misma clave} antes del \textbf{reduce()}
+\item Resultados parciales en el mismo nodo (localidad) $\Rightarrow$ procesamientos \textbf{en cadena}
+\end{itemize}
+\begin{center}
+	\includegraphics{"Temas/Tema 2/screenshot003"}
+\end{center}
+\begin{itemize}[label=\color{red}\textbullet, leftmargin=*]
+	\item \color{lightblue}Word-Count
+\end{itemize}
+\begin{center}
+	\includegraphics[width=\linewidth]{"Temas/Tema 2/screenshot004"}
+\end{center}
+Map-Reduce en entornos Big-Data/NoSQL tiene una serie de particularidades:
+\begin{itemize}
+\item Se supone que los datos de entrada son siempre pares < key, value >
+\item La función \texttt{map()} produce otro conjunto de valores $\{ < key1, value1 >, < key2, value2 >, \dots\}$
+\item El \textbf{shuffle} agrupa los valores con la misma clave:
+\begin{center}
+	$\{< key1, \{val1, val3, \dots\} >, < key2, \{val2, val4, \dots\} >, \dots\}$
+\end{center}
+\item \texttt{reduce()} procesa cada lista de valores con la misma clave, y produce otros elementos $< key', value' >$
+\item Hay procesamientos difíciles de expresar en Map-Reduce $\Rightarrow$ operaciones M/R \textbf{en cadena}
+\end{itemize}
+Se verá en profundidad en los siguientes temas de la asignatura
+
+Map-Reduce puede usarse no sólo para computación distribuida, sino también como una \textbf{generalización de consultas}
+
+Ejemplo: Imagínese un biólogo marino que hace anotaciones de cada animal que ve en el océano, y quiere saber cuántos tiburones ha visto por mes:
+
+\begin{lstlisting}[language=SQL]
+SELECT MONTH(observation_timestamp) AS observation_month,
+       sum(num_animals) AS total_animals
+FROM observations
+WHERE family = 'Sharks'
+GROUP BY observation_month;
+\end{lstlisting}
+
+MongoDB con el API de MapReduce:
+
+\begin{lstlisting}[language=C++]
+db.observations.mapReduce(
+	function map() {
+		var year = this.observationTimestamp.getFullYear();
+		var month = this.observationTimestamp.getMonth() + 1;
+		emit(year + "-" + month, this.numAnimals);
+	},
+	function reduce(key, values) {
+		return Array.sum(values);
+	},
+	{
+		query: { family: "Sharks" },
+		out: "monthlySharkReport"
+	}
+);
+\end{lstlisting}
+MongoDB ofrece además un API alternativo para funciones de agregación:
+\begin{lstlisting}[language=C++]
+db.observations.aggregate([
+	{ $match: { family: "Sharks" } },
+	{ $group: {
+		_id: {
+			year: { $year: "$observationTimestamp" },
+			month: { $month: "$observationTimestamp" }
+		},
+		totalAnimals: { $sum: "$sumAnimals" }
+	}
+	}
+]);
+\end{lstlisting}
+\begin{center}
+	\includegraphics{"Temas/Tema 2/screenshot005"}
+\end{center}
+\subsubsection{Eficiencia \textit{raw}}
+Pero los sistemas NoSQL tienen que competir también con los SQL en términos de eficiencia neta (también llamada raw).
+
+La prueba se realizó sobre MongoDB y sobre MySQL (se ha adaptado el original, que era para PostgreSQL)
+
+Se parte de una tabla sencilla con cuatro valores, que muestran medidas de sensores con localización, valor de la lectura y una marca de tiempo
+
+Se realizan seis pruebas que pueden corresponder a un conjunto de consultas normales:
+\begin{enumerate}[label=\arabic*)]
+	\item Inicialmente se insertan un millón de elementos generados al azar, con fechas que permitan la búsqueda por rango (\textbf{Fill})
+	\item  Se crea un índice en la tabla para la fecha de la lectura (\textbf{Index})
+	\item  Se actualizan los valores de un conjunto de entradas seleccionadas por rango de fechas (\textbf{Update})
+	\item  Se eliminan un conjunto de filas seleccionadas por rango de fechas (\textbf{Delete})
+	\item  Se obtiene el número de filas restantes (\textbf{Count})
+	\item  Se obtiene un subconjunto de filas extraído de una consulta dada por un rango de fechas \textbf{(Interval)}
+\end{enumerate}
+\begin{center}
+	\includegraphics{"Temas/Tema 2/screenshot006"}
+\end{center}
+El gráfico se muestra en escala logarítmica en el eje Y (las diferencias pequeñas se acentúan)
+
+A simple vista, ambos productos están muy igualados
+\begin{itemize}
+\item SQL (MySQL) lleva \textit{muchos años} de optimizaciones
+\item Mientras que productos como MongoDB tienen menos historia a sus espaldas en cuanto a optimizaciones, \dots
+\end{itemize}
+Hay casos en los que uno es más rápido que el otro y viceversa
+
+No se puede decir cuál es mejor
+\begin{itemize}
+	\item \textbf{Depende del patrón de accesos que vaya a tener nuestra aplicación}
+	\item (p. ej. contado en MongoDB mucho más rápido que en MySQL; actualización algo más rápida)
+\end{itemize}
+\subsection{Tipos de sistemas NoSQL}
+\textbf{NoSQL} incluye un conjunto de tecnologías relativamente dispares
+
+Aún así, la mayoría comparten una serie de características:
+\begin{itemize}
+\item No se basan en SQL
+\item Generalmente no obligan a definir un esquema
+\item Surgen de la comunidad para solucionar problemas, y muchas son libres/open source
+\item Diseño basado en procesamiento distribuido, y aplican tecnologías funcionales como MapReduce
+\end{itemize}
+Divididas en subcategorías:
+\begin{itemize}
+\item Bases de datos Key-Value y Documentales
+\item Bases de datos columnares
+\item Bases de datos de grafos
+\item Bases de datos de arrays
+\end{itemize}
+\subsubsection{Key-Value Stores y Documentales}
+Cada pieza de datos tiene asignado un identificador
+
+La diferencia entre ambas es que:
+\begin{itemize}
+\item En Key-Value, el valor es opaco, no se conoce nada de su interior (a todos los efectos es un \textbf{blob} de datos)
+\item En las basadas en documentos, la base de datos puede ver el contenido del agregado, y utilizar su información como parte de las búsquedas y actualizaciones
+\end{itemize}
+Documentos $\Rightarrow$ formatos jerárquicos tipo JSON o XML
+
+La diferencia entre ambas queda un poco difusa
+\begin{itemize}
+\item Por ejemplo, Riak es Key-Value pero permite realizar búsquedas indexadas parecidas a las de Solr/Lucene
+\item Redis permite que los valores de datos sean estructurados en arrays, estructuras complejas, mapas
+\end{itemize}
+Key-Value: Riak, Redis, Memcache, LevelDB
+
+Documentos: Couchbase, MongoDB, OrientDB
+\subsubsection{Bases de Datos Columnares}
+Influenciadas por el Paper de Google de 2004 sobre BigTable
+
+En general, parecidos a las tablas SQL, salvo que cada fila puede:
+\begin{itemize}
+\item Tener un conjunto de columnas diferente
+\item Almacenar \textit{series temporales} dentro de una misma fila (varias \textit{versiones} de un mismo conjunto de columnas)
+\end{itemize}
+Cada fila tiene un identificador y es un agregado de familias de columnas (\textit{column family})
+
+Cambian el modo de almacenamiento para favorecer ciertas aplicaciones (almacenamiento por columnas en vez de por filas)
+
+Bases de datos: HBase, Cassandra, Vertica, H-Store
+\begin{center}
+	\includegraphics{"Temas/Tema 2/screenshot007"}
+\end{center}
+\subsubsection{Bases de Datos de Grafos}
+Las bases de datos de grafos llevan el mecanismo \textbf{muchos a muchos} al extremo
+
+Datos en los que existen muchas relaciones entre sí y tienen un significado primordial
+
+Las bases de datos de grafos se basan en la construcción y consulta de grafos que constan de \textbf{Vértices}, también llamados \textit{nodos} o \textit{entidades}, y \textbf{Aristas (\textit{Edges})}, también llamados \textit{relaciones}.
+
+Los grafos pueden capturar relaciones complejas entre entidades y ofrecen lenguajes de búsqueda, actualización y creación que permiten trabajar con subconjuntos del grafo
+
+Origen en las bases de datos de hechos (\textbf{Datalog})
+
+Ejemplos: FlockDB, Neo4J, OrientDB
+
+\begin{center}
+	\includegraphics{"Temas/Tema 2/screenshot008"}
+\end{center}
+
+(Nota: Usa la sintaxis PostgreSQL para \texttt{json})
+\begin{lstlisting}[language=SQL]
+CREATE TABLE vertices (
+	vertex_id integer PRIMARY KEY,
+	properties json
+);
+
+CREATE TABLE edges (
+	edge_id integer PRIMARY KEY,
+	tail_vertex integer REFERENCES vertices (vertex_id),
+	head_vertex integer REFERENCES vertices (vertex_id),
+	label text,
+	properties json
+);
+
+CREATE INDEX edges_tails ON edges (tail_vertex);
+CREATE INDEX edges_heads ON edges (tail_vertex);
+\end{lstlisting}
+\subsubsubsection{Grafo y consulta en Neo4j}
+\begin{lstlisting}[language=SQL]
+CREATE 
+	(NAmerica: Location {name: 'North America', type: 'continent'}),
+	(USA: Location {name: 'United States', type: 'country' }),
+	(Idaho:Location {name: 'Idaho', type: 'state' }),
+	(Lucy:Person {name:'Lucy' }),
+	(Idaho)-[:WITHIN]->(USA)-[:WITHIN]-> (NAmerica),
+	(Lucy) -[:BORN_IN]-> (Idaho)
+\end{lstlisting}
+Consulta:
+\begin{lstlisting}[language=SQL]
+MATCH
+(person) -[:BORN_IN] -> () -[:WITHIN*0..] -> (us.Location {name: 'United States'})
+(person) -[:LIVES_IN] -> () -[:WITHIN*0..] -> (us.Location {name: 'Europe'})
+RETURN person.name
+\end{lstlisting}
+\subsubsection{Bases de Datos basadas en Arrays}
+Suelen presentarse como bases de datos que soportan SQL y añaden operaciones para trabajar con conjuntos de datos especiales (arrays)
+
+Utilizadas para tratamiento de grandes cantidades de datos de forma estadística o de modelado y OLAP
+
+Soportan también datos geográficos, ya que pueden definir rangos numéricos de una o varias dimensiones (2D para cálculos geográficos)
+
+Ejemplos: MonetDB, SciDB, rasdaman
