@@ -530,3 +530,105 @@ Una vez que el conjunto de datos ha sido dividido, se procede de la siguiente ma
 	\item Se entrena un número de modelos (por ejemplo, para valores distintos de $\lambda$) y se escoge aquel que produce menor error de validación.
 	\item Después, el modelo seleccionado se entrena con todas las muestras disponibles (entrenamiento y validación) y se evalúa con el conjunto test.
 \end{enumerate}
+La ventaja principal del método de Hold-out es su simplicidad y rapidez. Sin embargo, es importante tener en cuenta algunas consideraciones:
+\begin{itemize}
+	\item La división del conjunto de datos debe realizarse de manera \textbf{aleatoria y estratificada} para evitar sesgos en la selección de muestras.
+	\item Es posible que los resultados varíen dependiendo de cómo se realice la partición de los datos. Por lo tanto, es recomendable repetir el proceso de Hold-out varias veces (\textbf{resampling}) y promediar los resultados para obtener una estimación más confiable del rendimiento del modelo.
+	\item En algunos casos, especialmente cuando el conjunto de datos es pequeño, puede ser más apropiado utilizar técnicas de \textbf{validación cruzada}, como la k-fold, que proporcionan una estimación más robusta del rendimiento del modelo al usar múltiples subdivisiones de los datos.
+\end{itemize}
+Si $N$ no es grande, el resultado de hold-out \textbf{depende de la partición} y el resultado es poco fiable. Ejemplo: 
+\begin{center}
+\includegraphics{"Temas/Tema 1/Screenshot027"}
+\end{center}
+Para paliar este problema se emplea el \lb{Resampling}.
+\begin{itemize}[label=\color{red}\textbullet, leftmargin=*]
+	\item \color{lightblue}Resampling
+\end{itemize}
+Consiste en hacer varios entrenamientos-testeos (divisiones aleatorias), y basar nuestra evaluación usando la distribución de los errores de test. Por ejemplo, promediando para:
+\begin{itemize}
+	\item Calcular el error esperado de un algoritmo.
+	\item Compararlo con otro algoritmo.
+\end{itemize}
+\lb{Nunca} coger el mejor resultado sobre los errores de validación: sub-estimaremos el verdadero error.
+\subsubsubsection{Validación Cruzada}
+Métodos para estimar el error promedio de test:
+\begin{itemize}
+	\item Analíticos:
+	
+	AIC (Akaike Information Criterion)\\
+	BIC (Bayesian Information Criterion)\\
+	MDL (Minimum Description Length)\\
+	SRM (Structural Risk Minimization)\\
+	\item No analíticos:
+	
+	\lb{Validación Cruzada (Cross-Validation)}
+	
+	Bootstrap
+\end{itemize}
+La validación cruzada surge como mejora del hold-out y resampling.
+\begin{itemize}[label=\color{red}\textbullet, leftmargin=*]
+	\item \color{lightblue}Definción
+\end{itemize}
+La validación cruzada es una manera de estimar el error de un modelo cuando disponemos de \textbf{pocos datos} y, por tanto, no se puede dedicar un conjunto explícito para test.
+
+Se realiza una partición del conjunto de datos en una serie de subconjuntos buscando:
+\begin{enumerate}[label=\color{lightblue}\arabic*)]
+	\item Conjuntos de entrenamiento y test lo más \lb{grandes} posible.
+	\item \lb{Solapse} entre conjuntos lo más \lb{pequeños} o posible
+	\item Mantener la \lb{estratificación}
+\end{enumerate}
+\begin{itemize}[label=\color{red}\textbullet, leftmargin=*]
+	\item \color{lightblue}k-Fold Coss-Validation (ejemplo $k=4$)
+\end{itemize}
+\begin{center}
+	\includegraphics{"Temas/Tema 1/Screenshot028"}
+\end{center}
+Representación alternativa
+\begin{center}
+	\includegraphics{"Temas/Tema 1/Screenshot029"}
+\end{center}
+\begin{itemize}[label=\color{red}\textbullet, leftmargin=*]
+	\item \color{lightblue}Resultado central
+\end{itemize}
+El error de test promedio sobre todas las $k$ redes es un \textbf{estimador insesgado} del error verdadero sobre cualquiera de las redes elegida aleatoriamente.
+\begin{itemize}[label=\color{red}\textbullet, leftmargin=*]
+	\item \color{lightblue}Elegir el modelo
+\end{itemize}
+Para elegir entre varios modelos (máquinas), se realiza la Validación Cruzada (k-fold) y se elige el modelo que da menor error promedio sobre el conjunto de test.
+\begin{itemize}[label=\color{red}\textbullet, leftmargin=*]
+	\item \color{lightblue}Elegir la red final
+\end{itemize}
+Para el modelo seleccionado con Cross-Validation, se dispone de $k$ errores de test diferentes, uno para cada iteración Para seleccionar el conjunto de pesos de dicho modelo, se pueden utilizar diferentes enfoques. Algunas opciones son:
+\begin{enumerate}[label=\arabic*)]
+	\item Promediar los pesos del modelo obtenido en cada iteración: se pueden promediar los pesos del modelo que se obtuvieron en cada iteración de Cross-Validation y utilizar el modelo promedio como el modelo final.
+	\item Entrenar el modelo con todos los datos.
+\end{enumerate}
+\begin{itemize}[label=\color{red}\textbullet, leftmargin=*]
+	\item \color{lightblue}K-Fold: problemas y recomendaciones
+\end{itemize}
+Dos problemas:
+\begin{itemize}
+	\item Conjunto de entrenamiento \lb{grande} a costa de ser pequeño el de validación.
+	\item Hay mucho \lb{solape} entre los conjuntos de entrenamiento: comparten $k-2$ partes.
+\end{itemize}
+Típicamente, $5<k<10$ (buen compromiso entre sesgo-varianza).
+
+Si $k$ aumenta, se obtienen estimadores más robustos aunque los conjuntos de validación sean menores. Sin embargo, aumenta el número de redes a entrenar y, por tanto, el coste computacional.
+
+Si $N$ aumenta, $k$ puede ser más pequeño; si $N$ es pequeño, $k$ debe ser grande para permitir conjuntos grandes de entrenamiento.
+\begin{itemize}[label=\color{red}\textbullet, leftmargin=*]
+	\item \color{lightblue}Leave-one-out
+\end{itemize}
+Caso extremo, $k=N$ llamado método leave-one-out. Especialmente empleado en aplicaciones como diagnósis médica (sistemas CAD) donde es difícil disponer de datos etiquetados (conjuntos de datos pequeños).
+\begin{itemize}
+	\item \textbf{Ventajas:}
+	\begin{enumerate}[label=\arabic*)]
+		\item La estimación del error \textbf{no} depende de la partición de los datos, es decir, la estimación del error es muhco más estable.
+		\item \textbf{No} se tiende a sobrestimar la estimación del error, es decir, el error de test no es mayor que el error de todos los datos.
+	\end{enumerate}
+	\item \textbf{Desventajas:}
+	\begin{enumerate}[label=\arabic*)]
+		\item La programación se vuelve mucho más complicada.
+		\item El tiempo de ejecuación puede ser muy alto.
+	\end{enumerate}
+\end{itemize}

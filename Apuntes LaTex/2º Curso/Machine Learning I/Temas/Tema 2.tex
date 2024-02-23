@@ -625,7 +625,8 @@ Tres escenarios para resolver un problema de decisión
 \end{itemize}
 \subsubsubsection{Decisión analítica}
 Se fundamentan en la inferencia de $p(\mathrm{x}|C_k)$ y $p(C_k)$ (o, equivalente $p(\mathbf{x},C_k)$).
-\begin{minipage}{0.6\textwidth}
+
+\begin{minipage}{0.5\textwidth}
 	Procedimiento:
 	\begin{enumerate}[label=\color{lightblue}\arabic*)]
 		\item A partir de los datos, se infieren verosimilitudes y probabilidades a priori: $p(\mathbf{x}|C_k)$ y $p(C_k)$.
@@ -633,9 +634,9 @@ Se fundamentan en la inferencia de $p(\mathrm{x}|C_k)$ y $p(C_k)$ (o, equivalent
 		\item Se emplea la teoría de la decisión para determinar la clase de una entrada $x$
 	\end{enumerate}
 	Los métodos que explícita o implícitamente modelan las distribuciones de las entradas así como las salidas, $p(\mathrm{x},C_k)$, se llaman \textbf{modelos generativos} pues mediante \textit{muestreo} se pueden generar datos sintéticos.
-\end{minipage}\qquad\begin{minipage}{0.4\textwidth}
+\end{minipage}\qquad\begin{minipage}{0.5\textwidth}
 \begin{center}
-	\includegraphics[width=\linewidth]{"Temas/Tema 2/screenshot021"}
+	\includegraphics{"Temas/Tema 2/screenshot021"}
 \end{center}
 \end{minipage}
 \subsubsubsection{Modelos discriminatorios}
@@ -706,3 +707,160 @@ Ejemplo gráficos: $D=2,b=0$ y una muestra $\{\mathbf{x}_k,\lbb{d_k=-1}{\text{sa
 Las rectas narajas y amarillan se sacan sumando a $\mathrm{w}(k+1)$ y $\mathrm{w}(\alpha)$ respectivamente el $-\alpha x$.
 
 Es decir, aplicando la fórmula de muestra a muestra.
+\subsubsection{Limitaciones del Perceptron Monocapa}
+Minskey y Papert: es un "solo" \textbf{discriminante lineal}, capaz de resolver problemas de juguete (por ejemplo OREX).
+\begin{center}
+	\includegraphics{"Temas/Tema 2/screenshot029"}
+\end{center}
+Si se dispone en capas: gradiente imposible por el umbral duro.
+
+La ya comentada falta de convergencia.
+\subsubsection{El algoritmo LMS}
+(Widrow y Hopf): proponen emplear $z$ en el error en lugar de $o$ y minimizar el coste cuadrático (Least Mean Square) por gradiente: \[ \min_{\mathrm{x}}C(\mathrm{w})=\min_{\mathrm{w}}\dfrac{1}{2}\sum_{k=1}^{N}(d_k-z_k)^2 \]
+\begin{itemize}
+	\item Muestra a muestra: \[ \mathrm{w}(k+1)=\mathrm{w}(k)+\alpha(d_k-z_k)\mathrm{x}_k,\quad(\alpha>0) \] (más rápido, pero más ruidoso).
+	\item Bloque: \[ \mathrm{w}(m+1)=\mathrm{w}(m)+\alpha\sum_{k=1}^{N}(d_k-z_k(m))\mathrm{x}_k,\quad(\alpha>0) \]
+\end{itemize}
+
+Para entradas independientes de valores independientes de media cero y autocorrelación $R_{\mathrm{xx}}$, converge a la solución MMSE (solución de Wiener-Hopf) \[ \mathrm{x}_{opt}=R_{xx}^{-1}\mathtt{E}\{\dx\}\text{ si }\alpha<\dfrac{2}{\lambda_{\max}} \]
+\subsubsection{Características del LMS}
+El LMS es muy robusto: converge en muchos casos
+
+Aprendizaje:
+\begin{itemize}
+	\item \textbf{Supervisado}
+	\item \textbf{Lineal:} se emplea la salida $(\mathbf{z})$ en el error
+	\item Por prestaciones: según coste cuadrático
+\end{itemize}
+Produce resultados razonables (los mejores mediante una frontera lineal) aunque el problema no se separable linealmente.
+
+\textbf{NLMS ó Delta-LMS:} $\alpha\longrightarrow\dfrac{\alpha}{\|\mathbf{x}\|^2}$, independiza de la energía de las muestras.
+\subsubsection{Error cuadrático (SSE) para clasificación}
+\subsubsubsection{Problema con los "OUTLIERS"}
+\begin{center}
+	\includegraphics{"Temas/Tema 2/screenshot030"}
+\end{center}
+La figura muestra el resultado obtenido por el LMS (en morado) para dos situaciones distintas.
+\subsubsection{Activación blanda}
+El \textbf{umbral duro} de Widrow, se cambia por una \textbf{aproximación derivable}
+
+Resulta adecuada la forma sigmoidal o sigmoide:
+
+\begin{minipage}{0.5\textwidth}
+	\begin{itemize}
+		\item \textbf{Función logística:} \[ o=f(z)=\dfrac{1}{1+e^{-gz}} \]
+		\item \textbf{Tangente hiperbólica} ($\tanh$): \[ o=f(z)=\dfrac{1-e^{-gz}}{1+e^{-gz}}=\tanh\left(\dfrac{gz}{2}\right) \]
+	\end{itemize}
+\end{minipage}\qquad\begin{minipage}{0.5\textwidth}
+\begin{center}
+	\includegraphics[scale=0.8]{"Temas/Tema 2/screenshot031"}
+\end{center}
+\end{minipage}
+
+$g$: saturación (determina la pendiente de la sigmoide en $z=0$).
+
+En principio, asumible por los pesos.
+\subsubsection{LMS con activación blanda}
+Ahora: $z\to o$: \[ \min_{\mathrm{w}}C(\mathrm{w})=\min_{\mathrm{w}}\dfrac{1}{2}\sum_{k=1}^{N}(d_k-o_k)^2 \]
+\begin{itemize}
+	\item Muestra a muestra: \[ \mathrm{w}(k+1)=\mathrm{w}(k)+\alpha(d_k-o_k)f'(z_k)\mathrm{x}_k,\quad(\alpha>0) \]
+	\item Bloque: \[ \mathrm{w}(m+1)=\mathrm{w}(m)+\alpha\sum_{k=1}^{N}(d_k-o_k(m))f'(z_k(m))\mathrm{x}_k,\quad(\alpha>0) \]
+\end{itemize}
+Aparece un factor $f'(z_k)$ que se puede calcular a partir de la propia salida según:
+
+\begin{minipage}{0.5\textwidth}
+	\begin{itemize}
+		\item Para función logística: $f'(z)=go(1-o)$
+	
+	\[ \begin{aligned}
+		\text{Demo: }f'(z)&=\dfrac{ge^{-gz}}{(1+e^{-gz})^2}=g\dfrac{1}{(1+e^{-gz})}\dfrac{e^{-gz}}{(1+e^{-gz})}\\
+		&=g\dfrac{1}{(1+e^{-gz})}\left(1-\dfrac{1}{(1+e^{-gz})}\right)\\
+		&=go(1-o)
+	\end{aligned} \]
+	\item Para $\tanh:\:f'(z)=\dfrac{1}{2}g(1-o^2)$
+	\end{itemize}
+\end{minipage}\qquad\begin{minipage}{0.5\textwidth}
+\begin{center}
+	\includegraphics{"Temas/Tema 2/screenshot031"}
+\end{center}
+\end{minipage}
+\subsubsection{Arquitectura del Perceptron Multicapa (MLP)}
+\subsubsubsection{Redes Multicapa}
+\begin{center}
+	\includegraphics{"Temas/Tema 2/screenshot032"}
+\end{center}
+\subsubsection{Propiedades de las MLP}
+Son:
+\begin{itemize}
+	\item potentes
+	\item versátiles
+	\item distribuidas: robustas
+	\item paralelas: rápidas (entrenadas)
+\end{itemize}
+pero:
+\begin{itemize}
+	\item de entrenamiento difícil y lento
+	\item de difícil análisis
+\end{itemize}
+\subsubsection{Capacidades del MLP}
+\begin{center}
+	\includegraphics[width=\linewidth]{"Temas/Tema 2/screenshot033"}
+\end{center}
+Para MLPs con dos capas ($L = 2$), se han probado los siguientes teoremas:
+
+Cybenko: basta con una capa oculta de unidades sigmoidales (en número indefinido) para \begin{center}
+	$R^{N_0}\longrightarrow(1,-1)^{N_L}$\quad(Clasificación)
+\end{center} donde $N_0$ y $N_L$ son la dimensión de la entrada y la salida, respectivamente.
+
+Kolmogorov (adaptado por Hetch-Nielsen): basta con una capa oculta de $2N_0 + 1$ unidades de activaciones adecuadas para \begin{center}
+	$(1,-1)^{N_0}\longrightarrow R^{N_L}\quad$(Regresión)
+\end{center}
+\subsubsection{Notación utilizada MLP}
+\begin{center}
+	\includegraphics{"Temas/Tema 2/screenshot034"}
+\end{center}
+\subsubsection{Algoritmo de retropropagación (BackPropagation (BP))}
+Básicamente consiste en dos fases:
+\begin{itemize}
+	\item \textbf{Hacia adelante:} primero se aplica una instancia a las entradas de la red y su efecto se propaga a través de la misma, capa a capa, hasta la salida.
+	\item \textbf{Hacia atrás (BP):} Después, se re-calculan los pesos mediante el gradiente del error. En concreto, se calcula el valor de la función de error, que compara la respuesta actual de la red y la respuesta deseada, y este error se propaga hacia atrás.
+\end{itemize}
+El objetivo es minimizar \[ \min_{\mathrm{w}}C(\mathrm{w})=\min_{\mathrm{w}}\dfrac{1}{2}\sum_{m=1}^{N}(\mathbf{d}_m-\mathbf{o}_m)^2 \] donde $\mathbf{w}$ representa todos los pesos de la red y $m$ la muestra o instancia.
+
+Algoritmo de gradiente \[ w_{ji}^{(l)}(k+1)=e_{ji}^{(l)}(k)-\eta\dfrac{\partial C}{\partial w_{ji}^{(l)}}(k) \]
+Para cada iteración $k$, se tienen las ecuaciones siguientes $\dfrac{\partial C}{\partial w_{ji}^{(l)}}=\dfrac{\partial C}{\partial o_j^{(l)}}\dfrac{\partial o_j^{(l)}}{\partial w_{ji}^{(l)}}=\dfrac{\partial C}{\partial o_j^{(l)}}f_j^{\prime(l)}o_i^{(l-1)}=\Delta_j^{(l)}o_i^{(l-1)}$ ya que \linebreak $o_j^{(l)}=f\left(\sum_{k=1}^{N_{l-1}}e_{jk}^{(l)}o_k^{(l-1)}\right)$
+\begin{equation}
+	\begin{split}
+	\Delta_j^{(l)}&=\left(\sum_{n_{l+1}}^{N_{l+1}}\dfrac{\partial C}{\partial o_{n_{l+1}}^{(l+1)}}\dfrac{o_{n_{l+1}}^{(l+1)}}{\partial o_j^{(l)}}\right)f_j^{\prime(l)}=\left(\sum_{n_{l+1}}^{N_{l+1}}\dfrac{\partial C}{\partial o_{n_{l+1}}^{(l+1)}}f_{n_{l+1}}^{\prime(l+1)}w_{n_{l+1}j}^{(l+1)}\right)f_j^{\prime(l)}\\
+	&=\left(\sum_{n_{l+1}}^{N_{l+1}}\Delta_{n_{l+1}}^{(l+1)}w_{n_{l+1}j}^{(l+1)}\right)f_j^{\prime(l)}
+\end{split}
+\end{equation}
+BackPropagation (también Regla Delta Generalizada)) \[ w_{ji}^{(l)}(k+1)=w_{ji}^{(l)}-\eta\Delta_j^{(l)}(k)o_i^{(l-1)}(k) \]
+Se procede: \[ l=L\longrightarrow L-1,L-2,\dots,1\quad\text{(¡retroprogramación!)} \] insertando gradiente y considerando que
+\begin{itemize}
+	\item Para $l=L$ se aplica \[ \Delta_j^L=\dfrac{\partial C}{\partial o_j^{(L)}}f_j^{\prime (L)} \]
+	\item Y para $l<L$, se aplica (1)
+\end{itemize}
+Recuérdese que, para sigmoides, las derivadas dependen solo de los salidas: $f'(z)=go(1-o)$ para función logística y $f'(z)=\dfrac{1}{2}g(1-o^2)$ para $\tanh$.
+\subsubsection{Modos de entrenamiento}
+\begin{itemize}[label=\color{red}\textbullet, leftmargin=*]
+	\item \color{lightblue}¿Cada cuanto se actualizan los pesos?
+\end{itemize}
+\begin{itemize}
+	\item \lb{Batch:} depués de cada época del conjunto de entrenamiento.
+	\item \lb{Mini-Batch:} despuñes de una muestra (conjunto de patrones) del conjunto de entrenamiento.
+	\item \lb{Online:} depués de cada ejemplo.
+\end{itemize}
+\begin{center}
+	\includegraphics{"Temas/Tema 1/Screenshot030"}
+\end{center}
+\subsubsection{Sobre las muestras}
+Conjunto de muestras de entrenamiento \lb{representativo}
+
+Conviene \lb{preprocesar} las muestras para eliminar información que de seguro se sabe irrelevante
+
+Conviene \lb{normalizar} (características con media nula y varianza unidad)
+
+Pueden ser útiles \lb{códigos sencillos} (en general, las NNs muestran sensibilidad al formato de presentación). Ejemplos: 1:N, termómetro, etc.
+
+Para el mini-batch y online, conviene \lb{Aleatorizar} el orden de presentación de las muestras y \lb{ciclar} las series de entrenamiento.

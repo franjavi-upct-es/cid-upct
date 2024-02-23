@@ -19,49 +19,63 @@
 \contentsline {subsubsubsection}{\numberline {1.3.2.1)}Interpretación de la Precisión y la Sensibilidad}{14}{subsubsubsection.1.3.2.1}%
 \contentsline {subsubsubsection}{\numberline {1.3.2.2)}Puntuación Kappa}{16}{subsubsubsection.1.3.2.2}%
 \contentsline {subsubsection}{\numberline {1.3.3}Hold-out}{16}{subsubsection.1.3.3}%
-\contentsline {section}{\numberline {2}Aprendizaje Supervisado}{18}{section.2}%
-\contentsline {subsection}{\numberline {2.1}Árboles de Decisión}{18}{subsection.2.1}%
-\contentsline {subsubsubsection}{\numberline {2.1.0.1)}Arquitectura}{18}{subsubsubsection.2.1.0.1}%
-\contentsline {subsubsubsection}{\numberline {2.1.0.2)}Ventajas y desventajas}{19}{subsubsubsection.2.1.0.2}%
-\contentsline {subsubsubsection}{\numberline {2.1.0.3)}Clasificación vs Regresión}{20}{subsubsubsection.2.1.0.3}%
-\contentsline {subsubsection}{\numberline {2.1.1}Construcción de árboles de decisión}{20}{subsubsection.2.1.1}%
-\contentsline {subsubsubsection}{\numberline {2.1.1.1)}Particiones}{21}{subsubsubsection.2.1.1.1}%
-\contentsline {subsubsubsection}{\numberline {2.1.1.2)}Particiones posibles}{21}{subsubsubsection.2.1.1.2}%
-\contentsline {subsubsection}{\numberline {2.1.2}ID3: Algoritmo básico de aprendizaje}{22}{subsubsection.2.1.2}%
-\contentsline {subsubsubsection}{\numberline {2.1.2.1)}Entropía}{22}{subsubsubsection.2.1.2.1}%
-\contentsline {subsubsubsection}{\numberline {2.1.2.2)}Ganancia de Información}{22}{subsubsubsection.2.1.2.2}%
-\contentsline {subsubsubsection}{\numberline {2.1.2.3)}Error global}{25}{subsubsubsection.2.1.2.3}%
-\contentsline {subsubsubsection}{\numberline {2.1.2.4)}Algoritmo}{25}{subsubsubsection.2.1.2.4}%
-\contentsline {subsubsection}{\numberline {2.1.3}Sobre-ajuste}{26}{subsubsection.2.1.3}%
-\contentsline {subsubsubsection}{\numberline {2.1.3.1)}Espacio de hipótesis y sobre-ajuste}{26}{subsubsubsection.2.1.3.1}%
-\contentsline {subsubsubsection}{\numberline {2.1.3.2)}Proceso de poda}{26}{subsubsubsection.2.1.3.2}%
-\contentsline {subsubsubsection}{\numberline {2.1.3.3)}Otras medidas}{27}{subsubsubsection.2.1.3.3}%
-\contentsline {subsubsection}{\numberline {2.1.4}Algoritmo CART y Otros}{27}{subsubsection.2.1.4}%
-\contentsline {subsubsubsection}{\numberline {2.1.4.1)}CART}{27}{subsubsubsection.2.1.4.1}%
-\contentsline {subsubsubsection}{\numberline {2.1.4.2)}C4.5, C5.0}{27}{subsubsubsection.2.1.4.2}%
-\contentsline {subsubsection}{\numberline {2.1.5}Random Forests}{28}{subsubsection.2.1.5}%
-\contentsline {subsubsubsection}{\numberline {2.1.5.1)}Algoritmo}{28}{subsubsubsection.2.1.5.1}%
-\contentsline {subsubsubsection}{\numberline {2.1.5.2)}OBB e importancia de las variables}{28}{subsubsubsection.2.1.5.2}%
-\contentsline {subsubsection}{\numberline {2.1.6}Conclusiones}{28}{subsubsection.2.1.6}%
-\contentsline {subsubsection}{\numberline {2.1.7}Bosques Aleatorios (\textit {"Random Forest"})}{29}{subsubsection.2.1.7}%
-\contentsline {subsubsubsection}{\numberline {2.1.7.1)}Motivación}{29}{subsubsubsection.2.1.7.1}%
-\contentsline {subsubsubsection}{\numberline {2.1.7.2)}Solución}{29}{subsubsubsection.2.1.7.2}%
-\contentsline {subsubsubsection}{\numberline {2.1.7.3)}Número de árboles}{30}{subsubsubsection.2.1.7.3}%
-\contentsline {subsubsubsection}{\numberline {2.1.7.4)}Generación conjuntos de entrenamiento}{31}{subsubsubsection.2.1.7.4}%
-\contentsline {subsubsubsection}{\numberline {2.1.7.5)}Entrenamiento de los árboles}{31}{subsubsubsection.2.1.7.5}%
-\contentsline {subsubsubsection}{\numberline {2.1.7.6)}Modo operación}{32}{subsubsubsection.2.1.7.6}%
-\contentsline {subsubsubsection}{\numberline {2.1.7.7)}Bagging y Conjunto de Validación}{33}{subsubsubsection.2.1.7.7}%
-\contentsline {subsubsubsection}{\numberline {2.1.7.8)}Selección del número de árboles}{33}{subsubsubsection.2.1.7.8}%
-\contentsline {subsubsubsection}{\numberline {2.1.7.9)}Seleccionar del número de características}{33}{subsubsubsection.2.1.7.9}%
-\contentsline {subsubsubsection}{\numberline {2.1.7.10)}Selección del criterio de parada}{34}{subsubsubsection.2.1.7.10}%
-\contentsline {subsubsubsection}{\numberline {2.1.7.11)}Relevancia de las características}{34}{subsubsubsection.2.1.7.11}%
-\contentsline {subsection}{\numberline {2.2}Perceptrón monocapa y multicapa (MLP)}{34}{subsection.2.2}%
-\contentsline {subsubsection}{\numberline {2.2.1}Teoría de la decisión}{34}{subsubsection.2.2.1}%
-\contentsline {subsubsubsection}{\numberline {2.2.1.1)}Decisión analítica}{35}{subsubsubsection.2.2.1.1}%
-\contentsline {subsubsubsection}{\numberline {2.2.1.2)}Modelos discriminatorios}{35}{subsubsubsection.2.2.1.2}%
-\contentsline {subsubsubsection}{\numberline {2.2.1.3)}Funciones discriminantes}{36}{subsubsubsection.2.2.1.3}%
-\contentsline {subsubsection}{\numberline {2.2.2}Fundamento biológico}{36}{subsubsection.2.2.2}%
-\contentsline {subsubsection}{\numberline {2.2.3}Perceptrón monocapa}{37}{subsubsection.2.2.3}%
-\contentsline {subsubsubsection}{\numberline {2.2.3.1)}(Widrow): filtro transversal (adaptativo) + umbral duro}{37}{subsubsubsection.2.2.3.1}%
-\contentsline {subsubsubsection}{\numberline {2.2.3.2)}(Rosenblatt): dados $N$ pares entrada-salida: $\{\mathbf {x}_k,\mathbf {d}_k\}_1^N$}{37}{subsubsubsection.2.2.3.2}%
+\contentsline {subsubsubsection}{\numberline {1.3.3.1)}Validación Cruzada}{18}{subsubsubsection.1.3.3.1}%
+\contentsline {section}{\numberline {2}Aprendizaje Supervisado}{22}{section.2}%
+\contentsline {subsection}{\numberline {2.1}Árboles de Decisión}{22}{subsection.2.1}%
+\contentsline {subsubsubsection}{\numberline {2.1.0.1)}Arquitectura}{22}{subsubsubsection.2.1.0.1}%
+\contentsline {subsubsubsection}{\numberline {2.1.0.2)}Ventajas y desventajas}{23}{subsubsubsection.2.1.0.2}%
+\contentsline {subsubsubsection}{\numberline {2.1.0.3)}Clasificación vs Regresión}{24}{subsubsubsection.2.1.0.3}%
+\contentsline {subsubsection}{\numberline {2.1.1}Construcción de árboles de decisión}{24}{subsubsection.2.1.1}%
+\contentsline {subsubsubsection}{\numberline {2.1.1.1)}Particiones}{25}{subsubsubsection.2.1.1.1}%
+\contentsline {subsubsubsection}{\numberline {2.1.1.2)}Particiones posibles}{25}{subsubsubsection.2.1.1.2}%
+\contentsline {subsubsection}{\numberline {2.1.2}ID3: Algoritmo básico de aprendizaje}{26}{subsubsection.2.1.2}%
+\contentsline {subsubsubsection}{\numberline {2.1.2.1)}Entropía}{26}{subsubsubsection.2.1.2.1}%
+\contentsline {subsubsubsection}{\numberline {2.1.2.2)}Ganancia de Información}{26}{subsubsubsection.2.1.2.2}%
+\contentsline {subsubsubsection}{\numberline {2.1.2.3)}Error global}{29}{subsubsubsection.2.1.2.3}%
+\contentsline {subsubsubsection}{\numberline {2.1.2.4)}Algoritmo}{29}{subsubsubsection.2.1.2.4}%
+\contentsline {subsubsection}{\numberline {2.1.3}Sobre-ajuste}{30}{subsubsection.2.1.3}%
+\contentsline {subsubsubsection}{\numberline {2.1.3.1)}Espacio de hipótesis y sobre-ajuste}{30}{subsubsubsection.2.1.3.1}%
+\contentsline {subsubsubsection}{\numberline {2.1.3.2)}Proceso de poda}{30}{subsubsubsection.2.1.3.2}%
+\contentsline {subsubsubsection}{\numberline {2.1.3.3)}Otras medidas}{31}{subsubsubsection.2.1.3.3}%
+\contentsline {subsubsection}{\numberline {2.1.4}Algoritmo CART y Otros}{31}{subsubsection.2.1.4}%
+\contentsline {subsubsubsection}{\numberline {2.1.4.1)}CART}{31}{subsubsubsection.2.1.4.1}%
+\contentsline {subsubsubsection}{\numberline {2.1.4.2)}C4.5, C5.0}{31}{subsubsubsection.2.1.4.2}%
+\contentsline {subsubsection}{\numberline {2.1.5}Random Forests}{32}{subsubsection.2.1.5}%
+\contentsline {subsubsubsection}{\numberline {2.1.5.1)}Algoritmo}{32}{subsubsubsection.2.1.5.1}%
+\contentsline {subsubsubsection}{\numberline {2.1.5.2)}OBB e importancia de las variables}{32}{subsubsubsection.2.1.5.2}%
+\contentsline {subsubsection}{\numberline {2.1.6}Conclusiones}{32}{subsubsection.2.1.6}%
+\contentsline {subsubsection}{\numberline {2.1.7}Bosques Aleatorios (\textit {"Random Forest"})}{33}{subsubsection.2.1.7}%
+\contentsline {subsubsubsection}{\numberline {2.1.7.1)}Motivación}{33}{subsubsubsection.2.1.7.1}%
+\contentsline {subsubsubsection}{\numberline {2.1.7.2)}Solución}{33}{subsubsubsection.2.1.7.2}%
+\contentsline {subsubsubsection}{\numberline {2.1.7.3)}Número de árboles}{34}{subsubsubsection.2.1.7.3}%
+\contentsline {subsubsubsection}{\numberline {2.1.7.4)}Generación conjuntos de entrenamiento}{35}{subsubsubsection.2.1.7.4}%
+\contentsline {subsubsubsection}{\numberline {2.1.7.5)}Entrenamiento de los árboles}{35}{subsubsubsection.2.1.7.5}%
+\contentsline {subsubsubsection}{\numberline {2.1.7.6)}Modo operación}{36}{subsubsubsection.2.1.7.6}%
+\contentsline {subsubsubsection}{\numberline {2.1.7.7)}Bagging y Conjunto de Validación}{37}{subsubsubsection.2.1.7.7}%
+\contentsline {subsubsubsection}{\numberline {2.1.7.8)}Selección del número de árboles}{37}{subsubsubsection.2.1.7.8}%
+\contentsline {subsubsubsection}{\numberline {2.1.7.9)}Seleccionar del número de características}{37}{subsubsubsection.2.1.7.9}%
+\contentsline {subsubsubsection}{\numberline {2.1.7.10)}Selección del criterio de parada}{38}{subsubsubsection.2.1.7.10}%
+\contentsline {subsubsubsection}{\numberline {2.1.7.11)}Relevancia de las características}{38}{subsubsubsection.2.1.7.11}%
+\contentsline {subsection}{\numberline {2.2}Perceptrón monocapa y multicapa (MLP)}{38}{subsection.2.2}%
+\contentsline {subsubsection}{\numberline {2.2.1}Teoría de la decisión}{38}{subsubsection.2.2.1}%
+\contentsline {subsubsubsection}{\numberline {2.2.1.1)}Decisión analítica}{39}{subsubsubsection.2.2.1.1}%
+\contentsline {subsubsubsection}{\numberline {2.2.1.2)}Modelos discriminatorios}{39}{subsubsubsection.2.2.1.2}%
+\contentsline {subsubsubsection}{\numberline {2.2.1.3)}Funciones discriminantes}{39}{subsubsubsection.2.2.1.3}%
+\contentsline {subsubsection}{\numberline {2.2.2}Fundamento biológico}{40}{subsubsection.2.2.2}%
+\contentsline {subsubsection}{\numberline {2.2.3}Perceptrón monocapa}{41}{subsubsection.2.2.3}%
+\contentsline {subsubsubsection}{\numberline {2.2.3.1)}(Widrow): filtro transversal (adaptativo) + umbral duro}{41}{subsubsubsection.2.2.3.1}%
+\contentsline {subsubsubsection}{\numberline {2.2.3.2)}(Rosenblatt): dados $N$ pares entrada-salida: $\{\mathbf {x}_k,\mathbf {d}_k\}_1^N$}{41}{subsubsubsection.2.2.3.2}%
+\contentsline {subsubsection}{\numberline {2.2.4}Limitaciones del Perceptron Monocapa}{42}{subsubsection.2.2.4}%
+\contentsline {subsubsection}{\numberline {2.2.5}El algoritmo LMS}{42}{subsubsection.2.2.5}%
+\contentsline {subsubsection}{\numberline {2.2.6}Características del LMS}{43}{subsubsection.2.2.6}%
+\contentsline {subsubsection}{\numberline {2.2.7}Error cuadrático (SSE) para clasificación}{43}{subsubsection.2.2.7}%
+\contentsline {subsubsubsection}{\numberline {2.2.7.1)}Problema con los "OUTLIERS"}{43}{subsubsubsection.2.2.7.1}%
+\contentsline {subsubsection}{\numberline {2.2.8}Activación blanda}{43}{subsubsection.2.2.8}%
+\contentsline {subsubsection}{\numberline {2.2.9}LMS con activación blanda}{44}{subsubsection.2.2.9}%
+\contentsline {subsubsection}{\numberline {2.2.10}Arquitectura del Perceptron Multicapa (MLP)}{44}{subsubsection.2.2.10}%
+\contentsline {subsubsubsection}{\numberline {2.2.10.1)}Redes Multicapa}{45}{subsubsubsection.2.2.10.1}%
+\contentsline {subsubsection}{\numberline {2.2.11}Propiedades de las MLP}{45}{subsubsection.2.2.11}%
+\contentsline {subsubsection}{\numberline {2.2.12}Capacidades del MLP}{46}{subsubsection.2.2.12}%
+\contentsline {subsubsection}{\numberline {2.2.13}Notación utilizada MLP}{47}{subsubsection.2.2.13}%
+\contentsline {subsubsection}{\numberline {2.2.14}Algoritmo de retropropagación (BackPropagation (BP))}{47}{subsubsection.2.2.14}%
 \contentsfinish 
