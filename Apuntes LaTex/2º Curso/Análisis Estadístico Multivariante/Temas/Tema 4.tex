@@ -239,6 +239,9 @@ Para el \vea normal de media $\mu=(0,0)$ y matriz de covarianzas $V=\begin{pmatr
 	1 & \tfrac{1}{2}\\
 	\tfrac{1}{2} & 1
 \end{pmatrix}$
+
+\hspace{1cm}
+
 \begin{lstlisting}
 library("mvtnorm")
 f <- function(x1, x2) dmvnorm(data.frame(x1, x2), mu, V)
@@ -253,6 +256,9 @@ persp(x1, x2, z, xlab = 'x1', ylab = 'x2', zlab = 'f(x1, x2)', col = 'orange', m
 \begin{center}
 	\includegraphics[width=0.6\linewidth]{"Temas/Imágenes/Tema 4/screenshot004"}
 \end{center}
+
+\pagebreak
+
 \begin{lstlisting}
 #Se fija la semilla para la generación aleatoria
 set.seed(123)
@@ -427,3 +433,220 @@ En las condiciones de la proposición anterior se tiene: \[ \begin{array}{l}
 	\item \color{lightblue}Definición
 \end{itemize}
 Se denomina \lb{matriz de saturaciones} a \[ A=\corr(\mathbf{X,Y}). \]
+\Ej
+Para el \vea normal de media $\mu=(0,0)$ y matriz de covarianzas $V=\begin{pmatrix}
+	1 & \tfrac{1}{2}\\
+	\tfrac{1}{2} & 1
+\end{pmatrix}$, se obtiene \[ T=(\mathbf{t}_1|\mathbf{t}_2)=\begin{pmatrix}
+\frac{1}{\sqrt{2}} & \frac{1}{\sqrt{2}}\\
+\frac{1}{\sqrt{2}} & -\frac{1}{\sqrt{2}}\\
+\end{pmatrix},\quad D=\begin{pmatrix}
+\lambda_1 & 0\\
+0 & \lambda_2
+\end{pmatrix}=\begin{pmatrix}
+1.5 & 0\\
+0 & 0.5
+\end{pmatrix} \]por lo que la matriz de saturaciones valdrá: \[ A=\mathrm{diag}(V)^{-\frac{1}{2}}TD^{\frac{1}{2}}=\dfrac{1}{2}\begin{pmatrix}
+\sqrt{3} & 1\\
+\sqrt{3} & -1\\
+\end{pmatrix}=\begin{pmatrix}
+0.86603 & 0.5\\
+0.86603 & -0.5\\
+\end{pmatrix} \]
+
+Nótese que:
+\begin{itemize}
+	\item La primera componente explica un 75\% (0.866\$\^2 \$ 100) de las variables $X_1$ y $X_2$.
+	\item Mientras que la segunda solo un 25\%.
+\end{itemize}
+Las saturaciones y sus caudrados suelen representarse en tablas de la forma siguiente:
+\[ \begin{array}{c|c|c}
+	a_{i,j}=\corr(X_i,Y_j) & Y_1 & Y_2\\ \hline
+	X_1 & 0.866 & 0.5\\ \hline
+	X_2 & 0.866 & -0.5\\ \hline
+\end{array}\qquad\begin{array}{c|c|c|c}
+a_{i,j} & Y_1 & Y_2 & \text{Total}\\ \hline
+X_1 & 0.75 & 0.25 & 1\\ \hline
+X_2 & 0.75 & 0.25 & 1\\ \hline
+\end{array} \] lo que nos puede ayudar a \lb{interceptar} las componentes principales.
+
+Las saturaciones también se pueden representar gráficamente.
+
+Aunque en este ejemplo, las saturaciones con las distintas variables coincidan, esto no siempre es así, y tendremos variables mejor explicadas por las componentes elegidas que otras.
+\begin{itemize}[label=\color{red}\textbullet, leftmargin=*]
+	\item \color{lightblue}Proposición
+\end{itemize}
+Si $A$ es la matriz de saturaciones, entonces \[ AA'=\corr(\mathbf{X}). \]
+También es interesante calcular las correlaciones múltiples entre cada variable original con el grupo de las $p$ primeras componentes principales elegidas $(p\le k)$.
+\begin{itemize}
+	\item Para medir el máximo que podemos explicar de cada variable original a partir de combinaciones lineales de esas componentes principales.
+\end{itemize}
+\begin{itemize}[label=\color{red}\textbullet, leftmargin=*]
+	\item \color{lightblue}Proposición
+\end{itemize}
+Si $\mathbf{Y}$ son las componentes principales obtenidas a partir de $\mathbf{X}$, entonces \[ \corr^2(X_i,(Y_1,\dots,Y_p))=\sum_{j=1}^{p}\corr^2(X_i,Y_j)=\dfrac{1}{\sigma_{i,i}}\sum_{j=1}^{p}t_{i,j}^2\lambda_j=\sum_{j=1}^{p}a_{i,j}^2. \]
+La demostración es inmediata ya que las componentes son incorreladas entre sí.
+\begin{itemize}[label=\color{red}\textbullet, leftmargin=*]
+	\item \color{lightblue}Definición
+\end{itemize}
+A estas correlaciones se las suele denominar \lb{comunalidades} \[ c_i=\corr^2(X_i,(Y_1,\dots,Y_p)) \]y se suelen representar en la tabla de las saturaciones al cuadrado (como totales de las filas).
+
+Además, el máximo de la correlación se obtiene con la combinación lineal $\alpha_i'(Y_1,\dots,Y_p)'$ con \[ \alpha_i=\lambda V_{2,2}^{-1}v_{1,2}=\lambda\begin{pmatrix}
+	\lambda_1^{-1} & \cdots & 0\\
+	\cdots & \cdots & \cdots\\
+	0 & \cdots & \lambda_p^{-1}
+\end{pmatrix}\begin{pmatrix}
+t_{i,1}\lambda_1\\
+\cdots\\
+t_{i,p}\lambda_p
+\end{pmatrix}=\lambda\begin{pmatrix}
+t_{i,1}\\
+\cdots\\
+t_{i,p}
+\end{pmatrix}. \]
+Es decir, si tenemos que obtener $\mathbf{X}$ en función de las $p$ primeras componentes principales, lo haremos a partir de la relación $\mathbf{X}=T\mathbf{Y}$ eliminando el resto de las componentes.
+
+Lógicamente, si $p=k$, se obtiene $\alpha_i'(Y_1,\dots,Y_p)=\lambda X_i$ y \[ \corr^2(X_i,(Y_1,\dots,Y_k))=\sum_{j=1}^{k}\corr^2(X_i,Y_j)=\dfrac{1}{\sigma_{i,i}}\sum_{j=1}^{k}t_{i,j}^2\lambda_j=1. \]
+Recíprocamente, la información contenida en la componente principal $j$-ésima vale: \[ \lambda_j=\lambda_j\sum_{i=1}^{k}t_{i,j}^2=\sum_{i=1}^{k}\sigma_{i,i}\dfrac{1}{\sigma_{i,i}}t_{i,j}^2\lambda_j=\sum_{i=1}^{k}\sigma_{i,i}\corr^2(X_i,Y_j), \] ya que $\sum_{i=1}^{k}t_{i,j}^2=1$ es el módulo al cuadrado del vector propio $\mathbf{t}_j$ (columnas de $T$).
+
+Y la información (variación) total contenida en las $p$ primeras componentes principales vale: \[ \sum_{j=1}^{p}\lambda_j=\sum_{j=1}^{p}\sum_{i=1}^{k}\sigma_{i,i}\corr^2(X_i,Y_j)=\sum_{i=1}^{k}\sigma_{i,i}\corr^2(X_i,(Y_1,\dots,Y_p))=\sum_{i=1}^{k}c_i\sigma_i^2. \]
+Si todas las varianzas son 1, la información total $\sum_{j=1}^{p}\lambda_j$ será la suma de las comunalidades, es decir, la suma de la información que se tiene de cada variable original.
+\begin{itemize}
+	\item Si $p=k$, entonces $c_i=1$ y se tiene \[ \sum_{j=1}^{p}\lambda_j=\sum_{j=1}^{p}\sigma_i^2. \]
+\end{itemize}
+\begin{itemize}[label=\color{red}\textbullet, leftmargin=*]
+	\item \color{lightblue}Seguimos con el ejemplo \dots
+\end{itemize}
+En el ejemplo anterior obtuvimos que: \[ \begin{array}{c|c|c|c}
+	a_{i,j} & Y_1 & Y_2 & \text{Total}\\ \hline
+	X_1 & 0.75 & 0.25 & 1\\ \hline
+	X_2 & 0.75 & 0.25 & 1\\ \hline
+	\text{Total} & 1.5 & 0.25 & 2
+\end{array} \]donde:
+\begin{itemize}
+	\item Si $p=1$, se tiene que $\lambda_1=\dfrac{3}{2}=0.75+0.75$.
+	\item Si $p=2$, se tiene que $\lambda_1+\lambda_2=\dfrac{3}{2}+\dfrac{1}{2}=2=1+1=\sigma_1^2+\sigma_2^2$.
+\end{itemize}
+\subsection{Cálculo a partir de la matriz de correlaciones}
+Cuando se estudian variables en las que se usan unidades diferentes o queremos que éstas no sean significativas (todas las variables sean iguales a priori), las componentes principales suelen calcularse a partir de la \lb{matriz de correlaciones} \[ \Pi=(\rho_{i,j}) \]con $\rho_{i,j}=\dfrac{\sigma_{i,j}}{\sigma_i\sigma_j}$.
+
+Esto equivale a considerar desde el principio las variables estandarizadas \[ Z_i=\dfrac{X_i-\mu_i}{\sigma_i} \](se igualan las varianzas a 1).
+
+Usando el teorema principal, se obtienen las componentes \[ \begin{array}{c}
+	\mathbf{\tilde{Y}}=\tilde{T}'\mathbf{Z}=\tilde{T}'\mathrm{diag}(V)^{-\frac{1}{2}}(\mathbf{X-\mu})\\
+	\tilde{Y}_j=\mathbf{\tilde{t}}_j'\mathbf{Z}=\sum_{i=1}^{k}\tilde{t}_{i,j}Z_i=\sum_{i=1}^{k}\tilde{t}_{i,j}\dfrac{X_i-\mu_i}{\sigma_i}
+\end{array} \]donde $\tilde{T}$ es la matriz ortogonal que diagonaliza $\Pi=\corr(\mathbf{X})=\cov(\mathbf{Z}),$ \[ \tilde{T}'\Pi\tilde{T}=\mathrm{diag}(\tilde{\lambda}_1,\dots,\tilde{\lambda}_k)=\tilde{D}, \]$\Pi\mathbf{\tilde{t}}_j=\lambda_j\mathbf{\tilde{t}}_j$ y $\mathbf{Z}=(Z_1,\dots,Z_k)'$.
+
+De esta forma, se obtiene que \[ \cov(\mathbf{\tilde{Y}})=\cov(\tilde{T}'\mathbf{Z})=\tilde{T}'\Pi\tilde{T}=\tilde{D}. \]
+Es decir, las componentes principales obtenidas a partir de la matriz de correlaciones serán las variables incorreladas con varianza máxima que se pueden obtener a partir de combinaciones lineales de las variables estandarizadas \[ \mathbf{Z}=\mathrm{diag}(V)^{-\frac{1}{2}}(\mathbf{X-\mu}) \]
+Sin embargo, los resultados que se obtienen son (en general) diferentes de los que se obtienen a partir de $V$.
+\begin{itemize}[label=\color{red}\textbullet, leftmargin=*]
+	\item \color{lightblue}Proposición
+\end{itemize}
+Si $\mathbf{\tilde{Y}}$ son las componentes principales obtenidas a partir de la matriz de correlaciones de $\mathbf{X}$ entonces \[ \corr(\mathbf{X,\tilde{Y}})=\tilde{T}\tilde{D}^{-\frac{1}{2}}. \]
+\begin{itemize}[label=\color{red}\textbullet, leftmargin=*]
+	\item \color{lightblue}Demostración
+\end{itemize}
+En efecto, si $\mathbf{\tilde{Y}}=\tilde{T}'\mathbf{Z}=\tilde{T}'\mathrm{diag}(V)^{-\frac{1}{2}}(\mathbf{X-\mu})$, entonces \[ \cov(\mathbf{Z,\tilde{Y}})=\cov(\mathbf{Z},\tilde{T}'\mathbf{Z})=\Pi\tilde{T}=\tilde{T}\tilde{D}. \]$\corr(\mathbf{X,\tilde{Y}})=\corr(\mathbf{Z,\tilde{Y}})=\cov(\mathbf{Z,\tilde{Y}})\tilde{D}^{-\frac{1}{2}}=\tilde{T}\tilde{D}\tilde{D}^{-\frac{1}{2}}=\tilde{T}\tilde{D}^{\frac{1}{2}}.$
+\begin{itemize}[label=\color{red}\textbullet, leftmargin=*]
+	\item \color{lightblue}Observación
+\end{itemize}
+Nótese que las correlaciones con la componente $\tilde{Y}_j$ son proporcionales al vector propio $\mathbf{\tilde{t}}_j$ (columnas de $T$) con constante de proporcionalidad $\lambda_j^{\frac{1}{2}}\:(\corr(X_i,Y_j)=\tilde{t}_{i,j}\lambda_j^{\frac{1}{2}})$ y que \[ \sum_{i=1}^{k}\corr^2(X_i,\tilde{Y}_j)=\sum_{i=1}^{k}\tilde{t}_{i,j}\tilde{\lambda}_j=\tilde{\lambda}_j. \]
+De forma similar, se define la \lb{matriz de saturaciones} $\tilde{A}=\corr(\mathbf{X,\tilde{Y}})$, que verifica \[ \tilde{A}\tilde{A}'=\tilde{T}\tilde{D}^{\frac{1}{2}}\tilde{D}^{\frac{1}{2}}\tilde{T}'=\cov(\mathbf{Z})=\corr(\mathbf{X}) \]y \[ \tilde{A}'\tilde{A}=\tilde{D}^{\frac{1}{2}}\tilde{T}'\tilde{T}\tilde{D}^{\frac{1}{2}}=\tilde{D}. \]
+Es decir, la matriz de saturación es una matriz que factoriza $\Pi$ junto a su traspuesta de forma que las multiplicamos al revés nos da una matriz diagonal.
+
+Si estudiamos $k$ variables (numéricas) en una determinada población usando una muestra de $n$ individuos, tendremos una tabla de datos de la forma siguiente: \[ \begin{array}{c|ccc}
+	\text{Datos} & X_1 & \cdots& X_k\\ \hline
+	\mathbf{O}_1' & X_{1,1} & \cdots & X_{1,k}\\
+	\cdots& \cdots&\cdots & \cdots\\
+	\mathbf{O}_n' & X_{n,1} & \cdots & X_{n,k}\\ \hline
+\end{array} \]
+$\mathbf{O}_1,\dots,\mathbf{O}_n$: \mas (formada por $n$ vectores aleatorios columna independientes e idénticamente distribuidos) del vector aleatorio $k$-dimensional $\mathbf{X}=(X_1,\dots,X_k)'$. 
+\begin{itemize}
+	\item En muchas ocasiones, podremos suponer normal.
+	\item Sin embargo, otras veces prescindiremos de estas hipótesis y únicamente analizaremos una tabla de datos, tratando de condensar la información contenida en la misma y de analizar (de forma descriptiva) las relaciones entre las variables y los individuos.
+\end{itemize}
+\begin{itemize}[label=\color{red}\textbullet, leftmargin=*]
+	\item \color{lightblue}En la práctica
+\end{itemize}
+Así, en la práctica, tendremos que la \lb{matriz de covarianzas} $V$ es desconocida, por lo que tendremos que estimarla.
+
+Y, una vez estimada, procederemos al cálculo de las componentes principales.
+
+De esta forma, las componentes principales (y los valores de la matriz $T$) dependerán de los valores muestrales y, por lo tanto serán \veas (con individuos distintos, obtendremos componentes distintas).
+
+Lo mismo les ocurrirá a los valores propios (serán estimaciones de los verdaderos valores propios).
+\subsubsection{Estimación de la matriz de covarianzas}
+Para estimar $V$ podemos utilizar la matriz de cuasi-covarianzas muestrales $S$ calculada como \[ \begin{array}{l}
+	\mathbf{O}_l=(X_{l,1},\dots,X_{l,k})'\\
+	\overline{X}_j=\dfrac{1}{n}\sum_{l=1}^{n}X_{l,j}\\
+	\overline{\mathbf{O}}=(\overline{X}_1,\dots,\overline{X}_k)'=\dfrac{1}{N}\sum_{l=1}^{n}\mathbf{O}_l\\
+	S=\dfrac{1}{n-1}\sum_{l=1}^{n}(\mathbf{O}_l-\overline{\mathbf{O}})(\mathbf{O}_l-\overline{\mathbf{O}})'=(S_{i,j})\\
+	S_{i,j}=\dfrac{1}{n-1}\sum_{l=1}^{n}(X_{l,i}-\overline{X}_i)(X_{l,j}-\overline{X}_j).
+\end{array} \]
+También podemos usar la matriz de covarianzas muestrales \[ \hat{V}=\dfrac{n-1}{n}S. \]
+Ambas tendrán los mismo vectores propios, y si $n$ es grande, casi los mismo valores propios.
+
+\subsubsection{Cálculo a partir de una muestra}
+Como no conocemos $V$, la aproximaremos mediante $S$ o $\hat{V}$, las diagonalizaremos (calcularemos los ejes de sus elipsoides) y podremos calcular las componentes principales definidas como sigue.
+
+\subsubsection{Definiciones}
+Llamaremos \lb{componentes principales muestrales} a las variables $\mathbf{\hat{Y}}=\hat{T}'\mathbf{X}$, donde $\hat{T}$ es la matriz ortogonal que diagonaliza $S(\hat{V})$ y llamaremos \lb{valores propios muestrales} $\hat{\lambda}_j$ a los valores propios de $S(\hat{V})$.
+\begin{itemize}
+	\item Los valores de $\hat{T}$ serán las \lb{cargas} (\lb{loadings}) o \lb{coeficientes muestrales}.
+	\item Llamaremos \lb{puntuaciones muestrales} (\lb{scores}) a los valores que obtendríamos para cada individuo en las componentes muestrales \[ P_{l,j}=Y_j(O_j)=\mathbf{\hat{t}}_j'O_l. \]
+\end{itemize}
+\subsubsection{Cálculo a partir de la matriz de correlaciones}
+Si optamos por calcular las componentes principales a partir de la \lb{matriz de correlaciones}, como también es desconocida, en su lugar se usará la matriz de correlaciones (de Pearson) muestrales \[ \begin{array}{c}
+	R=\mathrm{diag}(S)^{-\frac{1}{2}}S\mathrm{diag}(S)^{-\frac{1}{2}}=(R_{i,j})\\
+	R_{i,j}=S_{i,j}(S_{i,i}S_{j,j})^{-\frac{1}{2}}=\hat{V}_{i,j}(\hat{V}_{i,i},\hat{V}_{j,j})^{-\frac{1}{2}}.
+\end{array} \]
+Esto equivaldrá a estandarizar las variables iniciales restándoles sus medias muestrales y dividiéndolas por sus cuasivarianzas (es decir, hacer que todas tengan la misma variabilidad).
+\begin{itemize}
+	\item En este caso, las puntuaciones se calcularán como: \[ P_{l,j}=Y_j(O_l)=\mathbf{\hat{t}}_j'O_l^* \] donde $\mathbf{\hat{t}}_j$ es el vector propio $j$-ésimo de $R$.
+
+\end{itemize}
+Los datos estandarizados se obtienen (estiman) como \[ O_l^*=\left(\dfrac{X_{l,1}-\overline{X}_1}{S_1},\dots,\dfrac{X_{l,k}-\overline{X}_k}{S_k}\right) \] siendo $S_i=\sqrt{S_{i,i}}$ la cuasidesviación típica de la variable $X_i$.
+
+La cuasidesviación típica $S_j$ puede ser reemplazada por la desviación típica muestral $\hat{V}_j=\sqrt{\hat{V}_{j,j}}$.
+\subsubsection{Caso de muestras grandes}
+Si $n$ es grande, $\hat{V}$ y $S$ son prácticamente iguales.
+
+Si $\mathbf{X}$ es normal,
+\begin{itemize}
+	\item $\hat{V}$ es máximo verosímil
+	\item $S$ es insesgado para $V$
+	\item $(n-1)S$ tiene una distribución (en el muestreo) \lb{Wischart} \code{WK(n - 1, V)}.
+\end{itemize}
+A partir de este resultado, se puede obtener la distribución exacta de los estimadores de los valores propios, pero ésta es bastante complicada.
+\begin{itemize}[label=\color{red}\textbullet, leftmargin=*]
+	\item \color{lightblue}Proposición
+\end{itemize}
+Si $\hat{\theta}$ es máximo verosímil para $\theta$, entonces $g(\hat{\theta})$ es máximo verosímil para $g(\theta)$.
+\subsubsection{Consecuencia}Si usamos $\hat{V}$ y todos sus valores propios son distintos, se obtendrán estimadores máximo verosímiles para $t_{i,j}$ y $\lambda_j$.
+\subsubsection{Caso de normalidad}
+Si $\mathbf{X}$ es normal, puede probarse que asintóticamente,
+\begin{itemize}
+	\item la distribución conjunta de los estimadores de los valores propios es normal multivariante,.
+	\item la distribución conjunta de los estimadores de los valores $t_{i,j}$ también lo es.
+	\item además, ambas son independientes entre sí.
+\end{itemize}
+\subsubsection{Cálculo de las componentes principales maximizando la varianza muestral}
+El cálculo de las componentes principales muestrales se puede enfocar de otra forma.
+
+Se busca la variable $\mathbf{a'X}$ (combinación lineal de las originales) con $\mathbf{a'a}=1$ que aplicada a los individuos de la muestra nos de una variable con varianza (o cuasivarianza) muestral máxima.
+
+La puntuación o contador (\lb{scores}) del individuo $j$ en esta nueva variable será $\mathbf{a'O}_j$, su media muestral será \[ \dfrac{1}{n}\sum_{j=1}^{n}\mathbf{a'O}_j=\mathbf{a'}\dfrac{1}{n}\sum_{j=1}^{n}\mathbf{O}_j=\mathbf{a'\overline{O}} \] y su cuasivarianza será \[ \dfrac{1}{n-1}\sum_{j=1}^{n}(\mathbf{a'O}_j-\mathbf{a'\overline{O}})^2=\dfrac{1}{n-1}\sum_{j=1}^{n}\mathbf{a'}(\mathbf{O}_j-\overline{\mathbf{O}})(\mathbf{O}_j-\overline{\mathbf{O}})'\mathbf{a}=\mathbf{a'}S\mathbf{a}\qquad(\ast) \]cuyo máximo se alcanza si $\mathbf{a}$ es un vector propio del mayor de los valores propios de $S$.
+
+De forma análoga, se procederá para el cálculo de las restantes componentes principales muestrales.
+
+Sí, por inducción, suponemos que los primeros $i-1$ vectores propios $\mathbf{\hat{t}}_j$ de $S$ nos dan las variables incorreladas con mayor varianza y buscamos maximizar la varianza muestral de $\mathbf{a'O}_j$ (es decir $\mathbf{a}'S\mathbf{a}$) para $\mathbf{a'a}=1$ haciendo que la covarianza muestral \[ \dfrac{1}{n-1}\sum_{j=1}^{n}(\mathbf{a'O}_j-\mathbf{a'\overline{O}})(\mathbf{\hat{t}}_j\mathbf{O}_j-\mathbf{\hat{t}}_j'\overline{\mathbf{O}})=\mathbf{a}'S\mathbf{\hat{t}}_j \]sea cero para $j=1,\dots,i-1$.
+
+Escribiendo $\mathbf{a}$ en función de la base de vectores propios y procediendo como en el teorema principal se obtiene que el óptimo es \[ \mathbf{a}=\mathbf{\hat{t}}_i. \]
+
+De esta forma, podemos representar a los individuos mediante sus puntuaciones en las dos o tres primeras componentes manteniendo de ellos la mayor información (variabilidad o dispersión) posible (aunque $\mathbf{O}_1,\dots,\mathbf{O}_n$ no sea una \mas).
+
+\subsubsection{Interpretaicón geométrica: cálculo minimizando las distancias cuadráticas}
+Geométricamente, el espacio formado por las $m$ primeras componentes y que pasa por el punto $\mathbf{O}$ será el espacio de dimensión $m$ que \lb{minimiza la suma de las distancias al cuadrado de los individuos a dicho espacio} (regresión perpendicular).
+
+De esta forma, el ACP será como realizar una regresión mínimo cuadrática usando las \lb{distancias mínimas} (regresión ortogonal) en lugar de las distancias verticales de la regresión clásica (para predecir $Y$ en función de $\mathbf{X}$).
