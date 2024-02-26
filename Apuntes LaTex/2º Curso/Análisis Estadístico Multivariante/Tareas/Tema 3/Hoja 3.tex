@@ -37,7 +37,7 @@
 		$\begin{array}{l}
 			\log\dfrac{p}{1-p}=\hat{\theta}_0+\hat{\theta}_1\cdot x\\
 			P\equiv Pr[Y=1]\\
-			\log\dfrac{p}{1-p}=\exp(\hat{\theta}_0+\hat{\theta}_1x)\\
+			\dfrac{p}{1-p}=\exp(\hat{\theta}_0+\hat{\theta}_1x)\\
 			p=(1-p)\exp(\hat{\theta}_0+\hat{\theta}_1x)
 		\end{array}$
 		\item \db{A partir del modelo ajustado, obtener una predicción para la probabilidad de que un alumno apruebe si ha estudiado 2 horas. ¿Cuál sería dicha probabilidad si dedicara una hora más al estudio? ¿Cómo ha variado la razón de estas probabilidades?}
@@ -52,16 +52,34 @@
 	\begin{enumerate}[label=\color{red}\alph*)]
 		\item \db{Interpretar el significado de los coeficientes $\hth_1,\hth_2$ y $\hth_3$.}
 		
+		$\log\left(\dfrac{p}{1-p}\right)=-3.912+0.852\cdot x_1+0.025\cdot x_2+0.441\cdot x_3$
+		
+		$p=Pr[Y=1]$
+		
+		$\dfrac{p}{1-p}=\exp(-3.912+0.852\cdot x_1+0.025\cdot x_2+0.441\cdot x_3)\longrightarrow p = (1-p)\exp(-3.912+0.852\cdot x_1+0.025\cdot x_2+0.441\cdot x_3)$
 		\item \db{Obtener una predicción para la probabilidad de padecer una enfermedad coronaria para una persona con 40 años, electrocardiograma normal y nivel de colesterol bajo. ¿Cuál sería dicha probabilidad si tuviera un nivel de colesterol alto?}
 		
+		$Pr(Y=1/x_1=0,x_2=40,x_3=0)=\dfrac{1}{1+e^{-(-3.912+0.025\cdot40)}}=0.0516$\\
+		$Pr(Y=1/x_1=1,x_2=40,x_3=0)=\dfrac{1}{1+e^{-(-3.912+0.852\cdot1+0.025\cdot40)}}=0.113$\\
 		\item \db{Para una persona con 40 años y electrocardiograma normal, ¿cómo influye el nivel de colesterol en el riesgo de padecer una enfermedad coronaria?}
+		
+		$\dfrac{Pr(Y=1/x_1=1,x_2=40,x_3=0)}{Pr(Y=1/x_1=0,x_2=40,x_3=0)}=\dfrac{0.113}{0.0516}=2.19$
 	\end{enumerate}
 	
-	\item \lb{Se desea evaluar la satisfacción con la enseñanza pública de 1500 estudiantes mediante la variable \textit{Satisfecho}($Y$, con valores 1 sí, 0 no) y tres variables periódicas: Nacionalidad (España=1, Ecuador=2, Colombia=3), Género (Hombre=0, Mujer=1) y Estudios (ESO=0, Primaria=1). Se ajusta al siguiente modelo logístico: \[ \log\dfrac{p}{1-p}=-0.877-0.052\cdot\text{Nacionalidad2} + 1.72\cdot\text{Nacionalidad3}+0.256\cdot\text{Género}-0.008\cdots\text{Estudios} \] donde $p=Pr[Y=1]$. Las variables \textit{Nacionalidad2} y \textit{Nacionalidad3} son variables dicotómicas ficticias (\textit{dummy}) que toman el valor 1 si el valor de nacionalidad se corresponde con su índice y valen cero en caso contrario. Por ejemplo, Si Nacionalidad = 3, entonces Nacionalidad2 = 0 y Nacionalidad3 = 1.}
+	\item \lb{Se desea evaluar la satisfacción con la enseñanza pública de 1500 estudiantes mediante la variable \textit{Satisfecho}($Y$, con valores 1 sí, 0 no) y tres variables periódicas: Nacionalidad (España=1, Ecuador=2, Colombia=3), Género (Hombre=0, Mujer=1) y Estudios (ESO=0, Primaria=1). Se ajusta al siguiente modelo logístico: \[ \log\dfrac{p}{1-p}=-0.877-0.052\cdot\text{Nacionalidad2} + 1.72\cdot\text{Nacionalidad3}+0.256\cdot\text{Género}-0.008\cdot\text{Estudios} \] donde $p=Pr[Y=1]$. Las variables \textit{Nacionalidad2} y \textit{Nacionalidad3} son variables dicotómicas ficticias (\textit{dummy}) que toman el valor 1 si el valor de nacionalidad se corresponde con su índice y valen cero en caso contrario. Por ejemplo, Si Nacionalidad = 3, entonces Nacionalidad2 = 0 y Nacionalidad3 = 1.}
 	\begin{enumerate}[label=\color{red}\alph*)]
 		\item \db{Predecir la probabilidad de que una alumna colombiana de primaria no esté satisfecha con la enseñanza pública. ¿Cuál sería dicha probabilidad si la alumna tuviera nacionalidad española y estudiara primaria? ¿Y si fuera un alumno de secundaria con nacionalidad española?}
 		
+		$Pr[Y=1|N2=0, N3=1, G=1, E=1]=\dfrac{1}{1+\exp(-(-0.877-0.052\cdot0+ 1.72\cdot 1+0.256\cdot 1-0.008\cdot 1))}=0.7485$\\
+		$Pr[Y=0|N2=0, N3=1, G=1, E=1]=1-0.7485=0.2514$
+		
+		$Pr[Y=1|N2=1, N3=0, G=1, E=0]=\dfrac{1}{\exp(-(-0.877-0.052\cdot1+1.72\cdot 0+0.256\cdot1 -0.008\cdot0)}=0.2937$\\
+		$Pr[Y=0|N2=1, N3=0, G=1, E=0]=1-0.2937=0.7063$
 		\item \db{Comparar el grado de satisfacción con la enseñanza pública de los alumnos de primaria con nacionalidad española según el género.}
+		
+		$Pr[Y=1|N2=1, N3=0, G=0, E=1]=\dfrac{1}{\exp(-(-0.877-0.052\cdot1+1.72\cdot 0+0.256\cdot0 -0.008\cdot1)}=0.2921$\\
+		$Pr[Y=1|N2=1, N3=0, G=1, E=1]=\dfrac{1}{\exp(-(-0.877-0.052\cdot1+1.72\cdot 0+0.256\cdot1 -0.008\cdot1)}=0.3477$\\
+		$\dfrac{Pr[Y=1|N2=1, N3=0, G=1, E=1]}{Pr[Y=1|N2=1, N3=0, G=0, E=1]}=\dfrac{0.3477}{0.2921}=1.19$
 	\end{enumerate}
 	
 	\item \lb{Una determinada compañía desea mejorar el marketing de cinco variedades de cereales para el desayuno. Para ello planifica un estudio encuestando a 900 personas, registrando su edad, género y si tiene o no un estilo de vida activo. Cada participante degustó los cinco tipos de cereales y se le preguntó sobre su preferencia. En la tabla adjunta se presenta las definiciones de las variables
@@ -85,7 +103,27 @@
 		\end{center}}
 	\begin{enumerate}[label=\color{red}\alph*)]
 		\item \db{Con el objetivo de explicar la preferencia del tipo de cereal en función de la edad, el género y el estilo de vida se desea ajustar un modelo logístico multinomial. ¿Qué variables ficticias (\textit{dummy}) debemos crear para la formulación del modelo?}
+		
+		Debemos crear dos variables ficticias para la edad:
+		
+		$Edad2 = \begin{cases}
+			1 & \text{si }Edad=2 \text{ (31 a 50 años)}\\
+			0 & \text{en caso contrario}
+		\end{cases}$\\
+		$Edad3 = \begin{cases}
+			1 & \text{si }Edad=3 \text{ (Más de 50 años)}\\
+			0 & \text{en caso contrario}
+		\end{cases}$
 		\item \db{Especificar el modelo tomando el trigo como la categoría de referencia para la variable respuesta $(g=5)$.}
+		
+		$Pj=Pr[Y=j],\: j=1,\dots,5$\\
+		$Y\equiv$ tipo de cereal preferido
+		
+		$\log\dfrac{p_j}{p_s}=\hth_{j0}+\hth_{j1}\cdot Edad2+\hth_{j2}\cdot Edad3+\hth_{j4}\cdot Estilo,\quad j=1,\dots,4$
 		\item \db{¿Cómo se interpretan las estimaciones de los coeficientes del modelo $\hth_{ij}$ que verifican que $\exp(\hth_{ij})>1$? ¿Y si $\exp(\hth_{ij})<1$?}
+		
+		$\exp(\hth_{ij})>1$ es equivalente a decir $\hth_{ij}>0$\\
+		$\exp(\hth_{ij})<1$ es equivalente a decir $\hth_{ij}<0$\\
+		$\exp(\hth_{ij})=1,\hth_{ij}=0\Longrightarrow$ La variable $b$ que acompaña el coeficiente no afecta en la predicción.
 	\end{enumerate}
 \end{enumerate}

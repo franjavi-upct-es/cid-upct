@@ -1,0 +1,90 @@
+\section{Análisis de componentes principales}
+\subsection{Introducción}
+\begin{enumerate}[label=\arabic*)]
+	\item Objetivo
+\end{enumerate}
+Simplificar la representación de datos multidimensionales al transformarlos en un nuevo conjunto de variables llamadas \lb{componentes principales}.
+\begin{itemize}
+	\item \lb{Reducción de dimensionalidad:} a veces dispondremos de muchas variables y simplemente se querrá disminuir el número de variables perdiendo la menor información posible (\lb{compresión de datos}).
+	\begin{itemize}
+		\item Útil en aplicaciones de almacenamiento y transmisión de información.
+	\end{itemize}
+	\item \lb{Visualización de datos:} al proyectar los datos en un espacio de menor dimensión, es más fácil representar gráficamente la estructura subyacente de los datos, lo que puede ayudar a identificar patrones, agrupaciones o relaciones (\lb{extracción de características}).
+	\item \lb{Eliminación de multicolinealidad:} en análisis de regresión y otros contextos, la multicolinealidad (alta correlación entre variables independientes) puede ser problemática.
+	\begin{itemize}
+		\item En estos casos puede ayudar a reducir la multicolinealidad el \lb{transformar las variables originales} en un conjunto de variables no correlacionadas (las \lb{componentes principales}).
+	\end{itemize}
+\end{itemize}
+\begin{itemize}[label=\color{red}\textbullet, leftmargin=*]
+	\item \color{lightblue}Plantemiento desde el punto de vista teórico
+\end{itemize}
+La idea es \lb{resumir la información} de un \vea (v.a.) $k$-dimensional $\mathbf{X}=(X_1,\dots,X_k)'$ (recordemos que $A'$ denota la traspuesta de $A$, es decir, $\mathbf{X}$ es un vector columna) en unas \lb{pocas variables} que proporcionen la información más relevante.
+
+Se puede dar una aproximación geométrica mediante el concepto de \lb{elipsoide de concentración}.
+\begin{itemize}[label=\color{red}\textbullet, leftmargin=*]
+	\item \color{lightblue}Definición
+\end{itemize}
+Si $\mathbf{X}$ es un vector aleatorio de dimensión $k$, media $\mu$ y su matriz de covarianzas $V=(\sigma_{i,j})$ definida positiva, se define el \lb{elipsoide de concentración} de $\mathbf{X}$ como \[ E_k=\{\mathbf{x}\in\R^k:(\mathbf{x}-\mu)'V^{-1}(\mathbf{x}-\mu)\le k+2\}. \]
+En la definición del elipsoide interviene la \lb{distancia de Mahalanobis basada en la matriz $V$} entre $\mathbf{x}$ y la media $\mu$ dada por \[ d_V(\mathbf{x},\mu)=\sqrt{(\mathbf{x}-\mu)'V^{-1}(\mathbf{x}-\mu)}. \]
+Esta distancia al cuadrado se puede calcular en \code{R} con \code{mahalanobis(x, mu, V)}.
+
+Además, si $X$ es \lb{normal}, el elipsoide se puede definir a partir de las \lb{curvas de nivel de la función de densidad} ($f(x)=cte$.) ya que \[ f(x)=\dfrac{1}{\sqrt{|V|(2\pi)^k}}\exp\left(-\dfrac{1}{2}(\mathbf{x}-\mu)'V^{-1}(\mathbf{x}-\mu)\right). \]
+Una parte de los individuos (puntos estarán dentro de este elipsoide).
+
+Si queremos \lb{distinguirlos con una única variable}, parece claro que lo mejor sería proyectarlos sobre el eje mayor del elipsoide.
+
+Por ejemplo, para una \lb{normal bivariante} \[ \mathcal{N}_2\left(\mu=\binom{0}{0},V=\begin{pmatrix}
+	1 & \tfrac{1}{2}\\
+	\tfrac{1}{2} & 1
+\end{pmatrix}\right) \] se tiene que \[ (x_1,x_2)\begin{pmatrix}
+1 & \tfrac{1}{2}\\
+\tfrac{1}{2} & 1
+\end{pmatrix}^{-1}\binom{x_1}{x_2}=\dfrac{4}{3}x_1^2-\dfrac{4}{3}x_1x_2+\dfrac{4}{3}x_2^2 \] por lo que el \lb{elipsoide de concentración} sería \[ \dfrac{4}{3}x_1^2-\dfrac{4}{3}x_1x_2+\dfrac{4}{3}x_2^2\le4 \]
+
+\begin{itemize}
+	\item \lb{Elipsoide de concentración} para la normal bivariante con medias 0, varianzas 1 y correlación $\dfrac{1}{2}:$
+	
+	\begin{lstlisting}
+hc <- function(x1, x2) (4/3)*x1^ 2- (4/3)*x1*x2 + (4/3)*x2^ 2
+x1 <- seq(-3, 3, length =1000)
+x2 <- seq(-3, 3, length =1000)
+z <- outer(x1, x2, hc)
+contour(x1, x2, z, levels = 4)
+title(main = "level = 4")
+	\end{lstlisting}
+	\begin{center}
+		\includegraphics[width=0.5\linewidth]{"Temas/Imágenes/Tema 4/screenshot001"}
+	\end{center}
+	\item \lb{Elipsoides obtenidos con otros niveles} (circunferencias de Mahalanobis):
+	\begin{lstlisting}
+hc <- function(x1, x2) (4/3)*x1^ 2- (4/3)*x1*x2 + (4/3)*x2^ 2
+x1 <- seq(-3, 3, length =1000)
+x2 <- seq(-3, 3, length =1000)
+z <- outer(x1, x2, hc)
+contour(x1, x2, z, levels = c(1:6))
+title(main = "level = 1, ..., 6")
+	\end{lstlisting}
+	\begin{center}
+		\includegraphics[width=0.5\linewidth]{"Temas/Imágenes/Tema 4/screenshot002"}
+	\end{center}
+\end{itemize}
+
+\begin{minipage}{0.45\textwidth}
+	Si queremos \lb{reducir las dos variables a solo una}, la mejor proyección, es decir la que mejor separa los puntos (\lb{varianza máxima}), es la proporcionada por el \lb{eje principal del elipsoide} (o curvas de nivel de la normal).
+	
+	En este ejemplo viene dado por la recta: \[ x_2=x_1. \]
+\end{minipage}\qquad\begin{minipage}{0.5\textwidth}
+\begin{lstlisting}
+hc <- function(x1, x2) (4/3)*x1^ 2- (4/3)*x1*x2 + (4/3)*x2^ 2
+x1 <- seq(-3, 3, length =1000)
+x2 <- seq(-3, 3, length =1000)
+z <- outer(x1, x2, hc)
+contour(x1, x2, z, levels = c(1:6))
+abline(a = 0, b = 1, col = "red", lty = 2)
+abline(a = 0, b = -1, col = "blue", lty = 2)
+title(main = "level = 1, ..., 6")
+\end{lstlisting}
+\end{minipage}
+\begin{flushright}
+\includegraphics[width=0.5\linewidth]{"Temas/Imágenes/Tema 4/screenshot003"}
+\end{flushright}
