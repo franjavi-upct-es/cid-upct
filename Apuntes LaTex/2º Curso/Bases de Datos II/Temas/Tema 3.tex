@@ -41,7 +41,7 @@ Con respecto al modelo de datos:
 \end{itemize}
 \subsubsubsection{Representación de CV como tablas}
 \begin{center}
-	\includegraphics[scale=0.7]{"Temas/Tema 3/screenshot001"}
+	\includegraphics[scale=0.8]{"Temas/Tema 3/screenshot001"}
 \end{center}
 \subsubsection{Representación de relaciones}
 \subsubsubsection{Relaciones uno a muchos}
@@ -59,6 +59,55 @@ Las relaciones uno a muchos (por ejemplo en el CV: \texttt{positions}) en el mod
 \end{itemize}
 \end{itemize}
 \subsubsection{CV como un documento}
-\begin{lstlisting}[language=C++]
-
+\begin{lstlisting}[language=json]
+{
+	"user_id": 251,	"first_name": "Bill",
+	"last_name": "Gates",
+	"summary": "Co-chair of the Bill & Melinda Gates... Active blogger.",
+	"region_id": "us:91",
+	"industry_id": 131,
+	"photo_url": "p/7/000/253/05b/308dd6e.jpg",
+	"positions": [
+	{
+		"job_title": "Co-chair",
+		"organization": "Bill & Melinda Gates Foundation"
+	},
+	{
+		"job_title": "Co-founder Chairman",
+		"organization": "Microsoft"
+	}],
+	"education": [
+	{
+		"school_name": "Harvard University",
+		"start": 1973,
+		"end": 1975
+	},
+	{
+		"school_name": "Lakeside School, Seattle",
+		"start": null,
+		"end": null
+	}]
+	"contact_info": {
+		"blog": "http://theganotes.com"
+		"twitter": "http://twitter.com/BillGates"
+	}
+}
 \end{lstlisting}
+\subsubsection{CV como un árbol}
+\begin{center}
+	\includegraphics{"Temas/Tema 3/screenshot002"}
+\end{center}
+\subsubsection{Representación de Relaciones}
+\subsubsubsection{Modelo de documentos}
+\textbf{Modelo de documentos}
+\begin{itemize}
+	\item analogía del \textbf{array/mapa gigante}
+\end{itemize}
+\textbf{Conjunto de documentos} (objetos complejos)
+\begin{itemize}
+	\item Un \textbf{identificador único}, campo \textit{id}
+	\item Búsqueda aleatoria eficiente por clave (\textbf{referencia})
+	\item Estructura jerárquica de sub-documentos contenidos $\longrightarrow$ \textbf{agregación}
+\end{itemize}
+\textbf{Más flexibilidad que el modelo relacional:} (elección entre \underline{\textit{referencia}} Y \underline{\textit{agregación}})
+\subsubsubsection{Uno }
