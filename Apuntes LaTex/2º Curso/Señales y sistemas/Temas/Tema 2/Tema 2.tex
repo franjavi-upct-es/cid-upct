@@ -50,7 +50,14 @@
 	\item 
 	\item 
 	\item 
-	\item 
+	\item \lb{Sean \[ x(t)=u(t-3)-u(t-5)\qquad h(t)=e^{-3t}u(t) \]}
+	\begin{enumerate}[label=\color{lightblue}\arabic*)]
+		\item \db{Calcule $y(t)=x(t)\cdot h(t)$}
+		
+		\item \db{Calcule $g(t)=\dfrac{\dx(t)}{\dt}\cdot h(t)$}
+		
+		\item \db{Establezca una relación entre $g(t)$ e $y(t)$.} 
+	\end{enumerate}
 	\item 
 	\item 
 	\item \lb{Para las siguientes respuestas al impulso de sistemas LTI, determine si cada sistema es causal  y/o estable, justificando la repuesta.}
@@ -145,5 +152,109 @@
 			y_h(t)=\dfrac{-6}{13}e^{-3t}\\
 			b_0=2
 		\end{rcases}h(t)=b_0\cdot e^{-3t}\cdot u(t)\longrightarrow\bboxed{h(t)=2\cdot e^{-3t}\cdot u(t)}$
+	\end{enumerate}
+	
+	\item \lb{Obtenga la respuesta al impulso, así como las propiedades de memoria, causalidad, estabilidad, invarianza en el tiempo y linealidad de los siguientes sitemas:}
+	\begin{enumerate}[label=\color{red}\alph*)]
+		\item $\db{y(t)=\int_{-\infty}^{t}x(\tau)\dtau}$
+		
+		$x(t)=\delta(t)\longrightarrow y(t)=h(t)$
+		
+		$h(t)=\int_{-\infty}^{t}\delta(\tau)\dtau=\left\{\begin{array}{l}
+			t<0,\:h(t)=0\\
+			t>0,\:h(t)=1
+		\end{array}\right\}h(t)=u(t)$
+		\begin{itemize}
+			\item Memoria:
+			
+			$h(t)\neq0,t\neq0\longrightarrow$ con memoria\\
+			$h(t)=0,t<0\longrightarrow$ casual\\
+			\item Estabilidad
+			
+			$\int_{-\infty}^{+\infty}|h(t)|\dt=\int_0^{\infty}1\dt=\left[t\right]_0^{\infty}=\infty\longrightarrow$ no estable
+			\item Invarianza en el tiempo
+			
+			$x_1(t)=x(t-t_0)\longrightarrow y_1(t)=\int_{-\infty}^tx(\lbb{\tau-t_0}{s})\dtau=\left\{\begin{array}{l}
+				s=\tau-t_0\\
+				\mathrm{d}s=\dtau
+			\end{array}\right\}=\int_{-\infty}^{t-t_0}x(s)\mathrm{d}s=y(t-t_0)\longrightarrow$ Invariante
+			\item Linealidad del sistema:
+			
+			$ax_1(t)+bx_2(t)\longrightarrow y(t)=\int_{-\infty}^{t}[ax_1(\tau)+bx_2(\tau)]\dtau=a\lbb{\int_{-\infty}^{t}x_1(\tau)\dtau}{y_1(t)}+b\lbb{\int_{-\infty}^{t}x_2(\tau)\dtau}{y_2(t)}=ay_1(t)+by_2(t)\longrightarrow$ lineal
+		\end{itemize}
+		\begin{tikzpicture}[baseline=(current bounding box.center)]
+			\draw[-latex] (-3,0) -- (3,0) node[right] {$\tau$};
+			\draw[-latex] (0,-1) -- (0,5);
+			\draw[-*, lightblue, line width=1.2] (-3,0) -- (-1,0) node[below] {$t$};
+			\draw[-*, blue, line width=1.2] (-3,0.5) -- (1,0.5);
+			\node[below] at (1,0) {$t$};
+			\draw[-latex, lightblue, line width=1.2] (0,0) -- (0,4) node[right] {$\delta(\tau)$};
+		\end{tikzpicture}\qquad\begin{tikzpicture}[baseline=(current bounding box.center), scale=1.5]
+		\draw[-latex] (-2,0) -- (4,0) node[right] {$t$};
+		\draw[-latex] (0,-1) -- (0,2);
+		\draw[lightblue, line width=1.5] (-2,0) -- (0,0) node[below left] {$0$} -- (0,1) node[left] {$1$} -- (1,1);
+		\end{tikzpicture}
+		\item $\db{y(t)=\int_{-\infty}^{t}3x(\tau-5)\dtau}$
+		
+		$x(t)\longrightarrow\delta(t)=h(t)=\int_{-\infty}^{t}3\delta(\tau-5)\dtau=\left\{\begin{array}{l}
+			0,\:t<5\\
+			3,\:t>5
+		\end{array}\right\}h(t)=3\cdot u(t-5)$
+		\begin{itemize}
+			\item Memoria:
+			
+			Con memoria
+			\item Estabilidad
+			
+			$h(t)=0\forall t<0\longrightarrow$ Casual
+			
+			
+		\end{itemize}
+		\item $\db{y(t)=\int_{-\infty}^{t}e^{-(t-\tau)}3x(\tau-2)\dtau}$
+		
+		$y(t)=\int_{-\infty}^{t}e^{-(t-\tau)}3x(\tau-2)\dtau$
+		
+		$h(t)=\int_{-\infty}^{t}\lbb{e^{-(t-\tau)}}{}\cdot3\cdot\delta(\tau-2)\dtau=3e^{-(t-2)}\int_{-\infty}^{t}\delta(\tau-2)\dtau=3e^{-(t-2)}\cdot u(t-2)$
+		
+		\begin{tikzpicture}[yscale=1.5]
+			\draw[-latex] (-1,0) -- (4,0) node[right] {$t$};
+			\draw[-latex] (0,-1) -- (0,2) node[above] {$h(t)$};
+			\draw[lightblue, line width=1.5] (-1,0) -- (2,0) -- (2,1) -- plot[domain=2:3.85, samples=100] (\x, {exp(-3*(\x-2))});
+			\node[below left] at (0,0) {$0$};
+			\node[left] at (0,1) {$1$};
+			\draw[lightblue, dashed] (0,1) -- (2,1);
+		\end{tikzpicture}
+		
+		Con memoria
+		
+		Causal
+		
+		$\int_{-\infty}^{+\infty}\left|h(t)\right|\dt=\int_{2}^{+\infty}\left|h(t)\right|\dt=\int_{2}^{\infty}e^{-3(t-2)}\dt<\infty\longrightarrow$ sistema estable
+		
+		$x_1(t)=x(t-t_0)\longrightarrow y_1(t)=\int_{-\infty}^{t}e^{-(t-\tau)}3x(\lbb{\tau-t_0}{s}-2)\dtau=\left\{\begin{array}{l}
+			s=\tau-t_0\longrightarrow\tau=s+t_0\\
+			\mathrm{d}s=\dtau
+		\end{array}\right\}=\linebreak\int_{-\infty}^{t-t_0}e^{-(\overbrace{s+t_0}^{-s-t_0})}3x(s-2)\mathrm{d}s=y(t-t_0)\longrightarrow$ Invariante
+		\item $\db{y(t)=\int_{t}^{\infty}e^{t-\tau}x(\tau+5)\dtau}$
+		
+		$h(t)=\int_{t}^{\infty}e^{t-\tau}\cdot \delta(\tau+5)\:\mathrm{d}\tau=e^{t+5}\int_{t}^{\infty}\delta(\tau+5)\:\mathrm{d}\tau=\left\{\begin{array}{ll}
+			e^{t+5}\cdot1 & t<-5\\
+			0 & t>-5
+		\end{array}\right\}=e^{t+5}\cdot u(-t-5)$
+		
+		\begin{tikzpicture}[xscale=0.5, baseline=(current bounding box.center)]
+			\draw[-latex] (-6, 0) -- (2,0) node[right] {$\tau$};
+			\draw[-latex] (0,-1) -- (0,2);
+			\draw[-latex, lightblue, line width=1.2] (-5,0) node[below] {\color{black}$-5$} -- (-5,1.5);
+			\draw[lightblue, -*, line width=1.1] (-6,0) node[below] {$t$} -- (-6,0.25) -- (1.5,0.25);
+			\draw[blue, -*, line width=1.1] (-4,0) node[below] {$t$} -- (-4,0.5) -- (1.5,0.5);
+		\end{tikzpicture}\qquad\begin{tikzpicture}[baseline=(current bounding box.center), xscale=0.5]
+		\draw[-latex] (-7, 0) -- (7,0);
+		\draw[-latex] (0,-1) -- (0,2);
+		\draw[lightblue, line width=1.5] (-7,1) -- (-5,1) -- (-5,0) node[below] {$-5$}-- (5,0)node[below] {$5$} -- (5,1)  -- (7,1);
+		\end{tikzpicture}
+		
+		$\int_{-\infty}^{+\infty}\left| h(t) \right|\:\mathrm{d}t=\int_{-\infty}^{-5}e^{t+5}\:\mathrm{d}t=e^5\int_{-\infty}^{-5}e^t\:\mathrm{d}t=e^t\left[ e^t \right]_{-\infty}^{-5}=e^{5}\cdot(e^{-5}-0)=1<\infty\longrightarrow$ Estable
+		\item $\db{y(t)=\int_{-\infty}^{t}e^{-(t-\tau)}x(\tau-2)\dtau}$
 	\end{enumerate}
 \end{enumerate}

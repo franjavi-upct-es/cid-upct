@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (MiKTeX 24.1) (preloaded format=pdflatex 2024.2.18)  21 FEB 2024 12:56
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (MiKTeX 24.1) (preloaded format=pdflatex 2024.2.18)  28 FEB 2024 12:39
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -2313,8 +2313,22 @@ File: Temas/Tema 2/ScreenShot001.drawio.png Graphic file (type png)
 Package pdftex.def Info: Temas/Tema 2/ScreenShot001.drawio.png  used on input l
 ine 32.
 (pdftex.def)             Requested size: 525.38022pt x 350.71715pt.
- [32] [33 <./Temas/Tema 2/ScreenShot001.drawio.png>] [34]) [35] (Ejercicios.aux
-)
+ [32] [33 <./Temas/Tema 2/ScreenShot001.drawio.png>] [34] [35]
+Underfull \hbox (badness 10000) in paragraph at lines 170--172
+
+ []
+
+[36]
+Underfull \hbox (badness 2689) in paragraph at lines 234--238
+[]$\OML/cmm/m/it/10 x[]\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 t\OT1/cmr/m/n/10 ) = \
+OML/cmm/m/it/10 x\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 t \OMS/cmsy/m/n/10 ^^@ \OML/
+cmm/m/it/10 t[]\OT1/cmr/m/n/10 ) [][]\OMS/cmsy/m/n/10 ! \OML/cmm/m/it/10 y[]\OT
+1/cmr/m/n/10 (\OML/cmm/m/it/10 t\OT1/cmr/m/n/10 ) = [][] \OML/cmm/m/it/10 e[]\O
+T1/cmr/m/n/10 3\OML/cmm/m/it/10 x\OT1/cmr/m/n/10 ([][] \OMS/cmsy/m/n/10 ^^@ \OT
+1/cmr/m/n/10 2) [] = [] =
+ []
+
+) [37] (Ejercicios.aux)
  ***********
 LaTeX2e <2023-11-01> patch level 1
 L3 programming layer <2024-02-13>
@@ -2326,30 +2340,31 @@ Package logreq Info: Writing requests to 'Ejercicios.run.xml'.
 
  ) 
 Here is how much of TeX's memory you used:
- 52810 strings out of 474462
- 1199088 string characters out of 5742883
+ 52969 strings out of 474462
+ 1202135 string characters out of 5742883
  2114243 words of memory out of 5000000
- 74109 multiletter control sequences out of 15000+600000
- 560394 words of font info for 48 fonts, out of 8000000 for 9000
+ 74256 multiletter control sequences out of 15000+600000
+ 560729 words of font info for 49 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  89i,20n,134p,1201b,1336s stack positions out of 10000i,1000n,20000p,200000b,200000s
-<C:/Users/fcoja/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/
-cmbx10.pfb><C:/Users/fcoja/AppData/Local/Programs/MiKTeX/fonts/type1/public/ams
-fonts/cm/cmex10.pfb><C:/Users/fcoja/AppData/Local/Programs/MiKTeX/fonts/type1/p
-ublic/amsfonts/cm/cmmi10.pfb><C:/Users/fcoja/AppData/Local/Programs/MiKTeX/font
-s/type1/public/amsfonts/cm/cmmi5.pfb><C:/Users/fcoja/AppData/Local/Programs/MiK
-TeX/fonts/type1/public/amsfonts/cm/cmmi7.pfb><C:/Users/fcoja/AppData/Local/Prog
-rams/MiKTeX/fonts/type1/public/amsfonts/cm/cmr10.pfb><C:/Users/fcoja/AppData/Lo
-cal/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr5.pfb><C:/Users/fcoja/App
-Data/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr7.pfb><C:/Users/fc
-oja/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy10.pfb><C:
-/Users/fcoja/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy5
-.pfb><C:/Users/fcoja/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/
-cm/cmsy7.pfb><C:/Users/fcoja/AppData/Local/Programs/MiKTeX/fonts/type1/public/a
-msfonts/latxfont/line10.pfb>
-Output written on Ejercicios.pdf (35 pages, 1484693 bytes).
+ <C:\Users\fcoja\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\tcrm
+1000.pk><C:/Users/fcoja/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfon
+ts/cm/cmbx10.pfb><C:/Users/fcoja/AppData/Local/Programs/MiKTeX/fonts/type1/publ
+ic/amsfonts/cm/cmex10.pfb><C:/Users/fcoja/AppData/Local/Programs/MiKTeX/fonts/t
+ype1/public/amsfonts/cm/cmmi10.pfb><C:/Users/fcoja/AppData/Local/Programs/MiKTe
+X/fonts/type1/public/amsfonts/cm/cmmi5.pfb><C:/Users/fcoja/AppData/Local/Progra
+ms/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi7.pfb><C:/Users/fcoja/AppData/Loca
+l/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr10.pfb><C:/Users/fcoja/AppD
+ata/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr5.pfb><C:/Users/fco
+ja/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr7.pfb><C:/Us
+ers/fcoja/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy10.p
+fb><C:/Users/fcoja/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm
+/cmsy5.pfb><C:/Users/fcoja/AppData/Local/Programs/MiKTeX/fonts/type1/public/ams
+fonts/cm/cmsy7.pfb><C:/Users/fcoja/AppData/Local/Programs/MiKTeX/fonts/type1/pu
+blic/amsfonts/latxfont/line10.pfb>
+Output written on Ejercicios.pdf (37 pages, 1496389 bytes).
 PDF statistics:
- 520 PDF objects out of 1000 (max. 8388607)
- 172 named destinations out of 1000 (max. 500000)
+ 548 PDF objects out of 1000 (max. 8388607)
+ 183 named destinations out of 1000 (max. 500000)
  198 words of extra memory for PDF output out of 10000 (max. 10000000)
 
