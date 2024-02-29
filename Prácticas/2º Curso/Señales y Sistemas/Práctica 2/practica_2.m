@@ -3,7 +3,7 @@ close all
 x = [1 2 -2];
 h = [1 3 0 1 2 1 2];
 
-y = conv(x, h, 'full')
+y = conv(x, h);
 
 figure(1)
 stem(y, 'filled', "LineWidth", 1.5, "MarkerSize", 4);
@@ -11,14 +11,12 @@ xlabel('n');
 ylabel('y[n]');
 title('Convolución discreta de x[n] y h[n]')
 
-y1 = convn(x,h)
+y1 = conv1(x,h);
 
-y2 = conv2(x, h)
+y2 = conv2(x, h);
 
-x = [1 -1]
-
-y=
-
+disp(all(y == y1));
+disp(all(y == y2));
 
 
 % Obtener todas las figuras abiertas:
