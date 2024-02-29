@@ -78,4 +78,19 @@
 \contentsline {subsubsection}{\numberline {2.2.12}Capacidades del MLP}{46}{subsubsection.2.2.12}%
 \contentsline {subsubsection}{\numberline {2.2.13}Notación utilizada MLP}{47}{subsubsection.2.2.13}%
 \contentsline {subsubsection}{\numberline {2.2.14}Algoritmo de retropropagación (BackPropagation (BP))}{47}{subsubsection.2.2.14}%
+\contentsline {subsubsection}{\numberline {2.2.15}Modos de entrenamiento}{48}{subsubsection.2.2.15}%
+\contentsline {subsubsection}{\numberline {2.2.16}Sobre las muestras}{48}{subsubsection.2.2.16}%
+\contentsline {subsubsection}{\numberline {2.2.17}Sobre el dimensionado}{49}{subsubsection.2.2.17}%
+\contentsline {subsubsection}{\numberline {2.2.18}Sobre el algoritmo de entrenamiento}{49}{subsubsection.2.2.18}%
+\contentsline {subsection}{\numberline {2.3}Redes de funciones de base radial}{52}{subsection.2.3}%
+\contentsline {subsubsection}{\numberline {2.3.1}Aproximadores universales}{52}{subsubsection.2.3.1}%
+\contentsline {subsubsection}{\numberline {2.3.2}Funciones radiles}{53}{subsubsection.2.3.2}%
+\contentsline {subsubsection}{\numberline {2.3.3}Propuestas de RBF}{53}{subsubsection.2.3.3}%
+\contentsline {subsubsubsection}{\numberline {2.3.3.1)}Primera propuesta: \textbf {Interpolación exacta}}{53}{subsubsubsection.2.3.3.1}%
+\contentsline {subsubsubsection}{\numberline {2.3.3.2)}Segunda propuesta: \textbf {Interpolación no exacta}}{54}{subsubsubsection.2.3.3.2}%
+\contentsline {subsubsection}{\numberline {2.3.4}Entrenamiento de las RBF}{54}{subsubsection.2.3.4}%
+\contentsline {subsubsubsection}{\numberline {2.3.4.1)}Método 1: Centroides fijados aleatoriamente}{54}{subsubsubsection.2.3.4.1}%
+\contentsline {subsubsubsection}{\numberline {2.3.4.2)}Cálculo de los pesos de la capa de salida}{54}{subsubsubsection.2.3.4.2}%
+\contentsline {subsubsubsection}{\numberline {2.3.4.3)}Método 2: Centroides fijados según cuantifiación vectorial}{55}{subsubsubsection.2.3.4.3}%
+\contentsline {subsubsubsection}{\numberline {2.3.4.4)}Método 3: Entrenamiento completo por gradiente supervisado}{55}{subsubsubsection.2.3.4.4}%
 \contentsfinish 

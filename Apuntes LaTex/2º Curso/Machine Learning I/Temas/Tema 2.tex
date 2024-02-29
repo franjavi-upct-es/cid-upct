@@ -852,7 +852,7 @@ Recuérdese que, para sigmoides, las derivadas dependen solo de los salidas: $f'
 	\item \lb{Online:} depués de cada ejemplo.
 \end{itemize}
 \begin{center}
-	\includegraphics{"Temas/Tema 1/Screenshot030"}
+	\includegraphics[width=\linewidth]{"Temas/Tema 1/Screenshot030"}
 \end{center}
 \subsubsection{Sobre las muestras}
 Conjunto de muestras de entrenamiento \lb{representativo}
@@ -864,3 +864,219 @@ Conviene \lb{normalizar} (características con media nula y varianza unidad)
 Pueden ser útiles \lb{códigos sencillos} (en general, las NNs muestran sensibilidad al formato de presentación). Ejemplos: 1:N, termómetro, etc.
 
 Para el mini-batch y online, conviene \lb{Aleatorizar} el orden de presentación de las muestras y \lb{ciclar} las series de entrenamiento.
+
+\begin{minipage}{0.5\textwidth}
+\lb{Decorrelar las entradas.} Un método para decorrelar las variables de entrada: \textbf{Análisis de Componentes Principales (PCA)}
+\begin{itemize}
+	\item Permite reducir la dimensionalidad de los datos (eliminando componentes con menores autovalores).
+	\item Permite convertir una superficie de error elíptica en una circular, en la que el gradiente apunta directamente al mínimo (dividiendo los componentes principales por las raíces cuadradas de sus respectivos autovalores)
+\end{itemize}
+\end{minipage}\qquad\begin{minipage}{0.45\textwidth}
+\begin{center}
+	\includegraphics[width=\linewidth]{"Temas/Tema 2/screenshot036"}
+\end{center}
+
+\end{minipage}
+
+Si no se aplican bien estos principios pueden aparecer \lb{problemas de convergencia}.
+
+\subsubsection{Sobre el dimensionado}
+
+No hay reglas fijas, sino empíricas.
+
+En un principio, un número aconsejable de capas ocultas es:
+\begin{itemize}
+	\item 1 o 2 para clasificación
+	\item 2 para correspondencia
+\end{itemize}
+(No contradice los teoremas de Cybenko y Kolmogorov: 2 pueden dar lugar a una arquitectura más eficiente).
+
+Hoy día, el \textbf{Deep Learning} permite el empleo de muchas más capas ocultas.
+\subsubsection{Sobre el algoritmo de entrenamiento}
+\begin{itemize}[label=\color{red}\textbullet, leftmargin=*]
+	\item \color{lightblue}\textbf{Inicialización} de parámetros y variables
+\end{itemize}
+Para entradas normalizadas:
+\begin{itemize}
+	\item $\eta$ entre $0.001$ y $1$.
+	\item Pesos iniciales aleatorios con distribución $U[-0.5,0.5]$
+\end{itemize}
+
+\begin{minipage}{0.5\textwidth}
+	\begin{itemize}[label=\color{red}\textbullet, leftmargin=*]
+		\item \color{lightblue}Problemas de convergencia: \textbf{Mínimos locales}
+	\end{itemize}
+	Para evitar ser atrapados por ellos:
+	\begin{itemize}
+		\item Método simple: \textbf{varias inicializaciones} de los pesos, quedándonos con el mejor resultado.
+		\item \textbf{Métodos naturales:}
+		\begin{itemize}
+			\item \textbf{Neo-Darwinianos:} Genéticos, Evolutivos, etc.
+			\item \textbf{Temple simulado}
+			\item Perforación de \textbf{túneles}
+		\end{itemize}
+	\end{itemize}
+\end{minipage}\qquad\begin{minipage}{0.5\textwidth}
+\begin{center}
+	\includegraphics[width=\linewidth]{"Temas/Tema 2/screenshot037"}
+\end{center}
+\end{minipage}
+
+\begin{minipage}{0.4\textwidth}
+	\begin{itemize}[label=\color{red}\textbullet, leftmargin=*]
+		\item \color{lightblue}Problemas de convergencia: \textbf{Minimos locales}
+	\end{itemize}
+	\textbf{Aprendizaje incremental} mediante selección de muestras. Garantizan o facilitan llegar al mínimo local (con más carga computacional).
+\end{minipage}\qquad\begin{minipage}{0.6\textwidth}
+\begin{center}
+	\includegraphics[width=\linewidth]{"Temas/Tema 2/screenshot038"}
+\end{center}
+\end{minipage}
+En la convergencia al mínimo, lo que se busca es:
+\begin{itemize}
+	\item Movernos más rápido en direcciones con gradientes pequeños pero consistentes (que apuntan al mínimo).
+	\item Movernos más despacio en direcciones con gradientes grandes pero inconsistentes.
+\end{itemize}
+\begin{center}
+	\includegraphics{"Temas/Tema 2/screenshot039"}
+\end{center}
+\begin{itemize}[label=\color{red}\textbullet, leftmargin=*]
+	\item \color{lightblue}Mejora de la \textbf{convergencia}
+\end{itemize}
+\textbf{Método del Momento} (modificación del gradiente): \[ w_{ji}^{(l)}(k+1)=w_{ji}^{(l)}(k)-\eta\dfrac{\partial C}{\partial w_{ji}^{(l)}}(k)+\mu\left(w_{ji}^{(l)}(k)-w_{ji}^{(l)}(k-1)\right) \]
+\begin{itemize}
+	\item Se amortiguan osciliaciones en direcciones de alta curvatura combinando gradientes de signo contrario.
+	\item Se aumneta la velocidad en direcciones con un gradiente pequeño pero consistente.
+\end{itemize}
+El momento añade \lb{inercia} al movimiento; útil en llanuras
+
+\begin{center}
+	\includegraphics{"Temas/Tema 2/screenshot040"}
+\end{center}
+\begin{center}
+	\includegraphics[width=\linewidth]{"Temas/Tema 2/screenshot041"}
+\end{center}
+\textbf{Modificación de la tasa de aprendizaje:}
+\begin{itemize}
+	\item \textbf{Descenso de la tasa de aprendizaje} (Learning Rate Decay): Se comienza con una tasa de aprendizaje (parámetro de aprendizaje o \textbf{escalón}) alta y luego se disminuye gradualmente durante el entrenamiento. Esto permite un rápido avance al principio y una convergencia más suave hacia el mínimo global a medida que avanzas.
+	\item \textbf{Tasa de aprendizaje adaptativa:} Utiliza algoritmos como Adam, RMSprop o Adagrad que ajsutan automáticamente la tasa de aprendizaje en función del historial de los errores. Estos algoritmos pueden converger más rápido en muchos casos. Idea básica:
+	\begin{itemize}
+		\item Si la convergencia al mínimo va bien (diminuye el error), se aumenta el escalón.
+		\item Si la convergencia al mínimo va mal (aumenta el error), se vuelve atrás y se disminuye el escalón.
+	\end{itemize}
+\end{itemize}
+\begin{itemize}[label=\color{red}\textbullet, leftmargin=*]
+	\item \color{lightblue}Soluciones generales ante la \textbf{lentitud}
+\end{itemize}
+\begin{itemize}
+	\item Modificación o cambio de la \textbf{función de coste}.
+	\item Gestión del \textbf{parámetro de aprendizaje}.
+	\item Técnicas de \textbf{regularización}.
+	\item Utilización de otros \textbf{algoritmos de búsqueda}.
+	\item Métodos de \textbf{selección de muestras}.
+\end{itemize}
+\subsection{Redes de funciones de base radial}
+Son redes progresivas, no lineales, multicapa y aproximadores universales.
+\begin{center}
+	\includegraphics{"Temas/Tema 2/screenshot042"}
+\end{center}
+\subsubsection{Aproximadores universales}
+La salida de una RBF viene dada por: \[ y(\mathbf{x})=\sum_{i=0}^{m}w_i\varphi(\|\mathbf{x-c}_i\|) \] donde $m$ es el número de centroides, $w_0$ es el sego y $\varphi(\|\mathbf{x-c}_0\|)=1$.
+
+Se busca que las salidas igual a las deseadas, es decir, $d=y(\mathbf{x})$. Así, \[ \begin{pmatrix}
+	d_1\\
+	d_2\\
+	\vdots\\
+	d_N
+\end{pmatrix}=\begin{pmatrix}
+1 &\varphi(\mathbf{x}_1,\mathbf{c}_1) & \varphi(\mathbf{x}_1,c_2) & \cdots & \varphi(\mathbf{x}_1,\mathbf{c}_m)\\
+1 &\varphi(\mathbf{x}_2,\mathbf{c}_1) & \varphi(\mathbf{x}_2,c_2) & \cdots & \varphi(\mathbf{x}_2,\mathbf{c}_m)\\
+\vdots & \vdots & \vdots & \ddots & \vdots\\
+1 & \varphi(\mathbf{x}_N,\mathbf{c}_1) & \varphi(\mathbf{x}_N,c_2) & \cdots & \varphi(\mathbf{x}_N,\mathbf{c}_m)\\
+\end{pmatrix}\begin{pmatrix}
+w_0\\
+w_1\\
+w_2\\
+\vdots\\
+w_m
+\end{pmatrix}\longrightarrow\mathbf{d=\Phi w} \]
+
+En general, las RFB se definen como \textbf{funciones de una norma o distancia}, normalmente euclidiana. Es decir, \[ \varphi(\mathbf{x})=\varphi(r)=\varphi(\|\mathbf{x-c}\|) \] donde $\mathbf{c}$ es el centro de la RBF.
+\subsubsection{Funciones radiles}
+\begin{itemize}
+	\item Gausiana regular (la más usada): \[\varphi(\mathbf{x,\,c}_i)=\exp\left(-\dfrac{1}{2\sigma_i^2}\|\mathbf{x-c}_i\|^2\right)  \]
+	\item Gausiana: \[ \varphi(\mathbf{x,\,c}_i)=\exp\left(-\dfrac{1}{2}(\mathbf{x-c}_i)^\intercal\Sigma_i^{-1}(\mathbf{x-c}_i)\right) \]No muy usados por compensar el aumento de prestaciones con el computacional.
+	\item Multicuadrática inversa \[ \varphi(\mathbf{x,\,c}_i)=\dfrac{c}{\sqrt{\|\mathbf{x-c}_i\|^2+c^2}},\quad c>0 \] donde $c$ es una constante (distinta que los centroides $\mathbf{c}_i$).
+\end{itemize}
+\begin{center} 
+	\includegraphics{"Temas/Tema 2/screenshot044"}
+\end{center}
+\subsubsection{Propuestas de RBF}
+\subsubsubsection{Primera propuesta: \textbf{Interpolación exacta}}
+En la interpolación exacta, \textbf{cada muestra es un centroide}, es decir \[ \mathbf{c}_i=\mathbf{x}_i\longrightarrow y(\mathbf{x})=\sum_{i=0}^{N}w_i\varphi(\|\mathbf{x-x}_i\|) \] Entrenamiento: directo de forma analítica para conseguir $y(\mathbf{x}_i)=d_i$\[ \mathbf{d=\Phi w\longrightarrow w=\Phi^{-1}d} \]Caso particular: Para un problema de clasificación binaria, basta multiplicar las gausianas por la salida deseada ($+1,-1$) de la muestra correspondiente.
+
+Normalmente, la \rc{interpolación perfecta es mala solución}. Ejemplo con diferentes anchuras
+\begin{center} 
+	\includegraphics[scale=0.6]{"Temas/Tema 2/screenshot043"}
+\end{center}
+\subsubsubsection{Segunda propuesta: \textbf{Interpolación no exacta}}
+\[ y(\mathbf{x})=\sum_{i=0}^{m}w_i\varphi(\|\mathbf{x-c}_i\|) \] donde $m<N$ es un hiper-parámetro del modelo.
+\subsubsection{Entrenamiento de las RBF}
+\subsubsubsection{Método 1: Centroides fijados aleatoriamente}
+Primero, se inicializan los centroides de las funciones de base radial de manera aleatoria.
+
+Luego, se ajustan los parámetros de las funciones de base radial (como la varianza) y los pesos de la capa de salida utilizando algún algoritmo de entrenamiento, como el método de la pseudoinversa o el de mínimos cuadrados por gradiente.
+\begin{enumerate}[label=\arabic*)]
+	\item Se inicializan los centroides aleatoriamente (según la distribución de los datos).
+	\item Se fija la varianza: \[ \boxed{\sigma=\dfrac{d_{\max}^2}{2m}},\qquad\text{donde }d_{\max}=\max_{j,i}\|\mathbf{x}_j-\mathbf{c}_i\|,\quad j=1,\dots,N \quad i=1,\dots,m \]
+	\item Se calculan los pesos de la capa de salida para que se cumpla: $\mathbf{d=\Phi w}$ \[ \begin{pmatrix}
+		d_1\\
+		d_2\\
+		\vdots\\
+		d_N
+	\end{pmatrix}=\begin{pmatrix}
+		1 &\varphi(\mathbf{x}_1,\mathbf{c}_1) & \varphi(\mathbf{x}_1,c_2) & \cdots & \varphi(\mathbf{x}_1,\mathbf{c}_m)\\
+		1 &\varphi(\mathbf{x}_2,\mathbf{c}_1) & \varphi(\mathbf{x}_2,c_2) & \cdots & \varphi(\mathbf{x}_2,\mathbf{c}_m)\\
+		\vdots & \vdots & \vdots & \ddots & \vdots\\
+		1 & \varphi(\mathbf{x}_N,\mathbf{c}_1) & \varphi(\mathbf{x}_N,c_2) & \cdots & \varphi(\mathbf{x}_N,\mathbf{c}_m)\\
+	\end{pmatrix}\begin{pmatrix}
+		w_0\\
+		w_1\\
+		w_2\\
+		\vdots\\
+		w_m
+	\end{pmatrix}\longrightarrow\mathbf{d=\Phi w} \]a
+	\textbf{Solución:} Normalmente, la solución exacta no existe (sistema sobredeterminado). Sí existe solución óptima en términos de error cuadrático.
+\end{enumerate}
+\subsubsubsection{Cálculo de los pesos de la capa de salida}
+\begin{minipage}{0.65\textwidth}
+Mediante la \textbf{psudoinversa}. La solución óptima analítica que minimiza \[ E(\mathbf{w})=\dfrac{1}{2}\sum_{j=1}^{N}(y_i-d_j)^2=\dfrac{1}{2}\|\mathbf{y-d}\|^2 \]viene dada por $\mathbf{w^*=\Phi^+d}$, donde $\mathbf{Phi^+}$ es la pseudoinversa de Moore-Penrose dada por $\Phi^+=(\Phi^\intercal\Phi)^{-1}\Phi^\intercal$.
+\end{minipage}\qquad\begin{minipage}{0.3\textwidth}
+\begin{center}
+	\includegraphics[width=\linewidth]{"Temas/Tema 2/screenshot045"}
+\end{center}
+\end{minipage}
+
+La salida producida por la solución óptima, $\mathbf{y=\Phi w^*}$, es la proyección de $\mathbf{d}$ sobre el subespacio $S$ generado por las columnas de $\mathbf{\Phi}$, minimizándose la distancia euclidea entre $\mathbf{d}$ e $\mathbf{y}$.
+
+Mediante \textbf{gradiente}. Se minimiza el SSE mediante gradiente, por ejemplo, con el algoritmo LMS (ya visto).
+\subsubsubsection{Método 2: Centroides fijados según cuantifiación vectorial}
+En este entrenamiento, se inicializan los centroides de RBF mediante el empleo de algún método de \textbf{cuantificación vectorial (VQ)} y se fijan las varianza como se ha visto anteriormente.
+
+Luego, se ajustan los pesos de la capa de salida utilizando algún algoritmo de entrenamiento, como el método de la pseudoinversa o el de mínimos cuadrados
+
+Algunos ejemplos de método VQ son:
+\begin{itemize}
+\item Algoritmo FSCL ("Frequency Sensitive Competitive Learning")
+\item Mapas autoorganizados
+\item Clustering. Ej.: Algoritmo de K-medias.
+\end{itemize}
+\subsubsubsection{Método 3: Entrenamiento completo por gradiente supervisado}
+Todas las variables de la red se entrenan por gradiente para minimizar la función de error. \[ \boxed{E=\dfrac{1}{2}\sum_{j=1}^{N}e_j^2}\quad\mathrm{donde}\quad e_j=d_j-\sum_{i=0}^{m}w_i\varphi(\|\mathbf{x}_j-\mathbf{c}_i\|) \]
+
+\[ \begin{array}{rl}
+	\mathbf{c}_i(k+1)=\mathbf{c}_i(k)-\eta_1\dfrac{\partial E(k)}{\partial \mathbf{c}_i(k)} & \dfrac{\partial E(k)}{\partial \mathbf{c}_i(k)}=2w_i(k)\sum_{j=1}^Ne_j(k)\varphi(\|\mathbf{x}_j-\mathbf{c}_i(k)) \\
+	w_{i}(k+1)=w_{i}(k)-\eta_{2}\dfrac{ \partial E(k) }{ \partial w_{i}(k) }  & \dfrac{ \partial E(k) }{ \partial w_{i}(k) }=\sum_{j=1}^{N}e_{j}(k)\varphi(\|\mathbf{x}_{j}-\mathbf{c}_{i}(k) \|)  \\
+	\Sigma_{i}^{-1}(k+1)=\Sigma_{i}^{-1}(k)-\eta_{3}\dfrac{ \partial E(k) }{ \partial \Sigma_{i}^{-1}(k) }  & \dfrac{ \partial E(k) }{ \partial \Sigma_{i}^{-1}(k) } =-w_{i}\sum_{j=1}^{N}e_{j}(k)\varphi'(\|\mathbf{x}_{j}-\mathbf{c}_{i}(k)\|)\mathbf{Q}_{ji}(k) \\
+	& \mathbf{Q}_{ji}(k)=(\mathbf{x}_{j}-\mathbf{c}_{i}(k))(\mathbf{x}_{j}-\mathbf{c}_{i}(k))^{\intercal}
+\end{array}  \]
