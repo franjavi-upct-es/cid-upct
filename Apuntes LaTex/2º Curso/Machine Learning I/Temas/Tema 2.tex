@@ -1074,9 +1074,9 @@ Algunos ejemplos de método VQ son:
 \subsubsubsection{Método 3: Entrenamiento completo por gradiente supervisado}
 Todas las variables de la red se entrenan por gradiente para minimizar la función de error. \[ \boxed{E=\dfrac{1}{2}\sum_{j=1}^{N}e_j^2}\quad\mathrm{donde}\quad e_j=d_j-\sum_{i=0}^{m}w_i\varphi(\|\mathbf{x}_j-\mathbf{c}_i\|) \]
 
-\[ \begin{array}{rl}
-	\mathbf{c}_i(k+1)=\mathbf{c}_i(k)-\eta_1\dfrac{\partial E(k)}{\partial \mathbf{c}_i(k)} & \dfrac{\partial E(k)}{\partial \mathbf{c}_i(k)}=2w_i(k)\sum_{j=1}^Ne_j(k)\varphi(\|\mathbf{x}_j-\mathbf{c}_i(k)) \\
-	w_{i}(k+1)=w_{i}(k)-\eta_{2}\dfrac{ \partial E(k) }{ \partial w_{i}(k) }  & \dfrac{ \partial E(k) }{ \partial w_{i}(k) }=\sum_{j=1}^{N}e_{j}(k)\varphi(\|\mathbf{x}_{j}-\mathbf{c}_{i}(k) \|)  \\
-	\Sigma_{i}^{-1}(k+1)=\Sigma_{i}^{-1}(k)-\eta_{3}\dfrac{ \partial E(k) }{ \partial \Sigma_{i}^{-1}(k) }  & \dfrac{ \partial E(k) }{ \partial \Sigma_{i}^{-1}(k) } =-w_{i}\sum_{j=1}^{N}e_{j}(k)\varphi'(\|\mathbf{x}_{j}-\mathbf{c}_{i}(k)\|)\mathbf{Q}_{ji}(k) \\
-	& \mathbf{Q}_{ji}(k)=(\mathbf{x}_{j}-\mathbf{c}_{i}(k))(\mathbf{x}_{j}-\mathbf{c}_{i}(k))^{\intercal}
+\[ \begin{array}{rcl}
+	\mathbf{c}_i(k+1)=\mathbf{c}_i(k)-\eta_1\dfrac{\partial E(k)}{\partial \mathbf{c}_i(k)} & ~~~~ &\dfrac{\partial E(k)}{\partial \mathbf{c}_i(k)}=2w_i(k)\sum_{j=1}^Ne_j(k)\varphi(\|\mathbf{x}_j-\mathbf{c}_i(k)) \\
+	w_{i}(k+1)=w_{i}(k)-\eta_{2}\dfrac{ \partial E(k) }{ \partial w_{i}(k) }  & &\dfrac{ \partial E(k) }{ \partial w_{i}(k) }=\sum_{j=1}^{N}e_{j}(k)\varphi(\|\mathbf{x}_{j}-\mathbf{c}_{i}(k) \|)  \\
+	\Sigma_{i}^{-1}(k+1)=\Sigma_{i}^{-1}(k)-\eta_{3}\dfrac{ \partial E(k) }{ \partial \Sigma_{i}^{-1}(k) }  & &\dfrac{ \partial E(k) }{ \partial \Sigma_{i}^{-1}(k) } =-w_{i}\sum_{j=1}^{N}e_{j}(k)\varphi'(\|\mathbf{x}_{j}-\mathbf{c}_{i}(k)\|)\mathbf{Q}_{ji}(k) \\
+	& & \mathbf{Q}_{ji}(k)=(\mathbf{x}_{j}-\mathbf{c}_{i}(k))(\mathbf{x}_{j}-\mathbf{c}_{i}(k))^{\intercal}
 \end{array}  \]
