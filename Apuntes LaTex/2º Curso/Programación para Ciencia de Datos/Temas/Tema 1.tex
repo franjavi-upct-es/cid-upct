@@ -101,7 +101,7 @@ Su mayor potencial surge cuando el desarrollo se hace en grupo.
 	\end{itemize}
 \end{itemize}
 \subsubsection{Git}
-\subsubsection*{\rc{1.2.3.1)}\hspace{10pt} Introducción}
+\subsubsubsection{Introducción}
 Escrito en C y en gran parte construido para trabajar en el kernel de Linux.
 
 Su principal potencial es su modelo de ramas (lo veremos más adelante).
@@ -113,7 +113,7 @@ Diseñado para operar en local de forma rápida y sin conexión.
 \end{itemize}
 
 Los repositorios ocupan muy poco espacio.
-\subsubsection*{\rc{1.2.3.2)}\hspace{10pt}Estructura general}
+\subsubsubsection{Estructura general}
 
 	Cada desarrollador tiene su repositorio local.
 	
@@ -124,7 +124,7 @@ Los repositorios ocupan muy poco espacio.
 	\includegraphics{"Temas/Tema 1/screenshot004"}
 \end{center}
 
-\subsubsection*{\rc{1.2.3.3)}\hspace{10pt}Git Workflow}
+\subsubsubsection{Git Workflow}
 \begin{center}
 	\includegraphics{"Temas/Tema 1/screenshot006"}
 \end{center}
@@ -181,7 +181,7 @@ Los repositorios ocupan muy poco espacio.
 \end{minipage}\qquad\begin{minipage}{0.45\textwidth}
 	\includegraphics[width=\linewidth]{"Temas/Tema 1/screenshot006"}
 \end{minipage}
-\subsubsection*{\rc{1.2.3.4)}\hspace{10pt}Componentes de un repositorio Git}
+\subsubsubsection{Componentes de un repositorio Git}
 \begin{minipage}{0.5\textwidth}
 	Dentro de un repositorio Git nos encontramos con dos estructuras de datos
 \begin{itemize}
@@ -202,7 +202,7 @@ pertenece.
 \begin{center}
 	\includegraphics{"Temas/Tema 1/screenshot009"}
 \end{center}
-\subsubsection*{\rc{1.2.3.5)}\hspace{10pt}Gestión de ramas}
+\subsubsubsection{Gestión de ramas}
 Una rama es una línea de desarrollo que existe de forma independiente a otra, pero que comparte una historia común en algún punto temporal anterior.
 
 Se puede decir que una rama siempre nace como una copia de algo y a partir de ahí pasa a generar su propia historia.
@@ -236,7 +236,7 @@ El nombre de la rama hace en realidad referencia al \texttt{commit} más recient
 \begin{itemize}
 	\item En la figura de la derecha vemos una rama \texttt{development} que se ha fusionado con la rama \texttt{main}, de ahí que solo haya un \texttt{HEAD}.
 \end{itemize}
-\subsubsection*{\rc{1.2.3.6)}\hspace{10pt}Creación de ramas}
+\subsubsubsection{Creación de ramas}
 Para crear una rama derivada de la rama activa en la que nos encontremos
 debemos ejecutar el comando \code{git branch <nombre_de_la_rama>
 <punto_inicial>}.
@@ -259,3 +259,188 @@ Para eliminar una rama podemos ejecutar \code{git branch -d <nombre_de_la_rama>}
 \begin{itemize}
 	\item \textbf{No debe de ser la rama activa.}
 \end{itemize}
+\subsubsubsection{Fusión de ramas}
+Una rama puede fusionarse con otra siempre que estén en el mismo repositorio.
+
+Una fusión entre dos ramas es realmente un nuevo \code{commit} que representa dicha unificación.
+
+Al hacer la fusión, la rama activa es la rama que recibe la fusión con otra rama.
+
+Para ello, usamos el comando \code{git merge <rama_a_fusionar>}
+
+\begin{itemize}
+	\item La siguiente secuencia permite integrar dentro de \code{main_branch} los cambios realizados en la rama \code{modified_branch}
+\begin{enumerate}[label=\arabic*)]
+\item \code{git checkout main_branch}
+\item \code{git merge modified_branch}
+\end{enumerate}
+\end{itemize}
+\subsubsubsection{Gestión de \textbf{\texttt{tags}}}
+Una rama apunta al \code{commit} más reciente (\texttt{HEAD}) pero ¿qué pasa si queremos hacer un \code{commit} a partir de un punto anterior a \texttt{HEAD}?
+
+Git nos permite etiquetar un \code{commit} en particular mediante \code{tags}.
+
+\begin{itemize}
+	\item Esto nos permite definir puntos de referencia estáticos dentro del proyecto, porque representan, por ejemplo, un punto estable de desarrollo dentro del proyecto.
+\end{itemize}
+\begin{center}
+	\includegraphics{"Temas/Tema 1/screenshot012"}
+\end{center}
+\subsubsubsection{Creación de \textbf{\texttt{tags}}}
+Para crear un tag dentro de la rama activa debemos ejecutar \code{git tag <nombre_del_tag>}
+
+Con \code{git tag} podemos ver el listado de todos los tags de la rama activa.
+
+Una vez creado un tag podremos generar, por ejemplo, una rama a partir de él con \code{git branch <nombre_de_la_rama> <nombre_del_tag>}
+\begin{itemize}
+	\item Ejemplo: crear una rama llamada \code{mi_nueva_rama} a partir del tag v1.1.
+	\begin{itemize}
+		\item \code{git branch mi_nueva_rama v1.1}
+	\end{itemize}
+\end{itemize}
+\subsubsubsection{\textbf{\texttt{branches}} vs \textbf{\texttt{tags}}}
+Un \texttt{tag} y un \texttt{branch} pueden parecer similares pero sirven para objetivos diferentes.
+
+Un \texttt{tag} es estático pues siempre apunta a un punto específico de una rama. 
+\begin{itemize}
+\item Sirven para marcar, por ejemplo, cuando una determinada versión de un producto fue lanzado al marcado.
+\item Pueden también usarse como \textit{marcadores temporales.}
+\end{itemize}
+Las ramas son \textit{dinámicas} pues van avanzando conforme se van realizando \code{commits}.
+
+Por tanto, a la hora de decidir si crear un \texttt{tag} o un \texttt{branch} debemos de preguntarnos si el punto de referencia es estático o dinámico.
+\subsection{Desarrollo Impulsado por Pruebas}
+\subsubsection{Introducción}
+Las pruebas de software son el acto de examinar los artefactos y el comportamiento del software que se está probando mediante validación y verificación.
+
+El desarrollo impulsado por pruebas (\textit{Test-Driven Development}, TDD) es una metodología de desarrollo de software que enfatiza la escritura de pruebas antes de escribir el código real. 
+
+\begin{itemize}
+\item Sigue un ciclo específico de escribir pruebas, ejecutarlas y luego escribir el código para que las pruebas pasen.
+\item TDD promueve un enfoque disciplinado del desarrollo de software y puede conducir a un código más confiable, mantenible y bien diseñado.
+\end{itemize}
+
+\begin{minipage}{0.6\textwidth}
+	TDD implica los siguientes pasos:
+\begin{enumerate}[label=\arabic*)]
+	\item Escribir una prueba: Comenzar escribiendo una prueba que defina el comportamiento esperado de una funcionalidad específica. A menudo se escribe como una función que afirma ciertas condiciones o resultados.
+	\item Ejecutar la prueba para verificar que falle. Este es un paso importante porque garantiza que la prueba sea válida y que el comportamiento esperado aún no esté implementado.
+	\item Escribir el código: Implementar la cantidad mínima de código necesaria para que la prueba pase. Concéntrate en resolver el problema específico que aborda la prueba no en agregar funcionalidad innecesaria.
+\end{enumerate}
+\end{minipage}\qquad\begin{minipage}{0.35\textwidth}
+\begin{center}
+	\includegraphics[width=\linewidth]{"Temas/Tema 1/screenshot013"}
+\end{center}
+\end{minipage}
+\begin{enumerate}[label=\arabic*),start=4]
+	\item Ejecutar la prueba nuevamente: Para verificar si el cambio de código ha logrado que la prueba pase. Si la prueba falla, volver al paso 3.
+	\item Refactorizar el código: Una vez que la prueba pasa, refactorizar el código para mejorar su diseño, estructura o rendimiento manteniendo la aprobación de las pruebas. Garantiza que el código se mantenga limpio y mantenible.
+	\item Repetir el ciclo: Pasar a la siguiente característica o pieza de funcionalidad y volver al paso 1.
+\end{enumerate}
+\subsubsection{Tests unitarios vs test de integración}
+A lo largo del grado, probablemente ya has creado una prueba sin darte cuenta. 
+\begin{itemize}
+\item ¿Recuerdas cuando ejecutaste tu aplicación y la usaste por primera vez? ¿Revisaste las funciones y experimentaste usándolas? 
+\item Eso se conoce como \textbf{prueba exploratoria} y es una forma de prueba manual.
+\end{itemize}
+La prueba exploratoria es una forma de prueba que se realiza sin un plan. 
+\begin{itemize}
+	\item ¡solo estás explorando la aplicación!
+\end{itemize}
+Frente a esta forma manual, las pruebas automatizadas son la ejecución de su plan de pruebas mediante un \textit{script} en lugar de una persona.
+\begin{itemize}
+	\item En este sentido, podemos distinguir entre \textit{pruebas unitarias} y \textit{pruebas de integración}.
+\end{itemize}
+Las \textbf{pruebas unitarias} prueban unidades individuales (módulos, funciones, clases) de forma aislada del resto del programa.
+
+Sólo validan las unidades individuales, por lo que sólo se debe inicializar la unidad deseada en las clases de prueba. 
+
+Para ignorar el servicio externo o las dependencias técnicas externas, como el origen de datos, podemos usar simuladores para imitar sus comportamientos. 
+
+Las pruebas unitarias deben ejecutarse en muy poco tiempo ya que no dependen de ninguna fuente o servicio externo.
+
+El propósito de las \textbf{pruebas de integración} es verificar si varios módulos desarrollados por separado funcionan juntos como se espera. 
+
+Se realiza activando muchos módulos y ejecutando pruebas de nivel superior contra todos ellos para garantizar que funcionen juntos. 
+
+\begin{itemize}
+	\item Estos módulos pueden ser partes de un solo ejecutable o separados.
+\end{itemize}
+
+La principal diferencia entre la prueba de integración en comparación con la prueba unitaria es que se inicializan todos los servicios internos. 
+
+\begin{itemize}
+	\item Se puede implementar una base de datos de prueba que tenga los mismos nombres de tabla y columna que la de producción para probar las capas externas. 
+\end{itemize}
+\subsubsection{Definir tests en Python}
+
+A fin de poder escribir tests en python, tenemos  la primitiva \code{assert}.
+\begin{itemize}
+	\item \code{assert expression[, assertion_message]}
+\end{itemize}
+La instrucción \code{assert} de Python permite escribir comprobaciones en el código fuente. 
+
+Se pueden utilizar para probar si ciertas suposiciones siguen siendo verdaderas mientras desarrollamos una aplicación. 
+
+Si algún \code{assert} devuelve \code{False}, entonces existe un error en el código fuente de la aplicación.
+
+\begin{lstlisting}[language=python]
+assert sum([1, 2, 3]) == 6, "Debe sumar 6" # (No devolverá nada por consola)
+
+assert sum([1, 1, 1]) == 6, "Debe sumar 6"
+\end{lstlisting}
+\begin{verbatim}
+Traceback (most recent call last):
+		File "<stdin>", line 1, in <module>
+AssertionError: Debe sumar 6
+\end{verbatim}
+\subsubsection{Frameworks para tests}
+En python exiten múltiples test runners, los más destacados son:
+\begin{itemize}
+\item \texttt{unittest} (\url{https://docs.python.org/3/library/unittest.html}): incorporado a la biblioteca estándar de Python desde la versión 2.1. Contiene tanto un marco  como un ejecutor de pruebas.
+\item \texttt{nose} (\url{https://nose.readthedocs.io/en/latest/}): Más eficiente que \texttt{unittest} para gestionar centenares o miles de tests. Es compatible con cualquier prueba escrita con \texttt{unittest} y puede usarse como un reemplazo directo del mismo.
+\item \texttt{pytest} (\url{https://docs.pytest.org/en/7.4.x/}): Admite la ejecución de casos de prueba \texttt{unittest}. La verdadera ventaja de \texttt{pytest} radica en la escritura de casos de prueba como una serie de funciones en un archivo Python que comienzan con el nombre \code{test_}.
+\end{itemize}
+\subsubsection{Definición de test con \textbf{\texttt{pytest}}}
+\texttt{pytest} espera que nuestras pruebas se encuentren en archivos cuyo nombre empiecen por \texttt{test_} o terminen por \texttt{_test.py}.
+
+Por ejemplo, en un fichero \texttt{test_capitalize.py} podríamos tener:
+\begin{lstlisting}[language=python]
+def capital_case(x):
+	return x.capitalize()
+def test_capital_case():
+	assert capital_case('semáforo') == "Semáforo"
+\end{lstlisting}
+A continuación, ejecutando \texttt{pytest} sobre la línea de comandos veríamos que nuestra función \code{capital_case} pasa el test definido.
+
+Si vamos un paso más allá podemos testear si nuestra función \code{capital_case} comprueba que el parámetro de entrada es un \textit{string} o no. Por tanto, añadimos al fichero \texttt{test_capitalize.py} las siguientes líneas:
+\begin{lstlisting}[language=python]
+import pytest
+def test_capital_case(): 
+	assert capital_case('semáforo') == 'Semáforo' 
+def test_raises_exception_on_non_string_arguments(): 
+	with pytest.raises(TypeError): 
+		capital_case(9)
+\end{lstlisting}
+Mediante \code{pytest.raises}, afirmamos que nuestra función debe lanzar un \texttt{TypeError} en caso de que el argumento pasado no sea una cadena. 
+\begin{itemize}
+	\item ¿Pasará o no pasará el test nuestra función \code{capital_case}?
+\end{itemize}
+\subsection{Conclusiones}
+Los sistemas de control de versiones es una herramienta muy útil en el desarrollo de proyectos software pues controla y organiza las distintas \textbf{revisiones} que se realicen sobre uno o varios documentos.
+
+Podemos distinguir entre SCV centralizados o distribuidos.
+
+Git es un SCV distribuido cuyo principal potencial es su modelo de ramas.
+
+También podemos etiquetar determinados \textit{commits} con tags.
+
+El desarrollo impulsado por pruebas (\textit{Test-Driven Development}, TDD) es una metodología de desarrollo de software que enfatiza la escritura de pruebas antes de escribir el código real.
+
+Debemos distinguir entre test unitarios vs tests de integración.
+
+Existen diferentes frameworks para el desarrollo de las pruebas, como \texttt{nose}, \texttt{pytest} o \texttt{unittest}.
+
+La instrucción \texttt{assert} es la base sobre la que construir la definición de tests en python.
+
+\texttt{pytest} permite la ejecución de pruebas de forma sencilla mediante el uso de un nomeclatura especial.
