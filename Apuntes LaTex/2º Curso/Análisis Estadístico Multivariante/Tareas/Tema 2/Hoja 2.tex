@@ -127,13 +127,13 @@ $\begin{array}{l}
 	\overline{y}=\dfrac{1}{n}\sum_{i=1}^{n}y_i=85.5\\
 	R^2=\dfrac{SCE}{SCT}=\dfrac{\sum_{i=1}^{n}(\hat{y}_i-\overline{y}_i)^2}{\sum_{i=1}^{n}(y_i-\overline{y})^2}
 \end{array}$
-\item \lb{Un modelo ajustado para predecir la extracción de manganeso en \% ($y$) a partir del tamaño de partícula en mm $(x_1)$, la cantidad de dióxido de azufre en múltiplos}
+\item \lb{Un modelo ajustado para predecir la extracción de manganeso en \% ($y$) a partir del tamaño de partícula en mm $(x_1)$, la cantidad de dióxido de azufre en múltiplos de la cantidad estequiométrica necesaria para la disolución de manganeso ($x_2$) y la duración de la filtración en minutos $(x_3)$ están dadas como \[ y=56.145-9.0469x_1-33.421x_2+0.243x_3-0.5963x_1z_2-0.394x_1x_3+0.60022x_2x_3+0.6901x_1^2+11.7244x_2^2-0.0097x_3^2 \]Se consideraron 27 observaciones, con $\sum_{i}^{n}(y_i-\hat{y}_i)^2=209.55,\:\sum_{i}^{n}(y_i-\overline{y})^2=6777.5$.\\ Se pide:}
 
 \begin{enumerate}[label=\color{red}\alph*)]
-	\item 
+	\item \db{Obtener una predicción para el porcentaje de extracción cuando el tamaño de partícula es 3 mm, la cantidad de dióxido de azufre 1.5 y la duración de la filtración es de 20 minutos.}
 	
 	$\hat{y}_{x_1=3,x_2=1.5,x_3=20}=56.145-9.0469\cdot3-33.421\cdot1.5+0.243\cdot20-0.5963\cdot3\cdot1.5-0.0394\cdot3\cdot20+0.60022\cdot1.5\cdot20+0.6901\cdot3^2+11.7244\cdot(1.5)^2-0.0097\cdot20^2=25.4028$
-	\item 
+	\item \db{¿Es posible predecir el cambio en el porcentaje de extracción cuando la duración de la filtración aumenta en un minuto? Si la respuesta es afirmativa, encontrar el cambio pronosticado. Si la respuesta es negativa, ¿qué otra información se necesitaría para determinarlo?}
 	
 	$x_3\longrightarrow x_3+1$
 	
@@ -143,16 +143,26 @@ $\begin{array}{l}
 		&+0.0394\cdot x_1\cdot x_3-0.60022\cdot x_2\cdot x_3+0.0097 x_3^2\\
 		&=0.243-0.0394\cdot x_1+0.60022\cdot x_2-0.0097\cdot 2\cdot x_3-0.0097
 	\end{aligned}$
-	\item 
+	\item \db{Calcular el coeficiente de determinación $R^2$. Interpretar su valor.}
 	
 	$R^2=1-\dfrac{SCR}{SCT}=1-\dfrac{\sum_{i=1}^{n}(y_i-\hat{y}_i)^2}{\sum_{i=1}^{n}(y_i-\overline{y})^2}=1-\dfrac{209.55}{6777.5}=0.969$
 	
 	Ajuste bueno.
 \end{enumerate}
-\item 
+\item \lb{Se efectúa un estudio sobre el desgaste de un cojinete $(y)$ y su relación con la viscosidad del aceite $(x_1)$ y carga $(x_2)$. Se obtienen los datos siguientes: \[ \begin{array}{ccc}
+		\hline
+		y & x_1 & x_2 \\ \hline
+		193 & 1.5 & 851 \\
+		230 & 15.5 & 816 \\
+		172 & 22.0 & 1058 \\
+		91 & 43.0 & 1201 \\
+		113 & 33.0 & 1357 \\
+		125 & 40.0 & 1115 \\ \hline
+	\end{array} \]}
 
 \begin{enumerate}[label=\color{red}\alph*)]
-	\item 
+	\item \db{El análisis de regresión lineal múltiple con los datos de la tabla anterior proporciona $\hth=(350.994,-1.27999,-0
+		15390)'$ y los valores ajustados son \[ \hat{Y}=(217.99,\,205.69,\,160.18,\,111.46,\,100.17,\,128.51)' \]Calcular una estimación de la varianza residual y el coeficiente de determinación $R^2$.}
 	
 	$\hat{\sigma}^2=\dfrac{SCR}{n},\tilde{\sigma}^2=\dfrac{SCR}{n-k-1}$
 	
@@ -161,7 +171,7 @@ $\begin{array}{l}
 		\tilde{\sigma}^2=\dfrac{SCR}{n-k-1}=\dfrac{\sum_{i=1}^{n}(y_i-\hat{y}_i)^2}{n-k-1}=650.141\\
 		R^2=1-\dfrac{\sum_{i=1}^{n}(y_i-\hat{y}_i)^2}{\sum_{i=1}^{n}(y_i-\overline{y})^2}=1-\dfrac{1950.423}{14112}=1-0.1382=\bboxed{0.8618}
 	\end{array}$
-	\item 
+	\item \db{Utilizar el modelo para predecir el desgaste cuando $x_1=25$ y $x_2=1000$.}
 	
 	$\hat{y}_{x_1=25,x_2=1000}=350.994-1.2799\cdot25-0.15390\cdot1000=\bboxed{165.29}$
 \end{enumerate}
