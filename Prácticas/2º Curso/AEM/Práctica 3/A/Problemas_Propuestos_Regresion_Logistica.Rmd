@@ -1,0 +1,139 @@
+---
+title: "Problemas propuestos de Regresión Logística"
+author: "Francisco Javier Mercader Martínez"
+output:
+  pdf_document:
+    latex_engine: xelatex
+    extra_dependencies: fvextra
+header-includes:
+- \usepackage{fvextra}
+- \DefineVerbatimEnvironment{Highlighting}{Verbatim}{breaklines, commandchars=\\\{\}}
+---
+
+# Problema 1
+
+El fichero **processed.cleveland.data**, continene los datos correspondientes a un estudio sobre enfermedad cardíaca por *Cleveland Clinic Foundation*.
+
+El fichero contiene un total de 14 columnas, correspondientes a las siguientes variables: *age, sex, cp, trestbps, chol, fbs, restecg, thalach, exang, oldpeak, slope, ca, tal* y *num*. La variable "num" toma valores 0, 1, 2, 3 y 4, indicando el tipo de anomalía cardíaca. El valor 0 indica ausencia de enfermedad, mientras que el resto de valores indican algún tipo de anomalía. Para la descripción detallada de cada variable, puede consultarse el fichero **heart-disease.names**.
+
+Se desea realizar un análisis de Regresión Logística con el fin de predecir la presencia (o no) de enfermedad cardíaca en función del resto de variables (predictores). Se pide:
+
+1)  Importar los datos del fichero **processed.cleveland.data** y poner el nombre de cada variable como se indica en el enunciado. Sustituir la variable "num" por una nueva variable llamada "disease" que valga 0 si no hay enfermedad y que valga 1 cuando haya anomalía cardiaca.
+
+```{r}
+mydata <- read.table("../../data/processed.cleveland.data", sep = ",",
+                     col.names = c("age", "sex", "cp", "trestbps", "chol", "fbs", 
+                                   "restecg", "thalach", "exang", "olpeak", "slope", 
+                                   "ca", "tal", "num"))
+
+# Crear la nueva variable 'disease'
+mydata$disease <- ifelse(mydata$num > 0, 1, 0)
+mydata <- subset(mydata, select = -num)
+```
+
+De esta forma elimino la columna `num` para que `disease` la sustituya
+
+2)  Eliminar todas las filas que tengan algún valor perdido. **Importante:** confirmar primero si todas las variables son de tipo numérico para identificar adecuadamente los valores perdidos.
+
+```{r}
+summary(mydata)
+
+# Las columnas ca y tal son de tipo chr
+mydata$ca <- as.numeric(mydata$ca)
+mydata$tal <- as.numeric(mydata$tal)
+
+# Como nos da el aviso de que hay valores NA's, vamos a eliminar las filas que 
+# los contienen
+
+mydata <- na.omit(mydata)
+
+# El DataFrame orginal tenía 303 filas y ahora hay 297.
+summary(mydata)
+```
+
+3)  Pasar a tipo factor las variables que por naturaleza sean de tipo categórico.
+
+```{r}
+mydata$sex <- as.factor(mydata$sex)
+mydata$fbs <- as.factor(mydata$fbs)
+mydata$exang <- as.factor(mydata$exang)
+mydata$disease <- as.factor(mydata$disease)
+```
+
+4)  Dividir el conjunto de datos en entrenamiento y prueba (70% entrenamiento, 30% prueba). Tomar semilla 123.
+
+```{r}
+library(caTools)
+
+set.seed(123)
+
+split <- sample.split(mydata$disease, SplitRatio = 0.7)
+
+# Conjunto de entrenamiento
+train_data <- subset(mydata, split == TRUE)
+
+# Conjunto de test
+test_data <- subset(mydata, split == FALSE)
+```
+
+5)  Con los datos de entrenamiento, obtener el modelo ajustado de Regresión Logística usando todos los predictores. ¿Son todos los predictores significativos?
+
+```{r}
+modelo_ajustado <- glm(disease ~ ., data = train_data, family = "binomial")
+summary(modelo_ajustado)
+```
+
+Los predictores con un valor p pequeño (generalmente menor a 0.05) son considerados significativos. En este caso, los predictores significativos son:
+
+-   (Intercept)
+-   cp
+-   exang1
+-   ca
+-   tal
+
+Estos predictores tienen un valor p menor a 0.05, lo que indica que hay una fuerte evidencia de que estos predictores tienen un efecto significativo en la variable de respuesta `disease`.
+
+6)  Obtener las predicciones para los datos del conjunto de prueba, es decir, la probabilidad predicha de padecer cardíaca para cada individuo del conjunto de testeo.
+
+```{r}
+predictions <- predict(modelo_ajustado, newdata = test_data, type = "response")
+predictions
+```
+
+7)  Veamos ahora el problema de Regresión Logística como un problema de clasificiación. Usando las predicciones del apartado anterior y tomando como punto de corte la probabilidad de 0.5, obtener la clase predicha para los individuos del conjunto de prueba. Medir la eficiencia del modelo calculando la matriz de confusión, accuracy, sensibilidad y especificidad.
+
+```{r}
+predic_grupos <- ifelse(predictions > 0.5, 1, 0)
+
+matriz_confusion <- table(test_data$disease, predic_grupos)
+
+VP <- matriz_confusion[2, 2]
+FN <- matriz_confusion[2, 1]
+VN <- matriz_confusion[1, 1]
+FP <- matriz_confusion[1, 2]
+
+sensibilidad <- VP/(VP+FN)
+especificidad <- VN/(VN+FP)
+accuracy <- (VP/VN)/(VP+FP+VN+FN)
+paste("Accuracy =", accuracy)
+paste("Sensibilidad =", sensibilidad)
+paste("Especificidad =", especificidad)
+```
+
+8)  Para los datos del conjunto de prueba, obtener la curva ROC del método de clasificación, calcular el AUC (área bajo la curva) e interpretar el resultado.
+
+```{r}
+library("pROC")
+roc(test_data$disease, predictions, plot = TRUE,
+    legacy.axes = TRUE, percent = FALSE,
+    xlab = "1-especificidad", ylab = "sensibilidad",
+    col = "blue", lwd = 2, print.auc = TRUE)
+
+```
+
+
+9)  Repetir el análisis (apartado 5 y siguientes) pero aplicando primero los métodos de selección de regresores, con el fin de proponer un modelo más parsimonioso.
+
+```{r}
+
+```
