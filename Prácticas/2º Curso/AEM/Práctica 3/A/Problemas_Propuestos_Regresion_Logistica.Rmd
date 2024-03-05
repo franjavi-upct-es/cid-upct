@@ -14,21 +14,24 @@ header-includes:
 
 El fichero **processed.cleveland.data**, continene los datos correspondientes a un estudio sobre enfermedad cardíaca por *Cleveland Clinic Foundation*.
 
-El fichero contiene un total de 14 columnas, correspondientes a las siguientes variables: *age, sex, cp, trestbps, chol, fbs, restecg, thalach, exang, oldpeak, slope, ca, tal* y *num*. La variable "num" toma valores 0, 1, 2, 3 y 4, indicando el tipo de anomalía cardíaca. El valor 0 indica ausencia de enfermedad, mientras que el resto de valores indican algún tipo de anomalía. Para la descripción detallada de cada variable, puede consultarse el fichero **heart-disease.names**.
+El fichero contiene un total de 14 columnas, correspondientes a las siguientes variables: *age, sex, cp, trestbps, chol, fbs, restecg, thalach, exang, oldpeak, slope, ca, thal* y *num*. La variable "num" toma valores 0, 1, 2, 3 y 4, indicando el tipo de anomalía cardíaca. El valor 0 indica ausencia de enfermedad, mientras que el resto de valores indican algún tipo de anomalía. Para la descripción detallada de cada variable, puede consultarse el fichero **heart-disease.names**.
 
 Se desea realizar un análisis de Regresión Logística con el fin de predecir la presencia (o no) de enfermedad cardíaca en función del resto de variables (predictores). Se pide:
 
 1)  Importar los datos del fichero **processed.cleveland.data** y poner el nombre de cada variable como se indica en el enunciado. Sustituir la variable "num" por una nueva variable llamada "disease" que valga 0 si no hay enfermedad y que valga 1 cuando haya anomalía cardiaca.
 
 ```{r}
-mydata <- read.table("../../data/processed.cleveland.data", sep = ",",
-                     col.names = c("age", "sex", "cp", "trestbps", "chol", "fbs", 
-                                   "restecg", "thalach", "exang", "olpeak", "slope", 
-                                   "ca", "tal", "num"))
+mydata <- read.table("../../data/processed.cleveland.data", sep = ",", dec = '.', header = FALSE)
+colnames(mydata) <- c("age", "sex", "cp", "trestbps", "chol", "fbs", 
+                      "restecg", "thalach", "exang", "oldpeak", "slope", "ca", 
+                      "thal", "num")
 
 # Crear la nueva variable 'disease'
-mydata$disease <- ifelse(mydata$num > 0, 1, 0)
-mydata <- subset(mydata, select = -num)
+mydata$disease[mydata$num == 0] <- 0
+mydata$disease[mydata$num > 0] <- 1
+
+library(dplyr)
+mydata <- select(mydata, -num)
 ```
 
 De esta forma elimino la columna `num` para que `disease` la sustituya
@@ -36,11 +39,11 @@ De esta forma elimino la columna `num` para que `disease` la sustituya
 2)  Eliminar todas las filas que tengan algún valor perdido. **Importante:** confirmar primero si todas las variables son de tipo numérico para identificar adecuadamente los valores perdidos.
 
 ```{r}
-summary(mydata)
+str(mydata)
 
-# Las columnas ca y tal son de tipo chr
+# Las columnas ca y thal son de tipo chr
 mydata$ca <- as.numeric(mydata$ca)
-mydata$tal <- as.numeric(mydata$tal)
+mydata$thal <- as.numeric(mydata$thal)
 
 # Como nos da el aviso de que hay valores NA's, vamos a eliminar las filas que 
 # los contienen
@@ -54,26 +57,31 @@ summary(mydata)
 3)  Pasar a tipo factor las variables que por naturaleza sean de tipo categórico.
 
 ```{r}
-mydata$sex <- as.factor(mydata$sex)
-mydata$fbs <- as.factor(mydata$fbs)
-mydata$exang <- as.factor(mydata$exang)
-mydata$disease <- as.factor(mydata$disease)
+mydata$sex <- factor(mydata$sex)
+mydata$cp <- factor(mydata$cp)
+mydata$fbs <- factor(mydata$fbs)
+mydata$restecg <- factor(mydata$restecg)
+mydata$exang <- factor(mydata$exang)
+mydata$slope <- factor(mydata$slope)
+mydata$ca <- factor(mydata$ca)
+mydata$thal <- factor(mydata$thal)
+mydata$disease <- factor(mydata$disease)
+
+summary(mydata)
 ```
 
 4)  Dividir el conjunto de datos en entrenamiento y prueba (70% entrenamiento, 30% prueba). Tomar semilla 123.
 
 ```{r}
-library(caTools)
-
 set.seed(123)
 
-split <- sample.split(mydata$disease, SplitRatio = 0.7)
+indice_entrenamiento <- sample(1:nrow(mydata), 0.7 * nrow(mydata))
 
 # Conjunto de entrenamiento
-train_data <- subset(mydata, split == TRUE)
+train_data <- mydata[indice_entrenamiento, ]
 
 # Conjunto de test
-test_data <- subset(mydata, split == FALSE)
+test_data <- mydata[-indice_entrenamiento, ]
 ```
 
 5)  Con los datos de entrenamiento, obtener el modelo ajustado de Regresión Logística usando todos los predictores. ¿Son todos los predictores significativos?
@@ -89,7 +97,7 @@ Los predictores con un valor p pequeño (generalmente menor a 0.05) son consider
 -   cp
 -   exang1
 -   ca
--   tal
+-   thal
 
 Estos predictores tienen un valor p menor a 0.05, lo que indica que hay una fuerte evidencia de que estos predictores tienen un efecto significativo en la variable de respuesta `disease`.
 
@@ -97,7 +105,6 @@ Estos predictores tienen un valor p menor a 0.05, lo que indica que hay una fuer
 
 ```{r}
 predictions <- predict(modelo_ajustado, newdata = test_data, type = "response")
-predictions
 ```
 
 7)  Veamos ahora el problema de Regresión Logística como un problema de clasificiación. Usando las predicciones del apartado anterior y tomando como punto de corte la probabilidad de 0.5, obtener la clase predicha para los individuos del conjunto de prueba. Medir la eficiencia del modelo calculando la matriz de confusión, accuracy, sensibilidad y especificidad.
@@ -131,9 +138,132 @@ roc(test_data$disease, predictions, plot = TRUE,
 
 ```
 
-
 9)  Repetir el análisis (apartado 5 y siguientes) pero aplicando primero los métodos de selección de regresores, con el fin de proponer un modelo más parsimonioso.
 
 ```{r}
+modelo_cte <- glm(disease ~ 1, data = mydata, family = "binomial")
+modelo_backward <- step(modelo_ajustado, direction = "backward")
+modelo_forward <- step(modelo_cte, direction = "forward", scope = formula(modelo_ajustado))
+modelo_stepwise <- step(modelo_cte, direction = "both", scope = formula(modelo_ajustado))
+```
+```{r}
+modelo_reducido <- glm(disease ~ thal + ca + oldpeak + cp + trestbps + sex + slope, data = train_data, family = "binomial")
+
+predictions2 <- predict(modelo_reducido, newdata = test_data, type = "response")
+predict_group_2 <- ifelse(predictions2 > 0.5, 1, 0)
+
+# Matriz de confusión
+matriz_confusion2 <- table(test_data$disease, predict_group_2)
+
+VP2 <- matriz_confusion2[2, 2]
+FN2 <- matriz_confusion2[2, 1]
+VN2 <- matriz_confusion2[1, 1]
+FP2 <- matriz_confusion2[1, 2]
+
+sensibilidad2 <- VP2/(VP2+FN2)
+especificidad2 <- VN2/(VN2+FP2)
+accuracy2 <- (VP2/VN2)/(VP2+FP2+VN2+FN2)
+paste("Accuracy =", accuracy2)
+paste("Sensibilidad =", sensibilidad2)
+paste("Especificidad =", especificidad2)
+
+# Curva ROC
+library("pROC")
+roc(test_data$disease, predictions2, plot = TRUE,
+    legacy.axes = TRUE, percent = FALSE,
+    xlab = "1-especificidad", ylab = "sensibilidad",
+    col = "blue", lwd = 2, print.auc = TRUE)
+```
+```{r}
+rms::vif(modelo_reducido)
+ts.plot(modelo_reducido$residuals)
+```
+
+
+# Problema 2
+
+¿Qué sucede en el problema anterior si no se realiza el apartado 4? Es decir, qué sucede si no separamos el conjunto de datos en dos subconjuntos de entrenamiento y prueba.
+
+Puede intentar repetir todo el ejercicio en este nuevo escenario y ver qué sucede con las medidads de bondad del ajuste o medidas de eficiencia del método clasificador.
+
+Repetimos todo el proceso hasta salvo el apartado 4.
+
+```{r}
+mydata <- read.table("../../data/processed.cleveland.data", sep = ",", dec = '.', header = FALSE)
+colnames(mydata) <- c("age", "sex", "cp", "trestbps", "chol", "fbs", 
+                      "restecg", "thalach", "exang", "oldpeak", "slope", "ca", 
+                      "thal", "num")
+
+# Crear la nueva variable 'disease'
+mydata$disease[mydata$num == 0] <- 0
+mydata$disease[mydata$num > 0] <- 1
+
+library(dplyr)
+mydata <- select(mydata, -num)
+```
+
+```{r}
+str(mydata)
+
+# Las columnas ca y thal son de tipo chr
+mydata$ca <- as.numeric(mydata$ca)
+mydata$thal <- as.numeric(mydata$thal)
+
+# Como nos da el aviso de que hay valores NA's, vamos a eliminar las filas que 
+# los contienen
+
+mydata <- na.omit(mydata)
+
+# El DataFrame orginal tenía 303 filas y ahora hay 297.
+summary(mydata)
+```
+
+```{r}
+mydata$sex <- factor(mydata$sex)
+mydata$cp <- factor(mydata$cp)
+mydata$fbs <- factor(mydata$fbs)
+mydata$restecg <- factor(mydata$restecg)
+mydata$exang <- factor(mydata$exang)
+mydata$slope <- factor(mydata$slope)
+mydata$ca <- factor(mydata$ca)
+mydata$thal <- factor(mydata$thal)
+mydata$disease <- factor(mydata$disease)
+
+summary(mydata)
+```
+
+```{r}
+modelo_ajustado <- glm(disease ~ ., data = mydata, family = "binomial")
+summary(modelo_ajustado)
+```
+
+```{r}
+predictions <- predict(modelo_ajustado, data = mydata, type = "response")
+```
+
+```{r}
+predic_grupos <- ifelse(predictions > 0.5, 1, 0)
+
+matriz_confusion <- table(mydata$disease, predic_grupos)
+
+VP <- matriz_confusion[2, 2]
+FN <- matriz_confusion[2, 1]
+VN <- matriz_confusion[1, 1]
+FP <- matriz_confusion[1, 2]
+
+sensibilidad <- VP/(VP+FN)
+especificidad <- VN/(VN+FP)
+accuracy <- (VP/VN)/(VP+FP+VN+FN)
+paste("Accuracy =", accuracy)
+paste("Sensibilidad =", sensibilidad)
+paste("Especificidad =", especificidad)
+```
+
+```{r}
+library("pROC")
+roc(mydata$disease, predictions, plot = TRUE,
+    legacy.axes = TRUE, percent = FALSE,
+    xlab = "1-especificidad", ylab = "sensibilidad",
+    col = "blue", lwd = 2, print.auc = TRUE)
 
 ```
