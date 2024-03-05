@@ -1,0 +1,162 @@
+\documentclass[12pt]{article}
+\usepackage{fullpage}
+\usepackage[utf8]{inputenc}
+\usepackage{pict2e}
+\usepackage{amsmath}
+\usepackage{enumitem}
+\usepackage{eurosym}
+\usepackage{mathtools}
+\usepackage{amssymb, amsfonts, latexsym, cancel}
+\setlength{\parskip}{0.3cm}
+\usepackage{graphicx}
+\usepackage{fontenc}
+\usepackage{slashbox}
+\usepackage{setspace}
+\usepackage{gensymb}
+\usepackage{accents}
+\usepackage{adjustbox}
+\setstretch{1.35}
+\usepackage{bold-extra}
+\usepackage{subcaption}
+\usepackage{tcolorbox}
+\usepackage{xcolor, colortbl}
+\usepackage{wrapfig}
+\usepackage{empheq}
+\usepackage{array}
+\usepackage{parskip}
+\usepackage{arydshln}
+\graphicspath{ {images/} }
+\renewcommand*\contentsname{\color{black}Índice} 
+\usepackage{array, multirow, multicol}
+\definecolor{lightblue}{HTML}{007AFF}
+\usepackage{color}
+\usepackage{etoolbox}
+\usepackage{listings}
+\usepackage{mdframed}
+\setlength{\parindent}{0pt}
+\usepackage{underscore}
+\usepackage{hyperref}
+\usepackage{tikz}
+\usepackage{tikz-cd}
+\usetikzlibrary{shapes, positioning, patterns}
+\usepackage{tikz-qtree}
+\usepackage{biblatex}
+\usepackage{pdfpages}
+\usepackage{pgfplots}
+\usepackage{pgfkeys}
+\addbibresource{biblatex-examples.bib}
+\usepackage[a4paper, left=1cm, right=1cm, top=1cm, bottom=1.5cm]{geometry}
+\usepackage{titlesec}
+\usepackage{titletoc}
+\usepackage{tikz-3dplot}
+\usepackage{kbordermatrix}
+\usetikzlibrary{decorations.pathreplacing}
+\newcommand{\Ej}{\textcolor{lightblue}{\underline{Ejemplo}}}
+\setlength{\fboxrule}{1.5pt}
+
+\newcommand{\bboxed}[1]{\fcolorbox{lightblue}{lightblue!10}{$#1$}}
+\newcommand{\rboxed}[1]{\fcolorbox{red}{red!10}{$#1$}}
+
+\DeclareMathOperator{\N}{\mathbb{N}}
+\DeclareMathOperator{\Z}{\mathbb{Z}}
+\DeclareMathOperator{\R}{\mathbb{R}}
+\DeclareMathOperator{\Q}{\mathbb{Q}}
+\DeclareMathOperator{\K}{\mathbb{K}}
+\DeclareMathOperator{\im}{\imath}
+\DeclareMathOperator{\jm}{\jmath}
+\DeclareMathOperator{\col}{\mathrm{Col}}
+\DeclareMathOperator{\fil}{\mathrm{Fil}}
+\DeclareMathOperator{\rg}{\mathrm{rg}}
+\DeclareMathOperator{\nuc}{\mathrm{nuc}}
+\DeclareMathOperator{\dimf}{\mathrm{dimFil}}
+\DeclareMathOperator{\dimc}{\mathrm{dimCol}}
+\DeclareMathOperator{\dimn}{\mathrm{dimnuc}}
+\DeclareMathOperator{\dimr}{\mathrm{dimrg}}
+\DeclareMathOperator{\dom}{\mathrm{Dom}}
+\DeclareMathOperator{\infi}{\int_{-\infty}^{+\infty}}
+\newcommand{\dint}[2]{\int_{#1}^{#2}}
+
+\newcommand{\bu}[1]{\textcolor{lightblue}{\underline{#1}}}
+\newcommand{\lb}[1]{\textcolor{lightblue}{#1}}
+\newcommand{\db}[1]{\textcolor{blue}{#1}}
+\newcommand{\rc}[1]{\textcolor{red}{#1}}
+
+\renewcommand{\CancelColor}{\color{lightblue}}
+\newcommand{\code}[1]{\texttt{\textbf{#1}}}
+
+\newcommand{\dx}{\:\mathrm{d}x}
+\newcommand{\dt}{\:\mathrm{d}t}
+\newcommand{\dy}{\:\mathrm{d}y}
+\newcommand{\dz}{\:\mathrm{d}z}
+\newcommand{\dth}{\:\mathrm{d}\theta}
+\newcommand{\dr}{\:\mathrm{d}\rho}
+\newcommand{\du}{\:\mathrm{d}u}
+\newcommand{\dv}{\:\mathrm{d}v}
+\newcommand{\tozero}[1]{\cancelto{0}{#1}}
+\newcommand{\lbb}[2]{\textcolor{lightblue}{\underbracket[1pt]{\textcolor{black}{#1}}_{#2}}}
+\newcommand{\dbb}[2]{\textcolor{blue}{\underbracket[1pt]{\textcolor{black}{#1}}_{#2}}}
+\newcommand{\rub}[2]{\textcolor{red}{\underbracket[1pt]{\textcolor{black}{#1}}_{#2}}}
+
+\titleformat{\section}{\normalfont\LARGE\bfseries}{\thesection.}{10 pt}{}
+
+\title{\textbf{\huge Práctica 2 de Señales y Sistemas}\\ Convolución y análisis de sistemas LTI}
+\author{Francisco Javier Mercader Martínez\\ Rubén Gil Martínez}
+
+\usepackage{matlab-prettifier}
+
+\lstset{
+	language=matlab,
+	basicstyle=\ttfamily,
+	keywordstyle=\color{blue},
+	commentstyle=\color{green!70!black},
+	stringstyle=\color{red},
+	showstringspaces=false,
+	breaklines=true,
+	frame=single,
+	backgroundcolor=\color{lightgray!10},
+	captionpos=b,
+	tabsize=2,
+	inputencoding=utf8,
+	literate={á}{{\'a}}1 {é}{{\'e}}1 {í}{{\'i}}1 {ó}{{\'o}}1 {ú}{{\'u}}1{ñ}{{\~n}}1
+}
+
+\begin{document}
+	\maketitle
+	\newpage
+	\section{Convolución de señales discretas}
+La convolución de dos señales discretas viene dada por la expresión \[ y[n]=h[n]\cdot x[n]=\sum_{k=-\infty}^{\infty}x[k]h[n-k] \]La convolución de dos señales se puede entender de dos maneras desde el punto de vista analítico:
+\begin{enumerate}[label=\arabic*)]
+	\item En la primera a cada impulso de la señal de entrada, el sistema responde con la respuesta al impulso ponderada por el valor de la señal en ese momento, así: \[ y[n]=\cdots+x[-1]h[n+1]+x[0]h[n]+x[1]h[n-1]+x[2]h[n-2]+\cdots \]
+	\item Para la segunda en cada instante de tiempo discreto $n$ la señal de salida $y[n]$ se calcula asumiendo que el eje de tiempos es $k$, se queda fija la señal de entrada, y se invierte y  se desplaza a $n$ la respuesta al impulso, multiplicándose finalmente ambas señales y sumando todos sus valores. De esta manera podemos obtener el resultado:
+	\[ \begin{array}{l}
+		\cdots\\
+		y[-1]=\sum_{k=-\infty}^{\infty}x[k]h[-1-k]\\
+		y[0]=\sum_{k=-\infty}^{\infty}x[k]h[0-k]\\
+		y[1]=\sum_{k=-\infty}^{\infty}x[k]h[1-k]\\
+		\cdots
+	\end{array} \]
+\end{enumerate}
+\subsection*{Cuestiones}
+\begin{itemize}[leftmargin=*]
+	\item \textbf{Calcule previamente de manera gráfica y a mano la convolución de las dos señales casuales $\mathbf{x[n]}$ y $\mathbf{h[n]}$} que definiremos en MATLAB de la siguiente manera.
+	\begin{itemize}[label=\textbullet]
+		\item \code{x = [1 2 -2];}
+		\item \code{h = [1 3 0 1 2 1 2];}
+	\end{itemize}
+	
+\begin{lstlisting}
+x = [1 2 -2];
+h = [1 3 0 1 2 1 2];
+
+y = conv(x, h);
+\end{lstlisting}
+	\item \textbf{Teniendo en cuneta que la longitud de la secuencia $\mathbf{x[n]}$ es $\mathbf{N}$ y la de $\mathbf{h[n]}$ es $\mathbf{M}$, deduzca una expresión para la longitud de $\mathbf{y[n]}$.}
+	
+	\begin{lstlisting}
+longitud_y = length(x) + length(h) - 1;  % = 9
+	\end{lstlisting}
+	
+	\item Programa dos funciones MATLAB, denominadas \code{conv1} y \code{conv2}, que implementen la convolución de dos señales dsicretas mediante el método 1 y el método 2, explicados anteriormente. Las funciones tendrán el formato \code{y=conv1(x,h)} y \code{y=conv2(x,h)}. Puede inicializar la longitud de la señal de salida deducida en el punto anterior al implementear las funciones. Proporcione el código desarrollado.
+	\item Compruebe el correcto funcionamiento de las funciones empleando las señales $x[n]$ y $h[n]$ generadas en MATLAB previamente. Consulta la ayuda (con el comnado \code{help}) de la función \code{conv} de MATLAB, que implementa la convolución discreta de dos secuencias. El resultado con \code{conv}, \code{conv1} y \code{conv2} ha de ser el mismo con cualquier par de señales de entrada.
+\end{itemize}
+\end{document}

@@ -1,16 +1,15 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (MiKTeX 24.1) (preloaded format=pdflatex 2024.2.18)  4 MAR 2024 13:46
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (MiKTeX 24.1) (preloaded format=pdflatex 2024.2.18)  4 MAR 2024 16:13
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
-**./Ejercicios.tex
-(Ejercicios.tex
+**./Memoria.tex
+(Memoria.tex
 LaTeX2e <2023-11-01> patch level 1
 L3 programming layer <2024-02-13>
-(../../Macros.tex
 (C:\Users\fcoja\AppData\Local\Programs\MiKTeX\tex/latex/base\article.cls
 Document Class: article 2023/05/17 v1.4n Standard LaTeX document class
-(C:\Users\fcoja\AppData\Local\Programs\MiKTeX\tex/latex/base\size10.clo
-File: size10.clo 2023/05/17 v1.4n Standard LaTeX file (size option)
+(C:\Users\fcoja\AppData\Local\Programs\MiKTeX\tex/latex/base\size12.clo
+File: size12.clo 2023/05/17 v1.4n Standard LaTeX file (size option)
 )
 \c@part=\count188
 \c@section=\count189
@@ -1701,46 +1700,64 @@ Package: kbordermatrix 2011/09/21 Bordered matrix with brackets
 \br@kwd=\skip160
 \k@bordht=\skip161
 )
-\c@subsubsubsection=\count514
-)
-\@quotelevel=\count515
-\@quotereset=\count516
- (Ejercicios.aux)
-\openout1 = `Ejercicios.aux'.
+(C:\Users\fcoja\AppData\Local\Programs\MiKTeX\tex/latex/matlab-prettifier\matla
+b-prettifier.sty
+Package: matlab-prettifier 2014/06/19 v0.3 A package for prettyprinting Matlab 
+source code
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 9.
-LaTeX Font Info:    ... okay on input line 9.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 9.
-LaTeX Font Info:    ... okay on input line 9.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 9.
-LaTeX Font Info:    ... okay on input line 9.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 9.
-LaTeX Font Info:    ... okay on input line 9.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 9.
-LaTeX Font Info:    ... okay on input line 9.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 9.
-LaTeX Font Info:    ... okay on input line 9.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 9.
-LaTeX Font Info:    ... okay on input line 9.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 9.
-LaTeX Font Info:    ... okay on input line 9.
-LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 9.
-LaTeX Font Info:    ... okay on input line 9.
+(C:\Users\fcoja\AppData\Local\Programs\MiKTeX\tex/latex/base\textcomp.sty
+Package: textcomp 2020/02/02 v2.0n Standard LaTeX package
+)
+\netBracketCount@mlpr=\count514
+\blkLvl@mlpr=\count515
+\blkLvlAtClassdef@mlpr=\count516
+\emHeight@mlpr=\skip162
+\jayDepth@mlpr=\skip163
+\sectionRuleOffset@mlpr=\skip164
+\toks@mlpr=\toks64
+)
+(C:\Users\fcoja\AppData\Local\Programs\MiKTeX\tex/latex/listings\lstlang1.sty
+File: lstlang1.sty 2023/02/27 1.9 listings language file
+)
+\@quotelevel=\count517
+\@quotereset=\count518
+
+(Memoria.aux)
+\openout1 = `Memoria.aux'.
+
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 123.
+LaTeX Font Info:    ... okay on input line 123.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 123.
+LaTeX Font Info:    ... okay on input line 123.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 123.
+LaTeX Font Info:    ... okay on input line 123.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 123.
+LaTeX Font Info:    ... okay on input line 123.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 123.
+LaTeX Font Info:    ... okay on input line 123.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 123.
+LaTeX Font Info:    ... okay on input line 123.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 123.
+LaTeX Font Info:    ... okay on input line 123.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 123.
+LaTeX Font Info:    ... okay on input line 123.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 123.
+LaTeX Font Info:    ... okay on input line 123.
 
 (C:\Users\fcoja\AppData\Local\Programs\MiKTeX\tex/context/base/mkii\supp-pdf.mk
 ii
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count517
+\scratchcounter=\count519
 \scratchdimen=\dimen403
 \scratchbox=\box166
-\nofMPsegments=\count518
-\nofMParguments=\count519
-\everyMPshowfont=\toks64
-\MPscratchCnt=\count520
+\nofMPsegments=\count520
+\nofMParguments=\count521
+\everyMPshowfont=\toks65
+\MPscratchCnt=\count522
 \MPscratchDim=\dimen404
-\MPnumerator=\count521
-\makeMPintoPDFobject=\count522
-\everyMPtoPDFconversion=\toks65
+\MPnumerator=\count523
+\makeMPintoPDFobject=\count524
+\everyMPtoPDFconversion=\toks66
 )
 (C:\Users\fcoja\AppData\Local\Programs\MiKTeX\tex/latex/epstopdf-pkg\epstopdf-b
 ase.sty
@@ -1752,27 +1769,27 @@ Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 4
 fg
 File: epstopdf-sys.cfg 2021/03/18 v2.0 Configuration of epstopdf for MiKTeX
 ))
-LaTeX Info: Redefining \celsius on input line 9.
-Package gensymb Info: Faking symbols for \degree and \celsius on input line 9.
-
-
-Package gensymb Warning: Not defining \perthousand.
-
-LaTeX Info: Redefining \ohm on input line 9.
-Package gensymb Info: Using \Omega for \ohm on input line 9.
-
-Package gensymb Warning: Not defining \micro.
-
+\symgns@font=\mathgroup7
+LaTeX Font Info:    Overwriting symbol font `gns@font' in version `bold'
+(Font)                  TS1/cmr/m/n --> TS1/cmr/b/n on input line 123.
+Package gensymb Info: Math companion symbols declared on input line 123.
+LaTeX Info: Redefining \degree on input line 123.
+LaTeX Info: Redefining \celsius on input line 123.
+Package gensymb Info: Using text companion symbols for \degree, \celsius and \p
+erthousand on input line 123.
+LaTeX Info: Redefining \ohm on input line 123.
+Package gensymb Info: Using \textohm for \ohm on input line 123.
+Package gensymb Info: Using \textmu for \micro on input line 123.
 Package caption Info: Begin \AtBeginDocument code.
 Package caption Info: hyperref package is loaded.
 Package caption Info: listings package is loaded.
 Package caption Info: wrapfig package is loaded.
 Package caption Info: End \AtBeginDocument code.
-\c@lstlisting=\count523
-Package hyperref Info: Link coloring OFF on input line 9.
-(Ejercicios.out) (Ejercicios.out)
+\c@lstlisting=\count525
+Package hyperref Info: Link coloring OFF on input line 123.
+ (Memoria.out) (Memoria.out)
 \@outlinefile=\write5
-\openout5 = `Ejercicios.out'.
+\openout5 = `Memoria.out'.
 
 Package biblatex Info: Trying to load language 'english'...
 Package biblatex Info: ... file 'english.lbx' found.
@@ -1784,14 +1801,14 @@ File: english.lbx 2023/03/05 v3.19 biblatex localization (PK/MW)
 Package biblatex Info: Input encoding 'utf8' detected.
 Package biblatex Info: Automatic encoding selection.
 (biblatex)             Assuming data encoding 'utf8'.
-\openout4 = `Ejercicios.bcf'.
+\openout4 = `Memoria.bcf'.
 
 Package biblatex Info: Trying to load bibliographic data...
-Package biblatex Info: ... file 'Ejercicios.bbl' not found.
+Package biblatex Info: ... file 'Memoria.bbl' not found.
 
-No file Ejercicios.bbl.
-Package biblatex Info: Reference section=0 on input line 9.
-Package biblatex Info: Reference segment=0 on input line 9.
+No file Memoria.bbl.
+Package biblatex Info: Reference section=0 on input line 123.
+Package biblatex Info: Reference segment=0 on input line 123.
 
 (C:\Users\fcoja\AppData\Local\Programs\MiKTeX\tex/latex/pdflscape\pdflscape.sty
 Package: pdflscape 2022-10-27 v0.13 Display of landscape pages in PDF
@@ -1810,7 +1827,7 @@ Package pdflscape Info: Auto-detected driver: pdftex on input line 81.
 Package pgfplots Warning: running in backwards compatibility mode (unsuitable t
 ick labels; missing features). Consider writing \pgfplotsset{compat=1.18} into 
 your preamble.
- on input line 9.
+ on input line 123.
 
 *geometry* driver: auto-detecting
 *geometry* detected driver: pdftex
@@ -1831,12 +1848,12 @@ your preamble.
 * \topmargin=-43.81725pt
 * \headheight=0.0pt
 * \headsep=0.0pt
-* \topskip=10.0pt
+* \topskip=12.0pt
 * \footskip=30.0pt
-* \marginparwidth=65.0pt
-* \marginparsep=11.0pt
+* \marginparwidth=44.0pt
+* \marginparsep=10.0pt
 * \columnsep=10.0pt
-* \skip\footins=9.0pt plus 4.0pt minus 2.0pt
+* \skip\footins=10.8pt plus 4.0pt minus 2.0pt
 * \hoffset=0.0pt
 * \voffset=0.0pt
 * \mag=1000
@@ -1846,525 +1863,64 @@ your preamble.
 * \@reversemarginfalse
 * (1in=72.27pt=25.4mm, 1cm=28.453pt)
 
-(Temas/Tema 1/Tema 1.tex
-<Temas/Tema 1/Hoja 1.pdf, id=6, 597.5078pt x 845.04686pt>
-File: Temas/Tema 1/Hoja 1.pdf Graphic file (type pdf)
-<use Temas/Tema 1/Hoja 1.pdf>
-Package pdftex.def Info: Temas/Tema 1/Hoja 1.pdf  used on input line 1.
-(pdftex.def)             Requested size: 597.50633pt x 845.0448pt.
-File: Temas/Tema 1/Hoja 1.pdf Graphic file (type pdf)
-<use Temas/Tema 1/Hoja 1.pdf>
-Package pdftex.def Info: Temas/Tema 1/Hoja 1.pdf  used on input line 1.
-(pdftex.def)             Requested size: 597.50633pt x 845.0448pt.
-<Temas/Tema 1/Hoja 1.pdf, id=9, page=1, 597.5078pt x 845.04686pt>
-File: Temas/Tema 1/Hoja 1.pdf Graphic file (type pdf)
-<use Temas/Tema 1/Hoja 1.pdf, page 1>
-Package pdftex.def Info: Temas/Tema 1/Hoja 1.pdf , page1 used on input line 1.
-(pdftex.def)             Requested size: 597.50633pt x 845.0448pt.
-File: Temas/Tema 1/Hoja 1.pdf Graphic file (type pdf)
-<use Temas/Tema 1/Hoja 1.pdf, page 1>
-Package pdftex.def Info: Temas/Tema 1/Hoja 1.pdf , page1 used on input line 1.
-(pdftex.def)             Requested size: 597.53368pt x 845.08348pt.
-File: Temas/Tema 1/Hoja 1.pdf Graphic file (type pdf)
-<use Temas/Tema 1/Hoja 1.pdf, page 1>
-Package pdftex.def Info: Temas/Tema 1/Hoja 1.pdf , page1 used on input line 1.
-(pdftex.def)             Requested size: 597.53368pt x 845.08348pt.
-File: Temas/Tema 1/Hoja 1.pdf Graphic file (type pdf)
-<use Temas/Tema 1/Hoja 1.pdf, page 1>
-Package pdftex.def Info: Temas/Tema 1/Hoja 1.pdf , page1 used on input line 1.
-(pdftex.def)             Requested size: 597.53368pt x 845.08348pt.
-File: Temas/Tema 1/Hoja 1.pdf Graphic file (type pdf)
-<use Temas/Tema 1/Hoja 1.pdf, page 1>
-Package pdftex.def Info: Temas/Tema 1/Hoja 1.pdf , page1 used on input line 1.
-(pdftex.def)             Requested size: 597.53368pt x 845.08348pt.
- [1
-
-
- <./Temas/Tema 1/Hoja 1.pdf>]
-<Temas/Tema 1/Hoja 1.pdf, id=49, page=2, 597.5078pt x 845.04686pt>
-File: Temas/Tema 1/Hoja 1.pdf Graphic file (type pdf)
-<use Temas/Tema 1/Hoja 1.pdf, page 2>
-Package pdftex.def Info: Temas/Tema 1/Hoja 1.pdf , page2 used on input line 1.
-(pdftex.def)             Requested size: 597.53368pt x 845.08348pt.
-File: Temas/Tema 1/Hoja 1.pdf Graphic file (type pdf)
-<use Temas/Tema 1/Hoja 1.pdf, page 2>
-Package pdftex.def Info: Temas/Tema 1/Hoja 1.pdf , page2 used on input line 1.
-(pdftex.def)             Requested size: 597.53368pt x 845.08348pt.
-File: Temas/Tema 1/Hoja 1.pdf Graphic file (type pdf)
-<use Temas/Tema 1/Hoja 1.pdf, page 2>
-Package pdftex.def Info: Temas/Tema 1/Hoja 1.pdf , page2 used on input line 1.
-(pdftex.def)             Requested size: 597.53368pt x 845.08348pt.
- [2
-
- <./Temas/Tema 1/Hoja 1.pdf>]
-<Temas/Tema 1/Hoja 1.pdf, id=55, page=3, 597.5078pt x 845.04686pt>
-File: Temas/Tema 1/Hoja 1.pdf Graphic file (type pdf)
-<use Temas/Tema 1/Hoja 1.pdf, page 3>
-Package pdftex.def Info: Temas/Tema 1/Hoja 1.pdf , page3 used on input line 1.
-(pdftex.def)             Requested size: 597.53368pt x 845.08348pt.
-File: Temas/Tema 1/Hoja 1.pdf Graphic file (type pdf)
-<use Temas/Tema 1/Hoja 1.pdf, page 3>
-Package pdftex.def Info: Temas/Tema 1/Hoja 1.pdf , page3 used on input line 1.
-(pdftex.def)             Requested size: 597.53368pt x 845.08348pt.
-File: Temas/Tema 1/Hoja 1.pdf Graphic file (type pdf)
-<use Temas/Tema 1/Hoja 1.pdf, page 3>
-Package pdftex.def Info: Temas/Tema 1/Hoja 1.pdf , page3 used on input line 1.
-(pdftex.def)             Requested size: 597.53368pt x 845.08348pt.
- [3
-
- <./Temas/Tema 1/Hoja 1.pdf>]
-<Temas/Tema 1/Hoja 1.pdf, id=64, page=4, 597.5078pt x 845.04686pt>
-File: Temas/Tema 1/Hoja 1.pdf Graphic file (type pdf)
-<use Temas/Tema 1/Hoja 1.pdf, page 4>
-Package pdftex.def Info: Temas/Tema 1/Hoja 1.pdf , page4 used on input line 1.
-(pdftex.def)             Requested size: 597.53368pt x 845.08348pt.
-File: Temas/Tema 1/Hoja 1.pdf Graphic file (type pdf)
-<use Temas/Tema 1/Hoja 1.pdf, page 4>
-Package pdftex.def Info: Temas/Tema 1/Hoja 1.pdf , page4 used on input line 1.
-(pdftex.def)             Requested size: 597.53368pt x 845.08348pt.
-File: Temas/Tema 1/Hoja 1.pdf Graphic file (type pdf)
-<use Temas/Tema 1/Hoja 1.pdf, page 4>
-Package pdftex.def Info: Temas/Tema 1/Hoja 1.pdf , page4 used on input line 1.
-(pdftex.def)             Requested size: 597.53368pt x 845.08348pt.
- [4
-
- <./Temas/Tema 1/Hoja 1.pdf>]
-<Temas/Tema 1/Hoja 1.pdf, id=70, page=5, 597.5078pt x 845.04686pt>
-File: Temas/Tema 1/Hoja 1.pdf Graphic file (type pdf)
-<use Temas/Tema 1/Hoja 1.pdf, page 5>
-Package pdftex.def Info: Temas/Tema 1/Hoja 1.pdf , page5 used on input line 1.
-(pdftex.def)             Requested size: 597.53368pt x 845.08348pt.
-File: Temas/Tema 1/Hoja 1.pdf Graphic file (type pdf)
-<use Temas/Tema 1/Hoja 1.pdf, page 5>
-Package pdftex.def Info: Temas/Tema 1/Hoja 1.pdf , page5 used on input line 1.
-(pdftex.def)             Requested size: 597.53368pt x 845.08348pt.
-File: Temas/Tema 1/Hoja 1.pdf Graphic file (type pdf)
-<use Temas/Tema 1/Hoja 1.pdf, page 5>
-Package pdftex.def Info: Temas/Tema 1/Hoja 1.pdf , page5 used on input line 1.
-(pdftex.def)             Requested size: 597.53368pt x 845.08348pt.
-
-[5
-
- <./Temas/Tema 1/Hoja 1.pdf>]
-<Temas/Tema 1/Hoja 1.pdf, id=76, page=6, 597.5078pt x 845.04686pt>
-File: Temas/Tema 1/Hoja 1.pdf Graphic file (type pdf)
-<use Temas/Tema 1/Hoja 1.pdf, page 6>
-Package pdftex.def Info: Temas/Tema 1/Hoja 1.pdf , page6 used on input line 1.
-(pdftex.def)             Requested size: 597.53368pt x 845.08348pt.
-File: Temas/Tema 1/Hoja 1.pdf Graphic file (type pdf)
-<use Temas/Tema 1/Hoja 1.pdf, page 6>
-Package pdftex.def Info: Temas/Tema 1/Hoja 1.pdf , page6 used on input line 1.
-(pdftex.def)             Requested size: 597.53368pt x 845.08348pt.
-File: Temas/Tema 1/Hoja 1.pdf Graphic file (type pdf)
-<use Temas/Tema 1/Hoja 1.pdf, page 6>
-Package pdftex.def Info: Temas/Tema 1/Hoja 1.pdf , page6 used on input line 1.
-(pdftex.def)             Requested size: 597.53368pt x 845.08348pt.
- [6
-
- <./Temas/Tema 1/Hoja 1.pdf>]
-<Temas/Tema 1/Hoja 1.pdf, id=81, page=7, 597.5078pt x 845.04686pt>
-File: Temas/Tema 1/Hoja 1.pdf Graphic file (type pdf)
-<use Temas/Tema 1/Hoja 1.pdf, page 7>
-Package pdftex.def Info: Temas/Tema 1/Hoja 1.pdf , page7 used on input line 1.
-(pdftex.def)             Requested size: 597.53368pt x 845.08348pt.
-File: Temas/Tema 1/Hoja 1.pdf Graphic file (type pdf)
-<use Temas/Tema 1/Hoja 1.pdf, page 7>
-Package pdftex.def Info: Temas/Tema 1/Hoja 1.pdf , page7 used on input line 1.
-(pdftex.def)             Requested size: 597.53368pt x 845.08348pt.
-File: Temas/Tema 1/Hoja 1.pdf Graphic file (type pdf)
-<use Temas/Tema 1/Hoja 1.pdf, page 7>
-Package pdftex.def Info: Temas/Tema 1/Hoja 1.pdf , page7 used on input line 1.
-(pdftex.def)             Requested size: 597.53368pt x 845.08348pt.
- [7
-
- <./Temas/Tema 1/Hoja 1.pdf>]
-<Temas/Tema 1/Hoja 1.pdf, id=88, page=8, 597.5078pt x 845.04686pt>
-File: Temas/Tema 1/Hoja 1.pdf Graphic file (type pdf)
-<use Temas/Tema 1/Hoja 1.pdf, page 8>
-Package pdftex.def Info: Temas/Tema 1/Hoja 1.pdf , page8 used on input line 1.
-(pdftex.def)             Requested size: 597.53368pt x 845.08348pt.
-File: Temas/Tema 1/Hoja 1.pdf Graphic file (type pdf)
-<use Temas/Tema 1/Hoja 1.pdf, page 8>
-Package pdftex.def Info: Temas/Tema 1/Hoja 1.pdf , page8 used on input line 1.
-(pdftex.def)             Requested size: 597.53368pt x 845.08348pt.
-File: Temas/Tema 1/Hoja 1.pdf Graphic file (type pdf)
-<use Temas/Tema 1/Hoja 1.pdf, page 8>
-Package pdftex.def Info: Temas/Tema 1/Hoja 1.pdf , page8 used on input line 1.
-(pdftex.def)             Requested size: 597.53368pt x 845.08348pt.
- [8
-
- <./Temas/Tema 1/Hoja 1.pdf>]
-LaTeX Font Info:    Trying to load font information for U+msa on input line 4.
-
+LaTeX Font Info:    Trying to load font information for U+msa on input line 125
+.
 (C:\Users\fcoja\AppData\Local\Programs\MiKTeX\tex/latex/amsfonts\umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Trying to load font information for U+msb on input line 4.
+LaTeX Font Info:    Trying to load font information for U+msb on input line 125
+.
 
 (C:\Users\fcoja\AppData\Local\Programs\MiKTeX\tex/latex/amsfonts\umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )
-LaTeX Font Info:    Trying to load font information for U+lasy on input line 4.
-
+LaTeX Font Info:    Trying to load font information for U+lasy on input line 12
+5.
 
 (C:\Users\fcoja\AppData\Local\Programs\MiKTeX\tex/latex/base\ulasy.fd
 File: ulasy.fd 1998/08/17 v2.2e LaTeX symbol font definitions
-)
-Underfull \hbox (badness 5533) in paragraph at lines 16--17
-[]$\OML/cmm/m/it/10 E[] \OT1/cmr/m/n/10 = [] \OMS/cmsy/m/n/10 j\OML/cmm/m/it/10
- x\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 t\OT1/cmr/m/n/10 )\OMS/cmsy/m/n/10 j[] \OT1
-/cmr/m/n/10 d\OML/cmm/m/it/10 t \OT1/cmr/m/n/10 = [][] \OMS/cmsy/m/n/10 j\OML/c
-mm/m/it/10 e[]\OMS/cmsy/m/n/10 j[] \OT1/cmr/m/n/10 d\OML/cmm/m/it/10 t \OT1/cmr
-/m/n/10 =
- []
+) [1
 
-[9{C:/Users/fcoja/AppData/Local/MiKTeX/fonts/map/pdftex/pdftex.map}] [10]
-[11]
-<Temas/Tema 1/screenshot001.png, id=131, 744.53156pt x 519.44063pt>
-File: Temas/Tema 1/screenshot001.png Graphic file (type png)
-<use Temas/Tema 1/screenshot001.png>
-Package pdftex.def Info: Temas/Tema 1/screenshot001.png  used on input line 274
-.
-(pdftex.def)             Requested size: 297.33296pt x 207.4476pt.
-
-Overfull \hbox (3.1669pt too wide) in paragraph at lines 273--279
-[]$[]$ $[]$ 
- []
-
-<Temas/Tema 1/screenshot002.png, id=133, 743.77875pt x 579.66562pt>
-File: Temas/Tema 1/screenshot002.png Graphic file (type png)
-<use Temas/Tema 1/screenshot002.png>
-Package pdftex.def Info: Temas/Tema 1/screenshot002.png  used on input line 284
-.
-(pdftex.def)             Requested size: 297.33296pt x 231.72946pt.
-
-Overfull \hbox (3.1669pt too wide) in paragraph at lines 283--288
-[]$[]$ $[]$ 
- []
-
-[12 <./Temas/Tema 1/screenshot001.png> <./Temas/Tema 1/screenshot002.png>]
-[13]
-
-LaTeX Warning: `h' float specifier changed to `ht'.
-
-[14]
-<Temas/Tema 1/screenshot003.png, id=180, 332.74312pt x 239.39438pt>
-File: Temas/Tema 1/screenshot003.png Graphic file (type png)
-<use Temas/Tema 1/screenshot003.png>
-Package pdftex.def Info: Temas/Tema 1/screenshot003.png  used on input line 435
-.
-(pdftex.def)             Requested size: 332.7423pt x 239.39378pt.
-<Temas/Tema 1/screenshot004.png, id=181, 319.4334pt x 229.8186pt>
-File: Temas/Tema 1/screenshot004.png Graphic file (type png)
-<use Temas/Tema 1/screenshot004.png>
-Package pdftex.def Info: Temas/Tema 1/screenshot004.png  used on input line 443
-.
-(pdftex.def)             Requested size: 378.42001pt x 272.2777pt.
- [15 <./Temas/Tema 1/screenshot003.png>]
-<Temas/Tema 1/screenshot005.png, id=190, 319.4334pt x 229.8186pt>
-File: Temas/Tema 1/screenshot005.png Graphic file (type png)
-<use Temas/Tema 1/screenshot005.png>
-Package pdftex.def Info: Temas/Tema 1/screenshot005.png  used on input line 447
-.
-(pdftex.def)             Requested size: 378.42001pt x 272.2777pt.
-<Temas/Tema 1/screenshot006.png, id=191, 2375.87625pt x 2378.8875pt>
-File: Temas/Tema 1/screenshot006.png Graphic file (type png)
-<use Temas/Tema 1/screenshot006.png>
-Package pdftex.def Info: Temas/Tema 1/screenshot006.png  used on input line 456
-.
-(pdftex.def)             Requested size: 378.42001pt x 378.88744pt.
- [16 <./Temas/Tema 1/screenshot004.png> <./Temas/Tema 1/screenshot005.png>]
-<Temas/Tema 1/screenshot007.png, id=199, 594.72188pt x 594.72188pt>
-File: Temas/Tema 1/screenshot007.png Graphic file (type png)
-<use Temas/Tema 1/screenshot007.png>
-Package pdftex.def Info: Temas/Tema 1/screenshot007.png  used on input line 465
-.
-(pdftex.def)             Requested size: 324.36473pt x 324.35748pt.
- [17 <./Temas/Tema 1/screenshot006.png>]
-<Temas/Tema 1/screenshot008.png, id=205, 593.96906pt x 593.96906pt>
-File: Temas/Tema 1/screenshot008.png Graphic file (type png)
-<use Temas/Tema 1/screenshot008.png>
-Package pdftex.def Info: Temas/Tema 1/screenshot008.png  used on input line 473
-.
-(pdftex.def)             Requested size: 352.36461pt x 352.37823pt.
- [18 <./Temas/Tema 1/screenshot007.png> <./Temas/Tema 1/screenshot008.png>]
-<Temas/Tema 1/screenshot009.png, id=213, 614.295pt x 576.65437pt>
-File: Temas/Tema 1/screenshot009.png Graphic file (type png)
-<use Temas/Tema 1/screenshot009.png>
-Package pdftex.def Info: Temas/Tema 1/screenshot009.png  used on input line 479
-.
-(pdftex.def)             Requested size: 276.86064pt x 259.89682pt.
-<Temas/Tema 1/screenshot010.png, id=214, 621.82312pt x 238.64156pt>
-File: Temas/Tema 1/screenshot010.png Graphic file (type png)
-<use Temas/Tema 1/screenshot010.png>
-Package pdftex.def Info: Temas/Tema 1/screenshot010.png  used on input line 507
-.
-(pdftex.def)             Requested size: 297.33296pt x 114.10966pt.
-<Temas/Tema 1/screenshot011.png, id=215, 596.9502pt x 229.0959pt>
-File: Temas/Tema 1/screenshot011.png Graphic file (type png)
-<use Temas/Tema 1/screenshot011.png>
-Package pdftex.def Info: Temas/Tema 1/screenshot011.png  used on input line 509
-.
-(pdftex.def)             Requested size: 297.33296pt x 114.1107pt.
-
-Overfull \hbox (3.1669pt too wide) in paragraph at lines 505--516
-[]$[]$ $[]$ 
- []
-
-File: Temas/Tema 1/screenshot010.png Graphic file (type png)
-<use Temas/Tema 1/screenshot010.png>
-Package pdftex.def Info: Temas/Tema 1/screenshot010.png  used on input line 521
-.
-(pdftex.def)             Requested size: 297.33296pt x 114.10966pt.
-<Temas/Tema 1/screenshot012.png, id=216, 596.9502pt x 229.0959pt>
-File: Temas/Tema 1/screenshot012.png Graphic file (type png)
-<use Temas/Tema 1/screenshot012.png>
-Package pdftex.def Info: Temas/Tema 1/screenshot012.png  used on input line 523
-.
-(pdftex.def)             Requested size: 297.33296pt x 114.1107pt.
-
-Overfull \hbox (3.1669pt too wide) in paragraph at lines 519--529
-[]$[]$ $[]$ 
- []
-
-[19 <./Temas/Tema 1/screenshot009.png> <./Temas/Tema 1/screenshot010.png> <./Te
-mas/Tema 1/screenshot011.png>] [20 <./Temas/Tema 1/screenshot012.png>]
-<Temas/Tema 1/screenshot013.png, id=259, 402.00188pt x 238.64156pt>
-File: Temas/Tema 1/screenshot013.png Graphic file (type png)
-<use Temas/Tema 1/screenshot013.png>
-Package pdftex.def Info: Temas/Tema 1/screenshot013.png  used on input line 566
-.
-(pdftex.def)             Requested size: 241.20297pt x 143.18602pt.
-<Temas/Tema 1/screenshot014.png, id=260, 402.00188pt x 238.64156pt>
-File: Temas/Tema 1/screenshot014.png Graphic file (type png)
-<use Temas/Tema 1/screenshot014.png>
-Package pdftex.def Info: Temas/Tema 1/screenshot014.png  used on input line 566
-.
-(pdftex.def)             Requested size: 241.20297pt x 143.18602pt.
- [21 <./Temas/Tema 1/screenshot013.png> <./Temas/Tema 1/screenshot014.png>]
-Underfull \hbox (badness 10000) in paragraph at lines 622--623
-
- []
-
-
-Overfull \hbox (0.85623pt too wide) in paragraph at lines 634--635
-[]$\OML/cmm/m/it/10 ax[]\OT1/cmr/m/n/10 [\OML/cmm/m/it/10 n\OT1/cmr/m/n/10 ] + 
-\OML/cmm/m/it/10 bx[]\OT1/cmr/m/n/10 [\OML/cmm/m/it/10 n\OT1/cmr/m/n/10 ] [][]\
-OMS/cmsy/m/n/10 ! \OML/cmm/m/it/10 ax[]\OT1/cmr/m/n/10 [\OML/cmm/m/it/10 n \OT1
-/cmr/m/n/10 + 1] + \OML/cmm/m/it/10 bx[]\OT1/cmr/m/n/10 [\OML/cmm/m/it/10 n \OT
-1/cmr/m/n/10 + 1] \OMS/cmsy/m/n/10 ^^@ \OML/cmm/m/it/10 ax[]\OT1/cmr/m/n/10 [\O
-ML/cmm/m/it/10 n \OMS/cmsy/m/n/10 ^^@ \OT1/cmr/m/n/10 1] \OMS/cmsy/m/n/10 ^^@ \
-OML/cmm/m/it/10 bx[]\OT1/cmr/m/n/10 [\OML/cmm/m/it/10 n \OMS/cmsy/m/n/10 ^^@ \O
-T1/cmr/m/n/10 1] = \OML/cmm/m/it/10 a[][] \OT1/cmr/m/n/10 + \OML/cmm/m/it/10 b[
-][] [][]\OMS/cmsy/m/n/10 !$
- []
-
-[22]) (Temas/Tema 2/Tema 2.tex
-<Temas/Tema 2/Hoja 2.pdf, id=290, 597.5078pt x 845.04686pt>
-File: Temas/Tema 2/Hoja 2.pdf Graphic file (type pdf)
-<use Temas/Tema 2/Hoja 2.pdf>
-Package pdftex.def Info: Temas/Tema 2/Hoja 2.pdf  used on input line 1.
-(pdftex.def)             Requested size: 597.50633pt x 845.0448pt.
-File: Temas/Tema 2/Hoja 2.pdf Graphic file (type pdf)
-<use Temas/Tema 2/Hoja 2.pdf>
-Package pdftex.def Info: Temas/Tema 2/Hoja 2.pdf  used on input line 1.
-(pdftex.def)             Requested size: 597.50633pt x 845.0448pt.
-<Temas/Tema 2/Hoja 2.pdf, id=293, page=1, 597.5078pt x 845.04686pt>
-File: Temas/Tema 2/Hoja 2.pdf Graphic file (type pdf)
-<use Temas/Tema 2/Hoja 2.pdf, page 1>
-Package pdftex.def Info: Temas/Tema 2/Hoja 2.pdf , page1 used on input line 1.
-(pdftex.def)             Requested size: 597.50633pt x 845.0448pt.
-File: Temas/Tema 2/Hoja 2.pdf Graphic file (type pdf)
-<use Temas/Tema 2/Hoja 2.pdf, page 1>
-Package pdftex.def Info: Temas/Tema 2/Hoja 2.pdf , page1 used on input line 1.
-(pdftex.def)             Requested size: 597.53368pt x 845.08348pt.
- [23]
-File: Temas/Tema 2/Hoja 2.pdf Graphic file (type pdf)
-<use Temas/Tema 2/Hoja 2.pdf, page 1>
-Package pdftex.def Info: Temas/Tema 2/Hoja 2.pdf , page1 used on input line 1.
-(pdftex.def)             Requested size: 597.53368pt x 845.08348pt.
-File: Temas/Tema 2/Hoja 2.pdf Graphic file (type pdf)
-<use Temas/Tema 2/Hoja 2.pdf, page 1>
-Package pdftex.def Info: Temas/Tema 2/Hoja 2.pdf , page1 used on input line 1.
-(pdftex.def)             Requested size: 597.53368pt x 845.08348pt.
-File: Temas/Tema 2/Hoja 2.pdf Graphic file (type pdf)
-<use Temas/Tema 2/Hoja 2.pdf, page 1>
-Package pdftex.def Info: Temas/Tema 2/Hoja 2.pdf , page1 used on input line 1.
-(pdftex.def)             Requested size: 597.53368pt x 845.08348pt.
- [24
-
- <./Temas/Tema 2/Hoja 2.pdf>]
-<Temas/Tema 2/Hoja 2.pdf, id=339, page=2, 597.5078pt x 845.04686pt>
-File: Temas/Tema 2/Hoja 2.pdf Graphic file (type pdf)
-<use Temas/Tema 2/Hoja 2.pdf, page 2>
-Package pdftex.def Info: Temas/Tema 2/Hoja 2.pdf , page2 used on input line 1.
-(pdftex.def)             Requested size: 597.53368pt x 845.08348pt.
-File: Temas/Tema 2/Hoja 2.pdf Graphic file (type pdf)
-<use Temas/Tema 2/Hoja 2.pdf, page 2>
-Package pdftex.def Info: Temas/Tema 2/Hoja 2.pdf , page2 used on input line 1.
-(pdftex.def)             Requested size: 597.53368pt x 845.08348pt.
-File: Temas/Tema 2/Hoja 2.pdf Graphic file (type pdf)
-<use Temas/Tema 2/Hoja 2.pdf, page 2>
-Package pdftex.def Info: Temas/Tema 2/Hoja 2.pdf , page2 used on input line 1.
-(pdftex.def)             Requested size: 597.53368pt x 845.08348pt.
- [25
-
- <./Temas/Tema 2/Hoja 2.pdf>]
-<Temas/Tema 2/Hoja 2.pdf, id=349, page=3, 597.5078pt x 845.04686pt>
-File: Temas/Tema 2/Hoja 2.pdf Graphic file (type pdf)
-<use Temas/Tema 2/Hoja 2.pdf, page 3>
-Package pdftex.def Info: Temas/Tema 2/Hoja 2.pdf , page3 used on input line 1.
-(pdftex.def)             Requested size: 597.53368pt x 845.08348pt.
-File: Temas/Tema 2/Hoja 2.pdf Graphic file (type pdf)
-<use Temas/Tema 2/Hoja 2.pdf, page 3>
-Package pdftex.def Info: Temas/Tema 2/Hoja 2.pdf , page3 used on input line 1.
-(pdftex.def)             Requested size: 597.53368pt x 845.08348pt.
-File: Temas/Tema 2/Hoja 2.pdf Graphic file (type pdf)
-<use Temas/Tema 2/Hoja 2.pdf, page 3>
-Package pdftex.def Info: Temas/Tema 2/Hoja 2.pdf , page3 used on input line 1.
-(pdftex.def)             Requested size: 597.53368pt x 845.08348pt.
- [26
-
- <./Temas/Tema 2/Hoja 2.pdf>]
-<Temas/Tema 2/Hoja 2.pdf, id=354, page=4, 597.5078pt x 845.04686pt>
-File: Temas/Tema 2/Hoja 2.pdf Graphic file (type pdf)
-<use Temas/Tema 2/Hoja 2.pdf, page 4>
-Package pdftex.def Info: Temas/Tema 2/Hoja 2.pdf , page4 used on input line 1.
-(pdftex.def)             Requested size: 597.53368pt x 845.08348pt.
-File: Temas/Tema 2/Hoja 2.pdf Graphic file (type pdf)
-<use Temas/Tema 2/Hoja 2.pdf, page 4>
-Package pdftex.def Info: Temas/Tema 2/Hoja 2.pdf , page4 used on input line 1.
-(pdftex.def)             Requested size: 597.53368pt x 845.08348pt.
-File: Temas/Tema 2/Hoja 2.pdf Graphic file (type pdf)
-<use Temas/Tema 2/Hoja 2.pdf, page 4>
-Package pdftex.def Info: Temas/Tema 2/Hoja 2.pdf , page4 used on input line 1.
-(pdftex.def)             Requested size: 597.53368pt x 845.08348pt.
- [27
-
- <./Temas/Tema 2/Hoja 2.pdf>]
-<Temas/Tema 2/Hoja 2.pdf, id=360, page=5, 597.5078pt x 845.04686pt>
-File: Temas/Tema 2/Hoja 2.pdf Graphic file (type pdf)
-<use Temas/Tema 2/Hoja 2.pdf, page 5>
-Package pdftex.def Info: Temas/Tema 2/Hoja 2.pdf , page5 used on input line 1.
-(pdftex.def)             Requested size: 597.53368pt x 845.08348pt.
-File: Temas/Tema 2/Hoja 2.pdf Graphic file (type pdf)
-<use Temas/Tema 2/Hoja 2.pdf, page 5>
-Package pdftex.def Info: Temas/Tema 2/Hoja 2.pdf , page5 used on input line 1.
-(pdftex.def)             Requested size: 597.53368pt x 845.08348pt.
-File: Temas/Tema 2/Hoja 2.pdf Graphic file (type pdf)
-<use Temas/Tema 2/Hoja 2.pdf, page 5>
-Package pdftex.def Info: Temas/Tema 2/Hoja 2.pdf , page5 used on input line 1.
-(pdftex.def)             Requested size: 597.53368pt x 845.08348pt.
- [28
-
- <./Temas/Tema 2/Hoja 2.pdf>]
-<Temas/Tema 2/Hoja 2.pdf, id=365, page=6, 597.5078pt x 845.04686pt>
-File: Temas/Tema 2/Hoja 2.pdf Graphic file (type pdf)
-<use Temas/Tema 2/Hoja 2.pdf, page 6>
-Package pdftex.def Info: Temas/Tema 2/Hoja 2.pdf , page6 used on input line 1.
-(pdftex.def)             Requested size: 597.53368pt x 845.08348pt.
-File: Temas/Tema 2/Hoja 2.pdf Graphic file (type pdf)
-<use Temas/Tema 2/Hoja 2.pdf, page 6>
-Package pdftex.def Info: Temas/Tema 2/Hoja 2.pdf , page6 used on input line 1.
-(pdftex.def)             Requested size: 597.53368pt x 845.08348pt.
-File: Temas/Tema 2/Hoja 2.pdf Graphic file (type pdf)
-<use Temas/Tema 2/Hoja 2.pdf, page 6>
-Package pdftex.def Info: Temas/Tema 2/Hoja 2.pdf , page6 used on input line 1.
-(pdftex.def)             Requested size: 597.53368pt x 845.08348pt.
- [29
-
- <./Temas/Tema 2/Hoja 2.pdf>]
-<Temas/Tema 2/Hoja 2.pdf, id=370, page=7, 597.5078pt x 845.04686pt>
-File: Temas/Tema 2/Hoja 2.pdf Graphic file (type pdf)
-<use Temas/Tema 2/Hoja 2.pdf, page 7>
-Package pdftex.def Info: Temas/Tema 2/Hoja 2.pdf , page7 used on input line 1.
-(pdftex.def)             Requested size: 597.53368pt x 845.08348pt.
-File: Temas/Tema 2/Hoja 2.pdf Graphic file (type pdf)
-<use Temas/Tema 2/Hoja 2.pdf, page 7>
-Package pdftex.def Info: Temas/Tema 2/Hoja 2.pdf , page7 used on input line 1.
-(pdftex.def)             Requested size: 597.53368pt x 845.08348pt.
-File: Temas/Tema 2/Hoja 2.pdf Graphic file (type pdf)
-<use Temas/Tema 2/Hoja 2.pdf, page 7>
-Package pdftex.def Info: Temas/Tema 2/Hoja 2.pdf , page7 used on input line 1.
-(pdftex.def)             Requested size: 597.53368pt x 845.08348pt.
-
-[30
-
- <./Temas/Tema 2/Hoja 2.pdf>]
-<Temas/Tema 2/Hoja 2.pdf, id=376, page=8, 597.5078pt x 845.04686pt>
-File: Temas/Tema 2/Hoja 2.pdf Graphic file (type pdf)
-<use Temas/Tema 2/Hoja 2.pdf, page 8>
-Package pdftex.def Info: Temas/Tema 2/Hoja 2.pdf , page8 used on input line 1.
-(pdftex.def)             Requested size: 597.53368pt x 845.08348pt.
-File: Temas/Tema 2/Hoja 2.pdf Graphic file (type pdf)
-<use Temas/Tema 2/Hoja 2.pdf, page 8>
-Package pdftex.def Info: Temas/Tema 2/Hoja 2.pdf , page8 used on input line 1.
-(pdftex.def)             Requested size: 597.53368pt x 845.08348pt.
-File: Temas/Tema 2/Hoja 2.pdf Graphic file (type pdf)
-<use Temas/Tema 2/Hoja 2.pdf, page 8>
-Package pdftex.def Info: Temas/Tema 2/Hoja 2.pdf , page8 used on input line 1.
-(pdftex.def)             Requested size: 597.53368pt x 845.08348pt.
- [31
-
- <./Temas/Tema 2/Hoja 2.pdf>]
-<Temas/Tema 2/ScreenShot001.drawio.png, id=382, 1153.30875pt x 769.87625pt>
-File: Temas/Tema 2/ScreenShot001.drawio.png Graphic file (type png)
-<use Temas/Tema 2/ScreenShot001.drawio.png>
-Package pdftex.def Info: Temas/Tema 2/ScreenShot001.drawio.png  used on input l
-ine 32.
-(pdftex.def)             Requested size: 525.38022pt x 350.71715pt.
- [32] [33 <./Temas/Tema 2/ScreenShot001.drawio.png>] [34] [35]
-Underfull \hbox (badness 10000) in paragraph at lines 170--172
-
- []
-
-[36]
-Underfull \hbox (badness 2689) in paragraph at lines 234--238
-[]$\OML/cmm/m/it/10 x[]\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 t\OT1/cmr/m/n/10 ) = \
-OML/cmm/m/it/10 x\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 t \OMS/cmsy/m/n/10 ^^@ \OML/
-cmm/m/it/10 t[]\OT1/cmr/m/n/10 ) [][]\OMS/cmsy/m/n/10 ! \OML/cmm/m/it/10 y[]\OT
-1/cmr/m/n/10 (\OML/cmm/m/it/10 t\OT1/cmr/m/n/10 ) = [][] \OML/cmm/m/it/10 e[]\O
-T1/cmr/m/n/10 3\OML/cmm/m/it/10 x\OT1/cmr/m/n/10 ([][] \OMS/cmsy/m/n/10 ^^@ \OT
-1/cmr/m/n/10 2) [] = [] =
- []
-
-[37]) [38] (Ejercicios.aux)
+{C:/Users/fcoja/AppData/Local/MiKTeX/fonts/map/pdftex/pdftex.map}]
+LaTeX Font Info:    Font shape `OT1/cmtt/bx/n' in size <12> not available
+(Font)              Font shape `OT1/cmtt/b/n' tried instead on input line 143.
+ [2] [3]
+(Memoria.aux)
  ***********
 LaTeX2e <2023-11-01> patch level 1
 L3 programming layer <2024-02-13>
  ***********
-Package rerunfilecheck Info: File `Ejercicios.out' has not changed.
-(rerunfilecheck)             Checksum: D41D8CD98F00B204E9800998ECF8427E;0.
-Package logreq Info: Writing requests to 'Ejercicios.run.xml'.
-\openout1 = `Ejercicios.run.xml'.
+Package rerunfilecheck Info: File `Memoria.out' has not changed.
+(rerunfilecheck)             Checksum: E230FA362C673C2F5FF30746C313C2D8;218.
+Package logreq Info: Writing requests to 'Memoria.run.xml'.
+\openout1 = `Memoria.run.xml'.
 
  ) 
 Here is how much of TeX's memory you used:
- 52974 strings out of 474462
- 1202174 string characters out of 5742883
- 2114243 words of memory out of 5000000
- 74256 multiletter control sequences out of 15000+600000
- 560729 words of font info for 49 fonts, out of 8000000 for 9000
+ 53104 strings out of 474462
+ 1194269 string characters out of 5742883
+ 2128619 words of memory out of 5000000
+ 74547 multiletter control sequences out of 15000+600000
+ 570463 words of font info for 86 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 89i,20n,134p,1201b,1336s stack positions out of 10000i,1000n,20000p,200000b,200000s
- <C:\Users\fcoja\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\tcrm
-1000.pk><C:/Users/fcoja/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfon
-ts/cm/cmbx10.pfb><C:/Users/fcoja/AppData/Local/Programs/MiKTeX/fonts/type1/publ
-ic/amsfonts/cm/cmex10.pfb><C:/Users/fcoja/AppData/Local/Programs/MiKTeX/fonts/t
-ype1/public/amsfonts/cm/cmmi10.pfb><C:/Users/fcoja/AppData/Local/Programs/MiKTe
-X/fonts/type1/public/amsfonts/cm/cmmi5.pfb><C:/Users/fcoja/AppData/Local/Progra
-ms/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi7.pfb><C:/Users/fcoja/AppData/Loca
-l/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr10.pfb><C:/Users/fcoja/AppD
-ata/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr5.pfb><C:/Users/fco
-ja/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr7.pfb><C:/Us
-ers/fcoja/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy10.p
-fb><C:/Users/fcoja/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm
-/cmsy5.pfb><C:/Users/fcoja/AppData/Local/Programs/MiKTeX/fonts/type1/public/ams
-fonts/cm/cmsy7.pfb><C:/Users/fcoja/AppData/Local/Programs/MiKTeX/fonts/type1/pu
-blic/amsfonts/latxfont/line10.pfb>
-Output written on Ejercicios.pdf (38 pages, 1499820 bytes).
+ 84i,8n,131p,1198b,1755s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ <C:\Users\fcoja\AppData\Local\MiKTeX\fonts/pk/ljfour/public/cm/dpi720\cmttb1
+0.pk> <C:\Users\fcoja\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\t
+crm1200.pk><C:/Users/fcoja/AppData/Local/Programs/MiKTeX/fonts/type1/public/ams
+fonts/cm/cmbx12.pfb><C:/Users/fcoja/AppData/Local/Programs/MiKTeX/fonts/type1/p
+ublic/amsfonts/cm/cmex10.pfb><C:/Users/fcoja/AppData/Local/Programs/MiKTeX/font
+s/type1/public/amsfonts/cm/cmmi12.pfb><C:/Users/fcoja/AppData/Local/Programs/Mi
+KTeX/fonts/type1/public/amsfonts/cm/cmmi8.pfb><C:/Users/fcoja/AppData/Local/Pro
+grams/MiKTeX/fonts/type1/public/amsfonts/cm/cmr12.pfb><C:/Users/fcoja/AppData/L
+ocal/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr17.pfb><C:/Users/fcoja/A
+ppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr8.pfb><C:/Users/
+fcoja/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy10.pfb><
+C:/Users/fcoja/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cms
+y8.pfb><C:/Users/fcoja/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfont
+s/cm/cmtt12.pfb>
+Output written on Memoria.pdf (3 pages, 123430 bytes).
 PDF statistics:
- 557 PDF objects out of 1000 (max. 8388607)
- 188 named destinations out of 1000 (max. 500000)
- 198 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 120 PDF objects out of 1000 (max. 8388607)
+ 14 named destinations out of 1000 (max. 500000)
+ 21 words of extra memory for PDF output out of 10000 (max. 10000000)
 
