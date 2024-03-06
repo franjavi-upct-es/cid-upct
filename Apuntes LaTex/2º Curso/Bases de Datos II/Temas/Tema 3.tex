@@ -1,3 +1,4 @@
+% !TeX spellcheck = es_ES
 \section{Bases de datos basadas en documentos}
 \subsection{Introducción a las bases de datos de documentos}
 \subsubsection{Bases datos Documentales}
@@ -110,4 +111,214 @@ Las relaciones uno a muchos (por ejemplo en el CV: \texttt{positions}) en el mod
 	\item Estructura jerárquica de sub-documentos contenidos $\longrightarrow$ \textbf{agregación}
 \end{itemize}
 \textbf{Más flexibilidad que el modelo relacional:} (elección entre \underline{\textit{referencia}} Y \underline{\textit{agregación}})
-\subsubsubsection{Uno }
+\subsubsubsection{Uno a muchos - NoSQL}
+Relaciones \textbf{Uno a Muchos} (\texttt{postions}):
+\begin{itemize}
+	\item \textbf{Opción 1:} Agregando la tabla \texttt{positions}
+	\item \textbf{Opción 2:} Convertir las empresas en entidades, y utilizar una \textbf{\textit{referencia}}.
+\end{itemize}
+\textbf{Modelado guiado por el acceso a datos:}
+\begin{itemize}
+	\item Si los elementos "muchos" tienen una estructura sencilla $\Longrightarrow$ \textbf{Opción 1}.
+	\item Si los elementos "muchos" son usualmente \textbf{recuperados en una consulta} junto con el elemento "uno" $\Longrightarrow$ \textbf{Opción 1}.
+	\item Si lo elementos "muchos" son relativamente grandes, o bien son recuperados siempre de forma separada $\Longrightarrow$ \textbf{Opción 2}.
+\end{itemize}
+\subsubsubsection{Muchos a uno y muchos a muchos}
+Las relaciones muchos a uno y muchos a muchos:
+\begin{itemize}
+	\item Personas que viven en una región.
+	\item Preguntas que refieren a Tags.
+\end{itemize}
+El modelo de documentos no aporta ventajas con respecto al modelo relacional.\\
+Al haber muchas entidades que refieren a otra entidad, la \textit{agregación} daría lugar a mucha \textbf{duplicación} (y a problemas de sincronización).\\
+\textbf{Referencias} (sobre el ID), similar a una FK en el modelo relacional.
+\begin{itemize}
+	\item \textbf{Sin embargo}, al no haber \textbf{JOINs} la aplicación tiene que hacer más de una petición a la BD.
+\end{itemize}
+\begin{center}
+	\includegraphics{"Temas/Tema 3/screenshot003"}
+\end{center}
+\subsubsection{Introducción a MongoDB}
+Base de datos documental
+
+Basado en una representación binaria de JSON, llamada BSON
+
+Cada base de datos se divide en un conjunto de \textit{colecciones}
+
+Una colección es un conjunto arbitrariamente grande de documentos
+
+Cada documento contiene un campo especial \texttt{_id}, que guarda un objeto de tipo especial \texttt{ObjectID} de BSON
+
+Permite la definición de bases de datos, colecciones (tablas \textit{hash} de documentos) y subcolecciones
+
+Permite realizar búsquedas secuenciales, programas MapReduce y un API propietario de consulta (llamado \textit{aggregate})
+
+Ofrece un \textit{shell} que acepta JavaScript y permite realizar operaciones directamente sobre la base de datos
+
+También ofrece clientes en muchos lenguajes de programación
+\subsubsection{Uso básico de MongoDB}
+MongoDB ofrece un \textit{shell}, aparte de las posibles conexiones remotas a través de \textit{drivers} usando otros lenguajes de programación.\\
+El shell acepta código JavaScript\\
+Veremos inicialmente su uso\\
+Existen una serie de objetos predefinidos\\
+\begin{lstlisting}[language=JavaScript]
+show databases;
+use <database>;
+db.<collection>;  // Permite acceder a la colección
+\end{lstlisting}
+
+Simplemente nombrando las colecciones se puede acceder a ellas para consulta y actualización.\\
+Inserción de documentos:
+\begin{lstlisting}[language=JavaScript]
+db.colección.insert({< Objeto JSON >});
+\end{lstlisting}
+\subsubsection{Actualización y consulta}
+Se puede obtener los documentos de la base de datos con:
+\begin{lstlisting}[language=JavaScript]
+var objeto = db.colección.findOne({atributos : valores})
+// ó encontrar todos lo que cumplen la condición:
+var objs = db.colección.find({ atributos : valores })
+\end{lstlisting}
+Y actualizarlos:
+\begin{lstlisting}[language=JavaScript]
+db.colección.update(
+	{ atributos: valores}, 	// búsqueda
+	objeto);								// nuevo objeto
+\end{lstlisting}
+La selección del objeto se suele hacer por su \texttt{_id}, que es único.
+
+También permite modificadores:
+\begin{lstlisting}[language=JavaScript]
+db.analytics.update({"url" : "www.example.com"},
+										{"$inc" : {"pageviews" : 1}})
+\end{lstlisting}
+También \texttt{\$set}, \texttt{\$unset}, \texttt{\$push} (para \textit{arrays}), \texttt{\$pull} (para eliminar elementos de una \textit{array} que cumplen un criterio).
+\subsubsubsection{Consulta}
+Las consultas se hacen con \texttt{find}:
+\begin{lstlisting}[language=JavaScript]
+d.users.find({<criterio>},
+						 {"username" : 1, "_id" : 0})
+// =>
+{
+"username" : "joe",
+}
+\end{lstlisting}
+Y se pueden utilizar condicionantes para la búsqueda:
+\begin{lstlisting}[language = JavaScript]
+db.user.find({"age": {"$gte": 18, "$lte": 30}});
+db.user.find({"$or": [{"age": {"$gte": 18} },
+											{"permission": true} ] });
+\end{lstlisting}
+\subsubsubsection{Consultas MapReduce}
+\textit{Map-reduce} es un paradigma de procesamiento de datos que permite condensar grandes volúmenes de datos en resultados agregados útiles.
+
+Una operación map-reduce consta de tres fases:
+\begin{enumerate}[label=\arabic*)]
+	\item Se aplica la función \texttt{Map (Map(k1, v1) $\rightarrow$ list(k2, v2)} a cada documento de entrada. La función Map se aplica en paralelo a cada documento (con clave \texttt{k1}) del conjunto de datos de entrada. Esto produce una lista de pares (codificados por \texttt{k2}) para cada llamada.
+	\item La función \texttt{Reduce (Reduce(k2, list (v2)) $\rightarrow$ list((k3, v3)))} se aplica entonces en paralelo a cada grupo.
+\end{enumerate}
+\subsubsubsection{Validación del esquema}
+En sus últimas versiones MongoDB ha incorporado funcionalidades que permiten anotar y validar documentos JSON (\textit{JSON Schema}).
+
+A la hora de crear una colección, podemos especificar en \textit{JSON schema} qué configuración deben seguir los documentos almacenados en ella.
+
+\Ej 
+
+Vamos a crear una colección \texttt{estudiantes} y vamos a especificar su esquema asociado
+
+\begin{lstlisting}[language=JavaScript]
+db.createColecction("estudiantes",{
+	validator: {
+		$jsonSchema: {
+			bsonType: "object",
+			title: "Validación del objeto Estudiante",
+			required: [ "dirección", "major", "nombre", "año"],
+			properties: {
+				nombre: {
+					bsonType: "string",
+					description: "'nombre' debe ser una cadena (string) y es obligatorio"
+				},
+				año: {
+					bsonType: "int",
+					minimum: 2017,
+					maximum: 3017,
+					description: "'año' debe ser un entero entre [ 2017, 3017 ] y es obligatorio"
+				},
+				gpa: {
+					bsonType: [ "double" ],
+					description: "'gpa' debe ser un double si el campo existe"
+				}
+			}
+		}
+	}
+} )
+\end{lstlisting}
+Si ahora intentamos insertar un documento que no cumple dicho esquema 
+\begin{lstlisting}[language=JavaScript]
+db.estudiantes.insertOne( {
+	nombre: "Alice",
+	year: Int32( 2019 ),
+	major: "Historia",
+	gpa: Int32(3),
+	direccion: {
+		city: "USA",
+		street: "Fraggel Rock"
+	}
+} ) 
+\end{lstlisting}
+obtendremos un mensaje de error pues el campo \texttt{gpa} se ha insertado como \texttt{Int} cuando debía hacerse como \texttt{double}.
+\begin{lstlisting}[language=JavaScript]
+MongoServerError: Document failed validation
+Additional information: {
+	failingDocumentId: ObjectId("630d093a931191850b40d0a9"),
+	details: {
+		title: 'Validacion del objeto Estudiante',
+		operatorName: '$jsonSchema',
+		schemaRulesNotSatisfied: [
+		{
+			operatorName: 'properties',
+			propertiesNotSatisfied: [
+			{
+				propertyName: 'gpa',
+				description: "'gpa' debe de ser un doble si el campo existe",
+				details: [
+				{
+					operatorName: 'bsonType',
+					specifiedAs: { bsonType: [ 'double' ] },
+					reason: 'type did not match',
+					consideredValue: 3,
+					consideredType: 'int'
+				}
+				] } ] } ]} }
+\end{lstlisting}
+Sin embargo, la siguiente inserción no provoca ningún fallo
+\begin{lstlisting}[language=JavaScript]
+db.students.insertOne( {
+	name: "Alice",
+	year: NumberInt(2019),
+	major: "History",
+	gpa: Double(3.0),
+	address: {
+		city: "NYC",
+		street: "33rd Street"
+	}
+} )
+\end{lstlisting}
+\subsubsubsection{Índices}
+Sea con SQL o con datos \textit{raw}, la búsqueda no se puede realizar secuencialmente
+
+Los \textbf{\textit{índices}} se utilizan para acelerar esta búsqueda
+
+El concepto de índice está presente en casi todas las bases de datos (también es un eje principal en las NoSQL)
+
+En el ámbito del SQL, los índices se pueden aplicar a los valores de una o más columnas
+
+Se usan para acelerar la recuperación de información
+
+El planificador de consultas usa los índices disponibles
+
+Es \textbf{labor del usuario} definir los índices adecuados
+
+Los índices aceleran las búsquedas, pero también ocupan espacio
+
+En SQL se utiliza la construcción \texttt{CREATE INDEX, ALTER TABLE} o se incluyen en \texttt{CREATE TABLE}
