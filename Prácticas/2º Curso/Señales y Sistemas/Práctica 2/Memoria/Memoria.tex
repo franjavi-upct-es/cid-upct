@@ -101,12 +101,13 @@
 
 \title{\textbf{\huge Práctica 2 de Señales y Sistemas}\\ Convolución y análisis de sistemas LTI}
 \author{Francisco Javier Mercader Martínez\\ Rubén Gil Martínez}
+\date{}
 
 \usepackage{matlab-prettifier}
 
 \lstset{
 	language=matlab,
-	basicstyle=\ttfamily,
+	basicstyle=\ttfamily\small,
 	keywordstyle=\color{blue},
 	commentstyle=\color{green!70!black},
 	stringstyle=\color{red},
@@ -150,6 +151,11 @@ h = [1 3 0 1 2 1 2];
 
 y = conv(x, h);
 \end{lstlisting}
+
+\begin{center}
+	\includegraphics[width=0.7\linewidth]{Imágenes/Figura1}
+\end{center}
+
 	\item \textbf{Teniendo en cuneta que la longitud de la secuencia $\mathbf{x[n]}$ es $\mathbf{N}$ y la de $\mathbf{h[n]}$ es $\mathbf{M}$, deduzca una expresión para la longitud de $\mathbf{y[n]}$.}
 	
 	\begin{lstlisting}
@@ -157,6 +163,105 @@ longitud_y = length(x) + length(h) - 1;  % = 9
 	\end{lstlisting}
 	
 	\item Programa dos funciones MATLAB, denominadas \code{conv1} y \code{conv2}, que implementen la convolución de dos señales dsicretas mediante el método 1 y el método 2, explicados anteriormente. Las funciones tendrán el formato \code{y=conv1(x,h)} y \code{y=conv2(x,h)}. Puede inicializar la longitud de la señal de salida deducida en el punto anterior al implementear las funciones. Proporcione el código desarrollado.
+	
+\begin{lstlisting}[language=matlab]
+function y = conv1(x, h)
+	% N es la longitud de la secuencia x
+	N = length(x);
+	% M es la longitud de la secuencia h
+	M = length(h);
+	% Inicializa la secuencia de salida y con ceros
+	y = zeros(1, N+M-1);
+	% Itera sobre cada elemento de la secuencia de salida
+	for n = 1:N+M-1
+		% Itera sobre los elementos de x y h que se superponen para el elemento actual de y
+		for k = max(1, n+1-M):min(n, N)
+			% Suma el producto de los elementos correspondientes de x y h a la secuencia de salida
+			y(n) = y(n) + x(k) * h(n-k+1);
+		end
+	end
+end
+
+function y = conv2d(x, h)
+	% Obtén las dimensiones de las matrices de entrada
+	[xRows, xCols] = size(x);
+	[hRows, hCols] = size(h);
+	% Inicializa la matriz de salida
+	y = zeros(xRows + hRows - 1, xCols + hCols - 1);
+	% Realiza la convolución
+	for i = 1:xRows
+		for j = 1:xCols
+			for m = 1:hRows
+				for n = 1:hCols
+					y(i+m-1, j+n-1) = y(i+m-1, j+n-1) + x(i, j) * h(m, n);
+				end
+			end
+		end
+	end
+end
+\end{lstlisting}
+	
+	\begin{lstlisting}[language=matlab]
+y1 = conv1(x,h);
+
+figure(2)
+stem(y1, "filled", "LineWidth", 1.5, "MarkerSize", 4);
+xlabel('n');
+ylabel("y[n]")
+title('Conv1 y[n]')
+	\end{lstlisting}
+	\begin{center}
+		\includegraphics[width=0.7\linewidth]{Imágenes/Figura2}
+	\end{center}
+\begin{lstlisting}[language=matlab]
+y2 = conv2d(x, h);
+
+figure(3)
+stem(y2, "filled", "LineWidth", 1.5, "MarkerSize", 4);
+xlabel('n');
+ylabel("y[n]")
+title('Conv2 y[n]')
+\end{lstlisting}
+	\begin{center}
+		\includegraphics[width=0.7\linewidth]{Imágenes/Figura3}
+	\end{center}
 	\item Compruebe el correcto funcionamiento de las funciones empleando las señales $x[n]$ y $h[n]$ generadas en MATLAB previamente. Consulta la ayuda (con el comnado \code{help}) de la función \code{conv} de MATLAB, que implementa la convolución discreta de dos secuencias. El resultado con \code{conv}, \code{conv1} y \code{conv2} ha de ser el mismo con cualquier par de señales de entrada.
+	
+\begin{lstlisting}[language=matlab]
+% Las siguiente funciones recorren todos los elementos de las señales y
+% comprueban si sus valores coinciden con valores bnarios (1 sí, 0 no).
+disp(all(y == y1)); % 1
+disp(all(y == y2)); % 1
+disp(all(y1 == y2)); % 1
+\end{lstlisting}
 \end{itemize}
+\section{Respuesta al impulso de un sistema lineal}
+La respuesta al impulso $h[n]$ se emplea para caracterizar el comportamiento de un sistema lineal e invariante (LTI – Linear Time-Invariant). Podremos clasificar el comportamiento de los sistemas LTI atendiendo a la duración finita o infinita de la respuesta al impulso. Por lo tanto, hablaremos respectivamente de sistemas FIR (Finite Impulse Response) o bien de sistemas IIR (Infinite Impulse Response).
+\subsection*{Cuestiones}
+\subsubsection*{Sistemas FIR}
+\[ y[n]=2x[n]+x[n-1]-2x[n-2]+x[n-3] \]
+\begin{itemize}
+	\item \textbf{Como estudio previo represente el diagrama de bloques (con delays, multiplicadores y sumadores) que caracteriza a este sistema.}
+	
+	\begin{center}
+		\includegraphics[width=\linewidth]{Imágenes/screenshoot001.drawio}
+	\end{center}
+	
+	\item \textbf{Como estudio previo calcule y represente gráficamente a mano la respuesta al impulso $h[n]$ del sistema dado. ¿Es de duración finita?}
+	
+	\begin{tikzpicture}
+		\draw[->] (-1,0) -- (5,0) node[right] {$n$};
+		\draw[->] (0,-3) -- (0,3) node[above] {$h[n]$};
+		\foreach \x in {1,2,3,4}
+		\draw (\x,0.1) -- (\x,-0.1) node[below] {\x};
+		\draw[->,blue] (0,0) -- (1,2);
+		\draw[->,blue] (1,0) -- (2,-2);
+		\draw[->,blue] (2,0) -- (3,1);
+		\draw[->,blue] (3,0) -- (4,0);
+	\end{tikzpicture}
+	
+	\item \textbf{Como estudio calcule a mano la salida del sistema ante la entrada $\mathbf{x[n]=\delta[n]-\delta[n-1]}$}, (en MATLAB \texttt{x=[1 -1]}).
+\end{itemize}
+Calcule la salida con la función conv (o convol1, convol2) en Matlab y verifique que los
+resultados coinciden con el estudio previo
 \end{document}

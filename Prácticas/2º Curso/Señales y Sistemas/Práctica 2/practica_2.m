@@ -14,7 +14,6 @@ title('Convolución discreta de x[n] y h[n]')
 
 y1 = conv1(x,h);
 
-
 figure(2)
 stem(y1, "filled", "LineWidth", 1.5, "MarkerSize", 4);
 xlabel('n');
@@ -52,4 +51,4 @@ for i = 1:length(figs)
     print(filename, '-dpng');
 end
 
-
+close all;
