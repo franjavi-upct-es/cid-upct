@@ -74,18 +74,227 @@ x_1+0.8x_2\\
 $t_2=\left(\dfrac{1}{\sqrt{2}},-\dfrac{1}{\sqrt{2}}\right)'$
 	
 	$Y_2=\dfrac{1}{\sqrt{2}}X_1-\dfrac{1}{\sqrt{2}}X_2$
+	
+	$A=\corr(X,Y)=\left(\corr(X_i,Y_j)\right)_{i,j}$
+	
+	$A=\corr(X,Y)=\lbb{\mathrm{diag}(V)^{-\frac{1}{2}}}{\mathrm{Id.}}TD^{\frac{1}{2}}=\begin{pmatrix}
+		\frac{1}{\sqrt{2}} & \frac{1}{\sqrt{2}}\\
+		\frac{1}{\sqrt{2}} & -\frac{1}{\sqrt{2}}
+	\end{pmatrix}\cdot\begin{pmatrix}
+	\sqrt{1.8} & 0\\
+	0 & \sqrt{1.2}
+	\end{pmatrix}=\begin{pmatrix}
+	\dfrac{\sqrt{0.8}}{\sqrt{2}} & \dfrac{\sqrt{0.2}}{\sqrt{2}}\\
+	\dfrac{\sqrt{0.8}}{\sqrt{2}} & -\dfrac{\sqrt{0.2}}{\sqrt{2}}\\
+	\end{pmatrix}=\begin{pmatrix}
+	0.9486 & 0.3162\\
+	0.9486 & -0.3162\\
+	\end{pmatrix}$
+	
+	\begin{tikzpicture}
+		\node[red, draw=red, fill=red!10, line width=1.5] {\underline{Nota:} $\corr(X,Y)=\dfrac{\cov(X,Y)}{\sqrt{\var(X)\cdot\var(Y)}}$};
+	\end{tikzpicture}
+	
+	$\corr(X_1,Y_1)=\dfrac{\cov(X_1,Y_1)}{\sqrt{1}\cdot\sqrt{1.8}}$\\
+	$\cov(X_1,Y_1)=\cov\left(X_1,\dfrac{1}{\sqrt{2}}X_1+\frac{1}{\sqrt{2}}X_2\right)=\frac{1}{\sqrt{2}}\cov(X_1,X_1)+\frac{1}{\sqrt{2}}\cov(X_1,X_2)=\dfrac{1}{\sqrt{2}}+\dfrac{0.8}{\sqrt{2}}=\frac{1.8}{\sqrt{2}}$\\
+	$\cov(X_1,Y_2)=\cov\left(X_1,\frac{1}{\sqrt{2}}X_1-\frac{1}{\sqrt{2}}X_1\right)=\frac{1}{\sqrt{2}}\cdot1-\frac{1}{\sqrt{2}}\cdot0.8=\frac{0.2}{\sqrt{2}}$\\
+	$\cov(X_2,Y_1)=\cov\left(X_2,\frac{1}{\sqrt{2}}X_1+\frac{1}{\sqrt{2}}X_2\right)=\dfrac{1.8}{\sqrt{2}}$\\
+	$\cov(X_2,Y_2)=\cov\left(X_2,\frac{1}{\sqrt{2}}X_1-\frac{1}{\sqrt{2}}X_2\right)=\dfrac{0.8}{\sqrt{2}}-\dfrac{1}{\sqrt{2}}=-\dfrac{0.2}{\sqrt{2}}$\\
+	
+	$\begin{array}{l}
+		Y=T'X\\
+		Y=\begin{pmatrix}
+			\frac{1}{\sqrt{2}} & \frac{1}{\sqrt{2}}\\
+			\frac{1}{\sqrt{2}} & -\frac{1}{\sqrt{2}}
+		\end{pmatrix}\cdot\begin{pmatrix}
+		X_1\\
+		X_2
+		\end{pmatrix}\\
+		\begin{array}{c|cc|}
+			a_{ij}=\corr(X_i,Y_j) & Y_1 & Y_2\\ \hline
+			X_1 & 0.9486 & 0.3162\\
+			X_2 & 0.9486 & -0.3162\\ \hline
+		\end{array}\\
+		\\
+		\begin{array}{c|cc|c}
+			a_{ij}^2=\corr^2(X_i,Y_j) & Y_1 & Y_2 & \\ \hline
+			X_1 & 0.9 & 0.1 & 1\\
+			X_2 & 0.9 & 0.1 & 1\\ \hline
+			 & 1.8 & 0.2 & 
+		\end{array}\\
+		
+	\end{array}$
 	\item \lb{Calcular las componentes principales para una variable bidimensional con matriz de correlaciones \[ \Pi=\begin{pmatrix}
 			1 & r\\
 			r & 1
 		\end{pmatrix}. \]¿Qué condiciones debe verificar $r$? Calcular la información que contiene cada componente.}
 	
+	\begin{enumerate}[label=\color{lightblue}\textbf{\alph*)}]
+		\item Si $r=0,\:Y=X$
+		\item Si $r\neq0$, para que $\Pi$ sea definida positiva tiene que ocurrir que $1-r^2>0,\:r^2<1$, es decir, $-1<r<1$
+	
 	$\left|\Pi-\lambda I\right|=\begin{vmatrix}
 		1-\lambda & r\\
 		r & 1-\lambda
-	\end{vmatrix}=(1-\lambda)^2-r^2=\lambda^2-2r\lambda+1-r^2\longrightarrow \lambda_{1,2}=1\pm r$
+	\end{vmatrix}=(1-\lambda)^2-r^2=\lambda^2-2\lambda+1-r^2$
 	
-	Como $r$ es un coeficiente de correlación, la condición que debe cumplir es que $-1<r<1$.
+	$\lambda=\dfrac{2\pm\sqrt{(-2)^2-4\cdot(1-r^2)}}{2}=\dfrac{2\pm\sqrt{4-4+4r^2}}{2}=\dfrac{2\pm2r}{2}=\begin{cases}
+		\lambda_1=\dfrac{2+2r}{2}=1+r\\
+		\lambda_2=\dfrac{2-2r}{2}=1-r
+	\end{cases}$
 	
+	$\bboxed{\begin{array}{l}
+			\lambda_1=1+r\\
+			\lambda_2=1-r
+	\end{array}}$
+	
+	Vectores propios:
+	
+	\begin{enumerate}[label=\color{lightblue}\arabic*)]
+		\item $-1<r<1$
+		
+		$\Pi v=\lambda_1v$
+	
+	$\begin{pmatrix}
+		1 & r\\
+		r & 1
+	\end{pmatrix}\cdot\begin{pmatrix}
+	x_1\\
+	x_2
+	\end{pmatrix}=(1+r)\cdot\begin{pmatrix}
+	x_1\\
+	x_2
+	\end{pmatrix}\longrightarrow\begin{pmatrix}
+	x_1+rx_2\\
+	rx_1+x_2
+	\end{pmatrix}=\begin{pmatrix}
+	x_1+rx_1\\
+	x_2+rx_2\\
+	\end{pmatrix}\longrightarrow\begin{pmatrix}
+	-rx1+rx_2\\
+	rx_1-rx_2
+	\end{pmatrix}=\begin{pmatrix}
+	0\\
+	0
+	\end{pmatrix}\longrightarrow V=\alpha(1,1)' $\\
+	
+	$t_1=\left(\frac{1}{\sqrt{2}},\frac{1}{\sqrt{2}}\right)$
+	
+	$\Pi v=\lambda_2v$\\
+	$\begin{pmatrix}
+		1 & r\\
+		r & 1
+	\end{pmatrix}\cdot\begin{pmatrix}
+	x_1\\
+	x_2
+	\end{pmatrix}=(1-r)\cdot\begin{pmatrix}
+	x_1\\
+	x_2
+	\end{pmatrix}\longrightarrow\begin{pmatrix}
+	x_1+rx_2\\
+	rx_1+x_2
+	\end{pmatrix}=\begin{pmatrix}
+	x_1-rx_2\\
+	x_2-rx_2
+	\end{pmatrix}\longrightarrow\begin{rcases}
+	x_1+rx_2=(1-r)x_1\\
+	rx_1+x_2=(1-r)x_2
+	\end{rcases}\longrightarrow\begin{array}{l}
+	rx_2=-rx_1\\
+	rx_1=-rx_2
+	\end{array}\longrightarrow v=\alpha(1,-1)'$\\
+	$t_2=\left(\frac{1}{\sqrt{2}},-\frac{1}{\sqrt{2}}\right)$\\
+	$Y=T'X=\begin{pmatrix}
+		\frac{1}{\sqrt{2}} & \frac{1}{\sqrt{2}}\\
+		\frac{1}{\sqrt{2}} & -\frac{1}{\sqrt{2}}
+	\end{pmatrix}\cdot\begin{pmatrix}
+	X_1\\
+	X_2
+	\end{pmatrix}=\begin{pmatrix}
+	\frac{1}{\sqrt{2}}X_1+\frac{1}{\sqrt{2}}X_2\\
+	\frac{1}{\sqrt{2}}X_1-\frac{1}{\sqrt{2}}X_2\\
+	\end{pmatrix}$\\
+	$\begin{array}{ll}
+		Y=(Y_1,Y_2) & \\
+		\var(Y_1)=\lambda=1+r & \dfrac{\lambda_1}{\lambda_1+\lambda_2}=\dfrac{(1+r)}{2}\cdot100\%\\
+		\var(Y_2)=\lambda=1-r & \dfrac{\lambda_2}{\lambda_1+\lambda_2}=\dfrac{(1-r)}{2}\cdot100\%\\
+	\end{array}$
+	\item $-1<r<0,\:\lambda_1=1-r,\:\lambda_2=1+r$
+	
+	$\begin{array}{lll}
+		Y_1=\frac{1}{\sqrt{2}}X_1-\frac{1}{\sqrt{2}}X_2 & \var(Y_1)=1-r & \dfrac{\lambda_1}{\lambda_1+\lambda_2}\cdot100\%=\dfrac{1-r}{2}100\%\\
+		Y_2=\frac{1}{\sqrt{2}}X_1+\frac{1}{\sqrt{2}}X_2 & \var(Y_2)=1+r & \dfrac{\lambda_2}{\lambda_1+\lambda_2}\cdot100\%=\dfrac{1+r}{2}100\%\\
+	\end{array}$
+	\end{enumerate}
+	\item Si $r=\pm1$
+	
+	$r=1$\\
+	$\Pi=\begin{pmatrix}
+		1  & 1\\
+		1 & 1
+	\end{pmatrix}$ no definida positiva 
+	
+	$|\Pi-\lambda I|=0$\\
+	$\begin{vmatrix}
+		1-\lambda & 1\\
+		1 & 1-\lambda
+	\end{vmatrix}=0\longrightarrow(1-\lambda^2)=0\longrightarrow 1-2\lambda+\lambda^2-1=0\longrightarrow\lambda(\lambda-2)\begin{cases}
+	\lambda=0\\
+	\lambda=2
+	\end{cases}$
+	
+	$\begin{pmatrix}
+	1 & 1\\
+	1 & 1
+	\end{pmatrix}\cdot\begin{pmatrix}
+	x_1\\
+	x_2
+	\end{pmatrix}=2\begin{pmatrix}
+	x_1\\
+	x_2
+	\end{pmatrix}\longrightarrow\begin{rcases}
+	x_1+x_2=2x_1\\
+	x_1+x_2=2x_2
+	\end{rcases}\longrightarrow x_1=x_2$
+	
+	$\begin{array}{l}
+		v=\alpha(1,1)'\\
+		t_1=\left(\frac{1}{\sqrt{2}},\frac{1}{\sqrt{2}}\right)'\\
+		Y_1=\frac{1}{\sqrt{2}}X_1+\frac{1}{\sqrt{2}}X_2
+	\end{array}$
+	
+	Si $r=-1$\\
+	$\Pi=\begin{pmatrix}
+		1 & -1\\
+		-1 & 1
+	\end{pmatrix}$\\
+	$\left|\Pi-\lambda I\right|=0$\\
+	$\begin{vmatrix}
+		1-\lambda & -1\\
+		-1 & 1-\lambda
+	\end{vmatrix}=0\longrightarrow(1-\lambda)^2-1=0\longrightarrow\begin{cases}
+	\lambda=0\\
+	\lambda=2
+	\end{cases}$\\
+	$\Pi v=\lambda v$\\
+	$\begin{pmatrix}
+		1 & -1\\
+		-1 & 1
+	\end{pmatrix}\cdot\begin{pmatrix}
+	x_1\\
+	x_2
+	\end{pmatrix}=2\begin{pmatrix}
+	x_1\\
+	x_2
+	\end{pmatrix}$\\
+	$\begin{rcases}
+		x_1-x_2=2x_1\\
+		-x_1+x_2=2x_2
+	\end{rcases}\longrightarrow x_1=-x_2$\\
+	$v=\alpha(1,-1)'$\\
+	$t_1=\left(\dfrac{1}{\sqrt{2}},-\dfrac{1}{\sqrt{2}}\right)$\\
+	$Y_1=\dfrac{1}{\sqrt{2}}X_1-\dfrac{1}{\sqrt{2}}X_2$
+	\end{enumerate}
 	\item \lb{Calcular las componentes principales para una variable bidimensional con matriz de covarianzas \[ \begin{pmatrix}
 			10 & -3\\
 			-3 & 2

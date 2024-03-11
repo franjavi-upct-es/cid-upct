@@ -354,7 +354,7 @@ eigen(V)$values; eigen(V)$vectors
 ## [2,] 0.7071068  0.7071068
 \end{verbatim}
 Podemos guardar la matriz $T$ de vectores propios:
-\begin{lstlisting}
+\begin{lstlisting}[mathescape=false]
 T <- eigen(V)$vectors
 \end{lstlisting}
 Los vectores normalizados aparecen en las columnas de $T$. Podemos comprobar que $T$ es una matriz ortogonal:
@@ -393,6 +393,9 @@ Para calcular las informaciones contenidas en cada una (en tanto por 100) haremo
 obteniendo el 75\% y el 25\%
 \subsection{Desigualdades}
 Si $Z$ es una variable aleatoria no negativa con media finita $E[Z]$ y $\epsilon>0$, entonces \[ \epsilon Pr[Z\ge\epsilon]=\epsilon\int_{[\epsilon,\infty)}\mathrm{d}F_Z(x)\le\int_{[\epsilon,\infty)}x\mathrm{d}F_Z(x)\le\int_{[0,\infty)}x\mathrm{d}F_Z(x)=E(Z) \] (donde $F_Z(x)=Pr[Z\le x]$ es su función de distribución), es decir \[ Pr[Z\ge \epsilon]\le\dfrac{E[Z]}{\epsilon}. \]
+
+$\bboxed{E\left[\dfrac{(X-\mu)^2}{\sigma^2}\right]=\dfrac{1}{\sigma^2}E[(X-\mu)^2]=\dfrac{\sigma^2}{\sigma^2}=1}$
+
 Si $X$ es una variable aleatoria con media finita $\mu=E[X]$ y varianza $\sigma^2=\var(X)>0$, entonces tomando $Z=\dfrac{(X-\mu)^2}{\sigma^2}\ge0$ y aplicando la desigualdad de Markov, tenemos \[ Pr\left[\dfrac{(X-\mu)^2}{\sigma^2}\ge\epsilon\right]\le\dfrac{1}{\epsilon} \]para todo $\epsilon>0$.
 \subsubsection{Desigualdad de Chebyshev}
 También se puede escribir como \[ Pr[(X-\mu)^2<\epsilon\sigma^2]\ge1-\dfrac{1}{\epsilon}, \] o como \[ Pr[|X-\mu|<r]\ge1-\dfrac{\sigma^2}{r^2}, \] para todo $r>0$.
