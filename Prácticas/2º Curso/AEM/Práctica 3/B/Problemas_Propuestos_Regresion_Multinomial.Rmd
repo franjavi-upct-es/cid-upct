@@ -23,13 +23,15 @@ Se desea realizar un análisis de Regresión Multinomial con el fin de predecir 
 1)  Recuperar los datos y realizar un estudio descriptivo previo atendiendo a nuestro objetivo.
 
 ```{r}
+
 iris <- iris
 summary(iris)
 
-iris %>%
-ggplot(aes(y = Sepal.Length, x = Species)) + geom_boxplot(aes(color = Species)) 
+library(tidyverse)
 
-plot(iris)
+iris %>%
+  ggplot(aes(y = Sepal.Length, x = Species)) + geom_boxplot(aes(color = Species)) +
+  plot(iris)
 ```
 
 2)  Dividir el conjunto de datos en entrenamiento y prueba (70% entrenamiento, 30% prueba). Tomar semilla 123.
