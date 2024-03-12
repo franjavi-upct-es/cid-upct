@@ -1,0 +1,166 @@
+---
+title: "Control 2 de Prácticas"
+author: "Francisco Javier Mercader Martínez"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Problema 1
+
+1) 
+```{r}
+mydata <- read.csv2("data/wine_B.csv", header = TRUE, dec = ",")
+
+mydata$wine_class <- factor(mydata$wine_class)
+summary(mydata)
+```
+```{r}
+library(tidyverse)
+
+mydata %>%
+  ggplot(aes(x = wine_class, y = Proline)) + geom_boxplot(aes(color = wine_class))
+
+mydata %>%
+  ggplot(aes(x = wine_class, y = Hue)) + geom_boxplot(aes(color = wine_class))
+```
+
+
+En el tipo 2 del vino se puede observar que en ambos predictores tenemos valores atípicos, a diferencia de los otros dos.
+
+2) 
+```{r}
+set.seed(135)
+
+split <- sample(1:nrow(mydata), 0.6 * nrow(mydata))
+
+# Conjunto de entrenamiento
+train_data <- mydata[split, ]
+
+# Conjunto de prueba
+test_data <- mydata[-split, ]
+```
+
+3) 
+```{r}
+library(nnet)
+mydata$wine_class <- relevel(mydata$wine_class, ref = "1")
+
+modelo_ajustado <- multinom(wine_class ~ Proline + Hue, data = train_data)
+```
+4) 
+```{r}
+modelo_nulo <- multinom(wine_class ~ 1, data = train_data)
+modelo_backward <- step(modelo_ajustado, direction = "backward")
+modelo_forward <- step(modelo_nulo, direction = "forward", scope = formula(modelo_ajustado))
+modelo_stepwise <- step(modelo_nulo, direction = "both", scope = formula(modelo_ajustado))
+```
+
+5) 
+```{r}
+# Para comprobar la significación del modelo hay con comparar la devianza del modelo completo frente al modelo nulo
+diferencia_desvianza <- modelo_nulo$deviance - modelo_ajustado$deviance
+
+df_nulo <- length(mydata$wine_class) - 1
+df_ajustado <- length(mydata$wine_class) - length(modelo_ajustado$coefnames) - 1
+grados_libertad <- df_nulo - df_ajustado
+
+p_valor <- pchisq(diferencia_desvianza, df = grados_libertad, lower.tail = FALSE)
+
+p_valor
+```
+El resultado de `p-valor` permite concluir que el modelo completo es significativo
+```{r}
+# Bondad del ajuste
+paste("Bondad del ajuste =", modelo_ajustado$AIC)
+
+# Intervalos de confianza
+confint(modelo_ajustado, level = 0.95)
+```
+6) 
+```{r}
+wine_class_predict <- predict(modelo_ajustado, newdata = mydata, "class")
+mydata_predict <- cbind(mydata, wine_class_predict)
+```
+
+7) 
+```{r}
+matriz_confusion <- table(mydata_predict$wine_class, mydata_predict$wine_class_predict,
+                          dnn = c("real", "predicho"))
+matriz_confusion
+
+accuracy <- sum(diag(matriz_confusion)) / sum(matriz_confusion)
+accuracy
+```
+# Problema 2
+```{r}
+mydata$wine_class[mydata$wine_class == 3] <- NA
+
+summary(mydata)
+
+mydata <- na.omit(mydata)
+
+summary(mydata)
+```
+
+1) 
+```{r}
+mydata$Hue_Nivel[mydata$Hue > 1] <- 2
+mydata$Hue_Nivel[mydata$Hue < 1.1] <- 2
+mydata$Hue_Nivel[mydata$Hue <= 1] <- 3
+mydata$Hue_Nivel[mydata$Hue >= 1.1] <- 1
+
+mydata$Hue_Nivel <- factor(mydata$Hue_Nivel)
+
+# Hay que refactorizar "wine_class" porque sigue reconociendo que hay tres clases
+mydata$wine_class <- factor(mydata$wine_class)
+
+summary(mydata)
+```
+
+2)
+```{r}
+data.frame(mydata$wine_class, mydata$Flavanoids, mydata$Hue_Nivel)
+```
+
+
+3)
+```{r}
+modelo_ajustado2 <- glm(wine_class ~ Flavanoids + Hue_Nivel, data = mydata, family = "binomial")
+summary(modelo_ajustado2)
+```
+Los predictores más significativos son `Flavanoids` y `Hue_Nivel2`.
+
+4) 
+Por cada unidad adicional en la variable `Flavanoids`, el logaritmo de los *odds* de admitido frente a no admitido disminuye en 2.9955.
+
+Por cada unidad adicional en la variable `Hue_Nivel2`, el logaritmo de los *odds* de admitido frente a no admitido disminuye en 1.7456.
+
+Por cada unidad adicional en la variable `Hue_Nivel3`, el logaritmo de los *odds* de admitido frente a no admitido aumenta en 0.5762.
+
+5)
+```{r}
+split <- sample(1:nrow(mydata), 0.6 * nrow(mydata))
+
+# Conjunto de entrenamiento
+train_data <- mydata[split, ]
+
+# Conjunto de prueba
+test_data <- mydata[-split, ]
+
+predictions <- predict(modelo_ajustado2, newdata = test_data, type = "response")
+
+predic_grupos <- ifelse(predictions > 0.5, 1, 0)
+```
+
+```{r}
+library(pROC)
+roc(test_data$wine_class, predictions, plot = TRUE,
+ legacy.axes = TRUE, percent = FALSE,
+ xlab = "1-especificidad", ylab = "sensibilidad",
+ col = "blue", lwd = 2, print.auc = TRUE)
+```
+6) 
+No creo que haya ahbido *overfitting* ya que he separado el conjunto de datos en `entrenamiento` y `test`.
