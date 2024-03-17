@@ -1,0 +1,681 @@
+\input{"../../../../Macros.tex"}
+\everymath{\displaystyle}
+
+\begin{document}
+\begin{enumerate}[label=\color{red}\textbf{\arabic*)}, leftmargin=*]
+	\item \lb{Determinar el dominio de definición de las siguientes funciones:}
+	
+	$\db{f(x)=x-\sqrt{\dfrac{x+2}{x-1}}}$
+	
+	Para empezar, como hay un cociente debemos evitar que el denominador sea cero \begin{center}
+		$x-1=0\longrightarrow\bboxed{x=1}$ No está en el dominio
+	\end{center}
+	Por otro lado, tenemos una raíz cuadrado y esto implica que la de dentro, debe ser positivo o cero: $\dfrac{x+2}{x-1}\ge0$
+	\begin{center}
+		\begin{tikzpicture}[xscale=1.5]
+			\draw (-3,0) -- (2,0)
+			(-3,-0.5) -- (2,-0.5)
+			(-3,-1.5) -- (2,-1.5)
+			(-3,-2) -- (2,-2);
+			\node[left] at (-3,-0.25) {$x+2$};
+			\node[left] at (-3,-1.75) {$x-1$};
+			\foreach \x in {-2.9, -2.6, ..., -2.1}{
+			\node at (\x, -0.25) {$-$};
+			}
+			\foreach \x in {-2.9, -2.6, ..., 0.8}{
+			\node at (\x, -1.75) {$-$};
+			}
+			\foreach \x in {-1.8, -1.5, ..., 2}{
+			\node at (\x, -0.25) {$+$};
+			}
+			\foreach \x in {1.2, 1.5, ..., 2}{
+			\node at (\x, -1.75) {$+$};
+			}
+			\draw (-2,0) node[above] {$-2$} -- (-2,-1.5) ;
+			\draw (1,-0.5) -- (1,-2) node[below] {$1$} ;
+			\node[circle, draw=black] at (-2.5,-1) {+};
+			\node[circle, draw=black] at (1.5,-1) {+};
+			\node[circle, draw=black] at (-0.5,-1) {$-$};
+		\end{tikzpicture}
+	\end{center}
+	$\dfrac{x+2}{x-1}\ge0\longrightarrow x\in(-\infty,-2]\cup(1,+\infty)$
+	
+	Por lo tanto el dominio de la función es: \[ \bboxed{\dom(f)=(-\infty,-2]\cup(1,+\infty)} \]
+	\item \lb{Determinar el dominio de definición de las siguientes funciones:}
+	
+	$\db{f(x)=\sqrt[4]{\dfrac{x}{\log(x)}}}$
+	
+	Como hay un cociente entonces el denominador no puede ser cero: \begin{center}
+		$\log(x)=0\longrightarrow\bboxed{x=1}$ No está en el dominio
+	\end{center}
+	Como hay un logaritmo, lo de dentro solo puede ser positivo: \[ \bboxed{x>0} \]Como tenemos una raíz cuarta (de grado par) entonces lo de dentro no puede ser negativo:
+	
+	\begin{minipage}{0.4\textwidth}
+		\begin{tikzpicture}
+			\begin{axis}[xmin=-1, xmax=3.5, ymax=2, axis lines=center, xtick=\empty, ytick=\empty]
+				\addplot[lightblue, domain=0.1:3, samples=150] {ln(x)};
+				\fill[lightblue] (axis cs:1,0) circle (2pt) node[below] {$1$};
+				\node[rectangle, draw=black] at (axis cs:2.5,-1.1) {$\begin{array}{l}
+						\log(1)=0\\
+						\log(e)=1\\
+						\log(+\infty)=+\infty\\
+						\log(0^*)=-\infty\\
+					\end{array}$};
+			\end{axis}
+		\end{tikzpicture}
+	\end{minipage}\qquad\begin{minipage}{0.45\textwidth}
+	$\dfrac{x}{\log(x)}\ge0\longrightarrow x\in(1,+\infty)$
+	\begin{center}
+		\begin{tikzpicture}[xscale=2]
+			\draw (0,0) -- (3,0)
+			(0,-0.5) -- (3,-0.5)
+			(0,-1.5) -- (3,-1.5)
+			(0,-2) -- (3,-2)
+			;
+			\foreach \x in {0.1, 0.5, ..., 3}{\node at (\x, -0.25) {$+$};}
+			\foreach \x in {0.1, 0.4, ..., 0.8}{\node at (\x, -1.75) {$-$};}
+			\foreach \x in {1.1, 1.5, ..., 3}{\node at (\x, -1.75) {$+$};}
+			\draw (1,-0.5) -- (1,-2) node[below] {$1$};
+			\node[circle, draw=black] at (0.5, -1) {$-$};
+			\node[circle, draw=black] at (2, -1) {$+$};
+			\node[left] at (0,-0.25) {$x$};
+			\node[left] at (0,-1.75) {$\log(x)$};
+		\end{tikzpicture}
+	\end{center}
+	Por lo tanto: \[ \bboxed{\dom(f)=(1,+\infty)} \]
+	\end{minipage}
+	\item \lb{Vamos a comprobar si la aplicación \[ \begin{aligned}
+			f:&\R\longrightarrow\R\\
+			&x\longmapsto f(x)=2x+1
+		\end{aligned} \]es biyectiva, es decir, si es inyectiva y sobreyectiva.}
+	
+	\begin{minipage}{0.5\textwidth}
+		Veamos si la aplicación $f(x)$ es inyectiva:
+		\begin{itemize}[leftmargin=*]
+			\item Sea: \[ f(x_1)=f(x_2)\longrightarrow2x_1+1=2x_2+1\longrightarrow\bboxed{x_1=x_2} \]Por lo tanto: $f(x)$ es inyectiva.
+			\item Por otro lado: $\forall y\in\R\longrightarrow y=f(x)=2x+1$ 
+			\begin{center}
+				$2x=1-y\longrightarrow x=\dfrac{1-y}{2}$ Por lo tanto $\forall y\in\R$ existe un $x\in\R$ tal que $f(x)=y$$\longrightarrow f(x)$ es sobreyectiva.
+			\end{center}
+		\end{itemize}
+		
+	\end{minipage}\qquad\begin{minipage}{0.4\textwidth}
+	\begin{tikzpicture}
+		\node[red, draw=red, fill=red!10, line width=1.5, text width=\linewidth] {\underline{Nota:} Dada una función $y=f(x)$, se dice que esta función tiene inversa $x=f^{-1}(y)$ si cumple que sea inyectiva.\\
+		Decimos que $y=f(x)$ es inyectiva si $\forall x_1\neq x_2$ se cumple que $f(x_1)\neq f(x_2)$. Realmente para comprobar si una función es inyectiva lo que haremos será partir de $f(x_1)=f(x_2)$ y terminar demostrando que $x_1=x_2$.};
+	\end{tikzpicture}
+	\end{minipage}
+	
+	Entonces, como $f(x)$ es inyectiva y sobreyectiva en todo $\R$ podemos asegurar que $f(x)$ es biyectiva y por lo tanto existe su función inversa. \[ \begin{aligned}
+		f^{-1}:&\R\longrightarrow\R\\
+		&y\longrightarrow x=f^{-1}(y)=\dfrac{1-y}{2}
+	\end{aligned} \]
+	
+\item \lb{Comprobar si la función $f:\R\longrightarrow\R$ con $f(x)=x^2$ tiene inversa.}
+
+Para que tenga inversa debe ser inyectiva, y esto implica que para elementos diferentes debe tener diferentes y como: 
+\begin{center}
+	$\begin{rcases}
+		f(1)=1\\
+		f(-1)=1
+	\end{rcases}$ No es inyectiva $\longrightarrow f(x)$ No tiene inversa
+\end{center}
+\item \lb{Dadas las siguientes funciones, averiguar en qué puntos son discontinuas y por qué.}
+
+$\db{f(x)=\dfrac{x^2}{x-2}\text{ si }x\neq0,\, f(2)=0.}$
+
+$f(x)=\begin{cases}
+	\dfrac{x^2}{x-2} & \text{si }x\neq2\\
+	0 & \text{si }x=2
+\end{cases}$\\
+$\forall x\neq2\:f(x)$ es continua por ser un cociente de funciones continuas con denominador distinto de cero.
+
+Veamos ahora si es continua en $x=2$.
+
+\begin{center}
+	$\begin{rcases}
+	\lim_{x\to2^-}\dfrac{x^2}{x-2}=\dfrac{4}{0^-}=-\infty\\
+	\lim_{x\to2^+}\dfrac{x^2}{x-2}=\dfrac{4}{0^+}=+\infty\\
+\end{rcases}$\quad\begin{minipage}{0.5\textwidth}
+$f(x)$ No es continua en $x=2$, en concreto presenta en $x=2$ una discontinuidad inevitable de salto infinito. Diremos que $f(x)$ presenta en $x=2$ una asíntota vertical.
+\end{minipage}\\
+\begin{tikzpicture}
+	\begin{axis}[xmin=-1, xtick=\empty, ytick=\empty, axis lines=center, xmax=4]
+		\addplot[lightblue, line width=1.5, domain=2.1:2.2] {x^2/(x-2)};
+		\addplot[lightblue, line width=1.5, domain=1.7:1.9] {x^2/(x-2)};
+		\draw[lightblue] (axis cs:2,50) -- (axis cs:2,-50);
+		\fill[lightblue] (axis cs:2,0) circle (2pt) node[ below right] {$2$};
+	\end{axis}
+\end{tikzpicture}
+\end{center}
+\item \lb{Determinar el dominio de definición de las siguientes funciones:}
+
+$\db{f(x)=\dfrac{1}{\sqrt{1-e^x}}}$
+
+Como es un cociente, debemos evitar que el denominador sea cero: \begin{center}
+	$1-e^x=0\longrightarrow e^x=1\longrightarrow x=\ln(1)=0\longrightarrow\bboxed{x=0}$ No pertence el dominio
+\end{center}
+Como hay una raiz cuadrada, lo de dentro no puede ser negativo: \[ 1-e^x>0\longrightarrow e^x<1\longrightarrow x<\ln(1)=0\longrightarrow\bboxed{x<0} \]
+\fcolorbox{lightblue}{lightblue!10}{Por lo tanto, el $\dom(f)=(-\infty,0)$}
+\item \lb{Estudiar la continuidad de la función \[ f(x)=\begin{cases}
+		-xe^{x-1} & \text{si }x<0\\
+		xe^{x-1} & \text{si }0\le x<1\\
+		xe^{1-x} & \text{si }x\ge1
+	\end{cases} \]}
+$\forall x<0\longrightarrow f(x)=-xe^{x-1}$ es continua por ser un producto de funciones continuas\\
+$\forall x\in(0,1)\longrightarrow f(x)=xe^{x-1}$ es continua por ser un producto de funciones continuas\\
+$\forall x>1\longrightarrow f(x)=xe^{1-x}$ es continua por ser un producto de funciones continuas\\
+Veamos ahora si $f(x)$ es continua en $x=0$ y $x=1$:
+\begin{itemize}[label=]
+	\item \underline{En $x=0$:}
+	\begin{center}
+		$\begin{rcases}
+			\lim_{x\to0^-}(-xe^{x-1})=0\\
+			\lim_{x\to0^+}(xe^{1-x})=0\\
+		\end{rcases}\begin{array}{l}
+		\lim_{x\to0}f(x)=0\\
+		f(0)=0
+		\end{array}~~$\begin{minipage}{0.5\textwidth}
+		Como existe el límite de $f(x)$ en $x=0$ y coincide con $f(0)$ entonces podemos asegurar que $f(x)$ es continua en $x=0$.
+		\end{minipage}
+	\end{center}
+	\item \underline{En $x=1$:}
+	\begin{center}
+		$\begin{rcases}
+			\lim_{x\to1^-}xe^{x-1}=1\\
+			\lim_{x\to1^+}xe^{1-x}=1
+		\end{rcases}\begin{array}{l}
+		\lim_{x\to1}f(x)=1\\
+		f(1)=1
+		\end{array}~~$\begin{minipage}{0.5\textwidth}
+		Como existe el límite de $f(x)$ en $x=1$ y coincide con $f(1)$ entonces podemos asegurar que $f(x)$ es continua en $x=1$.
+		\end{minipage}
+	\end{center}
+\end{itemize}
+Por lo tanto, y resumiendo, diremos que $f(x)$ es continua en todo $\R$.
+\item \lb{Determina los valores de $a,b\in\R$, para los que las siguientes funciones son continuas. Indica su dominio de definción:}
+\begin{enumerate}[label=\color{red}\alph*)]
+	\item $\db{f(x)=\begin{cases}
+			ax-5 & \text{si }x\le-1\\
+			-ax+b & \text{si }-1<x<2\\
+			-2ax+3b & \text{si }x\ge2
+	\end{cases}}$
+
+Para todos los puntos $x\neq-1$ y $x\neq2\:f(x)$ es continua por ser un polinomio.
+\begin{itemize}[label*=]
+	\item \underline{Veamos en $x=-1$:}
+	\begin{center}
+		$\begin{rcases}
+			\lim_{x\to1^-}(ax-5)=-a-5\\
+			\lim_{x\to1^+}(-ax+b)=a+b\\
+			f(-1)=-a-5
+		\end{rcases}~~$\begin{minipage}{0.5\textwidth}
+		Para que $f(x)$ sea continua en $x=-1$, debe cumplirse que \[ -a-5=a+b\longrightarrow\bboxed{2a+b=-5} \]
+		\end{minipage}
+	\end{center}
+	\item \underline{Veamos en $x=2$:}
+	\begin{center}
+		$\begin{rcases}
+			\lim_{x\to2^-}(-ax+b)=-2ab\\
+			\lim_{x\to2^+}(-2ax+3b)=-4a+3b\\
+			f(2)=-4+3b
+		\end{rcases}~~$\begin{minipage}{0.5\textwidth}
+		Para que $f(x)$ sea continua en $x=2$, debe cumplirse que \[ -2a+b=-4a+3b\longrightarrow\bboxed{2a-2b=0} \]
+		\end{minipage}
+	\end{center}
+\end{itemize}
+Por lo tanto, para que $f(x)$ sea continua en todo $\R$, debe cumplirse que:
+\begin{center}
+	$\begin{cases}
+		2a+b=-5\longrightarrow 3a=-5\longrightarrow\\
+		2a-2b=0\longrightarrow b=a
+	\end{cases}\bboxed{\begin{array}{l}
+		a=-\dfrac{5}{3}\\
+		b=-\dfrac{5}{3}
+		\end{array}}~~$\begin{minipage}{0.3\textwidth}
+		\lb{Como estos valores de $a$ y $b$ podemos asegurar que $f(x)$ es continua en todo $\R$}
+	\end{minipage}
+\end{center}
+\item $\db{g(x)=\begin{cases}
+		3x+a & \text{si }-2\le x<-1\\
+		bx+a & \text{si }-1\le x<3\\
+		2x-b & \text{si }3\le x<5
+\end{cases}}$
+
+Para empezar debemos darnos cuenta de que la función solo está definida para el intervalo: $[-2,5)\longrightarrow\bboxed{\dom(g)=[-2,5)}$
+
+Podemos asegurar que $g(x)$ es continua en $\forall x\in\dom(g)$ solo en $x=-1$ y $x=3$, que todavía no lo sabemos ya que son los puntos de cambio.
+\begin{itemize}[label=]
+	\item \underline{Veamos en $x=-1$:}
+	\begin{center}
+		$\begin{rcases}
+			\lim_{x\to-1^-}(3x+a)=-3+a\\
+			\lim_{x\to-1^+}(bx+a)=-bx+a\\
+			f(-1)=-b+a
+		\end{rcases}~~$\begin{minipage}{0.4\textwidth}
+		Para que $g(x)$ sea continua en $x=-1$ \[ -3+\cancel{a}=-b+\cancel{a}\longrightarrow \bboxed{b=3} \]
+		\end{minipage}
+	\end{center}
+	\item \underline{Veamos en $x=3$:}
+	\begin{center}
+		$\begin{rcases}
+			\lim_{x\to3^-}(bx+a)=9+a\\
+			\lim_{xto3^+}(2x-b)=3\\
+			f(3)=3
+		\end{rcases}~~$\begin{minipage}{0.4\textwidth}
+		Para que $g(x)$ sea continua en $x=3$ \[ 9+a=3\longrightarrow\bboxed{a=-6} \]
+		\end{minipage}
+	\end{center}
+\end{itemize}
+\begin{tikzpicture}
+	\node[draw=lightblue, fill=lightblue!10, line width=1.5, text width=\linewidth] {Por lo tanto, podemos asegurar que si $a=-6$ y $b=3$ entonces $g(x)$ es continua en todo su dominio: $\dom(g)=[-2,5)$.};
+\end{tikzpicture}
+\end{enumerate}
+\item \lb{Calcular el siguiente límite: \[ \lim_{x\to0}\dfrac{\sqrt{1+x}-\sqrt{1-x}}{x} \]}
+$\lim_{x\to0}\dfrac{\sqrt{1+x}-\sqrt{1-x}}{x}=\left(\dfrac{0}{0}\right)=\left\{\begin{array}{l}
+	\text{multiplicaremos y dividiremos}\\
+	\text{por el conjugado de las raíces}
+\end{array}\right\}=\lim_{x\to0}\dfrac{(\sqrt{1+x}-\sqrt{1-x})\cdot(\sqrt{1+x}-\sqrt{1-x})}{x(\sqrt{1+x}+\sqrt{1-x})}\linebreak=\lim_{x\to0}\dfrac{(\sqrt{1+x})^2-(\sqrt{1-x})^2}{x(\sqrt{1+x}+\sqrt{1-x})}=\lim_{x\to0}\dfrac{(\cancel{1}-x)-(\cancel{1}-x)}{x(\sqrt{1+x}+\sqrt{1-x})}=\lim_{x\to0}\dfrac{2\cancel{x}}{\cancel{x}(\sqrt{1+x}+\sqrt{1-x})}=\dfrac{2}{2}=\bboxed{1}$
+\item \lb{Calcular el siguiente límite: \[ \lim_{x\to+\infty}\dfrac{3x^2+2}{x^2+3x+5} \]}
+
+\begin{minipage}{0.5\textwidth}
+	$\lim_{x\to+\infty}\dfrac{3x^2+2}{x^2+4x+5}=\left(\dfrac{\infty}{\infty}\right)=\lim_{x\to+\infty}\dfrac{\frac{3x^2}{x^2}+\frac{2}{x^2}}{\frac{x^2}{x^2}+\frac{3x}{x^2}+\frac{5}{x^2}}=\lim_{x\to+\infty}\dfrac{3+\tozero{\frac{2}{x^2}}}{1+\tozero{\frac{3}{x}}+\tozero{\frac{5}{x^2}}}=\bboxed{3}$
+\end{minipage}\qquad\begin{minipage}{0.4\textwidth}
+\begin{tikzpicture}
+	\node[red, draw=red, fill=red!10, line width=1.5, text width=\linewidth] {\underline{Nota:} Siempre que tengamos un límite de la forma $\left(\dfrac{\infty}{\infty}\right)$ que sea un cociente de polinomios, lo que haremos para resolverlo será dividir numerada y denominador por $x^p$ siendo $p$ el mayor grado de los terminos del denominador.};
+\end{tikzpicture}
+\end{minipage}
+\item \lb{Calcular el siguiente límite: \[ \lim_{x\to+\infty}\dfrac{3x}{x^2+2} \]}
+$\lim_{x\to+\infty}\dfrac{3x}{x^2+2}=\left(\dfrac{\infty}{\infty}\right)=\lim_{x\to+\infty}\dfrac{\frac{3x}{x^2}}{\frac{x^2}{x^2}+\frac{2}{x^2}}=\lim_{x\to+\infty}\dfrac{\tozero{\frac{3}{x}}}{1+\tozero{\frac{2}{x^2}}}=\dfrac{0}{1}=\bboxed{0}$
+\item \lb{Calcular el siguiente límite: \[ \lim_{x\to+\infty}\left(\dfrac{x+1}{x-1}\right)^x \]}
+\begin{minipage}{0.55\textwidth}
+	$\lim_{x\to+\infty}\left(\dfrac{x+1}{x-1}\right)^x=(1^\infty)=e^{\displaystyle\lim_{x\to0}x\left[\frac{x+1}{x-1}-1\right]}=\lb{(\ast)}=\bboxed{e^2}$
+	
+	\lb{\underline{Base:}\\
+	$\lim_{x\to+\infty}\dfrac{x+1}{x-1}=\lim_{x\to+\infty}\dfrac{\frac{x}{x}+\tozero{\frac{1}{x}}}{\frac{x}{x}-\tozero{\frac{1}{x}}}=1$}
+	
+\end{minipage}\qquad\begin{minipage}{0.4\textwidth}
+\begin{tikzpicture}
+	\node[red, draw=red, fill=red!10, line width=1.5, text width=\linewidth] {\underline{Nota:} Siempre que tengamos una indeterminación de la forma $1^\infty$, haremos lo siguiente\\
+	$\lim_{x\to a}\left(f(x)\right)^{g(x)}=(1^\infty)=e^{\lim_{x\to a}g(x)\left(f(x)-1\right)}$};
+\end{tikzpicture}
+\end{minipage}
+	
+	$\lb{(\ast)=} \lim_{x\to+\infty}x\left[\dfrac{\cancel{x}+1-\cancel{x}+1}{x-1}\right]=\lim_{x\to+\infty}\dfrac{2x}{x-1}=\left(\dfrac{\infty}{\infty}\right)\dfrac{\frac{2x}{x}}{\frac{x}{x}-\tozero{\frac{1}{x}}}=2$
+	
+\item \lb{Calcular el siguiente límite: \[ \lim_{x\to+\infty}(\sqrt{x^2+1}-\sqrt{x^2-4}) \]}
+
+$\lim_{x\to+\infty}(\sqrt{x^2+1}-\sqrt{x^2-4})=(\infty-\infty)=\lim_{x\to+\infty} \dfrac{(\sqrt{ x^{2}+1 })-(\sqrt{ x^{2}-4 })\cdot(\sqrt{ x^{2}+1 })+(\sqrt{ x^{2}-4 })}{(\sqrt{ x^{2}+1 })+(\sqrt{ x^{2}-4 })}=\linebreak\lim_{ x \to +\infty }\dfrac{(\sqrt{ x^{2}+1 })^{2}-(\sqrt{ x^{2}-4 })^2}{\sqrt{ x^{2}+1 }+\sqrt{ x^{2}-4 }}=\lim_{ x \to +\infty }\dfrac{(\cancel{x^{2}}+1)-(\cancel{x^{2}}-4)}{\sqrt{ x^{2}+1 }+\sqrt{ x^{2}-4  }}=\lim_{ x \to +\infty }\frac{5}{\sqrt{ x^{2}+1 }+\sqrt{ x^{2}-4 }}=\lim_{ x \to +\infty }\dfrac{5}{+\infty}=\bboxed{0}$
+\item \lb{Estudiar la continuidad de la siguiente función: \[ f(x)=\begin{cases}
+		\dfrac{1}{e^{\frac{1}{x-1}}+1} & \text{si }x\neq1\\
+		1 & \text{si }x=1
+	\end{cases} \]}
+
+$\forall x\neq1\longrightarrow f(x)$ es continua por ser un cociente de funciones continuas con denominador distinto de cero.
+
+Veamos si $f(x)$ es continua en $x=1$:
+
+\begin{center}
+	$\begin{rcases}
+		\lim_{x\to1^-}\dfrac{1}{e^{\frac{1}{x-1}}+1}=\frac{1}{e^{\frac{1}{0^-}}+1}=\dfrac{1}{e^{-\infty}+1}=\left\{e^{-\infty}=\dfrac{1}{e^{+\infty}}=\dfrac{1}{+\infty}=0\right\}=\dfrac{1}{1}=1\\
+		\lim_{x\to1^+}=\dfrac{1}{e^{\frac{1}{x-1}}+1}=\dfrac{1}{e^{\frac{1}{0^+}}+1}=\dfrac{1}{e^{+\infty}+1}=\dfrac{1}{+\infty}=0
+	\end{rcases}~~$\begin{minipage}{0.3\textwidth}
+	Como los límites laterales no son iguales, entonces no existe el límite en $x=1\longrightarrow f(x)$ no es continua en $x=1$.
+	\end{minipage}
+\end{center}
+En concreto podemos asegurar que $f(x)$ presenta en $x=1$ una discontinuidad inevitable de salto finito o de 1ª especie.
+
+\fcolorbox{lightblue}{lightblue!10}{Por lo tanto, la conclusión es que $f(x)$ es continua $\forall x\in\R-\{1\}$.}
+\item \lb{Calcular \[ \lim_{x\to+\infty}\left(\dfrac{x^2-3x+6}{x^2+4x-1}\right)^{\dfrac{x^3}{1-x^2}} \]}
+
+$\lim_{x\to+\infty}\left(\dfrac{x^2-3x+6}{x^2+4x-1}\right)^{\dfrac{x^3}{1-x^2}}=\lb{(\ast)}=\left(1^\infty\right)=\lb{(\ast\ast)}$
+
+$\lb{(\ast)}\begin{cases}
+	\text{\underline{Base:} }\lim_{x\to+\infty}\left(\dfrac{x^2-3x+6}{x^2+4x-1}\right)=\left(\dfrac{\infty}{\infty}\right)=\lim_{x\to+\infty}\dfrac{\frac{x^2}{x^2}-\frac{3x}{x^2}+\frac{6}{x^2}}{\frac{x^2}{x^2}+\frac{4x}{x^2}-\frac{1}{x^2}}=\lim_{x\to+\infty}\dfrac{1-\tozero{\frac{3}{x}}+\tozero{\frac{6}{x^2}}}{1+\tozero{\frac{4}{x}}-\tozero{\frac{1}{x^2}}}=1\\
+	\text{\underline{Exponente:} }\lim_{x\to+\infty}\dfrac{x^3}{1-x^2}=\left(\dfrac{\infty}{\infty}\right)=\lim_{x\to+\infty}\dfrac{\frac{x^3}{x^3}}{\frac{1}{x^2}-\frac{x^2}{x^2}}=\lim_{x\to+\infty}\dfrac{x}{\tozero{\frac{1}{x^2}}-1}=\dfrac{\infty}{-1}=-\infty
+\end{cases}$
+
+$\lb{(\ast\ast)=}e^{\displaystyle\lim_{x\to+\infty}\dfrac{x^3}{1-x^2}\left[\dfrac{x^2-3x+6}{x^2+2x-1}-1\right]}=\bboxed{e^7}$
+
+$\lim_{x\to+\infty}\dfrac{x^3}{1-x^2}\left[\dfrac{x^2-3x+6}{x^2+2x-1}-1\right]=\lim_{x\to+\infty}\dfrac{x^3}{1-x^2}\left[\dfrac{\cancel{x^2}-3x+6-\cancel{x^2}-4x+1}{x^2+4x-1}\right]=\lim_{x\to+\infty}\dfrac{x^3}{1-x^2}\cdot\dfrac{-7x+7}{x^2+4x-1}=\linebreak\lim_{x\to+\infty}\dfrac{-7x^3+7x^3}{x^2+4x-1-x^4-4x^3+x^2}=\lim_{x\to+\infty}\dfrac{-7x^4+7x^3}{-x^4-4x^3+2x^2+4x-1}=\left(\dfrac{\infty}{\infty}\right)=\lim_{x\to+\infty}\dfrac{-\frac{7}{x^4}+\frac{7x^3}{x^4}}{-\frac{x^4}{x^4}-\frac{4x^3}{x^4}+\frac{2x^2}{x^4}+\frac{4x}{x^4}-\frac{1}{x^4}}=\lim_{x\to+\infty}\frac{-7+\tozero{\frac{7}{x}}}{-1-\tozero{\frac{4}{x}}+\tozero{\frac{2}{x^2}}+\tozero{\frac{4}{x^3}}-\tozero{\frac{1}{x^4}}}=\frac{-7}{-1}=7$ 
+\item \lb{Calcular el siguiente límite: \[ \lim_{x\to0}x\sin\dfrac{1}{x} \]}
+
+\begin{minipage}{0.45\textwidth}
+	Como tenemos:
+	\begin{itemize}
+		\item $\lim_{x\to 0}x=0$
+		\item $\sin\dfrac{1}{x}$ es una función acotada ya que siempre ocurrirá que $-1\le\sin\dfrac{1}{x}\le1$
+	\end{itemize}
+	Por lo tanto por el teorema del encaje (Sandwich), tendremos que: \[ \bboxed{\lim_{x\to0}x\sin\left(\dfrac{1}{x}\right)=0} \]
+\end{minipage}\qquad\begin{minipage}{0.45\textwidth}
+\begin{tikzpicture}
+	\node[red, draw=red, fill=red!10, line width=1.5, text width=\linewidth] {\underline{Nota:} \underline{Teorema del Sandwich o del encaje}\\ Si tenemos tres funciones tales que $f(x)\le g(x)\le h(x)$ entonces si $\lim_{x\to a}f(x)=\lim_{x\to a}h(x)=L\longrightarrow\lim_{x\to a}g(x)=L$. Una consecuencia de este teorema es la siguiente:
+	
+	Si tenemos $\lim_{x\to a}f(x)=0$ y $g(x)$ está acotada $\left|g(x)\right|\le k$ entonces podemos asegurar que \[ \lim_{x\to a}f(x)\cdot g(x)=0 \]};
+\end{tikzpicture}
+\end{minipage}
+\item \lb{Calcular el límite \[ \lim_{x\to+\infty}\dfrac{\sin(x)}{x} \]}
+$\lim_{x\to+\infty}\dfrac{\sin(x)}{x}=\lim_{x\to+\infty}\dfrac{1}{x}\cdot\sin(x)$
+
+Como se cumple que: 
+\begin{itemize}
+	\item $\lim_{x\to+\infty}=0$
+	\item La función $\sin(x)$ está acotada, ya que $-1\le\sin(x)\le1$
+\end{itemize}
+Aplicand el teorema del encaje (Sandwich), tendremos que: \[ \bboxed{\lim_{x\to+\infty}\dfrac{1}{x}\cdot\sin(x)=0} \]
+\item \lb{Calcular el siguiente límite: \[ \lim_{x\to0}\dfrac{\sin(x)}{x} \]}
+\begin{minipage}{0.32\textwidth}
+	Aplicando la equivalencia: $\sin(x)\leadsto_0 x$ podemos decir que: \[ \lim_{x\to0}\dfrac{\sin(x)}{x}=\lim_{x\to0}\dfrac{x}{x}=\bboxed{1} \]
+\end{minipage}\qquad\begin{minipage}{0.63\textwidth}
+\begin{tikzpicture}
+	\node[red, draw=red, fill=red!10, line width=1.5, text width=\linewidth] {\underline{Nota:} Hay veces en las que tenemos que hacer límites de funciones conocidas cuando estamos cerca de $x=0$. En estos casos podemos plantearnos transformar estas funciones en polinomios, mediante las llamadas equivalencias:\\
+	$\begin{array}{lll}
+		\sin(x)\leadsto_0x &e^x\leadsto_01+x  & \arcsin(x)\leadsto_0 x\\
+		\cos(x)\leadsto_01-\frac{x^2}{2} & \log(1+x)\leadsto_0 x & \arctan(x)\leadsto_0 x\\
+		\tan(x)\leadsto_0 x & a^x\leadsto_0 1+x\log(a) & (1+x)^n\leadsto_01+nx\\
+	\end{array}$};
+\end{tikzpicture}
+\end{minipage}
+\item \lb{Calcular el siguiente límite: \[ \lim_{x\to0}\dfrac{1-\cos(2x)}{3x\sin(2x)} \]}
+
+$\lim_{x\to0}\dfrac{1-\cos(2x)}{3x\sin(2x)}=\left(\dfrac{0}{0}\right)=\lb{(\ast)}$
+
+Resolveremos este límite aplicando equivalencias:\[ \begin{array}{rl}
+	\sin(x)\leadsto_0 x\xrightarrow{\qquad} & \sin(2x)\leadsto_0(2x)\\
+	\cos(x)\leadsto_01-\frac{x^2}{2}\xrightarrow{\qquad} & \cos(2x)\leadsto_0 1-\frac{(2x)^2}{2}=1-2x^2
+\end{array} \] $\lb{(\ast)=}\lim_{x\to0}\dfrac{\cancel{1}-(\cancel{1}-2x^2)}{3x\cdot(2x)}=\lim_{x\to0}\dfrac{2\cancel{x^2}}{6\cancel{x^2}}=\bboxed{\dfrac{1}{3}}$
+\item \lb{Calcular el límite $\lim_{x\to0}\dfrac{\sin^2(x)\tan^3(3x)}{(1-\cos^2(x))\cdot(e^x-1)^3}$}
+
+$\lim_{x\to0}\dfrac{\sin^2(x)\tan^3(3x)}{\lbb{(1-\cos^2(x))}{\sin^2(x)}\cdot(e^x-1)^3}=\lim_{x\to0}\dfrac{\cancel{\sin^2(x)}\cdot\tan^3(3x)}{\cancel{\sin^2(x)}\cdot(e^x-1)^3}=\lim_{x\to0}\dfrac{\tan^3(3x)}{(e^x-1)^3}=\left(\dfrac{0}{0}\right)=\lb{(\ast)}$
+
+Aplicaremos equivalnecias para resolver este límite: \[ \begin{array}{l}
+	\tan(x)\leadsto_0 x\longrightarrow\bboxed{\tan(3x)\leadsto_03x}\\
+	\bboxed{e^x\leadsto_01+x}
+\end{array} \]$\lb{(\ast)=}\lim_{x\to0}\dfrac{(3x)^3}{(1+x-1)^3}=\lim_{x\to0}\dfrac{27x^3}{x^3}=\bboxed{27}$
+
+\item \lb{Para calcular \[ \lim_{x\to0^+}e^{\frac{2}{3-\ln x}} \]}
+\begin{minipage}{0.4\textwidth}
+	$\lim_{x\to0^+}=(0^0)=\lim_{x\to0^+}e^{\log x^{\frac{2}{3-\ln x}}}=\lim_{x\to0^+}e^{\frac{2}{3-\ln x}\cdot\ln x}=e^{\lim_{x\to0^+}\frac{2\ln x}{3-\ln x}}=\lb{(\ast)}=\bboxed{e^{-2}}$
+	
+	\lb{\underline{Exponente:} $\lim_{x\to0^+}\dfrac{2}{3-\ln x}=\left\{\ln(0^+) =-\infty\right\}=\dfrac{2}{\infty}=0$}
+	
+	$\lb{(\ast)=}\lim_{x\to0^+}\dfrac{2\ln x}{3-\ln x}=\left(\dfrac{\infty}{\infty}\right)=\lim_{x\to0^+}\dfrac{2\frac{\cancel{\ln x}}{\cancel{\ln x}}}{\frac{3}{\ln x}-\frac{\cancel{\ln x}}{\cancel{\ln x}}}=\lim_{x\to0^+}\dfrac{2}{\tozero{\frac{3}{\ln x}}-1}=-2$
+\end{minipage}\qquad\begin{minipage}{0.45\textwidth}
+\begin{tikzpicture}
+	\node[red, draw=red, fill=red!10, line width=1.5, text width=\linewidth] {\underline{Nota:} Siempre que tengamos un límie de la forma $0^0$ o $\infty^0$ que sea indeterminaciones, lo que haremos será aplicar lo siguiente: \begin{center}
+			$\lim_{x\to a}\left(f(x)\right)^{g(x)}=\left(0^0\text{ ó }\infty^0\right)=\lim_{x\to a}e^{\log\left(f(x)\right)^{g(x)}}=\linebreak\lim_{x\to a}e^{g(x)\log f(x)}=e^{\lim_{x\to a}g(x)\log f(x)}$
+	\end{center}};
+\end{tikzpicture}
+\end{minipage}
+
+\item \lb{Para calcular \[ \lim_{x\to+\infty}(5x^3)^{\dfrac{1}{\ln(x^2)}} \]}
+$\lim_{x\to+\infty}(5x^3)^{\frac{1}{\ln x^2}}=(\infty^0)=\lim_{x\to+\infty}e^{\ln(5x^3)^{\frac{1}{\ln x^2}}}=\lim_{x\to+\infty}e^{\frac{1}{\ln x^2}\ln(5x^3)}=e^{\lim_{x\to+\infty}\frac{\ln(5x^3)}{\ln x^2}}=\lb{(\ast)}=e^{\frac{3}{2}}$
+
+$\lb{(\ast)}=\lim_{x\to+\infty}\dfrac{\ln(5x^3)}{\ln x^2}=\lim_{x\to+\infty}\dfrac{\ln 5+\ln x^3}{\ln x^2}=\lim_{x\to+\infty}\dfrac{\ln 5+3\ln x}{2\ln x}=\left(\dfrac{\infty}{\infty}\right)=\lim_{x\to+\infty}\dfrac{\tozero{\frac{\ln 5}{\ln x}}+3\frac{\cancel{\ln x}}{\cancel{\ln x}}}{2\frac{\cancel{\ln x}}{\cancel{\ln x}}}=\dfrac{3}{2}$
+\item \lb{Calcular el siguiente límite: \[ \lim_{x\to+\infty}\dfrac{\ln(2x^3+5x^2+6x+2)}{\ln(x^2+5)} \]}
+
+\begin{minipage}{0.6\textwidth}
+{\small	$\lim_{ x \to +\infty }\dfrac{\ln(2x^{3}+5x^{2}+6x+2)}{\ln(x^{2}+5)}=\left( \frac{\infty}{\infty} \right)=\lim_{ x \to +\infty }\dfrac{\ln\left( x^{3}\left( 2+\frac{5}{x}+\frac{6}{x^{2}}+\frac{2}{x^{3}} \right) \right)}{\ln\left( x^{2}\left( 1+\frac{5}{x^{2}} \right) \right)}=\lim_{ x \to +\infty }\dfrac{\ln(x^{3})+\ln\left( 2+\frac{5}{x}+\frac{6}{x^{2}}+\frac{2}{x^{3}} \right)}{\ln(x^{2})+\ln\left( 1+\frac{5}{x^{2}} \right)}=\lim_{ x \to +\infty }\dfrac{3\ln x+\ln\left( 2+\frac{5}{x}+\frac{6}{x^{2}}+\frac{2}{x^{3}} \right)}{2\ln x+\ln\left( 1+\frac{5}{x^{2}} \right)}=\left( \frac{\infty}{\infty} \right)=\lim_{ x \to +\infty }\dfrac{\frac{3\cancel{\ln x}}{\cancel{\ln x}}+\cancelto{0}{\frac{\ln\left( 2+\frac{5}{x}+\frac{6}{x^{2}}+\frac{2}{x^{3}} \right)}{\ln x}}}{\frac{2\ln x}{\ln x}+\cancelto{0}{\frac{\ln\left( 1+\frac{5}{x^{2}} \right)}{\ln x}}}=\bboxed{\frac{3}{2}}$}
+\end{minipage}\qquad\begin{minipage}{0.3\textwidth}
+\begin{tikzpicture}
+	\node[red, draw=red, fill=red!10, line width=1.5, text width=\linewidth] {\underline{Nota:} Siempre que tengamos un límite que sea un cociente de logaritmos, lo que haremos será sacar en cada logaritmo factor común el término polinómico de mayor grado y mediante reglas de logaritmos lo reduciremos a un cociente de la forma $\left(\dfrac{\infty}{\infty}\right)$ donde dividiremos arriba y abajo por $\ln x$.};
+\end{tikzpicture}
+\end{minipage}
+\item \lb{Si queremos calcular $A$ para que la función \[ f(x)=\begin{cases}
+		\dfrac{x^2-4}{x-2} & \text{si }x\neq2\\
+		A & \text{si }x=2
+	\end{cases} \] sea continua en el punto $x_0=2$ lo que tenemos que hacer es calcular.}
+
+\begin{minipage}{0.5\textwidth}
+	\begin{itemize}[leftmargin=*]
+		\item Veamos si existe el límite en $x_0=2$. \[ \lim_{x\to 2}\dfrac{x^2-5}{x-2}=\left(\dfrac{0}{0}\right)=\lim_{x\to2}\dfrac{\cancel{(x-2)}(x+2)}{\cancel{x-2}}=4\longrightarrow\lim_{x\to2}f(x)=4 \]
+		\item Como podemos ver en $f(x)$, existe $f(2)$ y vale $f(2)=A$.
+		\item Para que $f(x)$ sea continua en $x=2$, debe verificarse que $\lim_{x\to2}f(x)=f(2)$ \[ \bboxed{A=4} \]
+	\end{itemize}
+\end{minipage}\qquad\begin{minipage}{0.4\textwidth}
+\begin{tikzpicture}
+	\node[red, draw=red, fill=red!10, line width=1.5, text width=\linewidth] {\underline{Nota:} Para que una función $f(x)$ sea continua en un punto $x=a$ debe verificar las siguiente condiciones:
+	\begin{enumerate}[label=\color{red}\roman*)]
+		\item Exista $\lim_{x\to a}f(x)$
+		\item Exista $f(a)$\\
+		\item $\lim_{x\to a}f(x)=f(a)$
+		\end{enumerate}};
+\end{tikzpicture}
+\end{minipage}
+\item \lb{Sea $k\in\Z$. Si queremos estudiar la continuidad de la función en el punto $x_0=\pi$ \[ f(x)=\begin{cases}
+		\dfrac{x}{\sin x} & \text{si }x\neq k\pi\\
+		1 & \text{si }x=k\pi,
+	\end{cases} \]}
+
+Para estudiar la continuidad de $f(x)$ en $x=\pi$ debemos hacer lo siguiente:
+
+$\lim_{x\to\pi}\dfrac{x}{\sin x}=\left(\dfrac{\pi}{0}\right)=\begin{cases}
+	\lim_{x\to\pi^-}\dfrac{x}{\sin x}=\dfrac{\pi}{0^+}=+\infty
+	\lim_{x\to\pi^+}\dfrac{x}{\sin x}=\dfrac{\pi}{0^-}=-\infty
+\end{cases}$
+
+\begin{tikzpicture}[ >=latex, scale=0.8, baseline=(current bounding box.center)]
+	\begin{axis}[xmin=-1, xtick=\empty, ytick=\empty, axis lines=center, xmax=2.2*pi, xscale=1.5]
+		\addplot[samples=150, lightblue, domain=0:2*pi] {sin(deg(x))};
+		\draw[lightblue] (axis cs:pi, 0.1) -- (axis cs: pi, -0.1) node[below] {$\pi$};
+	\end{axis}
+\end{tikzpicture}\qquad\begin{minipage}{0.4\textwidth}
+No es continua en $x_0=\pi$ en concreto, podemos asegurar que $f(x)$ presenta una discontinuidad inevitable de salto infinito en $x_0=\pi$. Hay, por l tanto, auna asíntota vertical $x_0=\pi$.
+\end{minipage}
+\item \lb{Estudiar la continuidad de la función \[ f(x)=\begin{cases}
+		3 & \text{si }x<2\\
+		x^2 & \text{x }\ge2
+	\end{cases} \]en el punto $x_0=2$.}
+
+Para estudiar la continuidad de $f(x)$ en el punto $x_0=2$, debemos: 
+\begin{enumerate}[label=\roman*)]
+	\item Estudiaremos la existencia del límite de $f(x)$ en $x_0=2$. 
+	\begin{center}
+		$\lim_{x\to2}f(x)=\begin{cases}
+			\lim_{x\to2^-}3=3\\
+			\lim_{x\to 2^+}x^2=4
+		\end{cases}\longrightarrow\nexists\lim_{x\to 2} f(x)~~$\begin{minipage}{0.4\textwidth}
+		Por lo tanto $f(x)$ no es continua en $x=2$ en concreto presenta una discontinuidad inevitable de salto finito o de 1ª especie.
+		\end{minipage}
+	\end{center}
+\end{enumerate}
+\item \lb{Estudiar la continuidad de la función \[ f(x)=\begin{cases}
+		\dfrac{\sin\frac{1}{x-1}}{e^{\frac{1}{x-1}}+1} & \text{si }x\neq1\\
+		0 & \text{si }x=1
+	\end{cases} \]en el punto $x_0=1$.}
+
+Para estudiar la continuidad, debemos hacer lo primero el límite en $x_0=1$.
+\[ \lim_{x\to1}f(x)=\begin{cases}
+	\lim_{x\to1^-}\dfrac{\sin\left(\frac{1}{x-1}\right)}{e^{\frac{1}{x-1}}+1}=\dfrac{\sin\left(\frac{1}{0^-}\right)}{e^{\frac{1}{0^-}+1}}=\dfrac{\overbrace{\sin(-\infty)}^{\mathrm{oscilante}}}{\tozero{e^{-\infty}}+1}=\nexists\lim\text{ ya que es oscilante}\\
+	\lim_{x\to1^+}\dfrac{\sin\left(\frac{1}{x-1}\right)}{e^{\frac{1}{x-1}}+1}=\dfrac{\sin\left(\frac{1}{0^+}\right)}{e^{\frac{1}{0^+}}+1}=\dfrac{\sin(+\infty)}{e^{+\infty}+1}=\dfrac{\sin(+\infty)}{+\infty}=0\text{ (Teorema del Sandwich)}
+\end{cases} \]
+No existe el límite ya que hay un límite lateral que no existe $\longrightarrow f(x)$ no es continua en $x_0=1$.
+\item \lb{Consideremos las funciones \[ f(x)=e^{-x}x\hspace{2cm}g(x)=\dfrac{1}{x} \]Estudiar la continuidad de la función $f\circ g$}
+
+La composición de funciones $f\circ g$, consiste en realizar la función $g(x)$, y donde esta termine comenzaremos $f(x)$:
+
+\begin{center}
+	\begin{tikzcd}[nodes={anchor=west}, row sep=tiny]
+		\mathbb{R} \arrow[rr, "g"] &  & \mathbb{R} \arrow[rr, "f"] &  & \mathbb{R}                                                                               \\
+		x \arrow[rr]               &  & g(x)                       &  &                                                                                          \\
+		&  & \frac{1}{x} \arrow[rr]    &  & f\left(\dfrac{1}{x}\right)=e^{-\frac{1}{x}}\cdot\frac{1}{x}=\dfrac{e^{-\frac{1}{x}}}{x} \\
+		&  &                            &  & f(x)=e^{-x}\cdot x                                                                      
+	\end{tikzcd}
+\end{center}
+
+Por lo tanto, tenemos que: $\bboxed{(f\circ g)=\dfrac{e^{-\frac{1}{x}}}{x}}$. 
+
+Por lo tanto podemos asegurar que $(f\circ g)$ es continua en todos los $\R$ salvo en $x=0$, donde $\nexists(f\circ g)(0)$
+
+\item \lb{Dadas las funciones reales $f(x)=\sin x$ y $g(x)=\sqrt{x}$. Calcular las expresiones de $g\circ f$ y $f\circ g$.}
+
+Comenzamos calculando $g\circ f$: 
+\begin{center}
+	\begin{tikzcd}[nodes={anchor = west}, row sep = tiny]
+		\mathbb{R} \arrow[r, "f"] & \mathbb{R} \arrow[r, "g"] & \mathbb{R}         \\
+		x \arrow[r]               & f(x) \arrow[r]            & g\left(f(x)\right) \\
+		x \arrow[r]               & \sin x \arrow[r]          & \sqrt{\sin x}     
+	\end{tikzcd}$\longrightarrow\bboxed{(g\circ f)(x)=\sqrt{\sin x}}$
+\end{center}
+Calcularemos ahora $f\circ g$:
+\begin{center}
+		\begin{tikzcd}[nodes={anchor = west}, row sep = tiny]
+		\mathbb{R} \arrow[r, "g"] & \mathbb{R} \arrow[r, "f"] & \mathbb{R}         \\
+		x \arrow[r]               & g(x) \arrow[r]            & f\left(g(x)\right) \\
+		x \arrow[r]               & \sqrt{x} \arrow[r]          & \sin\left(\sqrt{x}\right)
+	\end{tikzcd}$\longrightarrow\bboxed{(f\circ g)(x)=\sin(\sqrt{x})}$
+\end{center}
+\item \lb{Para calcular el límite \[ \lim_{x\to2}\dfrac{(x^2-x-2)^{20}}{(x^3-12x+16)^{10}}. \]}
+
+$\begin{array}{l}
+	\lim_{x\to2}\dfrac{(x^2-x-2)^{20}}{(x^3-12x+16)^{10}}=\left(\dfrac{0}{0}\right)=\lb{(\ast)}\\
+	x^2-x-2=0\longrightarrow x=\dfrac{1\pm\sqrt{1+8}}{2}=\dfrac{1\pm3}{2}\begin{cases}
+		2\\
+		-1
+	\end{cases}\longrightarrow(x^2-x-2)=(x-2)(x+1)\\
+	x^3-12x+16=0
+\end{array}$
+
+$\begin{array}{c|cccc}
+	& 1 & 0 & -12 & 16 \\
+	2 &  & 2 & 4 & -16 \\ \hline
+	& 1 & 2 & -8 & \multicolumn{1}{|c|}{0} \\ \cline{5-5}
+	2 &  & 2 & 8 &  \\ \hline
+	& 1 & 4 & \multicolumn{1}{|c|}{0} &  \\ \cline{4-4}
+\end{array}\qquad(x^3-12x+16)=(x-2)^2(x+4)$
+
+$\lb{(\ast)=}\lim_{x\to2}\dfrac{[(x-2)(x+1)^{20}]}{[(x-2)^2(x+4)]^{10}}=\lim_{x\to2}\dfrac{\cancel{(x-2)^{20}}\cdot(x+1)^{20}}{\cancel{(x-2)^{20}}\cdot(x+4)^{10}}=\dfrac{3^{20}}{6^{10}}=\dfrac{3^{20}}{2^{10}\cdot3^{10}}=\bboxed{\dfrac{3^{10}}{2^{10}}}$
+\item \lb{Calcular el siguiente límite: \[ \lim_{x\to x_0}\dfrac{\sqrt{x}-\sqrt{x_0}}{x-x_0}. \]}
+
+$\lim_{x\to x_0}\dfrac{\sqrt{x}-\sqrt{x_0}}{x-x_0}=\left(\dfrac{0}{0}\right)=\lim_{x\to x_0}\dfrac{(\sqrt{x}-\sqrt{x_0})\cdot(\sqrt{x}+\sqrt{x_0})}{(x-x_0)(\sqrt{x}+\sqrt{x_0})}=\lim_{x\to x_0}\dfrac{\cancel{x-x_0}}{\cancel{(x-x_0)}(\sqrt{x}-\sqrt{x_0})}=\lim_{x\to x_0}\dfrac{1}{\sqrt{x}+\sqrt{x_0}}=\bboxed{\dfrac{1}{2\sqrt{x_0}}}$
+
+\item \lb{Calcula la correspondencia inversa de las funciones:}
+
+$\db{y=\sqrt{\dfrac{x-1}{x+2}}}$
+
+La función inversa es aquella que verifica que si $f(x)\longrightarrow x=f^{-1}(y)$
+
+$\begin{array}{l}
+	y=\sqrt{\dfrac{x-1}{x+2}}\longrightarrow\dfrac{x-1}{x+2}=y^2\longrightarrow(x-1)=y^2(x+2)\\
+	x-1=xy^2+2y^2\longrightarrow x-xy^2=1+2y^2\longrightarrow x(1-y^2)=1+2y^2\\
+\end{array}$\[ x=\dfrac{1+2y^2}{1-y^2}\longrightarrow\bboxed{x\cdot f^{-1}(y)=\dfrac{1+2y^2}{1-y^2}} \]
+\item \lb{Calcula la correspondencia inversa de las funciones:}
+
+$\db{y=\dfrac{2+\sqrt{x}}{2-\sqrt{x}}}$
+
+La función invertible que verifica que si $y=f(x)\longrightarrow x=f^{-1}(y)$
+
+$\begin{array}{l}
+	y=\dfrac{2+\sqrt{x}}{2-\sqrt{x}}\longrightarrow(2-\sqrt{x})y=2+\sqrt{x}\longrightarrow2t-t\sqrt{x}=2+\sqrt{x}\longrightarrow2y-2=2\sqrt{x}+\sqrt{x}\\
+	2y-2=(y+1)\sqrt{x}\longrightarrow\sqrt{x}=\dfrac{2y-2}{y+1}\longrightarrow x=\left(\dfrac{2y-2}{y+1}\right)^2\longrightarrow\bboxed{x=f^{-1}(y)=\left(\dfrac{2y-2}{y+1}\right)^2}
+\end{array}$
+\item \lb{Calcula el dominio de las siguiente funciones:}
+
+$\db{f(x)=\dfrac{x}{x+1}}$
+
+Como $f(x)$ está definida mediante un cociente, entonces tenemos que su denominador no puede ser cero \[ \begin{array}{l}
+	x+1=0\longrightarrow x=-1\\
+	\bboxed{\dom(f)=\R-\{-1\}}
+\end{array} \]
+\item \lb{Calcula el dominio de las siguientes funciones:}
+
+$\db{g(x)=\dfrac{x+3}{x^2-4}}$
+
+Como tenemos un cociente, el denominador no puede ser cero. \[ \begin{array}{l}
+	x^2-4=0\longrightarrow x^2=4\longrightarrow x=\pm2\\
+	\bboxed{\dom(g(x))=\R-\{-2,\,2\}}
+\end{array} \]
+\item \lb{Calcula el dominio de las siguientes funciones:}
+
+$\db{l(x)=\sqrt{\dfrac{x-1}{x+2}}}$
+\begin{itemize}
+	\item Lo primero que tenemos es un cociente, el cual no puede tener el denominador igual a cero \begin{center}
+		$x+2=0\longrightarrow\bboxed{x=-2}$ No está en el dominio
+	\end{center}
+	\item Como tenemos una raíz cuadrada, entonces lo de dentro no puede ser negativo:
+	
+	$\dfrac{x-1}{x+2}\ge0$
+	
+		\begin{center}
+		\begin{tikzpicture}[xscale=1.5]
+			\draw (-3,0) -- (2,0)
+			(-3,-0.5) -- (2,-0.5)
+			(-3,-1.5) -- (2,-1.5)
+			(-3,-2) -- (2,-2);
+			\node[left] at (-3,-0.25-1.5) {$x+2$};
+			\node[left] at (-3,-1.75+1.5) {$x-1$};
+			\foreach \x in {-2.9, -2.6, ..., -2.1}{
+				\node at (\x, -0.25-1.5) {$-$};
+			}
+			\foreach \x in {-2.9, -2.6, ..., 0.8}{
+				\node at (\x, -1.75+1.5) {$-$};
+			}
+			\foreach \x in {-1.8, -1.5, ..., 2}{
+				\node at (\x, -0.25-1.5) {$+$};
+			}
+			\foreach \x in {1.2, 1.5, ..., 2}{
+				\node at (\x, -1.75+1.5) {$+$};
+			}
+			\draw (-2,0-0.5)  -- (-2,-1.5-0.5) node[below] {$-2$} ;
+			\draw (1,-0.5+0.5)node[above] {$1$}  -- (1,-2+0.5)  ;
+			\node[circle, draw=black] at (-2.5,-1) {+};
+			\node[circle, draw=black] at (1.5,-1) {+};
+			\node[circle, draw=black] at (-0.5,-1) {$-$};
+		\end{tikzpicture}
+	\end{center}
+	$\bboxed{\dom(f)=(-\infty,-2)\cup[1,+\infty)}$
+\end{itemize}
+\item \lb{Representa la función \[ y=\begin{cases}
+		1 & \text{si }x\le1\\
+		x & \text{si }1<x\le3\\
+		-x+6 & \text{si }3<x\le6\\
+		0 & \text{si }6<x
+	\end{cases} \]}
+
+\begin{center}
+	\begin{tikzpicture}[>=latex]
+	\draw[->] (-5,0) -- (8,0) node[right] {$x$};
+	\draw[->] (0,-1) -- (0,7) node[above] {$f(x)$};
+	\draw[lightblue, line width=2] (-5,1) -- (1,1) -- (3,3)-- (6,0)-- (7,0);
+	\foreach \x in {1,3,6} \draw (\x cm,3pt) -- (\x cm,-3pt) node[anchor=north] {$\x$};
+	\foreach \y in {1,3,6} \draw (3pt,\y cm) -- (-3pt,\y cm) node[anchor=east] {$\y$};
+	\node at (6,6) {$\begin{array}{l}
+			\dom(f)=\R\\
+			\mathrm{Recorrido}(f)=[0,3]
+		\end{array}$};
+\end{tikzpicture}
+\end{center}
+\item \lb{Representa la función \[ y=\begin{cases}
+		x^2 & \text{si }x<2\\
+		1 & \text{si }x=2\\
+		4 & \text{si }x>2
+	\end{cases} \]Escribe su dominio y su recorrido}
+
+\begin{center}
+\begin{tikzpicture}
+	\begin{axis}[
+		scale=1.5,
+		xscale=1.2,
+		axis lines = center,
+		xlabel = $x$,
+		ylabel = {$g(x)$},
+		domain = -2.5:10,
+		samples = 100,
+		no markers,
+		xmin=-8,
+		ymin=-2,
+		xtick={2},
+		ytick={1, 4},
+		ymax=10
+		]
+		\addplot+[lightblue, samples=150, line width=2] {x<2 ? x^2 : (x == 2 ? 1 : 4)};
+		\fill[lightblue] (axis cs:2,1) circle (2pt);
+		\node at (axis cs:6,8) {$\begin{array}{l}
+				\dom(f)=\R\\
+				\mathrm{Recorrido}=[0,+\infty)
+			\end{array}$};
+	\end{axis}
+\end{tikzpicture}
+\end{center}
+\end{enumerate}
+\end{document}
