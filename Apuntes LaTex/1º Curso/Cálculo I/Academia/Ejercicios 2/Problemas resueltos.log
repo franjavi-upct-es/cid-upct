@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (MiKTeX 24.1) (preloaded format=pdflatex 2024.2.18)  16 MAR 2024 22:22
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (MiKTeX 24.1) (preloaded format=pdflatex 2024.2.18)  18 MAR 2024 08:07
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1958,7 +1958,22 @@ Overfull \hbox (8.16595pt too wide) in paragraph at lines 443--444
 [][] 
  []
 
-[8] [9] [10] [11] [12] (Problemas resueltos.aux)
+[8] [9] [10] [11] [12]
+Underfull \hbox (badness 5924) in paragraph at lines 739--745
+[][] [] [] \OT1/cmr/m/n/10 = [] = [] =
+ []
+
+
+Overfull \hbox (0.76341pt too wide) detected at line 747
+[] [][] \OT1/cmr/m/n/10 = \OML/cmm/m/it/10 e[]
+ []
+
+
+Overfull \hbox (8.16594pt too wide) in paragraph at lines 748--749
+[][] 
+ []
+
+[13] (Problemas resueltos.aux)
  ***********
 LaTeX2e <2023-11-01> patch level 1
 L3 programming layer <2024-02-13>
@@ -1970,10 +1985,10 @@ Package logreq Info: Writing requests to '"Problemas resueltos".run.xml'.
 
  ) 
 Here is how much of TeX's memory you used:
- 53045 strings out of 474462
- 1206932 string characters out of 5742883
- 2116290 words of memory out of 5000000
- 74459 multiletter control sequences out of 15000+600000
+ 53054 strings out of 474462
+ 1207011 string characters out of 5742883
+ 2116289 words of memory out of 5000000
+ 74461 multiletter control sequences out of 15000+600000
  564043 words of font info for 63 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  89i,21n,134p,1212b,2206s stack positions out of 10000i,1000n,20000p,200000b,200000s
@@ -2003,9 +2018,9 @@ m/cmsy9.pfb><C:/Users/fcoja/AppData/Local/Programs/MiKTeX/fonts/type1/public/am
 sfonts/latxfont/lasy10.pfb><C:/Users/fcoja/AppData/Local/Programs/MiKTeX/fonts/
 type1/public/amsfonts/latxfont/line10.pfb><C:/Users/fcoja/AppData/Local/Program
 s/MiKTeX/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
-Output written on "Problemas resueltos.pdf" (12 pages, 294378 bytes).
+Output written on "Problemas resueltos.pdf" (13 pages, 303109 bytes).
 PDF statistics:
- 232 PDF objects out of 1000 (max. 8388607)
- 57 named destinations out of 1000 (max. 500000)
+ 244 PDF objects out of 1000 (max. 8388607)
+ 64 named destinations out of 1000 (max. 500000)
  13 words of extra memory for PDF output out of 10000 (max. 10000000)
 

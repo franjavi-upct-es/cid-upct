@@ -655,7 +655,6 @@ $\db{l(x)=\sqrt{\dfrac{x-1}{x+2}}}$
 \begin{tikzpicture}
 	\begin{axis}[
 		scale=1.5,
-		xscale=1.2,
 		axis lines = center,
 		xlabel = $x$,
 		ylabel = {$g(x)$},
@@ -677,5 +676,76 @@ $\db{l(x)=\sqrt{\dfrac{x-1}{x+2}}}$
 	\end{axis}
 \end{tikzpicture}
 \end{center}
+\item \lb{Calcula los siguientes límites:}
+
+$\db{\lim_{x\to0}\dfrac{x^2-1}{2x^2-x-1}=}\dfrac{-1}{-1}=\bboxed{1}$
+
+\item \lb{Calcula los siguientes límites:}
+
+$\db{\lim_{x\to1}\dfrac{x^2-1}{2x^2-x-1}=}\left(\dfrac{0}{0}\right)=\lim_{x\to1}\dfrac{\cancel{(x-1)}(x+1)}{2\cancel{(x-1)}\left(x+\frac{1}{2}\right)}=\dfrac{2}{2\cdot\frac{2}{2}}=\bboxed{\dfrac{2}{3}}$
+
+$\begin{array}{l}
+	x^2-1=0\longrightarrow x^2=1\longrightarrow x=\pm1\longrightarrow(x^2-1)=(x-1)(x+1)\\
+	2x^2-x-1=0\longrightarrow x=\dfrac{1\pm\sqrt{1+8}}{4}=\dfrac{1\pm3}{4}\begin{cases}
+		1\\
+		-\frac{1}{2}
+	\end{cases}\quad 2x^2-x-1=2(x-1)\left(x+\frac{1}{2}\right)
+\end{array}$
+\item \lb{Calcula los siguientes límites:}
+
+$\db{\lim_{x\to+\infty}\dfrac{x^2-1}{2x^2-x-1}=}\left(\dfrac{\infty}{\infty}\right)=\lim_{ x \to +\infty }\dfrac{\frac{x^2}{x^2}-\frac{1}{x^2}}{\frac{2x^2}{x^2}-\frac{x}{x^2}-\frac{1}{x^2}}=\lim_{ x \to +\infty }\dfrac{1-\tozero{\frac{1}{x^2}}}{2-\tozero{\frac{1}{x}}-\tozero{\frac{1}{x^2}}}=\bboxed{\dfrac{1}{2}}$
+\item \lb{Calcula los siguientes límites:}
+
+$\db{\lim_{ x \to +\infty }\dfrac{5x^3-4x^2+x-1}{2x^2-x-1}=}\left(\dfrac{\infty}{\infty}\right)=\lim_{ x \to +\infty }\dfrac{\frac{5x^3}{x^2}-\frac{4x^2}{x^2}+\frac{x}{x^2}-\frac{1}{x^2}}{\frac{2x^2}{x^2}-\frac{x}{x^2}-\frac{1}{x^2}}=\lim_{ x \to +\infty }\dfrac{\cancelto{+\infty}{5x}-4+\tozero{\frac{1}{x}}-\tozero{\frac{1}{x^2}}}{2-\tozero{\frac{1}{x}}-\tozero{\frac{1}{x^2}}}=+\infty$
+
+\item \lb{Dadas las funciones $f(x)=\dfrac{1}{x^2-1}$ y $g(x)=\sqrt{x+2}$ escribe los criterios y dominios de las funciones $f\cdot g$ y $f:g$.}
+
+$f\cdot g=f(x)\cdot g(x)=\dfrac{\sqrt{x+2}}{x^2-1}\longrightarrow\left(f\cdot g\right)(x)=\dfrac{\sqrt{x+2}}{x^2-1}$
+\begin{itemize}
+	\item Por la raíz cuadrada tenemos que $x+2\ge0\longrightarrow\bboxed{x\ge-2}$
+	\item Por el cociente, su denominador debe ser distinto de cero: \begin{center}
+		$x^2-1=0\longrightarrow x^2=1\longrightarrow\bboxed{x=\pm1}$ No pertenece al dominio.\\
+		\begin{tikzpicture}
+			\draw (-3,0) -- (5,0);
+			\draw (-1.8,0.2) -- (-2,0.2) -- (-2,-0.2) -- (-1.8,-0.2);
+			\draw[lightblue, -latex] (-2,0.1) -- (5,0.1);
+			\foreach \x in {-2,-1,1}{\draw (\x,0.1) -- (\x,-0.1) node[below] {$\x$};}
+		\end{tikzpicture}
+	\end{center}
+	$\bboxed{\dom(f\cdot g)=[-2,-1)\cup(-1,1)\cup(1,+\infty)}$
+	
+	$\left(\dfrac{f}{g}\right)(x)=\dfrac{f(x)}{g(x)}=\dfrac{\frac{1}{x^2}}{\sqrt{x+2}}=\dfrac{1}{(x^2-1)\sqrt{x+2}}\longrightarrow\bboxed{\left(\dfrac{f}{g}\right)(x)=\dfrac{1}{(x^2-1)\sqrt{x+2}}}$
+	
+	\begin{itemize}
+		\item Por la raíz tenemos que $x+2\ge0\longrightarrow\bboxed{x\ge-2}$
+		\item Por el cociente: \[ \begin{array}{l}
+			x^2-1=0\longrightarrow x^2=1\longrightarrow \bboxed{x=\pm1}\text{ No puede ser}\\
+			x+2=0\longrightarrow x=-2\longrightarrow\text{ No puede ser}
+		\end{array} \]
+	\end{itemize}
+		\begin{center}
+			\begin{tikzpicture}
+			\draw (-3,0) -- (5,0);
+			\draw (-1.8,0.2) -- (-2,0.2) -- (-2,-0.2) -- (-1.8,-0.2);
+			\draw[lightblue, -latex] (-2,0.1) -- (5,0.1);
+			\foreach \x in {-2,-1,1}{\draw (\x,0.1) -- (\x,-0.1) node[below] {$\x$};}
+		\end{tikzpicture}
+		\end{center}
+	$\bboxed{\dom\left(\dfrac{f}{g}\right)=[-2,-1)\cup(-1,1)\cup(1,+\infty)}$
+\end{itemize}
+\item \lb{Calcula los siguientes límites}
+
+\begin{minipage}{0.6\textwidth}
+	$\db{\lim_{x\to0}(\cos3x)^{\frac{1}{x^2}}=}(1^\infty)=e^{\displaystyle\lim_{x\to 0}\frac{1}{x^2}(\cos3x-1)}=e^{\displaystyle\lim_{x\to0}\frac{\cos3x-1}{x^2}}=\lb{(\ast)}$\\
+	$\lb{(\ast)=}\lim_{x\to0}\dfrac{\cos3x-1}{x^2}=\left(\dfrac{0}{0}\right)=\left\{\begin{array}{l}
+		\text{Equivalencias}\\
+		\cos x\leadsto_01-\frac{x^2}{2}\\
+		\cos(3x)\leadsto_01-\frac{(3x)^2}{2}
+	\end{array}\right\}=\lim_{x\to0}\dfrac{\cancel{1}-\frac{9x^2}{2}-\cancel{1}}{x^2}=\lim_{x\to0}\dfrac{-\frac{9}{2}x^2}{x^2}=\bboxed{-\dfrac{9}{2}}$
+\end{minipage}\qquad\begin{minipage}{0.3\textwidth}
+\begin{tikzpicture}
+	\node[red, draw=red, fill=red!10, line width=1.5, text width=\linewidth] {\underline{Nota:} Siempre que tengamos una indeterminación de la forma $1^\infty$, debemos hacer lo siguiente: \[ \lim_{x\to a}\left(f(x)\right)^{g(x)}=e^{\displaystyle\lim_{x\to a}g(x)\left(f(x)-1\right)} \]};
+\end{tikzpicture}
+\end{minipage}
 \end{enumerate}
 \end{document}
