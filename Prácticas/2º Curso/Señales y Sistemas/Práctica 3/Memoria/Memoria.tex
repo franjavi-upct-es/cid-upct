@@ -1,0 +1,245 @@
+\documentclass{article}
+\usepackage{fullpage}
+\usepackage[utf8]{inputenc}
+\usepackage{pict2e}
+\usepackage{amsmath}
+\usepackage{enumitem}
+\usepackage{eurosym}
+\usepackage{mathtools}
+\usepackage{amssymb, amsfonts, latexsym, cancel}
+\setlength{\parskip}{0.3cm}
+\usepackage{graphicx}
+\usepackage{fontenc}
+\usepackage{slashbox}
+\usepackage{setspace}
+\usepackage{gensymb}
+\usepackage{accents}
+\usepackage{adjustbox}
+\setstretch{1.35}
+\usepackage{bold-extra}
+\usepackage{subcaption}
+\usepackage{tcolorbox}
+\usepackage{xcolor, colortbl}
+\usepackage{wrapfig}
+\usepackage{empheq}
+\usepackage{array}
+\usepackage{parskip}
+\usepackage{arydshln}
+\graphicspath{ {images/} }
+\renewcommand*\contentsname{\color{black}Índice} 
+\usepackage{array, multirow, multicol}
+\definecolor{lightblue}{HTML}{007AFF}
+\usepackage{color}
+\usepackage{etoolbox}
+\usepackage{listings}
+\usepackage{mdframed}
+\setlength{\parindent}{0pt}
+\usepackage{underscore}
+\usepackage{hyperref}
+\usepackage{tikz}
+\usepackage{tikz-cd}
+\usetikzlibrary{shapes, positioning, patterns}
+\usepackage{tikz-qtree}
+\usepackage{biblatex}
+\usepackage{pdfpages}
+\usepackage{pgfplots}
+\usepackage{pgfkeys}
+\addbibresource{biblatex-examples.bib}
+\usepackage[a4paper, left=1cm, right=1cm, top=1cm, bottom=1.5cm]{geometry}
+\usepackage{titlesec}
+\usepackage{titletoc}
+\usepackage{tikz-3dplot}
+\usepackage{kbordermatrix}
+\usetikzlibrary{decorations.pathreplacing}
+\newcommand{\Ej}{\textcolor{lightblue}{\underline{Ejemplo}}}
+\setlength{\fboxrule}{1.5pt}
+
+\newcommand{\bboxed}[1]{\fcolorbox{lightblue}{lightblue!10}{$#1$}}
+\newcommand{\rboxed}[1]{\fcolorbox{red}{red!10}{$#1$}}
+
+\DeclareMathOperator{\N}{\mathbb{N}}
+\DeclareMathOperator{\Z}{\mathbb{Z}}
+\DeclareMathOperator{\R}{\mathbb{R}}
+\DeclareMathOperator{\Q}{\mathbb{Q}}
+\DeclareMathOperator{\K}{\mathbb{K}}
+\DeclareMathOperator{\im}{\imath}
+\DeclareMathOperator{\jm}{\jmath}
+\DeclareMathOperator{\col}{\mathrm{Col}}
+\DeclareMathOperator{\fil}{\mathrm{Fil}}
+\DeclareMathOperator{\rg}{\mathrm{rg}}
+\DeclareMathOperator{\nuc}{\mathrm{nuc}}
+\DeclareMathOperator{\dimf}{\mathrm{dimFil}}
+\DeclareMathOperator{\dimc}{\mathrm{dimCol}}
+\DeclareMathOperator{\dimn}{\mathrm{dimnuc}}
+\DeclareMathOperator{\dimr}{\mathrm{dimrg}}
+\DeclareMathOperator{\dom}{\mathrm{Dom}}
+\DeclareMathOperator{\infi}{\int_{-\infty}^{+\infty}}
+\newcommand{\dint}[2]{\int_{#1}^{#2}}
+
+\newcommand{\bu}[1]{\textcolor{lightblue}{\underline{#1}}}
+\newcommand{\lb}[1]{\textcolor{lightblue}{#1}}
+\newcommand{\db}[1]{\textcolor{blue}{#1}}
+\newcommand{\rc}[1]{\textcolor{red}{#1}}
+
+\renewcommand{\CancelColor}{\color{lightblue}}
+\newcommand{\code}[1]{\texttt{\textbf{#1}}}
+
+\usepackage{textgreek}
+
+\newcommand{\dx}{\:\mathrm{d}x}
+\newcommand{\dt}{\:\mathrm{d}t}
+\newcommand{\dy}{\:\mathrm{d}y}
+\newcommand{\dz}{\:\mathrm{d}z}
+\newcommand{\dth}{\:\mathrm{d}\theta}
+\newcommand{\dr}{\:\mathrm{d}\rho}
+\newcommand{\du}{\:\mathrm{d}u}
+\newcommand{\dv}{\:\mathrm{d}v}
+\newcommand{\tozero}[1]{\cancelto{0}{#1}}
+\newcommand{\lbb}[2]{\textcolor{lightblue}{\underbracket[1pt]{\textcolor{black}{#1}}_{#2}}}
+\newcommand{\dbb}[2]{\textcolor{blue}{\underbracket[1pt]{\textcolor{black}{#1}}_{#2}}}
+\newcommand{\rub}[2]{\textcolor{red}{\underbracket[1pt]{\textcolor{black}{#1}}_{#2}}}
+
+\titleformat{\section}{\normalfont\LARGE\bfseries}{\thesection.}{10 pt}{}
+
+\title{\textbf{\huge Práctica 3 de Señales y Sistemas}\\ Señales y sistemas continuos en el dominio de la frecuencia}
+\author{Francisco Javier Mercader Martínez\\ Rubén Gil Martínez}
+\date{}
+
+\usepackage{matlab-prettifier}
+
+\lstset{
+	language=matlab,
+	basicstyle=\ttfamily\small,
+	keywordstyle=\color{blue},
+	commentstyle=\color{green!70!black},
+	stringstyle=\color{red},
+	showstringspaces=false,
+	breaklines=true,
+	frame=single,
+	backgroundcolor=\color{lightgray!10},
+	captionpos=b,
+	tabsize=2,
+	inputencoding=utf8,
+	literate={á}{{\'a}}1 {é}{{\'e}}1 {í}{{\'i}}1 {ó}{{\'o}}1 {ú}{{\'u}}1{ñ}{{\~n}}1
+}
+
+\everymath{\displaystyle}
+
+\begin{document}
+\section{Señales periódicas continuas. Series de Fourier}
+Las ecuaciones que relacionan una señal periódica continua con su desarrollo en series de Fourier son \[ \begin{array}{l}
+	a_k=\dfrac{1}{T}\int_Tx(t)e^{-jk\frac{2\pi}{T}t}\dt\\
+	x(t)=\sum_{k=-\infty}^{+\infty}a_ke^{jk\frac{2\pi}{T}t}
+\end{array} \]
+En este ejercicio se implementarán las dos ecuaciones mediante funciones en MATLAB. Para ello es necesario simular la señal continua $x(t)$, discretizándola mediante un incremento de tiempo, $\Delta t$, dando lugar a la señal continua discretizada $x(k\Delta t)$.
+\begin{enumerate}[leftmargin=*]
+	\item Genere en MATLAB las siguientes señales periódicas $(T=2)$, generando 3 periodos de cada una de ellas.
+	\begin{enumerate}[label=\alph*)]
+		\item $x(t)=\begin{cases}
+			2, & 0<|t|<0.5\\
+			0,&0.5<|t|<1
+		\end{cases}$
+		\item $x(t)=0.8\sin(2\pi t)+0.6\cos(\pi t)-0.2\sin\left(3\pi t+\dfrac{\pi}{4}\right)$
+		\item $\begin{cases}
+			2t, & 0<t<1\\
+			-2t<&-1\le t\le0
+		\end{cases}$
+		\item $x(t)=0.5\delta(t),\:-1\le t<1$
+		\item $x(t)=\left|\sin\left(\dfrac{\pi}{2}t\right)\right|$
+		\item $x(t)=e^{j2\pi t}+e^{-j3\pi t}$
+	\end{enumerate}
+	\begin{lstlisting}
+T = 2; dt = 0.001; t = -T/2:dt:T/2-dt;
+x = zeros(1, length(t));
+ti = find(abs(t)<=0.5); x(ti) = 2;
+ti = find(abs(t)> 0.5); x(ti) = 0;
+figure, plot([t-T t t+T], [x x x])
+	\end{lstlisting}
+	\item Repita el proceso para las señales a) c) y d), asumiendo un periodo T=4 y T=6. Razone los resultados obtenidos.
+	\item Cree la siguiente función de MATLAB que obtiene los coeficientes de la serie de Fourier (DSF) de una señal periódica:
+	
+	\begin{lstlisting}
+function ak = cfourier(x,T,N,dt)
+t = -T/2:dt:T/2-dt;
+ak = zeros(1,2*N+1);
+for k = -N:N
+	ak(k+N+1) = 1/T*sum(x.*exp(-j*k*2*pi/T*t))*dt;
+end
+	\end{lstlisting}
+	
+donde \code{x} es una señal continua discretizada como las generadas anteriormente, \code{T} es el periodo de la señal, \code{N} es el orden del armónico más alto y \code{dt} es el paso temporal de discretación. El DSF queda almacenado en \code{ak} con el siguiente orden: \[ \left[a_{-N}a_{-N+1}a_{-N+2}\dots a_{-1}a_0a_1\dots a_{N-2}a_{N-1}a_{N}\right] \]
+\item \textbf{Como estudio previo calcule analíticamente los desarrollos en series de Fourier de las señales del punto 1} y corrobore los resultados numéricos obtenidos con la función \code{cfourier}.
+\item Cree la siguiente función de MATLAB, que calcula la señal periódica a partir de su desarrollo en series de Fourier:
+
+\begin{lstlisting}
+function x = icfourier(ak,T,N,dt)
+t = -T/2:dt:T/2-dt;
+x = zeros(1,lenght(t));
+for k = -N:N
+	x = x + ak(k+N+1)*exp(j*k*2*pi/T*t);
+end
+\end{lstlisting}
+\item Reconstruya a partir de los desarrollos mediante series de Fourier \code{ak} las señales a) c) d) y e) variando el máximo número de armónicos N en la reconstrucción. Comente los resultados obtenidos.
+
+\item Verifique el cumplimiento del teorema de Parseval comparando los resultados \textbf{teóricos} y prácticos \[ \sum_{k=-\infty}^{\infty}|a_k|^2=\dfrac{1}{T}\int_{<T>}|x(t)|^2\dt \]
+\end{enumerate}
+\section{Transformada de Fourier}
+Las ecuaciones que relacionan una sñela con su transformada de Fourier son las siguientes: \[ X(\omega)=\sum_{-\infty}^{\infty}x(t)e^{-j\omega t}\dt\qquad x(t)=\dfrac{1}{2\pi}\int_{-\infty}^{+\infty}X(\omega)e^{j\omega t}\mathrm{d}\omega \]
+\subsection*{Cuestiones}
+\begin{enumerate}[leftmargin=*]
+	\item Genere en MATLAB las siguientes señales aperiódicas, tomando un intervalo de discretación de 0.002, y considerando $-5\le t\le5$.
+	\begin{enumerate}[label=\alph*)]
+		\item $x(t)=\begin{cases}
+			1, & t\le0.6\\
+			0,&\text{resto}
+		\end{cases}$
+		\item $x(t)=\begin{cases}
+			1, & t\le0.2\\
+			0, & \mathrm{resto}
+		\end{cases}$
+		\item $x(t)=\begin{cases}
+			0.5, & 0<t\le1\\
+			1-0.5t,&1<t\le2\\
+			0,& \mathrm{resto}
+		\end{cases}$
+	\end{enumerate}
+	\item Suponiendo que las señales del punto 1 representaban el periodo de una señal periódica,
+	\begin{enumerate}[label=\roman*)]
+		\item Calcule su desarrollo en series de Fourier mediante \code{ak=cfourier(x,T,N,dt)}, y normalice por T (\code{ak=T*ak}). Al estar cada armónico está asociado a la frecuencia $k\dfrac{2\pi}{T}$, represente las series de Fourier normalizadas en el eje de frecuencias. Para ello emplee \code{stem(2,ak,'.')} y previamente defina el vector de frecuencias \code{w=2*\textpi*k/T}.
+		\item Incremente la longitud del vector de la señal hacia ambos lados de la siguiente manera:
+		\begin{lstlisting}
+Ti=floor(length(x)/2);
+x=[zeros(1,Ti) x zeros(1,Ti)];
+		\end{lstlisting}
+		\item Vuevla al paso \code{i} para obtener las nuevas series de Fourier normalizadas. Considere que:
+		\begin{itemize}[label=$-$]
+			\item El orden del máximo armónico a tener en cuenta es el doble que el previo (\code{N=2*N})
+			\item El nuevo periodo obtenido es el doble del previo (\code{T=2*T})
+		\end{itemize}
+		Repita este proceso (puede emplear un programa con un bucle \code{for}) y explique los resultados.
+	\end{enumerate}
+	\item Implemente una función que obtenga la transformada de Fourier de una señal adaptando el programa de desarrollo en series de Fourier.
+	\begin{lstlisting}
+function [X,w]=tfourier(x,t,dw,wmax)
+	\end{lstlisting}
+	\begin{itemize}[label=$-$]
+		\item El intervalo de frecuencias a calcular está entre \code{-wmax} y \code{wmax} (wmax<<\textpi/dt)
+		\item \code{dw} es la discretización en frecuencia en frecuencia
+		\item \code{w} es el vector con el eje frecuencia, su tamaño es el mismo que el de \code{x}.
+		\item \code{t} es el vector con el eje temporal, su tamaño es el mismo que el de \code{x}.
+	\end{itemize}
+	\item Empleando en la propiedad de la dualidad de la transformada de Fourier implemente una función que calcule la transformada inversa de Fourier haciendo uso de la función de la transformada directa.
+	\begin{lstlisting}
+function [X,w]=tfourier(x,t,dw,wmax)
+	\end{lstlisting}
+	\item Verifique el correcto cumplimiento de las siguientes propiedades de la transformada de Fourier emplenado la función \code{tfourier}:
+	\begin{enumerate}[label=\roman*)]
+		\item Propiedad de linealidad $X(\omega)+Y(\omega)\longleftrightarrow x(t)+y(t)$ (emplee las señales a y b).
+		\item Desplazamiento en el tiempo $e^{-j\omega t_0}X(\omega)\longleftrightarrow x(t-t_0)$ (emplee señal b).
+		\item Inversión $X(-\omega)\longleftrightarrow x(-t)$ (emplee señal c).
+		\item Conjugación $X(\omega)^*\longleftrightarrow x(-t)^*$ (emplee señal c).
+		\item $\mathrm{Real}\{X(\omega)\}\longleftrightarrow\text{ Parte real}\{x(t)\}$ (emplee señal c).
+		\item $\mathrm{Imag}\{X(\omega)\}\longleftrightarrow\text{ Parte impar}\{x(t)\}$ (emplee señal c).
+	\end{enumerate}
+\end{enumerate}
+\end{document}
