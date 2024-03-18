@@ -110,14 +110,15 @@ $t_2=\left(\dfrac{1}{\sqrt{2}},-\dfrac{1}{\sqrt{2}}\right)'$
 		X_1\\
 		X_2
 		\end{pmatrix}\\
-		\begin{array}{c|cc|}
-			a_{ij}=\corr(X_i,Y_j) & Y_1 & Y_2\\ \hline
-			X_1 & 0.9486 & 0.3162\\
-			X_2 & 0.9486 & -0.3162\\ \hline
+		\begin{array}{c|cc|c}
+			a_{ij}=\corr(X_i,Y_j) & Y_1 & Y_2 & \\ \hline
+			X_1 & 0.9486 & 0.3162 & \\
+			X_2 & 0.9486 & -0.3162 & \\ \hline
+			 & & &  \\
 		\end{array}\\
 		\\
 		\begin{array}{c|cc|c}
-			a_{ij}^2=\corr^2(X_i,Y_j) & Y_1 & Y_2 & \\ \hline
+			a_{ij}^2=\corr^2(X_i,Y_j) & Y_1 & Y_2 &  \\ \hline
 			X_1 & 0.9 & 0.1 & 1\\
 			X_2 & 0.9 & 0.1 & 1\\ \hline
 			 & 1.8 & 0.2 & 
@@ -392,18 +393,39 @@ $t_2=\left(\dfrac{1}{\sqrt{2}},-\dfrac{1}{\sqrt{2}}\right)'$
 			0.8 & 0.8 & 1
 		\end{pmatrix}. \]}
 	
-	$|V-\lambda I|=\begin{vmatrix}
-		1-\lambda & 0.8 & 0.8\\
-		0.8 & 1-\lambda & 0.8\\
-		0.8 & 0.8 & 1-\lambda
-	\end{vmatrix}=(\lambda-1)^3+0.8^3+0.8^3-(0.8^2\cdot(1-\lambda)+0.8^2\cdot(1-\lambda)+0.8^3\cdot(1-\lambda))=-\lambda^3+3\lambda^2-3\lambda+1+0.512+0.512-0.64+0.64\lambda-0.64+0.64\lambda-0.64+0.64\lambda=-\lambda^3+3\lambda^2-1.08\lambda+0.104$
+	Veamos que condiciones tienen que verificar los autovalores \[ \begin{pmatrix}
+		1 & 0.8 & 0.8\\
+		0.8 & 1 & 0.8\\
+		0.8 & 0.8 & 1
+	\end{pmatrix}\cdot\begin{pmatrix}
+	x_1\\
+	x_2\\
+	x_3
+	\end{pmatrix}=\lambda\cdot\begin{pmatrix}
+	x_1\\
+	x_2\\
+	x_3
+	\end{pmatrix} \]
+	$\begin{rcases}
+		x_1+0.8x_2+0.8x_3=\lambda x_1\\
+		0.8x_1+x_2+0.8x_3=\lambda x_2\\
+		0.8x_1+0.8x_2+x_3=\lambda x_3\\
+	\end{rcases}\longrightarrow\begin{array}{l}
+	(1-\lambda)x_1+0.8x_2+0.8x_3=0\\
+	0.8x_1+(1-\lambda)x_2+0.8x_3=0\\
+	0.8x_1+0.8x_2+(1-\lambda)x_3=0\\
+	\end{array}$
 	
-	$\bboxed{\begin{array}{l}
-			\lambda_1=2.6\\
-			\lambda_2=0.2
-	\end{array}}$
-
-$\lambda=0.2$ con multiplicidad 2.
+	Para $1-\lambda=0.8$, tendremos que $x_1+x_2+x_3=0$
+	
+	Consideremos $\lambda=0.2$, y los vectores ortogonales $u=(0,-1,1)'$ y $v=(-2,1,1)'$ que generan el espacio $x_1+x_2+x_3=0$.
+	
+	Partimos de $u=(0,-1,1)'$ y buscamos otro que se ortogonal, $v=(x_1,x_2,x_3),\:\begin{array}{l}
+		-x_2+x_3=0\\
+		x_1+x_2+x_3=0
+	\end{array}\longrightarrow x_2=x_3,\:x_1=2x_2\longrightarrow v=(-2,1,1)'$
+	
+	Para ver cual sería el tercer autovector buscamos $w=(x_1,x_2,x_3)'$ orotogonal a los dos anteriores
 	\item \lb{Calcular las componentes principales para una variable tridimensional con media cero y matriz de covarianzas \[ \Sigma=\begin{pmatrix}
 			\beta^2+\delta & \beta & \beta\\
 			\beta & 1+\delta & 1\\
@@ -411,20 +433,210 @@ $\lambda=0.2$ con multiplicidad 2.
 		\end{pmatrix}. \](Indicación: $\Sigma-\delta I=(\beta,1,1)'(\beta,1,1)$).}
 	
 	$
-\begin{aligned}
-			\left| \Sigma-\lambda I \right|&=\begin{vmatrix}
-			\beta^{2}+\delta-\lambda & \beta & \beta \\
-			\beta & 1+\delta-\lambda & 1 \\
-			\beta & 1 & 1+\delta-\lambda
-		\end{vmatrix}\\
-		&=\beta^2\delta^2-2\beta^2\delta\lambda+\beta^2\lambda^2+\delta^3-3\delta^2\lambda+2\delta^2+3\delta\lambda^2-4\delta\lambda-\lambda^3+2\lambda^2
-\end{aligned}
+	\Sigma=\begin{pmatrix}
+		\beta^{2}+\delta  & \beta & \beta \\
+		\beta & 1+\delta & 1 \\
+		\beta & 1 & 1+\delta
+	\end{pmatrix}
 	$
 	
+	$\Sigma-\delta I=(\beta,1,1)'(\beta,1,1)$
+	
+	$(\beta,1,1)'(\beta,1,1)=\begin{pmatrix}\beta\\1\\1\end{pmatrix}(\beta,1,1)=\begin{pmatrix}
+		\beta^{2} & \beta & \beta \\ 
+		\beta & 1 & 1 \\
+		\beta & 1 & 1
+	\end{pmatrix}$
+	
+	$\Sigma(\beta,1,1)'-\delta(\beta,1,1)'=(\beta,1,1)'(\beta,1,1)(\beta,1,1)'$
+	
+	$u=(\beta,1,1)$
+	
+	$\Sigma u -\delta u=u\cdot(\beta^{2}+2)$
+	
+	$\Sigma u=\delta u+(\beta ^{2}+2)u=(\delta+\beta^{2}+2)u$
+	
+	Hemos encontrado un valor propio $\lambda=\beta^{2}+\delta+2$ y el vector propio $u=(\beta,1,1)'$
+	
+	Consideremos el vector ortogonal a $u,\:v=(0,1,-1)'$
+	
+	$Sigma v=(\delta I+(\beta,1,1)'(\beta,1,1))v=\delta v$
+	
+	Entonces, $v=(0,1,-1)'$ sería el vector propio asociado al valor propio $\lambda=\delta$.
+	
+	Ahora habrá que buscar un vector $w$ que sea ortogonal a $u$ y a $v$
+	
+	Sea $w=(x_1,x_2,x_3)'$ tal que $\begin{rcases}
+		x_2-x_3=0\\
+		\beta x_1+x_2+x_3=0
+	\end{rcases}\longrightarrow\begin{array}{l}
+	x_2=x_3\\
+	\beta x_1+2x_2=0\longrightarrow x_2=-\frac{\beta x_1}{2}
+	\end{array}$
+	
+	$w=\left(1,-\dfrac{\beta}{2},-\dfrac{\beta}{2}\right)'$
+	
+	$\Sigma w=\left(\delta I+(\beta,1,1)'(\beta,1,1)\right)w=\delta w$
+	
+	Entonces $w=\left(1,-\dfrac{\beta}{2},-\dfrac{\beta}{2}\right)$ será el vector propio asociado al valor propio $\lambda=\delta$.
+	
+	Para que la matriz sea semidefinida positiva $\delta$ debe ser $\ge0$. Con esta condición se tendrá que $\beta^2+\delta+2>0$.
+	
+	$\lambda_1=\beta^2+\delta+2>\lambda_2=\lambda_3=\delta$
+	
+	$\mathbf{t}_1=\dfrac{1}{\sqrt{\beta^2+2}}\begin{pmatrix}
+		\beta\\
+		1\\
+		1
+	\end{pmatrix},\:\mathbf{t}_2=\dfrac{1}{\sqrt{2}}\begin{pmatrix}
+	0\\
+	1\\
+	-1
+	\end{pmatrix};\:\mathbf{t}_3=\dfrac{1}{\sqrt{1+\frac{\beta^2}{2}}}\begin{pmatrix}
+	1\\
+	-\frac{\beta^2}{2}\\
+	-\frac{\beta^2}{2}\\
+	\end{pmatrix}$
+	
+	Componentes principales: $Y=T'X\longrightarrow\begin{cases}
+		Y_1=\dfrac{1}{\sqrt{\beta^2+2}}\cdot(\beta X_1+X_2+x_3)\\
+		Y_2=\dfrac{1}{\sqrt{2}}\cdot\left(X_2-X_3\right)\\
+		Y_3=\dfrac{1}{\sqrt{1+\frac{\beta^2}{2}}}\cdot\left(X_1-\dfrac{\beta}{2}X_2-\dfrac{\beta}{2}X_3\right)
+	\end{cases}$
+	
+	Proporción de variablidad explicada por cada componente principal.
+	
+	$\begin{array}{l}
+		\dfrac{\lambda_1}{\lambda_1+\lambda_2+\lambda_3}\cdot100\%=\dfrac{\beta^2+\delta+2}{\beta^2+3\delta+2}\cdot100\%\\
+		\dfrac{\lambda_2}{\lambda_1+\lambda_2+\lambda_3}\cdot100\%=\dfrac{\lambda_3}{\lambda_1+\lambda_2+\lambda_3}\cdot100\%=\dfrac{\delta}{\beta^2+3\delta+2}\cdot100\%
+	\end{array}$
+	
+	\begin{enumerate}[label=\color{lightblue}\alph*)]
+		\item Si $\delta>0$, tendremos 3 componentes principales ($\Sigma$ definida positiva)
+		\item Si $\delta=0$, podemos considerar solamente 1 ($\Sigma$ semidefinida positiva)
+	\end{enumerate}
+	Componente principal ($Y_1$)
 	\item \lb{Demostrar que si las varianzas iniciales son iguales entonces las componentes principales que se obtienen con la matriz de covarianzas son iguales a las que se obtienen con la matriz de correlaciones.}
+	
+	$
+	V=\begin{pmatrix}
+		\sigma_{1}^2 & \sigma_{12} & \cdots & \sigma_{1k} \\
+		\sigma_{21} & \sigma_{2}^2 & \cdots & \sigma_{2k} \\
+		\vdots &  &  &  \\
+		\sigma_{k1} & \sigma_{k2} & \cdots & \sigma_{k}^{2} \\
+	\end{pmatrix}=\left\{ \sigma_{1}^2=\cdots=\sigma_{k}^2=\sigma^{2} \right\}=\begin{pmatrix}
+		\sigma^{2} & \sigma_{12} & \cdots & \sigma_{1k} \\
+		\sigma_{21} & \sigma^{2} &  & \vdots \\
+		\vdots &  & \ddots & \vdots \\
+		\sigma_{k1} & \cdots  & \cdots & \sigma^{2} 
+	\end{pmatrix}=\sigma^{2}\begin{pmatrix}
+		1 & \frac{\sigma_{12}}{\sigma^{2}}  & \cdots & \frac{\sigma_{1k}}{\sigma^{2}} \\
+		& 1 &  &  \\
+		&  & \ddots &  \\
+		\frac{\sigma_{k_{1}}}{\sigma^{2}} & \cdots & \cdots & 1
+	\end{pmatrix}=\sigma^{2}R
+	$
+	
+	$
+	R=\begin{pmatrix}
+		1 & \frac{\sigma_{12}}{\sigma_{1}\sigma_{2}}  & \cdots & \frac{\sigma_{1k}}{\sigma_{1}\sigma_{k}} \\
+		& 1 &  &  \\
+		&  & \ddots &  \\
+		\frac{\sigma_{k_{1}}}{\sigma_{1}\sigma_{k}} & \cdots & \cdots & 1
+	\end{pmatrix}=\left\{ \sigma_{1}^2=\cdots=\sigma_{k}^2=\sigma^{2} \right\}=\begin{pmatrix}
+		1 & \frac{\sigma_{12}}{\sigma^{2}}  & \cdots & \frac{\sigma_{1k}}{\sigma^{2}} \\
+		& 1 &  &  \\
+		&  & \ddots &  \\
+		\frac{\sigma_{k_{1}}}{\sigma^{2}} & \cdots & \cdots & 1
+	\end{pmatrix}
+	$
 	
 	\item \lb{Calcular las componentes principales de $k$ variables con media cero, varianza uno y correlaciones iguales a $r$. ¿Qué condiciones debe verificar $r$? Calcular la información que contiene cada componente.}
 	
+	Para $k=2,\:\Pi=\begin{pmatrix}
+		1 & r\\
+		r & 1
+	\end{pmatrix}$
+	
+	Valores propios: $1-r, 1+r$
+	
+	Para $k=3,\:\Pi=\begin{pmatrix}
+		1 & r & r \\
+		r & 1 & r \\
+		r & r & 1
+	\end{pmatrix}$
+	
+	Tenemos que encontrar un vector $u$ tal que $\Pi u=\lambda u$.
+	
+	Sea $u=(x_1,x_2,x_3)'$
+	
+	$\begin{pmatrix}
+		1 & r & r \\
+		r & 1 & r \\
+		r & r & 1
+	\end{pmatrix}\cdot\begin{pmatrix}
+	x_1\\
+	x_2\\
+	x_3
+	\end{pmatrix}=\lambda\cdot\begin{pmatrix}
+	x_1\\
+	x_2\\
+	x_3
+	\end{pmatrix}\longrightarrow\begin{rcases}
+	x_1+rx_2+rx_3=\lambda x_1\\
+	rx_1+x_2+rx_3=\lambda x_2\\
+	rx_1+rx_2+x_3=\lambda x_3\\
+	\end{rcases}\longrightarrow\begin{rcases}
+	(1-\lambda)x_1+rx_2+rx_3=0\\
+	rx_1+(1-\lambda)x_2+rx_3=0\\
+	rx_1+rx_2+(1-\lambda)x_3=0\\
+	\end{rcases}$
+	
+	Considerando $1-\lambda=r$, tendremos la ecuación $rx_1+rx_2+rx_3=0$.
+	
+	Si $r=0,\:\Pi=I$ y las componentes principales $Y=X$
+	
+	Si $r\neq0,\:x_1+x_2+x_3=0,$ consideramos los vectores $u=(0,1,-1)'$ y $v=(-2,1,1)'$, y el tercer vector propio $w=(1,1,1)'$
+	
+	$\Pi w=\begin{pmatrix}
+		1 & r & r \\
+		r & 1 & r \\
+		r & r & 1
+	\end{pmatrix}\cdot\begin{pmatrix}
+	1\\
+	1\\
+	1
+	\end{pmatrix}=\begin{pmatrix}
+	1+2r\\
+	1+2r\\
+	1+2r
+	\end{pmatrix}=(1+2r)\cdot\begin{pmatrix}
+	1\\
+	1\\
+	1
+	\end{pmatrix}\longrightarrow$\begin{minipage}{0.5\textwidth}
+	Tendremos que $\lambda=1+2r$ es eñ autovalor propio asociado a $w=(1,1,1)'$
+	\end{minipage}
+	
+	Para que $\Pi$ sea semidefinida positiva se debe verificar que $1-r\ge0,\:1+2r\ge0$ esto es, $r\ge1,\:r\ge-0.5$
+	
+	\begin{itemize}[label=, leftmargin=*]
+		\item \underline{Caso 1:} $0<r\le1,\:\lambda_1=1+2r,\lambda_2=\lambda_3=1-r$
+		
+		\[ \begin{array}{ll}
+			Y_1=\dfrac{1}{\sqrt{3}}(X_1+X_2+X_3) & \dfrac{\lambda_1}{3}100\%=\dfrac{1+2r}{3}\cdot100\%\\
+			Y_2=\dfrac{1}{\sqrt{6}}(-2X_1+X_2+X_3) & \dfrac{\lambda_2}{3}100\%=\dfrac{1-r}{3}\cdot100\%\\
+			Y_3=\dfrac{1}{\sqrt{2}}(X_1-X_2) &  \dfrac{\lambda_3}{3}100\%=\dfrac{1-r}{3}\cdot100\%
+		\end{array} \]
+		\begin{itemize}
+			\item Si $r=1$, podemos considerar solamente la pirmera componente principal ($Y_1$)
+		\end{itemize}
+		\item \underline{Caso 2:} $-0.5\le r<0,\:\lambda_1=\lambda_2=\lambda_3=1+2r$
+		\[ \begin{array}{ll}
+			\lambda_1=\dfrac{1}{\sqrt{6}}(-2X_1+X_2+X_3) & \dfrac{1-r}{3}\cdot100\%\\
+			\lambda_2=\dfrac{1}{\sqrt{2}}(X_1-X_2) & \dfrac{1-r}{3}\cdot100\&
+		\end{array} \]
+	\end{itemize}
 	\item \lb{Demostrar que las componentes principales no son invariantes por cambio de escala.}
 	
 \end{enumerate}
