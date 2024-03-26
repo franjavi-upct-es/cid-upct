@@ -34,10 +34,150 @@
 	
 	\item \lb{Calcule la convolución de $x(t)=e^{2t}u(-t)$ con $h(t)=u(t-3)$.}
 	
-	\item \lb{Sea $x[n]=\delta[n]+2\delta[n-1]-\delta[n-3]$ y $h[n]=2\delta[n+1]+2\delta[n-1]$.} Calcule y dibuje cada una de las siguientes convoluciones:
+	Integral de convolución: $\int_{-\infty}^{+\infty} x(\tau)\cdot h(t-\tau)\dtau$
+	
+	\begin{center}
+		\includegraphics[width=\linewidth]{"Temas/Tema 2/ScreenShot005.drawio"}
+		
+		$x(\tau)$ fija y desplazamos e invertimos $h(\tau)$
+	\end{center}
+	
+	$\begin{array}{l}
+		\int_{-\infty}^{t-3}e^{2\tau}\dtau=\left[\dfrac{1}{2}e^{2\tau}\right]_{-\infty}^{t-3}=\bboxed{\dfrac{1}{2}\cdot e^{2(t-3)}}\\
+		\int_{-\infty}^{0}e^{2\tau}\dtau=\left[\dfrac{1}{2}e^{2\tau}\right]_{-\infty}^{0}=\dfrac{1}{2}-0=\bboxed{\dfrac{1}{2}}
+	\end{array}$
+	
+	\item \lb{Sea $x[n]=\delta[n]+2\delta[n-1]-\delta[n-3]$ y $h[n]=2\delta[n+1]+2\delta[n-1]$. Calcule y dibuje cada una de las siguientes convoluciones:}
 	\begin{enumerate}[label=\color{red}\alph*)]
 		\item $\db{y_1[n]=x[n]\cdot h[n]}$
+		
+		$y_1[n]=\sum_{k=-\infty}^{+\infty}x[k]\cdot[n-k]$
+		
+\begin{center}
+				\begin{tikzpicture}
+			\begin{axis}[
+				xlabel={$n$},
+				ylabel={$x[n]$},
+				xmin=-1, xmax=5.5,
+				ymin=-2, ymax=2.5,
+				axis lines=center,
+				xlabel style={anchor=west},
+				ylabel style={anchor=south},
+				]
+				\addplot[ycomb,mark=*,fill=lightblue, line width=1.5pt, draw=lightblue] coordinates {
+					(0,1)
+					(1,2)
+					(2,0)
+					(3,-1)
+					(4,0)
+					(5,0)
+				};
+			\end{axis}
+		\end{tikzpicture}\qquad
+		\begin{tikzpicture}
+			\begin{axis}[
+				xlabel={$n$},
+				ylabel={$h[n]$},
+				xmin=-1.1, xmax=5.5,
+				ymin=-2, ymax=2.5,
+				axis lines=center,
+				xlabel style={anchor=west},
+				ylabel style={anchor=south},
+				]
+				\addplot[ycomb,mark=*,fill=lightblue, line width=1.5pt, draw=lightblue] coordinates {
+					(-1,2)
+					(0,0)
+					(1,2)
+					(2,0)
+					(3,0)
+					(4,0)
+					(5,0)
+				};
+			\end{axis}
+		\end{tikzpicture}
+\end{center}
+\rc{¡! Hay que invertir y desplazar $h$ para empezar a calcular, sino te dejas términos sin mirar.}
+
+$\begin{array}{l}
+	y_1[-1]=\sum_{k=-\infty}^{+\infty}x[k]\cdot h[-1-k]=1\cdot2=2\\
+	y_1[0]=\sum_{k=-\infty}^{+\infty}x[k]\cdot \lbb{h[0-k]}{h[-k]}=1\cdot0+2\cdot2+0\cdot0+(-1)\cdot0=4\\
+	y_1[1]=\sum_{k=-\infty}^{+\infty}x[k]\cdot h[1-k]=1\cdot2+2\cdot0+0\cdot2+(-1)\cdot0=2\\
+	y_1[2]=\sum_{k=-\infty}^{+\infty}x[k]\cdot h[2-k]=1\cdot0+2\cdot2+0\cdot0+(-1)\cdot2=2\\
+	y_1[3]=\sum_{k=-\infty}^{+\infty}x[k]\cdot h[3-k]=1\cdot0+2\cdot0+0\cdot2+(-1)\cdot0=0\\
+	y_1[4]=\sum_{k=-\infty}^{+\infty}x[k]\cdot h[4-k]=1\cdot0+2\cdot0+0\cdot0+(-1)\cdot2=-2\\
+	y_1[5]=1\cdot0+2\cdot0+0\cdot0+(-1)\cdot0=0\\
+	y_1[n]=2\delta[n+1]+4\delta[n]+2\delta[n-1]+2\delta[n-2]-2\delta[n-4]
+\end{array}$
+
+		\begin{tikzpicture}
+			\begin{axis}[
+				xlabel={$n$},
+				ylabel={$y_1[n]$},
+				xmin=-2.1, xmax=5.5,
+				ymin=-2.5, ymax=4.5,
+				axis lines=center,
+				xlabel style={anchor=west},
+				ylabel style={anchor=south},
+				xtick={-2,-1,0,1,2,3,4,5}
+				]
+				\addplot[ycomb,mark=*,fill=lightblue, line width=1.5pt, draw=lightblue] coordinates {
+					(-2,0)
+					(-1,2)
+					(0,4)
+					(1,2)
+					(2,2)
+					(3,0)
+					(4,-2)
+					(5,0)
+				};
+			\end{axis}
+		\end{tikzpicture}
+
 		\item $\db{y_2[n]=x[n+2]\cdot h[n]}$
+		
+		\begin{tikzpicture}
+			\begin{axis}[
+				xlabel={$n$},
+				ylabel={$x[n+2]$},
+				xmin=-3, xmax=4.5,
+				ymin=-2, ymax=2.5,
+				axis lines=center,
+				xlabel style={anchor=west},
+				ylabel style={anchor=south},
+				xtick={-3,-2,-1,0,1,2,3,4,5,6}
+				]
+				\addplot[ycomb,mark=*,fill=lightblue, line width=1.5pt, draw=lightblue] coordinates {
+					(0-2,1)
+					(1-2,2)
+					(2-2,0)
+					(3-2,-1)
+					(4-2,0)
+					(5-2,0)
+				};
+			\end{axis}
+		\end{tikzpicture}\qquad\begin{tikzpicture}
+		\begin{axis}[
+			xlabel={$n$},
+			ylabel={$h[n]$},
+			xmin=-1.1, xmax=5.5,
+			ymin=-2, ymax=2.5,
+			axis lines=center,
+			xlabel style={anchor=west},
+			ylabel style={anchor=south},
+			]
+			\addplot[ycomb,mark=*,fill=lightblue, line width=1.5pt, draw=lightblue] coordinates {
+				(-1,2)
+				(0,0)
+				(1,2)
+				(2,0)
+				(3,0)
+				(4,0)
+				(5,0)
+			};
+		\end{axis}
+		\end{tikzpicture}
+		
+		
 		\item $\db{y_3[n]=x[n]\cdot h[n+2]}$
 	\end{enumerate}
 	\item \lb{Un sistema lineal $S$ relaciona su entrada $x[n]$ y su salida $y[n]$ como \[ y[n]=\sum_{k=-\infty}^{\infty}x[k]g[n-2k] \] donde $g[n]=u[n]-u[n-4]$.}
@@ -64,11 +204,32 @@
 	\begin{enumerate}[label=\color{red}\alph*)]
 		\item $\db{h[n]=\left(\dfrac{1}{5}\right)^nu[n]}$
 		
-		Causal $(h[n]=0\:\forall n<0)$
+		Causal: $h[n]=0\:\forall n<0$
 		
-		$\sum_{k=-\infty}^{\infty}\left|h[k]\right|=\sum_{k=0}^{\infty}\left(\dfrac{1}{5}\right)^n\longrightarrow$ Converge a un valor, por lo tanto es un sistema estable.
+		Veamos $n=-1$ \begin{center}
+			$\left(\dfrac{1}{5}\right)^{-1}\cdot \overbrace{u[-1]}^{j\cdot\text{escalón}}=5\cdot0=0$\\
+			\fcolorbox{lightblue}{lightblue!10}{Sistema casual}
+		\end{center}
+		
+		Estable: $\sum_{k=-\infty}^{\infty}\left|h[k]\right|=\sum_{k=0}^{\infty}\left(\dfrac{1}{5}\right)^n\longrightarrow$ Converge a un valor, por lo tanto es un \fcolorbox{lightblue}{lightblue!10}{sistema estable}.
 		
 		Como es un sistema casual y estable $\longrightarrow$ es realizable
+		
+		\begin{tikzpicture}
+			\begin{axis}[
+				xlabel={$n$},
+				ylabel={$\left(\frac{1}{5}\right)^n$},
+				xmin=-1, xmax=6.5,
+				ymin=-0.2, ymax=1,
+				axis lines=center,
+				xlabel style={anchor=west},
+				ylabel style={anchor=south},
+				xtick={0,1,...,6},
+				ytick={0,0.2,...,1},
+				]
+				\addplot[ycomb,mark=*, line width=1.5pt, lightblue, samples=7, domain=1:7] {pow(1/5, x)};
+			\end{axis}
+		\end{tikzpicture}
 		\item $\db{h[n]=0.8^nu[n+2]}$
 		
 		$h[n]\neq0$ para $-1,-2\longrightarrow$ No es causal
@@ -100,6 +261,7 @@
 		\end{array}$
 		
 		\item \db{Si $x(t)=e^{(-1+3j)t}u(t)$, calcule $y(t)$.}
+		
 		Solución particular:
 		
 		$y_p(t)=A\cdot x(t)=Ae^{(-1+3j)t}\:\forall t>0$
@@ -257,9 +419,26 @@
 		$\int_{-\infty}^{+\infty}\left| h(t) \right|\:\mathrm{d}t=\int_{-\infty}^{-5}e^{t+5}\:\mathrm{d}t=e^5\int_{-\infty}^{-5}e^t\:\mathrm{d}t=e^t\left[ e^t \right]_{-\infty}^{-5}=e^{5}\cdot(e^{-5}-0)=1<\infty\longrightarrow$ Estable
 		\item $\db{y(t)=\int_{-\infty}^{t}e^{-(t-\tau)}x(\tau-2)\dtau}$
 	\end{enumerate}
-	\item 
-	\item 
+	\item \lb{Un sistema discreto viene determinado por la relación entrada-salida \[ y[n]=e^{j\frac{2\pi}{10}(n+2)}x[n-2]. \]Analice las propiedades de memoria, casualidad, estabilidad, invarianza en el tiempo y linealidad del sistema.}
+	\item \lb{Considere la señal $x[n]=\wedge\left(\dfrac{n}{4}\right)+\prod\left(\dfrac{n-2}{5}\right)$. Obtenga y represente la parte par e impar de esta señal. Calcule la energía y potencia de $x[n]$, indicando si se trata de una señal definida en energía o en potencia.}
 	\item \lb{Calcule la convolución de las señales \[ x_1[n]=(n-6)\Pi\left(\dfrac{n-6}{13}\right)\qquad x_2[n]=\Pi\left(\dfrac{-n-3}{5}\right) \]\underline{Nota:} La suma de una progresión aritmética $a_{n_i},a_{n_i+1},\dots,a_{n_f}$, con $a_{n_i+1}=a_{n_i}+d,a_{n_i+2}=a_{n_i}+2d,\dots$ es \[ \sum_{k=n_i}^{n_f}a_k=\dfrac{(n_f-n_i+1)(a_{n_i}+a_{n_f})}{2}. \]}
 	
 	\item \lb{Se pretence procesar la señal $x(t)$ de la figura con un sistema LTI cuya respuesta al impulso es \[ h(t)=t\Pi\left(\dfrac{2t-4}{8}\right)-2\delta(t+12) \]}
+	\begin{figure}[h]
+		\centering
+		\begin{tikzpicture}[>=latex, scale=0.5]
+			\draw (-10,0) -- (10,0) node[right] {$t$};
+			\draw (0,-3) -- (0,3) node[above] {$x(t)$};
+			\foreach \x in {0,4,8}{\node[below right] at (\x,0) {$\x$};}
+			\foreach \y in {-2,2}{\node[left] at (0,\y) {$\y$};}
+			\draw[lightblue, line width=2] (-10,0) -- (0,0) -- (0,2) -- (4,2) -- (4,-2) -- (8,-2) -- (8,0) -- (10,0);
+		\end{tikzpicture}
+		\caption{}
+	\end{figure}
+	\begin{enumerate}[label=\color{red}\alph*)]
+		\item \db{Obtenga la salida del sistema $y(t)$}
+		\item \db{Indique razonadamente si este sistema posee las propiedades de memoria, causalidad y estabilidad.}
+		\item \db{Calcule la energía total y la potencia media de $x(t)$, e indique si está definida en energía o en potencia.}
+		\item \db{A partir del resultado del apartado (a), y utilizando únicamente propiedades de la convolución, obtenga la salida del sistema frente a la entrada \[ z(t)=8\wedge\left(\dfrac{t-4}{4}\right) \]}
+	\end{enumerate}
 \end{enumerate}

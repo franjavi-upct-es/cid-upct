@@ -2,7 +2,68 @@
 
 \begin{enumerate}[label=\color{red}\textbf{\arabic*)}, leftmargin=*]
 	\item \lb{Exprese cada uno de los siguientes números complejos en su parte real e imaginaria $(a+jb)$: \[ \dfrac{1}{2}e^{j\pi},\frac{1}{2}e^{-j\pi},e^{j\frac{\pi}{2}},e^{j-\frac{\pi}{2}},e^{j\frac{5\pi}{2}},\sqrt{2}e^{j\frac{\pi}{4}},\sqrt{2}e^{j\frac{9\pi}{4}},\sqrt{2}e^{-j\frac{9\pi}{4}},\sqrt{2}e^{-j\frac{\pi}{4}} \]}
+	
+	\begin{itemize}[label=\color{red}\textbullet, leftmargin=*]
+		\item $\db{\dfrac{1}{2}e^{j\pi}=}\dfrac{1}{2}\cdot\left(\cos(\pi)+j\cdot\sin(\pi)\right)=-\dfrac{1}{2}$
+		\item $\db{\dfrac{1}{2}e^{-j\pi}=}\dfrac{1}{2}\cdot\left(\cos(-\pi)+j\cdot\sin(-\pi)\right)=-\dfrac{1}{2}$
+		\item $\db{e^{j \frac{\pi}{2}}=}\cos \left( \frac{\pi}{2} \right)+j\cdot \sin \left( \frac{\pi}{2} \right)=j$
+		\item $\db{e^{-j \frac{\pi}{2}}=}\cos \left( -\frac{\pi}{2} \right)+j\cdot \sin \left(- \frac{\pi}{2} \right)=-j$
+		\item $\db{e^{j\frac{5\pi}{2}}=}\cos \left( \dfrac{5\pi}{2} \right)+j\cdot \sin \left( \frac{5\pi}{2} \right)=j$
+		\item $\db{\sqrt{ 2 }e^{j\frac{\pi}{4}}=}\sqrt{ 2 }\cdot \left( \cos \left( \frac{\pi}{4}\right)+j\cdot \sin \left( \frac{\pi}{4} \right) \right)=1+j$
+		\item $\db{\sqrt{ 2 }e^{j\frac{9\pi}{4}}=}\sqrt{ 2 }\cdot \left( \cos \left( \frac{9\pi}{4}\right)+j\cdot \sin \left( \frac{9\pi}{4} \right) \right)=1+j$
+		\item $\db{\sqrt{ 2 }e^{-j\frac{9\pi}{4}}=}\sqrt{ 2 }\cdot \left( \cos \left(- \frac{9\pi}{4}\right)+j\cdot \sin \left( -\frac{9\pi}{4} \right) \right)=1-j$
+		\item $\db{\sqrt{ 2 }e^{-j\frac{\pi}{4}}=}\sqrt{ 2 }\cdot \left( \cos \left(- \frac{\pi}{4}\right)+j\cdot \sin \left(- \frac{\pi}{4} \right) \right)=1-j$
+	\end{itemize}
 	\item \lb{Exprese cada uno de los siguientes números complejos en su módulo y fase $\left(|z|e^{j\varphi(z)}\text{ con }\varphi(z)\in[-\pi,\pi]\right)$: \[ 5,-2,-3j,-j\dfrac{\sqrt{3}}{2},1+j,(1-j)^2,j(1-j),\dfrac{1+j}{1-j},\dfrac{\sqrt{2}+j\sqrt{2}}{1+j\sqrt{3}} \]}
+	\begin{itemize}[label=\color{red}\textbullet, leftmargin=*]
+		\item $\db{5=}5$
+		\item $\db{-2}$
+		
+		$\begin{rcases}
+			|z|=\sqrt{(-2)^2+0^2}=2\\
+			\varphi=\arctan(-2)=\pi
+		\end{rcases}2e^{j\pi}$
+		
+		\item $\db{-3j}$
+		
+		$\begin{rcases}
+			|z|=\sqrt{0^2+(-3)^2}=3\\
+			\varphi=\arctan(-3j)=-\dfrac{\pi}{2}\equiv\dfrac{3\pi}{2}
+		\end{rcases}3e^{j\frac{3\pi}{2}}$
+		\item $\db{-j\dfrac{\sqrt{3}}{2}}$
+		
+		$\begin{rcases}
+			|z|=\sqrt{0^2+\left(-\dfrac{\sqrt{3}}{2}\right)^2}=\dfrac{\sqrt{3}}{2}\\
+			\varphi=\arctan\left(-\dfrac{\sqrt{3}}{2}j\right)=-\dfrac{\pi}{2}\equiv\dfrac{3\pi}{2}
+		\end{rcases}\dfrac{\sqrt{3}}{2}e^{j\frac{3\pi}{2}}$
+		\item $\db{1+j}$
+		
+		$\begin{rcases}
+			|z|=\sqrt{1^2+1^2}=\sqrt{2}\\
+			\varphi=\arctan(1+j)=\dfrac{\pi}{4}
+		\end{rcases}\sqrt{2}e^{j\frac{\pi}{4}}$
+		
+		\item $\db{(1-j)^2=}-2j$
+		
+		$\begin{rcases}
+			|z|=\sqrt{0^2+(-2)^2}=2\\
+			\varphi=\arctan(-2j)=-\dfrac{\pi}{2}\equiv\dfrac{3\pi}{2}
+		\end{rcases}2e^{j\frac{3\pi}{2}}$
+		\item $\db{j(1-j)=}1+j\longrightarrow\sqrt{2}e^{j\frac{\pi}{4}}$
+		
+		\item $\db{\dfrac{1+j}{1-j}=}\dfrac{1+j}{1-j}\cdot\dfrac{1+j}{1+j}=\dfrac{2j}{2}=j$
+		
+		$\begin{rcases}
+			|z|=1\\
+			\varphi=\arctan(j)=\dfrac{\pi}{2}
+		\end{rcases}e^{j\frac{\pi}{2}}$
+		\item $\db{\dfrac{\sqrt{2}+j\sqrt{2}}{1+j\sqrt{3}}=}\dfrac{\sqrt{2}+j\sqrt{2}}{1+j\sqrt{3}}\cdot\dfrac{1-j\sqrt{3}}{1-j\sqrt{3}}=\dfrac{\sqrt{6}+\sqrt{2}+(-\sqrt{6}+\sqrt{2})j}{4}=\dfrac{\sqrt{6}+\sqrt{2}}{4}+\dfrac{-\sqrt{6}+\sqrt{2}}{4}j$
+		
+		$\begin{rcases}
+			|z|=\sqrt{\left(\frac{\sqrt{6}+\sqrt{2}}{4}\right)^2+\left(\frac{-\sqrt{6}+\sqrt{2}}{4}\right)^2}=1\\
+			\varphi=\arctan\left(\dfrac{\sqrt{6}+\sqrt{2}}{4}+\dfrac{-\sqrt{6}+\sqrt{2}}{4}j\right)=-\dfrac{1}{12}\pi\equiv\dfrac{23\pi}{12}
+		\end{rcases}e^{j\frac{23}{12}\pi}$
+	\end{itemize}
 	\item \lb{Calcule los valores de potencia media y de energía de las siguientes señales}
 	\begin{enumerate}[label=\color{red}\alph*)]
 		\item $\db{x(t)=e^{-2t}u(t)}$
