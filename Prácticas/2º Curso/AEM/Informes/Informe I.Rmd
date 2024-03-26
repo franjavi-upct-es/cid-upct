@@ -1,0 +1,11 @@
+---
+title: "Análisis Estadístico Multivariante\\ Informe de Prácticas"
+author: "Francisco Javier Mercader Martínez"
+output:
+  pdf_document:
+    latex_engine: xelatex
+    extra_dependencies: fvextra
+header-includes:
+- \usepackage{fvextra}
+- \DefineVerbatimEnvironment{Highlighting}{Verbatim}{breaklines, commandchars=\\\{\}}
+---
