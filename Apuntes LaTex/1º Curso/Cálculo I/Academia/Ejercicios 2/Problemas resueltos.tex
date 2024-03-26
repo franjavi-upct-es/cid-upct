@@ -153,9 +153,9 @@ $f(x)$ No es continua en $x=2$, en concreto presenta en $x=2$ una discontinuidad
 $\db{f(x)=\dfrac{1}{\sqrt{1-e^x}}}$
 
 Como es un cociente, debemos evitar que el denominador sea cero: \begin{center}
-	$1-e^x=0\longrightarrow e^x=1\longrightarrow x=\ln(1)=0\longrightarrow\bboxed{x=0}$ No pertence el dominio
+	$1-e^x=0\longrightarrow e^x=1\longrightarrow x=\ln(1)=0\longrightarrow\bboxed{x=0}$ No pertenece el dominio
 \end{center}
-Como hay una raiz cuadrada, lo de dentro no puede ser negativo: \[ 1-e^x>0\longrightarrow e^x<1\longrightarrow x<\ln(1)=0\longrightarrow\bboxed{x<0} \]
+Como hay una raíz cuadrada, lo de dentro no puede ser negativo: \[ 1-e^x>0\longrightarrow e^x<1\longrightarrow x<\ln(1)=0\longrightarrow\bboxed{x<0} \]
 \fcolorbox{lightblue}{lightblue!10}{Por lo tanto, el $\dom(f)=(-\infty,0)$}
 \item \lb{Estudiar la continuidad de la función \[ f(x)=\begin{cases}
 		-xe^{x-1} & \text{si }x<0\\
@@ -193,7 +193,7 @@ Veamos ahora si $f(x)$ es continua en $x=0$ y $x=1$:
 	\end{center}
 \end{itemize}
 Por lo tanto, y resumiendo, diremos que $f(x)$ es continua en todo $\R$.
-\item \lb{Determina los valores de $a,b\in\R$, para los que las siguientes funciones son continuas. Indica su dominio de definción:}
+\item \lb{Determina los valores de $a,b\in\R$, para los que las siguientes funciones son continuas. Indica su dominio de definición:}
 \begin{enumerate}[label=\color{red}\alph*)]
 	\item $\db{f(x)=\begin{cases}
 			ax-5 & \text{si }x\le-1\\
@@ -282,7 +282,7 @@ $\lim_{x\to0}\dfrac{\sqrt{1+x}-\sqrt{1-x}}{x}=\left(\dfrac{0}{0}\right)=\left\{\
 	$\lim_{x\to+\infty}\dfrac{3x^2+2}{x^2+4x+5}=\left(\dfrac{\infty}{\infty}\right)=\lim_{x\to+\infty}\dfrac{\frac{3x^2}{x^2}+\frac{2}{x^2}}{\frac{x^2}{x^2}+\frac{3x}{x^2}+\frac{5}{x^2}}=\lim_{x\to+\infty}\dfrac{3+\tozero{\frac{2}{x^2}}}{1+\tozero{\frac{3}{x}}+\tozero{\frac{5}{x^2}}}=\bboxed{3}$
 \end{minipage}\qquad\begin{minipage}{0.4\textwidth}
 \begin{tikzpicture}
-	\node[red, draw=red, fill=red!10, line width=1.5, text width=\linewidth] {\underline{Nota:} Siempre que tengamos un límite de la forma $\left(\dfrac{\infty}{\infty}\right)$ que sea un cociente de polinomios, lo que haremos para resolverlo será dividir numerada y denominador por $x^p$ siendo $p$ el mayor grado de los terminos del denominador.};
+	\node[red, draw=red, fill=red!10, line width=1.5, text width=\linewidth] {\underline{Nota:} Siempre que tengamos un límite de la forma $\left(\dfrac{\infty}{\infty}\right)$ que sea un cociente de polinomios, lo que haremos para resolverlo será dividir numerada y denominador por $x^p$ siendo $p$ el mayor grado de los términos del denominador.};
 \end{tikzpicture}
 \end{minipage}
 \item \lb{Calcular el siguiente límite: \[ \lim_{x\to+\infty}\dfrac{3x}{x^2+2} \]}
@@ -346,7 +346,7 @@ $\lim_{x\to+\infty}\dfrac{x^3}{1-x^2}\left[\dfrac{x^2-3x+6}{x^2+2x-1}-1\right]=\
 		\item $\lim_{x\to 0}x=0$
 		\item $\sin\dfrac{1}{x}$ es una función acotada ya que siempre ocurrirá que $-1\le\sin\dfrac{1}{x}\le1$
 	\end{itemize}
-	Por lo tanto por el teorema del encaje (Sandwich), tendremos que: \[ \bboxed{\lim_{x\to0}x\sin\left(\dfrac{1}{x}\right)=0} \]
+	Por lo tanto por el teorema del encaje (Sándwich), tendremos que: \[ \bboxed{\lim_{x\to0}x\sin\left(\dfrac{1}{x}\right)=0} \]
 \end{minipage}\qquad\begin{minipage}{0.45\textwidth}
 \begin{tikzpicture}
 	\node[red, draw=red, fill=red!10, line width=1.5, text width=\linewidth] {\underline{Nota:} \underline{Teorema del Sandwich o del encaje}\\ Si tenemos tres funciones tales que $f(x)\le g(x)\le h(x)$ entonces si $\lim_{x\to a}f(x)=\lim_{x\to a}h(x)=L\longrightarrow\lim_{x\to a}g(x)=L$. Una consecuencia de este teorema es la siguiente:
@@ -362,7 +362,7 @@ Como se cumple que:
 	\item $\lim_{x\to+\infty}=0$
 	\item La función $\sin(x)$ está acotada, ya que $-1\le\sin(x)\le1$
 \end{itemize}
-Aplicand el teorema del encaje (Sandwich), tendremos que: \[ \bboxed{\lim_{x\to+\infty}\dfrac{1}{x}\cdot\sin(x)=0} \]
+Aplican el teorema del encaje (Sándwich), tendremos que: \[ \bboxed{\lim_{x\to+\infty}\dfrac{1}{x}\cdot\sin(x)=0} \]
 \item \lb{Calcular el siguiente límite: \[ \lim_{x\to0}\dfrac{\sin(x)}{x} \]}
 \begin{minipage}{0.32\textwidth}
 	Aplicando la equivalencia: $\sin(x)\leadsto_0 x$ podemos decir que: \[ \lim_{x\to0}\dfrac{\sin(x)}{x}=\lim_{x\to0}\dfrac{x}{x}=\bboxed{1} \]
@@ -388,7 +388,7 @@ Resolveremos este límite aplicando equivalencias:\[ \begin{array}{rl}
 
 $\lim_{x\to0}\dfrac{\sin^2(x)\tan^3(3x)}{\lbb{(1-\cos^2(x))}{\sin^2(x)}\cdot(e^x-1)^3}=\lim_{x\to0}\dfrac{\cancel{\sin^2(x)}\cdot\tan^3(3x)}{\cancel{\sin^2(x)}\cdot(e^x-1)^3}=\lim_{x\to0}\dfrac{\tan^3(3x)}{(e^x-1)^3}=\left(\dfrac{0}{0}\right)=\lb{(\ast)}$
 
-Aplicaremos equivalnecias para resolver este límite: \[ \begin{array}{l}
+Aplicaremos equivalencias para resolver este límite: \[ \begin{array}{l}
 	\tan(x)\leadsto_0 x\longrightarrow\bboxed{\tan(3x)\leadsto_03x}\\
 	\bboxed{e^x\leadsto_01+x}
 \end{array} \]$\lb{(\ast)=}\lim_{x\to0}\dfrac{(3x)^3}{(1+x-1)^3}=\lim_{x\to0}\dfrac{27x^3}{x^3}=\bboxed{27}$
@@ -402,7 +402,7 @@ Aplicaremos equivalnecias para resolver este límite: \[ \begin{array}{l}
 	$\lb{(\ast)=}\lim_{x\to0^+}\dfrac{2\ln x}{3-\ln x}=\left(\dfrac{\infty}{\infty}\right)=\lim_{x\to0^+}\dfrac{2\frac{\cancel{\ln x}}{\cancel{\ln x}}}{\frac{3}{\ln x}-\frac{\cancel{\ln x}}{\cancel{\ln x}}}=\lim_{x\to0^+}\dfrac{2}{\tozero{\frac{3}{\ln x}}-1}=-2$
 \end{minipage}\qquad\begin{minipage}{0.45\textwidth}
 \begin{tikzpicture}
-	\node[red, draw=red, fill=red!10, line width=1.5, text width=\linewidth] {\underline{Nota:} Siempre que tengamos un límie de la forma $0^0$ o $\infty^0$ que sea indeterminaciones, lo que haremos será aplicar lo siguiente: \begin{center}
+	\node[red, draw=red, fill=red!10, line width=1.5, text width=\linewidth] {\underline{Nota:} Siempre que tengamos un límite de la forma $0^0$ o $\infty^0$ que sea indeterminaciones, lo que haremos será aplicar lo siguiente: \begin{center}
 			$\lim_{x\to a}\left(f(x)\right)^{g(x)}=\left(0^0\text{ ó }\infty^0\right)=\lim_{x\to a}e^{\log\left(f(x)\right)^{g(x)}}=\linebreak\lim_{x\to a}e^{g(x)\log f(x)}=e^{\lim_{x\to a}g(x)\log f(x)}$
 	\end{center}};
 \end{tikzpicture}
@@ -460,7 +460,7 @@ $\lim_{x\to\pi}\dfrac{x}{\sin x}=\left(\dfrac{\pi}{0}\right)=\begin{cases}
 		\draw[lightblue] (axis cs:pi, 0.1) -- (axis cs: pi, -0.1) node[below] {$\pi$};
 	\end{axis}
 \end{tikzpicture}\qquad\begin{minipage}{0.4\textwidth}
-No es continua en $x_0=\pi$ en concreto, podemos asegurar que $f(x)$ presenta una discontinuidad inevitable de salto infinito en $x_0=\pi$. Hay, por l tanto, auna asíntota vertical $x_0=\pi$.
+No es continua en $x_0=\pi$ en concreto, podemos asegurar que $f(x)$ presenta una discontinuidad inevitable de salto infinito en $x_0=\pi$. Hay, por lo tanto, una asíntota vertical $x_0=\pi$.
 \end{minipage}
 \item \lb{Estudiar la continuidad de la función \[ f(x)=\begin{cases}
 		3 & \text{si }x<2\\
@@ -474,7 +474,7 @@ Para estudiar la continuidad de $f(x)$ en el punto $x_0=2$, debemos:
 		$\lim_{x\to2}f(x)=\begin{cases}
 			\lim_{x\to2^-}3=3\\
 			\lim_{x\to 2^+}x^2=4
-		\end{cases}\longrightarrow\nexists\lim_{x\to 2} f(x)~~$\begin{minipage}{0.4\textwidth}
+		\end{cases}\longrightarrow\nexists\lim_{x\to 2} f(x)~~$\begin{minipage}[t]{0.4\textwidth}
 		Por lo tanto $f(x)$ no es continua en $x=2$ en concreto presenta una discontinuidad inevitable de salto finito o de 1ª especie.
 		\end{minipage}
 	\end{center}
@@ -747,5 +747,230 @@ $f\cdot g=f(x)\cdot g(x)=\dfrac{\sqrt{x+2}}{x^2-1}\longrightarrow\left(f\cdot g\
 	\node[red, draw=red, fill=red!10, line width=1.5, text width=\linewidth] {\underline{Nota:} Siempre que tengamos una indeterminación de la forma $1^\infty$, debemos hacer lo siguiente: \[ \lim_{x\to a}\left(f(x)\right)^{g(x)}=e^{\displaystyle\lim_{x\to a}g(x)\left(f(x)-1\right)} \]};
 \end{tikzpicture}
 \end{minipage}
+\item \lb{Analiza la continuidad de las siguientes funciones \[ f(x)=\begin{cases}
+		x^2-4 & x<-2\\
+		x+1 & -2\le x<2\\
+		2x-1 & x\ge2
+	\end{cases} \]}
+
+$\forall x<-2\longrightarrow f(x)$ es continua\\
+$\forall x\in(-2,2)\longrightarrow f(x)$ es continua\\
+$\forall x\ge2\longrightarrow f(x)$ es continua\\
+Veamos ahora si es continua en los puntos de cambio de trozo:
+\begin{itemize}[label=]
+	\item \underline{$x=-2$:}
+	\begin{center}
+		$\begin{rcases}
+			\lim_{x\to-2^-}(x^2-4)=0\\
+			\lim_{x\to-2^+}(x+1)=-1
+		\end{rcases}~~\nexists\lim_{x\to-2}f(x)\longrightarrow $\begin{minipage}[t]{0.4\textwidth}
+		$f(x)$ No es continua en $x=-2$, en concreto presenta una discontinuidad inevitable de salto finito.
+		\end{minipage}
+	\end{center}
+	\item \underline{$x=2$}
+	\begin{center}
+		$\begin{rcases}
+			\lim_{x\to2^-}(x+1)=3\\
+			\lim_{x\to2^+}2x-1=3\\
+			f(2)=3
+		\end{rcases}~~f(x)$ es continua en $x=2$
+	\end{center}
+\end{itemize}
+\fcolorbox{lightblue}{lightblue!10}{$f(x)$ es continua $\forall x\in\R-\{-2\}$}
+\item \lb{Analiza la continuidad de las siguientes funciones \[ p(x)=\begin{cases}
+		\frac{1}{x} & x<0\\
+		x+1 & 0\le x\le 3\\
+		\frac{1}{x^2-9} & x>3
+	\end{cases} \]}
+
+$\forall x<0\longrightarrow p(x)$ es continua.\\
+$\forall x\in(0,3)\longrightarrow p(x)$ es continua.\\
+$\forall x>3\longrightarrow p(x)$ es continua.\\
+Nos falta comprobar si $p(x)$ es continua en $x=0$ y $x=3$.
+
+\begin{itemize}[label=]
+	\item \bboxed{x=0}
+	\begin{center}
+		$\begin{rcases}
+			\lim_{x\to0^-}\dfrac{1}{x}=\dfrac{1}{0^-}=-\infty\\
+			\lim_{x\to0^+}(x+1)=1
+		\end{rcases}~~\nexists \lim_{x\to0}p(x)\longrightarrow~~$\begin{minipage}[t]{0.4\textwidth}
+		$p(x)$ no es continua en $x=0$. En concreto tenemos diremos que presenta una discontinuidad inevitable de salto infinito. Habrá una asíntota vertical en $x=0$
+		\end{minipage}
+	\end{center}
+	\item \bboxed{x=3}
+	\begin{center}
+		$\begin{rcases}
+			\lim_{x\to3^-}(x+1)=4\\
+			\lim_{x\to3^+}\dfrac{1}{x^2-9}=\dfrac{1}{0^+}=+\infty
+		\end{rcases}~~\nexists \lim_{x\to3}p(x)\longrightarrow$\begin{minipage}[t]{0.4\textwidth}
+		$p(x)$ no es continua en $x=3$. En concreto diremos que presenta una discontinuidad inevitable de salto infinito. Habrá una asíntota vertical en $x=3$.
+		\end{minipage}
+	\end{center}
+\end{itemize}
+\item \lb{Representa la función $y=x^2+4x+4$ e indica cuál es su recorrido.}
+
+\begin{minipage}{0.45\textwidth}
+	\begin{itemize}[leftmargin=*]
+		\item Como el coeficiente líder es positivo: $\bigcup$
+		\item Puntos de corte con el eje OX:
+		\begin{center}
+			$ x^2+4x+4\longrightarrow x=\dfrac{-4\pm\sqrt{16-16}}{2}\linebreak=\dfrac{-4\pm0}{2}=-2\text{ (doble)}\longrightarrow P(-2,0) $
+		\end{center}
+		\item El vértice: $x_V=\dfrac{-b}{2a}=\dfrac{-4}{2}=-2\longrightarrow \underset{y(-2)=0}{V(-2,0)}$
+	\end{itemize}
+	Cuando no tenemos puntos de corte con el eje OC o coincide con el vértice, entonces tomamos la imagen de dos puntos que estén a ambos lados del vértice y a la misma distancia:
+\end{minipage}\qquad\begin{minipage}{0.45\textwidth}
+\begin{tikzpicture}
+	\node[red, draw=red, fill=red!10, line width=1.5, text width=\linewidth] {\underline{Nota:} Para representar gráficamente una paábola $y=ax^2+bx+c$, debemos siempre tener en cuenta lo siguiente:
+	
+	\begin{enumerate}[label=\roman*)]
+		\item Si $a>0$ tiene ramas hacia arriba $\bigcup$. Si $a<0$ tiene ramas hacia abajo $\bigcap$.
+		\item Debemos obtener los puntos de corte con el eje $x\longrightarrow ax^2+bx+c=0$
+		\item Debemos obtener el vértices:\[ x_V=\dfrac{-b}{2a} \]
+		\end{enumerate}};
+\end{tikzpicture}
+\end{minipage}
+
+\begin{itemize}[label=]
+	\item $x=-3\longrightarrow y(-3)=9-12+4=1$
+	\item $x=-1\longrightarrow y(-1)=1-4+4=1$
+\end{itemize}
+\begin{center}
+	\begin{tikzpicture}
+		\begin{axis}[
+			xlabel={$x$},
+			samples=100,
+			axis lines=center,
+			xtick={-3,-2,-1},
+			ytick={1},
+			xmax=6,
+			ymin=-2,
+			xscale=1.5,
+			xlabel style={anchor=west},
+			ylabel style={anchor=south},
+			]
+			\addplot[lightblue,domain=-5:1, line width=2] {x^2 + 4*x + 4};
+			\node at (axis cs:3,2) {Recorrido: $[0,+\infty)$};
+		\end{axis}
+	\end{tikzpicture}
+\end{center}
+\item \lb{Representa la función $y=-x^2+2x+15$ e indica su recorrido.}
+\begin{itemize}
+	\item Como el coeficiente líder es negativo (-1) entonces la parabola es $\bigcap$.
+	\item Puntos de corte con el eje OX: \[ -x^2+2x+15=0\longrightarrow x=\dfrac{-2\pm\sqrt{4+60}}{-2}=\dfrac{-2\pm8}{-2}\begin{cases}
+		-3 & P(-3,0)\\
+		5 & P(5,0)
+	\end{cases} \]
+	\item Vértice: $x_V=\dfrac{-b}{2a}=\dfrac{-2}{-2}=1\longrightarrow\begin{array}{l}
+		x_V=1\\
+		y(1)=-1+2+15=16
+	\end{array}V=(1,16)$
+\end{itemize}
+\begin{center}
+	\begin{tikzpicture}
+		\begin{axis}[
+			axis lines=center,
+			xmin=-15, xmax=15,
+			xtick={-8,-4,1,4,8},
+			ytick={0, 4, ..., 16},
+			ymax=18, yscale=1.3,
+			samples=1000,
+			xscale=1.5,
+			]
+			\addplot[lightblue,domain=-4:6, line width=2] {-x^2+2*x+15};
+			\node at (axis cs:10,12) {\fcolorbox{lightblue}{lightblue!10}{Recorrido: $(-\infty,16)$}};
+		\end{axis}
+	\end{tikzpicture}
+\end{center}
+\item \lb{Dadas las funciones $f(x)=x+3,\:g(x)=x+1$, calcula las funciones $g\circ f$ y $f\circ g$.}
+
+Realizar una composición de funciones consiste en realizar una función, y justo donde termina esta empezaría la otra, tomando las imágenes de lo primero como los elementos de la segunda.
+
+\begin{center}
+\begin{minipage}{0.55\textwidth}
+		\begin{tabular}{cll}
+	$\bboxed{g\circ f}$ & \begin{tikzcd}[nodes={anchor=west}, row sep=tiny]
+		\mathbb{R} \arrow[r, "f"] \arrow[rr, "g\circ f", bend left] & \mathbb{R} \arrow[r, "g"] & \mathbb{R}                \\
+		x \arrow[r]                                                 & f(x) \arrow[r]            & g\left(f(x)\right)        \\
+		x \arrow[r]                                                 & x+3 \arrow[r]             & (x+3)+1 \arrow[d, lightblue]         \\
+		&                           & \lb{x+1} \arrow[lu, bend left, lightblue]
+	\end{tikzcd} & $\bboxed{(g\circ f)(x)=x+4}$\\
+	$\bboxed{f\circ g}$ & \begin{tikzcd}[nodes={anchor=west}, row sep=tiny]
+		\mathbb{R} \arrow[r, "g"] \arrow[rr, "f\circ g", bend left] & \mathbb{R} \arrow[r, "f"] & \mathbb{R}         \\
+		x \arrow[r]                                                 & f(x) \arrow[r]            & f\left(g(x)\right) \\
+		x \arrow[r]                                                 & x+1 \arrow[r]             & (x+1)+3           
+	\end{tikzcd}& $\bboxed{(f\circ g)(x)=x+4}$
+\end{tabular}
+\end{minipage}\qquad\begin{minipage}{0.25\textwidth}
+\lb{Es Casualidad que salgan iguales. No tiene por qué.}
+\end{minipage}
+\end{center}
+\item \lb{Dadas las funciones $f(x)=\dfrac{1}{x^2-1}$ y $g(x)=\sqrt{x+2}$. Con las funciones del ejercicio anterior, calcula $g\circ f$ y $f\circ g$.}
+\begin{center}
+	\begin{tabular}{lll}
+	$\bboxed{g\circ f}$ & \begin{tikzcd}[nodes={anchor=west}, row sep=tiny]
+		\mathbb{R} \arrow[r, "g"] \arrow[rr, "f\circ g", bend left] & \mathbb{R} \arrow[r, "f"] & \mathbb{R}         \\
+		x \arrow[r]                                                 & f(x) \arrow[r]            & f\left(g(x)\right) \\
+		x \arrow[r]                                                 & \dfrac{1}{x^2-1} \arrow[r]             & \sqrt{\dfrac{1}{x^2-1}+2}=\sqrt{\dfrac{2x^2-1}{x^2-1}}
+	\end{tikzcd} & $\bboxed{\left(g\circ f\right)(x)=\sqrt{\dfrac{2x^2-1}{x^2-1}}}$\\
+	$\bboxed{f\circ g}$ & \begin{tikzcd}[nodes={anchor=west}, row sep=tiny]
+		\mathbb{R} \arrow[r, "g"] \arrow[rr, "f\circ g", bend left] & \mathbb{R} \arrow[r, "f"] & \mathbb{R}         \\
+		x \arrow[r]                                                 & f(x) \arrow[r]            & f\left(g(x)\right) \\
+		x \arrow[r]                                                 & \sqrt{x+2} \arrow[r]             & \dfrac{1}{(\sqrt{x+2})^2-1}=\dfrac{1}{x+1}
+	\end{tikzcd} & $\bboxed{\left(f\circ g\right)(x)=\dfrac{1}{x+1}}$
+\end{tabular}
+\end{center}
+
+\item \lb{Haz lo mismo con las funciones $f(x)=\sqrt{x+3},\:g(x)=\dfrac{x+1}{x+2}$, calcula las funciones $g\circ f$ y $f\circ g$.}
+
+\begin{center}
+	\begin{tabular}{lll}
+		$\bboxed{g\circ f}$ & \begin{tikzcd}[nodes={anchor=west}, row sep=tiny]
+			\mathbb{R} \arrow[r, "g"] \arrow[rr, "f\circ g", bend left] & \mathbb{R} \arrow[r, "f"] & \mathbb{R}         \\
+			x \arrow[r]                                                 & f(x) \arrow[r]            & f\left(g(x)\right) \\
+			x \arrow[r]                                                 & \sqrt{x+3} \arrow[r]             & \dfrac{\sqrt{x+3}+1}{\sqrt{x+3}+2}
+		\end{tikzcd} & $\bboxed{\left(g\circ f\right)(x)=\dfrac{\sqrt{x+3}+1}{\sqrt{x+3}+2}}$\\
+		$\bboxed{f\circ g}$ & \begin{tikzcd}[nodes={anchor=west}, row sep=tiny]
+			\mathbb{R} \arrow[r, "g"] \arrow[rr, "f\circ g", bend left] & \mathbb{R} \arrow[r, "f"] & \mathbb{R}         \\
+			x \arrow[r]                                                 & f(x) \arrow[r]            & f\left(g(x)\right) \\
+			x \arrow[r]                                                 & \dfrac{x+1}{x+2} \arrow[r]             & \sqrt{\dfrac{x+1}{x+2}+3}=\sqrt{\dfrac{4x+7}{x+2}}
+		\end{tikzcd} & $\bboxed{\left(f\circ g\right)(x)=\sqrt{\dfrac{4x+7}{x+2}}}$
+	\end{tabular}
+\end{center}
+
+\item \lb{Calcula el dominio de las siguientes funciones: \[ y=\sqrt{\dfrac{x^2-4}{x^2+1}} \]}
+\begin{itemize}
+	\item Lo primero que tenemos es un cociente, por lo tanto, el denominador no puede ser cero. \[ x^2+1\neq0 \]
+	\item Como tenemos una raíz cuadrada, entonces lo de dentro no puede ser negativo: \[ \dfrac{x^2-4}{x^2+1}=0 \]
+\end{itemize}
+\begin{center}
+			\begin{tikzpicture}[xscale=1.5]
+		\draw (-4,0) -- (4,0)
+		(-4,-0.5) -- (4,-0.5)
+		(-4,-1.5) -- (4,-1.5)
+		(-4,-2) -- (4,-2);
+		\node[left] at (-4,-0.25-1.5) {$x^2+1$};
+		\node[left] at (-4,-1.75+1.5) {$x^2-4$};
+		\foreach \x in {-1.9, -1.6, ..., 1.9}{
+			\node at (\x, -1.75+1.5) {$-$};
+		}
+		\foreach \x in {-3.9, -3.5, ..., 3.9}{
+			\node at (\x, -0.25-1.5) {$+$};
+		}
+		\foreach \x in {2.2, 2.5, ..., 4}{
+			\node at (\x, -1.75+1.5) {$+$};
+		}
+		\foreach \x in {-2.2, -2.5, ..., -4}{
+			\node at (\x, -1.75+1.5) {$+$};
+		}
+		\draw (-2,0) node[above] {$-2$} -- (-2,-1.5)  ;
+		\draw (2,0) node[above] {$2$} -- (2,-1.5)  ;
+		\node[circle, draw=lightblue, line width=1.2, fill=lightblue!10] at (-3,-1) {+};
+		\node[circle, draw=lightblue, line width=1.2, fill=lightblue!10] at (3,-1) {+};
+		\node[circle, draw=lightblue, line width=1.2, fill=lightblue!10] at (0,-1) {$-$};
+	\end{tikzpicture}
+\end{center}
+$\bboxed{\dom(f)=(-\infty,-2]\cup[2,+\infty)}$
 \end{enumerate}
 \end{document}
