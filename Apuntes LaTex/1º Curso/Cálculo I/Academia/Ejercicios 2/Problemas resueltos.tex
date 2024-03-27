@@ -972,5 +972,151 @@ Realizar una composición de funciones consiste en realizar una función, y just
 	\end{tikzpicture}
 \end{center}
 $\bboxed{\dom(f)=(-\infty,-2]\cup[2,+\infty)}$
+
+\item \lb{Calcula el dominio de las siguientes funciones: \[ y=\sqrt{\dfrac{(x-1)(x-3)}{(x+2)(x-2)}} \]}
+
+\begin{itemize}[leftmargin=*]
+	\item Para empezar tenemos un cociente, y debe verificar que su denominador sea distinto de cero:
+	\begin{itemize}[label=]
+		\item $x+2=0\longrightarrow \bboxed{x=-2}$ No pertenece al $\dom(f)$
+		\item $x-2=0\longrightarrow\bboxed{x=2}$ No pertenece al $\dom(f)$
+	\end{itemize}
+	\item Como tenemos una raíz cuadrada lo de dentro no puede ser negativo: \[ \dfrac{(x-1)(x-3)}{(x+2)(x-2)}\ge0 \]
+\end{itemize}
+\begin{center}
+	\begin{tikzpicture}[xscale=1.5]
+		\foreach \y in {0,-0.5,-1.5,-2,-3,-3.5,-4.5,-5}{\draw (-3,\y) -- (4,\y);}
+		\node[left] at (-3,-0.25) {$x-1$};
+		\node[left] at (-3,-1.75) {$x-3$};
+		\node[left] at (-3,-3.25) {$x+2$};
+		\node[left] at (-3,-4.75) {$x-2$};
+		\foreach \x in {-2.5,1.5,3.5}{\node[circle, draw=lightblue, line width=1.2, fill=lightblue!10] at (\x,-5.5) {+};}
+		\foreach \x in {-0.5,2.5}{\node[circle, draw=lightblue, line width=1.2, fill=lightblue!10] at (\x,-5.5) {$-$};}
+		\foreach \x in {-3, -2.7, ..., 1}{\node at (\x,-0.25) {$-$};}
+		\foreach \x in {-3, -2.7, ..., 3}{\node at (\x,-1.75) {$-$};}
+		\foreach \x in {-3, -2.7, ..., -2}{\node at (\x,-3.25) {$-$};}
+		\foreach \x in {-3, -2.7, ..., 2}{\node at (\x,-4.75) {$-$};}
+		\foreach \x in {4, 3.7, ..., 1}{\node at (\x,-0.25) {$+$};}
+		\foreach \x in {4, 3.7, ..., 3}{\node at (\x,-1.75) {$+$};}
+		\foreach \x in {4, 3.7, ..., -2}{\node at (\x,-3.25) {$+$};}
+		\foreach \x in {4, 3.7, ..., 2}{\node at (\x,-4.75) {$+$};}
+		\node[above] at (1,0) {$1$};
+		\node[below right] at (3, -2) {$3$};
+		\node[below left] at (-2, -3.5) {$-2$};
+		\node[below right] at (2,-5) {$2$};
+		\foreach \x in {-2,1,2,3}{\draw[lightblue, line width=1.5] (\x,0) -- (\x,-6);}
+	\end{tikzpicture}
+\end{center}
+$\bboxed{\dom(f)=(-\infty,-2]\cup[1,2]\cup[3,+\infty)}$
+\item \lb{Calcular \[ \lim_{x\to0^+}x^{\sin x} \]}
+\begin{minipage}[b]{0.5\textwidth}
+	$\lim_{x\to0^+}x^{\sin x}=(0^0)=\lim_{x\to0}e^{\log x^{\sin x}}=\lim_{x\to0}e^{\sin x\cdot\log x}=\lb{(\ast)}=e^0=\bboxed{1}$\\
+	$\lb{(\ast)=}\lim_{x\to0}\sin x\cdot\log x=(0\cdot\infty)=\lim_{x\to0}\dfrac{\log x}{\frac{1}{\sin x}}=\left(\dfrac{\infty}{\infty}\right)=\left\{\text{L'Hôpital}\right\}=\lim_{x\to0}\dfrac{\frac{1}{x}}{\frac{-\cos x}{\sin^2 x}}=\lim_{x\to0}\dfrac{-\sin^2x}{x\cos x}=\left(\dfrac{0}{0}\right)=\left\{\begin{array}{l}
+		\mathrm{Equivalencias}\\
+		\sin x\leadsto_0 x
+	\end{array}\right\}=\lim_{x\to0}\dfrac{-x^{\cancel{2}}}{\cancel{x}\cos x}=\lim_{x\to0}\dfrac{-x}{\cos x}=\dfrac{0}{1}=0$
+\end{minipage}\qquad\begin{minipage}{0.4\textwidth}
+\begin{tikzpicture}
+	\node[red, draw=red, fill=red!10, line width=1.5, text width=\linewidth] {\underline{Nota:} Siempre que tengamos indeterminaciones de la forma $0^0$ o $\infty^0$ lo que haremos será aplicar $e$ elevando al logaritmo: 
+			
+			$ \lim_{x\to a}\left(f(x)\right)^{g(x)}=(0^0\text{ o }\infty^0)=\lim_{x\to a}e^{\log\left(f(x)\right)^{g(x)}}=\lim_{x\to a}e^{g(x)\log\left(f(x)\right)} $};
+\end{tikzpicture}\\
+\begin{tikzpicture}
+	\node[red, draw=red, fill=red!10, line width=1.5, text width=\linewidth] {\underline{Nota:} Siempre que tengamos un límite de la forma $0\cdot \infty$ lo que haremos será bajar dividiendo un de las dos funciones para que así nos quede un límite de la forma $\dfrac{0}{0}$ o $\dfrac{\infty}{\infty}$ y podamos aplicarle la regla de L'Hôpital que dice: \[ \lim_{x\to a}\dfrac{f(x)}{g(x)}=\left(\dfrac{0}{0}\text{ o }\dfrac{\infty}{\infty}\right)=\lim_{x\to a}\dfrac{f'(x)}{g'(x)} \]};
+\end{tikzpicture}
+\end{minipage}
+\item \lb{Calcular \[ \lim_{x\to\frac{\pi}{2}^{-}}(\tan x)^{\cos x}. \]}
+
+$\lim_{x\to\frac{\pi}{2}^{-}}(\tan x)^{\cos x}=(\infty^{0})=\lim_{ x \to \frac{\pi}{2}^{-} }e^{\log(\tan x)^{\cos x}}=\lim_{ x \to \frac{\pi}{2}^{-} }=\lb{(\ast)}=e^0=\bboxed{1}$
+
+$\lb{(\ast)=}\lim_{ x \to \frac{\pi}{2}^{-} }\cos x\cdot \log(\tan x)=(0\cdot \infty)=\lim_{ x \to \frac{\pi}{2}^{-} }\dfrac{\log(\tan x)}{\frac{1}{\cos x}}=\left( \dfrac{\infty}{\infty} \right)=\left\{ \begin{array}{l}\text{Regla de}\\ \text{L'Hôpital}\end{array} \right\}=\lim_{ x \to \frac{\pi}{2}^{-} }\dfrac{\frac{1}{\tan x}\cdot \cancel{\frac{1}{\cos^{2}x}}}{\frac{\sin x}{\cancel{\cos^{2}x}}}=\linebreak\lim_{ x \to \frac{\pi}{2}^{-} }\frac{1}{\tan x\cdot \sin x}=\frac{1}{\infty}=0$
+
+\item \lb{Calcular \[ \lim_{x\to1^+}\dfrac{x\sin(x-1)(1-\cos(x-1))}{(x-1)^3\ln(x-1)} \]}
+$\lim_{x\to1^+}\dfrac{x\sin(x-1)(1-\cos(x-1))}{(x-1)^3\ln(x-1)}=\left(\dfrac{0}{0\cdot\infty}\right)=\lb{(\ast)}$
+
+Podemos aplicar equivalencias:
+\begin{itemize}[label=]
+	\item $\sin x\leadsto_0x\longrightarrow\sin(x-1)\leadsto_0(x-1)$
+	\item $\cos x\leadsto_01-\dfrac{x^2}{2}\longrightarrow1-\cos x\leadsto_0\dfrac{x^2}{2}\longrightarrow1-\cos(x-1)\leadsto_0\dfrac{(x-1)^2}{2}$
+\end{itemize}
+$\lb{(\ast)=}\lim_{x\to1^+}\dfrac{x\cdot\cancel{(x-1)}\cdot\frac{\cancel{(x-1)^2}}{2}}{\cancel{(x-1)^3}\cdot\ln(x-1)}=\lim_{x\to1^+}\dfrac{x}{2\ln(x-1)}=\dfrac{1}{-\infty}=\bboxed{0}$
+
+\begin{center}
+	\begin{tikzpicture}
+		\node[red, draw=red, fill=red!10, line width=1.5, text width=\linewidth] {
+		\underline{Lista de derivadas inmediatas}
+		\begin{multicols}{2}
+			\begin{enumerate}[label=\boxed{\arabic*}]
+			\item $f(x)=x^n\longrightarrow f'(x)=nx^{n-1}$
+			\item $f(x)=\log x\longrightarrow f'(x)=\dfrac{1}{x}$
+			\item $f(x)=e^{x}\longrightarrow f'(x)=e^{x}$
+			\item $f(x)=a^x\longrightarrow f'(x)=a^x\cdot\log a$
+			\item $f(x)=\sin x\longrightarrow f'(x)=\cos x$
+			\item $f(x)=\cos x\longrightarrow f'(x)=-\sin x$
+			
+			$\mathrm{Sh}x=\dfrac{e^x-e^{-x}}{2}$
+			
+			$\mathrm{Ch}x=\dfrac{e^x+e^{-x}}{2}$
+			\item $f(x)=\tan(x)\longrightarrow f'(x)=\dfrac{1}{\cos^2x}$
+			\item $f(x)=\coth x\longrightarrow f'(x)=\dfrac{-1}{\sin x}$
+			\item $f(x)=\arctan x\longrightarrow f'(x)=\dfrac{1}{1+x^2}$
+			\item $f(x)=\arcsin x\longrightarrow f'(x)=\dfrac{1}{\sqrt{1-x^2}}$
+			\item $f(x)=\arccos x\longrightarrow f'(x)=\dfrac{-1}{\sqrt{1-x^2}}$
+			\item $f(x)=k\longrightarrow f'(x)=0$
+			\item $f(x)=\mathrm{Sh}x\longrightarrow f'(x)=\mathrm{Ch}x$
+			\item $f(x)=\mathrm{Ch}x\longrightarrow f'(x)=\mathrm{Sh}x$
+			\item $f(x)=\tanh x\longrightarrow f'(x)=1-\tanh^2 x$
+		\end{enumerate}
+		\end{multicols}
+		~~
+		};
+	\end{tikzpicture}
+	
+	\vspace{0.5cm}
+	
+	\begin{tikzpicture}
+		\node[red, draw=red, fill=red!10, line width=1.5, text width=\linewidth] {\underline{Reglas básicas de derivación:}\\
+		
+		\begin{multicols}{2}
+			\begin{enumerate}[label=\boxed{\arabic*}]
+				\item $\left(f(x)\pm g(x)\right)'=f'(x)\pm g'(x)$
+				\item $\left(k\cdot f(x)\right)'=k\cdot f'(x)$
+				\item $\left(f(x)\cdot g(x)\right)'=f'(x)g(x)+f(x)g'(x)$
+				\item $\left(\dfrac{f(x)}{g(x)}\right)'=\dfrac{f'(x)g(x)-f(x)g'(x)}{\left(g(x)\right)^2}$
+				\item Regla de la cadena:
+				
+				$\left(f(g(x))\right)'=f'\left(g(x)\right)\cdot g'(x)$
+				\item Derivada de la inversa:
+				
+				$\left(f^{-1}\right)'(y)=\dfrac{1}{\left(f'(x)\right)}$
+			\end{enumerate}
+		\end{multicols}
+		~~
+		};
+	\end{tikzpicture}
+\end{center}
+\item \lb{Calcular las derivadas de las siguientes funciones:}
+\begin{enumerate}[label=\color{red}\alph*)]
+	\item $\db{f(x)=x^4+3x^2}\longrightarrow f'(x)=4x^2+6x$
+	\item $\db{f(x)=x\sin x}$
+	
+	$f(x)=\lbb{x}{}\cdot\lbb{\sin x}{}$\\
+	$f'(x)=1\cdot\sin x+x\cdot \cos x\longrightarrow\bboxed{f'(x)=\sin x+x\cos x}$
+	\item $\db{f(x)=\dfrac{x}{2^x}}=x\cdot2^{-x}$
+	
+	$f'(x)=1\cdot 2^{-x}+x\cdot2^{-x}\cdot\log 2\cdot(-1)=2^{-x}\left[1-x\log2\right]\longrightarrow\bboxed{f'(x)=\dfrac{1-x\log2}{2^x}}$
+\end{enumerate}
+\item \lb{Calcular las derivadas de las siguientes funciones:}
+\begin{enumerate}[label=\color{red}\alph*)]
+	\item $\db{f(x)=\sqrt[3]{x^2+3x}}=(x^2+3x)^{\frac{1}{3}}$
+	
+	$f'(x)=\dfrac{1}{3}\left(x^2+3x\right)^{-\frac{2}{3}}\cdot(2x+3)=\dfrac{2x+3}{3\sqrt[3]{(x^2+3x)^2}}\longrightarrow\bboxed{f'(x)=\dfrac{2x+3}{3\sqrt[3]{(x^2+3x)^2}}}$
+	\item $\db{f(x)=\sqrt{\cos x}}=(\cos x)^{\frac{1}{2}}$
+	
+	$f'(x)=\dfrac{1}{2}\left(\cos x\right)^{-\frac{1}{2}}\cdot(-\sin x)=\dfrac{-\sin x}{2\sqrt{\cos x}}\longrightarrow\bboxed{f'(x)=\dfrac{-\sin x}{2\sqrt{\cos x}}}$
+	\item $\db{f(x)=\sin(x^3+3)}$
+	
+	$f'(x)=\cos(x^2+3)\cdot 2x\longrightarrow \bboxed{f'(x)=2x\cos(x^2+3)}$
+\end{enumerate}
 \end{enumerate}
 \end{document}
