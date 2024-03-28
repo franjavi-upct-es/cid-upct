@@ -456,7 +456,7 @@ $\lim_{x\to\pi}\dfrac{x}{\sin x}=\left(\dfrac{\pi}{0}\right)=\begin{cases}
 
 \begin{tikzpicture}[ >=latex, scale=0.8, baseline=(current bounding box.center)]
 	\begin{axis}[xmin=-1, xtick=\empty, ytick=\empty, axis lines=center, xmax=2.2*pi, xscale=1.5]
-		\addplot[samples=150, lightblue, domain=0:2*pi] {sin(deg(x))};
+		\addplot[samples=150, lightblue, domain=0:2*pi, line width=1.5] {sin(deg(x))};
 		\draw[lightblue] (axis cs:pi, 0.1) -- (axis cs: pi, -0.1) node[below] {$\pi$};
 	\end{axis}
 \end{tikzpicture}\qquad\begin{minipage}{0.4\textwidth}
@@ -1118,5 +1118,73 @@ $\lb{(\ast)=}\lim_{x\to1^+}\dfrac{x\cdot\cancel{(x-1)}\cdot\frac{\cancel{(x-1)^2
 	
 	$f'(x)=\cos(x^2+3)\cdot 2x\longrightarrow \bboxed{f'(x)=2x\cos(x^2+3)}$
 \end{enumerate}
+\item \lb{Calcular la derivada de las siguientes funciones:}
+\begin{enumerate}[label=\color{red}\alph*)]
+	\item $\db{f(x)=e^{x+\sin x}}\longrightarrow \bboxed{f'(x)=e^{x+\sin x}\cdot(1+\cos x)}$
+	\item $\db{f(x)=\dfrac{\sin x}{x^2+5}}\longrightarrow \bboxed{f'(x)=\dfrac{\cos x\cdot(x^2+5)-2x\cdot\sin x}{(x^2+5)^2}}$
+	\item $\db{f(x)=\ln\left(\dfrac{1+x}{1-x}\right)}$
+	
+	$f'(x)=\dfrac{1}{\left(\frac{1+x}{\cancel{1-x}}\right)}\cdot\dfrac{1\cdot(1-\cancel{x})+(1+\cancel{x})\cdot1}{(1-x)^{\cancel{2}}}=\dfrac{2}{(1+x)(1-x)}=\bboxed{\dfrac{2}{1-x^2}}$
+\end{enumerate}
+\item \lb{Calcular la derivada de las siguientes funciones:}
+\begin{enumerate}[label=\color{red}\alph*)]
+	\item $\db{f(x)=\arcsin\left(\ln x\right)}$
+	
+	$f'(x)=\dfrac{1}{\sqrt{1-(\ln x)^2}}\cdot\dfrac{1}{x}\longrightarrow\bboxed{f'(x)=\dfrac{1}{x\sqrt{1-(\ln x)^2}}}$
+	\item $\db{f(x)=\sin(\arctan x)}$
+	
+	$f'(x)=\cos\left(\arctan x\right)\cdot\dfrac{1}{1+x^2}\longrightarrow\bboxed{f'(x)=\dfrac{\cos\left(\arctan x\right)}{1+x^2}}$
+	
+	\item $\db{f(x)=\cos\left(\dfrac{x}{e^x}\right)}=\cos(x\cdot e^{-x})$
+	
+	$f'(x)=-\sin(xe^{-x})\cdot\left[1\cdot e^{-x}+x\cdot e^{-x}\cdot(-1)\right]=\bboxed{-e^{-x}\sin(xe^{-x})[1-x]}$
+\end{enumerate}
+\item \lb{Calcular la derivada de la función inversa de $y=\sin x$.}
+
+$\begin{array}{ll}
+	\text{Tenemos }&f(x)=\sin x\longrightarrow f^{-1}(x)=\arcsin x\\
+	&y=\sin x\xrightarrow{\qquad~} x=\arcsin y
+\end{array}$
+
+$\begin{array}{l}
+	\left(f^{-1}(x)\right)'=\dfrac{1}{f'(x)}=\dfrac{1}{\cos(x)}=\dfrac{1}{\sqrt{1-y^2}}\longrightarrow\bboxed{\left(f^{-1}\right)'(y)=\dfrac{1}{\sqrt{1-y^2}}}\\
+	\sin^2x+\cos^2x=1\longrightarrow\cos^2x=1-\sin^2x\longrightarrow\cos x=\sqrt{1-\sin^2x}=\left\{y=\sin x\right\}=\sqrt{1-y^2}
+\end{array}$
+\item \lb{Calcula los siguientes límites: \[ \lim_{x\to\infty}\dfrac{5x-4x^2-1}{2x^3-x-1} \]}
+\begin{minipage}[b]{0.5\textwidth}
+	$\lim_{x\to+\infty}\dfrac{-4x^2+5x-1}{2x^3-x-1}=\left(\dfrac{\infty}{\infty}\right)=\lim_{x\to+\infty}\dfrac{-\frac{4x^2}{x^3}+\frac{5x}{x^3}-\frac{1}{x^3}}{\frac{2x^3}{x^3}-\frac{x}{x^3}-\frac{1}{x^3}}=\lim_{x\to+\infty}\dfrac{\tozero{-\frac{4}{x}}+\tozero{\frac{5}{x^2}}-\tozero{\frac{1}{x^3}}}{2-\tozero{\frac{1}{x^2}}-\tozero{\frac{1}{x^3}}}=\dfrac{0}{2}=\bboxed{0}$
+\end{minipage}\qquad\begin{minipage}{0.4\textwidth}
+\begin{tikzpicture}
+	\node[red, draw=red, fill=red!10, line width=1.5, text width=\linewidth] {\underline{Nota:} Siempre que tengamos un límite de la forma $\left(\dfrac{\infty}{\infty}\right)$ que sea un cociente de polinomios lo que haremos será dividir numerador y denominador por $x^p$, siendo $p$ el mayor grado del denominador.};
+\end{tikzpicture}
+\end{minipage}
+\item \lb{Calcula los siguientes límites: \[ \lim_{x\to0}\dfrac{1-\cos3x}{x(x-2)\tan2x} \]}
+
+$\lim_{ x \to 0 } \frac{1-\cos 3x}{x\lbb{(x-2)}{\begin{subarray}{c}
+			\text{No da}\\
+			\text{problemas}
+	\end{subarray}}\tan(2x)}=\lim_{ x \to 0 } \dfrac{\frac{9x^{2}}{2}}{x(x-2)\cdot 2x}=\lim_{ x \to 0 }\dfrac{9\cancel{x^{2}}}{4\cancel{x^{2}}(x-2)}=\bboxed{-\frac{9}{8}}$
+
+Equivalencias:
+
+$\cos x\leadsto_{0}1-\cos x\leadsto_{0}\dfrac{x^{2}}{2}\longrightarrow 1-\cos (3x)\leadsto_{0}\dfrac{(3x)^2}{2}=\dfrac{9x^{2}}{2}$
+
+$\tan x\leadsto_{0}x\longrightarrow\tan(2x)\leadsto_{0}2x$
+\item \lb{Calcula los siguientes límites: \[ \lim_{x\to1}\dfrac{\log x}{x-\sqrt{x}} \]}
+
+\begin{enumerate}[label=\underline{\arabic*ª Forma:}, leftmargin=2cm]
+	\item ~~
+	
+	$\lim_{x\to1}\dfrac{\log x}{x-\sqrt{x}}=\left(\dfrac{0}{0}\right)=\left\{\text{Regla de L'Hôpital}\right\}=\lim_{x\to1}\dfrac{\frac{1}{x}}{1-\frac{1}{2\sqrt{x}}}=\dfrac{1}{1-\frac{1}{2}}=\bboxed{2}$
+	\item ~~
+	
+	$\lim_{x\to1}\dfrac{\log x}{x-\sqrt{x}}=\left(\dfrac{0}{0}\right)=\lim_{x\to1}\dfrac{\log x\cdot(x+\sqrt{x})}{(x-\sqrt{x})(x+\sqrt{x})}=\lim_{x\to1}\dfrac{\log x\cdot(x+\sqrt{x})}{x^2-x}=\lim_{x\to1}\dfrac{\log x\cdot(x+\sqrt{x})}{x(x-1)}=\left(\dfrac{0}{0}\right)=\lim_{x\to1}\dfrac{\cancel{(x-1)}(x+\sqrt{x})}{x\cancel{(x-1)}}=\dfrac{2}{1}=\bboxed{2}$
+\end{enumerate}
+Equivalencias:
+
+$\begin{array}{l}
+	\log(1+x)\leadsto_{0}x\\
+	\log(x)=\log\left(1+\bboxed{(x-1)}\right)\leadsto_1\bboxed{(x-1)}
+\end{array}$
 \end{enumerate}
 \end{document}
