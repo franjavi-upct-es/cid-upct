@@ -9,3 +9,12 @@ header-includes:
 - \usepackage{fvextra}
 - \DefineVerbatimEnvironment{Highlighting}{Verbatim}{breaklines, commandchars=\\\{\}}
 ---
+```{r}
+install.packages("remotes")
+remotes::install_github("uci-ml-repo/ucimlrepo")
+```
+
+
+```{r}
+
+```
