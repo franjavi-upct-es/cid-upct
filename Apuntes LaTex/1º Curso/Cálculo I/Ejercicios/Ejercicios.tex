@@ -1,0 +1,51 @@
+\input{"../../../Macros.tex"}
+\everymath{\displaystyle}
+\title{Ejercicios Cálculo I}
+
+\begin{document}
+\maketitle
+\textbf{\huge Hoja 1.1: Sucesiones}
+\begin{enumerate}[label=\color{red}\textbf{\arabic*)}, leftmargin=*]
+	\item \lb{Determine de las siguientes sucesiones $(a_n)_n$ cuáles son convergentes y calcule el límite en dicho caso.}
+	\begin{enumerate}[label=\color{red}\alph*)]
+		\item $\db{a_n=2+0.1^n}$
+		
+		$\lim_{n\to+\infty}2+\tozero{0.1^n}=\bboxed{2}\longrightarrow$ Convergente
+		\item $\db{a_n=\dfrac{1-2n}{1+2n}}$
+		
+		$\lim_{n\to+\infty}\dfrac{1-2n}{1+2n}=\left(\dfrac{\infty}{\infty}\right)=\lim_{n\to\infty}\dfrac{\tozero{\frac{1}{n}}-\frac{2n}{n}}{\tozero{\frac{1}{n}}+\frac{2n}{n}}=\dfrac{-2}{2}=\bboxed{-1}\longrightarrow$ Convergente
+		\item $\db{a_n=\dfrac{(-1)^n\sqrt{n}\sin(n^n)}{n+1}}$
+		
+		$\lim_{n\to+\infty}\dfrac{(-1)^n\sqrt{n}\sin(n^n)}{n+1}$
+		
+		Como $\sin(n^n)$ está acotada entre $-1$ y $1$, entonces utilizaremos el teorema del límite acotado. 
+		
+		$\lim_{n\to+\infty}a_nb_n=(-1)^n\sin(n^n)\cdot\tozero{\dfrac{\sqrt{n}}{n+1}}=\bboxed{0}\longrightarrow$ Convergente
+		\item $\db{a_n=n-\sqrt{n+a}\sqrt{n+b}}$
+		
+		$\begin{aligned}
+			\lim_{n\to+\infty}n-\sqrt{n+a}\sqrt{n+b}&=(\infty-\infty)=\lim_{n\to+\infty}n-\sqrt{n+a}\sqrt{n+b}\cdot\dfrac{n+\sqrt{n+a}\sqrt{n+b}}{n+\sqrt{n+a}\sqrt{n+b}}\\
+			&=\lim_{n\to+\infty}\dfrac{n^2-(n+a)(n+b)}{n+\sqrt{n+a}\sqrt{n+b}}=\lim_{n\to+\infty}\dfrac{\cancel{n^2}-(\cancel{n^2}+nb+an+ab)}{n+\sqrt{n+a}\sqrt{n+b}}\\
+			&=\lim_{n\to+\infty}\dfrac{-(a+b)n-ab}{n+\sqrt{n+a}\sqrt{n+b}}=-\infty\longrightarrow\text{ Divergente}
+		\end{aligned}$
+		\item $\db{a_n=\sqrt[n]{a^n+b^n},\qquad a,b\ge0}$
+		
+		$\lim_{n\to+\infty}\sqrt[n]{a^n+b^n}$
+		\item $\db{a_n=(-1)^n\left(1-\dfrac{1}{n}\right)}$
+		\item $\db{a_n=\dfrac{\sin(n)}{n}}$
+		
+		$\lim_{n\to+\infty}\sin(n)\cdot\tozero{\dfrac{1}{n}}=0\longrightarrow$ Convergente
+		\item $\db{a_n=\left(-\dfrac{1}{2}\right)^n}$
+		\item $\db{a_n=\left(\dfrac{n}{n+1}\right)^n}$
+		
+		$\lim_{n\to+\infty}\left(\dfrac{n}{n+1}\right)^n=(1^\infty)=e^{\lim_{n\to+\infty}n\left(\frac{n}{n+1}-1\right)}=\lb{(\ast)}=e^{-1}=\bboxed{\dfrac{1}{e}}$
+		
+		$\lb{(\ast)=}\lim_{n\to+\infty}n\left(\dfrac{n}{n+1}-1\right)=\lim_{n\to+\infty}n\left(\dfrac{\cancel{n}-(\cancel{n}+1)}{n+1}\right)=\lim_{n\to+\infty}-\dfrac{n}{n+1}=\left(\dfrac{\infty}{\infty}\right)=\lim_{n\to+\infty}-\dfrac{\frac{n}{n}}{\frac{n}{n}+\tozero{\frac{1}{n}}}=-1$
+		\item $\db{a_n=\left(1-\dfrac{1}{n^2}\right)^n}$
+		\item $\db{a_n=\log(n)-\log(n+1)}$
+		\item $\db{a_n=\sqrt[n]{n^2}}$
+		\item $\db{a_n=(n+4)^{\frac{1}{n+4}}}$
+		\item $\db{a_n=\left(\dfrac{1}{n}\right)^{\frac{1}{\log(n)}}}$
+	\end{enumerate}
+\end{enumerate}
+\end{document}
