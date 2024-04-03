@@ -21,8 +21,8 @@ Utilizan normalmente \textbf{Map-Reduce} para cálculos distribuidos
 Algunas implementan otros lenguajes de consulta y procesado, como N1QL (Couchbase) y Aggregation Framework (MongoDB)
 
 Bases de datos de Documentos: Couchbase, MongoDB, OrientDB
-\subsubsection{Modelado de bases de datos de documentos}
-\subsubsubsection{Modelado de datos en NoSQL}
+\subsection{Modelado de bases de datos de documentos}
+\subsubsection{Modelado de datos en NoSQL}
 El modelado de datos debe ser:
 \begin{itemize}
 \item Realizado al mayor nivel de abstracción posible
@@ -40,7 +40,7 @@ Con respecto al modelo de datos:
 \item El modelo NoSQL se centra en \textbf{optimizar qué consultas vamos a servir}
 \item Es "barato" \textbf{duplicar (desnormalizar)} los datos si con ello se consigue \textbf{mayor eficiencia de acceso}
 \end{itemize}
-\subsubsubsection{Representación de CV como tablas}
+\subsubsection{Representación de CV como tablas}
 \begin{center}
 	\includegraphics[scale=0.8]{"Temas/Tema 3/screenshot001"}
 \end{center}
@@ -138,7 +138,7 @@ Al haber muchas entidades que refieren a otra entidad, la \textit{agregación} d
 \begin{center}
 	\includegraphics{"Temas/Tema 3/screenshot003"}
 \end{center}
-\subsubsection{Introducción a MongoDB}
+\subsection{Introducción a MongoDB}
 Base de datos documental
 
 Basado en una representación binaria de JSON, llamada BSON
@@ -188,12 +188,14 @@ db.colección.update(
 La selección del objeto se suele hacer por su \texttt{_id}, que es único.
 
 También permite modificadores:
+
 \begin{lstlisting}[language=JavaScript]
-db.analytics.update({"url" : "www.example.com"},
-										{"$inc" : {"pageviews" : 1}})
+	db.analytics.update({"url" : "www.example.com"},
+	{"$inc" : {"pageviews" : 1}})
 \end{lstlisting}
+
 También \texttt{\$set}, \texttt{\$unset}, \texttt{\$push} (para \textit{arrays}), \texttt{\$pull} (para eliminar elementos de una \textit{array} que cumplen un criterio).
-\subsubsubsection{Consulta}
+\subsubsection{Consultas MapReduce}
 Las consultas se hacen con \texttt{find}:
 \begin{lstlisting}[language=JavaScript]
 d.users.find({<criterio>},
@@ -209,7 +211,7 @@ db.user.find({"age": {"$gte": 18, "$lte": 30}});
 db.user.find({"$or": [{"age": {"$gte": 18} },
 											{"permission": true} ] });
 \end{lstlisting}
-\subsubsubsection{Consultas MapReduce}
+
 \textit{Map-reduce} es un paradigma de procesamiento de datos que permite condensar grandes volúmenes de datos en resultados agregados útiles.
 
 Una operación map-reduce consta de tres fases:
@@ -217,7 +219,7 @@ Una operación map-reduce consta de tres fases:
 	\item Se aplica la función \texttt{Map (Map(k1, v1) $\rightarrow$ list(k2, v2)} a cada documento de entrada. La función Map se aplica en paralelo a cada documento (con clave \texttt{k1}) del conjunto de datos de entrada. Esto produce una lista de pares (codificados por \texttt{k2}) para cada llamada.
 	\item La función \texttt{Reduce (Reduce(k2, list (v2)) $\rightarrow$ list((k3, v3)))} se aplica entonces en paralelo a cada grupo.
 \end{enumerate}
-\subsubsubsection{Validación del esquema}
+\subsubsection{Validación del esquema}
 En sus últimas versiones MongoDB ha incorporado funcionalidades que permiten anotar y validar documentos JSON (\textit{JSON Schema}).
 
 A la hora de crear una colección, podemos especificar en \textit{JSON schema} qué configuración deben seguir los documentos almacenados en ella.
@@ -227,32 +229,33 @@ A la hora de crear una colección, podemos especificar en \textit{JSON schema} q
 Vamos a crear una colección \texttt{estudiantes} y vamos a especificar su esquema asociado
 
 \begin{lstlisting}[language=JavaScript]
-db.createColecction("estudiantes",{
-	validator: {
-		$jsonSchema: {
-			bsonType: "object",
-			title: "Validación del objeto Estudiante",
-			required: [ "dirección", "major", "nombre", "año"],
-			properties: {
-				nombre: {
-					bsonType: "string",
-					description: "'nombre' debe ser una cadena (string) y es obligatorio"
-				},
-				año: {
-					bsonType: "int",
-					minimum: 2017,
-					maximum: 3017,
-					description: "'año' debe ser un entero entre [ 2017, 3017 ] y es obligatorio"
-				},
-				gpa: {
-					bsonType: [ "double" ],
-					description: "'gpa' debe ser un double si el campo existe"
+	db.createColecction("estudiantes",{
+		validator: {
+			$jsonSchema: {
+				bsonType: "object",
+				title: "Validación del objeto Estudiante",
+				required: [ "dirección", "major", "nombre", "año"],
+				properties: {
+					nombre: {
+						bsonType: "string",
+						description: "'nombre' debe ser una cadena (string) y es obligatorio"
+					},
+					año: {
+						bsonType: "int",
+						minimum: 2017,
+						maximum: 3017,
+						description: "'año' debe ser un entero entre [ 2017, 3017 ] y es obligatorio"
+					},
+					gpa: {
+						bsonType: [ "double" ],
+						description: "'gpa' debe ser un double si el campo existe"
+					}
 				}
 			}
 		}
-	}
-} )
+	} )
 \end{lstlisting}
+
 Si ahora intentamos insertar un documento que no cumple dicho esquema 
 \begin{lstlisting}[language=JavaScript]
 db.estudiantes.insertOne( {
@@ -268,29 +271,30 @@ db.estudiantes.insertOne( {
 \end{lstlisting}
 obtendremos un mensaje de error pues el campo \texttt{gpa} se ha insertado como \texttt{Int} cuando debía hacerse como \texttt{double}.
 \begin{lstlisting}[language=JavaScript]
-MongoServerError: Document failed validation
-Additional information: {
-	failingDocumentId: ObjectId("630d093a931191850b40d0a9"),
-	details: {
-		title: 'Validacion del objeto Estudiante',
-		operatorName: '$jsonSchema',
-		schemaRulesNotSatisfied: [
-		{
-			operatorName: 'properties',
-			propertiesNotSatisfied: [
+	MongoServerError: Document failed validation
+	Additional information: {
+		failingDocumentId: ObjectId("630d093a931191850b40d0a9"),
+		details: {
+			title: 'Validacion del objeto Estudiante',
+			operatorName: '$jsonSchema',
+			schemaRulesNotSatisfied: [
 			{
-				propertyName: 'gpa',
-				description: "'gpa' debe de ser un doble si el campo existe",
-				details: [
+				operatorName: 'properties',
+				propertiesNotSatisfied: [
 				{
-					operatorName: 'bsonType',
-					specifiedAs: { bsonType: [ 'double' ] },
-					reason: 'type did not match',
-					consideredValue: 3,
-					consideredType: 'int'
-				}
-				] } ] } ]} }
+					propertyName: 'gpa',
+					description: "'gpa' debe de ser un doble si el campo existe",
+					details: [
+					{
+						operatorName: 'bsonType',
+						specifiedAs: { bsonType: [ 'double' ] },
+						reason: 'type did not match',
+						consideredValue: 3,
+						consideredType: 'int'
+					}
+					] } ] } ]} }
 \end{lstlisting}
+
 Sin embargo, la siguiente inserción no provoca ningún fallo
 \begin{lstlisting}[language=JavaScript]
 db.students.insertOne( {
@@ -302,8 +306,9 @@ db.students.insertOne( {
 		city: "NYC",
 		street: "33rd Street"
 	}
-} )
+})
 \end{lstlisting}
+\subsubsection{Índices y desnormalización}
 \subsubsubsection{Índices}
 Sea con SQL o con datos \textit{raw}, la búsqueda no se puede realizar secuencialmente
 
@@ -322,3 +327,220 @@ Es \textbf{labor del usuario} definir los índices adecuados
 Los índices aceleran las búsquedas, pero también ocupan espacio
 
 En SQL se utiliza la construcción \texttt{CREATE INDEX, ALTER TABLE} o se incluyen en \texttt{CREATE TABLE}
+
+\texttt{EXPLAIN} para ver si se usa:
+
+\begin{lstlisting}[language=sql]
+mysql> explain select * from Posts where Id=5;
++----+-------------+-------+------+---------------+-----+...
+| id | select_type | table | type | possible_keys | key |...
++----+-------------+-------+------+---------------+-----+...
+|  1 | SIMPLE      | Posts | ref  | Id            | Id  |...
++----+-------------+-------+------+---------------+-----+...
+\end{lstlisting}
+Obviamente \textbf{también} se usan las base de datos NoSQL.
+
+En general, hay tres tipos de índices:
+\begin{enumerate}[label=\arabic*)]
+	\item Basados en árboles balanceados
+	\item Basado en tablas \textit{hash}
+	\item Índices \textit{full-text}
+\end{enumerate}
+\begin{itemize}[label=\color{red}\textbullet, leftmargin=*]
+	\item \lb{Índices de Árboles Balanceados}
+	\begin{itemize}
+		\item Mantienen la clave ordenada dentro de un árbol balanceado (B-Tree, B+, ect)
+		\item Aceleran búsquedas con operadores =, < y > y rangos (\texttt{BETWEEN})
+		\item También \texttt{LIKE} que no empiecen con comodín
+		\item Puede ayudar en \texttt{ORDER BY}
+	\end{itemize}
+	\item \lb{Índices de tablas \textit{hash}}
+	\begin{itemize}
+		\item Sólo para consultas de igualdad (=) y desigualdad (<=>)
+		\item Son muy rápidos
+		\item No se pueden usar para \texttt{ORDER BY}
+		\item Sólo se pueden usar con valores completos de clave (no permite prefijos, por ejemplo)
+	\end{itemize}
+	\item \lb{Índices \textit{full-text}}
+	\begin{itemize}
+		\item Usados en búsquedas inversas sobre campos textuales.
+		\item Dada una palabra o conjunto de palabras, encontrar la fila o filas en las que el campo buscado (el del índice) contiene esas palabras
+		\item Tiene limitaciones en \texttt{LIKE} con comodines (\%).
+		\item Por ello los SGBD proveen operadores especiales (por ejemplo, en MySQL \code{"MATCH(...) AGAINST ..."})
+	\end{itemize}
+\end{itemize}
+\subsubsubsection{Desnormalización}
+El modelo relacional basa el modelado de datos en la \textbf{normalización}, en sus distintos niveles
+
+Esto permite aplicar el principio de "sólo almacenar un dato en un sitio", lo que lleva a la eficiencia de datos.
+
+Pero a veces necesitamos también \textbf{eficiencia de acceso}, y a veces está reñido con la normalización.
+
+El principal escollo para la velocidad es la unión (\texttt{JOIN}) de datos de tablas.
+
+¿Por qué desnormalizar?
+\begin{itemize}
+	\item \textbf{Matener la historia:} Los datos de los clientes, por ejemplo, pueden cambiar. Necesitamos almacenar los valores de los mismos, por ejemplo, cuando emitimos una factura en el pasado. Para eso hay que copiar los datos de un cliente en ese momento.
+	\item \textbf{Mejorar la velocidad de consulta:} A veces, para hacer consultas recurrentes, tenemos que usar uniones de varias tablas. Evitar la unión, por ejemplo, añadiendo claves ajenas a las tablas finales. O bien, como en el caso de \code{Posts.Tags}, replicando la información.
+	\item \textbf{Precalcular valores necesitados de antemano:} Si hay datos que se necesitarán, como medias o totales, podemos calcularlos y almacenarlos de antemano.
+\end{itemize}
+Desventajas de desnormalizar:
+\begin{itemize}
+	\item \textbf{Espacio en disco:} Al igual que ocurría con los índices, la copia y duplicación de datos ocupa más espacio
+	\item \textbf{Anomalías de datos:} Hay que ser conscientes de que ahora un cambio en un dato puede requerir un cambio en más de una parte de la base de datos para mantener la consistencia. Los SGBDR no están preparados para mantener este tipo de consistencia. Se tienen que utilizar mecanismos de \textit{triggers}, transacciones, etc.
+	\item \textbf{Ralentización de las operaciones de actualización:} Dependiendo del \textit{ratio} entre actualizaciones y consultas, este puede ser un punto importante
+	\item \textbf{Más código, más dependencias, más propenso a errores:} Al necesitar más coordinación, la base de datos requiere más código, hay más dependencias ocultas, lo que puede llevar a más errores y a un mayor coste de mantenimiento.
+\end{itemize}
+\subsection{Uso de MongoDB desde \code{pymongo}}
+\subsubsection{Métodos de búsqueda}
+El método de búsqueda principal es \code{find()}, que tiene muchas opciones
+
+En general permite especificar:
+\begin{itemize}
+	\item El filtro de búsqueda
+	\item Ordenación de resultados por algún campo
+	\item Proyección para no obtener todos los campos del documento
+	\item Número de resultados máximo (\textit{limit})
+	\item Número de elementos iniciales a ignorar (\textit{skip})
+	\item El tamaño del \textit{batch}
+\end{itemize}
+Como la variabilidad es muy grande, veremos ejemplos en la hoja Jupyter Notebook de prácticas y también en la documentación
+
+La función \code{find()} tiene un gran número de posibilidades para especificar la búsqueda. Se pueden utilizar cualificadores complejos como:
+\begin{itemize}
+	\item \code{\$and}
+	\item \code{\$or}
+	\item \code{\$not}
+\end{itemize}
+Estos calificadores unen "objetos", no valores.
+
+Por otro lado, hay otros calificadores que se refieren a valores:
+\begin{itemize}
+	\item \code{\$lt} (menor)
+	\item \code{\$lte} (menor o igual)
+	\item \code{\$gt} (mayor)
+	\item \code{\$gte} (mayor o igual)
+	\item \code{\$regex} (expresión regular)
+\end{itemize}
+\begin{lstlisting}[language=python]
+posts.find_one({"body": {"$regrex": "[Mm]ongo"}})
+\end{lstlisting}
+Condición compuesta (limitando la salida a 10 documentos):
+\begin{lstlisting}[language=python]
+posts.find({"$and": [{"PostTypeId": 2},
+										 {"Id" : {"$gte": 100}} ]})
+					 .limit(10)
+\end{lstlisting}
+\subsubsubsection{Ejemplos introductorios}
+\begin{itemize}[leftmargin=*]
+	\item Encontrar el primer documento en la colección \texttt{customers}
+	\begin{lstlisting}[language=python]
+myclient = pymongo.MongoClient("mongodb://localhost:27017/")
+mydb = myclient["mydatabase"]
+mycol = myclient["customers"]
+x = mycol.find_one()
+	\end{lstlisting}
+	\item Encontrar el campo de todos los documentos en la colección \texttt{customers}
+\begin{lstlisting}[language=python]
+for x in mycol.find():
+	print(x)
+\end{lstlisting}
+También podemos indicar qué campos queremos obtener determinada búsqueda
+\begin{lstlisting}[language=python]
+for x in mycol.find({}, {"_id": 0, "name": 1, "address": 1}):
+	print(x)
+\end{lstlisting}
+\end{itemize}
+\subsubsubsection{Ejemplos básicos}
+\begin{itemize}
+	\item Dada la siguiente colección
+\begin{lstlisting}[language=python]
+{ "_id": "manzanas", "cantidad": 5 }
+{ "_id": "plátanos", "cantidad": 7 }
+{ "_id": "naranjas", "cantidad": 8 }
+{ "_id": "aguacate", "cantidad": 14 }
+\end{lstlisting}
+\item Si quisieramos obtener aquellos documentos con un valor en su atributo \texttt{cantidad} superior a 4 deberíamos ejecutar el siguiente comando
+\begin{lstlisting}[language=python]
+db.collection.find( { "cantidad": { "$gt": 4} } )
+\end{lstlisting}
+¿Qué comando deberíamos lanzar para obtener aquellos que tengan un valor inferior o igual a 5?
+\begin{lstlisting}[language=python]
+db.collection.find( { "cantidad": { "$lte": 5} } )
+\end{lstlisting}
+Suponiendo una colección \texttt{bios} cuyos documentos tienen esta forma:
+\begin{lstlisting}[language=python]
+{
+	"_id": <valor>,
+	"nombre" : { "nombre_propio" : <string>, "primer_apellido" : <string>},
+	"nacimiento" : <ISODate>,
+	"muerte" : <ISODate>,
+	"profesión" : <valor>,
+	"trabajos" : [<string>, ...] 
+}
+\end{lstlisting}
+\item Una opción interesante es el filtrado por rango de fechas en caso de que tengamos atributos de ese tipo
+\begin{lstlisting}[language=python]
+db.bios.find( { "nacimiento": { "$gt": new Date('1940-01-01'), 
+	"$lt": new Date('1960-01-01') } } )
+\end{lstlisting}
+\item El operador \code{\$in} nos permite buscar documentos con atributos dentro de una lista de valores.
+\begin{lstlisting}[language=python]
+db.bios.find(
+	{ "profesion": { "$in": [ 'jedi', 'samurai' ] } }
+)
+\end{lstlisting}
+\item Tabién podemos realizar búsquedas en campos anidados
+\begin{lstlisting}[language=python]
+db.bios.find( { "nombre.primer_apellido": "Skywalker" } )
+db.bios.find(
+	{ "nombre": { "nombre_propio": "Akira", "primer_apellido": "Kurosawa" } }
+)
+\end{lstlisting}
+\item Las búsquedas pueden realizarse también sobre campos cuyos valores son arrays
+\begin{lstlisting}[language=python]
+db.bios.find({"trabajos": "star wars"})
+db.bios.find({"trabajos": { "$in": ["star wars", "alien"]} })
+db.bios.find({"trabajos": { "$all": [ "star wars", "the clone wars" ]}})
+db.bios.find({"trabajos": { "$size": 4 }}) #El array 'trabajos' debe tener 4 elementos
+\end{lstlisting}
+\item El operador \code{\$not} es útl cuando queremos buscar elementos que \textbf{no} cumplan una condición
+\begin{lstlisting}[language=python]
+# Buscar documentos cuyo precio no sea superior a 1.99€ o que no tengan el campo "precio"
+db.inventory.find( { "precio": { "$not": { "$gt": 1.99 } } } )
+\end{lstlisting}
+\item Por último, los operadores \code{\$and}, \code{\$or} y \code{\$not} pueden combinarse para definir condiciones complejas:
+\begin{lstlisting}[language=python]
+db.inventory.find( { 
+	"$and": [
+		{"$or": [{"cantidad"}:{"$lt":10}, {"cantidad":{"$gt": 50} }]},
+		{"$or": [{"vendido": true}, {"precio": {"$lt": 5}}]}
+	]
+} )
+\end{lstlisting}
+\end{itemize}
+\subsubsection{Métodos de inserción y actualización}
+\texttt{pymongo} ofrece métodos para inserción y actualización:
+\begin{itemize}
+	\item \code{insert_one(), insert_many()} (batch)
+	\item \code{update_one()}: Permite actualizar un objeto con nuevos campos. El objeto se crea si se pone el parámetro \code{upsert} a \code{True}
+	\item \code{update_many()}: Permite obtener nuevos valores calculado a un conjunto de objetos.
+\end{itemize}
+A la hora de insertar un elemento poder obtener su \code{_id} asignado
+\begin{lstlisting}[language=python]
+micoleccion = db["clientes"]
+midict = { "nombre": "Luke", "direccion": "Tatooine, 83" }
+x = mycol.insert_one(midict)
+print(x.inserted_id)
+\end{lstlisting}
+Para insertar un conjunto de documentos a la vez deberemos incluirlos en un array JSON
+\begin{lstlisting}[language=python]
+miLista = [
+	{ "nombre": "Amy", "direccion": "Apple st 652"},
+	{ "nombre": "Hannah", "direccion": "Mountain 21"},
+	{ "nombre": "Michael", "direccion": "Valley 345"}
+]
+x = micoleccion.insert_many(miLista)
+# Imprimimos sus _id asignados
+print(x.inserted_ids)
+\end{lstlisting}

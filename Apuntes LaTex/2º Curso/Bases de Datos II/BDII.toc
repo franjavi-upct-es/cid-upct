@@ -36,22 +36,28 @@
 \contentsline {section}{\numberline {3}Bases de datos basadas en documentos}{29}{section.3}%
 \contentsline {subsection}{\numberline {3.1}Introducción a las bases de datos de documentos}{29}{subsection.3.1}%
 \contentsline {subsubsection}{\numberline {3.1.1}Bases datos Documentales}{29}{subsubsection.3.1.1}%
-\contentsline {subsubsection}{\numberline {3.1.2}Modelado de bases de datos de documentos}{29}{subsubsection.3.1.2}%
-\contentsline {subsubsubsection}{\numberline {3.1.2.1)}Modelado de datos en NoSQL}{29}{subsubsubsection.3.1.2.1}%
-\contentsline {subsubsubsection}{\numberline {3.1.2.2)}Representación de CV como tablas}{30}{subsubsubsection.3.1.2.2}%
-\contentsline {subsubsection}{\numberline {3.1.3}Representación de relaciones}{30}{subsubsection.3.1.3}%
-\contentsline {subsubsubsection}{\numberline {3.1.3.1)}Relaciones uno a muchos}{30}{subsubsubsection.3.1.3.1}%
-\contentsline {subsubsection}{\numberline {3.1.4}CV como un documento}{30}{subsubsection.3.1.4}%
-\contentsline {subsubsection}{\numberline {3.1.5}CV como un árbol}{31}{subsubsection.3.1.5}%
-\contentsline {subsubsection}{\numberline {3.1.6}Representación de Relaciones}{31}{subsubsection.3.1.6}%
-\contentsline {subsubsubsection}{\numberline {3.1.6.1)}Modelo de documentos}{31}{subsubsubsection.3.1.6.1}%
-\contentsline {subsubsubsection}{\numberline {3.1.6.2)}Uno a muchos - NoSQL}{32}{subsubsubsection.3.1.6.2}%
-\contentsline {subsubsubsection}{\numberline {3.1.6.3)}Muchos a uno y muchos a muchos}{32}{subsubsubsection.3.1.6.3}%
-\contentsline {subsubsection}{\numberline {3.1.7}Introducción a MongoDB}{32}{subsubsection.3.1.7}%
-\contentsline {subsubsection}{\numberline {3.1.8}Uso básico de MongoDB}{33}{subsubsection.3.1.8}%
-\contentsline {subsubsection}{\numberline {3.1.9}Actualización y consulta}{33}{subsubsection.3.1.9}%
-\contentsline {subsubsubsection}{\numberline {3.1.9.1)}Consulta}{34}{subsubsubsection.3.1.9.1}%
-\contentsline {subsubsubsection}{\numberline {3.1.9.2)}Consultas MapReduce}{34}{subsubsubsection.3.1.9.2}%
-\contentsline {subsubsubsection}{\numberline {3.1.9.3)}Validación del esquema}{34}{subsubsubsection.3.1.9.3}%
-\contentsline {subsubsubsection}{\numberline {3.1.9.4)}Índices}{36}{subsubsubsection.3.1.9.4}%
+\contentsline {subsection}{\numberline {3.2}Modelado de bases de datos de documentos}{29}{subsection.3.2}%
+\contentsline {subsubsection}{\numberline {3.2.1}Modelado de datos en NoSQL}{29}{subsubsection.3.2.1}%
+\contentsline {subsubsection}{\numberline {3.2.2}Representación de CV como tablas}{30}{subsubsection.3.2.2}%
+\contentsline {subsubsection}{\numberline {3.2.3}Representación de relaciones}{30}{subsubsection.3.2.3}%
+\contentsline {subsubsubsection}{\numberline {3.2.3.1)}Relaciones uno a muchos}{30}{subsubsubsection.3.2.3.1}%
+\contentsline {subsubsection}{\numberline {3.2.4}CV como un documento}{30}{subsubsection.3.2.4}%
+\contentsline {subsubsection}{\numberline {3.2.5}CV como un árbol}{31}{subsubsection.3.2.5}%
+\contentsline {subsubsection}{\numberline {3.2.6}Representación de Relaciones}{31}{subsubsection.3.2.6}%
+\contentsline {subsubsubsection}{\numberline {3.2.6.1)}Modelo de documentos}{31}{subsubsubsection.3.2.6.1}%
+\contentsline {subsubsubsection}{\numberline {3.2.6.2)}Uno a muchos - NoSQL}{32}{subsubsubsection.3.2.6.2}%
+\contentsline {subsubsubsection}{\numberline {3.2.6.3)}Muchos a uno y muchos a muchos}{32}{subsubsubsection.3.2.6.3}%
+\contentsline {subsection}{\numberline {3.3}Introducción a MongoDB}{32}{subsection.3.3}%
+\contentsline {subsubsection}{\numberline {3.3.1}Uso básico de MongoDB}{33}{subsubsection.3.3.1}%
+\contentsline {subsubsection}{\numberline {3.3.2}Actualización y consulta}{33}{subsubsection.3.3.2}%
+\contentsline {subsubsection}{\numberline {3.3.3}Consultas MapReduce}{34}{subsubsection.3.3.3}%
+\contentsline {subsubsection}{\numberline {3.3.4}Validación del esquema}{34}{subsubsection.3.3.4}%
+\contentsline {subsubsection}{\numberline {3.3.5}Índices y desnormalización}{36}{subsubsection.3.3.5}%
+\contentsline {subsubsubsection}{\numberline {3.3.5.1)}Índices}{36}{subsubsubsection.3.3.5.1}%
+\contentsline {subsubsubsection}{\numberline {3.3.5.2)}Desnormalización}{37}{subsubsubsection.3.3.5.2}%
+\contentsline {subsection}{\numberline {3.4}Uso de MongoDB desde \textbf {\texttt {pymongo}}}{38}{subsection.3.4}%
+\contentsline {subsubsection}{\numberline {3.4.1}Métodos de búsqueda}{38}{subsubsection.3.4.1}%
+\contentsline {subsubsubsection}{\numberline {3.4.1.1)}Ejemplos introductorios}{39}{subsubsubsection.3.4.1.1}%
+\contentsline {subsubsubsection}{\numberline {3.4.1.2)}Ejemplos básicos}{39}{subsubsubsection.3.4.1.2}%
+\contentsline {subsubsection}{\numberline {3.4.2}Métodos de inserción y actualización}{40}{subsubsection.3.4.2}%
 \contentsfinish 
