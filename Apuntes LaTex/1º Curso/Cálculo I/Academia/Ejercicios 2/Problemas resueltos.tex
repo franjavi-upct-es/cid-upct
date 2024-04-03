@@ -487,7 +487,7 @@ Para estudiar la continuidad de $f(x)$ en el punto $x_0=2$, debemos:
 Para estudiar la continuidad, debemos hacer lo primero el límite en $x_0=1$.
 \[ \lim_{x\to1}f(x)=\begin{cases}
 	\lim_{x\to1^-}\dfrac{\sin\left(\frac{1}{x-1}\right)}{e^{\frac{1}{x-1}}+1}=\dfrac{\sin\left(\frac{1}{0^-}\right)}{e^{\frac{1}{0^-}+1}}=\dfrac{\overbrace{\sin(-\infty)}^{\mathrm{oscilante}}}{\tozero{e^{-\infty}}+1}=\nexists\lim\text{ ya que es oscilante}\\
-	\lim_{x\to1^+}\dfrac{\sin\left(\frac{1}{x-1}\right)}{e^{\frac{1}{x-1}}+1}=\dfrac{\sin\left(\frac{1}{0^+}\right)}{e^{\frac{1}{0^+}}+1}=\dfrac{\sin(+\infty)}{e^{+\infty}+1}=\dfrac{\sin(+\infty)}{+\infty}=0\text{ (Teorema del Sandwich)}
+	\lim_{x\to1^+}\dfrac{\sin\left(\frac{1}{x-1}\right)}{e^{\frac{1}{x-1}}+1}=\dfrac{\sin\left(\frac{1}{0^+}\right)}{e^{\frac{1}{0^+}}+1}=\dfrac{\sin(+\infty)}{e^{+\infty}+1}=\dfrac{\sin(+\infty)}{+\infty}=0\text{ (Teorema del Sándwich)}
 \end{cases} \]
 No existe el límite ya que hay un límite lateral que no existe $\longrightarrow f(x)$ no es continua en $x_0=1$.
 \item \lb{Consideremos las funciones \[ f(x)=e^{-x}x\hspace{2cm}g(x)=\dfrac{1}{x} \]Estudiar la continuidad de la función $f\circ g$}
@@ -822,7 +822,7 @@ Nos falta comprobar si $p(x)$ es continua en $x=0$ y $x=3$.
 	Cuando no tenemos puntos de corte con el eje OC o coincide con el vértice, entonces tomamos la imagen de dos puntos que estén a ambos lados del vértice y a la misma distancia:
 \end{minipage}\qquad\begin{minipage}{0.45\textwidth}
 \begin{tikzpicture}
-	\node[red, draw=red, fill=red!10, line width=1.5, text width=\linewidth] {\underline{Nota:} Para representar gráficamente una paábola $y=ax^2+bx+c$, debemos siempre tener en cuenta lo siguiente:
+	\node[red, draw=red, fill=red!10, line width=1.5, text width=\linewidth] {\underline{Nota:} Para representar gráficamente una parábola $y=ax^2+bx+c$, debemos siempre tener en cuenta lo siguiente:
 	
 	\begin{enumerate}[label=\roman*)]
 		\item Si $a>0$ tiene ramas hacia arriba $\bigcup$. Si $a<0$ tiene ramas hacia abajo $\bigcap$.
@@ -857,7 +857,7 @@ Nos falta comprobar si $p(x)$ es continua en $x=0$ y $x=3$.
 \end{center}
 \item \lb{Representa la función $y=-x^2+2x+15$ e indica su recorrido.}
 \begin{itemize}
-	\item Como el coeficiente líder es negativo (-1) entonces la parabola es $\bigcap$.
+	\item Como el coeficiente líder es negativo (-1) entonces la parábola es $\bigcap$.
 	\item Puntos de corte con el eje OX: \[ -x^2+2x+15=0\longrightarrow x=\dfrac{-2\pm\sqrt{4+60}}{-2}=\dfrac{-2\pm8}{-2}\begin{cases}
 		-3 & P(-3,0)\\
 		5 & P(5,0)
@@ -1186,5 +1186,263 @@ $\begin{array}{l}
 	\log(1+x)\leadsto_{0}x\\
 	\log(x)=\log\left(1+\bboxed{(x-1)}\right)\leadsto_1\bboxed{(x-1)}
 \end{array}$
+
+\item \lb{Analiza la continuidad de las siguientes funciones \[ q(x)=\begin{cases}
+		-2x+1 & x\le0\\
+		2x+3 & 0<x\le2\\
+		\dfrac{1}{x-2} & x\ge2
+	\end{cases} \]}
+\begin{itemize}[leftmargin=*]
+	\item $\forall x<0\:f(x)$ es continua por ser un polinomio.
+	\item $\forall x\in(0,2)\:f(x)$ es continua por ser un polinomio.
+	\item $\forall x>2\longrightarrow f(x)$ es continua por ser un cociente de continuas con denominador $\neq0$.
+	\item[] \underline{Veamos en $x=0$:}
+	
+	\begin{center}
+		$\begin{rcases}
+		\lim_{ x \to 0^- }(-2x+1)=1\\
+		\lim_{x\to0^+}(2x+3)
+	\end{rcases}~~$\begin{minipage}{0.6\textwidth}
+	No es continua en $x=0$, en concreto presenta una discontinuidad inevitable de salto finito o de 1ª Especie.
+	\end{minipage}
+	\end{center}
+	\item[] \underline{Veamos en $x=2$:}
+	\begin{center}
+		$\begin{rcases}
+			\lim_{x\to2^-}(2x+3)=7\\
+			\lim_{x\to2^+}\dfrac{1}{x-2}=\dfrac{1}{0^+}=+\infty
+		\end{rcases}~~$\begin{minipage}{0.6\textwidth}
+		No es continua en $x=2$, en concreto presenta una discontinuidad inevitable de salto infinito o de 2ª especie. Habría una asíntota vertical en $x=2$.
+		\end{minipage}
+	\end{center}
+\end{itemize}
+\item \lb{Calcular la derivada de la siguiente función: \[ f(x)=x^{\sin x} \]}
+
+\begin{minipage}[b]{0.45\textwidth}
+	$\log f(x)=\log(x^{\sin x})=\sin x\cdot\log x$\\
+	Derivo:\\
+	\[ \begin{array}{l}
+		\dfrac{1}{f(x)}\cdot f'(x)=\cos x\cdot\log x+\sin x\cdot\dfrac{1}{x}\\
+		f'(x)=f(x)\left[\cos x\log x+\dfrac{\sin x}{x}\right]\\
+		\bboxed{f'(x)=x^{\sin x}\left[\cos x\log x+\dfrac{\sin x}{x}\right]}
+	\end{array} \]
+\end{minipage}\qquad\begin{minipage}[t]{0.45\textwidth}
+\begin{tikzpicture}
+	\node[red, draw=red, fill=red!10, line width=1.5, text width=\linewidth] {\underline{Nota:} Si tenemos que derivar una función en forma exponencial, donde, tanto base como exponente dependen de $x,\:\left(f(x)\right)^{g(x)}$. Lo que haremos será meter logaritmo y bajar el exponente. Derivaremos y despejaremos la derivada. Este tipo de  derivación se llama \textbf{Derivación logarítmica}.};
+\end{tikzpicture}
+\end{minipage}
+\item \lb{Calcular la derivada de la siguiente función: \[ f(x)=(\sin x) \]}
+\begin{minipage}{0.45\textwidth}
+	Realizaremos la derivada de esta función mediante derivación logarítmica: \[ \log f(x)=\log\left(\sin x\right)^{\log x}=\log x\cdot\log(\sin x) \]Por lo tanto, nos queda: \[ \log(f(x))=\lbb{\log x}{}\cdot\lbb{\log(\sin x)}{} \]Derivamos en ambos lados de la ecuación: \[ \begin{array}{l}
+		\dfrac{1}{f(x)}\cdot f'(x)=\dfrac{1}{x}\cdot\log(\sin x)+\log x\cdot\dfrac{1}{\sin x}\cdot\cos x=\dfrac{\log(\sin x)}{x}+\log x\cdot\dfrac{\cos x}{\sin x}\\
+		f'(x)=f(x)\left[\dfrac{\log(\sin x)}{x}+\log x\cdot\dfrac{\cos x}{\sin x}\right]\\
+		\bboxed{f'(x)=\left(\sin x\right)^{\log x}\cdot\left[\dfrac{\log(\sin x)}{x}+\log x\cdot\dfrac{\cos x}{\sin x}\right]}
+	\end{array} \]
+\end{minipage}\qquad\begin{minipage}[t]{0.45\textwidth}
+\begin{tikzpicture}
+	\node[red, draw=red, fill=red!10, line width=1.5, text width=\linewidth] {\underline{Nota:} Si tenemos que derivar una función en forma exponencial, donde, tanto base como exponente dependen de $x,\:\left(f(x)\right)^{g(x)}$. Lo que haremos será meter logaritmo y bajar el exponente. Derivaremos y despejaremos la derivada. Este tipo de  derivación se llama \textbf{Derivación logarítmica}.};
+\end{tikzpicture}
+\end{minipage}
+\item \lb{Calcular la recta tangente a la curva dada por $f(x)=x^x$ en $x=1$.}
+
+\begin{minipage}{0.45\textwidth}
+	Como queremos hallar la recta tangente, entonces:
+	\[ \begin{array}{l}
+		y-b=m(x-a)\begin{cases}
+			b=f(a)\\
+			m=f'(a)
+		\end{cases}\\
+		\bboxed{a=1}\\
+		b=f(1)=1^1=1\longrightarrow \bboxed{b=1}
+	\end{array} \]
+	Para hallar la derivada, debemos aplicar derivación logarítmica: \[ \log f(x)=\log(x^x)=x\log x \]
+	Derivo: 
+	\[ \begin{array}{l}
+		\dfrac{1}{f(x)}\cdot f'(x)=\log x+x\cdot\dfrac{1}{x}=1+\log x\longrightarrow f'(x)=f(x)(1+\log x)\\
+		\bboxed{f'(x)=x^x\left[1+\log x\right]}\longrightarrow f'(1)=1^1\left[1+\tozero{\log 1}~~~\right]=1\longrightarrow\bboxed{m=f'(1)=1}
+	\end{array} \]
+	Por lo tanto, la recta tangente viene dada por: \[ y-1=1\cdot(x-1)\longrightarrow \bboxed{y=x} \]
+\end{minipage}\qquad\begin{minipage}[t]{0.45\textwidth}
+\begin{tikzpicture}
+	\node[red, draw=red, fill=red!10, line width=1.5, text width=\linewidth] {\underline{Nota:} Dada una curva $y=f(x)$, para hallar la recta tangente a dicha curva en el punto $x=a$, debemos obtener la expresión: \[ \begin{array}{cc}
+			\text{Recta tangente} & \text{Recta normal}\\
+			\boxed{\begin{array}{c}
+					y-b=m(x-a)\\
+					b=f(a)\\
+					m=f'(a)
+			\end{array}} & \boxed{\begin{array}{c}
+				y-b=m(x-a)\\
+				b=f(a)\\
+				m=-\dfrac{1}{f'(a)}
+		\end{array}}\\
+		\end{array} \]};
+\end{tikzpicture}
+\end{minipage}
+\item \lb{Determinar la derivada de $h(x)=x^{x^2+1}$.}
+
+Como la expresión de $h(x)$ es una exponencial donde tanto la base como el exponente dependen de $x$, entonces debemos derivar esta expresión mediante derivación implícita: \[ \log(h(x))=\log\left(x^{x^2+1}\right)=(x^2+1)\cdot\log x \]Derivando: \[ \begin{array}{l}
+	\dfrac{1}{h(x)}\cdot h'(x)=2x\log x+(x^2+1)\cdot\dfrac{1}{x}=2x\log x+\left(x+\dfrac{1}{x}\right)\\
+	h'(x)=h(x)\left[2x\log x+\left(x+\dfrac{1}{x}\right)\right]=x^{x^2+1}\left[2x\log x+x+\dfrac{1}{x}\right]\\
+	\bboxed{h'(x)=x^{x^2+1}\left[2x\log x+x+\dfrac{1}{x}\right]}
+\end{array} \]
+\item \lb{Utilizando las reglas de L'Hôpital vamos a calcular los siguientes límites \[ \lim_{x\to 0}\dfrac{\sin(3x)}{e^{x}-1} \]}
+\begin{minipage}[t]{0.5\textwidth}
+	$\lim_{x\to0}\dfrac{\sin(3x)}{e^x-1}=\left(\dfrac{0}{0}\right)=\left\{\text{L'Hôpital}\right\}=\lim_{x\to0}\dfrac{3\cos(3x)}{e^x}=\bboxed{3}$
+\end{minipage}\qquad\begin{minipage}{0.4\textwidth}
+\begin{tikzpicture}
+	\node[red, draw=red, fill=red!10, line width=1.5, text width=\linewidth] {\underline{Nota:} Siempre que tengamos un límite que sea el cociente de dos funciones y nos de una indeterminación de la forma $\left(\dfrac{\infty}{\infty}\right)$ o $\left(\dfrac{0}{0}\right)$ podemos plantearnos resolverlo mediante la regla de L'Hôpital: \[ \lim_{x\to a}\dfrac{f(x)}{g(x)}=\left(\dfrac{0}{0}\text{ ó }\dfrac{\infty}{\infty}\right)=\lim_{x\to a}\dfrac{f'(x)}{g'(x)} \]};
+\end{tikzpicture}
+\end{minipage}
+\item \lb{Utilizando las reglas de L'Hôpital vamos a calcular los siguientes límites: \[ \lim_{x\to0}\dfrac{x-\sin (x)}{3x^3+2x^4} \]}
+
+$\lim_{ x \to 0 }\dfrac{x-\sin(x)}{3x^{3}+2x^{4}}=\left( \frac{0}{0} \right)=\left\{ \text{L'Hôpital} \right\}=\lim_{ x \to 0 }\dfrac{1-\cos x}{9x^{2}+8x^{3}}=\left( \frac{0}{0} \right)=\left\{ \text{L'Hôpital} \right\}=\lim_{ x \to 0 }\dfrac{\sin x}{18x+24x^{2}}=\left( \frac{0}{0} \right)=\left\{ \text{L'Hôpital} \right\}=\lim_{ x \to 0 }\dfrac{\cos x}{18+48x}= \bboxed{\frac{1}{18}}$
+\item \lb{Utilizando las reglas de L'Hôpital vamos a calcular los siguientes límites \[ \lim_{x\to\infty}xe^{-x} \]}
+$\lim_{x\to+\infty}xe^{-x}=\lim_{x\to+\infty}\dfrac{x}{e^x}=\left(\dfrac{\infty}{\infty}\right)=\left\{\text{L'Hôpital}\right\}=\lim_{x\to+\infty}\dfrac{1}{e^x}=\dfrac{1}{\infty}=\bboxed{0}$
+\item \lb{Calcular el polinomio de Taylor de orden 5 de la función $f(x)=e^x$ centrado en el punto $x_0=0$.}
+
+\begin{minipage}[b]{0.58\textwidth}
+	\begin{tikzpicture}
+		\node[red, draw=red, fill=red!10, line width=1.5, text width=\linewidth] {\underline{Nota:} Cuando calculamos el polinomio de Taylor centrado en $x_0=0$ entonces tiene un nombre especial para este caso, que es desarrollo de McLaurin.};
+	\end{tikzpicture}\\
+	Como nos piden el desarrollo de McLaurin de orden 5 entonces:
+	
+	$T_5(x)=f(0)+\dfrac{f'(0)}{1!}x+\dfrac{f''(0)}{2!}x^2+\dfrac{f'''(0)}{3!}x^3+\dfrac{f^{\mathrm{iv}}(0)}{4!}+\dfrac{f^{\mathrm{v}}(0)}{5!}x^5$
+	
+	$\begin{array}{l}
+		f(x)=e^x\rightarrow f(0)=1\\
+		f'(x)=e^x\rightarrow f'(0)=1\\
+		f''(x)=e^x\rightarrow f''(0)=1\\
+		f'''(x)=e^x\rightarrow f'''(0)=1\\
+		f^{\mathrm{iv}}(x)=e^x\rightarrow f^{\mathrm{iv}}(0)=1\\
+		f^{\mathrm{v}}(x)=e^x\rightarrow f^{\mathrm{iv}}(0)=1\\
+	\end{array}\:\bboxed{\tiny T_5(x)=1+x+\tfrac{1}{2}x^2+\tfrac{1}{6}x^3+\tfrac{1}{24}x^4+\tfrac{1}{120}x^5}$
+\end{minipage}\quad\begin{minipage}{0.4\textwidth}
+\begin{tikzpicture}
+	\node[red, draw=red, fill=red!10, line width=1.5, text width=\linewidth] {
+	\underline{Nota:} Dada una función $f(x)$, se define su polinomio de Taylor de orden $n$, centrado en un punto $x_0=a$, como:\\
+	$T_n(x)=f(a)+\frac{f'(a)}{1!}(x-a)+\frac{f''(a)}{2!}(x-a)^2+\frac{f'''(a)}{3!}(x-a)^3+\cdots+\frac{f^{n}(a)}{n!}(x-a)^n$
+	
+	Debemos ver que un desarrollo de Taylor es una aproximación de cualquier función mediante un polinomio.  La función y el polinomio son parecidas pero no iguales, por eso existe una expresión que nos permitirá dar una cota del error que se comete en la aproximación. Resto de Lagrange: \[ R_n(x)=\underset{a<c<x}{\left|\dfrac{f^{(n+1)}(c)}{(n+1)!}(x-a)^{n+1}\right|} \]
+	};
+\end{tikzpicture}
+\end{minipage}
+\item \lb{Determinar el polinomio de Taylor de grado menor o igual que  de la función $f(x)=\sin x$ en el punto $x_0=\frac{\pi}{2}$.}
+
+Nos están pidiendo que construyamos: 
+$$
+T_{5}(x)=f\left( \frac{\pi}{2} \right)+\cancel{\dfrac{f'\left( \frac{\pi}{2} \right)}{1!}\left( \dfrac{\pi}{2} \right)}+\dfrac{f'' \left( \frac{\pi}{2} \right)}{2!}\left( x-\frac{\pi}{2} \right)^2+\cancel{\dfrac{f'''\left( \frac{\pi}{2} \right)}{3!}\left( x-\frac{\pi}{2} \right)^3}+\dfrac{f^{\mathrm{iv}}\left( \frac{\pi}{2} \right)}{4!}\left( x-\frac{\pi}{2} \right)^4+\cancel{\dfrac{f^{\mathrm{v}}\left( \frac{\pi}{2} \right)}{5!}\left( x-\frac{\pi}{2} \right)^5}
+$$
+$\begin{array}{l}
+	f(x)=\sin x\longrightarrow f\left(\dfrac{\pi}{2}\right)=1\\
+	f'(x)=\cos x\longrightarrow f'\left(\dfrac{\pi}{2}\right)=0\\
+	f''(x)=-\sin x\longrightarrow f''\left(\dfrac{\pi}{2}\right)=-1\\
+	f'''(x)=-\cos x\longrightarrow f'''\left(\dfrac{\pi}{2}\right)=0\\
+	f^{\mathrm{iv}}(x)=\sin x\longrightarrow f^{\mathrm{iv}}\left(\dfrac{\pi}{2}\right)=1\\
+	f^{\mathrm{v}}(x)=\cos x\longrightarrow f^{\mathrm{v}}\left(\dfrac{\pi}{2}\right)=0
+\end{array}\quad\bboxed{T_5(x)=1-\dfrac{1}{2}\left(x-\dfrac{\pi}{2}\right)^2+\dfrac{1}{24}\left(x-\dfrac{\pi}{24}\right)^4}$
+\item \lb{Hallar el desarrollo de McLaurin de orden 4 de la función $f(x)=\log(1+x)$}
+
+Como nos piden el desarrollo de McLaurin, quiere decir, que queremos el desarrollo de Taylor pero centrado en el punto $x_0=0$. Por lo tanto queremos obtener: \[ T_4(x)=f(0)+\dfrac{f'(0)}{1!}x+\dfrac{f''(0)}{2!}x^2+\dfrac{f^{\mathrm{iv}}(0)}{4!}x^4 \]
+$\begin{array}{l}
+	f(x)=\log(1+x)\longrightarrow f(0)=0\\
+	f'(x)=\dfrac{1}{1+x}=(1+x)^{-1}\longrightarrow f'(0)=1\\
+	f''(x)=(-1)(1+x)^{-2}=-\dfrac{1}{(1+x)^2}\longrightarrow f''(0)=-1\\
+	f'''(x)=2(1+x)^{-3}=\dfrac{2}{(1+x)^3}\longrightarrow f'''(0)=2\\
+	f^{\mathrm{iv}}(x)=(-6)(1+x)^{-4}=-\dfrac{6}{(1+x)^4}\longrightarrow f^{\mathrm{iv}}(0)=-6
+\end{array}\qquad\begin{array}{l}
+T_4(x)=\dfrac{1}{1}x+\dfrac{(-1)}{2}x^2+\dfrac{2}{6}x^3+\dfrac{(-6)}{24}x^4\\
+\bboxed{T_4(x)=x-\dfrac{1}{2}x^2+\dfrac{1}{3}x^3-\dfrac{1}{4}x^4}
+\end{array}$
+\item \lb{Hallar el desarrollo de McLaurin de orden 5 de la función $f(x)=\sin x$. Utilizando para dar un valor aproximado de $\sin(0.2)$ y acotar el error cometido en dicha aproximación.}
+
+\begin{minipage}[b]{0.5\textwidth}
+	Como queremos hacer el desarrollo de McLaurin (Taylor con $x_0=0$) hasta orden 5, tendremos que: \\
+	$T_5(x)=f(0)+\dfrac{f'(0)}{1!}x+\dfrac{f''(0)}{2!}x^2+\dfrac{f'''(0)}{3!}x^3+\dfrac{f^{\mathrm{iv}}(0)}{4!}+\dfrac{f^{\mathrm{v}}(0)}{5!}x^5$\\
+	Vamos a hacer hasta la derivada sexta, pues la necesitaremos para luego acotar el resto de Lagrange (cota de error).
+\end{minipage}\qquad\begin{minipage}{0.4\textwidth}
+\begin{tikzpicture}
+	\node[red, draw=red, fill=red!10, line width=1.5, text width=\linewidth] {\underline{Nota:} Siempre que a partir de un desarrollo de Taylor nos piden que luego acotemos el error, lo que haremos será utilizar la expresión del resto de Lagrange, esto implica que necesitaremos hacer una derivada más de las que haremos para Taylor. Si queremos Taylor hasta orden $n$, necesitaremos hacer hasta la derivada $(n+1)$.};
+\end{tikzpicture}
+\end{minipage}
+
+$\begin{array}{l}
+	f(x)=\sin x\longrightarrow f(0)=0\\
+	f'(x)=\cos x\longrightarrow f'(0)=1\\
+	f''(x)=-\sin x\longrightarrow f''(0)=0\\
+	f'''(x)=-\cos x\longrightarrow f'''(0)=-1\\
+	f^{\mathrm{iv}}(x)=\sin x\longrightarrow f^{\mathrm{iv}}(0)=0\\
+	f^{\mathrm{v}}(x)=\cos x\longrightarrow f^{\mathrm{v}}(0)=1\\
+	f^{\mathrm{vi}}(x)=-\sin x
+\end{array}\qquad\begin{array}{l}
+\bboxed{T_5(x)=x-\dfrac{1}{6}x^3+\dfrac{1}{120}x^5}\\
+\\
+\lb{\text{\begin{minipage}{0.2\textwidth}
+			Desarrollo de McLaurin hasta orden 5
+\end{minipage}}}
+\end{array}$
+
+Como queremos dar un valor aproximado de $\sin(0.2)$, utilizando el desarrollo de $f(x)=\sin x\longrightarrow f(x)=\sin(x)=\sin(0.2)\leadsto\bboxed{x=0.2}$
+\[ T_5(x=0.2)=0.2-\dfrac{1}{6}(0.2)^3+\dfrac{1}{120}(0.2)^5=0.19866933\longrightarrow\bboxed{\sin(0.2)\simeq0.19866933}\]
+Para calcular la cota del error cometido en esta aproximación, utilizaremos la expresión del resto de Lagrange de orden 5:
+
+\begin{center}
+	$R_5=\underset{a<c<x}{\left|\dfrac{f^{\mathrm{vi}}(c)}{6!}(x-a)^6\right|}=\left\{\begin{array}{l}
+	a=0\\
+	x=0.2
+\end{array}\right\}=\underset{0<c<0.2}{\left|\dfrac{-\sin(c)}{720}(0.2)^6\right|}=\left\{\lb{\begin{minipage}{2.7cm}
+	\footnotesize Como sabemos que: $-1\le\sin x\le1$ entonces: $\left|-\sin c\right|\le1$
+	\end{minipage}}\right\}=\dfrac{\left|-\sin c\right|}{720}(0.2)^6\le\dfrac{1}{720}(0.2)^6=88.88\cdot10^{-9}\longrightarrow$ Cota superior del error cometido en la aproximación será: \[ \bboxed{E<88.88\cdot10^{-9}} \]
+\end{center}
+\item \lb{Calcular $\sin(0.3)$ mediante la fórmula de McLaurin. Acotar el error cometido al tomar los siete primeros términos del desarrollo anterior.}
+
+Para calcular $\sin(0.3)$, utilizaremos $f(x)=\sin x$, que luego evaluaremos en $x=0.3$. Como nos piden que utilicemos el desarrollo de McLaurin con los 7 primeros términos $(n=7)$, haremos lo siguiente:
+
+$$T_7(x)=f(0)+\dfrac{f'(0)}{1!}x+\dfrac{f''(0)}{2!}x^2+\dfrac{f'''(0)}{3!}x^3+\dfrac{f^{\mathrm{iv}}(0)}{4!}+\dfrac{f^{\mathrm{v}}(0)}{5!}x^5+\dfrac{f^{\mathrm{vi}}(0)}{6!}x^6+\dfrac{f^{\mathrm{vii}}(0)}{7!}x^7$$
+
+Realizaremos las derivadas de $f(x)$ hasta orden 8, debido a que la última será la que utilizaremos para la expresión de resto de Lagrange (cota de error).
+
+$\begin{array}{l}
+	f(x)=\sin x\longrightarrow f(0)=0\\
+	f'(x)=\cos x\longrightarrow f'(0)=1\\
+	f''(x)=-\sin x\longrightarrow f''(0)=0\\
+	f'''(x)=-\cos x\longrightarrow f'''(0)=-1\\
+	f^{\mathrm{iv}}(x)=\sin x\longrightarrow f^{\mathrm{iv}}(0)=0\\
+	f^{\mathrm{v}}(x)=\cos x\longrightarrow f^{\mathrm{v}}(0)=1\\
+	f^{\mathrm{vi}}(x)=-\sin x\longrightarrow f^{\mathrm{vi}}(0)=0\\
+	f^{\mathrm{vii}}(x)=-\cos x\longrightarrow f^{\mathrm{vii}}(0)=-1\\
+	f^{\mathrm{viii}}(x)=\sin x
+\end{array}\qquad$\begin{minipage}{0.5\textwidth}
+$T_7(x)=\dfrac{1}{1!}\cdot x-\dfrac{1}{6}x^3+\dfrac{1}{120}x^5-\dfrac{1}{5040}x^7$\\
+$\bboxed{T_7(x)=x-\dfrac{1}{6}x^3+\dfrac{1}{120}x^5-\dfrac{1}{5040}x^7}$\\
+
+Ahora para calcular un valor aproximado de $\sin(0.3)$, lo que haremos será evaluar $T_7(x)$ en $x=0.3$\\
+
+
+$\begin{array}{l}
+	T_7(x=0.3)=0.3-\dfrac{1}{6}(0.3)^3+\dfrac{1}{120}(0.3)^5-\dfrac{1}{5040}(0.3)^7\\
+	T_7(x=0.3)=0.2955202\\
+	\bboxed{\sin(0.3)\simeq0.2955202}
+\end{array}$
+\end{minipage}
+
+Para calcular la cota del error cometido en la aproximación, lo que haremos será utilizar el resto de Lagrange: \[ R_7(X)=\left|\dfrac{f^{\mathrm{viii}}(c)}{8!}(x-a)^8\right|=\left|\dfrac{\sin c}{40320}(0.3)^8\right|=\underset{\left|\sin c\right|\le1}{\dfrac{\sin c}{40320}(0.3)^8\le\dfrac{1}{40320}(0.3)^8}=1.627\cdot10^{-9} \]
+\fcolorbox{lightblue}{lightblue!10}{La aproximación calculada tiene una cota de error del orden de $E<1.627\cdot10^{-9}$.}
+
+\item \lb{Estudiar la continuidad de la función \[ f(x)=\dfrac{e^{\tan x}-1}{e^{\tan x}+1} \] en $x_0=\dfrac{\pi}{2}$.}
+
+Para empezar $x_0=\dfrac{\pi}{2}\notin\dom(f)$ con lo cual no sería continua en dicho punto. Pero vamos a hacer los límites laterales, para comprobar si, en caso de que sean iguales, podríamos ampliar la función añadiéndole un valor $f\left(\dfrac{\pi}{2}\right)=\lim_{x\to\frac{\pi}{2}}f(x)$ para que sea continua.
+
+La gráfica de $\tan x$:
+\begin{center}
+	\begin{minipage}{0.5\textwidth}
+		\includegraphics[scale=0.5]{screenshot001}
+	\end{minipage}\begin{minipage}{0.3\textwidth}
+		$\begin{array}{l}
+			\tan\left(\dfrac{\pi}{2}^{-}\right)=+\infty\\
+			\tan\left(\dfrac{\pi}{2}^{+}\right)=-\infty\\
+		\end{array}$
+	\end{minipage}
+\end{center}
+Hacemos los límites laterales:
 \end{enumerate}
 \end{document}
