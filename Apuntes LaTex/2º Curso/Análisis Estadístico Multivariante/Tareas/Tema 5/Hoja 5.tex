@@ -1,0 +1,319 @@
+\includepdf[pages=-]{"Tareas/Tema 5/Hoja 5"}
+\begin{enumerate}[label=\color{red}\textbf{\arabic*)}, leftmargin=*]
+	\item \lb{Dadas tres poblaciones normales bidimensionales con medias $\mu^{(1)})(1,0)',\,\mu^{(2)}=(0,1)'$ y $\mu^{(3)}=(0,0)'$ y matrices de covarianzas iguales a \[ V=\begin{pmatrix}
+			2 & 1\\
+			1 & 1
+		\end{pmatrix} \]se pide:}
+	\begin{enumerate}[label=\color{red}\alph*)]
+		\item \db{Obtener las funciones discriminantes lineales.}
+		
+		$\begin{array}{l}
+			\mu^{(1)}=\begin{pmatrix}
+				1\\
+				0
+			\end{pmatrix}\\
+			\mu^{(2)}=\begin{pmatrix}
+				0\\
+				1
+			\end{pmatrix}\\
+			\mu^{(3)}=\begin{pmatrix}
+				0\\
+				0
+			\end{pmatrix}\\
+			V=\begin{pmatrix}
+				2 & 1\\
+				1 & 1
+			\end{pmatrix}\\
+			\left|V\right|=2-1=1\\
+			V^{-1}=\begin{pmatrix}
+				1 &-1\\
+				-1 & 2
+			\end{pmatrix}
+		\end{array}$
+		
+		$L_i(z)=\left(\mu^{(i)}\right)'V^{-1}z-\dfrac{1}{2}\left(\mu^{(i)}\right)'V^{-1}\mu^{(i)}$
+		
+		$L_1(z)=\begin{pmatrix}
+			1 & 0
+		\end{pmatrix}\begin{pmatrix}
+		1 & -1\\
+		-1 & 2
+		\end{pmatrix}\begin{pmatrix}
+		z_1\\
+		z_2
+		\end{pmatrix}-\dfrac{1}{2}\begin{pmatrix}
+		1 & 0
+		\end{pmatrix}\begin{pmatrix}
+		1 & -1\\
+		-1 & 2
+		\end{pmatrix}\begin{pmatrix}
+		1\\
+		0
+		\end{pmatrix}=\begin{pmatrix}
+		1 & -1
+		\end{pmatrix}\cdot\begin{pmatrix}
+		z_1\\
+		z_2
+		\end{pmatrix}-\dfrac{1}{2}\begin{pmatrix}
+		1 & -1
+		\end{pmatrix}\begin{pmatrix}
+		1\\
+		0
+		\end{pmatrix}=z_1-z_2-\dfrac{1}{2}$\\
+		$L_2(z)=\begin{pmatrix}
+			0 & 1
+		\end{pmatrix}\begin{pmatrix}
+		1 & -1\\
+		-1 & 2
+		\end{pmatrix}\begin{pmatrix}
+		z_1\\
+		z_2
+		\end{pmatrix}-\dfrac{1}{2}\begin{pmatrix}
+		0 & 1
+		\end{pmatrix}\begin{pmatrix}
+		1 & -1\\
+		-1 & 2
+		\end{pmatrix}\begin{pmatrix}
+		0\\
+		1
+		\end{pmatrix}=\begin{pmatrix}
+		-1 & 2
+		\end{pmatrix}\cdot\begin{pmatrix}
+		z_1\\
+		z_2
+		\end{pmatrix}-\dfrac{1}{2}\begin{pmatrix}
+		-1 & 2
+		\end{pmatrix}\begin{pmatrix}
+		0\\
+		1
+		\end{pmatrix}=-z_1+2z_2-1$\\
+		$L_3(z)=\begin{pmatrix}
+			0 & 0
+		\end{pmatrix}\begin{pmatrix}
+		1 & -1\\
+		-1 & 2
+		\end{pmatrix}\begin{pmatrix}
+		z_1\\
+		z_2
+		\end{pmatrix}-\dfrac{1}{2}\begin{pmatrix}
+		0 & 0
+		\end{pmatrix}\begin{pmatrix}
+		1 & -1\\
+		-1 & 2
+		\end{pmatrix}\begin{pmatrix}
+		0\\
+		0
+		\end{pmatrix}=0$\\
+		Criterio: $\mathbf{z}$ se clasificará en la población donde $L_i(\mathbf{z})$ sea máxima
+		\item \db{Clasificar a $\mathbf{z}=(2,2)'$}
+		
+		Para $\mathbf{z}=(2,2)'\longrightarrow\begin{cases}
+			L_1(\mathbf{z})=-\frac{1}{2}\\
+			L_2(\mathbf{z})=1\\
+			L_3(\mathbf{z})=0
+		\end{cases}$
+		
+		Como $L(\mathbf{z})=-2<-\dfrac{1}{2}$, clasificamos el individuo $\mathbf{z}$ en la población $Y$.
+		\item \db{Dibujar las regiones de clasificación para cada grupo}
+		
+		$\begin{aligned}
+			L_1(z)=L_2(z)\longrightarrow& z_1-z_2-\dfrac{1}{2}=-z_1+2z_2-1\\
+			&-z_2-2z_2=-z_1-z_1-1+\dfrac{1}{2}\\
+			&-3z_2=-2z_1-\dfrac{1}{2}\\
+			&z_2=\dfrac{2}{3}z_1+\dfrac{1}{6}
+		\end{aligned}$\\
+		$\begin{array}{l}
+			L_2(z)=L_3(z)=0\\
+			-z_1+2z_2-1=0\\
+			z_2=\dfrac{z_1}{2}+\dfrac{1}{2}
+		\end{array}$\\
+		$\begin{array}{l}
+			L_1(z)=L_3(z)=0\\
+			z_1-z_2-\dfrac{1}{2}=0\\
+			z_2=z_1-\dfrac{1}{2}
+		\end{array}$
+		
+		\begin{tikzpicture}[scale=1.5]
+			\draw[-latex] (-1,0) -- (4,0) node[right] {$z_1$};
+			\draw[-latex] (0,-1) -- (0,4) node[above] {$z_2$};
+			\foreach \x in {-1, ..., 3}{\draw (\x,0.1) -- (\x,-0.1);}
+			\foreach \y in {-1, ..., 3}{\draw (0.1,\y) -- (-0.1,\y);}
+			\fill[lightblue] (0,0) circle (2pt) node[below left] {$\mu^{(3)}$};
+			\fill[lightblue] (0,1) circle (2pt) node[left] {$\mu^{(2)}$};
+			\fill[lightblue] (1,0) circle (2pt) node[below] {$\mu^{(1)}$};
+			\draw[lightblue, domain=-1:4] plot (\x,{(2/3)*\x+1/6}) node[right] {$\begin{array}{l}
+					L_1=L_2\\
+					z_2=\dfrac{2}{3}z_1+\dfrac{1}{6}
+				\end{array}$};
+			\draw[red, domain=-1:4] plot (\x,{\x-1/2}) node[above right] {$\begin{array}{l}
+					L_1=L_3\\
+					z_2=z_1-\dfrac{1}{2}
+				\end{array}$};
+			\draw[olive, domain=-1:4] plot (\x, {(\x+1)/2}) node[below right] {$\begin{array}{l}
+					L_2=L_3\\
+					z_2=\dfrac{z_1}{2}+\dfrac{1}{2}
+				\end{array}$};
+		\end{tikzpicture}
+		
+	
+	\end{enumerate}
+	\item \lb{Dadas tres poblaciones normales bidimensionales con medias $\mu^{(1)}=(0,0)',\,\mu^{(2)}=(1,1)'$ y $\mu^{(3)}=(2,0)'$ y matrices de covarianzas iguales a \[ V=\begin{pmatrix}
+			5 & 2\\
+			2 & 1
+		\end{pmatrix}, \]se pide:}
+	\begin{enumerate}[label=\color{red}\alph*)]
+		\item \db{Obtener las funciones discriminantes lineales.}
+		
+		$\begin{array}{l}
+			\mu^{(1)}=\begin{pmatrix}
+				0\\
+				0
+			\end{pmatrix}\\
+			\mu^{(2)}=\begin{pmatrix}
+				1\\
+				1
+			\end{pmatrix}\\
+			\mu^{(3)}=\begin{pmatrix}
+				2\\
+				0
+			\end{pmatrix}\\
+			V=\begin{pmatrix}
+				5 & 2\\
+				2 & 1
+			\end{pmatrix}\\
+			\left|V\right|=5-4=1\\
+			V^{-1}=\begin{pmatrix}
+				1 &-2\\
+				-2 & 5
+			\end{pmatrix}
+		\end{array}$
+		
+		$\begin{array}{l}
+			L_i(\mathbf{z})=\left(\mu^{(i)}\right)'V^{-1}\mathbf{z}-\dfrac{1}{2}\left(\mu^{(i)}\right)'V^{-1}\mu^{(i)}\qquad\text{(FDL)}\\
+			L_1(\mathbf{z})=\begin{pmatrix}
+				0 & 0
+			\end{pmatrix}\begin{pmatrix}
+			1 & -2\\
+			-2  & 5
+			\end{pmatrix}\mathbf{z}-\dfrac{1}{2}\begin{pmatrix}
+			0 & 0
+			\end{pmatrix}\begin{pmatrix}
+			1 & -2\\
+			-2 & 5
+			\end{pmatrix}\begin{pmatrix}
+			0\\
+			0
+			\end{pmatrix}=0\\
+			L_2(\mathbf{z})=\begin{pmatrix}
+				1 & 1
+			\end{pmatrix}\begin{pmatrix}
+			1 & -2\\
+			-2  & 5
+			\end{pmatrix}\mathbf{z}-\dfrac{1}{2}\begin{pmatrix}
+			1 & 1
+			\end{pmatrix}\begin{pmatrix}
+			1 & -2\\
+			-2 & 5
+			\end{pmatrix}\begin{pmatrix}
+			1\\
+			1
+			\end{pmatrix}=-z_1+3z_2=1\\
+			L_3(\mathbf{z})=\begin{pmatrix}
+				2 & 0
+			\end{pmatrix}\begin{pmatrix}
+			1 & -2\\
+			-2  & 5
+			\end{pmatrix}\mathbf{z}-\dfrac{1}{2}\begin{pmatrix}
+			2 & 0
+			\end{pmatrix}\begin{pmatrix}
+			1 & -2\\
+			-2 & 5
+			\end{pmatrix}\begin{pmatrix}
+			2\\
+			0
+			\end{pmatrix}=2z_1-4z_2-2\\
+		\end{array}$
+		
+		Criterio: $z$ se clasificará en la población donde $L_i(\mathbf{z})$ sea máxima.
+		
+		\item \db{Clasificar a $\mathbf{z}=\left(1,\frac{1}{2}\right)'$.}
+		
+		Para $z=\left(1,\dfrac{1}{2}\right)'\longrightarrow\begin{cases}
+			L_1(\mathbf{z})=0\\
+			L_2(\mathbf{z})=-1+\dfrac{3}{2}-1=-\dfrac{1}{2}\\
+			L_3(\mathbf{z})=-2-\dfrac{4}{2}-2=-2
+		\end{cases}\qquad$ Se clasifica en la población (1)
+		\item \db{Obtener la función discriminante de Fisher, la constante $K$ y el criterio de clasificación para distinguir entre las poblaciones 2 y 3.}
+		\begin{itemize}[label=]
+			\item Función discriminante de Fisher: $D=L(\mathbf{z})=\mathbf{a'Z}=(\mu^{2}-\mu^{(3)})'V^{-1}\mathbf{z}$ \[ L_(\mathbf{z})=\begin{pmatrix}
+				-1 & 1
+			\end{pmatrix}\begin{pmatrix}
+			1 & -2\\
+			-2 & 5
+			\end{pmatrix}\mathbf{z}=\begin{pmatrix}
+			-3 & 7
+			\end{pmatrix}\begin{pmatrix}
+			z_1\\
+			z_2
+			\end{pmatrix}=-3z_1+7z_2 \] $k=L\left(\dfrac{\mu^{(2)}+\mu^{(3)}}{2}\right)=L\left((1.5, 0.5)'\right)=-3\cdot1.5+7\cdot0.5=-1$\\
+			$\begin{array}{l}
+				R_{\mu^{(2)}}=\left\{\mathbf{z}:L(\mathbf{z})>k\right\}=\left\{z:-3z_1+7z_2>-1\right\}\\
+				R_{\mu^{(3)}}=\left\{\mathbf{z}:L(\mathbf{z})<k\right\}=\left\{z:-3z_1+7z_2<-1\right\}\\
+			\end{array}$
+			
+			Utilizando las funciones discriminantes lineales del apartado (a) \[ \begin{array}{lc}
+				L_2(z)=L_2(z)\longrightarrow&-z_1+3z_2-1=2z_1+4z_2-2\\
+				&-3z_1+7z_1=-1
+			\end{array} \]
+		\end{itemize}
+		\item \db{Dibujar las regiones de clasificación para cada grupo.}
+		
+		$\begin{array}{l}
+			L_1(z)=L_2(z)\longleftrightarrow z_2=\dfrac{1}{3}z_1+\dfrac{1}{3}\\
+			L_1(z)=L_3(z)\longleftrightarrow z_2=\dfrac{1}{2}z_1-\dfrac{1}{2}\\
+			L_2(z)=L_3(z)\longleftrightarrow z_2=\dfrac{3}{7}z_1-\dfrac{1}{7}
+		\end{array}$
+		
+		\begin{tikzpicture}
+			\draw[-latex] (-1,0) -- (10,0) node[right] {$z_1$};
+			\draw[-latex] (0,-1) -- (0,4) node[above] {$z_2$};
+			\foreach \x in {-1, ..., 9}{\draw (\x,0.1) -- (\x,-0.1);}
+			\foreach \y in {-1, ..., 3}{\draw (0.1,\y) -- (-0.1,\y);}
+			\fill[lightblue] (2,0) circle (2pt) node[below] {$\mu^{(3)}$};
+			\fill[lightblue] (1,1) circle (2pt) node[left] {$\mu^{(2)}$};
+			\fill[lightblue] (0,0) circle (2pt) node[below left] {$\mu^{(1)}$};
+			\draw[lightblue, domain=-1:10] plot (\x,{\x/3+1/3}) node[right] {$L_1=L_2$};
+			\draw[red, domain=-1:10] plot (\x,{\x/2-1/2}) node[right] {$L_1=L_3$};
+			\draw[olive, domain=-1:10] plot (\x, {(3/7)*\x-1/7}) node[right] {$L_2=L_3$};
+		\end{tikzpicture}
+	\end{enumerate}
+	\item \lb{Dadas tres poblaciones normales con matriz de covarianzas común \[ V=\begin{pmatrix}
+			6 & 2\\
+			2 & 1
+		\end{pmatrix} \]y medias $(0,1),\,(1,0)$ y $(1,1)$, respectivamente, obtener las funciones discriminantes y el criterio de clasificación.}
+	
+	\item \lb{Dados dos vectores normales bidimensionales con medias $(0,0)$ y $(3,0)$ y matrices de covarianzas \[ V_1=\begin{pmatrix}
+			1 & -1\\
+			-1 & 2
+		\end{pmatrix}\text{ y }V_2=\begin{pmatrix}
+		1 & 2\\
+		2 & 5
+		\end{pmatrix}, \]se pide:}
+	\begin{enumerate}[label=\color{red}\alph*)]
+		\item \db{Calcular las funciones discriminantes cuadráticas}
+		\item \db{Clasificar a $\mathbf{z}=(1,-4)'$ usando dichas funciones.}
+		\item \db{Representar gráficamente las regiones de clasificación.}
+	\end{enumerate}
+	\item \lb{Dadas dos poblaciones normales bidimensionales con medias $\mu^{(1)}=(1,0)'$ y $\mu^{(2)}=(0,0)'$ y matrices de covarianzas \[ V_1=\begin{pmatrix}
+			1 & 0\\
+			0 & \frac{1}{2}
+		\end{pmatrix}\text{ y }V_2=\begin{pmatrix}
+		2 & 1\\
+		1 & 1
+		\end{pmatrix}, \]se pide:}
+	\begin{enumerate}[label=\color{red}\alph*)]
+		\item \db{Obtener las funciones discriminantes cuadráticas y clasificar a $\mathbf{z}=(1,1)'$.}
+		\item \db{Clasificar a $\mathbf{z}$ usando el criterio de mínima distancia de Mahalanobis y representar las regiones de clasificación con este criterio para cada grupo.}
+	\end{enumerate}
+	\item \lb{Obtener un criterio de clasificación para dos poblaciones exponenciales unidimensionales con medias distintas usando máxima verosimilitud. Clasificar a $z=1.5$ entre dos poblaciones exponenciales con medias 2 y 1. (Indicación: La función de densidad de la distribución exponencial es $f(x)=\dfrac{e^{-\frac{x}{\mu}}}{\mu}$ para $x\ge0$).}
+\end{enumerate}

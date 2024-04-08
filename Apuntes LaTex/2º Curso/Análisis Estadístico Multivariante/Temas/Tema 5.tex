@@ -1,0 +1,147 @@
+\section{Análisis discriminante}
+\subsection{Introducción}
+\subsubsection{Objetivo}
+Cómo \lb{clasificar individuos entre varios grupos} a partir de sus medidas en diversas variables aleatorias.
+\begin{itemize}
+	\item Para ello construiremos \lb{funciones discriminantes} que servirán para decidir en qué población incluimos a cada sujeto.
+\end{itemize}
+Esta técnica se puede aplicar a muy \lb{diferentes situaciones}.
+\begin{itemize}
+	\item Diagnosis de enfermedades.
+	\item Clasificación de individuos de diferentes especies.
+	\item Diagnosis de autoría en obras de arte.
+	\item Clasificación de perfiles de clientes (por ejemplo en la concesión de créditos), etc.
+\end{itemize}
+Cuando \lb{no se conozcan las características} de las poblaciones en las que se pueden clasificar los individuos, necesitaremos disponer de una \lb{muestra} de las variables en estudio de individuos de cada grupo (al menos dos individuos por cada grupo) y de las medidas de los elementos a clasificar en esas variables.
+\subsubsection{Criterios}
+La clasificación se basará en la \lb{distancia de Mahalanobis} del individuo a cada una de las poblaciones (sus medias).
+
+La utilización de esta distancia es equivalente bajo normalidad a la utilización del criterio de \lb{maxima verosimilitud}, que clasificará a un individuo en donde sus medidas sean \lb{más probables} (\lb{verosímiles}), es decir, donde la función de densidad sea mayor.
+
+Este segundo criterio permitirá la \lb{extensión} de dihca clasificación \lb{a más de dos poblaciones} con diferentes matrices de covarianzas incluso sin la necesidad de la normalidad de las mismas.
+\subsubsection{Distnacia de Mahalanobis}
+La \lb{distancia de Mahalanobis} del vector $\mathbf{x}$ al vector $\mu$ basada en la matriz $V$ se define como \[ d_V(\mathbf{x},\mu)=\sqrt{(\mathbf{x}-\mu)'V^{-1}(\mathbf{x}-\mu)}. \]
+Si $V$ es la matriz identidad, obtenemos la \lb{distancia Euclídea}.
+
+\lb{Caso de normalidad:} La función de densidad se expresa como \[ f(\mathbf{x})=\dfrac{1}{\sqrt{|V|(2\pi)^k}}\exp\left(-\dfrac{1}{2}(\mathbf{x}-\mu)'V^{-1}(\mathbf{x}-\mu)\right), \]para $\mathbf{x}\in\R^k$, donde $\mu$ es el vector de medias y $V$ es la matriz de covarianzas.
+\begin{itemize}
+	\item Las \lb{circunferencias para la distancia de Mahalanobis} con centro en $\mu$ coincidirán con las \lb{curvas de nivel} de la función de densidad $(f(x)=\mathrm{cte}.).$
+\end{itemize}
+\subsubsection{Para una \textbf{normal bivariante}}
+\begin{minipage}{0.4\textwidth}
+	Por ejemplo, para una distribución\[ \mathcal{N}_2\left(\mu=\begin{pmatrix}
+		0\\
+		0
+	\end{pmatrix},\,V=\begin{pmatrix}
+	1 & \tfrac{1}{2}\\
+	\tfrac{1}{2} & 1
+	\end{pmatrix}\right) \]
+	Las \lb{circunferencias para la distancia de Mahalanobis} con centro en $\mu$ coincidirán con las \lb{curvas de nivel} de la función de densidad.
+\end{minipage}\qquad\begin{minipage}{0.55\textwidth}
+\begin{lstlisting}
+hc <- function(x1, x2) (4/3)*x1^ 2- (4/3)*x1*x2 + (4/3)*x2^ 2
+x1 <- seq(-3, 3, length = 1000)
+x2 <- seq(-3, 3, length = 1000)
+z <- outer(x1, x2, hc)
+contour(x1, x2, z, levels = c(1:6), col = "magenta")
+title(main = "level = 1, ..., 6")
+\end{lstlisting}
+\end{minipage}
+
+\begin{flushright}
+	\includegraphics[width=0.5\textwidth]{"Temas/Imágenes/Tema 5/screenshot001"}
+\end{flushright}
+\subsection{Dos poblaciones normlaes con la misma matriz de covarianzas}
+\subsubsection{Clasificación teérica}
+Supongamos que $\mathbf{X}=(X_1,\dots,X_k)'$ e $\mathbf{Y}=(Y_1,\dots,Y_k)'$ son dos \veas normales $k$-dimensionales con vectores de \lb{medias} $\mu_X$ y $\mu_Y$ y \lb{matriz de covarianzas común} $V$ \lb{definida positiva}.
+
+Supongamos que $\mathbf{Z}=(Z_1,\dots,Z_k)'$ representa las \lb{medidas} obtenidas para el individuo que se quiere clasificar y que $\mathbf{Z}$ proviene de $X$ o de $\mathbf{Y}$, es decir, $\mathbf{Z}$ será un \vea $k$-dimensional con media igual a $\mu_X$ o $\mu_Y$ y matriz de covarianzas $V$.
+
+En la práctica $\mathbf{z}$ será un punto de $\R^k$ que debemos clasificar en $\mathbf{X}$ o en $\mathbf{Y}$.
+
+La idea de Fisher es usar una función discriminante $D$ (\lb{Función discriminante de Fisher}) unidimensional lineal basada en $\mathbf{Z}$: \[ D=\mathbf{a'Z}=a_1Z_1+\cdots+a_kZ_k, \]donde $\mathbf{a}\in\R^k$.
+
+Si $\mathbf{Z}\longrightarrow\mathcal{N}_k(\mu,V)$, entonces \[ D=\mathbf{a'Z}\longrightarrow \mathcal{N}_1(\mathbf{a'\mu},\: \mathbf{a'}V\mathbf{a}) \]ya que $E[\mathbf{a'Z}]=\mathbf{a'}E[\mathbf{Z}]$ y \[ \var(\mathbf{a'Z})=\cov(\mathbf{a'Z})=\mathbf{a'}\cov(\mathbf{Z})\mathbf{a}=\mathbf{a'}V\mathbf{a}, \]donde $\mu=E(\mathbf{Z})=\mu_X$ o $\mu_Y$.
+
+Esta función debe elegirse de forma que discrimine (aleje) a los individuos de $\mathbf{X}$ de los de $\mathbf{Y}$.
+\begin{itemize}
+	\item Debemos \lb{resolver el problema} siguiente: \[ \max_a\dfrac{(\mathbf{a'}\mu_X-\mathbf{a'}\mu_Y)^2}{\mathbf{a'}V\mathbf{a}} \]
+	\item El objeto es alejar las \lb{proyecciones} de las medias $ \mathbf{a'}\mu_X$ y $\mathbf{a'}\mu_Y$ y disminuir la varianza común $\sigma^2=\mathbf{a'}V\mathbf{a}$.
+\end{itemize}
+\lb{Ejemplo:} funciones de densidad de las proyecciones en cada grupo.
+\begin{lstlisting}
+x = seq(-2.5, 6.5, length.out = 100)
+densidad_1 <- dnorm(x, mean = 0, sd = 1)
+densidad_2 <- dnorm(x, mean = 2, sd = 1)
+plot(x, densidad_1, type = "l", lwd = 2, col = "black", 
+		 xlab = "x", ylab = "f(x)")
+lines(x, densidad_2, type = "l", lwd = 2, col = "blue", 
+		 xlab = "x", ylab = "f(x)", add = TRUE)
+\end{lstlisting}
+\begin{center}
+	\includegraphics[width=0.5\linewidth]{"Temas/Imágenes/Tema 5/screenshot002"}
+\end{center}
+\begin{itemize}[label=\color{red}\textbullet, leftmargin=*]
+	\item \color{lightblue}Teorema
+\end{itemize}
+Si $V$ es \lb{definida positiva}, la solución general del problema \[ \max_{\mathbf{a}}\dfrac{(\mathbf{a'}\mu_X-\mathbf{a'}\mu_Y)^2}{\mathbf{a'}V\mathbf{a}} \]viene dada por \[ \mathbf{a}=\lambda V^{-1}(\mu_X-\mu_Y) \]para $\lambda\neq0$, y el máximo vale $d_V^2(\mu_X,\mu_Y)$.
+\begin{itemize}[label=\color{red}\textbullet, leftmargin=*]
+	\item \color{lightblue}Demostración
+\end{itemize}
+La demostración se basa en la desigualdad de Cauchy-Schwarz: \[ (\mathbf{x'y})^2\le(\mathbf{x'x})(\mathbf{y'y}), \]donde se da la igualdad si, y solo si, $\mathbf{x=\lambda y}$.
+
+Como $V$ es definida positiva, existe su inversa $V^{-1}$ y $\mathbf{a'}V\mathbf{a}>0$ para todo vector $ \mathbf{a}\neq0$.
+
+Entonces, tenemos \begin{align*}
+	\dfrac{(\mathbf{a'\mu_X-a'\mu_Y})^2}{\mathbf{a'}V\mathbf{a}}&=\dfrac{\left(\mathbf{a'}V^{\frac{1}{2}}(\mu_X-\mu_Y)\right)^2}{\mathbf{a'}V\mathbf{a}}\\
+	&\le\dfrac{\mathbf{a'}V\mathbf{a}(\mu_X-\mu_Y)'V^{-1}(\mu_X-\mu_Y)}{\mathbf{a'}V\mathbf{a}}\\
+	&=(\mu_X-\mu_Y)'V^{-1}(\mu_X-\mu_Y)\\
+	&=d_V^2(\mu_X,\mu_Y),
+\end{align*}donde hemos considerado $\mathbf{x'}=\mathbf{a'}V^{\frac{1}{2}}$ e $\mathbf{y}=V^{-\frac{1}{2}}(\mu_X-\mu_Y)$.
+
+Además, se verifica la igualdad si, y solo si $\mathbf{x=\lambda y}$, es decir, si \[ V^{\frac{1}{2}}\mathbf{a}=\lambda V^{-\frac{1}{2}}(\mu_X-\mu_Y), \]lo que implica que $\mathbf{a}=\lambda V^{-1}(\mu_X-\mu_Y)$.
+\subsubsection{Función discriminante de Fisher}
+Llamaremos \lb{función discriminante de Fisher} a la \va \[ D=L(\mathbf{Z})=\mathbf{a'Z}=(\mu_X-\mu_Y)'V^{-1}\mathbf{Z}. \]
+Si las variables $\mathbf{X}$ e $\mathbf{Y}$ son normales, entonces la nueva variable $D$ será normal \[ D\longrightarrow\mathcal{N}_1\left((\mu_X-\mu_Y)'V^{-1}\mu,d_V^2(\mu_X,\mu_Y)\right), \]donde $\mu=E(\mathbf{Z})$ es igual a $\mu_X$ ó $\mu_Y$.
+
+Hemos considerado $\lambda=1$, pero esto no influye en la clasificación ya que podemos tomar cualquier otro $\lambda$ no nulo.
+\begin{itemize}
+	\item Por ejemplo, si tomamos \[ \lambda=\dfrac{1}{\|a\|} \]obtenemos una proyección en la dirección de $\mathbf{a}$.
+\end{itemize}
+\subsubsection{Regla de discriminación}
+Consideramos la \lb{función discriminante de Fisher} y $K=L\left(\dfrac{\mu_X+\mu_Y}{2}\right)$.
+
+La \lb{regla de discriminación} será:
+\begin{itemize}
+	\item Si $L(\mathbf{Z})>K$, entonces $\mathbf{Z}$ es clasificado en $\mathbf{X}$.
+	\item Si $L(\mathbf{Z})<K$, entonces $\mathbf{Z}$ es clasificado en $\mathbf{Y}$.
+\end{itemize}
+En realidad clasificamos a un individuo con características $\mathbf{z}$ según $\mathbf{a'z}$ esté más cerca de $\mathbf{a'}\mu_X$ o de $\mathbf{a'}\mu_Y$, ya que, como \[ (\mu_X-\mu_Y)'V^{-1}(\mu_X-\mu_Y)\ge0, \]entonces \[ \mathbf{a'}\mu_X=(\mu_X-\mu_Y)'V^{-1}\mu_X\ge(\mu_X-\mu_Y)'V^{-1}\mu_Y=\mathbf{a'}\mu_Y,\]es decir, con esta función discriminante, la proyección de la media de $\mathbf{X}$ será siempre mayor que la proyección de la media de $\mathbf{Y}$.
+
+Ocurrirá lo mismo si tomamos $\lambda>0$ y lo contrario si tomamos $\lambda<0$.
+
+De esta forma, se crean \lb{dos regiones} en el conjunto de posibles valores de $\mathbf{Z}$:
+\begin{itemize}
+	\item La región de individuos que serán clasificados en $\mathbf{X}$: 
+	\[R_X=\{\mathbf{z\in\R^k:L(\mathbf{z})}>K\}  \]
+	\item La región de individuos que serán clasificados en $\mathbf{Y}$:
+	\[R_Y=\{\mathbf{z\in\R^k:L(\mathbf{z})}<K\}  \]
+\end{itemize}
+\subsubsection{¿Cómo de \textbf{\texttt{buena}} es la función discriminante de Fisher obtenida?}
+La función discriminante de Fisher será mejor cuanto \lb{más alejadas estén las medias} $\mathbf{a'\mu_X}$ y $\mathbf{a'}\mu_Y$, y cuanto \lb{más pequeña sea la varianza} $\mathbf{a'}V\mathbf{a}$.
+
+Así, el cociente \[ \dfrac{(\mathbf{a'}\mu_X-\mathbf{a'}\mu_Y)^2}{\mathbf{a'}V\mathbf{a}}=(\mu_X-\mu_Y)'V^{-1}(\mu_X-\mu_Y)=d_V^2(\mu_X,\mu_Y) \](que no depende de $\lambda$) puede servir para comparar una función de discriminación con otra.
+
+\begin{tikzpicture}
+	\node[red, draw=red, fill=red!10, line width=1.5, text width=\linewidth] {\underline{Nota:}\\ La discriminación será buena si las \textbf{medias poblacionales están alejadas} según la distancia de Mahalanobis asociada a $V$.};
+\end{tikzpicture}
+\subsubsection{Otro criterio para medir la bondad de un criterio de clasificación}
+Podemos calcular las \lb{probabilidades de malas (buenas) clasificaciones}.
+
+Si llamamos \lb{error tipo 1}, $e_1$, al que clasifica a un individuo de la población $\mathbf{X}$ en la población $\mathbf{Y}$, entonces \begin{align*}
+	\mathrm{Pr}(e_1)&=\mathrm{Pr}(\mathbf{Z}\in R_Y|\mathbf{Z\equiv X})=\mathrm{Pr}(L(\mathbf{X})<K)\\
+	&=\mathrm{Pr}\left(\mathbf{a'X}<\mathbf{a'}\dfrac{\mu_X+\mu_Y}{2}\right)\\
+	&=\mathrm{Pr}\left(\dfrac{\mathbf{a'X-a'\mu_X}}{\sqrt{\mathbf{a'}V\mathbf{a'}}}<\dfrac{\mathbf{a'}(\mu_Y-\mu_X)}{2\sqrt{a'}V\mathbf{a}}\right)\\
+	&=\mathrm{Pr}\left(U<\dfrac{(\mu_X-\mu_Y)'V^{-1}(\mu_Y-\mu_X)}{2\sqrt{(\mu_X-\mu_Y)'V^{-1}(\mu_X-\mu_Y)}}\right)\\
+	&=\mathrm{Pr}\left(U<-\dfrac{1}{2}d_V(\mu_X,\mu_Y)\right),
+\end{align*}donde $U\longrightarrow N_1(0,1)$

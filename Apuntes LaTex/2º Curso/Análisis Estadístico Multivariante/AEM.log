@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (MiKTeX 24.1) (preloaded format=pdflatex 2024.2.18)  18 MAR 2024 10:51
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (MiKTeX 24.1) (preloaded format=pdflatex 2024.2.18)  8 APR 2024 21:27
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1918,12 +1918,12 @@ LaTeX Font Info:    Font shape `OT1/cmtt/bx/n' in size <10> not available
 (Font)              Font shape `OT1/cmtt/b/n' tried instead on input line 26.
 [1
 
-{C:/Users/fcoja/AppData/Local/MiKTeX/fonts/map/pdftex/pdftex.map}] [2])
+{C:/Users/fcoja/AppData/Local/MiKTeX/fonts/map/pdftex/pdftex.map}] [2]
+[3])
 \tf@toc=\write6
 \openout6 = `AEM.toc'.
 
-
-[3] (Temas/Tema 1.tex
+ [4] (Temas/Tema 1.tex
 pdfTeX warning (ext4): destination with the same identifier (name{page.1}) has 
 been already used, duplicate ignored
 <to be read again> 
@@ -1966,14 +1966,21 @@ Package hyperref Warning: Token not allowed in a PDF string (Unicode):
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
 (hyperref)                removing `math shift' on input line 156.
 
+
+pdfTeX warning (ext4): destination with the same identifier (name{page.4}) has 
+been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.167 U
+       na matriz simétrica $A$, de dimensión $k\times k$, se dice que es \...
 [4] [5]
-<Temas/Imágenes/Tema 1/000012.png, id=716, 499.8675pt x 308.352pt>
+<Temas/Imágenes/Tema 1/000012.png, id=774, 499.8675pt x 308.352pt>
 File: Temas/Imágenes/Tema 1/000012.png Graphic file (type png)
 <use Temas/Imágenes/Tema 1/000012.png>
 Package pdftex.def Info: Temas/Imágenes/Tema 1/000012.png  used on input line 
 260.
 (pdftex.def)             Requested size: 499.86627pt x 308.35124pt.
-<Temas/Imágenes/Tema 1/000014.png, id=717, 505.89pt x 361.35pt>
+<Temas/Imágenes/Tema 1/000014.png, id=775, 505.89pt x 361.35pt>
 File: Temas/Imágenes/Tema 1/000014.png Graphic file (type png)
 <use Temas/Imágenes/Tema 1/000014.png>
 Package pdftex.def Info: Temas/Imágenes/Tema 1/000014.png  used on input line 
@@ -1987,7 +1994,7 @@ Package pdftex.def Info: Temas/Imágenes/Tema 1/000014.png  used on input line
 342.
 (pdftex.def)             Requested size: 505.88875pt x 361.34912pt.
  [8]
-<Temas/Imágenes/Tema 1/000015.png, id=776, 505.89pt x 361.35pt>
+<Temas/Imágenes/Tema 1/000015.png, id=834, 505.89pt x 361.35pt>
 File: Temas/Imágenes/Tema 1/000015.png Graphic file (type png)
 <use Temas/Imágenes/Tema 1/000015.png>
 Package pdftex.def Info: Temas/Imágenes/Tema 1/000015.png  used on input line 
@@ -2495,7 +2502,7 @@ LaTeX Font Info:    Trying to load font information for TS1+cmtt on input line
 File: ts1cmtt.fd 2023/04/13 v2.5m Standard LaTeX font definitions
 )
 [16]) (Tareas/Tema 1/Hoja 1.tex
-<Tareas/Tema 1/Hoja 1.pdf, id=865, 614.295pt x 794.97pt>
+<Tareas/Tema 1/Hoja 1.pdf, id=923, 614.295pt x 794.97pt>
 File: Tareas/Tema 1/Hoja 1.pdf Graphic file (type pdf)
 <use Tareas/Tema 1/Hoja 1.pdf>
 Package pdftex.def Info: Tareas/Tema 1/Hoja 1.pdf  used on input line 1.
@@ -2504,7 +2511,7 @@ File: Tareas/Tema 1/Hoja 1.pdf Graphic file (type pdf)
 <use Tareas/Tema 1/Hoja 1.pdf>
 Package pdftex.def Info: Tareas/Tema 1/Hoja 1.pdf  used on input line 1.
 (pdftex.def)             Requested size: 614.29349pt x 794.96806pt.
-<Tareas/Tema 1/Hoja 1.pdf, id=868, page=1, 614.295pt x 794.97pt>
+<Tareas/Tema 1/Hoja 1.pdf, id=926, page=1, 614.295pt x 794.97pt>
 File: Tareas/Tema 1/Hoja 1.pdf Graphic file (type pdf)
 <use Tareas/Tema 1/Hoja 1.pdf, page 1>
 Package pdftex.def Info: Tareas/Tema 1/Hoja 1.pdf , page1 used on input line 1.
@@ -2778,7 +2785,7 @@ put line 84.
 Package wrapfig Warning: wrapfigure used inside a conflicting environment on in
 put line 84.
 
-<Temas/Imágenes/Tema 2/000005.png, id=1070, 497.4585pt x 307.1475pt>
+<Temas/Imágenes/Tema 2/000005.png, id=1128, 497.4585pt x 307.1475pt>
 File: Temas/Imágenes/Tema 2/000005.png Graphic file (type png)
 <use Temas/Imágenes/Tema 2/000005.png>
 Package pdftex.def Info: Temas/Imágenes/Tema 2/000005.png  used on input line 
@@ -3031,13 +3038,13 @@ put line 104.
 Package wrapfig Warning: wrapfigure used inside a conflicting environment on in
 put line 104.
 
-<Temas/Imágenes/Tema 2/000010.png, id=1084, 497.4585pt x 307.1475pt>
+<Temas/Imágenes/Tema 2/000010.png, id=1142, 497.4585pt x 307.1475pt>
 File: Temas/Imágenes/Tema 2/000010.png Graphic file (type png)
 <use Temas/Imágenes/Tema 2/000010.png>
 Package pdftex.def Info: Temas/Imágenes/Tema 2/000010.png  used on input line 
 107.
 (pdftex.def)             Requested size: 348.21857pt x 215.00177pt.
-<Temas/Imágenes/Tema 2/000002.png, id=1085, 497.4585pt x 307.1475pt>
+<Temas/Imágenes/Tema 2/000002.png, id=1143, 497.4585pt x 307.1475pt>
 File: Temas/Imágenes/Tema 2/000002.png Graphic file (type png)
 <use Temas/Imágenes/Tema 2/000002.png>
 Package pdftex.def Info: Temas/Imágenes/Tema 2/000002.png  used on input line 
@@ -3113,21 +3120,21 @@ Overfull \hbox (8.16595pt too wide) in paragraph at lines 533--534
  []
 
 [39] [40]
-<Temas/Imágenes/Tema 2/000020.png, id=1187, 1300.86pt x 433.62pt>
+<Temas/Imágenes/Tema 2/000020.png, id=1245, 1300.86pt x 433.62pt>
 File: Temas/Imágenes/Tema 2/000020.png Graphic file (type png)
 <use Temas/Imágenes/Tema 2/000020.png>
 Package pdftex.def Info: Temas/Imágenes/Tema 2/000020.png  used on input line 
 586.
 (pdftex.def)             Requested size: 540.60239pt x 180.20036pt.
  [41 <./Temas/Imágenes/Tema 2/000020.png>]
-<Temas/Imágenes/Tema 2/000030.png, id=1215, 1300.86pt x 433.62pt>
+<Temas/Imágenes/Tema 2/000030.png, id=1273, 1300.86pt x 433.62pt>
 File: Temas/Imágenes/Tema 2/000030.png Graphic file (type png)
 <use Temas/Imágenes/Tema 2/000030.png>
 Package pdftex.def Info: Temas/Imágenes/Tema 2/000030.png  used on input line 
 619.
 (pdftex.def)             Requested size: 540.60239pt x 180.20036pt.
  [42 <./Temas/Imágenes/Tema 2/000030.png>]
-<Temas/Imágenes/Tema 2/000040.png, id=1246, 1300.86pt x 433.62pt>
+<Temas/Imágenes/Tema 2/000040.png, id=1304, 1300.86pt x 433.62pt>
 File: Temas/Imágenes/Tema 2/000040.png Graphic file (type png)
 <use Temas/Imágenes/Tema 2/000040.png>
 Package pdftex.def Info: Temas/Imágenes/Tema 2/000040.png  used on input line 
@@ -3135,7 +3142,7 @@ Package pdftex.def Info: Temas/Imágenes/Tema 2/000040.png  used on input line
 (pdftex.def)             Requested size: 540.60239pt x 180.20036pt.
  [43 <./Temas/Imágenes/Tema 2/000040.png>])
 (Tareas/Tema 2/Hoja 2.tex
-<Tareas/Tema 2/Hoja 2.pdf, id=1264, 614.295pt x 794.97pt>
+<Tareas/Tema 2/Hoja 2.pdf, id=1322, 614.295pt x 794.97pt>
 File: Tareas/Tema 2/Hoja 2.pdf Graphic file (type pdf)
 <use Tareas/Tema 2/Hoja 2.pdf>
 Package pdftex.def Info: Tareas/Tema 2/Hoja 2.pdf  used on input line 1.
@@ -3144,7 +3151,7 @@ File: Tareas/Tema 2/Hoja 2.pdf Graphic file (type pdf)
 <use Tareas/Tema 2/Hoja 2.pdf>
 Package pdftex.def Info: Tareas/Tema 2/Hoja 2.pdf  used on input line 1.
 (pdftex.def)             Requested size: 614.29349pt x 794.96806pt.
-<Tareas/Tema 2/Hoja 2.pdf, id=1267, page=1, 614.295pt x 794.97pt>
+<Tareas/Tema 2/Hoja 2.pdf, id=1325, page=1, 614.295pt x 794.97pt>
 File: Tareas/Tema 2/Hoja 2.pdf Graphic file (type pdf)
 <use Tareas/Tema 2/Hoja 2.pdf, page 1>
 Package pdftex.def Info: Tareas/Tema 2/Hoja 2.pdf , page1 used on input line 1.
@@ -3174,7 +3181,7 @@ Package pdftex.def Info: Tareas/Tema 2/Hoja 2.pdf , page1 used on input line 1.
  [45
 
  <./Tareas/Tema 2/Hoja 2.pdf>]
-<Tareas/Tema 2/Hoja 2.pdf, id=1432, page=2, 614.295pt x 794.97pt>
+<Tareas/Tema 2/Hoja 2.pdf, id=1491, page=2, 614.295pt x 794.97pt>
 File: Tareas/Tema 2/Hoja 2.pdf Graphic file (type pdf)
 <use Tareas/Tema 2/Hoja 2.pdf, page 2>
 Package pdftex.def Info: Tareas/Tema 2/Hoja 2.pdf , page2 used on input line 1.
@@ -3193,7 +3200,7 @@ Package pdftex.def Info: Tareas/Tema 2/Hoja 2.pdf , page2 used on input line 1.
  [46
 
  <./Tareas/Tema 2/Hoja 2.pdf>]
-<Tareas/Tema 2/Hoja 2.pdf, id=1438, page=3, 614.295pt x 794.97pt>
+<Tareas/Tema 2/Hoja 2.pdf, id=1496, page=3, 614.295pt x 794.97pt>
 File: Tareas/Tema 2/Hoja 2.pdf Graphic file (type pdf)
 <use Tareas/Tema 2/Hoja 2.pdf, page 3>
 Package pdftex.def Info: Tareas/Tema 2/Hoja 2.pdf , page3 used on input line 1.
@@ -3236,7 +3243,7 @@ Package hyperref Warning: Token not allowed in a PDF string (Unicode):
 (hyperref)                removing `math shift' on input line 23.
 
 [54]
-<Temas/Imágenes/Tema 3/screenshot001.png, id=1494, 650.43pt x 650.43pt>
+<Temas/Imágenes/Tema 3/screenshot001.png, id=1552, 650.43pt x 650.43pt>
 File: Temas/Imágenes/Tema 3/screenshot001.png Graphic file (type png)
 <use Temas/Imágenes/Tema 3/screenshot001.png>
 Package pdftex.def Info: Temas/Imágenes/Tema 3/screenshot001.png  used on inpu
@@ -3253,7 +3260,7 @@ Overfull \hbox (10.0pt too wide) in paragraph at lines 66--82
 $[]$ $[]$ 
  []
 
-<Temas/Imágenes/Tema 3/screenshot002.png, id=1496, 650.43pt x 650.43pt>
+<Temas/Imágenes/Tema 3/screenshot002.png, id=1554, 650.43pt x 650.43pt>
 File: Temas/Imágenes/Tema 3/screenshot002.png Graphic file (type png)
 <use Temas/Imágenes/Tema 3/screenshot002.png>
 Package pdftex.def Info: Temas/Imágenes/Tema 3/screenshot002.png  used on inpu
@@ -3261,13 +3268,13 @@ t line 83.
 (pdftex.def)             Requested size: 297.33296pt x 297.33557pt.
 [55 <./Temas/Imágenes/Tema 3/screenshot001.png>] [56 <./Temas/Imágenes/Tema 3
 /screenshot002.png>] [57]
-<Temas/Imágenes/Tema 3/screenshot003.png, id=1527, 578.16pt x 578.16pt>
+<Temas/Imágenes/Tema 3/screenshot003.png, id=1586, 578.16pt x 578.16pt>
 File: Temas/Imágenes/Tema 3/screenshot003.png Graphic file (type png)
 <use Temas/Imágenes/Tema 3/screenshot003.png>
 Package pdftex.def Info: Temas/Imágenes/Tema 3/screenshot003.png  used on inpu
 t line 157.
 (pdftex.def)             Requested size: 243.26941pt x 243.26663pt.
-<Temas/Imágenes/Tema 3/screenshot004.png, id=1528, 578.16pt x 578.16pt>
+<Temas/Imágenes/Tema 3/screenshot004.png, id=1587, 578.16pt x 578.16pt>
 File: Temas/Imágenes/Tema 3/screenshot004.png Graphic file (type png)
 <use Temas/Imágenes/Tema 3/screenshot004.png>
 Package pdftex.def Info: Temas/Imágenes/Tema 3/screenshot004.png  used on inpu
@@ -3275,13 +3282,13 @@ t line 168.
 (pdftex.def)             Requested size: 270.3012pt x 270.29724pt.
  [58 <./Temas/Imágenes/Tema 3/screenshot003.png> <./Temas/Imágenes/Tema 3/scr
 eenshot004.png>]
-<Temas/Imágenes/Tema 3/screenshot005.png, id=1548, 505.89pt x 505.89pt>
+<Temas/Imágenes/Tema 3/screenshot005.png, id=1606, 505.89pt x 505.89pt>
 File: Temas/Imágenes/Tema 3/screenshot005.png Graphic file (type png)
 <use Temas/Imágenes/Tema 3/screenshot005.png>
 Package pdftex.def Info: Temas/Imágenes/Tema 3/screenshot005.png  used on inpu
 t line 205.
 (pdftex.def)             Requested size: 259.48683pt x 259.4903pt.
-<Temas/Imágenes/Tema 3/screenshot006.png, id=1549, 505.89pt x 505.89pt>
+<Temas/Imágenes/Tema 3/screenshot006.png, id=1607, 505.89pt x 505.89pt>
 File: Temas/Imágenes/Tema 3/screenshot006.png Graphic file (type png)
 <use Temas/Imágenes/Tema 3/screenshot006.png>
 Package pdftex.def Info: Temas/Imágenes/Tema 3/screenshot006.png  used on inpu
@@ -3289,13 +3296,13 @@ t line 215.
 (pdftex.def)             Requested size: 259.48683pt x 259.4903pt.
  [59 <./Temas/Imágenes/Tema 3/screenshot005.png> <./Temas/Imágenes/Tema 3/scr
 eenshot006.png>] [60]
-<Temas/Imágenes/Tema 3/screenshot007.png, id=1604, 542.025pt x 542.025pt>
+<Temas/Imágenes/Tema 3/screenshot007.png, id=1662, 542.025pt x 542.025pt>
 File: Temas/Imágenes/Tema 3/screenshot007.png Graphic file (type png)
 <use Temas/Imágenes/Tema 3/screenshot007.png>
 Package pdftex.def Info: Temas/Imágenes/Tema 3/screenshot007.png  used on inpu
 t line 281.
 (pdftex.def)             Requested size: 216.23764pt x 216.23547pt.
-<Temas/Imágenes/Tema 3/screenshot008.png, id=1605, 578.16pt x 578.16pt>
+<Temas/Imágenes/Tema 3/screenshot008.png, id=1663, 578.16pt x 578.16pt>
 File: Temas/Imágenes/Tema 3/screenshot008.png Graphic file (type png)
 <use Temas/Imágenes/Tema 3/screenshot008.png>
 Package pdftex.def Info: Temas/Imágenes/Tema 3/screenshot008.png  used on inpu
@@ -3327,7 +3334,7 @@ Package hyperref Warning: Token not allowed in a PDF string (Unicode):
 (hyperref)                removing `math shift' on input line 435.
 
 [66]
-<Temas/Imágenes/Tema 3/screenshot009.png, id=1644, 722.7pt x 722.7pt>
+<Temas/Imágenes/Tema 3/screenshot009.png, id=1702, 722.7pt x 722.7pt>
 File: Temas/Imágenes/Tema 3/screenshot009.png Graphic file (type png)
 <use Temas/Imágenes/Tema 3/screenshot009.png>
 Package pdftex.def Info: Temas/Imágenes/Tema 3/screenshot009.png  used on inpu
@@ -3338,7 +3345,7 @@ t line 480.
 LaTeX Warning: Characters dropped after `\end{verbatim}' on input line 607.
 
 [69]) [70] (Tareas/Tema 3/Hoja 3.tex
-<Tareas/Tema 3/Hoja 3.pdf, id=1738, 614.295pt x 794.97pt>
+<Tareas/Tema 3/Hoja 3.pdf, id=1796, 614.295pt x 794.97pt>
 File: Tareas/Tema 3/Hoja 3.pdf Graphic file (type pdf)
 <use Tareas/Tema 3/Hoja 3.pdf>
 Package pdftex.def Info: Tareas/Tema 3/Hoja 3.pdf  used on input line 1.
@@ -3347,7 +3354,7 @@ File: Tareas/Tema 3/Hoja 3.pdf Graphic file (type pdf)
 <use Tareas/Tema 3/Hoja 3.pdf>
 Package pdftex.def Info: Tareas/Tema 3/Hoja 3.pdf  used on input line 1.
 (pdftex.def)             Requested size: 614.29349pt x 794.96806pt.
-<Tareas/Tema 3/Hoja 3.pdf, id=1741, page=1, 614.295pt x 794.97pt>
+<Tareas/Tema 3/Hoja 3.pdf, id=1799, page=1, 614.295pt x 794.97pt>
 File: Tareas/Tema 3/Hoja 3.pdf Graphic file (type pdf)
 <use Tareas/Tema 3/Hoja 3.pdf, page 1>
 Package pdftex.def Info: Tareas/Tema 3/Hoja 3.pdf , page1 used on input line 1.
@@ -3376,7 +3383,7 @@ Package pdftex.def Info: Tareas/Tema 3/Hoja 3.pdf , page1 used on input line 1.
  [71
 
  <./Tareas/Tema 3/Hoja 3.pdf>]
-<Tareas/Tema 3/Hoja 3.pdf, id=1888, page=2, 614.295pt x 794.97pt>
+<Tareas/Tema 3/Hoja 3.pdf, id=1946, page=2, 614.295pt x 794.97pt>
 File: Tareas/Tema 3/Hoja 3.pdf Graphic file (type pdf)
 <use Tareas/Tema 3/Hoja 3.pdf, page 2>
 Package pdftex.def Info: Tareas/Tema 3/Hoja 3.pdf , page2 used on input line 1.
@@ -3400,13 +3407,13 @@ Underfull \hbox (badness 10000) in paragraph at lines 62--64
  []
 
 [73]) [74] (Temas/Tema 4.tex [75]
-<Temas/Imágenes/Tema 4/screenshot001.png, id=1927, 650.43pt x 650.43pt>
+<Temas/Imágenes/Tema 4/screenshot001.png, id=1986, 650.43pt x 650.43pt>
 File: Temas/Imágenes/Tema 4/screenshot001.png Graphic file (type png)
 <use Temas/Imágenes/Tema 4/screenshot001.png>
 Package pdftex.def Info: Temas/Imágenes/Tema 4/screenshot001.png  used on inpu
 t line 56.
 (pdftex.def)             Requested size: 257.80118pt x 257.8053pt.
-<Temas/Imágenes/Tema 4/screenshot002.png, id=1928, 650.43pt x 650.43pt>
+<Temas/Imágenes/Tema 4/screenshot002.png, id=1987, 650.43pt x 650.43pt>
 File: Temas/Imágenes/Tema 4/screenshot002.png Graphic file (type png)
 <use Temas/Imágenes/Tema 4/screenshot002.png>
 Package pdftex.def Info: Temas/Imágenes/Tema 4/screenshot002.png  used on inpu
@@ -3414,21 +3421,21 @@ t line 68.
 (pdftex.def)             Requested size: 257.80118pt x 257.8053pt.
  [76 <./Temas/Imágenes/Tema 4/screenshot001.png> <./Temas/Imágenes/Tema 4/scr
 eenshot002.png>]
-<Temas/Imágenes/Tema 4/screenshot003.png, id=1950, 722.7pt x 722.7pt>
+<Temas/Imágenes/Tema 4/screenshot003.png, id=2008, 722.7pt x 722.7pt>
 File: Temas/Imágenes/Tema 4/screenshot003.png Graphic file (type png)
 <use Temas/Imágenes/Tema 4/screenshot003.png>
 Package pdftex.def Info: Temas/Imágenes/Tema 4/screenshot003.png  used on inpu
 t line 89.
 (pdftex.def)             Requested size: 270.3012pt x 270.29504pt.
  [77 <./Temas/Imágenes/Tema 4/screenshot003.png>] [78] [79] [80]
-<Temas/Imágenes/Tema 4/screenshot004.png, id=1977, 542.025pt x 542.025pt>
+<Temas/Imágenes/Tema 4/screenshot004.png, id=2035, 542.025pt x 542.025pt>
 File: Temas/Imágenes/Tema 4/screenshot004.png Graphic file (type png)
 <use Temas/Imágenes/Tema 4/screenshot004.png>
 Package pdftex.def Info: Temas/Imágenes/Tema 4/screenshot004.png  used on inpu
 t line 257.
 (pdftex.def)             Requested size: 324.36473pt x 324.3739pt.
  [81 <./Temas/Imágenes/Tema 4/screenshot004.png>]
-<Temas/Imágenes/Tema 4/screenshot005.png, id=1993, 505.89pt x 505.89pt>
+<Temas/Imágenes/Tema 4/screenshot005.png, id=2052, 505.89pt x 505.89pt>
 File: Temas/Imágenes/Tema 4/screenshot005.png Graphic file (type png)
 <use Temas/Imágenes/Tema 4/screenshot005.png>
 Package pdftex.def Info: Temas/Imágenes/Tema 4/screenshot005.png  used on inpu
@@ -3436,7 +3443,7 @@ t line 274.
 (pdftex.def)             Requested size: 324.36473pt x 324.37059pt.
  [82 <./Temas/Imágenes/Tema 4/screenshot005.png>] [83] [84] [85]
 [86] [87] [88] [89] [90] [91]) (Tareas/Tema 4/Hoja 4.tex
-<Tareas/Tema 4/Hoja 4.pdf, id=2060, 614.295pt x 794.97pt>
+<Tareas/Tema 4/Hoja 4.pdf, id=2118, 614.295pt x 794.97pt>
 File: Tareas/Tema 4/Hoja 4.pdf Graphic file (type pdf)
 <use Tareas/Tema 4/Hoja 4.pdf>
 Package pdftex.def Info: Tareas/Tema 4/Hoja 4.pdf  used on input line 1.
@@ -3445,7 +3452,7 @@ File: Tareas/Tema 4/Hoja 4.pdf Graphic file (type pdf)
 <use Tareas/Tema 4/Hoja 4.pdf>
 Package pdftex.def Info: Tareas/Tema 4/Hoja 4.pdf  used on input line 1.
 (pdftex.def)             Requested size: 614.29349pt x 794.96806pt.
-<Tareas/Tema 4/Hoja 4.pdf, id=2063, page=1, 614.295pt x 794.97pt>
+<Tareas/Tema 4/Hoja 4.pdf, id=2121, page=1, 614.295pt x 794.97pt>
 File: Tareas/Tema 4/Hoja 4.pdf Graphic file (type pdf)
 <use Tareas/Tema 4/Hoja 4.pdf, page 1>
 Package pdftex.def Info: Tareas/Tema 4/Hoja 4.pdf , page1 used on input line 1.
@@ -3484,13 +3491,97 @@ Underfull \hbox (badness 10000) in paragraph at lines 159--181
 
  []
 
-[95] [96] [97]) [98] (AEM.aux)
+[95] [96] [97]) [98] (Temas/Tema 5.tex [99]
+<Temas/Imágenes/Tema 5/screenshot001.png, id=2285, 578.16pt x 578.16pt>
+File: Temas/Imágenes/Tema 5/screenshot001.png Graphic file (type png)
+<use Temas/Imágenes/Tema 5/screenshot001.png>
+Package pdftex.def Info: Temas/Imágenes/Tema 5/screenshot001.png  used on inpu
+t line 52.
+(pdftex.def)             Requested size: 270.3012pt x 270.29724pt.
+ [100 <./Temas/Imágenes/Tema 5/screenshot001.png>]
+<Temas/Imágenes/Tema 5/screenshot002.png, id=2298, 578.16pt x 578.16pt>
+File: Temas/Imágenes/Tema 5/screenshot002.png Graphic file (type png)
+<use Temas/Imágenes/Tema 5/screenshot002.png>
+Package pdftex.def Info: Temas/Imágenes/Tema 5/screenshot002.png  used on inpu
+t line 82.
+(pdftex.def)             Requested size: 270.3012pt x 270.29724pt.
+ [101 <./Temas/Imágenes/Tema 5/screenshot002.png>] [102]
+Overfull \hbox (7.66595pt too wide) in paragraph at lines 137--138
+[][] 
+ []
+
+) (Tareas/Tema 5/Hoja 5.tex
+<Tareas/Tema 5/Hoja 5.pdf, id=2317, 614.295pt x 794.97pt>
+File: Tareas/Tema 5/Hoja 5.pdf Graphic file (type pdf)
+<use Tareas/Tema 5/Hoja 5.pdf>
+Package pdftex.def Info: Tareas/Tema 5/Hoja 5.pdf  used on input line 1.
+(pdftex.def)             Requested size: 614.29349pt x 794.96806pt.
+File: Tareas/Tema 5/Hoja 5.pdf Graphic file (type pdf)
+<use Tareas/Tema 5/Hoja 5.pdf>
+Package pdftex.def Info: Tareas/Tema 5/Hoja 5.pdf  used on input line 1.
+(pdftex.def)             Requested size: 614.29349pt x 794.96806pt.
+<Tareas/Tema 5/Hoja 5.pdf, id=2320, page=1, 614.295pt x 794.97pt>
+File: Tareas/Tema 5/Hoja 5.pdf Graphic file (type pdf)
+<use Tareas/Tema 5/Hoja 5.pdf, page 1>
+Package pdftex.def Info: Tareas/Tema 5/Hoja 5.pdf , page1 used on input line 1.
+
+(pdftex.def)             Requested size: 614.29349pt x 794.96806pt.
+File: Tareas/Tema 5/Hoja 5.pdf Graphic file (type pdf)
+<use Tareas/Tema 5/Hoja 5.pdf, page 1>
+Package pdftex.def Info: Tareas/Tema 5/Hoja 5.pdf , page1 used on input line 1.
+
+(pdftex.def)             Requested size: 597.78697pt x 773.60669pt.
+ [103]
+File: Tareas/Tema 5/Hoja 5.pdf Graphic file (type pdf)
+<use Tareas/Tema 5/Hoja 5.pdf, page 1>
+Package pdftex.def Info: Tareas/Tema 5/Hoja 5.pdf , page1 used on input line 1.
+
+(pdftex.def)             Requested size: 597.78697pt x 773.60669pt.
+File: Tareas/Tema 5/Hoja 5.pdf Graphic file (type pdf)
+<use Tareas/Tema 5/Hoja 5.pdf, page 1>
+Package pdftex.def Info: Tareas/Tema 5/Hoja 5.pdf , page1 used on input line 1.
+
+(pdftex.def)             Requested size: 597.78697pt x 773.60669pt.
+File: Tareas/Tema 5/Hoja 5.pdf Graphic file (type pdf)
+<use Tareas/Tema 5/Hoja 5.pdf, page 1>
+Package pdftex.def Info: Tareas/Tema 5/Hoja 5.pdf , page1 used on input line 1.
+
+(pdftex.def)             Requested size: 597.78697pt x 773.60669pt.
+ [104
+
+ <./Tareas/Tema 5/Hoja 5.pdf>]
+<Tareas/Tema 5/Hoja 5.pdf, id=2458, page=2, 614.295pt x 794.97pt>
+File: Tareas/Tema 5/Hoja 5.pdf Graphic file (type pdf)
+<use Tareas/Tema 5/Hoja 5.pdf, page 2>
+Package pdftex.def Info: Tareas/Tema 5/Hoja 5.pdf , page2 used on input line 1.
+
+(pdftex.def)             Requested size: 597.78697pt x 773.60669pt.
+File: Tareas/Tema 5/Hoja 5.pdf Graphic file (type pdf)
+<use Tareas/Tema 5/Hoja 5.pdf, page 2>
+Package pdftex.def Info: Tareas/Tema 5/Hoja 5.pdf , page2 used on input line 1.
+
+(pdftex.def)             Requested size: 597.78697pt x 773.60669pt.
+File: Tareas/Tema 5/Hoja 5.pdf Graphic file (type pdf)
+<use Tareas/Tema 5/Hoja 5.pdf, page 2>
+Package pdftex.def Info: Tareas/Tema 5/Hoja 5.pdf , page2 used on input line 1.
+
+(pdftex.def)             Requested size: 597.78697pt x 773.60669pt.
+ [105
+
+ <./Tareas/Tema 5/Hoja 5.pdf>] [106] [107] [108]) [109] (AEM.aux)
  ***********
 LaTeX2e <2023-11-01> patch level 1
 L3 programming layer <2024-02-13>
  ***********
-Package rerunfilecheck Info: File `AEM.out' has not changed.
-(rerunfilecheck)             Checksum: F5FFF4993CA9FDD9A614DEAF4824EF2E;26527.
+
+
+Package rerunfilecheck Warning: File `AEM.out' has changed.
+(rerunfilecheck)                Rerun to get outlines right
+(rerunfilecheck)                or use package `bookmark'.
+
+Package rerunfilecheck Info: Checksums for `AEM.out':
+(rerunfilecheck)             Before: 90E634569700D0943EBB78FA78D4BF46;28841
+(rerunfilecheck)             After:  6653FD8386937EABE932652D5FE04473;29273.
 Package logreq Info: Writing requests to 'AEM.run.xml'.
 \openout1 = `AEM.run.xml'.
 
@@ -3500,10 +3591,10 @@ Package logreq Info: Writing requests to 'AEM.run.xml'.
 ### simple group (level 1) entered at line 592 ({)
 ### bottom level 
 Here is how much of TeX's memory you used:
- 55467 strings out of 474462
- 1250787 string characters out of 5742883
- 2539448 words of memory out of 5000000
- 76121 multiletter control sequences out of 15000+600000
+ 55774 strings out of 474462
+ 1257701 string characters out of 5742883
+ 2539459 words of memory out of 5000000
+ 76364 multiletter control sequences out of 15000+600000
  573877 words of font info for 102 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  89i,23n,134p,1194b,1981s stack positions out of 10000i,1000n,20000p,200000b,200000s
@@ -3517,48 +3608,51 @@ onts/pk/ljfour/jknappen/ec/dpi600\tcrm1000.pk> <C:\Users\fcoja\AppData\Local\Mi
 KTeX\fonts/pk/ljfour/public/cm/dpi600\cmttb10.pk><C:/Users/fcoja/AppData/Local/
 Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmbx10.pfb><C:/Users/fcoja/AppDa
 ta/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmbx12.pfb><C:/Users/fc
-oja/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmbx7.pfb><C:/
-Users/fcoja/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmbx9.
+oja/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmbx6.pfb><C:/
+Users/fcoja/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmbx7.
 pfb><C:/Users/fcoja/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/c
-m/cmex10.pfb><C:/Users/fcoja/AppData/Local/Programs/MiKTeX/fonts/type1/public/a
-msfonts/cmextra/cmex7.pfb><C:/Users/fcoja/AppData/Local/Programs/MiKTeX/fonts/t
-ype1/public/amsfonts/cmextra/cmex9.pfb><C:/Users/fcoja/AppData/Local/Programs/M
-iKTeX/fonts/type1/public/amsfonts/cm/cmmi10.pfb><C:/Users/fcoja/AppData/Local/P
-rograms/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi12.pfb><C:/Users/fcoja/AppDat
-a/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi5.pfb><C:/Users/fcoj
-a/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi6.pfb><C:/Us
-ers/fcoja/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi7.pf
+m/cmbx9.pfb><C:/Users/fcoja/AppData/Local/Programs/MiKTeX/fonts/type1/public/am
+sfonts/cm/cmex10.pfb><C:/Users/fcoja/AppData/Local/Programs/MiKTeX/fonts/type1/
+public/amsfonts/cmextra/cmex7.pfb><C:/Users/fcoja/AppData/Local/Programs/MiKTeX
+/fonts/type1/public/amsfonts/cmextra/cmex9.pfb><C:/Users/fcoja/AppData/Local/Pr
+ograms/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi10.pfb><C:/Users/fcoja/AppData
+/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi12.pfb><C:/Users/fcoj
+a/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi5.pfb><C:/Us
+ers/fcoja/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi6.pf
 b><C:/Users/fcoja/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/
-cmmi8.pfb><C:/Users/fcoja/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsf
-onts/cm/cmmi9.pfb><C:/Users/fcoja/AppData/Local/Programs/MiKTeX/fonts/type1/pub
-lic/amsfonts/cm/cmr10.pfb><C:/Users/fcoja/AppData/Local/Programs/MiKTeX/fonts/t
-ype1/public/amsfonts/cm/cmr12.pfb><C:/Users/fcoja/AppData/Local/Programs/MiKTeX
-/fonts/type1/public/amsfonts/cm/cmr17.pfb><C:/Users/fcoja/AppData/Local/Program
-s/MiKTeX/fonts/type1/public/amsfonts/cm/cmr5.pfb><C:/Users/fcoja/AppData/Local/
-Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr6.pfb><C:/Users/fcoja/AppData
-/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr7.pfb><C:/Users/fcoja/
-AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr8.pfb><C:/Users
-/fcoja/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr9.pfb><C
-:/Users/fcoja/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy
-10.pfb><C:/Users/fcoja/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfont
-s/cm/cmsy5.pfb><C:/Users/fcoja/AppData/Local/Programs/MiKTeX/fonts/type1/public
-/amsfonts/cm/cmsy6.pfb><C:/Users/fcoja/AppData/Local/Programs/MiKTeX/fonts/type
-1/public/amsfonts/cm/cmsy7.pfb><C:/Users/fcoja/AppData/Local/Programs/MiKTeX/fo
-nts/type1/public/amsfonts/cm/cmsy8.pfb><C:/Users/fcoja/AppData/Local/Programs/M
-iKTeX/fonts/type1/public/amsfonts/cm/cmsy9.pfb><C:/Users/fcoja/AppData/Local/Pr
-ograms/MiKTeX/fonts/type1/public/amsfonts/cm/cmti9.pfb><C:/Users/fcoja/AppData/
-Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmtt10.pfb><C:/Users/fcoja
-/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmtt9.pfb><C:/Use
-rs/fcoja/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/latxfont/lin
-e10.pfb><C:/Users/fcoja/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfon
-ts/symbols/msam10.pfb><C:/Users/fcoja/AppData/Local/Programs/MiKTeX/fonts/type1
-/public/amsfonts/symbols/msam5.pfb><C:/Users/fcoja/AppData/Local/Programs/MiKTe
-X/fonts/type1/public/amsfonts/symbols/msam7.pfb><C:/Users/fcoja/AppData/Local/P
-rograms/MiKTeX/fonts/type1/public/amsfonts/symbols/msbm10.pfb><C:/Users/fcoja/A
-ppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/symbols/msbm7.pfb>
-Output written on AEM.pdf (101 pages, 1729783 bytes).
+cmmi7.pfb><C:/Users/fcoja/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsf
+onts/cm/cmmi8.pfb><C:/Users/fcoja/AppData/Local/Programs/MiKTeX/fonts/type1/pub
+lic/amsfonts/cm/cmmi9.pfb><C:/Users/fcoja/AppData/Local/Programs/MiKTeX/fonts/t
+ype1/public/amsfonts/cm/cmmib10.pfb><C:/Users/fcoja/AppData/Local/Programs/MiKT
+eX/fonts/type1/public/amsfonts/cm/cmr10.pfb><C:/Users/fcoja/AppData/Local/Progr
+ams/MiKTeX/fonts/type1/public/amsfonts/cm/cmr12.pfb><C:/Users/fcoja/AppData/Loc
+al/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr17.pfb><C:/Users/fcoja/App
+Data/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr5.pfb><C:/Users/fc
+oja/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr6.pfb><C:/U
+sers/fcoja/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr7.pf
+b><C:/Users/fcoja/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/
+cmr8.pfb><C:/Users/fcoja/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfo
+nts/cm/cmr9.pfb><C:/Users/fcoja/AppData/Local/Programs/MiKTeX/fonts/type1/publi
+c/amsfonts/cm/cmsy10.pfb><C:/Users/fcoja/AppData/Local/Programs/MiKTeX/fonts/ty
+pe1/public/amsfonts/cm/cmsy5.pfb><C:/Users/fcoja/AppData/Local/Programs/MiKTeX/
+fonts/type1/public/amsfonts/cm/cmsy6.pfb><C:/Users/fcoja/AppData/Local/Programs
+/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy7.pfb><C:/Users/fcoja/AppData/Local/
+Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy8.pfb><C:/Users/fcoja/AppDat
+a/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy9.pfb><C:/Users/fcoj
+a/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmti9.pfb><C:/Us
+ers/fcoja/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmtt10.p
+fb><C:/Users/fcoja/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm
+/cmtt9.pfb><C:/Users/fcoja/AppData/Local/Programs/MiKTeX/fonts/type1/public/ams
+fonts/latxfont/line10.pfb><C:/Users/fcoja/AppData/Local/Programs/MiKTeX/fonts/t
+ype1/public/amsfonts/symbols/msam10.pfb><C:/Users/fcoja/AppData/Local/Programs/
+MiKTeX/fonts/type1/public/amsfonts/symbols/msam5.pfb><C:/Users/fcoja/AppData/Lo
+cal/Programs/MiKTeX/fonts/type1/public/amsfonts/symbols/msam7.pfb><C:/Users/fco
+ja/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/symbols/msbm10.pfb
+><C:/Users/fcoja/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/symb
+ols/msbm7.pfb>
+Output written on AEM.pdf (113 pages, 1931744 bytes).
 PDF statistics:
- 2584 PDF objects out of 2984 (max. 8388607)
- 709 named destinations out of 1000 (max. 500000)
- 1247 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 2885 PDF objects out of 2984 (max. 8388607)
+ 765 named destinations out of 1000 (max. 500000)
+ 1370 words of extra memory for PDF output out of 10000 (max. 10000000)
 
