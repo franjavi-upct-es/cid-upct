@@ -15,7 +15,6 @@
     frame=single,
     backgroundcolor=\color{lightgray!10},
     captionpos=b,
-    tabsize=2,
     inputencoding=utf8,
     literate={á}{{\'a}}1 {é}{{\'e}}1 {í}{{\'i}}1 {ó}{{\'o}}1 {ú}{{\'u}}1{ñ}{{\~n}}1{Ñ}{{\~N}}1{€}{{\texteuro}}1
 }
@@ -38,6 +37,7 @@
 	upquote=true,
 	morestring=[b]",
 	stringstyle=\color{string},
+	tabsize=1,
 	literate=
 	{0}{{{\color{numb}0}}}{1}
 	{1}{{{\color{numb}1}}}{1}
@@ -75,6 +75,11 @@
 	morestring=[b]"
 }
 
+\hypersetup{
+	colorlinks=true,
+	linkcolor=black,
+	urlcolor=lightblue
+}
 \newcommand{\code}[1]{\textbf{\texttt{#1}}}
 
 \begin{document}

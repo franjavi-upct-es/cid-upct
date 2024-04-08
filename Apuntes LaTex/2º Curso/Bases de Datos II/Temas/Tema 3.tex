@@ -428,8 +428,8 @@ posts.find_one({"body": {"$regrex": "[Mm]ongo"}})
 Condición compuesta (limitando la salida a 10 documentos):
 \begin{lstlisting}[language=python]
 posts.find({"$and": [{"PostTypeId": 2},
-										 {"Id" : {"$gte": 100}} ]})
-					 .limit(10)
+	{"Id" : {"$gte": 100}} ]})
+		.limit(10)
 \end{lstlisting}
 \subsubsubsection{Ejemplos introductorios}
 \begin{itemize}[leftmargin=*]
@@ -510,6 +510,7 @@ db.bios.find({"trabajos": { "$size": 4 }}) #El array 'trabajos' debe tener 4 ele
 db.inventory.find( { "precio": { "$not": { "$gt": 1.99 } } } )
 \end{lstlisting}
 \item Por último, los operadores \code{\$and}, \code{\$or} y \code{\$not} pueden combinarse para definir condiciones complejas:
+\pagebreak
 \begin{lstlisting}[language=python]
 db.inventory.find( { 
 	"$and": [
@@ -543,4 +544,118 @@ miLista = [
 x = micoleccion.insert_many(miLista)
 # Imprimimos sus _id asignados
 print(x.inserted_ids)
+\end{lstlisting}
+A la hora de actualizar un documento debemos especificar un criterio de búsqueda y los campos y valores a actualizar.
+\begin{lstlisting}[language=python]
+micoleccion = db["clientes"]
+mifiltro = { "direccion": "Valley " }
+nuevosvalores = { "$set": { "direccion": "Rue del percebe, 13" } }
+micoleccion.update_one(mifiltro, nuevosvalores)
+\end{lstlisting}
+Para actualizar múltiples documentos la estructura es la misma
+\begin{lstlisting}[language=python]
+micoleccion = db["clientes"]
+mifiltro = { "direccion": { "$regrex": "^S" } }
+nuevosvalores = { "$set": { "nombre": "Rey" } }
+x = micoleccion.update_many(mifiltro, nuevosvalores)
+print(x.modified_count, "documentos actualizados.")
+\end{lstlisting}
+\subsubsubsection{Índices, \code{explain()}}
+La llamada \code{.explain()} a cualquier búsqueda muestra el plan de ejecución.
+
+Se puede crear un índice si la búsqueda por ese campo va a ser crítica.
+
+Se pueden crear más índices:
+\begin{itemize}
+	\item \code{ASCENDING}
+	\item \code{DESCENDING}
+	\item \code{HASHED}
+	\item Geoespaciales
+\end{itemize}
+\subsubsection{Framework de agregación}
+El framework de agregación de MongoDB es una de sus características más potentes
+
+Permite escribir expresiones, divididas en una serie de etapas, que realizan operaciones como agregaciones, transformaciones y uniones en los datos de las bases de datos MongoDB
+
+Esto le permite realizar cálculos y análisis a través de documentos y colecciones dentro de su base de datos MongoDB
+\begin{center}
+	\includegraphics{"Temas/Tema 3/screenshot004"}
+\end{center}
+Framework de agregación: \url{https://docs.mongodb.com/manual/reference/operator/aggregation/}
+\begin{lstlisting}[language=python]
+posts.aggregate ( [
+	{"$project" : { "Id" : 1 }},
+	{"$limit": 20}
+])
+\end{lstlisting}
+\begin{lstlisting}[language=python]
+by_length = posts.aggregate( [
+	{'$project': {
+		'Body': {'$ifNull' : ['$Body', '']}
+	}},
+	{'$project': {
+		'id' : {'$strLenBytes': '$Body'},
+		'value' : {'$literal' : 1}
+	}},
+	{'$group': {
+		'_id' : '$id',
+		'count' : {'$sum' : '$value'}
+	}},
+	{'$sort' : { '_id' : 1 }}
+])
+\end{lstlisting}
+Se pueden añadir etapas. En particular, por ejemplo, se puede \textbf{filtrar} inicialmente añadiendo al principio:
+\begin{lstlisting}[language=python]
+{'$match':  { 'Body' : {'$regex': 'HBase'}}}
+\end{lstlisting}
+La construcción \code{\$lookup} permite el acceso a otra (o a la misma) colección. Es equivalente a un \textbf{JOIN}.
+
+Por ejemplo, listar los posts con Score mayor o igual a 40 junto con el usuario que lo ha hecho:
+\begin{lstlisting}[language=python]
+posts.aggregate( [
+	{'$match': { 'Score' : {'$gte': 40}}},
+	{'$lookup': {
+		'from': "users",
+		'localField': "OwnerUserId",
+		'foreingField': "Id",
+		'as': "owner"}
+	}
+])
+\end{lstlisting}
+Vamos a suponer que contamos con una colección de películas (\texttt{movies}) que contienen documentos que tienen esta estructura:
+\begin{lstlisting}[language=python]
+{
+	'_id': ObjectId('573a1392f29313caabcdb497'),
+	'awards': {'nominations': 7,
+				'text': 'Won 1 Oscar. Another 2 wins & 7 nominations.',
+				'wins': 3},
+	'cast': ['Janet Gaynor', 'Fredric March', 'Adolphe Menjou', 'May Robson'],
+	'countries': ['USA'],
+	'directors': ['Willianm A. Wellman', 'Jack Conway'],
+	'fullplot': 'Esther Blodgett is just...',
+	'genres': ['Drama'],
+	'imdb': {'id': 29606, 'rating': 7.7, 'votes': 5005},
+	'languages': ['English'],
+	'lastupdated': '2015-09-01 00:55:54.333000000',
+	'plot': 'A young woman ...',
+	'poster': 'https://m.media-amazon.com/images/M/MV5....jpg',
+	'rated': 'NOT RATED',
+	'released': datetime.datetime(1937, 4, 27, 0, 0),
+	'runtime': 111,
+	'title': 'A Star Is Born',
+	'tomatoes': {'critic': {'meter': 100, 'numReviews': 11, 'rating': 7.4},
+				'dvd': datetime.datetime(2004, 11, 16, 0, 0),
+				'fresh': 11,
+				'lastUpdated': datetime.datetime(2015, 8, 26, 18, 58, 34),
+				'production': 'Image Entertainment Inc. ',
+				'rotten': 0,
+				'viewer': {'meter': 79, 'numReviews': 2526, 'rating': 3.6},
+				'website': 'http://www.vcientertainment.com/Film-Categories?product_id=73'},
+	'type': 'movie',
+	'writers': ['Dorothy Parker (screen play)',
+				'Alan Campbell (screen play)',
+				'Robert Carson (screen play)',
+				'William A. Wellman (from a story by)',
+				'Robert Carson (from a story by)'],
+	'year': 1937}
 \end{lstlisting}
