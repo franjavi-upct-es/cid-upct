@@ -510,7 +510,6 @@ db.bios.find({"trabajos": { "$size": 4 }}) #El array 'trabajos' debe tener 4 ele
 db.inventory.find( { "precio": { "$not": { "$gt": 1.99 } } } )
 \end{lstlisting}
 \item Por último, los operadores \code{\$and}, \code{\$or} y \code{\$not} pueden combinarse para definir condiciones complejas:
-\pagebreak
 \begin{lstlisting}[language=python]
 db.inventory.find( { 
 	"$and": [
@@ -659,3 +658,153 @@ Vamos a suponer que contamos con una colección de películas (\texttt{movies}) 
 				'Robert Carson (from a story by)'],
 	'year': 1937}
 \end{lstlisting}
+\Ej
+
+En primer lugar vamos a realizar una primera búsqueda sobre dicha colección filtrando por el nombre de la película (\texttt{title}) y ordenando por su año (\texttt{year}):
+\begin{lstlisting}[language=python]
+movie_colection = db["movies"]
+pipeline = [
+	{
+		"$match": {
+			"title": "A Star Is Born"
+		}	
+	},
+	{
+		"$sort": {
+			"year": pymongo.ASCENDING
+		}
+	},
+]
+results = movie_colecction.aggregate(pipeline)
+\end{lstlisting}
+Si ahora quisieramos limitar la salida a un único documento\dots
+\begin{lstlisting}[language=python]
+movie_colection = db["movies"]
+pipeline = [
+	{
+		"$match": {
+			"title": "A Star Is Born"
+		}	
+	},
+	{
+		"$sort": {
+			"year": pymongo.ASCENDING
+		}
+	},
+	{"$limit": 1}
+]
+results = movie_colecction.aggregate(pipeline)
+\end{lstlisting}
+
+\Ej
+
+Vamos a suponer ahora que existe otra colección llamada \texttt{comments} cuyos documentos tienen este formato
+\begin{lstlisting}[language=python]
+{
+	'_id': ObjectId('5a9427648b0beebeb69579d3'),
+	'movie_id': ObjectId('573a1390f2931caabcd4217'),
+	'date': datetime.datetime(1983, 4, 27, 20, 39, 15),
+	'email': 'cameron_duran@fakegmail.com',
+	'name': 'Cameron Duran',
+	'text': '...'}
+\end{lstlisting}
+
+Esto permitiría añadir un campo \code{related_comments} a cada película con sus críticas asociadas
+
+\begin{lstlisting}[language=python]
+stage_lookup_comments = {
+	"$lookup": {
+		"from": "comments",
+		"localField": "_id",
+		"foreignField": "movie_id",
+		"as": "related_comments",	
+	}
+}
+# Limitamos a los primeros 5 documentos
+stage_limit_5 = {"$limit": 5}
+pipeline = [stage_lookup_comments, stage_limit_5]
+results = movie_collection.aggregate(pipeline)
+\end{lstlisting}
+
+\Ej
+
+Una funcionalidad muy interesante es la agrupación de documentos con el comando \code{\$group}
+
+Vamos a usar dicho comando para contar el número de películas por año, ordenadas de forma ascendente
+
+\begin{lstlisting}[language=python]
+stage_group_year = {
+	"$group": {
+		"_id": "$year",
+		# contamos el número de películas en el grupo
+		'movie_count': { "$sum": 1 },
+	}
+}
+stage_match_years = {
+	"$match": {
+		"year": {
+			"$type": "number",
+		}
+	}
+}
+stage_sort_year_ascending = {
+	"$sort": {"_id": pymongo.ASCENDING}
+}
+pipeline = [stage_match_years, stage_group_year, stage_sort_year_ascending]
+results = movie_colecction.aggregate(pipeline)
+\end{lstlisting}
+\subsubsection{Índices}
+\subsubsubsection{Creación de índices}
+En MongoDB, la creación de índices se realiza mediante el método \code{create_index}
+\begin{lstlisting}[language=python]
+db.collection.create_index([(<key and index type specification>)], <options> )
+\end{lstlisting}
+En el siguiente ejemplo se crea un índice con una sola clave (\texttt{nombre}) en orden descendente
+\begin{lstlisting}[language=python]
+collection.create_index([("nombre", pymongo.DESCENDING)])
+\end{lstlisting}
+Podemos listar los índices que tenemos creados en una colección con 
+\begin{lstlisting}[language=python]
+collection.index_information()
+\end{lstlisting}
+En el caso de las colecciones con alta proporción de escritura por lectura, los índices son caros porque cada inserción y actualización también debe actualizar cualquier índices.
+\subsubsubsection{Nombrado y borrado de índices}
+Al crear un índice, puede darle un nombre personalizado
+
+Ayuda a distinguir los distintos índices de la colección.
+
+Para especificar el nombre del índice, incluya la opción de nombre al crear el índice:
+\begin{lstlisting}[language=python]
+db.collection.create_index(
+	{ "<campo>": "<valor>" },
+	{ "name": "<NombreDelIndice>" }
+)
+\end{lstlisting}
+Para borrar un índice podemos hacerlo con el método \code{.drop_index}
+\begin{lstlisting}[language=python]
+colecction.drop_index("<NombreDelIndice>")
+\end{lstlisting}
+\subsubsubsection{Tipos de índices en MongoDB}
+\begin{itemize}[label=\color{red}\textbullet, leftmargin=*]
+	\item \color{lightblue}Índices compuestos (\textit{compound indexes})
+\end{itemize}
+Los índices compuestos recopilan y ordenan datos de dos o más campos de cada documento de una colección.
+
+Los datos se agrupan por el primer campo del índice y, a continuación, por cada campo subsiguiente.
+
+Para su creación se sigue un formato parecido al de los \code{single field index}
+\begin{lstlisting}[language=python]
+db.<collection>.create_index( {
+	<campo1>: <tipoDeOrdenacion>,
+	<campo2>: <tipoDeOrdenacion>,
+	...
+	<campoN>: <tipoDeOrdenacion>
+} )
+\end{lstlisting}
+Ejemplo: si quisieramos crear un índice sobre los campos \texttt{userid} (de forma ascendente) y \texttt{score} (de forma descendente) de los documentos de una colección \texttt{usuarios} deberíamos ejecutar
+\begin{lstlisting}[language=python]
+	db.usuarios.create_index({"userid": 1, "score": -1})
+\end{lstlisting}
+\begin{center}
+	\includegraphics{"Temas/Tema 3/screenshot005"}
+\end{center}
