@@ -1,0 +1,396 @@
+---
+title: "COMPLETAR Práctica 4: ACP"
+author: "Francisco Javier Mercader Martínez"
+output:
+  pdf_document:
+    latex_engine: xelatex
+    extra_dependencies: fvextra
+header-includes:
+- \usepackage{fvextra}
+- \DefineVerbatimEnvironment{Highlighting}{Verbatim}{breaklines, commandchars=\\\{\}}
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+**PRÁCTICA 4: ANÁLISIS DE COMPONENTES PRINCIPALES**
+
+ANÁLISIS ESTADÍSTICO MULTIVARIANTE
+
+GRADO EN CIENCIA E INGENIERÍA DE DATOS
+
+**Sumario**: En esta práctica mostramos cómo resumir la información contenida en muchas variables aleatorias (relacionadas) en unas pocas variables denominadas componentes principales. Al pasar de muchas variables a unas pocas, estamos reduciendo la dimensión del problema. Para ello necesitaremos disponer de una muestra de las variables en estudio. El Análisis de Componentes Principales (ACP o PCA por sus siglas en inglés) se podrá usar para estudiar (resumir) la información contenida en la muestra y las principales características de sus individuos. También se podrá usar para detectar grupos.
+
+# 1. Estudio descriptivo inicial
+
+Como en el resto de técnicas vistas anteriormente, debemos comenzar con un análisis descriptivo previo de nuestros datos. En particular, para dar respuesta a las cuestiones:
+
+1)  ¿Tiene sentido plantearse un Análisis de Componentes Principales para estos datos? La respuesta será afirmativa si las variables presentan correlación.
+
+2)  ¿Todas las variables se miden en magnitudes similares y presentan dispersión similar? Recordar que si no es así, las que tengan mayor dispersión tendrán más importancia a la hora de obtener las componentes principales.
+
+3)  ¿Conviene usar la matriz de covarianzas, o es preferible la matriz de correlaciones a la hora de extraer las componentes principales? Recordar que esto equivale, respectivamente, a trabajar con los datos originales, o bien con los datos tipificados (estandarizados).
+
+Comenzamos cargando el conjunto de datos *LifeCycleSavings*, que está disponible en R. Podemos ver su descripción en la ayuda de R. El fichero contiene 5 variables medidas en 50 países diferentes. Las variables son:
+
+sr: incremento de los ahorros personales 1960-1970.
+
+pop15: porcentaje población menor de 15 años.
+
+pop75: porcentaje población mayor de 75.
+
+dpi: ingresos per-capita.
+
+ddpi: crecimiento del dpi 1960-1970.
+
+```{r}
+d <- LifeCycleSavings
+# help(LifeCycleSavings)
+```
+
+Mostramos la estructura del conjunto de datos y hacemos un resumen numérico:
+
+```{r}
+str(d)
+```
+
+Realizamos la matriz de nube de puntos para ver si existen variables correladas:
+
+```{r}
+plot(d, pch=20, cex=1)
+summary(d)
+
+```
+
+Podemos observar algunos pares de variables correlados (relacionados linealmente), aunque no de manera muy estrecha.
+
+Calculamos las matrices de covarianzas y de correlaciones del conjunto de datos:
+
+```{r}
+cov(d)
+cor(d)
+
+```
+
+Para saber si las correlaciones anteriores son significativas, podemos usar la función *rcorr()* del paquete *Hmisc*, que proporciona tanto el valor de las correlaciones como el p-valor del contraste de significación de cada correlación.
+
+```{r, message = FALSE}
+library(Hmisc)
+rcorr(as.matrix(d))
+
+```
+
+Observamos varios p-valores inferiores a 0.05, lo que indica que las correspondiente correlaciones son significativas.
+
+**Conclusión 1:** Como existe correlación entre algunas variables, sí tiene sentido intentar reducir la dimensión haciendo ACP.
+
+La forma en la que se distribuye cada variable y la posible existencia de atípicos puede visualizarse a través de los diagramas de caja-bigotes:
+
+```{r}
+boxplot(d)
+```
+
+Como las variables se mueven en magnitudes muy distintas, conviene hacer cada diagrama de caja por separado:
+
+```{r}
+par(mfrow = c(2, 3))
+boxplot(d[, 1])
+boxplot(d[, 2])
+boxplot(d[, 3])
+boxplot(d[, 4])
+boxplot(d[, 5])
+```
+
+Calculemos la media y desviación típica de cada variable:
+
+```{r}
+apply(d, 2, mean)
+apply(d, 2, sd)
+# Otra alternativa:
+# colMeans(d)
+# sapply(d, mean)
+# sapply(d, sd)
+```
+
+Observamos que las variables se mueven en magnitudes muy distintas y con diferente dispersión.
+
+**Conclusión 2:** La variable *dpi* tendrá mucho más peso que el resto a la hora de extraer las componentes principales. Para evitarlo, debemos trabajar con las variables estandarizadas (o equivalentemente, trabajar con la matriz de correlaciones).
+
+Por último, veamos si hay observaciones que se alejan especialmente del resto. Para ello usaremos la distancia de Mahalanobis al cuadrado:
+
+```{r}
+md <- mahalanobis(d, colMeans(d), cov(d))
+plot(md , ylab = 'Distancias de Mahalanobis')
+sort(md)
+```
+
+Observamos que Libia es el país más alejado del conjunto de datos.
+
+# 2. Cálculo de las componentes principales
+
+La obtención de las componentes principales puede realizarse con las funciones *princomp()* y *prcomp()* . Los resultados pueden variar ligeramente debido a los métodos usados en cada caso.
+
+```{r}
+PCA <- princomp(d, cor = TRUE)
+summary(PCA, loadings = TRUE)
+
+# PCA$center
+# PCA$scale
+# observar que en esta estandarización, R divide entre la desv típica, 
+# no entre la cuasidesviación típica
+```
+
+**Standard deviation**: indica la desviación típica de cada componente, es decir, la raíz cuadrada de cada valor propio. Por tanto, dichos valores al cuadrado se corresponden con los valores propios.
+
+**Proportion of Variance**: indica la proporción de varianza explicada por cada componente.
+
+**Cumulative Proportion**: indica cómo se acumula la varianza explicada conforme consideramos nuevas componentes. En este caso, vemos que las tres primeras componentes ya explican más del 93% de variabilidad.
+
+Las **cargas (loadings)** son los vectores propios unitarios correspondientes a cada valor propio (en este caso de la matriz de correlaciones). Observamos que algunas cargas no aparecen, por tener valores bajos (aunque no sean nulos). Para poder visualizarlos todos haremos:
+
+```{r}
+L <-  PCA$loadings # matriz de cargas
+L[ , ]
+```
+
+Podemos comprobar que las cargas (loadings) obtenidas con la función *princomp()* coinciden con los vectores propios unitarios de la matriz de correlaciones.
+
+```{r}
+eigen(cor(d))
+```
+
+También podemos comprobar que, al utilizar la matriz de correlaciones, la suma de todos los valores propios coincide con el número total de variables (k = 5).
+
+```{r}
+sum(eigen(cor(d))$values)
+```
+
+Las **puntuaciones (scores)** se corresponden con las coordenadas que tendrían los individuos de la muestra (en esta caso países) en el nuevo sistema de referencia formado por las componentes principales. Es decir, los valores que se obtienen al sustituir los datos originales de cada país en la expresión que define cada componente principal. Para obtener los scores haremos:
+
+```{r}
+PCA$scores
+```
+
+Veamos cómo se haría el ACP con la función *prcomp()* :
+
+```{r}
+PCA_bis <- prcomp(d, scale. = TRUE)
+summary(PCA_bis)
+PCA_bis$rotation  # loadings
+PCA_bis$x         # scores
+```
+
+**Nota:** Obsérvese que las puntuaciones (scores) no coinciden al aplicar las funciones *princomp()* y *prcomp()*. Esto se debe a que en el primer caso, se estandariza dividiendo entre la desviación típica de cada variable y en el segundo caso se estandariza dividiendo entre la cuasi-desviación típica. Tampoco coinciden las cargas (loadings), observamos que aparecen cambiadas de signo: como sabemos, las componentes principales son únicas salvo signo.
+
+# 3. Análisis de las componentes principales
+
+En esta sección veremos cómo:
+
+1)  A partir de las cargas (loadings), dar una interpretación de las componentes principales.
+
+2)  Representar los individuos de la muestra (países en este caso) en el nuevo sistema de referencia dado por las primeras componentes principales. Concretamente, los gráficos de las puntuaciones (scores) estandarizadas y sin estandarizar.
+
+3)  Realizar el gráfico de saturaciones, para facilitar la interpretación de las componentes.
+
+Para **interpretar las componentes principales**, miraremos las cargas (loadings), es decir, los coeficientes de las componentes que queremos analizar. Si miramos las cargas de la primera componente principal, teniendo en cuenta que las variables están estandarizadas (y tendrán valores similares), podemos afirmar que las variables que más influyen son (por orden de influencia): pop15 (negativa), pop75 (positiva), dpi (positiva) y sr (positiva). Por lo tanto, la primera componente tomará valores grandes en los países con valores pequeños en pop15 y grandes en las otras tres. Por lo tanto, la primera componente nos indicará los países que tienen poblaciones envejecidas (alta pop75 y baja pop15) y ricos (altos valores en dpi y sr). En resumen, la primera componente principal podría interpretarse como el nivel de desarrollo económico, de manera que los países muy desarrollados económicamente tomarán valores altos (scores altos) en la primera componente principal.
+
+```{r}
+S <- PCA$scores
+plot(S[, 1] , ylab = 'primera componente Y1')
+which.max(S[, 1])
+which.min(S[, 1])
+sort(S[, 1])
+```
+
+Observamos que Suecia es el país con mayor score en la componente 1 (el más desarrollado económicamente) y Malasia el país con menor score en dicha componente (el menos desarrollado econónimcamente).
+
+De forma similar, se podría intentar dar un significado al resto de componentes principales, aunque no siempre será fácil.
+
+Vamos ahora a **representar los individuos de la muestra** (países en este caso) **en el nuevo sistema de referencia** dado por las 2 primeras componentes principales. Indicar que R estandariza las puntuaciones (scores) en el gráfico siguiente:
+
+```{r}
+biplot(PCA, pc.biplot = TRUE)
+
+```
+
+Para una mejor visualización, pondremos que use numeración en lugar del nombre del país.
+
+```{r}
+biplot(PCA, pc.biplot=TRUE, xlabs=row.names(d))
+biplot(PCA, pc.biplot = TRUE, xlabs = 1:dim(d)[1])
+
+```
+
+Obsérvese que el país 39 (Suecia), es el que tiene mayor valor en la Comp.1 (componente 1), indicando que es el país con más desarrollo económico.
+
+Los vectores en rojo se corresponden con las **saturaciones**, con las escalas en la derecha y arriba del gráfico. Las puntuaciones estandarizadas aparecen con las etiquetas de los datos en negro, con las escalas abajo (Y1) y en la izquierda (Y2). Este gráfico es la ‘mejor’ proyección bidimensional de nuestros datos muestrales (que vienen dados por 5 variables, es decir, dimensión 5).
+
+Las saturaciones de este gráfico se pueden usar para interpretar las componentes. Las variables con vectores largos (norma cercana a 1) estarán bien representadas por las dos primeras componentes, mientras que las que tengan vectores cortos estarán mal representadas (se pierden al proyectar por ser casi perpendiculares). En este ejemplo, todas las variables están bien representadas en este gráfico. Además, se aprecia que pop75, dpi y, en menor medida, sr, hacen crecer la primera componente mientras que pop15 la hace disminuir y ddpi no influye en ella. Lógicamente, la interpretación es la misma que antes. También podemos observar que la segunda componente crece cuando crece ddpi (incremento ingresos per-capita) y, en menor medida, sr (incremento de los ahorros personales), decrece un poco si crece dpi y casi no se ve afectada ni por pop15 ni por pop75. Por lo tanto, se podría interpretar como un índice del crecimiento en la década 1960-1970.
+
+En la siguiente sección veremos con más detalle las saturaciones.
+
+Las puntuaciones se usarán para decir cómo serán (aproximadamente) los individuos de la muestra (países) en esas características. A la derecha tendremos a los países más desarrollados y con poblaciones envejecidas (Suecia, US, etc.) a la izquierda lo contrario (Honduras, Guatemala, etc.), arriba a los países que más se desarrollaron durante esa época (Líbia, Japón, etc.) y debajo los que menos (Islandia, US, Paraguay, etc.).
+
+También nos podemos fijar en una variable concreta. Por ejemplo, con respecto a sr podríamos decir que los países con mayores incrementos de los ahorros personales (valores sr) deberían ser Japón, Malta y Holanda. Si vemos los datos de sr, podemos comprobar que efectivamente Japón es el que tiene un valor mayor (21.10) pero que el segundo es Zambia (18.56). Es lógico que al proyectar las variables originales, se pierda algo de la información contenida en ellas.
+
+Si queremos hacer un gráfico de las componentes tercera y cuarta haremos:
+
+```{r}
+biplot(PCA , pc.biplot = TRUE, choices = c(3,4), xlabs = 1:dim(d)[1])
+```
+
+Podemos hacer un gráfico solo de las puntuaciones (sin estandarizar) para las dos primeras componentes. Además, vamos a identificar a España:
+
+```{r}
+plot(S[, 1], S[, 2], xlab = 'Y1', ylab = 'Y2', pch = 20, cex = 1)
+text(S[38, 1], S[38, 2] + 0.25, labels = 'Esp', cex = 1)
+points(S[38, 1], S[38, 2], col = '#007AFF', pch = 20, cex = 1)
+```
+
+Para que pongan las etiquetas (debajo) en todos los países haremos:
+
+```{r}
+plot(S[, 1], S[, 2], xlab = 'Y1', ylab = 'Y2', pch = 20, cex = 0.5, ylim = c(-3, 3))
+text(S[, 1], S[, 2] - 0.2, xlab = 'Y1', ylab = 'Y2', labels = row.names(d), cex = 0.4)
+```
+
+Note que estos gráficos no coinciden con el realizado automáticamente por R con la función *biplot()*, ya que esa función dibuja las puntuaciones estandarizadas, es decir, hace:
+
+```{r}
+ plot(S[, 1]/1.6799, S[, 2]/1.1207)
+# pairs(PCA$scores[,1:3])
+```
+
+En el gráfico de puntuaciones sin estandarizar, la mayor dispersión de la primera componente nos indica que esta componente es más importante (tiene más información) a la hora de distinguir los datos.
+
+# 4. Las saturaciones
+
+Recordar que las saturaciones miden las correlaciones (relaciones lineales) entre las variables iniciales y las componentes principales, así que son de utilidad para interpretar las componentes.
+
+Para calcular las saturaciones bastará con hacer:
+
+```{r}
+
+cor(d, S)
+```
+
+En el caso de trabajar con variables estandarizadas (equivalentemente, matriz de correlaciones), las saturaciones coinciden con el producto de las cargas por la raíz del correspondiente valor propio:
+
+```{r}
+S1 <- L[ , 1] * PCA$sdev[1] # saturaciones de la componente 1
+S1
+```
+
+Las saturaciones al cuadrado nos indicarán cuanta información (en tanto por 1) tendrá cada componente de cada variable:
+
+```{r}
+S1^2
+```
+
+De esta forma, comprobamos que la variable mejor representada en la primera componente Y1 es pop15, con un 91.89958%, y que de la última variable ddpi Y1 prácticamente no tiene ninguna información (0.4047742%).
+
+Como las componentes son incorreladas, las correlaciones múltiples al cuadrado o **comunalidades** serán la suma de las correlaciones al cuadrado:
+
+$Corr^2(X_i, (Y_1, . . . , Y_p))= \displaystyle \sum_{j = 1}^{p} Corr^2(X_i, Y_j).$
+
+Estos valores nos indicarán la información (en tanto por 1) que mantienen las p primeras componentes sobre cada variable. Por ejemplo, si decidimos usar las dos primeras componentes, las comunalidades se calcularán mediante:
+
+```{r}
+SAT <-  cor(d, S)  # matriz de saturaciones
+COM2 <- SAT[, 1]^2 + SAT[, 2]^2  # comunalidades si retenemos 2 componentes
+COM2
+
+```
+
+Se observa que la variable mejor representada en las dos primeras componentes es pop15 de la que se mantiene un 91.91976% de su información y que la peor representada es sr con un 65.43657%. Esto también se vio en el gráfico biplot.
+
+Se puede comprobar que la media de las comunalidades que acabamos de calcular es 0.8156289, coincidiendo con la información que (en promedio) mantienen las dos primeras componentes Y1 y Y2.
+
+```{r}
+mean(COM2)
+```
+
+Podemos comprobar que ocurre lo mismo con las informaciones individuales de cada componente.
+
+```{r}
+mean(SAT[ , 1]^2)
+mean(SAT[ , 2]^2)
+```
+
+Si en lugar de hacer la media de las saturaciones al cuadrado, hacemos la suma, podemos comprobar que se obtienen los valores propios (informaciones) de cada componente principal (solo si usamos la matriz de correlaciones). Por ejemplo, comprobamos que sumando los valores de la primera columna de las saturaciones al cuadrado obtenemos 2.822078, es decir, el mayor valor propio de la matriz de correlaciones.
+
+```{r}
+sum(SAT[ , 1]^2)
+```
+
+La correlación múltiple al cuadrado $Corr^2(X_i, (Y_1, . . . , Y_p))$ es el máximo de las correlaciones que se pueden obtener con combinaciones lineales de las componentes $Y_1, . . . , Y_p$. Además, el máximo de esas correlaciones se obtiene con los coeficientes incluidos en la matriz de cargas L. Por ejemplo, la mejor combinación lineal de las dos primeras componentes para estimar (linealmente) sr es la que se obtiene cortando L[1, ], es decir, $Z_1 = 0.3084617 * Y_1 + 0.5542456 * Y_2$. Si calculamos Z1 con la expresión anterior y luego calculamos la correlación al cuadrado entre Z1 y la variable sr, obtenemos 0.6543657 (recordar que sr viene representada en un 65.43657% si consideramos las dos primeras componentes):
+
+```{r}
+Z1 <- 0.3084617 * S[ , 1]+ 0.5542456 * S[ , 2]
+cor(d[ , 1], Z1)^2
+```
+
+La variable Z1 se podría usar para predecir sr usando las técnicas de regresión lineal mediante:
+
+```{r}
+lm(d$sr ~ Z1)  
+plot(Z1, d$sr, pch = 20, ylab = 'sr')
+abline(lm(d$sr ~ Z1), col = 'red')
+plot(d$sr - 9.671 - 4.435 * Z1, pch = 20, ylab = 'Residuos') # gráfico de residuos
+9.671 + 4.435 * Z1  # valores ajustados 
+```
+
+Así observamos que la mejor manera de recuperar sr usando Z1 es mediante el modelo lineal $sr = 9.671 + 4.435*Z_1$. Por ejemplo, para Australia obtendríamos como valor ajustado 10.530575, cuando su verdadero valor de la variable *sr* es 11.43. Para obtener mejores aproximaciones debemos aumentar el número de componentes. Lógicamente, si retenemos todas las componentes, obtendremos los valores exactos.
+
+# 5. Número de componentes a retener
+
+Una vez realizado un PCA podemos preguntarnos con cuántas componentes principales debemos quedarnos. Las respuesta no es única y puede depender de factores subjetivos. Todas las soluciones serán correctas ya que lo que estamos haciendo es perder algo de información (la menor posible) a cambio de reducir la dimensión inicial (número de variables). A continuación comentamos algunas de las técnicas más usadas. En todos ellas el número de componentes elegidas se representará por *p* y, lógicamente, siempre se tomarán las *p* primeras componentes principales (ya que son las que más información tienen).
+
+## 5.1. Fijar un número concreto de componentes
+
+Una opción válida es fijar un número de componentes concreto. Por ejemplo, si queremos hacer una única gráfica bidimensional, evidentemente, debemos tomar p = 2, con lo que únicamente analizaremos Y1 e Y2. En esta opción es fundamental incluir la información total mantenida por las componentes elegidas y advertir si ese número es bajo. Se suelen tomar números pares de componentes para poder realizar gráficas bidimensionales y el valor más usual es p = 2. Tecleando **summary(PCA)** (ver sección 2) comprobamos que, en nuestro ejemplo, si tomamos p = 2, mantendríamos un 81.56% de la información inicial lo que podemos considerar como aceptable al reducir la dimensión de 5 a 2.
+
+También podríamos informar sobre las comunalidades, es decir, sobre la información mantenida por esas componentes de cada variable (ver sección anterior). En nuestro ejemplo, para p = 2, la variable peor representada es sr de la que mantienen un 65.44%. Por lo tanto, todas las variables están bien representadas. En otros ejemplos nos podremos encontrar con variables que no están representadas en las componentes elegidas. En estos casos es importante señalarlo y, si fuera necesario, aumentar p.
+
+## 5.2. Fijar un porcentaje mínimo de información mantenida
+
+Si queremos mantener al menos un porcentaje concreto de la variabilidad inicial, deberemos quedarnos con las primeras p componentes que cumplan dicha condición. En nuestro ejemplo, si queremos mantener al menos un 90% de información, debemos tomar p = 3, con lo que mantendríamos un 93.65%.
+
+Otra regla (diferente) podría ser el fijar un porcentaje mínimo para las comunalidades. De esta forma nos aseguramos de que todas las variables originales (sean importantes o no), estén representadas en las componentes. En nuestro ejemplo, si queremos que las comunalidades sean mayores que 0.5 (es decir queremos mantener al menos un 50% de todas las variables), debemos tomar p = 2. Nótese que con esta regla, en nuestro ejemplo, nunca obtendríamos p = 1 a pesar de que Y1 tiene un 56% de la información total.
+
+## 5.3. Regla de Rao
+
+Esta regla establece que solo serán relevantes las componentes que tengan una variabilidad (varianza o valor propio) mayor que la variabilidad mínima de las variables originales. Si las componentes se calculan usando la matriz de correlaciones, como esto es equivalente a usar las variables estandarizadas, se entiende que las varianzas son 1 y, por lo tanto, se toman solo las componentes con valores propios (varianzas o desviaciones típicas) mayores que uno. En nuestro ejemplo, esta regla nos conduce a p = 2.
+
+Si calculásemos las componentes con la matriz de covarianzas (aunque ya hemos comentado que esto no sería correcto en este ejemplo), el mínimo de las cuasivarianzas muestrales corresponde a la variable pop75 y vale 1.66609082 (hacer var(d\$pop75) o cov(d)) y los valores propios de la matriz de covarianzas valen: 981871.2, 43.14338, 13.68328, 6.629537 y 0.2351568 por lo que, con este criterio, tomaríamos p = 4.
+
+```{r}
+cov(d)                  # matriz de covarianzas de los datos originales
+eigen(cov(d))$values    # valores propios de la matriz de covarianzas
+```
+
+## 5.4. Regla de Kaiser
+
+Esta regla es similar a la anterior y establece que solo serán relevantes las componentes que tengan una variabilidad mayor que la variabilidad media de las variables originales. Si usamos la matriz de correlaciones para calcular las componentes, como las varianzas iniciales son 1, su media es 1 y este criterio coincide con el de Rao por lo que, en nuestro ejemplo, obtenemos el mismo resultado p = 2.
+
+Si calculásemos las componentes con la matriz de covarianzas (aunque no sea correcto), la media de las cuasivarianzas muestrales es 196387 y los valores propios de la matriz de covarianzas valen: 981871.2, 43.14338, 13.68328, 6.629537 y 0.2351568 por lo que, con este criterio, tomaríamos p = 1.
+
+## 5.5 Regla del codo o del gráfico de sedimentación
+
+Es uno de los métodos más usados y suele ir incluido en casi todos los programas de estadística. El método consiste en representar j (eje x) frente a los valores propios estimados obteniéndose el denominado gráfico de sedimentación o desmoronamiento (scree graph). El gráfico será similar a la acumulación de sedimentos en la ladera de una montaña (cono de desmoronamiento). Se trataría de separar “la montaña” de los “sedimentos”.
+
+La regla establece que serán representativas las componentes hasta el primer “codo” (sin incluirlo) de la gráfica o hasta que comience la línea recta aproximada final (separando los sedimentos de la montaña). Para realizar este gráfico de forma automática en R haremos:
+
+```{r}
+screeplot(PCA, col="#007AFF")
+
+```
+
+Se puede obtener un gráfico similar mediante:
+
+```{r}
+plot(eigen(cor(d))$values, type = 'l', ylab = 'Valores propios')
+```
+
+En estos gráficos, aunque no está muy claro, parece que el codo (los sedimentos) se encuentra en j = 3, por lo que tomaríamos las dos primeras componentes (p = 2). Las soluciones p = 1 y p = 3 también serían aceptables. En otras ocasiones el “codo” aparece más claro y solo hay una opción (especialmente cuando k es más grande).
