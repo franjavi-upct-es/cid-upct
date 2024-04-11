@@ -808,3 +808,173 @@ Ejemplo: si quisieramos crear un índice sobre los campos \texttt{userid} (de fo
 \begin{center}
 	\includegraphics{"Temas/Tema 3/screenshot005"}
 \end{center}
+\begin{itemize}[label=\color{red}\textbullet, leftmargin=*]
+	\item \color{lightblue}Índices multiclave (\textit{multikey indexes})
+\end{itemize}
+Los índices multiclave recopilan y ordenan datos de campos que contienen un array como valor asociado.
+
+Su creación es igual a los índices anteriores pero MongoDB establece automáticamnete que ese índice sea multivariante.
+\begin{lstlisting}[language=python]
+db.empleados.create_index( { "addr.zip": 1 } )
+\end{lstlisting}
+\begin{center}
+	\includegraphics{"Temas/Tema 3/screenshot006"}
+\end{center}
+\begin{itemize}[label=\color{red}\textbullet, leftmargin=*]
+	\item \color{lightblue}Índices de texto (\textit{text indexes})
+\end{itemize}
+Los índices de texto permiten realizar búsquedas sobre campos de tipo \texttt{string}.
+
+Los índices de texto mejoran el rendimiento cuando se buscan palabras o frases específicas dentro del contenido de una cadena.
+
+Una colección sólo puede tener un índice de texto, pero ese índice puede abarcar varios campos.
+\begin{lstlisting}[language=python]
+db.<coleccion>.create_index( {
+	<campo1>: "text",
+	<campo2>: "text",
+	...
+	<campoN>: "text"
+} )
+\end{lstlisting}
+\Ej
+
+Vamos a suponer que creamos una colección \texttt{blog} con los siguientes documentos
+
+\begin{lstlisting}[language=python]
+db.blog.insert_many( [ 
+	{
+		_id: 1,
+		"contenido": "Esta mañana me he tomando una taza de café",
+		"sobre": "bebida",
+		"palabras_clave": ["café"]
+	},
+	{
+		_id: 2,
+		"contenido": "A quién le apetece un helado de chocolate de postre?",
+		about: "comida",
+		"palabras_clave": ["encuesta"]
+	},
+	{
+		_id: 3,
+		"contenido": "Mis sabores favoritos son la fresa y el chocolate",
+		"sobre": "helado",
+		"palabras_clave": [ "comida", "postre" ]
+	}
+] )
+\end{lstlisting}
+Puesto que vamos a querer realizar muchas búsquedas sobre el campo \texttt{contenido}, vamos a definir un índice sobre dicho campo.
+\begin{lstlisting}[language=python]
+db.blog.create_index( { "content": "text" } )
+\end{lstlisting}
+
+Esto permite realizar, por ejemplo, una búsqueda para recuperar los documentos que contengan la palabra \textit{café} en el campo \texttt{contenido}.
+\begin{lstlisting}[language=python]
+db.blog.find(
+	{
+		"$text": { "$search": "café" }
+	}
+)
+\end{lstlisting}
+\begin{itemize}[label=\color{red}\textbullet, leftmargin=*]
+	\item \color{lightblue}Índices hash (\textit{hash indexes})
+\end{itemize}
+Recogen y almacenan los \textit{hash} de los valores del campo indexado.
+
+El campo que usemos para crear una clave hash de fragmento debe tener una cardinalidad alta, es decir, un grán número de valores diferentes.
+
+Permiten la fragmentación en diferentes clusters (\textit{sharding}) mediante claves hash
+\begin{lstlisting}[language=python]
+db.<coleccion>.create_index(
+	{
+		"<campo>": "hashed"	
+	}
+)
+\end{lstlisting}
+\subsubsubsection{La importancia de los índices en la eficiencia}
+Los índices son cruciales para la eficiencia
+
+Y hay que conocer cúales usar y si realmente una búsqueda los usará
+
+Recordemos la agregación sencilla de antes:
+\begin{lstlisting}[language=python]
+posts.aggregate( [
+	{'$match': { 'Score': {'$gte': 40}}},
+	{'$lookup': {
+		'from': "users",
+		'localField': "OwnerUserId",
+		'foreignField': "Id",
+		'as': "owner"}	
+	}
+])
+\end{lstlisting}
+Nótese cómo se busca al usuario por el campo "Id" (ojo, no "_id")
+
+Tiempo de ejecución sin índice: \textbf{24 segundos}
+
+Defino un índice para el campo "Id" (valdría también \textit{hash} porque se hace una búsqueda exacta):
+\begin{lstlisting}[language=python]
+db.users.create_index({"Id": 1})
+> 'Id_1'
+\end{lstlisting}
+Ejecuto de nuevo: \textbf{67.2 \underline{milisegundos}}
+
+En \texttt{pymongo} hay que hacerlo de forma especial para saber que se ha usado el índice:
+\begin{lstlisting}[language=python]
+db.command('aggregate', 'posts', pipeline=pipeline, explain=True)
+...
+'winningPlan': {'queryPlan' : {'stage': 'EQ_LOOKUP',
+	'foreignCollection' : 'stackoverflow.users',
+	'localField': 'OwnerUserId',
+	'foreignField': 'owner',
+	'strategy': 'IndexedLoopJoin',
+	'indexName': 'Id_1',
+	'indexKeyPattern': {'Id': 1},
+	'inputStage': {'stage': 'COLLSCAN',
+	'planNodeId': 1,
+	'filter': {'Score' : {'$gte': 40}},
+	'direction': 'forward'}}},
+...
+\end{lstlisting}
+\subsubsection{Transacciones}
+En MongoDB, una operación en un solo documento es atómica.
+
+El uso de documentos incrustados permite capturar relaciones entre datos en una sola estructura de documento.
+\begin{itemize}
+	\item Elimina la necesidad de transacciones distribuidas para muchos casos
+\end{itemize}
+Para situaciones que requieren atomicidad de lecturas y escrituras en varios documentos, MongoDB soporta transacciones distribuidas.
+
+Pueden ser utilizadas en múltiples operaciones, colecciones, bases de datos y documentos.
+
+En MongoDB ofrece una \texttt{TransactionAPI} que a su vez hace uso de la \texttt{callbackAPI}
+
+Esta API hace la siguiente secuencia de operaciones:
+\begin{enumerate}[label=\arabic*)]
+	\item Comienza una transacción
+	\item Ejecuta las operaciones indicadas
+	\item Hace \textit{commit} del resultado (o aborta en caso de error).
+\end{enumerate}
+\Ej
+
+\begin{enumerate}[label=\arabic*)]
+	\item Nos conectamos a la BD
+\begin{lstlisting}[language=python]
+client = MongoClient(MONGODB_URI)
+\end{lstlisting}
+\item Definimos el \textit{callback} que especifica la secuencia de operaciones a realizar
+\begin{lstlisting}[language=python]
+def callback(sesion):
+	coleccion_1 = session.client.db.foo
+	coleccion_2 = session.client.db.bar
+	# Importante: Se debe de pasar el parámetro de sesión a los operadores.
+	coleccion_1.insert_one({"abc": 1}, session=sesion)
+	coleccion_2.insert_one({"xyz": 999}, session=sesion)
+\end{lstlisting}
+\item Iniciamos la sesión de cliente y ejecutamos la transacción (el bloque \texttt{with} ejecuta el \textit{commit})
+\begin{lstlisting}[language=python]
+with client.start_session() as session:
+	session.with_transaction(callback)
+client.close()
+\end{lstlisting}
+Si algún paso falla, se puede llamar siempre a \code{sessiom.abort_transaction()}, por ejemplo en un \texttt{catch} de una excepción.
+\end{enumerate}
