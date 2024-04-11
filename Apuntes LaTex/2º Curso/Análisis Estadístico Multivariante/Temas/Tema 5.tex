@@ -16,10 +16,10 @@ Cuando \lb{no se conozcan las características} de las poblaciones en las que se
 \subsubsection{Criterios}
 La clasificación se basará en la \lb{distancia de Mahalanobis} del individuo a cada una de las poblaciones (sus medias).
 
-La utilización de esta distancia es equivalente bajo normalidad a la utilización del criterio de \lb{maxima verosimilitud}, que clasificará a un individuo en donde sus medidas sean \lb{más probables} (\lb{verosímiles}), es decir, donde la función de densidad sea mayor.
+La utilización de esta distancia es equivalente bajo normalidad a la utilización del criterio de \lb{máxima verosimilitud}, que clasificará a un individuo en donde sus medidas sean \lb{más probables} (\lb{verosímiles}), es decir, donde la función de densidad sea mayor.
 
-Este segundo criterio permitirá la \lb{extensión} de dihca clasificación \lb{a más de dos poblaciones} con diferentes matrices de covarianzas incluso sin la necesidad de la normalidad de las mismas.
-\subsubsection{Distnacia de Mahalanobis}
+Este segundo criterio permitirá la \lb{extensión} de dicha clasificación \lb{a más de dos poblaciones} con diferentes matrices de covarianzas incluso sin la necesidad de la normalidad de las mismas.
+\subsubsection{Distancia de Mahalanobis}
 La \lb{distancia de Mahalanobis} del vector $\mathbf{x}$ al vector $\mu$ basada en la matriz $V$ se define como \[ d_V(\mathbf{x},\mu)=\sqrt{(\mathbf{x}-\mu)'V^{-1}(\mathbf{x}-\mu)}. \]
 Si $V$ es la matriz identidad, obtenemos la \lb{distancia Euclídea}.
 
@@ -51,8 +51,8 @@ title(main = "level = 1, ..., 6")
 \begin{flushright}
 	\includegraphics[width=0.5\textwidth]{"Temas/Imágenes/Tema 5/screenshot001"}
 \end{flushright}
-\subsection{Dos poblaciones normlaes con la misma matriz de covarianzas}
-\subsubsection{Clasificación teérica}
+\subsection{Dos poblaciones normales con la misma matriz de covarianzas}
+\subsubsection{Clasificación teórica}
 Supongamos que $\mathbf{X}=(X_1,\dots,X_k)'$ e $\mathbf{Y}=(Y_1,\dots,Y_k)'$ son dos \veas normales $k$-dimensionales con vectores de \lb{medias} $\mu_X$ y $\mu_Y$ y \lb{matriz de covarianzas común} $V$ \lb{definida positiva}.
 
 Supongamos que $\mathbf{Z}=(Z_1,\dots,Z_k)'$ representa las \lb{medidas} obtenidas para el individuo que se quiere clasificar y que $\mathbf{Z}$ proviene de $X$ o de $\mathbf{Y}$, es decir, $\mathbf{Z}$ será un \vea $k$-dimensional con media igual a $\mu_X$ o $\mu_Y$ y matriz de covarianzas $V$.
@@ -145,3 +145,99 @@ Si llamamos \lb{error tipo 1}, $e_1$, al que clasifica a un individuo de la pobl
 	&=\mathrm{Pr}\left(U<\dfrac{(\mu_X-\mu_Y)'V^{-1}(\mu_Y-\mu_X)}{2\sqrt{(\mu_X-\mu_Y)'V^{-1}(\mu_X-\mu_Y)}}\right)\\
 	&=\mathrm{Pr}\left(U<-\dfrac{1}{2}d_V(\mu_X,\mu_Y)\right),
 \end{align*}donde $U\longrightarrow N_1(0,1)$
+
+De forma análoga, si llamamos \lb{error tipo 2}, $e_2$, al que clasifica a un individuo de la población \textbf{Y} en la población \textbf{X}, entonces puede comprobarse que \[ \mathrm{Pr}(e_2)=\mathrm{Pr}(\mathbf{Z}\in R_X|\mathbf{Z\equiv Y})=\mathrm{Pr}\left(U>\dfrac{1}{2}d_V(\mu_X,\mu_Y)\right)=\mathrm{Pr}(e_1) \]
+Por lo tanto, las \lb{probabilidades de clasificaciones erróneas} son \lb{iguales} y solo \lb{dependen de la distancia de Mahalanobis entre las medias de las poblaciones}.
+
+Lógicamente las \lb{probabilidades de clasificaciones correctas} vienen dadas por: \[ \begin{array}{l}
+\mathrm{Pr}(c_1)=\mathrm{Pr}(\mathbf{Z}\in R_X|\mathbf{Z\equiv X})=1-\mathrm{Pr}(e_1),\\
+\mathrm{Pr}(c_2)=\mathrm{Pr}(\mathbf{Z}\in R_Y|\mathbf{Z\equiv X})=1-\mathrm{Pr}(e_2),\\
+\end{array} \] y también son \lb{iguales}.
+
+\subsubsection*{Un caso sencillo}
+
+\begin{minipage}{0.35\textwidth}
+Supongamos que tenemos que decidir si un individuo con medidas \[ \mathbf{z}=(z_1,z_2)'=(2,0.9)' \]se clasifica en una población normal bivariante de media $\mu_X=(0,0)'$ o en una de media $\mu_Y=(1,2)'$ siendo la matriz de covarianzas común \[ V=\begin{pmatrix}
+1 & 0.5\\
+0.5 & 1
+\end{pmatrix}. \]
+\end{minipage}\qquad\begin{minipage}{0.6\textwidth}
+\begin{lstlisting}[basicstyle=\ttfamily\footnotesize]
+library("mvtnorm")
+V <- matrix(c(1, 1/2,
+              1/2, 1), nrow = 2, ncol = 2, byrow = TRUE)
+muX <- c(0, 0)
+fX <- function(x1, x2) dmvnorm(data.frame(x1, x2), muX, V)
+muY <- c(1, 2)
+fY <- function(x1, x2) dmvnorm(data.frame(x1, x2), muY, V)
+f <- function(x1, x2) pmax(fX(x1, x2), fY(x1, x2))
+x <- seq(-3, 4, length = 50)
+y <- seq(-3, 6, length = 50)
+z <- outer(x, y, f)
+persp(x, y, z, xlab = 'x1', ylab = 'x2', zlab = 'f(x1,x2)', 
+      col = 'red', theta = 60)
+\end{lstlisting}
+\end{minipage}
+
+\begin{flushright}
+\includegraphics[width=0.6\linewidth]{"Temas/Imágenes/Tema 5/screenshot003"}
+\end{flushright}
+
+La \lb{función discriminante de Fisher} será \begin{align*}
+D&=L(\mathbf{Z})=\mathbf{a'Z}=(\mu_X-\mu_Y)'V^{-1}\mathbf{Z}=\begin{pmatrix}
+-1 & 2
+\end{pmatrix}\begin{pmatrix}
+1 & 0.5\\
+0.5 & 1
+\end{pmatrix}^{-1}\mathbf{Z}\\
+&=-\begin{pmatrix}
+1 & 2
+\end{pmatrix}\begin{pmatrix}
+\tfrac{4}{3} & -\tfrac{2}{3}\\
+-\tfrac{2}{3} & \tfrac{4}{3}
+\end{pmatrix}\mathbf{Z}=-\begin{pmatrix}
+0 & 2
+\end{pmatrix}\mathbf{Z}=-2Z_2,
+\end{align*}esto es, $L(z_1,z_2)=-2z_2$
+
+La \lb{distancia de Mahalanobis al cuadrado entre las dos poblaciones} vale \[ d_V^2(\mu_X,\mu_Y)=(\mu_X-\mu_Y)'V^{-1}(\mu_X-\mu_Y)=\begin{pmatrix}
+0 & 2
+\end{pmatrix}\begin{pmatrix}
+1 & 2
+\end{pmatrix}'=4 \]
+Un individuo \textbf{Z} será \lb{clasificado en la primera población} si \[ -2Z_2>K=a'\dfrac{\mu_X+\mu_Y}{2}=-\begin{pmatrix}
+0 & 2
+\end{pmatrix}\begin{pmatrix}
+0.5 & 1
+\end{pmatrix}'=-2, \]es decir, si $Z_2<1$
+
+En este caso, $\mathbf{z}=\begin{pmatrix}
+1 & 0.9
+\end{pmatrix}$ será clasificado en $\mathbf{X}$, con una probabilidad de error global \begin{align*}
+\mathrm{Pr}(e_2)&=\mathrm{Pr}(\mathbf{Z}\in R_X|\mathbf{Z\equiv Y})\\
+&=\mathrm{Pr}\left (U>\dfrac{1}{2}d_V(\mu_X,\mu_Y)\right )\\
+&=\mathrm{Pr}(U>1)\\
+&=1-F_U(1)\\
+&=1-0.8413=0.1587
+\end{align*}donde la función de distribución normal estándar $F_U(1)$ se puede calcular con las tablas estadísticas o en \code{R} con la instrucción \code{pnorm(1)}.
+
+Otra función discriminante equivalente será \[ L^*(z_1,z_2)=z_2, \](proyección sobre el eje $y$) con la que obtendríamos \[ \begin{array}{c}
+L^*(\mu_X)=L^*(0,0)=0,\\
+L^*(\mu_Y)=L^*(1,2)=2,\\
+K^*=\dfrac{L^*(\mu_X)+L^*(\mu_Y)}{2}=1
+\end{array} \]y\[ L^*(\mathbf{z})=L^*(1, 0.9)=0.9, \]con lo que $\mathbf{z}$ se clasificará en $\mathbf{X}$.
+
+Las proyecciones con esta función serán $N(0,1)(L^*(\mathbf{X}))$ y $N(2,1)(L^*(\mathbf{Y}))$.
+
+\lb{Funciones de densidad de las proyecciones sobre el eje $y$} en cada grupo para las poblaciones:
+\begin{lstlisting}
+curve(dnorm(x, 0, 1), -3, 7, ylab = 'f(x)')
+curve(dnorm(x, 2, 1), add = TRUE, col ='blue')
+abline(v = 0, col = "black", lty = 2)
+abline(v = 2, col = "blue", lty = 2)
+abline(v = 1, col = "red", lty = 4)
+\end{lstlisting}
+\begin{center}
+\includegraphics[width=0.5\linewidth]{"Temas/Imágenes/Tema 5/screenshot004"}
+\end{center}
+La probabilidad de error 
