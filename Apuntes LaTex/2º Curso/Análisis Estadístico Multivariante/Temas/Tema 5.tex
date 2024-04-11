@@ -240,4 +240,248 @@ abline(v = 1, col = "red", lty = 4)
 \begin{center}
 \includegraphics[width=0.5\linewidth]{"Temas/Imágenes/Tema 5/screenshot004"}
 \end{center}
-La probabilidad de error 
+La probabilidad de error $0.1587$ corresponde a las áreas menores determinadas por la recta vertical en el punto de corte de las densidades en $K=1$.
+\begin{tikzpicture}
+	\node[red, draw=red, fill=red!10, line width=1.5, text width=\linewidth] {\underline{Nota:}\\ Welch (1939) probó que, si las \textbf{poblaciones son normales}, el procedimiento de clasificación mediante la función discriminante de Fisher es máximo verosímil, es decir, se clasifica a un individuo con características \textbf{z} en \textbf{X} si y solo si $\mathbf{f_X(z)>f_Y(z)}$.\\
+Además, se comprueba que también es equivalente al criterio de clasificación basado en la distancia de Mahalanobis mínima.
+};
+\end{tikzpicture}
+\begin{itemize}[label=\color{red}\textbullet, leftmargin=*]
+	\item \color{lightblue}Teorema
+\end{itemize}
+Si las variables \textbf{X} e \textbf{Y} son \lb{normales multivariantes} con \lb{matriz de covarianzas común} $V$ y función discriminante de Fisher $L$, entonces equivalen:
+\begin{enumerate}[label=\color{lightblue}\arabic*)]
+	\item $L(\mathbf{z})>K$
+	\item $d_V(\mathbf{z,\mu_X})<d_V(\mathbf{z,\mu_Y})$
+	\item $f_X(\mathbf{z})>f_Y(\mathbf{z})$
+\end{enumerate}
+\begin{itemize}[label=\color{red}\textbullet, leftmargin=*]
+	\item \color{lightblue}Demostración
+\end{itemize}
+La primera condición $L(\mathbf{z})>K$ es \[ \mathbf{a'z}>\dfrac{\mu_X+\mu_Y}{2}, \] con $\mathbf{a'}=(\mu_X-\mu_Y)'V^{-1}$, es decir, \[ \begin{aligned}
+(\mu_X-\mu_Y)'V^{-1}\mathbf{z}&>\dfrac{1}{2}(\mu_X-\mu_Y)'V^{-1}(\mu_X-\mu_Y)\\
+&=\dfrac{1}{2}\mu_X'V^{-1}\mu_X-\dfrac{1}{2}\mu_Y'V^{-1}\mu_Y
+\end{aligned} \]lo que equivale a \[ 2\mu_X'V^{-1}\mathbf{z}-2\mu_Y'V^{-1}\mathbf{z}>\mu_X'V^{-1}\mu_X-\mu_Y'V^{-1}\mu_Y. \]
+
+Si las poblaciones son normales, la tercera opción es \[ c\cdot\exp\left(-\dfrac{1}{2}(\mathbf{z}-\mu_X)'V^{-}(\mathbf{z}-\mu_X)\right)>c\cdot\exp\left(-\dfrac{1}{2}(\mathbf{z}-\mu_Y)'V^{-}(\mathbf{z}-\mu_Y)\right), \]donde $c=\dfrac{1}{\sqrt{|V|(2\pi )^k}}$. Es decir, \[ (\mathbf{z}-\mu_X)'V^{-}(\mathbf{z}-\mu_X)<(\mathbf{z}-\mu_Y)'V^{-}(\mathbf{z}-\mu_Y) \]lo que es equivalente a la condición segunda.
+\begin{itemize}[label=\color{red}\textbullet, leftmargin=*]
+	\item \color{lightblue}Observación
+\end{itemize}
+En la demostración anterior la hipótesis de normalidad no es necesaria para demostrar la equivalencia entre las dos primeras condiciones.
+\subsubsection{Diferente importancia a los dos tipos de errores}
+En ocasiones no es conveniente dar la misma importancia a los dos tipos de errores.
+
+Podemos usar el \lb{criterio} utilizado en los contrastes de hipótesis (Neyman-Pearson):
+\begin{itemize}
+\item \lb{Fijar un máximo para uno de los errores} $\mathrm{Pr}(e_1)\le\alpha$.
+\item Intentar \lb{reducir la probabilidad del otro error} ($\mathrm{Pr}(e_2)$).
+\end{itemize}
+Usando este criterio sobre la función discriminante de Fisher, cambiará la constante $K$, que ahora se calculará a partir de la relación \[ \mathrm{Pr}(e_1)=\mathrm{Pr}(\mathbf{Z\in R_Y|Z\equiv X})=\mathrm{Pr}(L(\mathbf{X})<K_\alpha)=\alpha, \]donde $L(\mathbf{X})\longrightarrow N_1\left((\mu_X-\mu_Y)'V^{-1}\mu_X,\,\sigma^2\right)$ y \[ \sigma^2=d_V^2(\mu_X,\mu_Y)=(\mu_X-\mu_Y)'V^{-1}(\mu_X-\mu_Y). \]
+De esta forma, la probabilidad del otro error valdrá \[ \mathrm{Pr}(e_2)=\mathrm{Pr}(L(\mathbf{Y})>K_\alpha), \]donde $L(\mathbf{Y})\longrightarrow N_1\left((\mu_X-\mu_Y)'V^{-1}\mu_Y,\,\sigma^2\right)$.
+\subsubsection{Criterio de mínimo coste (probabilidad de error)}
+Otro criterio consiste en asignar un coste a cada uno de los posibles errores $(c_1,c_2>0)$.
+
+Supongamos que se concen las probabilidades \lb{a priori} de pertenencia a cada una de las poblaciones:
+\begin{itemize}
+\item $q_1=\mathrm{Pr}(\mathbf{Z\equiv X})$
+\item $q_2=\mathrm{Pr}(\mathbf{Z\equiv Y})$
+\end{itemize}
+Entonces usando el teorema de la probabilidad total, se tiene 
+\[ \begin{aligned}
+\mathrm{Pr(error)}=&\mathrm{Pr}(\mathbf{Z}\in R_Y|\mathbf{Z\equiv X})\mathrm{Pr}(\mathbf{Z\equiv X})\\
+&+\mathrm{Pr}(\mathbf{Z}\in R_X|\mathbf{Z\equiv Y})\mathrm{Pr}(\mathbf{Z\equiv Y})\\
+=&\mathrm{Pr}(e_1)q_1+\mathrm{Pr}(e_2)q_2
+\end{aligned} \]
+Y el \lb{coste esperado} asociado para una constante $k$ será \[ c(k)=c_1\mathrm{Pr}(e_1)q_1+c_2\mathrm{Pr}(e_2)q_2, \]donde \[ \begin{array}{l}
+\mathrm{Pr}(e_1)=\mathrm{Pr}\left(L(\mathbf{X})<k\right)=G\left(\dfrac{k-L(\mu_X)}{\sigma}\right),\\
+\mathrm{Pr}(e_2)=\mathrm{Pr}\left(L(\mathbf{Y})<k\right)=1-G\left(\dfrac{k-L(\mu_Y)}{\sigma}\right),
+\end{array} \]donde $G$ es la función de distribución de la normal estándar $\mathcal{N}(0,1)$.
+
+Para minimizar el coste esperado, debe tomarse \[ k=\mathbf{a'}\dfrac{\mu_X+\mu_Y}{2}+\log\left(\dfrac{c_2q_2}{c_1q_1}\right). \]
+\subsubsection{Criterio de máxima probabilidad a posteriori}
+Supongamos que se conocen las probabilidades \lb{a priori} $q_1$ y $q_2$.
+
+Entonces se pueden calcular las probabilidades \lb{a posteriori} (es decir, cuando conocemos los valores de \textbf{Z}) para un individuo con medidas \textbf{z} mediante el Teorema de Bayes como: \[ \begin{array}{l}
+\mathrm{Pr}(\mathbf{Z\equiv X|Z=z})=\dfrac{\mathrm{Pr}(\mathbf{Z=z|Z\equiv X})\mathrm{Pr}(\mathbf{Z\equiv X})}{\mathrm{Pr}(\mathbf{Z=z})},\\
+\mathrm{Pr}(\mathbf{Z\equiv Y|Z=z})=\dfrac{\mathrm{Pr}(\mathbf{Z=z|Z\equiv Y})\mathrm{Pr}(\mathbf{Z\equiv Y})}{\mathrm{Pr}(\mathbf{Z=z})},
+\end{array} \]con \[ \mathrm{Pr}(\mathbf{Z=z})=\mathrm{Pr}(\mathbf{Z=z|Z\equiv X})\mathrm{Pr}(\mathbf{Z\equiv X})+\mathrm{Pr}(\mathbf{Z=z|Z\equiv Y})\mathrm{Pr}(\mathbf{Z\equiv Y}). \]
+Según este criterio, se clasificaría al individuo \textbf{z} en la población en la que tenga mayor probabilidad a posteriori.
+\subsection{Varias poblaciones con la misma matriz de covarianza}
+Cuando tengamos más de dos poblaciones con \lb{matriz de covarianzas común} $V$, podemos usar el criterio de mínima distancia de Mahalanobis a las medias de los grupos.
+
+$\mathbf{X^{(i)}}$ representan las diferentes poblaciones con medias $\mu^{(i)}=E(\mathbf{X}^{(i)})$ y la matriz de covarianzas $V$, para $i=1,\dots,m$.
+
+Para un individuo con características \textbf{z} calcularemos \[ \begin{aligned}
+d_V^2(\mathbf{z},\mu^{(i)})&=(\mathbf{z}-\mu^{(i)})'V^{-1}(\mathbf{z}-\mu^{(i)})\\
+&=\mathbf{z'}V^{-1}\mathbf{z}-2(\mu^{(i)})'V^{-1}\mathbf{z}+(\mu^{(i)})'V^{-1}\mu^{(i)}.
+\end{aligned} \]
+Como la parte cuadrática $\mathbf{z'}V^{-1}\mathbf{z}$ es común, podemos quedarnos solo con la parte lineal (en realidad, su opuesta) dada por \[ L_i(\mathbf{z})=(\mu^{(i)})'V^{-1}\mathbf{z}-\dfrac{1}{2}(\mu^{(i)})'V^{-1}\mu^{(i)} \]conocida como \lb{función discriminante lineal (FDL)}, clasificándose un individuo con características \textbf{z} en el grupo en el que tenga un valor máximo dicha función discriminante.
+
+\begin{itemize}[label=\color{red}\textbullet, leftmargin=*]
+	\item \color{lightblue}Teorema
+\end{itemize}
+Si $\mathbf{X}^{(i)}$ tienen medias $\mu^{(i)}=E(\mathbf{X}^{(i)})$ y \lb{matriz de covarianzas común} $V$ para $i=1,\dots,m$, entonces equivalen:
+\begin{enumerate}[label=\color{lightblue}\arabic*)]
+	\item $L_i(\mathbf{z})\ge L_j(\mathbf{z})$ para todo $j$.
+\item $d_V^2(\mathbf{z,\mu^{(i)}})\le d_V^2(\mathbf{z,\mu^{(i)}})$ para todo $j$
+\end{enumerate}
+\begin{itemize}[label=\color{red}\textbullet, leftmargin=*]
+	\item \color{lightblue}Corolario
+\end{itemize}
+Si solo hay \lb{dos grupos}, este criterio de clasificación es equivalente a usar la función discriminante de Fisher.
+\begin{itemize}[label=\color{red}\textbullet, leftmargin=*]
+	\item \color{lightblue}Demostración
+\end{itemize}
+La demostración del corolario es inmediata ya que demostramos que el criterio de mínima distancia de Mahalanobis era equivalente a usar la función discriminante de Fisher.
+
+En este caso también podemos aplicar de máxima verosimilitud clasificando a $\mathbf{Z}$ en el grupo para el que $f_i(\mathbf{z})$ sea máxima, donde $f_i$ representa la densidad del grupo $i$.
+
+\begin{itemize}[label=\color{red}\textbullet, leftmargin=*]
+	\item \color{lightblue}Teorema
+\end{itemize}
+Si $\mathbf{X}^{(j)}\sim N(\mu^{(i)},V)$ para $j=1,\dots,m$, entonces equivalen:
+\begin{enumerate}[label=\color{lightblue}\arabic*)]
+	\item $L_i(\mathbf{z})\ge L_j(\mathbf{z})$ para todo $j$.
+\item $d_V^2(\mathbf{z},\mu^{(i)})\le d_V^2(\mathbf{z},\mu^{(j)})$ para todo $j$.
+\item $f_i(\mathbf{z})\ge f_j(\mathbf{z})$ para todo $j$.
+\end{enumerate}
+\begin{itemize}[label=\color{red}\textbullet, leftmargin=*]
+	\item \color{lightblue}Demostración
+\end{itemize}
+La demostración es inmediata ya que la densidad normal multivariante del grupo $i$ vale \[ f_i(\mathbf{z})=\dfrac{1}{\sqrt{|V|(2\pi)^{k}}}\exp\left(-\dfrac{1}{2}(\mathbf{z}-\mu^{(i)})'V^{-1}(\mathbf{z}-\mu^{(i)})\right) \]y será máxima cuando la distancia de Mahalanobis al cuadrado \[ d_V^2(\mathbf{z},\mu^{(i)})=(\mathbf{x}-\mu^{(i)})'V^{-1}(\mathbf{x}-\mu^{(i)}) \]sea mínima.
+
+Esto no será, en general, cierto si las poblaciones no son normales o si tienen distintas matrices de covarianzas.
+
+\begin{itemize}[label=\color{red}\textbullet, leftmargin=*]
+	\item \color{lightblue}Proposición
+\end{itemize}
+Si todas las poblaciones son \lb{normales con matriz de covarianzas común} $V$, entonces los criterios de clasificación de \lb{máxima verosimilitud} y de \lb{mínima distancia de Mahalanobis} son equivalentes a aplicar el criterio de \lb{discriminación de Fisher} paso a paso tomando las poblaciones de dos en dos.
+
+De esta forma, podríamos estudiar primero si \textbf{Z} se clasifica en la población 1 o en la 2.
+
+En el segundo paso discriminaríamos entre la 3 y la ganadora del primer paso y así, sucesivamente.
+
+Sin embargo, este método no se puede aplicar en la práctica ya que al discriminar entre las poblaciones 1 y 2 solo se utilizarán los individuos de estas poblaciones para estimar $V$.
+
+\Ej
+
+Supongamos que tenemos que decidir si un individuo con medidas $\mathbf{z}=(x,y)'=(1,\,0.9)'$ se clasifica:
+\begin{itemize}
+\item en una población normal bivariante de media $(0,0)'$.
+\item en una media $(1,2)'$
+\item en una media $\left(-\dfrac{1}{2}, 1\right)$. 
+\end{itemize}
+siendo la matriz de covarianzas común \[ V=\begin{pmatrix}
+1 & \tfrac{1}{2}\\
+\tfrac{1}{2} & 1
+\end{pmatrix}. \]
+
+$\begin{array}{l}
+L_i(\mathbf{z})=(\mu^{(i)})'V^{-1}\mathbf{Z}-\dfrac{1}{2}(\mu^{(i)})'V^{-1}\mu^{(i)}\\
+V=\begin{pmatrix}
+1 & \tfrac{1}{2}\\
+\tfrac{1}{2} & 1
+\end{pmatrix}\longrightarrow V^{-1}=\begin{pmatrix}
+\tfrac{4}{3} & -\tfrac{2}{3}\\
+-\tfrac{2}{3} & \tfrac{4}{3}
+\end{pmatrix}\\
+L_1(\mathbf{z})=\begin{pmatrix}
+0 & 0
+\end{pmatrix}\begin{pmatrix}
+\tfrac{4}{3} & -\tfrac{2}{3}\\
+-\tfrac{2}{3} & \tfrac{4}{3}
+\end{pmatrix}\begin{pmatrix}
+x\\
+y
+\end{pmatrix}-\dfrac{1}{2}\begin{pmatrix}
+0 & 0
+\end{pmatrix}\begin{pmatrix}
+\tfrac{4}{3} & -\tfrac{2}{3}\\
+-\tfrac{2}{3} & \tfrac{4}{3}
+\end{pmatrix}\begin{pmatrix}
+0\\
+0
+\end{pmatrix}=0\\
+L_2(\mathbf{z})=\begin{pmatrix}
+1 & 2
+\end{pmatrix}\begin{pmatrix}
+\tfrac{4}{3} & -\tfrac{2}{3}\\
+-\tfrac{2}{3} & \tfrac{4}{3}
+\end{pmatrix}\begin{pmatrix}
+x\\
+y
+\end{pmatrix}-\dfrac{1}{2}\begin{pmatrix}
+1 & 2
+\end{pmatrix}\begin{pmatrix}
+\tfrac{4}{3} & -\tfrac{2}{3}\\
+-\tfrac{2}{3} & \tfrac{4}{3}
+\end{pmatrix}\begin{pmatrix}
+1\\
+2
+\end{pmatrix}=\begin{pmatrix}
+0 & 2
+\end{pmatrix}\begin{pmatrix}
+x\\
+y
+\end{pmatrix}-\begin{pmatrix}
+0 & 1
+\end{pmatrix}\cdot\begin{pmatrix}
+1\\
+2
+\end{pmatrix}=2y-2\\
+L_3(\mathbf{z})=\begin{pmatrix}
+-\tfrac{1}{2} & 1
+\end{pmatrix}\begin{pmatrix}
+\tfrac{4}{3} & -\tfrac{2}{3}\\
+-\tfrac{2}{3} & \tfrac{4}{3}
+\end{pmatrix}\begin{pmatrix}
+x\\
+y
+\end{pmatrix}-\dfrac{1}{2}\begin{pmatrix}
+-\tfrac{1}{2} & 1
+\end{pmatrix}\begin{pmatrix}
+\tfrac{4}{3} & -\tfrac{2}{3}\\
+-\tfrac{2}{3} & \tfrac{4}{3}
+\end{pmatrix}\begin{pmatrix}
+-\tfrac{1}{2}\\
+1
+\end{pmatrix}=\begin{pmatrix}
+-\tfrac{4}{3} & \tfrac{5}{3}
+\end{pmatrix}\begin{pmatrix}
+x\\
+y
+\end{pmatrix}-\begin{pmatrix}
+-\tfrac{2}{3} & \tfrac{5}{6}
+\end{pmatrix}\begin{pmatrix}
+-\tfrac{1}{2}\\
+1
+\end{pmatrix}=-\dfrac{4}{3}x+\dfrac{5}{3}y-\dfrac{7}{6}\\
+L_1(\mathbf{z})=L_2(\mathbf{z})\longleftrightarrow 2y-2=0\longleftrightarrow y=1\\
+L_1(\mathbf{z})=L_3(\mathbf{z})\longleftrightarrow -\dfrac{4}{3}x+\dfrac{5}{3}y-\dfrac{7}{6}=0\longleftrightarrow y=\dfrac{3}{5}\left(\dfrac{4}{3}x+\dfrac{7}{6}\right)=\dfrac{4}{5}x+\dfrac{7}{10}\\
+\begin{aligned}
+L_2(\mathbf{z})=L_3(\mathbf{z})&\longleftrightarrow-\dfrac{4}{3}x+\dfrac{5}{3}y-\dfrac{7}{6}=2y-2\longleftrightarrow0=2y-2+\dfrac{4}{3}x-\dfrac{5}{3}y+\dfrac{7}{6}\longleftrightarrow\dfrac{4}{3}x+\dfrac{1}{3}y-\dfrac{5}{6}=0\\
+&\longleftrightarrow y=\cancel{3}\cdot\left(-\dfrac{4}{\cancel{3}}x+\dfrac{5}{\cancel{6}\lb{2}}\right)=-4x+\dfrac{5}{2}
+\end{aligned}\\
+\mathbf{z}=\begin{pmatrix}
+1 & 0.9
+\end{pmatrix}'
+\end{array}$
+
+$\begin{rcases}
+L_1(\mathbf{z})=0 & \lb{\ast}\\
+L_2(\mathbf{z})=-0.2 & \\
+L_3(\mathbf{z})=-1
+\end{rcases}$ Se clasifica en la población 1
+
+\begin{center}
+\begin{tikzpicture}[>=latex]
+\draw[->] (-2,0) -- (4,0);
+\draw[->] (0,-2) -- (0,4);
+\draw[lightblue, line width=1.2] (-2,1) -- (4,1) node[right] {$y=1$};
+\draw[red, line width=1.2, domain=-0.5:1] plot (\x,{-4*\x+5/2}) node[below right] {$y=-4x+\dfrac{5}{2}$};
+\draw[blue, line width=1.2, domain=-2:4] plot (\x, {(4/5)*\x+(7/10)}) node[right] {$y=\dfrac{4}{5}x+\dfrac{7}{10}$};
+\fill[blue] (0, 0) circle (2pt) node[below left] {$\mu_1$}
+(1,2) circle (2pt) node[above right] {$\mu_2$}
+(-0.5,1) circle (2pt) node[below left] {$\mu_3$};
+\end{tikzpicture}
+\end{center}
