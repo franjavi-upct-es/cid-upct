@@ -1,5 +1,6 @@
 \input{"../../../../Macros.tex"}
 \everymath{\displaystyle}
+\usepackage{bbding}
 
 \begin{document}
 \begin{enumerate}[label=\color{red}\textbf{\arabic*)}, leftmargin=*]
@@ -1443,6 +1444,78 @@ La gráfica de $\tan x$:
 		\end{array}$
 	\end{minipage}
 \end{center}
-Hacemos los límites laterales:
+Hacemos los límites laterales: \hspace{2cm}$\bboxed{e^{+\infty}=+\infty}$
+
+$\begin{array}{l}
+	\lim_{x\to\frac{\pi}{2}^-}f(x)=\lim_{ x \to \frac{\pi}{2}^- }\dfrac{e^{\tan x}-1}{e^{\tan x}+1}=\left( \frac{\infty}{\infty} \right)=\left\{ \text{L'Hôpital} \right\}=\lim_{ x \to \frac{\pi}{2}^- }\dfrac{e^{\tan x}\cdot \frac{1}{\cos^2x}}{e^{\tan x}\cdot \frac{1}{\cos^2x}}=1\\
+	\lim_{ x \to \frac{\pi}{2}^+ }f(x)=\lim_{ x \to \frac{\pi}{2}^+ }\dfrac{e^{\tan x}-1}{e^{\tan x}+1}=\left\{ \begin{array}{l}\tan\left( \frac{\pi}{2}^+ \right)=-\infty\\ e^{\tan x}=e^{-\infty}=\frac{1}{e^{+\infty}}=\frac{1}{+\infty}=0\end{array} \right\}=\frac{0-1}{0+1}=-1
+\end{array}$
+
+$f(x)$ No en continua en $x_0=\dfrac{\pi}{2}$. En concreto, presenta una discontinuidad inevitable de salto finito o de 1ª especie.
+
+\item \lb{Calcular los extremos absolutos de la función \[ f(x)=(x-2)^2(x+1) \]sobre el conjuto $I=[1,4]$.}
+
+\begin{minipage}{0.4\textwidth}
+Como $f(x)$ es continua en $[1,4]$ al ser un polinomio entonces podemos asegurar que por el teorema de Weierstrass $f(x)$ tiene extremos absolutos sobre dicho intervalo.
+
+\begin{center}
+$f'(x)=2(x-2)(x+1)+(x-2)^2\cdot1=(x+2)\left[2(x+1)+(x-2)\right]=(x-2)(3x)\linebreak\longrightarrow f'(x)=(x-2)\cdot 3x=0\begin{cases}
+x=0&\rc{\mathbf{X}~~(0\notin(1,4))}\\
+\bboxed{x=2} & \lb{\checkmark~~(2\in(1,4))}
+\end{cases}$
+\end{center}
+Evaluamos en la función $f(x)$ los puntos críticos: $x=2$ y los dos extremos del intervalo: $x=1$ y $x=4$
+\end{minipage}\qquad\begin{minipage}{0.55\textwidth}
+\begin{tikzpicture}
+	\node[red, draw=red, fill=red!10, line width=1.5, text width=\linewidth] {\underline{Nota:} Siempre que tengamos una función $f(x)$ definida sobre un intervalo cerrado $[a,b]$ y nos pidan que calculemos sus extremos absolutos, haremos lo siguiente:\begin{enumerate}[label=\textbf{\arabic*)}, leftmargin=*]
+		\item Justificaremos su existencia mediante el teorema de Weierstrass dejando claro que $f(x)$ es continua sobre el intervalo $[a,b]$.
+		\item Hacemos la derivada de $f(x)$ e igualamos a cero, $f'(x)=0$ siendo las soluciones obtenidas los llamados puntos críticos, de entre los cuales solo tendremos en cuenta aquellos que estén en el intervalo $(a,b)$.
+		\item Evaluamos en la función $f(x)$ los puntos criticos y los dos extremos del intervalo $(a\text{ y }b)$ y tomaremos como máximo absoluto aquel que tenga mayor imageny como mínimo absoluto el que tenga menor imagen.
+	\end{enumerate}};
+\end{tikzpicture}
+\end{minipage}
+
+\begin{tabular}{ll}
+$f(1)=1\cdot2=2$ &  \\
+$f(2)=0\xrightarrow{\hspace{1.6cm}}$ & \multirow{2}{*}{\fcolorbox{lightblue}{lightblue!10}{\begin{tabular}{l}
+$x=2$ está el mínimo absoluto\\
+$x=4$ está el máxmo absoluto
+\end{tabular}}} \\
+$f(4)=4\cdot 5=20\longrightarrow$ & 
+\end{tabular}
+
+\item \lb{En el siguiente ejercicio nos piden que calculemos los extremos absolutos de las siguientes funciones en los intervalos indicados:}
+
+$\db{f(x)=e^x\cos x\text{ en }I=[-\pi,\pi].}$
+
+Como $f(x)$ es continua en el intervalo $[-\pi,\pi]$ entonces por el teorema de Weierstrass podemos asegurar que $f(x)$ tiene máximo y mínimo absoluto sobre dicho intervalo.
+
+Calcularemos su derivada primera: \[ f'(x)=e^x\cos x+e^x(-\sin x)=e^x(\cos x-\sin x)=0\longrightarrow\cos x-\sin x=0 \]
+
+\begin{tabular}{c}
+$\cos x=\sin x$\\
+$\downarrow$\\
+En el intervalo $(-\pi,\pi)$\\
+$\bboxed{\begin{array}{l}
+x=\dfrac{\pi}{4}\\
+x=-\dfrac{3\pi}{4}
+\end{array}}$
+\end{tabular}\qquad\begin{tikzpicture}[baseline=(current bounding box.center), >=latex]
+\draw[draw=lightblue, fill=lightblue!10, line width=1.2] (0,0) circle (2);
+\draw (-2.5,0) -- (2.5,0);
+\draw (0,-2.5) node[below left, blue] {$\cos\left(-\dfrac{3\pi}{4}\right)=\sin\left(-\dfrac{3\pi}{4}\right)=-\dfrac{\sqrt{2}}{2}$} -- (0,2.5);
+\draw[draw=blue, fill=blue, line width=1.2, blue] (225:2) circle (2pt) node[below left] {$-\dfrac{3\pi}{4}$} -- (45:2) circle (2pt) node[above right] {$\dfrac{\pi}{4}\qquad\cos\dfrac{\pi}{4}=\sin\dfrac{\pi}{4}=\dfrac{\sqrt{2}}{2}$};
+\draw[->, blue] (0.5,0) arc (0:45:0.5);
+\draw[->, blue] (0.4,0) arc (0:-135:0.4);
+\end{tikzpicture}
+
+Para terminar evaluamos en la función $f(x)$ los puntos críticos obtenidos y los extremos del intervalo: $f(x)=e^x\cos x$.
+
+$\begin{array}{l}
+f(-\pi)=e^{-\pi}\cdot(-1)=-e^{-\pi}\\
+f\left(\dfrac{\pi}{4}\right)=e^{\frac{\pi}{4}}\cdot\dfrac{\sqrt{2}}{2}=\dfrac{\sqrt{2}}{2}e^{\frac{\pi}{4}}\lb{\longrightarrow\text{En $x=\dfrac{\pi}{4}$ está el máximo absoluto}}\\
+f\left(-\dfrac{3\pi}{4}\right)=e^{-\frac{3\pi}{4}}\cdot\left(-\dfrac{\sqrt{2}}{2}\right)=-\dfrac{\sqrt{2}}{2}e^{-\frac{3\pi}{4}}\\
+f(\pi)=e^{\pi}\cdot(-1)=-e^{\pi}\lb{\longrightarrow\text{En $x=\pi$ está el mínimo absoluto}}
+\end{array}$
 \end{enumerate}
 \end{document}

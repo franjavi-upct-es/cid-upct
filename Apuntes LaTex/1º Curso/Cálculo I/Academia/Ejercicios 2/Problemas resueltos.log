@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (MiKTeX 24.1) (preloaded format=pdflatex 2024.2.18)  3 APR 2024 07:13
+This is pdfTeX, Version 3.141592653-2.6-1.40.26 (MiKTeX 24.3.31) (preloaded format=pdflatex 2024.4.11)  13 APR 2024 12:27
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -778,6 +778,9 @@ Package: multicol 2023/03/30 v1.9f multicolumn formatting (FMi)
 \lst@lineno=\count340
 \lst@maxwidth=\dimen328
 
+(C:\Program Files\MiKTeX\tex/latex/listings\lstpatch.sty
+File: lstpatch.sty 2023/02/27 1.9 (Carsten Heinz)
+)
 (C:\Users\fcoja\AppData\Local\Programs\MiKTeX\tex/latex/listings\lstmisc.sty
 File: lstmisc.sty 2023/02/27 1.9 (Carsten Heinz)
 \c@lstnumber=\count341
@@ -1703,29 +1706,33 @@ Package: kbordermatrix 2011/09/21 Bordered matrix with brackets
 )
 \c@subsubsubsection=\count514
 )
+(C:\Users\fcoja\AppData\Local\Programs\MiKTeX\tex/latex/bbding\bbding.sty
+Package: bbding 1999/04/15 v1.01 Dingbats symbols
+)
 \@quotelevel=\count515
 \@quotereset=\count516
- (Problemas resueltos.aux)
+
+(Problemas resueltos.aux)
 \openout1 = `"Problemas resueltos.aux"'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 4.
-LaTeX Font Info:    ... okay on input line 4.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 4.
-LaTeX Font Info:    ... okay on input line 4.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 4.
-LaTeX Font Info:    ... okay on input line 4.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 4.
-LaTeX Font Info:    ... okay on input line 4.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 4.
-LaTeX Font Info:    ... okay on input line 4.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 4.
-LaTeX Font Info:    ... okay on input line 4.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 4.
-LaTeX Font Info:    ... okay on input line 4.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 4.
-LaTeX Font Info:    ... okay on input line 4.
-LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 4.
-LaTeX Font Info:    ... okay on input line 4.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 5.
+LaTeX Font Info:    ... okay on input line 5.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 5.
+LaTeX Font Info:    ... okay on input line 5.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 5.
+LaTeX Font Info:    ... okay on input line 5.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 5.
+LaTeX Font Info:    ... okay on input line 5.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 5.
+LaTeX Font Info:    ... okay on input line 5.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 5.
+LaTeX Font Info:    ... okay on input line 5.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 5.
+LaTeX Font Info:    ... okay on input line 5.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 5.
+LaTeX Font Info:    ... okay on input line 5.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 5.
+LaTeX Font Info:    ... okay on input line 5.
 
 (C:\Users\fcoja\AppData\Local\Programs\MiKTeX\tex/context/base/mkii\supp-pdf.mk
 ii
@@ -1752,14 +1759,14 @@ Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 4
 fg
 File: epstopdf-sys.cfg 2021/03/18 v2.0 Configuration of epstopdf for MiKTeX
 ))
-LaTeX Info: Redefining \celsius on input line 4.
-Package gensymb Info: Faking symbols for \degree and \celsius on input line 4.
+LaTeX Info: Redefining \celsius on input line 5.
+Package gensymb Info: Faking symbols for \degree and \celsius on input line 5.
 
 
 Package gensymb Warning: Not defining \perthousand.
 
-LaTeX Info: Redefining \ohm on input line 4.
-Package gensymb Info: Using \Omega for \ohm on input line 4.
+LaTeX Info: Redefining \ohm on input line 5.
+Package gensymb Info: Using \Omega for \ohm on input line 5.
 
 Package gensymb Warning: Not defining \micro.
 
@@ -1769,7 +1776,7 @@ Package caption Info: listings package is loaded.
 Package caption Info: wrapfig package is loaded.
 Package caption Info: End \AtBeginDocument code.
 \c@lstlisting=\count523
-Package hyperref Info: Link coloring OFF on input line 4.
+Package hyperref Info: Link coloring OFF on input line 5.
 (Problemas resueltos.out) (Problemas resueltos.out)
 \@outlinefile=\write5
 \openout5 = `"Problemas resueltos.out"'.
@@ -1790,8 +1797,8 @@ Package biblatex Info: Trying to load bibliographic data...
 Package biblatex Info: ... file '"Problemas resueltos".bbl' not found.
 
 No file "Problemas resueltos".bbl.
-Package biblatex Info: Reference section=0 on input line 4.
-Package biblatex Info: Reference segment=0 on input line 4.
+Package biblatex Info: Reference section=0 on input line 5.
+Package biblatex Info: Reference segment=0 on input line 5.
 
 (C:\Users\fcoja\AppData\Local\Programs\MiKTeX\tex/latex/pdflscape\pdflscape.sty
 Package: pdflscape 2022-10-27 v0.13 Display of landscape pages in PDF
@@ -1810,7 +1817,7 @@ Package pdflscape Info: Auto-detected driver: pdftex on input line 81.
 Package pgfplots Warning: running in backwards compatibility mode (unsuitable t
 ick labels; missing features). Consider writing \pgfplotsset{compat=1.18} into 
 your preamble.
- on input line 4.
+ on input line 5.
 
 *geometry* driver: auto-detecting
 *geometry* detected driver: pdftex
@@ -1846,22 +1853,22 @@ your preamble.
 * \@reversemarginfalse
 * (1in=72.27pt=25.4mm, 1cm=28.453pt)
 
-LaTeX Font Info:    Trying to load font information for U+msa on input line 8.
+LaTeX Font Info:    Trying to load font information for U+msa on input line 9.
 (C:\Users\fcoja\AppData\Local\Programs\MiKTeX\tex/latex/amsfonts\umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Trying to load font information for U+msb on input line 8.
+LaTeX Font Info:    Trying to load font information for U+msb on input line 9.
 
 (C:\Users\fcoja\AppData\Local\Programs\MiKTeX\tex/latex/amsfonts\umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )
-LaTeX Font Info:    Trying to load font information for U+lasy on input line 8.
+LaTeX Font Info:    Trying to load font information for U+lasy on input line 9.
 
 
 (C:\Users\fcoja\AppData\Local\Programs\MiKTeX\tex/latex/base\ulasy.fd
 File: ulasy.fd 1998/08/17 v2.2e LaTeX symbol font definitions
 )
-Overfull \hbox (8.16595pt too wide) in paragraph at lines 106--107
+Overfull \hbox (8.16595pt too wide) in paragraph at lines 107--108
 [][] 
  []
 
@@ -1869,235 +1876,235 @@ Overfull \hbox (8.16595pt too wide) in paragraph at lines 106--107
 
 {C:/Users/fcoja/AppData/Local/MiKTeX/fonts/map/pdftex/pdftex.map}] [2]
 [3]
-Overfull \hbox (19.99889pt too wide) in paragraph at lines 245--246
+Overfull \hbox (19.99889pt too wide) in paragraph at lines 246--247
 []\OT1/cmr/m/n/10 Para em-pezar debe-mos darnos cuenta de que la funci^^Son sol
 o est^^Sa definida para el in-ter-valo: $[\OMS/cmsy/m/n/10 ^^@\OT1/cmr/m/n/10 2
 \OML/cmm/m/it/10 ; \OT1/cmr/m/n/10 5) [][]\OMS/cmsy/m/n/10 ! [][]$ 
  []
 
 
-Overfull \hbox (8.16595pt too wide) in paragraph at lines 272--273
+Overfull \hbox (8.16595pt too wide) in paragraph at lines 273--274
 [] 
  []
 
 
-Underfull \hbox (badness 2376) in paragraph at lines 282--283
+Underfull \hbox (badness 2376) in paragraph at lines 283--284
 []$[] [] \OT1/cmr/m/n/10 = [] = [] [] =
  []
 
 
-Overfull \hbox (8.16595pt too wide) in paragraph at lines 286--287
+Overfull \hbox (8.16595pt too wide) in paragraph at lines 287--288
 [][] 
  []
 
 
-Overfull \hbox (8.16595pt too wide) in paragraph at lines 301--302
+Overfull \hbox (8.16595pt too wide) in paragraph at lines 302--303
 [][] 
  []
 
 
-Overfull \hbox (10.41263pt too wide) in paragraph at lines 290--303
+Overfull \hbox (10.41263pt too wide) in paragraph at lines 291--304
 [] $[]$ $[]$ 
  []
 
 [4]
-Underfull \hbox (badness 10000) in paragraph at lines 308--309
+Underfull \hbox (badness 10000) in paragraph at lines 309--310
 []$[]\OT1/cmr/m/n/10 ([] \OMS/cmsy/m/n/10 ^^@ []\OT1/cmr/m/n/10 ) = (\OMS/cmsy/
 m/n/10 1 ^^@ 1\OT1/cmr/m/n/10 ) = [] [] =
  []
 
 
-Underfull \hbox (badness 1014) in paragraph at lines 323--324
+Underfull \hbox (badness 1014) in paragraph at lines 324--325
 []\OT1/cmr/m/n/10 Como los l^^S^^Pmites lat-erales no son
  []
 
 
-Underfull \hbox (badness 2042) in paragraph at lines 340--341
+Underfull \hbox (badness 2042) in paragraph at lines 341--342
 []$[] [] [] \OT1/cmr/m/n/10 = [] [] [] = [] [] \OMS/cmsy/m/n/10 ^^A [] \OT1/cmr
 /m/n/10 =
  []
 
 [5]
-Overfull \hbox (8.16595pt too wide) in paragraph at lines 355--356
+Overfull \hbox (8.16595pt too wide) in paragraph at lines 356--357
 [][] 
  []
 
 
-Overfull \hbox (8.16594pt too wide) in paragraph at lines 377--378
+Overfull \hbox (8.16594pt too wide) in paragraph at lines 378--379
 [][] 
  []
 
 
-Overfull \hbox (10.42088pt too wide) in paragraph at lines 366--379
+Overfull \hbox (10.42088pt too wide) in paragraph at lines 367--380
 [] $[]$ $[]$ 
  []
 
 [6]
-Underfull \hbox (badness 10000) in paragraph at lines 398--399
+Underfull \hbox (badness 10000) in paragraph at lines 399--400
 []$[] \OT1/cmr/m/n/10 = (0[]) = [] \OML/cmm/m/it/10 e[] \OT1/cmr/m/n/10 =
  []
 
 
-Overfull \hbox (8.16595pt too wide) in paragraph at lines 408--409
+Overfull \hbox (8.16595pt too wide) in paragraph at lines 409--410
 [][] 
  []
 
 
-Overfull \hbox (8.16594pt too wide) in paragraph at lines 422--423
+Overfull \hbox (8.16594pt too wide) in paragraph at lines 423--424
 [][] 
  []
 
 [7]
-Overfull \hbox (14.41792pt too wide) detected at line 431
+Overfull \hbox (14.41792pt too wide) detected at line 432
 [] [] \OT1/cmr/m/n/10 = [] = [] [] = 4 [][]\OMS/cmsy/m/n/10 ! [] \OML/cmm/m/it/
 10 f\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 x\OT1/cmr/m/n/10 ) = 4
  []
 
 
-Overfull \hbox (8.16595pt too wide) in paragraph at lines 443--444
+Overfull \hbox (8.16595pt too wide) in paragraph at lines 444--445
 [][] 
  []
 
 [8] [9] [10] [11] [12]
-Underfull \hbox (badness 5924) in paragraph at lines 739--745
+Underfull \hbox (badness 5924) in paragraph at lines 740--746
 [][] [] [] \OT1/cmr/m/n/10 = [] = [] =
  []
 
 
-Overfull \hbox (0.76341pt too wide) detected at line 747
+Overfull \hbox (0.76341pt too wide) detected at line 748
 [] [][] \OT1/cmr/m/n/10 = \OML/cmm/m/it/10 e[]
  []
 
 
-Overfull \hbox (8.16594pt too wide) in paragraph at lines 748--749
+Overfull \hbox (8.16594pt too wide) in paragraph at lines 749--750
 [][] 
  []
 
 [13] [14]
-Overfull \hbox (8.16595pt too wide) in paragraph at lines 832--833
+Overfull \hbox (8.16595pt too wide) in paragraph at lines 833--834
 [][] 
  []
 
 [15]
-Overfull \hbox (7.6289pt too wide) in paragraph at lines 892--905
+Overfull \hbox (7.6289pt too wide) in paragraph at lines 893--906
 [][] 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 906--907
+Underfull \hbox (badness 10000) in paragraph at lines 907--908
 [][]\OT1/cmr/m/n/10 Es Ca-su-al-i-dad que sal-gan
  []
 
 [16] [17]
-Underfull \hbox (badness 1215) in paragraph at lines 1013--1018
+Underfull \hbox (badness 1215) in paragraph at lines 1014--1019
 [] \OT1/cmr/m/n/10 = [] [] = [] [] = [] =
  []
 
 
-Overfull \hbox (8.16595pt too wide) in paragraph at lines 1023--1027
+Overfull \hbox (8.16595pt too wide) in paragraph at lines 1024--1028
 [][] 
  []
 
 
-Overfull \hbox (8.16595pt too wide) in paragraph at lines 1023--1027
+Overfull \hbox (8.16595pt too wide) in paragraph at lines 1024--1028
 [] 
  []
 
 [18]
-Overfull \hbox (8.16595pt too wide) in paragraph at lines 1073--1074
+Overfull \hbox (8.16595pt too wide) in paragraph at lines 1074--1075
  [][] 
  []
 
 
-Overfull \hbox (8.16595pt too wide) in paragraph at lines 1096--1097
+Overfull \hbox (8.16595pt too wide) in paragraph at lines 1097--1098
  [][] 
  []
 
 [19]
-Overfull \hbox (8.16595pt too wide) in paragraph at lines 1159--1160
+Overfull \hbox (8.16595pt too wide) in paragraph at lines 1160--1161
 [][] 
  []
 
 [20]
-Underfull \hbox (badness 10000) in paragraph at lines 1222--1224
+Underfull \hbox (badness 10000) in paragraph at lines 1223--1225
 
  []
 
 
-Overfull \hbox (8.16595pt too wide) in paragraph at lines 1232--1233
+Overfull \hbox (8.16595pt too wide) in paragraph at lines 1233--1234
 [][] 
  []
 
 [21]
-Underfull \hbox (badness 1082) in paragraph at lines 1236--1236
+Underfull \hbox (badness 1082) in paragraph at lines 1237--1237
 []\OT1/cmr/m/n/10 Realizaremos la derivada de esta funci^^Son me-di-ante
  []
 
 
-Overfull \hbox (95.91022pt too wide) detected at line 1240
+Overfull \hbox (95.91022pt too wide) detected at line 1241
 []
  []
 
 
-Overfull \hbox (8.16595pt too wide) in paragraph at lines 1244--1245
+Overfull \hbox (8.16595pt too wide) in paragraph at lines 1245--1246
 [][] 
  []
 
 
-Overfull \hbox (102.89902pt too wide) detected at line 1263
+Overfull \hbox (109.56567pt too wide) detected at line 1264
 []
  []
 
 
-Overfull \hbox (8.16595pt too wide) in paragraph at lines 1279--1280
+Overfull \hbox (8.16595pt too wide) in paragraph at lines 1280--1281
 [][] 
  []
 
 [22]
-Overfull \hbox (8.16595pt too wide) in paragraph at lines 1294--1295
+Overfull \hbox (8.16595pt too wide) in paragraph at lines 1295--1296
 [][] 
  []
 
 
-Overfull \hbox (8.94302pt too wide) in paragraph at lines 1298--1299
+Overfull \hbox (8.94302pt too wide) in paragraph at lines 1299--1300
 []$[] [] \OT1/cmr/m/n/10 = [] = [] = [] [] = [] = [] = [] [] = [] = [] =
  []
 
 
-Overfull \hbox (8.16594pt too wide) in paragraph at lines 1306--1308
+Overfull \hbox (8.16594pt too wide) in paragraph at lines 1307--1309
 [][] 
  []
 
 
-LaTeX Font Warning: Command \tiny invalid in math mode on input line 1318.
+LaTeX Font Warning: Command \tiny invalid in math mode on input line 1319.
 
 
-Overfull \hbox (2.7019pt too wide) in paragraph at lines 1311--1319
+Overfull \hbox (2.7019pt too wide) in paragraph at lines 1312--1320
 []$[] [][]$ 
  []
 
 
-Overfull \hbox (8.16595pt too wide) in paragraph at lines 1327--1328
+Overfull \hbox (8.16595pt too wide) in paragraph at lines 1328--1329
 [][] 
  []
 
 
-Overfull \hbox (14.4078pt too wide) in paragraph at lines 1303--1329
+Overfull \hbox (14.4078pt too wide) in paragraph at lines 1304--1330
 [][] $[]$ 
  []
 
 [23]
-Overfull \hbox (8.16595pt too wide) in paragraph at lines 1365--1366
+Overfull \hbox (8.16595pt too wide) in paragraph at lines 1366--1367
 [][] 
  []
 
 [24]
-Underfull \hbox (badness 10000) in paragraph at lines 1415--1417
+Underfull \hbox (badness 10000) in paragraph at lines 1416--1418
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 1418--1419
+Underfull \hbox (badness 10000) in paragraph at lines 1419--1420
 
  []
 
@@ -2105,9 +2112,23 @@ Underfull \hbox (badness 10000) in paragraph at lines 1418--1419
 <screenshot001.png, id=258, 490.08093pt x 659.46375pt>
 File: screenshot001.png Graphic file (type png)
 <use screenshot001.png>
-Package pdftex.def Info: screenshot001.png  used on input line 1438.
+Package pdftex.def Info: screenshot001.png  used on input line 1439.
 (pdftex.def)             Requested size: 245.03987pt x 329.73106pt.
- [26 <./screenshot001.png>] (Problemas resueltos.aux)
+ [26 <./screenshot001.png>]
+Overfull \hbox (8.16594pt too wide) in paragraph at lines 1475--1476
+[][] 
+ []
+
+
+Overfull \hbox (8.19041pt too wide) in paragraph at lines 1458--1477
+[]$[]$ $[]$ 
+ []
+
+
+Overfull \vbox (9.0pt too high) detected at line 1483
+ []
+
+[27] [28] (Problemas resueltos.aux)
  ***********
 LaTeX2e <2023-11-01> patch level 1
 L3 programming layer <2024-02-13>
@@ -2119,11 +2140,11 @@ Package logreq Info: Writing requests to '"Problemas resueltos".run.xml'.
 
  ) 
 Here is how much of TeX's memory you used:
- 53789 strings out of 474462
- 1223903 string characters out of 5742883
- 2180484 words of memory out of 5000000
- 75106 multiletter control sequences out of 15000+600000
- 565692 words of font info for 70 fonts, out of 8000000 for 9000
+ 53978 strings out of 474462
+ 1227143 string characters out of 5742883
+ 2183755 words of memory out of 5000000
+ 75278 multiletter control sequences out of 15000+600000
+ 566311 words of font info for 72 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  89i,24n,134p,1212b,2206s stack positions out of 10000i,1000n,20000p,200000b,200000s
  <C:\Users\fcoja\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\tcrm
@@ -2154,11 +2175,12 @@ blic/amsfonts/cm/cmsy8.pfb><C:/Users/fcoja/AppData/Local/Programs/MiKTeX/fonts/
 type1/public/amsfonts/cm/cmsy9.pfb><C:/Users/fcoja/AppData/Local/Programs/MiKTe
 X/fonts/type1/public/amsfonts/latxfont/lasy10.pfb><C:/Users/fcoja/AppData/Local
 /Programs/MiKTeX/fonts/type1/public/amsfonts/latxfont/line10.pfb><C:/Users/fcoj
-a/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
-
-Output written on "Problemas resueltos.pdf" (26 pages, 453642 bytes).
+a/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/symbols/msam10.pfb>
+<C:/Users/fcoja/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/symbo
+ls/msbm10.pfb>
+Output written on "Problemas resueltos.pdf" (28 pages, 470717 bytes).
 PDF statistics:
- 405 PDF objects out of 1000 (max. 8388607)
- 149 named destinations out of 1000 (max. 500000)
+ 424 PDF objects out of 1000 (max. 8388607)
+ 156 named destinations out of 1000 (max. 500000)
  18 words of extra memory for PDF output out of 10000 (max. 10000000)
 
