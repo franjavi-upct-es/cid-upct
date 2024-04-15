@@ -485,3 +485,94 @@ L_3(\mathbf{z})=-1
 (-0.5,1) circle (2pt) node[below left] {$\mu_3$};
 \end{tikzpicture}
 \end{center}
+\subsection{Varias poblaciones con distintas matrices de covarianza}
+\subsubsection{Criterios de clasificación}
+Los criterios de clasificación por \lb{máxima verosimilitud} o por \lb{mínima distancia de Mahalanobis a las medias de los grupos} pueden utilizarse aunque las poblaciones no tengan la misma matriz de covarianzas.
+
+No es necesario que las poblaciones sean normales, pudiéndose aplicar incluso a poblaciones de tipo discreto (siempre que se conozcan las densidades o las funciones puntuales de probabilidad).
+
+Cuando las poblaciones sean normales suele hablarse de \lb{Análisis Discriminante Cuadrático} (ADC o QDA) ya que las funciones que determinan las regiones de clasificación son polinomios de grado 2.
+\begin{itemize}
+\item Sin embargo, en este caso, las funciones discriminantes para mínima distancia o máxima verosimilitud no coinciden.
+\end{itemize}
+Bajo la hipótesis de normalidad, el criterio de \lb{máxima verosimilitud} buscará el máximo de \[ f_i(\mathbf{z})=\dfrac{1}{\sqrt{|V_i|(2\pi)^k}}\exp\left(-\dfrac{1}{2}(\mathbf{z}-\mu^{(i)})'V_i^{-1}(\mathbf{z}-\mu^{(i)})\right) \]o, equivalentemente, el \lb{mínimo} de \[ Q_i(\mathbf{z})=c-2\log f_i(\mathbf{z})=(\mathbf{z}-\mu^{(i)})'V_i^{-1}(\mathbf{z}-\mu^{(i)})+\log|V_i|, \]con término constante $c=-l\log(2\pi)$, conocida como \lb{función discriminante cuadrática (QDF)} para $i=1,\dots,m$.
+\begin{itemize}
+\item Un individuo con medidas \textbf{z} se clasificará en el grupo donde la función discriminante cuadrática sea mínima (máxima verosimilitud).
+\end{itemize}
+El criterio basado en la \lb{distancia de Mahalanobis} usará la función discriminante cuadrática \[ Q_i^*(\mathbf{z})=d_{V_i}^2(\mathbf{z,\mu^{(i)}})=(\mathbf{z-\mu^{(i)}})'V_i^{-1}(\mathbf{z-\mu^{(i)}}). \]
+\subsubsection{Observaciones}
+Los resultados pueden ser diferentes (cuando los determinantes de las matrices de covarianzas sean diferentes).
+
+En general, las funciones discriminantes cuadráticas son muy \lb{sensibles} cuando las \lb{poblaciones no son normales}, por lo que no es muy recomendable su uso en este caso, siendo preferible usar funciones discriminantes lineales.
+
+\Ej
+
+Sean dos poblaciones normales bidimensionales con medias $\mu_1=(2,0)'$ y $\mu_2=(0,0)'$, y matrices de covarianzas \[ V_1=\begin{pmatrix}
+2 & -1\\
+-1 & 1
+\end{pmatrix},\qquad\text{y}\qquad V_2=\begin{pmatrix}
+2 & 0\\
+0 & \tfrac{1}{2}
+\end{pmatrix}. \]
+Se pide:
+\begin{itemize}
+\item Calcular las funciones discriminantes cuadráticas.
+\item Proporcionar el criterio de clasificación.
+\item Dibujar las regiones de clasificación en $\R^2$.
+\item Clasificar a $\mathbf{z}=(1,1)'$
+\end{itemize}
+Como \[ V_1^{-1}=\begin{pmatrix}
+2 & -1\\
+-1 & 1
+\end{pmatrix}^{-1}=\begin{pmatrix}
+1 & 1\\
+1 & 2
+\end{pmatrix}, \]la primera QDF es \[ \begin{aligned}
+Q_1(x,y)&=\begin{pmatrix}
+x-2 & y
+\end{pmatrix}V_1^{-1}\begin{pmatrix}
+x-2\\
+y
+\end{pmatrix}\\
+&=(x-2+y)(x-2)+(x-2+2y)y\\
+&=x^2-5x+4+2yx-4y+2y^2
+\end{aligned} \]
+Análogamente, para el segundo grupo tenemos: \[ \begin{pmatrix}
+2 & 0\\
+0 & \tfrac{1}{2}
+\end{pmatrix}^{-1}=\begin{pmatrix}
+\tfrac{1}{2} & 0\\
+0 & 2
+\end{pmatrix} \]con lo que la segunda QDF será \[ Q_2(x,y)=\begin{pmatrix}
+x & y
+\end{pmatrix}V_2^{-1}\begin{pmatrix}
+x\\
+y
+\end{pmatrix}=0.5x^2+2y^2 \]
+
+\subsection{Clasificación a partir de una muestra}
+
+En la práctica, los valores de las \lb{medias} y las \lb{matrices de covarianzas teóricos} usados en los criterios de clasificación serán \lb{desconocidos}, por lo que tendrán que ser \lb{estimados}.
+
+Estas estimaciones dependerán de las hipótesis de partida (normalidad, igualdad de matrices de covarianzas, etc…), hipótesis que en muchos casos deberán ser corroboradas mediante algún procedimiento cuando no se está muy seguro de su validez.
+
+En general, si estudiamos $k$ variables numéricas $(Z_1,\dots,Z_k)$ en $m$ poblaciones distintas indicadas por una variable discreta $G$ (grupo) para una muestra de $n$ individuos (muestra de entrenamiento), tendremos una tabla de datos de la forma \[ \begin{array}{|c|c|c|c|c|}
+\hline
+ & Z_1 & \cdots & Z_k & G\\ \hline
+ \omega_1 & z_{1,1} & \cdots & z_{1,k} & g_1 \\ \hline
+ \cdots & \cdots & \cdots & \cdots & \cdots \\ \hline
+ \omega_1 & z_{1,1} & \cdots & z_{1,k} & g_1 \\ \hline
+\end{array} \]donde $g_i\in\{1,\dots, m\}$ para todo $i$.
+
+Para cada valor de $G=j$, esta tabla proporcionará una \mas de la variable aleatoria $k$-dimensional $\mathbf{Z}=(Z_1,\dots,Z_k)'$ condicionada por $G=j$ que, en muchas ocasiones, podremos suponer normal.
+\begin{itemize}
+\item En realidad tendremos $m$ muestras de $m$ poblaciones normales $k$-dimensionales $\mathcal{N}_k(\mu^{(i)},V_j)$.
+\end{itemize}
+Así en la práctica, tendremos $m$ \lb{medias teóricas} y $m$ \lb{matrices de covarianzas desconocidas}, por lo que tendremos que \lb{estimarlas}.
+
+Para dichas \lb{estimaciones} usaremos: \[ \begin{array}{l}
+\hat{\mu}^{(j)}=\dfrac{1}{n_j}\sum_{i=1}^{n}\omega_i1(G(\omega_i)=j)\\
+\hat{V}_j=\dfrac{1}{n_j-1}\sum_{i=1}^{n}1(G(\omega_i)=j)(\omega_i-\hat{\mu}^{(j)})(\omega_i-\hat{\mu}^{(j)})'\\
+\omega_i=(z_{i,1},\dots,z_{i,k})'\\
+n_j=\sum_{i=1}^{n}1(G(\omega_i)=j)
+\end{array} \]donde $n=n-1+\cdots+n_m$, y $1(G(\omega_i)=j)$ es la función indicador que vale 1 si el individuo $i$ pertenece a la clase $j$-ésima y vale 0 en caso contrario. Y por lo tanto

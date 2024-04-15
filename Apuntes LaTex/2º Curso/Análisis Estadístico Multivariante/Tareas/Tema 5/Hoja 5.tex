@@ -291,6 +291,95 @@
 			6 & 2\\
 			2 & 1
 		\end{pmatrix} \]y medias $(0,1),\,(1,0)$ y $(1,1)$, respectivamente, obtener las funciones discriminantes y el criterio de clasificación.}
+		
+		$\begin{array}{l}
+		\mu^{(1)}=\begin{pmatrix}
+		0\\
+		1
+		\end{pmatrix}\\
+		\mu^{(2)}=\begin{pmatrix}
+		1\\
+		0
+		\end{pmatrix}\\
+		\mu^{(3)}=\begin{pmatrix}
+		1\\
+		1
+		\end{pmatrix}\\
+		V=\begin{pmatrix}
+					6 & 2\\
+					2 & 1
+				\end{pmatrix}\longrightarrow V^{-1}=\begin{pmatrix}
+				\tfrac{1}{2} & -1\\
+				-1 & 3
+				\end{pmatrix}\\
+		L_i(\mathbf{z})=\left(\mu^{(i)}\right)'V^{-1}\mathbf{z}-\dfrac{1}{2}\left(\mu^{(i)}\right)'V^{-1}\mu^{(i)}\\
+		L_1(\mathbf{z})=\begin{pmatrix}
+		0 & 1
+		\end{pmatrix}\begin{pmatrix}
+						\tfrac{1}{2} & -1\\
+						-1 & 3
+						\end{pmatrix}\begin{pmatrix}
+						x\\
+						y
+						\end{pmatrix}-\dfrac{1}{2}\begin{pmatrix}
+						0 & 1
+						\end{pmatrix}\begin{pmatrix}
+										\tfrac{1}{2} & -1\\
+										-1 & 3
+										\end{pmatrix}\begin{pmatrix}
+										0\\
+										1
+										\end{pmatrix}=\begin{pmatrix}
+										-1 & 3
+										\end{pmatrix}\begin{pmatrix}
+										x\\
+										y
+										\end{pmatrix}-\dfrac{1}{2}\cdot 3=-x+3y-\dfrac{3}{2}\\
+	L_2(\mathbf{z})=\begin{pmatrix}
+	1 & 0
+	\end{pmatrix}\begin{pmatrix}
+					\tfrac{1}{2} & -1\\
+					-1 & 3
+					\end{pmatrix}\begin{pmatrix}
+					x\\
+					y
+					\end{pmatrix}-\dfrac{1}{2}\begin{pmatrix}
+					1 & 0
+					\end{pmatrix}\begin{pmatrix}
+									\tfrac{1}{2} & -1\\
+									-1 & 3
+									\end{pmatrix}\begin{pmatrix}
+									1\\
+									0
+									\end{pmatrix}=\begin{pmatrix}
+									\tfrac{1}{2} & -1
+									\end{pmatrix}\begin{pmatrix}
+									x\\
+									y
+									\end{pmatrix}-\dfrac{1}{2}\cdot\dfrac{1}{2}=\dfrac{1}{2}x-y-\dfrac{1}{4}\\
+	L_3(\mathbf{z})=\begin{pmatrix}
+	1 & 1
+	\end{pmatrix}\begin{pmatrix}
+					\tfrac{1}{2} & -1\\
+					-1 & 3
+					\end{pmatrix}\begin{pmatrix}
+					x\\
+					y
+					\end{pmatrix}-\dfrac{1}{2}\begin{pmatrix}
+					1 & 1
+					\end{pmatrix}\begin{pmatrix}
+									\tfrac{1}{2} & -1\\
+									-1 & 3
+									\end{pmatrix}\begin{pmatrix}
+									1\\
+									1
+									\end{pmatrix}=\begin{pmatrix}
+									-\tfrac{1}{2} & 2
+									\end{pmatrix}\begin{pmatrix}
+									x\\
+									y
+									\end{pmatrix}-\dfrac{1}{2}\cdot\dfrac{3}{2}=-\dfrac{1}{2}x+2y-\dfrac{3}{4}
+	\end{array}$
 	
 	\item \lb{Dados dos vectores normales bidimensionales con medias $(0,0)$ y $(3,0)$ y matrices de covarianzas \[ V_1=\begin{pmatrix}
 			1 & -1\\
@@ -301,9 +390,100 @@
 		\end{pmatrix}, \]se pide:}
 	\begin{enumerate}[label=\color{red}\alph*)]
 		\item \db{Calcular las funciones discriminantes cuadráticas}
+		
+		$\begin{array}{l}
+		V_1^{-1}=\begin{pmatrix}
+		1 & -1\\
+		-1 & 2
+		\end{pmatrix}^{-1}=\begin{pmatrix}
+		2 & 1\\
+		1 & 1
+		\end{pmatrix}\\
+		V_2^{-1}=\begin{pmatrix}
+		1 & 2\\
+		2 & 5
+		\end{pmatrix}^{-1}=\begin{pmatrix}
+		5 & -2\\
+		-2 & 1
+		\end{pmatrix}\\
+		\mu^{(1)}=(0,0)'\\
+		\mu^{(2)}=(3,0)'\\
+		Q_i(\mathbf{z})=(\mathbf{z}-\mu^{(i)})'V_i^{-1}(\mathbf{z}-\mu^{(i)})+\log|V_i|\\
+		Q_i^*(\mathbf{z})=(\mathbf{z}-\mu^{(i)})V_i^{-1}(\mathbf{z}-\mu^{(i)})
+		\end{array}$
+		
+		Como $|V_i|=1,\:i=1,2$ las dos funciones coinciden.
+		
+		$Q_1(\mathbf{z})=\begin{pmatrix}
+		x-0 & y-0
+		\end{pmatrix}\begin{pmatrix}
+		2 & 1\\
+		1 & 1
+		\end{pmatrix}\begin{pmatrix}
+		x-0\\
+		y-0
+		\end{pmatrix}+\tozero{\log|V_1|}=\begin{pmatrix}
+		2x+y&x+y
+		\end{pmatrix}\begin{pmatrix}
+		x\\
+		y
+		\end{pmatrix}=2x^2+2xy+y^2$\\
+		$\begin{aligned}
+		Q_2(\mathbf{z})&=\begin{pmatrix}
+		x-3 & y-0
+		\end{pmatrix}\begin{pmatrix}
+		5 & -2\\
+		-2 &1
+		\end{pmatrix}\begin{pmatrix}
+		x-3\\
+		y-0
+		\end{pmatrix}+\tozero{\log|V_2|}=\begin{pmatrix}
+		5x-2y-15&-2x+y+6
+		\end{pmatrix}\begin{pmatrix}
+		x-3\\
+		y
+		\end{pmatrix}\\
+		&=(5x-2y-15)(x-3)+2xy+y^2+6y=5x^2-15x-2xy+6y-15x+45-2xy+y^2+6y\\
+		&=5x^2+y^2-30x+12y-4xy+45
+		\end{aligned}$
+		
+		Criterio de clasificación: \textbf{z} se clasifica en la población en la que $Q_i(\mathbf{z})$ mínimo 
 		\item \db{Clasificar a $\mathbf{z}=(1,-4)'$ usando dichas funciones.}
+		
+		$\begin{array}{ll}
+		\mathbf{z}=(1,-4)' & Q_1(\mathbf{z})=2\cdot1^2+2\cdot1\cdot(-4)+(-4)^2=10\\
+		&Q_2(\mathbf{z})=5\cdot1^2+(-4)^2-30\cdot1+12\cdot(-4)-4\cdot1\cdot(-4)+45=4\quad\lb{(\ast)}
+		\end{array}$
+		
+		\textbf{z} se clasifica en la población (2)
 		\item \db{Representar gráficamente las regiones de clasificación.}
+		
+		Se clasifica en (1) $\longleftrightarrow Q_1(\mathbf{z})<Q_2(\mathbf{z})$
+		
+		$2x^2+y^2+2xy<5x^2+y^2-30x+12y-4xy+45\longleftrightarrow y^2+2xy-y^2-12y+4xy<5x^2-30x+45-2x^2\linebreak\longleftrightarrow6xy-12y<3x^2-30x+45\xleftrightarrow{~~\frac{1}{3}~~}2xy-6y<x^2-10x+15\longleftrightarrow y(-4+2x)<x^2-10x+45$
+		\begin{enumerate}[label=\arabic*)]
+			\item Si $x=2$, como $0>-1,\:z$ se clasifica en (2).
+			\item Si $x>2$, se clasifica en (1) $\longleftrightarrow y<\dfrac{x^2-10x+15}{-4+2x}$.
+			\item Si $x<2$, se clasifica en (1) $\longleftrightarrow y>\dfrac{x^2-10x+15}{-4+2x}$..
+		\end{enumerate}
+		
+		\begin{tikzpicture}[scale=1.5]
+		\begin{axis}[
+		    axis lines = middle,
+		    domain = -15:15,
+		    samples = 1000,
+		    ymin = -15,
+		    ymax = 15,
+		    restrict y to domain=-15:15
+		]
+		\addplot [lightblue, line width=1.5] {(x^2-10*x+15)/(-4+2*x)};
+		\fill[blue] (axis cs:0,0) circle (2pt) node[below left] {$\mu^{(1)}$};
+		\fill[blue] (axis cs:3,0) circle (2pt) node[above right] {$\mu^{(2)}$};
+		\end{axis}
+		\end{tikzpicture}
+		
 	\end{enumerate}
+	
 	\item \lb{Dadas dos poblaciones normales bidimensionales con medias $\mu^{(1)}=(1,0)'$ y $\mu^{(2)}=(0,0)'$ y matrices de covarianzas \[ V_1=\begin{pmatrix}
 			1 & 0\\
 			0 & \frac{1}{2}
@@ -313,7 +493,31 @@
 		\end{pmatrix}, \]se pide:}
 	\begin{enumerate}[label=\color{red}\alph*)]
 		\item \db{Obtener las funciones discriminantes cuadráticas y clasificar a $\mathbf{z}=(1,1)'$.}
+		
+		$ $
 		\item \db{Clasificar a $\mathbf{z}$ usando el criterio de mínima distancia de Mahalanobis y representar las regiones de clasificación con este criterio para cada grupo.}
 	\end{enumerate}
 	\item \lb{Obtener un criterio de clasificación para dos poblaciones exponenciales unidimensionales con medias distintas usando máxima verosimilitud. Clasificar a $z=1.5$ entre dos poblaciones exponenciales con medias 2 y 1. (Indicación: La función de densidad de la distribución exponencial es $f(x)=\dfrac{e^{-\frac{x}{\mu}}}{\mu}$ para $x\ge0$).}
+	
+		$f(x)=\begin{cases}
+		\frac{1}{\mu}e^{-\frac{x}{\mu}} & \text{si }x>0\\
+		0 & \text{en otro caso}
+		\end{cases}$
+		
+		Población (1): media$=E[X^{(1)}]=\mu_1;\, f_1$ función de densidad\\
+		Población (2): media$=E[X^{(2)}]=\mu_2;\, f_2$ función de densidad\\
+		
+		Criterio de máxima verosimilitud:
+		
+		Se clasificará \textbf{z} en (1)$\longleftrightarrow f_1(\mathbf{z})>f_2(\mathbf{z})\longleftrightarrow\dfrac{1}{\mu_1}e^{-\frac{\mathbf{z}}{\mu_1}}>\dfrac{1}{\mu_2}e^{-\frac{\mathbf{z}}{\mu_2}}\longleftrightarrow e^{-\frac{\mathbf{z}}{\mu_1}}e^{\frac{\mathbf{z}}{\mu_2}}>\dfrac{\mu_1}{\mu_2}\longleftrightarrow e^{\mathbf{z}\left(\frac{1}{\mu_2}-\frac{1}{\mu_1}\right)}>\dfrac{\mu_1}{\mu_2}\longleftrightarrow\mathbf{z}\left(\dfrac{1}{\mu_2}-\dfrac{1}{\mu_1}\right)>\ln\left(\dfrac{\mu_1}{\mu_2}\right)$
+		
+		Si $\mu_1>\mu_2$, se clasifica en (1) $\longleftrightarrow \mathbf{z}>\dfrac{1}{\left(\frac{1}{\mu_2}-\frac{1}{\mu_1}\right)}\ln\left(\dfrac{\mu_1}{\mu_2}\right)$\\
+		Si $\mu_1<\mu_2$, se clasifica en (1) $\longleftrightarrow \mathbf{z}<\dfrac{1}{\left(\frac{1}{\mu_2}-\frac{1}{\mu_1}\right)}\ln\left(\dfrac{\mu_1}{\mu_2}\right)$\\
+		$\begin{array}{l}
+		\mu_1=2,\:\mu_2=1\\
+		\mathbf{z}=1.5
+		\end{array}~~\begin{cases}
+		f_1(1.5)=0.2361\quad\lb{(\ast)\text{ Se clasificará en la población (1)}}\\
+		f_2(1.5)=0.2231
+		\end{cases}$
 \end{enumerate}
