@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (MiKTeX 24.1) (preloaded format=pdflatex 2024.2.18)  19 MAR 2024 21:34
+This is pdfTeX, Version 3.141592653-2.6-1.40.26 (MiKTeX 24.3.31) (preloaded format=pdflatex 2024.4.11)  15 APR 2024 13:25
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -777,6 +777,9 @@ Package: multicol 2023/03/30 v1.9f multicolumn formatting (FMi)
 \lst@lineno=\count340
 \lst@maxwidth=\dimen328
 
+(C:\Program Files\MiKTeX\tex/latex/listings\lstpatch.sty
+File: lstpatch.sty 2023/02/27 1.9 (Carsten Heinz)
+)
 (C:\Users\fcoja\AppData\Local\Programs\MiKTeX\tex/latex/listings\lstmisc.sty
 File: lstmisc.sty 2023/02/27 1.9 (Carsten Heinz)
 \c@lstnumber=\count341
@@ -2183,9 +2186,8 @@ Package biblatex Info: Automatic encoding selection.
 \openout4 = `Memoria.bcf'.
 
 Package biblatex Info: Trying to load bibliographic data...
-Package biblatex Info: ... file 'Memoria.bbl' not found.
-
-No file Memoria.bbl.
+Package biblatex Info: ... file 'Memoria.bbl' found.
+ (Memoria.bbl)
 Package biblatex Info: Reference section=0 on input line 128.
 Package biblatex Info: Reference segment=0 on input line 128.
 
@@ -2260,18 +2262,18 @@ LaTeX Font Info:    Trying to load font information for U+lasy on input line 13
 File: ulasy.fd 1998/08/17 v2.2e LaTeX symbol font definitions
 )
 LaTeX Font Info:    Font shape `OT1/cmtt/bx/n' in size <10> not available
-(Font)              Font shape `OT1/cmtt/b/n' tried instead on input line 170.
+(Font)              Font shape `OT1/cmtt/b/n' tried instead on input line 175.
  [1
 
 {C:/Users/fcoja/AppData/Local/MiKTeX/fonts/map/pdftex/pdftex.map}]
 LaTeX Font Info:    Trying to load font information for LGR+cmtt on input line 
-208.
+213.
 
 (C:\Users\fcoja\AppData\Local\Programs\MiKTeX\tex/latex/cbfonts-fd\lgrcmtt.fd
 File: lgrcmtt.fd 2017/07/29 v1.2 Greek European Computer Typewriter
 )
 LaTeX Font Info:    Font shape `LGR/cmtt/bx/n' in size <10> not available
-(Font)              Font shape `LGR/cmtt/m/n' tried instead on input line 208.
+(Font)              Font shape `LGR/cmtt/m/n' tried instead on input line 213.
 
 [2] [3] (Memoria.aux)
  ***********
@@ -2285,13 +2287,13 @@ Package logreq Info: Writing requests to 'Memoria.run.xml'.
 
  ) 
 Here is how much of TeX's memory you used:
- 54484 strings out of 474462
- 1218237 string characters out of 5742883
- 2291888 words of memory out of 5000000
- 75864 multiletter control sequences out of 15000+600000
- 564583 words of font info for 61 fonts, out of 8000000 for 9000
+ 54491 strings out of 474462
+ 1218553 string characters out of 5742883
+ 2285956 words of memory out of 5000000
+ 75866 multiletter control sequences out of 15000+600000
+ 564284 words of font info for 60 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 84i,11n,131p,1198b,2121s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 84i,11n,131p,1198b,1808s stack positions out of 10000i,1000n,20000p,200000b,200000s
  <C:\Users\fcoja\AppData\Local\MiKTeX\fonts/pk/ljfour/public/cm/dpi600\cmttb1
 0.pk><C:/Users/fcoja/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/
 cm/cmbx10.pfb><C:/Users/fcoja/AppData/Local/Programs/MiKTeX/fonts/type1/public/
@@ -2309,7 +2311,7 @@ nts/cm/cmsy7.pfb><C:/Users/fcoja/AppData/Local/Programs/MiKTeX/fonts/type1/publ
 ic/amsfonts/cm/cmtt9.pfb><C:/Users/fcoja/AppData/Local/Programs/MiKTeX/fonts/ty
 pe1/public/cbgreek/grmn1000.pfb><C:/Users/fcoja/AppData/Local/Programs/MiKTeX/f
 onts/type1/public/cbgreek/gttn1000.pfb>
-Output written on Memoria.pdf (3 pages, 190541 bytes).
+Output written on Memoria.pdf (3 pages, 190860 bytes).
 PDF statistics:
  202 PDF objects out of 1000 (max. 8388607)
  63 named destinations out of 1000 (max. 500000)
