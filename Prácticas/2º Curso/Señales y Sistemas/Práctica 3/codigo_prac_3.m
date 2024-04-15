@@ -37,6 +37,7 @@ ylabel('x(t)');
 title('$x(t)=\begin{cases}2t & 0<t<1\\-2t&-1\le t\le0\end{cases}$','Interpreter','latex');
 
 ti = find(t==0); x(ti) = 0.5;
-figure(4), stem(t, x, "LineWidth", 1.5, "color", "#007AFF");
+figure(4), stem(t, x, "LineWidth", 1.5, "color", "#007AFF", "MarkerSize", 4, "filled");
 xlabel('Tiempo (t)');
 ylabel('x(t)');
+title('$x(t)=0.5\delta(t),\,-1\le t<1$', 'Interpreter', 'latex')
