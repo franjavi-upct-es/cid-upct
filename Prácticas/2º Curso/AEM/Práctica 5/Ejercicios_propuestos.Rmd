@@ -1,0 +1,165 @@
+---
+title: "Análisis Estadístico Multivariante"
+subtitle: "Problemas Propuestos de Análisis Discriminante"
+author: "Francisco Javier Mercader Martínez"
+output:
+  pdf_document: 
+    latex_engine: xelatex
+    extra_dependencies: fvextra
+    toc_depth: 4
+    fig_caption: true
+header-includes:
+- \usepackage{fvextra}
+- \DefineVerbatimEnvironment{Highlighting}{Verbatim}{breaklines, commandchars=\\\{\}}
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Problema 1
+
+El conjunto de datos **iris** de R contiene las variables Sepal.Length(X1, longitud de los sépalos), Sepal.Width (X2, anchura de los sépalos), Petal.Length (X3, longitud de los pétalos), Petal.Width (X4, anchura de los pétalos). medidas en centímetros, de tres especies diferentes de flor de iris (Species: *setosa, versicolor* y *virginica*). Se desea realizar un análisis discriminante para determinar la especie de las flores de iris a partir de las magnitudes de sus pétalos y sépalos. Se pide:
+
+1)  Cargar el conjunto de datos y realizar un estudio descriptivo previo atendiendo a nuestro objetivo. En particular, debes dar respuesta a las cuestiones:
+
+    ```{r}
+    d <- iris
+    summary(d)
+    ```
+
+    a.  ¿Existe alguna variable que permita discriminar entre las especies? Hacer gráficos caja-bigotes de cada variable distinguiendo por especie.
+
+    ```{r, fig.height=7, fig.align='center'}
+    par(mfrow = c(2,2))
+    boxplot(d$Sepal.Length ~ d$Species)
+    boxplot(d$Sepal.Width ~ d$Species)
+    boxplot(d$Petal.Length ~ d$Species)
+    boxplot(d$Petal.Width ~ d$Species)
+    ```
+
+    > Para cada una de las variables `Petal.Length` y `Petal.width` se pude separar la especie Setosa de las otras dos poque no se solapan los gráficos de caja.
+
+    b.  ¿Existe alguna variable que permita discriminar entre las especies? Hacer gráficos caja-bigotes de cada variable distinguiendo por especie.
+
+    ```{r, fig.align='center'}
+    par(mfrow = c(1,2))
+    plot(d$Petal.Length, d$Petal.Width, pch = as.integer(d$Species), col = c("#007AFF", "#FF0000", "#0000FF"))
+    legend("bottomright", legend = unique(d$Species), pch = 1:3, col = c("#007AFF", "#FF0000", "#0000FF"))
+
+    plot(d$Sepal.Length, d$Sepal.Width, pch=20, col = "blue")
+    ```
+
+2)  Realizar un análisis discriminante lineal (LDA) con todas las variables y probabilidades a priori iguales.
+
+    ```{r}
+    library("MASS")
+    LDA <- lda(x = d[1:150, 1:4], grouping = d[1:150, 5],
+               prior = c(1/3, 1/3, 1/3))
+    ```
+
+    a.  ¿Cuál es la expresión de las funciones discriminantes en función de las variables observadas?
+
+    ```{r}
+    LDA$scaling
+    ```
+
+    b.  ¿Cómo se clasificaría una flor con medidas z = (6, 3, 5, 2)? ¿Cuáles serían las probabilidades a posteriori de pertenencia a cada grupo? ¿Sería fiable la clasificación?
+
+    ```{r}
+    z = c(6,3,5,2)
+    predict(LDA, z)
+    ```
+
+    > Se clasifica en virgínica, y la clasificación sería fiable.
+
+    c.  Representar gráficamente las funciones discriminantes y la flor anterior a clasificar. ¿Dónde se sitúa esta flor? Según el gráfico, ¿en qué grupo la clasificaría?
+
+    ```{r}
+    plot(LDA, col = "darkgrey")
+    points(predict(LDA, z)$x[1, 1], predict(LDA, z)$x[1,2], pch = 19)
+    ```
+
+3)  Realizar un análisis discriminante cuadrático (QDA) incluyendo todas las variables y considerando probabilidades a priori iguales.
+
+    ```{r}
+    QDA <- qda(x = d[1:150, 1:4], grouping = d[1:150, 5],
+               prior = c(1/3, 1/3, 1/3))
+    ```
+
+    a.  ¿Cómo se clasificaría a una flor con medidas z = (6, 3, 5, 2)? ¿Cuáles serían las probabilidades a posteriori de pertenencia a cada grupo? ¿Sería fiable la clasificación?
+
+    ```{r}
+    predict(QDA, z)
+    ```
+
+    > Se clasifica en virgínica, y la clasificación sería fiable.
+
+    b.  ¿Dónde se clasificaría z si las probabilidades a priori fueran 0.5, 0.25 y 0.25 para las especies *setosa, versicolor* y *virginica*, respectivamente? ¿Cuánto valdrán las probabilidades a posteriori? ¿Sería fiable la clasificación en este caso?
+
+    ```{r}
+    QDA <- qda(x = d[1:150, 1:4], grouping = d[1:150, 5],
+               prior = c(0.5, 0.25, 0.25))
+    predict(QDA, z)
+    ```
+    > Se clasifica en virgínica, y la clasificación sería fiable.
+
+4)  Estimar las probabilidades de clasificar correctamente a una flor desconocida usando LDA y QDA con validación cruzada y suponiendo las proporciones a priori iguales.
+
+    ```{r}
+    LDACV <- lda(x = d[1:150, 1:4], grouping = d[1:150, 5],
+                 prior = c(1/3, 1/3, 1/3), CV = TRUE)
+    QDACV <- qda(x = d[1:150, 1:4], grouping = d[1:150, 5],
+                 prior = c(1/3, 1/3, 1/3), CV = TRUE)
+    ```
+    
+    a.  ¿Cuál es el porcentaje de clasificaciones correctas usando LDA y QDA?
+    
+    ```{r}
+    table(LDACV$class, d$Species)
+    table(QDACV$class, d$Species)
+    ```
+    > Clasificaciones correctas para `LDA = 147/150` y para `QDACV = 146/150`.
+    
+    b.  ¿Cuál es el porcentaje de clasificaciones correctas usando LDA y QDA dentro de la especie *versicolor*?
+
+    ```{r}
+    48/50
+    2/50
+    ```
+
+    c.  ¿Cuál es el porcentaje de clasificaciones correctas usando LDA y QDA entre las flores clasificadas como *virginica*?
+
+    ```{r}
+    49/51
+    49/52
+    ```
+
+    d.  ¿Cuáles son las flores mal clasificadas? ¿En qué grupo se encuentran y dónde se clasifican?
+
+    ```{r}
+    index = which(LDACV$class != d[, 5])
+    index
+    d[index, 5]
+    LDACV$class[index]
+    ```
+
+5)  Obtener las matrices de covarianzas y realizar los test de normalidad en cada grupo. Con los resultados obtenidos, ¿qué procedimiento sería más adecuado, LDA o QDA? Razonar las respuestas.
+
+```{r, message=FALSE, warning=FALSE}
+library("dplyr")
+d1 = d %>%
+  filter(Species == "setosa")
+d2 = d %>%
+  filter(Species == "versicolor")
+d3 = d %>%
+  filter(Species == "virginica")
+cov(d1[, 1:4])
+cov(d2[, 1:4])
+cov(d3[, 1:4])
+
+library("mvnormtest")
+mshapiro.test(t(d1[, 1:4]))
+mshapiro.test(t(d2[, 1:4]))
+mshapiro.test(t(d3[, 1:4]))
+```

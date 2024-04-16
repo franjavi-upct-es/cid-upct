@@ -22,29 +22,34 @@ Consideremos los datos del dichero `Bears.rda` (disponible en el aula virtual), 
 
 1)  Recuperar los datos usando la función *load()* y realizar un estudio descriptivo previo atendiendo a nuestro objetivo. En particular, debes dar respuesta a las cuestiones:
 
+    ```{r}
+    load("../data/Bears.rda")
+    d <- d[, 5:10]
+    ```
+
     a.  ¿Tiene sentido plantearse un Análisis de Componentes Principales para estos datos?
 
-        ```{r}
-
-        ```
+    ```{r fig.height=6, fig.width=10, fig.align='center'}
+    plot(d)
+    ```
 
     b.  ¿Todas las variables se miden en magnitudes similares y presentan dispersión similar?
 
-        ```{r}
+    ```{r}
 
-        ```
+    ```
 
     c.  ¿Conviene usar la matriz de covarianzas, o es preferible la matriz de correlaciones a la hora de extraer las componentes principales?
 
-        ```{r}
+    ```{r}
 
-        ```
+    ```
 
     d.  ¿Existe alguna observación inusual, es decir, alejada del resto atendiendo a la distancia de Mahalanobis?
 
-        ```{r}
+    ```{r}
 
-        ```
+    ```
 
 2)  Obtener la expresión de todas las componentes principales en función de las variables originales y dar una interpretación de las dos primeras componentes. ¿Para qué podría servir un ACP con estos datos?
 
