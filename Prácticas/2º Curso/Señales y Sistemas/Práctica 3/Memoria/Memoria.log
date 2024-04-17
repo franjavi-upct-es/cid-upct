@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.26 (MiKTeX 24.3.31) (preloaded format=pdflatex 2024.4.11)  15 APR 2024 13:25
+This is pdfTeX, Version 3.141592653-2.6-1.40.26 (MiKTeX 24.3.31) (preloaded format=pdflatex 2024.4.11)  17 APR 2024 09:19
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -2261,21 +2261,28 @@ LaTeX Font Info:    Trying to load font information for U+lasy on input line 13
 (C:\Users\fcoja\AppData\Local\Programs\MiKTeX\tex/latex/base\ulasy.fd
 File: ulasy.fd 1998/08/17 v2.2e LaTeX symbol font definitions
 )
-LaTeX Font Info:    Font shape `OT1/cmtt/bx/n' in size <10> not available
-(Font)              Font shape `OT1/cmtt/b/n' tried instead on input line 175.
- [1
+LaTeX Font Info:    Trying to load font information for TS1+cmtt on input line 
+164.
+
+(C:\Users\fcoja\AppData\Local\Programs\MiKTeX\tex/latex/base\ts1cmtt.fd
+File: ts1cmtt.fd 2023/04/13 v2.5m Standard LaTeX font definitions
+)
+[1
 
 {C:/Users/fcoja/AppData/Local/MiKTeX/fonts/map/pdftex/pdftex.map}]
+LaTeX Font Info:    Font shape `OT1/cmtt/bx/n' in size <10> not available
+(Font)              Font shape `OT1/cmtt/b/n' tried instead on input line 206.
+ [2]
 LaTeX Font Info:    Trying to load font information for LGR+cmtt on input line 
-213.
+246.
 
 (C:\Users\fcoja\AppData\Local\Programs\MiKTeX\tex/latex/cbfonts-fd\lgrcmtt.fd
 File: lgrcmtt.fd 2017/07/29 v1.2 Greek European Computer Typewriter
 )
 LaTeX Font Info:    Font shape `LGR/cmtt/bx/n' in size <10> not available
-(Font)              Font shape `LGR/cmtt/m/n' tried instead on input line 213.
+(Font)              Font shape `LGR/cmtt/m/n' tried instead on input line 246.
 
-[2] [3] (Memoria.aux)
+[3] [4] (Memoria.aux)
  ***********
 LaTeX2e <2023-11-01> patch level 1
 L3 programming layer <2024-02-13>
@@ -2287,33 +2294,34 @@ Package logreq Info: Writing requests to 'Memoria.run.xml'.
 
  ) 
 Here is how much of TeX's memory you used:
- 54491 strings out of 474462
- 1218553 string characters out of 5742883
- 2285956 words of memory out of 5000000
- 75866 multiletter control sequences out of 15000+600000
- 564284 words of font info for 60 fonts, out of 8000000 for 9000
+ 54540 strings out of 474462
+ 1219552 string characters out of 5742883
+ 2536956 words of memory out of 5000000
+ 75884 multiletter control sequences out of 15000+600000
+ 564581 words of font info for 61 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 84i,11n,131p,1198b,1808s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 84i,11n,131p,1198b,1846s stack positions out of 10000i,1000n,20000p,200000b,200000s
  <C:\Users\fcoja\AppData\Local\MiKTeX\fonts/pk/ljfour/public/cm/dpi600\cmttb1
-0.pk><C:/Users/fcoja/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/
-cm/cmbx10.pfb><C:/Users/fcoja/AppData/Local/Programs/MiKTeX/fonts/type1/public/
-amsfonts/cm/cmbx12.pfb><C:/Users/fcoja/AppData/Local/Programs/MiKTeX/fonts/type
-1/public/amsfonts/cm/cmex10.pfb><C:/Users/fcoja/AppData/Local/Programs/MiKTeX/f
-onts/type1/public/amsfonts/cm/cmmi10.pfb><C:/Users/fcoja/AppData/Local/Programs
-/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi5.pfb><C:/Users/fcoja/AppData/Local/
-Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi7.pfb><C:/Users/fcoja/AppDat
-a/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr10.pfb><C:/Users/fcoj
-a/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr5.pfb><C:/Use
-rs/fcoja/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr7.pfb>
-<C:/Users/fcoja/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cm
-sy10.pfb><C:/Users/fcoja/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfo
-nts/cm/cmsy7.pfb><C:/Users/fcoja/AppData/Local/Programs/MiKTeX/fonts/type1/publ
-ic/amsfonts/cm/cmtt9.pfb><C:/Users/fcoja/AppData/Local/Programs/MiKTeX/fonts/ty
-pe1/public/cbgreek/grmn1000.pfb><C:/Users/fcoja/AppData/Local/Programs/MiKTeX/f
-onts/type1/public/cbgreek/gttn1000.pfb>
-Output written on Memoria.pdf (3 pages, 190860 bytes).
+0.pk> <C:\Users\fcoja\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\t
+ctt0900.pk><C:/Users/fcoja/AppData/Local/Programs/MiKTeX/fonts/type1/public/ams
+fonts/cm/cmbx10.pfb><C:/Users/fcoja/AppData/Local/Programs/MiKTeX/fonts/type1/p
+ublic/amsfonts/cm/cmbx12.pfb><C:/Users/fcoja/AppData/Local/Programs/MiKTeX/font
+s/type1/public/amsfonts/cm/cmex10.pfb><C:/Users/fcoja/AppData/Local/Programs/Mi
+KTeX/fonts/type1/public/amsfonts/cm/cmmi10.pfb><C:/Users/fcoja/AppData/Local/Pr
+ograms/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi5.pfb><C:/Users/fcoja/AppData/
+Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi7.pfb><C:/Users/fcoja/
+AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr10.pfb><C:/User
+s/fcoja/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr5.pfb><
+C:/Users/fcoja/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr
+7.pfb><C:/Users/fcoja/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts
+/cm/cmsy10.pfb><C:/Users/fcoja/AppData/Local/Programs/MiKTeX/fonts/type1/public
+/amsfonts/cm/cmsy7.pfb><C:/Users/fcoja/AppData/Local/Programs/MiKTeX/fonts/type
+1/public/amsfonts/cm/cmtt9.pfb><C:/Users/fcoja/AppData/Local/Programs/MiKTeX/fo
+nts/type1/public/cbgreek/grmn1000.pfb><C:/Users/fcoja/AppData/Local/Programs/Mi
+KTeX/fonts/type1/public/cbgreek/gttn1000.pfb>
+Output written on Memoria.pdf (4 pages, 203352 bytes).
 PDF statistics:
- 202 PDF objects out of 1000 (max. 8388607)
- 63 named destinations out of 1000 (max. 500000)
+ 242 PDF objects out of 1000 (max. 8388607)
+ 90 named destinations out of 1000 (max. 500000)
  29 words of extra memory for PDF output out of 10000 (max. 10000000)
 

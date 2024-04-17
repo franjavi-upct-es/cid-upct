@@ -1,6 +1,8 @@
 clear all;
 close all;
 
+% Ejercicio 1
+
 % Definir el periodo y el paso de tiempo
 T = 2; dt = 0.001;
 
@@ -139,7 +141,7 @@ title('$x(t)=0.5\delta(t),\,-1\le t<1$', 'Interpreter', 'latex')
 
 close all;
 
-% Ejercicio 3
+% Ejercicio 4
 
 % Definir el periodo y el paso de tiempo
 T = 2; dt = 0.001; N=5;
@@ -149,6 +151,16 @@ t = -T/2:dt:T/2-dt;
 x = zeros(1, length(t));
 ti = find(abs(t)<=0.5); x(ti) = 2;
 ti = find(abs(t)> 0.5); x(ti) = 0;
-ak = cfourier(x, T, N, dt)
+ak_a = cfourier(x, T, N, dt);
+
+% (b)
+x = 0.8*sin(2*pi*t) + 0.6*cos(pi*t) - 0.2*sin(3*pi*t + pi/4);
+ak_b = cfourier(x, T, N, dt);
+
+% (c)
+x = zeros(1, length(t));
+ti = find(t>=-1 & t<0); x(ti) = -2*t(ti);
+ti = find(t>0 & t<1); x(ti) = 2*t(ti);
+ak_c = cfourier(x, T, N, dt);
 
 

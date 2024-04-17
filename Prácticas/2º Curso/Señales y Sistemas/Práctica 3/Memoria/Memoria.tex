@@ -134,12 +134,43 @@ Las ecuaciones que relacionan una señal periódica continua con su desarrollo e
 En este ejercicio se implementarán las dos ecuaciones mediante funciones en MATLAB. Para ello es necesario simular la señal continua $x(t)$, discretizándola mediante un incremento de tiempo, $\Delta t$, dando lugar a la señal continua discretizada $x(k\Delta t)$.
 \begin{enumerate}[leftmargin=*]
 	\item Genere en MATLAB las siguientes señales periódicas $(T=2)$, generando 3 periodos de cada una de ellas.
+	
+	\begin{lstlisting}
+% Definir el periodo y el paso de tiempo
+T = 2; dt = 0.001;
+
+% Crear el rango de tiempo para un periodo
+t = -T/2:dt:T/2-dt;
+	\end{lstlisting}
 	\begin{enumerate}[label=\alph*)]
 		\item $x(t)=\begin{cases}
 			2, & 0<|t|<0.5\\
 			0,&0.5<|t|<1
 		\end{cases}$
+		
+		\begin{lstlisting}
+x = zeros(1, length(t));
+
+% Encontrar los índices de tiempo donde 0<|t|<0.5 y asignar el valor 2 a x en esos índices
+ti = find(abs(t)<=0.5); x(ti) = 2;
+
+% Encontrar los índices de tiempo donde 0.5<|t|<1 y asignar el valor 0 a x en esos índices
+ti = find(abs(t)> 0.5); x(ti) = 0;
+
+% Graficar la señal para 3 periodos
+figure(1), plot([t-T t t+T], [x x x], "LineWidth", 1.5, "color", "#007AFF");
+xlabel('Tiempo (t)');
+ylabel('x(t)');
+title('$x(t)=\begin{cases}2 & 0<|t|<0.5\\0&0.5<|t|<1\end{cases}$','Interpreter','latex');
+		\end{lstlisting}
 		\item $x(t)=0.8\sin(2\pi t)+0.6\cos(\pi t)-0.2\sin\left(3\pi t+\dfrac{\pi}{4}\right)$
+\begin{lstlisting}
+x = 0.8*sin(2*pi*t) + 0.6*cos(pi*t) - 0.2*sin(3*pi*t + pi/4);
+figure(2), plot([t-T t t+T], [x x x], "LineWidth", 1.5, "color", "#007AFF");
+xlabel('Tiempo (t)');
+ylabel('x(t)');
+title('$x(t)=0.8\sin(2\pi t)+0.6\cos(\pi t)-0.2\sin\left(3\pi t+\dfrac{\pi}{4}\right)$','Interpreter','latex');
+\end{lstlisting}
 		\item $x(t)=\begin{cases}
 			2t, & 0<t<1\\
 			-2t,&-1\le t\le0
