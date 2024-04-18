@@ -575,4 +575,28 @@ Para dichas \lb{estimaciones} usaremos: \[ \begin{array}{l}
 \hat{V}_j=\dfrac{1}{n_j-1}\sum_{i=1}^{n}1(G(\omega_i)=j)(\omega_i-\hat{\mu}^{(j)})(\omega_i-\hat{\mu}^{(j)})'\\
 \omega_i=(z_{i,1},\dots,z_{i,k})'\\
 n_j=\sum_{i=1}^{n}1(G(\omega_i)=j)
-\end{array} \]donde $n=n-1+\cdots+n_m$, y $1(G(\omega_i)=j)$ es la función indicador que vale 1 si el individuo $i$ pertenece a la clase $j$-ésima y vale 0 en caso contrario. Y por lo tanto
+\end{array} \]donde $n=n-1+\cdots+n_m$, y $1(G(\omega_i)=j)$ es la función indicador que vale 1 si el individuo $i$ pertenece a la clase $j$-ésima y vale 0 en caso contrario. Y por lo tanto, $n_j$ es el número de individuos de la muestra pertenecientes a la población $j$-ésima.
+
+Necesitamos $n_j>1$ para todo $j$.
+
+Si $(\mathbf{Z}|G=j)$ es normal, $\hat{V}_j$ es insesgado para $V_j$, teniendo $(n_j-1)\hat{V}_j$ una distribución (en el muestreo) Wishart $W_k(n_j-1,V-j)$.
+
+Si suponemos que las \lb{matrices de covarianzas teóricas son todas iguales} $(V_1=\cdots=V_m=V)$, entonces la matriz de covarianzas común $V$ se aproximará mediante la matriz de covarianzas ponderada (\code{pooled}) \[ \hat{V}=\dfrac{1}{n-m}\sum_{j=1}^{m}(n_j-1)\hat{V}_j \] que será un estimador insesgado para $V$.
+
+A partir de estos estimadores se pueden obtener \lb{estimaciones de las distintas funciones discriminantes} y con ellas, obtener \lb{clasificaciones (empíricas) para nuevos individuos}.
+
+Como los estimadores se aproximan a los verdaderos valores de los parámetros, las clasificaciones se parecerán (si $n$ es grande) a las que se obtendrían usando los verdaderos parámetros.
+
+Por ejemplo, para el caso de dos poblaciones con la misma matriz de covarianzas, la \lb{función discriminante de Fisher se estimará} mediante \[ \hat{D}=\hat{L}(\mathbf{Z})=\hat{a}'\mathbf{Z}=(\hat{\mu}_X-\hat{\mu}_Y)'\hat{V}^{-1}\mathbf{Z}. \]
+\begin{itemize}
+\item De esta forma, la \lb{probabilidad del error tipo 1 se estimará} mediante \[ \mathrm{Pr}(e_1)=\mathrm{Pr}\left(U<-\dfrac{1}{2}\hat{d_V}\right), \]donde $U\equiv N_1(0,1)$ y \[ \hat{d_V}=\sqrt{(\hat{\mu}_X-\hat{\mu}_Y)'\hat{V}^{-1}(\hat{\mu}_X-\hat{\mu}_Y)} \]es la \lb{distancia de Mahalanobis muestral entre las medias (muestrales) de los grupos}.
+\end{itemize}
+Bajo la \lb{hipótesis de normalidad}, estos estimadores son asintóticamente insesgados.
+
+En Srivastava y Carter (1983, pag. 238) pueden verse otros estimadores basados en las distribuciones obtenidas para los distintos errores a partir de la hipótesis de normalidad.
+
+Se procederá de forma similar en los otros casos.
+
+Por ejemplo, las \lb{Funciones Discriminantes Lineales (FDL) muestrales} serán \[ \hat{L}_i(\mathbf{z})=(\hat{\mu}^{(i)})'\hat{V}^{-1}\mathbf{z}-\dfrac{1}{2}\left((\hat{\mu}^{(i)})'\hat{V}^{-1}\hat{\mu}^{(i)}\right), \]clasificándose \textbf{Z} en $G_i$ si $\hat{L}_i(\mathbf{z})\ge\hat{L}_j(\mathbf{z})$ para todo $j$.
+
+Análogamente, las \lb{funciones discriminantes cuadráticas (FDC o QDF) muestrales} serán \[ \hat{Q}_i(\mathbf{z})=c-2\log\hat{f}_i(\mathbf{z})=(\mathbf{z}-\hat{\mu}^{(i)})'\hat{V}^{(-1)}(\mathbf{z}-\hat{\mu}^{(i)})+\log|\hat{V}_i|, \]clasificándose \textbf{Z} en $G_i$ si $\hat{Q}_i(\mathbf{z})\le \hat{Q}_j(\mathbf{z})$ para todo $j$.

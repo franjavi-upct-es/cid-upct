@@ -1,0 +1,93 @@
+\section{Análisis Cluster}
+\subsection{Introducción}
+\subsubsection{Objetivo}
+\lb{Objetivo:} cómo agrupar observaciones estableciendo grupos (o clusters) con las más similares.
+
+\lb{Aprendizaje supervisado:} en la muestra \lb{se indica a qué grupo pertenece cada observación}.
+\begin{itemize}
+\item Regresión Logística.
+\item Análisis Discriminante.
+\end{itemize}
+\lb{Aprendizaje no supervisado} (o automático): en este caso \lb{no disponemos de una muestra inicial donde se indique a qué grupo pertenece cada observación}. De hecho, en algunas ocasiones podemos decidir cuántos grupos queremos establecer.
+\begin{itemize}
+\item Análisis Cluster
+\end{itemize}
+\subsubsection{Contexto}
+Dispondremos de \lb{una muestra} (o población) de $n$ individuos (objetos) en los que hemos medido $k$ variables numéricas $(X_1,\dots,X_k)$.
+
+Sin embargo, en este caso, \lb{no dispondremos de una variable} $Y$ que nos diga a qué grupo (población) pertence cada observación.
+
+Incluso, en algunos casos, \lb{no sabremos ni siquiera el número de grupos}.
+
+De hecho, lo que haremos será determinar los valores de $Y$ que nos asigne los grupos que minimicen una \lb{función costo} adecuada.
+
+Para ello tendremos que utilizar una función \lb{distancia} que nos mida cómo de similares son dos observaciones (individuos).
+
+La \lb{elección de esta distancia} es muy importante y la solución final dependerá de la distancia elegida.
+
+\subsection{Distancias entre individuos}
+\subsubsection{La distancia Euclídea}
+La distancia más popular es la \lb{distancia Euclídea}, definida como \[ d_E(\mathbf{x,c})=\sqrt{(\mathbf{x-c})'(\mathbf{x-c})}=\sqrt{\sum_{j=1}^{k}(x_j-c_j)^2} \]para todo $\mathbf{x,c}\in\R^k$ (vectores columna).
+
+En nuestro contexto, habitualmente $\mathbf{x}=(x_1,\dots,x_k)'$ representará un \lb{individuo} y $\mathbf{c}=(c_1,\dots,c_k)'$ el \lb{centroide} de un grupo.
+
+En \code{R} se puede computar como 
+\begin{lstlisting}
+dE <- function(x, y) sqrt(sum((x - y)*(x - y)))
+\end{lstlisting}
+Por ejemplo, para $x=(0,0)'$ e $y=(1,1)'$
+\begin{lstlisting}
+x <- c(0,0)
+y <- c(1,1)
+dE(x,y)
+\end{lstlisting}
+\begin{verbatim}
+## [1] 1.414214
+\end{verbatim}
+\subsubsection{La distancia de Mahalanobis}
+Otra opción es la \lb{distancia de Mahalanobis} que usa le métrica de los datos, definida como \[ d_M(\mathbf{x,c})=\sqrt{(\mathbf{x-c})'V^{-1}(\mathbf{x-c})}, \]donde $V=\cov(X_1,\dots,X_m)$.
+
+El principal problema es que \lb{si hay grupos}, esta matriz puede ser \lb{distinta en cada grupo}.
+
+Incluso, aunque supongamos que todos los grupos tienen la misma matriz de covarianzas, estos tendrán medias distintas y, como desconocemos los grupos, no podemos estimar estimar $V$ (como hacíamos en el Ánalisis Discriminante).
+
+Una solución es suponer inicialmente que todos los individuos están en un mismo grupo (población) y calcular (estimar) la media y la covarianzas en ella.
+
+En \code{R} se puede calcular la función \code{mahalanobis(x, y, V)}, que proporciona el cuadro de esta distancia, para \[ V=\begin{pmatrix}
+1 & \tfrac{1}{2}\\
+\tfrac{1}{2} & 1
+\end{pmatrix}, \]$x=(0,0)'$ e $y=(1,1)'$.
+\begin{lstlisting}
+V <- matrix(c(1, 1/2,
+              1/2, 2), nrow = 2, ncol = 2, byrow = TRUE)
+x <- c(0,0)
+y <- c(1,1)
+mahalanobis(x, y, V)
+\end{lstlisting}
+\begin{verbatim}
+## [1] 1.333333
+\end{verbatim}
+O bien, como 
+\begin{lstlisting}
+dM <- function(x, y, V) sqrt(sum(t(x - y ) %*% solve(V) %*% (x-y)))
+dM(x, y, V)
+\end{lstlisting}
+\begin{verbatim}
+## [1] 1.154701
+\end{verbatim}
+\begin{lstlisting}
+## Si hacemos el cuadrado
+dM(x, y, V)^2
+\end{lstlisting}
+\begin{verbatim}
+## [1] 1.333333
+\end{verbatim}
+Obviamente, si $V=I$ (matriz identidad), se obtiene la \lb{distancia Euclídea} que, por lo tanto, representará a \lb{\vas independientes con varianza uno}.
+
+En otros casos, la distancia de Mahalanobis tendrá en cuenta las varianzas de las variables y sus covarianzas (correlaciones o dependencia).
+
+Las circunferencias (\lb{elipsoides}) obtenidas con $d_V(\mathbf{x},\mu,V)=\mathrm{cte}.$ coincidirán con los \lb{conjuntos de nivel de la distribución normal multivariante} $\mathcal{N}_k(\mu,V)$ cuya función de densidad es \[ f(x)=\dfrac{1}{\sqrt{(2\pi)^k|V|}}\exp\left(-\dfrac{1}{2}(\mathbf{x}-\mu)'V^{-1}(\mathbf{x}-\mu)\right). \]
+\begin{itemize}
+\item De esta forma, bajo este modelo y si conocemos $V$, el individuo con medidas $\mathbf{x}$ se asignará al grupo en donde sea más verosímil, es decir, donde$f_i(x)$ sea máxima, siendo $f_i$, la densidad $\mathcal{N}_k(\mu_i, V)$ (tal y como hacíamos en Análisis Discriminante).
+\end{itemize}
+Ahora el problema es que no sabemos cómo estimar $\mu_i$ y $V$ y tampoco sabemos si hay una matriz de covarianzas $V$ común.
