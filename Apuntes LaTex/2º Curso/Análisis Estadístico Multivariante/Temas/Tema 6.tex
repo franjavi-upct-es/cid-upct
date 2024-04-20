@@ -91,3 +91,154 @@ Las circunferencias (\lb{elipsoides}) obtenidas con $d_V(\mathbf{x},\mu,V)=\math
 \item De esta forma, bajo este modelo y si conocemos $V$, el individuo con medidas $\mathbf{x}$ se asignará al grupo en donde sea más verosímil, es decir, donde$f_i(x)$ sea máxima, siendo $f_i$, la densidad $\mathcal{N}_k(\mu_i, V)$ (tal y como hacíamos en Análisis Discriminante).
 \end{itemize}
 Ahora el problema es que no sabemos cómo estimar $\mu_i$ y $V$ y tampoco sabemos si hay una matriz de covarianzas $V$ común.
+\subsubsection{Otras distancias interesantes}
+La \lb{distancia absoluta} (Manhattan, de ciudad o geométrica del taxista) \[ d_A(\mathbf{x,c})=\sum_{j=1}^{k}\left|x_j-c_j\right| \](que usa las cuadrículas como caminos).
+
+La \lb{distancia} $L_s$ \[ d_s(\mathbf{x,c})=\left(\sum_{j=1}^{k}(x_j-c_j)^s\right) ^{\frac{1}{s}}\]para $s>0$.
+
+La \lb{distancia de Pearson} \[ d_P(\mathbf{x,c})=\sqrt{\sum_{j=1}^{k}\left(\dfrac{x_j-c_j}{\sigma_j}\right)^2} \]donde $\sigma_i$ es la desviación típica de $X_i,\:i=1,\dots,k$.
+\begin{itemize}
+\item Este último caso es equivalente a estandarizar los datos usando $Z_i=\dfrac{X_i}{\sigma_i}$ o $Z_i=\dfrac{X_i-\mu_i}{\sigma_i}$ lo que nos asegura que las variables tendrán magnitudes similares aunque se usen unidades diferentes en ellas (esto no ocurre en la distancia Euclídea).
+\item El principal problema es que desconocemos $\sigma_i$ y $\mu_i$ que tendrán que ser estimados usando todos los datos (sin grupos).
+\item Obviamente, es equivalente a usar la distancia Euclídea con los datos estandárizados.
+\item La distancia no dependerá de las unidades usadas en cada variable (es invariante por cambio de escala).
+\end{itemize}
+\subsection{Distancia de individuos a grupos y distancias entre grupos}
+\subsubsection{Distancias de individuos a grupos}
+Además de definir las distancias entre individuos, también tendremos que definir \lb{distancias de individuos a grupos} o \lb{distancias entre grupos}, lo que nos llevará a definir diversas funciones \lb{coste} que determinarán diferentes soluciones finales.
+\begin{itemize}
+\item Estas vendrán determinadas por el problema que queremos resolver.
+\end{itemize}
+Por ejemplo, si queremos calcular la \lb{distancia de un individuo} \textbf{x} \lb{a un grupo} $\{\mathbf{z}_i:i\in G\}$ formado por $m=|G|$ individuos podemos definir las distancias siguientes: \[ \begin{array}{c}
+d_1(\mathbf{x},G)\coloneq d(\mathbf{x,C}),\quad \mathbf{C}=\dfrac{1}{|G|}\sum_{i\in G}\mathbf{z}_i\\
+d_2(\mathbf{x},G)\coloneq\min_{i\in G}d(\mathbf{x,z}_i),\\
+d_3(\mathbf{x},G)\coloneq\max_{i\in G}d(\mathbf{x,z}_i),\\
+d_4(\mathbf{x},G)\coloneq\sum_{i\in G}d(\mathbf{x,z}_i),\\
+d_5(\mathbf{x},G)\coloneq\sum_{i\in G}d^2(\mathbf{x,z}_i),
+\end{array} \]donde $d$ es una distancia entre individuos.
+
+Otra opción interesante es calcular (o estimar) una función de densidad para los individuos de un mismo grupo y calcular las distancias como \[ d(\mathbf{x},G_j)=1-\dfrac{f_j(\mathbf{x})}{f_1(\mathbf{x})+\cdots+f_m(\mathbf{x})}. \]
+Análogamente, para las \lb{distancias entre grupos} se pueden usar: \[ \begin{array}{c}
+\begin{aligned}
+D_1(G-1,G_2)&=d(C_1,C_2),\quad C_j=\dfrac{1}{|G_j|}\sum_{i\in G_j}\mathbf{z}_i,\quad j=1,2\\
+&D_2(G_1,G_2)=\min_{i\in G_1,j\in G_2}d(\mathbf{z}_i,\mathbf{z}_j),\\
+&D_3(G_1,G_2)=\max_{i\in G_1,j\in G_2}d(\mathbf{z}_i,\mathbf{z}_j),
+\end{aligned}\\
+D_4(G_1,G_2)=\dfrac{1}{|G_1|\cdot|G_2|}\sum_{i\in G_1,j\in G_2}d(\mathbf{z}_i,\mathbf{z}_j),\\
+D_5(G_1,G_2)=\dfrac{1}{|G_1|\cdot|G_2|}\sum_{i\in G_1,j\in G_2}d^2(\mathbf{z}_i,\mathbf{z}_j).\\
+\end{array} \]
+En $d_1$ o en $D_1$ podemos utilizar otros \lb{centroides} $C_1$ y $C_2$ distintos de la medida de cada grupo.
+
+Estas \lb{distancias entre grupos} nos permitirán representar sus distancias y, posteriormente establecer a partir de qué nivel uniremos los grupos formando los gráficos denominados \lb{dendogramas}.
+
+Finalmente debemos definir una \lb{función costo} que trataremos de minimizar para obtener la solución óptima de ese problema.
+\subsubsection{Función costo}
+Supongamos que asignamos los $n$ individuos a un grupo mediante una variable $Y$ que nos indicará con $y_i=j$ que el individuo $i$ se asigna al grupo $j$.
+
+Podemos definir la \lb{función costo} \[ J(y)=\sum_j\sum_{i:y_i=j}d(\mathbf{x}_i,G_j), \]donde $\sum_{j:y_i=j}1=1$ para todo $i$ (cada elemento se asigna a un único grupo).
+
+También \lb{se pueden usar distancias al cuadrado} \[ J^*(y)=\sum_j\sum_{i:y_i=j}d^2(\mathbf{x}_i,G_j). \]
+En estos métodos, tenemos que \lb{fijar un número máximo de grupos} ya que si no, la solución óptima será tener $n$ grupos (uno para cada elemento).
+
+\lb{Otra opción} podría ser \lb{maximizar la sima total de las distancias entre grupos} para la clasificación $y$: \[ D(y)=\sum_{i<j}D(G_i,G_j). \]
+Todas estas opciones nos llevarán a problemas diferentes que tendrán que resolverse (cuando sea posible) usando sus técnicas específicas (la mayoría de Investigación Operativa).
+\subsection{Métodos cluster}
+\subsubsection{Clasificación}
+Estos métodos se pueden dividir en dos grandes grupos:
+\begin{itemize}
+\item Los \lb{métodos jerárquicos:} Parten de la idea de juntar las unidades (individuos o grupos) más similares (cercanas).
+\item Los \lb{métodos no jerárquicos:} Establecen un determinado número de grupos y se irá asignado cada individuo al grupo más cercano.
+\end{itemize}
+Solamente veremos un método de cada tipo.
+\subsection{Método no jerárquico de las K-medias}
+El método de las K-medias (\code{K-means}) es sin duda el método no jerárquico \lb{más popular}.
+
+Habitualmente usa la distancia Euclídea con los datos sin estandarizar (cuando tienen escalas similares) o estandarizados (distancia de Pearson, cuando tienen escalas diferentes) pero se puede aplicar a otras distancias.
+
+En este caso tenemos que \lb{fijar un número de grupos predeterminado} $K$ con $1<K\le\dfrac{n}{2}$.
+
+Posteriormente podremos aumentar o disminuir $K$ según la solución obtenida.
+
+\begin{itemize}
+\item $K$ es el número de grupos.
+\item $k$ es el número de variables.
+\item $n$ es el número de observaciones.
+\item Estos números pueden ser diferentes.
+\end{itemize}
+\subsubsection{Algoritmo del método de las K-medias}
+\begin{enumerate}[label=\textbullet \hspace{5pt}\lb{Paso \arabic*:}, leftmargin=2cm, start=0]
+\item Determinar $K$ centroides $C_1^0,\dots,C_K^0\in\R^k$ al azar.
+\item En la iteración $m$, formar el grupo $G_j^m$ con las observaciones que están más cercanas al centroide $C_j^{m-1}$ para $j=1,\dots,K$.
+\item Calcular el centroide $C_j^m$ del grupo $G_k^m$ definido como el punto que minimiza \[ \sum_{i\in G_j^m}d(\mathbf{x}_i,C_j^m), \]o considerando las distancias al cuadrado \[ \sum_{i\in G_j^m}d^2(\mathbf{x}_i,C_j^m), \]para $j=1,\dots,K$.
+\item Repetir pasos 1 y 2 hasta que no se produzcan cambios en los grupos del paso  o hasta que se haya iterado un número determinado de veces.
+\end{enumerate}
+Si usamos la distancia Euclídea y el error cuadrático, los \lb{centroides del paso 2} serán las \lb{medias aritméticas de los datos de cada grupo} ya que si queremos minimizar \[ \min_P\sum_{j\in G}d^2(\mathbf{O}_j,P) \] para un grupo $G$, tenemos que 
+$$
+\begin{aligned}
+\sum_{j \in G}d^{2}(\mathbf{O}_{j},P)&=\sum_{j\in G}(\mathbf{O}_{j}-P)'(\mathbf{O}_{j}-P)\\
+&=\sum_{j\in G}(\mathbf{O}_{j}-\overline{\mathbf{O}}_{G}+\overline{\mathbf{O}}_{G}-P)'(\mathbf{O}_{j}-\overline{\mathbf{O}}_{G}+\overline{\mathbf{O}}_{G}-P)\\
+&=|G|(\overline{\mathbf{O}}_{G}-P)'(\overline{\mathbf{O}}_{G}-P)+\sum_{j\in G}(\mathbf{O}_{j}-\overline{\mathbf{O}}_{G})'(\mathbf{O}_{j}-\overline{\mathbf{O}}_{G})+2\sum_{j\in G}(\overline{\mathbf{O}}_{G}-P)'(\mathbf{O}_{j}-\overline{\mathbf{O}}_{G})\\
+\sum_{j\in G}d^{2}(\mathbf{O}_{j},P)&=|G|(\overline{\mathbf{O}}_{G}-P)'(\overline{\mathbf{O}}_{G}-P)+\sum_{j\in G}(\mathbf{O}_{j}-\overline{\mathbf{O}}_{G})'(\mathbf{O}_{j}-\overline{\mathbf{O}}_{G})+2(\overline{\mathbf{O}}_{G}-P)'\sum_{j\in G}(\mathbf{O}_{j}-\overline{\mathbf{O}}_{G})\\
+&=|G|(\overline{\mathbf{O}}_{G}-P)'(\overline{\mathbf{O}}_{G}-P)+\sum_{j\in G}(\mathbf{O}_{j}-\overline{\mathbf{O}}_{G})'(\mathbf{O}_{j}-\overline{\mathbf{O}}_{G}),
+\end{aligned}
+$$
+donde $\overline{\mathbf{O}}_G=\dfrac{1}{|G|}\sum_{j\in G}\mathbf{O}_j$ es la media del grupo G.
+
+En la expresión final, el segundo sumando es constante (no depende de $P$) y el mínimo del primer sumando sumando se alcanza con $P=\overline{\mathbf{O}}_G$ (ya que es la distancia entre esos dos puntos).
+
+De esta forma el paso 2 es inmediato y en el paso 1 simplemente calculamos las distancias a estos nuevos $K$ centroides (medias) asignando cada individuo al grupo del centroide más cercano (distancia $d_1$).
+
+El nombre \code{k-means} proviene de esta propiedad.
+
+Además, si usamos como función de coste las dadas previamente y hay cambios en los grupos, esta función es estrictamente decrecientes en el paso 1 ya que hay al menos un \code{objeto} cuya distancia al grupo (centroide) ha disminuido.
+
+Al recalcular los centroides en el paso 2 las sumas de estas distancias en los grupos disminuirán aún más o se quedarán iguales a las del paso 1.
+
+Como las \lb{opciones del paso 1} son \lb{finitas}, este algoritmo conducirá hasta una solución óptima local en un número finito de pasos, que puede ser muy grande.
+\begin{itemize}
+\item Para \lb{evitar este problema} podemos aplicar el algoritmo varias veces con centroides iniciales diferentes y comparar las soluciones óptimas finales de cada algoritmo.
+\end{itemize}
+Veremos que con unos pocos pasos podemos obtener soluciones muy buenas.
+\subsubsection{Un ejemplo sencillo}
+Mostramos con un ejemplo sencillo el funcionamiento del algoritmo.
+
+Para ello usaremos los datos analizados previamente con regresión logística pero ahora supondremos que no conocemos los grupos de esa muestra.
+
+Supongamos que tenemos dos variables predictoras $X_1$ y $X_2$ (k = 2) y los datos siguientes:
+
+\begin{center}
+\begin{tabular}{c|ccc}
+Individuo $i$ & $X_1$ & $X_2$ & Y \\
+\hline
+1 & 1 & 2 &  \\
+2 & 2 & 1 &  \\
+3 & 3 & 1 &  \\
+4 & 2 & 2 &  \\
+5 & 5 & 1 &  \\
+6 & 5 & 3 &  \\
+7 & 3 & 2 &  \\
+8 & 4 & 3 &  \\
+9 & 4 & 4 &  \\
+10 & 5 & 4 &  \\
+\hline
+\end{tabular}
+\end{center}
+Individuos sin agrupamiento inicial.
+\begin{lstlisting}
+X1 <- c(1, 2, 3, 2, 5, 5, 3, 4, 4, 5)
+X2 <- c(2, 1, 1, 2, 1, 3, 2, 3, 4, 4)
+plot(X1, X2, xlab = "X1", ylab = "X2", pch = 20, 
+     xlim = c(0,6), ylim = c(0,6), cex = 1.2)
+text(X1 + 0.2, X2, 1:length(X1), cex = 0.9, col = "red")
+\end{lstlisting}
+\begin{center}
+\includegraphics[width=0.5\linewidth]{"Temas/Imágenes/Tema 6/screenshot001"}
+\end{center}
+Observamos que \lb{tienen unidades similares} (por lo que podremos usar la distancia Euclídea) y que parecen formar dos grupos diferentes.
+
+El \lb{objetivo} es determinar la variable $Y$ que nos asigne cada individuo a un grupo.
+
+En tabla anterior, hemos dejado en blanco la columna de la variable $Y$ para señalar que en este caso no tenemos una muestra de entrenamiento y, por lo tanto, no podremos saber cuál es la solución óptima (que mejor clasifique a los individuos).
+\begin{itemize}
+\item \lb{Análisis no supervisado} (o automático).
+\end{itemize}
