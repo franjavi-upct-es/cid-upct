@@ -126,6 +126,8 @@ literate={á}{{\'a}}1 {é}{{\'e}}1 {í}{{\'i}}1 {ó}{{\'o}}1 {ú}{{\'u}}1{ñ}{{\
 \everymath{\displaystyle}
 
 \begin{document}
+\maketitle
+
 \section{Señales periódicas continuas. Series de Fourier}
 Las ecuaciones que relacionan una señal periódica continua con su desarrollo en series de Fourier son \[ \begin{array}{l}
 a_k=\dfrac{1}{T}\int_Tx(t)e^{-jk\frac{2\pi}{T}t}\dt\\
@@ -148,12 +150,10 @@ t = -T/2:dt:T/2-dt;
 \end{cases}$
 
 \begin{lstlisting}
+% a)
 x = zeros(1, length(t));
-% Encontrar los índices de tiempo donde 0<|t|<0.5 y asignar el valor 2 a x en esos índices
 ti = find(abs(t)<=0.5); x(ti) = 2;
-% Encontrar los índices de tiempo donde 0.5<|t|<1 y asignar el valor 0 a x en esos índices
 ti = find(abs(t)> 0.5); x(ti) = 0;
-% Graficar la señal para 3 periodos
 figure(1), plot([t-T t t+T], [x x x], "LineWidth", 1.5, "color", "#007AFF");
 xlabel('Tiempo (t)');
 ylabel('x(t)');
@@ -161,11 +161,12 @@ title('$x(t)=\begin{cases}2 & 0<|t|<0.5\\0&0.5<|t|<1\end{cases}$','Interpreter',
 \end{lstlisting}
 
 \begin{center}
-\includegraphics[width=0.7\linewidth]{Imágenes/Figura1}
+\includegraphics[width=0.5\linewidth]{Imágenes/Figura1}
 \end{center}
 
 \item $x(t)=0.8\sin(2\pi t)+0.6\cos(\pi t)-0.2\sin\left(3\pi t+\dfrac{\pi}{4}\right)$
 \begin{lstlisting}
+% b)
 x = 0.8*sin(2*pi*t) + 0.6*cos(pi*t) - 0.2*sin(3*pi*t + pi/4);
 figure(2), plot([t-T t t+T], [x x x], "LineWidth", 1.5, "color", "#007AFF");
 xlabel('Tiempo (t)');
@@ -173,35 +174,40 @@ ylabel('x(t)');
 title('$x(t)=0.8\sin(2\pi t)+0.6\cos(\pi t)-0.2\sin\left(3\pi t+\dfrac{\pi}{4}\right)$','Interpreter','latex');
 \end{lstlisting}
 \begin{center}
-\includegraphics[width=0.7\linewidth]{Imágenes/Figura2}
+\includegraphics[width=0.5\linewidth]{Imágenes/Figura2}
 \end{center}
 \item $x(t)=\begin{cases}
 2t, & 0<t<1\\
 -2t,&-1\le t\le0
 \end{cases}$
 \begin{lstlisting}
-ti = find(t==0); x(ti) = 0.5 * (1/dt);
-figure(4), plot([t-T t t+T], [x x x], "LineWidth", 1.5, "color", "#007AFF");
+% (c)
+x = zeros(1, length(t));
+ti = find(abs(t)>=-1 & abs(t)<0); x(ti) = -2*t(ti);
+ti = find(abs(t)>0 & abs(t)<1); x(ti) = 2*t(ti);
+figure(3), plot([t-T t t+T], [x x x], "LineWidth", 1.5, "color", "#007AFF");
 xlabel('Tiempo (t)');
 ylabel('x(t)');
-title('$x(t)=0.5\delta(t),\,-1\le t<1$', 'Interpreter', 'latex')
+title('$x(t)=\begin{cases}2t & 0<t<1\\-2t&-1\le t\le0\end{cases}$','Interpreter','latex');
 \end{lstlisting}
 \begin{center}
-\includegraphics[width=0.7\linewidth]{Imágenes/Figura3}
+\includegraphics[width=0.5\linewidth]{Imágenes/Figura3}
 \end{center}
 \item $x(t)=0.5\delta(t),\:-1\le t<1$
 \begin{lstlisting}
-ti = find(t==0); x(ti) = 0.5 * (1/dt);
+% (d)
+ti = find(abs(t)==0); x(ti) = 0.5 * (1/dt);
 figure(4), plot([t-T t t+T], [x x x], "LineWidth", 1.5, "color", "#007AFF");
 xlabel('Tiempo (t)');
 ylabel('x(t)');
 title('$x(t)=0.5\delta(t),\,-1\le t<1$', 'Interpreter', 'latex')
 \end{lstlisting}
 \begin{center}
-\includegraphics[width=0.7\linewidth]{Imágenes/Figura4}
+\includegraphics[width=0.5\linewidth]{Imágenes/Figura4}
 \end{center}
 \item $x(t)=\left|\sin\left(\dfrac{\pi}{2}t\right)\right|$
 \begin{lstlisting}
+% (e)
 x = abs(sin(pi/2.*t));
 figure(5), plot([t-T t t+T], [x x x], "LineWidth", 1.5, "color", "#007AFF");
 xlabel('Tiempo (t)');
@@ -209,18 +215,19 @@ ylabel('x(t)');
 title('$x(t)=\left|\sin\left(\dfrac{\pi}{2}t\right)\right|$', "Interpreter", "latex")
 \end{lstlisting}
 \begin{center}
-\includegraphics[width=0.7\linewidth]{Imágenes/Figura5}
+\includegraphics[width=0.5\linewidth]{Imágenes/Figura5}
 \end{center}
 \item $x(t)=e^{j2\pi t}+e^{-j3\pi t}$
 \begin{lstlisting}
+% (f)
 x = exp(j*2*pi*t) + exp(-3*j*pi*t);
 figure(6), plot([t-T t t+T], [x x x], "LineWidth", 1.5, "color", "#007AFF");
 xlabel('Tiempo (t)');
 ylabel('x(t)');
-title('$x(t)=x(t)=e^{j2\pi t}+e^{-j3\pi t}$', 'Interpreter', 'latex')
+title('$x(t)=e^{j2\pi t}+e^{-j3\pi t}$', 'Interpreter', 'latex')
 \end{lstlisting}
 \begin{center}
-\includegraphics[width=0.7\linewidth]{Imágenes/Figura6}
+\includegraphics[width=0.5\linewidth]{Imágenes/Figura6}
 \end{center}
 \end{enumerate}
 
@@ -234,21 +241,18 @@ figure, plot([t-T t t+T], [x x x])
 \end{lstlisting}
 \item Repita el proceso para las señales a) c) y d), asumiendo un periodo T=4 y T=6. Razone los resultados obtenidos.
 
+\pagebreak
+
 \begin{lstlisting}
 T = 4;dt = 0.001;
-% Crear el rango de tiempo para un periodo
 t = -T/2:dt:T/2-dt;
-% Inicializar la señal x con ceros
-x = zeros(1, length(t));
-% Encontrar los índices de tiempo donde 0<|t|<0.5 y asignar el valor 2 a x en esos índices
-ti = find(abs(t)<=0.5); x(ti) = 2;
-% Encontrar los índices de tiempo donde 0.5<|t|<1 y asignar el valor 0 a x en esos índices
-ti = find(abs(t)> 0.5); x(ti) = 0;
 \end{lstlisting}
 
 \begin{lstlisting}
 % (a)
 x = zeros(1, length(t));
+ti = find(abs(t)<=0.5); x(ti) = 2;
+ti = find(abs(t)> 0.5); x(ti) = 0;
 figure(7), plot([t-T t t+T], [x x x], "LineWidth", 1.5, "color", "#007AFF");
 xlabel('Tiempo (t)');
 ylabel('x(t)');
@@ -256,8 +260,8 @@ title('$x(t)=\begin{cases}2 & 0<|t|<0.5\\0&0.5<|t|<1\end{cases}$','Interpreter',
 
 % (c)
 x = zeros(1, length(t));
-ti = find(t>=-1 & t<0); x(ti) = -2*t(ti);
-ti = find(t>0 & t<1); x(ti) = 2*t(ti);
+ti = find(abs(t)>=-1 & abs(t)<0); x(ti) = -2*t(ti);
+ti = find(abs(t)>0 & abs(t)<1); x(ti) = 2*t(ti);
 figure(8), plot([t-T t t+T], [x x x], "LineWidth", 1.5, "color", "#007AFF");
 xlabel('Tiempo (t)');
 ylabel('x(t)');
@@ -265,32 +269,27 @@ title('$x(t)=\begin{cases}2t & 0<t<1\\-2t&-1\le t\le0\end{cases}$','Interpreter'
 
 % (d)
 x = zeros(1, length(t));
-ti = find(t==0); x(ti) = 0.5 * (1/dt);
+ti = find(abs(t)==0); x(ti) = 0.5 * (1/dt);
 figure(9), plot([t-T t t+T], [x x x], "LineWidth", 1.5, "color", "#007AFF");
 xlabel('Tiempo (t)');
 ylabel('x(t)');
 title('$x(t)=0.5\delta(t),\,-1\le t<1$', 'Interpreter', 'latex')
 \end{lstlisting}
-
-
 \begin{center}
 \includegraphics[width=0.4\linewidth]{Imágenes/Figura7}
 \includegraphics[width=0.4\linewidth]{Imágenes/Figura8}
 \includegraphics[width=0.4\linewidth]{Imágenes/Figura9}
 \end{center}
+\pagebreak
 \begin{lstlisting}
 T = 6; dt = 0.001;
-% Crear el rango de tiempo para un periodo
 t = -T/2:dt:T/2-dt;
-% Inicializar la señal x con ceros
-x = zeros(1, length(t));
-% Encontrar los índices de tiempo donde 0<|t|<0.5 y asignar el valor 2 a x en esos índices
-ti = find(abs(t)<=0.5); x(ti) = 2;
-% Encontrar los índices de tiempo donde 0.5<|t|<1 y asignar el valor 0 a x en esos índices
-ti = find(abs(t)> 0.5); x(ti) = 0;
 \end{lstlisting}
 \begin{lstlisting}
 % (a)
+x = zeros(1, length(t));
+ti = find(abs(t)<=0.5); x(ti) = 2;
+ti = find(abs(t)> 0.5); x(ti) = 0;
 figure(10), plot([t-T t t+T], [x x x], "LineWidth", 1.5, "color", "#007AFF");
 xlabel('Tiempo (t)');
 ylabel('x(t)');
@@ -298,8 +297,8 @@ title('$x(t)=\begin{cases}2 & 0<|t|<0.5\\0&0.5<|t|<1\end{cases}$','Interpreter',
 
 % (c)
 x = zeros(1, length(t));
-ti = find(t>=-1 & t<0); x(ti) = -2*t(ti);
-ti = find(t>0 & t<1); x(ti) = 2*t(ti);
+ti = find(abs(t)>=-1 & abs(t)<0); x(ti) = -2*t(ti);
+ti = find(abs(t)>0 & abs(t)<1); x(ti) = 2*t(ti);
 figure(11), plot([t-T t t+T], [x x x], "LineWidth", 1.5, "color", "#007AFF");
 xlabel('Tiempo (t)');
 ylabel('x(t)');
@@ -307,7 +306,7 @@ title('$x(t)=\begin{cases}2t & 0<t<1\\-2t&-1\le t\le0\end{cases}$','Interpreter'
 
 % (d)
 x = zeros(1, length(t));
-ti = find(t==0); x(ti) = 0.5 * (1/dt);
+ti = find(abs(t)==0); x(ti) = 0.5 * (1/dt);
 figure(12), plot([t-T t t+T], [x x x], "LineWidth", 1.5, "color", "#007AFF");
 xlabel('Tiempo (t)');
 ylabel('x(t)');
@@ -320,7 +319,7 @@ title('$x(t)=0.5\delta(t),\,-1\le t<1$', 'Interpreter', 'latex')
 \includegraphics[width=0.4\linewidth]{Imágenes/Figura12}
 \end{center}
 
-Como se aumenta el periodo fundamental de las señales podemos observar que por la fórmula de su frecuencia angular $\omega_0=\dfrac{2\pi}{T}$ tenemos que se expande en el tiempo porque cuanto mayor sea el periodo fundamental la señal tardará más tiempo en repetirse.
+Como se aumenta el periodo fundamental de las señales podemos observar que por la fórmula de su frecuencia angular $\left(\omega_0=\frac{2\pi}{T}\right)$ tenemos que se expande en el tiempo porque cuanto mayor sea el periodo fundamental, la señal tardará más tiempo en repetirse.
 
 \item Cree la siguiente función de MATLAB que obtiene los coeficientes de la serie de Fourier (DSF) de una señal periódica:
 
@@ -329,7 +328,7 @@ function ak = cfourier(x,T,N,dt)
 t = -T/2:dt:T/2-dt;
 ak = zeros(1,2*N+1);
 for k = -N:N
-ak(k+N+1) = 1/T*sum(x.*exp(-j*k*2*pi/T*t))*dt;
+    ak(k+N+1) = 1/T*sum(x.*exp(-j*k*2*pi/T*t))*dt;
 end
 \end{lstlisting}
 
@@ -371,8 +370,8 @@ ak_b =
 \begin{lstlisting}
 % (c)
 x = zeros(1, length(t));
-ti = find(t>=-1 & t<0); x(ti) = -2*t(ti);
-ti = find(t>0 & t<1); x(ti) = 2*t(ti);
+ti = find(abs(t)>=-1 & abs(t)<0); x(ti) = -2*t(ti);
+ti = find(abs(t)>0 & abs(t)<1); x(ti) = 2*t(ti);
 ak_c = cfourier(x, T, N, dt);
 \end{lstlisting}
 
@@ -386,7 +385,7 @@ ak_c =
 \begin{lstlisting}
 % (d)
 x = zeros(1, length(t));
-ti = find(t==0); x(ti) = 0.5 * (1/dt);
+ti = find(abs(t)==0); x(ti) = 0.5 * (1/dt);
 ak_d = cfourier(x, T, N, dt);
 \end{lstlisting}
 
@@ -429,7 +428,7 @@ function x = icfourier(ak,T,N,dt)
 t = -T/2:dt:T/2-dt;
 x = zeros(1,lenght(t));
 for k = -N:N
-x = x + ak(k+N+1)*exp(j*k*2*pi/T*t);
+    x = x + ak(k+N+1)*exp(j*k*2*pi/T*t);
 end
 \end{lstlisting}
 \item Reconstruya a partir de los desarrollos mediante series de Fourier \code{ak} las señales a) c) d) y e) variando el máximo número de armónicos N en la reconstrucción. Comente los resultados obtenidos.
@@ -437,13 +436,10 @@ end
 \begin{lstlisting}
 % (a)
 ic_a = icfourier(ak_a, T, N, dt);
-
 % (c)
 ic_c = icfourier(ak_c, T, N, dt);
-
 % (d)
 ic_d = icfourier(ak_d, T, N, dt);
-
 % (e)
 ic_e = icfourier(ak_e, T, N, dt);
 \end{lstlisting}
@@ -455,10 +451,23 @@ A continuación van a aparecer dos variaciones de los valores obtenidos del apar
 \includegraphics[width=0.45\linewidth]{Imágenes/prueba_n5}
 \end{center}
 
+Al aumentar el valor de \code{N} habrá más coeficientes y se obtendrá más información de la señal porque al reconstruirla usamos más coeficientes.
+
 \item Verifique el cumplimiento del teorema de Parseval comparando los resultados \textbf{teóricos} y prácticos \[ \sum_{k=-\infty}^{\infty}|a_k|^2=\dfrac{1}{T}\int_{<T>}|x(t)|^2\dt \]
+
+\begin{lstlisting}
+% Calcular la suma de los cuadrados de los coeficientes de Fourier
+sum_ak2_a = sum(abs(ak_a).^2); % sum_ak2_a = 1.9351
+sum_ak2_b = sum(abs(ak_b).^2); % sum_ak2_b = 0.5200
+sum_ak2_c = sum(abs(ak_c).^2); % sum_ak2_c = 1.3331
+sum_ak2_d = sum(abs(ak_d).^2); % sum_ak2_d = 0.6875
+sum_ak2_e = sum(abs(ak_e).^2); % sum_ak2_e = 0.4999
+sum_ak2_f = sum(abs(ak_f).^2); % sum_ak2_f = 2.0000
+\end{lstlisting}
+
 \end{enumerate}
 \section{Transformada de Fourier}
-Las ecuaciones que relacionan una sñela con su transformada de Fourier son las siguientes: \[ X(\omega)=\sum_{-\infty}^{\infty}x(t)e^{-j\omega t}\dt\qquad x(t)=\dfrac{1}{2\pi}\int_{-\infty}^{+\infty}X(\omega)e^{j\omega t}\mathrm{d}\omega \]
+Las ecuaciones que relacionan una sñela con su transformada de Fourier son las siguientes: \[ X(\omega)=\int_{-\infty}^{\infty}x(t)e^{-j\omega t}\dt\qquad x(t)=\dfrac{1}{2\pi}\int_{-\infty}^{+\infty}X(\omega)e^{j\omega t}\mathrm{d}\omega \]
 \subsection*{Cuestiones}
 \begin{enumerate}[leftmargin=*]
 \item Genere en MATLAB las siguientes señales aperiódicas, tomando un intervalo de discretación de 0.002, y considerando $-5\le t\le5$.
@@ -467,6 +476,8 @@ Las ecuaciones que relacionan una sñela con su transformada de Fourier son las 
 1, & t\le0.6\\
 0,&\text{resto}
 \end{cases}$
+
+\pagebreak
 
 \begin{lstlisting}
 % a)
@@ -477,7 +488,7 @@ figure(13); plot(t, x, "LineWidth", 1.5, "color", "#007AFF");
 title(' $x(t)=\begin{cases}1, & t\le0.6\\0,&\text{resto}\end{cases}$', "Interpreter", "latex");
 \end{lstlisting}
 \begin{center}
-\includegraphics[width=0.7\linewidth]{Imágenes/Figura13}
+\includegraphics[width=0.5\linewidth]{Imágenes/Figura13}
 \end{center}
 \item $x(t)=\begin{cases}
 1, & t\le0.2\\
@@ -492,13 +503,16 @@ figure(14); plot(t, x, "LineWidth", 1.5, "color", "#007AFF");
 title('$x(t)=\begin{cases}1, & t\le0.2\\0, & \mathrm{resto}\end{cases}$', 'Interpreter', 'latex');
 \end{lstlisting}
 \begin{center}
-\includegraphics[width=0.7\linewidth]{Imágenes/Figura14}
+\includegraphics[width=0.5\linewidth]{Imágenes/Figura14}
 \end{center}
 \item $x(t)=\begin{cases}
 0.5, & 0<t\le1\\
 1-0.5t,&1<t\le2\\
 0,& \mathrm{resto}
 \end{cases}$
+
+\pagebreak
+
 \begin{lstlisting}
 % c)
 t = -5:0.002:5;
@@ -509,13 +523,16 @@ figure(15); plot(t, x, "LineWidth", 1.5, "color", "#007AFF");
 title('$x(t)=\begin{cases}0.5, & 0<t\le1\\1-0.5t,&1<t\le2\\0,& \mathrm{resto}\end{cases}$', "Interpreter", "latex");
 \end{lstlisting}
 \begin{center}
-\includegraphics[width=0.7\linewidth]{Imágenes/Figura15}
+\includegraphics[width=0.5\linewidth]{Imágenes/Figura15}
 \end{center}
 \end{enumerate}
 \item Suponiendo que las señales del punto 1 representaban el periodo de una señal periódica,
 \begin{enumerate}[label=\roman*)]
 \item Calcule su desarrollo en series de Fourier mediante \code{ak=cfourier(x,T,N,dt)}, y normalice por T (\code{ak=T*ak}). Al estar cada armónico está asociado a la frecuencia $k\dfrac{2\pi}{T}$, represente las series de Fourier normalizadas en el eje de frecuencias. Para ello emplee \code{stem(w,ak,'.')} y previamente defina el vector de frecuencias \code{w=2*\textpi*k/T}.
 \begin{lstlisting}
+% a)
+x = zeros(size(t));
+x(t <= 0.6) = 1;
 T = length(x)*0.002;
 N = 50;
 dt = 0.002;
@@ -526,19 +543,203 @@ w = 2*pi*k/T;
 figure(16); stem(w, ak, '.', "LineWidth", 1.5, "color", "#007AFF", "MarkerSize", 10);
 \end{lstlisting}
 \begin{center}
-\includegraphics[width=0.7\linewidth]{Imágenes/Figura16}
+\includegraphics[width=0.5\linewidth]{Imágenes/Figura16}
 \end{center}
+\begin{lstlisting}
+% b)
+x = zeros(size(t));
+x(t <= 0.2) = 1;
+T = length(x)*0.002;
+N = 50;
+dt = 0.002;
+ak = cfourier(x, T, N, dt);
+ak = T * ak;
+k = 0:length(ak)-1;
+w = 2*pi*k/T;
+figure(17); stem(w, ak, '.', "LineWidth", 1.5, "color", "#007AFF", "MarkerSize", 10);
+\end{lstlisting}
+\begin{center}
+\includegraphics[width=0.5\linewidth]{Imágenes/Figura17}
+\end{center}
+
+\begin{lstlisting}
+% c)
+t = -5:0.002:5;
+x = zeros(size(t));
+x(0 < t & t <= 1) = 0.5;
+x(1 < t & t <= 2) = 1 - 0.5 * t(1 < t & t <= 2);
+T = length(x)*0.002;
+N = 50;
+dt = 0.002;
+ak = cfourier(x, T, N, dt);
+ak = T * ak;
+k = 0:length(ak)-1;
+w = 2*pi*k/T;
+figure(18); stem(w, ak, '.', "LineWidth", 1.5, "color", "#007AFF", "MarkerSize", 10);
+\end{lstlisting}
+\begin{center}
+\includegraphics[width=0.5\linewidth]{Imágenes/Figura18}
+\end{center}
+
 \item Incremente la longitud del vector de la señal hacia ambos lados de la siguiente manera:
 \begin{lstlisting}
 Ti=floor(length(x)/2);
 x=[zeros(1,Ti) x zeros(1,Ti)];
 \end{lstlisting}
-\item Vuevla al paso \code{i} para obtener las nuevas series de Fourier normalizadas. Considere que:
+
+\begin{lstlisting}
+% a)
+x = zeros(size(t));
+x(t <= 0.6) = 1;
+Ti = floor(length(x)/2);
+x = [zeros(1, Ti) x zeros(1, Ti)];
+T = length(x)*dt;
+N = 50;
+dt = 0.002;
+ak = cfourier(x, T, N, dt);
+ak = T * ak;
+k = 0:length(ak)-1;
+w = 2*pi*k/T;
+figure(19); stem(w, ak, '.', "LineWidth", 1.5, "color", "#007AFF", "MarkerSize", 10);
+\end{lstlisting}
+\begin{center}
+\includegraphics[width=0.5\linewidth]{Imágenes/Figura19}
+\end{center}
+\newpage
+\begin{lstlisting}
+% b)
+x = zeros(size(t));
+x(t <= 0.2) = 1;
+Ti = floor(length(x)/2);
+x = [zeros(1, Ti) x zeros(1, Ti)];
+T = length(x)*dt;
+N = 50;
+dt = 0.002;
+ak = cfourier(x, T, N, dt);
+ak = T * ak;
+k = 0:length(ak)-1;
+w = 2*pi*k/T;
+figure(20); stem(w, ak, '.', "LineWidth", 1.5, "color", "#007AFF", "MarkerSize", 10);
+\end{lstlisting}
+\begin{center}
+\includegraphics[width=0.5\linewidth]{Imágenes/Figura20}
+\end{center}
+\begin{lstlisting}
+% c)
+x = zeros(size(t));
+x(0 < t & t <= 1) = 0.5;
+x(1 < t & t <= 2) = 1 - 0.5 * t(1 < t & t <= 2);
+Ti = floor(length(x)/2);
+x = [zeros(1, Ti) x zeros(1, Ti)];
+T = length(x)*dt;
+N = 50;
+dt = 0.002;
+ak = cfourier(x, T, N, dt);
+ak = T * ak;
+k = 0:length(ak)-1;
+w = 2*pi*k/T;
+figure(21); stem(w, ak, '.', "LineWidth", 1.5, "color", "#007AFF", "MarkerSize", 10);
+\end{lstlisting}
+\begin{center}
+\includegraphics[width=0.5\linewidth]{Imágenes/Figura21}
+\end{center}
+\item Vuelva al paso \code{i} para obtener las nuevas series de Fourier normalizadas. Considere que:
 \begin{itemize}[label=$-$]
 \item El orden del máximo armónico a tener en cuenta es el doble que el previo (\code{N=2*N})
 \item El nuevo periodo obtenido es el doble del previo (\code{T=2*T})
 \end{itemize}
 Repita este proceso (puede emplear un programa con un bucle \code{for}) y explique los resultados.
+
+\begin{lstlisting}
+% a)
+T = 10;
+t = -T/2:0.002:T/2-0.002;
+x = zeros(size(t));
+ti = find(abs(t) <= 0.6)
+x(ti) = 1;
+N = 50;
+dt = 0.002;
+% Bucle for para duplicar N y T
+for i = 1:2
+    Ti = floor(length(x)/2);
+    x = [zeros(1, Ti) x zeros(1, Ti)];
+    N = 2*N;
+    T = 2*T;
+    k = -N:N
+    % Calcular ak y normalizar
+    ak = cfourier(x, T, N, dt);
+    ak = T * ak;
+
+    % Definir k y w
+    w = 2*pi*k/T;
+
+    % Crear figura y representar las series de Fourier normalizadas
+    figure; stem(w, ak, '.', "LineWidth", 1.5, "color", "#007AFF", "MarkerSize", 10);
+end
+\end{lstlisting}
+\begin{center}
+\includegraphics[width=0.45\linewidth]{"Imágenes/Figura22"}
+\includegraphics[width=0.45\linewidth]{"Imágenes/Figura23"}
+\end{center}
+\begin{lstlisting}
+% b)
+T = 10;
+t = -T/2:0.002:T/2-0.002;
+x = zeros(size(t));
+ti = find(abs(t) <= 0.2)
+x(ti) = 1;
+N = 50;
+dt = 0.002;
+% Bucle for para duplicar N y T
+for i = 1:2
+    Ti = floor(length(x)/2);
+    x = [zeros(1, Ti) x zeros(1, Ti)];
+    N = 2*N;
+    T = 2*T;
+    k = -N:N
+    % Calcular ak y normalizar
+    ak = cfourier(x, T, N, dt);
+    ak = T * ak;
+    % Definir k y w
+    w = 2*pi*k/T;
+    % Crear figura y representar las series de Fourier normalizadas
+    figure; stem(w, ak, '.', "LineWidth", 1.5, "color", "#007AFF", "MarkerSize", 10);
+end
+\end{lstlisting}
+\begin{center}
+\includegraphics[width=0.45\linewidth]{"Imágenes/Figura24"}
+\includegraphics[width=0.45\linewidth]{"Imágenes/Figura25"}
+\end{center}
+\newpage
+\begin{lstlisting}
+% b)
+T = 10;
+t = -T/2:0.002:T/2-0.002;
+x = zeros(size(t));
+ti = find(abs(t) <= 0.2)
+x(ti) = 1;
+N = 50;
+dt = 0.002;
+% Bucle for para duplicar N y T
+for i = 1:2
+    Ti = floor(length(x)/2);
+    x = [zeros(1, Ti) x zeros(1, Ti)];
+    N = 2*N;
+    T = 2*T;
+    k = -N:N
+    % Calcular ak y normalizar
+    ak = cfourier(x, T, N, dt);
+    ak = T * ak;
+    % Definir k y w
+    w = 2*pi*k/T;
+    % Crear figura y representar las series de Fourier normalizadas
+    figure; stem(w, ak, '.', "LineWidth", 1.5, "color", "#007AFF", "MarkerSize", 10);
+end
+\end{lstlisting}
+\begin{center}
+\includegraphics[width=0.45\linewidth]{"Imágenes/Figura26"}
+\includegraphics[width=0.45\linewidth]{"Imágenes/Figura27"}
+\end{center}
 \end{enumerate}
 \item Implemente una función que obtenga la transformada de Fourier de una señal adaptando el programa de desarrollo en series de Fourier.
 \begin{lstlisting}
@@ -550,6 +751,7 @@ function [X,w]=tfourier(x,t,dw,wmax)
 \item \code{w} es el vector con el eje frecuencia, su tamaño es el mismo que el de \code{x}.
 \item \code{t} es el vector con el eje temporal, su tamaño es el mismo que el de \code{x}.
 \end{itemize}
+\pagebreak
 \begin{lstlisting}
 function [X,w] = tfourier(x,t,dw,wmax)
     % Crear el vector de frecuencias
@@ -569,13 +771,14 @@ end
 function [X,w]=itfourier(x,t,dw,wmax)
 \end{lstlisting}
 
+
 \begin{lstlisting}
-function [x,t] = itfourier(X,w,dw,tmax)
+function [X,t] = itfourier(x,w,dw,tmax)
     % Aplicar la Transformada de Fourier a la señal en el dominio de la frecuencia
-    [x_tilde, t] = tfourier(X,w,dw,tmax);
+    [x_tilde, t] = tfourier(x,w,dw,tmax);
 
     % Escalar la señal y tomar la parte real para obtener la señal en el dominio del tiempo
-    x = real(dw/(2*pi) * x_tilde);
+    X = real(dw/(2*pi) * x_tilde);
 end
 \end{lstlisting}
 
