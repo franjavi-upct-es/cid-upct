@@ -151,7 +151,7 @@ Estos métodos se pueden dividir en dos grandes grupos:
 \end{itemize}
 Solamente veremos un método de cada tipo.
 \subsection{Método no jerárquico de las K-medias}
-El método de las K-medias (\code{K-means}) es sin duda el método no jerárquico \lb{más popular}.
+El método de las K-medias (\lb{K-means}) es sin duda el método no jerárquico \lb{más popular}.
 
 Habitualmente usa la distancia Euclídea con los datos sin estandarizar (cuando tienen escalas similares) o estandarizados (distancia de Pearson, cuando tienen escalas diferentes) pero se puede aplicar a otras distancias.
 
@@ -208,7 +208,7 @@ Supongamos que tenemos dos variables predictoras $X_1$ y $X_2$ (k = 2) y los dat
 
 \begin{center}
 \begin{tabular}{c|ccc}
-Individuo $i$ & $X_1$ & $X_2$ & Y \\
+Individuo $i$ & $X_1$ & $X_2$ & $Y$ \\
 \hline
 1 & 1 & 2 &  \\
 2 & 2 & 1 &  \\
@@ -242,3 +242,539 @@ En tabla anterior, hemos dejado en blanco la columna de la variable $Y$ para se�
 \begin{itemize}
 \item \lb{Análisis no supervisado} (o automático).
 \end{itemize}
+
+Para aplicar el algoritmo con $K=2$ medias (grupos) elegimos dos centroides al azar (dentro de la zona donde están los individuos).
+
+Para ello usamos la instrucción \code{runif(2,0,6)} (fijando previamente la semilla con \code{set.seed}).
+
+Primer centroide en el paso 0:
+\begin{lstlisting}
+set.seed(123124)
+C1_0 = runif(2, 0, 6)
+C1_0
+\end{lstlisting}
+\begin{verbatim}
+## [1] 3.101323 1.401716
+\end{verbatim}
+Segundo centroide en el paso 0:
+\begin{lstlisting}
+set.seed(123121)
+C2_0 = runif(2, 0, 6)
+C2_0
+\end{lstlisting}
+\begin{verbatim}
+## [1] 2.2950230 0.3726236
+\end{verbatim}
+Otra opción sería usar dos de esos puntos al azar.
+
+Con los centroides obtenidos, $C_1^0=(3.101323, 1.401716)$ y $C_2^0=(2.2950230,0.3726236)$, obtenemos las distancias y agrupaciones siguientes:
+\begin{lstlisting}
+library("dplyr")
+df = data.frame(X1, X2) %>%
+  mutate(d_C1 = sqrt((X1 - C1_0[1])^2 + (X2 - C1_0[2])^2),
+         d_C2 = sqrt((X1 - C2_0[1])^2 + (X2 - C2_0[2])^2),
+         Y = ifelse(d_C1 <  d_C2, 1, 2))
+\end{lstlisting}
+\begin{center}
+\begin{tabular}{c|cccc|c}
+Individuo $i$ & $X_1$ & $X_2$ & $d(\mathbf{X},C_1^0)$ & $d(\mathbf{X},C_2^0)$ & $Y		$ \\ 
+\hline 
+1 & 1 & 2 & 2.1848343 & 2.0797689 & 2 \\ 
+2 & 2 & 1 & 1.1723001 & 0.6932819 & 2 \\ 
+3 & 3 & 1 & 0.4142971 & 0.9437127 & 1 \\ 
+4 & 2 & 2 & 1.2533377 & 1.6539022 & 1 \\ 
+5 & 5 & 1 & 1.9407090 & 2.7767790 & 1 \\ 
+6 & 5 & 3 & 2.4818314 & 3.7709425 & 1 \\ 
+7 & 3 & 2 & 0.6068031 & 1.7735125 & 1 \\ 
+8 & 4 & 3 & 1.8336119 & 3.1321005 & 1 \\ 
+9 & 4 & 4 & 2.7493091 & 4.0080926 & 1 \\ 
+10 & 5 & 4 & 3.2180825 & 4.529044 & 1 \\ 
+\hline 
+\end{tabular} 
+\end{center}
+Cada individuo se asigna al grupo más cercano (midiendo su distancia a cada centroide).
+
+Individuos agrupados en el primer paso del algoritmo \lb{K-means} con los centroides iniciales (negro).
+\begin{lstlisting}
+Y <- df$Y
+plot(X1, X2, xlab = "X1", ylab = "X2", pch = as.integer(Y), 
+     xlim = c(0,6), ylim = c(0,6), cex = 1.2)
+text(X1 + 0.2, X2, 1:length(X1), cex = 0.9, col = "red")
+text(C1_0[1], C1_0[2], "C1", cex = 0.9, col = "black")
+text(C2_0[1], C2_0[2], "C2", cex = 0.9, col = "black")
+legend('topleft', legend = c('Y = 1','Y = 2'), 
+       pch = 1:2, cex = 1.2)
+\end{lstlisting}
+\begin{center}
+\includegraphics[width=0.5\linewidth]{"Temas/Imágenes/Tema 6/screenshot002"}
+\end{center}
+En el siguiente paso, calculamos los nuevos centroides, que son las medias de los individuos de cada grupo.
+\begin{lstlisting}
+centroides = df %>% 
+  group_by(Y) %>%
+  summarise(C_x1 = mean(X1),
+            C_x2 = mean(X2)) %>%
+  ungroup
+C1_1 = c(centroides$C_x1[1], centroides$C_x2[1])
+C1_1
+\end{lstlisting}
+\begin{verbatim}
+## [1] 3.875 2.500
+\end{verbatim}
+\begin{lstlisting}
+C2_1=  c(centroides$C_x1[2], centroides$C_x2[2])
+C2_1
+\end{lstlisting}
+\begin{verbatim}
+## [1] 1.5 1.5
+\end{verbatim}
+Estos centroides son: 
+
+$\begin{array}{l}
+C_1^1=(3.875,2.5)\\
+C_2^1=(1.5,1.5).
+\end{array}$
+
+Individuos agrupados en el primer y segundo paso del algoritmo K-means con los centroides iniciales (negro) y los nuevos (rojo).
+\begin{lstlisting}
+df = df %>%
+  mutate(d_C1 = sqrt((X1 - C1_1[1])^2 + (X2 - C1_1[2])^2),
+         d_C2 = sqrt((X1 - C2_1[1])^2 + (X2 - C2_1[2])^2),
+         Y = ifelse(d_C1 < d_C2,
+                    1,
+                    2))
+Y <- df$Y
+plot(X1, X2, xlab = "X1", ylab = "X2", pch = as.integer(Y), 
+     xlim = c(0,6), ylim = c(0,6), cex = 1.2)
+text(X1 + 0.2, X2, 1:length(X1), cex = 0.9, col = "red")
+text(C1_0[1], C1_0[2], "C1", cex = 0.9, col = "black")
+text(C2_0[1], C2_0[2], "C2", cex = 0.9, col = "black")
+text(C1_1[1], C1_1[2], "C1", cex = 0.9, col = "red")
+text(C2_1[1], C2_1[2], "C2", cex = 0.9, col = "red")
+legend('topleft', legend = c('Y = 1','Y = 2'), pch = 1:2, cex = 1.2)
+\end{lstlisting}
+\begin{center}
+\includegraphics[width=0.5\linewidth]{"Temas/Imágenes/Tema 6/screenshot003"}
+\end{center}
+Repetimos los cálculos con los nuevos centroides. El reparto del paso uno conduce a los mismos grupos en la iteración anterior y el algoritmo se detiene, obteniendo los centroides finales: $C_1^2=(4.6,3.0)$ y $C_2^2=(2.2,1.6)$.
+\begin{lstlisting}
+df = df %>%
+  mutate(d_C1 = sqrt((X1 - C1_1[1])^2 + (X2 - C1_1[1])^2),
+         d_C2 = sqrt((X1 - C2_1[1])^2 + (X2 - C2_1[2])^2),
+         Y = ifelse(d_C1 < d_C2,
+                    1,
+                    2))
+
+centroides = df %>% 
+  group_by(Y) %>%
+  summarise(C_x1 = mean(X1),
+            C_x2 = mean(X2))
+C1_2 = c(centroides$C_x1[1], centroides$C_x2[1])
+C2_2 =  c(centroides$C_x1[2], centroides$C_x2[2])
+df = df %>%
+  mutate(d_C1 = sqrt((X1 - C1_2[1])^2 + (X2 - C1_2[2])^2),
+         d_C2 = sqrt((X1 - C2_2[1])^2 + (X2 - C2_2[2])^2),
+         Y = ifelse(d_C1 < d_C2,
+                    1,
+                    2))
+Y <- df$Y
+plot(X1, X2, xlab = "X1", ylab = "X2", pch = as.integer(Y), 
+     xlim = c(0,6), ylim = c(0,6), cex = 1.2)
+text(X1 + 0.2, X2, 1:length(X1), cex = 0.9, col = "red")
+text(C1_1[1], C1_1[2], "C1", cex = 0.9, col = "black")
+text(C2_1[1], C2_1[2], "C2", cex = 0.9, col = "black")
+text(C1_2[1], C1_2[2], "C1", cex = 0.9, col = "red")
+text(C2_2[1], C2_2[2], "C2", cex = 0.9, col = "red")
+legend('topleft', legend = c('Y = 1','Y = 2'), pch = 1:2, cex = 1)
+\end{lstlisting}
+
+\begin{center}
+\includegraphics[width=0.5\linewidth]{"Temas/Imágenes/Tema 6/screenshot004"}
+\end{center}
+Cuando los grupos no varían en dos iteraciones seguidas los centroides coinciden y el algoritmo se detiene.
+
+\lb{Problema:} este algoritmo puede depender de los valores iniciales.
+
+Presentamos la agrupación de los individuos con otros centroides iniciales.
+
+Centroides iniciales: $C_1^0=(2.482099,2.270985)$ y $C_2^0=(3.851084,5.344700)$.
+
+Centroides finales: $C_1=(2.6667,1.5)$ y $C_2=(4.5,3.5)$.
+
+\begin{lstlisting}
+K = 2
+## Paso 0
+C = matrix(NA, ncol = 2, nrow = K)
+
+C[1, ] = c(2.482099,2.270985)
+C[2, ] = c(3.851084, 5.344700)
+
+clusters = matrix(NA, ncol = 2, nrow = nrow(df))
+clusters[, 1] = 1
+clusters[, 2] = 2
+
+i = 2
+while(sum(clusters[, 1] == clusters[, 2]) != nrow(df)) {
+## Paso 1
+df = df %>%
+  mutate(d_C1 = sqrt((X1 - C[1, 1])^2 + (X2 - C[1, 2])^2),
+         d_C2 = sqrt((X1 - C[2, 1])^2 + (X2 - C[2, 2])^2),
+         Y = ifelse(d_C1 < d_C2,
+                    1,
+                    2))
+clusters[, 1] = df$Y
+## Paso 2
+centroides = df %>% 
+  group_by(Y) %>%
+  summarise(C_x1 = mean(X1),
+            C_x2 = mean(X2))
+C[1, ] = c(centroides$C_x1[1], centroides$C_x2[1])
+C[2, ] =  c(centroides$C_x1[2], centroides$C_x2[2])
+df = df %>%
+  mutate(d_C1 = sqrt((X1 - C[1, 1])^2 + (X2 - C[1, 2])^2),
+         d_C2 = sqrt((X1 - C[2, 1])^2 + (X2 - C[2, 2])^2),
+         Y = ifelse(d_C1 < d_C2,
+                    1,
+                    2))
+clusters[, 2] = df$Y
+i = i + 1 
+}
+
+Y <- df$Y
+
+plot(X1, X2, xlab = "X1", ylab = "X2", pch = as.integer(Y), 
+     xlim = c(0,6), ylim = c(0,6), cex = 1.2)
+text(X1 + 0.2, X2, 1:length(X1), cex = 0.9, col = "red")
+text(C[1, 1], C[1, 2], "C1", cex = 0.9, col = "red")
+text(C[2, 1], C[2, 2], "C2", cex = 0.9, col = "red")
+legend('topleft', legend = c('Y = 1','Y = 2'), pch = 1:2, cex = 1)
+\end{lstlisting}
+\begin{center}
+\includegraphics[width=0.5\linewidth]{"Temas/Imágenes/Tema 6/screenshot005"}
+\end{center}
+Centroides iniciales: $C_1^0=(2,3)$ y $C_2^0=(5,3)$.
+
+Centroides finales: $C_1=(2.2, 1.6)$ y $C_2=(4.6,3.0)$
+
+\begin{lstlisting}
+library("dplyr")
+K = 2
+## Paso 0
+C = matrix(NA, ncol = 2, nrow = K)
+
+C[1, ] = c(2, 3)
+C[2, ] = c(5, 3)
+
+clusters = matrix(NA, ncol = 2, nrow = nrow(df))
+clusters[, 1] = 1
+clusters[, 2] = 2
+
+i = 2
+while(sum(clusters[, 1] == clusters[, 2]) != nrow(df)) {
+## Paso 1
+df = df %>%
+  mutate(d_C1 = sqrt((X1 - C[1, 1])^2 + (X2 - C[1, 2])^2),
+         d_C2 = sqrt((X1 - C[2, 1])^2 + (X2 - C[2, 2])^2),
+         Y = ifelse(d_C1 < d_C2,
+                    1,
+                    2))
+clusters[, 1] = df$Y
+## Paso 2
+centroides = df %>% 
+  group_by(Y) %>%
+  summarise(C_x1 = mean(X1),
+            C_x2 = mean(X2))
+C[1, ] = c(centroides$C_x1[1], centroides$C_x2[1])
+C[2, ] =  c(centroides$C_x1[2], centroides$C_x2[2])
+df = df %>%
+  mutate(d_C1 = sqrt((X1 - C[1, 1])^2 + (X2 - C[1, 2])^2),
+         d_C2 = sqrt((X1 - C[2, 1])^2 + (X2 - C[2, 2])^2),
+         Y = ifelse(d_C1 < d_C2,
+                    1,
+                    2))
+clusters[, 2] = df$Y
+i = i + 1 
+}
+
+Y <- df$Y
+
+plot(X1, X2, xlab = "X1", ylab = "X2", pch = as.integer(Y), 
+     xlim = c(0,6), ylim = c(0,6), cex = 1.2)
+text(X1 + 0.2, X2, 1:length(X1), cex = 0.9, col = "red")
+text(C[1, 1], C[1, 2], "C1", cex = 0.9, col = "red")
+text(C[2, 1], C[2, 2], "C2", cex = 0.9, col = "red")
+legend('topleft', legend = c('Y = 1','Y = 2'), pch = 1:2, cex = 0.9)
+\end{lstlisting}
+\begin{center}
+\includegraphics[width=0.5\linewidth]{"Temas/Imágenes/Tema 6/screenshot006"}
+\end{center}
+\subsubsection{¿Cómo comparar distintas soluciones?}
+Para comparar las soluciones podemos utilizar diversas medidas.
+
+Por ejemplo podíamos usar la función de costo $J$ (con distancias Euclídeas).
+\begin{lstlisting}
+## función costo J(y)
+J <- function(df, C) {
+  J= df %>%
+    group_by(Y) %>%
+    summarise(d = ifelse(Y ==1, 
+                         sqrt((X1 - C[1, 1])^2 + (X2 - C[1, 2])^2),
+                         sqrt((X1 - C[2, 1])^2 + (X2 - C[2, 2])^2))) %>%
+    ungroup
+  return(sum(J$d))
+}
+\end{lstlisting}
+Para la solución $C_1=(2.66667,1.5)$ y $C_2=(4.5,3.5)$ (\textbf{\textit{sol}1}):
+\begin{lstlisting}
+C = matrix(c(2.666667, 1.5,
+             4.5, 3.5), nrow = 2, ncol =2, byrow = TRUE)
+df = df %>%
+  mutate(d_C1 = sqrt((X1 - C[1, 1])^2 + (X2 - C[1, 2])^2),
+         d_C2 = sqrt((X1 - C[2, 1])^2 + (X2 - C[2, 2])^2),
+         Y = ifelse(d_C1 < d_C2,
+                    1,
+                    2))
+J(df, C)
+\end{lstlisting}
+\begin{verbatim}
+## [1] 3.823299
+\end{verbatim}
+$J(y_{sol1})=9.823299$.
+
+Para la solución $C_1=(2.2,1.6)$ y $C_2=(4.6,3.0)$ (\textbf{\textit{sol}2})
+\begin{lstlisting}
+C = matrix(c(2.2, 1.6,
+             4.6, 3.0), nrow = 2, ncol =2, byrow = TRUE)
+df = df %>%
+  mutate(d_C1 = sqrt((X1 - C[1, 1])^2 + (X2 - C[1, 2])^2),
+         d_C2 = sqrt((X1 - C[2, 1])^2 + (X2 - C[2, 2])^2),
+         Y = ifelse(d_C1 < d_C2,
+                    1,
+                    2))
+J(df, C)
+\end{lstlisting}
+\begin{verbatim}
+## [1] 9.521839
+\end{verbatim}
+$J(y_{sol2})=9.521839$
+
+Y para $J^*$ (con distancias Euclídeas al cuadrado), 
+\begin{lstlisting}
+## función costo J^*(y)
+J2 <- function(df, C) {
+  J= df %>%
+    group_by(Y) %>%
+    summarise(d = ifelse(Y ==1, 
+                         (X1 - C[1, 1])^2 + (X2 - C[1, 2])^2,
+                         (X1 - C[2, 1])^2 + (X2 - C[2, 2])^2)) %>%
+    ungroup
+  return(sum(J$d))
+}
+\end{lstlisting}
+
+Para la solución $C_1=(2.66667,1.5)$ y $C_2=(4.5000000,3.5)$ (\textbf{\textit{sol}1}):
+
+\begin{lstlisting}
+C = matrix(c(2.666667, 1.5,
+             4.500000, 3.5), nrow = 2, ncol =2, byrow = TRUE)
+df = df %>%
+  mutate(d_C1 = sqrt((X1 - C[1, 1])^2 + (X2 - C[1, 2])^2),
+         d_C2 = sqrt((X1 - C[2, 1])^2 + (X2 - C[2, 2])^2),
+         Y = ifelse(d_C1 < d_C2,
+                    1,
+                    2))
+J2(df, C)
+\end{lstlisting}
+\begin{verbatim}
+## [1] 12.83333
+\end{verbatim}
+$J^*(y_{sol1})=12.83333$.
+
+Para la solución $C_1=(2.2,1.6)$ y $C_2=(4.6,3.0)$ (\textbf{\textit{sol}2}):
+\begin{lstlisting}
+C = matrix(c(2.2, 1.6,
+             4.6, 3.0), nrow = 2, ncol =2, byrow = TRUE)
+df = df %>%
+  mutate(d_C1 = sqrt((X1 - C[1, 1])^2 + (X2 - C[1, 2])^2),
+         d_C2 = sqrt((X1 - C[2, 1])^2 + (X2 - C[2, 2])^2),
+         Y = ifelse(d_C1 < d_C2,
+                    1,
+                    2))
+J2(df, C)
+\end{lstlisting}
+\begin{verbatim}
+## [1] 11.2
+\end{verbatim}
+$J^*(y_{sol2})=11.2$
+
+En ambos casos la solución segunda parece dar mejores resultados: \[ \begin{array}{c}
+J(y_{sol1})=9.823299>J(y_{sol2})=9.521839,\\
+J^*(y_{sol1})=12.83333>J^*(y_{sol2})=11.2.
+\end{array} \]
+\subsubsection{\textbf{\texttt{K-means}} se puede ejecutar de forma automática en \textbf{\texttt{R}}}
+
+El algoritmo \lb{K-means} se puede ejecutar de forma automática en \code{R} con el comando \code{Kmeans}.
+
+Por defecto, usa el algoritmo de Hartigan and Wong (1979).
+
+Para ejecutarlo en este ejemplo:
+\begin{lstlisting}
+X1 <- c(1, 2, 3, 2, 5, 5, 3, 4, 4, 5)
+X2 <- c(2, 1, 1, 2, 1, 3, 2, 3, 4, 4)
+d <- data.frame(X1, X2)
+CA <- kmeans(d, 2)
+CA$centers
+\end{lstlisting}
+\begin{verbatim}
+##    X1  X2
+## 1 4.6 3.0
+## 2 2.2 1.6
+\end{verbatim}
+Los grupos coinciden con los obtenidos en la segunda solución anterior (óptima).
+
+También se pueden guardar
+\begin{lstlisting}
+CA1 <- CA$centers[1,]
+CA2 <- CA$centers[2,]
+\end{lstlisting}
+Los grupos se obtienen con 
+\begin{lstlisting}
+CA$cluster
+\end{lstlisting}
+\begin{verbatim}
+## [1] 2 2 2 1 1 2 1 1 1
+\end{verbatim}
+La solución coincide con la representada en la gráfica.
+
+Las sumas de las distancias al cuadrado en los grupos se obtienen con
+\begin{lstlisting}
+CA$withinss
+\end{lstlisting}
+\begin{verbatim}
+## [1] 7.2 4.0
+\end{verbatim}
+obteniendo $7.2+4.0=11.2$ (como antes)
+
+El comando 
+\begin{lstlisting}
+CA$totss
+\end{lstlisting}
+\begin{verbatim}
+## [1] 30.5
+\end{verbatim}
+proporciona la suma de las distancias al cuadrado sin grupos (o con un único grupo) obteniéndose $30.35$.
+
+Si se calcula directamente,
+\begin{lstlisting}
+centroides = df %>% 
+  summarise(C_x1 = mean(X1),
+            C_x2 = mean(X2))
+C[1, ] = c(centroides$C_x1[1], centroides$C_x2[1])
+df = df %>%
+  mutate(d = (X1 - C[1, 1])^2 + (X2 - C[1, 2])^2)
+sum(df$d)
+\end{lstlisting}
+\begin{verbatim}
+## [1] 30.5
+\end{verbatim}
+Por lo que al agruparlos se ha producido una disminución del \[ 1-\dfrac{11.2}{30.5}=0.6327869 \] por uno, es decir, con dos grupos la \lb{variabilidad} se reduce un $63.28\%$.
+
+Individuos agrupados con \code{Kmeans} en 2 grupos:
+\begin{lstlisting}
+K <- 2
+CA <- kmeans(d, K)
+plot(X1, X2, xlab = "X1", ylab = "X2", pch = as.integer(CA$cluster),
+     xlim = c(0, 6), ylim = c(0, 6), cex = 0.9)
+legend('topleft', legend = c('Y=1', 'Y=2'), pch = 1:K, cex = 1)
+text(CA$centers[1, 1] + 0.15, CA$centers[1, 2], 'C1', cex = 0.9, col = 'red')
+text(CA$centers[2, 1] - 0.20, CA$centers[2, 2], 'C2', cex = 0.9, col = 'red')
+text(X1 + 0.15, X2, 1:length(X1), cex = 0.9, col = 'red')
+\end{lstlisting}
+\begin{center}
+\includegraphics[width=0.5\linewidth]{"Temas/Imágenes/Tema 6/screenshot007"}
+\end{center}
+Individuos agrupados con \code{Kmeans} en 3 grupos (hay un grupo que tiene un único dato, por lo tanto, será su centroide):
+\begin{lstlisting}
+K <- 3
+CA <- kmeans(d, K)
+plot(X1, X2, xlab = "X1", ylab = "X2", pch = as.integer(CA$cluster),
+     xlim = c(0, 6), ylim = c(0, 6), cex = 0.9)
+legend('topleft', legend = c('Y=1', 'Y=2', 'Y=3'), pch = 1:K, cex = 1)
+text(CA$centers[1, 1] + 0.15, CA$centers[1, 2], 'C1', cex = 0.9, col = 'red')
+text(CA$centers[2, 1] - 0.20, CA$centers[2, 2], 'C2', cex = 0.9, col = 'red')
+text(CA$centers[3, 1] - 0.35, CA$centers[3, 2], 'C3', cex = 0.9, col = 'red')
+text(X1 + 0.15, X2, 1:length(X1), cex = 0.9, col = 'red')
+\end{lstlisting}
+\begin{center}
+\includegraphics[width=0.5\linewidth]{"Temas/Imágenes/Tema 6/screenshot008"}
+\end{center}
+Al ejecutar este comando pueden aparecer otras soluciones porque las \lb{soluciones dependen de los valores iniciales}.
+
+La función \code{kmeans} permite ejecutar el algoritmo con diferentes valores de partida (argumento \code{nstart}) y proporcionar la mejor de esas soluciones.
+\begin{lstlisting}
+CA <- kmeans(d, 3, nstart = 10)
+\end{lstlisting}
+Con tres grupos la variabilidad se reduce en un 80.3 \%.
+\begin{lstlisting}
+CA = kmeans(d, 3, nstart = 10)
+1- (sum(CA$withinss)/CA$totss)
+\end{lstlisting}
+\begin{verbatim}
+## [1] 0.9032787
+\end{verbatim}
+\subsection{Método jerárquico}
+\subsubsection{Índice de similaridad}
+En este caso no fijamos de antemano un número de grupos.
+
+Lo que haremos es, dada una instancia, definir un \lb{índice de similaridad entre dos observaciones} con \[ I(\mathbf{x}^{(i)},\mathbf{x}^{(j)})=1-\dfrac{d(\mathbf{x}^{(i)},\mathbf{x}^{(j)})}{\displaystyle\max_{r,s}d(\mathbf{x}^{(r)},\mathbf{x}^{(s)})}\in[0,1]. \]
+Se puede dar una definición análoga para grupos.
+
+La idea es establecer clasificaciones calculando los índices de similitud (o distancias) que se van obteniendo.
+
+Finalmente, dependiendo del índice de similitud elegido, obtendremos un número determinado de grupos (uniendo los que tienen similitud menor que ese índice).
+
+\subsubsection{Algoritmos}
+Consideraremos dos algoritmos.
+
+En el primero \lb{partiremos de} $n$ \lb{grupos formados por un individuo cada uno}.
+\begin{itemize}
+\item En el primer paso uniremos las dos observaciones más cercanas (distancia mínima) que serán las que tengan un índice de similitud mayor.
+\item Recalculamos las distancias para estos grupos y unimos los dos grupos más cercanos, continuamos así hasta conseguir un único grupo.
+\end{itemize}
+En el segundo, procederemos de forma inversa, \lb{partiremos de un único grupo} formado por todas las observaciones.
+\begin{itemize}
+\item En un primer paso separaremos en dos de forma que las distancias entre estos dos grupos sea máxima (o las distancias a esos dos grupos de sus individuos sea mínima).
+\item En el siguiente paso formaremos un tercer grupo tomando individuos de los grupos $1$ y $2$ con un criterio similar.
+\item Procederemos así hasta conseguir $n$ grupos.
+\end{itemize}
+Claramente, este método es más lento que el anterior.
+\subsubsection{Un ejemplo sencillo}
+Para ver un ejemplo analizaremos los datos del ejemplo anterior usando el primer método.
+
+En primer lugar calculamos las distancias Euclídeas entre todos los individuos:
+
+\begin{lstlisting}
+n <- length(X1)
+D <- matrix(NA, n, n)
+for (i in 1:n) {
+  for (j in 1:n) {
+    D[i, j] <- dE(d[i, ], d[j, ])
+    } 
+}
+\end{lstlisting}
+\begin{center}
+\begin{tabular}{c|cccccccccc}
+$D$ & $O_{1}$ & $O_2$ & $O_3$ & $O_4$ & $O_5$ & $O_6$ & $O_7$ & $O_8$ & $O_9$ & $O_{10}$ \\
+$O_1$ & 0 & 1.41 & 2.24 & \textbf{1} & 4.12 & 4.12 & 2 & 3.16 & 3.61 & \textbf{4.47} \\
+$O_2$ & 1.41 & 0 & 1 & 1 & 3 & 3.61 & 1.41 & 2.83 & 3.61 & 4.24 \\
+$O_3$ & 2.24 & 1 & 0 & 1.41 & 2 & 2.83 & 1 & 2.24 & 3.16 & 3.61 \\
+$O_4$ & 1 & 1 & 4.41 & 0 & 3.16 & 3.16 & 1 & 2.24 & 2.83 & 3.61 \\
+$O_5$ & 4.12 & 3 & 2 & 3.16 & 0 & 2 & 2.24 & 2.24 & 3.16 & 3 \\
+$O_6$ & 4.12 & 3.61 & 2.83 & 3.16 & 2 & 0 & 2.24 & 1 & 1.41 & 1 \\
+$O_7$ & 2 & 1.41 & 1 & 1 & 2.24 & 2.24 & 0 & 1.41 & 2.24 & 2.83 \\
+$O_8$ & 3.16 & 2.83 & 2.24 & 2.24 & 1 & 1 & 1.41 & 0 & 1 & 1.41 \\
+$O_9$ & 3.61 & 3.61 & 3.16 & 2.83 & 1.41 & 1.41 & 2.24 & 1 & 0 & 1 \\
+$O_{10}$ & \textbf{4.47} & 4.24 & 3.61 & 3.61 & 1 & 1 & 1.41 & 1.41 & 1 & 0 \\
+\hline
+\end{tabular}
+\end{center}

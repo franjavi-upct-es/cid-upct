@@ -381,6 +381,8 @@
 									\end{pmatrix}-\dfrac{1}{2}\cdot\dfrac{3}{2}=-\dfrac{1}{2}x+2y-\dfrac{3}{4}
 	\end{array}$
 	
+	Criterio: $z$ se clasificará en la población donde $L_i(\mathbf{z})$ sea máxima.
+	
 	\item \lb{Dados dos vectores normales bidimensionales con medias $(0,0)$ y $(3,0)$ y matrices de covarianzas \[ V_1=\begin{pmatrix}
 			1 & -1\\
 			-1 & 2
@@ -635,4 +637,39 @@
 		f_1(1.5)=0.2361\quad\lb{(\ast)\text{ Se clasificará en la población (1)}}\\
 		f_2(1.5)=0.2231
 		\end{cases}$
+\end{enumerate}
+
+\rc{Ejercicio de clase (22/04/2024):} \lb{Sea $(X,Y)$ un \vea con función de densidad \[ f(x,y)=\begin{cases}
+\frac{2x+2y}{5} & 0<x+y<2,0<y<1\\
+0 & \text{en otro caso}
+\end{cases} \]}
+\begin{enumerate}[label=\color{red}\alph*)]
+	\item \db{Calcular la recta de regresión de $X$ sobre $Y$ y obtener una medida de la bondad del ajuste realizado.}
+	
+	Recta de regresión de $X$ sobre $Y$:\[ X-E[X]=\dfrac{\cov(X,Y)}{\var(Y)}(Y-E[Y]) \]
+	$\begin{array}{l}
+	E[X]=\iint xf(x,y)\dx\dy\\
+	E[Y]=\iint y f(x,y)\dx\dy\\
+	\var[Y]=E[Y^2]-(E[Y])^2\\
+	E[Y^2]=\iint y^2f(x,y)\dx\dy\\
+	\cov(X,Y)=E[X\cdot Y]-(E[X])\cdot(E[Y])\\
+	E[X\cdot Y]=\iint x\cdot y\cdot f(x,y)\dx\dy
+	\end{array}$
+	
+	\begin{center}
+	\begin{tikzpicture}[scale=1.5]
+	\begin{axis}[axis lines=center, xmin=-1.5, xmax=3, ymin=-1.5, ymax=3, x label style={right}, y label style=above, xlabel=$x$, ylabel=$y$]
+	\fill[lightblue, opacity=0.2] (axis cs:-1,1) -- (axis cs:0,0) -- (axis cs:2,0) -- (axis cs:1,1) -- cycle;
+	\addplot[lightblue, line width=1.5, domain=-1.5:3] {-x};
+	\addplot[blue, line width=1.5, domain=-1.5:3] {2-x};
+	\addplot[dashed, red] {1};
+	\draw[red, line width=1.2] (axis cs:0,1) -- (axis cs:1,1) -- (axis cs:1,0);
+	\addlegendentry{$y=-x$}
+	\addlegendentry{$y=2-x$}
+	\end{axis}
+	\end{tikzpicture}
+	\end{center}
+	
+	\item \db{Calcular la curva de regresión de $X$ sobre $Y$.}
+	\item \db{Predecir el valor de $X$ cuando $Y$ toma el valor $\dfrac{1}{2}$ mediante la curva y la recta, y dar un valor del error de predicción en cada caso.}
 \end{enumerate}
