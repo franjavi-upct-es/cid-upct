@@ -712,12 +712,14 @@ end
 \end{center}
 \newpage
 \begin{lstlisting}
-% b)
+% c)
 T = 10;
 t = -T/2:0.002:T/2-0.002;
 x = zeros(size(t));
-ti = find(abs(t) <= 0.2)
-x(ti) = 1;
+ti = find(0 < abs(t) <= 0.1);
+x(ti) = 0.5;
+ti = find(1 < abs(t) & abs(t) <= 2);
+x(ti) = 1 - 0.5 * t(ti);
 N = 50;
 dt = 0.002;
 % Bucle for para duplicar N y T
@@ -730,8 +732,10 @@ for i = 1:2
     % Calcular ak y normalizar
     ak = cfourier(x, T, N, dt);
     ak = T * ak;
+
     % Definir k y w
     w = 2*pi*k/T;
+
     % Crear figura y representar las series de Fourier normalizadas
     figure; stem(w, ak, '.', "LineWidth", 1.5, "color", "#007AFF", "MarkerSize", 10);
 end
