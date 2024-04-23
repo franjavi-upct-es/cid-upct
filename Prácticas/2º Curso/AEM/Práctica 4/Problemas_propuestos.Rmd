@@ -1,74 +1,130 @@
 ---
-title: Análisis Estadístico Multivariante
-
-subtitle: Problemas Propuestos de Análisis de Componentes Principales
+title: "Análisis Estadístico Multivariante"
+subtitle: "Problemas Propuestos de Análisis de Componentes Principales"
 author: "Francisco Javier Mercader Martínez"
 output:
   pdf_document:
     latex_engine: xelatex
     extra_dependencies: fvextra
+geometry: margin=1cm, bottom=1.5cm
 header-includes:
 - \usepackage{fvextra}
 - \DefineVerbatimEnvironment{Highlighting}{Verbatim}{breaklines, commandchars=\\\{\}}
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE)
 ```
 
 # Problema 1
 
-Consideremos los datos del dichero `Bears.rda` (disponible en el aula virtual), que contiene información diversa de 143 osos. En particular, las columnas 5 a 10 vienen dadas por: Head.L= longitud de la cabeza (pulgadas), Head.W=anchura de la cabeza (pulgadas), Neck.G=perímetro cuello (pulgadas), Length=altura (pulgadas), Chest.G=perímetro pecho (pulgadas), Weight=peso (libras). Se pretende realizar un Análisis de Componentes Principales usando sólo las 6 variables descritas anteriormente (el resto de variables del fichero sólo se utilizarán para disponer de información complementaria de cada oso, no para el análisis ACP). Se pide:
+Consideremos los datos del dichero `Bears.rda` (disponible en el aula virtual), que contiene información diversa de 143 osos. En particular las columnas 5 a 10 vienen dadas por: Head.L= longitud de la cabeza (pulgadas), Head.W=anchura de la cabeza (pulgadas), Neck.G=perímetro cuello (pulgadas), Length=altura (pulgadas), Chest.G=perímetro pecho (pulgadas), Weight=peso (libras). Se pretende realizar un Análisis de Componentes Principales usando sólo las 6 variables descritas anteriormente (el resto de variables del fichero sólo se utilizarán para disponer de información complementaria de cada oso, no para el análisis ACP). Se pide:
 
-1)  Recuperar los datos usando la función *load()* y realizar un estudio descriptivo previo atendiendo a nuestro objetivo. En particular, debes dar respuesta a las cuestiones:
+1)  Recuperar los datos usando la función *load()* y realizar un estudio descriptivo previo atendiendo a nuestro objetivo. En particular debes dar respuesta a las cuestiones:
 
     ```{r}
     load("../data/Bears.rda")
+    nombres_fila <- make.unique(as.character(d$Name))
+    row.names(d) <- nombres_fila
     d <- d[, 5:10]
+    
     ```
 
     a.  ¿Tiene sentido plantearse un Análisis de Componentes Principales para estos datos?
 
-    ```{r fig.height=6, fig.width=10, fig.align='center'}
-    plot(d)
+    ```{r fig.align='center'}
+    pairs(d)
     ```
+
+    Podemos observar que las variables están correlacionadas entre sí, por lo que tiene sentido plantearse un ACP.
 
     b.  ¿Todas las variables se miden en magnitudes similares y presentan dispersión similar?
 
-    ```{r}
-
+    ```{r fig.align='center'}
+    summary(d)
     ```
+    Las variables no están en la misma escala, por lo que es conveniente estandarizarlas.
 
     c.  ¿Conviene usar la matriz de covarianzas, o es preferible la matriz de correlaciones a la hora de extraer las componentes principales?
 
     ```{r}
-
+    cov(d)
+    cor(d)
     ```
+    Es preferible usar la matriz de correlaciones, ya que las variables no están en la misma escala.
+    
+    d.  ¿Existe alguna observación inusual, es decir alejada del resto atendiendo a la distancia de Mahalanobis?
 
-    d.  ¿Existe alguna observación inusual, es decir, alejada del resto atendiendo a la distancia de Mahalanobis?
+    ```{r fig.align='center'}
+    md <- mahalanobis(d, colMeans(d), cov(d))
+    plot(md, main = "Distancias de Mahalanobis")
+    ```
+    No hay observaciones inusuales.
+2)  Obtener la expresión de todas las componentes principales en función de las variables originales y dar una interpretación de las dos primeras componentes. ¿Para qué podría servir un ACP con estos datos?
 
     ```{r}
-
+    PCA <- princomp(d, cor = TRUE)
+    summary(PCA)
     ```
-
-2)  Obtener la expresión de todas las componentes principales en función de las variables originales y dar una interpretación de las dos primeras componentes. ¿Para qué podría servir un ACP con estos datos?
+    La primera componente principal está fuertemente asociada con el peso y la longitud de la cabeza, mientras que la segunda componente principal está fuertemente asociada con la anchura de la cabeza y el perímetro del cuello. Un ACP con estos datos podría servir para reducir la dimensionalidad de los datos y estudiar la relación entre las variables.
 
 3)  Calcular las puntuaciones (scores) e indicar los nombres de los osos con mayor y menor puntuación en la primera componente. ¿Qué significaría tener una mayor (o menor) puntuación en la primera componente principal?
 
     Realizar un gráfico de las puntuaciones en la primera componente que incluya el nombre de los osos.
+    
+    ```{r fig.align='center'}
+    scores <- PCA$scores
+    print(paste("Oso con mayor puntuación en la primera componente:", nombres_fila[which.max(scores[, 1])]))
+    print(paste("Oso con menor puntuación en la primera componente:", nombres_fila[which.min(scores[, 1])]))
+    plot(scores[, 1], xlab = "Oso", ylab = "Score", main = "Puntuaciones en la primera componente")
+    text(1:143, scores[, 1], nombres_fila, cex = 0.5, pos = 4)
+    ```
+    La puntación en la primera componente principal significa tener un mayor peso y longitud de la cabeza.
+4)  Repetir el apartado anterior pero mirando la segunda componente.
 
-4)  Repetir el apartado anterior, pero mirando la segunda componente.
+```{r fig.align='center'}
+print(paste("Oso con mayor puntuación en la segunda componente:", nombres_fila[which.max(scores[, 2])]))
+print(paste("Oso con menor puntuación en la segunda componente:", nombres_fila[which.min(scores[, 2])]))
+plot(scores[, 2], xlab = "Oso", ylab = "Score", main = "Puntuaciones en la segunda componente")
+text(1:143, scores[, 2], nombres_fila, cex = 0.5, pos = 4)
+```
+
+La puntación de la segunda componente significa tener una mayor anchura de la cabeza y perímetro del cuello.
 
 5)  Obtener la matriz de saturaciones y utilizarla para revisar la interpretación dada en el apartado (2).
 
     Atendiendo a la matriz de saturaciones, identificar la variable mejor y peor representada (explicada) por cada componente principal.
+    
+```{r}
+matriz_saturaciones <- cor(d, PCA$scores)
+
+mejor_variable <- apply(matriz_saturaciones, 2, function(x) which.max(abs(x)))
+
+peor_variable <- apply(matriz_saturaciones, 2, function(x) which.min(abs(x)))
+
+for (i in 1:6) {
+  print(paste("Variable mejor representada por la componente", i, ":", colnames(d)[mejor_variable[i]]))
+  print(paste("Variable peor representada por la componente", i, ":", colnames(d)[peor_variable[i]]))
+}
+```
+    
 
 6)  Determinar el número de componentes a retener usando diferentes criterios (porcentaje de variabilidad explicada, regla de Rao, regla de Kaiser y gráfico de sedimentación). ¿Sería razonable considerar sólo las 2 primeras componentes?
 
+```{r}
+# Regla de Kaiser
+screeplot(PCA, col="#007AFF")
+
+# Regla de Rao
+eigen(cov(d))$values
+
+```
+
+
 7)  Calcular las comunalidades de cada variable en el caso de retener sólo las 2 primeras componentes. Identificar la variable mejor y peor representada (explicada) al retener sólo 2 componentes.
 
-8)  Representar a los individuos de la muestra (los osos) en el nuevo sistema de referencia dado por las 2 primeras componentes principales. Es decir, representar la nube de puntos de las puntuaciones sin estandarizar correspondientes a las 2 primeras componentes.
+8)  Representar a los individuos de la muestra (los osos) en el nuevo sistema de referencia dado por las 2 primeras componentes principales. Es decir representar la nube de puntos de las puntuaciones sin estandarizar correspondientes a las 2 primeras componentes.
 
-9)  Repetir el apartado anterior, pero considerando puntuaciones estandarizadas e incluyendo las saturaciones. ¿Qué variable queda mejor representada en la segunda componente principal?
+9)  Repetir el apartado anterior pero considerando puntuaciones estandarizadas e incluyendo las saturaciones. ¿Qué variable queda mejor representada en la segunda componente principal?
 
 10) Para los gráficos de los dos apartados anteriores, etiquetar cada observación con el “sexo” del oso en lugar de su nombre. ¿Qué podemos destacar de dichos gráficos?
