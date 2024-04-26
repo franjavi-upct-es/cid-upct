@@ -657,13 +657,13 @@
 	\end{array}$
 	
 	\begin{center}
-	\begin{tikzpicture}[scale=1.5]
-	\begin{axis}[axis lines=center, xmin=-1.5, xmax=3, ymin=-1.5, ymax=3, x label style={right}, y label style=above, xlabel=$x$, ylabel=$y$]
-	\fill[lightblue, opacity=0.2] (axis cs:-1,1) -- (axis cs:0,0) -- (axis cs:2,0) -- (axis cs:1,1) -- cycle;
+	\begin{tikzpicture}
+	\begin{axis}[axis lines=center, xmin=-1.5, xmax=3, ymin=-1.5, ymax=3, x label style={right}, y label style=above, xlabel=$x$, ylabel=$y$, scale=1.5]
+	\fill[cyan, opacity=0.2] (axis cs:-1,1) -- (axis cs:0,0) -- (axis cs:2,0) -- (axis cs:1,1) -- cycle;
 	\addplot[lightblue, line width=1.5, domain=-1.5:3] {-x};
 	\addplot[blue, line width=1.5, domain=-1.5:3] {2-x};
 	\addplot[dashed, red] {1};
-	\draw[red, line width=1.2] (axis cs:0,1) -- (axis cs:1,1) -- (axis cs:1,0);
+	\draw[red, line width=1.5] (axis cs:0,1) -- (axis cs:1,1) -- (axis cs:1,0);
 	\addlegendentry{$y=-x$}
 	\addlegendentry{$y=2-x$}
 	\end{axis}

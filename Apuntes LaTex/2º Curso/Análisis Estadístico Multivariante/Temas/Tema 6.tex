@@ -764,7 +764,7 @@ for (i in 1:n) {
 \end{lstlisting}
 \begin{center}
 \begin{tabular}{c|cccccccccc}
-$D$ & $O_{1}$ & $O_2$ & $O_3$ & $O_4$ & $O_5$ & $O_6$ & $O_7$ & $O_8$ & $O_9$ & $O_{10}$ \\
+$D$ & $O_{1}$ & $O_2$ & $O_3$ & $O_4$ & $O_5$ & $O_6$ & $O_7$ & $O_8$ & $O_9$ & $O_{10}$ \\ \hline
 $O_1$ & 0 & 1.41 & 2.24 & \textbf{1} & 4.12 & 4.12 & 2 & 3.16 & 3.61 & \textbf{4.47} \\
 $O_2$ & 1.41 & 0 & 1 & 1 & 3 & 3.61 & 1.41 & 2.83 & 3.61 & 4.24 \\
 $O_3$ & 2.24 & 1 & 0 & 1.41 & 2 & 2.83 & 1 & 2.24 & 3.16 & 3.61 \\
@@ -778,3 +778,108 @@ $O_{10}$ & \textbf{4.47} & 4.24 & 3.61 & 3.61 & 1 & 1 & 1.41 & 1.41 & 1 & 0 \\
 \hline
 \end{tabular}
 \end{center}
+
+Observamos que el máximo se alcanza en $D_{1,10}=4.47$ y el mínimo eliminando los ceros es $1$ y se alcanza en varios puntos (esto se debe a que los puntos son discretos).
+
+El primero que detecta el programa es $D_{1,4}=1$ por lo que será el primer grupo $G_1=\{1,4\}$.
+
+El índice de similaridad será \[ I(\mathbf{x}^{(1)}, \mathbf{x}^{(4)})=1-\dfrac{d(\mathbf{x}^{(1)},\mathbf{x}^{(4)})}{\displaystyle\max_{r,s} d(\mathbf{x}^{(r)},\mathbf{x}^{(s)})}=1-\dfrac{1}{4.472136}=0.7763932. \]
+El siguiente paso dependerá de la distancia entre grupos elegida.
+
+Si queremos mantener esas distancias y detectar esos empates debemos elegir la distancia del \lb{vecino más próximo} ($D_2$).
+
+Todas las demás nos darán valores mayores. Con esta distancia (tras varias iteraciones) uniríamos todos los puntos que están a distancia $1$ de alguno del grupo obteniendo:\[ G_1=\{1,2,3,4,7\},\,G_2=\{5\},\,G_3=\{6,8,9,10\}. \]
+La matriz de distancias $D_2$ para estos tres grupos será \[ \begin{array}{c|ccc|}
+\hline
+D_2 & G_1 & G_2 & G_3 \\ \hline
+G_1 & 0 & 2 & \mathbf{1.41} \\
+G_2 & 2 & 0 & 2 \\
+G_3 & \mathbf{1.41} & 2 & 0 \\ \hline
+\end{array} \]
+El mínimo se alcanza en $d(G_1,G_3)=d(\mathbf{x}^{(7)},\mathbf{x}^{(8)})=1.41$.
+
+Por lo que en el segundo paso uniríamos los grupos $G_1$ y $G_3$ que tendrán un índice de similaridad \[ I(\mathbf{x}^{(7)},\mathbf{x}^{(8)})=1-\dfrac{d(\mathbf{x}^{(7)},\mathbf{x}^{(8)})}{\displaystyle\max_{r,s}d(\mathbf{x}^{(r)},\mathbf{x}^{(s)})}=1-\dfrac{1.41}{4.472136}=0.6847144. \]
+
+En el último paso uniríamos el grupo $G_2$ con $G_1\cup G_3$ a distancia $2$ y similaridad \[ I(\mathbf{x}^{(3)},\mathbf{x}^{(5)})=1-\dfrac{d(\mathbf{x}^{(3)},\mathbf{x}^{(5)})}{\displaystyle\max_{r,s}d(\mathbf{x}^{(r)},\mathbf{x}^{(s)})}=1-\dfrac{2}{4.472136}=0.5527864. \]
+
+El dendograma debe mostrar estas uniones usando las distancias o los índices de similaridad.
+
+Con otras distancias y/o usando el segundo método (que parte de un único grupo que se separa en dos) podemos obtener resultados diferentes.
+
+También observamos que los resultados no tienen por qué coincidir con los obtenidos con el algoritmo $K$-medias.
+
+La elección de un método u otro dependerá de los datos que tengamos y del problema que se quiera resolver (\lb{costo}).
+\begin{itemize}
+\item Por ejemplo, si lo que queremos es agrupar a los usuarios para ser atendidos por centros deberemos usar distancias basadas en centroides que representarán dónde se situarán (aproximadamente) esos centros.
+\item Por contra, si lo que queremos es simplemente clasificar empresas o países según sus características, estos centroides no serán tan importantes.
+\end{itemize}
+\subsubsection{¿Cómo realizar este agrupamiento de forma automática en \textbf{\texttt{R}}?}
+Podemos usar la función \code{hclust}.
+
+En primer lugar calcularemos las distancias con
+\begin{lstlisting}
+D <- dist(d, method = 'euclidean')
+\end{lstlisting}
+representadas en forma de vector.
+
+Para visualizarlas en forma de matriz usaremos \code{as.matrix(D)[1:10, 1:10]}.
+
+Ahora, para hacer un CA utilizamos la instrucción
+\begin{lstlisting}
+CA2 <- hclust(D, method = 'complete')
+\end{lstlisting}
+Hemos usado el método de agrupación \code{complete} que usa la distancia del vecino más lejano (es el que usa \code{R} por defecto).
+
+Otras opciones son:
+
+\begin{itemize}
+\item \code{single:} vecino más cercano
+\item \code{average:} media de todas las distancias entre todas las parejas de puntos de los dos grupos
+\item \code{centroid:} distancia entre los centroides.
+\end{itemize}
+Para $K=4$ grupos 
+\begin{lstlisting}
+grupos <- cutree(CA2, k = 4)
+\end{lstlisting}
+obtendremos los grupos:
+\begin{lstlisting}
+plot(X1, X2, pch = as.integer(grupos), 
+     xlim = c(0, 6), ylim = c(0, 6), cex = 1.2)
+legend('topleft', legend = c('Y=1', 'Y=2', 'Y=3', 'Y=4'),
+       pch = 1:4, cex = 1)
+text(X1 + 0.15, X2, 1:n, cex = 0.9, col = 'red')
+\end{lstlisting}
+\begin{center}
+\includegraphics[width=0.5\linewidth]{"Temas/Imágenes/Tema 6/screenshot009"}
+\end{center}
+Representación del dendograma.
+
+La línea roja en el dendograma representa la distancia que nos da $4$ grupos.
+
+\begin{lstlisting}
+plot(CA2, cex = 0.9, main = 'Dendograma', 
+     ylab = 'Distancia', xlab = 'Observaciones', sub = '')
+abline(h = 2, col = 'red')
+\end{lstlisting}
+\begin{center}
+\includegraphics[width=0.5\linewidth]{"Temas/Imágenes/Tema 6/screenshot010"}
+\end{center}
+En el dendograma primero se unen los puntos que están a menor distancia (en este caso era distancia 1) y, posteriormente se calculan las distancias entre grupos usando la distancia al vecino más lejano ($D_3$).
+
+Por ejemplo, la distancia de la observación $7$ al grupo $\{2,3\}$ es
+\begin{lstlisting}
+dE(d[7, ], d[2, ])
+\end{lstlisting}
+\begin{verbatim}
+## [1] 1.414214
+\end{verbatim}
+es decir, $1.414214$.
+
+Lo mismo ocurre con la distancia entre los grupos $\{6,8\}$ y $\{9,10\}$. La distancia mayor es la de observación $5$ al grupo $\{6,8,9,10\}$ obtenida con 
+\begin{lstlisting}
+dE(d[5, ], d[9, ])
+\end{lstlisting}
+\begin{verbatim}
+## [1] 3.162278
+\end{verbatim}
+y que vale $3.162278$.

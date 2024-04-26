@@ -148,26 +148,27 @@
 \contentsline {subsubsection}{\numberline {5.4.1}Criterios de clasificación}{112}{subsubsection.5.4.1}%
 \contentsline {subsubsection}{\numberline {5.4.2}Observaciones}{112}{subsubsection.5.4.2}%
 \contentsline {subsection}{\numberline {5.5}Clasificación a partir de una muestra}{113}{subsection.5.5}%
-\contentsline {section}{\numberline {6}Análisis Cluster}{125}{section.6}%
-\contentsline {subsection}{\numberline {6.1}Introducción}{125}{subsection.6.1}%
-\contentsline {subsubsection}{\numberline {6.1.1}Objetivo}{125}{subsubsection.6.1.1}%
-\contentsline {subsubsection}{\numberline {6.1.2}Contexto}{125}{subsubsection.6.1.2}%
-\contentsline {subsection}{\numberline {6.2}Distancias entre individuos}{125}{subsection.6.2}%
-\contentsline {subsubsection}{\numberline {6.2.1}La distancia Euclídea}{125}{subsubsection.6.2.1}%
-\contentsline {subsubsection}{\numberline {6.2.2}La distancia de Mahalanobis}{126}{subsubsection.6.2.2}%
-\contentsline {subsubsection}{\numberline {6.2.3}Otras distancias interesantes}{127}{subsubsection.6.2.3}%
-\contentsline {subsection}{\numberline {6.3}Distancia de individuos a grupos y distancias entre grupos}{127}{subsection.6.3}%
-\contentsline {subsubsection}{\numberline {6.3.1}Distancias de individuos a grupos}{127}{subsubsection.6.3.1}%
-\contentsline {subsubsection}{\numberline {6.3.2}Función costo}{128}{subsubsection.6.3.2}%
-\contentsline {subsection}{\numberline {6.4}Métodos cluster}{128}{subsection.6.4}%
-\contentsline {subsubsection}{\numberline {6.4.1}Clasificación}{128}{subsubsection.6.4.1}%
-\contentsline {subsection}{\numberline {6.5}Método no jerárquico de las K-medias}{128}{subsection.6.5}%
-\contentsline {subsubsection}{\numberline {6.5.1}Algoritmo del método de las K-medias}{129}{subsubsection.6.5.1}%
-\contentsline {subsubsection}{\numberline {6.5.2}Un ejemplo sencillo}{130}{subsubsection.6.5.2}%
-\contentsline {subsubsection}{\numberline {6.5.3}¿Cómo comparar distintas soluciones?}{137}{subsubsection.6.5.3}%
-\contentsline {subsubsection}{\numberline {6.5.4}\textbf {\texttt {K-means}} se puede ejecutar de forma automática en \textbf {\texttt {R}}}{139}{subsubsection.6.5.4}%
-\contentsline {subsection}{\numberline {6.6}Método jerárquico}{142}{subsection.6.6}%
-\contentsline {subsubsection}{\numberline {6.6.1}Índice de similaridad}{142}{subsubsection.6.6.1}%
-\contentsline {subsubsection}{\numberline {6.6.2}Algoritmos}{142}{subsubsection.6.6.2}%
-\contentsline {subsubsection}{\numberline {6.6.3}Un ejemplo sencillo}{142}{subsubsection.6.6.3}%
+\contentsline {section}{\numberline {6}Análisis Cluster}{124}{section.6}%
+\contentsline {subsection}{\numberline {6.1}Introducción}{124}{subsection.6.1}%
+\contentsline {subsubsection}{\numberline {6.1.1}Objetivo}{124}{subsubsection.6.1.1}%
+\contentsline {subsubsection}{\numberline {6.1.2}Contexto}{124}{subsubsection.6.1.2}%
+\contentsline {subsection}{\numberline {6.2}Distancias entre individuos}{124}{subsection.6.2}%
+\contentsline {subsubsection}{\numberline {6.2.1}La distancia Euclídea}{124}{subsubsection.6.2.1}%
+\contentsline {subsubsection}{\numberline {6.2.2}La distancia de Mahalanobis}{125}{subsubsection.6.2.2}%
+\contentsline {subsubsection}{\numberline {6.2.3}Otras distancias interesantes}{126}{subsubsection.6.2.3}%
+\contentsline {subsection}{\numberline {6.3}Distancia de individuos a grupos y distancias entre grupos}{126}{subsection.6.3}%
+\contentsline {subsubsection}{\numberline {6.3.1}Distancias de individuos a grupos}{126}{subsubsection.6.3.1}%
+\contentsline {subsubsection}{\numberline {6.3.2}Función costo}{127}{subsubsection.6.3.2}%
+\contentsline {subsection}{\numberline {6.4}Métodos cluster}{127}{subsection.6.4}%
+\contentsline {subsubsection}{\numberline {6.4.1}Clasificación}{127}{subsubsection.6.4.1}%
+\contentsline {subsection}{\numberline {6.5}Método no jerárquico de las K-medias}{127}{subsection.6.5}%
+\contentsline {subsubsection}{\numberline {6.5.1}Algoritmo del método de las K-medias}{128}{subsubsection.6.5.1}%
+\contentsline {subsubsection}{\numberline {6.5.2}Un ejemplo sencillo}{129}{subsubsection.6.5.2}%
+\contentsline {subsubsection}{\numberline {6.5.3}¿Cómo comparar distintas soluciones?}{136}{subsubsection.6.5.3}%
+\contentsline {subsubsection}{\numberline {6.5.4}\textbf {\texttt {K-means}} se puede ejecutar de forma automática en \textbf {\texttt {R}}}{138}{subsubsection.6.5.4}%
+\contentsline {subsection}{\numberline {6.6}Método jerárquico}{141}{subsection.6.6}%
+\contentsline {subsubsection}{\numberline {6.6.1}Índice de similaridad}{141}{subsubsection.6.6.1}%
+\contentsline {subsubsection}{\numberline {6.6.2}Algoritmos}{141}{subsubsection.6.6.2}%
+\contentsline {subsubsection}{\numberline {6.6.3}Un ejemplo sencillo}{141}{subsubsection.6.6.3}%
+\contentsline {subsubsection}{\numberline {6.6.4}¿Cómo realizar este agrupamiento de forma automática en \textbf {\texttt {R}}?}{143}{subsubsection.6.6.4}%
 \contentsfinish 
