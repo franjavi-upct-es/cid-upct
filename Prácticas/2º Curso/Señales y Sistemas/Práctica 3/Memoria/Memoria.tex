@@ -747,7 +747,7 @@ end
 \end{enumerate}
 \item Implemente una función que obtenga la transformada de Fourier de una señal adaptando el programa de desarrollo en series de Fourier.
 \begin{lstlisting}
-function [X,w]=tfourier(x,t,dw,wmax)
+function [X,w] = tfourier(x,t,dw,wmax)
 \end{lstlisting}
 \begin{itemize}[label=$-$]
 \item El intervalo de frecuencias a calcular está entre \code{-wmax} y \code{wmax} (wmax\textless\textless\textpi/dt)
@@ -772,7 +772,7 @@ end
 \end{lstlisting}
 \item Empleando en la propiedad de la dualidad de la transformada de Fourier implemente una función que calcule la transformada inversa de Fourier haciendo uso de la función de la transformada directa.
 \begin{lstlisting}
-function [X,w]=itfourier(x,t,dw,wmax)
+function [X,w] = itfourier(x,t,dw,wmax)
 \end{lstlisting}
 
 
@@ -787,13 +787,73 @@ end
 \end{lstlisting}
 
 \item Verifique el correcto cumplimiento de las siguientes propiedades de la transformada de Fourier emplenado la función \code{tfourier}:
+
+\begin{lstlisting}
+% Definir las señales de nuevo
+t = -5:0.002:5;
+a = zeros(size(t));
+b = zeros(size(t));
+c = zeros(size(t));
+a(find(abs(t) <= 0.6)) = 1;
+b(find(abs(t) <= 0.2)) = 1;
+c(find(0 < abs(t) & abs(t) <= 0.1)) = 0.5;
+c(find(1 < abs(t) <= 2)) = 1 - 0.5 * abs(t)(find(1 < abs(t) <= 2));
+dt = 0.002
+wmax = 5
+% Calcular las transformadas de Fourier de las señales
+[A, w] = tfourier(a, t,dt, wmax);
+[B, ~] = tfourier(b, t,dt, wmax);
+[C, ~] = tfourier(c, t,dt, wmax);
+\end{lstlisting}
 \begin{enumerate}[label=\roman*)]
 \item Propiedad de linealidad $X(\omega)+Y(\omega)\longleftrightarrow x(t)+y(t)$ (emplee las señales a y b).
+
+\begin{lstlisting}
+% Propiedad de linealidad
+AB = tfourier(a + b, t,dt, wmax);
+assert(isequal(AB, A + B), 'No se cumple la propiedad');
+\end{lstlisting}
+
+El resultado muestra que la propiedad no se cumple
 \item Desplazamiento en el tiempo $e^{-j\omega t_0}X(\omega)\longleftrightarrow x(t-t_0)$ (emplee señal b).
+\begin{lstlisting}
+% Propiedad de desplazamiento en el tiempo
+t0 = 0.5;
+B_shift = tfourier(b .* exp(-1i * w * t0), t, dt, wmax);
+assert(isequal(B_shift, B .* exp(-1i * w * t0)), 'No se cumple la propiedad');
+\end{lstlisting}
+El resultado muestra que la propiedad no se cumple
 \item Inversión $X(-\omega)\longleftrightarrow x(-t)$ (emplee señal c).
+\begin{lstlisting}
+% Propiedad de inversión
+C_inv = tfourier(fliplr(c), t, dt, wmax);
+assert(isequal(C_inv, fliplr(C)), 'No se cumple la propiedad');
+\end{lstlisting}
+El resultado muestra que la propiedad no se cumple
 \item Conjugación $X(\omega)^*\longleftrightarrow x(-t)^*$ (emplee señal c).
+
+\begin{lstlisting}
+% Propiedad de conjugación
+C_conj = tfourier(conj(c), t, dt, wmax);
+assert(isequal(C_conj, conj(C)), 'No se cumple la propiedad');
+\end{lstlisting}
+El resultado muestra que la propiedad no se cumple
 \item $\mathrm{Real}\{X(\omega)\}\longleftrightarrow\text{ Parte real}\{x(t)\}$ (emplee señal c).
+
+\begin{lstlisting}
+% Propiedad de parte real
+C_real = tfourier(real(c), t, dt, wmax);
+assert(isequal(C_real, real(C)), 'No se cumple la propiedad');
+\end{lstlisting}
+El resultado muestra que la propiedad no se cumple
 \item $\mathrm{Imag}\{X(\omega)\}\longleftrightarrow\text{ Parte impar}\{x(t)\}$ (emplee señal c).
+
+\begin{lstlisting}
+% Propiedad de parte impar
+C_imag = tfourier(imag(c), t, dt, wmax);
+assert(isequal(C_imag, imag(C)), 'No se cumple la propiedad');
+\end{lstlisting}
+El resultado muestra que la propiedad no se cumple
 \end{enumerate}
 \end{enumerate}
 \end{document}

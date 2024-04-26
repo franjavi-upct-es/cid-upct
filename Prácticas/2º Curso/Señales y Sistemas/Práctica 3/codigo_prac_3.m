@@ -398,6 +398,24 @@ for i = 1:2
     figure; stem(w, ak, '.', "LineWidth", 1.5, "color", "#007AFF", "MarkerSize", 10);
 end
 
+% Obtener todas las figuras abiertas:
+figs = get(0, 'children');
+figs = flip(figs);
+
+% Recorrer todas las figuras:
+for i = 1:length(figs)
+    % Seleccionar la figura actual:
+    figure(figs(i));
+
+    % Crear el nombre del archivo:
+    filename = sprintf('Figura%d.png', i);
+
+    % Guardar la figura en un archivo PNG:
+    print(filename, '-dpng');
+end
+
+close all;
+
 % Define the signals
 t = -5:0.002:5;
 a = zeros(size(t));
@@ -405,42 +423,42 @@ b = zeros(size(t));
 c = zeros(size(t));
 
 % Define the signals a, b, and c
-a(find(abs(t) <= 0.6)) = 1;
-b(find(abs(t) <= 0.2)) = 1;
-c(find(0 < abs(t) & abs(t) <= 0.1)) = 0.5;
-c(find(1 < abs(t) <= 2)) = 1 - 0.5 * abs(t)(find(1 < abs(t) <= 2));
+a(abs(t) <= 0.6) = 1;
+b(abs(t) <= 0.2) = 1;
+c(0 < t & t <= 1) = 0.5;
+c(1 < t & t <= 2) = 1 - 0.5 * t(1 < t & t <= 2);
 
 % Define the frequency range and step size
-dw = 0.002;
+dt = 0.002;
 wmax = 5;
 
 % Calculate the Fourier transforms
-[A, w] = tfourier(a, t, dw, wmax);
-[B, ~] = tfourier(b, t, dw, wmax);
-[C, ~] = tfourier(c, t, dw, wmax);
+[A, w] = tfourier(a, t,dt, wmax);
+[B, ~] = tfourier(b, t,dt, wmax);
+[C, ~] = tfourier(c, t,dt, wmax);
 
 % Verify the properties
 % 1. Linearity
-AB = tfourier(a + b, t, dw, wmax);
-assert(isequal(AB, A + B), 'Linearity property not satisfied');
+AB = tfourier(a + b, t,dt, wmax);
+isequal(AB, A + B)
 
 % 2. Time shifting
 t0 = 1; % Define a time shift
-B_shift = tfourier(b .* exp(-1i * w * t0), t, dw, wmax);
-assert(isequal(B_shift, B), 'Time shifting property not satisfied');
+B_shift = tfourier(b .* exp(-i * w * t0), t, dt, wmax);
+isequal(B_shift, B)
 
 % 3. Inversion
-C_inv = tfourier(c(end:-1:1), t, dw, wmax);
-assert(isequal(C_inv, C(end:-1:1)), 'Inversion property not satisfied');
+C_inv = tfourier(c(end:-1:1), t, dt, wmax);
+isequal(C_inv, C(end:-1:1))
 
 % 4. Conjugation
-C_conj = tfourier(conj(c), t, dw, wmax);
-assert(isequal(C_conj, conj(C)), 'Conjugation property not satisfied');
+C_conj = tfourier(conj(c), t, dt, wmax);
+isequal(C_conj, conj(C))
 
 % 5. Real part
-C_real = tfourier(real(c), t, dw, wmax);
-assert(isequal(C_real, real(C)), 'Real part property not satisfied');
+C_real = tfourier(real(c), t, dt, wmax);
+isequal(C_real, real(C))
 
 % 6. Imaginary part
-C_imag = tfourier(imag(c), t, dw, wmax);
-assert(isequal(C_imag, imag(C)), 'Imaginary part property not satisfied');
+C_imag = tfourier(imag(c), t, dt, wmax);
+isequal(C_imag, imag(C))
