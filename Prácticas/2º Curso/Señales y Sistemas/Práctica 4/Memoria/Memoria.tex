@@ -1,0 +1,186 @@
+\documentclass{article}
+\usepackage{fullpage}
+\usepackage[utf8]{inputenc}
+\usepackage{pict2e}
+\usepackage{amsmath}
+\usepackage{enumitem}
+\usepackage{eurosym}
+\usepackage{mathtools}
+\usepackage{amssymb, amsfonts, latexsym, cancel}
+\setlength{\parskip}{0.3cm}
+\usepackage{graphicx}
+\usepackage{fontenc}
+\usepackage{slashbox}
+\usepackage{setspace}
+\usepackage{gensymb}
+\usepackage{accents}
+\usepackage{adjustbox}
+\setstretch{1.35}
+\renewcommand*{\arraystretch}{1.5}
+\usepackage{bold-extra}
+\usepackage{subcaption}
+\usepackage{tcolorbox}
+\usepackage{xcolor, colortbl}
+\usepackage{wrapfig}
+\usepackage{empheq}
+\usepackage{array}
+\usepackage{parskip}
+\usepackage{arydshln}
+\graphicspath{ {images/} }
+\renewcommand*\contentsname{\color{black}Índice} 
+\usepackage{array, multirow, multicol}
+\definecolor{lightblue}{HTML}{007AFF}
+\usepackage{color}
+\usepackage{etoolbox}
+\usepackage{listings}
+\usepackage{mdframed}
+\setlength{\parindent}{0pt}
+\usepackage{underscore}
+\usepackage{hyperref}
+\usepackage{tikz}
+\usepackage{tikz-cd}
+\usetikzlibrary{shapes, positioning, patterns}
+\usepackage{tikz-qtree}
+\usepackage{biblatex}
+\usepackage{pdfpages}
+\usepackage{pgfplots}
+\usepackage{pgfkeys}
+\addbibresource{biblatex-examples.bib}
+\usepackage[a4paper, left=1cm, right=1cm, top=1cm, bottom=1.5cm]{geometry}
+\usepackage{titlesec}
+\usepackage{titletoc}
+\usepackage{tikz-3dplot}
+\usepackage{kbordermatrix}
+\usetikzlibrary{decorations.pathreplacing}
+\newcommand{\Ej}{\textcolor{lightblue}{\underline{Ejemplo}}}
+\setlength{\fboxrule}{1.5pt}
+
+\newcommand{\bboxed}[1]{\fcolorbox{lightblue}{lightblue!10}{$#1$}}
+\newcommand{\rboxed}[1]{\fcolorbox{red}{red!10}{$#1$}}
+
+\DeclareMathOperator{\N}{\mathbb{N}}
+\DeclareMathOperator{\Z}{\mathbb{Z}}
+\DeclareMathOperator{\R}{\mathbb{R}}
+\DeclareMathOperator{\Q}{\mathbb{Q}}
+\DeclareMathOperator{\K}{\mathbb{K}}
+\DeclareMathOperator{\im}{\imath}
+\DeclareMathOperator{\jm}{\jmath}
+\DeclareMathOperator{\col}{\mathrm{Col}}
+\DeclareMathOperator{\fil}{\mathrm{Fil}}
+\DeclareMathOperator{\rg}{\mathrm{rg}}
+\DeclareMathOperator{\nuc}{\mathrm{nuc}}
+\DeclareMathOperator{\dimf}{\mathrm{dimFil}}
+\DeclareMathOperator{\dimc}{\mathrm{dimCol}}
+\DeclareMathOperator{\dimn}{\mathrm{dimnuc}}
+\DeclareMathOperator{\dimr}{\mathrm{dimrg}}
+\DeclareMathOperator{\dom}{\mathrm{Dom}}
+\DeclareMathOperator{\infi}{\int_{-\infty}^{+\infty}}
+\newcommand{\dint}[2]{\int_{#1}^{#2}}
+
+\newcommand{\bu}[1]{\textcolor{lightblue}{\underline{#1}}}
+\newcommand{\lb}[1]{\textcolor{lightblue}{#1}}
+\newcommand{\db}[1]{\textcolor{blue}{#1}}
+\newcommand{\rc}[1]{\textcolor{red}{#1}}
+
+\renewcommand{\CancelColor}{\color{lightblue}}
+\newcommand{\code}[1]{\texttt{\textbf{#1}}}
+
+\usepackage{textgreek}
+
+\newcommand{\dx}{\:\mathrm{d}x}
+\newcommand{\dt}{\:\mathrm{d}t}
+\newcommand{\dy}{\:\mathrm{d}y}
+\newcommand{\dz}{\:\mathrm{d}z}
+\newcommand{\dth}{\:\mathrm{d}\theta}
+\newcommand{\dr}{\:\mathrm{d}\rho}
+\newcommand{\du}{\:\mathrm{d}u}
+\newcommand{\dv}{\:\mathrm{d}v}
+\newcommand{\tozero}[1]{\cancelto{0}{#1}}
+\newcommand{\lbb}[2]{\textcolor{lightblue}{\underbracket[1pt]{\textcolor{black}{#1}}_{#2}}}
+\newcommand{\dbb}[2]{\textcolor{blue}{\underbracket[1pt]{\textcolor{black}{#1}}_{#2}}}
+\newcommand{\rub}[2]{\textcolor{red}{\underbracket[1pt]{\textcolor{black}{#1}}_{#2}}}
+
+\titleformat{\section}{\normalfont\LARGE\bfseries}{\thesection.}{10 pt}{}
+
+\title{\textbf{\huge Práctica 4 de Señales y Sistemas}\\ Señales y sistemas discretos en el dominio de la frecuencia}
+\author{Francisco Javier Mercader Martínez\\ Rubén Gil Martínez}
+\date{}
+
+\usepackage{matlab-prettifier}
+
+\lstset{
+language=matlab,
+basicstyle=\ttfamily\small,
+keywordstyle=\color{blue},
+commentstyle=\color{green!70!black},
+stringstyle=\color{red},
+showstringspaces=false,
+breaklines=true,
+frame=single,
+backgroundcolor=\color{lightgray!10},
+captionpos=b,
+tabsize=2,
+inputencoding=utf8,
+literate={á}{{\'a}}1 {é}{{\'e}}1 {í}{{\'i}}1 {ó}{{\'o}}1 {ú}{{\'u}}1{ñ}{{\~n}}1
+}
+
+\everymath{\displaystyle}
+
+\begin{document}
+\maketitle
+
+\section{Transformada de Fourier de secuencias}
+\subsection*{Cuestiones}
+Realice un script en Matlab para representar una secuencia \code{x} y su transformada de Fourier \code{X}. Las secuencias están muestreadas a una frecuencia \code{fs}. Para ello siga los siguientes pasos:
+\begin{itemize}
+\item Inicialice \code{ft = inline('fftshift(fftn(x))');}
+\item Las secuencias de audio y su frecuencia de muestreo son accesibles desde Matlab- Para ello tiene que cargar los ficheros indicados más adelante mediante la instrucción \code{load}.
+\item Realice la representación gráfica de la secuencia empleando el eje de tiempo discreto. Etiquete adecuadamente cada uno de los ejes indicando claramente su contenido y en caso de que sea necesario las unidades.
+\item Empleando las instrucciones \code{subplot} represente la transformada de Fourier de la señal en dominio continuo y la transformada de Fourier de la secuencia. De nuevo incluya el etiquetado de los ejes.
+\item Reproduzca empleando la instrucción \code{sound} a la frecuencia de muestreo indicada la secuencia de audio.
+\end{itemize}
+Se muestran las secuencias a continuación que se han de estudiar empleando el código programado. Se estudiará la representación en tiempo y frecuencia. De manera cualitativa establezca relaciones entre las frecuencias que escucha y las que se pueden observar en la transformada de Fourier representada:
+\begin{itemize}
+\item \textbf{Secuencia 'splat' muestreada a 8 KHz:} 
+\begin{lstlisting}
+load splat.mat
+\end{lstlisting}
+\item \textbf{Secuencia 'laughter' muestreada a 8 KHz:}
+\begin{lstlisting}
+load laughter.mat
+\end{lstlisting}
+\item \textbf{Secuencia 'handel' muestreada a 8 KHz:}
+\begin{lstlisting}
+load handel.mat
+\end{lstlisting}
+\end{itemize}
+\section{Comparativa del coste computacional DFT y FFT}
+\subsection*{Cuestiones}
+Implemente dos funciones en Matlab:
+\begin{itemize}
+\item La primera debe emplear la implementación directa con Matlab y su entrada será la secuencia a transformar. La función proporcionará la transformada. Llame a la función \code{mdft.m}
+\item La segunda debe implementar la versión eficiente basada en el algoritmo de diezmado en tiempo. El nombre de la función será \code{ffdt.m}
+\end{itemize}
+Redacte un script en Matlab que obtenga una secuencia real $x$ de longitud $N$ con muestras aleatorias empleando el comando \code{rand}.
+
+Empleando los comandos \code{tic} y \code{toc} establezca el tiempo empleado en calcular su DFT utilizando la función de Matlab \code{mdft.m} y mediante la versión eficaz del mismo denominada \code{ffdt.m}
+
+Empleando lo siguientes valores para $N=2^{10},2^{11},2^{12},2^{13},2^{14},2^{15},2^{16}$ y $2^{17}$ represente en una misma gráfica los tiempos de cálculo empleados por las dos implementaciones de la DFT respecto al valor de $N$. Etiquete correctamente ambos ejes e incluya la correspondiente leyenda para diferenciar ambas curvas.
+\section{Comparativa de convolución lineal vs convolución circular}
+\subsection*{Cuestiones}
+Implemente el código necesario para generar y representar la convolución lineal de:
+\begin{itemize}
+\item Una secuencia de números aleatorios de 64 muestras definida en $n=0..63$.
+\item Un filtro FIR casual que realice el promedio deslizante de 8 muestras.
+\end{itemize}
+Utilice la función \code{convcirc(x1,x2,N)} para realizar la convolución circular de $N$ puntos de secuencia y la respuesta al impulso del filtro. Considere el mínimo $N$ posible y represente gráficamente el resultado, etiquetando correctamente el eje temporal, $n=0..N-1$.
+
+Defina la convolución circular de la siguiente manera
+\begin{lstlisting}
+convcirc = inline('real(ifft(fft(x1, N) .* fft(x2, N), N))', 'x1', 'x2', 'N');
+\end{lstlisting}
+\begin{itemize}
+\item Especifique si proporcionan el mismo resultado la convolución lineal y la convolución circular. Indique las muestras que difieren.
+\item Incremente el tamaño $N$ de la convolución circular. Indique el valor de $N$ para el que se obtiene un mismo resultado para ambas convoluciones.
+\end{itemize}
+\end{document}

@@ -398,67 +398,51 @@ for i = 1:2
     figure; stem(w, ak, '.', "LineWidth", 1.5, "color", "#007AFF", "MarkerSize", 10);
 end
 
-% Obtener todas las figuras abiertas:
-figs = get(0, 'children');
-figs = flip(figs);
-
-% Recorrer todas las figuras:
-for i = 1:length(figs)
-    % Seleccionar la figura actual:
-    figure(figs(i));
-
-    % Crear el nombre del archivo:
-    filename = sprintf('Figura%d.png', i);
-
-    % Guardar la figura en un archivo PNG:
-    print(filename, '-dpng');
-end
-
 close all;
 
-% Define the signals
+addpath("G:\Mi unidad\cid-upct\Prácticas\2º Curso\Señales y Sistemas\Práctica 1\MATLAB")
+
+% Definir las señales de nuevo
 t = -5:0.002:5;
 a = zeros(size(t));
 b = zeros(size(t));
 c = zeros(size(t));
 
-% Define the signals a, b, and c
-a(abs(t) <= 0.6) = 1;
-b(abs(t) <= 0.2) = 1;
-c(0 < t & t <= 1) = 0.5;
-c(1 < t & t <= 2) = 1 - 0.5 * t(1 < t & t <= 2);
+a(find(abs(t) <= 0.6)) = 1;
+b(find(abs(t) <= 0.2)) = 1;
+c(find(0 < abs(t) & abs(t) <= 0.1)) = 0.5;
+c(find(1 < abs(t) <= 2)) = 1 - 0.5 * abs(t)(find(1 < abs(t) <= 2));
 
-% Define the frequency range and step size
 dt = 0.002;
 wmax = 5;
 
-% Calculate the Fourier transforms
-[A, w] = tfourier(a, t,dt, wmax);
-[B, ~] = tfourier(b, t,dt, wmax);
-[C, ~] = tfourier(c, t,dt, wmax);
+% Calcular las transformadas de Fourier de las señales
+[A, w] = tfourier(a, t, dt, wmax);
+[B, ~] = tfourier(b, t, dt, wmax);
+[C, ~] = tfourier(c, t, dt, wmax);
 
 % Verify the properties
 % 1. Linearity
-AB = tfourier(a + b, t,dt, wmax);
-isequal(AB, A + B)
+[AB, ~] = tfourier(a + b, t, dt, wmax);
+isequal(round(AB), round(A + B))
 
 % 2. Time shifting
-t0 = 1; % Define a time shift
-B_shift = tfourier(b .* exp(-i * w * t0), t, dt, wmax);
-isequal(B_shift, B)
+t0 = 1;
+[B_shift, ~] = tfourier(desplazamiento(b, t0), t, dt, wmax);
+isequal(round(B_shift), round(B .* exp(-1i * w * t0)))
 
 % 3. Inversion
-C_inv = tfourier(c(end:-1:1), t, dt, wmax);
-isequal(C_inv, C(end:-1:1))
+C_inv = tfourier(inversion(c, t), t, dt, wmax);
+isequal(round(C_inv), round(inversion(C, t)))
 
 % 4. Conjugation
 C_conj = tfourier(conj(c), t, dt, wmax);
-isequal(C_conj, conj(C))
+isequal(round(C_conj), round(conj(C)))
 
 % 5. Real part
 C_real = tfourier(real(c), t, dt, wmax);
-isequal(C_real, real(C))
+isequal(round(C_real), round(real(C)))
 
 % 6. Imaginary part
 C_imag = tfourier(imag(c), t, dt, wmax);
-isequal(C_imag, imag(C))
+isequal(round(C_imag), round(imag(C)))

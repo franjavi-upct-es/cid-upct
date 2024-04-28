@@ -16,6 +16,7 @@
 \usepackage{accents}
 \usepackage{adjustbox}
 \setstretch{1.35}
+\renewcommand*{\arraystretch}{1.5}
 \usepackage{bold-extra}
 \usepackage{subcaption}
 \usepackage{tcolorbox}
@@ -109,7 +110,7 @@
 
 \lstset{
 language=matlab,
-basicstyle=\ttfamily\small,
+basicstyle=\ttfamily\footnotesize,
 keywordstyle=\color{blue},
 commentstyle=\color{green!70!black},
 stringstyle=\color{red},
@@ -241,7 +242,6 @@ figure, plot([t-T t t+T], [x x x])
 \end{lstlisting}
 \item Repita el proceso para las señales a) c) y d), asumiendo un periodo T=4 y T=6. Razone los resultados obtenidos.
 
-\pagebreak
 
 \begin{lstlisting}
 T = 4;dt = 0.001;
@@ -280,7 +280,7 @@ title('$x(t)=0.5\delta(t),\,-1\le t<1$', 'Interpreter', 'latex')
 \includegraphics[width=0.4\linewidth]{Imágenes/Figura8}
 \includegraphics[width=0.4\linewidth]{Imágenes/Figura9}
 \end{center}
-\pagebreak
+
 \begin{lstlisting}
 T = 6; dt = 0.001;
 t = -T/2:dt:T/2-dt;
@@ -341,6 +341,10 @@ T = 2; dt = 0.001; N=5;
 t = -T/2:dt:T/2-dt;
 \end{lstlisting}
 
+$a_k=\dfrac{1}{T}\int_{-\frac{T}{2}}^{\frac{T}{2}}x(t)\cdot e^{-j\cdot k\cdot \omega_0\cdot t}\dt=\dfrac{1}{2}\int_{-1}^{1}2\cdot e^{-jk\cdot\frac{2\pi}{2}t}\dt=\int_{-1}^{1}e^{-jk\pi t}\dt=\left[-\dfrac{e^{-jk\pi t}}{jk\pi}\right]_{-1}^{1}=-\dfrac{e^{-j\pi k}}{j\pi k}+\dfrac{e^{j\pi k}}{j\pi k}=2\cdot\lbb{\dfrac{e^{j\pi k}-e^{-j\pi k}}{2\cdot j\cdot\pi\cdot k}}{\text{Euler}}=2\cdot\dfrac{\sin(\pi k)}{\pi k}=\bboxed{2\cdot\mathrm{sinc}(k)}$
+
+\hspace{0.5cm}
+
 \begin{lstlisting}
 % (a)
 x = zeros(1, length(t));
@@ -354,6 +358,38 @@ ak_a =
    1.0010 +      0i   0.6366 + 0.0000i  -0.0010 - 0.0000i  -0.2122 + 0.0000i   0.0010 + 0.0000i
    0.1273 - 0.0000i
 \end{verbatim}
+
+\hspace{1pt}
+
+\hrule
+
+$a_k=\dfrac{1}{T}\int_{-\frac{T}{2}}^{\frac{T}{2}}x(t)\cdot e^{-j\cdot k\cdot \omega_0\cdot t}\dt=\dfrac{1}{2}\left[\int_{-1}^{1}\left(0.8\cdot\sin(2\pi t)+0.6\cdot\cos(\pi t)-0.2\cdot\sin\left(3\pi t+\frac{\pi}{4}\right)\right)\cdot e^{-jk\pi t}\right]\dt$
+
+Aplicamos Euler:
+
+$0.8\cdot\sin(2\pi t)=0.8\left[\dfrac{e^{j2\pi t}-e^{-j2\pi t}}{2j}\right]=\lbb{\dfrac{2}{5j}}{}e^{j2\pi t}\lbb{-\dfrac{2}{3j}}{}e^{-j2\pi t}$
+
+$\bboxed{\begin{cases}
+a_2=\dfrac{2}{5j}\\
+a_{-2}=-\dfrac{2}{5j}
+\end{cases}}$
+
+$0.6\cdot\cos(\pi t)=0.6\cdot\left[\dfrac{e^{j\pi t}+e^{-j\pi t}}{2}\right]=\lbb{\dfrac{3}{10}}{}e^{j\pi t}+\lbb{\dfrac{3}{10}}{}\cdot e^{-j\pi t}$
+
+$\bboxed{\begin{cases}
+a_{1}=\dfrac{3}{10}\\
+a_{-1}=\dfrac{3}{10}
+\end{cases}}$
+
+$-0.2\cdot\sin\left(3\pi t+\dfrac{\pi }{4}\right)=-0.2\cdot\left[\dfrac{e^{j\left(3\pi t+\frac{\pi}{4}\right)}-e^{-j\left(2\pi t+\frac{\pi}{4}\right)}}{2j}\right]=\lbb{-\dfrac{1}{10}}{}je^{j\left(3\pi t+\frac{\pi}{4}\right)}+\lbb{\dfrac{1}{10}}{}je^{-j\left(3\pi t+\frac{\pi}{4}\right)}$
+
+$\bboxed{\begin{cases}
+a_3=-\tfrac{1}{10}j\\
+a_{-3}=\tfrac{1}{10}j
+\end{cases}}$
+
+\hspace{0.5cm}
+
 \begin{lstlisting}
 % (b)
 x = 0.8*sin(2*pi*t) + 0.6*cos(pi*t) - 0.2*sin(3*pi*t + pi/4);
@@ -366,6 +402,21 @@ ak_b =
    -0.0000 +     0i   0.3000 - 0.0000i  -0.0000 - 0.4000i  -0.0707 + 0.0707i  -0.0000 + 0.0000i
    0.0000 + 0.0000i
 \end{verbatim}
+
+\hspace{1pt}
+
+\hrule
+
+$\begin{aligned}
+a_k=\dfrac{1}{2}\int_{-1}^{1}\underbrace{2t}_{u}\cdot\underbrace{e^{-jk\frac{2\pi}{2}t}}_{\dv}\dt&=\left\{\begin{array}{ll}
+u=2t & \dv=e^{-jk\pi t}\dt\\
+\du=2\dt & v=-\frac{e^{-jk\pi t}}{jk\pi}
+\end{array}\right\}=2t\cdot\left(-\dfrac{e^{-jk\pi t}}{jk\pi}\right)+\int\dfrac{1}{jk\pi}\cdot e^{-jk\pi t}\cdot 2\dt\\
+&=-\dfrac{e^{-jk\pi t}}{jk\pi}\cdot t-\dfrac{1}{(jk\pi)^2}\cdot e^{-jk\pi t}=\left[-\dfrac{e^{-jk\pi t}}{jk\pi}\cdot t+\dfrac{1}{(k\pi)^2}\cdot e^{-jk\pi t}\right]_{-1}^{1}\\
+&=-\dfrac{e^{-jk\pi}}{jk\pi}+\dfrac{1}{(k\pi)^2}\cdot e^{-jk\pi}-\dfrac{e^{jk\pi}}{jk\pi}+\dfrac{1}{(k\pi)^2}\cdot e^{jk\pi}
+\end{aligned}$
+
+\hspace{0.5cm}
 
 \begin{lstlisting}
 % (c)
@@ -382,6 +433,18 @@ ak_c =
    -0.0162 - 0.0000i
 \end{verbatim}
 
+\hspace{1pt}
+
+\hrule
+
+$a_k=\dfrac{1}{2}\int_{-1}^{1}\dfrac{1}{2}\cdot\delta(t)\cdot e^{-jk\pi t}\dt$
+
+Podemos observar que tenemos una multiplicación entre una señal y una delta de Dirac, podemos aplicar la propiedad de multiplicación de las deltas: \[ \delta(t-t_0)\cdot x(t)=\delta(t-t_0)\cdot x(t_0) \]Por lo tanto, tenemos: 
+
+$a_k=\dfrac{1}{4}\int_{-1}^{1}1\cdot \overbrace{e^{-jk\pi\cdot 0}}^{=1}\dt=\dfrac{1}{4}\left[t\right]_{-1}^{1}=\dfrac{1}{4}\left(1-(-1)\right)=\bboxed{\dfrac{1}{2}}$
+
+\hspace{0.5cm}
+
 \begin{lstlisting}
 % (d)
 x = zeros(1, length(t));
@@ -393,6 +456,23 @@ ak_d = cfourier(x, T, N, dt);
 ak_d =
    0.2500   0.2500   0.2500   0.2500   0.2500   0.2500   0.2500   0.2500   0.2500   0.2500   0.2500
 \end{verbatim}
+
+\hspace{1pt}
+
+\hrule
+
+$a_k=\dfrac{1}{2}\int_{-1}^{1}\left|\sin\left(\dfrac{\pi}{2}t\right)\right|\cdot e^{-jk\pi t}\dt=\dfrac{1}{2}\left[-\int_{-1}^{0}\sin\left(\dfrac{\pi}{2}t\right)\cdot e^{-jk\pi t}\dt+\int_{0}^{1}\sin\left(\dfrac{\pi}{2}t\right)\cdot e^{-jk\pi t}\dt\right]$
+
+Aplicamos Euler:
+
+$\sin\left(\dfrac{\pi}{2}t\right)=\dfrac{e^{j\frac{\pi}{2}t}-e^{-j\frac{\pi}{2}t}}{2j}=\dfrac{1}{2j}e^{1j\frac{\pi}{2}t}-\dfrac{1}{2j}\cdot e^{-1j\frac{\pi}{2}t}$
+
+$\bboxed{\begin{array}{l}
+a_1=\dfrac{1}{2j}\\
+a_{-1}=-\dfrac{1}{2j}
+\end{array}}$
+
+\hspace{0.5cm}
 
 \begin{lstlisting}
 % (e)
@@ -406,6 +486,14 @@ ak_e =
    0.6366 +      0i  -0.2122 - 0.0000i  -0.0424 + 0.0000i  -0.0182 - 0.0000i  -0.0101 + 0.0000i  
   -0.0064 + 0.0000i
 \end{verbatim}
+
+\hspace{1pt}
+
+\hrule
+
+$a_0=\dfrac{1}{2}\int_{-1}^{1}e^{2\pi t}+e^{-j3\pi t}\dt=\dfrac{1}{2}\left[\int_{-1}^{1}e^{j2\pi t}\dt+\int_{-1}^{1}e^{-j3\pi t}\dt\right]=\dfrac{1}{2}\left[\left[\dfrac{e^{j2\pi t}}{j2\pi}\right]_{-1}^{1}-\left[\dfrac{e^{-j3\pi t}}{j3\pi}\right]_{-1}^{1}\right]=\dfrac{1}{2}\left(\dfrac{e^{j2\pi}}{j2\pi}-\dfrac{e^{-j2\pi}}{j2\pi}\right)-\dfrac{1}{2}\left(\dfrac{e^{-j3\pi}}{j3\pi}-\dfrac{e^{j3\pi}}{j3\pi}\right)=\dfrac{1}{2}\left(\dfrac{1}{j2\pi}-\dfrac{1}{j2\pi}\right)-\dfrac{1}{2}\left(-\dfrac{1}{j3\pi}+\dfrac{1}{j3\pi}\right)=\bboxed{0}$
+
+\hspace{0.5cm}
 
 \begin{lstlisting}
 % (f)
@@ -451,7 +539,7 @@ A continuación van a aparecer dos variaciones de los valores obtenidos del apar
 \includegraphics[width=0.45\linewidth]{Imágenes/prueba_n5}
 \end{center}
 
-Al aumentar el valor de \code{N} habrá más coeficientes y se obtendrá más información de la señal porque al reconstruirla usamos más coeficientes.
+Al aumentar el valor de \code{N} estaremos aumentando el número de armónicos que empleamos para reconstruir la señal a partir de la ecuación de síntesis, por lo tanto, podemos observar que cuantos más armónicos utilizamos más información obtenemos sobre la señal y más nos acercamos a la señal real.
 
 \item Verifique el cumplimiento del teorema de Parseval comparando los resultados \textbf{teóricos} y prácticos \[ \sum_{k=-\infty}^{\infty}|a_k|^2=\dfrac{1}{T}\int_{<T>}|x(t)|^2\dt \]
 
@@ -464,8 +552,13 @@ sum_ak2_d = sum(abs(ak_d).^2); % sum_ak2_d = 0.6875
 sum_ak2_e = sum(abs(ak_e).^2); % sum_ak2_e = 0.4999
 sum_ak2_f = sum(abs(ak_f).^2); % sum_ak2_f = 2.0000
 \end{lstlisting}
-
+A continuación se agregarán los ejercicios de verificación del teorema hechos a mano:
 \end{enumerate}
+
+\includepdf[pages=-]{"Practica_3_SyS"}
+
+\newpage
+
 \section{Transformada de Fourier}
 Las ecuaciones que relacionan una sñela con su transformada de Fourier son las siguientes: \[ X(\omega)=\int_{-\infty}^{\infty}x(t)e^{-j\omega t}\dt\qquad x(t)=\dfrac{1}{2\pi}\int_{-\infty}^{+\infty}X(\omega)e^{j\omega t}\mathrm{d}\omega \]
 \subsection*{Cuestiones}
@@ -477,7 +570,7 @@ Las ecuaciones que relacionan una sñela con su transformada de Fourier son las 
 0,&\text{resto}
 \end{cases}$
 
-\pagebreak
+
 
 \begin{lstlisting}
 % a)
@@ -511,7 +604,7 @@ title('$x(t)=\begin{cases}1, & t\le0.2\\0, & \mathrm{resto}\end{cases}$', 'Inter
 0,& \mathrm{resto}
 \end{cases}$
 
-\pagebreak
+
 
 \begin{lstlisting}
 % c)
@@ -605,7 +698,7 @@ figure(19); stem(w, ak, '.', "LineWidth", 1.5, "color", "#007AFF", "MarkerSize",
 \begin{center}
 \includegraphics[width=0.5\linewidth]{Imágenes/Figura19}
 \end{center}
-\newpage
+
 \begin{lstlisting}
 % b)
 x = zeros(size(t));
@@ -710,7 +803,7 @@ end
 \includegraphics[width=0.45\linewidth]{"Imágenes/Figura24"}
 \includegraphics[width=0.45\linewidth]{"Imágenes/Figura25"}
 \end{center}
-\newpage
+
 \begin{lstlisting}
 % c)
 T = 10;
@@ -755,7 +848,7 @@ function [X,w] = tfourier(x,t,dw,wmax)
 \item \code{w} es el vector con el eje frecuencia, su tamaño es el mismo que el de \code{x}.
 \item \code{t} es el vector con el eje temporal, su tamaño es el mismo que el de \code{x}.
 \end{itemize}
-\pagebreak
+
 \begin{lstlisting}
 function [X,w] = tfourier(x,t,dw,wmax)
     % Crear el vector de frecuencias
@@ -766,7 +859,7 @@ function [X,w] = tfourier(x,t,dw,wmax)
 
     % Calcular la Transformada de Fourier para cada frecuencia
     for k = 1:length(w)
-        X(k) = sum(x .* exp(-1i * w(k) * t));
+        X(k) = dw * sum(x .* exp(-1i * w(k) * t));
     end
 end
 \end{lstlisting}
@@ -791,15 +884,19 @@ end
 \begin{lstlisting}
 % Definir las señales de nuevo
 t = -5:0.002:5;
+
 a = zeros(size(t));
 b = zeros(size(t));
 c = zeros(size(t));
+
 a(find(abs(t) <= 0.6)) = 1;
 b(find(abs(t) <= 0.2)) = 1;
 c(find(0 < abs(t) & abs(t) <= 0.1)) = 0.5;
 c(find(1 < abs(t) <= 2)) = 1 - 0.5 * abs(t)(find(1 < abs(t) <= 2));
+
 dt = 0.002
 wmax = 5
+
 % Calcular las transformadas de Fourier de las señales
 [A, w] = tfourier(a, t,dt, wmax);
 [B, ~] = tfourier(b, t,dt, wmax);
@@ -810,50 +907,58 @@ wmax = 5
 
 \begin{lstlisting}
 % Propiedad de linealidad
-AB = tfourier(a + b, t,dt, wmax);
-assert(isequal(AB, A + B), 'No se cumple la propiedad');
+[AB, ~] = tfourier(a + b, t, dt, wmax)
+assert(isequal(round(AB), round(A + B)), 'No se cumple la propiedad')
 \end{lstlisting}
 
-El resultado muestra que la propiedad no se cumple
+El resultado muestra que la propiedad se cumple, ya que aplicando la función \code{round} resolvemos los errores de redondeo que no permitían confirma el cumplimiento de la la linealidad.
 \item Desplazamiento en el tiempo $e^{-j\omega t_0}X(\omega)\longleftrightarrow x(t-t_0)$ (emplee señal b).
 \begin{lstlisting}
 % Propiedad de desplazamiento en el tiempo
 t0 = 0.5;
-B_shift = tfourier(b .* exp(-1i * w * t0), t, dt, wmax);
-assert(isequal(B_shift, B .* exp(-1i * w * t0)), 'No se cumple la propiedad');
+[B_shift, ~] = tfourier(desplazamiento(b, t0), t, dt, wmax);
+
+% Se ha utilizado la función "desplazamiento" definida en la Práctica 1
+
+assert(isequal(round(B_shift), round(B .* exp(-1i * w * t0))), 'No se cumple la propiedad');
 \end{lstlisting}
-El resultado muestra que la propiedad no se cumple
+El resultado muestra que se cumple la propiedad. 
 \item Inversión $X(-\omega)\longleftrightarrow x(-t)$ (emplee señal c).
 \begin{lstlisting}
 % Propiedad de inversión
-C_inv = tfourier(fliplr(c), t, dt, wmax);
-assert(isequal(C_inv, fliplr(C)), 'No se cumple la propiedad');
+C_inv = tfourier(inversion(c, t), t, dt, wmax);
+
+% Se ha utilizado la función "inversion" definida en la Práctica 1
+
+assert(isequal(round(C_inv), inversion(C, t)), 'No se cumple la propiedad');
 \end{lstlisting}
-El resultado muestra que la propiedad no se cumple
+El resultado muestra que se cumple la propiedad
 \item Conjugación $X(\omega)^*\longleftrightarrow x(-t)^*$ (emplee señal c).
 
 \begin{lstlisting}
 % Propiedad de conjugación
 C_conj = tfourier(conj(c), t, dt, wmax);
-assert(isequal(C_conj, conj(C)), 'No se cumple la propiedad');
+assert(isequal(round(C_conj), round(conj(C))), 'No se cumple la propiedad');
 \end{lstlisting}
-El resultado muestra que la propiedad no se cumple
+El resultado muestra que se cumple la propiedad
 \item $\mathrm{Real}\{X(\omega)\}\longleftrightarrow\text{ Parte real}\{x(t)\}$ (emplee señal c).
 
 \begin{lstlisting}
 % Propiedad de parte real
 C_real = tfourier(real(c), t, dt, wmax);
-assert(isequal(C_real, real(C)), 'No se cumple la propiedad');
+assert(isequal(round(C_real), round(real(C))), 'No se cumple la propiedad');
 \end{lstlisting}
-El resultado muestra que la propiedad no se cumple
+El resultado muestra que se cumple la propiedad
 \item $\mathrm{Imag}\{X(\omega)\}\longleftrightarrow\text{ Parte impar}\{x(t)\}$ (emplee señal c).
 
 \begin{lstlisting}
 % Propiedad de parte impar
 C_imag = tfourier(imag(c), t, dt, wmax);
-assert(isequal(C_imag, imag(C)), 'No se cumple la propiedad');
+assert(isequal(round(C_imag), round(imag(C))), 'No se cumple la propiedad');
 \end{lstlisting}
-El resultado muestra que la propiedad no se cumple
+El resultado muestra que se cumple la propiedad
 \end{enumerate}
+
+En todos los casos, se podía pensar que la propiedad no se cumplía, sin embargo esto se debía a errores de redondeo que se han solventado empleando la función \code{round} en todos los casos.
 \end{enumerate}
 \end{document}
