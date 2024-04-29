@@ -425,7 +425,7 @@ $t_2=\left(\dfrac{1}{\sqrt{2}},-\dfrac{1}{\sqrt{2}}\right)'$
 		x_1+x_2+x_3=0
 	\end{array}\longrightarrow x_2=x_3,\:x_1=2x_2\longrightarrow v=(-2,1,1)'$
 	
-	Para ver cual sería el tercer autovector buscamos $w=(x_1,x_2,x_3)'$ orotogonal a los dos anteriores
+	Para ver cual sería el tercer autovector buscamos $w=(x_1,x_2,x_3)'$ ortogonal a los dos anteriores
 	\item \lb{Calcular las componentes principales para una variable tridimensional con media cero y matriz de covarianzas \[ \Sigma=\begin{pmatrix}
 			\beta^2+\delta & \beta & \beta\\
 			\beta & 1+\delta & 1\\
@@ -504,7 +504,7 @@ $t_2=\left(\dfrac{1}{\sqrt{2}},-\dfrac{1}{\sqrt{2}}\right)'$
 		Y_3=\dfrac{1}{\sqrt{1+\frac{\beta^2}{2}}}\cdot\left(X_1-\dfrac{\beta}{2}X_2-\dfrac{\beta}{2}X_3\right)
 	\end{cases}$
 	
-	Proporción de variablidad explicada por cada componente principal.
+	Proporción de variabilidad explicada por cada componente principal.
 	
 	$\begin{array}{l}
 		\dfrac{\lambda_1}{\lambda_1+\lambda_2+\lambda_3}\cdot100\%=\dfrac{\beta^2+\delta+2}{\beta^2+3\delta+2}\cdot100\%\\
@@ -615,7 +615,7 @@ $t_2=\left(\dfrac{1}{\sqrt{2}},-\dfrac{1}{\sqrt{2}}\right)'$
 	1\\
 	1
 	\end{pmatrix}\longrightarrow$\begin{minipage}{0.5\textwidth}
-	Tendremos que $\lambda=1+2r$ es eñ autovalor propio asociado a $w=(1,1,1)'$
+	Tendremos que $\lambda=1+2r$ es el autovalor propio asociado a $w=(1,1,1)'$
 	\end{minipage}
 	
 	Para que $\Pi$ sea semidefinida positiva se debe verificar que $1-r\ge0,\:1+2r\ge0$ esto es, $r\ge1,\:r\ge-0.5$
@@ -629,7 +629,7 @@ $t_2=\left(\dfrac{1}{\sqrt{2}},-\dfrac{1}{\sqrt{2}}\right)'$
 			Y_3=\dfrac{1}{\sqrt{2}}(X_1-X_2) &  \dfrac{\lambda_3}{3}100\%=\dfrac{1-r}{3}\cdot100\%
 		\end{array} \]
 		\begin{itemize}
-			\item Si $r=1$, podemos considerar solamente la pirmera componente principal ($Y_1$)
+			\item Si $r=1$, podemos considerar solamente la primera componente principal ($Y_1$)
 		\end{itemize}
 		\item \underline{Caso 2:} $-0.5\le r<0,\:\lambda_1=\lambda_2=\lambda_3=1+2r$
 		\[ \begin{array}{ll}
@@ -639,4 +639,37 @@ $t_2=\left(\dfrac{1}{\sqrt{2}},-\dfrac{1}{\sqrt{2}}\right)'$
 	\end{itemize}
 	\item \lb{Demostrar que las componentes principales no son invariantes por cambio de escala.}
 	
+	$V=\begin{pmatrix}
+	1 & 0.8\\
+	0.8 & 1
+	\end{pmatrix}$, autovalores $1.8,\,0.2$ y autovalores asociados $u=(1,1)'$ y $v=(1,-1)'$ respectivamente.
+	
+	$\tilde{X}_1=aX_1,\:a\neq\mp1$
+	
+	$\tilde{V}=\underset{\tilde{V}w=\lambda w}{\begin{pmatrix}
+	a^2 & 0.8a\\
+	0.8a & 1
+	\end{pmatrix}}\qquad \tilde{V}\cdot\begin{pmatrix}
+	1\\
+	1
+	\end{pmatrix}=\begin{pmatrix}
+	a^2 & 0.8a\\
+	0.8a & 1
+	\end{pmatrix}\cdot\begin{pmatrix}
+	1\\
+	1
+	\end{pmatrix}=\begin{pmatrix}
+	a^2+0.8a\\
+	0.8a+1
+	\end{pmatrix}=\lambda\begin{pmatrix}
+	1\\
+	1
+	\end{pmatrix}\longrightarrow\begin{rcases}
+	a^2+0.8a=\lambda\\
+	0.8a+1=\lambda
+	\end{rcases}\begin{array}{l}
+	a(a+0.8)=\lambda\\
+	0.8a+1=\lambda\\
+	a^2=1,\:a=\pm14
+	\end{array}$
 \end{enumerate}
