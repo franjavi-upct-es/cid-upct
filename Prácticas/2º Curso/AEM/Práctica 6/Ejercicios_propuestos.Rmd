@@ -1,0 +1,225 @@
+---
+title: "Análisis Estadístico Multivariante"
+subtitle: "Problemas propuestos de Análisis Cluster"
+author: "Francisco Javier Mercader Martínez"
+output:
+  pdf_document: 
+    latex_engine: xelatex
+    extra_dependencies: fvextra
+    toc_depth: 4
+    fig_caption: true
+geometry: margin=1.2cm
+header-includes:
+- \usepackage{fvextra}
+- \DefineVerbatimEnvironment{Highlighting}{Verbatim}{breaklines, commandchars=\\\{\}}
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, fig.align = "center", fig.width = 6, fig.path = "Figs/", warning = FALSE, message = FALSE)
+```
+
+# Problema 1
+
+El conjunto de datos **iris** de `R` contiene las variables Sepal.Length(X1, longitud de los sépalos), Sepal.Width(X2, anchura de los sépalos), Petal.Length(X3, longitud de los pétalos),Petal.Width (X4, anchura de los pétalos) medidas en centímetros, de tres especies diferentes de flor de iris (Species: *setosa*, *versicolor* y *virginica*). Se desea realizar un análisis cluster para determinar las diferentes agrupaciones que pueden obtenerse de las flores de iris a partir de las magnitudes de sus pétalos y sépalos. Se pide:
+
+1.  Realizar un agrupamiento de los datos en 3 grupos considerando los datos estandarizados aplicando algoritmo `k-means` con semilla `set.seed(123456)` y 10 inicios aleatorios con todas las variables.
+
+    ```{r}
+    set.seed(123456)
+
+    d <- iris[, 1:4]
+    ds <- as.data.frame(scale(d))
+    ```
+
+    ```{r}
+    CA <- kmeans(ds, centers = 3, nstart = 10)
+    ```
+
+    a.  Indicar cuál es el tamaño de cada grupo.
+
+    ```{r}
+    CA$size
+    ```
+
+    b.  ¿A qué grupos pertenecen las flores 15, 75 y 123?
+
+    ```{r}
+    CA$cluster[c(15, 75, 123)]
+    ```
+
+    c.  Obtener los centroides de cada grupo.
+
+    ```{r}
+    CA$centers
+    ```
+
+    d.  ¿Qué porcentaje de variabilidad se reduce con estos 3 grupos con respecto de la variabilidad total correspondiente a 1 solo grupo?
+
+    ```{r}
+
+    ```
+
+2.  Hacer un ACP con las 4 variables.
+
+    ```{r}
+    PCA <- princomp(d, cor = TRUE)
+    L <- PCA$loadings
+    S <- PCA$scores
+    Y1 <- S[,1]
+    Y2 <- S[,2]
+    ```
+
+    a.  ¿Qué porcentaje de la variabilidad es explicada por las 2 primeras componentes?
+
+    ```{r}
+
+    ```
+
+    b.  Representar gráficamente las puntuaciones no estandarizadas en el sistema de referencia definido por las 2 primeras componentes principales y etiquetar con símbolos los grupos obtenidos con el algoritmo de `k-means`.
+
+    ```{r}
+    plot(Y1, Y2, pch = as.integer(CA$cluster), col = CA$cluster,
+         cex = 0.5, xlim = c(-3.5, 3.5), ylim = c(-3.5, 3.5))
+    legend("topright", legend = c("Y=1", "Y=2", "Y=3", "Y=4"), pch = 1:3, cex = 0.5)
+    ```
+
+3.  Realizar un análisis cluster jerarquizado de los datos usando la distancia euclídea con las variables estandarizadas y el método *complete*.
+
+    ```{r}
+    D <- dist(ds, method = "euclidean")
+    dim(ds)
+    n = dim(ds)[1]
+    M <- as.matrix(D)[1:150, 1:150]
+    CA2 <- hclust(D, method = "complete")
+    ```
+
+    a.  ¿Cuál es la distancia entre las flores 1 y 55?
+
+    ```{r}
+    M[1, 55]
+    ```
+
+    b.  ¿Cuál es la distancia mínima? ¿A qué flores corresponden?
+
+    ```{r}
+    CA2$merge[1, ]
+    ```
+
+    ```{r}
+    M[102, 143]
+    ```
+
+    c.  ¿Cuál es el primer grupo que se forma? ¿Y el último?
+
+    ```{r}
+
+    ```
+
+    El primero que se forma es uniendo las flores 102 y 143
+
+    ```{r}
+    CA2$merge[149, ]
+    ```
+
+    El último está formado por los grupos que se forman en las etapas 147 y 148
+
+    d.  Si se formaran 2 grupos, ¿qué tamaño tendría cada grupo? Incluir los 2 grupos en el gráfico de las 2 primeras componentes principales y comentar cómo serían los grupos según este gráfico. ¿Dónde se incluirán las flores 1 y 55?
+
+    ```{r}
+    grupos <- cutree(CA2, k = 2)
+    table(grupos)
+    grupos[c(1, 55)]
+    ```
+
+    ```{r}
+    plot(Y1, Y2, pch = as.integer(grupos), col = grupos,
+         cex = 0.5, xlim = c(-3.5, 3.5), ylim = c(-3.5, 3.5))
+    legend("topright", legend = c("Y=1", "Y=2"), pch = 1:2, cex = 0.5, col = grupos)
+    text(Y1[1]+0.15, Y2[1], "1", col = "#007AFF", cex = 0.75)
+    text(Y1[55]+0.15, Y2[55], "55", col = "#007AFF", cex = 0.75)
+    ```
+
+    e.  Si se formaran 3 grupos, ¿qué tamaño tendría cada grupo? Incluir los 3 grupos en el gráfico de las 2 primeras componentes principales y comentar cómo serían los grupos según este gráfico. ¿Dónde se incluirán las flores 1 y 55?
+
+    ```{r}
+    grupos <- cutree(CA2, k = 3)
+    table(grupos)
+    grupos[c(1, 55)]
+    ```
+
+    ```{r}
+    plot(Y1, Y2, pch = as.integer(grupos), col = grupos,
+         cex = 0.5, xlim = c(-3.5, 3.5), ylim = c(-3.5, 3.5))
+    legend("topright", legend = c("Y=1", "Y=2", "Y=3"), pch = 1:3, cex = 0.5, col = grupos)
+    text(Y1[1]+0.15, Y2[1], "1", col = "#007AFF", cex = 0.75)
+    text(Y1[55]+0.15, Y2[55], "55", col = "#007AFF", cex = 0.75)
+    ```
+
+    f.  Representar el dendograma e indicar dónde se sitúan esas dos agrupaciones.
+
+    ```{r}
+    plot(CA2, cex=0.8, main="Dendograma", ylab="Distancia", xlab="Observaciones", sub='')
+    ```
+
+4.  Comparar los 3 grupos formados con **`kmeans`** y con **`hclust`**.
+
+    ```{r}
+    par(mfrow = c(1, 2))
+    plot(Y1, Y2, pch = as.integer(CA$cluster), col = CA$cluster,
+         cex = 0.5, xlim = c(-3.5, 3.5), ylim = c(-3.5, 3.5))
+    legend("topright", legend = c("Y=1", "Y=2", "Y=3", "Y=4"), pch = 1:3, cex = 0.5)
+    plot(Y1, Y2, pch = as.integer(grupos), col = grupos,
+         cex = 0.5, xlim = c(-3.5, 3.5), ylim = c(-3.5, 3.5))
+    legend("topright", legend = c("Y=1", "Y=2", "Y=3"), pch = 1:3, cex = 0.5, col = grupos)
+    ```
+
+    a.  ¿Hay grupos coincidentes?
+
+    Los grupos no son coincidentes
+
+    b.  ¿Qué grupos de `kmeans` se parece más al grupo 1 de `hclust`?
+
+    El grupo 2 de **`kmeans`** se parece más al grupo 1 de **`hclust`**.
+
+    c.  ¿Cuántas flores tienen en común?
+
+    ```{r}
+    sum(which(CA$cluster == 2) %in% which(grupos == 1))
+    sum(which(CA$cluster == 1) %in% which(grupos == 2))
+    ```
+    Tienen en común 49 flores
+
+    c.  ¿Cuáles son las flores que no tienen en común?
+
+    ```{r}
+    sum(which(CA$cluster == 1) %in% which(grupos == 1))
+    sum(which(CA$cluster == 2) %in% which(grupos == 2))
+    which(CA$cluster == 2) %in% which(grupos == 2)
+    ```
+    No tienen en común la flor 42
+    
+    d.  ¿Cuáles son las principales diferencias entre todos los grupos de ambos métodos?
+
+    e.  Comparar los 3 grupos formados por cada método con los definidos por la especie de iris. ¿Cuáles es la especie más en cada grupo formado por cada método?
+    
+    ```{r}
+    table(CA$cluster, iris$Species)
+    table(grupos, iris$Species)
+    ```
+  
+
+5.  ¿Se podría obtener un número óptimo de grupos?
+
+```{r}
+library(NbClust)
+NbClust(ds, method = 'complete', index = "all")$Best.nc
+```
+
+
+6.  ¿Cómo cambiará la distribución de los grupos si se realizara un cluster jerárquico utilizando el método del enlace simple o del vecino más próximo ( *single* )?
+
+```{r}
+CA3 = hclust(D, method = "single")
+CA3
+```
+

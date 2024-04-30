@@ -9,12 +9,23 @@ header-includes:
 - \usepackage{fvextra}
 - \DefineVerbatimEnvironment{Highlighting}{Verbatim}{breaklines, commandchars=\\\{\}}
 ---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE)
+```
+
 ```{r}
-install.packages("remotes")
-remotes::install_github("uci-ml-repo/ucimlrepo")
+library("dplyr")
+load("parkinsons.rda")
+d <- parkinsons
 ```
 
 
 ```{r}
+d$sex[d$sex == "male"] <- 1
+d$sex[d$sex == "female"] <- 2
+d$sex <- as.numeric(d$sex)
 
+summary(d)
+plot(d)
 ```
