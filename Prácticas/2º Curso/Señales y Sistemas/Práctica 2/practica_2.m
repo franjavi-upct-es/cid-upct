@@ -95,3 +95,5 @@ for i = 1:length(figs)
     % Guardar la figura en un archivo PNG:
     print(filename, '-dpng');
 end
+
+close all;

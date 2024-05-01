@@ -92,4 +92,33 @@ for i = 1:length(N_values)
 end
 
 figure(7); plot(N_values, array_mdft, "color", '#FF0000', "LineWidth", 2, N_values, array_fftdt, "color", '#007AFF', "LineWidth", 2);
-xlabel('N'); ylabel('Coste computacional (s)'); legend('mdft', 'fftdt')
+xlabel('N'); ylabel('Coste computacional (s)'); legend('DFT', 'FFT')
+
+% Obtener todas las figuras abiertas:
+figs = get(0, 'children');
+figs = flip(figs);
+
+% Recorrer todas las figuras:
+for i = 1:length(figs)
+    % Seleccionar la figura actual:
+    figure(figs(i));
+
+    % Crear el nombre del archivo:
+    filename = sprintf('Figura%d.png', i);
+
+    % Guardar la figura en un archivo PNG:
+    print(filename, '-dpng');
+end
+
+close all;
+
+n = 0:63;
+x1 = rand(1, 64);
+
+% Filtro FIR
+x2 = ones(1, 8) / 8
+
+% Definir la función de convolución circular
+convcirc = inline('real(ifft(fft(x1, N) .* fft(x2, N), N))', 'x1', 'x2', 'N');
+
+isqual(length(x1) + length(x2) - 1, conv(x1, x2))
