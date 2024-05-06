@@ -822,7 +822,7 @@ Los datos para este grupo se pueden ver haciendo:
 
 ```{r, fig.align='center'}
 ## completar aquí
-plot(d[20:39, 1:4])
+plot(d[20:39, 1:4], pch=20, cex=1.5)
 ```
 
 Para comprobar que las computaciones de *R* para los coeficientes del

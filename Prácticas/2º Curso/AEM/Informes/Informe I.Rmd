@@ -1,31 +1,179 @@
 ---
-title: "Análisis Estadístico Multivariante\\ Informe de Prácticas"
+title: "Análisis Estadístico Multivariante"
 author: "Francisco Javier Mercader Martínez"
+subtitle: Informe de Prácticas
 output:
   pdf_document:
     latex_engine: xelatex
     extra_dependencies: fvextra
+geometry: margin=1.5cm
 header-includes:
 - \usepackage{fvextra}
+- \usepackage{hyperref}
+- \usepackage{xcolor}
+- \definecolor{lightblue}{HTML}{007AFF}
 - \DefineVerbatimEnvironment{Highlighting}{Verbatim}{breaklines, commandchars=\\\{\}}
+- \hypersetup{colorlinks=true,urlcolor=lightblue, pdfborderstyle={/S/U/W 1}}
+urlcolor: #007AFF
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE)
+knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE, fig.align = "center")
 ```
 
 ```{r}
 library("dplyr")
 load("parkinsons.rda")
-d <- parkinsons
+d <- parkinsons[ , 5:17]
 ```
 
+# Estudio descriptivo inicial
+
+El conjunto de datos de Telemonitorización de la Enfermedad de Parkinson de Oxford consta de una serie de mediciones biomédicas de voz de 42 personas con enfermedad de Parkinson en etapa temprana, reclutadas para un ensayo de seis meses de un dispositivo de telemonitorización para el seguimiento remoto de la progresión de los síntomas. Las grabaciones se capturaron automáticamente en los hogares de los pacientes.
+
+El conjunto de datos `parkinsons` contiene las siguientes variables:
+
+-   **`subject`**: Entero que identifica de manera única a cada sujeto
+-   **`age`**: Edad del sujeto
+-   **`sex`**: Género del sujeto, originalmente codificado como 0/1 ahora masculino/femenino
+-   **`test_time`**: Tiempo desde el reclutamiento en el ensayo. La parte entera es el número de días desde el reclutamiento.
+-   **`motor_updrs`**: Puntuación UPDRS motora del clínico, interpolada linealmente
+-   **`total_updrs`**: Puntuación UPDRS total del clínico, interpolada linealmente
+-   **`jitter`**: Jitter KP-MDVP como porcentaje
+-   **`jitter_abs`**: Jitter absoluto KP-MDVP en microsegundos
+-   **`jitter_rap`**: Perturbación de Amplitud Relativa KP-MDVP
+-   **`jitter_ppq5`**: Cociente de Perturbación de Periodo de cinco puntos KP-MDVP
+-   **`jitter_ddp`**: Promedio de la diferencia absoluta de diferencias entre ciclos, dividido por el periodo promedio
+-   **`shimmer`**: Shimmer local KP-MDVP
+-   **`shimmer_d_b`**: Shimmer local KP-MDVP en decibelios
+-   **`shimmer_apq3`**: Cociente de Perturbación de Amplitud de tres puntos
+-   **`shimmer_apq5`**: Cociente de Perturbación de Amplitud de cinco puntos
+-   **`shimmer_apq11`**: Cociente de Perturbación de Amplitud de 11 puntos KP-MDVP
+-   **`shimmer_dda`**: Promedio de la diferencia absoluta entre diferencias consecutivas entre las amplitudes de periodos consecutivos
+-   **`nhr`**: Relación Ruido-a-Armónicos
+-   **`hnr`**: Relación Armónicos-a-Ruido
+-   **`rpde`**: Entropía de Densidad de Periodo de Recurrencia
+-   **`dfa`**: Análisis de Fluctuación Detrended
+-   **`ppe`**: Entropía de Periodo de Tono
+
+El objetivo principal de los datos es predecir las puntuaciones UPDRS motoras y totales a partir de las 16 medidas de voz. Hay alrededor de 200 grabaciones por paciente.
+
+Con todos estos datos se pretende realizar un Análisis de Componentes Principales para poder reducir la dimensionalidad de los datos manteniendo la mayor cantidad de información posible
+
+A continuación calculamos la matriz de covarianzas y de correlaciones del conjunto de datos:
 
 ```{r}
-d$sex[d$sex == "male"] <- 1
-d$sex[d$sex == "female"] <- 2
-d$sex <- as.numeric(d$sex)
-
-summary(d)
-plot(d)
+cov(d)
+cor(d)
 ```
+
+Para saber si las correlaciones anteriores son significativas, voy a utilizar la función **`rcorr()`** del paquete **`Hmisc`**, para ver tanto el valor de las correlaciones como el **`p-valor`** del contraste de significación de cada correlación
+
+```{r}
+library("Hmisc")
+
+rcorr(as.matrix(d))
+```
+
+Debido a que todos los `p-valores` son menores que 0.05, podemos decir que las correlaciones son significativas.
+
+Como existe correlación entre todas las variables, podemos confirmar que tiene sentido realizar un Análisis de Componentes Principales para reducir la dimensionalidad de los datos.
+
+A continuación vamos a calcular la media y la desviación típica de las variables
+
+```{r}
+apply(d, 2, mean)
+apply(d, 2, sd)
+```
+
+Se puede observar que las variables tienen escalas muy diferentes, por lo que es necesario estandarizar los datos antes de realizar el Análisis de Componentes Principales.
+
+Finalmente vamos a comprobar si hay observaciones que se alejan especialmente del resto. Para ello usaremos la distancia de Mahalanobis al cuadrado:
+
+```{r}
+md <- mahalanobis(d, colMeans(d), cov(d))
+plot(md, ylab = "Distancia de Mahalanobis")
+
+print("Valores más altos")
+head(sort(md, decreasing = TRUE), 20)
+print("Valores más bajos")
+head(sort(md), 10)
+```
+
+Podemos observar al ordenador los resultados obtenidos por la distancia de Mahalanobis que los valores más alto se separan por un margen considerable del resto de valores, por lo que podrían ser considerados como valores atípicos. Es cierto que si vemos todos los valores, hay una subida progresiva pero esto se debe a la gran cantidad de valores que obtenemos. Por lo que podemos considerar que los valores más altos son los que se alejan del resto.
+
+# Cálculo de las Componentes Principales
+
+Para obtener las componentes principales, utilizaremos la función **`princomp()`**:
+
+```{r}
+PCA <- princomp(d, cor = TRUE)
+```
+
+Una vez que hemos calculado los componentes principales, podemos examinar un resumen de los resultados utilizando la función **`summary()`**. Esto nos mostrará la varianza explicada por cada componente principal, que es una medida de la importancia de cada componente.
+
+```{r}
+summary(PCA, loadings = TRUE)
+```
+
+El argumento **`loadings = TRUE`** nos mostrará las cargas de las componentes principales, que son los coeficientes de las combinaciones lineales de las variables originales que forman cada componente principal. Estas cargas nos pueden dar una idea de qué variables son las más importantes en cada componente principal.
+
+Basándonos en la varianza explicada, podemos ver que la primera componente principal explica el 68.78% de la varianza total, mientras que la segunda componente principal explica el 14.88%, y la tercera componente principal explica el 11.91%. En total, las tres primeras componentes principales explican el 95.57% de la varianza total.
+
+-   El primer factor se podría llamar *parámetros vocales* que influyen en el Parkinson, ya que todos los *jitters* y todos los *shimmers* influyen positivamente, aunque sus valores absolutos son relativamente bajos. A pesar de esto, podemos observar que las variables *shimmers* influyen en mayor medida que los *jitters* (0.316 vs 0.299).
+
+-   El segundo factor se podría llamar *UPDRS del Parkinson*, al incluir las variables **`motor_updrs`** y **`total_updrs`**. Ambas influyen positivamente y en gran medida en la enfermedad de Parkinson (0.699), representando la misma importancia relativa pues creemos que utiliza dos variables complementarias para medir el mismo fenómeno.
+
+-   El tercer factor incluye *comportamiento asimétrico de los parámetros vocales*, pues lo *jitters* saturan positivamente mientras que los *shimmers* lo hacen negativamente. Es decir, a mayor fluctuación *jitter* de la voz más influencia positiva en la enfermedad de Parkinson, mientras que a menor fluctuación *shimmer* de la voz mayor influyencia positiva en la enfermedad. De ahí que se haya considerado el comportamiento asimétrico de los dos parámetros vocales.
+
+El resto de factores no se tienen en cuenta porque su varianza explicada es muy reducida.
+
+# Análisis de las Componentes Principales
+
+Primero, vamos a examinar la importancia de cada componente principal. Esto se puede hacer observando la varianza explicada por cada componente, que se puede encontrar en el resumen del PCA.
+
+```{r}
+screeplot(PCA, main="PCA", col="#007AFF")
+```
+
+El gráfico anterior, muestra la varianza explicada por cada componente principal. De ahí deducir que los 3 primeros factores son los más importantes.
+
+Además, podemos visualizar las proyecciones de los datos en las primeras dos componentes principales para ver si hay alguna estructura o agrupamiento en los datos.
+
+```{r}
+plot(PCA$scores[,1:3], main = "Proyección en las primeras tres Componentes Principales", col=c("#FF0000", "#00FF00", "#0000FF"), pch=20)
+legend("topright", legend=c("Comp. 1", "Comp. 2", "Comp. 3"), pch = 20, col=c("#FF0000", "#00FF00", "#0000FF"))
+
+```
+
+## Observaciones
+
+A lo largo de la realización del informe he podido observar que era necesario descartar algunas variables para poder realizar correctamente el ACP.
+
+## Datos a tener en cuenta
+
+En el contexto de la enfermedad de Parkinson, los términos `jitter` y `shimmer` se refieren a medidas específicas utilizadas en el análisis de la voz. Como mencioné anteriormente, el `jitter` se refiere a la variabilidad en la frecuencia fundamental de la voz. Por otro lado, el `shimmer` se refiere a la variabilidad en la amplitud de la voz.
+
+En general, los pacientes con Parkinson pueden presentar valores más altos de `jitter` y `shimmer` en comparación con las personas sin la enfermedad. Esto se debe a que la enfermedad de Parkinson puede afectar el control motor de las cuerdas vocales, lo que resulta en una mayor irregularidad en las vibraciones de las cuerdas vocales y, por lo tanto, en una mayor variabilidad tanto en la frecuencia como en la amplitud de la voz.
+
+Sin embargo, no es correcto decir que ciertos "tipos" de Parkinson tienen `jitters` positivos y `shimmers` negativos. Los valores de `jitter` y `shimmer` no se utilizan para clasificar o diferenciar entre diferentes tipos de Parkinson. En cambio, estos valores se utilizan como una herramienta para evaluar y monitorear los trastornos de la voz en los pacientes con Parkinson.
+
+Es importante tener en cuenta que aunque los valores de `jitter` y `shimmer` pueden proporcionar información valiosa sobre los trastornos de la voz en el Parkinson, no proporcionan información sobre otros posibles síntomas del Parkinson, como los trastornos del movimiento o los cambios cognitivos. Por lo tanto, es solo una pieza del rompecabezas en la evaluación y el tratamiento de esta compleja enfermedad.
+
+Además, el `jitter` y el `shimmer` pueden verse afectados por otros factores, como la tensión vocal o el estrés, por lo que siempre deben interpretarse en el contexto adecuado.
+
+## Bibliografía
+
+Aquí están recopiladas diferentes direcciones web que han resultado de mucha utilidad a la hora de adquirir una mayor capacidad de comprensión y razonamiento de los datos utilizados. Todas las conclusiones se han propuesto a partir de los resultados obtenidos, sin ningún rigor médico que halla podido influenciar o corregir la interpretación de los resultados.
+
+-   [\underline{Repositorio de GitHub del que se ha obtenido el fichero}](https://github.com/tylerlittlefield/ucimlr/blob/master/data/parkinsons.rda)
+
+-   [\underline{Síntomas y signos desconocidos de la Enfermedad de Parkinson}](https://conoceelparkinson.org/sintomas/sintomas-desconocidos-parkinson/ "Síntomas y signos desconocidos de la Enfermedad de Parkinson.")
+
+-   [\underline{¿Cuáles son los diferentes tipos de Parkinson? - STIMA}](https://stimamayores.es/tipologia-parkinson)
+
+-   [\underline{¿Qué tipos de Párkinson existen? Clases y síntomas - UCBCares}](https://ucbcares.es/pacientes/parkinson/es/content/492068505/tipos-parkinson-clases)
+
+-   [\underline{La enfermedad de Parkinson: causas, síntomas y tratamientos}](https://www.nia.nih.gov/espanol/parkinson/enfermedad-parkinson-causas-sintomas-tratamientos)
+
+-   [\underline{Análisis acústico de la voz en la enfermedad de Parkinson}](https://neurologia.com/articulo/2019414)
