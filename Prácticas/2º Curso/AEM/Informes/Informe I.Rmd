@@ -10,10 +10,7 @@ geometry: margin=1.5cm
 header-includes:
 - \usepackage{fvextra}
 - \usepackage{hyperref}
-- \usepackage{xcolor}
-- \definecolor{lightblue}{HTML}{007AFF}
 - \DefineVerbatimEnvironment{Highlighting}{Verbatim}{breaklines, commandchars=\\\{\}}
-- \hypersetup{colorlinks=true,urlcolor=lightblue, pdfborderstyle={/S/U/W 1}}
 urlcolor: #007AFF
 ---
 
@@ -148,7 +145,7 @@ legend("topright", legend=c("Comp. 1", "Comp. 2", "Comp. 3"), pch = 20, col=c("#
 
 ## Observaciones
 
-A lo largo de la realización del informe he podido observar que era necesario descartar algunas variables para poder realizar correctamente el ACP.
+A lo largo de la realización del informe he podido observar que era necesario descartar algunas variables para poder realizar correctamente el ACP, como por ejemplo las primeras cuatro variables (**`subject`**, **`sex`**, **`age`** y **`test_time`**) ya que eran *variables de control*.
 
 ## Datos a tener en cuenta
 

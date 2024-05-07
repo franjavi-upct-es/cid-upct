@@ -1,9 +1,12 @@
 ---
 title: "Análisis Estadístico Multivariante"
-subtitle: "Problemas propuestos de Análisis Cluster"
 author: "Francisco Javier Mercader Martínez"
+subtitle: Problemas propuestos de Análisis Cluster
 output:
-  pdf_document: 
+  html_document:
+    toc_depth: '4'
+    df_print: paged
+  pdf_document:
     latex_engine: xelatex
     extra_dependencies: fvextra
     toc_depth: 4
