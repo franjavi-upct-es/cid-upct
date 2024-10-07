@@ -1,0 +1,26 @@
+---
+title: "Seminario de Series Temporales"
+author: "Francisco Javier Mercader Martínez"
+date: "08/10/2024"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+
+# Definir paquetes requeridos
+paquetes_requeridos <- c("ggplot2", "dplyr", "forecast", "tseries", "imputeTS", "caret")
+
+# Función para verificar si los paquetes están instalados
+instalar_paquete <- function(paquete) {
+  if (!require(paquete, character.only = TRUE)) {
+    message(paste("Instalado el paquete", paquete))
+    install.packages(paquete, dependencies = TRUE)
+    library(paquete, character.only = TRUE)
+  }
+}
+
+# Instalar paquetes necesarios
+invisible(sapply(paquetes_requeridos, instalar_paquete))
+```
+
