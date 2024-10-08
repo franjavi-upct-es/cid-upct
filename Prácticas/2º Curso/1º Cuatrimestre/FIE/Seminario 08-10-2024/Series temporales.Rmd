@@ -6,7 +6,7 @@ output: pdf_document
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = FALSE, options(digits = 4))
+knitr::opts_chunk$set(echo = TRUE, options(digits = 4))
 
 # Definir paquetes requeridos
 paquetes_requeridos <- c("ggplot2", "dplyr", "forecast", "tseries", "imputeTS", "caret")
@@ -31,7 +31,7 @@ head(Nile, n = 10)
 tail(Nile, n = 12)
 ```
 
-```{r}
+```{r, warning=FALSE}
 summary(AirPassengers)
 library(ggfortify)
 autoplot(AirPassengers, ts.colour = "red", ts.linetype = "dashed")
@@ -78,5 +78,27 @@ plot(time_series)
 is.ts(data_vector)
 is.ts(time_series)
 
+```
+
+```{r}
+x <- ts(rnorm(100), frequency = 12)
+dx = diff(x, lag=4)
+ts.plot(dx)
+```
+
+```{r}
+white_noise <- arima.sim(model = list(order = c(0,0,0)), n = 100)
+ts.plot(white_noise)
+```
+
+```{r}
+white_noise_2 <- arima.sim(model = list(order = c(0, 0, 0)), n = 100, mean = 100, sd = 10)
+ts.plot(white_noise_2)
+
+y <- arima.sim(model = list(order = c(0,0,0)), n = 100)
+arima(y, order = c(0,0,0))
+arima(y, order = c(0,0,0))
+mean(y)
+var(y)
 ```
 
