@@ -6,7 +6,7 @@ output: pdf_document
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = FALSE)
+knitr::opts_chunk$set(echo = FALSE, options(digits = 4))
 
 # Definir paquetes requeridos
 paquetes_requeridos <- c("ggplot2", "dplyr", "forecast", "tseries", "imputeTS", "caret")
@@ -22,5 +22,61 @@ instalar_paquete <- function(paquete) {
 
 # Instalar paquetes necesarios
 invisible(sapply(paquetes_requeridos, instalar_paquete))
+```
+
+```{r}
+print(Nile)
+length(Nile)
+head(Nile, n = 10)
+tail(Nile, n = 12)
+```
+
+```{r}
+summary(AirPassengers)
+library(ggfortify)
+autoplot(AirPassengers, ts.colour = "red", ts.linetype = "dashed")
+autoplot(co2, ts.colour = "red", ts.linetype = "dashed")
+autoplot(co2, ts.colour = "red", ts.linetype = "dashed") + theme_minimal()
+summary(co2)
+```
+
+```{r}
+autoplot(AirPassengers)
+start(AirPassengers)
+end(AirPassengers)
+deltat(AirPassengers)
+frequency(AirPassengers)
+time(AirPassengers)
+cycle(AirPassengers)
+```
+```{r}
+time_index <- time(AirPassengers)
+
+AirPassengers[which(floor(time_index) == 1956)] <- NA
+
+plot(AirPassengers)
+
+mean(AirPassengers)
+
+mean(AirPassengers, na.rm = TRUE)
+
+AirPassengers[85:96] <- mean(AirPassengers, na.rm = TRUE)
+
+plot(AirPassengers)
+
+rm(AirPassengers)
+points(AirPassengers, type = "l", col = 2, lty = 3)
+```
+
+```{r}
+data_vector <- c(10, 6, 11, 8, 10, 3, 6, 9)
+data_vector
+time_series <- ts(data_vector)
+plot(time_series)
+time_series <- ts(data_vector, start = 2001, frequency = 1)
+plot(time_series)
+is.ts(data_vector)
+is.ts(time_series)
+
 ```
 
