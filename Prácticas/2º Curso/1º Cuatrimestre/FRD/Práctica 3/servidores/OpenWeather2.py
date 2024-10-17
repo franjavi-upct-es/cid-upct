@@ -8,18 +8,18 @@ def get_weather():
     # Obtener el parámetro de la ciudad
     ciudad = request.args.get("q")
 
-    # Asegurar de que el parámetro de ciudad esté presente
+    # Asegurarse de que el parámetro de ciudad esté presente
     if not ciudad:
-        return "Error: La cuidad no ha sido proporcionada.", 400
+        return "Error: La ciudad no ha sido proporcionada.", 400
 
     # Clave API de OpenWeather
     api_key = '83de65eb45b2381624501b8d4a320409'
-    url = f"http://api.openweathermap.org/data/2.5/weather?q={ciudad}d&appid={api_key}d&units=metric"
+    url = f"http://api.openweathermap.org/data/2.5/weather?q={ciudad}&appid={api_key}&units=metric"
 
     # Hacer solicitud a la API de OpenWeather
     response = requests.get(url)
 
-    # Verificar si la respuesta fue existosa
+    # Verificar si la respuesta fue exitosa
     if response.status_code != 200:
         return f"Error: No se pudo obtener el clima para {ciudad}", response.status_code
 
