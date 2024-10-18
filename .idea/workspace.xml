@@ -93,7 +93,7 @@
     ]
   }
 }</component>
-  <component name="RunManager">
+  <component name="RunManager" selected="Python.OpenWeather2">
     <configuration name="OpenWeather2" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="cid-upct" />
       <option name="ENV_FILES" value="" />
@@ -191,7 +191,11 @@
       <workItem from="1729148529020" duration="290000" />
       <workItem from="1729148834215" duration="605000" />
       <workItem from="1729152634899" duration="342000" />
-      <workItem from="1729158884083" duration="1301000" />
+      <workItem from="1729158884083" duration="1678000" />
+      <workItem from="1729181431933" duration="649000" />
+      <workItem from="1729187888543" duration="645000" />
+      <workItem from="1729235171458" duration="3995000" />
+      <workItem from="1729245874621" duration="290000" />
     </task>
     <task id="LOCAL-00001" summary="Práctica 2 de Optimización II terminada y entregada">
       <option name="closed" value="true" />
@@ -265,7 +269,15 @@
       <option name="project" value="LOCAL" />
       <updated>1729152694227</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="Últimos ajustes del código para la Práctica 3 de FRD">
+      <option name="closed" value="true" />
+      <created>1729160519998</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1729160519998</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -302,7 +314,8 @@
     <MESSAGE value="Tarea 2 de FRD&#10;Ediciones del PDF de Práctica 1 de ADA&#10;Práctica 5 de Optimización" />
     <MESSAGE value="Práctica 3 de FRD" />
     <MESSAGE value="Hoja de Ejercicios Parte II Optimización II" />
-    <option name="LAST_COMMIT_MESSAGE" value="Hoja de Ejercicios Parte II Optimización II" />
+    <MESSAGE value="Últimos ajustes del código para la Práctica 3 de FRD" />
+    <option name="LAST_COMMIT_MESSAGE" value="Últimos ajustes del código para la Práctica 3 de FRD" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -323,7 +336,7 @@
     <SUITE FILE_PATH="coverage/aement_py$server2__1_.coverage" NAME="server2 (1) Coverage Results" MODIFIED="1729084956404" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Prácticas/2º Curso/1º Cuatrimestre/FRD/Práctica 3/servidores" />
     <SUITE FILE_PATH="coverage/aement_py$prediccion.coverage" NAME="prediccion Coverage Results" MODIFIED="1728482483205" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Prácticas/2º Curso/1º Cuatrimestre/FRD/Práctica 3" />
     <SUITE FILE_PATH="coverage/aement_py$app.coverage" NAME="app Coverage Results" MODIFIED="1729082687816" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$USER_HOME$/Programas_Merpiel_GCT/chatbot_project" />
-    <SUITE FILE_PATH="coverage/aement_py$test_server.coverage" NAME="test_server Coverage Results" MODIFIED="1729160175919" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Prácticas/2º Curso/1º Cuatrimestre/FRD/Práctica 3/servidores" />
+    <SUITE FILE_PATH="coverage/aement_py$test_server.coverage" NAME="test_server Coverage Results" MODIFIED="1729160305144" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Prácticas/2º Curso/1º Cuatrimestre/FRD/Práctica 3/servidores" />
     <SUITE FILE_PATH="coverage/aement_py$OpenWeather2.coverage" NAME="OpenWeather2 Coverage Results" MODIFIED="1729159535550" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Prácticas/2º Curso/1º Cuatrimestre/FRD/Práctica 3/servidores" />
     <SUITE FILE_PATH="coverage/aement_py$books.coverage" NAME="books Coverage Results" MODIFIED="1729159453831" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Prácticas/2º Curso/1º Cuatrimestre/FRD/Práctica 3/servidores" />
   </component>
