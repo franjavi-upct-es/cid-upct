@@ -1,4 +1,6 @@
 import requests
+import matplotlib.pyplot as plt
+import pandas as pd
 
 # Diccionario predefinido para mapear los nombres de las ciudades
 city_codes = {
@@ -29,11 +31,34 @@ def main():
         print("No se pudieron obtener los datos del tiempo.")
         return
 
-    print(f"Temperaturas para los próximos 5 días en {city_name}:")
+    # Procesar los datos para la gráfica
+    dates = []
+    temperatures = []
     for forecast in weather_data['list']:
-        date = forecast['dt_txt']
-        temp = forecast['main']['temp']
+        dates.append(forecast['dt_txt'])
+        temperatures.append(forecast['main']['temp'])
+
+    # Imprime los datos en la consola
+    print(f"Temperaturas para los próximos 5 días en {city_name}:")
+    for date, temp in zip(dates, temperatures):
         print(f"{date}: {temp} ºC")
 
+    # Convertir los datos en un DataFrame
+    df = pd.DataFrame({'Fecha': pd.to_datetime(dates), 'Temperatura (ºC)': temperatures})
+
+    # Crear la gráfica
+    plt.figure(figsize=(10, 6))
+    plt.plot(df['Fecha'], df['Temperatura (ºC)'], marker='o', linestyle='-', color='b')
+
+    # Etiquetas y título
+    plt.title(f'Temperaturas para los próximos 5 días en {city_name}')
+    plt.xlabel('Fecha')
+    plt.ylabel('Temperatura (ºC)')
+    plt.xticks(rotation=45)
+    plt.grid(True)
+
+    # Mostrar la gráfica
+    plt.tight_layout()
+    plt.show()
 if __name__ == '__main__':
     main()

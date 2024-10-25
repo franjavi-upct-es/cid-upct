@@ -10,8 +10,6 @@ headers = {
 
 response = requests.request("GET", url, headers=headers, params=querystring)
 
-
-
 if response.status_code == 200:
 	datos = response.json()
 	url_datos = datos["datos"]

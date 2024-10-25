@@ -15,13 +15,20 @@ def obtener_md5(texto):
     respuesta = {"md5": md5_resumen}
     return jsonify(respuesta)
 
-@app.route('/echo/<string:campo1>/<string:valor1>/<string:campo2>/<string:valor2>')
-def echo(campo1, valor1, campo2, valor2):
-    respuesta = {
-        campo1: valor1,
-        campo2: valor2
-    }
-    return jsonify(respuesta)
+@app.route('/echo', methods=['POST'])
+def echo():
+    # Obtén los datos del cuerpo de la solicitud en formato JSON
+    data = request.get_json()
+    if not data:
+        return jsonify({'error': 'No JSON data provided'}), 400
+
+    # Validar si los datos recibidos son un diccionario
+    if not isinstance(data, dict):
+        return jsonify({'error': 'Invalid format, expected a JSON object'}), 400
+
+    # Responder con los mismos pares campo-valor
+    response = {campo: valor for campo, valor in data.items()}
+    return jsonify(response)
 
 if __name__ == '__main__':
     app.run(debug=True)
