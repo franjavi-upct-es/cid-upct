@@ -1,0 +1,401 @@
+---
+title: "Estimación paramétrica"
+author:
+  - name: Félix Belzunce
+    affiliations: Universidad de Murcia
+  - name:  María del Carmen Bueso, Pilar Sanmartín
+    affiliations: Universidad Politécnica de Cartagena
+format: html
+editor: visual
+title-block-banner: true
+self-contained: true
+---
+
+## Introducción
+
+El objetivo de esta práctica es afianzar la comprensión de los conceptos asociados a la estimación puntual de parámetros, las propiedades de los estimadores así como de su distribución muestral.
+
+Compararemos dos métodos de estimación para un modelo asociado a la distribución gamma.
+
+## El modelo
+
+Consideramos una muestra aleatoria simple $X_1,\cdots, X_n$ de una distribución gamma de parámetros $\alpha$ y $\beta$.
+
+::: callout-note
+## Recordatorio sobre la distribución gamma
+
+La familia gamma de distribuciones es una familia parametrizada por dos parámetros $\alpha > 0$ y $\beta >0$, que admite por función de densidad:
+
+$$f(x;\alpha, \beta) = \frac 1 {\Gamma(\alpha)\beta^\alpha} x^{\alpha - 1}e^{-x/\beta}, 0<x<\infty.$$
+
+La función $\Gamma$ está definida por
+
+$$\Gamma(\alpha) = \int_0^{+\infty}t^{\alpha - 1} e^{-t}dt, \alpha>0,$$
+
+y es fácil demostrar que cumple
+
+$$\Gamma(\alpha + 1) = \alpha\Gamma(\alpha).$$
+:::
+
+## Generación de las muestras simuladas de observaciones
+
+En este apartado, nos disponemos a simular muestras de valores de una distribución gamma de parámetros $\alpha$ y $\beta$ que podremos fijar.\
+Podremos decidir el tamaño de las m.a.s. que vamos a simular, es decir, el valor de $n$ de la m.a.s. $X_1,\cdots, X_n$ y también del número total de muestras `n_muestras` que necesitamos.
+
+Siguiendo el procedimiento usado en la práctica sobre distribución en el muestreo, escribid una función `simular_muestras` que admita como parámetros `n_muestras`, `n`, `alpha`, `beta` y que devuelva una lista con `n_muestras` elementos que son vectores de $n$ valores simulados de la distribución gamma$(\alpha, \beta)$.
+
+```{r}
+#| warning: false
+library(tidyverse)
+simular_muestras <- function(n_muestras, n, alpha, beta){
+# Completar aquí
+  replicate(n_muestras,
+    rgamma(n, shape = alpha, scale = beta),
+    simplify = FALSE
+  )
+# Fin Completar aquí
+}
+set.seed(314159)
+simular_muestras(n_muestras = 5, n = 4, alpha = 3, beta = 2)
+```
+
+## Estimación usando el método de los momentos
+
+### Cálculo de los momentos
+
+Los dos primeros momentos de una distribución gamma de parámetros $\alpha$ y $\beta$, son:
+
+$$ E[X] = \alpha\beta, $$
+
+$$ E[X^2] = (\alpha + 1)\alpha\beta $$ (como ejercicio, comprobad que sabéis obtenerlos). En el problema 9 de la hoja de problemas, se demuestra que la expresión de los estimadores de $\alpha$ y $\beta$ usando el método de los momentos es:
+
+$$ \hat\alpha = \frac{(\bar{X})^2}{\overline{X^2} - (\bar{X})^2},$$ {#eq-alphahat}
+
+$$ \hat\beta = \frac{\overline{X^2} - (\bar{X})^2}{\bar{X}}.$$
+
+### Implementación del cálculo de los estimadores
+
+Implementad una función llamada `calcular_estimadores_momentos` que admita como parámetros el valor de una m.a.s., es decir $x =(x_1, \cdots, x_n)$ y que devuelva un tibble (o un dataframe) con dos columnas, llamadas `alphahat` y `betahat`, y una fila, con los valores estimados de $\alpha$ y $\beta$.
+
+```{r}
+#| warning: false
+library(tibble)
+
+
+calcular_estimadores_momentos <- function(x){
+# Completar aquí
+  # Calcular las medias necesarias
+  media_X <- mean(x)
+  media_X2 <- mean(x^2)
+  
+  # Calcular los estimadores de α y β usando las fórmulas proporcionadas
+  alphahat <- (media_X)^2 / (media_X2 - (media_X)^2)
+  betahat <- (media_X2 - (media_X)^2) / media_X
+  tibble(alphahat = alphahat, betahat = betahat)
+# Fin Completar aquí
+}
+x <- c(2.79, 4.32, 6.01, 3.82, 3.98, 2.85, 1.35, 1.17, 3.50, 1.10)
+calcular_estimadores_momentos(x) %>%
+  mutate(across(everything(), round, 2))
+```
+
+### Cálculo de los valores de los estimadores para las muestras simuladas
+
+-   Usando la función `simular_muestras` definida anteriormente, cread la lista `lista_muestras`, con valores simulados especificando `n_muestras= 5, n = 100, alpha = 3, beta = 2`.
+-   A continuación, obtened un tibble con dos columnas llamadas `alphahat` y `betahat`, y `n_muestras` filas. Cada una de sus filas contiene los valores estimados con el método de los momentos de $\alpha$ y $\beta$ para las `n_muestras` muestras. LLamaréis este tibble resultado `valores_estimadores`.
+
+::: callout-tip
+## Pro tips
+
+-   Tendréis que usar `map_dfr` de `purrr` que aplica una función a una lista devolviendo un dataframe.
+
+-   Procurad usar un pipe!
+:::
+
+```{r}
+#| warning: false
+library(purrr)
+set.seed(314159)
+# Completar aquí
+lista_muestra <- simular_muestras(n_muestras = 5, n = 100, alpha = 3, beta = 2)
+lista_muestra
+
+valores_estimadores <- lista_muestra |>
+  map_dfr(~ calcular_estimadores_momentos(.)) |>
+  mutate(across(everything(), round, 2))
+  # Fin Completar aquí
+valores_estimadores
+```
+
+### Evolución del sesgo y del varianza de los estimadores
+
+#### Cálculo del sesgo y del error cuadrático medio (MSE)
+
+El sesgo se define como la diferencia entre la esperanza del estimador y el valor real del parámetro. Como estamos en una situación de simulación, podemos calcular una aproximación del sesgo calculando la diferencia entre el promedio de los valores simulados del estimador $\hat{\theta}_{1},\cdots,\hat{\theta}_k$ , $k=$n_muestras y el valor real del parámetro:
+
+$$\frac{1}{k}\sum_{i=1}^{k}(\hat{\theta}_i-\theta).$$
+
+El error cuadrático medio (Mean Square Error, MSE) evalúa la dispersión de la distribución muestral del estimador respecto al valor real del parámetro. Se define como
+
+$$MSE(\hat{\theta}) = E_\theta[(\hat{\theta} - \theta)^2], $$
+
+para un estimador $\hat{\theta}$ del parámetro $\theta$, la esperanza se calcula usando la distribución con valor del parámetro $\theta$.\
+Al igual que para el sesgo, lo aproximaremos usando el promedio de las diferencias al cuadrado entre los valores del estimador y el valor real del parámetro:
+
+$$\frac{1}{k}\sum_{i=1}^{k}(\hat{\theta}_i-\theta)^2.$$
+
+Usando la instrucción `summarise` de la librería `dplyr` que está incluida en `tidyverse`, escribid una función llamada `calcular_sesgo_mse` que admita como parámetros:
+
+-   un tibble `valores_estimadores` con los valores calculados de los estimadores de $\alpha$ y $\beta$, resultado del apartado anterior,
+
+-   los valores `alpha_real` y `beta_real` que son los valores de los parámetros que hemos usado en las simulaciones y que buscamos estimar.
+
+La función devolverá un tibble con cuatro columnas `sesgo_alpha`, `mse_alpha`, `sesgo_beta`, `mse_beta`.
+
+```{r}
+# Completar aquí
+
+calcular_sesgo_mse <- function(valores_estimadores, alpha_real, beta_real) {
+  valores_estimadores |>
+    summarise(
+      sesgo_alpha = mean(alphahat - alpha_real),
+      mse_alpha = mean((alphahat - alpha_real)^2),
+      sesgo_beta = mean(betahat - beta_real),
+      mse_beta = mean((betahat - beta_real)^2)
+    )
+}
+
+# Fin Completar aquí
+valores_estimadores |>
+    calcular_sesgo_mse(alpha_real = 3, beta_real = 2)
+```
+
+#### Evolución del sesgo y MSE si el tamaño de la muestra crece
+
+Queremos comprobar la evolución del sesgo y del MSE si aumenta el tamaño muestral. Recompilando lo hecho en las secciones anteriores, calculad sesgo y mse para los estimadores calculados con el método de los momentos para $\alpha$ y $\beta$, considerando `n_muestras = 10000`, $\alpha = 3, \beta = 2$, y usando los tamaños muestrales $n = 10, 100, 1000$ y $10000$.
+
+Para ello, podréis definir una función `calcular_flujo_completo` que admita como parámetros `n_muestras, n, alpha_real, beta_real`, y como parámetro la función `calcular_estimadores`, que recapitule los tres pasos que hemos seguido en el procedimiento hasta el momento (simular muestras, calcular los estimadores para las muestras, calcular el sesgo y el mse). Añadimos al dataframe una columna `n` para registrar el tamaño muestral considerado.
+
+```{r}
+set.seed(314159)
+# Completar aquí
+
+calcular_flujo_completo <- function(n_muestras, n, alpha_real, beta_real, fun) {
+  # Simular muestras
+  lista_muestras <- simular_muestras(n_muestras = n_muestras, n = n, alpha = alpha_real, beta = beta_real)
+  
+  # Calcular estimadores para cada muestra
+  valores_estimadores <- lista_muestras %>%
+    map_dfr(~ calcular_estimadores_momentos(.))
+  
+  # Calcular el sesgo y el MSE
+  resultados <- calcular_sesgo_mse(valores_estimadores, alpha_real, beta_real)
+  
+  # Agrupar el tamaño de muestra como una columna
+  resultados <- resultados %>%
+    mutate(n = n)
+  
+  resultados
+}
+
+# Fin Completar aquí
+calcular_flujo_completo(
+    n_muestras = 10000,
+    n  = 10,
+    alpha_real = 3,
+    beta_real = 2,
+    calcular_estimadores_momentos
+)
+```
+
+En la celda siguiente, se crea un dataframe con los valores de sesgo y mse para los distintos valores de $n$, se aprovecha la función `map_dfr` de la librería `purrr`, y la notación para funciones anónimas (el segundo argumento de `map_dfr`) de esa misma librería. Podéis consultar la "cheat sheet" de `purrr` en este [enlace](https://github.com/rstudio/cheatsheets/blob/main/purrr.pdf).
+
+```{r}
+set.seed(314159)
+# Guardos estos datos a modo de variable
+map_dfr(
+    c(10, 100, 1000, 10000), 
+    \(n)   calcular_flujo_completo(
+               n_muestras = 10000,
+               n  = n,
+               alpha_real = 3,
+               beta_real = 2,
+               calcular_estimadores_momentos
+           )
+)
+```
+
+Comprobamos cómo el sesgo y el MSE decrecen rápidamente al aumentar $n$. Por lo que las simulaciones parecen indicar que ambos estimadores son consistentes.
+
+::: callout-note
+## Opcional: representación gráfica
+
+¿Podríais representar gráficamente la evolución del sesgo para cada uno de los estimadores?
+:::
+
+```{r}
+set.seed(314159)
+resultados <- map_dfr(
+    1:200,
+    \(n) calcular_flujo_completo(
+        n_muestras = 10000,
+        n = n,
+        alpha_real = 3,
+        beta_real = 2,
+        calcular_estimadores_momentos
+    )
+)
+
+resultados_long <- resultados %>%
+    pivot_longer(cols = starts_with("sesgo"), names_to = "estimador", values_to = "sesgo") %>%
+    mutate(estimador = recode(estimador, "sesgo_alpha" = "alpha_hat", "sesgo_beta" = "beta_hat"))
+
+ggplot(resultados_long, aes(x = n, y = sesgo, color = estimador)) + 
+    geom_line() + 
+    scale_color_manual(
+        values = c("alpha_hat" = "red", "beta_hat" = "blue"),
+        labels = c("alpha_hat" = expression(hat(alpha)), "beta_hat" = expression(hat(beta)))
+    ) +
+    labs(
+        title = "Evolución del sesgo de los estimadores de α y β",
+        x = "n",
+        y = "Sesgo",
+        color = "Estimador"
+    )
+```
+
+## Método de máxima verosimilitud
+
+### Cálculo de la verosimilitud
+
+En el problema 9 de la relación de problemas, hemos demostrado que la log-verosimilitud (el logaritmo de la verosimilitud) para $(\alpha, \beta)$ asociada a una m.a.s. $X_1, \cdots, X_n$ de una distribución gamma$(\alpha, \beta)$ es:
+
+$$\log L_n(\alpha, \beta) = n(\alpha - 1)\overline{\log x} - n\log \Gamma(\alpha) - n\alpha\log \beta - n\bar{x} / \beta,$$
+
+donde $\overline{\log x} = \frac 1 n \sum_{i =1}^n \log x_i$.
+
+### Cálculo del estimador de máxima verosimilitud
+
+También hemos deducido que, para un valor de $\alpha$ fijado, el valor de $\beta$ que maximiza la log-verosimilitud es:
+
+$$\hat{\beta} = \bar{x} / \alpha.$$
+
+Por consiguiente, podemos encontrar el estimador de máxima verosimilitud en dos pasos:
+
+1.  Encontramos el valor $\hat{\alpha}$ que maximiza $\alpha\mapsto \log L(\alpha, \bar{x}/ \alpha)$.
+2.  Calculamos $$\hat{\beta} = \bar{x} / \hat{\alpha}.$$
+
+En la asignatura de "Optimización" del primer cuatrimestre, veréis varios algoritmos de maximización para llevar a cabo el primer paso. En nuestro caso, usaremos la función `optimize`en `R`, que lleva a cabo la optimización de una función de una variable en un intervalo.
+
+#### Primer paso: maximización de la log-verosimilitud parcial $\alpha\mapsto \log L(\alpha, \bar{x}/ \alpha)$
+
+Definir una función llamada `calcular_logverosimilitud_alpha`, que admita como parámetros `alpha` y `x`, el vector de observaciones, y que devuelva $\log L(\alpha, \bar{x}/ \alpha)$.
+
+```{r}
+# Completar aquí
+
+calcular_logverosimilitud_alpha <- function(alpha, x) {
+  n <- length(x)
+  x_bar <- mean(x)
+  log_x_bar <- mean(log(x))
+  beta <- x_bar / alpha
+  
+  # Calcular la log-verosimilitud parcial usando beta = x_bar / alpha
+  log_L_alpha <- n * (alpha - 1) * log_x_bar - n * lgamma(alpha) - n * alpha * log(beta) - n * x_bar / beta
+  
+  return(log_L_alpha)
+}
+
+# Fin Completar aquí
+x <- c(2.79, 4.32, 6.01, 3.82, 3.98, 2.85, 1.35, 1.17, 3.50, 1.10)
+tibble(
+    alpha = seq(0.001, 15, by = 0.01),
+    ll = calcular_logverosimilitud_alpha(alpha, x)
+) |>
+    ggplot(aes(x = alpha, y = ll)) +
+    geom_line(col = "blue") +
+    labs(x = expression(alpha), y = "log-verosimilitud parcial")
+```
+
+Para usar `optimize`, necesitamos proporcionar la función que queremos optimizar, un intervalo donde buscar el óptimo, y especificar que buscamos un máximo.
+
+Para especificar el intervalo, podemos empezar en 0 hasta dos veces el estimador de $\alpha$ que obtuvimos por el método de los momentos, por ejemplo, ver @eq-alphahat.
+
+Como resultado obtenemos el valor en el que se alcanza el máximo (\$maximum) y el valor de la función en este punto (\$objective).
+
+```{r}
+alpha0 <-  (mean(x))^2 / (mean(x^2) - (mean(x))^2)
+optimize(
+    \(alpha) calcular_logverosimilitud_alpha(alpha = alpha, x),
+    interval = c(0, 2 * alpha0),
+    maximum = TRUE
+)
+```
+
+Definid una función `calcular_estimadores_mv`, con la misma estructura que la función `calcular_estimadores_momentos`, que devuelva los valores de los estimadores de máxima verosimilitud, aprovechando `optimize`, tal como lo acabamos de ver.
+
+```{r}
+# Completar aquí
+
+# Definir la función para calcular los estimadores de máxima verosimilitud
+calcular_estimadores_mv <- function(x) {
+  # Definir la función de log-verosimilitud parcial negativa para minimizarla
+  logverosimilitud_parcial_neg <- function(alpha) {
+    -calcular_logverosimilitud_alpha(alpha, x)
+  }
+  
+  # Optimizar la log-verosimilitud parcial con respecto a alpha
+  resultado_opt <- optimize(logverosimilitud_parcial_neg, interval = c(0.001, 15))
+  alphahat <- resultado_opt$minimum
+  
+  # Calcular betahat usando el valor óptimo de alphahat
+  x_bar <- mean(x)
+  betahat <- x_bar / alphahat
+  
+  # Devolver los estimadores en un tibble
+  tibble(alphahat = alphahat, betahat = betahat)
+}
+
+# Fin Completar aquí
+x <- c(2.79, 4.32, 6.01, 3.82, 3.98, 2.85, 1.35, 1.17, 3.50, 1.10)
+calcular_estimadores_mv(x)
+```
+
+Ahora, podemos aprovechar nuestra definición de `calcular_flujo_completo`, tal como lo hemos aplicado para los estimadores calculados con el método de momentos.
+
+```{r}
+set.seed(314159)
+# Completar aquí
+
+# Fin Completar aquí
+```
+
+Comparad los resultados obtenidos con los de los estimadores con el método de los momentos. ¿Qué conclusiones sacáis?
+
+## Por si os interesa
+
+Podríamos haber hecho los cálculos con ambos métodos en una única función llamada a `map_dfr`, para ello generamos una lista con todas las combinaciones de `n`, y de los dos métodos. Aquí está el código por si os interesa. Usa varias funciones del conjunto de paquetes del tidyverse.
+
+```{r}
+set.seed(314159)
+parameters <- expand_grid(
+    n = c(10, 100, 1000, 10000),
+    tibble(
+        fn_metodo = c(calcular_estimadores_momentos, calcular_estimadores_mv),
+        metodo = c("Método de los momentos", "Máxima verosimilitud")
+    )
+)
+parameters <-  parameters |>
+    split(1:nrow(parameters))
+map_dfr(
+    parameters, 
+    \(par)   calcular_flujo_completo(
+               n_muestras = 10000,
+               n  = par$n,
+               alpha_real = 3,
+               beta_real = 2,
+               par$fn_metodo
+             ) |>
+             transform(metodo = par$metodo)
+)
+```
