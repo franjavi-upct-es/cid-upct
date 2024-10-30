@@ -30,7 +30,7 @@ CREATE TABLE empleados (
     nombre VARCHAR2(50) NOT NULL,
     salario DECIMAL(10, 2),
     id_departamento INT,
-    CONSTRAINT salario_ok CHECK (saldo>0),
+    CONSTRAINT salario_ok CHECK (salario>0),
     CONSTRAINT fk_departamento FOREIGN KEY (id_departamento) REFERENCES departamentos(id_departamento)
 );
 
@@ -59,7 +59,11 @@ INSERT INTO empleados (id_empleado, nombre, salario, id_departamento) VALUES (1,
 INSERT INTO empleados (id_empleado, nombre, salario, id_departamento) VALUES (2, 'Jose Carlos Sanchez', 1320.20, 2);
 INSERT INTO empleados (id_empleado, nombre, salario, id_departamento) VALUES (3, 'Francisco Javier Mercader', 2000.00, 3);
 
-SELECT * FROM departamentos;
 SELECT * FROM empleados;
+SELECT * FROM departamentos;
 
+-- Primero eliminamos la tabla 'empleados' para evitar conflictos con FK
+-- DROP TABLE empleados;
 
+-- Luego eliminamos la tabla 'departamento'
+-- DROP TABLE departamentos;
