@@ -339,21 +339,18 @@ Definid una función `calcular_estimadores_mv`, con la misma estructura que la f
 
 # Definir la función para calcular los estimadores de máxima verosimilitud
 calcular_estimadores_mv <- function(x) {
-  # Definir la función de log-verosimilitud parcial negativa para minimizarla
-  logverosimilitud_parcial_neg <- function(alpha) {
-    -calcular_logverosimilitud_alpha(alpha, x)
-  }
-  
-  # Optimizar la log-verosimilitud parcial con respecto a alpha
-  resultado_opt <- optimize(logverosimilitud_parcial_neg, interval = c(0.001, 15))
-  alphahat <- resultado_opt$minimum
-  
-  # Calcular betahat usando el valor óptimo de alphahat
-  x_bar <- mean(x)
-  betahat <- x_bar / alphahat
+  alpha0 <- (mean(x))^2 / mean(x^2) - (mean(x)^2)
+  alphahat <- optimise(
+    \(alpha) calcular_logverosimilitud_alpha(alpha = alpha, x),
+    interval = c(0, 2 * alpha0),
+    maximum = TRUE
+  )$maximun
   
   # Devolver los estimadores en un tibble
-  tibble(alphahat = alphahat, betahat = betahat)
+  tibble(
+    alphahat = alphahat, 
+    betahat = mean(x) / alphahat
+    )
 }
 
 # Fin Completar aquí

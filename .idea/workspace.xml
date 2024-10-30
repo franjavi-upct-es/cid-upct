@@ -5,8 +5,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="111d68fa-ad21-4c51-9998-59c24c3e9845" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/Prácticas/2º Curso/1º Cuatrimestre/FIE/Práctica 1/practica1.rmd" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/dataSources.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/sqldialects.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Prácticas/2º Curso/1º Cuatrimestre/BD I/Práctica 1 Sesión 3/Local OracleXE.sql" beforeDir="false" afterPath="$PROJECT_DIR$/Prácticas/2º Curso/1º Cuatrimestre/BD I/Práctica 1 Sesión 3/Local OracleXE.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Prácticas/2º Curso/1º Cuatrimestre/FIE/src/03-estimacion/estimacion_handout.qmd" beforeDir="false" afterPath="$PROJECT_DIR$/Prácticas/2º Curso/1º Cuatrimestre/FIE/src/03-estimacion/estimacion_handout.qmd" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -42,12 +45,12 @@
     &quot;assignee&quot;: &quot;franjavi-upct-es&quot;
   }
 }</component>
-  <component name="GithubPullRequestsUISettings">{
-  &quot;selectedUrlAndAccountId&quot;: {
-    &quot;url&quot;: &quot;https://github.com/franjavi-upct-es/cid-upct&quot;,
-    &quot;accountId&quot;: &quot;760dde57-ba1d-4ca0-a7f4-443f1d177b23&quot;
+  <component name="GithubPullRequestsUISettings"><![CDATA[{
+  "selectedUrlAndAccountId": {
+    "url": "https://github.com/franjavi-upct-es/cid-upct",
+    "accountId": "b44a20dc-435b-4334-a92f-0487ac9c60f7"
   }
-}</component>
+}]]></component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 7
 }</component>
@@ -60,42 +63,46 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Python.E_AR_enunciado.executor&quot;: &quot;Run&quot;,
-    &quot;Python.OpenWeather.executor&quot;: &quot;Run&quot;,
-    &quot;Python.OpenWeather2.executor&quot;: &quot;Run&quot;,
-    &quot;Python.aemet.executor&quot;: &quot;Run&quot;,
-    &quot;Python.app.executor&quot;: &quot;Run&quot;,
-    &quot;Python.books.executor&quot;: &quot;Run&quot;,
-    &quot;Python.library_api.executor&quot;: &quot;Run&quot;,
-    &quot;Python.prediccion.executor&quot;: &quot;Run&quot;,
-    &quot;Python.server.executor&quot;: &quot;Run&quot;,
-    &quot;Python.server1.executor&quot;: &quot;Run&quot;,
-    &quot;Python.server2 (1).executor&quot;: &quot;Run&quot;,
-    &quot;Python.server2.executor&quot;: &quot;Run&quot;,
-    &quot;Python.test_server.executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;dart.analysis.tool.window.visible&quot;: &quot;false&quot;,
-    &quot;deletionFromPopupRequiresConfirmation&quot;: &quot;false&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/fcoja/iCloudDrive/cid-upct&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Python.E_AR_enunciado.executor": "Run",
+    "Python.OpenWeather.executor": "Run",
+    "Python.OpenWeather2.executor": "Run",
+    "Python.aemet.executor": "Run",
+    "Python.app.executor": "Run",
+    "Python.books.executor": "Run",
+    "Python.library_api.executor": "Run",
+    "Python.prediccion.executor": "Run",
+    "Python.server.executor": "Run",
+    "Python.server1.executor": "Run",
+    "Python.server2 (1).executor": "Run",
+    "Python.server2.executor": "Run",
+    "Python.test_server.executor": "Run",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "dart.analysis.tool.window.visible": "false",
+    "deletionFromPopupRequiresConfirmation": "false",
+    "git-widget-placeholder": "main",
+    "last_opened_file_path": "C:/Users/fcoja/iCloudDrive/cid-upct",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "database.query.execution",
+    "vue.rearranger.settings.migration": "true"
   },
-  &quot;keyToStringList&quot;: {
-    &quot;GitStage.ChangesTree.GroupingKeys&quot;: [
-      &quot;directory&quot;,
-      &quot;module&quot;,
-      &quot;repository&quot;
+  "keyToStringList": {
+    "DatabaseDriversLRU": [
+      "oracle"
+    ],
+    "GitStage.ChangesTree.GroupingKeys": [
+      "directory",
+      "module",
+      "repository"
     ]
   }
-}</component>
+}]]></component>
   <component name="RunManager" selected="Python.OpenWeather">
     <configuration name="E_AR_enunciado" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="cid-upct" />
@@ -225,8 +232,8 @@
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-js-predefined-d6986cc7102b-7c0b70fcd90d-JavaScript-PY-242.21829.153" />
-        <option value="bundled-python-sdk-464836ebc622-b74155a9e76b-com.jetbrains.pycharm.pro.sharedIndexes.bundled-PY-242.21829.153" />
+        <option value="bundled-js-predefined-d6986cc7102b-5c90d61e3bab-JavaScript-PY-242.23726.102" />
+        <option value="bundled-python-sdk-5e1850174b45-399fe30bd8c1-com.jetbrains.pycharm.pro.sharedIndexes.bundled-PY-242.23726.102" />
       </set>
     </attachedChunks>
   </component>
@@ -285,6 +292,7 @@
       <workItem from="1729762553227" duration="590000" />
       <workItem from="1729836673476" duration="592000" />
       <workItem from="1729876705967" duration="1424000" />
+      <workItem from="1730278196276" duration="6568000" />
     </task>
     <task id="LOCAL-00001" summary="Práctica 2 de Optimización II terminada y entregada">
       <option name="closed" value="true" />
