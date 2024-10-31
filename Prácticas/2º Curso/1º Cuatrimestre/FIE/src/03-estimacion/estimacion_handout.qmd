@@ -213,8 +213,8 @@ En la celda siguiente, se crea un dataframe con los valores de sesgo y mse para 
 ```{r}
 set.seed(314159)
 # Guardos estos datos a modo de variable
-map_dfr(
-    c(10, 100, 1000, 10000), 
+resultados2 <- map_dfr(
+    c(10, 50, 100, 500, 1000, 5000, 10000, 20000), # Agregando más valores para n
     \(n)   calcular_flujo_completo(
                n_muestras = 10000,
                n  = n,
@@ -234,23 +234,22 @@ Comprobamos cómo el sesgo y el MSE decrecen rápidamente al aumentar $n$. Por l
 :::
 
 ```{r}
-set.seed(314159)
-resultados <- map_dfr(
-    1:200,
-    \(n) calcular_flujo_completo(
-        n_muestras = 10000,
-        n = n,
-        alpha_real = 3,
-        beta_real = 2,
-        calcular_estimadores_momentos
-    )
-)
+# Expandir y limpiar el DataFrame con los nombres correctos de los estimadores
+resultados_long <- resultados2 %>%
+  pivot_longer(cols = starts_with("sesgo"), names_to = "estimador", values_to = "sesgo") %>%
+  filter(estimador %in% c("sesgo_alpha", "sesgo_beta")) %>%
+  mutate(estimador = recode(estimador, "sesgo_alpha" = "alpha_hat", "sesgo_beta" = "beta_hat"))
 
-resultados_long <- resultados %>%
-    pivot_longer(cols = starts_with("sesgo"), names_to = "estimador", values_to = "sesgo") %>%
-    mutate(estimador = recode(estimador, "sesgo_alpha" = "alpha_hat", "sesgo_beta" = "beta_hat"))
+# Crear un rango expandido de valores de 'n' para interpolar
+n_expanded <- seq(min(resultados_long$n), max(resultados_long$n), length.out = 200)
 
-ggplot(resultados_long, aes(x = n, y = sesgo, color = estimador)) + 
+# Realizar la interpolación en el sesgo para cada estimador y 'n' expandido
+resultados_long_expanded <- resultados_long %>%
+  group_by(estimador) %>%
+  do(data.frame(n = n_expanded, sesgo = approx(.$n, .$sesgo, xout = n_expanded, method = "linear", rule = 2)$y)) %>%
+  ungroup()
+
+ggplot(resultados_long_expanded, aes(x = n, y = sesgo, color = estimador)) + 
     geom_line() + 
     scale_color_manual(
         values = c("alpha_hat" = "red", "beta_hat" = "blue"),
@@ -258,7 +257,7 @@ ggplot(resultados_long, aes(x = n, y = sesgo, color = estimador)) +
     ) +
     labs(
         title = "Evolución del sesgo de los estimadores de α y β",
-        x = "n",
+        x = expression(n),
         y = "Sesgo",
         color = "Estimador"
     )
@@ -339,18 +338,22 @@ Definid una función `calcular_estimadores_mv`, con la misma estructura que la f
 
 # Definir la función para calcular los estimadores de máxima verosimilitud
 calcular_estimadores_mv <- function(x) {
-  alpha0 <- (mean(x))^2 / mean(x^2) - (mean(x)^2)
+  alpha0 <- (mean(x))^2 / (mean(x^2) - (mean(x)^2))
+  if (alpha0 <= 0) alpha0 <- 1e-3  # Ajustar alpha0 si es menor o igual a cero
   alphahat <- optimise(
-    \(alpha) calcular_logverosimilitud_alpha(alpha = alpha, x),
-    interval = c(0, 2 * alpha0),
+    function(alpha) calcular_logverosimilitud_alpha(alpha = alpha, x),
+    interval = c(1e-3, 2 * alpha0),  # Evitar el límite inferior igual a cero
     maximum = TRUE
-  )$maximun
+  )$maximum
+  
+  # Ajustar alphahat si es menor o igual a cero
+  if (alphahat <= 0) alphahat <- 1e-3
   
   # Devolver los estimadores en un tibble
   tibble(
     alphahat = alphahat, 
     betahat = mean(x) / alphahat
-    )
+  )
 }
 
 # Fin Completar aquí
@@ -363,7 +366,17 @@ Ahora, podemos aprovechar nuestra definición de `calcular_flujo_completo`, tal 
 ```{r}
 set.seed(314159)
 # Completar aquí
-
+estimadores <- calcular_estimadores_mv(x)
+map_dfr(
+    c(10, 100, 1000, 1000), # Agregando más valores para n
+    \(n)   calcular_flujo_completo(
+               n_muestras = 10000,
+               n  = n,
+               alpha_real = estimadores$alphahat,
+               beta_real = estimadores$betahat,
+               calcular_estimadores_momentos
+           )
+)
 # Fin Completar aquí
 ```
 
