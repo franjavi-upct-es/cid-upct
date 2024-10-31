@@ -85,7 +85,7 @@ if response.status_code == 200:
 	datos = response.json()
 	url_datos = datos["datos"]
 	response_datos = requests.request("GET", url_datos, headers=headers)
-	print(response_datos.text[:1000])
+	print(response_datos.text[:1000]) # Ajuste hecho para demostrar que el código funciona
 
 else:
 	print("Respuesta sin éxito")
@@ -394,31 +394,16 @@ curl -i http://127.0.0.1:5000/ip
 ```
 
 ```         
-StatusCode        : 200
-StatusDescription : OK
-Content           : {
-                      "ip": "127.0.0.1"
-                    }
+HTTP/1.1 200 OK
+Server: Werkzeug/3.0.4 Python/3.9.12
+Date: Thu, 31 Oct 2024 15:36:33 GMT
+Content-Type: application/json
+Content-Length: 24
+Connection: close
 
-RawContent        : HTTP/1.1 200 OK
-                    Connection: close
-                    Content-Length: 24
-                    Content-Type: application/json
-                    Date: Wed, 23 Oct 2024 20:51:11 GMT
-                    Server: Werkzeug/3.0.4 Python/3.9.12
-
-                    {
-                      "ip": "127.0.0.1"
-                    }
-
-Forms             : {}
-Headers           : {[Connection, close], [Content-Length, 24], 
-  [Content-Type, application/json], [Date, Wed, 23 Oct 2024 20:51:11 GMT]...}
-Images            : {}
-InputFields       : {}
-Links             : {}
-ParsedHtml        : mshtml.HTMLDocumentClass
-RawContentLength  : 24
+{
+  "ip": "127.0.0.1"
+}
 ```
 
 ![](figures/Tarea-2.1.3.png)
@@ -483,7 +468,7 @@ if __name__ == '__main__':
 -   Desarrolla un programa Python llamado `test_server.py` que realice una llamada al servicio `/ip` de tu servidor Flask y que imprima por pantalla la dirección IP obtenida.
 -   Amplía el programa para que, además, solicite al usuario una cadena de texto y dicha cadena se envíe al servicio `/md5` para que nos devuelva el resultado y se imprima por pantalla.
 
-```{python}
+```python
 import requests
 
 url = "http://localhost:5000"
@@ -512,6 +497,12 @@ if md5_response.status_code == 200:
 else:
     print(f"Error al obtener el hash MD5: {md5_response.status_code}")
 ```
+
+```
+## Mi dirección IP es: 127.0.0.1
+## El hash MD5 de 'Fundamentos de Redes de Datos' es: 8c7e81f5301153910ed53899b3b9841e
+```
+
 
 ## Tarea 5.1
 
@@ -680,5 +671,12 @@ curl -i http://127.0.0.1:5000/ciudad?q=cartagena,es
 ```
 
 ```         
-## La temperatura actual de Cartagena es 15.88 ºC
+HTTP/1.1 200 OK
+Server: Werkzeug/3.0.4 Python/3.9.12
+Date: Thu, 31 Oct 2024 15:39:31 GMT
+Content-Type: text/html; charset=utf-8
+Content-Length: 47
+Connection: close
+
+La temperatura actual de Cartagena es 22.37 ºC
 ```
