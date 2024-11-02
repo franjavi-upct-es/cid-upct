@@ -5,9 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="111d68fa-ad21-4c51-9998-59c24c3e9845" name="Changes" comment="Práctica 3 FRD terminada y entregada">
-      <change afterPath="$PROJECT_DIR$/Prácticas/2º Curso/1º Cuatrimestre/ADA/ADA_boletin_P1/enunciados/01 - mecánicos y averías/prueba_gráfica.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Prácticas/2º Curso/1º Cuatrimestre/ADA/ADA_boletin_P1/enunciados/01 - mecánicos y averías/E_AR_enunciado.py" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -67,53 +65,54 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Database Script.MER.sql.executor&quot;: &quot;Run&quot;,
-    &quot;Python.E_AR_enunciado.executor&quot;: &quot;Run&quot;,
-    &quot;Python.OpenWeather.executor&quot;: &quot;Run&quot;,
-    &quot;Python.OpenWeather2.executor&quot;: &quot;Run&quot;,
-    &quot;Python.aemet.executor&quot;: &quot;Run&quot;,
-    &quot;Python.app.executor&quot;: &quot;Run&quot;,
-    &quot;Python.books.executor&quot;: &quot;Run&quot;,
-    &quot;Python.library_api.executor&quot;: &quot;Run&quot;,
-    &quot;Python.mecánicos_y_averias.executor&quot;: &quot;Run&quot;,
-    &quot;Python.prediccion.executor&quot;: &quot;Run&quot;,
-    &quot;Python.prueba_gráfica.executor&quot;: &quot;Run&quot;,
-    &quot;Python.server.executor&quot;: &quot;Run&quot;,
-    &quot;Python.server1.executor&quot;: &quot;Run&quot;,
-    &quot;Python.server2 (1).executor&quot;: &quot;Run&quot;,
-    &quot;Python.server2.executor&quot;: &quot;Run&quot;,
-    &quot;Python.test_server.executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;dart.analysis.tool.window.visible&quot;: &quot;false&quot;,
-    &quot;deletionFromPopupRequiresConfirmation&quot;: &quot;false&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/fcoja/iCloudDrive/cid-upct&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;run.code.analysis.last.selected.profile&quot;: &quot;aDefault&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Database Script.MER.sql.executor": "Run",
+    "Python.E_AR_enunciado.executor": "Run",
+    "Python.OpenWeather.executor": "Run",
+    "Python.OpenWeather2.executor": "Run",
+    "Python.aemet.executor": "Run",
+    "Python.app.executor": "Run",
+    "Python.books.executor": "Run",
+    "Python.library_api.executor": "Run",
+    "Python.mecánicos_y_averias.executor": "Run",
+    "Python.prediccion.executor": "Run",
+    "Python.prueba_gráfica.executor": "Run",
+    "Python.server.executor": "Run",
+    "Python.server1.executor": "Run",
+    "Python.server2 (1).executor": "Run",
+    "Python.server2.executor": "Run",
+    "Python.test_server.executor": "Run",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "dart.analysis.tool.window.visible": "false",
+    "deletionFromPopupRequiresConfirmation": "false",
+    "full.screen.before.presentation.mode": "false",
+    "git-widget-placeholder": "main",
+    "last_opened_file_path": "C:/Users/fcoja/iCloudDrive/cid-upct",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "run.code.analysis.last.selected.profile": "aDefault",
+    "settings.editor.selected.configurable": "reference.settingsdialog.project.grazie",
+    "vue.rearranger.settings.migration": "true"
   },
-  &quot;keyToStringList&quot;: {
-    &quot;DatabaseDriversLRU&quot;: [
-      &quot;oracle&quot;
+  "keyToStringList": {
+    "DatabaseDriversLRU": [
+      "oracle"
     ],
-    &quot;GitStage.ChangesTree.GroupingKeys&quot;: [
-      &quot;directory&quot;,
-      &quot;module&quot;,
-      &quot;repository&quot;
+    "GitStage.ChangesTree.GroupingKeys": [
+      "directory",
+      "module",
+      "repository"
     ],
-    &quot;RunConfigurationTargetLRU&quot;: [
-      &quot;e8bcb332-1eed-4343-a913-a113970ac5d1/schema/\&quot;SYSTEM\&quot;&quot;
+    "RunConfigurationTargetLRU": [
+      "e8bcb332-1eed-4343-a913-a113970ac5d1/schema/\"SYSTEM\""
     ]
   }
-}</component>
+}]]></component>
   <component name="PyConsoleOptionsProvider">
     <option name="myPythonConsoleState">
       <console-settings module-name="cid-upct" is-module-sdk="true">
@@ -344,6 +343,7 @@
       <workItem from="1730388777192" duration="4535000" />
       <workItem from="1730396224333" duration="2473000" />
       <workItem from="1730530776778" duration="8880000" />
+      <workItem from="1730540399797" duration="2988000" />
     </task>
     <task id="LOCAL-00001" summary="Práctica 2 de Optimización II terminada y entregada">
       <option name="closed" value="true" />
