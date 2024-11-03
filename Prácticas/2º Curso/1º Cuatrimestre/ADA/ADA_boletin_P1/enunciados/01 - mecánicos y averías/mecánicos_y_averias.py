@@ -14,6 +14,20 @@ def encontrar_archivos_in(directorio='.'):
                 archivos_in.append(os.path.join(root, file))
     return archivos_in
 
+def encontrar_archivos_out(directorio='.'):
+    """
+    Busca todos los archivos .out en el directorio especificado para hacer la validación de los resultados obtenidos.
+
+    :param directorio: Ruta del directorio donde buscar archivos `.out`.
+    :return: Lista de rutas de archivos `.out` encontradas.
+    """
+    archivos_in = []
+    for root, _, files in os.walk(directorio):
+        for file in files:
+            if file.endswith('.out'):
+                archivos_in.append(os.path.join(root, file))
+    return archivos_in
+
 
 def leer_entrada(file_path):
     """
