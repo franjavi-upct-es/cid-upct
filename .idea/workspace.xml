@@ -5,11 +5,15 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="111d68fa-ad21-4c51-9998-59c24c3e9845" name="Changes" comment="Práctica 6 Optimización II terminada">
-      <change beforePath="$PROJECT_DIR$/.idea/.name" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.name" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Prácticas/2º Curso/1º Cuatrimestre/Optimización II/src/practica_adam.ipynb" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/cid-upct.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/cid-upct.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Apuntes LaTex/Macros.tex" beforeDir="false" afterPath="$PROJECT_DIR$/Apuntes LaTex/Macros.tex" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Prácticas/2º Curso/1º Cuatrimestre/ADA/ADA_boletin_P1/enunciados/01 - mecánicos y averías/Memoria.Rmd" beforeDir="false" afterPath="$PROJECT_DIR$/Prácticas/2º Curso/1º Cuatrimestre/ADA/ADA_boletin_P1/enunciados/01 - mecánicos y averías/Memoria.Rmd" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Prácticas/2º Curso/1º Cuatrimestre/ADA/ADA_boletin_P1/enunciados/01 - mecánicos y averías/Memoria.pdf" beforeDir="false" afterPath="$PROJECT_DIR$/Prácticas/2º Curso/1º Cuatrimestre/ADA/ADA_boletin_P1/enunciados/01 - mecánicos y averías/Memoria.pdf" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Prácticas/2º Curso/1º Cuatrimestre/ADA/ADA_boletin_P1/enunciados/01 - mecánicos y averías/mecánicos_y_averias.py" beforeDir="false" afterPath="$PROJECT_DIR$/Prácticas/2º Curso/1º Cuatrimestre/ADA/ADA_boletin_P1/enunciados/01 - mecánicos y averías/mecánicos_y_averias.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Prácticas/2º Curso/1º Cuatrimestre/ADA/ADA_boletin_P1/enunciados/01 - mecánicos y averías/resultados.txt" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -19,9 +23,9 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Jupyter Notebook" />
         <option value="SQL File" />
         <option value="Python Script" />
+        <option value="Jupyter Notebook" />
       </list>
     </option>
   </component>
@@ -130,7 +134,7 @@
       <recent name="C:\Users\fcoja\iCloudDrive\cid-upct\Prácticas\2º Curso\1º Cuatrimestre\Optimización II\ejercicios" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.prueba_gráfica">
+  <component name="RunManager" selected="Python.mecánicos_y_averias">
     <configuration name="MER.sql" type="DatabaseScript" editBeforeRun="true" temporary="true">
       <script-file value="$PROJECT_DIR$/Prácticas/2º Curso/1º Cuatrimestre/BD I/Práctica 1 Sesión 3/MER.sql" />
       <script-mode>FILE</script-mode>
@@ -268,8 +272,8 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Python.prueba_gráfica" />
         <item itemvalue="Python.mecánicos_y_averias" />
+        <item itemvalue="Python.prueba_gráfica" />
         <item itemvalue="Python.aemet" />
         <item itemvalue="Python.server2" />
         <item itemvalue="Python.prediccion" />
@@ -353,6 +357,9 @@
       <workItem from="1730659681238" duration="137000" />
       <workItem from="1730661154450" duration="823000" />
       <workItem from="1730665359176" duration="998000" />
+      <workItem from="1730739577999" duration="3023000" />
+      <workItem from="1730828928849" duration="1741000" />
+      <workItem from="1730907447289" duration="640000" />
     </task>
     <task id="LOCAL-00001" summary="Práctica 2 de Optimización II terminada y entregada">
       <option name="closed" value="true" />
@@ -511,27 +518,29 @@
     <option name="LAST_COMMIT_MESSAGE" value="Práctica 6 Optimización II terminada" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/E_AR_enunciado_py$OpenWeather2.coverage" NAME="OpenWeather2 Coverage Results" MODIFIED="1730389163224" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Prácticas/2º Curso/1º Cuatrimestre/FRD/Práctica 3/servidores" />
     <SUITE FILE_PATH="coverage/aement_py$OpenWeather.coverage" NAME="OpenWeather Coverage Results" MODIFIED="1728483482957" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Prácticas/2º Curso/1º Cuatrimestre/FRD/Práctica 3" />
     <SUITE FILE_PATH="coverage/aement_py$server2.coverage" NAME="server2 Coverage Results" MODIFIED="1729160152270" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Prácticas/2º Curso/1º Cuatrimestre/FRD/Práctica 3/servidores" />
     <SUITE FILE_PATH="coverage/E_AR_enunciado_py$mecánicos_y_averias.coverage" NAME="mecánicos_y_averias Coverage Results" MODIFIED="1730398498335" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Prácticas/2º Curso/1º Cuatrimestre/ADA/ADA_boletin_P1/enunciados/01 - mecánicos y averías" />
-    <SUITE FILE_PATH="coverage/aement_py$server2__1_.coverage" NAME="server2 (1) Coverage Results" MODIFIED="1729084956404" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Prácticas/2º Curso/1º Cuatrimestre/FRD/Práctica 3/servidores" />
     <SUITE FILE_PATH="coverage/E_AR_enunciado_py$books.coverage" NAME="books Coverage Results" MODIFIED="1730389240193" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Prácticas/2º Curso/1º Cuatrimestre/FRD/Práctica 3/servidores" />
     <SUITE FILE_PATH="coverage/aement_py$prediccion.coverage" NAME="prediccion Coverage Results" MODIFIED="1728482483205" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Prácticas/2º Curso/1º Cuatrimestre/FRD/Práctica 3" />
     <SUITE FILE_PATH="coverage/aement_py$app.coverage" NAME="app Coverage Results" MODIFIED="1729082687816" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$USER_HOME$/Programas_Merpiel_GCT/chatbot_project" />
     <SUITE FILE_PATH="coverage/E_AR_enunciado_py$test_server.coverage" NAME="test_server Coverage Results" MODIFIED="1730389533918" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Prácticas/2º Curso/1º Cuatrimestre/FRD/Práctica 3/servidores" />
+    <SUITE FILE_PATH="coverage/E_AR_enunciado_py$server2.coverage" NAME="server2 Coverage Results" MODIFIED="1730390157985" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Prácticas/2º Curso/1º Cuatrimestre/FRD/Práctica 3/servidores" />
+    <SUITE FILE_PATH="coverage/E_AR_enunciado_py$prediccion.coverage" NAME="prediccion Coverage Results" MODIFIED="1730390099670" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Prácticas/2º Curso/1º Cuatrimestre/FRD/Práctica 3/clientes" />
+    <SUITE FILE_PATH="coverage/mecánicos_y_averias_py$mecánicos_y_averias.coverage" NAME="mecánicos_y_averias Coverage Results" MODIFIED="1730830250474" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Prácticas/2º Curso/1º Cuatrimestre/ADA/ADA_boletin_P1/enunciados/01 - mecánicos y averías" />
+    <SUITE FILE_PATH="coverage/aement_py$server.coverage" NAME="server Coverage Results" MODIFIED="1729083225698" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Prácticas/2º Curso/1º Cuatrimestre/FRD/Práctica 3" />
+    <SUITE FILE_PATH="coverage/E_AR_enunciado_py$server1.coverage" NAME="server1 Coverage Results" MODIFIED="1730389193798" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Prácticas/2º Curso/1º Cuatrimestre/FRD/Práctica 3/servidores" />
+    <SUITE FILE_PATH="coverage/E_AR_enunciado_py$aemet.coverage" NAME="aemet Coverage Results" MODIFIED="1730390173074" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Prácticas/2º Curso/1º Cuatrimestre/FRD/Práctica 3/clientes" />
+    <SUITE FILE_PATH="coverage/mecánicos_y_averias_py$prueba_gráfica.coverage" NAME="prueba_gráfica Coverage Results" MODIFIED="1730739598653" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Prácticas/2º Curso/1º Cuatrimestre/ADA/ADA_boletin_P1/enunciados/01 - mecánicos y averías" />
+    <SUITE FILE_PATH="coverage/aement_py$test_server.coverage" NAME="test_server Coverage Results" MODIFIED="1729160305144" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Prácticas/2º Curso/1º Cuatrimestre/FRD/Práctica 3/servidores" />
+    <SUITE FILE_PATH="coverage/E_AR_enunciado_py$OpenWeather2.coverage" NAME="OpenWeather2 Coverage Results" MODIFIED="1730389163224" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Prácticas/2º Curso/1º Cuatrimestre/FRD/Práctica 3/servidores" />
+    <SUITE FILE_PATH="coverage/aement_py$server2__1_.coverage" NAME="server2 (1) Coverage Results" MODIFIED="1729084956404" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Prácticas/2º Curso/1º Cuatrimestre/FRD/Práctica 3/servidores" />
     <SUITE FILE_PATH="coverage/E_AR_enunciado_py$E_AR_enunciado.coverage" NAME="E_AR_enunciado Coverage Results" MODIFIED="1729714747473" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Prácticas/2º Curso/1º Cuatrimestre/ADA/ADA_boletin_P1/enunciados/01 - mecánicos y averías" />
     <SUITE FILE_PATH="coverage/E_AR_enunciado_py$OpenWeather.coverage" NAME="OpenWeather Coverage Results" MODIFIED="1730390081612" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Prácticas/2º Curso/1º Cuatrimestre/FRD/Práctica 3/clientes" />
     <SUITE FILE_PATH="coverage/aement_py$books.coverage" NAME="books Coverage Results" MODIFIED="1729159453831" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Prácticas/2º Curso/1º Cuatrimestre/FRD/Práctica 3/servidores" />
     <SUITE FILE_PATH="coverage/aement_py$E_AR_enunciado.coverage" NAME="E_AR_enunciado Coverage Results" MODIFIED="1729271408175" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Prácticas/2º Curso/1º Cuatrimestre/ADA/ADA_boletin_P1/enunciados/01 - mecánicos y averías" />
-    <SUITE FILE_PATH="coverage/E_AR_enunciado_py$server2.coverage" NAME="server2 Coverage Results" MODIFIED="1730390157985" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Prácticas/2º Curso/1º Cuatrimestre/FRD/Práctica 3/servidores" />
     <SUITE FILE_PATH="coverage/E_AR_enunciado_py$prueba_gráfica.coverage" NAME="prueba_gráfica Coverage Results" MODIFIED="1730398691982" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Prácticas/2º Curso/1º Cuatrimestre/ADA/ADA_boletin_P1/enunciados/01 - mecánicos y averías" />
     <SUITE FILE_PATH="coverage/aement_py$library_api.coverage" NAME="library_api Coverage Results" MODIFIED="1729085814227" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Prácticas/2º Curso/1º Cuatrimestre/FRD/Práctica 3/servidores" />
-    <SUITE FILE_PATH="coverage/E_AR_enunciado_py$prediccion.coverage" NAME="prediccion Coverage Results" MODIFIED="1730390099670" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Prácticas/2º Curso/1º Cuatrimestre/FRD/Práctica 3/clientes" />
-    <SUITE FILE_PATH="coverage/aement_py$server.coverage" NAME="server Coverage Results" MODIFIED="1729083225698" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Prácticas/2º Curso/1º Cuatrimestre/FRD/Práctica 3" />
-    <SUITE FILE_PATH="coverage/E_AR_enunciado_py$server1.coverage" NAME="server1 Coverage Results" MODIFIED="1730389193798" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Prácticas/2º Curso/1º Cuatrimestre/FRD/Práctica 3/servidores" />
-    <SUITE FILE_PATH="coverage/E_AR_enunciado_py$aemet.coverage" NAME="aemet Coverage Results" MODIFIED="1730390173074" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Prácticas/2º Curso/1º Cuatrimestre/FRD/Práctica 3/clientes" />
-    <SUITE FILE_PATH="coverage/aement_py$test_server.coverage" NAME="test_server Coverage Results" MODIFIED="1729160305144" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Prácticas/2º Curso/1º Cuatrimestre/FRD/Práctica 3/servidores" />
     <SUITE FILE_PATH="coverage/aement_py$OpenWeather2.coverage" NAME="OpenWeather2 Coverage Results" MODIFIED="1729267998580" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Prácticas/2º Curso/1º Cuatrimestre/FRD/Práctica 3/servidores" />
   </component>
 </project>
