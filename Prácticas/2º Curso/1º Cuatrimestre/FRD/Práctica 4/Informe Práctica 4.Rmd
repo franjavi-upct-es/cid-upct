@@ -1,0 +1,48 @@
+---
+title: "Fundamentos de Redes de Datos"
+subtitle: "Práctica 4: Configuración de redes IP - Mininet"
+author: "Francisco Javier Mercader Martínez"
+output: pdf_document
+geometry: "a4paper, margin=1.5cm"
+header-includes:
+  - \usepackage{hyperref}
+  - \usepackage{xcolor}
+  - \hypersetup{
+      colorlinks=true,
+      urlcolor=cyan}
+---
+
+```{r include=FALSE}
+library(reticulate)
+use_condaenv("optim-2", conda="C:/ProgramData/anaconda3/Scripts/conda.exe", required = TRUE)
+py_config()
+```
+
+## Tarea 3.1
+
+-   Vamos a comprobar la correcta instalación de Mininet mediante una prueba básica. Para ello ejecutamos Mininet mediante el comando **`mn`**.
+
+``` bash
+usuario1@fdr1:~> sudo -E mn
+```
+
+Es posible que sea necesario arrancar el servicio **`openvswitch`**:
+
+``` bash
+usuario1@fdr1:~> sudo systemctl enable openvswitch.service
+usuario1@fdr1:~> sudo systemctl start openvswitch.service
+```
+
+¿Qué ha ocurrido? ¿Cuál es la topología de red que se ha creado?
+
+## Tarea 3.2.1
+
+Ejecutamos la línea de comando para lanzar Mininet con la topología en árbol.
+
+``` bash
+sudo -E mn --switch ovsbr --topo tree,depth=2,fanout=2
+```
+
+-   Indica para qué sirven cada uno de los siguientes comandos: **`exit`**, **`dump`**, **`link`**, **`links`**, **`net`**, **`pingallbd`**, **`pingpair`**, **`ports`**, **`quit`** y **`switch`**.
+
+-   Indica el resultado de los comandos **`net`**, **`dump`** y **`pingall`**.
