@@ -23,9 +23,19 @@ $$ dada un m.a.s., $X_1,\ldots,X_n$, de $X$.
 
 Veamos como está implementado su cálculo en `R`. La función que utilizaremos es la función `ecdf`.
 
-```{r }
+```{r}
 # Completar aquí
- 
+library(tidyverse)
+set.seed(314159)
+sample <- rnorm(100, 5, 1)
+Fn <- ecdf(sample)
+tibble(
+    x = seq(min(sample), max(sample), by = 0.01),
+    fde = Fn(x)
+) %>%
+  ggplot(aes(x = x, y = fde)) +
+  geom_line() +
+  geom_function(fun = function(x) pnorm(x, 5, 1), colour = "blue")
 # Fin Completar aquí
 ```
 
@@ -57,7 +67,16 @@ Veamos un ejemplo con cada núcleo.
 
 ```{r }
 # Completar aquí
- 
+estimacion <- density(
+  x = sample,
+  kernel = "rectangular",
+  bw = "nrd"
+)
+
+tibble(x = estimacion$x, y = estimacion$y) %>%
+  ggplot(aes(x = x, y = y)) +
+  geom_line() +
+  geom_function(fun = function(x) dnorm(x, 5, 1), colour = "blue")
 # Fin Completar aquí
 ```
 
@@ -65,7 +84,16 @@ Veamos un ejemplo con cada núcleo.
 
 ```{r }
 # Completar aquí
- 
+estimacion <- density(
+  x = sample,
+  kernel = "gaussian",
+  bw = "nrd"
+)
+
+tibble(x = estimacion$x, y = estimacion$y) %>%
+  ggplot(aes(x = x, y = y)) +
+  geom_line() +
+  geom_function(fun = function(x) dnorm(x, 5, 1), colour = "blue")
 # Fin Completar aquí
 ```
 
@@ -73,7 +101,15 @@ Veamos un ejemplo con cada núcleo.
 
 ```{r }
 # Completar aquí
- 
+estimacion <- density(
+  x = sample,
+  kernel = "epanechnikov",
+  bw = "nrd"
+)
+tibble(x = estimacion$x, y = estimacion$y) %>%
+  ggplot(aes(x = x, y = y)) +
+  geom_line() +
+  geom_function(fun = function(x) dnorm(x, 5, 1), colour = "blue")
 # Fin Completar aquí
 ```
 
@@ -95,7 +131,15 @@ Caso con núcleo normal:
 
 ```{r }
 # Completar aquí
- 
+estimacion <- density(
+  x = sample,
+  kernel = "gaussian",
+  bw = "SJ"
+)
+tibble(x = estimacion$x, y = estimacion$y) %>%
+  ggplot(aes(x = x, y = y)) +
+  geom_line() +
+  geom_function(fun = function(x) dnorm(x, 5, 1), colour = "blue")
 # Fin Completar aquí
 ```
 
@@ -103,19 +147,58 @@ Caso con núcleo Epanechnivok:
 
 ```{r }
 # Completar aquí
- 
+ estimacion <- density(
+  x = sample,
+  kernel = "epanechnikov",
+  bw = "SJ"
+)
+tibble(x = estimacion$x, y = estimacion$y) %>%
+  ggplot(aes(x = x, y = y)) +
+  geom_line() +
+  geom_function(fun = function(x) dnorm(x, 5, 1), colour = "blue")
 # Fin Completar aquí
 ```
 
 # Ejercicio
 
-Vamos a analizar datos del contexto de empresas de seguros. Para ello, vamos a considerar los datos que aparecen en el fichero `LOSSDATA.txt` donde tenemos 1500 observaciones aleatorias de dos variables que se corresponden con las reclamaciones de clientes junto con los gastos de cada una de esas reclamaciones en términos de abogados e investigación de la reclamación (ALAE). Tenemos un marco de datos con cuatro columnas, de las que solo nos vamos a ocupar de las dos primeras. La primera, donde están los importes de las reclamaciones y la segunda, donde están los valores de ALAE.
+Vamos a analizar datos del contexto de empresas de seguros. Para ello, vamos a considerar los datos que aparecen en el fichero `LOSSDATA.txt` donde tenemos 1500 observaciones aleatorias de dos variables que se corresponden con las importe de clientes junto con los gastos de cada una de esas importe en términos de abogados e investigación de la reclamación (ALAE). Tenemos un marco de datos con cuatro columnas, de las que solo nos vamos a ocupar de las dos primeras. La primera, donde están los importes de las importe y la segunda, donde están los valores de ALAE.
 
 Obtener los gráficos de la función de distribución empírica de cada variable y superponerla con la correspondiente gráfica de una la distribución normal con medias y varianzas las estimadas a partir de los datos. A partir de las gráficas anteriores comentar si parece razonable considerar que los datos provienen de una distribución normal.
 
 ```{r }
 # Completar aquí
- 
+library(ggplot2)
+library(tibble)
+library(dplyr)
+
+# Leer los datos
+datos <- read.table("../../data/LOSSDATA.txt", header = TRUE)
+
+# Extraer las dos primeras columnas
+importe <- datos[[1]]
+alae <- datos[[2]]
+
+# Calcular medias y desviaciones estándar
+media_importe <- mean(importe)
+sd_importe <- sd(importe)
+media_alae <- mean(alae)
+sd_alae <- sd(alae)
+
+# Graficar la función de distribución empírica para las importe
+ggplot(data = tibble(x = sort(importe)), aes(x = x)) +
+  stat_ecdf(geom = "step", color = "red") +
+  stat_function(fun = pnorm, args = list(mean = media_importe, sd = sd_importe),
+                color = "blue") + 
+  labs(title = "Función de distribución empírica de la variable Importe",
+      x = "x", y = "y")
+
+# Graficar la función de distribución empírica para ALAE
+ggplot(data = tibble(x = sort(alae)), aes(x = x)) +
+  stat_ecdf(geom = "step", color = "red") +
+  stat_function(fun = pnorm, args = list(mean = media_alae, sd = sd_alae),
+                color = "blue") +
+  labs(title = "Función de distribución empírica de la variable ALAE",
+       x = "x", y = "y")
 # Fin Completar aquí
 ```
 
@@ -123,17 +206,87 @@ Obtener la estimaciones tipo núcleo de la función de densidad de las variables
 
 ```{r}
 # Completar aquí
+# Estimación de la densidad de importe con núcleo normal
+dens_importe_normal <- density(importe, kernel = "gaussian")
+# Estimación de la densidad de importe con núcleo Epanechnikov
+dens_importe_epanechnikov <- density(importe, kernel = "epanechnikov")
 
+# Grafica densidades para importe
+ggplot() +
+  geom_line(aes(x = dens_importe_normal$x, y = dens_importe_normal$y), color = "blue") +
+  geom_line(aes(x = dens_importe_epanechnikov$x, y = dens_importe_epanechnikov$y), color = "red") +
+  labs(title = "Estimación de la Densidad - importe",
+       x = "Importes de importe", y = "Densidad") +
+  scale_color_manual(values = c("Normal" = "blue", "Epanechnikov" = "red"))
 
+# Estimación de la densidad de ALAE con núcleo normal
+dens_alae_normal <- density(alae, kernel = "gaussian")
+# Estimación de la densidad de ALAE con núcleo Epanechnikov
+dens_alae_epanechnikov <- density(alae, kernel = "epanechnikov")
+
+# Graficar densidades para ALAE
+ggplot() +
+  geom_line(aes(x = dens_alae_normal$x, y = dens_alae_normal$y), color = "blue") +
+  geom_line(aes(x = dens_alae_epanechnikov$x, y = dens_alae_epanechnikov$y), color = "red") +
+  labs(title = "Estimación de la Densidad - ALAE",
+       x = "Valores de ALAE", y = "Densidad") +
+  scale_color_manual(values = c("Núcleo Normal" = "blue", "Núcleo Epanechnikov" = "red"))
 # Fin Completar aquí
 ```
 
 Realiza el mismo análisis pero con los datos transformados por el logaritmo neperiano.
 
 ```{r}
-
 # Completar aquí
+# Transformación logaritmica de las variables
+log_importe <- log(importe)
+log_alae <- log(alae)
 
+media_log_importe <- mean(log_importe)
+sd_log_importe <- sd(log_importe)
+media_log_alae <- mean(log_alae)
+sd_log_alae <- sd(log_alae)
+
+Fn_importe <- ecdf(log_importe)
+tibble(
+    x = seq(min(log_importe), max(log_importe), by = 0.01),
+    fde = Fn_importe(x)
+) %>%
+  ggplot(aes(x = x, y = fde)) +
+  geom_line() +
+  geom_function(fun = function(x) pnorm(x, media_log_importe, sd_log_importe), colour = "blue")
+
+# Estimación de la densidad de log_importe con núcleo normal
+dens_log_importe_normal <- density(log_importe, kernel = "gaussian")
+# Estimación de la densidad de log_importe con núcleo Epanechnikov
+dens_log_importe_epanechnikov <- density(log_importe, kernel = "epanechnikov")
+
+# Graficar densidades para log_importe
+ggplot() +
+  geom_line(aes(x = dens_log_importe_normal$x, y = dens_log_importe_normal$y), color = "blue") +
+  geom_line(aes(x = dens_log_importe_epanechnikov$x, y = dens_log_importe_epanechnikov$y), color = "red") +
+  labs(title = "Estimación de la Densidad - Log(Importe)",
+       x = "Log(Importe)", y = "Densidad")
+
+# Estimación de la densidad de log_alae con núcleo normal
+dens_log_alae_normal <- density(log_alae, kernel = "gaussian")
+# Estimación de la densidad de log_alae con núcleo Epanechnikov
+dens_log_alae_epanechnikov <- density(log_alae, kernel = "epanechnikov")
+
+Fn_alae <- ecdf(log_alae)
+tibble(
+    x = seq(min(log_alae), max(log_alae), by = 0.01),
+    fde = Fn_alae(x)
+) %>%
+  ggplot(aes(x = x, y = fde)) +
+  geom_line() +
+  geom_function(fun = function(x) pnorm(x, media_log_alae, sd_log_alae), colour = "blue")
+
+# Graficar densidades para log_alae
+ggplot() +
+  geom_line(aes(x = dens_log_alae_normal$x, y = dens_log_alae_normal$y), color = "blue") +
+  geom_line(aes(x = dens_log_alae_epanechnikov$x, y = dens_log_alae_epanechnikov$y), color = "red") +
+  labs(title = "Estimación de la Densidad - Log(ALAE)",
+       x = "Log(Valores de ALAE)", y = "Densidad")
 # Fin Completar aquí
-
 ```
