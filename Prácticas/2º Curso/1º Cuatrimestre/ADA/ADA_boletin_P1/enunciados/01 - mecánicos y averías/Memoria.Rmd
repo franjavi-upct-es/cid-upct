@@ -12,8 +12,6 @@ fontsize: 12pt
 ---
 
 ```{r include=FALSE}
-setwd("C:/Users/fcoja/iCloudDrive/cid-upct/Prácticas/2º Curso/1º Cuatrimestre/ADA/ADA_boletin_P1/enunciados/01 - mecánicos y averías")
-
 Sys.setenv(RETICULATE_PYTHON = "C:/Users/fcoja/.conda/envs/optim-2/python.exe")
 library(reticulate)
 py_config()
@@ -311,8 +309,8 @@ def generar_salida(matrices):
     resultados = solution([], casos)
     return resultados
 ```
-```{python}
 
+```{python}
 file_paths_in = encontrar_archivos_in('.')
 file_paths_out = encontrar_archivos_out('.')
 
@@ -596,38 +594,46 @@ for file_path in file_paths_in:
 ```
 
 ```{python}
-def analyze_complexity(file_paths):
+def analyze_complexity(file_path):
     """
-    Mide el tiempo de ejecución para cada archivo y genera un gráfico comparativo.
+    Mide el tiempo de ejecución de cada caso en el archivo usando el algoritmo voraz y genera un gráfico.
 
-    :param file_paths: Lista de rutas de archivos `.in`.
+    :param file_path: Ruta del archivo `.in`.
     """
     sizes = []
     times = []
 
-    for file_path in file_paths:
-        # Medir el tiempo de ejecución para leer y procesar cada archivo
+    # Leer la entrada y procesar los casos de prueba
+    P, casos = leer_entrada(file_path)
+
+    # Medir el tiempo de cada caso individualmente usando el algoritmo voraz
+    tiempos_por_caso = []
+    for caso in casos:
+      try:
+        c, num_averias, mecanicos = caso
         start_time = time.time()
-
-        # Leer la entrada y procesar los casos de prueba
-        P, casos = leer_entrada(file_path)
-        resultados = solution(P, casos)
-
+        voraz(c, num_averias, mecanicos)
         end_time = time.time()
-        elapsed_time = end_time - start_time
+        tiempos_por_caso.append(end_time - start_time)
+      except Exception as e:
+        print(f"Error encontrado en el 'caso': {caso} - {e}")
 
-        # Calcular el tamaño aproximado de la entrada
-        with open(file_path, 'r') as f:
-            size = sum(1 for _ in f)
+    # Calcular el tiempo total de los casos (suma de tiempos individuales)
+    total_elapsed_time = sum(tiempos_por_caso)
 
-        # Agregar el tamaño y tiempo a las listas
-        sizes.append(size)
-        times.append(elapsed_time)
+    # Calcular el tamaño aproximado de la entrada (número de líneas en el archivo)
+    with open(file_path, 'r') as f:
+        size = sum(1 for _ in f)
 
-    # Graficar el resultado comparativo para todos los archivos
+    # Agregar el tamaño y el tiempo total a las listas para el gráfico
+    sizes.append(size)
+    times.append(total_elapsed_time)
+
+    # Graficar el resultado
     plt.plot(sizes, times, marker='o', linestyle='--')
     plt.xlabel('Tamaño aproximado')
-    plt.ylabel('Tiempo (s)')
+    plt.ylabel('Tiempo total (s)')
+    plt.title(f'Tiempo de ejecución para el archivo {file_path} usando voraz')
     plt.show()
 ```
 
@@ -655,7 +661,7 @@ Esta función mide el tiempo de ejecución para cada archivo en **`file_paths`**
     3.  Genera una gráfica de líneas usando **`matplotlib`**, donde el eje $x$ representa el tamaño de entrada y el eje $y$ el tiempo de ejecución.
 
 ```{python}
-analyze_complexity(file_paths_in)
+analyze_complexity(file_paths_in[2])
 ```
 
 ### Observaciones del Gráfico
