@@ -22,18 +22,80 @@ py_config()
 
 -   Vamos a comprobar la correcta instalación de Mininet mediante una prueba básica. Para ello ejecutamos Mininet mediante el comando **`mn`**.
 
-``` bash
-usuario1@fdr1:~> sudo -E mn
+```bash
+sudo -E mn
 ```
+
+```
+## *** No default OpenFlow controller found for default switch!
+## *** Falling back to OVS Bridge
+## *** Creating network
+## *** Adding controller
+## *** Adding hosts:
+## h1 h2 
+## *** Adding switches:
+## ovs-vsctl: unix:/run/openvswitch/db.sock: database connection failed (No such file or directory)
+## ovs-vsctl exited with code 1
+## *** Error connecting to ovs-db with ovs-vsctl
+## Make sure that Open vSwitch is installed, that ovsdb-server is running, and that
+## "ovs-vsctl show" works correctly.
+## You may wish to try "service openvswitch-switch start".
+```
+
 
 Es posible que sea necesario arrancar el servicio **`openvswitch`**:
 
 ``` bash
-usuario1@fdr1:~> sudo systemctl enable openvswitch.service
-usuario1@fdr1:~> sudo systemctl start openvswitch.service
+sudo systemctl enable openvswitch.service
+sudo systemctl start openvswitch.service
+```
+
+```
+## Created symlink /etc/systemd/system/multi-user.target.wants/openvswitch.service → /usr/lib/systemd/system/## openvswitch.service.
+## fdr1@localhost:~> sudo -E mn
+## [sudo] contraseña para root:
+## *** No default OpenFlow controller found for default switch!
+## *** Falling back to OVS Bridge
+## *** Creating network
+## *** Adding controller
+## *** Adding hosts:
+## h1 h2
+## *** Adding switches:
+## s1
+## *** Adding links:
+## (h1, s1) (h2, s1)
+## *** Configuring hosts
+## h1 h2
+## *** Starting controller
+##
+## *** Starting 1 switches
+## s1 ...
+## *** Starting CLI:
+## mininet> quit
+## *** Stopping 0 controllers
+##
+## *** Stopping 2 links
+## ..
+## *** Stopping 1 switches
+## s1
+## *** Stopping 2 hosts
+## h1 h2
+## *** Done
+## completed in 111.656 seconds
+## fdr1@localhost:~>
 ```
 
 ¿Qué ha ocurrido? ¿Cuál es la topología de red que se ha creado?
+
+Mininet ha creado una red básica con la siguiente topología:
+
+- **Dos hosts (`h1` y `h2`).**
+- **Un switch (`s1`).**
+- **Enlaces entre los hosts y el switch:**
+  - **`h1`** está conectado a **`s1`**.
+  - **`h2`** está conectado a **`s1`**.
+
+Esta es una topología de red básica en estrella, donde ambos hosts (**`h1`** y **`h2`**) están conectados a un único switch (**`s1`**).
 
 ## Tarea 3.2.1
 
