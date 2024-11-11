@@ -9,11 +9,16 @@ output:
     latex_engine: xelatex
 geometry: margin=1.5cm, a4paper
 fontsize: 12pt
+header-includes:
+- \renewcommand{\and}{\\}
+- \usepackage{fvextra}
+- \usepackage{hyperref}
+- \DefineVerbatimEnvironment{Highlighting}{Verbatim}{breaklines, commandchars=\\\{\}}
 ---
 
 ```{r include=FALSE}
-Sys.setenv(RETICULATE_PYTHON = "C:/Users/fcoja/.conda/envs/optim-2/python.exe")
 library(reticulate)
+use_condaenv("optim-2", conda="C:/ProgramData/anaconda3/Scripts/conda.exe", required = TRUE)
 py_config()
 ```
 
@@ -100,17 +105,17 @@ def leer_entrada(file_path):
     with open(file_path, 'r') as file:
         lineas = file.readlines()
 
-    P = int(lineas[0])
+    P = int(lineas[0].strip())
     casos = []
-
     indice = 1
+
     for _ in range(P):
         M, A = map(int, lineas[indice].split())
         indice += 1
 
         capacidades = []
         for i in range(M):
-            capacidades.append(list(map(int, lineas[indice].split())))
+            capacidades.append(list(map(int, lineas[indice].strip().split())))
             indice += 1
 
         casos.append({'M': M, 'A': A, 'capacidades': capacidades})
@@ -237,28 +242,27 @@ def select(mecanico, capacidades, asignaciones, A):
 ```{python}
 def solution(P, casos):
     """
-    Resuelve el problema para P casos de prueba.
-
-    P: Número de casos de prueba.
-    casos: Lista de casos de prueba, cada uno con M mecánicos, A averías y la matriz de capacidades.
-
-    Retorna una lista con las soluciones de cada caso.
+    Resuelve el problema para P casos de prueba
+    
+    P: Número de casos de prueba
+    casos: Lista de casos de prueba, cada uno con M mecánicos, A averías y la matriz de capacidades
+    
+    Retorna una lista con las soluciones de cada caso
     """
     resultados = []
 
     for caso in casos:
         M, A, capacidades = caso['M'], caso['A'], caso['capacidades']
 
-        asignaciones = [0] * A  # Lista para rastrear qué mecánico se asigna a cada avería
+        asignaciones = [0] * A
         averias_reparadas = 0
 
         for mecanico in range(M):
             averia_seleccionada = select(mecanico, capacidades, asignaciones, A)
             if averia_seleccionada != -1:
-                asignaciones[averia_seleccionada] = mecanico + 1  # Asigna el mecánico (indexado en 1)
+                asignaciones[averia_seleccionada] = mecanico + 1
                 averias_reparadas += 1
 
-        # Guardamos el resultado del caso
         resultados.append((averias_reparadas, asignaciones))
 
     return resultados
@@ -279,8 +283,7 @@ def solution(P, casos):
 ```{python}
 def procesar_matriz(matriz):
     '''
-    Esta función procesa la matriz dada y saca el número de averias, candidatos y usa el algoritmo
-    voraz para obtener una solución
+    Esta función procesa la matriz dada y saca el número de averias, candidatos y usa el algoritmo voraz para obtener una solución
     '''
     num_averias = matriz.shape[1]
     candidatos = [(i, j) for i in range(matriz.shape[0]) for j in range(matriz.shape[1]) if matriz[i][j] == 1]
@@ -331,7 +334,7 @@ print()
 ## Resultado
 
 
-## Análisis de los resultados con el validador
+### Análisis de los resultados con el validador
 
 ```python
 import os
@@ -592,92 +595,63 @@ for file_path in file_paths_in:
 ## En el caso 149: Todo correcto y el porcentaje de averías reparadas es del 100%.
 ## La media porcentual para 150 casos es del 99.66%.
 ```
+### Análisis del Desempeño del Algoritmo Voraz
 
 ```{python}
-def analyze_complexity(file_path):
-    """
-    Mide el tiempo de ejecución de cada caso en el archivo usando el algoritmo voraz y genera un gráfico.
+import matplotlib.pyplot as plt
 
-    :param file_path: Ruta del archivo `.in`.
-    """
-    sizes = []
-    times = []
-
-    # Leer la entrada y procesar los casos de prueba
-    P, casos = leer_entrada(file_path)
-
-    # Medir el tiempo de cada caso individualmente usando el algoritmo voraz
-    tiempos_por_caso = []
-    for caso in casos:
-      try:
-        c, num_averias, mecanicos = caso
-        start_time = time.time()
-        voraz(c, num_averias, mecanicos)
-        end_time = time.time()
-        tiempos_por_caso.append(end_time - start_time)
-      except Exception as e:
-        print(f"Error encontrado en el 'caso': {caso} - {e}")
-
-    # Calcular el tiempo total de los casos (suma de tiempos individuales)
-    total_elapsed_time = sum(tiempos_por_caso)
-
-    # Calcular el tamaño aproximado de la entrada (número de líneas en el archivo)
-    with open(file_path, 'r') as f:
-        size = sum(1 for _ in f)
-
-    # Agregar el tamaño y el tiempo total a las listas para el gráfico
-    sizes.append(size)
-    times.append(total_elapsed_time)
-
-    # Graficar el resultado
-    plt.plot(sizes, times, marker='o', linestyle='--')
-    plt.xlabel('Tamaño aproximado')
-    plt.ylabel('Tiempo total (s)')
-    plt.title(f'Tiempo de ejecución para el archivo {file_path} usando voraz')
+def analyse_complexity(file_path):
+  """
+  Procesa el archivo, calcula el tiempo acumulado para cada iteración y lo grafica
+  """
+  # Leer todos los casos del archivo
+  P, casos = leer_entrada(file_path)
+  
+  overall_time = []     # Lista para almacenar el tiempo acumulado en cada caso
+  accumulated_time = 0  # Tiempo inicial acumulado
+  
+  # Procesar cada caso (matriz) individualmente
+  for caso in casos:
+    # Medir el tiempo de inicio para el caso actual
+    start_time = time.time()
+    
+    M, A, capacidades = caso['M'], caso['A'], caso['capacidades']
+    num_averias = A
+    candidatos = [(i, j) for i in range(M) for j in range(A) if capacidades[i][j] == 1]
+    
+    # Algoritmo voraz para representar el progreso en cada caso
+    s = []
+    asignaciones = [0] * A
+    
+    for candidato in candidatos:
+      mecanico, averia = candidato
+      # Verificar si es factible asignar el mecánico a la avería
+      if factible(mecanico, averia, capacidades, asignaciones):
+        s.append(candidato)
+        asignaciones[averia] = mecanico + 1
+        
+    # Medir el tiempo de finalización y calcular el tiempo de procesamiento para el caso actual
+    end_time = time.time()
+    accumulated_time += (end_time - start_time)
+    
+    # Agregar el tiempo acumulado a la lista general
+    overall_time.append(accumulated_time)
+    
+  # Graficar el tiempo acumulado en función de las iteraciones
+  if overall_time:
+    plt.figure()
+    plt.plot(range(1, P + 1), overall_time, marker='o', color='blue')
+    plt.xlabel("Iteraciones (Casos)")
+    plt.ylabel("Tiempo (s)")
+    plt.title("Tiempo Acumulado del Algoritmo Voraz por Iteración")
     plt.show()
+  else:
+    print(f"No se realizaron asignaciones en ningún caso")
 ```
-
-Esta función mide el tiempo de ejecución para cada archivo en **`file_paths`** y crea un gráfico comparativo de los tiempos frente a los tamaños de entrada.
-
--   **Parámetros:**
-
-    -   **`file_paths`**: lista de rutas de archivos **`.in`** que se analizarán.
-
--   **Proceso Interno:**
-
-    1.  Incializa las listas **`sizes`** y **`times`** para almacenar los tamaños de entrada y los tiempos de ejecución.
-    2.  Para cada archivo en **`file_paths`**:
-        -   Mide el tiempo antes de la ejecución (**`start_time`**).
-
-        -   Ejecuta **`leer_entrada`** para leer el archivo y **`solution`** para resolver los casos de prueba.
-
-        -   Mide el tiempo después de la ejecución (**`end_time`**).
-
-        -   Calcula el tiempo transcurrido (**`elapsed_time`**).
-
-        -   Determina el tamaño del archivo en líneas (esto representa el tamaño de la entrada) y a los añade a **`sizes`**.
-
-        -   Añade el tiempo transcurrido a **`times`**.
-    3.  Genera una gráfica de líneas usando **`matplotlib`**, donde el eje $x$ representa el tamaño de entrada y el eje $y$ el tiempo de ejecución.
 
 ```{python}
-analyze_complexity(file_paths_in[2])
+analyse_complexity(file_path="tests/T3/701c.in")
 ```
+En el gráfico, observamos que el tiempo de ejecución del algoritmo voraz aumenta de manera progresiva conforme se incrementa el número de casos. Este crecimiento parece ser bastante lineal, lo cual es positivo, ya que el algoritmo maneja bastante bien el aumento de datos sin volverse excesivamente lento.
 
-### Observaciones del Gráfico
-
-1.  **Relación Lineal**:
-    -   La línea formada por los puntos muestra un crecimiento lineal en el tiempo de ejecución a medida que aumenta el tamaño del archivo de entrada. Esto indica que el tiempo de procesamiento aumenta de manera proporcional con el tamaño de los datos de entrada.
-2.  **Escala de Tiempo**:
-    -   El tiempo de ejecución es bajo (en el rango de milisegundos), lo cual es adecuado para los tamaños de entrada analizados. Sin embargo, esto puede cambiar si el tamaño de entrada crece significativamente, dado que la pendiente sugiere un incremento constante.
-3.  **Pendiente Constante**:
-    -   La pendiente de la línea es consistente, lo que sugiere que la complejidad del programa es lineal respecto al tamaño de los datos de entrada. En este contexto, el programa probablemente tiene una complejidad $O(N)$ para estos tamaños de entrada.
-
-### Conclusiones
-
-1.  **Eficiencia del Programa**:
-    -   Para los tamaños de entrada utilizados, el programa demuestra una eficiencia aceptable y un tiempo de respuesta rápido. Esto es positivo, especialmente si el objetivo es procesar archivos de entrada de tamaño similar.
-2.  **Escalabilidad**:
-    -   Aunque el tiempo de ejecución es bajo para los tamaños probados, si el tamaño de entrada continúa creciendo, el tiempo de ejecución también aumentará linealmente. Esto indica que el programa debería manejar bien entradas moderadamente grandes, pero puede volverse más lento en el caso de archivos extremadamente grandes.
-
-En general, el gráfico sugiere que el programa tiene un comportamiento predecible y escalable en un contexto de tamaño de entrada moderado, y su eficiencia es adecuada para los tamaños de datos probados.
+Además, el patrón escalonado en el gráfico sugiere que algunas operaciones del algoritmo un poco más de tiempo en ciertos puntos, posiblemente debido a ciertas decisiones o procesos internos que demandan un esfuerzo adicional. A pesar de esto, el incremento sigue siendo controlado y predecible.
