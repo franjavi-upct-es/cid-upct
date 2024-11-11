@@ -2,23 +2,19 @@
 title: "Fundamentos de Redes de Datos"
 subtitle: "Práctica 4: Configuración de redes IP - Mininet"
 author: "Francisco Javier Mercader Martínez"
-output: pdf_document
-geometry: "a4paper, margin=1.5cm"
+output: 
+  pdf_document:
+    latex_engine: xelatex
+    highlight: pygments
+geometry: margin=1.5cm, a4paper
 header-includes:
-  - \usepackage{hyperref}
-  - \usepackage{xcolor}
-  - \hypersetup{
-      colorlinks=true,
-      urlcolor=cyan}
+- \renewcommand{\and}{\\}
+- \usepackage{fvextra}
+- \usepackage{hyperref}
+- \DefineVerbatimEnvironment{Highlighting}{Verbatim}{breaklines, commandchars=\\\{\}}
 ---
 
-```{r include=FALSE}
-library(reticulate)
-use_condaenv("optim-2", conda="C:/ProgramData/anaconda3/Scripts/conda.exe", required = TRUE)
-py_config()
-```
-
-## Tarea 3.1
+Tarea 3.1
 
 -   Vamos a comprobar la correcta instalación de Mininet mediante una prueba básica. Para ello ejecutamos Mininet mediante el comando **`mn`**.
 
@@ -26,20 +22,20 @@ py_config()
 sudo -E mn
 ```
 
-```         
-## *** No default OpenFlow controller found for default switch!
-## *** Falling back to OVS Bridge
-## *** Creating network
-## *** Adding controller
-## *** Adding hosts:
-## h1 h2 
-## *** Adding switches:
-## ovs-vsctl: unix:/run/openvswitch/db.sock: database connection failed (No such file or directory)
-## ovs-vsctl exited with code 1
-## *** Error connecting to ovs-db with ovs-vsctl
-## Make sure that Open vSwitch is installed, that ovsdb-server is running, and that
-## "ovs-vsctl show" works correctly.
-## You may wish to try "service openvswitch-switch start".
+```bash
+*** No default OpenFlow controller found for default switch!
+*** Falling back to OVS Bridge
+*** Creating network
+*** Adding controller
+*** Adding hosts:
+h1 h2 
+*** Adding switches:
+ovs-vsctl: unix:/run/openvswitch/db.sock: database connection failed (No such file or directory)
+ovs-vsctl exited with code 1
+*** Error connecting to ovs-db with ovs-vsctl
+Make sure that Open vSwitch is installed, that ovsdb-server is running, and that
+"ovs-vsctl show" works correctly.
+You may wish to try "service openvswitch-switch start".
 ```
 
 Es posible que sea necesario arrancar el servicio **`openvswitch`**:
@@ -49,39 +45,39 @@ sudo systemctl enable openvswitch.service
 sudo systemctl start openvswitch.service
 ```
 
-```         
-## Created symlink /etc/systemd/system/multi-user.target.wants/openvswitch.service → /usr/lib/systemd/system/## openvswitch.service.
-## fdr1@localhost:~> sudo -E mn
-## [sudo] contraseña para root:
-## *** No default OpenFlow controller found for default switch!
-## *** Falling back to OVS Bridge
-## *** Creating network
-## *** Adding controller
-## *** Adding hosts:
-## h1 h2
-## *** Adding switches:
-## s1
-## *** Adding links:
-## (h1, s1) (h2, s1)
-## *** Configuring hosts
-## h1 h2
-## *** Starting controller
-##
-## *** Starting 1 switches
-## s1 ...
-## *** Starting CLI:
-## mininet> quit
-## *** Stopping 0 controllers
-##
-## *** Stopping 2 links
-## ..
-## *** Stopping 1 switches
-## s1
-## *** Stopping 2 hosts
-## h1 h2
-## *** Done
-## completed in 111.656 seconds
-## fdr1@localhost:~>
+```bash
+Created symlink /etc/systemd/system/multi-user.target.wants/openvswitch.service → /usr/lib/systemd/system/openvswitch.service.
+fdr1@localhost:~> sudo -E mn
+[sudo] contraseña para root:
+*** No default OpenFlow controller found for default switch!
+*** Falling back to OVS Bridge
+*** Creating network
+*** Adding controller
+*** Adding hosts:
+h1 h2
+*** Adding switches:
+s1
+*** Adding links:
+(h1, s1) (h2, s1)
+*** Configuring hosts
+h1 h2
+*** Starting controller
+
+*** Starting 1 switches
+s1 ...
+*** Starting CLI:
+mininet> quit
+*** Stopping 0 controllers
+
+*** Stopping 2 links
+..
+*** Stopping 1 switches
+s1
+*** Stopping 2 hosts
+h1 h2
+*** Done
+completed in 111.656 seconds
+fdr1@localhost:~>
 ```
 
 ¿Qué ha ocurrido? ¿Cuál es la topología de red que se ha creado?
@@ -96,7 +92,7 @@ Mininet ha creado una red básica con la siguiente topología:
 
 Esta es una topología de red básica en estrella, donde ambos hosts (**`h1`** y **`h2`**) están conectados a un único switch (**`s1`**).
 
-## Tarea 3.2.1
+Tarea 3.2.1
 
 Ejecutamos la línea de comando para lanzar Mininet con la topología en árbol.
 
@@ -104,8 +100,7 @@ Ejecutamos la línea de comando para lanzar Mininet con la topología en árbol.
 sudo -E mn --switch ovsbr --topo tree,depth=2,fanout=2
 ```
 
-``` bash
-fdr1@localhost:~> sudo -E mn --switch ovsbr --topo tree,depth=2,fanout=2
+```bash
 *** Creating network
 *** Adding controller
 *** Adding hosts:
@@ -126,7 +121,7 @@ mininet>
 
 -   Indica para qué sirven cada uno de los siguientes comandos: **`exit`**, **`dump`**, **`link`**, **`links`**, **`net`**, **`pingallbd`**, **`pingpair`**, **`ports`**, **`quit`** y **`switch`**.
 
-``` bash
+```bash
 mininet> help exit
 Exit
 mininet> help dump
@@ -154,7 +149,7 @@ Starts or stops a switch
 
 -   Indica el resultado de los comandos **`net`**, **`dump`** y **`pingall`**.
 
-``` bash
+```bash
 mininet> net
 h1 h1-eth0:s2-eth1
 h2 h2-eth0:s2-eth2
@@ -185,7 +180,7 @@ mininet>
 
     Emplea el comando para abrir un terminal en los hosts h2 y h4. En el terminal de h4 emplea el comando de Linux **`ip address`** para obtener la dirección IP del terminar en la red creada. Desde el terminal de h2 realiza un ping al terminal h4. Anota todo lo realizado
 
-``` bash
+```bash
 mininet> xterm h2 h4
 ```
 
@@ -277,7 +272,7 @@ mininet> xterm h2 h4
     *** Cleanup complete.
     ```
 
-## Tarea 3.2.2
+Tarea 3.2.2
 
 -   Crea un directorio en tu **`HOME`** llamados **`pruebas_redes_sdn`**, y en él crea el fichero **`topo_1s_4h_nosdn.py`**. Dentro de este directorio, ejecuta Mininet desde línea de comando.
 
@@ -289,7 +284,7 @@ mininet> xterm h2 h4
     from mininet.topo import Topo
 
     class mitopo (Topo):
-        
+
         def build(self):
 
             s1=self.addSwitch('s1',switch='ovsbr')
