@@ -22,7 +22,7 @@ Tarea 3.1
 sudo -E mn
 ```
 
-```bash
+``` bash
 *** No default OpenFlow controller found for default switch!
 *** Falling back to OVS Bridge
 *** Creating network
@@ -45,7 +45,7 @@ sudo systemctl enable openvswitch.service
 sudo systemctl start openvswitch.service
 ```
 
-```bash
+``` bash
 Created symlink /etc/systemd/system/multi-user.target.wants/openvswitch.service → /usr/lib/systemd/system/openvswitch.service.
 fdr1@localhost:~> sudo -E mn
 [sudo] contraseña para root:
@@ -100,7 +100,7 @@ Ejecutamos la línea de comando para lanzar Mininet con la topología en árbol.
 sudo -E mn --switch ovsbr --topo tree,depth=2,fanout=2
 ```
 
-```bash
+``` bash
 *** Creating network
 *** Adding controller
 *** Adding hosts:
@@ -121,7 +121,7 @@ mininet>
 
 -   Indica para qué sirven cada uno de los siguientes comandos: **`exit`**, **`dump`**, **`link`**, **`links`**, **`net`**, **`pingallbd`**, **`pingpair`**, **`ports`**, **`quit`** y **`switch`**.
 
-```bash
+``` bash
 mininet> help exit
 Exit
 mininet> help dump
@@ -149,7 +149,7 @@ Starts or stops a switch
 
 -   Indica el resultado de los comandos **`net`**, **`dump`** y **`pingall`**.
 
-```bash
+``` bash
 mininet> net
 h1 h1-eth0:s2-eth1
 h2 h2-eth0:s2-eth2
@@ -180,7 +180,7 @@ mininet>
 
     Emplea el comando para abrir un terminal en los hosts h2 y h4. En el terminal de h4 emplea el comando de Linux **`ip address`** para obtener la dirección IP del terminar en la red creada. Desde el terminal de h2 realiza un ping al terminal h4. Anota todo lo realizado
 
-```bash
+``` bash
 mininet> xterm h2 h4
 ```
 
@@ -282,7 +282,7 @@ Tarea 3.2.2
 
     ``` python
 
-    
+
     from mininet.topo import Topo
 
     class mitopo (Topo):
@@ -340,7 +340,7 @@ Tarea 3.3
 
 Considera la siguiente topología de red, definida en el fichero **`topo_routing.py`**:
 
-```python
+``` python
 # topo_routing.py
 from mininet.topo import Topo
 from mininet.node import OVSBridge,Node
@@ -389,23 +389,41 @@ class mitopo(Topo):
 topos={'mitopo':(lambda: mitopo())}
 ```
 
-- Realiza el diseño del plan de direccionamiento IP para esta red. Para ello contesta las siguientes preguntas:
-    
-    - Identifica las subredes que componen la red y empleando subredes de igual tamaño define un plan de direccionamiento adecuado (en papel).
+-   Realiza el diseño del plan de direccionamiento IP para esta red. Para ello contesta las siguientes preguntas:
 
-    - Traslada el plan de direccionamiento a Mininet, configurando las interfaces de los dispositivos.
+    -   Identifica las subredes que componen la red y empleando subredes de igual tamaño define un plan de direccionamiento adecuado (en papel).
 
-- Realiza el diseño de las tablas de encaminamiento de los dispositivos de esta red. Para ello constesta las siguientes preguntas:
+    ![](figures/Captura%202024-11-12%20a%20las%209.12.54.png)
 
-    - Determina el valor de la entrada default de los hosts (en papel).
+    Observando la topología (*imagen adjunta*), podemos identificar las subredes necesarias para cada enlace entre los routers y los hosts:
 
-    - Traslada el valor de la entrada default de los hosts a Mininet.
+    1.  **Subredes entre los hosts y sus switches:**
+        -   **`h1`** y **`s1`**: Subred **`192.168.1.0/24`**.
+        -   **`h2`** y **`s2`**: Subred **`192.168.2.0/24`**.
+        -   **`h3`** y **`s3`**: Subred **`192.168.3.0/24`**.
+        -   **`h4`** y **`s4`**: Subred **`192.168.4.0/24`**.
+    2.  **Subredes entre routers y switches:**
+        -   **`r1`** y **`s1`**, **`s2`**, **`s5`**: Subred **`192.168.5.0/24`**.
+        -   **`r2`** y **`s3`**, **`s5`**: Subred **`192.168.6.0/24`**.
+        -   **`r3`** y **`s4`**, **`s5`**: Subred **`192.168.7.0/24`**.
 
-    - Comprueba el valor de las tablas de encamiento de los hosts en Mininet
+    Este diseño asigna una subred única a cada conexión entre un router y un switch o entre un host y un switch, facilitando el encaminamiento.
 
-    - Determina el valor de las entradas de las tablas de encaminamiento de cada router para poder alcanzar las redes no directamente conectadas (en papel).
+    -   Traslada el plan de direccionamiento a Mininet, configurando las interfaces de los dispositivos.
 
-    - Comprueba el valor de las tablas de encamiento de los routers en Mininet.
+    ``` bash
+    ```
 
-- Un vez configurada la red, verifica la conectividad haciendo un ping desde cada host hacia el resto de los hosts de la red (no emplees el comando **`pingall`**).
+-   Realiza el diseño de las tablas de encaminamiento de los dispositivos de esta red. Para ello constesta las siguientes preguntas:
 
+    -   Determina el valor de la entrada default de los hosts (en papel).
+
+    -   Traslada el valor de la entrada default de los hosts a Mininet.
+
+    -   Comprueba el valor de las tablas de encamiento de los hosts en Mininet
+
+    -   Determina el valor de las entradas de las tablas de encaminamiento de cada router para poder alcanzar las redes no directamente conectadas (en papel).
+
+    -   Comprueba el valor de las tablas de encamiento de los routers en Mininet.
+
+-   Un vez configurada la red, verifica la conectividad haciendo un ping desde cada host hacia el resto de los hosts de la red (no emplees el comando **`pingall`**).
