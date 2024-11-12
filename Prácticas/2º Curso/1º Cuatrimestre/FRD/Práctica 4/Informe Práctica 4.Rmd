@@ -5,7 +5,6 @@ author: "Francisco Javier Mercader Martínez"
 output: 
   pdf_document:
     latex_engine: xelatex
-    highlight: pygments
 geometry: margin=1.5cm, a4paper
 header-includes:
 - \renewcommand{\and}{\\}
@@ -18,11 +17,11 @@ Tarea 3.1
 
 -   Vamos a comprobar la correcta instalación de Mininet mediante una prueba básica. Para ello ejecutamos Mininet mediante el comando **`mn`**.
 
-``` bash
+```bash
 sudo -E mn
 ```
 
-``` bash
+```bash
 *** No default OpenFlow controller found for default switch!
 *** Falling back to OVS Bridge
 *** Creating network
@@ -40,12 +39,12 @@ You may wish to try "service openvswitch-switch start".
 
 Es posible que sea necesario arrancar el servicio **`openvswitch`**:
 
-``` bash
+```bash
 sudo systemctl enable openvswitch.service
 sudo systemctl start openvswitch.service
 ```
 
-``` bash
+```bash
 Created symlink /etc/systemd/system/multi-user.target.wants/openvswitch.service → /usr/lib/systemd/system/openvswitch.service.
 fdr1@localhost:~> sudo -E mn
 [sudo] contraseña para root:
@@ -96,11 +95,11 @@ Tarea 3.2.1
 
 Ejecutamos la línea de comando para lanzar Mininet con la topología en árbol.
 
-``` bash
+```bash
 sudo -E mn --switch ovsbr --topo tree,depth=2,fanout=2
 ```
 
-``` bash
+```bash
 *** Creating network
 *** Adding controller
 *** Adding hosts:
@@ -121,7 +120,7 @@ mininet>
 
 -   Indica para qué sirven cada uno de los siguientes comandos: **`exit`**, **`dump`**, **`link`**, **`links`**, **`net`**, **`pingallbd`**, **`pingpair`**, **`ports`**, **`quit`** y **`switch`**.
 
-``` bash
+```bash
 mininet> help exit
 Exit
 mininet> help dump
@@ -149,7 +148,7 @@ Starts or stops a switch
 
 -   Indica el resultado de los comandos **`net`**, **`dump`** y **`pingall`**.
 
-``` bash
+```bash
 mininet> net
 h1 h1-eth0:s2-eth1
 h2 h2-eth0:s2-eth2
@@ -180,7 +179,7 @@ mininet>
 
     Emplea el comando para abrir un terminal en los hosts h2 y h4. En el terminal de h4 emplea el comando de Linux **`ip address`** para obtener la dirección IP del terminar en la red creada. Desde el terminal de h2 realiza un ping al terminal h4. Anota todo lo realizado
 
-``` bash
+```bash
 mininet> xterm h2 h4
 ```
 
@@ -194,13 +193,13 @@ mininet> xterm h2 h4
 
     Por ejemplo, si queremos ejecutar el comando **`ip address`** en el dispositivo h4 (como hemos hecho antes), la forma sería tecleando:
 
-    ``` bash
+    ```bash
     mininet> h4 ip address
     ```
 
     Compruébalo. ¿Cómo harías un ping desde h2 a h4 sin utilizar **`xterm`**?
 
-    ``` bash
+    ```bash
     mininet> h4 ip address
     1: lo: <LOOPBACK,UP,LOWER_UP> mtu 65536 qdisc noqueue state UNKNOWN group default qlen 1000
         link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
@@ -233,7 +232,7 @@ mininet> xterm h2 h4
 
 -   **IMPORTANTE:** Para salir de Mininet tecleamos **`exit`**. A continuación, ejecutamos **`#sudo mn -c`**. El opción **`-c`** o **`--clean`** sirve para "limpiar" el entorno de ejecución de Mininet y así evitar conflictos con una próxima ejecución. Es recomendable ejecutarlo siempre tras salir de Mininet o antes de ejecutarlo.
 
-    ``` bash
+    ```bash
     mininet> exit
     *** Stopping 0 controllers
 
@@ -276,7 +275,7 @@ Tarea 3.2.2
 
 -   Crea un directorio en tu **`HOME`** llamados **`pruebas_redes_sdn`**, y en él crea el fichero **`topo_1s_4h_nosdn.py`**. Dentro de este directorio, ejecuta Mininet desde línea de comando.
 
-    ``` bash
+    ```bash
     fdr1@localhost:~> mkdir ~/pruebas_redes_sdn
     ```
 
@@ -308,7 +307,7 @@ Tarea 3.2.2
 
 -   Dentro de Mininet, verifica la conectividad.
 
-    ``` bash
+    ```bash
     fdr1@localhost:~/pruebas_redes_sdn> sudo -E mn --switch ovsbr --custom topo_1s-4h_nosdn.py --mac --topo mitopo
     [sudo] contraseña para root: 
     *** Creating network
@@ -413,7 +412,7 @@ topos={'mitopo':(lambda: mitopo())}
 
     -   Traslada el plan de direccionamiento a Mininet, configurando las interfaces de los dispositivos.
 
-        ``` bash
+        ```bash
         fdr1@localhost:~/pruebas_redes_sdn> sudo -E mn --switch ovsbr --custom topo_routing.py --mac --topo mitopo
         *** Creating network
         *** Adding controller
@@ -437,7 +436,7 @@ topos={'mitopo':(lambda: mitopo())}
 
         -   **Para los hosts:**
 
-        ``` bash
+        ```bash
         mininet> h1 ifconfig h1-eth0 192.168.1.1/24
         mininet> h2 ifconfig h2-eth0 192.168.2.1/24
         mininet> h3 ifconfig h3-eth0 192.168.3.1/24
@@ -446,7 +445,7 @@ topos={'mitopo':(lambda: mitopo())}
 
         -   **Para el router `r1`:**
 
-        ``` bash
+        ```bash
         mininet> r1 ifconfig r1-eth0 192.168.1.254/24
         mininet> r1 ifconfig r1-eth1 192.168.2.254/24
         mininet> r1 ifconfig r1-eth2 192.168.5.1/24
@@ -454,14 +453,14 @@ topos={'mitopo':(lambda: mitopo())}
 
         -   **Para el router `r2`:**
 
-        ``` bash
+        ```bash
         mininet> r2 ifconfig r2-eth0 192.168.3.254/24
         mininet> r2 ifconfig r2-eth1 192.168.6.1/24
         ```
 
         -   **Para el router `r3`:**
 
-        ``` bash
+        ```bash
         mininet> r3 ifconfig r3-eth0 192.168.4.254/24
         mininet> r3 ifconfig r3-eth1 192.168.7.1/24
         ```
@@ -481,7 +480,7 @@ topos={'mitopo':(lambda: mitopo())}
 
     -   Traslada el valor de la entrada default de los hosts a Mininet.
 
-        ``` bash
+        ```bash
         mininet> h1 route add default gw 192.168.1.254
         mininet> h2 route add default gw 192.168.2.254
         mininet> h3 route add default gw 192.168.3.254
@@ -490,7 +489,7 @@ topos={'mitopo':(lambda: mitopo())}
 
     -   Comprueba el valor de las tablas de encamiento de los hosts en Mininet
 
-        ``` bash
+        ```bash
         mininet> h1 route -n
         Kernel IP routing table
         Destination     Gateway         Genmask         Flags Metric Ref    Use Iface
@@ -517,7 +516,7 @@ topos={'mitopo':(lambda: mitopo())}
 
     -   Comprueba el valor de las tablas de encaminamiento de los routers en Mininet.
 
-        ``` bash
+        ```bash
         mininet> r1 route -n
         Kernel IP routing table
         Destination     Gateway         Genmask         Flags Metric Ref    Use Iface
@@ -540,7 +539,7 @@ topos={'mitopo':(lambda: mitopo())}
 
     -   **Desde `h1`:**
 
-        ``` bash
+        ```bash
         mininet> h1 ping -c 3 h2
         PING 192.168.2.1 (192.168.2.1) 56(84) bytes of data.
         64 bytes from 192.168.2.1: icmp_seq=1 ttl=63 time=3.78 ms
@@ -571,7 +570,7 @@ topos={'mitopo':(lambda: mitopo())}
 
     -   **Desde `h2`:**
 
-        ``` bash
+        ```bash
         mininet> h2 ping -c 3 h1
         PING 192.168.1.1 (192.168.1.1) 56(84) bytes of data.
         64 bytes from 192.168.1.1: icmp_seq=1 ttl=63 time=0.961 ms
@@ -601,7 +600,7 @@ topos={'mitopo':(lambda: mitopo())}
 
     -   **Desde `h3`:**
 
-        ``` bash
+        ```bash
         mininet> h3 ping -c 3 h1
         PING 192.168.1.1 (192.168.1.1) 56(84) bytes of data.
         From 192.168.3.254 icmp_seq=1 Destination Net Unreachable
@@ -630,7 +629,7 @@ topos={'mitopo':(lambda: mitopo())}
 
     -   **Desde `h4`:**
 
-        ``` bash
+        ```bash
         mininet> h4 ping -c 3 h1
         PING 192.168.1.1 (192.168.1.1) 56(84) bytes of data.
 
