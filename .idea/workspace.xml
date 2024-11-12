@@ -6,14 +6,9 @@
   <component name="ChangeListManager">
     <list default="true" id="26c2ae99-ce09-4876-9816-cac4e9750c52" name="Changes" comment="Práctica 2 Sesión 1 BD I">
       <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/sqldialects.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/sqldialects.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Apuntes LaTex/2º Curso/Optimización II/Hoja de ejercicios Parte II.log" beforeDir="false" afterPath="$PROJECT_DIR$/Apuntes LaTex/2º Curso/Optimización II/Hoja de ejercicios Parte II.log" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Apuntes LaTex/2º Curso/Optimización II/Hoja de ejercicios Parte II.synctex.gz" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Prácticas/2º Curso/1º Cuatrimestre/ADA/ADA_boletin_P1/enunciados/01 - mecánicos y averías/Memoria.Rmd" beforeDir="false" afterPath="$PROJECT_DIR$/Prácticas/2º Curso/1º Cuatrimestre/ADA/ADA_boletin_P1/enunciados/01 - mecánicos y averías/Memoria.Rmd" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Prácticas/2º Curso/1º Cuatrimestre/FIE/src/04-estimacion-no-parametrica/estimacion_no_parametrica_handout.html" beforeDir="false" afterPath="$PROJECT_DIR$/Prácticas/2º Curso/1º Cuatrimestre/FIE/src/04-estimacion-no-parametrica/estimacion_no_parametrica_handout.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Prácticas/2º Curso/1º Cuatrimestre/FRD/Práctica 3/Informe-Práctica-3.pdf" beforeDir="false" afterPath="$PROJECT_DIR$/Prácticas/2º Curso/1º Cuatrimestre/FRD/Práctica 3/Informe-Práctica-3.pdf" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Prácticas/2º Curso/1º Cuatrimestre/Optimización II/ejercicios/ejercicio_practica_7_handout.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/Prácticas/2º Curso/1º Cuatrimestre/Optimización II/ejercicios/ejercicio_practica_7_handout.ipynb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Prácticas/2º Curso/1º Cuatrimestre/ADA/ADA_boletin_P2/problemas P2-BT ADA 2024-2025/01 - mecánicos y averías/Memoria.Rmd" beforeDir="false" afterPath="$PROJECT_DIR$/Prácticas/2º Curso/1º Cuatrimestre/ADA/ADA_boletin_P2/problemas P2-BT ADA 2024-2025/01 - mecánicos y averías/Memoria.Rmd" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Prácticas/2º Curso/1º Cuatrimestre/ADA/ADA_boletin_P2/problemas P2-BT ADA 2024-2025/01 - mecánicos y averías/mecanicos_y_averias.py" beforeDir="false" afterPath="$PROJECT_DIR$/Prácticas/2º Curso/1º Cuatrimestre/ADA/ADA_boletin_P2/problemas P2-BT ADA 2024-2025/01 - mecánicos y averías/mecanicos_y_averias.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -67,38 +62,63 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;database.data.extractors.current.export.id&quot;: &quot;SQL Inserts&quot;,
-    &quot;database.data.extractors.current.id&quot;: &quot;SQL Inserts&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/fcoja/iCloudDrive/cid-upct&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.keymap&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Python.mecanicos_y_averias.executor": "Run",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "database.data.extractors.current.export.id": "SQL Inserts",
+    "database.data.extractors.current.id": "SQL Inserts",
+    "git-widget-placeholder": "main",
+    "last_opened_file_path": "C:/Users/fcoja/cid-upct",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "preferences.keymap",
+    "vue.rearranger.settings.migration": "true"
   },
-  &quot;keyToStringList&quot;: {
-    &quot;DatabaseDriversLRU&quot;: [
-      &quot;oracle&quot;
+  "keyToStringList": {
+    "DatabaseDriversLRU": [
+      "oracle"
     ],
-    &quot;com.intellij.ide.scratch.LRUPopupBuilder$1/SQL Dialect&quot;: [
-      &quot;Oracle&quot;
+    "com.intellij.ide.scratch.LRUPopupBuilder$1/SQL Dialect": [
+      "Oracle"
     ]
   }
-}</component>
-  <component name="RunManager" selected="Database Script.bd1-p2-centrodeportivo-creacarga.sql">
+}]]></component>
+  <component name="RunManager" selected="Python.mecanicos_y_averias">
     <configuration name="bd1-p2-centrodeportivo-creacarga.sql" type="DatabaseScript" editBeforeRun="true" singleton="false" temporary="true" nameIsGenerated="true">
       <script-file value="$PROJECT_DIR$/Prácticas/2º Curso/1º Cuatrimestre/BD I/Práctica 2/bd1-p2-centrodeportivo-creacarga.sql" />
       <script-mode>FILE</script-mode>
       <method v="2" />
     </configuration>
+    <configuration name="mecanicos_y_averias" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="cid-upct" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/Prácticas/2º Curso/1º Cuatrimestre/ADA/ADA_boletin_P2/problemas P2-BT ADA 2024-2025/01 - mecánicos y averías" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Prácticas/2º Curso/1º Cuatrimestre/ADA/ADA_boletin_P2/problemas P2-BT ADA 2024-2025/01 - mecánicos y averías/mecanicos_y_averias.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.mecanicos_y_averias" />
         <item itemvalue="Database Script.bd1-p2-centrodeportivo-creacarga.sql" />
       </list>
     </recent_temporary>
@@ -126,6 +146,7 @@
       <workItem from="1731001574261" duration="1281000" />
       <workItem from="1731003222550" duration="4168000" />
       <workItem from="1731009801788" duration="359000" />
+      <workItem from="1731389701501" duration="3138000" />
     </task>
     <task id="LOCAL-00001" summary="Ejercicios Práctica 4 FIE">
       <option name="closed" value="true" />
@@ -173,5 +194,8 @@
     <MESSAGE value="Práctica 7 Optimización II" />
     <MESSAGE value="Práctica 2 Sesión 1 BD I" />
     <option name="LAST_COMMIT_MESSAGE" value="Práctica 2 Sesión 1 BD I" />
+  </component>
+  <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/mecánicos_y_averias_py$mecanicos_y_averias.coverage" NAME="mecanicos_y_averias Coverage Results" MODIFIED="1731394124644" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Prácticas/2º Curso/1º Cuatrimestre/ADA/ADA_boletin_P2/problemas P2-BT ADA 2024-2025/01 - mecánicos y averías" />
   </component>
 </project>

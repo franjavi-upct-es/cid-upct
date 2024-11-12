@@ -152,10 +152,12 @@ def generar_salida(matrices):
 file_paths_in = encontrar_archivos_in(directorio=directorio)
 
 if __name__ == '__main__':
-    P, casos = leer_entrada(file_paths_in[0])
-    matrices = [caso['capacidades'] for caso in casos]
-    resultados = generar_salida(matrices)
-    print(P)
-    for resultado in resultados:
-        print(resultado[0])
-        print(f"{' '.join(map(str, resultado[1]))}")
+    for file_path in file_paths_in:
+        P, casos = leer_entrada(file_path)
+        matrices = [caso['capacidades'] for caso in casos]
+        resultados = generar_salida(matrices)
+        print(P)
+        for resultado in resultados:
+            print(resultado[0])
+            print(' '.join(map(str, resultado[1])))
+        print()
