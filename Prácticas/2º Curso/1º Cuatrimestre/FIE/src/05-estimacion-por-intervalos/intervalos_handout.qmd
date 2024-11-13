@@ -1,0 +1,558 @@
+---
+title: "Intervalos de confianza"
+author:
+  - name: Félix Belzunce
+    affiliations: Universidad de Murcia
+  - name:  María del Carmen Bueso, Pilar Sanmartín
+    affiliations: Universidad Politécnica de Cartagena
+format: html
+editor: visual
+title-block-banner: true
+self-contained: true
+---
+
+## El conjunto de datos
+
+Cada dos años, se realiza desde 2002 una gran encuesta llamada [European Social Survey](http://www.europeansocialsurvey.org/) cuyo objetivo es medir las actitudes, creencias y patrones de comportamiento de las poblaciones de más de 30 naciones.
+
+::: column-margin
+European Social Survey European Research Infrastructure (ESS ERIC). (2023). ESS10 Self-completion - integrated file, edition 3.0 \[Data set\]. Sikt - Norwegian Agency for Shared Services in Education and Research. https://doi.org/10.21338/ess10sce03_0
+:::
+
+En España, es el CIS, el Centro de Investigaciones Sociológicas, el encargado de llevar a cabo las encuestas y recoger las respuestas.
+
+Descargar del aula virtual y descomprimir el fichero ess.zip en la carpeta `data` del directorio `practicas`.
+
+::: callout-note
+## Las preguntas
+
+Son muchas las preguntas que deben contestar los entrevistados. En esta práctica nos centraremos en tres que tienen que ver con la percepción que tienen de los demás:
+
+-   ¿Diría usted que, por lo general, se puede confiar en la mayoría de la gente, o que nunca se es lo bastante prudente en el trato con los demás?
+-   ¿Cree que la mayoría de la gente intentaría aprovecharse de usted si pudiera, o que sería honrada con usted?
+-   ¿Diría usted que la mayoría de las veces la gente intenta ayudar a los demás o que principalmente mira por sí misma?
+:::
+
+
+## Exploración de los datos de 2020.
+
+### Carga de los datos
+
+Usando `read_csv` del tidyverse, cargad los datos correspondientes a ESS10 en un objeto llamado `ess_data`. Para ello, habréis definido `DATA_DIRECTORY`, una constante que indica la localización de los ficheros de datos.
+
+Cuántas filas y cuántas columnas contiene el conjunto?
+
+```{r}
+library(tidyverse)
+```
+
+
+```{r, warning=FALSE}
+# Completar aquí
+
+# Definir la constante con la ruta de la carpeta comprimida
+ZIP_FILE <- "../../data/ess.zip"
+
+# Listar el contenido del archivo zip
+zip_contents <- unzip(ZIP_FILE, list = TRUE)
+
+# Cargar el archivo CSV directamente desde el zip
+csv_file <- zip_contents$Name[19]
+ess_data <- read_csv(unz(ZIP_FILE, csv_file))
+
+# Fin Completar aquí
+str_glue("El conjunto ess_data tiene {nrow(ess_data)} filas y {ncol(ess_data)} columnas")
+```
+
+Puesto que en este trabajo, sólo vamos a considerar las respuestas a las tres preguntas mencionadas en la introducción, y para facilitar la carga en memoria, vamos a limitarnos a cargar solamente las columnas que necesitamos:
+
+-   `idno`: el número de identificación de cada entrevistado, puede ser conveniente a la hora de manipular los datos, guardar un registro del individuo.
+-   `cntry`: el país de residencia de cada entrevistado
+-   `gndr`: el género de cada entrevistado: (1: hombre, 2: mujer, 9: dato faltante)
+-   `ppltrst`: respuesta a la pregunta "¿Diría usted que, por lo general, se puede confiar en la mayoría de la gente, o que nunca se es lo bastante prudente en el trato con los demás?" Respuesta de 0 (nunca se es lo bastante prudente) hasta 10 (se puede confiar en la mayoría de la gente). Los valores 77, 88 y 99 son valores faltantes.
+-   `pplfair`: respuesta a la pregunta "¿Cree que la mayoría de la gente intentaría aprovecharse de usted si pudiera, o que sería honrada con usted?" Respuesta de 0 (la mayoría intentaría aprovecharse de mí) hasta 10 (la mayoría sería honrada). Los valores 77, 88 y 99 son valores faltantes.
+-   `pplhlp`: respuesta a la pregunta: "¿Diría usted que la mayoría de las veces la gente intenta ayudar a los demás o que principalmente mira por sí misma?". Respuesta de 0 (la mayoría de las veces la gente intenta ayudar) hasta 10 (principalmente mira por sí misma). Los valores 77, 88 y 99 son valores faltantes.
+
+Para restringir las columnas en el mismo momento de la carga del fichero, se usa el parámetro `col_select` de `read_csv`, ver la [documentación](https://readr.tidyverse.org/reference/read_delim.html)
+
+```{r}
+# Completar aquí
+
+# Definirmos de nuevo ess_data cargando solo las columnas requeridas
+ess_data <- read_csv(
+  unz(ZIP_FILE, csv_file),
+  col_select = c("idno", "cntry", "gndr", "ppltrst", "pplfair", "pplhlp")
+)
+
+# Fin Completar aquí
+glimpse(ess_data)
+```
+
+Queremos saber cuántos datos faltantes hay para cada variable. Puesto que todas las columnas representan variables discretas con un número limitado de valores diferentes, podemos usar `table` para cada una de ellas.
+
+-   Veamos la variable `cntry`, calculando su frecuencia y datos faltantes:
+
+```{r}
+# Completar aquí
+# Calculo de la frecuencia de los valores de la columna 'cntry'
+frecuencia_cntry <- table(ess_data$cntry, useNA = "ifany")
+
+frecuencia_cntry
+# Fin Completar aquí
+```
+
+-   Veamos la variable `gndr`, calculando su frecuencia y datos faltantes:
+
+```{r}
+# Completar aquí
+# Calculo de la frecuencia de los valores de la columna 'gndr'
+frecuencia_gndr <- table(ess_data$gndr, useNA = "ifany")
+
+frecuencia_gndr
+
+# Fin Completar aquí
+```
+
+Puesto que las tres variables `ppltrst`, `pplfair`, `pplhlp` tienen la misma codificación, vamos a obtener de manera más general los valores faltantes (los que son superiores a 10), y el número total de datos. Nos servirá para ilustrar algunos comandos de `dplyr`, que resultan muy apropiados:
+
+```{r}
+#  nada que completar
+ess_data |>
+    summarise(
+        across(
+            starts_with("ppl"),
+            list(n = length, na = \(x) sum(x > 10)),
+            .names = "{col}_{fn}"
+        )
+    )
+```
+
+`summarise` permite hacer cálculos de resumen sobre un dataframe, es de la familia de `mutate` que transforma un dataframe.\
+`across` (ver [documentación](https://dplyr.tidyverse.org/reference/across.html)) permite aplicar una o varias funciones a columnas de un dataframe:
+
+-   Su primer argumento especifica qué columnas consideramos, para ello, usamos la sintaxis de `tidy-select`, ver la [documentación](https://dplyr.tidyverse.org/reference/dplyr_tidy_select.html)\
+-   el segundo argumento contiene la o las funciones que queremos aplicar, en este caso podemos usar una lista de elementos con nombres.
+-   el argumento `.names` indica cómo se construyen los nombres de las nuevas columnas con una sintaxis inspirada en `glue`, ver [documentación](https://glue.tidyverse.org/).
+
+::: callout-note
+## Completad aquí cuántos datos faltantes para cada variable:
+
+-   `cntry`:
+-   `gndr`:
+-   `ppltrst`:
+-   `pplfair`:
+-   `pplhlp`:
+:::
+
+::: callout-tip
+## Cálculo de resúmenes por grupos
+
+Muy a menudo las transformaciones (`mutate`) o los resúmenes (`summarise`) se calculan por grupos dentro de los datos. Se realiza usando `group_by` antes de pasar los datos a `summarise` o `mutate`.\
+Por ejemplo, podemos calcular los mismos indicadores pero desglosándolos por género:
+
+```{r}
+#  nada que completar
+ess_data |>
+    group_by(gndr) |>
+    summarise(
+        across(
+            starts_with("ppl"),
+            list(n = length, na = \(x) sum(x > 10)),
+            .names = "{col}_{fn}"
+        )
+    )
+```
+:::
+
+### Filtramos los datos faltantes.
+
+Vamos a trabajar con las encuestas en las que el entrevistado ha contestado a las tres preguntas y ha indicado su género. Para ello, usamos `filter`, indicando que nos queremos quedar con las filas que tiene valores de `ppltrst`, `pplfair`, `pplhlp` menores o iguales a 10, así como valores de `gndr` entre 1 y 2. Modificamos el dataframe `ess_data` existente.
+
+```{r}
+# Completar aquí
+ess_data <- ess_data |>
+  filter(
+    ppltrst <= 10,
+    pplfair <= 10,
+    pplhlp <= 10,
+    gndr %in% c(1, 2)
+  )
+
+# Fin Completar aquí
+ess_data |>
+    group_by(gndr) |>
+    summarise(
+        across(
+            starts_with("ppl"),
+            list(faltantes = \(x) sum(x > 10)),
+            .names = "{col}_{fn}"
+        )
+    )
+```
+
+::: callout-tip
+## Uso de `if_all`
+
+Si queremos aplicar la misma función lógica sobre varias columnas de un dataframe, podemos usar `if_all` o `if_any` según si queremos comprobar una intersección o una unión de las condiciones, ver [documentación](https://dplyr.tidyverse.org/reference/across.html). Son de la misma familia que `across`. Podéis probar a usarlo en el caso anterior.
+:::
+
+### Construcción de `ess_data_ES`.
+
+Construid el dataframe `ess_data_ES`, que contenga las respuestas correspondientes a entrevistados en España.
+
+```{r}
+# Completar aquí
+ess_data_ES <- ess_data |>
+  filter(cntry == "ES")
+
+
+# Fin Completar aquí
+str_glue("El conjunto ess_data_ES tiene {nrow(ess_data_ES)} filas y {ncol(ess_data_ES)} columnas")
+```
+
+### Exploración gráfica con un diagrama de barras
+
+Puesto que tenemos un número pequeño de valores posibles para las tres variables que nos interesan, vamos a realizar un diagrama de barras para cada género para los datos de España.
+
+Empezad por obtener dos diagramas para la variable `ppltrst`.
+
+```{r}
+# Completar aquí
+ess_data_ES |> 
+  ggplot(aes(x = ppltrst)) +
+  geom_bar(aes(y = after_stat(count)), fill = "blue", alpha = .5) +
+  facet_grid(~ gndr)
+# Fin Completar aquí
+```
+
+Si queremos obtener una matriz de diagramas donde cada fila corresponde a una variable y cada columna a un género, necesitamos pasar el dataframe `ess_data_ES` en formato "long": en lugar de tener una fila por cada entrevistado y 5 columnas `cntry`, `gndr`, `ppltrst`, `pplfair`, `pplhlp`, tendremos para cada entrevistado, tres filas pero solo cuatro columnas: `cntry`, `gndr`, y `variable` que contenga el nombre de la variable (tomará tres valores "ppltrst", "pplfair", "pplhlp") y `valor` que contenga el valor que toma, para este entrevistado, cada variable.
+
+Para ello, se usa `pivot_longer` de la librería "tidyr", ver [documentación](https://tidyr.tidyverse.org/reference/pivot_longer.html)
+
+```{r}
+#  nada que completar
+ess_data_ES_long <- ess_data_ES  |>
+    pivot_longer(
+        cols = starts_with("ppl"),
+        names_to = "variable",
+        values_to = "valor"
+    ) 
+head(ess_data_ES_long)
+```
+
+Por ejemplo, el primer entrevistado español contestó con un 5 a las tres preguntas.
+
+Ahora podemos hacer la matriz siguiente:
+
+```{r}
+# Completar aquí
+ess_data_ES_long |>
+    ggplot(aes(x = valor)) +
+    geom_bar(aes(y = after_stat(count)), fill = "blue", alpha = .5) +
+    facet_grid(variable ~ gndr)
+
+# Fin Completar aquí
+```
+
+::: callout-note
+## Para la estimación de la valoración promedio, un filtrado adicional
+
+Por los diagramas de barras anteriores, parece que una parte importante de los entrevistados contestan con un 0 a estas preguntas sobre su percepción de los demás. Puede corresponder a una reacción emocional, puesto que queremos obtener la valoración promedio y construir un intervalo de confianza usando un modelo normal, vamos además a eliminar los 0 del conjunto. De la misma manera, quitamos también los valores 10 del conjunto.\
+PD: No se trata de un procedimiento muy justificado, es más para poder ilustrar la construcción de intervalos!
+
+Eliminad los valores 0 y 10 en `ess_data_ES_long` para las variables `ppltrst`, `pplfair`, `pplhlp`
+
+```{r}
+# Completar aquí
+ess_data_ES_long <- ess_data_ES_long |>
+  filter(valor > 0, valor < 10)
+
+# Fin Completar aquí
+ess_data_ES_long |>
+    ggplot(aes(x = valor)) +
+    geom_bar(aes(y = after_stat(count)), fill = "blue", alpha = .5) +
+    facet_grid(variable ~ gndr)
+```
+:::
+
+Podemos ahora volver a `ess_data_ES` en formato "ancho", con `pivot_wider`, los valores que hemos filtrado se transformarán en valores faltantes, y no intervendrán en los cálculos
+
+```{r}
+# Nada que completar
+ess_data_ES <- ess_data_ES_long  |>
+    pivot_wider(
+        names_from = variable,
+        values_from = valor
+    ) 
+str_glue("El conjunto ess_data_ES tiene {nrow(ess_data_ES)} filas y {ncol(ess_data_ES)} columnas")
+print("Número de datos faltantes por columnas:")
+ess_data_ES |>
+    summarise(across(ppltrst:pplhlp, list(faltantes = \(x) sum(is.na(x))))) |>
+    print()
+```
+
+::: callout-tip
+## `pivot_wider`
+
+Para esta última operación con `pivot_wider`, nos hemos aprovechado del hecho de disponer de una columna (`idno`) que identificaba el entrevistado de manera única.
+:::
+
+## Cálculo de un intervalo de confianza para la valoración promedio
+
+::: callout-tip
+## Distribucion muestral para la media
+
+Si consideramos $X\sim\mathcal{N}(\mu_X, \sigma_X^2)$ m.a.s de $X$ y $\sigma$ desconocida tenemos:
+
+$$\frac {\overline{X} -\mu_X}{S_n/\sqrt{n}}\sim {t}_{n-1}.$$
+:::
+
+Vamos a calcular un intervalo de confianza para la valoración promedio para cada una de las tres variables, para los datos de España
+
+Empezad por definir una función `calcular_error_ic` que admita como parámetros un vector `x`, un valor `alpha` entre 0 y 1, y que devuelva el margen de error asociado a un IC para $\mu$, suponiendo que `x` es una realización de una m.a.s de un $\mathcal{N}(\mu, \sigma^2)$, con $\sigma$ desconocida.
+
+```{r}
+# Completar aquí
+calcular_error_ic <- function(x, alpha) {
+  # Tamaño de la muestra
+  n <- length(x)
+  
+  # Media y desviación estándar de la muestra
+  media <- mean(x)
+  sd_muestra <- sd(x)
+  
+  # Error estándar de la media
+  error_estandar <- sd_muestra / sqrt(n)
+  
+  # Valor crítico t para el nivel de confianza (1 - alpha)
+  t_critico <- qt(1 - alpha / 2, df = n - 1)
+  
+  # Margen de error
+  margen_error <- t_critico * error_estandar
+  
+  return(margen_error)
+}
+
+
+# Fin Completar aquí
+x <- c(5.52, 6.02, 4.75, 9.29, 2.91, 4.25, 4.87, 4.72, 3.51, 7.95)
+calcular_error_ic(x, 0.05)
+```
+
+Usando `summarise` y `across` como en la primera parte, obtened un tibble que contenga para cada una de las tres variables `ppltrst`, `pplfair`, `pplhlp`, la media y el margen de error al 95% del IC correspondiente.
+
+```{r}
+# Completar aquí
+# Calcular la media y el margen de error al 95% para cada variable
+resumen_ic <- ess_data_ES_long |> 
+  group_by(variable) |>
+  summarise(
+    media = mean(valor, na.rm = TRUE),
+    margen_error_95 = calcular_error_ic(valor, 0.05)
+  ) |>
+  pivot_wider(
+    names_from = variable,
+    values_from = c(media, margen_error),
+    names_glue = "{variable}_{.value}"
+  ) |>
+  rename(
+    ppltrst_media = ppltrst_media,
+    ppltrst_error = ppltrst_margen_error,
+    pplfair_media = pplfair_media,
+    pplfair_error = pplfair_margen_error,
+    pplhlp_media = pplhlp_media,
+    pplhlp_error = pplhlp_margen_error,
+  )
+
+resumen_ic
+# Fin Completar aquí
+```
+
+Podemos ahora distinguir los géneros y obtener las mismas columnas:
+
+```{r}
+# Completar aquí
+
+
+
+# Fin Completar aquí
+```
+
+# Comparación de las respuestas a dos preguntas.
+
+Queremos comprobar si hay diferencias entre las respuestas de los entrevistados a la pregunta `ppltrst` ("¿Diría usted que, por lo general, se puede confiar en la mayoría de la gente, o que nunca se es lo bastante prudente en el trato con los demás?") y a la pregunta `pplfair` ("¿Cree que la mayoría de la gente intentaría aprovecharse de usted si pudiera, o que sería honrada con usted?".
+
+## Exploración gráfica
+
+Representad gráficamente las respuestas a la pregunta `pplfair` en función de las respuestas a la pregunta `ppltrst` para España.
+
+```{r}
+# Completar aquí
+
+
+
+# Fin Completar aquí
+```
+
+::: callout-tip
+## Para visualizar mejor:
+
+Hemos usado `geom_jitter` que es parecido a `geom_point` pero que mueve cada punto un poquito de manera aleatoria, lo que permite ver mejor al evitar los solapamientos. (podéis probar con `geom_point` para ver la diferencia
+:::
+
+Por lo que vemos, y como era de esperar, las respuestas a las dos preguntas no son independientes. Para compararlas, vamos a hacer un intervalo de confianza para su diferencia.
+
+Obtened un intervalo de confianza al 95% para el promedio de la diferencia entre la respuesta a `pplfair` y `ppltrst`, desglosando el resultado por género.
+
+```{r}
+# Completar aquí
+
+
+
+
+# Fin Completar aquí
+```
+
+::: callout-note
+## Qué concluis?
+
+Hay una diferencia entre la valoración a las dos preguntas?
+:::
+
+# Diferencia entre las valoraciones a la misma pregunta por hombres y mujeres.
+
+Vamos a construir un IC para la diferencia de las valoraciones promedio a la pregunta `ppltrst` entre hombres y mujeres.
+
+::: callout-tip
+## Distribuciones muestrales para dos medias.
+
+Si consideramos dos v.a $X\sim\mathcal{N}(\mu_X, \sigma_X^2)$ e $Y\sim\mathcal{N}(\mu_Y, \sigma_Y^2)$, independientes, y dos m.a.s de $X$ e $Y$, tenemos tres distribuciones muestrales:
+
+-   Si conocemos $\sigma_X$ y $\sigma_Y$, $$\frac {\overline{X_1}-\overline{X_2} -(\mu_1-\mu_2)}{\sqrt{\frac {\sigma_1^2}{n_1}+\frac {\sigma_2^2}{n_2}}}\sim\mathcal{N}(0,1).$$
+-   Si a la hora de la modelización hemos supuesto $\sigma_X^2=\sigma_Y^2$, podemos estimar la varianza común $\sigma^2$ utilizando las dos muestras. Introducimos $$S_0^2=\frac{(n_X-1)S_X^2+(n_Y-1)S_Y^2}{n_X+n_Y-2}$$ Utilizaremos la distribución $$\frac {\overline{X}-\overline{Y} -(\mu_X-\mu_Y)}{\sqrt{S_0^2(\frac {1}{n_X}+\frac {1}{n_Y})}}\sim {t}_{n_X+n_Y-2}.$$
+-   Si NO se suponen iguales, en este caso, no se conoce de manera exacta la distribución muestral del estadístico natural $\frac {\overline{X}-\overline{X} -(\mu_X-\mu_Y)}{\sqrt{\frac {S_X^2}{n_X}+\frac {S_Y^2}{n_Y}}}$. Sin embargo, se puede utilizar la aproximación siguiente: $$\frac {\overline{X}-\overline{Y} -(\mu_X-\mu_Y)}{\sqrt{\frac {S_X^2}{n_X}+\frac {S_Y^2}{n_Y}}}\sim t_k,\quad\mbox{donde $k=\inf(n_X-1,n_Y-1).$}$$
+:::
+
+Definid una función que se llame `calcular_error_diferencia` que admite como argumentos un vector `x`, un vector `y`, el nivel de riesgo `alpha` y un booleano `varianzas_iguales`, que devuelva el margen de error del IC con nivel de confianza $100 \times (1 - \alpha)$ para la diferencia de medias $\mu_X - \mu_Y$.
+
+```{r}
+# Completar aquí
+
+
+# Fin Completar aquí
+x <- c(5.52, 6.02, 4.75, 9.29, 2.91, 4.25, 4.87, 4.72, 3.51, 7.95)
+y <- c(7.81, 8.90, 6.72, 9.75, 4.13, 6.31, 3.66, 6.91, 8.40, 5.74)
+calcular_error_diferencia(x, y, 0.05, varianzas_iguales = FALSE)
+```
+
+Para España, obtened el IC al 95% para la diferencia entre las valoraciones promedio de hombres y mujeres para la pregunta `ppltrst`, sin suponer las varianzas iguales.
+
+```{r}
+# Completar aquí
+
+# Fin Completar aquí
+```
+
+## Suponiendo las varianzas iguales.
+
+Obtened la varianza para las respuestas a la pregunta `ppltrst`, desglosando por género.
+
+```{r}
+# Completar aquí
+
+
+
+# Fin Completar aquí
+```
+
+Los valores son parecidos, para confirmarlo, podemos construir un IC para el ratio de varianzas. Sabemos que, en el caso de normales, tenemos
+
+$$\frac{(n_X-1)S_{X}^2/\sigma_X^2}{(n_Y-1)S_{Y}^2/\sigma_Y^2}\sim F_{n_X-1, n_Y-1}.$$
+
+Definid una función `calcular_ic_cociente_varianzas` que admite como argumentos un vector `x`, un vector `y`, el nivel de riesgo `alpha`, y que devuelva un tibble con dos columnas, una llamada `izq` y otra llamada `der` que contengan los dos extremos del IC para el cociente de las varianzas.
+
+```{r}
+# Completar aquí
+
+
+
+# Fin Completar aquí
+x <- c(5.52, 6.02, 4.75, 9.29, 2.91, 4.25, 4.87, 4.72, 3.51, 7.95)
+y <- c(7.81, 8.90, 6.72, 9.75, 4.13, 6.31, 3.66, 6.91, 8.40, 5.74)
+calcular_ic_cociente_varianzas(x, y, 0.05)
+```
+
+Para España, obtened el IC al 95% para el cociente de las varianzas de las respuestas de hombres y mujeres para la pregunta `ppltrst`.
+
+```{r}
+# Completar aquí
+
+
+# Fin Completar aquí
+```
+
+::: callout-note
+## Qué concluis?
+:::
+
+Volved a calcular el IC para España al 95% para la diferencia entre las valoraciones promedio de hombres y mujeres para la pregunta `ppltrst`, pero suponiendo ahora las varianzas iguales.
+
+```{r}
+# Completar aquí
+
+
+# Fin Completar aquí
+```
+
+::: callout-note
+## Qué concluis?
+
+Comparad con el IC obtenido si no suponemos las varianzas iguales.
+:::
+
+# Parte opcional: consideramos los datos desde 2002
+
+Cargad todos los ficheros correspondientes al ESS, y obtened, para España, las mismas columnas pero desglosando por género y por año.\
+Para ello, empezad por escribid una función `cargar_ESS_file` que coja el nombre del fichero y devuelva un tibble preparado, con los datos filtrados tal como lo hemos visto para 2020
+
+```{r}
+
+
+# Completar aquí
+
+
+# Fin Completar aquí
+glimpse(cargar_ESS_file("ESS1e06_6.csv"))
+```
+
+Podéis ahora usar `map_dfr` para crear un único dataframe que contenga los datos de todos los años. Pasaremos a `map_dfr` una lista cuyos nombres son los años, y usaremos el argumento `.id` de `map_dfr`.
+
+```{r}
+
+ESS_FILE_NAMES <- c(
+    "2002" = "ESS1e06_6.csv",
+    "2004" = "ESS2e03_6.csv",
+    "2006" = "ESS3e03_7.csv",
+    "2008" = "ESS4e04_5.csv",
+    "2010" = "ESS5e03_4.csv",
+    "2012" = "ESS6e02_5.csv",
+    "2014" = "ESS7e02_2.csv",
+    "2016" = "ESS8e02_2.csv",
+    "2018" = "ESS9e03_1.csv",
+    "2020" = "ESS10SC.csv"
+) 
+# Completar aquí
+
+
+# Fin Completar aquí
+glimpse(ess_data)
+```
+
+Después de transformar `year` en numérico, obtened para cada año y desglosando por género la media y el margen de error para cada una de las tres variables
+
+```{r}
+# Completar aquí
+
+
+# Fin Completar aquí
+```
