@@ -152,7 +152,7 @@ def solucion(nivel, A):
 ## 5. Función `criterio`
 
 ```{python}
-def criterio(nivel, s, mejor_reparadas, soluciones):
+def criterio(nivel, s, M, A, capacidades, mecanicos_usados, mejor_reparadas, soluciones):
     """
     Evalúa si la solución actual es mejor que la solución registrada.
 
@@ -162,11 +162,37 @@ def criterio(nivel, s, mejor_reparadas, soluciones):
     :param soluciones: Lista con la mejor solución encontrada.
     :return: True siempre, para continuar con el proceso de búsqueda.
     """
+    # Si se alcanzó el nivel de reparación deseado, evaluamos y guardamos la mejor solución
+    if nivel == A:
+        reparadas_actuales = sum(1 for x in s if x > 0)
+        if reparadas_actuales > mejor_reparadas[0]:
+            mejor_reparadas[0] = reparadas_actuales
+            soluciones[:] = s.copy()
+        return
+
+    # Poda temprana: Si no quedan suficientes niveles para alcanzar una mejor solución
     reparadas_actuales = sum(1 for x in s if x > 0)
-    if reparadas_actuales > mejor_reparadas[0]:
-        mejor_reparadas[0] = reparadas_actuales
-        soluciones[:] = s.copy()
-    return True
+    if reparadas_actuales + (A - nivel) <= mejor_reparadas[0]:
+        return
+
+    # Heurística: Ordenar mecánicos en función de capacidades para mejorar eficiencia
+    # Seleccionamos los mecánicos que tienen capacidad para la avería actual y no han sido usados
+    candidatos = [m for m in range(M) if capacidades[m][nivel] == 1 and not mecanicos_usados[m]]
+    candidatos.sort(key=lambda x: sum(capacidades[x]), reverse=True)  # Orden descendente de capacidades
+
+    # Intentar asignar mecánicos a la avería actual
+    for mecanico in candidatos:
+        s[nivel] = mecanico + 1
+        mecanicos_usados[mecanico] = True
+
+        # Llamada recursiva al siguiente nivel (siguiente avería)
+        criterio(nivel + 1, s, M, A, capacidades, mecanicos_usados, mejor_reparadas, soluciones)
+
+        # Deshacer la asignación (backtracking)
+        s[nivel] = 0
+        mecanicos_usados[mecanico] = False
+
+    return s
 ```
 
 **Descripción**: Esta función evalúa el criterio de optimalidad. Si el número de averías reparadas en la solución actual supera al mejor registrado hasta el momento, se actualiza la solución óptima.
@@ -244,7 +270,7 @@ def backtracking(s_inicial, M, A, capacidades, mejor_reparadas, soluciones):
         s = generar(nivel, s, M, capacidades, mecanicos_usados)
         if solucion(nivel, A):
             fin = True
-        elif criterio(nivel, s, mejor_reparadas, soluciones):
+        elif criterio(nivel, s, M, A, capacidades, mecanicos_usados, mejor_reparadas, soluciones):
             nivel += 1
         else:
             while not masHermanos(nivel, s, M, capacidades, mecanicos_usados) and nivel > 0:

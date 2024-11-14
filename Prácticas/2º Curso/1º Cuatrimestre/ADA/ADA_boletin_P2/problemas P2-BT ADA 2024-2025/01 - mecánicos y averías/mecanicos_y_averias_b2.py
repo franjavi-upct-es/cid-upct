@@ -9,12 +9,7 @@ def encontrar_archivos_in(directorio='.'):
     :param directorio: Ruta del directorio donde buscar archivos. Por defecto, es el directorio actual.
     :return: Una lista de rutas de archivos que terminan en '.in' dentro del directorio especificado.
     """
-    archivos_in = []
-    for root, _, files in os.walk(directorio):
-        for file in files:
-            if file.endswith('.in'):
-                archivos_in.append(os.path.join(root, file))
-    return archivos_in
+    return [os.path.join(directorio, f) for f in os.listdir(directorio) if f.endswith('.in')]
 
 
 
@@ -75,25 +70,30 @@ def solucion(nivel, A):
     :param A: Número de averías.
     :return: True si se ha alcanzado una solución completa, False en caso contrario.
     """
-    return nivel == A + 1
+    return nivel > A
 
-def criterio(nivel, s, mejor_reparadas, soluciones):
-    """
-    Evalúa si la solución actual es mejor que la solución registrada.
+def criterio(nivel, s, M, A, capacidades, mecanicos_usados, mejor_reparadas, soluciones):
+    # Si se alcanzó el nivel de reparación deseado, evaluamos y guardamos la mejor solución
+    if nivel == A:
+        reparadas_actuales = sum(1 for x in s if x > 0)
+        if reparadas_actuales > mejor_reparadas[0]:
+            mejor_reparadas[0] = reparadas_actuales
+            soluciones[:] = s.copy()
+        return
 
-    :param nivel: Nivel actual del árbol de decisión.
-    :param s: Lista de asignaciones actuales.
-    :param mejor_reparadas: Número máximo de averías reparadas registrado.
-    :param soluciones: Lista con la mejor solución encontrada.
-    :return: True siempre, para continuar con el proceso de búsqueda.
-    """
-    reparadas_actuales = sum(1 for x in s if x > 0)
-    if reparadas_actuales > mejor_reparadas[0]:
-        mejor_reparadas[0] = reparadas_actuales
-        soluciones[:] = s.copy()
-    return True
+    # Intentar asignar mecánicos a la avería actual
+    for mecanico in range(M):
+        if capacidades[mecanico][nivel] == 1 and not mecanicos_usados[mecanico]:
+            s[nivel] = mecanico + 1
+            mecanicos_usados[mecanico] = True
 
+            # Llamada recursiva al siguiente nivel (siguiente avería)
+            criterio(nivel + 1, s, M, A, capacidades, mecanicos_usados, mejor_reparadas, soluciones)
 
+            # Deshacer la asignación (backtracking)
+            s[nivel] = 0
+            mecanicos_usados[mecanico] = False
+    return s
 
 def masHermanos(nivel, s, M, capacidades, mecanicos_usados):
     """
@@ -151,15 +151,13 @@ def backtracking(s_inicial, M, A, capacidades, mejor_reparadas, soluciones):
         s = generar(nivel, s, M, capacidades, mecanicos_usados)
         if solucion(nivel, A):
             fin = True
-        elif criterio(nivel, s, mejor_reparadas, soluciones):
+        elif criterio(nivel, s, M, A, capacidades, mecanicos_usados, mejor_reparadas, soluciones):
             nivel += 1
         else:
             while not masHermanos(nivel, s, M, capacidades, mecanicos_usados) and nivel > 0:
                 s = retroceder(nivel, s, mecanicos_usados)
                 nivel -= 1
     return s
-
-
 
 def backtracking_todas(M, A, capacidades):
     """
@@ -201,13 +199,12 @@ def solution_todas(P, casos):
 
     return f"{P}\n" + "\n".join(resultados)
 
+#*--------------------------------------------------------------------------------------------------------------------------
 
 if __name__ == '__main__':
     file_paths_in = encontrar_archivos_in('.')
-
     for file_path in file_paths_in:
         P, casos = leer_entrada(file_path)
         resultados = solution_todas(P, casos)
-    
+
         print(resultados)
-        print()
