@@ -17,11 +17,11 @@ Tarea 3.1
 
 -   Vamos a comprobar la correcta instalación de Mininet mediante una prueba básica. Para ello ejecutamos Mininet mediante el comando **`mn`**.
 
-```bash
+``` bash
 sudo -E mn
 ```
 
-```bash
+``` bash
 *** No default OpenFlow controller found for default switch!
 *** Falling back to OVS Bridge
 *** Creating network
@@ -39,12 +39,12 @@ You may wish to try "service openvswitch-switch start".
 
 Es posible que sea necesario arrancar el servicio **`openvswitch`**:
 
-```bash
+``` bash
 sudo systemctl enable openvswitch.service
 sudo systemctl start openvswitch.service
 ```
 
-```bash
+``` bash
 Created symlink /etc/systemd/system/multi-user.target.wants/openvswitch.service → /usr/lib/systemd/system/openvswitch.service.
 fdr1@localhost:~> sudo -E mn
 [sudo] contraseña para root:
@@ -95,11 +95,11 @@ Tarea 3.2.1
 
 Ejecutamos la línea de comando para lanzar Mininet con la topología en árbol.
 
-```bash
+``` bash
 sudo -E mn --switch ovsbr --topo tree,depth=2,fanout=2
 ```
 
-```bash
+``` bash
 *** Creating network
 *** Adding controller
 *** Adding hosts:
@@ -120,7 +120,7 @@ mininet>
 
 -   Indica para qué sirven cada uno de los siguientes comandos: **`exit`**, **`dump`**, **`link`**, **`links`**, **`net`**, **`pingallbd`**, **`pingpair`**, **`ports`**, **`quit`** y **`switch`**.
 
-```bash
+``` bash
 mininet> help exit
 Exit
 mininet> help dump
@@ -148,7 +148,7 @@ Starts or stops a switch
 
 -   Indica el resultado de los comandos **`net`**, **`dump`** y **`pingall`**.
 
-```bash
+``` bash
 mininet> net
 h1 h1-eth0:s2-eth1
 h2 h2-eth0:s2-eth2
@@ -179,7 +179,7 @@ mininet>
 
     Emplea el comando para abrir un terminal en los hosts h2 y h4. En el terminal de h4 emplea el comando de Linux **`ip address`** para obtener la dirección IP del terminar en la red creada. Desde el terminal de h2 realiza un ping al terminal h4. Anota todo lo realizado
 
-```bash
+``` bash
 mininet> xterm h2 h4
 ```
 
@@ -193,13 +193,13 @@ mininet> xterm h2 h4
 
     Por ejemplo, si queremos ejecutar el comando **`ip address`** en el dispositivo h4 (como hemos hecho antes), la forma sería tecleando:
 
-    ```bash
+    ``` bash
     mininet> h4 ip address
     ```
 
     Compruébalo. ¿Cómo harías un ping desde h2 a h4 sin utilizar **`xterm`**?
 
-    ```bash
+    ``` bash
     mininet> h4 ip address
     1: lo: <LOOPBACK,UP,LOWER_UP> mtu 65536 qdisc noqueue state UNKNOWN group default qlen 1000
         link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
@@ -232,7 +232,7 @@ mininet> xterm h2 h4
 
 -   **IMPORTANTE:** Para salir de Mininet tecleamos **`exit`**. A continuación, ejecutamos **`#sudo mn -c`**. El opción **`-c`** o **`--clean`** sirve para "limpiar" el entorno de ejecución de Mininet y así evitar conflictos con una próxima ejecución. Es recomendable ejecutarlo siempre tras salir de Mininet o antes de ejecutarlo.
 
-    ```bash
+    ``` bash
     mininet> exit
     *** Stopping 0 controllers
 
@@ -275,7 +275,7 @@ Tarea 3.2.2
 
 -   Crea un directorio en tu **`HOME`** llamados **`pruebas_redes_sdn`**, y en él crea el fichero **`topo_1s_4h_nosdn.py`**. Dentro de este directorio, ejecuta Mininet desde línea de comando.
 
-    ```bash
+    ``` bash
     fdr1@localhost:~> mkdir ~/pruebas_redes_sdn
     ```
 
@@ -307,7 +307,7 @@ Tarea 3.2.2
 
 -   Dentro de Mininet, verifica la conectividad.
 
-    ```bash
+    ``` bash
     fdr1@localhost:~/pruebas_redes_sdn> sudo -E mn --switch ovsbr --custom topo_1s-4h_nosdn.py --mac --topo mitopo
     [sudo] contraseña para root: 
     *** Creating network
@@ -412,7 +412,7 @@ topos={'mitopo':(lambda: mitopo())}
 
     -   Traslada el plan de direccionamiento a Mininet, configurando las interfaces de los dispositivos.
 
-        ```bash
+        ``` bash
         fdr1@localhost:~/pruebas_redes_sdn> sudo -E mn --switch ovsbr --custom topo_routing.py --mac --topo mitopo
         *** Creating network
         *** Adding controller
@@ -436,33 +436,33 @@ topos={'mitopo':(lambda: mitopo())}
 
         -   **Para los hosts:**
 
-        ```bash
-        mininet> h1 ifconfig h1-eth0 192.168.1.1/24
-        mininet> h2 ifconfig h2-eth0 192.168.2.1/24
-        mininet> h3 ifconfig h3-eth0 192.168.3.1/24
-        mininet> h4 ifconfig h4-eth0 192.168.4.1/24
+        ``` bash
+        mininet> h1 ifconfig h1-eth0 192.168.1.10/24
+        mininet> h2 ifconfig h2-eth0 192.168.2.10/24
+        mininet> h3 ifconfig h3-eth0 192.168.3.10/24
+        mininet> h4 ifconfig h4-eth0 192.168.4.10/24
         ```
 
         -   **Para el router `r1`:**
 
-        ```bash
-        mininet> r1 ifconfig r1-eth0 192.168.1.254/24
-        mininet> r1 ifconfig r1-eth1 192.168.2.254/24
+        ``` bash
+        mininet> r1 ifconfig r1-eth0 192.168.1.1/24
+        mininet> r1 ifconfig r1-eth1 192.168.2.1/24
         mininet> r1 ifconfig r1-eth2 192.168.5.1/24
         ```
 
         -   **Para el router `r2`:**
 
-        ```bash
-        mininet> r2 ifconfig r2-eth0 192.168.3.254/24
-        mininet> r2 ifconfig r2-eth1 192.168.6.1/24
+        ``` bash
+        mininet> r2 ifconfig r2-eth0 192.168.6.1/24
+        mininet> r2 ifconfig r2-eth1 192.168.3.1/24
         ```
 
         -   **Para el router `r3`:**
 
-        ```bash
-        mininet> r3 ifconfig r3-eth0 192.168.4.254/24
-        mininet> r3 ifconfig r3-eth1 192.168.7.1/24
+        ``` bash
+        mininet> r3 ifconfig r3-eth0 192.168.7.1/24
+        mininet> r3 ifconfig r3-eth1 192.168.4.1/24
         ```
 
 <!-- -->
@@ -471,52 +471,70 @@ topos={'mitopo':(lambda: mitopo())}
 
     -   Determina el valor de la entrada default de los hosts (en papel).
 
-        | **Host** | **Subred**     | **Entrada Default** |
-        |----------|----------------|---------------------|
-        | h1       | 192.168.1.0/24 | 192.168.1.254       |
-        | h2       | 192.168.2.0/24 | 192.168.2.254       |
-        | h3       | 192.168.3.0/24 | 192.168.3.254       |
-        | h4       | 192.168.4.0/24 | 192.168.4.254       |
+        La entrada **`default`** en cada host debe estar configurada para que apunte a la IP del router más cercano en su subred.
+
+        -   Para **`h1`**, el **`default gateway`** será **`192.168.1.1`**.
+
+        -   Para **`h2`**, el **`default gateway`** será **`192.168.2.1`**.
+
+        -   Para **`h3`**, el **`default gateway`** será **`192.168.3.1`**.
+
+        -   Para **`h4`**, el **`default gateway`** será **`192.168.4.1`**.
 
     -   Traslada el valor de la entrada default de los hosts a Mininet.
 
-        ```bash
-        mininet> h1 route add default gw 192.168.1.254
-        mininet> h2 route add default gw 192.168.2.254
-        mininet> h3 route add default gw 192.168.3.254
-        mininet> h4 route add default gw 192.168.4.254
+        ``` bash
+        mininet> h1 route add default gw 192.168.1.1
+        mininet> h2 route add default gw 192.168.2.1
+        mininet> h3 route add default gw 192.168.3.1
+        mininet> h4 route add default gw 192.168.4.1
         ```
 
     -   Comprueba el valor de las tablas de encamiento de los hosts en Mininet
 
-        ```bash
+        ``` bash
         mininet> h1 route -n
         Kernel IP routing table
         Destination     Gateway         Genmask         Flags Metric Ref    Use Iface
-        0.0.0.0         192.168.1.254   0.0.0.0         UG    0      0        0 h1-eth0
+        0.0.0.0         192.168.1.1     0.0.0.0         UG    0      0        0 h1-eth0
         192.168.1.0     0.0.0.0         255.255.255.0   U     0      0        0 h1-eth0
         mininet> h2 route -n
         Kernel IP routing table
         Destination     Gateway         Genmask         Flags Metric Ref    Use Iface
-        0.0.0.0         192.168.2.254   0.0.0.0         UG    0      0        0 h2-eth0
+        0.0.0.0         192.168.2.1     0.0.0.0         UG    0      0        0 h2-eth0
         192.168.2.0     0.0.0.0         255.255.255.0   U     0      0        0 h2-eth0
         mininet> h3 route -n
         Kernel IP routing table
         Destination     Gateway         Genmask         Flags Metric Ref    Use Iface
-        0.0.0.0         192.168.3.254   0.0.0.0         UG    0      0        0 h3-eth0
+        0.0.0.0         192.168.3.1     0.0.0.0         UG    0      0        0 h3-eth0
         192.168.3.0     0.0.0.0         255.255.255.0   U     0      0        0 h3-eth0
         mininet> h4 route -n
         Kernel IP routing table
         Destination     Gateway         Genmask         Flags Metric Ref    Use Iface
-        0.0.0.0         192.168.4.254   0.0.0.0         UG    0      0        0 h4-eth0
+        0.0.0.0         192.168.4.1     0.0.0.0         UG    0      0        0 h4-eth0
         192.168.4.0     0.0.0.0         255.255.255.0   U     0      0        0 h4-eth0
         ```
 
-    -   Determina el valor de las entradas de las tablas de encaminamiento de cada router para poder alcanzar las redes no directamente conectadas (en papel).
+        -   Determina el valor de las entradas de las tablas de encaminamiento de cada router para poder alcanzar las redes no directamente conectadas (en papel).
+
+            | Router | Red Destino | Máscara       | Vía (Next Hop) | Interfaz |
+            |--------|-------------|---------------|----------------|----------|
+            | r1     | 192.168.3.0 | 255.255.255.0 | 192.168.5.2    | eht2     |
+            |        | 192.168.4.0 | 255.255.255.0 | 192.168.5.3    | eht2     |
+            |        | 192.168.6.0 | 255.255.255.0 | 192.168.5.2    | eht2     |
+            |        | 192.168.7.0 | 255.255.255.0 | 192.168.5.3    | eht2     |
+            | r2     | 192.168.1.0 | 255.255.255.0 | 192.168.5.1    | eht1     |
+            |        | 192.168.2.0 | 255.255.255.0 | 192.168.5.1    | eht1     |
+            |        | 192.168.4.0 | 255.255.255.0 | 192.168.6.2    | eht0     |
+            |        | 192.168.7.0 | 255.255.255.0 | 192.168.6.2    | eht0     |
+            | r3     | 192.168.1.0 | 255.255.255.0 | 192.168.7.2    | eht1     |
+            |        | 192.168.2.0 | 255.255.255.0 | 192.168.7.2    | eht1     |
+            |        | 192.168.3.0 | 255.255.255.0 | 192.168.6.1    | eht0     |
+            |        | 192.168.5.0 | 255.255.255.0 | 192.168.6.1    | eht0     |
 
     -   Comprueba el valor de las tablas de encaminamiento de los routers en Mininet.
 
-        ```bash
+        ``` bash
         mininet> r1 route -n
         Kernel IP routing table
         Destination     Gateway         Genmask         Flags Metric Ref    Use Iface
@@ -537,114 +555,56 @@ topos={'mitopo':(lambda: mitopo())}
 
 -   Un vez configurada la red, verifica la conectividad haciendo un ping desde cada host hacia el resto de los hosts de la red (no emplees el comando **`pingall`**).
 
-    -   **Desde `h1`:**
+        
+    ``` bash
+    mininet> h1 ping -c 3 h2
+    PING 192.168.2.1 (192.168.2.1) 56(84) bytes of data.
+    64 bytes from 192.168.2.1: icmp_seq=1 ttl=63 time=3.78 ms
+    64 bytes from 192.168.2.1: icmp_seq=2 ttl=63 time=0.067 ms
+    64 bytes from 192.168.2.1: icmp_seq=3 ttl=63 time=0.083 ms
 
-        ```bash
-        mininet> h1 ping -c 3 h2
-        PING 192.168.2.1 (192.168.2.1) 56(84) bytes of data.
-        64 bytes from 192.168.2.1: icmp_seq=1 ttl=63 time=3.78 ms
-        64 bytes from 192.168.2.1: icmp_seq=2 ttl=63 time=0.067 ms
-        64 bytes from 192.168.2.1: icmp_seq=3 ttl=63 time=0.083 ms
+    --- 192.168.2.1 ping statistics ---
+    3 packets transmitted, 3 received, 0% packet loss, time 2036ms
+    rtt min/avg/max/mdev = 0.067/1.309/3.779/1.746 ms
+    mininet> h1 ping -c 3 h3
+    PING 192.168.3.1 (192.168.3.1) 56(84) bytes of data.
+    From 192.168.1.254 icmp_seq=1 Destination Net Unreachable
+    From 192.168.1.254 icmp_seq=2 Destination Net Unreachable
+    From 192.168.1.254 icmp_seq=3 Destination Net Unreachable
 
-        --- 192.168.2.1 ping statistics ---
-        3 packets transmitted, 3 received, 0% packet loss, time 2036ms
-        rtt min/avg/max/mdev = 0.067/1.309/3.779/1.746 ms
-        mininet> h1 ping -c 3 h3
-        PING 192.168.3.1 (192.168.3.1) 56(84) bytes of data.
-        From 192.168.1.254 icmp_seq=1 Destination Net Unreachable
-        From 192.168.1.254 icmp_seq=2 Destination Net Unreachable
-        From 192.168.1.254 icmp_seq=3 Destination Net Unreachable
+    --- 192.168.3.1 ping statistics ---
+    3 packets transmitted, 0 received, +3 errors, 100% packet loss, time 2040ms
 
-        --- 192.168.3.1 ping statistics ---
-        3 packets transmitted, 0 received, +3 errors, 100% packet loss, time 2040ms
+    mininet> h1 ping -c 3 h4
+    PING 192.168.4.1 (192.168.4.1) 56(84) bytes of data.
+    From 192.168.1.254 icmp_seq=1 Destination Net Unreachable
+    From 192.168.1.254 icmp_seq=2 Destination Net Unreachable
+    From 192.168.1.254 icmp_seq=3 Destination Net Unreachable
 
-        mininet> h1 ping -c 3 h4
-        PING 192.168.4.1 (192.168.4.1) 56(84) bytes of data.
-        From 192.168.1.254 icmp_seq=1 Destination Net Unreachable
-        From 192.168.1.254 icmp_seq=2 Destination Net Unreachable
-        From 192.168.1.254 icmp_seq=3 Destination Net Unreachable
+    --- 192.168.4.1 ping statistics ---
+    3 packets transmitted, 0 received, +3 errors, 100% packet loss, time 2032ms
 
-        --- 192.168.4.1 ping statistics ---
-        3 packets transmitted, 0 received, +3 errors, 100% packet loss, time 2032ms
-        ```
+    mininet> h2 ping -c 3 h3
+    PING 192.168.3.1 (192.168.3.1) 56(84) bytes of data.
+    From 192.168.2.254 icmp_seq=1 Destination Net Unreachable
+    From 192.168.2.254 icmp_seq=2 Destination Net Unreachable
+    From 192.168.2.254 icmp_seq=3 Destination Net Unreachable
 
-    -   **Desde `h2`:**
+    --- 192.168.3.1 ping statistics ---
+    3 packets transmitted, 0 received, +3 errors, 100% packet loss, time 2025ms
 
-        ```bash
-        mininet> h2 ping -c 3 h1
-        PING 192.168.1.1 (192.168.1.1) 56(84) bytes of data.
-        64 bytes from 192.168.1.1: icmp_seq=1 ttl=63 time=0.961 ms
-        64 bytes from 192.168.1.1: icmp_seq=2 ttl=63 time=0.168 ms
-        64 bytes from 192.168.1.1: icmp_seq=3 ttl=63 time=0.063 ms
+    mininet> h2 ping -c 3 h4
+    PING 192.168.4.1 (192.168.4.1) 56(84) bytes of data.
+    From 192.168.2.254 icmp_seq=1 Destination Net Unreachable
+    From 192.168.2.254 icmp_seq=2 Destination Net Unreachable
 
-        --- 192.168.1.1 ping statistics ---
-        3 packets transmitted, 3 received, 0% packet loss, time 2020ms
-        rtt min/avg/max/mdev = 0.063/0.397/0.961/0.400 ms
-        mininet> h2 ping -c 3 h3
-        PING 192.168.3.1 (192.168.3.1) 56(84) bytes of data.
-        From 192.168.2.254 icmp_seq=1 Destination Net Unreachable
-        From 192.168.2.254 icmp_seq=2 Destination Net Unreachable
-        From 192.168.2.254 icmp_seq=3 Destination Net Unreachable
+    --- 192.168.4.1 ping statistics ---
+    3 packets transmitted, 0 received, +2 errors, 100% packet loss, time 2033ms
 
-        --- 192.168.3.1 ping statistics ---
-        3 packets transmitted, 0 received, +3 errors, 100% packet loss, time 2025ms
+    mininet> h3 ping -c 3 h4
+    PING 192.168.4.1 (192.168.4.1) 56(84) bytes of data.
+    From 192.168.3.254 icmp_seq=1 Destination Net Unreachable
 
-        mininet> h2 ping -c 3 h4
-        PING 192.168.4.1 (192.168.4.1) 56(84) bytes of data.
-        From 192.168.2.254 icmp_seq=1 Destination Net Unreachable
-        From 192.168.2.254 icmp_seq=2 Destination Net Unreachable
-
-        --- 192.168.4.1 ping statistics ---
-        3 packets transmitted, 0 received, +2 errors, 100% packet loss, time 2033ms
-        ```
-
-    -   **Desde `h3`:**
-
-        ```bash
-        mininet> h3 ping -c 3 h1
-        PING 192.168.1.1 (192.168.1.1) 56(84) bytes of data.
-        From 192.168.3.254 icmp_seq=1 Destination Net Unreachable
-        From 192.168.3.254 icmp_seq=2 Destination Net Unreachable
-        From 192.168.3.254 icmp_seq=3 Destination Net Unreachable
-
-        --- 192.168.1.1 ping statistics ---
-        3 packets transmitted, 0 received, +3 errors, 100% packet loss, time 2032ms
-
-        mininet> h3 ping -c 3 h2
-        PING 192.168.2.1 (192.168.2.1) 56(84) bytes of data.
-        From 192.168.3.254 icmp_seq=1 Destination Net Unreachable
-        From 192.168.3.254 icmp_seq=2 Destination Net Unreachable
-        From 192.168.3.254 icmp_seq=3 Destination Net Unreachable
-
-        --- 192.168.2.1 ping statistics ---
-        3 packets transmitted, 0 received, +3 errors, 100% packet loss, time 2051ms
-
-        mininet> h3 ping -c 3 h4
-        PING 192.168.4.1 (192.168.4.1) 56(84) bytes of data.
-        From 192.168.3.254 icmp_seq=1 Destination Net Unreachable
-
-        --- 192.168.4.1 ping statistics ---
-        3 packets transmitted, 0 received, +1 errors, 100% packet loss, time 2041ms
-        ```
-
-    -   **Desde `h4`:**
-
-        ```bash
-        mininet> h4 ping -c 3 h1
-        PING 192.168.1.1 (192.168.1.1) 56(84) bytes of data.
-
-        --- 192.168.1.1 ping statistics ---
-        3 packets transmitted, 0 received, 100% packet loss, time 2041ms
-
-        mininet> h4 ping -c 3 h2
-        PING 192.168.2.1 (192.168.2.1) 56(84) bytes of data.
-
-        --- 192.168.2.1 ping statistics ---
-        3 packets transmitted, 0 received, 100% packet loss, time 2043ms
-
-        mininet> h4 ping -c 3 h3
-        PING 192.168.3.1 (192.168.3.1) 56(84) bytes of data.
-
-        --- 192.168.3.1 ping statistics ---
-        3 packets transmitted, 0 received, 100% packet loss, time 2044ms
-        ```
+    --- 192.168.4.1 ping statistics ---
+    3 packets transmitted, 0 received, +1 errors, 100% packet loss, time 2041ms
+    ```
