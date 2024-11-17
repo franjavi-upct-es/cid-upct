@@ -1,7 +1,6 @@
 import os
 import numpy as np
 
-
 def encontrar_archivos_in(directorio='.'):
     """
     Encuentra todos los archivos con extensión '.in' en el directorio especificado.
@@ -9,12 +8,7 @@ def encontrar_archivos_in(directorio='.'):
     :param directorio: Ruta del directorio donde buscar archivos. Por defecto, es el directorio actual.
     :return: Una lista de rutas de archivos que terminan en '.in' dentro del directorio especificado.
     """
-    archivos_in = []
-    for root, _, files in os.walk(directorio):
-        for file in files:
-            if file.endswith('.in'):
-                archivos_in.append(os.path.join(root, file))
-    return archivos_in
+    return [os.path.join(directorio, f) for f in os.listdir(directorio) if f.endswith('.in')]
 
 
 
