@@ -31,11 +31,40 @@ WHERE (diasemana = 'S' AND HORA BETWEEN 9 AND 11.3)
    OR diasemana = 'L'
 ORDER BY diasemana, hora;
 
+-- 5
+SELECT nombre, telefono, TO_CHAR(fcontrato, "Month") mes_contratado
+FROM MONITOR M
+WHERE M.nombre LIKE '%cia%';
+
 -- 6
 SELECT actividad_id, diasemana ||' '|| hora dia_hora, monitor_id FROM SESION
 WHERE (diasemana = 'M' OR diasemana = 'J')
   AND hora < 19
 ORDER BY dia_hora;
+
+-- 7
+SELECT A.actividad_id, A.precio * 0.93 nuevo_precio
+FROM ACTIVIDAD A
+WHERE A.nivel = 5 and A.precio > 12;
+
+-- 8
+SELECT M.dni, M.nombre, M.salario, EXTRACT(YEAR FROM SYSDATE) - EXTRACT(YEAR FROM fcontrato) experiencia
+FROM MONITOR M
+WHERE EXTRACT(YEAR FROM SYSDATE) - EXTRACT(YEAR FROM fcontrato) >= 15;
+
+-- 9
+SELECT S.actividad_id, S.hora, S.monitor_id
+FROM SESION S
+WHERE S.actividad_id IN ('A02', 'A05', 'A09', 'A19')
+    AND S.diasemana = 'V'
+ORDER BY S.monitor_id;
+
+-- 10
+SELECT UNIQUE I.instalacion_id
+FROM INSTALACION I
+    JOIN ACTIVIDAD A ON I.instalacion_id = A.instalacion_id
+WHERE A.nivel IN (1, 2)
+ORDER BY I.instalacion_id ASC;
 
 -- 14
 SELECT DISTINCT M.nombre nombre_monitor, A.nombre nombre_actividad
