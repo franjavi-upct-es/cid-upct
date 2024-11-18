@@ -32,9 +32,9 @@ WHERE (diasemana = 'S' AND HORA BETWEEN 9 AND 11.3)
 ORDER BY diasemana, hora;
 
 -- 5
-SELECT nombre, telefono, TO_CHAR(fcontrato, "Month") mes_contratado
-FROM MONITOR M
-WHERE M.nombre LIKE '%cia%';
+SELECT nombre, telefono, TO_CHAR(fcontrato, 'Month') mes_contratado
+FROM MONITOR
+WHERE nombre LIKE '%cia%';
 
 -- 6
 SELECT actividad_id, diasemana ||' '|| hora dia_hora, monitor_id FROM SESION
@@ -66,12 +66,61 @@ FROM INSTALACION I
 WHERE A.nivel IN (1, 2)
 ORDER BY I.instalacion_id ASC;
 
+-- 11
+SELECT A.nombre nombre_actividad, I.nombre nombre_instalacion, I.m2
+FROM INSTALACION I
+    JOIN ACTIVIDAD A ON A.instalacion_id = I.instalacion_id
+WHERE A.nombre IN ('Pilates', 'Balonmano');
+
+-- 12
+SELECT DISTINCT A.actividad_id, S.hora, M.nombre nombre_monitor
+FROM MONITOR M
+    JOIN ACTIVIDAD A ON A.responsable = M.dni
+    JOIN SESION S ON S.monitor_id = M.dni
+WHERE A.actividad_id IN ('A02', 'A05', 'A09', 'A19') AND S.hora >= 15 AND S.diasemana = 'V'
+ORDER BY S.hora;
+
+-- 13
+SELECT A.nombre, A.precio, A.nivel, I.nombre
+FROM ACTIVIDAD A
+    JOIN INSTALACION I ON I.instalacion_id = A.instalacion_id
+WHERE I.tipo = 'Exterior';
+
 -- 14
 SELECT DISTINCT M.nombre nombre_monitor, A.nombre nombre_actividad
 from SESION S
     JOIN ACTIVIDAD A ON S.actividad_id = A.actividad_id
     JOIN MONITOR M ON S.monitor_id = M.dni
 WHERE hora >= 19 AND nivel IN (4, 5);
+
+-- 15
+SELECT I.tipo, A.nombre nombre_actividad, A.nivel, S.diasemana
+FROM SESION S
+    JOIN ACTIVIDAD A ON S.actividad_id = A.actividad_id
+    JOIN INSTALACION I ON A.instalacion_id = I.instalacion_id
+WHERE S.diasemana IN ('V', 'S')
+ORDER BY S.diasemana DESC;
+
+-- 16
+SELECT M.nombre nombre_monitor, A.nombre nombre_actividad
+FROM MONITOR M
+    JOIN ACTIVIDAD A ON A.responsable = M.dni
+    JOIN ESPECIALISTA E ON E.monitor_id = M.dni
+ORDER BY M.nombre;
+
+-- 17
+SELECT I.nombre nombre_instalacion, I.tipo, M.nombre nombre_monitor
+FROM INSTALACION I
+    JOIN ACTIVIDAD A ON A.instalacion_id = I.instalacion_id
+    JOIN MONITOR M ON A.responsable = M.dni
+WHERE A.nombre IN ('Yoga', 'Body combat', 'Hapkido');
+
+-- 18
+SELECT S.diasemana, S.hora, A.nombre nombre_actividad, M.nombre nombre_monitor
+FROM SESION S
+    JOIN ACTIVIDAD A ON S.actividad_id = A.actividad_id
+    JOIN MONITOR M ON A.responsable = M.dni
+WHERE S.diasemana IN ('L', 'X');
 
 -- 19
 SELECT diasemana, hora, A.nombre nombre_actividad, R.nombre nombre_responsable
@@ -87,12 +136,55 @@ FROM ACTIVIDAD A
     RIGHT JOIN monitor M ON A.responsable = M.dni
 ORDER BY M.nombre;
 
+-- 21
+SELECT I.nombre nombre_instalacion, COALESCE(A.nombre, '----') nombre_actividad
+FROM INSTALACION I
+    LEFT JOIN ACTIVIDAD A ON A.instalacion_id = I.instalacion_id
+ORDER BY I.nombre;
+
+-- 22
+SELECT monitor_id
+FROM SESION
+MINUS
+SELECT responsable
+FROM ACTIVIDAD;
+
 -- 23
-SELECT responsable FROM ACTIVIDAD
+SELECT responsable
+FROM ACTIVIDAD
 WHERE nivel = 5
 
 UNION
 
-SELECT E.monitor_id responsable FROM ESPECIALISTA E
+SELECT E.monitor_id responsable
+FROM ESPECIALISTA E
     JOIN ACTIVIDAD A ON A.actividad_id = E.actividad_id
 WHERE A.nivel = 2;
+
+-- 24
+SELECT A.actividad_id
+FROM ACTIVIDAD A
+    JOIN INSTALACION I ON A.instalacion_id = I.instalacion_id
+WHERE I.tipo = 'Exterior'
+
+INTERSECT
+
+SELECT actividad_id
+FROM SESION
+WHERE diasemana = 'V';
+
+-- 25
+SELECT dni
+FROM MONITOR
+WHERE EXTRACT(YEAR FROM SYSDATE) - EXTRACT(YEAR FROM fcontrato) > 12
+
+INTERSECT
+
+SELECT DISTINCT monitor_id
+FROM SESION
+
+INTERSECT
+
+SELECT monitor_id
+FROM SESION
+WHERE hora >= 16;
