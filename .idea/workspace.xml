@@ -4,22 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="26c2ae99-ce09-4876-9816-cac4e9750c52" name="Changes" comment="Tarea 3 FRD">
-      <change afterPath="$PROJECT_DIR$/Prácticas/2º Curso/1º Cuatrimestre/ADA/ADA_boletin_P2/problemas P2-BT ADA 2024-2025/01 - mecánicos y averías/mecanicos_y_averias_bactracking_prueba.py" afterDir="false" />
+    <list default="true" id="26c2ae99-ce09-4876-9816-cac4e9750c52" name="Changes" comment="Ejercicios de Práctica para BD I">
+      <change afterPath="$PROJECT_DIR$/Prácticas/2º Curso/1º Cuatrimestre/ADA/ADA_boletin_P3/Memoria.rmd" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Prácticas/2º Curso/1º Cuatrimestre/ADA/ADA_boletin_P3/divide_y_venceras.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/dataSources/e8ee4c40-5ab4-4669-aceb-b67ba3cefef0.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/e8ee4c40-5ab4-4669-aceb-b67ba3cefef0.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_14_11_2024_10_44__Changes_.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/sqldialects.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/sqldialects.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Prácticas/2º Curso/1º Cuatrimestre/ADA/ADA_boletin_P2/problemas P2-BT ADA 2024-2025/01 - mecánicos y averías/Memoria.Rmd" beforeDir="false" afterPath="$PROJECT_DIR$/Prácticas/2º Curso/1º Cuatrimestre/ADA/ADA_boletin_P2/problemas P2-BT ADA 2024-2025/01 - mecánicos y averías/Memoria.Rmd" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Prácticas/2º Curso/1º Cuatrimestre/ADA/ADA_boletin_P2/problemas P2-BT ADA 2024-2025/01 - mecánicos y averías/Memoria.pdf" beforeDir="false" afterPath="$PROJECT_DIR$/Prácticas/2º Curso/1º Cuatrimestre/ADA/ADA_boletin_P2/problemas P2-BT ADA 2024-2025/01 - mecánicos y averías/Memoria.pdf" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Prácticas/2º Curso/1º Cuatrimestre/ADA/ADA_boletin_P2/problemas P2-BT ADA 2024-2025/01 - mecánicos y averías/mecanicos_y_averias.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Prácticas/2º Curso/1º Cuatrimestre/ADA/ADA_boletin_P2/problemas P2-BT ADA 2024-2025/01 - mecánicos y averías/mecanicos_y_averias_b.py" beforeDir="false" afterPath="$PROJECT_DIR$/Prácticas/2º Curso/1º Cuatrimestre/ADA/ADA_boletin_P2/problemas P2-BT ADA 2024-2025/01 - mecánicos y averías/mecanicos_y_averias_bactracking.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Prácticas/2º Curso/1º Cuatrimestre/ADA/ADA_boletin_P2/problemas P2-BT ADA 2024-2025/01 - mecánicos y averías/mecanicos_y_averias_b2.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Prácticas/2º Curso/1º Cuatrimestre/BD I/Práctica 2/FranciscoJavierMercaderMartinez-p2-sn.sql" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Prácticas/2º Curso/1º Cuatrimestre/BD I/Práctica 2/MercaderFranciscoJavier-p2-s2.sql" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Prácticas/2º Curso/1º Cuatrimestre/BD I/Práctica 2/bd1-p2-centrodeportivo-creacarga.sql" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Prácticas/2º Curso/1º Cuatrimestre/FIE/src/02-introduccion-a-distribucion-en-el-muestreo/distribucion_en_muestreo.html" beforeDir="false" afterPath="$PROJECT_DIR$/Prácticas/2º Curso/1º Cuatrimestre/FIE/src/02-introduccion-a-distribucion-en-el-muestreo/distribucion_en_muestreo.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -30,8 +20,9 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="SQL File" />
-        <option value="Python Script" />
         <option value="Jupyter Notebook" />
+        <option value="Python Script" />
+        <option value="RMarkdown.document" />
       </list>
     </option>
   </component>
@@ -78,6 +69,7 @@
   <component name="PropertiesComponent">{
   &quot;keyToString&quot;: {
     &quot;Database Script.FranciscoJavierMercaderMartinez-p2-sn.sql.executor&quot;: &quot;Run&quot;,
+    &quot;Python.divide_y_venceras.executor&quot;: &quot;Run&quot;,
     &quot;Python.mecanicos_y_averias.executor&quot;: &quot;Run&quot;,
     &quot;Python.mecanicos_y_averias_b.executor&quot;: &quot;Run&quot;,
     &quot;Python.mecanicos_y_averias_b2.executor&quot;: &quot;Run&quot;,
@@ -94,7 +86,7 @@
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
     &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
     &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.keymap&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   },
   &quot;keyToStringList&quot;: {
@@ -117,11 +109,34 @@
       <recent name="C:\Users\fcoja\cid-upct\Prácticas\2º Curso\1º Cuatrimestre\BD I\Práctica 2\Sesión 2" />
     </key>
   </component>
-  <component name="RunManager" selected="Database Script.MER.sql">
+  <component name="RunManager" selected="Database Script.FranciscoJavierMercaderMartinez-p2-sn.sql">
     <configuration name="FranciscoJavierMercaderMartinez-p2-sn.sql" type="DatabaseScript" editBeforeRun="true" temporary="true" nameIsGenerated="true">
       <script-file value="$PROJECT_DIR$/Prácticas/2º Curso/1º Cuatrimestre/BD I/Práctica 2/Sesión 1/FranciscoJavierMercaderMartinez-p2-sn.sql" />
       <script-mode>FILE</script-mode>
       <data-source id="e8ee4c40-5ab4-4669-aceb-b67ba3cefef0" namespace="schema/&quot;CENTRODEPORTIVO&quot;" />
+      <method v="2" />
+    </configuration>
+    <configuration name="divide_y_venceras" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="cid-upct" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/Prácticas/2º Curso/1º Cuatrimestre/ADA/ADA_boletin_P3" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Prácticas/2º Curso/1º Cuatrimestre/ADA/ADA_boletin_P3/divide_y_venceras.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
     <configuration name="mecanicos_y_averias_b2" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
@@ -218,11 +233,11 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Python.mecanicos_y_averias_bactracking_prueba" />
-        <item itemvalue="Python.mecanicos_y_averias_bactracking_prueba" />
         <item itemvalue="Database Script.FranciscoJavierMercaderMartinez-p2-sn.sql" />
+        <item itemvalue="Python.divide_y_venceras" />
+        <item itemvalue="Python.mecanicos_y_averias_bactracking_prueba" />
+        <item itemvalue="Python.mecanicos_y_averias_bactracking_prueba" />
         <item itemvalue="Python.mecanicos_y_averias_b2" />
-        <item itemvalue="Python.mecanicos_y_averias_bactracking" />
       </list>
     </recent_temporary>
   </component>
@@ -263,6 +278,10 @@
       <workItem from="1731858413224" duration="8599000" />
       <workItem from="1731867488445" duration="77000" />
       <workItem from="1731867666866" duration="890000" />
+      <workItem from="1731868575287" duration="136000" />
+      <workItem from="1731948595909" duration="2074000" />
+      <workItem from="1731950706986" duration="1966000" />
+      <workItem from="1731964392368" duration="6743000" />
     </task>
     <task id="LOCAL-00001" summary="Ejercicios Práctica 4 FIE">
       <option name="closed" value="true" />
@@ -304,7 +323,39 @@
       <option name="project" value="LOCAL" />
       <updated>1731404377954</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="Cambios la carpeta de BD I">
+      <option name="closed" value="true" />
+      <created>1731868628336</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1731868628336</updated>
+    </task>
+    <task id="LOCAL-00007" summary="Cambios la carpeta de BD I">
+      <option name="closed" value="true" />
+      <created>1731868658842</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1731868658842</updated>
+    </task>
+    <task id="LOCAL-00008" summary="Últimos cambios en la Práctica de Backtracking de ADA">
+      <option name="closed" value="true" />
+      <created>1731868684365</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1731868684365</updated>
+    </task>
+    <task id="LOCAL-00009" summary="Ejercicios de Práctica para BD I">
+      <option name="closed" value="true" />
+      <created>1731971128698</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1731971128698</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -327,7 +378,10 @@
     <MESSAGE value="Práctica 2 Sesión 1 BD I" />
     <MESSAGE value="Últimos comandos de Mininet" />
     <MESSAGE value="Merge remote-tracking branch 'origin/main'&#10;&#10;# Conflicts:&#10;#&#9;Prácticas/2º Curso/1º Cuatrimestre/FRD/Práctica 4/Informe Práctica 4.Rmd" />
-    <option name="LAST_COMMIT_MESSAGE" value="Merge remote-tracking branch 'origin/main'&#10;&#10;# Conflicts:&#10;#&#9;Prácticas/2º Curso/1º Cuatrimestre/FRD/Práctica 4/Informe Práctica 4.Rmd" />
+    <MESSAGE value="Cambios la carpeta de BD I" />
+    <MESSAGE value="Últimos cambios en la Práctica de Backtracking de ADA" />
+    <MESSAGE value="Ejercicios de Práctica para BD I" />
+    <option name="LAST_COMMIT_MESSAGE" value="Ejercicios de Práctica para BD I" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -348,5 +402,6 @@
     <SUITE FILE_PATH="coverage/mecanicos_y_averias_b_py$mecanicos_y_averias_b2.coverage" NAME="mecanicos_y_averias_b2 Coverage Results" MODIFIED="1731749349885" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Prácticas/2º Curso/1º Cuatrimestre/ADA/ADA_boletin_P2/problemas P2-BT ADA 2024-2025/01 - mecánicos y averías" />
     <SUITE FILE_PATH="coverage/mecanicos_y_averias_b_py$mecanicos_y_averias_b.coverage" NAME="mecanicos_y_averias_b Coverage Results" MODIFIED="1731670999266" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Prácticas/2º Curso/1º Cuatrimestre/ADA/ADA_boletin_P2/problemas P2-BT ADA 2024-2025/01 - mecánicos y averías" />
     <SUITE FILE_PATH="coverage/mecánicos_y_averias_py$mecanicos_y_averias.coverage" NAME="mecanicos_y_averias Coverage Results" MODIFIED="1731394124644" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Prácticas/2º Curso/1º Cuatrimestre/ADA/ADA_boletin_P2/problemas P2-BT ADA 2024-2025/01 - mecánicos y averías" />
+    <SUITE FILE_PATH="coverage/mecanicos_y_averias_b_py$divide_y_venceras.coverage" NAME="divide_y_venceras Coverage Results" MODIFIED="1731951307527" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Prácticas/2º Curso/1º Cuatrimestre/ADA/ADA_boletin_P3" />
   </component>
 </project>

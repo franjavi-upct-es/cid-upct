@@ -1,0 +1,25 @@
+---
+title: "Análisis y Diseño de Algoritmos"
+subtitle: "Divide y Vencerás"
+author:
+- "Francisco Javier Mercader Martínez"
+- "Pedro Alarcón Fuentes"
+output:
+  pdf_document:
+    latex_engine: xelatex
+geometry: margin=1.5cm, a4paper
+fontsize: 12pt
+header-includes:
+- \renewcommand{\and}{\\}
+- \usepackage{fvextra}
+- \usepackage{hyperref}
+- \DefineVerbatimEnvironment{Highlighting}{Verbatim}{breaklines, commandchars=\\\{\}}
+---
+```{r include = FALSE}
+library(reticulate)
+use_condaenv("optim-2", conda="C:/ProgramData/anaconda3/Scripts/conda.exe", required = TRUE)
+py_config()
+```
+```{python, include = FALSE}
+
+```
