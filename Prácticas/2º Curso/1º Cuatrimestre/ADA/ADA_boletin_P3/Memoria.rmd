@@ -15,11 +15,185 @@ header-includes:
 - \usepackage{hyperref}
 - \DefineVerbatimEnvironment{Highlighting}{Verbatim}{breaklines, commandchars=\\\{\}}
 ---
+
 ```{r include = FALSE}
 library(reticulate)
 use_condaenv("optim-2", conda="C:/ProgramData/anaconda3/Scripts/conda.exe", required = TRUE)
 py_config()
 ```
-```{python, include = FALSE}
 
+```{python, include = FALSE}
+import matplotlib.pyplot as plt
+import time
+import random
+
+def generar_casos_de_prueba(num_pruebas, m, C, alfabeto):
+    """
+    Genera una lista de casos de prueba con los parámetros especificados.
+
+    :param num_pruebas: Número de pruebas a realizar.
+    :param m: Longitud fija de la subcadena.
+    :param C: Carácter a buscar.
+    :param alfabeto: Cadena de caracteres a utilizar para generar la cadena.
+    :return: Lista de tuplas (A, m, C).
+    """
+    test_cases = []
+    for _ in range(num_pruebas):
+        n = random.randint(m, m * 10)  # La longitud de la cadena es al menos m
+        A = ''.join(random.choice(alfabeto) for _ in range(n))
+        test_cases.append((A, m, C))
+    return test_cases
+  
+# Parámetros especificados
+alfabeto = "abcdefghijklmnopqrstuvwxyz"
+C = 'c'  # Carácter a buscar
+m = 100  # Tamaño de la subcadena fijo
+num_pruebas = 10  # Número de pruebas a realizar
+
+# Generar los casos de prueba
+test_cases = generar_casos_de_prueba(num_pruebas, m, C, alfabeto)
 ```
+
+En esta memoria se explicará el código utilizado para resolver el problema de encontrar, en una cadena dada, la subcadena de longitud **`m`** que contiene la mayor cantidad de apariciones consecutivas de un carácter específico **`C`**. Las dos funciones son:
+
+1.  **`resolver_directo(A, m, C)`**
+2.  **`divide_y_venceras(A, m, C, l, r)`**
+
+## 1. Función **`resolver_directo(A, m, C)`**
+
+```{python}
+def resolver_directo(A, m, C):
+    """
+    Encuentra la subcadena óptima utilizando un método directo
+
+    :param A: Cadena original (str)
+    :param m: Longitud de la cadena (int)
+    :param C: Carácter a buscar (str)
+    :return: tuple: Índice de inicio de la subcadena óptima y el número máximo de apariciones consecutivas.
+    """
+    n = len(A)
+    max_consecutivos = 0
+    inicio_optimo = -1
+
+    # Recorrer todas las subcadenas de longitud m
+    for i in range(n - m + 1):
+        subcadena = A[i:i + m]
+
+        # Contar el número máximo de apariciones consecutivas de C en la subcadena
+        contador_actual = 0
+        max_actual = 0
+
+        for char in subcadena:
+            if char == C:
+                contador_actual += 1
+                if contador_actual > max_actual:
+                    max_actual = contador_actual
+            else:
+                contador_actual = 0
+
+        # Actualizar la mejor solución encontrada
+        if max_actual > max_consecutivos:
+            max_consecutivos = max_actual
+            inicio_optimo = i
+
+    return inicio_optimo, max_consecutivos
+```
+
+### Descripción general
+
+Esta función implementa un algoritmo directo que examina todas las posibles de longitud **`m`** en la cadena **`A`** y determina cuál de ellas contiene el mayor número de apariciones consecutivas del carácter **`C`**. Es un enfoque de fuerza bruta que garantiza encontrar la solución óptima al evaluar exhaustivamente todas las opciones posibles.
+
+### Parámetros de entrada
+
+-   **`A`**: Cadena original donde se buscarán las subcadenas.
+
+-   **`m`**: Longitud de las subcadenas a considerar.
+
+-   **`C`**: Carácter cuyo número de apariciones consecutivas se desea maximizar.
+
+### Proceso del algoritmo
+
+1.  **Preparación:**
+
+    -   Calculamos **`n`**, que es la longitud de la cadena **`A`**.
+
+    -   Inicializamos **`max_consecutivos`** en $0$ para almacenar el máximo de **`C`** consecutivos encontrados hasta ahora.
+
+    -   Inicializamos **`inicio_optimo`** en $-1$ para guardar el índice de inicio de la mejor subcadena encontrada.
+
+2.  **Recorrido de subcadenas:**
+
+    -   Se utiliza un bucle **`for`** que va desde **`i = 0`** hasta **`i = n - m`**, de modo que se puedan extraer todas las subcadenas de longitud **`m`** sin exceder los límites de la cadena.
+
+    -   En cada iteración, se extrae la subcadena **`subcadena = A[i:i + m]`**.
+
+3.  **Cálculo de apariciones consecutivas:**
+
+    -   Para cada subcadena, se inicializan **`contador_actual`** y **`max_actual`** a $0$.
+
+    -   Recorremos cada carácter de la subcadena:
+
+        -   Si el carácter es igual a **`C`**, se incrementa **`contador_actual`** y se actualiza **`max_actual`** si **`contador_actual`** es mayor.
+
+        -   Si el carácter no es **`C`**, se reinicia **`contador_actual`** a $0$.
+
+    -   Este proceso permite determinar el número máximo de apariciones consecutivas de **`C`** en la subcadena actual.
+
+4.  **Actualización de la mejor solución:**
+
+    -   Si **`max_actual`** es mayor que **`max_cosecutivos`**, se actualizan **`max_consecutivos`** con **`max_actual`** y **`inicio_optimo`** con el índice actual **`i`**.
+
+5.  **Resultado:**
+
+    -   Al finalizar el bucle, se retorna una tupla **`(inicio_optimo, max_consecutivos)`**, que indica el índice de inicio de la subcadena óptima y el número máximo de apariciones consecutivas de **`C`** en dicha subcadena.
+
+### Ejemplo de uso
+
+```{python}
+if __name__ == '__main__':
+    # Generar una cadena de ejemplo con el alfabeto
+    alfabeto = "abcdefghijklmnopqrstuvwxyz"
+    C = 'c'  # Carácter a buscar
+    m = 100  # Tamaño de la subcadena fijo
+    num_pruebas = 10 # Número de pruebas a realizar para comprobar que el código funciona
+
+    for i in range(num_pruebas):
+        print(f"\n -- Prueba {i + 1} --")
+        A = ''.join(random.choices(alfabeto, k=1000))  # Cadena aleatoria de longitud 1000
+        resultado = resolver_directo(A, m, C)
+        print(f"Índice de inicio: {resultado[0]} \nMáximo de apariciones consecutivas: {resultado[1]}")
+```
+
+### Análisis de la complejidad
+
+```{python, include = FALSE}
+def analyse_complexity_directo(test_cases):
+    overall_time = []
+    accumulated_time = 0
+    iteration = 1
+
+    for A, m, C in test_cases:
+        start_time = time.time()
+        inicio_optimo, max_consecutivos = resolver_directo(A, m, C)
+        end_time = time.time()
+        elapsed_time = end_time - start_time
+        accumulated_time += elapsed_time
+        overall_time.append(accumulated_time)
+        iteration += 1
+
+    if overall_time:
+        plt.figure()
+        plt.plot(range(1, iteration), overall_time, marker='o', color='blue')
+        plt.xlabel("Iteraciones (Casos)")
+        plt.ylabel("Tiempo Acumulado (s)")
+        plt.title("Algoritmo de resolver_directo")
+        plt.show()
+    else:
+        print("No se procesaron casos.")
+```
+
+```{python, echo = FALSE}
+analyse_complexity_directo(test_cases)
+```
+
+El algoritmo tiene una complejidad temporal lineal respecto al tamaño de la cadena
