@@ -4,13 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="26c2ae99-ce09-4876-9816-cac4e9750c52" name="Changes" comment="Ejercicios de Práctica para BD I">
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
+    <list default="true" id="26c2ae99-ce09-4876-9816-cac4e9750c52" name="Changes" comment="Práctica 6 FIE">
       <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/sqldialects.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/sqldialects.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Prácticas/2º Curso/1º Cuatrimestre/ADA/ADA_boletin_P3/Memoria.pdf" beforeDir="false" afterPath="$PROJECT_DIR$/Prácticas/2º Curso/1º Cuatrimestre/ADA/ADA_boletin_P3/Memoria.pdf" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Prácticas/2º Curso/1º Cuatrimestre/ADA/ADA_boletin_P3/Memoria.rmd" beforeDir="false" afterPath="$PROJECT_DIR$/Prácticas/2º Curso/1º Cuatrimestre/ADA/ADA_boletin_P3/Memoria.rmd" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Prácticas/2º Curso/1º Cuatrimestre/FRD/.idea/.name" beforeDir="false" afterPath="$PROJECT_DIR$/Prácticas/2º Curso/1º Cuatrimestre/FRD/.idea/.name" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Prácticas/2º Curso/1º Cuatrimestre/ADA/ADA_boletin_P3/divide_y_venceras.py" beforeDir="false" afterPath="$PROJECT_DIR$/Prácticas/2º Curso/1º Cuatrimestre/ADA/ADA_boletin_P3/divide_y_venceras.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Prácticas/2º Curso/1º Cuatrimestre/FRD/.idea/.name" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -21,9 +21,9 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="SQL File" />
-        <option value="Jupyter Notebook" />
         <option value="Python Script" />
         <option value="RMarkdown.document" />
+        <option value="Jupyter Notebook" />
       </list>
     </option>
   </component>
@@ -287,6 +287,9 @@
       <workItem from="1732095119380" duration="1033000" />
       <workItem from="1732110475228" duration="1469000" />
       <workItem from="1732172802201" duration="450000" />
+      <workItem from="1732175087156" duration="893000" />
+      <workItem from="1732262246023" duration="1000" />
+      <workItem from="1732263066031" duration="2250000" />
     </task>
     <task id="LOCAL-00001" summary="Ejercicios Práctica 4 FIE">
       <option name="closed" value="true" />
@@ -368,7 +371,23 @@
       <option name="project" value="LOCAL" />
       <updated>1732089539605</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="Avances en la memoria de DyV ADA">
+      <option name="closed" value="true" />
+      <created>1732180535537</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1732180535537</updated>
+    </task>
+    <task id="LOCAL-00012" summary="Práctica 6 FIE">
+      <option name="closed" value="true" />
+      <created>1732180573666</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1732180573666</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -394,7 +413,9 @@
     <MESSAGE value="Cambios la carpeta de BD I" />
     <MESSAGE value="Últimos cambios en la Práctica de Backtracking de ADA" />
     <MESSAGE value="Ejercicios de Práctica para BD I" />
-    <option name="LAST_COMMIT_MESSAGE" value="Ejercicios de Práctica para BD I" />
+    <MESSAGE value="Avances en la memoria de DyV ADA" />
+    <MESSAGE value="Práctica 6 FIE" />
+    <option name="LAST_COMMIT_MESSAGE" value="Práctica 6 FIE" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -408,13 +429,13 @@
     </breakpoint-manager>
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/mecanicos_y_averias_b_py$mecanicos_y_averias_b2__1_.coverage" NAME="mecanicos_y_averias_b2 (1) Coverage Results" MODIFIED="1731671178173" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/../Downloads" />
     <SUITE FILE_PATH="coverage/mecanicos_y_averias_b_py$preba.coverage" NAME="preba Coverage Results" MODIFIED="1731863064775" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Prácticas/2º Curso/1º Cuatrimestre/ADA/ADA_boletin_P2/problemas P2-BT ADA 2024-2025/01 - mecánicos y averías" />
+    <SUITE FILE_PATH="coverage/mecanicos_y_averias_b_py$mecanicos_y_averias_b2__1_.coverage" NAME="mecanicos_y_averias_b2 (1) Coverage Results" MODIFIED="1731671178173" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/../Downloads" />
     <SUITE FILE_PATH="coverage/mecanicos_y_averias_b_py$prueba__1_.coverage" NAME="prueba (1) Coverage Results" MODIFIED="1731863842955" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Prácticas/2º Curso/1º Cuatrimestre/ADA/ADA_boletin_P2/problemas P2-BT ADA 2024-2025/01 - mecánicos y averías" />
-    <SUITE FILE_PATH="coverage/mecanicos_y_averias_b_py$prueba.coverage" NAME="prueba Coverage Results" MODIFIED="1731864168217" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Prácticas/2º Curso/1º Cuatrimestre/ADA/ADA_boletin_P2/problemas P2-BT ADA 2024-2025/01 - mecánicos y averías" />
-    <SUITE FILE_PATH="coverage/mecanicos_y_averias_b_py$mecanicos_y_averias_b2.coverage" NAME="mecanicos_y_averias_b2 Coverage Results" MODIFIED="1731749349885" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Prácticas/2º Curso/1º Cuatrimestre/ADA/ADA_boletin_P2/problemas P2-BT ADA 2024-2025/01 - mecánicos y averías" />
     <SUITE FILE_PATH="coverage/mecanicos_y_averias_b_py$mecanicos_y_averias_b.coverage" NAME="mecanicos_y_averias_b Coverage Results" MODIFIED="1731670999266" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Prácticas/2º Curso/1º Cuatrimestre/ADA/ADA_boletin_P2/problemas P2-BT ADA 2024-2025/01 - mecánicos y averías" />
     <SUITE FILE_PATH="coverage/mecánicos_y_averias_py$mecanicos_y_averias.coverage" NAME="mecanicos_y_averias Coverage Results" MODIFIED="1731394124644" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Prácticas/2º Curso/1º Cuatrimestre/ADA/ADA_boletin_P2/problemas P2-BT ADA 2024-2025/01 - mecánicos y averías" />
-    <SUITE FILE_PATH="coverage/mecanicos_y_averias_b_py$divide_y_venceras.coverage" NAME="divide_y_venceras Coverage Results" MODIFIED="1731951307527" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Prácticas/2º Curso/1º Cuatrimestre/ADA/ADA_boletin_P3" />
+    <SUITE FILE_PATH="coverage/mecanicos_y_averias_b_py$prueba.coverage" NAME="prueba Coverage Results" MODIFIED="1731864168217" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Prácticas/2º Curso/1º Cuatrimestre/ADA/ADA_boletin_P2/problemas P2-BT ADA 2024-2025/01 - mecánicos y averías" />
+    <SUITE FILE_PATH="coverage/mecanicos_y_averias_b_py$divide_y_venceras.coverage" NAME="divide_y_venceras Coverage Results" MODIFIED="1732175214381" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Prácticas/2º Curso/1º Cuatrimestre/ADA/ADA_boletin_P3" />
+    <SUITE FILE_PATH="coverage/mecanicos_y_averias_b_py$mecanicos_y_averias_b2.coverage" NAME="mecanicos_y_averias_b2 Coverage Results" MODIFIED="1731749349885" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Prácticas/2º Curso/1º Cuatrimestre/ADA/ADA_boletin_P2/problemas P2-BT ADA 2024-2025/01 - mecánicos y averías" />
   </component>
 </project>
