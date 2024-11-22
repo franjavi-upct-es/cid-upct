@@ -4,13 +4,18 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="26c2ae99-ce09-4876-9816-cac4e9750c52" name="Changes" comment="Práctica 6 FIE">
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+    <list default="true" id="26c2ae99-ce09-4876-9816-cac4e9750c52" name="Changes" comment="Avances en la memoria de DyV ADA">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Prácticas/2º Curso/1º Cuatrimestre/ADA/ADA_boletin_P3/Memoria.pdf" beforeDir="false" afterPath="$PROJECT_DIR$/Prácticas/2º Curso/1º Cuatrimestre/ADA/ADA_boletin_P3/Memoria.pdf" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Prácticas/2º Curso/1º Cuatrimestre/ADA/ADA_boletin_P3/Memoria.rmd" beforeDir="false" afterPath="$PROJECT_DIR$/Prácticas/2º Curso/1º Cuatrimestre/ADA/ADA_boletin_P3/Memoria.rmd" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Prácticas/2º Curso/1º Cuatrimestre/ADA/ADA_boletin_P3/divide_y_venceras.py" beforeDir="false" afterPath="$PROJECT_DIR$/Prácticas/2º Curso/1º Cuatrimestre/ADA/ADA_boletin_P3/divide_y_venceras.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Prácticas/2º Curso/1º Cuatrimestre/FIE/src/05-estimacion-por-intervalos/intervalos_handout.qmd" beforeDir="false" afterPath="$PROJECT_DIR$/Prácticas/2º Curso/1º Cuatrimestre/FIE/src/05-estimacion-por-intervalos/intervalos_handout.qmd" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Prácticas/2º Curso/1º Cuatrimestre/FIE/src/06-bootstrap/bootstrap_handout.qmd" beforeDir="false" afterPath="$PROJECT_DIR$/Prácticas/2º Curso/1º Cuatrimestre/FIE/src/06-bootstrap/bootstrap_handout.qmd" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Prácticas/2º Curso/1º Cuatrimestre/FRD/.idea/.gitignore" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/Prácticas/2º Curso/1º Cuatrimestre/FRD/.idea/.name" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Prácticas/2º Curso/1º Cuatrimestre/FRD/.idea/FRD.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Prácticas/2º Curso/1º Cuatrimestre/FRD/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Prácticas/2º Curso/1º Cuatrimestre/FRD/.idea/inspectionProfiles/profiles_settings.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Prácticas/2º Curso/1º Cuatrimestre/FRD/.idea/misc.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Prácticas/2º Curso/1º Cuatrimestre/FRD/.idea/modules.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Prácticas/2º Curso/1º Cuatrimestre/FRD/.idea/vcs.xml" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -289,7 +294,9 @@
       <workItem from="1732172802201" duration="450000" />
       <workItem from="1732175087156" duration="893000" />
       <workItem from="1732262246023" duration="1000" />
-      <workItem from="1732263066031" duration="2250000" />
+      <workItem from="1732263066031" duration="2986000" />
+      <workItem from="1732284549605" duration="85000" />
+      <workItem from="1732289055095" duration="37000" />
     </task>
     <task id="LOCAL-00001" summary="Ejercicios Práctica 4 FIE">
       <option name="closed" value="true" />
@@ -387,7 +394,23 @@
       <option name="project" value="LOCAL" />
       <updated>1732180573666</updated>
     </task>
-    <option name="localTasksCounter" value="13" />
+    <task id="LOCAL-00013" summary="Práctica 6 FIE">
+      <option name="closed" value="true" />
+      <created>1732265888353</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1732265888353</updated>
+    </task>
+    <task id="LOCAL-00014" summary="Avances en la memoria de DyV ADA">
+      <option name="closed" value="true" />
+      <created>1732265966138</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1732265966138</updated>
+    </task>
+    <option name="localTasksCounter" value="15" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -413,9 +436,9 @@
     <MESSAGE value="Cambios la carpeta de BD I" />
     <MESSAGE value="Últimos cambios en la Práctica de Backtracking de ADA" />
     <MESSAGE value="Ejercicios de Práctica para BD I" />
-    <MESSAGE value="Avances en la memoria de DyV ADA" />
     <MESSAGE value="Práctica 6 FIE" />
-    <option name="LAST_COMMIT_MESSAGE" value="Práctica 6 FIE" />
+    <MESSAGE value="Avances en la memoria de DyV ADA" />
+    <option name="LAST_COMMIT_MESSAGE" value="Avances en la memoria de DyV ADA" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

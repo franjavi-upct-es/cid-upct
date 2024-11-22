@@ -33,7 +33,6 @@ Son muchas las preguntas que deben contestar los entrevistados. En esta práctic
 -   ¿Diría usted que la mayoría de las veces la gente intenta ayudar a los demás o que principalmente mira por sí misma?
 :::
 
-
 ## Exploración de los datos de 2020.
 
 ### Carga de los datos
@@ -46,7 +45,6 @@ Cuántas filas y cuántas columnas contiene el conjunto?
 #| warning: false
 library(tidyverse)
 ```
-
 
 ```{r}
 # Completar aquí
