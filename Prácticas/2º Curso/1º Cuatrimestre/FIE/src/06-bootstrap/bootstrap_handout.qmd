@@ -27,6 +27,7 @@ Después de descargar del aula virtual el fichero `bootstrapping.csv` en la carp
 
 library(tibble)
 library(readr)
+library(tidyverse)
 
 starcraft <- read_csv('../../data/bootstrapping.csv', skip = 2)
 
