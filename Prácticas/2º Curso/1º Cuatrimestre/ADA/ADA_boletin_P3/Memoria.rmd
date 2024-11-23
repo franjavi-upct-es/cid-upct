@@ -6,7 +6,7 @@ author:
 - "Pedro Alarcón Fuentes"
 output:
   pdf_document:
-    latex_engine: pdflatex
+    latex_engine: xelatex
 geometry: margin=1.5cm, a4paper
 fontsize: 12pt
 header-includes:
@@ -48,7 +48,7 @@ def generar_casos_de_prueba(num_pruebas, m, C, alfabeto):
 alfabeto = "abcdefghijklmnopqrstuvwxyz"
 C = 'c'  # Carácter a buscar
 m = 100  # Tamaño de la subcadena fijo
-num_pruebas = 30  # Número de pruebas a realizar
+num_pruebas = 1000  # Número de pruebas a realizar
 
 # Generar los casos de prueba
 test_cases = generar_casos_de_prueba(num_pruebas, m, C, alfabeto)
@@ -183,10 +183,11 @@ def analyse_complexity_directo(test_cases):
 
     if overall_time:
         plt.figure()
-        plt.plot(range(1, iteration), overall_time, marker='o', color='blue')
+        plt.plot(range(1, iteration), overall_time, color='blue')
         plt.xlabel("Iteraciones (Casos)")
         plt.ylabel("Tiempo Acumulado (s)")
-        plt.title("Algoritmo de resolver_directo")
+        plt.xticks([])
+        plt.title("Algoritmo resolver_directo")
         plt.show()
     else:
         print("No se procesaron casos.")
@@ -196,7 +197,7 @@ def analyse_complexity_directo(test_cases):
 analyse_complexity_directo(test_cases)
 ```
 
-El algoritmo tiene una complejidad temporal lineal respecto al tamaño de la cadena **`A`** y la longitud de las subcadenas **`m`**, ya que recorren **`n - m + 1`** subcadenas y, para cada una, se realiza un recorrido de longitud **`m`**. Por lo tanto tiene una complejidad temporal de $O(n\cdot m)$.
+El algoritmo tiene una complejidad temporal lineal respecto al tamaño de la cadena **`A`** y la longitud de las subcadenas **`m`**, ya que recorren **`n - m + 1`** subcadenas y, para cada una, se realiza un recorrido de longitud **`m`**. Por lo tanto tiene una complejidad teórica de $O(n\cdot m)$.
 
 ## 2. Función **`divide_y_venceras(A, m, C, l, r)`**
 
@@ -212,25 +213,9 @@ def divide_y_venceras(A, m, C, l, r):
     :param r: Índice derecho del rango actual (int)
     :return: tuple: Índice de inicio de la subcadena óptima y el número máximo de apariciones consecutivas.
     """
-    # Caso base: si el segmento es más pequeño que m, no es posible formar una subcadena de longitud m
-    if r - l + 1 < m:
-        return (-1, 0) # Devolvemos un resultado inválido
+    if r - l + 1 <= m:
+        return resolver_directo(A[l:r + 1], m, C)
 
-    # Caso base: si el segmento es exactamente de longitud m, procesamos directamente
-    if r - l + 1 == m:
-        subcadena = A[l:r + 1]
-        contador_actual = 0
-        max_consecutivos = 0
-        for char in subcadena:
-            if char == C:
-                contador_actual += 1
-                if contador_actual > max_consecutivos:
-                    max_consecutivos = contador_actual
-            else:
-                contador_actual = 0
-        return (l, max_consecutivos)
-
-    # Si el segmento es mayor que m, continuamos dividiendo
     mid = (l + r) // 2
 
     # Soluciones para las dos mitades
@@ -241,26 +226,26 @@ def divide_y_venceras(A, m, C, l, r):
     max_central_consecutivos = 0
     inicio_central = -1
 
-    # Buscar subcadena que cruce el centro
-    for i in range(mid - m + 1, mid + 1):
-        if i < l or i + m - 1 > r:
-            continue
-        subcadena = A[i:i + m]
-        contador_actual = 0
-        max_actual = 0
+    # Optimización de la solución central
+    max_izq = 0
+    contador = 0
+    for i in range(mid, l - 1, -1):
+        if A[i] == C:
+            contador += 1
+            max_izq = max(max_izq, contador)
+        else:
+            break
 
-        for char in subcadena:
-            if char == C:
-                contador_actual += 1
-                max_actual = max(max_actual, contador_actual)
-            else:
-                contador_actual = 0
+    max_der = 0
+    contador = 0
+    for i in range(mid + 1, r + 1):
+        if A[i] == C:
+            contador += 1
+            max_der = max(max_der, contador)
+        else:
+            break
 
-        if max_actual > max_central_consecutivos:
-            max_central_consecutivos = max_actual
-            inicio_central = i
-
-    sol_central = (inicio_central, max_central_consecutivos)
+    sol_central = (mid - max_izq + 1, max_izq + max_der)
 
     return max(sol_izq, sol_der, sol_central, key=lambda x: x[1])
 ```
@@ -285,16 +270,12 @@ Esta función aplica el método "divide y vencerás" para encontrar la mejor sub
 
 1.  **Casos base:**
 
-    -   **Cuando el segmento es menor que `m`:**
-        -   Si \textbf{\texttt{r - l + 1 < m}}, significa que el segmento no es lo suficientemente grande para contener una subcadena de longitud **`m`**.
-        -   En este caso, el algoritmo devuelve **`(-1, 0)`**, indicando que no hay una subcadena válida en este segmento.
-    -   **Cuando el segmento es exactamente de longitud `m`:**
-        -   Si \textbf{\texttt{r - l + 1 == m}}, podemos procesar este segmento directamente dentro de la función.
-        -   Realizamos el conteo de apariciones consecutivas de **`C`** en la subcadena y devolvemos el resultado.
+    - Si el tamaño del segmento actual (\textbf{\texttt{r - l + 1}}) es menor o igual a **`m`**, se resuelve el problema llamando a **`resolver_directo`** con la subcadena \textbf{\texttt{A[l:r + 1]}}.
 
 2.  **División de la cadena:**
 
     -   Se calcula el punto medio \textbf{\texttt{mid = (l + r) // 2}}.
+
     -   Se realizan dos llamadas recursivas:
         -   **`sol_izq`**: Resultado de aplicar el algoritmo a la mitad izquierda (**`l`** a **`mid`**).
         -   **`sol_der`**: Resultado de aplicar el algoritmo a la mitad derecha (**`mid + 1`** a **`r`**).
@@ -349,10 +330,11 @@ def analyse_complexity_divide_y_venceras(test_cases):
 
     if overall_time:
         plt.figure()
-        plt.plot(range(1, iteration), overall_time, marker='o', color='red')
+        plt.plot(range(1, iteration), overall_time, color='red')
         plt.xlabel("Iteraciones (Casos)")
         plt.ylabel("Tiempo Acumulado (s)")
-        plt.title("Tiempo Acumulado de divide_y_venceras por Iteración")
+        plt.xticks([])
+        plt.title("Algoritmo divide_y_venceras")
         plt.show()
     else:
         print("No se procesaron casos.")
@@ -362,7 +344,7 @@ def analyse_complexity_divide_y_venceras(test_cases):
 analyse_complexity_divide_y_venceras(test_cases)
 ```
 
-El algoritmo divide la cadena en mitades logarítmicamente y en cada nivel realiza un trabajo lineal, lo que resultado en una complejidad de $O(n\log n)$.
+El algoritmo divide la cadena en mitades logarítmicamente y en cada nivel realiza un trabajo lineal, lo que resultado en una complejidad teórica de $O(n\log n)$.
 
 ## Conclusión
 
@@ -375,16 +357,6 @@ El código proporciona dos enfoques para resolver el problema de encontrar la su
 En la siguiente gráfica se mostrará la diferencia de tiempo que necesitan ambos algoritmos para resolver el mismo número de casos:
 
 ```{python, echo = FALSE}
-def generar_casos_de_prueba(num_pruebas, m, C, alfabeto):
-    test_cases = []
-    for _ in range(num_pruebas):
-        n = random.randint(m, m * 10)  # La longitud de la cadena es al menos m
-        A = ''.join(random.choice(alfabeto) for _ in range(n))
-        test_cases.append((A, m, C))
-    return test_cases
-
-test_cases = generar_casos_de_prueba(30, 100, 'c', alfabeto)
-
 def comparar_algoritmos_tiempo_acumulado(test_cases):
     tiempos_directo = []
     tiempos_divide = []
@@ -421,14 +393,14 @@ def comparar_algoritmos_tiempo_acumulado(test_cases):
         iteration += 1
 
     # Graficar los tiempos acumulados de ambos algoritmos
-    plt.figure(figsize=(10, 6))
-    plt.plot(iteraciones, tiempos_directo_acumulado, marker='o', color='blue', label='resolver_directo')
-    plt.plot(iteraciones, tiempos_divide_acumulado, marker='s', color='green', label='divide_y_venceras')
+    plt.figure()
+    plt.plot(iteraciones, tiempos_directo_acumulado, color='blue', label='resolver_directo')
+    plt.plot(iteraciones, tiempos_divide_acumulado, color='red', label='divide_y_venceras')
     plt.xlabel("Iteraciones (Casos)")
     plt.ylabel("Tiempo Acumulado (s)")
+    plt.xticks([])
     plt.title("Tiempo Acumulado de los Algoritmos por Iteración")
     plt.legend()
-    plt.grid(True)
     plt.show()
 
 comparar_algoritmos_tiempo_acumulado(test_cases)
