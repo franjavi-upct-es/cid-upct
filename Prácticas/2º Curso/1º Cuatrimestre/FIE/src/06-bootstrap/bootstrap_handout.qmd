@@ -65,12 +65,12 @@ total_datos <- nrow(starcraft)
 cat("Datos faltantes:", datos_faltantes, "\n")
 cat("Total de datos:", total_datos, "\n")
 
-# Crear un violin plot con boxplot superpuesto
-ggplot(starcraft, aes(x = "", y = apm)) +
-  geom_violin(fill = "lightblue", alpha = 0.7) + # Gráfico violin
-  geom_boxplot(width = 0.1, color = "darkblue", outlier.shape = NA) +
-  geom_jitter(color = "orange", width = 0.2, alpha = 0.8, size = 2) +
-  labs(x = "x", y = "apm")
+# Crear un violin plot con boxplot superpuesto# Completar aquí
+starcraft %>% 
+  ggplot(aes(x = "", y = apm)) + 
+  geom_violin(fill = "lightblue") + 
+  geom_jitter(color = 'orange') + 
+  geom_boxplot(alpha = 0.2, width = 0.2, color = 'navy', lwd = 1.1)
 #Fin Completar aquí
 ```
 
