@@ -46,25 +46,9 @@ def divide_y_venceras(A, m, C, l, r):
     :param r: Índice derecho del rango actual (int)
     :return: tuple: Índice de inicio de la subcadena óptima y el número máximo de apariciones consecutivas.
     """
-    # Caso base: si el segmento es más pequeño que m, no es posible formar una subcadena de longitud m
-    if r - l + 1 < m:
-        return (-1, 0) # Devolvemos un resultado inválido
-      
-    # Caso base: si el segmento es exactamente de longitud m, procesamos directamente
-    if r - l + 1 == m:
-        subcadena = A[l:r + 1]
-        contador_actual = 0
-        max_consecutivos = 0
-        for char in subcadena:
-            if char == C:
-                contador_actual += 1
-                if contador_actual > max_consecutivos:
-                    max_consecutivos = contador_actual
-            else:
-                contador_actual = 0
-        return (l, max_consecutivos)
-  
-    # Si el segmento es mayor que m, continuamos dividiendo  
+    if r - l + 1 <= m:
+        return resolver_directo(A[l:r + 1], m, C)
+
     mid = (l + r) // 2
 
     # Soluciones para las dos mitades
