@@ -66,10 +66,10 @@ cat("Datos faltantes:", datos_faltantes, "\n")
 cat("Total de datos:", total_datos, "\n")
 
 # Crear un violin plot con boxplot superpuesto# Completar aquí
-starcraft |> 
+starcraft %>% 
   ggplot(aes(x = "", y = apm)) + 
   geom_violin(fill = "lightblue") + 
-  geom_jitter(fill = 'orange') + 
+  geom_jitter(color = 'orange') + 
   geom_boxplot(alpha = 0.2, width = 0.2, color = 'navy', lwd = 1.1)
 #Fin Completar aquí
 ```
