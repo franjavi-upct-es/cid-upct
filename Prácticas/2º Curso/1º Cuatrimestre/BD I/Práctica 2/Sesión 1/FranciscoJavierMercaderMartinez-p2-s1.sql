@@ -13,20 +13,24 @@ Estudiante(s): Francisco Javier Mercader Martínez <-- NOMBRES Y APELLIDOS
 -- CONSULTAS:
 
 -- 1
-SELECT nombre, telefono, salario FROM MONITOR
+SELECT nombre, telefono, salario
+FROM MONITOR
 WHERE salario > 1200;
 
 -- 2
-SELECT nombre, responsable, nivel FROM ACTIVIDAD
+SELECT nombre, responsable, nivel
+FROM ACTIVIDAD
 WHERE nivel BETWEEN 1 AND 3;
 
 -- 3
-SELECT instalacion_id FROM ACTIVIDAD
+SELECT instalacion_id
+FROM ACTIVIDAD
 WHERE nivel = 3 AND precio < 10
 ORDER BY instalacion_id DESC;
 
 -- 4
-SELECT actividad_id, diasemana, hora FROM SESION
+SELECT actividad_id, diasemana, hora
+FROM SESION
 WHERE (diasemana = 'S' AND HORA BETWEEN 9 AND 11.3)
    OR diasemana = 'L'
 ORDER BY diasemana, hora;

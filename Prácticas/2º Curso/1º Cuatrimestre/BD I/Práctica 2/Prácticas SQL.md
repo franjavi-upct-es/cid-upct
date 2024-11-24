@@ -1,0 +1,680 @@
+---
+title: "Bases de Datos I"
+subtitle: "Práctica 2: Consultas Oracle SQL"
+author: "Francisco Javier Mercader Martínez"
+output:
+  pdf_document:
+    latex_engine: pdflatex
+geometry: margin=1.5cm, a4paper
+fontsize: 12pt
+header-includes:
+- \renewcommand{\and}{\\}
+- \usepackage{fvextra}
+- \usepackage{hyperref}
+- \DefineVerbatimEnvironment{Highlighting}{Verbatim}{breaklines, commandchars=\\\{\}}
+- \usepackage{setspace}
+- \setstretch{1.35}
+---
+
+1.  Nombres, teléfonos y salarios de los monitores que cobran más de 1200€ (`nombre`, `telefono`, `salario`).
+
+    ``` sql
+    SELECT nombre, telefono, salario 
+    FROM MONITOR
+    WHERE salario > 1200;
+    ```
+
+2.  Nombre, responsable y nivel de las actividades cuyo nivel de intensidad está entre 1 y 3 (`nombre`, `responsable`, `nivel`), ordenado por responsable.
+
+    ``` sql
+    SELECT nombre, responsable, nivel 
+    FROM ACTIVIDAD
+    WHERE nivel BETWEEN 1 AND 3;
+    ```
+
+3.  Identificadores de las instalaciones en las que se desarrollan actividades de nivel 3 con un precio inferior a 10€. Sin duplicados. Ordenado descendentemente (`instalacion_id`).
+
+    ``` sql
+    SELECT instalacion_id
+    FROM ACTIVIDAD
+    WHERE nivel = 3 AND precio < 10
+    ORDER BY instalacion_id DESC;
+    ```
+
+4.  Sesiones que tienen lugar los sábados por la mañana (entre las 9 y las 11:30h) o los lunes en cualquier horario, ordenado por día y hora (`actividad_id`, `diasemana`, `hora`).
+
+    ``` sql
+    SELECT actividad_id, diasemana, hora
+    FROM SESION
+    WHERE (diasemana = 'S' AND HORA BETWEEN 9 AND 11.3)
+       OR diasemana = 'L'
+    ORDER BY diasemana, hora;
+    ```
+
+5.  Para cada monitor cuyo nombre incluye el texto `‘cia‘`, mostrar el nombre, teléfono y el mes (no la fecha, sino el mes en letras) en el que fue contratado. (`nombre`, `telefono`, `mes_contrato`).
+
+    ``` sql
+    SELECT nombre, telefono, TO_CHAR(fcontrato, 'Month') mes_contratado
+    FROM MONITOR
+    WHERE nombre LIKE '%cia%';
+    ```
+
+6.  Listar las sesiones que tienen lugar los martes o los jueves y comienzan antes de las 7 de la tarde, mostrando en una sola columna el día y la hora. (`actividad_id`, `dia_hora`, `monitor_id`), ordenado por dia_hora.
+
+    ``` sql
+    SELECT actividad_id, diasemana ||' '|| hora dia_hora, monitor_id FROM SESION
+    WHERE (diasemana = 'M' OR diasemana = 'J')
+      AND hora < 19
+    ORDER BY dia_hora;
+    ```
+
+7.  Para cada actividad con nivel 5 y cuyo precio por sesión es superior a 12€, mostrar cómo quedaría su precio si se disminuye un 7%. (`actividad_id`, `nuevo_precio`). Ordenado por actividad.
+
+    ``` sql
+    SELECT A.actividad_id, A.precio * 0.93 nuevo_precio
+    FROM ACTIVIDAD A
+    WHERE A.nivel = 5 and A.precio > 12;
+    ```
+
+8.  Monitores contratados hace más de 15 años, incluyendo el nº de años que hace que se les contrató (`dni`, `nombre`, `salario`, `experiencia`).
+
+    ``` sql
+    SELECT M.dni, M.nombre, M.salario, 2024 - EXTRACT(YEAR FROM fcontrato) experiencia
+    FROM MONITOR M
+    WHERE 2024 - EXTRACT(YEAR FROM fcontrato) >= 15;
+    ```
+
+9.  Sesiones de los viernes correspondientes a las actividades cuyos identificadores son `‘A02’`, `‘A05’`, `‘A09’` y `‘A19’` (`actividad_id`, `hora`, `monitor_id`). Ordenado por monitor.
+
+    ``` sql
+    SELECT S.actividad_id, S.hora, S.monitor_id
+    FROM SESION S
+    WHERE S.actividad_id IN ('A02', 'A05', 'A09', 'A19')
+        AND S.diasemana = 'V'
+    ORDER BY S.monitor_id;
+    ```
+
+10. Instalaciones en las que se ubican actividades de nivel de intensidad muy bajo y bajo, es decir de nivel 1 y 2. Sin duplicados. Ordenado ascendentemente (`instalacion_id`).
+
+    ``` sql
+    SELECT UNIQUE I.instalacion_id
+    FROM INSTALACION I
+        JOIN ACTIVIDAD A ON I.instalacion_id = A.instalacion_id
+    WHERE A.nivel IN (1, 2)
+    ORDER BY I.instalacion_id ASC;
+    ```
+
+11. Metros cuadrados de las instalaciones dedicadas a las actividades `‘Pilates’` y/o a `‘Balonmano’`, indicando el nombre de la instalación y el de la actividad (`nombre_actividad`, `nombre_instalacion`, `m2`).
+
+    ``` sql
+    SELECT A.nombre nombre_actividad, I.nombre nombre_instalacion, I.m2
+    FROM INSTALACION I
+        JOIN ACTIVIDAD A ON A.instalacion_id = I.instalacion_id
+    WHERE A.nombre IN ('Pilates', 'Balonmano');
+    ```
+
+12. Nombres de los monitores que los viernes por la tarde (después de las 15h) imparten sesiones de las actividades cuyos identificadores son `‘A02’`, `‘A05’`, `‘A09’` y `‘A19’` (`actividad_id`, `hora`, `nombre_monitor`). Ordenado por hora de inicio.
+
+    ``` sql
+    SELECT DISTINCT A.actividad_id, S.hora, M.nombre nombre_monitor
+    FROM MONITOR M
+        JOIN ACTIVIDAD A ON A.responsable = M.dni
+        JOIN SESION S ON S.monitor_id = M.dni
+    WHERE A.actividad_id IN ('A02', 'A05', 'A09', 'A19') AND S.hora >= 15 AND S.diasemana = 'V'
+    ORDER BY S.hora;
+    ```
+
+13. Actividades que se desarrollan al aire libre. (`nombre_actividad`, `precio`, `nivel`, `nombre_instalacion`). Ordenado por nombre de actividad.
+
+    ``` sql
+    SELECT A.nombre, A.precio, A.nivel, I.nombre
+    FROM ACTIVIDAD A
+        JOIN INSTALACION I ON I.instalacion_id = A.instalacion_id
+    WHERE I.tipo = 'Exterior';
+    ```
+
+14. Monitores que imparten sesiones a las 19h o más tarde de alguna actividad de nivel alto o muy alto. Sin repeticiones. (`nombre_monitor`, `nombre_actividad`).
+
+    ``` sql
+    SELECT DISTINCT M.nombre nombre_monitor, A.nombre nombre_actividad
+    from SESION S
+        JOIN ACTIVIDAD A ON S.actividad_id = A.actividad_id
+        JOIN MONITOR M ON S.monitor_id = M.dni
+    WHERE hora >= 19 AND nivel IN (4, 5);
+    ```
+
+15. Para las sesiones programadas para viernes y sábados, mostrar el tipo de instalación donde tienen lugar (exterior o interior), el nombre de la actividad, su nivel y el día de la semana en el que se desarrollan. Mostrar los datos ordenados por día de la semana y de mayor a menor intensidad. (`tipo`, `nombre_actividad`, `nivel`, `diasemana`).
+
+    ``` sql
+    SELECT I.tipo, A.nombre nombre_actividad, A.nivel, S.diasemana
+    FROM SESION S
+        JOIN ACTIVIDAD A ON S.actividad_id = A.actividad_id
+        JOIN INSTALACION I ON A.instalacion_id = I.instalacion_id
+    WHERE S.diasemana IN ('V', 'S')
+    ORDER BY S.diasemana DESC;
+    ```
+
+16. Mostrar el nombre de cada monitor junto con el nombre de cada actividad en la que es especialista. (`nombre_monitor`, `nombre_actividad`). Ordenado por nombre de monitor.
+
+    ``` sql
+    SELECT M.nombre nombre_monitor, A.nombre nombre_actividad
+    FROM MONITOR M
+        JOIN ACTIVIDAD A ON A.responsable = M.dni
+        JOIN ESPECIALISTA E ON E.monitor_id = M.dni
+    ORDER BY M.nombre;
+    ```
+
+17. Tipo de las instalaciones dedicadas a las actividades `‘Yoga’`, `‘Body combat‘` y `‘Hapkido‘`, indicando el nombre de la instalación y el del responsable de la actividad (`nombre_instalacion`, `tipo`, `nombre_monitor`). Ordenado por nombre de instalación.
+
+    ``` sql
+    SELECT I.nombre nombre_instalacion, I.tipo, M.nombre nombre_monitor
+    FROM INSTALACION I
+        JOIN ACTIVIDAD A ON A.instalacion_id = I.instalacion_id
+        JOIN MONITOR M ON A.responsable = M.dni
+    WHERE A.nombre IN ('Yoga', 'Body combat', 'Hapkido');
+    ```
+
+18. Listar las sesiones que tienen lugar los lunes y miércoles, junto con el nombre de la actividad y el de su monitor. (`diasemana`, `hora`, `nombre_actividad`, `nombre_monitor`), ordenado por día, hora y actividad.
+
+    ``` sql
+    SELECT S.diasemana, S.hora, A.nombre nombre_actividad, M.nombre nombre_monitor
+    FROM SESION S
+        JOIN ACTIVIDAD A ON S.actividad_id = A.actividad_id
+        JOIN MONITOR M ON A.responsable = M.dni
+    WHERE S.diasemana IN ('L', 'X');
+    ```
+
+19. Sesiones programadas para la monitora llamada `‘Belinda’`, indicando también el nombre de la actividad y el nombre del responsable de la actividad (`diasemana`, `hora`, `nombre_actividad`, `nombre_responsable`).
+
+    ``` sql
+    SELECT diasemana, hora, A.nombre nombre_actividad, R.nombre nombre_responsable
+    FROM SESION S
+        JOIN monitor M ON S.monitor_id = M.dni
+        JOIN actividad A ON S.actividad_id = A.actividad_id
+        JOIN monitor R ON A.responsable = R.dni
+    WHERE M.nombre = 'Belinda';
+    ```
+
+20. Listado de actividades y sus monitores responsables. Se debe mostrar todos los monitores existentes en la base de datos. Para cada monitor que no sea responsable de ninguna actividad, se debe mostrar 3 guiones en la columna correspondiente a la actividad. (`nombre_actividad`, `nombre_responsable`). Ordenado por nombre de monitor.
+
+    ``` sql
+    SELECT COALESCE(A.nombre, '···') nombre_actividad, M.nombre nombre_responsable
+    FROM ACTIVIDAD A
+        RIGHT JOIN monitor M ON A.responsable = M.dni
+    ORDER BY M.nombre;
+    ```
+
+21. Instalaciones y actividades, mostrando todas las instalaciones existentes. Para cada instalación que no se use para ninguna actividad, se debe mostrar 4 guiones en la columna correspondiente a la actividad (`nombre_instalacion`, `nombre_actividad`). Ordenado por nombre de instalación.
+
+    ``` sql
+    SELECT I.nombre nombre_instalacion, COALESCE(A.nombre, '----') nombre_actividad
+    FROM INSTALACION I
+        LEFT JOIN ACTIVIDAD A ON A.instalacion_id = I.instalacion_id
+    ORDER BY I.nombre;
+    ```
+
+22. Monitores que imparten sesiones de actividades, pero no son responsables de ninguna (`monitor_id`). Hay que usar operadores de conjuntos.
+
+    ``` sql
+    SELECT monitor_id
+    FROM SESION
+    MINUS
+    SELECT responsable
+    FROM ACTIVIDAD;
+    ```
+
+23. Monitores que son responsables de actividades con nivel de intensidad 5, o bien que son especialistas en actividades de nivel 2 (`responsable`). Hay que usar operadores de conjuntos.
+
+    ``` sql
+    SELECT responsable
+    FROM ACTIVIDAD
+    WHERE nivel = 5
+
+    UNION
+
+    SELECT E.monitor_id responsable
+    FROM ESPECIALISTA E
+        JOIN ACTIVIDAD A ON A.actividad_id = E.actividad_id
+    WHERE A.nivel = 2;
+    ```
+
+24. Actividades que se desarrollan en instalaciones de tipo exterior y que tienen programada alguna sesión los viernes (`actividad_id`). Hay que usar operadores de conjuntos.
+
+    ``` sql
+    SELECT A.actividad_id
+    FROM ACTIVIDAD A
+        JOIN INSTALACION I ON A.instalacion_id = I.instalacion_id
+    WHERE I.tipo = 'Exterior'
+
+    INTERSECT
+
+    SELECT actividad_id
+    FROM SESION
+    WHERE diasemana = 'V';
+    ```
+
+25. Monitores contratados hace más de 12 años tales que imparten al menos una sesión y todas sus sesiones sean por la tarde a partir de las 16h. (`dni`). Hay que usar operadores de conjuntos.
+
+    ``` sql
+    SELECT dni
+    FROM MONITOR
+    WHERE 2024 - T(YEAR FROM fcontrato) > 12
+
+    INTERSECT
+
+    SELECT DISTINCT monitor_id
+    FROM SESION
+    WHERE hora > 16;
+    ```
+
+26. Instalaciones no utilizadas para ninguna actividad. (`instalacion_id, nombre, tipo`).
+
+    ``` sql
+    SELECT instalacion_id, nombre, tipo
+    FROM INSTALACION 
+    WHERE instalacion_id NOT IN (
+        SELECT DISTINCT instalacion_id
+        FROM ACTIVIDAD
+    );
+    ```
+
+27. Monitores no responsables de ninguna actividad, mostrando su fecha de contrato con el mes en letras minúsculas y el año con cuatro dígitos. (`dni, nombre, fcontrato`). Ordenado por fecha de contrato.
+
+    ``` sql
+    SELECT dni, nombre, LOWER(TO_CHAR(fcontrato, 'DD/MONTH/YYYY')) AS fcontrato
+    FROM MONITOR 
+    WHERE dni NOT IN (
+        SELECT DISTINCT responsable
+        FROM ACTIVIDAD)
+    ORDER BY T(YEAR FROM TO_DATE(fcontrato));
+    ```
+
+28. Monitores responsables de alguna actividad de hasta nivel 3 que se desarrolle en una instalación de entre 50 y 200m2 (`dni, nombre`).
+
+    ``` sql
+    SELECT dni, nombre
+    FROM MONITOR
+    WHERE dni IN (
+        SELECT responsable
+        FROM ACTIVIDAD 
+        WHERE nivel < 4 AND instalacion_id IN (
+            SELECT instalacion_id
+            FROM INSTALACION 
+            WHERE m2 BETWEEN 50 AND 200
+        )
+    );
+    ```
+
+29. Nombre de los monitores que imparten sesiones los martes por la tarde, a partir de las 4pm, de alguna actividad de nivel alto o muy alto. (`nombre`).
+
+    ``` sql
+    SELECT nombre
+    FROM MONITOR
+    WHERE dni IN (
+      SELECT monitor_id
+      FROM SESION
+      WHERE diasemana = 'M' AND hora >= 16 AND actividad_id IN (
+            SELECT actividad_id
+            FROM ACTIVIDAD
+            WHERE nivel >= 4
+        )
+    );
+    ```
+
+30. Nombre y tipo de las instalaciones en las que **sólo** se desarrollan actividades de nivel de intensidad muy bajo y bajo, es decir de nivel 1 y 2 (`nombre, tipo`). No deben aparecer las instalaciones que nunca se usen para ninguna actividad.
+
+    ``` sql
+    SELECT nombre, tipo
+    FROM INSTALACION
+    WHERE instalacion_id IN (
+        SELECT instalacion_id
+        FROM ACTIVIDAD
+        WHERE nivel <= 2)
+        AND instalacion_id NOT IN (
+        SELECT instalacion_id
+        FROM ACTIVIDAD
+        WHERE nivel >= 3
+    );
+    ```
+
+31. Obtener nombre y fecha de contrato de cada monitor que imparte sesiones de actividades de las que no es especialista. Es una consulta de detección de errores en los datos. (`nombre, fcontrato`).
+
+    ``` sql
+    SELECT DISTINCT M.nombre, M.fcontrato
+    FROM MONITOR M
+        JOIN SESION S ON S.monitor_id = M.dni
+    WHERE S.actividad_id NOT IN (
+        SELECT E.actividad_id
+        FROM ESPECIALISTA E
+        WHERE E.monitor_id = S.monitor_id
+    );
+    ```
+
+32. Nombre de cada monitor responsable de alguna actividad de la que no imparte ninguna sesión.
+
+    ``` sql
+    SELECT nombre
+    FROM MONITOR
+    WHERE dni IN (
+        SELECT A.responsable
+        FROM ACTIVIDAD A
+        WHERE A.responsable NOT IN (
+            SELECT S.monitor_id
+            FROM SESION S
+            WHERE S.actividad_id = A.actividad_id
+        )
+    );
+    ```
+
+33. Monitores que son responsables de alguna actividad organizada en una instalación de más de 500 m2, indicando el nombre de dicha actividad. (`nombre_monitor, nombre_actividad`). Ordenado por nombre del monitor.
+
+    ``` sql
+    SELECT M.nombre nombre_monitor, A.nombre nombre_actividad
+    FROM MONITOR M
+        JOIN ACTIVIDAD A ON A.responsable = M.dni
+    WHERE A.instalacion_id IN (
+        SELECT I.instalacion_id
+        FROM INSTALACION I
+        WHERE I.instalacion_id = A.instalacion_id AND I.m2 > 500
+    )
+    ORDER BY M.nombre;
+    ```
+
+34. Nombre de las instalaciones utilizadas para alguna actividad de nivel 3 cuyo responsable sea un monitor contratado antes de 2018 y tenga alguna sesión los sábados.
+
+    ``` sql
+    SELECT nombre
+    FROM INSTALACION
+    WHERE instalacion_id IN (
+        SELECT instalacion_id
+        FROM ACTIVIDAD
+        WHERE nivel = 3 AND responsable IN (
+            SELECT dni
+            FROM MONITOR
+            WHERE EXTRACT(YEAR FROM fcontrato) < 2018)
+            AND actividad_id IN (
+                SELECT actividad_id
+                FROM SESION
+                WHERE diasemana = 'S'
+            )
+    );
+    ```
+
+35. Media del número de sesiones que imparten los monitores, redondeado a un decimal (`numero_medio_sesiones`).
+
+    ``` sql
+    SELECT ROUND(AVG(numero_medio_sesiones)) numero_medio_sesiones
+    FROM (SELECT COUNT(monitor_id) numero_medio_sesiones
+          FROM SESION
+          GROUP BY monitor_id);
+    ```
+
+36. Datos de los monitores que cobran el menor salario (`nombre, fcontrato, salario`).
+
+    ``` sql
+    SELECT nombre, fcontrato, salario
+    FROM MONITOR
+    WHERE salario = (SELECT MIN(SALARIO)
+                     FROM MONITOR);
+    ```
+
+37. Para cada actividad, indicar cuántos monitores son especialistas en ella. (`actividad_id, cuantos_monitores`). Ordenado por actividad.
+
+    ``` sql
+    SELECT actividad_id, COUNT(monitor_id) cuantos_monitores
+    FROM ESPECIALISTA
+    GROUP BY actividad_id
+    ORDER BY actividad_id;
+    ```
+
+38. Mostrar cuántas sesiones se realizan en cada día de la semana. (`diasemana, cuantas_sesiones`). Ordenado de más a menos número de sesiones.
+
+    ``` sql
+    SELECT diasemana, COUNT(actividad_id) cuantas_sesiones
+    FROM SESION
+    GROUP BY diasemana
+    ORDER BY cuantas_sesiones DESC;
+    ```
+
+39. Cuántas sesiones hay programadas en cada hora de inicio por las mañanas hasta las 13:30 (`hora, cuantas_sesiones`). Ordenado por hora.
+
+    ``` sql
+    SELECT hora, COUNT(actividad_id) cuantas_sesiones
+    FROM SESION
+    WHERE hora <= 13.3
+    GROUP BY hora
+    ORDER BY hora;
+    ```
+
+40. Cuántas sesiones dirige cada monitor en cada día de la semana (`monitor_id, diasemana, cuantas_sesiones`). Ordenado por monitor.
+
+    ``` sql
+    SELECT monitor_id, diasemana, COUNT(monitor_id) cuantas_sesiones
+    FROM SESION
+    GROUP BY monitor_id, diasemana
+    ORDER BY monitor_id;
+    ```
+
+41. Mostrar cuántas actividades se realizan en cada instalación (`instalacion_id, cuantas_actividades`), ordenado por instalación.
+
+    ``` sql
+    SELECT instalacion_id, COUNT(actividad_id) cuantas_actividades
+    FROM ACTIVIDAD
+    GROUP BY instalacion_id
+    ORDER BY instalacion_id;
+    ```
+
+42. Para cada monitor cuyo salario esté entre 950 y 1500€, mostrar cuántas sesiones imparte a la semana (`monitor_id, cuantas_sesiones`).
+
+    ``` sql
+    SELECT monitor_id, COUNT(actividad_id) cuantas_sesiones
+    FROM SESION
+    WHERE monitor_id IN (SELECT dni
+                        FROM MONITOR
+                        WHERE salario BETWEEN 950 AND 1500)
+    GROUP BY monitor_id;
+    ```
+
+43. Dni y nombre de cada monitor y cuántas sesiones imparte. Ordenado por nombre (`dni, nombre, cuantas_sesiones`). No tener en cuenta los monitores que no imparten sesiones.
+
+    ``` sql
+    SELECT M.dni, M.nombre, COUNT(S.actividad_id) cuantas_sesiones
+    FROM MONITOR M
+        JOIN SESION S ON S.monitor_id = M.dni
+    GROUP BY M.dni, M.nombre
+    ORDER BY M.nombre;
+    ```
+
+44. Cuántas sesiones se imparten de cada actividad. Ordenado por identificador de actividad (`actividad_id, nombre, cuantas_sesiones`). No tener en cuenta actividades de las que no se imparten sesiones.
+
+    ``` sql
+    SELECT A.actividad_id, A.nombre, COUNT(S.actividad_id) cuantas_sesiones
+    FROM ACTIVIDAD A
+        JOIN SESION S ON S.actividad_id = A.actividad_id
+    GROUP BY A.actividad_id, A.nombre
+    ORDER BY A.actividad_id;
+    ```
+
+45. Mostrar las instalaciones que sólo se utilizan para una actividad (`instalacion_id`). *Ampliación*: obtener el nombre, tipo y superficie de dichas instalaciones (`nombre, tipo, m2`).
+
+    ``` sql
+    SELECT instalacion_id
+    FROM INSTALACION
+    WHERE instalacion_id IN (
+        SELECT instalacion_id
+        FROM ACTIVIDAD
+        GROUP BY instalacion_id
+        HAVING COUNT(instalacion_id) = 1
+    );
+
+    -- Ampliación
+
+    SELECT nombre, tipo, m2
+    FROM INSTALACION
+    WHERE instalacion_id IN (
+        SELECT instalacion_id
+        FROM ACTIVIDAD
+        GROUP BY instalacion_id
+        HAVING COUNT(instalacion_id) = 1
+    );
+    ```
+
+46. Actividades cuyo responsable se llama Auspicia y tienen más de 2 sesiones semanales, ordenado alfabéticamente por nombre (`nombre, nivel, precio`).
+
+    ``` sql
+    SELECT nombre, nivel, precio
+    FROM ACTIVIDAD
+    WHERE RESPONSABLE IN (
+        SELECT dni
+        FROM MONITOR
+        WHERE nombre = 'Auspicia'
+    ) AND actividad_id IN (
+        SELECT actividad_id
+        FROM SESION
+        GROUP BY actividad_id
+        HAVING COUNT(actividad_id) > 2
+        )
+    ORDER BY nombre;
+    ```
+
+47. Obtener los monitores que dirijan más de 6 sesiones semanales (`nombre, fcontrato`). Ordenado por nombre.
+
+    ``` sql
+    SELECT nombre, TO_CHAR(fcontrato, 'DD/MM/YY') fcontrato
+    FROM MONITOR
+    WHERE dni IN (
+        SELECT monitor_id
+        FROM SESION
+        GROUP BY monitor_id
+        HAVING COUNT(monitor_id) > 6
+    )
+    ORDER BY nombre;
+    ```
+
+48. Días de la semana en los que se ha programado más de 3 sesiones al aire libre (`diasemana`).
+
+    ``` sql
+    SELECT diasemana
+    FROM SESION
+    WHERE actividad_id IN (
+        SELECT actividad_id
+        FROM ACTIVIDAD
+        WHERE instalacion_id IN (
+            SELECT instalacion_id
+            FROM INSTALACION
+            WHERE tipo = 'Exterior'
+        )
+    )
+    GROUP BY diasemana
+    HAVING COUNT(diasemana) > 3;
+    ```
+
+49. Para cada monitor mostrar cuántas sesiones imparte, de forma que aquellos que no imparten ninguna sesión muestren un 0. Ordenado por dni del monitor. (`dni, nombre, cuantas_sesiones`).
+
+    ``` sql
+    SELECT M.dni, M.nombre, COUNT(S.monitor_id) cuantas_sesiones
+    FROM MONITOR M
+        LEFT JOIN SESION S ON S.monitor_id = M.dni
+    GROUP BY M.dni, M.nombre
+    ORDER BY M.dni;
+    ```
+
+50. Para cada monitor, indicar en cuántas actividades es especialista, mostrando un 0 para aquellos monitores que no sean especialistas en ninguna actividad. Ordenado por la columna calculada (`dni, nombre, cuantas_actividades`).
+
+    ``` sql
+    SELECT M.dni, M.nombre, COUNT(E.actividad_id) cuantas_actividades
+    FROM MONITOR M
+        LEFT JOIN ESPECIALISTA E ON E.monitor_id = M.dni
+    GROUP BY M.dni, M.nombre
+    ORDER BY cuantas_actividades;
+    ```
+
+51. Mostrar cuántas actividades se realizan en cada instalación. En el resultado deben aparecer todas las instalaciones, mostrando un 0 en la columna `cuantas_actividades` para aquellas en las que no se realice ninguna actividad. (`instalacion_id, cuantas_actividades`), ordenado por instalación.
+
+    ``` sql
+    SELECT I.instalacion_id, COUNT(A.actividad_id) cuantas_actividades
+    FROM INSTALACION I
+        LEFT JOIN ACTIVIDAD A ON A.instalacion_id = I.instalacion_id
+    GROUP BY I.instalacion_id
+    ORDER BY I.instalacion_id;
+    ```
+
+52. Cuántas sesiones imparte cada monitor de cada una de las actividades de las que es responsable (`responsable, actividad_id, cuantas_sesiones`).
+
+    ``` sql
+    SELECT A.responsable, A.actividad_id, COUNT(A.responsable) cuantas_sesiones
+    FROM ACTIVIDAD A
+        JOIN SESION S ON S.actividad_id = A.actividad_id
+    WHERE S.monitor_id = A.responsable
+    GROUP BY A.responsable, A.actividad_id
+    ORDER BY A.actividad_id;
+    ```
+
+53. Para cada actividad realizada en una instalación interior, mostrar el nombre de la actividad, el identificador de su responsable, y cuántas sesiones de esa actividad tiene programadas ese monitor (`nombre, responsable, cuantas_sesiones`).
+
+    ``` sql
+    SELECT A.nombre, A.responsable, COUNT(*) cuantas_sesiones
+    FROM ACTIVIDAD A
+        JOIN SESION S ON S.actividad_id = A.actividad_id
+    WHERE instalacion_id IN (
+        SELECT instalacion_id
+        FROM INSTALACION
+        WHERE tipo = 'Interior'
+        ) AND A.responsable = S.monitor_id
+    GROUP BY A.nombre, A.responsable;
+    ```
+
+54. Actividad con más especialistas (`actividad_id`).
+
+55. Actividades con más sesiones programadas, indicando cuántas son (`actividad_id, 
+    cuantas_sesiones`).
+
+56. Monitores que menos sesiones imparten (`dni, nombre, salario`).
+
+57. Instalaciones que más se usan para realizar actividades (`instalacion_id, nombre, m2`).
+
+58. Nombre y precio de las actividades que menos sesiones tienen programadas (`nombre, 
+    precio`). Ordenado por nombre.
+
+59. Actividades cuyo responsable es el monitor con más antigüedad en el Centro y con más
+    de 2 sesiones semanales, en orden alfabético por su nombre (`nombre, nivel, precio`).
+
+60. Monitor tal que el número de sesiones que imparte correspondientes a actividades
+    realizadas al aire libre coincide con la media (redondeada a cero decimales) del número de
+    sesiones que imparten los monitores (`monitor_id, sesiones_exteriores`).
+
+61. Mostrar las actividades con más monitores especialistas, mostrando su identificador, su
+    nombre, y el nombre de su monitor responsable (`actividad_id, nombre_actividad, 
+    nombre_responsable`).
+
+62. Para los monitores con el salario más bajo, obtener el número de sesiones que imparten en
+    martes de cada actividad, así como el nombre de la actividad; es decir, mostrar el nombre del
+    monitor (con el salario más bajo) y de la actividad, y cuántas sesiones imparte los martes dicho
+    monitor de dicha actividad (`nombre_monitor, nombre_actividad, sesiones_martes`).
+
+63. *Utiliza online views para mejorar la 43:* Dni y nombre de cada monitor y cuántas sesiones
+    imparte. Ordenado por nombre (`dni, nombre, cuantas_sesiones`).
+
+64. *Utiliza online views para mejorar la 44:* Cuántas sesiones se imparten de cada actividad.
+    Ordenado por identificador de actividad (`actividad_id, nombre, cuantas_sesiones`).
+
+65. *Utiliza online views para ampliar la 29:* Nombre de los monitores que imparten sesiones los
+    martes por la tarde, a partir de las 4pm, de alguna actividad de nivel alto o muy alto, indicando
+    cuál es dicha actividad. (`nombre_monitor, nombre_actividad`).
+
+66. *Utiliza online views para ampliar la 53:* Para cada actividad realizada en una instalación
+    interior, mostrar el nombre de la actividad, el identificador de su responsable, y cuántas
+    sesiones de esa actividad imparte ese monitor (`nombre, responsable, cuantas_sesiones`).
+
+67. *Utiliza online views para ampliar la 54:* Actividad con más monitores especialistas,
+    indicando el nombre de la actividad y cuántos especialistas tiene (`actividad_id, nombre, 
+    cuantos_especialistas`).
+
+68. *Utiliza online views para ampliar la 55:* Identificador, nombre y nivel de la actividad con
+    más sesiones semanales programadas, indicando cuántas sesiones son (`actividad_id, 
+    nombre, cuantas_sesiones`).
+
+69. Mostrar cuantas actividades de nivel 3 y cuantas de nivel 5 se realizan en cada
+    instalación. Deben aparecer todas las instalaciones, mostrando un cero para una instalación no
+    utilizada para actividades de uno u otro nivel. Mostrar ordenado por identificador de
+    instalación (`nombre, activ_3, activ_5`).
