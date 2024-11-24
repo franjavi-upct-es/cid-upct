@@ -305,7 +305,7 @@ GROUP BY A.responsable, A.actividad_id
 ORDER BY A.actividad_id;
 
 -- 53
-SELECT A.nombre, A.responsable, COUNT(S.monitor_id) cuantas_sesiones
+SELECT A.nombre, A.responsable, COUNT(*) cuantas_sesiones
 FROM ACTIVIDAD A
     JOIN SESION S ON S.actividad_id = A.actividad_id
 WHERE instalacion_id IN (

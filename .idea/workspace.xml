@@ -4,8 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="26c2ae99-ce09-4876-9816-cac4e9750c52" name="Changes" comment="Tarea 4 FRD">
+    <list default="true" id="26c2ae99-ce09-4876-9816-cac4e9750c52" name="Changes" comment="Práctica 9 AL">
+      <change afterPath="$PROJECT_DIR$/Prácticas/2º Curso/1º Cuatrimestre/BD I/Práctica 2/Sesión 4/FranciscoJavierMercaderMartínez-p2-s4.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/e8ee4c40-5ab4-4669-aceb-b67ba3cefef0.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/e8ee4c40-5ab4-4669-aceb-b67ba3cefef0.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/sqldialects.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/sqldialects.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Prácticas/2º Curso/1º Cuatrimestre/BD I/Práctica 2/Sesión 2/MercaderFranciscoJavier-p2-s2.sql" beforeDir="false" afterPath="$PROJECT_DIR$/Prácticas/2º Curso/1º Cuatrimestre/BD I/Práctica 2/Sesión 2/MercaderFranciscoJavier-p2-s2.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Prácticas/2º Curso/1º Cuatrimestre/BD I/Práctica 2/Sesión 3/FranciscoJavierMercaderMartinez-p2-s3.sql" beforeDir="false" afterPath="$PROJECT_DIR$/Prácticas/2º Curso/1º Cuatrimestre/BD I/Práctica 2/Sesión 3/FranciscoJavierMercaderMartinez-p2-s3.sql" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -15,10 +20,10 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="SQL File" />
         <option value="RMarkdown.document" />
         <option value="Jupyter Notebook" />
         <option value="Python Script" />
+        <option value="SQL File" />
       </list>
     </option>
   </component>
@@ -62,42 +67,44 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Database Script.FranciscoJavierMercaderMartinez-p2-sn.sql.executor&quot;: &quot;Run&quot;,
-    &quot;Python.divide_y_venceras.executor&quot;: &quot;Run&quot;,
-    &quot;Python.mecanicos_y_averias.executor&quot;: &quot;Run&quot;,
-    &quot;Python.mecanicos_y_averias_b.executor&quot;: &quot;Run&quot;,
-    &quot;Python.mecanicos_y_averias_b2.executor&quot;: &quot;Run&quot;,
-    &quot;Python.preba.executor&quot;: &quot;Run&quot;,
-    &quot;Python.prueba (1).executor&quot;: &quot;Run&quot;,
-    &quot;Python.prueba.executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;database.data.extractors.current.export.id&quot;: &quot;SQL Inserts&quot;,
-    &quot;database.data.extractors.current.id&quot;: &quot;SQL Inserts&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/fcoja/cid-upct&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Database Script.FranciscoJavierMercaderMartinez-p2-sn.sql.executor": "Run",
+    "Database Script.FranciscoJavierMercaderMartínez-p2-s4.sql.executor": "Run",
+    "Python.divide_y_venceras.executor": "Run",
+    "Python.mecanicos_y_averias.executor": "Run",
+    "Python.mecanicos_y_averias_b.executor": "Run",
+    "Python.mecanicos_y_averias_b2.executor": "Run",
+    "Python.preba.executor": "Run",
+    "Python.prueba (1).executor": "Run",
+    "Python.prueba.executor": "Run",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "database.data.extractors.current.export.id": "SQL Inserts",
+    "database.data.extractors.current.id": "SQL Inserts",
+    "git-widget-placeholder": "main",
+    "last_opened_file_path": "C:/Users/fcoja/cid-upct",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "preferences.pluginManager",
+    "vue.rearranger.settings.migration": "true"
   },
-  &quot;keyToStringList&quot;: {
-    &quot;DatabaseDriversLRU&quot;: [
-      &quot;oracle&quot;
+  "keyToStringList": {
+    "DatabaseDriversLRU": [
+      "oracle"
     ],
-    &quot;RunConfigurationTargetLRU&quot;: [
-      &quot;e8ee4c40-5ab4-4669-aceb-b67ba3cefef0/schema/\&quot;CENTRODEPORTIVO\&quot;&quot;
+    "RunConfigurationTargetLRU": [
+      "e8ee4c40-5ab4-4669-aceb-b67ba3cefef0/schema/\"CENTRODEPORTIVO\"",
+      "e8ee4c40-5ab4-4669-aceb-b67ba3cefef0"
     ],
-    &quot;com.intellij.ide.scratch.LRUPopupBuilder$1/SQL Dialect&quot;: [
-      &quot;Oracle&quot;
+    "com.intellij.ide.scratch.LRUPopupBuilder$1/SQL Dialect": [
+      "Oracle"
     ]
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\fcoja\cid-upct\Prácticas\2º Curso\1º Cuatrimestre\ADA\ADA_boletin_P2\problemas P2-BT ADA 2024-2025\01 - mecánicos y averías" />
@@ -106,11 +113,17 @@
       <recent name="C:\Users\fcoja\cid-upct\Prácticas\2º Curso\1º Cuatrimestre\BD I\Práctica 2\Sesión 2" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.prueba">
+  <component name="RunManager" selected="Database Script.FranciscoJavierMercaderMartínez-p2-s4.sql">
     <configuration name="FranciscoJavierMercaderMartinez-p2-sn.sql" type="DatabaseScript" editBeforeRun="true" temporary="true" nameIsGenerated="true">
       <script-file value="$PROJECT_DIR$/Prácticas/2º Curso/1º Cuatrimestre/BD I/Práctica 2/Sesión 1/FranciscoJavierMercaderMartinez-p2-sn.sql" />
       <script-mode>FILE</script-mode>
       <data-source id="e8ee4c40-5ab4-4669-aceb-b67ba3cefef0" namespace="schema/&quot;CENTRODEPORTIVO&quot;" />
+      <method v="2" />
+    </configuration>
+    <configuration name="FranciscoJavierMercaderMartínez-p2-s4.sql" type="DatabaseScript" editBeforeRun="true" temporary="true" nameIsGenerated="true">
+      <script-file value="$PROJECT_DIR$/Prácticas/2º Curso/1º Cuatrimestre/BD I/Práctica 2/Sesión 4/FranciscoJavierMercaderMartínez-p2-s4.sql" />
+      <script-mode>FILE</script-mode>
+      <data-source id="e8ee4c40-5ab4-4669-aceb-b67ba3cefef0" />
       <method v="2" />
     </configuration>
     <configuration name="divide_y_venceras" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
@@ -128,29 +141,6 @@
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Prácticas/2º Curso/1º Cuatrimestre/ADA/ADA_boletin_P3/divide_y_venceras.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
-    <configuration name="mecanicos_y_averias_bactracking" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
-      <module name="cid-upct" />
-      <option name="ENV_FILES" value="" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/Prácticas/2º Curso/1º Cuatrimestre/ADA/ADA_boletin_P2/problemas P2-BT ADA 2024-2025/01 - mecánicos y averías" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="C:\Users\fcoja\cid-upct\Prácticas\2º Curso\1º Cuatrimestre\ADA\ADA_boletin_P2\problemas P2-BT ADA 2024-2025\01 - mecánicos y averías\mecanicos_y_averias_bactracking.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -230,10 +220,10 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Database Script.FranciscoJavierMercaderMartínez-p2-s4.sql" />
         <item itemvalue="Python.prueba" />
         <item itemvalue="Python.divide_y_venceras" />
         <item itemvalue="Database Script.FranciscoJavierMercaderMartinez-p2-sn.sql" />
-        <item itemvalue="Python.mecanicos_y_averias_bactracking_prueba" />
         <item itemvalue="Python.mecanicos_y_averias_bactracking_prueba" />
       </list>
     </recent_temporary>
@@ -291,6 +281,8 @@
       <workItem from="1732295104355" duration="254000" />
       <workItem from="1732362267334" duration="2721000" />
       <workItem from="1732377523686" duration="4616000" />
+      <workItem from="1732442179667" duration="955000" />
+      <workItem from="1732443158330" duration="8657000" />
     </task>
     <task id="LOCAL-00001" summary="Ejercicios Práctica 4 FIE">
       <option name="closed" value="true" />
