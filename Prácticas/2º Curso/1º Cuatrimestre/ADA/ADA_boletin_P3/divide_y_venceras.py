@@ -91,7 +91,15 @@ if __name__ == '__main__':
     C = 'c'  # Carácter a buscar
     m = 100  # Tamaño de la subcadena fijo
     num_pruebas = 5 # Número de pruebas a realizar para comprobar que el código funciona
-
+    
+    # Resolver Directo
+    for i in range(num_pruebas):
+        print(f"\n -- Prueba {i + 1} --")
+        A = ''.join(random.choices(alfabeto, k=10000))  # Cadena aleatoria de longitud 10000
+        resultado = resolver_directo(A, m, C)
+        print(f"Índice de inicio: {resultado[0]} \nMáximo de apariciones consecutivas: {resultado[1]}")
+    
+    # Divide y Vencerás
     for i in range(num_pruebas):
         print(f"\n -- Prueba {i + 1} --")
         A = ''.join(random.choices(alfabeto, k=1000))  # Cadena aleatoria de longitud 1000
