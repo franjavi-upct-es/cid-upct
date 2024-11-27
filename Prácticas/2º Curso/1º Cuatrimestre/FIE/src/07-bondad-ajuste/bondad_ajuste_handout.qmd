@@ -1,0 +1,431 @@
+---
+title: "bondad de ajuste"
+author:
+  - name: Félix Belzunce
+    affiliations: Universidad de Murcia
+  - name:  María del Carmen Bueso, Pilar Sanmartín
+    affiliations: Universidad Politécnica de Cartagena
+format: html
+editor: visual
+title-block-banner: true
+self-contained: true
+---
+
+# Introducción
+
+En esta práctica vamos a ver algunas técnicas para el estudio de bondad del ajuste de un modelo de distribución a una variable aleatoria, a partir de una muestra de la variable. Comenzaremos viendo una de las técnicas más ampliamente utilizadas en la investigación como es el **contraste** $\chi ^2$ de bondad de ajuste desarrollado por Karl Pearson (1900). Este contraste o test es utilizado para contrastar, como hipótesis nula, que unos datos provienen de una distribución de probabilidad conocida. Se conoce como el test $\chi ^2$ porque en el cálculo del $p$-valor de este contraste se utiliza la distribución $\chi ^2$ y se dice que es de bondad de ajuste porque mide lo bueno que es un modelo probabilístico para modelizar datos aleatorios. Como veremos en el desarrollo en algunos casos requiere de la estimación máximo verosimil. En esos casos utilizaremos las herramientas del paquete `fitdistrplus` para obtener las estimaciones.
+
+# El contraste $\chi^2$ de bondad de ajuste
+
+Como hemos dicho antes, el objetivo del contraste chi-cuadrado de bondad de ajuste es determinar si un conjunto de observaciones proviene de un modelo probabilístico determinado. Para el desarrollo de la técnica, vamos a empezar con el caso más sencillo, y posteriormente la adaptaremos a casos más complejos.
+
+El caso más sencillo es aquel en el que las observaciones del experimento aleatorio que estamos realizando pueden encontrarse en $k$ clases distintas (en número finito y excluyentes entre si). Es decir, el espacio muestral es $\Omega =\left \{A_1,A_2,\cdots ,A_k \right \}$. El objetivo del test $\chi ^2$ es saber si las probabilidades de esos sucesos son iguales a unas probabilidades dadas $\left ( \text{ es decir, si }P(A_i)=p_i\text{, }i=1,\cdots ,k\right )$ o alguna es distinta. En términos de hipótesis nula y alternativa, lo que se pretende es contrastar la hipótesis nula $$H_0:P(A_i)=p_i\text{, }i=1,\cdots ,k$$ frente a la hipótesis alternativa $$H_1:\text{Existe }i\text{ tal que }P(A_i)\neq p_i.$$
+
+Un ejemplo de esta situación es la siguiente.
+
+**Ejemplo 1:** Se realiza un cierto cruce entre cobayas, y los posibles colores para el cruce son $\left \{ A_1=marrón,A_2=negro,A_3=blanco\right\}$. Según un modelo propuesto por un genetista las clases anteriores deberían estar en la relación 9:3:4. ¿Puede considerarse que el modelo es válido?
+
+Es decir, se desea contrastar si las probabilidades de los sucesos anteriores son las dadas por el modelo o para alguna de esas clases esas probabilidades difieren de las supuestas por el modelo. En términos de hipótesis, lo que queremos contrastar es: $$H_0:\text{ }P(A_1)=\frac 9{16}\text{, }P(A_2)=\frac 3{16}\text{ y } 
+P(A_3)=\frac 4{16}$$ frente a $$H_1:\text{Existe }i\text{ tal que }P(A_i)\neq p_i.$$
+
+En general, para llevar a cabo el contraste, partiremos de un serie de observaciones independientes del fenómeno aleatorio (m.a.s.) y observaremos la frecuencia de los sucesos anteriores. De forma resumida ésto lo anotaremos en una tabla en la siguiente forma:
+
+| Clases | $A_1$ | $A_2$ | $\cdots$ | $A_k$ |
+|--------|-------|-------|----------|-------|
+| $f_i$  | $f_1$ | $f_2$ | $\cdots$ | $f_k$ |
+
+donde $f_i$= número de observaciones en la clase $A_i$, y se conoce como **frecuencia observada de la clase** $A_i$.
+
+**Ejemplo 1 (continuación):** Volviendo a nuestro ejemplo lo que tendríamos que hacer es realizar un serie de cruces y observar la frecuencia de cada uno de los colores. En concreto, en este ejemplo se llevan a cabo una serie de cruces y de un total de 64 descendientes se observa que 34 resultaron marrones, 10 negros y 20 blancos. Resumiendo esto en una tabla tendríamos:
+
+| Clases | $A_1$    | $A_2$    | $A_3$    |
+|--------|----------|----------|----------|
+| $f_i$  | $f_1=34$ | $f_2=10$ | $f_3=20$ |
+
+El análisis se realiza comparando las frecuencias observadas ($f_i$) con las frecuencias que esperamos observar bajo la hipótesis nula, $$\hat f_i =  np_i,$$ este último valor lo denotaremos por $\widehat{f}_i$, **frecuencia esperada de la clase** $A_i$.
+
+Por tanto, si $H_0$ es cierta, las frecuencias observadas $f_i$ y las esperadas $\widehat{f}_i$ deben tomar valores muy parecidos.
+
+Como **estadístico de contraste** que nos permita medir las diferencias entre las frecuencias observadas y las esperadas bajo $H_0$ se considera el estadístico $$\chi ^2=\sum_{i=1}^k\frac{\left( f_i-\widehat{f}_i\right)^2}{\widehat{f}_i},$$ que se conoce como el **estadístico chi-cuadrado de Pearson** para el estudio de bondad de ajuste. Este va a ser nuestro estadístico de prueba para contrastar
+
+$$H_0:P(A_i)=p_i\text{, }i=1,\ldots ,k$$ frente a
+
+$$H_1:\text{Existe }i\text{ tal que }P(A_i)\neq p_i.$$
+
+En el ejemplo de los cruces de las cobayas, resumimos las frecuencias observadas y esperadas en la tabla siguiente:
+
+| Clases | $A_1$ | $A_2$ | $A_3$ |
+|------------------|------------------|------------------|------------------|
+| Frecuencia observada | $f_1=34$ | $f_2=10$ | $f_3=20$ |
+| Frecuencia esperada | $\widehat{f}_1=36$ | $\widehat{f}_2=12$ | $\widehat{f}_3=16$ |
+
+-   Introducir un tibble que se llame `frecuencias_ejemplo1` que contenga tres columnas, una llamada `observadas`, otras llamada `teoricas`, y otra llamada `esperadas` y tres filas con los valores de $f_i$ y $p_i$ y $\widehat{f}_i$, respectivamente, para $i=1, 2, 3$.
+
+```{r}
+#| warning: false
+# Completar aquí
+library(tibble)
+library(tidyverse)
+
+frecuencias_ejemplo1 <- tibble(
+  observadas = c(34, 10, 20),
+  teoricas = c(9/16, 3/16, 4/16),
+  esperadas = c(64 * 9/16, 64 * 3/16, 64 * 4/16)
+)
+
+# Fin Completar aquí
+```
+
+Para realizar el contraste lo que haremos es ver si este estadístico toma valores altos, pues esto indicaría grandes diferencias entre las frecuencias esperadas y observadas, lo que nos llevaría a rechazar la hipótesis nula.
+
+-   Calcular el valor del estadístico chi-cuadrado de Pearson para la muestra que hemos observado.
+
+```{r}
+
+# Completar aquí
+
+chi <- sum((frecuencias_ejemplo1$observadas - frecuencias_ejemplo1$esperadas)^2 / frecuencias_ejemplo1$esperadas)
+
+# Fin Completar aquí
+str_glue("El valor del chi-cuadrado de Pearson es {round(chi, 4)}")
+
+```
+
+Sin embargo, tenemos que fijar un criterio para decidir si ese valor es alto o no. Para ello, observamos que la medida que hemos definido es un estadístico y por tanto es una variable aleatoria y, aunque la hipótesis nula sea cierta, puede tomar valores altos. Por tanto, para fijar el criterio lo que vamos a hacer es ver que distribución sigue este estadístico de contraste bajo la hipótesis nula y a partir de esto ver, para valores altos de la variable, cuales tienen menor probabilidad de ser observados bajo esta hipótesis. La distribución exacta no es posible conocerla, por lo que se da una aproximación de esta. En concreto se tiene que para $n$ suficientemente grande, y si la hipótesis nula es cierta, el estadístico anterior sigue una distribución aproximadamente chi-cuadrado con $k-1$ grados de libertad, lo que escribiremos como $$\chi ^2=\sum_{i=1}^k\frac{\left( f_i-\widehat{f}_i\right) ^2}{\widehat{f}_i}\rightarrow_{d} \chi _{k-1}^2\text{.}$$ A partir de esto podemos fijar nuestro criterio en función de que probabilidades hay de observar un valor tan alto como el que observamos de acuerdo a la hipótesis nula. En concreto esa probabilidad será el $p$-valor del contraste, y se calcula como $$p-valor=P(\chi^2_{k-1} > \chi^2).$$
+
+Por tanto si la hipótesis nula es cierta y este $p$-valor es muy bajo, querrá decir que es un valor bastante improbable bajo ese modelo de probabilidad y por tanto la muestra es incompatible con el modelo probabilístico considerado en la hipótesis nula y por tanto lo rechazaremos. En caso contrario no hay evidencia empírica en contra de ese modelo probabilístico y lo consideraremos como valido y aceptaremos la hipótesis nula. Como siempre, el umbral de cuando ese $p$-valor es bajo o alto estará fijado por el nivel de significación $\alpha$.
+
+-   Calcular el p-valor asociado al test de bondad de ajuste basado en esta distribución.
+
+```{r}
+# Completar aquí
+# Número de clases (k)
+k <- 3
+
+# Grados de libertad
+df <- k - 1
+
+# Calculamos el p-valor asocuado al estadistico chi-cuadrado
+p_valor <- pchisq(chi, df = df, lower.tail = FALSE)
+
+str_glue("El p-valor del chi-cuadrado de Pearson es {round(p_valor, 4)}")
+# Fin Completar aquí
+```
+
+-   que decisión tomaríamos? En realidad, `R` tiene implementada la función `chisq.test` que admite como input un vector con los valores de $f_i$ y otro vector con los valores de $p_i$:
+
+```{r}
+# Completar aquí
+
+# Realizar el test de bondad de ajuste usando chisq.test
+chi2_bondad_ajuste <- chisq.test(
+  x = frecuencias_ejemplo1$observadas,
+  p = frecuencias_ejemplo1$teoricas,
+  rescale.p = TRUE # Asegurar que p se escala a 1
+)
+
+# Fin Completar aquí
+chi2_bondad_ajuste
+```
+
+Podemos acceder a indicadores concretos del objeto `chi2_bondad_ajuste` como el valor del estadístico o el p-valor:
+
+```{r}
+str_glue("El valor del estadístico de prueba es {chi2_bondad_ajuste$statistic}")
+str_glue("El p-valor es {chi2_bondad_ajuste$p.value}")
+```
+
+En este caso el p-valor es muy superior a cualquier nivel de significación $\alpha$=0.05 o 0.01 que consideremos. Por lo tanto los datos son compatibles con el modelo probabilístico propuesto en la hipótesis nula y podemos considerarlo como válido.
+
+### Comprobación con simulaciones
+
+Empíricamente podemos estudiar la distribución en el muestreo del estadístico con el ejemplo que nos ocupa, donde hacemos varias simulaciones del modelo establecido por la hipótesis nula y vemos el valor del estadístico $\chi^2$ en relación a la densidad de la distribución $\chi^2_2$ y el valor crítico $\chi^2_{2,0.99}$.
+
+Los valores de las frecuencias observadas corresponden a una realización de una distribución multinomial con probabilidades $9 / 16$, $3 / 16$ y $4 / 16$. Vamos a simular con `R` 100 realizaciones distintas de esta distribución. Además, como el resultado de `rmultinom` es una matriz, usamos `asplit` para transformarlas en una lista.
+
+```{r}
+set.seed(314159)
+simulaciones <- rmultinom(100, 64, prob = c(9 / 16, 3 / 16, 4 / 16))
+lista_simulaciones <- asplit(simulaciones, 2)
+head(lista_simulaciones)
+```
+
+-   Usando `map_dbl`, y aprovechando el atributo `statistic` del resultado de `chisq.test`, construir un vector llamado `chi2sq_valores` que contenga los valores asociado del estadístico chi-cuadrado de Pearson calculado para cada una de las realizaciones presentes en `lista_simulaciones`.
+
+```{r}
+# Completar aquí
+library(purrr)
+
+# Calcular los valores del estadístico chi-cuadrado para cada simulación
+chi2sq_valores <- map_dbl(
+  lista_simulaciones,
+  ~ chisq.test(.x, p = c(9 / 16, 3 / 16, 4 / 16), rescale.p = TRUE)$statistic
+)
+
+# Fin Completar aquí
+head(chi2sq_valores)
+```
+
+-   Reproducir la gráfica donde aparezcan los siguientes ingredientes:
+
+    -   La densidad de la chi-cuadrado con 2 grados de libertad
+    -   una línea vertical roja que marque la frontera de la región de rechazo correspondiente a un nivel de significación de1 1%.
+    -   una línea horizontal en $y = 0$.
+    -   Puntos azules, en el eje Ox, con los valores de los estadísticos calculados para las realizaciones que están recogidos en `chi2sq_valores`.
+
+```{r}
+
+
+tibble(estadistico = chi2sq_valores, y = 0) |>
+  ggplot(aes(x = estadistico, y = y)) +
+  geom_point(col = "blue") +
+  geom_function(fun = \(x) dchisq(x, 2), xlim = c(0, 20)) +
+  labs(x= expression(paste(chi,2)), y = "Func. densidad", title = "Simulación del estadístico chi-cuadrado") +
+  geom_hline(yintercept = 0) +
+  geom_vline(xintercept = qchisq(0.99, 2), col = "red")
+
+```
+
+## Ejemplo 2, caso más complejo: estimación de parámetros requerida para el cálculo de las frecuencias esperadas.
+
+Hemos dicho que este era el caso más sencillo. Veamos situaciones más complejas.
+
+Cuando las probabilidades no están completamente especificadas y dependen de unos parámetros que desconocemos, debemos estimarlos previamente. En este caso las probabilidades del modelo se calculan usando el método de máxima verosimilitud para estimar los parámetros. El p-valor se calcula ahora utilizando una distribución chi-cuadrado con grados de libertad $k-1-d$, siendo $d$ el número de parámetros a estimar.
+
+Otras situaciones son las siguientes. El caso en que la variable toma valores discretos pero en un conjunto infinito por ejemplo cuando la distribución es de Poisson. En esta situación el número de clases es infinito, sin embargo el razonamiento anterior es para un conjunto de clases finitas. Y el último caso es en el que la variable es continua y queremos ajustarla a un modelo probabilístico continuo y por tanto no tenemos tampoco un número finito de clases. En ambos contextos se procede a hacer una agrupación de los datos. En el primer caso se agrupan los datos a partir de un determinado valor, usualmente a partir de la observación más alta. Bajo el segundo supuesto se hace una agrupación por intervalos y se comparan las frecuencias observadas con las frecuencias esperadas, según el modelo continuo, en cada uno de los intervalos de agrupación. Igualmente, si hay algún parámetro desconocido se estima por el método de máxima verosimilitud, y la distribución chi-cuadrado se ajusta teniendo en cuenta el número de parámetros estimados como hemos indicado anteriormente.
+
+Por último hacemos la siguiente observación.
+
+**Observación:** Si las frecuencias esperadas son mayores que 5, excepto una y esta es mayor que 0.5 la aproximación funciona bien. En el caso en que dos frecuencias esperadas sean pequeñas, entonces sería necesario que no fuesen menor que 1 y el resto mayor que 5. Si esto no ocurre uniremos clases hasta que las frecuencias esperadas de las nuevas clases agrupadas superen el valor 5. A la hora de calcular el valor crítico tendremos que el número de clases $k$ está modificado con la reagrupación y habrá que tenerlo en cuenta. Esto puede ocurrir cuando tengamos un número pequeño de observaciones.
+
+En la sección siguiente veremos como realizar el contraste chi-cuadrado en los casos donde necesitamos hacer estimación de máxima verosimilitud de los parámetros y la modificación del contraste de chi-cuadrado que hemos mencionado anteriormente.
+
+# Estimación y ajuste mediante el paquete `fitdistrplus`
+
+En un gran número de modelos, como el caso de la distribución gamma y otras distribuciones, la estimación de máxima verosimilitud de los parámetros se tiene que llevar a cabo mediante métodos numéricos y necesitamos contrastes que permitan identificar si el modelo es el adecuado para los datos.
+
+Mediante el paquete `fitdistrplus` podemos llevar a cabo lo anterior. En concreto, podemos hacer la estimación máximo verosímil de los parámetros en la mayor parte de modelos que podemos encontrar en la literatura y llevar a cabo, entre otros contrastes de bondad de ajuste, el contraste chi-cuadrado para identificar si el modelo es el adecuado.
+
+En esta sección estudiaremos como ajustar una distribución a un conjunto de datos del campo de las finanzas. Dado que en finanzas, cuando nos enfrentamos a los retornos de una acción financiera, nos encontramos frente a una variable aleatoria en la recta real, consideraremos como posibles candidatos los modelos de la distribución normal y de la t de Student estandarizada. Para este estudio haremos uso principalmente del paquete `fitdistrplus`.
+
+Una primera aproximación para estudiar si un modelo de los anteriormente considerados es adecuado para unos datos, es comparar la función de distribución empírica con la función de distribución del modelo considerado, con parámetros los estimados a partir de la muestra. Esto ya lo hicimos en la práctica de estimación no paramétrica. En esta práctica recuperaremos esta gráfica, junto a otras gráficas, además de realizar el contraste de bondad de ajuste.
+
+Vamos para ello a considerar el siguiente conjunto de datos.
+
+**Ejemplo 2:** En el fichero `Iberdrola.txt` se encuentran 1500 cotizaciones en bolsa diarias de acciones de Iberdrola. Recuperar sus valores y crear el tibble `iberdrola`, indicando que el nombre de la columna es `precio`.
+
+```{r}
+# Completar aquí
+iberdrola <- read.table("../../data/Iberdrola.txt", header = FALSE)
+
+iberdrola <- tibble(precio = iberdrola$V1)
+
+# Fin Completar aquí
+head(iberdrola)
+```
+
+Debemos tener en cuenta, que los datos se presentan en orden cronólogico decreciente: las primeras filas son las observaciones más recientes.
+
+Consideramos los datos más recientes, correspondientes a un año aproximadamente (unos 240 días hábiles) usando `slice` de `dplyr`:
+
+```{r}
+
+iberdrola <- iberdrola |> slice(1:240)
+```
+
+Estamos interesados en estudiar los retornos semanales. Es decir, los valores $$\frac{X_t-X_{t-5}}{X_{t-5}},$$ donde $X_t$ es el valor de cotización en bolsa de una empresa en el día $t$.
+
+Obtenemos entonces los retornos semanales de Iberdrola mediante:
+
+```{r}
+
+iberdrola <- iberdrola |> 
+  mutate(
+    shifted = lead(precio, 5 ),
+    weekly_return = (precio - shifted) / shifted
+  )
+```
+
+Hemos usado `lead`, que desplaza hacia delante la columna de un determinado número de filas, teniendo en cuenta que el conjunto `iberdrola` tiene los datos en orden cronólogico inverso.
+
+## Estimación y bondad de ajuste correspondiente a un modelo normal.
+
+Mediante el paquete `fitdistrplus` podemos realizar un análisis más completo del ajuste de un modelo. Veamos el caso de una distribución normal.
+
+Para ello creamos el objeto `ajuste` donde se guarda el ajuste al modelo pedido, en este caso normal y que calculamos mediante el comando `fitdist` .
+
+```{r}
+#| warning: false
+library(fitdistrplus)
+# Completar aquí
+iberdrola <- iberdrola |> dplyr::filter(!is.na(weekly_return), is.finite(weekly_return))
+
+ajuste <- fitdist(iberdrola$weekly_return, "norm")
+#Fin de Completar aquí
+```
+
+Veamos que podemos recuperar de este objeto. Mediante el comando `summary`
+
+```{r}
+# Completar aquí
+summary(ajuste)
+#Fin de completar aquí
+```
+
+obtenemos la estimación de los parámetros del modelo en cuestión. En nuestro caso, especificamos en el último argumento `"norm"` para especificar que se trata de la distribución normal. Otros modelos se especifican teniendo en cuenta la sintaxis de los modelos de distribuciones de `R`.
+
+De los resultados señalamos las estimaciones de los parámetros:
+
+En la columna `estimate` tenemos las estimaciones de la media (`mean`) con valor `r ajuste$estimate["mean"]` y de la desviación típica (`sd`) con valor `r ajuste$estimate["sd"]`. Hay que señalar que tanto en este modelo como para cualquier otro modelo la estimación se realiza mediante el método de máxima verosimilitud.
+
+Mediante la opción `gofstat` obtenemos el estadístico de contraste del test de bondad de ajuste chi-cuadrado `chisq`,
+
+```{r}
+# Completar aquí
+
+gof <- gofstat(ajuste)
+
+gof$chisq
+#Fin de completar aquí
+```
+
+En este caso la hipótesis nula es que los datos provienen del modelo especificado, la distribución normal, y la hipótesis alternativa es que no sigue el modelo.
+
+El p-valor nos lo da también `gofstat`, con la opción `chisqpvalue`
+
+```{r}
+
+# Completar aquí
+p_valor <- gof$chisqpvalue
+
+p_valor
+#Fin de completar aquí
+```
+
+que en este caso es un valor bajo, aunque no lo suficiente como para rechazar la hipótesis nula.
+
+Adicionalmente `chisqtable` nos da la tabla para la agrupación de los datos, y
+
+```{r}
+
+# Completar aquí
+gof$chisqtable
+#Fin de completar aquí
+```
+
+`chisqdf` nos devuelve los grados de libertad que tenemos que considerar para el cálculo del p-valor.
+
+```{r}
+
+# Completar aquí
+gof$chisqdf
+#Fin de completar aquí
+```
+
+Usualmente solo consideraremos el valor del estadístico de contraste y el p-valor.
+
+También podemos realizar una análisis gráfico que incluye la comparación de distintas funciones de los datos con las teóricas del modelo considerado, mediante el comando `plot`
+
+```{r}
+# Completar aquí
+library(ggplot2)
+par(mar = c(4, 4, 2, 1))
+
+plot(ajuste)
+#Fin de completar aquí
+```
+
+Así tenemos el histograma de frecuencias con la densidad del modelo considerado y la función de distribución empírica con la teórica. De estos gráficos destacamos la gráfica Q-Q donde tenemos los pares $(F^{-1}(p),F^{-1}_n(p))$ y la gráfica P-P donde tenemos los pares $(F(x),F_n(x))$ siendo $F$ y $F_n$ la función de distribución teórica del modelo considerado y $F_n$ la función de distribución empírica. En ambos casos si el ajuste es bueno los puntos anteriores deberían estar alineados sobre una recta.
+
+En este caso los gráficos Q-Q y P-P parecen señalar alguna diferencia con el modelo de la distribución normal, hecho que queda reflejado en que el p-valor toma un valor bajo.
+
+Como hemos comentado en clase es importante que en nuestros análisis incluyamos toda la información disponible en términos de estadísticos, p-valores y gráficas.
+
+## Estimación y bondad de ajuste correspondiente a un modelo t de Student estandarizada.
+
+Consideramos ahora otro modelo para ver si puede ajustar mejor la distribución de los retornos. En este caso vamos a considerar una distribución t de Student estandarizada. Es un modelo bastante habitual en el campo de las finanzas. Veamos primero como se define este modelo.
+
+Este modelo se obtiene como una transformación de la t de Student usual en la forma $X=\mu + \sqrt{\frac{\nu - 2}{\nu}}\sigma Y,$ donde $Y\sim t_{\nu}$, y tiene soporte en todo $\mathbb R$. Se denota por $X\sim t_{\alpha}(\mu,\sigma^2)$. Y tiene como media y varianza los valores $E[X]=\mu$ si $\nu >1$ y $Var[X]=\sigma ^2$ si $\nu >2$.
+
+En algunos modelos, como el de la t de Student estandarizada, el comando `fitdist` necesita unos valores iniciales para empezar la búsqueda de las estimaciones máximo verosímiles de los parámetros. Como forma de asegurarnos un buen punto de arranque podemos optar por hacer una estimación de máxima verosimilitud mediante el comando alternativo `fitdistr` dentro del paquete `MASS`. En concreto mediante
+
+```{r, warning = FALSE}
+
+library(MASS)
+ajuste <- fitdistr((na.omit(iberdrola$weekly_return)), "t")
+ajuste
+```
+
+Obtenemos los estimadores de máxima verosimilitud de $\mu$, $\sigma\sqrt{(\nu-2)/\nu}$ y $\nu$ como `m =` `r ajuste$estimate["m"]`, `s =` `r ajuste$estimate["s"]` y `df =` `r ajuste$estimate["df"]`, respectivamente. Hay que observar que aunque en este caso hemos indicado el modelo `t`, este se refiere, dentro del paquete `MASS`, a una reparametrización de la t de Student estandarizada. Por ello hemos de recuperar el valor estimado de $\sigma$ como $\hat{\sigma}= s \sqrt{\frac{df}{df -2}}=$ `r ajuste$estimate["s"] * sqrt(ajuste$estimate["df"]/ (ajuste$estimate["df"] - 2))`.
+
+```{r, warning = FALSE}
+muhat <- unname(ajuste$estimate["m"])
+sigmahat <- unname(
+    ajuste$estimate["s"]
+    * sqrt(ajuste$estimate["df"] / (ajuste$estimate["df"] - 2))
+)
+nuhat <- unname(ajuste$estimate["df"])
+```
+
+El modelo tal y como los hemos presentado está dentro del paquete `fGarch`, con la denominación "std".
+
+Una vez visto esto podemos pasar al análisis de los datos incluyendo, en la opción `start`, las estimaciones anteriores. En concreto utilizamos el comando:
+
+```{r}
+#| warning: false
+library(fGarch)
+ajuste <- fitdist(
+    c(na.omit(iberdrola$weekly_return)),
+    "std",
+    ## start = list(mean = muhat, sd = sigmahat, nu = nuhat)
+    start = list(mean = muhat, sd = sigmahat, nu = nuhat)
+)
+```
+
+Como estimaciones obtenemos con `summary`
+
+```{r}
+
+ # Completar aquí
+summary(ajuste)
+# Fin de Completar aquí
+```
+
+En este caso el contraste chi-cuadrado nos devuelve los siguientes valores para el estadístico y el p-valor
+
+```{r}
+
+# Completar aquí
+gof <- gofstat(ajuste)
+
+gof$chisq
+
+gof$chisqpvalue
+# fin de Completar aquí
+```
+
+Que en este caso nos muestra un mayor grado de compatibilidad entre los datos y la hipótesis nula de que los datos siguen una distribución t de Student standarizada.
+
+En el análisis gráfico obtenemos
+
+```{r}
+
+# Completar aquí
+par(mar = c(4, 4, 2, 1))
+plot(ajuste)
+# Fin de completar aquí
+```
+
+En este caso los gráficos Q-Q y P-P parecen señalar que el modelo de la distribución t de Student standarizada mejora el ajuste de los datos, hecho que ha sido confirmado por el contraste chi-cuadrado.
+
+En este ejemplo tenemos dos modelos que permiten ajustar los datos que tenemos, aunque parece que uno es mejor que otro. En estos casos en los que tenemos dos o más modelos de distribuciones paramétricas que dan un buen ajuste a los datos, hemos de utilizar información adicional para decidir con que modelo quedarnos. Para ello podemos utilizar dos medidas para discriminar que modelo es el mejor.
+
+La primera es el coeficiente de información de Akaike definido como $$AIC=2k - 2 \ln L(\mathbf x, \hat \theta),$$ siendo $k$ el número de parámetros a estimar del modelo y $\hat \theta$ el EMV del vector paramétrico $\theta$. Aquel modelo con el valor más pequeño para $AIC$ es el que mejor se ajusta.
+
+La otra medida se conoce criterio de información bayesiano que viene dado por $$BIC = k \ln n - 2 \ln L(\mathbf x, \hat \theta).$$
+
+En este caso se trata de seleccionar el modelo con un menor valor de $BIC$.
+
+Los valores anteriores se facilitan cuando usamos la función `summary` como los valores `AIC` y `BIC`. Observamos que en el caso de la t de Student standarizada estas medidas son mucho menores que en el caso de la distribución normal, lo que apoya la elección del modelo de la t de Student standarizada.
+
+Como regla general también tenemos que tener en cuenta el principio de simplicidad en ciencia, que nos dice que antes dos explicaciones de un mismo fenómeno, hay que elegir la explicación más simple. En nuestro caso caso se trata de buscar modelos que no introduzcan un número grande de parámetros. Los coeficientes anteriores también pretenden tener en cuenta este hecho penalizando un número alto de parámetros en el modelo.
