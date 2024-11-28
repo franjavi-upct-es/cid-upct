@@ -1,0 +1,410 @@
+---
+title: "Análisis y Diseño de Algoritmos"
+subtitle: "Programación Dinámica"
+author:
+- "Francisco Javier Mercader Martínez"
+- "Pedro Alarcón Fuentes"
+output:
+  pdf_document:
+    latex_engine: xelatex
+geometry: margin=1.5cm, a4paper
+fontsize: 12pt
+header-includes:
+- \renewcommand{\and}{\\}
+- \usepackage{fvextra}
+- \usepackage{hyperref}
+- \usepackage{amsmath}
+- \usepackage{algorithm}
+- \usepackage{algpseudocode}
+- \renewcommand{\algorithmicforall}{\textbf{Para cada}}
+- \renewcommand{\algorithmicfor}{\textbf{Para}}
+- \renewcommand{\algorithmicwhile}{\textbf{Mientras}}
+- \renewcommand{\algorithmicif}{\textbf{Si}}
+- \renewcommand{\algorithmicthen}{\textbf{entonces}}
+- \renewcommand{\algorithmicend}{\textbf{Fin}}
+- \renewcommand{\algorithmicelse}{\textbf{sino}}
+- \renewcommand{\algorithmicprocedure}{\textbf{Procedimiento}}
+- \renewcommand{\algorithmicdo}{\textbf{hacer}}
+---
+
+```{r include = FALSE}
+library(reticulate)
+use_condaenv("optim-2", conda="C:/ProgramData/anaconda3/Scripts/conda.exe", required = TRUE)
+py_config()
+```
+
+```{python include = FALSE}
+import random
+import matplotlib.pyplot as plt
+```
+
+## Introducción
+
+En esta memoria se presenta la resolución del problema **"La ruta de la tapUPCT"** mediante la aplicación de la técnica de Programación Dinámica (PD). El objetivo es diseñar un algoritmo que permite a un estudiante maximizar el número total de tenedores obtenidos al consumir tapas en diferentes bares, sin superar el presupuesto disponible de **`E`** euros y respetando la restricción de consumir como máximo 3 tapas por bar.
+
+A continuación, se presenta el pseudocódigo que describe la solución al problema utilizando programación dinámica. Este pseudocódigo nos proporcionará una visión general de los pasos necesarios antes de intentar resolver el problema implementando Python.
+
+**Definiciones previas:**
+
+-   **`N:`** Número total de bares.
+
+-   **`E:`** Presupuesto total en euros
+
+-   **`p[1..N]:`** Arreglo que contiene el precio de una tapa de cada bar.
+
+-   **`t[1..N]:`** Arreglo que contiene el número de tenedores por tapa en cada bar.
+
+-   **`K:`** Número máximo de tapas por bar (en este caso, 3).
+
+-   **`dp[0..N][0..E]:`** Matriz de programación dinámica para almacenar el máximo número de tenedores.
+
+**Construcción de la talba `dp`:**
+
+\vspace{0.5cm}
+
+\begin{algorithmic}
+\Procedure{construir\_tabla}{$N, E, p, t$}
+    \State Crear una matriz $dp$ de dimensiones $(N + 1) \times (E + 1)$ inicializada en cero.
+    \newline
+    \For{$i \gets 1$..$N$}
+        \For{$e \gets 0$..$E$}
+            \State $dp[i][e] \gets dp[i - 1][e]\quad$ // No consumir tapas en el bar $i$
+            \newline
+            \For{$k \gets 1$..$K$}
+                \State $coste \gets k \times p[i]$
+                \If{$e \geq coste$}
+                    \State $valor \gets dp[i - 1][e - coste] + k \times t[i]$
+                    \If{$valor > dp[i][e]$}
+                        \State $dp[i][e] \gets valor$
+                    \EndIf
+                \EndIf
+            \EndFor
+        \EndFor
+    \EndFor
+    \State \textbf{Retornar} $dp$
+\EndProcedure
+\end{algorithmic}
+
+\vspace{1cm}
+
+**Reconstrucción de la solución óptima:**
+
+\vspace{0.5cm}
+
+\begin{algorithmic}
+\Procedure{reconstruir\_solucion}{$N, E, p, t$}
+    \State Crear una arreglo $tapas\_por\_bar[1 \ldots N]$ inicializado en cero
+    
+    {$e\gets E$\quad} // Presupuesto restante
+    \newline
+    \For{$i \gets N$ \textbf{hasta} $1$}
+        \If{$dp[i][e] \neq dp[i - 1][e]$}
+            \For{$k \gets 1$ \textbf{hasta} $K$}
+                \State $coste \gets k \times p[i]$
+                \If{$e \geq coste$ \textbf{y} $dp[i][e] = dp[i - 1][e - coste] + k \times t[i]$}
+                    \State $tapas\_por\_bar[i] \gets k$
+                    \State $e \gets e - coste$
+                    \State \textbf{Romper el bucle}
+                \EndIf
+            \EndFor
+        \EndIf
+    \EndFor
+    \State \textbf{Retornar} $tapas\_por\_bar$
+\EndProcedure
+\end{algorithmic}
+
+**Descripción del pseudocódigo:**
+
+-   **Procedimiento `contruir_tabla`:**
+
+    -   **Objetivo:** Construir la tabla **`dp`** que almacena el máximo número de tenedores que se pueden obtener para cada combinación de bares y presupuesto.
+
+    -   **Proceso:**
+
+        -   Se inicializa la matriz **`dp`** en cero.
+
+        -   Para cada bar **`i`** y cada posible presupuesto **`e`**, se considera:
+
+            -   **No consumir tapas en el bar `i`:** Se copia el valor de **`dp[i - 1][e]`**.
+
+            -   **Consumir `k` tapas en el bar `i`:** Se calcula el nuevo valor y se actualiza **`dp[i][e]`** si es mayor que el valor actual.
+
+-   **Procedimiento `reconstruir_solucion`:**
+
+    -   **Objetivo:** Determinar cuántas tapas se han consumido en cada bar para alcanzar el máximo número de tenedores.
+
+    -   **Proceso:**
+
+        -   Se inicializa el arreglo **`tapas_por_bar`** en ceros.
+
+        -   Se recorre la matriz **`dp`** de atrás hacia adelante (desde **`N`** hasta **`i`**).
+
+        -   Si el valor actual es diferente al de la fila anterior, significa que se han consumido tapas en ese bar.
+
+        -   Se determina cuántas tapas se consumieron probando valores de **`k`** que satisfagan la condición en **`dp`**.
+
+## 1. Ecuación de recurrencia
+
+Sea $dp[i][e]$ el máximo número de tenedores que se pueden obtener utilizando los primeros $i$ bares con un presupuesto total e $e$ euros.
+
+**Casos base:**
+
+-   Para todo $e$ entre $0$ y $E$:
+
+    -   $dp[0][e]=0$ (no se han considerado bares, por lo tanto, no se pueden obtener tenedores).
+
+**Recurrencia:**
+
+Para $i$ desde $1$ hasta $N$ (cada bar):
+
+-   Para $e$ desde $0$ hasta $E$ (cada presupuesto posible):
+
+    -   $dp[i][e]=dp[i - 1][e]$ (inicialmente, no se toman del bar $i$).
+    -   Para $k$ desde $1$ hasta $3$ (número de tapas que podemos tomar del bar $i$):
+        -   Si $e\ge k\cdot p_i$: $dp[i][e]=\max(dp[i][e],\,dp[i-1][e-k\cdot p_i]+k\cdot t_i)$.
+        -   Si no, se rompe el bucle (no podemos permitirnos más tapas en este bar con el presupuesto $e$).
+
+**Casos imposibles:**
+
+-   $e<0,\, dp[i][e]$ no está definido, ya que no puede obtener un presupuesto negativo.
+-   No se consideran $k>3$ ya que el límite es de 3 tapas por bar.
+
+------------------------------------------------------------------------
+
+## 2. Implementación del algoritmo de construcción (ascendente) de la tabla
+
+```{python}
+def construir_tabla(N, E, p, t):
+    """
+    Construye la tabla de programación dinámica para maximizar el número de tenedores.
+
+    :param N: Número de bares
+    :param E: Presupuesto total
+    :param p: Lista de precios de cada bar (índice desde 0)
+    :param t: Lista de tenedores de cada bar (índice desde 0)
+    :return: Tabla dp con los valores máximos de tenedores para cada subproblema.
+    """
+
+    # Inicializar la tabla dp con ceros
+    dp = [[0] * (E + 1) for _ in range(N + 1)]
+
+    # Construcción de la tabla dp
+    for i in range(1, N + 1):
+        pi = p[i - 1]
+        ti = t[i - 1]
+        for e in range(E + 1):
+            dp[i][e] = dp[i - 1][e] # No tomar tapas del bar i
+            for k in range(1, 4):   # Tomar hasta 3 tapas del bar i
+                coste = k * pi
+                if e >= coste:
+                    valor = dp[i - 1][e - coste] + k * ti
+                    if valor > dp[i][e]:
+                        dp[i][e] = valor
+                else:
+                    break   # No podemos permitirnos más tapas en este bar
+
+    return dp
+```
+
+**Descripción General:**
+
+La función **`construir_tabla`** implementa la parte principal del algoritmo de programación dinámica para resolver el problema de maximizar el número de tenedores obtenidos al consumir tapas en diferentes bares, respetando las restricciones de presupuesto y límite de tapas por bar.
+
+**Parámetros:**
+
+-   **`N`:** Número total de bares disponibles en la guía tapUPCT.
+-   **`E`:** Presupuesto total disponible en euros para gastar en tapas.
+-   **`p`:** Lista que contiene el precio de una tapa en cada bar. El índice **`i`** corresponde al bar número **`i + 1`** . Por ejemplo, **`p[0]`** es el precio de una tapa en el bar 1.
+-   **`t`:** Lista que contiene el número de tenedores que otorga cada tapa en cada bar. De la misma forma, **`t[0]`** es el número de tenedores de una tapa en el bar 1.
+
+**Resultado:**
+
+-   **`dp`:** Matriz bidimensional de tamaño **`(N + 1) x (E + 1)`** que representa la tabla de programación dinámica. En esta tabla, **`dp[i][e]`** almacena el máximo número de tenedores que se pueden obtener al considerar los primeros **`i`** bares con un presupuesto total de **`e`** euros.
+
+------------------------------------------------------------------------
+
+## 3. Implementación del algoritmo de reconstrucción de la solución a partir de la tabla calculada por el algoritmo del paso 2
+
+```{python}
+def reconstruir_solucion(N, E, p, t, dp):
+    """
+    Reconstruye la solución óptima a partir de la tabla dp.
+
+    :param N: Número de bares.
+    :param E: Presupuesto total.
+    :param p: Lista de precios de cada bar.
+    :param t: Lista de tenedores de cada bar.
+    :param dp: Tabla dp construida previamente
+    :return: Lista con el número de tapas tomadas en cada bar
+    """
+    # Inicializar la lista de tapas por bar
+    tapas_por_bar = [0] * N
+    e = E
+    for i in range(N, 0, -1):
+        if dp[i][e] != dp[i - 1][e]:
+            # Tomamos alguna tapa del bar ir
+            pi = p[i - 1]
+            ti = t[i - 1]
+            for k in range(1, 4):
+                coste = k * pi
+                if e >= coste and dp[i][e] == dp[i - 1][e - coste] + k * ti:
+                    tapas_por_bar[i - 1] = k
+                    e -= coste
+                    break
+    return tapas_por_bar
+```
+
+**Descripción General:**
+
+La función **`reconstruir_solucion`** utiliza la tabla **`dp`** previamente calculada para determinar exactamente cuántas tapas se deben consumir en cada bar para lograr el máximo número de tenedores obtenido.
+
+**Parámetros:**
+
+-   **`N`:** Número total de bares.
+
+-   **`E`:** Presupuesto total disponible en euros.
+
+-   **`p`:** Lista que contiene el precio de una tapa en cada bar.
+
+-   **`t`:** Lista que contiene el número de tenedores que otorga cada tapa en cada bar.
+
+-   **`dp`:** Tabla de programación dinámica obtenida de **`construir_tabla`**.
+
+**Resultado:**
+
+-   **`tapas_por_bar`:** Lista donde cada elemento **`tapas_por_bar[i]`** indica el número de tapas que se deben consumir en el bar **`i+1`** para lograr la solución óptima. Por ejemplo, **`tapas_por_bar[0]`** es el número de tapas en el bar 1.
+
+------------------------------------------------------------------------
+
+## 4. Validación mediante ejemplos sencillos
+
+\underline{Ejemplo 1:}
+
+-   **Presupuesto (`E`):** 10 euros
+-   **Número de bares (`N`):** 2
+-   **Bar 1:**
+    -   Precio por tapa $(p_1 = 2 \text{ euros})$
+    -   Tenedores por tapa $(t_1 = 3)$
+-   **Bar 2:**
+    -   Precio por tapa $(p_2=3 \text{ euros})$
+    -   Tenedores por tapa $(t_2 = 4)$
+
+**Aplicación del algoritmo:**
+
+```{python}
+N = 2
+E = 10
+p = [2, 3]
+t = [3, 4]
+
+dp = construir_tabla(N, E, p, t)
+tapas_por_bar = reconstruir_solucion(N, E, p, t, dp)
+
+print("Máximo número de tenedores:", dp[N][E])
+print("Tapas por bar:", tapas_por_bar)
+```
+
+**Análisis:**
+
+-   **Bar 1:** 2 tapas $\times$ 2 euros = 4 euros, 2 tapas $\times$ 3 tenedores = 6 tenedores
+
+-   **Bar 2:** 2 tapas $\times$ 3 euros = 6 euros, 2 tapas $\times$ 4 tenedores = 8 tenedores
+
+-   **Coste total:** 4 + 6 = 10 euros
+
+-   **Tenedores totales:** 6 + 8 = 14 tenedores
+
+**Justificación de la óptimalidad:**
+
+-   No es posible obtener más de 14 tenedores sin exceder el presupuesto.
+-   Cualquier otra combinación resultaría en menos tenedores o excedería el presupuesto.
+
+Muestra del algoritmo con variables aleatorias para mostrar que el algoritmo funciona para varios casos:
+
+```{python}
+for i in range(10):
+    print(f"-- Prueba {i + 1} --")
+    N = random.randint(1, 10)  # Número de bares entre 1 y 10
+    E = random.randint(10, 100)  # Presupuesto entre 10 y 100
+    p = [random.randint(1, 10) for _ in range(N)]  # Precios aleatorios entre 1 y 10
+    t = [random.randint(1, 5) for _ in range(N)]  # Tenedores aleatorios entre 1 y 5
+
+    dp = construir_tabla(N, E, p, t)
+    tapas_por_bar = reconstruir_solucion(N, E, p, t, dp)
+
+    print(f"Número de bares: {N}")
+    print(f"Presupuesto total: {E} euros")
+    print(f"Precios por bar: {p}")
+    print(f"Tenedores por bar: {t}")
+    print(f"Tapas por bar: {tapas_por_bar}")
+    print(f"Máximo número de tenedores: {dp[N][E]}")
+    print()
+```
+
+```{python echo=FALSE}
+import time
+import random
+import matplotlib.pyplot as plt
+
+def analyse_complexity(test_cases):
+    """
+    Analiza y grafica el tiempo de ejecución acumulado de las funciones construir_tabla y reconstruir_solucion.
+
+    :param test_cases: Lista de tuplas (N, E, p, t) representando diferentes casos de prueba.
+    """
+    overall_time = []
+    accumulated_time = 0
+    iteration = 1
+
+    for N, E, p, t in test_cases:
+        start_time = time.time()
+        dp = construir_tabla(N, E, p, t)
+        tapas_por_bar = reconstruir_solucion(N, E, p, t, dp)
+        end_time = time.time()
+        elapsed_time = end_time - start_time
+        accumulated_time += elapsed_time
+        overall_time.append(accumulated_time)
+        iteration += 1
+
+    if overall_time:
+        plt.figure()
+        plt.plot(range(1, iteration), overall_time, color='blue')
+        plt.xticks([])
+        plt.xlabel("Iteraciones (Casos)")
+        plt.ylabel("Tiempo Acumulado (s)")
+        plt.title("Tiempo de ejecución acumulado de construir_tabla y reconstruir_solucion")
+        plt.show()
+    else:
+        print("No se procesaron casos.")
+
+
+# Generación de casos de prueba
+test_cases = []
+for i in range(100):
+    N = random.randint(1, 10)  # Número de bares entre 1 y 10
+    E = random.randint(10, 100)  # Presupuesto entre 10 y 100
+    p = [random.randint(1, 10) for _ in range(N)]  # Precios aleatorios entre 1 y 10
+    t = [random.randint(1, 5) for _ in range(N)]  # Tenedores aleatorios entre 1 y 5
+
+    test_cases.append((N, E, p, t))  # Agregamos el caso a la lista de test_cases
+    
+analyse_complexity(test_cases)
+```
+
+
+------------------------------------------------------------------------
+
+## 5. Estudio teórico del tiempo de ejecución
+
+**Orden de complejidad temporal:**
+
+-   **Construcción de la tabla `dp`:** $O(N\times E\times K)$, donde:
+    -   $N$ es el número de bares.
+    -   $E$ es el presupuesto total.
+    -   $K$ es el número de tapas por bar (constante, $K=3$)
+-   **Reconstrucción de la solución:** $O(N\times K)$, pero dado que $K$ es constante, es $O(N)$.
+
+**Casos peor y mejor:**
+
+-   **Caso peor:** Cuando $N$ y $E$ son grandes, el algoritmo tarda más tiempo.
+-   **Caso mejor:** Si el presupuesto o el número de bares es pequeño, el algoritmo es más eficiente.
