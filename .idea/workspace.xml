@@ -4,10 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="26c2ae99-ce09-4876-9816-cac4e9750c52" name="Changes" comment="Práctica 9 Optimización II">
-      <change afterPath="$PROJECT_DIR$/Prácticas/2º Curso/1º Cuatrimestre/Optimización II/ejercicios/ejercicio_practica_9_handout.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Prácticas/2º Curso/1º Cuatrimestre/Optimización II/ejercicios/ejercicio_practica_9_handout.ipynb" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/prueba.ipynb" afterDir="false" />
+    <list default="true" id="cb3e1152-4c03-4efb-aecf-6750f30e83e5" name="Changes" comment="Informe Práctica 5 FRD terminado">
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -18,45 +16,29 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="RMarkdown.document" />
-        <option value="SQL File" />
         <option value="Python Script" />
-        <option value="Jupyter Notebook" />
       </list>
     </option>
   </component>
-  <component name="FlaskConsoleOptions" custom-start-script="import sys&#10;sys.path.extend([WORKING_DIR_AND_PYTHON_PATHS])&#10;from flask.cli import ScriptInfo&#10;locals().update(ScriptInfo(create_app=None).load_app().make_shell_context())&#10;print(&quot;Python %s on %s\nApp: %s [%s]\nInstance: %s&quot; % (sys.version, sys.platform, app.import_name, app.env, app.instance_path))">
-    <envs>
-      <env key="FLASK_APP" value="app" />
-    </envs>
-    <option name="myCustomStartScript" value="import sys&#10;sys.path.extend([WORKING_DIR_AND_PYTHON_PATHS])&#10;from flask.cli import ScriptInfo&#10;locals().update(ScriptInfo(create_app=None).load_app().make_shell_context())&#10;print(&quot;Python %s on %s\nApp: %s [%s]\nInstance: %s&quot; % (sys.version, sys.platform, app.import_name, app.env, app.instance_path))" />
-    <option name="myEnvs">
-      <map>
-        <entry key="FLASK_APP" value="app" />
-      </map>
-    </option>
-  </component>
   <component name="Git.Settings">
-    <option name="PUSH_AUTO_UPDATE" value="true" />
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="GitHubPullRequestSearchHistory">{
-  &quot;lastFilter&quot;: {
-    &quot;state&quot;: &quot;OPEN&quot;,
-    &quot;assignee&quot;: &quot;franjavi-upct-es&quot;
+  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
+  "lastFilter": {
+    "state": "OPEN",
+    "assignee": "franjavi-upct-es"
   }
-}</component>
-  <component name="GithubPullRequestsUISettings">{
-  &quot;selectedUrlAndAccountId&quot;: {
-    &quot;url&quot;: &quot;https://github.com/franjavi-upct-es/cid-upct&quot;,
-    &quot;accountId&quot;: &quot;b44a20dc-435b-4334-a92f-0487ac9c60f7&quot;
+}]]></component>
+  <component name="GithubPullRequestsUISettings"><![CDATA[{
+  "selectedUrlAndAccountId": {
+    "url": "https://github.com/franjavi-upct-es/cid-upct",
+    "accountId": "b44a20dc-435b-4334-a92f-0487ac9c60f7"
   }
-}</component>
-  <component name="ProjectColorInfo">{
-  &quot;customColor&quot;: &quot;&quot;,
-  &quot;associatedIndex&quot;: 7
-}</component>
-  <component name="ProjectId" id="2oViU7zv1blrqrjkyqzJas1Dh79" />
+}]]></component>
+  <component name="ProjectColorInfo"><![CDATA[{
+  "associatedIndex": 6
+}]]></component>
+  <component name="ProjectId" id="2pXCuZwJH3oqyjvAvyB7AJJqzi4" />
   <component name="ProjectLevelVcsManager">
     <ConfirmationsSetting value="2" id="Add" />
     <ConfirmationsSetting value="2" id="Remove" />
@@ -67,133 +49,18 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
-    "Database Script.FranciscoJavierMercaderMartinez-p2-sn.sql.executor": "Run",
-    "Database Script.FranciscoJavierMercaderMartínez-p2-s4.sql.executor": "Run",
-    "Python.divide_y_venceras.executor": "Run",
-    "Python.mecanicos_y_averias.executor": "Run",
-    "Python.mecanicos_y_averias_b.executor": "Run",
-    "Python.mecanicos_y_averias_b2.executor": "Run",
-    "Python.preba.executor": "Run",
-    "Python.programacion_dinamica.executor": "Run",
-    "Python.prueba (1).executor": "Run",
     "Python.prueba.executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "database.data.extractors.current.export.id": "SQL Inserts",
-    "database.data.extractors.current.id": "SQL Inserts",
     "git-widget-placeholder": "main",
-    "last_opened_file_path": "C:/Users/fcoja/cid-upct",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "Errors",
     "vue.rearranger.settings.migration": "true"
-  },
-  "keyToStringList": {
-    "DatabaseDriversLRU": [
-      "oracle"
-    ],
-    "RunConfigurationTargetLRU": [
-      "e8ee4c40-5ab4-4669-aceb-b67ba3cefef0/schema/\"CENTRODEPORTIVO\"",
-      "e8ee4c40-5ab4-4669-aceb-b67ba3cefef0"
-    ],
-    "com.intellij.ide.scratch.LRUPopupBuilder$1/SQL Dialect": [
-      "Oracle"
-    ]
   }
 }]]></component>
-  <component name="RecentsManager">
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="C:\Users\fcoja\cid-upct\Prácticas\2º Curso\1º Cuatrimestre\ADA\ADA_boletin_P2\problemas P2-BT ADA 2024-2025\01 - mecánicos y averías" />
-    </key>
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="C:\Users\fcoja\cid-upct\Prácticas\2º Curso\1º Cuatrimestre\BD I\Práctica 2\Sesión 2" />
-    </key>
-  </component>
-  <component name="RunManager" selected="Python.programacion_dinamica">
-    <configuration name="FranciscoJavierMercaderMartinez-p2-sn.sql" type="DatabaseScript" editBeforeRun="true" temporary="true" nameIsGenerated="true">
-      <script-file value="$PROJECT_DIR$/Prácticas/2º Curso/1º Cuatrimestre/BD I/Práctica 2/Sesión 1/FranciscoJavierMercaderMartinez-p2-sn.sql" />
-      <script-mode>FILE</script-mode>
-      <data-source id="e8ee4c40-5ab4-4669-aceb-b67ba3cefef0" namespace="schema/&quot;CENTRODEPORTIVO&quot;" />
-      <method v="2" />
-    </configuration>
-    <configuration name="FranciscoJavierMercaderMartínez-p2-s4.sql" type="DatabaseScript" editBeforeRun="true" temporary="true" nameIsGenerated="true">
-      <script-file value="$PROJECT_DIR$/Prácticas/2º Curso/1º Cuatrimestre/BD I/Práctica 2/Sesión 4/FranciscoJavierMercaderMartínez-p2-s4.sql" />
-      <script-mode>FILE</script-mode>
-      <data-source id="e8ee4c40-5ab4-4669-aceb-b67ba3cefef0" />
-      <method v="2" />
-    </configuration>
-    <configuration name="divide_y_venceras" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
-      <module name="cid-upct" />
-      <option name="ENV_FILES" value="" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/Prácticas/2º Curso/1º Cuatrimestre/ADA/ADA_boletin_P3" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Prácticas/2º Curso/1º Cuatrimestre/ADA/ADA_boletin_P3/divide_y_venceras.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
-    <configuration name="mecanicos_y_averias_bactracking_prueba" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
-      <module name="cid-upct" />
-      <option name="ENV_FILES" value="" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/Prácticas/2º Curso/1º Cuatrimestre/ADA/ADA_boletin_P2/problemas P2-BT ADA 2024-2025/01 - mecánicos y averías" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="C:\Users\fcoja\cid-upct\Prácticas\2º Curso\1º Cuatrimestre\ADA\ADA_boletin_P2\problemas P2-BT ADA 2024-2025\01 - mecánicos y averías\mecanicos_y_averias_bactracking_prueba.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
-    <configuration name="programacion_dinamica" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
-      <module name="cid-upct" />
-      <option name="ENV_FILES" value="" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/Prácticas/2º Curso/1º Cuatrimestre/ADA/ADA_boltin_P4" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Prácticas/2º Curso/1º Cuatrimestre/ADA/ADA_boltin_P4/programacion_dinamica.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
+  <component name="RunManager" selected="Python.prueba">
     <configuration name="prueba" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="cid-upct" />
       <option name="ENV_FILES" value="" />
@@ -219,11 +86,7 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Python.programacion_dinamica" />
-        <item itemvalue="Database Script.FranciscoJavierMercaderMartínez-p2-s4.sql" />
         <item itemvalue="Python.prueba" />
-        <item itemvalue="Python.divide_y_venceras" />
-        <item itemvalue="Database Script.FranciscoJavierMercaderMartinez-p2-sn.sql" />
       </list>
     </recent_temporary>
   </component>
@@ -238,357 +101,23 @@
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="26c2ae99-ce09-4876-9816-cac4e9750c52" name="Changes" comment="" />
-      <created>1730961164962</created>
+      <changelist id="cb3e1152-4c03-4efb-aecf-6750f30e83e5" name="Changes" comment="Informe Práctica 5 FRD terminado" />
+      <created>1732903260765</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1730961164962</updated>
-      <workItem from="1730961167830" duration="616000" />
-      <workItem from="1730967607530" duration="888000" />
-      <workItem from="1730989172199" duration="1870000" />
-      <workItem from="1731001218295" duration="332000" />
-      <workItem from="1731001574261" duration="1281000" />
-      <workItem from="1731003222550" duration="4168000" />
-      <workItem from="1731009801788" duration="359000" />
-      <workItem from="1731389701501" duration="3138000" />
-      <workItem from="1731404184373" duration="1566000" />
-      <workItem from="1731407263528" duration="3000" />
-      <workItem from="1731422208769" duration="895000" />
-      <workItem from="1731424284469" duration="62000" />
-      <workItem from="1731447730737" duration="1319000" />
-      <workItem from="1731515973770" duration="6045000" />
-      <workItem from="1731571139071" duration="207000" />
-      <workItem from="1731746818233" duration="2894000" />
-      <workItem from="1731771879263" duration="2000" />
-      <workItem from="1731775632858" duration="2151000" />
-      <workItem from="1731858413224" duration="8599000" />
-      <workItem from="1731867488445" duration="77000" />
-      <workItem from="1731867666866" duration="890000" />
-      <workItem from="1731868575287" duration="136000" />
-      <workItem from="1731948595909" duration="2074000" />
-      <workItem from="1731950706986" duration="1966000" />
-      <workItem from="1731964392368" duration="6743000" />
-      <workItem from="1732095119380" duration="1033000" />
-      <workItem from="1732110475228" duration="1469000" />
-      <workItem from="1732172802201" duration="450000" />
-      <workItem from="1732175087156" duration="893000" />
-      <workItem from="1732262246023" duration="1000" />
-      <workItem from="1732263066031" duration="2986000" />
-      <workItem from="1732284549605" duration="85000" />
-      <workItem from="1732289055095" duration="37000" />
-      <workItem from="1732289288940" duration="514000" />
-      <workItem from="1732295104355" duration="254000" />
-      <workItem from="1732362267334" duration="2721000" />
-      <workItem from="1732377523686" duration="4616000" />
-      <workItem from="1732442179667" duration="955000" />
-      <workItem from="1732443158330" duration="8774000" />
-      <workItem from="1732463120538" duration="5482000" />
-      <workItem from="1732484435882" duration="3536000" />
-      <workItem from="1732518242421" duration="859000" />
-      <workItem from="1732558746453" duration="135000" />
-      <workItem from="1732615530418" duration="142000" />
-      <workItem from="1732692814639" duration="4502000" />
-      <workItem from="1732700920431" duration="269000" />
-      <workItem from="1732721829754" duration="4805000" />
-      <workItem from="1732805735289" duration="1966000" />
-      <workItem from="1732809493840" duration="4576000" />
-      <workItem from="1732875505712" duration="3380000" />
-      <workItem from="1732895773584" duration="1734000" />
+      <updated>1732903260765</updated>
+      <workItem from="1732903263372" duration="1892000" />
     </task>
-    <task id="LOCAL-00001" summary="Ejercicios Práctica 4 FIE">
-      <option name="closed" value="true" />
-      <created>1730967746403</created>
-      <option name="number" value="00001" />
-      <option name="presentableId" value="LOCAL-00001" />
-      <option name="project" value="LOCAL" />
-      <updated>1730967746403</updated>
-    </task>
-    <task id="LOCAL-00002" summary="Práctica 7 Optimización II">
-      <option name="closed" value="true" />
-      <created>1730971125803</created>
-      <option name="number" value="00002" />
-      <option name="presentableId" value="LOCAL-00002" />
-      <option name="project" value="LOCAL" />
-      <updated>1730971125804</updated>
-    </task>
-    <task id="LOCAL-00003" summary="Práctica 2 Sesión 1 BD I">
-      <option name="closed" value="true" />
-      <created>1731007389904</created>
-      <option name="number" value="00003" />
-      <option name="presentableId" value="LOCAL-00003" />
-      <option name="project" value="LOCAL" />
-      <updated>1731007389904</updated>
-    </task>
-    <task id="LOCAL-00004" summary="Últimos comandos de Mininet">
-      <option name="closed" value="true" />
-      <created>1731404269296</created>
-      <option name="number" value="00004" />
-      <option name="presentableId" value="LOCAL-00004" />
-      <option name="project" value="LOCAL" />
-      <updated>1731404269296</updated>
-    </task>
-    <task id="LOCAL-00005" summary="Merge remote-tracking branch 'origin/main'&#10;&#10;# Conflicts:&#10;#&#9;Prácticas/2º Curso/1º Cuatrimestre/FRD/Práctica 4/Informe Práctica 4.Rmd">
-      <option name="closed" value="true" />
-      <created>1731404377954</created>
-      <option name="number" value="00005" />
-      <option name="presentableId" value="LOCAL-00005" />
-      <option name="project" value="LOCAL" />
-      <updated>1731404377954</updated>
-    </task>
-    <task id="LOCAL-00006" summary="Cambios la carpeta de BD I">
-      <option name="closed" value="true" />
-      <created>1731868628336</created>
-      <option name="number" value="00006" />
-      <option name="presentableId" value="LOCAL-00006" />
-      <option name="project" value="LOCAL" />
-      <updated>1731868628336</updated>
-    </task>
-    <task id="LOCAL-00007" summary="Cambios la carpeta de BD I">
-      <option name="closed" value="true" />
-      <created>1731868658842</created>
-      <option name="number" value="00007" />
-      <option name="presentableId" value="LOCAL-00007" />
-      <option name="project" value="LOCAL" />
-      <updated>1731868658842</updated>
-    </task>
-    <task id="LOCAL-00008" summary="Últimos cambios en la Práctica de Backtracking de ADA">
-      <option name="closed" value="true" />
-      <created>1731868684365</created>
-      <option name="number" value="00008" />
-      <option name="presentableId" value="LOCAL-00008" />
-      <option name="project" value="LOCAL" />
-      <updated>1731868684365</updated>
-    </task>
-    <task id="LOCAL-00009" summary="Ejercicios de Práctica para BD I">
-      <option name="closed" value="true" />
-      <created>1731971128698</created>
-      <option name="number" value="00009" />
-      <option name="presentableId" value="LOCAL-00009" />
-      <option name="project" value="LOCAL" />
-      <updated>1731971128698</updated>
-    </task>
-    <task id="LOCAL-00010" summary="Ejercicios de Práctica para BD I">
-      <option name="closed" value="true" />
-      <created>1732089539604</created>
-      <option name="number" value="00010" />
-      <option name="presentableId" value="LOCAL-00010" />
-      <option name="project" value="LOCAL" />
-      <updated>1732089539605</updated>
-    </task>
-    <task id="LOCAL-00011" summary="Avances en la memoria de DyV ADA">
-      <option name="closed" value="true" />
-      <created>1732180535537</created>
-      <option name="number" value="00011" />
-      <option name="presentableId" value="LOCAL-00011" />
-      <option name="project" value="LOCAL" />
-      <updated>1732180535537</updated>
-    </task>
-    <task id="LOCAL-00012" summary="Práctica 6 FIE">
-      <option name="closed" value="true" />
-      <created>1732180573666</created>
-      <option name="number" value="00012" />
-      <option name="presentableId" value="LOCAL-00012" />
-      <option name="project" value="LOCAL" />
-      <updated>1732180573666</updated>
-    </task>
-    <task id="LOCAL-00013" summary="Práctica 6 FIE">
-      <option name="closed" value="true" />
-      <created>1732265888353</created>
-      <option name="number" value="00013" />
-      <option name="presentableId" value="LOCAL-00013" />
-      <option name="project" value="LOCAL" />
-      <updated>1732265888353</updated>
-    </task>
-    <task id="LOCAL-00014" summary="Avances en la memoria de DyV ADA">
-      <option name="closed" value="true" />
-      <created>1732265966138</created>
-      <option name="number" value="00014" />
-      <option name="presentableId" value="LOCAL-00014" />
-      <option name="project" value="LOCAL" />
-      <updated>1732265966138</updated>
-    </task>
-    <task id="LOCAL-00015" summary="Práctica 6 FIE">
-      <option name="closed" value="true" />
-      <created>1732289337290</created>
-      <option name="number" value="00015" />
-      <option name="presentableId" value="LOCAL-00015" />
-      <option name="project" value="LOCAL" />
-      <updated>1732289337290</updated>
-    </task>
-    <task id="LOCAL-00016" summary="Comienzo de la práctica 5 de FRD">
-      <option name="closed" value="true" />
-      <created>1732295133528</created>
-      <option name="number" value="00016" />
-      <option name="presentableId" value="LOCAL-00016" />
-      <option name="project" value="LOCAL" />
-      <updated>1732295133528</updated>
-    </task>
-    <task id="LOCAL-00017" summary="Memoria de DyV terminada ADA">
-      <option name="closed" value="true" />
-      <created>1732376962970</created>
-      <option name="number" value="00017" />
-      <option name="presentableId" value="LOCAL-00017" />
-      <option name="project" value="LOCAL" />
-      <updated>1732376962970</updated>
-    </task>
-    <task id="LOCAL-00018" summary="Memoria de DyV terminada ADA">
-      <option name="closed" value="true" />
-      <created>1732378002782</created>
-      <option name="number" value="00018" />
-      <option name="presentableId" value="LOCAL-00018" />
-      <option name="project" value="LOCAL" />
-      <updated>1732378002782</updated>
-    </task>
-    <task id="LOCAL-00019" summary="Memoria de DyV terminada ADA">
-      <option name="closed" value="true" />
-      <created>1732378009092</created>
-      <option name="number" value="00019" />
-      <option name="presentableId" value="LOCAL-00019" />
-      <option name="project" value="LOCAL" />
-      <updated>1732378009092</updated>
-    </task>
-    <task id="LOCAL-00020" summary="Tarea 4 FRD">
-      <option name="closed" value="true" />
-      <created>1732382503733</created>
-      <option name="number" value="00020" />
-      <option name="presentableId" value="LOCAL-00020" />
-      <option name="project" value="LOCAL" />
-      <updated>1732382503733</updated>
-    </task>
-    <task id="LOCAL-00021" summary="Avances en la sesión 4 de la práctica 2 de BD I">
-      <option name="closed" value="true" />
-      <created>1732452295330</created>
-      <option name="number" value="00021" />
-      <option name="presentableId" value="LOCAL-00021" />
-      <option name="project" value="LOCAL" />
-      <updated>1732452295330</updated>
-    </task>
-    <task id="LOCAL-00022" summary="Ejercicios de repaso SQL terminados&#10;PDF de SQL para revisión y para Wuolah">
-      <option name="closed" value="true" />
-      <created>1732518920986</created>
-      <option name="number" value="00022" />
-      <option name="presentableId" value="LOCAL-00022" />
-      <option name="project" value="LOCAL" />
-      <updated>1732518920986</updated>
-    </task>
-    <task id="LOCAL-00023" summary="Ejercicios Programación Dinámica ADA">
-      <option name="closed" value="true" />
-      <created>1732615601734</created>
-      <option name="number" value="00023" />
-      <option name="presentableId" value="LOCAL-00023" />
-      <option name="project" value="LOCAL" />
-      <updated>1732615601734</updated>
-    </task>
-    <task id="LOCAL-00024" summary="Hoja de Ejercicios Parte III Optimización II">
-      <option name="closed" value="true" />
-      <created>1732615660023</created>
-      <option name="number" value="00024" />
-      <option name="presentableId" value="LOCAL-00024" />
-      <option name="project" value="LOCAL" />
-      <updated>1732615660023</updated>
-    </task>
-    <task id="LOCAL-00025" summary="Práctica 7 FIE">
-      <option name="closed" value="true" />
-      <created>1732693006379</created>
-      <option name="number" value="00025" />
-      <option name="presentableId" value="LOCAL-00025" />
-      <option name="project" value="LOCAL" />
-      <updated>1732693006379</updated>
-    </task>
-    <task id="LOCAL-00026" summary="Enunciado Práctica 4 ADA">
-      <option name="closed" value="true" />
-      <created>1732700986873</created>
-      <option name="number" value="00026" />
-      <option name="presentableId" value="LOCAL-00026" />
-      <option name="project" value="LOCAL" />
-      <updated>1732700986873</updated>
-    </task>
-    <task id="LOCAL-00027" summary="Últimos ajustes para la memoria de consultas de SQL">
-      <option name="closed" value="true" />
-      <created>1732726733965</created>
-      <option name="number" value="00027" />
-      <option name="presentableId" value="LOCAL-00027" />
-      <option name="project" value="LOCAL" />
-      <updated>1732726733966</updated>
-    </task>
-    <task id="LOCAL-00028" summary="Últimos ajustes para la memoria de consultas de SQL">
-      <option name="closed" value="true" />
-      <created>1732814880614</created>
-      <option name="number" value="00028" />
-      <option name="presentableId" value="LOCAL-00028" />
-      <option name="project" value="LOCAL" />
-      <updated>1732814880614</updated>
-    </task>
-    <task id="LOCAL-00029" summary="Memoria y funciones PD ADA">
-      <option name="closed" value="true" />
-      <created>1732814910414</created>
-      <option name="number" value="00029" />
-      <option name="presentableId" value="LOCAL-00029" />
-      <option name="project" value="LOCAL" />
-      <updated>1732814910414</updated>
-    </task>
-    <option name="localTasksCounter" value="30" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
-  <component name="Vcs.Log.Tabs.Properties">
-    <option name="TAB_STATES">
-      <map>
-        <entry key="MAIN">
-          <value>
-            <State />
-          </value>
-        </entry>
-      </map>
-    </option>
-  </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Ejercicios Práctica 4 FIE" />
-    <MESSAGE value="Práctica 7 Optimización II" />
-    <MESSAGE value="Práctica 2 Sesión 1 BD I" />
-    <MESSAGE value="Últimos comandos de Mininet" />
-    <MESSAGE value="Merge remote-tracking branch 'origin/main'&#10;&#10;# Conflicts:&#10;#&#9;Prácticas/2º Curso/1º Cuatrimestre/FRD/Práctica 4/Informe Práctica 4.Rmd" />
-    <MESSAGE value="Cambios la carpeta de BD I" />
-    <MESSAGE value="Últimos cambios en la Práctica de Backtracking de ADA" />
-    <MESSAGE value="Ejercicios de Práctica para BD I" />
-    <MESSAGE value="Avances en la memoria de DyV ADA" />
-    <MESSAGE value="Práctica 6 FIE" />
-    <MESSAGE value="Comienzo de la práctica 5 de FRD" />
-    <MESSAGE value="Memoria de DyV terminada ADA" />
-    <MESSAGE value="Tarea 4 FRD" />
-    <MESSAGE value="Avances en la sesión 4 de la práctica 2 de BD I" />
-    <MESSAGE value="Ejercicios de repaso SQL terminados&#10;PDF de SQL para revisión y para Wuolah" />
-    <MESSAGE value="Ejercicios Programación Dinámica ADA" />
-    <MESSAGE value="Hoja de Ejercicios Parte III Optimización II" />
-    <MESSAGE value="Práctica 7 FIE" />
-    <MESSAGE value="Enunciado Práctica 4 ADA" />
-    <MESSAGE value="Últimos ajustes para la memoria de consultas de SQL" />
-    <MESSAGE value="Memoria y funciones PD ADA" />
-    <MESSAGE value="Práctica 9 Optimización II" />
-    <option name="LAST_COMMIT_MESSAGE" value="Práctica 9 Optimización II" />
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" suspend="THREAD" type="jupyter-line">
-          <url>notebook://C:/Users/fcoja/cid-upct/Prácticas/2º Curso/1º Cuatrimestre/ADA/ADA_boletin_P2/problemas P2-BT ADA 2024-2025/01 - mecánicos y averías/prueba.ipynb</url>
-          <line>135</line>
-          <option name="timeStamp" value="1" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
+    <MESSAGE value="Informe Práctica 5 FRD terminado" />
+    <option name="LAST_COMMIT_MESSAGE" value="Informe Práctica 5 FRD terminado" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/mecanicos_y_averias_b_py$preba.coverage" NAME="preba Coverage Results" MODIFIED="1731863064775" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Prácticas/2º Curso/1º Cuatrimestre/ADA/ADA_boletin_P2/problemas P2-BT ADA 2024-2025/01 - mecánicos y averías" />
-    <SUITE FILE_PATH="coverage/mecanicos_y_averias_b_py$mecanicos_y_averias_b2__1_.coverage" NAME="mecanicos_y_averias_b2 (1) Coverage Results" MODIFIED="1731671178173" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/../Downloads" />
-    <SUITE FILE_PATH="coverage/mecanicos_y_averias_b_py$prueba__1_.coverage" NAME="prueba (1) Coverage Results" MODIFIED="1731863842955" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Prácticas/2º Curso/1º Cuatrimestre/ADA/ADA_boletin_P2/problemas P2-BT ADA 2024-2025/01 - mecánicos y averías" />
-    <SUITE FILE_PATH="coverage/mecanicos_y_averias_b_py$mecanicos_y_averias_b.coverage" NAME="mecanicos_y_averias_b Coverage Results" MODIFIED="1731670999266" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Prácticas/2º Curso/1º Cuatrimestre/ADA/ADA_boletin_P2/problemas P2-BT ADA 2024-2025/01 - mecánicos y averías" />
-    <SUITE FILE_PATH="coverage/mecánicos_y_averias_py$mecanicos_y_averias.coverage" NAME="mecanicos_y_averias Coverage Results" MODIFIED="1731394124644" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Prácticas/2º Curso/1º Cuatrimestre/ADA/ADA_boletin_P2/problemas P2-BT ADA 2024-2025/01 - mecánicos y averías" />
-    <SUITE FILE_PATH="coverage/mecanicos_y_averias_b_py$programacion_dinamica.coverage" NAME="programacion_dinamica Coverage Results" MODIFIED="1732811792755" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Prácticas/2º Curso/1º Cuatrimestre/ADA/ADA_boltin_P4" />
-    <SUITE FILE_PATH="coverage/mecanicos_y_averias_b_py$divide_y_venceras.coverage" NAME="divide_y_venceras Coverage Results" MODIFIED="1732175214381" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Prácticas/2º Curso/1º Cuatrimestre/ADA/ADA_boletin_P3" />
-    <SUITE FILE_PATH="coverage/mecanicos_y_averias_b_py$prueba.coverage" NAME="prueba Coverage Results" MODIFIED="1732379027161" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/mecanicos_y_averias_b_py$mecanicos_y_averias_b2.coverage" NAME="mecanicos_y_averias_b2 Coverage Results" MODIFIED="1731749349885" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Prácticas/2º Curso/1º Cuatrimestre/ADA/ADA_boletin_P2/problemas P2-BT ADA 2024-2025/01 - mecánicos y averías" />
+    <SUITE FILE_PATH="coverage/mecanicos_y_averias_b_py$prueba.coverage" NAME="prueba Coverage Results" MODIFIED="1732907101158" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
 </project>
