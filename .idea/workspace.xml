@@ -4,13 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="26c2ae99-ce09-4876-9816-cac4e9750c52" name="Changes" comment="Últimos ajustes para la memoria de consultas de SQL">
-      <change afterPath="$PROJECT_DIR$/Prácticas/2º Curso/1º Cuatrimestre/ADA/ADA_boltin_P4/programacion_dinamica.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+    <list default="true" id="26c2ae99-ce09-4876-9816-cac4e9750c52" name="Changes" comment="Práctica 9 Optimización II">
+      <change afterPath="$PROJECT_DIR$/Prácticas/2º Curso/1º Cuatrimestre/Optimización II/ejercicios/ejercicio_practica_9_handout.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Prácticas/2º Curso/1º Cuatrimestre/Optimización II/ejercicios/ejercicio_practica_9_handout.ipynb" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/prueba.ipynb" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Prácticas/2º Curso/1º Cuatrimestre/ADA/ADA_boltin_P4/Ejercicios PD.Rmd" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Prácticas/2º Curso/1º Cuatrimestre/BD I/Práctica 2/Prácticas SQL.Rmd" beforeDir="false" afterPath="$PROJECT_DIR$/Prácticas/2º Curso/1º Cuatrimestre/BD I/Práctica 2/Prácticas SQL.Rmd" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Prácticas/2º Curso/1º Cuatrimestre/BD I/Práctica 2/Prácticas-SQL.pdf" beforeDir="false" afterPath="$PROJECT_DIR$/Prácticas/2º Curso/1º Cuatrimestre/BD I/Práctica 2/Prácticas-SQL.pdf" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -22,8 +20,8 @@
       <list>
         <option value="RMarkdown.document" />
         <option value="SQL File" />
-        <option value="Jupyter Notebook" />
         <option value="Python Script" />
+        <option value="Jupyter Notebook" />
       </list>
     </option>
   </component>
@@ -90,7 +88,7 @@
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "preferences.keymap",
+    "settings.editor.selected.configurable": "Errors",
     "vue.rearranger.settings.migration": "true"
   },
   "keyToStringList": {
@@ -293,7 +291,9 @@
       <workItem from="1732700920431" duration="269000" />
       <workItem from="1732721829754" duration="4805000" />
       <workItem from="1732805735289" duration="1966000" />
-      <workItem from="1732809493840" duration="3712000" />
+      <workItem from="1732809493840" duration="4576000" />
+      <workItem from="1732875505712" duration="3380000" />
+      <workItem from="1732895773584" duration="1734000" />
     </task>
     <task id="LOCAL-00001" summary="Ejercicios Práctica 4 FIE">
       <option name="closed" value="true" />
@@ -511,7 +511,23 @@
       <option name="project" value="LOCAL" />
       <updated>1732726733966</updated>
     </task>
-    <option name="localTasksCounter" value="28" />
+    <task id="LOCAL-00028" summary="Últimos ajustes para la memoria de consultas de SQL">
+      <option name="closed" value="true" />
+      <created>1732814880614</created>
+      <option name="number" value="00028" />
+      <option name="presentableId" value="LOCAL-00028" />
+      <option name="project" value="LOCAL" />
+      <updated>1732814880614</updated>
+    </task>
+    <task id="LOCAL-00029" summary="Memoria y funciones PD ADA">
+      <option name="closed" value="true" />
+      <created>1732814910414</created>
+      <option name="number" value="00029" />
+      <option name="presentableId" value="LOCAL-00029" />
+      <option name="project" value="LOCAL" />
+      <updated>1732814910414</updated>
+    </task>
+    <option name="localTasksCounter" value="30" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -549,7 +565,9 @@
     <MESSAGE value="Práctica 7 FIE" />
     <MESSAGE value="Enunciado Práctica 4 ADA" />
     <MESSAGE value="Últimos ajustes para la memoria de consultas de SQL" />
-    <option name="LAST_COMMIT_MESSAGE" value="Últimos ajustes para la memoria de consultas de SQL" />
+    <MESSAGE value="Memoria y funciones PD ADA" />
+    <MESSAGE value="Práctica 9 Optimización II" />
+    <option name="LAST_COMMIT_MESSAGE" value="Práctica 9 Optimización II" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
