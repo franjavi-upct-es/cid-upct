@@ -2,9 +2,9 @@
 title: "Fundamentos de Redes de Datos"
 subtitle: "Práctica 5: Análisis de tráfico en una red de área local Ethernet"
 author: "Francisco Javier Mercader Martínez"
-output:
+output: 
   pdf_document:
-    latex_engine: pdflatex
+    latex_engine: xelatex
 geometry: margin=1.5cm, a4paper
 fontsize: 12pt
 header-includes:
@@ -14,15 +14,15 @@ header-includes:
 - \DefineVerbatimEnvironment{Highlighting}{Verbatim}{breaklines, commandchars=\\\{\}}
 ---
 
-## 2. EXAMINAR LOS CAMPOS DE CABECERA DE UNA TRAMA ETHERNET II
+# 2. EXAMINAR LOS CAMPOS DE CABECERA DE UNA TRAMA ETHERNET II
 
 En este apartado se examinarán los campos de cabecera y el contenido de una trama Ethernet II dada. Se utilizará una captura de Wireshark para examinar el contenido de esos campos.
 
 En la siguiente captura de Wireshark, se muestran los paquetes generados por un ping que se hace de un equipo host a su gateway predeterminado. Se le aplicó un filtro a Wireshark para ver solamente el protocolo de resolución de direcciones (ARP) y el protocolo de mensajes de control de Internet (ICMP). La sesión comienza con una consulta ARP para obtener la dirección MAC del router del gateway seguida de cuatro solicitudes y respuestas de ping.
 
-![](figures/Screenshot 2024-11-22.png)
+![](figures/Screenshot_2024-11-22.png)
 
-### Tarea 2.1
+## Tarea 2.1
 
 -   ¿Qué característica significativa tiene el contenido del campo de dirección de destino?
 
@@ -48,7 +48,7 @@ En la siguiente captura de Wireshark, se muestran los paquetes generados por un 
 
     El número de serie es **`62:62:6d`**.
 
-## 3. UTILIZAR WIRESHARK PARA CAPTURAR Y ANALIZAR TRAMAS ETHERNET
+# 3. UTILIZAR WIRESHARK PARA CAPTURAR Y ANALIZAR TRAMAS ETHERNET
 
 En este apartado se examinarán los campos de cabecera y el contenido de una trama Ethernet II dada. Se utilizará una captura de Wireshark para examinar el contenido de esos campos.
 
@@ -58,7 +58,7 @@ Abra una consola para iniciar Mininet e introduzca los siguientes comandos:
 
 `fdr1@vbox:~> sudo python3 topo_link.py`
 
-### Tarea 3.1
+## Tarea 3.1
 
 En el equipo H3, ejecute **ifconfig** para verificar la dirección IPv4 y la dirección MAC.
 
@@ -127,7 +127,7 @@ lo: flags=73<UP,LOOPBACK,RUNNING>  mtu 65536
 mininet> 
 ```
 
-### Tarea 3.2
+## Tarea 3.2
 
 En el equipo H3, ejecute **netstat -r**. ¿Cuál es la dirección IP del gateway predeterminado correspondiente al host H3?
 
@@ -141,7 +141,7 @@ default         10.0.0.1        0.0.0.0         UG        0 0          0 H3-eth0
 
 La dirección IP del gateway predeterminado es **`10.0.0.1`**.
 
-### Tarea 3.3
+## Tarea 3.3
 
 a.  En el panel Packet List (Lista de paquetes) de la parte superior, haga clic en la primera trama de la lista. Debería ver el texto **Echo (ping) request** (Solicitud de eco [ping]) debajo del encabezado **Info.** Con esta acción, se debe resaltar la línea con color azul.
 
@@ -151,16 +151,58 @@ c.  En la segunda línea del panel Packet Details (Detalles del paquete), se mue
 
     ¿Cuál es la dirección MAC de la NIC de la PC?
 
+    **`79:32:0e:62:9c`**
+
     ¿Cuál es la dirección MAC del gateway predeterminado?
+
+    **`96:50:6a:91:53`**
 
 d.  Puede hacer clic en la flecha que se encuentra al principio de la segunda línea para obtener más información sobre la trama de Ethernet II.
 
     ¿Qué tipo de trama se muestra?
 
+    Se muestra como una trama IPv4: **`0x0800`**
+
 e.  En las últimas dos líneas de la parte central, se proporciona información sobre el campo de datos de la trama. Observe que los datos contienen información sobre las direcciones IPv4 de origen y de destino.
 
     ¿Cuál es la dirección IP de origen?
 
+    **`10.0.0.13`**
+
     ¿Cuál es la dirección IP de destino?
 
+    **`10.0.0.1`**
+
 f.  Puede hacer clic en cualquier línea de la parte central para resaltar esa parte de la trama (hexadecimal y ASCII) en el panel Packet Bytes de la parte inferior. Haga clic en la línea Internet Control Message Protocol (Protocolo de mensajes de control de Internet) de la parte central y examine lo que se resalta en el panel Packet Bytes.
+
+    ![](figures/Screenshot_20241129_181916.png)
+
+g.  Haga clic en la siguiente trama de la parte superior y examine una trama de respuesta de eco. Observe que las direcciones MAC de origen y de destino se invirtieron porque esta trama se envió desde el router del gateway predeterminado como respuesta al primer ping. ¿Qué dispositivo y qué dirección MAC se muestran como dirección de destino?
+
+    -   **Disposición de destino:** La dirección de destino corresponde al router predeterminado que responde al ping
+
+    -   **Dirección MAC del destino:** Según la imagen proporcionada en el enunciado de la práctica, la dirección MAC de destino es **`92:66:62:f0:14:21`**, que corresponde al equipo desde donde se originó el ping.
+
+## Tarea 3.4
+
+-   En la primera trama de solicitud de eco (ping), ¿cúales son las direcciones MAC de origen y de destino?
+
+    -   **Dirección MAC de origen: `79:32:0e:62:9c`**
+
+    -   **Dirección MAC de destino: `50:64:2b:af:85:33`**
+
+-   ¿Cuáles son las direcciones IP de origen y de destino que contiene el campo de datos de la trama?
+
+    -   **Dirección IP de origen:** **`10.0.0.13`**
+
+    -   **Dirección IP de destino:** **`172.16.0.40`**
+
+-   Comparen estas direcciones con las direcciones que recibió de en la Tarea 3.3. La única dirección que cambió es la dirección IP de destino. ¿Por qué cambió la dirección IP de destino mientras que la dirección MAC permaneció igual?
+
+    La dirección IP de destino ha cambiado porque la solicitud de eco (ping) está destinada a una dirección IP específica, que puede ser un dispositivo en otra red. Sin embargo, la dirección MAC de destino no cambió porque el paquete debe pasar primero por el gateway predeterminado (router) para llegar a su destino final.
+
+## Tarea 3.5
+
+-   En Wireshark, no se muestra el campo de preámbulo de un encabezado de trama. ¿Qué contiene el preámbulo?
+
+El **preámbulo** de una trama Ethernet contiene una secuencia de **7 bytes** con el patrón **`10101010`** (en hexadecimal, **`AA`**) para sincronizar los dispositivos de red. Le sigue un byte especial llamado **SFD** (*Start Frame Delimiter*) con el valor **`10101011`** (en hexadecimal, **`AB`**), que marca el inicio de la trama.
