@@ -1,0 +1,432 @@
+\input{../../../Macros.tex}
+\title{Cálculo II\\ Tema 3: Cálculo diferencial de funciones de varias variables I}
+\everymath{\displaystyle}
+\renewcommand{\arraystretch}{1.5}
+
+\begin{document}
+\maketitle
+
+\begin{enumerate}[label=\color{red}\textbf{\arabic*)}, leftmargin=*]
+	\item \lb{Decir si es o no diferenciable en el punto $(0,0)$ la función real \[ f(x,y)=\begin{cases}
+	\dfrac{2xy}{x^2+y^2} & \text{si }(x,y)\neq(0,0)\\
+	0 & \text{si }(x,y)=(0,0)
+	\end{cases} \]}
+	
+	Para comprobar si $f(x,y)$ es diferenciable o no en el punto $(0,0)$, lo primero que debemos hacer es comprobar si la función es continua en dicho punto, ya que en caso de no serlo directamente diríamos que es diferenciable.
+	\begin{itemize}
+	\item Estudio de la continuidad en $(0,0)$:
+	
+	$\lim_{(x,y)\to(0,0)}\dfrac{2xy}{x^2+y^2}=\left\{\begin{array}{l}
+	x=r\cos\theta\\
+	y=r\sin\theta
+	\end{array}\right\}=\lim_{r\to0}\dfrac{2\cdot r\cos\theta\cdot r\sin\theta}{r^2\cos^2\theta+r^2\sin^2\theta}=\lim_{r\to0}\dfrac{2r^2\cos\theta\sin\theta}{r^2(\lbb{\cos^2\theta+\sin^2\theta}{1})}=\lim_{r\to0}\dfrac{2\cancel{r^2}\cos\theta\sin\theta}{\cancel{r^2}}=2\cos\theta\sin\theta\longrightarrow\nexists\lim$
+	
+	\end{itemize}
+	Como no existe el límite, entonces $f(x,y)$ no es diferenciable en $(0,0)$ y por lo tanto, podemos asegurar que tanto es diferenciable en dicho punto.
+	
+	\item \lb{Comprobar que la función $f:\R^2\to\R$ definida por $$f(x,y)=\begin{cases}
+	x\sin\dfrac{1}{x} & \text{si }(x,y)\neq(0,0)\\
+	0 & \text{si }(x,y)=(0,0)
+	\end{cases}$$es continua en $(0,0)$, pero no es diferenciable en dicho punto.}
+	
+	Para comprobar si $f(x,y)$ es diferenciable o no en el punto $(0,0)$, lo primero que debemos hacer es comprobar si la función es continua en dicho punto, ya que en caso de serlo directamente diríamos que no diferenciable.
+	
+	\begin{itemize}
+	\item Estudio de la continuidad en $(0,0)$:
+	\[ \lim_{(x,y)\to(0,0)}x\sin\dfrac{1}{x}=\left\{\text{Teorema del Sándwich}\right\}=0 \]
+	
+	Como el límite coincide con $f(0,0)=0$, la función $f(x,y)$ es continua en $(0,0)$.
+	
+	\item Comprobar que $f(x,y)$ no es diferenciable en $(0,0)$:
+	
+	La función $f(x,y)$ es diferenciable en $(0,0)$ si existe un plano tangente que se aproxime localmente a $f(x,y)$. Esto ocurre si: \[ \lim_{(h,k)\to(0,0)}\dfrac{f(h,k)-f(0,0)-\frac{\partial f}{\partial x}(0,0)h-\frac{\partial f}{\partial y}(0,0)k}{\sqrt{h^2+k^2}}=0 \]
+	
+	$\dfrac{\partial f}{\partial x}(0,0)=\lim_{h\to0}\dfrac{f(h,0)-f(0,0)}{h}=\lim_{h\to0}\dfrac{\cancel{h}\sin\frac{1}{x}-0}{\cancel{h}}=\lim_{h\to0}\sin\dfrac{1}{h}$
+	
+	El término $\sin\dfrac{1}{x}$ oscila entre -1 y 1 de manera no convergente cuando $h\to0$, por lo que este límite no existe. Por lo tanto, la función no es diferenciable en $(0,0)$.
+	\end{itemize}
+	
+	\item \lb{Estudiar la continuidad y la diferenciabilidad de la función $f:\R^2\to\R$ definida por \[ f(x,y)=\begin{cases}
+	\dfrac{xy^2}{x^2+y^2} & \text{si }(x,y)\neq(0,0)\\
+	0 & \text{si }(x,y)=(0,0)
+	\end{cases} \] Calcular su derivada direccional de cualquier vector $v=(v_1,v_2)$ en el punto $(0,0)$.}
+	
+	\begin{itemize}
+	\item Estudio de la continuidad en el punto $(0,0)$:
+	
+	$\lim_{(x,y)\to(0,0)}\dfrac{xy^2}{x^2+y^2}=\left\{\begin{array}{l}
+	x=r\cos\theta\\
+	y=r\sin\theta
+	\end{array}\right\}=\lim_{r\to0}\dfrac{r\cos\theta r^2\sin^2\theta}{\lbb{r^2\cos^2\theta+r^2\sin^2\theta}{r^2}}=\lim_{r\to0}\dfrac{r^{\cancel{3}}\cos\theta\sin^2\theta}{\cancel{r^2}}=\lim_{r\to0}r\cos\theta\sin^2\theta=0$
+	
+	Como el límite coincide con $f(0,0)=0$, la función $f(x,y)$ es continua en dicho punto.
+	
+	\item Comprobar que $f(x,y)$ es diferenciable en $(0,0)$:
+	
+	Para verificar la diferenciabilidad en $(0,0)$, usando el criterio de que la función es diferenciable si existe un plano tangente local, lo que requiere que: \[ \lim_{(h,k)\to(0,0)}\dfrac{\left|f(h,k)-f(0,0)-\frac{\partial f}{\partial x}(0,0)h-\frac{\partial f}{\partial y}(0,0)k\right|}{\sqrt{h^2+k^2}}=0 \]
+	Esto requiere calcular las derivadas parciales en $(0,0)$.
+	
+	$\begin{array}{l}
+	\dfrac{\partial f}{\partial x}(0,0)=\lim_{h\to0}\dfrac{f(h,0)-f(0,0)}{h}=\lim_{h\to0}\dfrac{0-0}{h}=0\\
+	\dfrac{\partial f}{\partial y}(0,0)=\lim_{k\to0}\dfrac{f(0,k)-f(0,0)}{k}=\lim_{k\to0}\dfrac{0-0}{k}=0
+	\end{array}$
+	
+	Si $f(x,y)$ fuera diferenciable, se debería cumplir:
+	
+	\[ \begin{aligned}
+	\lim_{(x,y)\to(0,0)}\dfrac{f(h,k)-0}{\sqrt{h^2+k^2}}&=\left\{\begin{array}{l}
+	h=r\cos\theta\\
+	k=r\sin\theta
+	\end{array}\right\}=\lim_{r\to0}\dfrac{\frac{r\cos\theta r^{2}\sin^{2}\theta}{r^2\cos^2\theta+r^2\sin^{2}\theta}}{\sqrt{\lbb{r^{2}\cos^{2}\theta+r^{2}\sin^2\theta}{r^{2}}}}=\lim_{r\to0}\dfrac{\cancel{r^{3}}\cos\theta\sin^{2}\theta}{\cancel{r^{3}}}\\
+	& =\cos\theta\sin^{2}\theta\longrightarrow\nexists\lim
+	\end{aligned} \]
+	
+	El término $\cos\theta\sin^{2}\theta$ depende de $\theta$, lo que implica que el límite no existe uniformemente. Por lo tanto, la función no es diferenciable en $(0,0)$.
+	
+	\item Derivada direccional en $(0,0)$:
+	
+	La derivada direccional en la dirección $\mathrm{v}=(v_1,v_2)$ está dada por:
+	\[ \begin{aligned}
+	D_{\mathrm{v}}f(0,0)&=\lim_{t\to0}\dfrac{f(tv_1,tv_2)-f(0,0)}{t}=\lim_{t\to0}\dfrac{\dfrac{(tv_{1})(tv_{2})^{2}}{(tv_{1})^{2}+(tv_{2})^{2}}-0}{t}=\lim_{t\to0}\dfrac{\dfrac{t^{3}v_1v_2^2}{t^{2}(v_1^2+v_2^2)}}{t}\\
+	&=\lim_{t\to0}\dfrac{\cancel{t^{3}}v_1v_2^2}{\cancel{t^{3}}(v_1^2+v_2^2)}=\dfrac{v_1v_2^2}{v_1^2+v_2^2}
+	\end{aligned} \]
+	
+	La derivada direccional no siempre es cero, ya que depende de los valores de $v_1$ y $v_2$.
+	\end{itemize}
+	
+	\item \lb{Sea $f:\R^{2}\to\R$ definida por \[ f(x,y)=\begin{cases}
+	\dfrac{xy^{2}}{x^{2}+y^{4}} & \text{si }(x,y)\neq(0,0)\\
+	0 & \text{si }(x,y)=(0,0)
+	\end{cases} \]Comprobar que $f$ tiene derivada direccional respecto de cualquier vector de $\R^2$ en el punto $(0,0)$, pero $f$ no es derivable en dicho punto.}
+	
+\begin{itemize}
+\item Derivada direccional en $(0,0)$:
+
+	La derivada direccional de $f(x,y)$ en la dirección de un vector $\mathrm{v}=(v_1,v_2)\in\R^2$ se define como:
+	\[ \begin{aligned}
+	D_{\mathrm{v}}f(0,0)&=\lim_{t\to0}\dfrac{f(tv_1,tv_2)-f(0,0)}{t}=\lim_{t\to0}\dfrac{f(tv_1,tv_2)}{t}=\lim_{t\to0}\dfrac{\dfrac{(tv_1)(tv_2)^{2}}{(tv_1)^{2}+(tv_2)^{4}}}{t}=\lim_{t\to0}\dfrac{\dfrac{t^{3}v_1v_2^{2}}{t^2v_1^2+t^4v_2^4}}{t}\\
+	&=\lim_{t\to0}\dfrac{t^{\cancel{3}}v_1v_2^2}{\cancel{t}(t^2v_1^2+t^4v_2^4)}=\lim_{t\to0}\dfrac{\cancel{t^{2}}(v_1v_2^2)}{\cancel{t^{2}}(v_1^2+t^2v_2^4)}=\lim_{t\to0}\dfrac{v_1v_2^2}{v_2^2+\tozero{t^2v_2^4}}=\dfrac{\cancel{v_1}v_2^2}{v_1^{\cancel{2}}}=\dfrac{v_2^2}{v_1}
+	\end{aligned} \]
+	
+	La derivada direccional existe para cualquier vector $\mathrm{v}=(v_1,v_2)$ y está dada por \[ D_{\mathrm{v}}f(0,0)=\begin{cases}
+	\dfrac{v_2^2}{v_1}, & \text{si }v_1\neq0\\
+	0 & \text{si }v_1=0\text{ y }v_2=0
+	\end{cases} \]
+	\item Diferenciabilidad de $f(x,y)$ en $(0,0)$:
+	
+	La función $f(x,y)$ es diferenciable en $(0,0)$ si existe: \[ \lim_{(h,k)\to(0,0)}\dfrac{\left|f(h,k)-f(0,0)-\frac{\partial f}{\partial x}(0,0)h-\frac{\partial f}{\partial y}(0,0)k\right|}{\sqrt{h^2+k^2}}=0 \]
+	
+	Esto requiere calcular las derivadas parciales en $(0,0)$.
+	
+	$\begin{array}{l}
+	\dfrac{\partial f}{\partial x}=\lim_{h\to0}\dfrac{f(h,0)- f(0,0)}{h}=\lim_{h\to0}\dfrac{0-0}{h}=0\\
+	\dfrac{\partial f}{\partial y}=\lim_{k\to0}\dfrac{f(0,k)- f(0,0)}{k}=\lim_{k\to0}\dfrac{0-0}{k}=0\\
+	\end{array}$
+	
+	Si $f(x,y)$ fuera diferenciable en $(0,0)$, las derivadas direccionales serían consistentes con las derivadas parciales. Sin embargo, observamos que \[ D_{\mathrm{v}}f(0,0)=\dfrac{v_2^2}{v_1},\quad\text{si }v_1\neq0, \]y esto depende de la dirección $\mathrm{v}=(v_1,v_2)$, lo cual indica que $f(x,y)$ no puede aproximarse localmente por una aplicación lineal.
+	
+	La función no es diferenciable en $(0,0)$ porque las derivadas direccionales no son consistentes con una aproximación lineal.
+\end{itemize}
+
+\item \lb{Calcular las derivadas parciales de la función \[ f(x,y)=x^{2}\tan\dfrac{y^2}{x^2+y^2} \]definida para todo punto de $\R^2\backslash\{(0,0)\}$, y comprobar que \[ xD_1f(x,y)+yD_2f(x,y)=2f(x,y) \]}
+
+Denotamos $u=\dfrac{y^{2}}{x^2+y^2}$. Entonces: \[ f(x,y)=x^{2}\tan(u) \]
+
+$\dfrac{\partial f}{\partial x}=2x\tan(u)+x^{2}(\tan^{2}(u)+1)\dfrac{\partial u}{\partial x}=2x\tan(u)+x^{2}(\tan^{2}(u)+1)\cdot\left(-\dfrac{2xy^{2}}{(x^{2}+y^{2})^{2}}\right)$
+
+$\begin{aligned}
+\dfrac{\partial f}{\partial y}&=x^{2}(\tan^{2}+1)\cdot\dfrac{\partial u}{\partial y}=x^{2}(\tan^{2}(u)+1)\cdot\left(\dfrac{2y(x^{2+y^{2}-y^{2}\cdot2y})}{(x^{2}+y^{2})^{2}}\right)=x^{2}(\tan^{2}(u)+1)\cdot\left(\dfrac{2x^{2}y+\cancel{2y^{3}}-\cancel{2y^{3}}}{(x^{2}+y^{2})^{2}}\right)\\
+&=x^{2}(\tan^{2}(u)+1)\cdot\left(\dfrac{2x^{2}y}{(x^{2}+y^{2})^{2}}\right)
+\end{aligned}$
+
+$\begin{aligned}
+xD_1f(x,y)+yD_2f(x,y)&=x\cdot\left[2x\tan(u)+x^{2}(\tan^{2}(u)+1)\cdot\left(-\dfrac{2xy^{2}}{(x^{2}+y^{2})^{2}}\right)\right]+y\cdot\left[x^{2}(\tan^{2}(u)+1)\cdot\left(\dfrac{2x^{2}y}{(x^{2}+y^{2})^{2}}\right)\right]\\
+&=2x^{2}\tan(u)-\cancel{\dfrac{2x^{4}y^{2}}{(x^{2}+y^{2})^{2}}\cdot(\tan^{2}(u)+1)}+\cancel{\dfrac{2x^{4}y^{2}}{(x^{2}+y^{2})^{2}}\cdot(\tan^{2}(u)+1)} = 2x^{2}\tan(u)
+\end{aligned}$
+
+Por lo tanto: \[ x\cdot\dfrac{\partial f}{\partial x}+y\cdot\dfrac{\partial f}{\partial y}=2\cdot f(x,y) \]
+
+\item \lb{Calcular las derivadas parciales de la función \[ f(x,y)=\dfrac{\sqrt{x}+\sqrt{y}}{x+y} \]definida en el conjunto $\{(x,y):x>0,y>0\}$, y comprobar que \[ xD_1f(x,y)+yD_2f(x,y)=-\dfrac{1}{2}f(x,y) \]}
+
+$\dfrac{\partial f}{\partial x}=\dfrac{\dfrac{1}{2\sqrt{x}}(x+y)-(\sqrt{x}+\sqrt{y})\cdot1}{(x+y)^{2}}=\dfrac{\dfrac{1}{2\sqrt{x}}(x+y)-(\sqrt{x}+\sqrt{y})}{(x+y)^{2}}$
+
+$\dfrac{\partial f}{\partial y}=\dfrac{\dfrac{1}{2\sqrt{y}}(x+y)-(\sqrt{x}+\sqrt{y})\cdot1}{(x+y)^{2}}=\dfrac{\dfrac{1}{2\sqrt{y}}(x+y)-(\sqrt{x}+\sqrt{y})}{(x+y)^{2}}$
+
+$\begin{aligned}
+x\cdot\dfrac{\partial f}{\partial y}+y\cdot\dfrac{\partial f}{\partial y}&=x\cdot\dfrac{\dfrac{1}{2\sqrt{x}}(x+y)-(\sqrt{x}+\sqrt{y})}{(x+y)^{2}}+y\cdot\dfrac{\dfrac{1}{2\sqrt{y}}(x+y)-(\sqrt{x}+\sqrt{y})}{(x+y)^{2}}\\
+&=\dfrac{x\cdot\left(\dfrac{1}{2\sqrt{x}}(x+y)-(\sqrt{x}+\sqrt{y})\right)+y\cdot\left(\dfrac{1}{2\sqrt{y}}(x+y)-(\sqrt{x}+\sqrt{y})\right)}{(x+y)^{2}}\\
+& =\dfrac{\dfrac{\sqrt{x}}{2}(x+y)-x(\sqrt{x}+\sqrt{y})+\dfrac{\sqrt{y}}{2}(x+y)-y(\sqrt{x}+\sqrt{y})}{(x+y)^2}\\
+&=\dfrac{\dfrac{1}{2}(\sqrt{x}+\sqrt{y})(x+y)-(\sqrt{x}+\sqrt{y})(x+y)}{(x+y)^{2}}=\dfrac{\left(\dfrac{1}{2}-1\right)(\sqrt{x}+\sqrt{y})\cancel{(x+y)}}{(x+y)^{\cancel{2}}}=-\dfrac{1}{2}\cdot\dfrac{\sqrt{x}+\sqrt{y}}{x+y}
+\end{aligned}$
+
+Por lo tanto: \[ x\cdot\dfrac{\partial f}{\partial x}+y\cdot\dfrac{\partial f}{\partial y}=-\dfrac{1}{2}\cdot f(x,y) \]
+
+\item \lb{Calcular las derivadas parciales de la función \[ f(x,y)=y\cdot\log\dfrac{x^{3}y}{x^{2}+y^{2}} \]definida en el conjunto $\{(x,y):x>0,y>0\}$, y calcular su diferencial en el punto $(1,1)$.}
+
+$\begin{aligned}
+\dfrac{\partial f}{\partial x}&=y\cdot\dfrac{1}{\dfrac{x^{3}y}{x^{2}+y^{2}}}\cdot\dfrac{3x^{2}y\cdot(x^{2}+y^{2})-x^{3}y\cdot2x}{(x^{2}+y^{2})^{2}}=\dfrac{\cancel{x^{2}+y^{2}}}{x^{3}y}\cdot\dfrac{3x^{4}y+3x^{2}y^{3}-2x^{4}y}{(x^{2}+y^{2})^{\cancel{2}}}\cdot y\\
+&=y\cdot\dfrac{x^{4}y+3x^{2}y^{3}}{x^{3}y(x^{2}+y^{2})}=\cancel{y}\cdot\dfrac{x^{4}y+3x^{2}y^{3}}{x^{5}\cancel{y}+x^{3}y^{\cancel{3}}}=\dfrac{x^{4}y+3x^{2}y^{3}}{x^{5}+x^{3}y^{2}}
+\end{aligned}$
+
+$\dfrac{\partial f}{\partial y}=1\cdot\log\dfrac{x^{3}y}{x^{2}+y^{2}}+\cancel{y}\cdot\dfrac{\cancel{x^{2}+y^{2}}}{\cancel{x^{3}y}}\cdot\dfrac{\cancel{x^{3}}(x^{2}+y^{2})-\cancel{x^{3}}y\cdot2y}{(x^{2}+y^{2})^{\cancel{2}}}=\log\dfrac{x^{3}y}{x^{2}+y^{2}}+\dfrac{x^{2}+y^{2}-2y^{2}}{x^{2}+y^{2}}=\log\dfrac{x^{3}y}{x^{2}+y^{2}}+\dfrac{x^{2}-y^{2}}{x^{2}+y^{2}}$
+
+$\begin{array}{l}
+\dfrac{\partial f}{\partial x}(1,1)=\dfrac{1^{3}\cdot1+3\cdot1^{2}\cdot1^{3}}{1^{5}+1^{3}\cdot y^{2}}=\dfrac{4}{2}=2\\
+\dfrac{\partial f}{\partial y}(1,1)=\log\dfrac{1^{3}\cdot 1}{1^{2}+1^{2}}+\tozero{\dfrac{1^{2}-1^{2}}{1^{2}+1^{2}}}=\log\dfrac{1}{2}
+\end{array}$
+
+El diferencial en $(1,1)$ es: \[ \mathrm{d}f=\dfrac{\partial f}{\partial x}\dx+\dfrac{\partial f}{\partial y}(1,1)\dy=2\dx+\log\dfrac{1}{2}\dy \]
+
+\item \lb{Calcular las derivadas parciales de la función \[ f(x,y)=\sqrt{xy+\dfrac{x}{y}} \]definida en el conjunto $\{(x,y):x>0,y>0\}$, y calcular su diferencial en el punto $(2,1)$.}
+
+$\begin{array}{l}
+\dfrac{\partial f}{\partial x}=\dfrac{1}{2\sqrt{xy+\frac{x}{y}}}\cdot\left(y+\dfrac{1}{y}\right)\longrightarrow\dfrac{\partial f}{\partial x}(2,1)=\dfrac{1}{2\sqrt{2\cdot 1+\frac{2}{1}}}\cdot\left(1+\dfrac{1}{1}\right)=\dfrac{2}{2\sqrt{4}}=\dfrac{1}{2}\\
+\dfrac{\partial f}{\partial y}=\dfrac{1}{2\sqrt{xy+\frac{x}{y}}}\cdot\left(x-\dfrac{y}{x^{2}}\right)\longrightarrow\dfrac{\partial f}{\partial y}(2,1)=\dfrac{1}{2\sqrt{2\cdot1+\frac{2}{1}}}\cdot\left(2-\dfrac{2}{1}\right)=0\\
+\end{array}$
+
+El diferencial en $(2,1)$ es: \[ \mathrm{d}f=\dfrac{\partial f}{\partial x}(2,1)\dx+\dfrac{\partial f}{\partial y}(2,1)\dy=\dfrac{1}{2}\dx \]
+
+\item \lb{Dada la función $\vec{f}:\R^{2}\to\R^{2}$ definida por \[ \vec{f}(x,y)=\left(x^{4}+y^{3},x^{2}y^{2}-3y^{2}\right) \]formar su matriz jacobiana en el punto $(1,1)$. Comprobar que $\vec{f}$ es diferenciable en dicho punto y calcular su diferencial.}
+
+$f(x,y)=\left(x^{4}+y^{3},x^{2}y^{2}-3y^{2}\right)=\begin{cases}
+f_1(x,y)=x^{4}+y^{3}\\
+f_2(x,y)=x^{2}y^{2}-3y^{2}
+\end{cases}$
+
+$J(f)=\begin{pmatrix}
+\dfrac{\partial f_1}{\partial x} & \dfrac{\partial f_1}{\partial y} \\
+\dfrac{\partial f_{2}}{\partial x} & \dfrac{\partial f_2}{\partial y}
+\end{pmatrix}=\begin{pmatrix}
+4x^{3} & 3y^2 \\
+ 2xy^{2} & 2x^{2}y-6y
+\end{pmatrix}\longrightarrow J(1,1)=\begin{pmatrix}
+4 & 3 \\
+2 & -4
+\end{pmatrix}$
+
+Como todas las funciones son continuas y con derivadas primeras continuas, podemos asegurar que es diferenciable.
+
+Su diferencial, al ser una función vectorial, vendrá dado por:
+\[ \begin{aligned}
+\mathrm{d}f(P)(h,k)&=J(f)(P)(h,k)=\mathrm{d}f(1,1)(h,k)=J(f)(1,1)\binom{h}{k}\\
+&=\begin{pmatrix}
+4 & 3 \\
+2 & -4
+\end{pmatrix}\cdot\begin{pmatrix}
+h\\
+k
+\end{pmatrix}=\begin{pmatrix}
+4h+3k\\
+2h-4k
+\end{pmatrix}\longrightarrow \mathrm{d}f(1,1)(h,k)=(4h+3k,\,2h-4k)
+\end{aligned} \]
+
+\item \lb{Dada la función $\vec{f}:\R^{2}\to\R^{3}$ definida por \[ \vec{f}(x,y)=(x\cos y,x\sin y,x\cos y\sin y) \]formar su matriz jacobiana en el punto $\left(\pi,\dfrac{\pi}{2}\right)$. Comprobar que $\vec{f}$ es diferenciable en dicho punto y calcular su diferencial.}
+
+$\vec{f}(x,y)=(x\cos y,x\sin y,x\cos y\sin y)=\begin{cases}
+f_{1}(x,y)=x\cos y\\
+f_{2}(x,y)=x\sin y\\
+f_{3}(x,y)=x\cos y\sin y
+\end{cases}$
+
+$J(f)=\begin{pmatrix}
+\dfrac{\partial f_{1}}{\partial x} & \dfrac{\partial f_1}{\partial y} \\ 
+\dfrac{\partial f_{2}}{\partial x} & \dfrac{\partial f_2}{\partial y} \\ 
+\dfrac{\partial f_{3}}{\partial x} & \dfrac{\partial f_3}{\partial y} \\ 
+\end{pmatrix}=\begin{pmatrix}
+\cos y & -x\sin y \\ 
+\sin y & x\cos y \\ 
+\cos y\sin y & x(-\sin^{2}y+\cos^{2}y)
+\end{pmatrix}\longrightarrow J(f)\left(\pi,\dfrac{\pi}{2}\right)=\begin{pmatrix}
+0 & -\pi \\ 
+1 & 0 \\ 
+0 & -\pi
+\end{pmatrix}  $
+
+Como todas las funciones son continuas y con derivadas primeras continuas, entonces podemos asegurar que todas las funciones coordenada son $C^{1}$, por lo tanto la función $\vec{f}(x,y)$ es también $C^{1}$ y también es diferenciable.
+
+\[ \begin{aligned}
+\mathrm{d}f(P)(h,k)&=J(f)(P)(h,k)=\mathrm{d}f\left(\pi,\dfrac{\pi}{2}\right)(h,k)=J(f)\left(\pi,\dfrac{\pi}{2}\right)\binom{h}{k}\\
+&=\begin{pmatrix}
+0 & -\pi \\ 
+1 & 0 \\ 
+0 & -\pi
+\end{pmatrix}\cdot\begin{pmatrix}
+h\\
+k
+\end{pmatrix}=\left(-\pi k,\,h,\,-\pi k\right)\longrightarrow \mathrm{d}f\left(\pi,\dfrac{\pi}{2}\right)(h,k)=\left(-\pi k,\,h,\,-\pi k\right)
+\end{aligned} \]
+
+\item \lb{Comprobar que la función $\vec{f}:\R^{3}\to\R^{3}$ definida por \[ \vec{f}(x,y,z)=(x^{2}+yz-z^{2},\, xy-xz+2z^{2},\, xyz) \]es diferenciable en todo punto de $\R^{3}$ y calcularla en el punto $(3,2,1)$.}
+
+$\vec{f}(x,y,z)=(x^{2}+yz-z^{2},\, xy-xz+2z^{2},\, xyz)=\begin{cases}
+f_1(x,y,z)=x^{2}+yz-z^{2}\\
+f_2(x,y,z)=xy-xz+2z^{2}\\
+f_3(x,y,z)=xyz
+\end{cases}$
+
+Como todas las funciones son continuas y con derivadas primeras continuas, entonces podemos asegurar que son diferenciables, por consecuencia, $\vec{f}(x,y,z)$ también es diferenciable.
+
+$J(f)=\begin{pmatrix}
+\dfrac{\partial f_{1}}{\partial x} & \dfrac{\partial f_1}{\partial y} & \dfrac{\partial f_1}{\partial z} \\ 
+\dfrac{\partial f_{2}}{\partial x} & \dfrac{\partial f_2}{\partial y} & \dfrac{\partial f_2}{\partial z} \\ 
+\dfrac{\partial f_{3}}{\partial x} & \dfrac{\partial f_3}{\partial y} & \dfrac{\partial f_3}{\partial z} \\ 
+\end{pmatrix}=\begin{pmatrix}
+2x & z & y-2z \\
+y-z & x & -x+4z \\
+yz & xz & xy
+\end{pmatrix}\longrightarrow J(f)(3,2,1)=\begin{pmatrix}
+6 & 1 & 0 \\
+1 & 3 & 1 \\
+2 & 3 & 6
+\end{pmatrix}$
+
+Su diferencial al ser una función vectorial, vendrá dado por:
+\[ \begin{aligned}
+\mathrm{d}f(P)(h,k,j)&=J(f)(P)(h,k,j)\longrightarrow\mathrm{d}f(3,2,1)(h,k,j)=J(f)(3,2,1)\begin{pmatrix}
+h\\
+k\\
+j
+\end{pmatrix}\\
+&=\begin{pmatrix}
+6 & 1 & 0 \\
+1 & 3 & 1 \\
+2 & 3 & 6
+\end{pmatrix}\cdot\begin{pmatrix}
+h\\
+k\\
+j
+\end{pmatrix}=(6h+k,\, h+3k+j,\, 2h+3k+6j)\\
+&\longrightarrow \mathrm{d}f(3,2,1)(h,k,j)=(6h+k,\, h+3k+j,\, 2h+3k+6j)
+\end{aligned} \]
+
+\item \lb{Calcular la matriz jacobiana de las siguientes funciones:}
+\begin{enumerate}[label=\color{red}\textbf{\alph*)}]
+	\item $\db{f(x,y,z)=x^{y+z}}$
+	
+	$J(f)=\begin{pmatrix}
+	\dfrac{\partial f}{\partial x} & \dfrac{\partial f}{\partial y} & \dfrac{\partial f}{\partial z}
+	\end{pmatrix}=\begin{pmatrix}
+	(y+z)x^{y+z-1} & x^{y+z}\cdot\ln(x) & x^{y+z}\cdot\ln(x)
+	\end{pmatrix}$
+	
+	\item $\db{f(x,y,z)=x^{y^{z}}}$
+	
+	$J(f)=\begin{pmatrix}
+		\dfrac{\partial f}{\partial x} & \dfrac{\partial f}{\partial y} & \dfrac{\partial f}{\partial z}
+		\end{pmatrix}=\begin{pmatrix}
+		y^{z}\cdot x^{y^{z}-1} & x^{y^{z}}\cdot\ln(x)\cdot z\cdot y^{z-1} & x^{y^{z}}\cdot\ln(x)\cdot y^{z}\cdot\ln(y)
+		\end{pmatrix}$
+		
+	\item $\db{f(x,y,z)=\sin(x\sin(y\sin z))}$
+	
+	$J(f)=\begin{pmatrix}
+			\dfrac{\partial f}{\partial x} & \dfrac{\partial f}{\partial y} & \dfrac{\partial f}{\partial z}
+			\end{pmatrix}\\=
+			\left(\cos(x\sin(y\sin z))\cdot(\sin(y\sin z)), \cos(x\sin(y\sin z))\cdot x\cdot\cos(y\sin z)\cdot\sin z , \cos(x\sin(y\sin z))\cdot x\cdot \cos(y\sin z)\cdot y\cos z\right)$
+			
+	\item $\db{\vec{f}(x,y)=(\sin(xy), \sin(x\sin y), x^{4})}$
+	
+	$J(f)=\begin{pmatrix}
+	\dfrac{\partial f_1}{\partial x} & \dfrac{\partial f_1}{\partial y}\\
+	\dfrac{\partial f_2}{\partial x} & \dfrac{\partial f_2}{\partial y}\\
+	\dfrac{\partial f_3}{\partial x} & \dfrac{\partial f_3}{\partial y}\\
+	\end{pmatrix}=\begin{pmatrix}
+	\cos(xy)\cdot y & \cos(x,y)\cdot x\\
+	\cos(x\sin y)\cdot\sin y & \cos(x\sin y)\cdot x\cdot\cos(y)\\
+	4x^{3} & 0
+	\end{pmatrix}$
+\end{enumerate}
+
+\item \lb{Sea $f:\R^{2}\to\R^{2}$ definida por \[ f(x,y)=\begin{cases}
+\left(x^{2}+x^{2}\sin\dfrac{1}{x},\:y\right) & \text{si }(x,y)\neq(0,0)\\
+(0,y) & \text{si }(x,y)=(0,y)
+\end{cases} \]Comprobar que $f$ es diferenciable.}
+
+$f(x,y)=\begin{cases}
+\left(x^{2}+x^{2}\sin\dfrac{1}{x},\:y\right) & \text{si }x\neq0\\
+(0,y) & \text{si }x=0
+\end{cases}$
+\begin{itemize}
+\item Caso $x\neq0$:
+
+La función es $C^{1}$ en esta región porque las funciones $x^{2},\,\sin\dfrac{1}{x}$, y $y$ son derivables, y no hay discontinuidades cuando $x\neq0$. Por lo tanto, $f$ es diferenciable en esta región.
+
+\item Caso $x=0$:
+
+Cuando $x=0$, la función se define como \[ f(x,y)=(0,y) \]En este caso, debemos comprobar la diferenciabilidad en el punto $(0,y_0)$ para cualquier $y_0$. Empezamos calculando las derivadas parciales.
+\begin{itemize}[label=\textbullet]
+	\item Primera componente $f_1(x,y)$: \[ f_1(x,y)=\begin{cases}
+	x^{2}+x^{2}\sin\dfrac{1}{x} & \text{si }x\neq0\\
+	0 & \text{si }x=0
+	\end{cases} \] Para $x\neq0$, la derivada parcial respecto a $x$ es: \[ \dfrac{\partial f_1}{\partial x}=2x+2x\sin\dfrac{1}{x}+\cancel{x^{2}}\cos\dfrac{1}{x}\cdot\left(-\dfrac{1}{\cancel{x^{2}}}\right)=2x+2x\sin\dfrac{1}{x}-\cos\dfrac{1}{x} \]
+	\item Segunda componente $f_2(x,y)$: \[ f_2(x,y)=y \] La derivada parcial respecto a $y$ es constante, y vale $1$ en todo $\R^{2}$.
+\end{itemize}
+En el caso $x=0$, el comportamiento de $\dfrac{\partial f_1}{\partial x}$ es consistente con la definición y es continuo. Por lo tanto, todas las derivadas son continuas en $(0,y_0)$.
+
+Dado que la función $f(x,y)$ es de clase $C^{1}$ en $x\neq0$ y las derivadas parciales son continuas en $x=0$, podemos concluir que $f(x,y)$ es diferenciable en $\R^{2}$.
+\end{itemize}
+
+\item \lb{Sabiendo que $f(x,y)=\sqrt{\log(xy)+\arcsin\dfrac{y}{x}}$, calcular \[ xf(x,y)D_1f(x,y)+yf(x,y)D_2f(x,y). \]}
+
+$\begin{array}{l}
+\dfrac{\partial f}{\partial x}=\dfrac{1}{2\sqrt{\log(xy)+\arcsin\dfrac{y}{x}}}\cdot\left(\dfrac{1}{x\cancel{y}}\cdot \cancel{y}+\dfrac{1}{\sqrt{1-\dfrac{y^{2}}{x^{2}}}}\cdot\left(-\dfrac{y}{x^{2}}\right)\right)\\
+\dfrac{\partial f}{\partial y}=\dfrac{1}{2\sqrt{\log(xy)+\arcsin\dfrac{y}{x}}}\cdot\left(\dfrac{1}{\cancel{x}y}\cdot\cancel{x}+\dfrac{1}{\sqrt{1-\dfrac{y^{2}}{x^{2}}}}\cdot\dfrac{1}{x}\right)
+\end{array}$
+
+$\begin{aligned}
+xf(x,y)D_1f(x,y)+yf(x,y)D_2f(x,y)=&x\cdot\cancel{\sqrt{\log(xy)+\arcsin\dfrac{y}{x}}}\cdot\dfrac{1}{2\cancel{\sqrt{\log(xy)+\arcsin\dfrac{y}{x}}}}\left(\dfrac{1}{x}-\dfrac{y}{x^{2}\sqrt{1-\dfrac{y^{2}}{x^{2}}}}\right)\\
+&+y\cdot\cancel{\sqrt{\log(xy)+\arcsin\dfrac{y}{x}}}\cdot\dfrac{1}{2\cancel{\sqrt{\log(xy)+\arcsin\dfrac{y}{x}}}}\left(\dfrac{1}{y}+\dfrac{1}{x\sqrt{1-\dfrac{y^{2}}{x^{2}}}}\right)\\
+=&\dfrac{1}{2}-\cancel{\dfrac{y}{2x\sqrt{1-\dfrac{y^{2}}{x^{2}}}}}+\dfrac{1}{2}+\cancel{\dfrac{y}{2x\sqrt{1-\dfrac{y^{2}}{x^{2}}}}}=1
+\end{aligned}$
+
+\item \lb{Sabiendo que $f(x,y)=\sin\dfrac{2x+y}{2x-y}$, calcular \[ xD_1f(x,y)+yD_2f(x,y). \]}
+
+$\begin{array}{l}
+\dfrac{\partial f}{\partial x}=\cos\dfrac{2x+y}{2x-y}\cdot\left(\dfrac{2\cdot(2x-y)-(2x+y)\cdot2}{(2x-y)^{2}}\right)=\cos\dfrac{2x+y}{2x-y}\cdot\left(\dfrac{\cancel{4x}-2y-\cancel{4x}-2y}{(2x-y)^{2}}\right)=\cos\dfrac{2x+y}{2x-y}\cdot\left(\dfrac{-4y}{(2x-y)^{2}}\right)\\
+\dfrac{\partial f}{\partial y}=\cos\dfrac{2x+y}{2x-y}\cdot\left(\dfrac{1\cdot(2x-y)-(2x+y)\cdot(-1)}{(2x-y)^{2}}\right)=\cos\dfrac{2x+y}{2x-y}\cdot\left(\dfrac{2x-\cancel{y}+2x+\cancel{y}}{(2x-y)^{2}}\right)=\cos\dfrac{2x+y}{2x-y}\cdot\left(\dfrac{4x}{(2x-y)^{2}}\right)
+\end{array}$
+
+$\begin{aligned}
+xD_1f(x,y)+yD_2f(x,y)&=x\cdot\cos\dfrac{2x+y}{2x-y}\cdot\left(\dfrac{-4y}{(2x-y)^{2}}\right)+y\cdot\cos\dfrac{2x+y}{2x-y}\cdot\left(\dfrac{4x}{(2x-y)^{2}}\right)\\
+&=\cos\dfrac{2x+y}{2x-y}\cdot\cancel{\left(\dfrac{-4xy}{(2x-y)^{2}}+\dfrac{4xy}{(2x-y)^{2}}\right)}=0
+\end{aligned}$
+
+\item \lb{Hallar la ecuación del plano tangente a la superficie $z=x^{2}+y^{2}$ en los punto $(0,0)$ y $(1,2)$.}
+
+La ecuación del plano tangente, viene dada por: \[ z-c=\dfrac{\partial f}{\partial x}(a,b)(x-a)+\dfrac{\partial f}{\partial y}(a,b)(y-b) \]
+\begin{itemize}
+\item Para el punto $(0,0)$:
+
+$\begin{array}{l}
+c=f(0,0)=0\\
+\dfrac{\partial f}{\partial x}=2x\longrightarrow\dfrac{\partial f}{\partial x}(0,0)=0\\
+\dfrac{\partial f}{\partial y}=2y\longrightarrow\dfrac{\partial f}{\partial y}(0,0)=0\\
+\end{array}\qquad z-0=\dfrac{\partial f}{\partial x}(0,0)x+\dfrac{\partial f}{\partial y}(0,0)y\longrightarrow z=0$
+
+\item Para el punto $(1,2)$
+
+$\begin{array}{l}
+c=f(1,2)=1^2+2^2=5\\
+\dfrac{\partial f}{\partial x}=2x\longrightarrow\dfrac{\partial f}{\partial x}(1,2)=2\\
+\dfrac{\partial f}{\partial y}=2y\longrightarrow\dfrac{\partial f}{\partial y}(1,2)=4
+\end{array}\qquad \begin{aligned}
+z-5=\dfrac{\partial f}{\partial x}(1,2)(x-1)+\dfrac{\partial f}{\partial y}(1,2)(y-2)&\longrightarrow z-5=2(x-1)+4(y-2)\\
+&\longrightarrow z=2x-2+4y-8+5\\
+&\longrightarrow z=2x+4y-5
+\end{aligned}$
+\end{itemize}
+
+\item \lb{Hallar la ecuación del plano tangente a la superficie $z=\log x^{2}+\log y^{2}$ en los puntos $(3,1)$ y $(x_0,y_0)$.}
+
+
+\end{enumerate}
+
+\begin{center}
+\noindent\rule{0.5\textwidth}{0.5pt}
+\end{center}
+
+\begin{enumerate}[label=\color{red}\textbf{\arabic*)}, leftmargin=*]
+	\item 
+\end{enumerate}
+\end{document}
