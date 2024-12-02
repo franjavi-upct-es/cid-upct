@@ -403,7 +403,7 @@ analyse_complexity(test_cases)
     -   $E$ es el presupuesto total.
     -   $K$ es el número de tapas por bar (constante, $K=3$)
 
-    $K$ es número constante por lo que no entra en el orden de ejecución y como $n$ y $e$ son dos variable determinadas, cota superior tiene un orden de $O(n^2)$.
+    $K$ es número constante por lo que no entra en el orden de ejecución y como $N$ y $E$ son dos variable determinadas, cota superior tiene un orden de $O(n^2)$.
 
 -   **Reconstrucción de la solución:** $O(N\times K)$, pero dado que $K$ es constante, es $O(N)$.
 
