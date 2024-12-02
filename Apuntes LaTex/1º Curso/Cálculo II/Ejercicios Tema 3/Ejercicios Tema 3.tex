@@ -419,7 +419,121 @@ z-5=\dfrac{\partial f}{\partial x}(1,2)(x-1)+\dfrac{\partial f}{\partial y}(1,2)
 
 \item \lb{Hallar la ecuación del plano tangente a la superficie $z=\log x^{2}+\log y^{2}$ en los puntos $(3,1)$ y $(x_0,y_0)$.}
 
+La del plano tangente, viene dada por: \[ z-c=\dfrac{\partial f}{\partial x}(a,b)(x-a)+\dfrac{\partial f}{\partial y}(a,b)(y-b) \]
+\begin{itemize}
+\item Para el punto $(3,1)$:
 
+$\begin{array}{l}
+c=f(3,1)=\log(3^2)+\log(1^2)=\log(9\cdot1)=\log(9)\\
+\dfrac{\partial f}{\partial x}=\dfrac{1}{x^{\cancel{2}}}\cdot 2\cancel{x}=\dfrac{2}{x}\longrightarrow\dfrac{\partial f}{\partial x}(3,1)=\dfrac{2}{3}\\
+\dfrac{\partial f}{\partial y}=\dfrac{1}{y^{\cancel{2}}}\cdot 2\cancel{y}=\dfrac{2}{y}\longrightarrow\dfrac{\partial f}{\partial y}(3,1)=2
+\end{array}\qquad \begin{aligned}
+z-\log(9)&=\dfrac{2}{3}(x-3)+2(y-1)\\
+z&=\dfrac{2}{3}x-2+2y-2+\log(9)\\
+z&=\dfrac{2}{3}x+2y-4+\log(9)
+\end{aligned}$
+
+\item Para el punto $(x_0)$
+
+$\begin{array}{l}
+c=f(x_0,y_0)=\log(x_0^2)+\log(y_0^2)=\log(x_0\cdot y_0)\\
+\dfrac{\partial f}{\partial x}=\dfrac{1}{x^{\cancel{2}}}\cdot 2\cancel{x}=\dfrac{2}{x}\longrightarrow\dfrac{\partial f}{\partial x}(x_0,y_0)=\dfrac{2}{x_0}\\
+\dfrac{\partial f}{\partial y}=\dfrac{1}{y^{\cancel{2}}}\cdot 2\cancel{y}=\dfrac{2}{y}\longrightarrow\dfrac{\partial f}{\partial y}(x_0,y_0)=\dfrac{2}{y_0}
+\end{array}\qquad \begin{aligned}
+z-\log(x_0\cdot y_0)&=\dfrac{2}{x_0}(x-x_0)+\dfrac{2}{y_0}(y-y_0)\\
+\end{aligned}$
+\end{itemize}
+
+\item \lb{Sea $A$ un abierto de $\R^{3}$ y $f:A\subseteq\R^3\to\R$. Supongamos que $f$ es diferenciable en un punto $(a_{1},a_{2},a_{3})\in A$ y que $Df(a_{1},a_{2},a_{3})(x_1,x_2,x_3)=x_1+x_2+x_3$ para todo $(x_1,x_2,x_3)\in\R^3$. Calcular $D_{\mathrm{v}}f(a_1,a_2,a_3)$ siendo $v$ el vector siguiente:}
+
+Sabemos que la derivada linea $Df(a_1,a_2,a_3)(x_1,x_2,x_3)$ es: \[ Df(a_{1},a_{2},a_{3})(x_1,x_2,x_3)=x_1+x_2+x_3. \]Esto implica que el gradiente de $f$ en cualquier punto $(a_1,a_2,a_3)$ es: \[ \nabla f(a_1,a_2,a_3)=(1,1,1) \]
+
+La derivada direccional en la dirección del vector $\mathrm{v}=(v_1,v_2,v_3)$ se calcula como: \[ D_{\mathrm{v}}f(a_1,a_2,a_3)=\nabla f(a_1,a_2,a_3)\cdot\mathrm{v}=(1,1,1)\cdot(v_1,v_2,v_3). \]El producto escalar es: \[D_{\mathrm{v}}f(a_1,a_2,a_3)=1\cdot v_1+1\cdot v_2+1\cdot v_3=v_1+v_2+v_3.  \]
+\begin{enumerate}[label=\color{red}\textbf{\alph*)}]
+	\item $\db{v=(1,2,3)}$
+	
+	$D_{\mathrm{v}}f(a_1,a_2,a_3)=1+2+3=6$
+	
+	\item $\db{v=(0,1,1)}$
+	
+	$D_{\mathrm{v}}f(a_1,a_2,a_3)=0+1+1=2$
+	
+	\item $\db{v=(-1,1,2)}$
+	
+	$D_{\mathrm{v}}f(a_{1},a_2,a_3)=-1+1+2=2$
+\end{enumerate}
+
+\item \lb{Sea $A$ un abierto de $\R^{3}$ y $\vec{f}:A\subseteq\R^3\to\R^{2}$. Supongamos que $\vec{f}$ es diferenciable en un punto $(a_1,a_2,a_3)\in A$. Si $\vec{f}=(f_1,f_2)$ y $D_{\mathrm{v}_i}f_j(a_1,a_2,a_3)=i+j$ para $j=1,2$ e $i=1,2,3$ donde $v_1=(1,1,1)$, $v_2=(0,1,1)$ y $v_3=(0,0,1)$, determinar el diferencial de $\vec{f}$ en dicho punto.}
+
+Para determinar diferencial de la función vectorial $\vec{f}$ en el punto $(a_1,a_2,a_3)$, recordemos que el diferencial es una matriz $2\times 3$ que contiene las derivadas parciales de cada componente de $\vec{f}$: \[ Df(a_1,a_2,a_3)=\begin{bmatrix}
+\dfrac{\partial f_1}{\partial x_1} & \dfrac{\partial f_1}{\partial x_2} & \dfrac{\partial f_1}{x_3}\\
+\dfrac{\partial f_2}{\partial x_1} & \dfrac{\partial f_2}{\partial x_2} & \dfrac{\partial f_2}{x_3}\\
+\end{bmatrix}. \]
+Dado que conocemos las derivadas direccionales de $f_1$ y $f_2$ en las direcciones de los vectores $v_1=(1,1,1)$, $v_2=(0,1,1)$ y $v_3=(0,0,1)$, podemos usar la relación entre la derivada direccional y las derivadas parciales: \[ D_{\mathrm{v}_i}f_j(a_1,a_2,a_3)=\nabla f_j(a_1,a_2,a_3)\cdot \mathrm{v}_i, \]donde $\nabla f_j(a_1,a_2,a_3)=\left(\dfrac{\partial f_j}{\partial x_1},\dfrac{\partial f_j}{\partial x_2},\dfrac{\partial f_j}{\partial x_3}\right)$.
+
+Con esta información, determinaremos las derivadas parciales.
+
+\begin{itemize}
+\item Componente $f_1(j=1):$
+\begin{enumerate}[label=\arabic*)]
+	\item Para $i=1(v_1=(1,1,1))$: \[ D_{\mathrm{v}_1}f_1(a_1,a_2,a_3)=\dfrac{\partial f_1}{\partial x_1}\cdot 1+\dfrac{\partial f_1}{\partial x_2}\cdot 1+\dfrac{\partial f_1}{\partial x_3}\cdot 1=1+1=2\longrightarrow\dfrac{\partial f_1}{\partial x_1}+\dfrac{\partial f_1}{\partial x_2}+\dfrac{\partial f_1}{\partial x_3}=2 \]
+	\item Para $i=2(v_2=(0,1,1))$: \[ D_{\mathrm{v}_2}f_1(a_1,a_2,a_3)=\dfrac{\partial f_1}{\partial x_1}\cdot 0+\dfrac{\partial f_1}{\partial x_2}\cdot 1+\dfrac{\partial f_1}{\partial x_3}\cdot 1=1+2=3\longrightarrow\dfrac{\partial f_1}{\partial x_2}+\dfrac{\partial f_1}{x_3}=3 \]
+	\item Para $i=3(v_3=(0,0,1))$: \[ D_{\mathrm{v}_3}f_1(a_1,a_2,a_3)=\dfrac{\partial f_1}{\partial x_1}\cdot 0+\dfrac{\partial f_1}{\partial x_2}\cdot 0+\dfrac{\partial f_1}{\partial x_3}\cdot 1=1+3=4\longrightarrow \dfrac{\partial f_1}{\partial x_3}=4 \]
+	
+	Sustituyendo tenemos que: \[ \begin{array}{l}
+	\dfrac{\partial f_1}{\partial x_3}=4\\
+	\dfrac{\partial f_1}{\partial x_2}+\dfrac{\partial f_1}{\partial x_3}=2\longrightarrow \dfrac{\partial f_1}{\partial x_2}=3-4=-1\\
+	\dfrac{\partial f_1}{\partial x_1}+\dfrac{\partial f_1}{\partial x_2}+\dfrac{\partial f_1}{\partial x_3}=2\longrightarrow \dfrac{\partial f_1}{\partial x_1}=2-(-1)-4=-1
+	\end{array} \]
+\end{enumerate}
+\item Componente $f_2(j=2)$: 
+\begin{enumerate}[label=\arabic*)]
+	\item Para $i=1(v_1=(1,1,1))$: \[ D_{\mathrm{v}_1}f_2(a_1,a_2,a_3)=\dfrac{\partial f_2}{\partial x_1}\cdot 1+\dfrac{\partial f_2}{\partial x_2}\cdot 1+\dfrac{\partial f_2}{\partial x_3}\cdot 1=2+1=3\longrightarrow\dfrac{\partial f_2}{\partial x_1}+\dfrac{\partial f_2}{\partial x_2}+\dfrac{\partial f_2}{\partial x_3}=3 \]
+	\item Para $i=2(v_2=(0,1,1))$: \[ D_{\mathrm{v}_2}f_2(a_1,a_2,a_3)=\dfrac{\partial f_2}{\partial x_1}\cdot 0+\dfrac{\partial f_2}{\partial x_2}\cdot 1+\dfrac{\partial f_2}{\partial x_3}\cdot 1=2+2=4\longrightarrow\dfrac{\partial f_2}{\partial x_2}+\dfrac{\partial f_2}{x_3}=4 \]
+	\item Para $i=3(v_3=(0,0,1))$: \[ D_{\mathrm{v}_3}f_2(a_1,a_2,a_3)=\dfrac{\partial f_2}{\partial x_1}\cdot 0+\dfrac{\partial f_2}{\partial x_2}\cdot 0+\dfrac{\partial f_2}{\partial x_3}\cdot 1=2+3=5\longrightarrow \dfrac{\partial f_2}{\partial x_3}=5 \]
+	
+	Sustituyendo tenemos que: \[ \begin{array}{l}
+		\dfrac{\partial f_2}{\partial x_3}=5\\
+		\dfrac{\partial f_2}{\partial x_2}+\dfrac{\partial f_2}{\partial x_3}=4\longrightarrow \dfrac{\partial f_2}{\partial x_2}=4-5=-1\\
+		\dfrac{\partial f_2}{\partial x_1}+\dfrac{\partial f_2}{\partial x_2}+\dfrac{\partial f_2}{\partial x_3}=3\longrightarrow \dfrac{\partial f_2}{\partial x_1}=3-(-1)-5=-1
+		\end{array} \]
+\end{enumerate}
+\end{itemize}
+El diferencial de $\vec{f}$ en el punto $(a_1,a_2,a_3)$ es: \[ Df(a_1,a_2,a_3)=\begin{bmatrix}
+\dfrac{\partial f_1}{\partial x_1} & \dfrac{\partial f_1}{\partial x_2} & \dfrac{\partial f_1}{x_3}\\
+\dfrac{\partial f_2}{\partial x_1} & \dfrac{\partial f_2}{\partial x_2} & \dfrac{\partial f_2}{x_3}\\
+\end{bmatrix}=\begin{bmatrix}
+-1 & -1 & 4 \\
+-1 & -1 & 5
+\end{bmatrix} \]
+
+\item \lb{Sea $f:\R^2\to\R$ definida por \[ f(x,y)=\begin{cases}
+\dfrac{x\sin y-y\sin x}{x^2+y^2} & \text{si }(x,y)\neq(0,0)\\
+0 & \text{si }(x,y)=(0,0)
+\end{cases} \]Comprobar que existen las derivadas parciales segundas $\dfrac{\partial^2 f}{\partial x\partial y}(0,0)$ y $\dfrac{\partial^2 f}{\partial y\partial x}(0,0)$.}
+
+Primero verificamos las derivadas parciales de primer orden en $(0,0)$. Para calcular las derivadas parciales, tomamos los límites respectivos: \[ \begin{array}{l}
+\dfrac{\partial f}{\partial x}=\lim_{h\to 0}\dfrac{f(h,0)-f(0,0)}{h}=\lim_{h\to0}\dfrac{0-0}{h}=0\\
+\dfrac{\partial f}{\partial y}=\lim_{k\to 0}\dfrac{f(0,k)-f(0,0)}{k}=\lim_{k\to0}\dfrac{0-0}{k}=0\\
+\end{array} \]
+
+Ahora calculamos las derivadas parciales mixtas en $(0,0)$:
+
+$\dfrac{\partial^2 f}{\partial x\partial y}=\dfrac{\partial}{\partial x}\left(\dfrac{\partial f}{\partial y}(x,y)\right)=\dfrac{\partial }{\partial x}\left(\dfrac{(x\cos y-\sin x)(x^2+y^2)-(x\sin y-y\sin x)\cdot 2y}{(x^2+y^2)^2}\right)$
+
+Ahora calculamos el límite cuando $x\to0$ para evaluar $\dfrac{\partial}{\partial x}\left(\dfrac{\partial f}{\partial y}\right)(0,0)$. \[ \lim_{h
+\to0}\dfrac{\frac{\partial f}{\partial y}(h,0)-\frac{\partial f}{\partial y}(0,0)}{h}=\lb{(\ast)}=\lim_{h\to0}\dfrac{\frac{h-\sin h}{h^2}-0}{h}=\left\{\sin h\approx h-\dfrac{h^3}{6}\right\}=\lim_{h\to0}\dfrac{\cancel{h}-\left(\cancel{h}-\frac{h^3}{6}\right)}{h^3}=\lim_{h\to0}\dfrac{\frac{h^3}{6}}{h^3}=\dfrac{1}{6} \]
+$\lb{(\ast)=}\dfrac{\partial f}{\partial y}(h,0)=\dfrac{(h\cancelto{1}{\cos0}-\sin h)\cdot \cancel{h^2}}{h^{\cancel{4}}}=\dfrac{h-\sin h}{h^2}$
+
+$\dfrac{\partial^2 f}{\partial y\partial x}(0,0)=\dfrac{\partial }{\partial y}\left(\dfrac{\partial f}{\partial x}(x,y)\right)=\dfrac{\partial }{\partial y}\left(\dfrac{(\sin y-y\cos x)\cdot(x^2+y^2)-(x\sin y-y\sin x)\cdot2x}{(x^2+y^2)^2}\right)$
+
+
+Ahora calculamos el límite cuando $y\to0$ para evaluar $\dfrac{\partial }{\partial y}\left(\dfrac{\partial f}{\partial x}\right)(0,0)$. \[ \lim_{k\to0}\dfrac{\frac{\partial f}{\partial x}(0, k)-\frac{\partial f}{\partial x}(0,0)}{k}=\lb{(\ast)}=\lim_{k\to0}\dfrac{\frac{\sin k-k}{k^2}-0}{k}=\left\{\sin k\approx k-\dfrac{k^3}{6}\right\}=\lim_{k\to0}\dfrac{\left(\cancel{k}-\frac{k^3}{6}\right)-\cancel{k}}{k^3}=\lim_{k\to0}-\dfrac{\frac{k^3}{6}}{k^3}=-\dfrac{1}{6} \]
+$\lb{(\ast)=} \dfrac{\partial f}{\partial x}(0,k)=\dfrac{(\sin k-k\cancelto{1}{\cos0})\cdot \cancel{k^2}}{k^{\cancel{4}}}=\dfrac{\sin k-k}{k^2}$
+
+\item \lb{arg1}
+
+\item \lb{Se consideran las funciones $\vec{f}:\R\to\R^3$ y $\vec{g}:\R^3\to\R^2$ definidas por $\vec{f}(t)=(t^2,3t-1,1-t^2)$ y $\vec{g}(x,y,z)=(x^2-y-zx,y^2+xy+z^2)$. Sean $\vec{F}=\vec{g}\circ\vec{f}$. Calcular la matriz jacobiana de $\vec{F}$ en el punto $-1$. ¿Es posible calcular la matriz jacobiana de la función $\vec{G}=\vec{f}\circ\vec{g}$ en el punto $(1,1,1)$?}
 \end{enumerate}
 
 \begin{center}
