@@ -42,6 +42,32 @@ import matplotlib.pyplot as plt
 
 En esta memoria se presenta la resolución del problema **"La ruta de la tapUPCT"** mediante la aplicación de la técnica de Programación Dinámica (PD). El objetivo es diseñar un algoritmo que permite a un estudiante maximizar el número total de tenedores obtenidos al consumir tapas en diferentes bares, sin superar el presupuesto disponible de **`E`** euros y respetando la restricción de consumir como máximo 3 tapas por bar.
 
+## 1. Ecuación de recurrencia
+
+Sea $dp[i][e]$ el máximo número de tenedores que se pueden obtener utilizando los primeros $i$ bares con un presupuesto total e $e$ euros.
+
+**Casos base:**
+
+-   Para todo $e$ entre $0$ y $E$:
+
+    -   $dp[0][e]=0$ (no se han considerado bares, por lo tanto, no se pueden obtener tenedores).
+
+**Recurrencia:**
+
+Para $i$ desde $1$ hasta $N$ (cada bar):
+
+-   Para $e$ desde $0$ hasta $E$ (cada presupuesto posible):
+
+    -   $dp[i][e]=dp[i - 1][e]$ (inicialmente, no se toman del bar $i$).
+    -   Para $k$ desde $1$ hasta $3$ (número de tapas que podemos tomar del bar $i$):
+        -   Si $e\ge k\cdot p_i$: $dp[i][e]=\max(dp[i-1][e],\,dp[i-1][e-k\cdot p_i]+k\cdot t_i)$.
+        -   Si no, se rompe el bucle (no podemos permitirnos más tapas en este bar con el presupuesto $e$).
+
+**Casos imposibles:**
+
+-   $e<0,\, dp[i][e]$ no está definido, ya que no puede obtener un presupuesto negativo.
+-   No se consideran $k>3$ ya que el límite es de 3 tapas por bar.
+
 A continuación, se presenta el pseudocódigo que describe la solución al problema utilizando programación dinámica. Este pseudocódigo nos proporcionará una visión general de los pasos necesarios antes de intentar resolver el problema implementando Python.
 
 **Definiciones previas:**
@@ -58,7 +84,7 @@ A continuación, se presenta el pseudocódigo que describe la solución al probl
 
 -   **`dp[0..N][0..E]:`** Matriz de programación dinámica para almacenar el máximo número de tenedores.
 
-**Construcción de la talba `dp`:**
+**Construcción de la tabla `dp`:**
 
 \vspace{0.5cm}
 
@@ -142,32 +168,6 @@ A continuación, se presenta el pseudocódigo que describe la solución al probl
         -   Si el valor actual es diferente al de la fila anterior, significa que se han consumido tapas en ese bar.
 
         -   Se determina cuántas tapas se consumieron probando valores de **`k`** que satisfagan la condición en **`dp`**.
-
-## 1. Ecuación de recurrencia
-
-Sea $dp[i][e]$ el máximo número de tenedores que se pueden obtener utilizando los primeros $i$ bares con un presupuesto total e $e$ euros.
-
-**Casos base:**
-
--   Para todo $e$ entre $0$ y $E$:
-
-    -   $dp[0][e]=0$ (no se han considerado bares, por lo tanto, no se pueden obtener tenedores).
-
-**Recurrencia:**
-
-Para $i$ desde $1$ hasta $N$ (cada bar):
-
--   Para $e$ desde $0$ hasta $E$ (cada presupuesto posible):
-
-    -   $dp[i][e]=dp[i - 1][e]$ (inicialmente, no se toman del bar $i$).
-    -   Para $k$ desde $1$ hasta $3$ (número de tapas que podemos tomar del bar $i$):
-        -   Si $e\ge k\cdot p_i$: $dp[i][e]=\max(dp[i][e],\,dp[i-1][e-k\cdot p_i]+k\cdot t_i)$.
-        -   Si no, se rompe el bucle (no podemos permitirnos más tapas en este bar con el presupuesto $e$).
-
-**Casos imposibles:**
-
--   $e<0,\, dp[i][e]$ no está definido, ya que no puede obtener un presupuesto negativo.
--   No se consideran $k>3$ ya que el límite es de 3 tapas por bar.
 
 ------------------------------------------------------------------------
 
@@ -391,7 +391,6 @@ for i in range(100):
 analyse_complexity(test_cases)
 ```
 
-
 ------------------------------------------------------------------------
 
 ## 5. Estudio teórico del tiempo de ejecución
@@ -399,12 +398,17 @@ analyse_complexity(test_cases)
 **Orden de complejidad temporal:**
 
 -   **Construcción de la tabla `dp`:** $O(N\times E\times K)$, donde:
+
     -   $N$ es el número de bares.
     -   $E$ es el presupuesto total.
     -   $K$ es el número de tapas por bar (constante, $K=3$)
+
+    $K$ es número constante por lo que no entra en el orden de ejecución y como $n$ y $e$ son dos variable determinadas, cota superior tiene un orden de $O(n^2)$.
+
 -   **Reconstrucción de la solución:** $O(N\times K)$, pero dado que $K$ es constante, es $O(N)$.
 
-**Casos peor y mejor:**
+**Casos peor, mejor y exacto:**
 
--   **Caso peor:** Cuando $N$ y $E$ son grandes, el algoritmo tarda más tiempo.
--   **Caso mejor:** Si el presupuesto o el número de bares es pequeño, el algoritmo es más eficiente.
+-   **Caso peor:** $O(n^2)$
+-   **Caso mejor:** $O(n^2)$
+-   **Caso exacto:** $O(n^2)$
