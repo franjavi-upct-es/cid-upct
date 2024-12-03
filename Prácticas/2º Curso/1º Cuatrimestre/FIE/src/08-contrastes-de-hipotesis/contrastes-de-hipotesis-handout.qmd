@@ -30,7 +30,7 @@ En un gran número de situaciones, los datos suelen provenir de poblaciones con 
 **Ejemplo 1:** Los siguientes datos se corresponden con la concentración de fósforo (P) para 20 muestras de aguas residuales:
 
 ```{r}
-P<-c(1.8, 2.2, 2.1, 2.3, 2.1, 2.2, 2.1, 2.1, 1.8, 1.9, 2.4, 2.0, 1.9, 1.9, 2.2, 2.3, 
+P <- c(1.8, 2.2, 2.1, 2.3, 2.1, 2.2, 2.1, 2.1, 1.8, 1.9, 2.4, 2.0, 1.9, 1.9, 2.2, 2.3, 
      2.2, 2.3, 2.1, 2.2)
 ```
 
@@ -53,7 +53,8 @@ La herramienta gráfica es el gráfico Q-Q que ya vimos como parte de la salida 
 
 # completar aquí
 
-
+qqnorm(P, main = "Normal Q-Q Plot")
+qqline(P, lwd = 2)
 
 # Fin de completar aquí
 
@@ -70,8 +71,10 @@ Veamos ahora el contraste de Shapiro-Wilk.
 ```{r, fig.align = 'center'}
 
 # completar aquí
+# Contraste de Shapiro-Wilk para evaluar la normalidad
+shapiro_test <- shapiro.test(P)
 
-
+shapiro_test
 
 # Fin de completar aquí
 
@@ -119,9 +122,10 @@ $$
 ```{r, fig.align = 'center'}
 
 # completar aquí
+# Realizar el contraste t de Student para la media de P
+t_test_result <- t.test(P, mu = 2, alternative = "less")
 
-
-
+t_test_result
 # Fin de completar aquí
 
 ```
@@ -135,8 +139,10 @@ Para la obtención de un intervalo de confianza al nivel, por ejemplo al 99%, es
 ```{r, fig.align = 'center'}
 
 # completar aquí
+# Realizar el t-test y obtener el intervalo de confianza al 99%
+t_test_99 <- t.test(P, mu = 2, alternative = "two.sided", conf.level = 0.99)
 
-
+t_test_99
 
 # Fin de completar aquí
 
@@ -160,8 +166,10 @@ Si realizamos el contraste de normalidad de los datos anteriores tenemos
 ```{r}
 
 # completar aquí
+# Constraste de Shapiro-Wilk para los datos de TcCB
+shapiro_test_tccb <- shapiro.test(tccb)
 
-
+shapiro_test_tccb
 
 # Fin de completar aquí
 
@@ -177,14 +185,15 @@ log.tccb <- log(tccb)
 
 Y para la gráfica Q-Q y el contraste tendríamos
 
-\`
+
 
 ```{r}
 
 # completar aquí
+# Gráfico Q-Q para log(tccb) y distribución normal
 
-
-
+qqnorm(log.tccb)
+qqline(log.tccb)
 # Fin de completar aquí
 
 ```
@@ -194,8 +203,10 @@ y el test de Shapiro-Wilk:
 ```{r}
 
 # completar aquí
+# Constraste de Shapiro-Wilk para los logaritmos de TcCB
+shapiro_test_log_tccb <- shapiro.test(log.tccb)
 
-
+shapiro_test_log_tccb
 
 # Fin de completar aquí
 
@@ -248,9 +259,10 @@ El método exacto lo obtenemos mediante
 ```{r}
 
 # completar aquí
+# Contraste exacto con binom.test
+binom_test_result <- binom.test(223, 228, p = 0.95, alternative = "less", conf.level = 0.99)
 
-
-
+binom_test_result
 # Fin de completar aquí
 
 ```
@@ -263,7 +275,7 @@ Obtenemos un intervalo exacto mediante
 
 # completar aquí
 
-
+binom_test_result$conf.int
 
 # Fin de completar aquí
 
@@ -306,7 +318,7 @@ Una primera aproximación al problema la podemos dar a partir de los diagramas d
 
 # completar aquí
 
-
+boxplot(rend.varA, rend.varB, xlab = "")
 
 # Fin de completar aquí
 
@@ -321,8 +333,8 @@ Nuestro primer paso es analizar la normalidad de las dos variables a partir de l
 ```{r}
 
 # completar aquí
-
-
+# Contraste de Shapiro-Wilk para la Variedad A
+shapiro.test(rend.varA)
 
 # Fin de completar aquí
 
@@ -334,7 +346,8 @@ Nuestro primer paso es analizar la normalidad de las dos variables a partir de l
 
 # completar aquí
 
-
+# Contraste de Shapiro-Wilk para la Variedad B
+shapiro.test(rend.varB)
 
 # Fin de completar aquí
 
@@ -353,18 +366,7 @@ $$
 Realizamos el contraste anterior mediante
 
 ```{r}
-#| eval: false
-# completar aquí
-
-
-
-# Fin de completar aquí
-
-```
-
-```{r}
 #| warning: false
-#| echo: false
 # Completar aquí
 var.test(rend.varA, rend.varB)
 # fin de completar aquí
@@ -381,18 +383,7 @@ $$
 Lo realizamos mediante
 
 ```{r}
-#| eval: false
-# completar aquí
-
-
-
-# Fin de completar aquí
-
-```
-
-```{r}
 #| warning: false
-#| echo: false
 # Completar aquí
 t.test(rend.varA, rend.varB, alternative = "two.sided", var.equal = TRUE)
 # fin de completar aquí
@@ -439,18 +430,7 @@ Como solución en el caso de no poder utilizar el contrate de la t de Student en
 **Ejemplo 4 (continuación):** Vamos a plantear la comparación de las variables buscando si hay diferencias entre las medianas poblacionales. Por ejemplo vamos a contrastar como hipótesis nula que $H_0:M_A =  M_B$, siendo $M_A$ la mediana de rendimiento para la variedad A y $M_B$ la mediana a mediana de rendimiento para la variedad B. Realizamos el contraste mediante
 
 ```{r}
-#| eval: false
-# completar aquí
-
-
-
-# Fin de completar aquí
-
-```
-
-```{r}
 #| warning: false
-#| echo: false
 # Completar aquí
 wilcox.test(rend.varA, rend.varB, alternative = "two.sided")
 # Fin de completar aquí
@@ -501,18 +481,7 @@ diferencia = sleep.D - sleep.L
 Y realizamos el contraste de Shapiro-Wilks para la diferencia anterior
 
 ```{r}
-#| eval: false
-# completar aquí
-
-
-
-# Fin de completar aquí
-
-```
-
-```{r}
 #| warning: false
-#| echo: false
 # Completar aquí
 shapiro.test(diferencia)
 # fin de completar aquí
@@ -523,18 +492,7 @@ y obtenemos que el estadístico de contraste toma el valor $W =$ `r shapiro.test
 Por lo tanto no podríamos aplicar ni el intervalo de confianza, ni el contraste anteriores. Con el fin de ilustrar como se realiza en `R` el caso de muestras pareadas, vamos a considerar que el contraste no rechazase la hipótesis de normalidad. Podríamos en ese caso hacer el contraste de la t de Student sobre medias para muestras pareadas. Para ello utilizamos
 
 ```{r}
-#| eval: false
-# completar aquí
-
-
-
-# Fin de completar aquí
-
-```
-
-```{r}
 #| warning: false
-#| echo: false
 # Completar aquí
 t.test(sleep.D, sleep.L, alternative = "two.sided", paired = TRUE)
 # fin de completar aquí
@@ -545,18 +503,7 @@ donde obtenemos los valores $t =$ `r t.test(sleep.D, sleep.L, alternative = "two
 Para obtener un intervalo de confianza, al 99%, para la diferencia de las medias, escribimos
 
 ```{r}
-#| eval: false
-# completar aquí
-
-
-
-# Fin de completar aquí
-
-```
-
-```{r}
 #| warning: false
-#| echo: false
 # Completar aquí
 t.test(sleep.D, sleep.L, conf.level = 0.99, paired = TRUE)
 # fin de completar aquí
@@ -591,18 +538,7 @@ $$ siendo $M$ la mediana de $X_1 - X_2$.
 Lo realizamos entonces mediante
 
 ```{r}
-#| eval: false
-# completar aquí
-
-
-
-# Fin de completar aquí
-
-```
-
-```{r}
 #| warning: false
-#| echo: false
 # Completar aquí
 wilcox.test(sleep.D, sleep.L, alternative = "two.sided", paired = TRUE)
 # Fin de completar aquí
@@ -631,18 +567,7 @@ ejemplo6 <- rbind(fila1, fila2)
 Mediante
 
 ```{r}
-#| eval: false
-# completar aquí
-
-
-
-# Fin de completar aquí
-
-```
-
-```{r}
 #| warning: false
-#| echo: false
 # Completar aquí
 fisher.test(ejemplo6, conf.level = 0.95)
 # fin de completar aquí
@@ -659,18 +584,7 @@ H_0:p_1 = p_2 \\ H_1:p_1\neq p_2
 $$ mediante
 
 ```{r}
-#| eval: false
-# completar aquí
-
-
-
-# Fin de completar aquí
-
-```
-
-```{r}
 #| warning: false
-#| echo: false
 # Completar aquí
 fisher.test(ejemplo6, alternative = "two.sided")
 # fin de completar aquí
@@ -693,18 +607,7 @@ $$
 Para el método aproximado escribimos
 
 ```{r}
-#| eval: false
-# completar aquí
-
-
-
-# Fin de completar aquí
-
-```
-
-```{r}
 #| warning: false
-#| echo: false
 # Completar aquí
 prop.test(c(72, 64), c(80, 80), alternative = "two.sided")
 # fin de completar aquí
@@ -722,21 +625,18 @@ y obtenemos el siguiente intervalo de confianza al nivel $95\%$ para la diferenc
 
 ## Ejercicio
 
+Se trata de analizar el conjunto de datos donde se plantean comparaciones de dos variables de acuerdo a las distintas cuestiones que aparecen a continuación de los datos. A la hora de desarrollar el análisis, debéis tener en cuenta los siguientes pasos:
 
+-   Identificar las variables $X_1$, $X_2$ que son objeto de comparación.
 
-Se trata de analizar el conjunto de datos  donde se plantean comparaciones de dos variables de acuerdo a las distintas cuestiones que aparecen a continuación de los datos. A la hora de desarrollar el análisis, debéis tener en cuenta los siguientes pasos: 
+-   Identificar si las muestras son independientes o pareadas.
 
-- Identificar las variables $X_1$, $X_2$ que son objeto de comparación. 
+-   Cada vez que hagáis un contraste escribir explícitamente las hipótesis que vais a contrastar, identificando la hipótesis nula y la alternativa.
 
-- Identificar si las muestras son independientes o pareadas. 
-
-- Cada vez que hagáis un contraste escribir explícitamente las hipótesis que vais a contrastar, identificando la hipótesis nula y la alternativa. 
-
-- Una vez tengáis los resultados del contraste, incluir en la respuesta el valor del estadístico de contraste, el p-valor y la conclusión final.
+-   Una vez tengáis los resultados del contraste, incluir en la respuesta el valor del estadístico de contraste, el p-valor y la conclusión final.
 
 ::: callout-warning
 ## Ejercicio
-
 
 Los datos obtenidos por A.C. Linnerud de la Universidad Estatal de Carolina del Norte, incluidos en la tabla de datos siguiente: corresponden a los tiempos observados de la tasa de recuperación cardíaca después de realizar una carrera de $2km$ por un grupo de hombres participantes en un programa de salud, siendo la medida de la tasa de recuperación cardíaca, $TRC$, un indicador del progreso de salud de cada hombre.
 
@@ -766,18 +666,40 @@ data.sport.y <- tibble(
 
 -   Plantear, de forma razonada, un contraste para comparar la $TRC$ del grupo de hombres que no practican deporte con la del grupo de hombres que si practican algún deporte. ¿ Ha mejorado la tasa de recuperación cardiáca en el conjunto de hombres que al inicio no practicaban deporte y fueron sometidos al tratamiento físico? ¿Y en el grupo de hombres entre 40 y 49 años? ¿Y en el grupo de hombres entre 50 y 59 años?
 
+```{r}
+t.test(data.sport.n$TRCantes, data.sport.n$TRCdespues, paired = TRUE)
+```
+
+
 -   Contrastar si existen diferencias significativas entre las $TRC$ del grupo de hombres que practicaban deporte al inicio del experimento y las $TRC$ después del tratamiento del grupo de hombres que no lo practicaban.
+
+```{r}
+
+# Realizar el t-test independiente
+t.test(data.sport.n$TRCantes[data.sport.n$Edad == "A"],
+       data.sport.y$TRCdepor[data.sport.y$Edad == "A"],
+       paired = FALSE)
+
+
+
+```
+
 
 -   Contrastar si existen diferencias significativas entre las $TRC$ del grupo de hombres entre 40 y 49 años que practicaban deporte al inicio del experimento y las $TRC$ después del tratamiento del grupo de hombres entre 40 y 49 años que no lo practicaban.
 
-\`
+```{r}
+t.test(data.sport.n$TRCantes[data.sport.n$Edad == "A"],
+       data.sport.y$TRCdepor[data.sport.y$Edad == "A"],
+       paired = FALSE)
+
+
+```
+
 
 -   Contrastar si existen diferencias significativas entre las $TRC$ del grupo de hombres entre 50 y 59 años que practicaban deporte al inicio del experimento y las $TRC$ después del tratamiento del grupo de hombres entre 50 y 59 años que no lo practicaban.
 
-
-
-
 ```{r}
 #| echo: true
+t.test(data.sport.n$TRCdespues[data.sport.n$Edad == "A"], data.sport.y$TRCdepor[data.sport.y$Edad == "A"], paired = FALSE)
 
 ```
