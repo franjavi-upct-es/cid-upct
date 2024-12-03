@@ -1,4 +1,6 @@
 \input{../../../Macros.tex}
+\everymath{\displaystyle}
+\renewcommand{\arraystretch}{1.5}
 
 \begin{document}
 \begin{center}
@@ -49,7 +51,54 @@
     	\text{Maximizar} & \Theta(\mu)=-\mu^2+3\mu-1\\
     	\text{Sujeto a }& \mu\ge0
     	\end{cases} \]}
+    	
+    	$\mathcal{L}(x_1,,x_2;\mu)=x_1+x_2+\dfrac{1}{2}(x_1^2+x_2^2)+\mu(1-x_1-x_2)$
+    	
+    	Calcular el coste dual $\Theta(\mu)=\underset{(x_1,x_2)}{\inf}\mathcal{L}(x_1,x_2;\mu)\longrightarrow\mathcal{L}$ tiene mínimo (respecto a $x_1,x_2$) y anula su gradiente al ser estrictamente convexo. \[ \begin{array}{c}
+    	\nabla_{(x_1,x_2)}=(1+x_1-\mu, 1+x_2-\mu)=(0,0) \\
+    	\begin{rcases}
+    	1+x_1-\mu=0\\
+    	1+x_2-\mu=0
+    	\end{rcases}\begin{array}{l}
+    	\longrightarrow \boxed{x_1=x_2=\mu-1}\\
+    	\\
+    	\end{array}
+    	\end{array}\]
+    	
+    	$\Theta(\mu)=\mathcal{L}(\mu-1,\mu-1,\mu)=\mu-1+\mu-\mu+\dfrac{1}{2}\left[(\mu1)^2+(\mu-1)^2\right]+\mu(1-\mu+1-\mu+1)=-\mu^2+3\mu-1$
+    	
+    	\[ (Dual)=\begin{cases}
+    	\text{Maximizar} & \Theta(\mu)=-\mu^2+3\mu-1\\
+    	\text{Sujeto a} & \mu\ge0
+    	\end{cases} \]
+    	
+    	$\Theta'(\mu)=-2\mu+3=0\longrightarrow\bboxed{\mu*=\dfrac{3}{2}}$
+    	
+    	\begin{tikzpicture}
+    	    \begin{axis}[
+    	        axis lines=middle,
+    	        xmin=-0.5, xmax=3.5,
+    	        ymin=-1.5, ymax=3,
+    	        xlabel={$ \mu $},
+    	        xtick={1, 2, 3},
+    	        ytick={-1, 0, 1, 2},
+    	        ticklabel style={font=\small},
+    	        width=10cm,
+    	        height=7cm
+    	    ]
+    	        % Gráfica de la función
+    	        \addplot[domain=-0.5:3.5, thick, lightblue, samples=100] {-x^2 + 3*x - 1} node[pos=0.83, above right] {$\Theta(\mu)$};
+    	
+    	        % Punto específico en mu = 3/2
+    	        \draw[dashed, color=blue] (axis cs:1.5,0) node[below] {$\dfrac{3}{2}$}-- (axis cs:1.5,1.25) -- (axis cs:0,1.25) ;
+    	
+    	    \end{axis}
+    	\end{tikzpicture}
+    	
     	\item \db{Resuelve el problema dual anterior e infiere de ello que la solución del problema original es $x_1=x_2=\dfrac{1}{2}$.}
+    	$\begin{array}{l}
+    	x_1^*=x_2^*=\dfrac{3}{2}-1=\dfrac{1}{2}
+    	\end{array}$
     \end{enumerate}
     \item \lb{Consideremos el problema \[ \begin{cases}
     \text{Minimizar en }(x_1,x_2) & f(x_1,x_2)=x_2\\
@@ -58,7 +107,84 @@
     \end{cases} \]Se pide:}
     \begin{enumerate}[label=\color{red}\alph*)]
     	\item \db{Comprueba que $x_1=1,\, x_2=0$ es solución del problema anterior.}
+    	
+    	$x_1=1,x_2=0$ es solución.
+    	
+    	\begin{tikzpicture}[>=latex, scale=1.5]
+    	\draw[color=lightblue, fill=lightblue!20] (0,0) circle (1);
+    	\draw[->] (-2, 0) -- (4,0);
+    	\draw[->] (0,-2) -- (0,2);
+    	\draw[-latex] (-1,-1) node[below left] {$x_1^2+x_2^2\le1$} -- (-0.5,-0.5);
+    	\fill[blue] (1,0) circle (1.5pt);
+    	\draw[blue, line width=1.3] (1,0) -- (3.8,0) node[above] {$x_1\ge1$};
+    	\end{tikzpicture}
+    	
+    	$(1,0)$ es solución porque es el único admisible
     	\item \db{Comprueba que la función dual viene dada por \[ \Theta(\mu)=\mu-\sqrt{1-\mu^2}. \]}
+    	
+    	$$\mathcal{L}(x_1,x_2,\mu_1,\mu_2)=x_2+\mu_1(1-x_1)+\mu_2(x_1^2+x_2^2-1)$$
+    	Existe el mínimo de $\mathcal{L}$ y anula su gradiente. 
+    	\[ \begin{array}{l}
+    	\nabla_{(x_1,x_2)}=(-\mu_1+2\mu_2\mu_1+2\mu_2x_1,1+2\mu_2x_2)=(0,0)\\
+    	\begin{rcases}
+    	-\mu_1+2\mu_2x_1=0\\
+    	1+2\mu_2x_2=0
+    	\end{rcases}\begin{array}{l}
+    	\longrightarrow x_1=\dfrac{\mu_1}{2\mu_2},\mu_2\neq0\\
+    	\longrightarrow x_2=-\dfrac{1}{2\mu_2},\mu_2\neq0
+    	\end{array}
+    	\end{array} \] Si $\mu_2=0\longrightarrow\rboxed{1=0 \text{ \textcolor{red}{No}}}$
+    	
+    	$\begin{aligned}
+    	\Theta(\mu_1,\mu_2)&=\mathcal{L}\left(\dfrac{\mu_1}{2\mu_2},-\dfrac{1}{2\mu_2},\mu_1,\mu_2\right)=-\dfrac{1}{2\mu_2}+\mu_1\left(1-\dfrac{\mu_1}{2\mu_2}\right)+\mu_2\left(\dfrac{\mu_1^2}{4\mu_2^2}+\dfrac{1}{4\mu_2^2}-1\right)\\
+    	&=-\dfrac{1}{\mu_2^2}+\mu_1-\dfrac{\mu_1^2}{2\mu_2}-\mu_2+\dfrac{\mu_1^2}{4\mu_2}+\dfrac{1}{4\mu_2}=-\dfrac{1}{4\mu_2}-\dfrac{\mu_1^2}{4\mu_2}+\mu_1+\mu_2
+    	\end{aligned}$
+    	
+    	\[ (Dual)\begin{cases}
+    	\text{Maximizar} & \Theta(\mu_1,\mu_2)=-\dfrac{1}{4\mu_2}-\dfrac{\mu_1^2}{4\mu_2}+\mu_1+\mu_2\\
+    	\text{Sujeto a} & \mu_1\ge0\\
+    	 & \mu_2\ge0
+    	\end{cases} \]
+    	
+    	\begin{tikzpicture}[>=latex, baseline=(current bounding box.center)]
+    	\fill[lightblue!15] (0,0) rectangle (4,4);
+    	\draw[->] (-1,0) -- (4,0) node[right] {$\mu_1$};
+    	\draw[->] (0,-1) -- (0,4) node[above] {$\mu_2$};
+    	\draw[dashed, blue] (0,2) -- (2,2) -- (2,0);
+    	\draw[blue] (2,2) circle (0.5);
+    	\fill[blue] (2,2) circle (2pt);
+    	\fill[red] (0,1.7) circle (2pt);
+    	\draw[->, color=red, line width=1.2] (0,1.7) -- (0,0);
+    	\end{tikzpicture}
+    	
+    	Miramos si hay máximo en la región $\mu_1>0,\mu_2>0$.
+    	
+    	\[ \nabla_{(\mu_1,\mu_2)}\Theta=\left(-\dfrac{\mu_1}{2\mu_2}+1,\dfrac{1}{4\mu_2^2}+\dfrac{\mu_1^2}{4\mu_2^2}-1\right) =(0,0)\]
+    	
+    	$1-\dfrac{\mu_1}{2\mu_2}\longrightarrow\mu_1=2\mu_2$
+    	
+    	$\begin{array}{l}
+    	\Theta(\mu_1=0,\mu_2)=-\dfrac{1}{\mu_2}-\mu_2\begin{cases}
+    	-\infty & \mu_2\to0\\
+    	-\infty & \mu_2\to+\infty
+    	\end{cases}\\
+    	\lim_{\mu_1\to0}(\mu_1,\mu_2)=
+    	\end{array}$
+    	
+    	
+    	Chequeamos la condición de rango maximal
+    	
+    	$\begin{array}{l}
+    	\nabla_{g_1}=(-1,0)\\
+    	\nabla_{g_2}=(2x_1,2x_2)=\{(1,0)\}=(2,0)
+    	\end{array}\qquad\begin{bmatrix}
+    	-1 & 2\\
+    	0 & 0
+    	\end{bmatrix}=\left[\begin{array}{c:c}
+    	\nabla_{g_1} & \nabla_{g_2}
+    	\end{array}\right]\longrightarrow\rboxed{\rg=1\text{ \textcolor{red}{No}}}$
+    	
+    	El problema dual no tiene solución.
     	\item \db{Calcula $\sup\{\Theta(\mu):\mu\ge0\}$ y deduce de ello que el problema dual no tiene solución. Razona a qué es debido esto. \textit{Indicación: comprueba que no se cumple alguna de las hipótesis del teorema de dualidad fuerte.}}
     \end{enumerate}
     \item \lb{Consideremos al problema de complementariedad lineal asociado a los datos siguientes: \[ M=\begin{bmatrix}
