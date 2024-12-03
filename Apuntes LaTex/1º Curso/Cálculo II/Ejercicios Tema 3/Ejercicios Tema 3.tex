@@ -531,9 +531,251 @@ $\dfrac{\partial^2 f}{\partial y\partial x}(0,0)=\dfrac{\partial }{\partial y}\l
 Ahora calculamos el límite cuando $y\to0$ para evaluar $\dfrac{\partial }{\partial y}\left(\dfrac{\partial f}{\partial x}\right)(0,0)$. \[ \lim_{k\to0}\dfrac{\frac{\partial f}{\partial x}(0, k)-\frac{\partial f}{\partial x}(0,0)}{k}=\lb{(\ast)}=\lim_{k\to0}\dfrac{\frac{\sin k-k}{k^2}-0}{k}=\left\{\sin k\approx k-\dfrac{k^3}{6}\right\}=\lim_{k\to0}\dfrac{\left(\cancel{k}-\frac{k^3}{6}\right)-\cancel{k}}{k^3}=\lim_{k\to0}-\dfrac{\frac{k^3}{6}}{k^3}=-\dfrac{1}{6} \]
 $\lb{(\ast)=} \dfrac{\partial f}{\partial x}(0,k)=\dfrac{(\sin k-k\cancelto{1}{\cos0})\cdot \cancel{k^2}}{k^{\cancel{4}}}=\dfrac{\sin k-k}{k^2}$
 
-\item \lb{arg1}
+\item \lb{Se consideran las funciones $\vec{f}:\mathbb{R}^{2}\to \mathbb{R}^{2}$ y $\vec{g}:\mathbb{R}^{2}\to \mathbb{R}^{2}$ definidas por $\vec{f}(x,y)=(x^{2}y^{4},x^{3}y^{3}+4xy^{2})$ y $\vec{g}(x,y)=(x\sin y,y\sin x)$. Sea $\vec{F}=\vec{g}\circ \vec{f}$. Calcular la matriz jacobiana de $\vec{F}$ en el punto $(2,-1)$}
+
+
+La composición $f\circ g$ viene dada por:
+\begin{center}
+\begin{tikzcd}
+\underset{(2,-1)}{\mathbb{R}^2} \arrow[r, "f"] \arrow[rr, "g\circ f", bend left] & \underset{(4,0)}{\mathbb{R}^2} \arrow[r, "g"]                                               & \mathbb{R}^2 \\
+\end{tikzcd}
+\end{center}
+
+$J(f)=\begin{pmatrix}
+\dfrac{\partial f_1}{\partial x} & \dfrac{\partial f_1}{\partial y}\\
+\dfrac{\partial f_2}{\partial x} & \dfrac{\partial f_2}{\partial y}\\
+\end{pmatrix}=\begin{pmatrix}
+2xy^4 & 4x^2y^3\\
+3x^2y^3+4y^2 & 3x^3y^2+8xy
+\end{pmatrix}\longrightarrow J(f)(2,-1)=\begin{pmatrix}
+4 & -16\\
+-8 & 8
+\end{pmatrix}$
+
+$J(g)=\begin{pmatrix}
+\dfrac{\partial g_1}{\partial x} & \dfrac{\partial g_1}{\partial y}\\
+\dfrac{\partial g_2}{\partial x} & \dfrac{\partial g_2}{\partial y}\\
+\end{pmatrix}=\begin{pmatrix}
+\sin y & x\cos y\\
+y\cos x & \sin x
+\end{pmatrix}\longrightarrow J(g)(4,0)=\begin{pmatrix}
+0 & 4\\
+0 & \sin 4
+\end{pmatrix}$
+
+$J(F)(2,-1)=J(g)(4,0)\cdot J(f)(2,-1)=\begin{pmatrix}
+0 & 4\\
+0 & \sin 4
+\end{pmatrix}\cdot\begin{pmatrix}
+4 & -16\\
+-8 & 8
+\end{pmatrix}=\begin{pmatrix}
+-32 & 32\\
+-8\sin 4 & 8\sin4
+\end{pmatrix}$
 
 \item \lb{Se consideran las funciones $\vec{f}:\R\to\R^3$ y $\vec{g}:\R^3\to\R^2$ definidas por $\vec{f}(t)=(t^2,3t-1,1-t^2)$ y $\vec{g}(x,y,z)=(x^2-y-zx,y^2+xy+z^2)$. Sean $\vec{F}=\vec{g}\circ\vec{f}$. Calcular la matriz jacobiana de $\vec{F}$ en el punto $-1$. ¿Es posible calcular la matriz jacobiana de la función $\vec{G}=\vec{f}\circ\vec{g}$ en el punto $(1,1,1)$?}
+
+$\vec{F}(t)=\vec{g}(\vec{f}(t))=\vec{g}(t^2, 3t-1,1-t^2)$
+
+Sustituyendo $(x,y,z)=(t^2, 3t-1,1-t^2)$ en $\vec{g}$: \[ \vec{F}(t)=\begin{pmatrix}
+(t^2)^2-(3t-1)-(1-t^2)\cdot t^2\\
+(3t-1)^2+t^2\cdot(3t-1)+(1-t^2)^2
+\end{pmatrix}=\begin{pmatrix}
+t^4-3t+1-t^2+t^4\\
+9t^2-6t+1+3t^3-t^2+t^4-2t^2+1
+\end{pmatrix}=\begin{pmatrix}
+2t^4-t^2-3t+1\\
+t^4+3t^3+6t^2-6t+2
+\end{pmatrix} \]
+
+$J_{\vec{F}}(t)=\begin{pmatrix}
+\dfrac{\partial F_1}{\partial t}\\
+\dfrac{\partial F_2}{\partial t}
+\end{pmatrix}=\begin{pmatrix}
+8t^3-2t-3\\
+4t^3+9t^2+12t-6
+\end{pmatrix}\longrightarrow J_{\vec{F}}(-1)=\begin{pmatrix}
+-9\\
+-13
+\end{pmatrix}$
+
+\textbf{Composición de $\vec{G}=\vec{f}\circ\vec{g}$:}
+
+Para que la composición $\vec{f}\circ\vec{g}$ esté definida, la función $\vec{g}$ debe producir un resultado en $\R$, pero $\vec{g}(x,y,z):\R^3\to\R^2$. Esto hace que la composición $\vec{f}\circ\vec{g}$ \textbf{no sea válida}, ya que los dominios y codominios no son compatibles.
+
+\item \lb{Hallar la expresión de las derivadas parciales de la función $F:\R^2\to\R$ definida por \[ F(x,y)=f(g(x)k(y),g(x)+h(y)) \]donde $f:\R^2\to\R$ es de clase $C^1(\R)$ y $g,h,k:\R\to\R$ son de clase $C^1(\R)$.}
+
+La función $f(u,v)$ depende de dos variables:
+\begin{itemize}
+\item $u=g(x)k(y)$
+\item $v=g(x)+h(y)$
+\end{itemize}
+
+\begin{center}
+\begin{tikzpicture}[>=latex, baseline=(current bounding box.center)]
+\node (f) at (0,0) {$F$};
+\node[above right=of f] (u) {$u$};
+\node[below right=of f] (v) {$v$};
+\node[above right=0.5cm and 1cm of u] (x1) {$x$};
+\node[above right=0.5cm and 1cm of v] (x2) {$x$};
+\node[below right=0.5cm and 1cm of u] (y1) {$y$};
+\node[below right=0.5cm and 1cm of v] (y2) {$y$};
+\draw[->] (f) -- (u);
+\draw[->] (f) -- (v);
+\draw[->] (u) -- (x1);
+\draw[->] (u) -- (y1);
+\draw[->] (v) -- (x2);
+\draw[->] (v) -- (y2);
+\end{tikzpicture}\qquad$\displaystyle\begin{cases}
+\dfrac{\partial F}{\partial x}=\dfrac{\partial f}{\partial u}\cdot\dfrac{\partial u}{\partial x}+\dfrac{\partial f}{\partial v}\cdot\dfrac{\partial v}{\partial x}\\
+\dfrac{\partial F}{\partial y}=\dfrac{\partial f}{\partial y}\cdot\dfrac{\partial u}{\partial y}+\dfrac{\partial f}{\partial v}\cdot\dfrac{\partial v}{\partial y}\\
+\end{cases}$
+\end{center}
+
+$\begin{array}{l}
+\dfrac{\partial u}{\partial x}=g'(x)h(y)\\
+\dfrac{\partial v}{\partial x}=g'(x)\\
+\dfrac{\partial F}{\partial x}=\dfrac{\partial f}{\partial u}\cdot g'(x)h(y)+\dfrac{\partial f}{\partial v}\cdot g'(x)
+\end{array}$
+
+$\begin{array}{l}
+\dfrac{\partial u}{\partial y}=g(x)h'(y)\\
+\dfrac{\partial v}{\partial y}=h'(y)\\
+\dfrac{\partial F}{\partial y}=\dfrac{\partial f}{\partial u}\cdot g(x)h'(y)+\dfrac{\partial f}{\partial v}\cdot h'(y)
+\end{array}$
+
+\item \lb{Calcular la expresión de las derivadas parciales de la función $F:\R^3\to\R$ dada por \[ F(x,y,z)=f(x^y,y^z,z^x) \]donde $f:M\subseteq\R^3\to\R$ es una función de clase $C^1(M)$ con \[ M=\{(x,y,z):x>0,y>0,z>0\}. \]}
+
+La función $F(x,y,z)$ puede escribirse como: \[ F(x,y,z)=f(u(x,y,z), v(x,y,z),w(x,y,z)) \]donde \[ u(x,y,z)=x^y,\quad v=(x,y,z)=y^z,\quad w(x,y,z)=z^x \]
+\begin{center}
+\begin{tikzpicture}[>=latex, baseline=(current bounding box.center)]
+\node (F) at (0,0) {$F$};
+\node[above right=2cm and 1cm of F] (u) {$u$};
+\node[right=2cm and 1cmof F] (v) {$v$};
+\node[below right=2cm and 1cmof F] (w) {$w$};
+\node[above right=0.5cm and 1cm of u] (x1) {$x$};
+\node[above right=0.5cm and 1cm of v] (x2) {$x$};
+\node[above right=0.5cm and 1cm of w] (x3) {$x$};
+\node[right=0.5cm and 1cm of u] (y1) {$y$};
+\node[right=0.5cm and 1cm of v] (y2) {$y$};
+\node[right=0.5cm and 1cm of w] (y3) {$y$};
+\node[below right=0.5cm and 1cm of u] (z1) {$z$};
+\node[below right=0.5cm and 1cm of v] (z2) {$z$};
+\node[below right=0.5cm and 1cm of w] (z3) {$z$};
+\draw[->] (F) -- (u);
+\draw[->] (F) -- (v);
+\draw[->] (F) -- (w);
+\draw[->] (u) -- (x1);
+\draw[->] (v) -- (x2);
+\draw[->] (w) -- (x3);
+\draw[->] (u) -- (y1);
+\draw[->] (v) -- (y2);
+\draw[->] (w) -- (y3);
+\draw[->] (u) -- (z1);
+\draw[->] (v) -- (z2);
+\draw[->] (w) -- (z3);
+\end{tikzpicture}\qquad$\begin{cases}
+\dfrac{\partial F}{\partial x}=\dfrac{\partial f}{\partial u}\cdot\dfrac{\partial u}{\partial x}+\dfrac{\partial f}{\partial v}\cdot\dfrac{\partial v}{\partial x}+\dfrac{\partial f}{\partial w}\cdot\dfrac{\partial w}{\partial x}\\
+\dfrac{\partial F}{\partial y}=\dfrac{\partial f}{\partial u}\cdot\dfrac{\partial u}{\partial y}+\dfrac{\partial f}{\partial v}\cdot\dfrac{\partial v}{\partial y}+\dfrac{\partial f}{\partial w}\cdot\dfrac{\partial w}{\partial y}\\
+\dfrac{\partial F}{\partial z}=\dfrac{\partial f}{\partial u}\cdot\dfrac{\partial u}{\partial z}+\dfrac{\partial f}{\partial v}\cdot\dfrac{\partial v}{\partial z}+\dfrac{\partial f}{\partial w}\cdot\dfrac{\partial w}{\partial z}\\
+\end{cases}$
+\end{center}
+
+$\begin{array}{l}
+\dfrac{\partial u}{\partial x}=y\cdot x^{y-1}\\
+\dfrac{\partial v}{\partial x}=0\\
+\dfrac{\partial w}{\partial x}=z^{x}\cdot \ln(z)\\
+\dfrac{\partial F}{\partial x}=\dfrac{\partial f}{\partial u}\cdot y\cdot x^{y-1}+\dfrac{\partial f}{\partial w}\cdot z^{x}\cdot\ln(z)
+\end{array}$
+
+$\begin{array}{l}
+\dfrac{\partial u}{\partial y}=x^{y}\ln(x)\\
+\dfrac{\partial v}{\partial y}=z\cdot y^{z-1}\\
+\dfrac{\partial w}{\partial y}=0\\
+\dfrac{\partial F}{\partial y}=\dfrac{\partial f}{\partial u}\cdot x^{y}\ln(x)+\dfrac{\partial f}{\partial v}\cdot z\cdot y^{z-1}
+\end{array}$
+
+$\begin{array}{l}
+\dfrac{\partial u}{\partial z}=0\\
+\dfrac{\partial v}{\partial z}=y^{z}\ln(y)\\
+\dfrac{\partial w}{\partial z}=x\cdot z^{x-1}\\
+\dfrac{\partial F}{\partial z}=\dfrac{\partial f}{\partial v}\cdot y^{z}\ln(y)+\dfrac{\partial f}{\partial w}\cdot x\cdot z^{x-1}
+\end{array}$
+
+\item \lb{Calcular la expresión de las derivadas parciales de las funciones $F:\R^3\to\R$ dadas por}
+\begin{enumerate}[label=\color{red}\textbf{\alph*)}]
+	\item $\db{F(x,y,z)=\int_{0}^{x+y+z}\sin t\dt}$
+	
+	Según la regla de Leibniz, la derivada parcial de $F(x,y,z)$ respecto a cada variable es:
+	
+	$\begin{array}{l}
+	\dfrac{\partial F}{\partial x}=\sin(x+y+z)\cdot\dfrac{\partial (x+y+z)}{\partial x}=\sin(x+z+y)\\
+	\dfrac{\partial F}{\partial y}=\sin(x+y+z)\cdot\dfrac{\partial (x+y+z)}{\partial y}=\sin(x+z+y)\\
+	\dfrac{\partial F}{\partial z}=\sin(x+y+z)\cdot\dfrac{\partial (x+y+z)}{\partial z}=\sin(x+z+y)\\
+	\end{array}$
+	\item $\db{F(x,y,z)=\int_{0}^{xyz}t\sin t\dt}$
+	
+	Según la regla de Leibniz, la derivada parcial de $F(x,y,z)$ respecto a cada variable es:
+		
+		$\begin{array}{l}
+		\dfrac{\partial F}{\partial x}=\sin(xyz)\cdot\dfrac{\partial (xyz)}{\partial x}=\sin(x+z+y)\cdot yz\\
+		\dfrac{\partial F}{\partial y}=\sin(xyz)\cdot\dfrac{\partial (xyz)}{\partial y}=\sin(x+z+y)\cdot xz\\
+		\dfrac{\partial F}{\partial z}=\sin(xyz)\cdot\dfrac{\partial (xyz)}{\partial z}=\sin(x+z+y)\cdot xy\\
+		\end{array}$
+	\item $\db{F(x,y,z)=\int_{x^2+y^2}^{xyz}\sin t\dt}$
+	
+	Según la regla de Leibniz, la derivada parcial de $F(x,y,z)$ respecto a cada variable es:
+	
+	$\begin{array}{l}
+		\dfrac{\partial F}{\partial x}=\sin(xyz)\cdot\dfrac{\partial (xyz)}{\partial x}-\sin(x^2+y^2)\dfrac{\partial(x^2+y^2)}{\partial x}=\sin(x+z+y)\cdot yz-\sin(x^2+y^2)\cdot 2x\\
+		\dfrac{\partial F}{\partial y}=\sin(xyz)\cdot\dfrac{\partial (xyz)}{\partial y}-\sin(x^2+y^2)\dfrac{\partial(x^2+y^2)}{\partial y}=\sin(x+z+y)\cdot xz-\sin(x^2+y^2)\cdot 2y\\
+		\dfrac{\partial F}{\partial z}=\sin(xyz)\cdot\dfrac{\partial (xyz)}{\partial x}-\tozero{\sin(x^2+y^2)\dfrac{\partial(x^2+y^2)}{\partial z}}=\sin(x+z+y)\cdot xy\\
+	\end{array}$
+	
+\end{enumerate}
+	\item \lb{Sea $f:\R\to\R$ una función de clase $C^2(\R,\R)$ y sea $F:\R^2\to\R$ definida por \[ F(x,y)=f\left(\dfrac{1}{y}-\dfrac{1}{x}\right)\text{ con }x,y\neq0. \]Comprobar que se satisfacen las siguientes igualdades:}
+	\begin{enumerate}[label=\color{red}\textbf{\alph*)}]
+		\item $\db{x^2\dfrac{\partial F}{\partial x}(x,y)+y^2\dfrac{\partial F}{\partial y}(x,y)=0}$
+		
+		$\begin{array}{l}
+		\dfrac{\partial F}{\partial x}=\dfrac{1}{x^2}\\
+		\dfrac{\partial F}{\partial y}=-\dfrac{1}{y^2}\\
+		\cancel{x^2}\cdot\dfrac{1}{\cancel{x^2}}+\cancel{y^2}\cdot\left(-\dfrac{1}{\cancel{y^2}}\right)=1-1=0
+		\end{array}$
+		
+		\item $\db{xy(x+y)\dfrac{\partial^2 F}{\partial x\partial y}}(x,y)+x^2\dfrac{\partial^2 F}{\partial x^2}(x,y)+y^2\dfrac{\partial^2 F}{\partial y^2}(x,y)=0$
+		
+		$\begin{array}{l}
+		\dfrac{\partial^2 F}{\partial x^2}=\dfrac{\partial }{\partial x}\left(\dfrac{\partial f}{\partial x}\right)=\dfrac{\partial}{\partial x}\left(\dfrac{\partial }{\partial x}\left(\dfrac{1}{y}-\dfrac{1}{x}\right)\right)=\dfrac{\partial }{\partial x}\left(\dfrac{1}{x^2}\right)=-\dfrac{2}{x^3}\\
+		\dfrac{\partial^2 F}{\partial y^2}=\dfrac{\partial }{\partial y}\left(\dfrac{\partial f}{\partial y}\right)=\dfrac{\partial}{\partial y}\left(\dfrac{\partial }{\partial y}\left(\dfrac{1}{y}-\dfrac{1}{x}\right)\right)=\dfrac{\partial}{\partial y}\left(-\dfrac{1}{y^2}\right)=\dfrac{2}{y^3}\\
+		\dfrac{\partial^2 F}{\partial x\partial y}=\dfrac{\partial }{\partial x}\left(\dfrac{\partial f}{\partial y}\right)=\dfrac{\partial}{\partial x}\left(\dfrac{\partial }{\partial y}\left(\dfrac{1}{y}-\dfrac{1}{x}\right)\right)=\dfrac{\partial}{\partial x}\left(-\dfrac{1}{y^2}\right)=0\\
+		\cancel{xy(x+y)\cdot0}+\cancel{x^2}\cdot\left(-\dfrac{2}{x^{\cancel{3}}}\right)+\cancel{y^2}\cdot\dfrac{2}{y^{\cancel{3}}}=-\dfrac{2}{x}+\dfrac{2}{y}\neq0
+		\end{array}$
+	\end{enumerate}
+	\item \lb{Sea $f:\R\to\R$ una función de clase $C^2(\R)$ y sea $F:\R^2\to\R$ definida por \[ F(x,y)=\dfrac{f\left(\frac{y}{x}\right)}{x}\text{ con }x\neq0. \]Comprobar que se satisfacen las igualdades:}
+	\begin{enumerate}[label=\color{red}\textbf{\alph*)}]
+		\item $\db{x\dfrac{\partial F}{\partial x}(x,y)+y\dfrac{\partial F}{\partial y}(x,y)+F(x,y)=0}$
+		
+		$\begin{array}{l}
+		\dfrac{\partial F}{\partial x}=\dfrac{\partial}{\partial x}\left(\dfrac{f\left(\frac{y}{x}\right)}{x}\right)=\dfrac{x\cdot f'\left(\frac{y}{x}\right)\cdot\left(-\frac{y}{x^2}\right)+\left(\frac{y}{x}\right)\cdot 1}{x^2}=\dfrac{-f'\left(\frac{y}{x}\right)\cdot \frac{y}{x}-f\left(\frac{y}{x}\right)}{x^2}\\
+		\dfrac{\partial F}{\partial y}=\dfrac{\partial}{\partial x}\left(\dfrac{f\left(\frac{y}{x}\right)}{x}\right)=\dfrac{1}{x}f'\left(\frac{y}{x}\right)\cdot \dfrac{1}{x}=\dfrac{f'\left(\frac{y}{x}\right)}{x^2}\\
+		\begin{aligned}
+		\cancel{x}\cdot\left(\dfrac{-f'\left(\frac{y}{x}\right)\cdot \frac{y}{x}-f\left(\frac{y}{x}\right)}{x^{\cancel{2}}}\right)+y\cdot\left(\dfrac{f'\left(\frac{y}{x}\right)}{x^2}\right)+\dfrac{f\left(\frac{y}{x}\right)}{x}&=\dfrac{-f'\left(\frac{y}{x}\right)\cdot\frac{y}{x}-\cancel{f\left(\frac{y}{x}\right)}}{x}+\dfrac{y\cdot f'\left(\frac{y}{x}\right)}{x^2}+\cancel{\dfrac{f\left(\frac{y}{x}\right)}{x}}\\
+		&=-\dfrac{f'\left(\frac{y}{x}\right)\cdot y}{x^2}+\dfrac{y\cdot f'\left(\frac{y}{x}\right)}{x^2}=0
+		\end{aligned}
+		\end{array}$
+		
+		\item $\db{x^2\dfrac{\partial^2 F}{\partial x^2}(x,y)+y^2\dfrac{\partial^2 F}{\partial y^2}(x,y)+2xy\dfrac{\partial^2 F}{\partial x\partial y}(x,y)=2F(x,y)}$
+		
+		$\begin{array}{l}
+		\dfrac{\partial^2 F}{\partial x^2}=\dfrac{\partial }{\partial x}\left(\dfrac{\partial F}{\partial x}\right)=\dfrac{\partial }{\partial x}\left(\dfrac{-f'\left(\frac{y}{x}\right)\cdot\frac{y}{x}-f\left(\frac{y}{x}\right)}{x^2}\right)=\dfrac{2f''\left(\frac{y}{x}\right)\cdot\frac{y^2}{x^4}+2f'\left(\frac{y}{x}\right)\cdot\frac{y}{x^3}}{x^2}\\
+		\dfrac{\partial^2 F}{\partial y^2}=\dfrac{\partial }{\partial y}\left(\dfrac{\partial F}{\partial y}\right)=\dfrac{\partial}{\partial y}\left(\dfrac{f'\left(\frac{y}{x}\right)}{x}\right)=\dfrac{f''\left(\frac{y}{x}\right)}{x^4}\\
+		\dfrac{\partial^2 F}{\partial x\partial y}=\dfrac{\partial }{\partial x}\left(\dfrac{\partial F}{\partial y}\right)=\dfrac{\partial }{\partial x}\left(\dfrac{f'\left(\frac{y}{x}\right)}{x}\right)=\dfrac{-f''\left(\frac{y}{x}\right)\cdot\frac{y}{x^3}}{x^2}\\
+		
+		\end{array}$
+	\end{enumerate}
+	\item \lb{Sea $f:\R^2\to\R$ una función de clase $C^2(\R^2)$. Comprobar que \[ x^2\dfrac{\partial^2 f}{\partial x^2}(x,y)-y^2\dfrac{\partial^2 f}{\partial y^2} \]}
 \end{enumerate}
 
 \begin{center}
