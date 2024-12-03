@@ -1,4 +1,4 @@
-\documentclass[a4paper]{article}
+\documentclass[12pt]{article}
 \usepackage{fullpage}
 \usepackage[utf8]{inputenc}
 \usepackage{pict2e}
@@ -8,34 +8,20 @@
 \usepackage{mathtools}
 \usepackage{amssymb, amsfonts, latexsym, cancel}
 \setlength{\parskip}{0.4cm}
-\usepackage{graphicx}
-\usepackage{fontenc}
-\usepackage{slashbox}
-\usepackage{setspace}
-\usepackage{gensymb}
-\usepackage{accents}
-\usepackage{adjustbox}
-\setstretch{1.35}
-\usepackage{bold-extra}
 \usepackage{subcaption}
 \usepackage{tcolorbox}
 \usepackage{xcolor, colortbl}
 \usepackage{wrapfig}
+\usepackage{arydshln}
 \usepackage{empheq}
 \usepackage{array}
 \usepackage{parskip}
-\usepackage{arydshln}
-\graphicspath{ {images/} }
-\renewcommand*\contentsname{\color{black}Índice} 
 \usepackage{array, multirow, multicol}
+\renewcommand*\contentsname{\color{black}Índice} 
 \definecolor{lightblue}{HTML}{007AFF}
 \usepackage{color}
 \usepackage{etoolbox}
 \usepackage{listings}
-\usepackage{mdframed}
-\setlength{\parindent}{0pt}
-\usepackage{underscore}
-\usepackage{hyperref}
 \usepackage{tikz}
 \usepackage{tikz-cd}
 \usetikzlibrary{shapes, positioning, patterns}
@@ -44,13 +30,10 @@
 \usepackage{pdfpages}
 \usepackage{pgfplots}
 \usepackage{pgfkeys}
-\addbibresource{biblatex-examples.bib}
 \usepackage[a4paper, left=1cm, right=1cm, top=1cm, bottom=1.5cm]{geometry}
 \usepackage{titlesec}
 \usepackage{titletoc}
 \usepackage{tikz-3dplot}
-\usepackage{kbordermatrix}
-\usetikzlibrary{decorations.pathreplacing}
 \newcommand{\Ej}{\textcolor{lightblue}{\underline{Ejemplo}}}
 \setlength{\fboxrule}{1.5pt}
 
@@ -95,6 +78,8 @@
 \newcommand{\lbb}[2]{\textcolor{lightblue}{\underbracket[1pt]{\textcolor{black}{#1}}_{#2}}}
 \newcommand{\dbb}[2]{\textcolor{blue}{\underbracket[1pt]{\textcolor{black}{#1}}_{#2}}}
 \newcommand{\rub}[2]{\textcolor{red}{\underbracket[1pt]{\textcolor{black}{#1}}_{#2}}}
+\everymath{\displaystyle}
+\renewcommand{\arraystretch}{1.5}
 
 \author{Francisco Javier Mercader Martínez}
 \date{}
