@@ -1,0 +1,50 @@
+---
+title: "Fundamentos de Redes de Datos"
+subtitle: "Práctica 6: Creación de redes LAN mediante herramientas de virtualización - Maquinas Virtuales"
+author: "Francisco Javier Mercader Martínez"
+output: 
+  pdf_document:
+    latex_engine: xelatex
+geometry: margin=1.5cm, a4paper
+fontsize: 12pt
+header-includes:
+- \renewcommand{\and}{\\}
+- \usepackage{fvextra}
+- \usepackage{hyperref}
+- \DefineVerbatimEnvironment{Highlighting}{Verbatim}{breaklines, commandchars=\\\{\}}
+---
+
+# 6. Modo de red: NAT
+## Tarea 6.1
+- Utilizando la máquina virtual FDR1, configúrale como tarjeta de red \underline{el segundo adaptado} en modo NAT.
+
+- Arranca la máquina virutal. Consulta y anota la dirección IP asignada a la tarjeta de red. Para consultar la configuración de las tarjetas de red en una máquina con sistema operativo Linux emplea el comando **`ip`** (**`#ip a`**). ¿Cumple con el esquema de numeración por defecto empleado por VirtualBox?
+
+
+```bash
+localhost:~ # ip a
+1: lo: <LOOPBACK,UP,LOWER_UP> mtu 65536 qdisc noqueue state UNKNOWN group default qlen 1000
+    link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
+    inet 127.0.0.1/8 scope host lo
+       valid_lft forever preferred_lft forever
+    inet6 ::1/128 scope host 
+       valid_lft forever preferred_lft forever
+2: eth0: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc pfifo_fast state UP group default qlen 1000
+    link/ether 08:00:27:69:fa:2b brd ff:ff:ff:ff:ff:ff
+    inet 10.0.2.15/24 brd 10.0.2.255 scope global dynamic noprefixroute eth0
+       valid_lft 85911sec preferred_lft 85911sec
+    inet6 fe80::e167:c6d8:d4b7:c78f/64 scope link noprefixroute 
+       valid_lft forever preferred_lft forever
+3: eth5: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc pfifo_fast state UP group default qlen 1000
+    link/ether 08:00:27:12:03:cd brd ff:ff:ff:ff:ff:ff
+    inet 10.0.3.15/24 brd 10.0.3.255 scope global dynamic noprefixroute eth5
+       valid_lft 85911sec preferred_lft 85911sec
+    inet6 fe80::6d09:b862:1296:65f/64 scope link noprefixroute 
+       valid_lft forever preferred_lft forever
+```
+
+- Consulta y anota la dirección IP del anfitrión. **`#ip a`**
+
+- Haz un ping desde la máquina virtual anfitrión. ¿Ha tenido éxito?
+
+- Haz un ping desde la máquina anfitrión a la máquina virtual. ¿Ha tenido éxito?
