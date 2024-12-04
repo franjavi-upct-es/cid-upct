@@ -775,7 +775,126 @@ $\begin{array}{l}
 		
 		\end{array}$
 	\end{enumerate}
-	\item \lb{Sea $f:\R^2\to\R$ una función de clase $C^2(\R^2)$. Comprobar que \[ x^2\dfrac{\partial^2 f}{\partial x^2}(x,y)-y^2\dfrac{\partial^2 f}{\partial y^2} \]}
+\item \lb{Sea $f(x,y=x^2+y^2)$ y hagmaos $x=\sin t$ e $y=t$ con lo que se obtiene la función compuesta $F(t)=f(x(t), y(t))$. Calcular las tres primeras derivadas de dicha función.}
+
+	Sustituimos $x=\sin t$ y $y=\sin t$ en $f(x,y)=x^2+y^2$: \[F(t)=f(x(t), y(t))=(\sin t)^2+t^2\]
+\begin{itemize}
+	\item Primera derivada:
+
+	Usamos la regla de la derivada para cada término: 
+		\[F'(t)=\dfrac{\partial }{\partial t}(\sin^2t)+\dfrac{\partial}{\partial t}(t^2)=2\cdot\sin t\cdot\cos t+2t\]
+
+	\item Segunda derivada:
+
+	Usamos la regla de la derivada en cada término:
+
+		\[F''(t)=\dfrac{\partial}{\partial t}(2\cdot\sin t\cdot\cos t)+\dfrac{\partial}{\partial t}(2t)=2\cdot\left[\cos t\cdot\cos t+\sin t\cdot (-\sin t)\right]+2=2(\cos^2 t-\sin^2 t)+2\]
+
+	\item Tercera derivada:
+
+		\[F'''(t)=\dfrac{\partial}{\partial t}(2(\cos^2t-\sin^2 t)+\dfrac{\partial }{\partial t}(2)=2\cdot\left(2\cdot\cos t(-\sin t)-2\sin t\cos t\right)+0=-2\cdot(-4\cos t\sin t)=-8\cos t\sin t\]
+\end{itemize}
+
+\item \lb{Dada $f(x,y,z)$ se define el gradiente de $f$ como \[\mathrm{grad}f(x,y,z)=\left(\dfrac{\partial f}{\partial x}(x,y,z),\dfrac{\partial f}{\partial y}(x,y,z),\dfrac{\partial f}{\partial z}(x,y,z)\right).\]Dadas las coorenadas cilíndricas de $\R^3$ \[\begin{cases}
+x=r\cos\theta\\
+y=r\sin\theta\\
+z=z
+\end{cases}\]obtener el gradiente de $f$ en estas coordenadas.}
+
+\begin{center}
+	\begin{tikzpicture}[>=latex, baseline=(current bounding box.center)]
+		\node (f) at (0,0) {$f$};
+		\node[above right=2cm and 1cm of f] (r) {$r$};
+		\node[right=2cm and 1cm of f] (t) {$\theta$};
+		\node[below right=2cm and 1cm of f] (z) {$z$};
+		\node[above right=0.5cm and 1cm of r] (x1) {$x$};
+		\node[above right=0.5cm and 1cm of t] (x2) {$x$};
+		\node[above right=0.5cm and 1cm of z] (x3) {$x$};
+		\node[right=0.5cm and 1cm of r] (y1) {$y$};
+		\node[right=0.5cm and 1cm of t] (y2) {$y$};
+		\node[right=0.5cm and 1cm of z] (y3) {$y$};
+		\node[below right=0.5cm and 1cm of r] (z1) {$z$};
+                \node[below right=0.5cm and 1cm of t] (z2) {$z$};
+                \node[below right=0.5cm and 1cm of z] (z3) {$z$};
+		\draw[->] (f) -- (r);
+		\draw[->] (f) -- (t);
+		\draw[->] (f) -- (z);
+		\draw[->] (r) -- (x1);
+		\draw[->] (t) -- (x2);
+		\draw[->] (z) -- (x3);
+		\draw[->] (r) -- (y1);
+		\draw[->] (t) -- (y2);
+		\draw[->] (z) -- (y3);
+		\draw[->] (r) -- (z1);
+		\draw[->] (t) -- (z2);
+		\draw[->] (z) -- (z3);
+	\end{tikzpicture}\qquad$\begin{cases}
+		\dfrac{\partial f}{\partial x}=\dfrac{\partial f}{\partial r}\cdot\dfrac{\partial r}{\partial x}+\dfrac{\partial f}{\partial \theta}\cdot\dfrac{\partial \theta}{\partial x}+\dfrac{\partial f}{\partial z}\cdot\dfrac{\partial z}{\partial x}\\
+		\dfrac{\partial f}{\partial y}=\dfrac{\partial f}{\partial r}\cdot\dfrac{\partial r}{\partial y}+\dfrac{\partial f}{\partial \theta}\cdot\dfrac{\partial \theta}{\partial y}+\dfrac{\partial f}{\partial z}\cdot\dfrac{\partial z}{\partial y}\\
+		\dfrac{\partial f}{\partial z}=\dfrac{\partial f}{\partial r}\cdot\dfrac{\partial r}{\partial z}+\dfrac{\partial f}{\partial \theta}\cdot\dfrac{\partial \theta}{\partial z}+\dfrac{\partial f}{\partial z}\cdot\lbb{\dfrac{\partial z}{\partial z}}{1}
+	\end{cases}$
+\end{center}
+\begin{enumerate}[label=\arabic*)]
+	\item Relación para $r$: \[r=\sqrt{x^2+y^2},\quad\dfrac{\partial r}{\partial x}=\dfrac{x}{\sqrt{x^2+y^2}},\quad\dfrac{\partial r}{\partial y}=\dfrac{y}{\sqrt{x^2+y^2}},\quad\dfrac{\partial r}{\partial z}=0\]
+	\item Relación para $\theta$: \[\theta=\tan^{-1}\left(\dfrac{y}{x}\right),\quad\dfrac{\partial \theta}{\partial x}=-\dfrac{y}{x^2+y^2},\quad\dfrac{\partial \theta}{\partial y}=\dfrac{x}{x^2+y^2},\quad\dfrac{\partial \theta}{\partial z}=0\]
+	\item Relación para $z$: \[z=z,\quad\dfrac{\partial z}{\partial x}=0,\quad\dfrac{\partial z}{\partial y}=0,\quad\dfrac{\partial z}{\partial z}=1\]
+
+\textbf{Graiente en coordenadas cilíndricas:}
+
+		El gradiente en coordenadas cilíndricas se expresa como: \[\mathrm{grad}f(r,\theta,z)=\left(\dfrac{\partial f}{\partial r},\dfrac{1}{r}\cdot\dfrac{\partial f}{\partial \theta},\dfrac{\partial f}{\partial z}\right)\]
+
+		Derivamos cada componente de $f(x,y,z)$ respecto a $(r,\theta,z)$:
+
+		\begin{enumerate}[label=\arabic*)]
+			\item Derivada respecto a $r$: \[\dfrac{\partial f}{\partial r}=\dfrac{\partial f}{\partial x}\dfrac{\partial x}{\partial r}+\dfrac{\partial f}{\partial z}\tozero{\dfrac{\partial z}{\partial r}}=\dfrac{\partial f}{\partial x}\cos\theta+\dfrac{\partial f}{\partial y}\sin\theta\]
+			\item Derivada respecto a $\theta$: \[\dfrac{\partial f}{\partial \theta}=\dfrac{\partial f}{\partial x}\dfrac{\partial x}{\partial \theta}+\dfrac{\partial f}{\partial y}\dfrac{\partial y}{\partial \theta}+\dfrac{\partial f}{\partial z}\tozero{\dfrac{\partial z}{\partial \theta}}=\dfrac{\partial f}{\partial x}(-r\sin\theta)+\dfrac{\partial f}{\partial y}(r\cos\theta)\]
+
+			\item Derivada respecto a $z$
+				\[\dfrac{\partial f}{\partial z}=\dfrac{\partial f}{\partial x}\tozero{\dfrac{\partial x}{\partial z}}+\dfrac{\partial f}{\partial y}\tozero{\dfrac{\partial y}{\partial z}}+\dfrac{\partial f}{\partial z}\dfrac{\partial z}{\partial z}=\dfrac{\partial f}{\partial z}\]
+		\end{enumerate}
+\end{enumerate}
+
+\item \lb{Si ahora tenemos las coordenadas esféricas \[
+		\begin{cases}
+			x=r\cos\theta\sin\varphi\\
+			y=r\sin\theta\sin\varphi\\
+			z=r\cos\varphi
+		\end{cases}
+	\]obtener el gradiente de la función del ejercicio anterior en estas nuevas coordenadas.} 
+
+El gradiente de $f$ en coordenadas cartesianas es: \[\mathrm{grad}f(x,y,z)=\left(\dfrac{\partial f}{\partial x},\dfrac{\partial f}{\partial y},\dfrac{\partial f}{\partial z}\right).\]
+Queremos expresar este gradiente en términos de coordenadas esféricas $(r,\theta,\varphi)$.
+
+\begin{enumerate}[label=\arabic*)]
+\item Relación entre derivadas parciales
+
+Usamos la regla de la cadena para expresar las derivadas parciales respecto a $(x,y,z)$ en términos de $(r,\theta,\varphi)$. Por la regla de la cadena:
+
+\[
+\begin{array}{l}
+\dfrac{\partial f}{\partial r}=\dfrac{\partial f}{\partial x}\dfrac{\partial x}{\partial r}+\dfrac{\partial f}{\partial y}\dfrac{\partial y}{\partial r}+\dfrac{\partial f}{\partial z}\dfrac{\partial z}{\partial r}\\
+
+\dfrac{\partial f}{\partial \theta}=\dfrac{\partial f}{\partial x}\dfrac{\partial x}{\partial \theta}+\dfrac{\partial f}{\partial y}\dfrac{\partial y}{\partial \theta}+\dfrac{\partial f}{\partial z}\dfrac{\partial z}{\partial \theta}\\
+
+\dfrac{\partial f}{\partial \varphi}=\dfrac{\partial f}{\partial x}\dfrac{\partial x}{\partial \varphi}+\dfrac{\partial f}{\partial y}\dfrac{\partial y}{\partial \varphi}+\dfrac{\partial f}{\partial z}\dfrac{\partial z}{\partial \varphi}\\
+\end{array}
+\]
+\item Gradiente en coordenadas esféricas.
+
+\[
+\begin{array}{l}
+\dfrac{\partial f}{\partial r}=\dfrac{\partial f}{\partial x}\cos\theta\sin\varphi+\dfrac{\partial f}{\partial y}\sin\theta\sin\varphi+\dfrac{\partial f}{\partial z}\cos\theta\\
+
+\dfrac{\partial f}{\partial \theta}=\dfrac{\partial f}{\partial x}(-r\sin\theta\sin\varphi)+\dfrac{\partial f}{\partial y}(r\cos\theta\sin\varphi)+\cancel{\dfrac{\partial f}{\partial z}\cdot0}=r\sin\varphi\left(-\dfrac{\partial f}{\partial x}\sin\theta+\dfrac{\partial f}{\partial y}\cos\theta\right)\\
+
+\dfrac{\partial f}{\partial \varphi}=\dfrac{\partial f}{\partial x}(r\cos\theta\cos\varphi)+\dfrac{\partial f}{\partial y}(r\sin\theta\cos\varphi)+\dfrac{\partial f}{\partial z}(-r\sin\varphi)=r\left[\cos\varphi\left(\dfrac{\partial f}{\partial x}\cos\theta+\dfrac{\partial f}{\partial y}\sin\theta\right)-\dfrac{\partial f}{\partial z}\sin\varphi\right]
+\end{array}
+\]
+\end{enumerate}
+
+\item \lb{Sea $f:\R^2\backslash\{(0,0)\}\to\R$ una función de clase $C^2(\R^2\backslash\{(0,0)\})$. Comprobar que \[\dfrac{1}{x^2+y^2}\left(\dfrac{\partial^2f}{\partial x^2}(x,y)+\dfrac{\partial^2 f}{\partial y^2}(x,y)\right)=4\left(\dfrac{\partial^2 f}{\partial u^2}(u,v)+\dfrac{\partial^2 f}{\partial v^2}(u,v)\right)\]donde $u=x^2-y^2$ y $v=2xy$.}
+
+
 \end{enumerate}
 
 \begin{center}
