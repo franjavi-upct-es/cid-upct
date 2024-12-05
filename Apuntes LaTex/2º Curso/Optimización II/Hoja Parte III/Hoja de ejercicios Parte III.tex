@@ -194,6 +194,28 @@
     \omega_j\cdot z_j=0,\quad 1\le j\le 2
     \end{cases} \]tiene 4 soluciones y calcúlalas.}
     
+    $\omega\cdot\begin{bmatrix}1\\ 0\end{bmatrix}+\omega_2\cdot\begin{bmatrix}0\\1\end{bmatrix}+z_1\begin{bmatrix}2\\-1\end{bmatrix}+z_2\begin{bmatrix}-1\\2\end{bmatrix}=\begin{bmatrix}1\\1\end{bmatrix}$
+
+\begin{tabular}{c|c|c|c|c}
+Variables nulas & Variables complementarias & Matriz complementaria & Cono complementario & Solución\\ \hline \\
+$\omega_1=\omega_2=0$ & $(z_1,z_2)$ & $\begin{bmatrix}2 & -1\\-1 & 2\end{bmatrix}$ & & $z_1=z_2=1$\\ \hline \\
+$\omega_1=z_2=0$ & $(z_1,\omega_2)$ & $\begin{bmatrix}2 & 0\\ -1 & 1\end{bmatrix}$ & & $z_1=\dfrac{1}{2};\omega_2=\dfrac{3}{2}$\\ \hline \\
+$z_1=z_2=0$ & $(\omega_1,\omega_2)$ & $\begin{bmatrix}1&0\\0&1\end{bmatrix}$ & & $\omega_1=\dfrac{3}{2},z_2=\dfrac{1}{2}$ \\ \hline \\
+\end{tabular}
+
+$\begin{rcases}
+2z_1-z_2=1\\
+-z_1+2z_2=1
+\end{rcases}\longrightarrow\begin{rcases}
+4z_1-2z_2=2\\
+-z_1+2z_2=1
+\end{rcases}\quad\begin{array}{l}
+3z_1=3\longrightarrow z_1=1\\
+z_2=2\cdot z_1-1=2\cdot 1-1=1
+\end{array}$
+
+$z_1\cdot\begin{bmatrix}2\\-1\end{bmatrix}+\omega_2\cdot\begin{bmatrix}0\\1\end{bmatrix}=\begin{bmatrix}1\\1\end{bmatrix}\longrightarrow\begin{rcases}2z_1=1\\-z_1+\omega_2=1\end{rcases}$
+
     \item \lb{Utiliza el algoritmo de Lemke para resolver el problema de complementariedad lineal asociado a los datos \[ M=\begin{bmatrix}
     1 & -1 \\
     -1 & 1

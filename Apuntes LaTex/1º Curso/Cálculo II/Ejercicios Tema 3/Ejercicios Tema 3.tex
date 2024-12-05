@@ -894,7 +894,32 @@ Usamos la regla de la cadena para expresar las derivadas parciales respecto a $(
 
 \item \lb{Sea $f:\R^2\backslash\{(0,0)\}\to\R$ una función de clase $C^2(\R^2\backslash\{(0,0)\})$. Comprobar que \[\dfrac{1}{x^2+y^2}\left(\dfrac{\partial^2f}{\partial x^2}(x,y)+\dfrac{\partial^2 f}{\partial y^2}(x,y)\right)=4\left(\dfrac{\partial^2 f}{\partial u^2}(u,v)+\dfrac{\partial^2 f}{\partial v^2}(u,v)\right)\]donde $u=x^2-y^2$ y $v=2xy$.}
 
+	Supongamos que $f$ es una función $C^2$, dependiente de $(u,v)$, con $u=x^2-y^2$ y $v=2xy$. Entonces, aplicamos la regla de la cadena para las derivadas parciales de $f$ respecto a $x$ e $y$:
+	\begin{itemize}
+	\item Derivada parcial de $f$ respecto a $x$: \[ \dfrac{\partial f}{\partial x}=\dfrac{\partial f}{\partial u}\cdot\dfrac{\partial u}{\partial x}+\dfrac{\partial f}{\partial v}\cdot\dfrac{\partial v}{\partial x}=\dfrac{\partial f}{\partial u}\cdot 2x+\dfrac{\partial f}{\partial v}\cdot 2y. \]
+	
+	\item Derivada parcial de $f$ respecto a $y$: \[ \dfrac{\partial f}{\partial y}=\dfrac{\partial f}{\partial u}\cdot\dfrac{\partial u}{\partial y}+\dfrac{\partial f}{\partial v}\cdot\dfrac{\partial v}{\partial y}=-\dfrac{\partial f}{\partial u}\cdot 2y+\dfrac{\partial f}{\partial v}\cdot 2x \]
+	\end{itemize}
+	Usamos nuevamente la regla de la cadena para calcular las segundas derivadas parciales.
+	\begin{itemize}
+	\item Seguunda derivada parcial respecto a $x$: \[ \begin{aligned}
+	\dfrac{\partial^2 f}{\partial x^2}&=\dfrac{\partial }{\partial x}\left(\dfrac{\partial f}{\partial x}\right) =\dfrac{\partial }{\partial x}\left(\dfrac{\partial f}{\partial u}\cdot 2x+\dfrac{\partial f}{\partial v}\cdot 2y\right)=\dfrac{\partial^2 f}{\partial u^2}\cdot 2x\cdot 2x+\dfrac{\partial ^2f}{\partial u\partial v}\cdot 2x\cdot 2y+\dfrac{\partial^2 f}{\partial v\partial u}\cdot 2y\cdot 2x+\dfrac{\partial^2 f}{\partial v^2}\cdot 2y\cdot 2y+2\cdot\dfrac{\partial f}{\partial u}\\
+	&=4x^2\dfrac{\partial^2 f}{\partial u^2}+8xy\dfrac{\partial^2 f}{\partial u\partial v}+4y^2\dfrac{\partial^2 f}{\partial v^2}+2\dfrac{\partial f}{\partial u}
+	\end{aligned}\]
+	\item Segunda derivada parcial respecto a $y$: \[  \begin{aligned}
+	\dfrac{\partial^2 f}{\partial y^2}&=\dfrac{\partial }{\partial y}\left(\dfrac{\partial f}{\partial y}\right)=\dfrac{\partial}{\partial y}\left(-\dfrac{ \partial f}{\partial u}\cdot 2y+\dfrac{\partial f}{\partial v}\cdot 2x\right)\\
+	&=\dfrac{\partial^2 f}{\partial u^2}\cdot(-2y)\cdot(-2y)+\dfrac{\partial ^2f}{\partial u\partial v}\cdot 2x\cdot (-2y)+\dfrac{\partial^2 f}{\partial v\partial u}\cdot (-2y)\cdot 2x+\dfrac{\partial^2 f}{\partial v^2}\cdot 2x\cdot 2x+\dfrac{\partial f}{\partial u}\cdot(-2)\\
+	&=4y^2\dfrac{\partial^2f}{\partial u^2}-8xy\dfrac{\partial^2 f}{\partial u\partial v}+4x^2\dfrac{\partial^2 f}{\partial v^2}-2\dfrac{\partial f}{\partial u}
+	\end{aligned}\]
+	\end{itemize}
+	
+$$\dfrac{\partial^2 f}{\partial x^2}+\dfrac{\partial^2 f}{\partial y^2}=(4x^2+4y^2)\dfrac{\partial^2 f}{\partial u^2}+(4y^2+4x^2)\dfrac{\partial^2 f}{\partial v^2}$$
 
+Usamos que $r^2=x^2+y^2$: \[  \begin{array}{c}
+\dfrac{\partial^2 f}{\partial x^2}+\dfrac{\partial^2 f}{\partial y^2}=4r^2\left(\dfrac{\partial^2 f}{\partial u^2}+\dfrac{\partial^2 f}{\partial v^2}\right)\\
+\dfrac{\frac{\partial^2 f}{\partial x^2}+\frac{\partial^2 f}{\partial y^2}}{x^2+y^2}=4\left(\dfrac{\partial^2 f}{\partial u^2}+\dfrac{\partial^2 f}{\partial v^2}\right)\\
+\dfrac{1}{x^2+y^2}\left(\dfrac{\partial^2 f}{\partial x^2}+\dfrac{\partial^2 f}{\partial y^2}\right)=4\left(\dfrac{\partial^2 f}{\partial u^2}+\dfrac{\partial^2 f}{\partial v^2}\right)
+\end{array}\]
 \end{enumerate}
 
 \begin{center}
