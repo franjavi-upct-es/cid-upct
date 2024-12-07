@@ -1,0 +1,413 @@
+\input{../../../Macros.tex}
+\title{Cálculo II\\ Tema 2: Límites y continuidad de funciones de varias variables}
+\begin{document}
+\maketitle
+\begin{enumerate}[label=\color{red}\textbf{\arabic*)}, leftmargin=*]
+\item \lb{Calcular el máximo dominio de definición de las funciones siguientes.}
+\begin{enumerate}[label=\color{red}\textbf{\alph*)}]
+\item $\db{f(x,y)=\cos\left(\dfrac{1}{x^2+y^2}\right)}$
+
+Para determinar el dominio de definición de la función $f(x,y)=\cos\left(\dfrac{1}{x^2+y^2}\right)$, debemos analizar los valores de $(x,y)$ que hacen que la expresión $\dfrac{1}{x^2+y^2}$ esté bien definida.
+
+La función $\dfrac{1}{x^2+y^2}$ estará definida siempre que $x^2+y^2\neq0$. Esto ocurre porque si $x^2+y^2=0$, el denominador se anula y la función no está definida. Sabemos que: $$
+x^2+y^2=0\longrightarrow x=0\text{ y }y=0.
+$$
+Por lo tanto, la única solución en la que $x^2+y^2=0$ ocurre en el punto $(0,0)$. La función $\cos\left(\dfrac{1}{x^2+y^2}\right)$ estará definida siempre que $x^2+y^2\neq=$, lo que significa que el dominio de la función es el conjunto de todos los puntos del plano excepto el origen $(0,0)$.
+
+El dominio máximo de definición de $f(x,y)$ es: $$D=\{(x,y)\in\R^2:x^2+y^2\neq0\}=\R^2\backslash\{(0,0)\}$$
+
+\item $\db{f(x,y)=\dfrac{x^2+y^2}{xy}}$
+
+La función $f(x,y)$ estará definida siempre que $xy\neq0$ porque el denominador se anula y la función no está definida. Sabemos que: $$xy=0\longrightarrow x=0\text{ ó }y=0.$$
+Por lo tanto, el dominio de $f(x,y)$ consiste en todos los pares $(x,y)\in\R^2$ tales que $x\neq0$ y $y\neq0$.
+
+El dominio de la función es: $$D=\{(x,y)\in\R^2:x\neq0\text{ y }y\neq0\}=\R^2\backslash\{(x,y):x=0\text{ ó }y=0\}=\R^2\backslash(\{x=0\}\cup\{y=0\})$$
+
+\item $\db{\vec{f}(x,y)=\left(\dfrac{xy}{x^2+y^2-1},\dfrac{xy}{x^2+y^2-4}\right)}$
+
+Para determinar el dominio de definición de la función vectorial $\vec{f}(x,y)$, debemos analizar las restricciones impuestas por el denominador de cada componente, asegurándonos de evitar divisiones por cero.
+
+\underline{Analizar los denominadores}
+\begin{enumerate}[label=\arabic*)]
+\item Primer denominador: $x^2+y^2-1\neq0$ $$x^2+y^2\neq1.$$
+Esto significa que el punto $(x,y)$ no puede estar en el círculo de radio 1 centrado en el origen, ya que en ese caso el denominador sería cero.
+\item Segundo denominador: $x^2+y^2-4\neq0$ $$x^2+y^2\neq4.$$
+Esto significa que el punto $(x,y)$ no puede estar en el círculo de radio 2 centrado en el origen, ya que en ese caso el denominador sería cero.
+\end{enumerate}
+\underline{Analizar el numerador}
+
+El numerador en ambos casos en $xy$, el cual está bien definido para todos los valores de $x$ e $y$, por lo que no introduce restricciones adicionales al dominio.
+
+\underline{Determinar el dominio}
+
+El dominio de $\vec{f}(x,y)$ estará definido en todos los puntos $(x,y)\in\R^2$ excepto aquellos que hagan que alguno de los denominadores sean cero. Esto ocurre en los puntos que satisfacen $x^2+y^2=1$ ó $x^2+y^2=4$.
+
+Por lo tanto, el dominio es el plano $\R^2$ excluyendo los puntos en ls círculos de radio 1 y radio 2.
+$$
+D=\{(x,y)\in\R^2:x^2+y^2\neq1\text{ y }x^2+y^2\neq4\}=\R^2\backslash(\{x^2+y^2=1\}\cup\{x^2+y^2=4\}).
+$$
+
+\item $\db{f(x,y)=\sqrt{x^2+y^2-1}}$
+
+Para determinar el dominio de definición de la función $f(x,y)$, necesitamos asegurarnos de que la expresión dentro de la raíz cuadrada sea mayor o igual a cero, ya que la raíz cuadrada no está definida para números negativos en el dominio real.
+
+\begin{itemize}
+\item Condición para que la raíz sea válida:
+
+La raíz está definida si: $$x^2+y^2-1\ge0\longrightarrow x^2+y^2\ge1$$
+Esto significa que la función está definida para los puuntos $(x,y)$ que se encuentren en el exterior o sobre el círculo de radio 1 centrado en el origen.
+
+\item Determinar el dominio:
+
+El dominio consiste en todos los puntos $(x,y)$ del plano tal que $x^2+y^2\ge1$. $$D=\{(x,y)\in\R^2:x^2+y^2\ge1\}$$
+\end{itemize}
+\item $\db{\vec{f}(x,y,z)=\left(\dfrac{z}{x^2+y^2+z^2-4},\log(x^2+y^2+z^2-1)\right)}$
+
+Para determinar el dominio de definición de la función vectorial $\vec{f}(x,y,z)$ debemos analizar las restricciones impuestas por los denominadores y la función logarítmica.
+
+\begin{itemize}
+\item Condición para el denominador del primer componente
+
+El denominador del primer componente, $x^2+y^2+z^2-4$, no puede ser cero, ya que eso haría que la fracción sea definida. Esto implica: $$x^2+y^2+z^2\neq4.$$ Esto significa que el dominio excluye todos los puntos sobre la esfera de radio 2 centrada en el origen.
+
+\item Condición para el argumento del logaritmo:
+
+El argumento del logaritmo, $x^2+y^2+z^2-1$, debe ser estrictamente positivo, ya que el logaritmo solo está definido para valores mayores que cero. Esto implica: $$x^2+y^2+z^2-1>0\longrightarrow x^2+y^2+z^2>1.$$ Esto significa que el dominio incluye solo los puntos fuera de la esfera de radio 1 centrada en el origen.
+
+\item Combinar restricciones:
+
+El dominio de $\vec{f}(x,y,z)$ está formado por los puntos $(x,y,z)$ que cumplen simultáneamente:
+\begin{enumerate}[label=\arabic*)]
+\item $x^2+y^2+z^2>1$ (fuera de la esfera de radio 1).
+\item $x^2+y^2+z^2\neq4$ (excluyendo la esfera de radio 2). $$D=\{(x,y,z)\in\R^3:x^2+y^2+z^2>1\text{ y }x^2+y^2+z^2\neq4\}.$$
+\end{enumerate}
+\end{itemize}
+\end{enumerate}
+\item \lb{Estudiar la existencia de límite en el punto $(0,0)$ de la función $f:\R^2\backslash\{(0,0)\}\to\R$ definida por $$f(x,y)=\dfrac{x^4+y^4}{x^2+y^2}.$$}
+\begin{enumerate}[label=\arabic*)]
+\item Límites direccionales: $$\lim_{(x,y)\to(0,0)}\dfrac{x^4+y^4}{x^2+y^2}=\left\{y=mx\right\}=\lim_{x\to0}\dfrac{x^4+m^4x^4}{x^2+m^2x^2}=\lim_{x\to0}\dfrac{x^{\cancel{4}}(1+m^4)}{\cancel{x^2}(1+m^2)}=\lim_{x\to0}\dfrac{x^2(1+m^4)}{1+m^2}=0$$
+No sabemos si existe el límite, pero en caso de existir valdría cero.
+\item Coordenadas polares: $$\lim_{(x,y)\to(0,0)}\dfrac{x^4+y^4}{x^2+y^2}=\left\{\begin{array}{l}
+x=r\cos\theta\\
+y=r\sin\theta
+\end{array}\right\}=\lim_{r\to0}\dfrac{r^4\cos^4\theta+r^4\sin^4\theta}{r^2\cos^2\theta+r^2\sin^2\theta}=\lim_{r\to0}\dfrac{r^{\cancel{4}}(\cos^4\theta+\sin^4\theta)}{\cancel{r^2}\lbb{(\cos^2\theta+\sin^2\theta)}{1}}=\lim_{r\to0}r^2(\cos^4\theta+\sin^4\theta)=0$$
+No sabemos si existe el límite pero en caso de existir valdría cero.
+\item Límites iterados o retirados
+\begin{itemize}
+\item $\lim_{y\to0}\left(\lim_{x\to0}\dfrac{x^4+y^4}{x^2+y^2}\right)=\lim_{y\to0}\dfrac{y^4}{y^2}=\lim_{y\to0}y^2=0$
+\item $\lim_{x\to0}\left(\lim_{y\to0}\dfrac{x^4+y^4}{x^2+y^2}\right)=\lim_{x\to0}\dfrac{x^4}{x^2}=\lim_{x\to0}x^2=0$
+\end{itemize}
+\item Definición del límite: $$\forall\mathcal{E}>0\quad\exists\delta>0\text{ tal que }|f(x,y)-L|<\mathcal{E}\text{ si }\|(x,y)-(0,0)\|<\delta$$ En coordenadas polares: $$\forall\mathcal{E}>0\quad\exists\delta>0\text{ tal que }|f(r,\theta)-\lbb{L}{0}|<\mathcal{E}\text{ si }r<\delta$$ En todos los caminos considerados, $f(x,y)\to0$. Por lo tanto, el límite existe y es cero.
+\end{enumerate}
+\item \lb{Estudiar la existencia del límite en el punto $(0,0)$, de la función $\vec{f}:\R^2\backslash\{(0,0)\}\to\R^2$ definida por $$\vec{f}(x,y)=\left(x+y^2,\dfrac{xy}{x^2+y^2}\right)$$}
+Para que el límite de $\vec{f}(x,y)$ exista en $(0,0)$, deben existir los límites de ambas componentes de forma independiente.
+\begin{itemize}
+\item Primera componente: $f_1(x,y)=x+y^2$
+\begin{enumerate}[label=\arabic*)]
+\item Límites direccionales: $$\lim_{(x,y)\to(0,0)}x+y^2=\left\{y=mx\right\}=\lim_{x\to0}x+m^2x^2=0$$No sabemos si existe el límite, pero en caso de existir valdrá cero.
+\item Cambio por coordenadas polares: $$\lim_{(x,y)\to(0,0)}x+y^2\left\{\begin{array}{l}x=r\cos\theta\\ y=r\sin\theta\end{array}\right\}=\lim_{r\to0}r\cos\theta+r^2\sin^2\theta=0$$No sabemos si existe el límite, pero en caso de existir valdrá cero.
+\item Límites iterados o reiterados:
+\begin{itemize}[label=\textbullet]
+\item $\lim_{x\to0}\left(\lim_{y\to0}x+y^2\right)=\lim_{x\to0}x=0$
+\item $\lim_{y\to0}\left(\lim_{x\to0}x+y^2\right)=\lim_{y\to0}y^2=0$
+\end{itemize}
+\end{enumerate}
+En todos los caminos considerados, $f_1(x,y)\to0$. Por lo tanto, el límite existe y es cero.
+\item Segunda componente: $f_(x,y)=\dfrac{xy}{x^2+y^2}$
+\begin{enumerate}[label=\arabic*)]
+\item Límites direccionales: $$\lim_{(x,y)\to(0,0)}\dfrac{xy}{x^2+y^2}=\{y=mx\}=\lim_{x\to0}\dfrac{xmx}{x^2+m^2x^2}=\lim_{x\to0}\dfrac{\cancel{x^2}m}{\cancel{x^2}(1+m^2)}=\dfrac{m}{1+m^2}$$
+No existe el límite, porque el resultado depende de $m$.
+\end{enumerate}
+Por lo tanto, al no haber en $(0,0)$ para $f_2(x,y)$, la función vectorial $\vec{f}(x,y)$ no tendrá límite en $(0,0)$.
+\end{itemize}
+\item \lb{Estudiar la existencia del límite en el punto $(0,0)$ de la función $f:\R^2\backslash\{(0,0)\}\to\R$ dada por $$f(x,y)=\dfrac{x^2+y}{\sqrt{x^2+y^2}}$$}
+\begin{enumerate}[label=\arabic*)]
+\item Límites direccionales: $$\lim_{(x,y)\to(0,0)}\dfrac{x^2+y}{\sqrt{x^2+y^2}}=\{y=mx\}=\lim_{x\to0}\dfrac{x^2+mx}{\lbb{\sqrt{x^2+m^2x^2}}{x^2(1+m^2)}}=\lim_{x\to0}\dfrac{\cancel{x}(\tozero{x}+m)}{\cancel{x}\sqrt{1+m^2}}=\dfrac{m}{\sqrt{1+m^2}}$$No existe el límite, porque el resultado depende de $m$.
+\end{enumerate}
+\item \lb{Estudiar la existencia del límite en el punto $(0,0)$, de la función $f:\mathbb{R}^{2}\backslash\{ (0,0) \}\to \mathbb{R}$ dada por $$
+f(x,y)=\dfrac{x^4+3x^{2}y^{2}2xy^{3}}{(x^{2}+y^{2})^{2}}
+$$}
+\begin{enumerate}[label=\arabic*)]
+\item Límites direccionales
+$$
+\lim_{ (x,y) \to (0,0) }\dfrac{x^4+3x^{2}y^{2}+2xy^{3}}{(x^{2}+y^{2})^{2}}=\left\{ y=mx \right\}=\lim_{ x \to 0 }\dfrac{x^4+3x^{2}m^{2}x^{2}+2xm^{3}x^{3}}{(x^{2}+m^{2}x^{2})^{2}}=\lim_{ x \to 0 }\dfrac{\cancel{x^4}(1+3m^{2}+2m^{3})}{\cancel{x^4}(1+m^{2})^{2}}=\dfrac{1+3m^{2}+2m^{3}}{(1+m^{2})^{2}}
+$$
+\end{enumerate}
+No existe el límite porque el resultado depende de $m$.
+
+\item \lb{Estudiar la existencia del límite en el punto $(0,0)$ de la función $f:\mathbb{R}^{2}\backslash\{ (0,0) \}\to \mathbb{R}$ dada por $$
+f(x,y)=\dfrac{2x^5+2y^{3}(2x^{2}-y^{2})}{(x^{2}+y^{2})^{2}}
+$$}
+\begin{enumerate}[label=\arabic*)]
+\item Límites direccionales: $$\begin{aligned}
+\lim_{ (x,y) \to (0,0) }\dfrac{2x^5+2y^{3}(2x^{2}-y^{2})}{(x^{2}+y^{2})^{2}}&=\lim_{ (x,y) \to (0,0) }\dfrac{2x^5+4x^{2}y^{3}-2y^5}{(x^{2}+y^{2})^{2}}=\{ y=mx \}=\lim_{ x \to 0 }\dfrac{2x^5+4x^2m^{3}x^{3}-2m^5x^5}{(x^{2}+m^{2}x^{2})}=\lim_{ x \to 0 }\dfrac{x^{\cancel{5}}(2+4m^{3}-2m^5)}{\cancel{x^4}(1+m^{2})^{2}}\\
+&=\lim_{ x \to 0 }\dfrac{x(2+4m^{3}-2m^5)}{(1+m^{2})^{2}}=0
+\end{aligned}$$
+No sabemos si existe el límite pero en caso de existir valdrá cero.
+
+\item Cambio de coordenadas polares: 
+$$
+\begin{aligned}
+\lim_{ (x,y) \to (0,0) }\dfrac{2x^5+2y^{3}(2x^{2}-y^{2})}{(x^{2}+y^{2})^{2}}&=\left\{ \begin{array}{l}
+x=r\cos\theta \\
+y=r\sin\theta
+\end{array} \right\}=\lim_{ r \to 0 }\dfrac{2r^5\cos^5\theta+4r^{2}\cos ^{2}\theta r^{3}\sin ^{3}\theta-2r^5\sin^5\theta}{(r^{2}\cos ^{2}\theta+r^{2}\sin ^{2}\theta)^{2}}\\
+&=\lim_{ r \to 0 }\dfrac{2r^{\cancel{5}}(\cos^5\theta+2\cos ^{2}\theta\sin ^{3}\theta-\sin ^{5}\theta)}{\cancel{r^4}(\lbb{\cos ^{2}\theta+\sin ^{2}\theta}{1})^{2}}=\lim_{ r \to 0 }2r(\cos^5\theta+2\cos ^{2}\theta \sin ^{3}\theta-\sin^5\theta)=0
+\end{aligned}
+$$
+No sabemos si existe el límite pero en caso de existir valdrá cero.
+
+\item Límites iterados o reiterados:
+\begin{itemize}[label=\textbullet]
+\item $\lim_{ x \to 0 }\left( \lim_{ y \to 0 } \dfrac{2x^5+2y^{3}(2x^{2}-y^{2})}{(x^{2}+y^{2})^{2}}\right)=\lim_{ x \to 0 }\dfrac{2x^5}{x^4}=\lim_{ x \to 0 }2x=0$
+\item $\lim_{ y \to 0 }\left( \lim_{ x \to 0 } \dfrac{2x^5+2y^{3}(2x^{2}-y^{2})}{(x^{2}+y^{2})^{2}}\right)=\lim_{ t \to 0 }\dfrac{-2y^5}{y^4}=\lim_{ y \to 0 }-2y=0$
+\end{itemize}
+En todos los caminos considerados, $f(x,y)\to 0$. Por lo tanto, el límite existe y es $0$.
+\end{enumerate}
+
+\item \lb{Estudiar la existencia del límite en el punto $(0,0)$ de la función $\vec{f}:\mathbb{R}^{2}\backslash\{ (0,0) \}\to \mathbb{R}^{3}$ dada por $$
+\vec{f}(x,y)=\left( xy\dfrac{x^{2}-y^{2}}{x^{2}+y^{2}},xy,\sqrt{ |xyz| } \right)
+$$}
+Para que el límite de $\vec{f}(x,y)$ exista en $(0,0)$, deben existir los límites de las tres componentes independientemente.
+\begin{itemize}
+\item Primera componente: $f_{1}(x,y)=xy\dfrac{x^{2}-y^{2}}{x^{2}+y^{2}}$
+\begin{enumerate}[label=\arabic*)]
+\item Límites direccionales: 
+$$
+\lim_{ (x,y) \to (0,0) }xy\dfrac{x^{2}-y^{2}}{x^{2}+y^{2}}=\left\{ y=mx \right\}=\lim_{ x \to 0 }xmx\dfrac{x^{2}-m^{2}x^{2}}{x^{2}+m^{2}x^{2}}=\lim_{ x \to 0 }\dfrac{x^{\cancel{4}}m(1-m^{2})}{\cancel{x^{2}}(1+m^{2})}=\lim_{ x \to 0 }\dfrac{x^{2}m(1-m^{2})}{1+m^{2}}=0
+$$
+No sabemos si existe el límite, pero en caso de existir valdrá cero.
+
+\item Cambio por coodenadas polares:
+$$
+\begin{aligned}
+\lim_{ (x,y) \to (0,0) }xy\dfrac{x^{2}-y^{2}}{x^{2}+^{2}}&=\left\{ \begin{array}{l}
+x=r\cos\theta \\
+y=r\sin\theta
+\end{array} \right\}=\lim_{ r \to 0 }r\cos\theta \cdot r\sin\theta\cdot\dfrac{r^{2}\cos ^{2}\theta-r^{2}\sin ^{2}\theta}{r^{2}\cos ^{2}\theta+r^{2}\sin ^{2}\theta}\\
+&=\lim_{ r \to 0 }r^{2}\cos\theta \sin\theta\cdot \dfrac{\cancel{r^{2}}(\cos ^{2}\theta-\sin ^{2}\theta)}{\cancel{r^{2}}\lbb{(\cos ^{2}\theta+\sin ^{2}\theta)}{1}}=\lim_{ r \to 0 }r^{2}\cos\theta \sin\theta(\cos ^{2}\theta+\sin ^{2}\theta)=0
+\end{aligned}
+$$
+No sabemos si existe el límite, pero en caso de existir valdrá 0.
+
+\item Límites iterados o reiterados:
+\begin{itemize}
+\item $\lim_{ x \to 0 }\left( \lim_{ y \to 0 }xy\dfrac{x^{2}-y^{2}}{x^{2}+y^{2}} \right)=\lim_{ x \to 0 }0=0$
+\item $\lim_{ y \to 0 }\left( \lim_{ x \to 0 }xy\dfrac{x^{2}-y^{2}}{x^{2}+y^{2}} \right)=\lim_{ y \to 0 }0=0$
+\end{itemize}
+En todos los caminos posibles, $f_{1}(x,y)\to 0$. Por lo tanto, el límite existe y es cero.
+\end{enumerate}
+\item Segunda componente: $f_{2}(x,y)=xy$
+\begin{enumerate}[label=\arabic*)]
+\item Límites direccionales: $$
+\lim_{ (x,y) \to (0,0) }xy=\{ y=mx \}=\lim_{ x \to 0 }xmx=\lim_{ x \to 0 }x^{2}m=0
+$$
+\item Cambio por coordenadas polares: $$
+\lim_{ (x,y) \to (0,0) }xy=\left\{ \begin{array}{l}
+x=r\cos\theta \\
+y=r\sin\theta
+\end{array} \right\}=\lim_{ r \to 0 }r\cos\theta r\sin\theta=r^{2}\cos\theta \sin\theta=0
+$$
+\item Límites iterados o reiterados:
+\begin{itemize}
+\item $\lim_{ x \to 0 }\left( \lim_{ y \to 0 }xy \right)=\lim_{ x \to 0 }0=0$
+\item $\lim_{ y \to 0 }\left( \lim_{ x \to 0 }xy \right)=\lim_{ y \to 0 }=0$
+\end{itemize}
+En todos los caminos posibles, $f_{2}(x,y)\to 0$. Por lo tanto, el límite existe y es cero.
+\end{enumerate}
+\item Tercera componente: $f_{3}(x,y)=\sqrt{ |xyz| }$
+\begin{enumerate}
+\item Límites direccionales:
+$$
+\lim_{ (x,y) \to (0,0) }\sqrt{ |xyz| }=\{ y=mx \}=\lim_{ x \to 0 }\sqrt{ |xmxz| }=\lim_{ x \to 0 }\sqrt{ |x^{2}mz| }=0
+$$
+\item Cambio de coordenadas polares:
+$$
+\lim_{ (x,y) \to (0,0) }\sqrt{ |xyz| }=\left\{ \begin{array}{l}
+x=r\cos\theta \\
+y=r\sin\theta
+\end{array} \right\}=\lim_{ r \to 0 }\sqrt{ |r\cos\theta r\sin\theta z| }=\lim_{ r \to 0 }\sqrt{ |r^{2}\cos\theta \sin\theta z| }=0
+$$
+\item Límites iterados o reiterados:
+\begin{itemize}[label=\textbullet]
+\item $\lim_{ x \to 0 }\left(\lim_{ y \to 0 }\sqrt{ |xyz| }\right)=\lim_{ x \to 0 }0=0$
+\item $\lim_{ y \to 0 }\left( \lim_{ x \to 0 }\sqrt{ |xyz| } \right)=\lim_{ y \to 0 }0=0$
+\end{itemize}
+\end{enumerate}
+En todos los caminos posibles, $f_{3}(x,y)\to 0$. Por lo tanto, el límite existe y es cero. 
+\end{itemize}
+Para las tres compoenentes, los límites son: 
+\begin{itemize}
+\item $f_{1}(x,y)=xy\dfrac{x^{2}-y^{2}}{x^{2}+y^{2}}\to 0$
+\item $f_{2}(x,y)=xy\to 0$
+\item $f_{3}(x,y)=\sqrt{ |xyz| }\to 0$
+\end{itemize}
+Por lo tanto: $$
+\lim_{ (x,y) \to (0,0) }\vec{f}(x,y,z)=(0,0,0)
+$$
+\item \lb{Estudiar la existencia del límite en el punto $(0,0)$ de la función $f:\mathbb{R}^{2}\backslash\{ (0,0) \}\to \mathbb{R}$ dada por $$
+f(x,y)=\dfrac{x^{2}+xy}{x^{2}+y^{2}}
+$$}
+\begin{enumerate}[label=\arabic*)]
+\item Límites direccionales: $$
+\lim_{ (x,y) \to (0,0) }\dfrac{x^{2}+xy}{x^{2}+y^{2}}=\{ y=mx \}=\lim_{ x \to 0 }\dfrac{x^{2}+xmx}{x^{2}+m^{2}x^{2}}=\lim_{ x \to 0 }\dfrac{\cancel{x^{2}}(1+m)}{\cancel{x^{2}}(1+m^{2})}=\dfrac{1+m}{1+m^{2}}
+$$
+No existe el límite porque el resultado depende de $m$.
+\end{enumerate}
+
+\item \lb{Estudiar la existencia del límite en el punto $(0,0)$ de la función $f:\mathbb{R}^{2}\backslash\{ (0,0) \}\to \mathbb{R}$ dada por $$
+f(x,y)=\dfrac{xy^{2}}{x^{2}+y^4}
+$$}
+\begin{enumerate}[label=\arabic*)]
+\item Límites direccionales:$$
+\lim_{ (x,y) \to (0,0) }\dfrac{xy^{2}}{x^{2}+y^4}=\{ y=mx \}=\lim_{ x \to 0 }\dfrac{xm^{2}x^{2}}{x^{2}m^4x^4}=\lim_{ x \to 0 }\dfrac{x^{\cancel{3}}m^{2}}{\cancel{x^{2}}(1+m^4x^{2})}=\lim_{ x \to 0 }\dfrac{xm^{2}}{1+m^4x^{2}}=\dfrac{0}{1}=0
+$$
+\item Cambio por coordenadas polares: $$
+\lim_{ (x,y) \to (0,0) }\dfrac{xy^{2}}{x^{2}+y^4}=\left\{ \begin{array}{l}
+x=r\cos\theta \\
+y=r\cos\theta
+\end{array} \right\}=\lim_{ r \to 0 }\dfrac{r\cos\theta r^{2}\sin\theta}{r^{2}\cos ^{2}\theta+r^4\sin^4\theta}=\lim_{ r \to 0 }\dfrac{r^{\cancel{3}}\cos\theta \sin ^{2}\theta}{\cancel{r^{2}}(\cos ^{2}\theta+r^{2}\sin^4\theta)}=\lim_{ x \to 0 }\dfrac{r\cos\theta \sin\theta}{\cos ^{2}\theta+r^{2}\sin^4\theta}=0
+$$
+\item Límites iterados o reiterados:
+\begin{itemize}[label=\textbullet]
+\item $\lim_{ x \to 0 }\left( \lim_{ y \to 0 }\dfrac{xy^{2}}{x^{2}+y^4} \right)=\lim_{ x \to 0 }0=0$
+\item $\lim_{ y \to 0 }\left( \lim_{ x \to 0 }\dfrac{xy^{2}}{x^{2}+y^4} \right)=\lim_{ y \to 0 }0=0$
+\end{itemize}
+\end{enumerate}
+En todos los caminos posibles, $f(x,y)\to 0$. Por lo tanto, el límite existe y es cero.
+
+\item \lb{Estudiar la existencia del límite en el punto $(0,0)$ de la función $f:\mathbb{R}^{2}\backslash\{ (0,0) \}\to \mathbb{R}$ dada por $$
+f(x,y)=\dfrac{x^{3}+y^{3}}{x^{2}+y^{2}+y^4}.
+$$}
+\begin{enumerate}[label=\arabic*)]
+\item Límites direccionales
+$$
+\lim_{ (x,y) \to (0,0) }=\{ y=mx \}=\lim_{ x \to 0 }\dfrac{x^{3}+m^{3}x^{3}}{x^{2}+m^{2}x^{2}+m^4+x^4}=\lim_{ x \to 0 }\dfrac{x^{\cancel{3}}(1+m^{3})}{\cancel{x^{2}}(1+m^{2}+m^4x^{2})}=\lim_{ x \to 0 }\dfrac{x(1+m^{3})}{1+m^{2}+m^4x^{2}}=\dfrac{0}{1+m^{2}}=0
+$$
+\item Cambio por coordenadas polares
+$$
+\begin{aligned}
+\lim_{ (x,y) \to (0,0) }\dfrac{x^{3}+y^{3}}{x^{2}+y^{2}+y^4}&=\left\{ \begin{array}{l}
+x=r\cos\theta \\
+y=r\sin\theta
+\end{array} \right\}\\
+&=\lim_{ r \to 0 }\dfrac{r^{3}\cos ^{3}\theta}{r^{2}\cos ^{2}\theta+r^{2}\sin ^{2}\theta+r^4\sin^4\theta}=\lim_{ r \to 0 }\dfrac{r^{\cancel{3}}(\cos ^{3}\theta+\sin ^{3}\theta)}{\cancel{r^{2}}(\lbb{\cos ^{2}\theta+\sin ^{2}\theta}{1}+r^{2}\sin^4\theta)}=\lim_{ r \to 0 }\dfrac{r(\cos ^{3}\theta+\sin ^{3}\theta)}{1+r^{2}\sin^4\theta}=\dfrac{0}{1}=0
+\end{aligned}
+$$
+\item Límites iterados o reiterados
+\begin{itemize}[label=\textbullet]
+\item $\lim_{ x \to 0 }\left( \lim_{ y \to 0 }\dfrac{x^{3}+y^{3}}{x^{2}+y^{2}+y^4} \right)=\lim_{ x \to 0 }\dfrac{x^{3}}{x^{2}}=\lim_{ x \to 0 }x=0$
+\item $\lim_{ y \to 0 }\left( \lim_{ x \to 0 }\dfrac{x^{3}+y^{3}}{x^{2}+y^{2}+y^4} \right)=\lim_{ y \to 0 }\dfrac{y^{3}}{y^{2}+y^4}=\lim_{ y \to 0 }\dfrac{y^{\cancel{3}}}{\cancel{y^{2}}(1+y^{2})}=\lim_{ y \to 0 }\dfrac{y}{1+y^{2}}=\dfrac{0}{1}=0$
+\end{itemize}
+\end{enumerate}
+En todos los caminos posibles, $f(x,y)\to 0$. Por lo tanto , el límite existe y es cero.
+
+\item \lb{Estudiar la existencia del límite en el punto $(0,0)$ de la función $\vec{f}:\mathbb{R}^{2}\backslash\{ (0,0) \}\to \mathbb{R}^{2}$ dada por $$
+\vec{f}(x,y)=\left( \dfrac{x^4+y^4}{x^{2}+y^{2}},\sin \left( \dfrac{x^{2}+xy}{x^{2}+y^{2}} \right) \right).
+$$}
+Para que el límite de $\vec{f}(x,y)$ exista en $(0,0)$, deben existir los límites de ambas componentes de forma independiente.
+\begin{itemize}[label=\textbullet]
+\item Primera componente: $f_{1}(x,y)=\dfrac{x^4+y^4}{x^{2}+y^{2}}$
+\begin{enumerate}[label=\arabic*)]
+\item Límites direccionales: $$
+\lim_{ (x,y) \to (0,0) }\dfrac{x^4+y^4}{x^{2}+y^{2}}=\{ y=mx \}=\lim_{ x \to 0 }\dfrac{x^4+m^4x^4}{x^{2}+m^{2}x^{2}}=\lim_{ x \to 0 }\dfrac{x^{\cancel{4}}(1+m^4)}{\cancel{x^{2}}(1+m^2)}=\lim_{ x \to 0 }\dfrac{x^{2}(1+m^4)}{1+m^2}=0
+$$
+\item Cambio por coordenadas polares:
+$$
+\lim_{ (x,y) \to (0,0) }=\left\{ \begin{array}{l}
+x=\cos\theta \\
+y=\sin\theta
+\end{array} \right\}=\lim_{ r \to 0 }\dfrac{r^4\cos^4\theta+r^4\sin^4\theta}{r^{2}\cos ^{2}\theta+r^{2}\sin ^{2}\theta}=\lim_{ r \to 0 }\dfrac{r^{\cancel{4}}(\cos^4\theta+\sin ^4\theta)}{\cancel{r^{2}}\lbb{(\cos ^{2}\theta+\sin ^{2}\theta)}{1}}=\lim_{ r \to 0 }r^{2}(\cos^4\theta+y^4\theta)=0
+$$
+\item Límites iterados o reiterados
+\begin{itemize}
+\item $\lim_{ x \to 0 }\left( \lim_{ y \to 0 }\dfrac{x^4+y^4}{x^{2}+y^{2}} \right)=\lim_{ x \to 0 }\dfrac{x^4}{x^2}=\lim_{ x \to 0 }x^{2}=0$
+\item $\lim_{ y \to 0 }\left( \lim_{ x \to 0 } \right)=\lim_{ y \to 0 }\dfrac{y^4}{y^{2}}=\lim_{ y \to 0 }y^{2}=0$
+\end{itemize}
+\end{enumerate}
+En todos los caminos posibles, $f_{1}(x,y)\to 0$. Por lo tanto, el límite existe y es cero.
+
+\item Segunda compoenente: $f_{2}(x,y)$
+\begin{enumerate}[label=\arabic*)]
+\item Límites direccionales:
+$$
+\lim_{ (x,y) \to (0,0) }\sin \left( \dfrac{x^{2}+xy}{x^{2}+y^{2}} \right)=\{ y=mx \}=\lim_{ x \to 0 }\sin \left( \dfrac{x^{2}+xmx}{x^{2}+m^{2}x^{2}} \right)=\lim_{ x \to 0 }\sin \left( \dfrac{\cancel{x^{2}}(1+m)}{\cancel{x^{2}}(1+m^{2})} \right)=\sin \left( \dfrac{1+m}{1+m^{2}} \right)
+$$
+Al depende de $m$, no existe el límite en la función $f_{2}(x,y)$, la función $\vec{f}(x,y)$ no tendrá límite en $(0,0)$.
+\end{enumerate}
+\end{itemize}
+
+\item \lb{Dadas las funciones $$
+f(x,y)=\begin{cases}
+\dfrac{x^{3}}{x^{2}-y^{2}} & \text{si }|x|\neq|y| \\
+0 & \text{si }|x|=|y|
+\end{cases}
+$$y $$
+g(x,y)=\begin{cases}
+\dfrac{x^{3}+y^{3}}{x^{2}+y^{2}+x^{2}y} & \text{si }(x,y)\neq(0,0) \\
+0 & \text{si }(x,y)=(0,0) \\
+\end{cases}
+$$
+se pide:
+}
+\begin{enumerate}[label=\color{red}\textbf{\alph*)}]
+\item \db{Hallar $\lim_{ n \to \infty }f(x_{n},y_{n})$ en los siguientes casos: $(x_{n},y_{n})=\left( \dfrac{1}{n},\dfrac{k}{n} \right)$ y $(x_{n},y_{n})=\left( \dfrac{1}{n},\dfrac{1}{n^{2}} \right)$, donde $k$ es un número real.}
+
+$$
+\begin{aligned}
+\lim_{ n \to \infty }f\left( \dfrac{1}{n},\dfrac{k}{n} \right)&=\lim_{ n \to \infty }\dfrac{\left( \frac{1}{n} \right)^{3}}{\left( \frac{1}{n} \right)^{2}+\left( \frac{k}{n} \right)^{2}}=\lim_{ n \to \infty }\dfrac{\frac{1}{n^{3}}}{\frac{1}{n^{2}}+\frac{k^{2}}{n^{2}}}=\lim_{ n \to \infty }\dfrac{\frac{1}{n^{3}}}{\frac{1+k^{2}}{n^{2}}}\\
+&=\lim_{ n \to \infty }\dfrac{\frac{1}{n^{\cancel{3}}}\cdot \cancel{n^{2}}}{1+k^{2}}=\lim_{ n \to \infty }\dfrac{1}{n(1+k^{2})}=\dfrac{1}{\infty}=0\\
+\lim_{ n \to \infty }f\left( \dfrac{1}{n},\dfrac{1}{n^{2}} \right)&=\dfrac{\left( \frac{1}{n} \right)^{3}}{\left( \frac{1}{n} \right)^{2}+\left( \frac{1}{n^{2}} \right)^{2}}=\lim_{ n \to \infty }\dfrac{\frac{1}{n^{3}}}{\frac{1}{n^{2}}+\frac{1}{n^4}}=\lim_{ n \to \infty }\dfrac{\frac{1}{n^{3}}}{\frac{n^{2}+1}{n^4}}=\lim_{ n \to \infty }\dfrac{n^4}{n^{3}(n^{2}+1)}\\
+&=\lim_{ n \to \infty }\dfrac{n}{n^{2}+1}=\left( \dfrac{\infty}{\infty} \right)=\{ \text{L'Hôpital} \}=\lim_{ n \to \infty }\dfrac{1}{2n}=\dfrac{1}{\infty}=0
+\end{aligned}
+$$
+\item \db{¿Existe $\lim_{ (x,y) \to (0,0) }f(x,y)$?}
+\begin{enumerate}[label=\arabic*)]
+\item Límites direccionales:
+$$
+\lim_{ (x,y) \to (0,0) }\dfrac{x^{3}}{x^{2}-y^{2}}=\{ y=mx \}=\lim_{ x \to 0 }\dfrac{x^{3}}{x^{2}-m^{2}x^{2}}=\lim_{ x \to 0 }\dfrac{x^{\cancel{3}}}{\cancel{x^{2}}(1-m^{2})}=\lim_{ x \to 0 }\dfrac{x}{1-m^{2}}=0
+$$
+\item Cambio por coordenadas polares:
+$$
+\lim_{ (x,y) \to (0,0) }\dfrac{x^{3}}{x^{2}-y^{2}}=\left\{ \begin{array}{l}
+x=r\cos\theta \\
+y=r\sin\theta
+\end{array} \right\}=\lim_{ r \to 0 }\dfrac{r^{3}\cos\theta}{r^{2}\cos ^{2}\theta-r^{2}\sin ^{2}\theta}=\lim_{ r \to 0 }\dfrac{r^{\cancel{3}}\cos ^{3}\theta}{\cancel{r^{2}}(\cos ^{2}\theta-\sin ^{2}\theta)}=\lim_{ r \to 0 }\dfrac{r\cos ^{3}\theta}{\cos ^{2}\theta-\sin ^{2}\theta}=0
+$$
+\item Límites iterados o reiterados:
+\begin{itemize}[label=\textbullet]
+\item $\lim_{ x \to 0 }\left( \lim_{ y \to 0 }\dfrac{x^{3}}{x^{2}-y^{2}} \right)=\lim_{ x \to 0 }\dfrac{x^{3}}{x^{2}}=\lim_{ x \to 0 }x=0$
+\item $\lim_{ y \to 0 }\left( \lim_{ x \to 0 }\dfrac{x^{3}}{x^{2}-y^{2}} \right)=\lim_{ y \to 0 }0=0$
+\end{itemize}
+\end{enumerate}
+En todos los caminos posibles, $f(x,y)\to 0$. Por lo tanto, el límite existe y es cero.
+
+\item \db{Comprobar si $\lim_{ (x,y) \to (0,0) }g(x,y)=0$.}
+$$
+\lim_{ (x,y) \to (0,0) }\dfrac{x^{3}+y^{3}}{x^{2}+y^{2}+x^{2}y}=\{ y=mx \}=\lim_{ x \to 0 }\dfrac{x^{3}+m^{3}x^{3}}{x^{2}+m^{2}x^{2}+x^{2}mx}=\lim_{ x \to 0 }\dfrac{x^{\cancel{3}}(1+m^{3})}{\cancel{x^{2}}(1+m^{2}+mx)}=\lim_{ x \to 0 }\dfrac{x(1+m^{3})}{1+m^{2}+mx}=0
+$$
+El límite queda demostrado.
+\end{enumerate}
+
+\item \lb{Estudiar la continuidad de la siguiente función $$
+f(x,y)=\begin{cases}
+(x^{2}+y^{2})\sin \dfrac{1}{\sqrt{ x^{2}+y^{2} }} & \text{si }(x,y)\neq(0,0) \\
+0 & \text{si }(x,y)=(0,0)
+\end{cases}
+$$
+}
+Para estudiar la continuidad en el punto $(0,0)$, deberemos primero comprobar si existe el límite en dicho punto y, en caso de que exista, deberá coincidir con $(0,0)$.
+
+Estudiamos la existencia del límite de $f(x,y)$ en el punto $(0,0)$.
+$$
+\begin{aligned}
+\lim_{ (x,y) \to (0,0) }(x^{2}+y^{2})\sin \dfrac{1}{\sqrt{ x^{2}+y^{2} }}&=\left\{ \begin{array}{l}
+x=r\cos\theta \\
+y=r\sin\theta
+\end{array} \right\}=\lim_{ r \to 0 }\lbb{(r^{2}\cos ^{2}\theta+r^{2}\sin ^{2}\theta)}{r^{2}}\sin \dfrac{1}{\lbb{\sqrt{ r^{2}\cos ^{2}\theta+r^{2}\sin ^{2}\theta }}{r}}\\ 
+&=\lim_{ r \to 0 }r^{2}\sin\left( \dfrac{1}{r} \right)=\overset{\lb{\text{Teorema del Sandwich}}}{ \left\{  \left| \sin \left( \dfrac{1}{r} \right) \right|\right\} }=\lim_{ r \to 0 }\left| r^{2}\sin \left( \dfrac{1}{r} \right) \right|\leq \lim_{ r \to 0 }r^{2}=0
+\end{aligned}
+$$
+Dado que: $$\lim_{ (x,y) \to (0,0) }f(x,y)=0=f(0,0).$$La función es continua en todo su dominio, incluido el punto $(0,0)$.
+\end{enumerate}
+\end{document}

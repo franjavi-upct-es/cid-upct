@@ -920,6 +920,487 @@ Usamos que $r^2=x^2+y^2$: \[  \begin{array}{c}
 \dfrac{\frac{\partial^2 f}{\partial x^2}+\frac{\partial^2 f}{\partial y^2}}{x^2+y^2}=4\left(\dfrac{\partial^2 f}{\partial u^2}+\dfrac{\partial^2 f}{\partial v^2}\right)\\
 \dfrac{1}{x^2+y^2}\left(\dfrac{\partial^2 f}{\partial x^2}+\dfrac{\partial^2 f}{\partial y^2}\right)=4\left(\dfrac{\partial^2 f}{\partial u^2}+\dfrac{\partial^2 f}{\partial v^2}\right)
 \end{array}\]
+
+\item \lb{Sea $f:\R^2\to\R$ una función de clase $c^2(\R^2)$ Comprobar que \[(x^2-y^2)\left(\dfrac{\partial^2 f}{\partial x^2}(x,y)+\dfrac{\partial^2 f}{\partial y^2}(x,y)\right)=4\dfrac{\partial^2 f}{\partial u\partial v}(u,v)\]donde $u=\log(x+y)$ y $v=\log(x-y)$}
+
+$\dfrac{\partial f}{\partial x}=\dfrac{\partial f}{\partial u}\dfrac{\partial u}{\partial x}+\dfrac{\partial f}{\partial v}\dfrac{\partial v}{\partial x}=\dfrac{\partial f}{\partial u}\cdot\dfrac{1}{x+y}\cdot1+\dfrac{\partial f}{\partial v}\cdot\dfrac{1}{x-y}\cdot 1$
+
+$\dfrac{\partial f}{\partial y}=\dfrac{\partial f}{\partial u}\dfrac{\partial u}{\partial y}+\dfrac{\partial f}{\partial v}\dfrac{\partial v}{\partial y}=\dfrac{\partial f}{\partial u}\cdot\dfrac{1}{x+y}\cdot1+\dfrac{\partial f}{\partial v}\cdot\dfrac{1}{x-y}\cdot (-1)$
+
+Para calcular la segunda derivada respecto de $x$, aplicamos la regla del producto: 
+
+
+$$
+\dfrac{\partial^2 f}{\partial x^2}=\dfrac{\partial^{2} f}{\partial u^{2}}\left( \dfrac{\partial u}{\partial x} \right)^{2}+\dfrac{\partial^{2}f}{\partial v^{2}}\left( \dfrac{\partial v}{\partial x} \right)^{2} + \dfrac{\partial^{2}f}{\partial u\partial v}\left( \dfrac{\partial u}{\partial x}\dfrac{\partial v}{\partial x}+\dfrac{ \partial v }{ \partial x }\dfrac{ \partial u }{ \partial x }   \right)
+$$
+$\dfrac{ \partial^{2}f }{ \partial x^{2} }=\dfrac{ \partial^{2}f }{ \partial u^{2} }\dfrac{1}{(x+y)^{2}}+\dfrac{ \partial^{2} f }{ \partial v^{2} }\left( \dfrac{1}{x-y} \right)^{2}+\dfrac{ \partial^{2} f }{ \partial u \partial v }\left(\dfrac{1}{x+y}\cdot\dfrac{1}{x-y}+\dfrac{1}{x-y}\cdot \dfrac{1}{x+y}\right)$
+
+\item \lb{Sea $f:\R^2\to\R$ una función de clase $c^2(\R^2)$. Comprobar que $$x^{2}\dfrac{ \partial^{2} f }{ \partial x^{2} } (x,y)-y^{2}\dfrac{ \partial^{2} f }{ \partial y^{2} } (x,y)=2uv\dfrac{ \partial^{2} f }{ \partial u\partial v }(u,v)-u\dfrac{ \partial f }{ \partial u } (u,v) $$ donde $u=\dfrac{x}{y}$ y $v=xy$.}
+
+$\dfrac{\partial f}{\partial x}=\dfrac{\partial f}{\partial u}\dfrac{\partial u}{\partial x}+\dfrac{\partial f}{\partial v}\dfrac{\partial v}{\partial x}=\dfrac{\partial f}{\partial u}\cdot\dfrac{1}{y}+\dfrac{\partial f}{\partial v}\cdot y$
+
+$\dfrac{\partial f}{\partial y}=\dfrac{\partial f}{\partial u}\dfrac{\partial u}{\partial y}+\dfrac{\partial f}{\partial v}\dfrac{\partial v}{\partial y}=\dfrac{\partial f}{\partial u}\cdot\left(-\dfrac{x}{y^2}\right)+\dfrac{\partial f}{\partial v}\cdot x$
+
+$\dfrac{\partial^2 f}{\partial x^2}=\dfrac{\partial}{\partial x}\left(\dfrac{\partial f}{\partial x}\right)=\dfrac{\partial^2 f}{\partial u^2}\cdot\dfrac{1}{y^2}+\dfrac{\partial f}{\partial u}\cdot\dfrac{x}{y^3}+\dfrac{\partial^2 f}{\partial v^2}\cdot y^2-\dfrac{\partial f}{\partial v}\cdot\dfrac{x}{y}$
+
+$\dfrac{\partial^2 f}{\partial y^2}=\dfrac{\partial^2f}{\partial u^2}\cdot\dfrac{x^2}{y^4}+\dfrac{\partial f}{\partial u}\cdot\dfrac{2x}{y^3}+\dfrac{\partial^2 f}{\partial v^2}\cdot x^2$
+
+\item \lb{Demostrar que si $f:\R^2\to\R$ es una función de clase $C^2(\R^2)$ y se verifica la igualdad 
+$$
+\dfrac{ \partial^{2} f }{ \partial x^{2} } (x,y)+\dfrac{ \partial^{2} f }{ \partial y^{2} } (x,y)=0,
+$$
+entonces también se verifica
+$$
+\dfrac{ \partial^{2} f }{ \partial u^{2} } (u,v)+\dfrac{ \partial^{2} f }{ \partial v^{2} } (u,v)=0
+$$
+donde $x=\dfrac{u}{u^{2}+v^{2}}$ e $y=\dfrac{v}{u^{2}+v^{2}}$ }
+
+Podemos ver que esta es una transformación de las coordenadas $(u,v)$ en $(x,y)$. Calculamos las derivadas parciales de $x$ y $y$ respecto a $u$ y $v$, necesarias para usar la regla de la cadena.
+
+\textbf{Derivadas de $x$ respecto a $u$ y $v$:}
+$$
+\dfrac{ \partial x }{ \partial u } =\dfrac{(u^{2}+v^{2})-2u^{2}}{(u^{2}+v^{2})^{2}}=\dfrac{v^{2}-u^{2}}{(u^{2}+v^{2})^{2}},\quad \dfrac{\partial x}{\partial v}=\dfrac{-2uv}{(u^{2}+v^{2})^{2}}
+$$
+\textbf{Derivadas de $y$ respecto a $u$ y $v$:}
+$$
+\dfrac{ \partial y }{ \partial u } =\dfrac{-2uv}{(u^{2}+v^{2})^{2}},\quad\dfrac{ \partial y }{ \partial v } =\dfrac{(u^{2}+v^{2})-2v^{2}}{(u^{2}+v^{2})^{2}}=\dfrac{u^{2}-v^{2}}{(u^{2}+v^{2})^{2}}
+$$
+La función $f(x,y)$ se transforma en $f(u,v)$ a través de la regla de la cadena. Por lo tanto, sus derivadas parciales se relacionan mediante la matriz Jacobiana mediante la matriz Jacobiana de la transformación de $(u,v)$ a $(x,y)$. En términos del gradiente, tenemos:
+$$
+\begin{bmatrix}
+\dfrac{ \partial f }{ \partial u }  \\
+\dfrac{ \partial f }{ \partial v } 
+\end{bmatrix}\cdot \begin{bmatrix}
+\dfrac{ \partial x }{ \partial u }  & \dfrac{ \partial y }{ \partial u }  \\
+\dfrac{ \partial x }{ \partial v }  & \dfrac{ \partial y }{ \partial v } 
+\end{bmatrix}\cdot \begin{bmatrix}
+\dfrac{ \partial f }{ \partial x }  \\
+\dfrac{ \partial f }{ \partial y } 
+\end{bmatrix}
+$$
+De manera similar, para las segundas derivadas, la matriz Hessiana de $f(u,v)$ está relacionada con la matriz Hessiana de $f(x,y)$ mediante: 
+$$
+H_{f}^{(u,v)}=J^{\intercal}H_{f}^{(x,y)}J,
+$$
+donde $H_{f}^{(x,y)}$ es la matriz Hessiana de $f$ respecto a $(x,y)$, y $J$ es la matriz Jacobiana de la transformación.
+
+$\dfrac{ \partial f }{ \partial u }=\dfrac{ \partial f }{ \partial x }\dfrac{ \partial x }{ \partial u }+\dfrac{ \partial f }{ \partial y }\dfrac{ \partial y }{ \partial u }$
+
+$\dfrac{ \partial^{2} f }{ \partial u^{2} }=\dfrac{ \partial^{2} f }{ \partial x^{2} }\left( \dfrac{ \partial x }{ \partial u } \right)^{2}+\dfrac{ \partial^{2} f }{ \partial y^{2} }\left( \dfrac{ \partial y }{ \partial u } \right)^{2}+2\dfrac{ \partial^{2} f }{ \partial x\partial y }\dfrac{ \partial x }{ \partial u }\dfrac{ \partial y }{ \partial u }$ 
+
+$\dfrac{ \partial f }{ \partial v }=\dfrac{ \partial f }{ \partial x }\dfrac{ \partial x }{ \partial u }+\dfrac{ \partial f }{ \partial y }\dfrac{ \partial y }{ \partial u }$
+
+$\dfrac{ \partial^{2} f }{ \partial v^{2} }=\dfrac{ \partial^{2} f }{ \partial x^{2} }\left( \dfrac{ \partial x }{ \partial v } \right)^{2}+\dfrac{ \partial^{2} f }{ \partial y^{2} }\left( \dfrac{ \partial y }{ \partial v } \right)^{2}+2\dfrac{ \partial^{2} f }{ \partial x\partial y }\dfrac{ \partial x }{ \partial v }\dfrac{ \partial y }{ \partial v }$
+
+$\dfrac{ \partial^{2} f }{ \partial u^{2} }+\dfrac{ \partial^{2} f }{ \partial v^{2} }=\left( \dfrac{ \partial^{2} f }{ \partial x^{2} }\left[ \left( \dfrac{ \partial x }{ \partial u } \right)^{2}+\left( \dfrac{ \partial x }{ \partial v } \right)^{2} \right]+\dfrac{ \partial^{2} f }{ \partial y^{2} }\left[ \left( \dfrac{ \partial y }{ \partial u } \right)^{2}+\left( \dfrac{ \partial y }{ \partial v } \right)^{2} \right] \right)=\left( \dfrac{1}{(u^{2}+v^{2})^{2}}\dfrac{ \partial^{2} f }{ \partial x^{2} }+\dfrac{1}{(u^{2}+v^{2})^{2}}\dfrac{ \partial^{2} f }{ \partial y^{2} } \right)=\dfrac{1}{(u^{2}+v^{2})^{2}}\left( \dfrac{ \partial^{2} f }{ \partial x^{2} }+\dfrac{ \partial^{2} f }{ \partial y^{2} } \right)$
+Dado que $\dfrac{ \partial^{2} f }{ \partial x^{2} }+\dfrac{ \partial^{2} f }{ \partial y^{2} }=0$, se deduce:
+$$
+\dfrac{ \partial^{2} f }{ \partial u^{2} } +\dfrac{ \partial^{2} f }{ \partial v^{2} } =\dfrac{1}{(u^{2}+v^{2})^{2}}\cdot0=0
+$$
+Hemos demostrado que:
+$$
+\dfrac{ \partial^{2} f }{ \partial x^{2} } +\dfrac{ \partial^{2} f }{ \partial v^{2} } =0\longrightarrow \dfrac{ \partial^{2} f }{ \partial u^{2} } +\dfrac{ \partial^{2} f }{ \partial v^{2} } =0
+$$
+
+
+\item \lb{Dada la función
+$$
+f(x,y)=\begin{cases}
+x+x^{2}y^{2}\sin\left( \frac{y}{x} \right) & \text{si }(x,y)\neq(0,y) \\
+0 & \text{si }(x,y)=(0,y)
+\end{cases}
+$$
+estudiar su diferenciabilidad en el punto $(0,0)$. Calcular $\dfrac{ \partial f }{ \partial x }$ y $\dfrac{ \partial f }{ \partial y }$. ¿Son continuas en $(0,0)$?}
+
+Para que $f(x,y)$ sea diferenciable en $(0,0)$, deben cumplirse las siguiente condiciones:
+
+\begin{enumerate}[label=\arabic*)]
+\item $f(x,y)$ debe ser continua en $(0,0)$.
+\item Las derivadas parciales $\dfrac{\partial f}{\partial x}$ y $\dfrac{\partial f}{\partial y}$ deben existir en un entorno de $(0,0)$.
+\item $f(x,y)$ debe poder aproximarse linealmente cerca de $(0,0)$:
+$$
+f(x,y)=f(0,0)+\dfrac{\partial f}{\partial x}(0,0)x+\dfrac{\partial f}{\partial y}(0,0)y+o\left(\sqrt{x^2+y^2}\right),
+$$
+donde $o\left(\sqrt{x^2+y^2}\right)$ representa términos de orden superior.
+\end{enumerate}
+
+Para verificar la continuidad en $(0,0)$, evaluamos el límite de $f(x,y)$ cuando $(x,y)\to(0,0)$: 
+$$
+f(x,y)=x+x^2y^2\sin\left(\dfrac{y}{x}\right).
+$$
+Si $(x,y)\neq(0,0)$, analizamos cada término:
+\begin{itemize}
+\item El término $x$ tiende a $0$ cuando $(x,y)\to(0,0)$.
+\item El término $x^2y^2\sin\left(\dfrac{y}{x}\right)$ se evalúa:
+\begin{itemize}
+\item $\left| x^{2}y^{2}\sin \left( \dfrac{y}{x} \right) \right|\leq|x^{2}y^{2}|$ (ya que $|\sin|\le1$).
+\item Cuando $(x,y)\to(0,0)$, tenemos $x^2y^2\to0$.
+\end{itemize}
+\end{itemize}
+Por lo tanto, $\lim_{(x,y)\to(0,0)}f(x,y)=0$, y $f(x,y)$ es continua en $(0,0)$.
+
+ $\dfrac{\partial f}{\partial x}(0,0)=\lim_{ h \to 0 }\dfrac{f(h,0)-f(0,0)}{h}=\lim_{ h \to 0 }\dfrac{h-0}{h}=1$
+
+Para $x\neq 0$, derivamos directamente usando la regla del producto:
+$$
+\dfrac{ \partial f }{ \partial x } (x,y)=1+2xy^{2}\sin \left( \dfrac{y}{x} \right)-y^{3}\cos \left( \dfrac{y}{x} \right)
+$$
+$\dfrac{ \partial f }{ \partial y }(0,0)=\lim_{ k \to 0 }\dfrac{f(0,k)-f(0,0)}{k}=\lim_{ k \to 0 }\dfrac{0-0}{k}=0$
+
+Para $y\neq 0$, derivamos directamente usando la regla del producto:
+$$
+\dfrac{ \partial f }{ \partial y } (x,y)=2x^{2}y\sin \left( \dfrac{y}{x} \right)+x^{2}\cos \left( \dfrac{y}{x} \right)
+$$
+
+\begin{enumerate}[label=\arabic*)]
+\item Continuidad de $\dfrac{\partial f}{\partial x}$:
+
+Evaluamos $\dfrac{\partial f}{\partial x}(x,y)$ cuando $(x,y)\to(0,0)$: $$\dfrac{\partial f}{\partial x}(x,y)=1+2xy^2\sin\left(\dfrac{y}{x}\right)-y^3\cos\left(\dfrac{y}{x}\right).$$
+\begin{itemize}
+\item El término constante $1$ permanece constante.
+\item Los términos $2xy^2\sin\left(\dfrac{y}{x}\right)$ y $-y^3\cos\left(\dfrac{y}{x}\right)$ tienden a $0$ porque $xy^2\to0$ y $y^3\to0$ cuando $(x,y)\to(0,0)$.
+\end{itemize}
+Por lo tanto, $\dfrac{\partial f}{\partial x}(x,y)\to1$, y $\dfrac{\partial f}{\partial x}$ es continua en $(0,0)$.
+
+\item Continuidad de $\dfrac{\partial f}{\partial y}$:
+
+Evaluamos $\dfrac{\partial f}{\partial y}(x,y)$ cuando $(x,y)\to(0,0)$: $$\dfrac{\partial f}{\partial y}(x,y)=2x^2y\sin\left(\dfrac{y}{x}\right)+x^2\cos\left(\dfrac{y}{x}\right).$$
+\begin{itemize}
+\item El término $2x^2y\sin\left(\dfrac{y}{x}\right)$ tiende a $0$ porque $x^2y\to0$.
+\item El término $x^2\cos\left(\dfrac{y}{x}\right)$ también tiende a $0$ porque $x^2\to0$.
+\end{itemize}
+Por lo tanto, $\dfrac{\partial f}{\partial y}(x,y)\to0$, y $\dfrac{\partial f}{\partial y}$ es continua en $(0,0)$.
+\end{enumerate}
+
+\item \lb{Enunciado el teorema de la función recíproca o inversa.}
+
+Sea $F:\R^n\to\R^n$ una función de clase $C^1$ (es decir, continuamente diferenciable) en un entorno de un punto $a\in\R^n$. Supongamos que:
+
+\begin{enumerate}[label=\arabic*)]
+\item $DF(a)$ (la matriz Jacobiana de $F$ evaluada en $a$) es invertible, es decir, $\mathrm{det}(DF(a))\neq0$.
+\end{enumerate}
+Entonces:
+\begin{enumerate}[label=\arabic*)]
+\item Existe un entorno $U$ de $a$ en $\R^n$ y un entorno $V$ de $F(a)$ en $\R^n$ tales que $F$ es una biyección de $U$ en $V$, y la función inversa $F^{-1}$ está definida en $V$.
+\item La función inversa $F^{-1}:V\to U$ es de clase $C^1$.
+\item La matriz Jacobiana de $F^{-1}$ en un punto $b\in V$ está relacionada con la matriz Jacobiana de $F$ mediante: $$DF^{-1}(b)=(DF(F^{-1}(b)))^{-1}.$$
+\end{enumerate}
+\item \lb{Consideramos la función:
+$$
+f(x,y)=\begin{cases}
+\dfrac{x^4+y^4}{x^2+y^2} & (x,y)\neq(0,0) \\
+0 & (x,y)=(0,0)
+\end{cases}
+$$
+Estudiar la continuidad y diferenciabilidad de dicha función.}
+
+Para verificar si $f(x,y)$ es continua en $(0,0)$, debemos comprobar que: $$\lim_{ (x,y) \to (0,0) }f(x,y)=f(0,0)=0.$$
+Cuando $(x,y)\neq (0,0)$, la función toma la forma: $$f(x,y)=\dfrac{x^4+y^4}{x^{2}+y^{2}}.$$
+\textbf{Límites en coordenadas polares:}
+
+Usamos $x=r\cos\theta$ y $y=r\sin\theta$, donde $r=\sqrt{ x^{2}+y^{2} }$. Entonces: $$x^{2}+y^{2}=r^{2},\quad x^4+y^4=r^4(\cos^4\theta+\sin^4\theta).$$
+Por lo tanto: 
+$$
+f(x,y)=\dfrac{x^4+y^4}{x^{2}+y^{2}}=\dfrac{r^{\cancel{4}}(\cos^4\theta+\sin^4\theta}{\cancel{r^{2}}}=r^{2}(\cos^{4}\theta+\sin^4\theta).
+$$
+Cuando $(x,y)\to(0,0)$, es decir, $r\to 0$: $$f(x,y)\to 0\cdot(\cos^4\theta+\sin ^4\theta)=0.$$
+Por lo tanto, $\lim_{ (x,y) \to (0,0) }f(x,y)=0=f(0,0)$, y $f(x,y)$ es continua en $(0,0)$.
+Para estudiar la diferenciabilidad, calculamos las derivadas parciales $\dfrac{ \partial f }{ \partial x }$ y $\dfrac{ \partial f }{ \partial y }$ en $(0,0)$.
+$$
+\dfrac{ \partial f }{ \partial x } (0,0)=\lim_{ h \to 0 }\dfrac{f(h,0)-f(0,0)}{h}=\lim_{ h \to 0 }\dfrac{\frac{h^4}{h^{2}}}{h}=\lim_{ h \to 0 }\dfrac{h^{2}}{h}=\lim_{ h \to 0 }h=0
+$$
+$$
+\dfrac{ \partial f }{ \partial y } (0,0)=\lim_{ k \to 0 }\dfrac{f(0,k)-f(0,0)}{k}=\lim_{ k \to 0 }\dfrac{\frac{k^4}{k^{2}}}{k}=\lim_{ h \to 0 }\dfrac{k^{2}}{k}=\lim_{ k \to 0 }k=0
+$$
+En resumen: $$\dfrac{\partial f}{\partial x}(0,0)=0,\quad\dfrac{ \partial f }{ \partial y } (0,0)=0.$$
+Para que $f(x,y)$ sea diferenciable en $(0,0)$, se debe verificar que:
+$$
+\lim_{ (x,y) \to (0,0) }\dfrac{f(x,y)-f(0,0)-\dfrac{ \partial f }{ \partial x } (0,0)x-\dfrac{ \partial f }{ \partial y } (0,0)y}{\sqrt{ x^{2}+y^{2} }}=0
+$$
+$\lim_{ (x,y) \to (0,0) }\dfrac{\frac{x^4+y^4}{x^{2}+y^{2}}}{\sqrt{ x^{2}+y^{2} }}=\lim_{ (x,y) \to (0,0) }\dfrac{x^4+y^4}{(x^{2}+y^{2})^{\frac{3}{2}}}=\left\{ \begin{array}{l}x=r\cos\theta\\ y=r\sin\theta\end{array} \right\}=\lim_{ r \to 0}\dfrac{r^4(\cos^4\theta+\sin^4\theta)}{r^3}=\lim_{ r \to 0 }r(\cos^4\theta+\sin^4\theta)=0$
+Por lo tanto, el límite es $0$, y $f(x,y)$ es diferenciable en $(0,0)$.
+
+\item \lb{Sea $f:A\subset \mathbb{R}^{3}\to \mathbb{R}$ definida por $f(x,y,z)=\log(g(x+yz))$ siendo 
+$$
+A=\{ (x,y,z)\in\mathbb{R}^{3}:y \neq 0\}
+$$
+y $g$ una función real positiva de clase $C^{\infty}(\mathbb{R},\mathbb{R})$. Se pide:}
+\begin{enumerate}[label=\color{red}\textbf{\alph*)}]
+\item \db{Calcular $D=z^2\dfrac{\partial^2 f}{\partial x^2}-\dfrac{\partial^2 f}{\partial y^2}+\dfrac{1}{y}\dfrac{\partial f}{\partial z}$.}
+
+La función $f$ está definida como: $$
+f(x,y,z)=\log(g(x+yz)),
+$$donde $g$ es una función positiva de clase $C^\infty(\mathbb{R},\mathbb{R})$, y $A=\{ (x,y,z) \in\mathbb{R}^{3}: y\neq 0\}$.
+
+$
+\begin{array}{l}
+\dfrac{ \partial f }{ \partial x } =\dfrac{ \partial  }{ \partial x } \log(g(x+yz))=\dfrac{1}{g(x+yz)}\cdot g'(x+yz)\cdot 1=\dfrac{g'(x+yz)}{g(x+yz)} \\
+\dfrac{ \partial f }{ \partial y } =\dfrac{ \partial  }{ \partial y } \log(g(x+yz))=\dfrac{1}{g(x+yz)}\cdot g'(x+yz)\cdot z=\dfrac{g'(x+yz)}{g(x+yz)}\cdot z \\
+\dfrac{ \partial f }{ \partial z } =\dfrac{ \partial }{ \partial z } \log(g(x+yz))=\dfrac{1}{g(x+yz)}\cdot g'(x+yz)\cdot y=\dfrac{g'(x+yz)}{g(x+yz)}\cdot y \\
+\dfrac{ \partial^{2} f }{ \partial x^{2} } =\dfrac{ \partial }{ \partial x } \left( \dfrac{g'(x+yz)}{g(x+yz)} \right)=\dfrac{g''(x+yz)g(x+yz)-(g'(x+yz))^{2}}{(g(x+yz))^{2}} \\
+\dfrac{ \partial^{2} f }{ \partial y^{2} } =\dfrac{ \partial  }{ \partial y } \left( \dfrac{g'(x+yz)}{g(x+yz)} \cdot z \right)=z\cdot \dfrac{g''(x+yz)g(x+yz)-(g'(x+yz))^{2}}{(g(x+yz))^{2}}\cdot z=z^{2}\cdot \dfrac{g''(x+yz)g(x+yz)-(g'(x+yz))^{2}}{(g(x+yz))^{2}} \\
+\end{array}
+$
+
+$\begin{aligned}
+D&=z^{2}\dfrac{ \partial^{2} f }{ \partial x^{2} }-\dfrac{ \partial^{2} f }{ \partial y^{2} }+\dfrac{1}{y}\dfrac{ \partial f }{ \partial z }\\
+&=\cancel{z^{2}\cdot\dfrac{g''(x+yz)g(x+yz)-(g'(x+yz))^{2}}{(g(x+yz))^{2}}}-\cancel{z^{2}\cdot\dfrac{g''(x+yz)g(x+yz)-(g'(x+yz))^{2}}{(g(x+yz))^{2}}}+\dfrac{1}{\cancel{y}}\cdot \cancel{y}\cdot\dfrac{g'(x+yz)}{g(x+yz)}\\
+&=\dfrac{g'(x+yz)}{g(x+yz)}
+\end{aligned}$
+
+
+\item \db{Hallar las funciones $f$ definidas en $A$ tales que verifican $D=x+yz$.}
+
+Del apartado anterior, sabemos que: $$
+D=\dfrac{g'(x+yz)}{g(x+yz)}
+$$Queremos que: $$
+\dfrac{g'(x+yz)}{g(x+yz)}=x+yz
+$$Esto implica la ecuación diferencial:$$
+\dfrac{g'(\omega)}{g(\omega)}=\omega,\text{ donde }\omega=x+yz
+$$
+Resolviendo la ecuación diferencial: $$
+\dfrac{g'(\omega)}{g(\omega)}=\omega\longrightarrow g'(\omega)=\omega g(\omega).
+$$Esta es una ecuación diferencial separable:$$
+\dfrac{g'(\omega)}{g(\omega)}=\omega\longrightarrow \dfrac{1}{g(\omega)}\:\mathrm{d}g=\omega \:\mathrm{d\omega}
+$$Integramos ambos lados:$$
+\int \dfrac{1}{g(\omega)}\:\mathrm{d}g=\int \omega\:\mathrm{d}\omega\longrightarrow \ln|g(\omega)|=\dfrac{\omega^{2}}{2}\longrightarrow g(\omega)=e^{ C }e^{ \frac{\omega^{2}}{2} }
+$$
+Renombrando $e^{ C }$ como una constante $k>0$, tenemos $g(\omega)=ke^{ \frac{\omega^{2}}{2} }$. Sustituyendo $\omega=x+yz$, se obtiene: $$
+g(x+yz)=ke^{ \frac{(x+yz)^{2}}{2} }.
+$$Por lo tanto, $f(x,y,z)$ es: $$
+f(x,y,z)=\log(g(x+yz))=\log(k)+\dfrac{(x+yz)^{2}}{2}.
+$$
+\end{enumerate}
+\item \lb{Dada la función $f:\mathbb{R}^{2}\to \mathbb{R}$ definida por:$$
+f(x,y)=\begin{cases}
+\dfrac{\ln(1+x^{2}y^{2})}{x^4+2x^{2}y^{2}+y^4} & \text{si }(x,y)\neq(0,0) \\
+0 & \text{si }(x,y)=(0,0)
+\end{cases}
+$$}
+\begin{enumerate}[label=\color{red}\textbf{\alph*)}]
+\item \db{Calcular $f_{x}(0,0)$ y $f_{y}(0,0)$.}
+
+Las derivadas parciales en $(0,0)$ estánd definidas como: $$
+\begin{array}{l}
+f_{x}(0,0)=\lim_{ h \to 0 }\dfrac{f(h,0)-f(0,0)}{h}=\lim_{ h \to 0 }\dfrac{\frac{\ln(1+h^{2}\cdot 0^{2})}{h^4+2h^{2}\cdot 0^{2}+0^4}-0}{h}=\lim_{ h \to 0 }\dfrac{0}{h}=0 \\
+f_{y}(0,0)=\lim_{ k \to 0 }\dfrac{f(0,k)-f(0,0)}{k}=\lim_{ k \to 0 }\dfrac{\frac{\ln(1+0^{2}\cdot k^{2})}{0^4+2\cdot 0^{2}\cdot k^{2}+k^4}-0}{k}=\lim_{ k \to 0 }\dfrac{0}{k}=0
+\end{array}
+$$
+
+\item \db{¿Es diferenciable la función en el punto $(0,0)$?}
+
+Para que $f(x,y)$ sea diferenciable en $(0,0)$, se debe verificar que: $$
+\lim_{ (x,y) \to (0,0) }\dfrac{f(x,y)-f(0,0)-f_{x}(0,0)x-f_{y}(0,0)y}{\sqrt{ x^{2}+y^{2} }}=0.
+$$
+Como $f(0,0)=0,f_{x}(0,0)=0$, y $f_{y}(0,0)=0$, la condición se reduce a verificar: $$
+\begin{aligned}
+\lim_{ (x,y) \to (0,0) }\dfrac{f(x,y)}{\sqrt{ x^{2}+y^{2} }}&=\lim_{ (x,y) \to (0,0) }\dfrac{\frac{\ln(1+x^{2}y^{2})}{x^4+2^{2}y^{2}+y^4}}{\sqrt{ x^2+y^2 }}=\left\{ \begin{array}{l}
+x=r\cos \theta \\
+y=r\sin \theta
+\end{array} \right\}=\lim_{ r \to 0 }\dfrac{\frac{\ln(1+r^4\cos ^{2}\theta \sin ^{2}\theta)}{r^4}}{r}\\
+&=\lim_{ r \to 0 }\dfrac{\ln(1+r^4\cos ^{2}\theta \sin ^{2}\theta)}{r^5}=\left\{ \ln(1+u)\sim u\text{ Si }u\to 0\right\}\\
+&=\lim_{ r \to 0 }\dfrac{r^4\cos ^{2}\theta \sin ^{2}\theta}{r^5}=\lim_{ r \to 0 }\dfrac{\cos ^{2}\theta \sin ^{2}\theta}{r}\longrightarrow \nexists \lim
+\end{aligned}
+$$
+Cuando $r\to 0$, el término $\dfrac{\cos ^{2}\theta \sin ^{2}\theta}{r}$ diverge, ya que depende de $\dfrac{1}{r}$. Esto implica que el límite \textbf{no existe}, por lo tanto la función $f(x,y)$ \textbf{no es diferenciable} en $(0,0)$, ya que el límite no satisface la condición de diferenciabilidad.
+\end{enumerate}
+\item \lb{Sea la función $$f(x,y)=\begin{cases}
+\dfrac{x^\alpha}{x^2+y^2} & \text{si }(x,y)\neq(0,0)\\
+0 & \text{si }(x,y)=(0,0)
+\end{cases}$$con $\alpha$ un número natural. Estudiar para los valores de $\alpha=3$ y $4$:}
+\begin{enumerate}[label=\color{red}\textbf{\alph*)}]
+\item \db{Existencia de derivadas parciales de $f$.}
+
+Para determinar si las derivadas parciales $\dfrac{ \partial f }{ \partial x }(0,0)$ y $\dfrac{ \partial f }{ \partial y }(0,0)$ existen, usamos la definición de derivada parcial.
+$$
+\begin{array}{l}
+\dfrac{ \partial f }{ \partial x } (0,0)=\lim_{ h \to 0 }\dfrac{f(h,0)-f(0,0)}{h}=\lim_{ h \to 0 }\dfrac{h^{\alpha-2}-0}{h}=\lim_{ h \to 0 }h^{\alpha-3}
+\end{array}
+$$
+Si $\alpha=3: h^{\alpha-3}=h^0=1$, por lo que: $$
+\dfrac{ \partial f }{ \partial x } (0,0)=1
+$$
+Si $\alpha=4: h^{\alpha-3}=h$, por lo que: $$
+\dfrac{ \partial f }{ \partial x } (0,0)=\lim_{ h \to 0 }h=0
+$$
+$$
+\dfrac{ \partial f }{ \partial y } (0,0)=\lim_{ k \to 0 }\dfrac{f(0,k)-f(0,0)}{k}=\lim_{ k \to 0 }\dfrac{0-0}{k}=0
+$$
+Para $\alpha=3$:$$
+\dfrac{ \partial f }{ \partial x } (0,0)=1,\quad \dfrac{ \partial f }{ \partial y } (0,0)=0
+$$
+Para $\alpha=4$: $$
+\dfrac{ \partial f }{ \partial x } (0,0)=0,\quad\dfrac{ \partial f }{ \partial y } (0,0)=0
+$$
+\item \db{Diferenciabilidad de $f$.}
+
+Para que $f$ sea diferenciable en $(0,0)$, debe cumplirse: $$
+\lim_{ (x,y) \to (0,0) }\dfrac{f(x,y)-f(0,0)-\dfrac{ \partial f }{ \partial x } (0,0)x-\dfrac{ \partial f }{ \partial y } (0,0)y}{\sqrt{ x^{2}+y^{2} }}=0.
+$$
+Para $\alpha=3$: $$
+\begin{aligned}
+\lim_{ (x,y) \to (0,0) }\dfrac{f(x,y)}{\sqrt{ x^{2}+y^{2} }}&=\lim_{ (x,y) \to (0,0) }\dfrac{\frac{x^{3}}{x^{2}+y^{2}}}{\sqrt{ x^{2}+y^{2} }}=\left\{ \begin{array}{l}
+x=r\cos\theta \\
+y=r\sin\theta
+\end{array} \right\}=\lim_{ r \to 0 }\dfrac{\frac{r^{3}\cos ^{3}\theta}{r^{2}}}{r}\\
+&=\lim_{ r \to 0 }\dfrac{r\cos ^{3}\theta}{r}=\cos ^{3}\theta\longrightarrow \nexists \lim
+\end{aligned}
+$$
+Este límite depende de $\theta$, por lo que no existe el límite uniforme y $f(x,y)$ no es diferenciable en $(0,0)$.
+
+Para $\alpha=4$: $$
+\begin{aligned}
+\lim_{ (x,y) \to (0,0) }\dfrac{f(x,y)}{\sqrt{ x^{2}+y^{2} }}&=\lim_{ (x,y) \to (0,0) }\dfrac{\frac{x^{4}}{x^{2}+y^{2}}}{\sqrt{ x^{2}+y^{2} }}=\left\{ \begin{array}{l}
+x=r\cos\theta \\
+y=r\sin\theta
+\end{array} \right\}=\lim_{ r \to 0 }\dfrac{\frac{r^{4}\cos ^{4}\theta}{r^{2}}}{r}\\
+&=\lim_{ r \to 0 }\dfrac{r^{2}\cos ^{4}\theta}{r}=\lim_{ r \to 0 }r\cos ^{4}\theta = 0
+\end{aligned}
+$$
+Cuando $r\to 0$, el límite es $0$, independientemente de $\theta$. Por lo tanto $f(x,y)$ es diferenciable en $(0,0)$.
+\end{enumerate}
+\item \lb{Dar un ejemplo de una función $f:\R^2\to\R$ con diferencial en el punto $(0,0)$, y cuyas derivadas parciales no sean continuas en dicho punto.}
+
+Un ejemplo clásico de una función $f:\R^2\to\R$ que tiene diferencial en $(0,0)$, pero cuyas derivadas parciales no son continuas en dicho punto es:
+$$
+f(x,y)=\begin{cases}
+\dfrac{x^2y}{x^2+y^2} & \text{si }(x,y)\neq(0,0)\\
+0 & \text{si }(x,y)=(0,0)
+\end{cases}
+$$
+\begin{enumerate}[label=\arabic*)]
+\item Continuidad en $(0,0)$:
+
+Cuando $(x,y)\neq(0,0)$, $f(x,y)=\dfrac{x^2y}{x^2+y^2}$. Para verificar la continuidad en $(0,0)$, calculamos el límite:
+$$
+\lim_{(x,y)\to(0,0)}f(x,y)=\lim_{(x,y)\to(0,0)}\dfrac{x^2y}{x^2+y^2}=\left\{\begin{array}{l}
+x=r\cos\theta\\
+y=r\sin\theta
+\end{array}\right\}=\lim_{r\to0}\dfrac{r^3\cos^2\theta\sin\theta}{r^2}=\lim_{r\to0}r\cos^2\theta\sin\theta=0
+$$
+Cuando $r\to0$, $f(x,y)$ es continua en $(0,0)$.
+
+\item Derivadas parciales en $(0,0)$:
+
+$$
+\begin{array}{l}
+\dfrac{ \partial f }{ \partial x } (0,0)=\lim_{ h \to 0 }\dfrac{f(h,0)-f(0,0)}{h}=\lim_{ h \to 0 }\dfrac{0-0}{h}=0 \\
+\dfrac{ \partial f }{ \partial y }(0,0)=\lim_{ k \to 0 } \dfrac{f(0,k)-f(0,0)}{k}=\lim_{ k \to 0 }\dfrac{0-0}{k}=0
+\end{array}
+$$
+\item Verificar el diferencial:
+$$
+\lim_{(x,y)\to(0,0)}\dfrac{f(x,y)}{\sqrt{ x^{2}+y^{2} }}=\lim_{(x,y)\to(0,0)}\dfrac{\frac{x^{2}y}{x^{2}+y^{2}}}{\sqrt{ x^{2}+y^{2} }}=\left\{ \begin{array}{l}
+x=r\cos\theta \\
+y=r\sin\theta
+\end{array} \right\}=\lim_{ r \to 0 }\dfrac{r^{3}\cos ^{2}\theta \sin\theta}{r^{3}}=\cos ^{2}\theta \sin\theta
+$$
+Como $\cos ^{2}\theta \sin\theta$ es acotada, el límite es 0. Por lo tanto, $f(x,y)$ es diferenciable en $(0,0)$.
+
+\end{enumerate}
+Ahora calculamos las derivadas parciales de $f(x,y)$ para $(x,y)\neq(0,0)$.
+
+$\dfrac{ \partial f }{ \partial x }=\dfrac{2xy(x^{2}+y^{2})-x^{2}y\cdot 2x}{(x^{2}+y^{2})}=\dfrac{2xy(x^{2}+y^{2})-2x^{3}y}{(x^{2}+y^{2})}=\dfrac{2xy^{3}}{(x^{2}+y^{2})^{2}}$ 
+
+Cuando $(x,y)\to(0,0)$, evaluamos en coordenadas polares: $$
+\dfrac{ \partial f }{ \partial x }=\dfrac{2r^{3}\cos\theta \sin ^{3}\theta}{r^4}=\dfrac{2\cos\theta \sin ^{3}\theta}{r} 
+$$
+Este valor depende de $r$, lo que muestra que la derivada no es continua en $(0,0)$. Por lo tanto, la función $f(x,y)$ es diferenciable en $(0,0)$, pero sus derivadas parciales no son continuas en dicho punto.
+
+\item \lb{Determinar si la función $$
+f(x,y)=\begin{cases}
+\dfrac{x^{2}y}{x^{2}+y^{2}} & \text{si }(x,y)\neq(0,0) \\
+0 & \text{si }(x,y)=(0,0)
+\end{cases}
+$$es diferenciable.}
+
+\item \lb{Sea $f:\mathbb{R}^{3}\to \mathbb{R}^4$ una aplicación diferenciable y sea $a=(a_{1},a_{2},a_{3})$ un punto e $\mathbb{R}^{3}$. Explica como se calcula la diferenciable de $f$ en dicho punto, enunciando aquellos resultados que permitan su cálculo.}
+
+\begin{enumerate}[label=\arabic*)]
+\item Definición del diferencial
+
+El diferencial de $f$ en el punto $a$, denotado como $Df(a)$ o $\mathrm{d}f_{a}$, es una transformación lineal:$$
+Df(a):\mathbb{R}^{3}\to \mathbb{R}^4
+$$que aproxima localmente a $f$ cerca del punto $a$. Esto significa que para un pequeño incremento $\mathbf{h}=(h_{1},h_{2},h_{3})\in\mathbb{R}^{3}$, la función $f$ se puede escribir como: $$
+f(a+\mathbf{h})=f(a)+Df(a)(\mathbf{h})+o(\|\mathbf{h}\|),
+$$
+donde $o(\|\mathbf{h}\|)$ representa un término de orden superior que tiene a 0 más rápido que $\|\mathrm{h}\|$ cuando $\mathbf{h}\to 0$.
+
+El diferencial $Df(a)$ se puede representar en términos de la \textbf{matriz Jacobiana} de $f$ en el punto $a$.
+
+\item Matriz Jacobiana
+
+Sea $$
+f(x_{1},x_{2},x_{3})=(f_{1}(x_{1},x_{2},x_{3}),f_{2}(x_{1},x_{2},x_{3}),f_{3}(x_{1},x_{2},x_{3})),
+$$donde cada compoenente $f_{i}:\mathbb{R}^{3}\to \mathbb{R}$ es una función diferenciable.
+
+La matriz Jacobiana de $f$ en $a$ se define como: $$
+J_{f}(a)=\begin{bmatrix}
+\dfrac{ \partial f_{1} }{ \partial x_{1} } (a) & \dfrac{ \partial f_{1} }{ \partial x_{2} } (a) & \dfrac{ \partial f_{1} }{ \partial x_{3} } (a) \\
+\dfrac{ \partial f_{2} }{ \partial x_{1} } (a) & \dfrac{ \partial f_{2} }{ \partial x_{2} } (a) & \dfrac{ \partial f_{} }{ \partial x_{3} } (a) \\
+\dfrac{ \partial f_{3} }{ \partial x_{1} } (a) & \dfrac{ \partial f_{3} }{ \partial x_{2} } (a) & \dfrac{ \partial f_{3} }{ \partial x_{3} } (a) \\
+\dfrac{ \partial f_{4} }{ \partial x_{1} } (a) & \dfrac{ \partial f_{4} }{ \partial x_{2} } (a) & \dfrac{ \partial f_{4} }{ \partial x_{3} } (a) \\
+\end{bmatrix}.
+$$
+\item Cálculo del diferencial
+
+El diferencial $Df(a)$ está completamente determinado por la matriz Jacobiana $J_{f}(a)$. Específicamente, para un incremento $\mathbf{h}=(h_{1},h_{2},h_{3})\in\mathbb{R}^{3}$, el diferencial $Df(a)$ aplicado a $\mathrm{h}$ es el producto de la matriz Jacobiana $J_{f}(a)$ con el vector $\mathrm{h}$: $$
+Df(a)(\mathbf{h})=J_{f}(a)\cdot \begin{bmatrix}
+h_{1} \\
+h_{2} \\
+h_{3}
+\end{bmatrix}.
+$$
+En forma explícita: $$
+Df(a)(\mathbf{h})=\begin{bmatrix}
+\dfrac{ \partial f_{1} }{ \partial x_{1} } (a) & \dfrac{ \partial f_{1} }{ \partial x_{2} } (a) & \dfrac{ \partial f_{1} }{ \partial x_{3} } (a) \\
+\dfrac{ \partial f_{2} }{ \partial x_{1} } (a) & \dfrac{ \partial f_{2} }{ \partial x_{2} } (a) & \dfrac{ \partial f_{} }{ \partial x_{3} } (a) \\
+\dfrac{ \partial f_{3} }{ \partial x_{1} } (a) & \dfrac{ \partial f_{3} }{ \partial x_{2} } (a) & \dfrac{ \partial f_{3} }{ \partial x_{3} } (a) \\
+\dfrac{ \partial f_{4} }{ \partial x_{1} } (a) & \dfrac{ \partial f_{4} }{ \partial x_{2} } (a) & \dfrac{ \partial f_{4} }{ \partial x_{3} } (a) \\
+\end{bmatrix}\cdot \begin{bmatrix}
+h_{1} \\
+h_{2} \\
+h_{3}
+\end{bmatrix}.
+$$
+\item Resultados que permiten el cálculo del diferencial
+\begin{itemize}
+\item Regla de la cadena:
+
+Si $f$ se puede escribir como una composición $f=g\circ h$, donde $h:\mathbb{R}^{3}\to \mathbb{R}^k$ y $g:\mathbb{R}^k\to \mathbb{R}^4$, entonces el Jacobiano de $f$ en $a$ se obtiene como el producto de los Jacobianos de $g$ y $h$: $$
+J_{f}(a)=J_{g}(h(a))\cdot J_{h}(a).
+$$
+\item Diferenciabilidad implica continuidad:
+
+Si $f$ es diferenciable en $a$, entonces $f$ es continua en $a$. Además, las derivadas parciales $\dfrac{ \partial f_{i} }{ \partial x_{j} }$ debene existir en un entorno de $a$.
+\item El diferencial $Df(a)$ proporciona una aproximación lineal a $f$ cerca de $a$. Es decir: $$
+f(a+\mathbf{h})\approx f(a)+Df(a)(\mathbf{h}),
+$$
+lo cual define la \textbf{hiperplano tangente} al gráfico de $f$ en $a$.
+\end{itemize}
+\end{enumerate}
+
+\item \lb{Sea la función $f:\mathbb{R}^{2}\to \mathbb{R}$ definida por $$
+f(x,y)=\begin{cases}
+\dfrac{x^{2}(x-y)}{x^{2}+y^{2}} & \text{si }(x,y)\neq(0,0) \\
+0 & \text{si }(x,y)=(0,0)
+\end{cases}
+$$Estudiar la continuidad y diferenciabilidad de dicha función en todo punto de $\mathbb{R}^{2}$.}
+
+\item \lb{Sean $f,g,h:\mathbb{R}\to \mathbb{R}$ funciones derivables y $a$ y $b$ dos números reales distintos de cero. Definamos la función $$
+F(x,y)=f(ax+by)+g(ax+by)+h(ax+by)
+$$Demostrar que $$
+b \dfrac{ \partial F }{ \partial x } (x,y)=a \dfrac{ \partial F }{ \partial y } (x,y).
+$$}
+
+\item \lb{Demostrar que las derivadas parciales $\dfrac{ \partial^{2} f }{ \partial x \partial y }$ y $\dfrac{ \partial^{2} f }{ \partial y\partial x }$ de la aplicación $$
+f(x,y)=\begin{cases}
+xy\dfrac{x^{2}-y^{2}}{x^{2}+y^{2}} & \text{si }(x,y)\neq(0,0) \\
+0 & \text{si }(x,y)=(0,0)
+\end{cases}
+$$no coinciden en el punto $(0,0)$. ¿Coinciden en los puntos $(x,y)\neq(0,0)$? ¿Es diferenciable dicha función en el punto $(0,0)$?
+}
+
 \end{enumerate}
 
 \begin{center}
