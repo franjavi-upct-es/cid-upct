@@ -140,8 +140,12 @@ f(x,y)=\dfrac{2x^5+2y^{3}(2x^{2}-y^{2})}{(x^{2}+y^{2})^{2}}
 $$}
 \begin{enumerate}[label=\arabic*)]
 \item Límites direccionales: $$\begin{aligned}
+<<<<<<< HEAD
 \lim_{ (x,y) \to (0,0) }\dfrac{2x^5+2y^{3}(2x^{2}-y^{2})}{(x^{2}+y^{2})^{2}}&=\lim_{ (x,y) \to (0,0) }\dfrac{2x^5+4x^{2}y^{3}-2y^5}{(x^{2}+y^{2})^{2}}=\{ y=mx \}=\lim_{ x \to 0 }\dfrac{2x^5+4x^2m^{3}x^{3}-2m^5x^5}{(x^{2}+m^{2}x^{2})}=\lim_{ x \to 0 }\dfrac{x^{\cancel{5}}(2+4m^{3}-2m^5)}{\cancel{x^4}(1+m^{2})^{2}}\\
 &=\lim_{ x \to 0 }\dfrac{x(2+4m^{3}-2m^5)}{(1+m^{2})^{2}}=0
+=======
+\lim_{ (x,y) \to (0,0) }\dfrac{2x^5+2y^{3}(2x^{2}-y^{2})}{(x^{2}+y^{2})^{2}}&=\lim_{ (x,y) \to (0,0) }\dfrac{2x^5+4x^{2}y^{3}-2y^5}{(x^{2}+y^{2})^{2}}=\{ y=mx \}=\lim_{ x \to 0 }\dfrac{2x^5+4x^2m^{3}x^{3}-2m^5x^5}{(x^{2}+m^{2}x^{2})}=\lim_{ x \to 0 }\dfrac{x^{\cancel{5}}(2+4m^{3}-2m^5)}{\cancel{x^4}(1+m^{2})^{2}}=\lim_{ x \to 0 }\dfrac{x(2+4m^{3}-2m^5)}{(1+m^{2})^{2}}=0
+>>>>>>> 7e0b9de0ff1d7971adaa757c8a1a15c2d36bfd76
 \end{aligned}$$
 No sabemos si existe el límite pero en caso de existir valdrá cero.
 
@@ -286,6 +290,7 @@ $$
 $$
 \item Cambio por coordenadas polares
 $$
+<<<<<<< HEAD
 \begin{aligned}
 \lim_{ (x,y) \to (0,0) }\dfrac{x^{3}+y^{3}}{x^{2}+y^{2}+y^4}&=\left\{ \begin{array}{l}
 x=r\cos\theta \\
@@ -293,6 +298,12 @@ y=r\sin\theta
 \end{array} \right\}\\
 &=\lim_{ r \to 0 }\dfrac{r^{3}\cos ^{3}\theta}{r^{2}\cos ^{2}\theta+r^{2}\sin ^{2}\theta+r^4\sin^4\theta}=\lim_{ r \to 0 }\dfrac{r^{\cancel{3}}(\cos ^{3}\theta+\sin ^{3}\theta)}{\cancel{r^{2}}(\lbb{\cos ^{2}\theta+\sin ^{2}\theta}{1}+r^{2}\sin^4\theta)}=\lim_{ r \to 0 }\dfrac{r(\cos ^{3}\theta+\sin ^{3}\theta)}{1+r^{2}\sin^4\theta}=\dfrac{0}{1}=0
 \end{aligned}
+=======
+\lim_{ (x,y) \to (0,0) }\dfrac{x^{3}+y^{3}}{x^{2}+y^{2}+y^4}=\left\{ \begin{array}{l}
+x=r\cos\theta \\
+y=r\sin\theta
+\end{array} \right\}=\lim_{ r \to 0 }\dfrac{r^{3}\cos ^{3}\theta}{r^{2}\cos ^{2}\theta+r^{2}\sin ^{2}\theta+r^4\sin^4\theta}=\lim_{ r \to 0 }\dfrac{r^{\cancel{3}}(\cos ^{3}\theta+\sin ^{3}\theta)}{\cancel{r^{2}}(\lbb{\cos ^{2}\theta+\sin ^{2}\theta}{1}+r^{2}\sin^4\theta)}=\lim_{ r \to 0 }\dfrac{r(\cos ^{3}\theta+\sin ^{3}\theta)}{1+r^{2}\sin^4\theta}=\dfrac{0}{1}=0
+>>>>>>> 7e0b9de0ff1d7971adaa757c8a1a15c2d36bfd76
 $$
 \item Límites iterados o reiterados
 \begin{itemize}[label=\textbullet]
@@ -400,6 +411,7 @@ Para estudiar la continuidad en el punto $(0,0)$, deberemos primero comprobar si
 
 Estudiamos la existencia del límite de $f(x,y)$ en el punto $(0,0)$.
 $$
+<<<<<<< HEAD
 \begin{aligned}
 \lim_{ (x,y) \to (0,0) }(x^{2}+y^{2})\sin \dfrac{1}{\sqrt{ x^{2}+y^{2} }}&=\left\{ \begin{array}{l}
 x=r\cos\theta \\
@@ -407,6 +419,12 @@ y=r\sin\theta
 \end{array} \right\}=\lim_{ r \to 0 }\lbb{(r^{2}\cos ^{2}\theta+r^{2}\sin ^{2}\theta)}{r^{2}}\sin \dfrac{1}{\lbb{\sqrt{ r^{2}\cos ^{2}\theta+r^{2}\sin ^{2}\theta }}{r}}\\ 
 &=\lim_{ r \to 0 }r^{2}\sin\left( \dfrac{1}{r} \right)=\overset{\lb{\text{Teorema del Sandwich}}}{ \left\{  \left| \sin \left( \dfrac{1}{r} \right) \right|\right\} }=\lim_{ r \to 0 }\left| r^{2}\sin \left( \dfrac{1}{r} \right) \right|\leq \lim_{ r \to 0 }r^{2}=0
 \end{aligned}
+=======
+\lim_{ (x,y) \to (0,0) }(x^{2}+y^{2})\sin \dfrac{1}{\sqrt{ x^{2}+y^{2} }}=\left\{ \begin{array}{l}
+x=r\cos\theta \\
+y=r\sin\theta
+\end{array} \right\}=\lim_{ r \to 0 }\lbb{(r^{2}\cos ^{2}\theta+r^{2}\sin ^{2}\theta)}{r^{2}}\sin \dfrac{1}{\lbb{\sqrt{ r^{2}\cos ^{2}\theta+r^{2}\sin ^{2}\theta }}{r}}=\lim_{ r \to 0 }r^{2}\sin\left( \dfrac{1}{r} \right)=\overset{\lb{\text{Teorema del Sandwich}}}{ \left\{  \left| \sin \left( \dfrac{1}{r} \right) \right|\right\} }=\lim_{ r \to 0 }\left| r^{2}\sin \left( \dfrac{1}{r} \right) \right|\leq \lim_{ r \to 0 }r^{2}=0
+>>>>>>> 7e0b9de0ff1d7971adaa757c8a1a15c2d36bfd76
 $$
 Dado que: $$\lim_{ (x,y) \to (0,0) }f(x,y)=0=f(0,0).$$La función es continua en todo su dominio, incluido el punto $(0,0)$.
 \end{enumerate}
