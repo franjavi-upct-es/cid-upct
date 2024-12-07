@@ -408,5 +408,196 @@ y=r\sin\theta
 \end{aligned}
 $$
 Dado que: $$\lim_{ (x,y) \to (0,0) }f(x,y)=0=f(0,0).$$La función es continua en todo su dominio, incluido el punto $(0,0)$.
+\item \lb{¿Es posible definir las funciones de los ejercicios 1.4.2, 1.4.3,1.4.4,1.4.5,1.4.6,1.4.7,1.4.8,1.4.9,1.4.10,1.4.11 de manera que éstas sean continuas?}
+
+\item \lb{Estudiar la continuidad de las siguientes funciones}
+\begin{enumerate}[label=\color{red}\textbf{\alph*)}]
+\item $\db{f(x,y)=\begin{cases}\dfrac{x|y|}{\sqrt{ x^{2}+y^{2} }} & \text{si }(x,y)\neq(0,0)\\ 0 & \text{si }(x,y)=(0,0)\end{cases}}$
+
+Para estudiar la continuidad de la función $f(x,y)$ en el punto $(0,0)$, deberemos primero comprobar la existencia del límite en dicho punto y, en casi de que exista, deberá coincidir con $f(0,0)=0$.
+
+Estudiamos la existencia del límite de $f(x,y)$ en el punto $(0,0)$.
+$$
+\lim_{ (x,y) \to (0,0) }\dfrac{x|y|}{\sqrt{ x^{2}+y^{2} }}=\left\{ \begin{array}{l}
+x=r\cos\theta \\
+y=r\sin\theta
+\end{array}\right\}=\lim_{ r \to 0 }\dfrac{r\cos\theta|r\sin\theta|}{\lbb{\sqrt{ r^{2}\cos ^{2}\theta+r^{2}\sin ^{2}\theta }}{r}}=\lim_{ r \to 0 }\dfrac{r^{\cancel{2}}\cos\theta \sin\theta}{\cancel{r}}=\lim_{ r \to 0 }r\cos\theta \sin\theta=0
+$$
+Dado que: $$
+\lim_{ (x,y) \to (0,0) }f(x,y)=0=f(0,0)
+$$La función es continua en todo su dominio, incluido el punto $(0,0)$.
+
+\item $\db{f(x,y)=\begin{cases}\left( \dfrac{x^{2}y}{x^{2}+y^{2}},\sin(xy) \right) & \text{si }(x,y)\neq(0,0)\\ 0 & \text{si }(x,y)=(0,0)\end{cases}}$
+
+Para estudiar la continuidad de la función $f(x,y)$ en el punto $(0,0)$, deberemos primero comprobar si existe el límite en dicho punto y, en caso de que exista, deberá coincidir con $f(0,0)=(0,0)$.
+
+La función $f(x,y)$ es una función vectorial con dos componentes:
+\begin{enumerate}[label=\arabic*)]
+\item $f_{1}(x,y)=\dfrac{x^{2}y}{x^{2}+y^{2}}$ $$
+\lim_{ (x,y) \to (0,0) }\dfrac{x^{2}y}{x^{2}+y^{2}}=\left\{ \begin{array}{l}
+x=r\cos\theta \\
+y=r\sin\theta
+\end{array} \right\}=\lim_{ r \to 0 }\dfrac{r^{2}\cos ^{2}\theta r\sin\theta}{\lbb{r^{2}\cos ^{2}\theta+r^{2}\sin ^{2}\theta}{r^{2}}}=\lim_{ r \to 0 }\dfrac{r^{\cancel{3}}\cos ^{2}\theta \sin\theta}{\cancel{r^{2}}}=\lim_{ r \to 0 }r\cos ^{2}\theta \sin\theta=0
+$$
+\item $f_{2}(x,y)=\sin(xy)$
+$$
+\lim_{ (x,y) \to (0,0) }\sin(xy)=\left\{ \begin{array}{l}
+x=r\cos\theta \\
+y=r\sin\theta
+\end{array} \right\}=\lim_{ r \to 0 }\sin(r\cos\theta r\sin\theta)=\lim_{ r \to 0 }\sin(r^{2}\cos\theta \sin\theta)=\sin(0)=0
+$$
+Ambas componentes tienden a 0 cuando $(x,y)\to(0,0)$, y por lo tanto, la función es continua en todo $(x,y)\in\mathbb{R}^{2}$.
+\end{enumerate}
+
+
+\item $\db{f(x,y)=\begin{cases}\dfrac{\sin xy}{x} & \text{si }x\neq 0\\ y & \text{si }(x,y)=(0,y)\end{cases}}=\begin{cases}\dfrac{\sin(xy)}{x} & \text{si }x\neq 0\\ y & \text{si }x=0\end{cases}$
+
+La función será continua si: $$
+\lim_{ (x,y) \to (0,0) }f(x,y)=f(0,y_{0})=y_{0}
+$$Primero consideramos la expresión para $f(x,y)$ cuando $x\neq 0$: $$
+f(x,y)=\dfrac{\sin(xy)}{x}
+$$
+Si queremos calcular el límite, debemos fijarnos que pasa cuando $x\to 0$. Empezamos reescribiendo $f(x,y)$ como: $$
+f(x,y)=y\cdot \frac{\sin(xy)}{xy} 
+$$ De esta forma, tenemos un término en un límite conocido: $$
+\lim_{ u \to 0 }\dfrac{\sin u}{u}=1\longrightarrow \lim_{ (x,y) \to (0,0) }\dfrac{\sin(xy)}{xy}=1
+$$
+Esto implica que: $$
+\lim_{ (x,y) \to (0,0) }y\cdot \dfrac{\sin(xy)}{xy}=y\cdot 1=y=f(0,y_{0})
+$$
+Por lo tanto, $f(x,y)$ es continua en todo $(x,y)\in\mathbb{R}^{2}$. Esto incluye la región donde $=0$, ya que el límite de $f(x,y)$ cuando $(x,y)\to(0,y_{0})$ coincide con el valor que toma la función en ese punto.
+\end{enumerate}
+\item \lb{¿Qué tiene que valor el número real $K$ para que la función $$
+f(x,y)=\begin{cases}
+\dfrac{x^{2}y}{x^{2}+y^{2}} & \text{si }(x,y)\neq(0,0) \\
+K & \text{si }(x,y)=(0,0)
+\end{cases}
+$$sea continua?}
+
+Para que la función $f(x,y)$ en el punto $(0,0)$, el número real $K$ deberá tener el mismo valor que el límite de la función en dicho punto $$
+\lim_{ (x,y) \to (0,0) }\dfrac{x^{2}y}{x^{2}+y^{2}}=\left\{ \begin{array}{l}
+x=r\cos\theta \\
+y=r\sin\theta
+\end{array} \right\}=\lim_{ r \to 0 }\dfrac{r^{2}\cos ^{2}\theta r\sin\theta}{\lbb{r^{2}\cos ^{2}\theta+r^{2}\sin ^{2}\theta}{r^{2}}}=\lim_{ r \to 0 }\dfrac{r^{\cancel{2}}\cos ^{2}\theta \sin\theta}{\cancel{r^{2}}}=\lim_{ r \to 0 }r\cos ^{2}\theta \sin\theta=0
+$$
+Por lo tanto, para que la función sea continua en el punto $(0,0)\longrightarrow K=0$.
+
+\item \lb{¿Qué tiene que valer el número real $K$ para que la función $$
+f(x,y)=\begin{cases}
+\dfrac{y^{2}}{x^{2}+y^{2}} & \text{si }(x,y)\neq(0,0) \\
+K & \text{si }(x,y)=(0,0)
+\end{cases}
+$$sea continua?}
+
+Para que la función $f(x,y)$ en el punto $(0,0)$, el número real $K$ deberá tener el mismo valor que el límite de la función en dicho punto $$
+\lim_{ (x,y) \to (0,0) }\dfrac{y^{2}}{x^{2}+y^{2}}=\left\{ \begin{array}{l}
+x=r\cos\theta \\
+y=r\sin\theta
+\end{array} \right\}=\lim_{ r \to 0 }\dfrac{r^{2}\sin ^{2}\theta}{\lbb{r^{2}\cos ^{2}\theta+r^{2}\sin ^{2}\theta}{r^{2}}}=\lim_{ r \to 0 }\dfrac{\cancel{r^{2}}\sin ^{2}\theta}{\cancel{r^{2}}}=\sin\theta
+$$
+Como no existe el límite, porque depende de $\theta$, no habrá ningún valor de $K$ que haga que la función $f(x,y)$ sea continua en $(0,0)$.
+
+\item \lb{Estudiar la continuidad en el punto $(0,0)$ de la función $$
+f(x,y)=\begin{cases}
+\dfrac{x^{2}(x-y)}{x^{2}+y^{2}} & \text{si }(x,y)\neq(0,0) \\
+0 & \text{si }(x,y)=(0,0)
+\end{cases}
+$$Estudiar la continuidad de dicha función en todo punto de $\mathbb{R}^{2}$.}
+
+Para estudiar la continuidad en el punto $(0,0)$, deberemos primero comprobar si existe el límite en dicho punto y, en caso de que exista, deberá coincidir en $f(0,0)=0$.
+$$
+\begin{aligned}
+\lim_{ (x,y) \to (0,0) }\dfrac{x^{2}(x-y)}{x^{2}+y^{2}}&=\left\{ \begin{array}{l}
+x=r\cos\theta \\
+y=r\sin\theta
+\end{array} \right\}=\lim_{ r \to 0 }\dfrac{r^{2}\cos ^{2}\theta(r\cos\theta-r\sin\theta)}{\lbb{r^{2}\cos^{2}\theta+r^{2}\sin ^{2}\theta}{r^{2}}}=\lim_{ r \to 0 }\dfrac{\cancel{r^{2}}\cdot r\cdot \cos ^{2}\theta(\cos\theta-\sin\theta)}{\cancel{r^{2}}}\\ &=\lim_{ r \to 0 }r\cos ^{2}\theta(\cos\theta-\sin\theta)=0
+\end{aligned}
+$$
+La función es continua en todo su dominio, incluido el punto $(0,0)$.
+
+\item \lb{Sea la función $f:\mathbb{R}^{2}\to \mathbb{R}$ definida por $$
+f(x,y)=\begin{cases}
+\dfrac{x^{2}(x-y)}{x^{2}+y^{2}}\sin\left( \dfrac{y}{x} \right) & \text{si }(x,y)\neq(0,0) \\
+0 & \text{si }(x,y)=(0,0)
+\end{cases}
+$$Estudiar la continuidad de dicha función en todo punto de $\mathbb{R}^{2}$
+}
+
+Para estudiar la continuidad en el punto $(0,0)$, deberemos primero comprobar si existe el límite en dicho punto y, en caso de que exista, deberá coincidir en $f(0,0)=0$.
+
+$$
+\begin{aligned}
+\lim_{ (x,y) \to (0,0) }\dfrac{x^{2}(x-y)}{x^{2}+y^{2}}\sin \left( \dfrac{y}{x} \right)&=\left\{ \begin{array}{l}
+x=r\cos\theta \\
+y=r\sin\theta
+\end{array} \right\}=\lim_{ r \to 0 }\dfrac{r^{2}\cos ^{2}\theta(r\cos\theta-r\sin\theta)}{\lbb{r^{2}\cos ^{2}\theta+r^{2}\sin ^{2}\theta}{r^{2}}}\sin \left( \dfrac{\cancel{r}\sin\theta}{\cancel{r}\cos\theta} \right)\\
+&=\lim_{ r \to 0 }\dfrac{\cancel{r^{2}}\cdot r\cdot \cos ^{2}\theta(\cos\theta-\sin\theta)}{\cancel{r^{2}}}\sin \left( \dfrac{\sin\theta}{\cos\theta} \right)=\lim_{ r \to 0 }r\cos ^{2}\theta(\cos\theta-\sin\theta)\sin \left( \dfrac{\sin\theta}{\cos\theta} \right)=0
+\end{aligned}
+$$
+La función es continua en todo su dominio, incluido el punto $(0,0)$.
+
+\item \lb{Determinar si la función $$
+f(x,y)=\begin{cases}
+\dfrac{x^{2}y}{x^{2}+y^{2}} & \text{si }(x,y)\neq(0,0) \\
+0 & \text{si }(x,y)=(=,0)
+\end{cases}
+$$es continua.
+}
+
+Para estudiar la continuidad en el punto $(0,0)$, deberemos primero comprobar si existe el límite en dicho punto y, en caso de que exista, deberá coincidir en $f(0,0)=0$.
+$$
+\begin{aligned}
+\lim_{ (x,y) \to (0,0) }\dfrac{x^{2}y}{x^{2}+y^{2}}&=\left\{ \begin{array}{l}
+x=r\cos\theta \\
+y=r\sin\theta
+\end{array} \right\}=\lim_{ r \to 0 }\dfrac{r^{2}\cos ^{2}\theta \cdot r\sin\theta}{\lbb{r^{2}\cos ^{2}\theta+r^{2}\sin ^{2}\theta}{r^{2}}}=\lim_{ r \to 0 }\dfrac{\cancel{r^{2}}\cdot r\cdot \cos ^{2}\theta \sin\theta}{\cancel{r^{2}}}\\ &=\lim_{ r \to 0 }r\cos ^{2}\theta \sin\theta=0
+\end{aligned}
+$$
+La función es continua en todo su dominio, incluido el punto $(0,0)$.
+
+\item \lb{Consideremos la función: $$
+f(x,y)=\begin{cases}
+\dfrac{x^4+y^4}{x^{2}+y^{2}} & \text{si }(x,y)\neq(0,0) \\
+0 & \text{si }(x,y)=(0,0)
+\end{cases}
+$$Estudiar la continuidad de dicha función.}
+
+Para estudiar la continuidad en el punto $(0,0)$, deberemos primero comprobar si existe el límite en dicho punto y, en caso de que exista, deberá coincidir en $f(0,0)=0$.
+$$
+\lim_{ (x,y) \to (0,0) }\dfrac{x^4+y^4}{x^{2}+y^{2}}=\left\{ \begin{array}{l}
+x=r\cos\theta \\
+y=r\sin\theta
+\end{array} \right\}=\lim_{ r \to 0 }\dfrac{r^4\cos^4\theta+r^4\sin^4\theta}{\lbb{r^{2}\cos ^{2}\theta+r^{2}\sin ^{2}\theta}{r^{2}}}=\lim_{ r \to 0 }\dfrac{r^{\cancel{4}}(\cos^4\theta+\sin^4\theta)}{\cancel{r^{2}}}=\lim_{ r \to 0 }r^{2}(\cos^4\theta+\sin^4\theta)=0
+$$
+La función es continua en todo su dominio, incluido el punto $(0,0)$.
+
+\item \lb{Dada la función $f:\mathbb{R}^{2}\to \mathbb{R}$ definida por: $$
+f(x,y)=\begin{cases}
+\dfrac{\ln(1+x^{2}y^{2})}{x^4+2x^{2}y^{2}+y^4} & \text{si }(x,y)\neq(0,0) \\
+0 & \text{si }(x,y)=(0,0)
+\end{cases}
+$$analizar la continuidad de la función.}
+
+Para estudiar la continuidad en el punto $(0,0)$, deberemos primero comprobar si existe el límite en dicho punto y, en caso de que exista, deberá coincidir en $f(0,0)=0$.
+$$
+\begin{aligned}
+\lim_{ (x,y) \to (0,0) }\dfrac{\ln(1+x^{2}y^{2})}{x^4+2x^{2}y^{2}+y^4}&=\left\{ \begin{array}{l}
+x=r\cos\theta \\
+y=r\sin\theta
+\end{array} \right\}=\lim_{ r \to 0 }\dfrac{\ln(1+r^{2}\cos ^{2}\theta\cdot r^{2}\sin ^{2}\theta)}{r^{4}\cos ^{4}\theta+2r^{2}\cos ^{2}\theta\cdot r^{2}\sin ^{2}\theta+r^{4}\sin ^{4}\theta}=\lb{(\ast)}\\ &=\lim_{ r \to 0 }\dfrac{r^{4}\cos ^{2}\theta \sin ^{2}\theta}{(\lbb{r^{2}\cos ^{2}\theta+r^{2}\sin ^{2}\theta}{r^{2}})^2}=\lim_{ r \to 0 }\dfrac{\cancel{r^{4}}\cos ^{2}\theta \sin ^{2}\theta}{\cancel{r^{4}}}=\cos ^{2}\theta \sin ^{2}\theta
+\end{aligned}
+$$
+
+$\lb{(\ast)=}\ln(1+r^{2}\cos ^{2}\theta\cdot r^{2}\sin^{2}\theta)\sim r^{2}\cos ^{2}\theta\cdot r^{2}\sin ^{2}\theta$ cuando $r\to 0$.
+
+Dado que el límite depende de $\theta$, la función no es continua en $(0,0)$, ya que el límite $\lim_{ (x,y) \to (0,0) }f(x,y)$ no existe de forma única.
+
+\item \lb{Sea la función $$
+f(x,y)=\begin{cases}
+\dfrac{x^\alpha}{x^{2}+y^{2}} & \text{si }(x,y)\neq(0,0) \\
+0 & \text{si }(x,y)=(0,0)
+\end{cases}
+$$con $\alpha$ un número natural. Estudiar para los valores de $\alpha=3$ y $4$ la continuidad de dicha función.
+}
 \end{enumerate}
 \end{document}
