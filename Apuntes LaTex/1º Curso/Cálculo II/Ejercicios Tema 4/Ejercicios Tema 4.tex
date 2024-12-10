@@ -122,7 +122,25 @@ y^2=2x\longrightarrow x=\dfrac{y^2}{2}\\
 y^2=8-2x\longrightarrow 2x=8-u^2\longrightarrow x=4-\dfrac{y^2}{2}.
 \end{array} \]
 Por lo tanto, las fronteras de $x$ están dadas por: \[ x_{\mathrm{izq}}(y)=\dfrac{y^{2}}{2},\qquad x_{\mathrm{der}}(y)=4-\dfrac{y^{2}}{2} \]
+
+Para hallar los límites e $y$, igualamos: \[\dfrac{y^2}{2}=4-\dfrac{y^2}{2}\longrightarrow \dfrac{y^2}{2}+\dfrac{y^2}{2}=4\longrightarrow y^2=4\longrightarrow y=\pm2.\]
+
+Por lo tanto, el recinto está comprendido entre $y=-2$ e $y=2$.
+
+Para calcular la integral, dado un valor de $y$ entre $-2$ y $2$, $x$ varía desde $x=\dfrac{y^2}{2}$ hasta $x=4-\dfrac{y^2}{2}$. Por lo tanto: \[\int_{y=-2}^{y=2}\int_{x=\frac{y^2}{2}}^{x=4-\frac{y^2}{2}}(4-y^2)\dx\dy.\]
+
+$\int_{\frac{y^2}{2}}^{4-\frac{y^2}{2}}4-y^2\dx=(4-y^2)\cdot[x]_{x=\frac{y^2}{2}}^{4-\frac{y^2}{2}}=(4-y^2)\cdot\left(4-\dfrac{y^2}{2}-\dfrac{y^2}{2}\right)=(4-y^2)\cdot(4-y^2)=(4-y^2)^2$
+
+Entonces: 
+
+$\int_{-2}^{2}(4-y^2)^2\dy=\int_{-2}^{2}y^4-8y^2+16\dy=\left[\dfrac{y^5}{5}-\dfrac{8y^3}{3}+16y\right]_{y=-2}^{y=2}=\dfrac{512}{15}$
+
 \item \db{$\iint_{\Omega}(x^{4}+y^{2})\:\mathrm{d}x\:\mathrm{d}y$ en el recinto limitado por $y=x^{3}$ e $y=x^{2}$.}
+
+El recinto está limitado por las curvas: 
+		\[ y=x ^{3} \quad \text{e}\quad y=x ^{2} .\]  
+Primero hallamos, los puntos de intersección: 	
+		\[x ^{3}=x ^{2} \longrightarrow x ^{3} -x ^{2} =0 \longrightarrow x ^{2} (1-x)=0 \]
 \item \db{$\iint_{\Omega}(x+y)\:\mathrm{d}x\:\mathrm{d}y$ en el recinto limitado por $y=x^{3}$ e $y=x^{4}$ con $-1\leq x\leq 1$.}
 \item \db{$\iint_{\Omega}(2xy^{2}-y)\:\mathrm{d}x\:\mathrm{d}y$ en la región limitada por $y=|x|,\,y=-|x|$ y $x \in[-1,1]$.}
 \end{enumerate}
