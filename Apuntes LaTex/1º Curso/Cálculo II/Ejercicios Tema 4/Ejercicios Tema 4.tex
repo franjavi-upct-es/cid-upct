@@ -1,8 +1,10 @@
 \input{../../../Macros.tex}
 \title{Cálculo II\\ Tema 4: Teoría de campos}
+
 \begin{document}
 \maketitle
 \textbf{\Large Capítulo 1: Integración múltiple}
+
 \begin{enumerate}[label=\color{red}\textbf{\arabic*)}, leftmargin=*]
 \item \lb{Calcular para $\Omega=[0,1]\times[0,3]$ las integrales}
 \begin{enumerate}[label=\color{red}\textbf{\alph*)}]
@@ -614,7 +616,7 @@ A=\int_{0}^{2\pi}\int_{0}^{R}1\cdot r \dr \dth
     La región está limitada por:
     \begin{itemize}[label=\textbullet]
       \item $y\in [-1,1]$.
-      \item $\x\in [0,\sqrt{1-y^2}]$
+      \item $x\in [0,\sqrt{1-y^2}]$
     \end{itemize}
     Esto describe la \textbf{parte superior derecha del círculo de radio 1} centrado en el origen (por $x^2+y^2\le 1$).
 
@@ -628,22 +630,261 @@ A=\int_{0}^{2\pi}\int_{0}^{R}1\cdot r \dr \dth
     \[
       \int_{0}^{\frac{\pi}{2}}\int_{0}^{1} \lbb{\sqrt{r^2\cos^2\theta+r^2\sin^2\theta} }{r}\cdot r \dr \dth =\int_{0}^{\frac{\pi}{2}}r\cdot r \dr \dth =\int_{0}^{\frac{\pi}{2}} r^2\dr \dth .      
     \] 
+  \item Resolver la integral
+
+    Primero integramos respecto a $r$:  \[
+    \int_{0}^{1} r^2 \dr =\left[ \dfrac{r^3}{3} \right] _{0}^1=\dfrac{1}{3}. 
+    \] 
+    Luego, integramos respecto a $\theta$:
+\[
+  \int_{0}^{\frac{\pi}{2}} \dfrac{1}{3} \dth =\dfrac{1}{3}\cdot [\theta]_0^{\frac{\pi}{2}}=\dfrac{1}{3}\cdot \dfrac{\pi}{2}=\bboxed{\dfrac{\pi}{6}}
+\] 
 \end{enumerate}
 \item $\db{\int_{\frac{1}{2}}^{1}\int_{0}^{\sqrt{ 1-x^{2} }}(x^{2}+y^{2})^{\frac{3}{2}}\:\mathrm{d}y\:\mathrm{d}x.}$
+
+  \begin{enumerate}[label=\arabic*)]
+    \item Interpretar la región de integración
+
+      La región está limitada por:
+      \begin{itemize}[label=\textbullet]
+        \item $x \in \left[ \dfrac{1}{2},1 \right] $.
+        \item $y\in \left[ 0,\sqrt{1-x^2}  \right] $.
+      \end{itemize}
+      Esto corresponde a la \textbf{parte superior derecha de un círculo de radio 1}, restringida a $x \in \left[ \dfrac{1}{2},1 \right] $.
+      
+      En coordenadas polares:
+      \begin{itemize}[label=\textbullet]
+        \item $r$ varía entre  $\dfrac{1}{2}$ y $1$.
+        \item  $\theta$ varía entre $0$ y  $\dfrac{\pi}{2}$.
+      \end{itemize}
+    \item Cambiar a coordenadas polares
+
+      \[
+        \int_{0}^{\frac{\pi}{2} }\int_{\frac{1}{2} }^{1} \lbb{\left(r^2\cos^2\theta+r^2\sin^2\sin\theta \right)^{\frac{3}{2} }}{r^3}    =\int_{0}^{\frac{\pi}{2} }\int_{\frac{1}{2} }^{1}r^3\cdot r\dr \dth =\int_{0}^{\frac{\pi}{2} } \int_{\frac{1}{2} }^{1} r^{4} \dr \dth .
+      \] 
+    \item Resolver la integral
+
+Primero integramos respecto a $r$:
+ \[
+\int_{\frac{1}{2} }^{1}r^{4}\dr =\left[ \dfrac{r^5}{5}  \right] _{\frac{1}{2} }^1=\dfrac{1}{5} -\dfrac{\left( \frac{1}{2}  \right) ^{5}}{5}=\dfrac{1}{5}-\dfrac{1}{160}=\dfrac{31}{160}.     
+\] 
+Luego integramos respecto a $\theta$: \[
+  \int_{0}^{\frac{\pi}{2} } \dfrac{31}{160} \dth =\dfrac{31}{160} \cdot [\theta]_{0}^{\frac{\pi}{2} }=\dfrac{31}{160}\cdot \dfrac{\pi}{2}= \bboxed{\dfrac{31\pi}{320}}
+\] 
+  \end{enumerate}
 \item $\db{\int_{0}^{\frac{1}{2}}\int_{0}^{\sqrt{ 1-y^{2} }}xy\sqrt{ x^{2}+y^{2} }\:\mathrm{d}x\:\mathrm{d}y.}$
+
+  \begin{enumerate}[label=\arabic*)]
+    \item Interpretar la región de integración
+
+      La región está limitada por:
+      \begin{itemize}[label=\textbullet]
+        \item $y\in \left[ 0,\dfrac{1}{2}  \right] $ 
+        \item $x \in \left[ 0, \sqrt{1-y^2}  \right] $
+      \end{itemize}
+
+      Esto corresponde a la \textbf{parte superior derecha de un círculo de radio 1}, restringida a $y\in \left[ 0,\dfrac{1}{2}  \right] $.
+
+      En coordenadas polares:
+      \begin{itemize}[label=\textbullet]
+        \item $r$ varía entre 0 y 1.
+        \item $\theta$ varía entre 0 y $\arcsin\left( \dfrac{1}{2}  \right)=\dfrac{\pi}{6}  $
+      \end{itemize}
+    \item Cambiar a coordenadas polares:
+      
+      En coordenadas polares:
+      \begin{itemize}[label=\textbullet]
+        \item $x=r\cos\theta$
+        \item $y=r\sin\theta$
+        \item $x^2+y^2=r^2$
+        \item $\sqrt{x^2+y^2}=r $
+      \end{itemize}
+      Entonces: \[
+      xy\sqrt{x^2+y^2}=(r\cos\theta)(r\sin\theta)\cdot r=r^3\cos\theta\sin\theta .
+      \] 
+      La integral se convierte en: \[
+        \int_{0}^{\frac{\pi}{6} } \int_{0}^{1} r^3\cos\theta\sin\theta\cdot r\dr \dth =\int_{0}^{\frac{\pi}{6} } \int_{0}^{1} r^{4}\cos\theta\sin\theta\dr \dth = \dfrac{1}{5}\cdot \dfrac{1}{4}=\bboxed{\dfrac{1}{20}}. 
+      \] 
+      \item Resolver la integral
+
+        Primero integramos respecto a $r$:  \[
+        \int_{0}^{1} r^4\dr =\left[ \dfrac{r^5}{5}  \right] _0^1=\dfrac{1}{5}  
+        \] 
+        Luego integramos respecto a $\theta$:
+        \[
+          \begin{aligned}
+          \int_{0}^{\frac{\pi}{6} } \cos\theta\sin\theta\dth &=\int_{0}^{\frac{\pi}{6} } \dfrac{1}{2}\sin(2\theta)\dth =\dfrac{1}{2}\int_{0}^{\frac{\pi}{6} } \sin(2\theta)\dth =-\dfrac{1}{2}\left[ \cos(2\theta) \right] _0^{\frac{\pi}{6} } =-\dfrac{1}{2}\left[ \cos\left( \dfrac{\pi}{3} \right) -\cos(0) \right] \\
+          &=-\dfrac{1}{2}\left( \dfrac{1}{2}-1 \right) =-\dfrac{1}{2}\cdot \left( -\dfrac{a}{2} \right) =\dfrac{1}{4}
+          \end{aligned}
+        \] 
+  \end{enumerate}
 \end{enumerate}
 
 \item \lb{Calcular para $\Omega=[0,1]\times[0,3]\times[-1,1]$ las integrales}
 \begin{enumerate}[label=\color{red}\textbf{\alph*)}]
 \item $\db{\iiint_{\Omega}xyz\:\mathrm{d}x\:\mathrm{d}y\:\mathrm{d}z.}$
+
+  $  \begin{aligned}
+    \int_{-1}^{1} \int_{0}^{3} \int_{0}^{1} xyz\dx \dy \dz &= \int_{-1}^{1} \int_{0}^{3} \left[ \dfrac{x^2}{2} \right] _0^1\cdot yz \dy \dz = \dfrac{1}{2}\int_{-1}^{1}\left[ \dfrac{y^2}{2} \right] _0^3z\dz =\dfrac{9}{4}\int_{-1}^{1} z\dz =\dfrac{3}{2}\cdot \left[ \dfrac{z^2}{2} \right] _{-1}^1   \\   
+                                                           &= \dfrac{3}{2}\cdot \tozero{\left( \dfrac{1}{2}- \dfrac{(-1)^2}{2}  \right)}=\bboxed{0}   \\
+  \end{aligned}$
+
 \item $\db{\iiint_{\Omega}xe^{ y+z }\:\mathrm{d}x\:\mathrm{d}y\:\mathrm{d}z.}$
+
+  $\begin{aligned}
+    \int_{-1}^{1} \int_{0}^{3} \int_{0}^{1} x e^{y+z}\dx \dy \dz &= \int_{-1}^{1} \int_{0}^{3} \left[ \dfrac{x^2}{2} \right] _0^1 e^{y+z}\dy \dz =\dfrac{1}{2}\int_{-1}^{1} \int_{0}^{3} e^y\cdot e^z\dy \dz =  \dfrac{1}{2}\int_{-1}^{1} e^z\cdot [e^y]_0^3 \dz   \\ 
+                                                                 &= \dfrac{1}{2}\cdot (e^3-1)\cdot \int_{-1}^{1} e^z\dz =\dfrac{1}{2}(e^3-1)\cdot [e^z]_{-1}^1=\bboxed{\dfrac{1}{2}\cdot (e^3-1)\cdot \left( e-\dfrac{1}{e} \right) }   \\
+  \end{aligned}$
+
 \item $\db{\iiint_{\Omega} y^{2}z^{3}\sin x\:\mathrm{d}x\:\mathrm{d}y\:\mathrm{d}z.}$
+
+  $\begin{aligned}
+    \int_{-1}^{1} \int_{0}^{3} \int_{0}^{1} y^2z^3\sin x\dx \dy  & =\int_{-1}^{1} \int_{0}^{3} y^2z^3\cdot [-\cos x]_0^1\dy \dz =\left( -\cos(1)+1 \right)\cdot \int_{-1}^{1} \int_{0}^{3} y^2z^3\dy \dz\\
+                                                                &=\left( -\cos(1)+1 \right) \cdot \int_{-1}^{1} \left[ \dfrac{y^3}{3}  \right] _0^3z^3\dz =9(-\cos(1)+1)\int_{-1}^{1} z^3\dz\\
+                                                                &= 9(-\cos(1)+1)\cdot \left[ \dfrac{z^4}{4}  \right] _{-1}^1=9(-\cos(1)+1)\cdot \tozero{\left( \dfrac{1}{4}-\dfrac{(-1)^4}{4} \right) } =\bboxed{0} 
+  \end{aligned}$
 \end{enumerate}
 
 \item \lb{Calcular las integrales que a continuación se piden en los recintos correspondientes:}
 \begin{enumerate}[label=\color{red}\textbf{\alph*)}]
 \item \db{$\iiint_{\Omega}(y^{3}+z+x)\:\mathrm{d}x\:\mathrm{d}y\:\mathrm{d}z$ en $\Omega=\{ (x,y,z)\in\mathbb{R}^{3}:x^{2}+y^{2}+z^{2}=1 \}$}
+
+  \begin{enumerate}[label=\arabic*)]
+    \item Cambio a coordenadas esféricas
+
+      Para calcular una integral en una esfera, es conveniente cambiar a coordenadas esféricas: \[
+      x=r\cos\theta\sin\varphi,\quad y=r\sin\theta\sin\varphi, \quad z=r\cos\varphi,
+      \] donde:
+      \begin{itemize}[label=\textbullet]
+        \item $r$ es la distancia al origen $(0\le r\le 1)$.
+        \item $\varphi$ es el ángulo polar $(0\le \varphi\le \pi)$.
+        \item $\theta$ es el ángulo anzimutal $(0\le \theta\le 2\pi)$.
+      \end{itemize}
+      El elemento de volumen en coordenadas esferícas es: \[
+      \dx \dy \dz =r^2 \sin\varphi\dr \mathrm{d}\varphi\dth .
+      \] 
+    \item Expresar la función en coordenadas esféricas
+
+      La función $y^3+z+x$ en coordenadas esféricas es: \[
+      r^3 \sin^3\theta^3 \sin^3\varphi + r \cos\varphi + r \cos \theta \sin \varphi
+      \] 
+
+    \item Integración en $\Omega$
+
+      La integral es: \[
+    \iiint_{\Omega}(y^3+z+x)\dx \dy \dz=\int_{0}^{2\pi} \int_{0}^{\pi} \int_{0}^{1} r^3 \sin ^3\theta \sin ^3\varphi+r \cos\varphi+r \cos\theta \sin \varphi\cdot  r^2\sin\varphi\dr \mathrm{d}\varphi\dth .
+    \] 
+
+  \item Separar la integral
+
+    Separamos la integral en tres términos:
+
+    \[
+      \lbb{\int_{0}^{2\pi} \int_{0}^{\pi} \int_{0}^{1} r^5\sin^3\theta\sin^4\varphi\dr \mathrm{d}\varphi\dth }{I_1} + \dbb{\int_{0}^{2\pi} \int_{0}^{\pi} \int_{0}^{1} r^3\cos\varphi\sin\varphi\dr \mathrm{d}\varphi\dth  }{I_2}+\rub{\int_{0}^{2\pi} \int_{0}^{\pi} \int_{0}^{1} r^3\cos\theta\sin^2\varphi\dr \mathrm{d}\varphi\dth }{I_3}
+    \] 
+    \begin{enumerate}[label=Término \arabic*:]
+      \item \[
+          \lb{I_1}=\int_{0}^{2\pi} \int_{0}^{\pi} \int_{0}^{1} r^5\sin^3\theta\sin^4\varphi\dr \mathrm{d}\varphi\dth =   0\cdot \dfrac{3\pi}{8}\cdot \dfrac{1}{6}=0
+      \] 
+      \begin{itemize}[label=\textbullet]
+        \item Integral respecto a $r$:  \[
+        \int_{0}^{1} r^5\dr =\left[ \dfrac{r^6}{6}  \right]_0^1=\dfrac{1}{6}   
+        \] 
+      \item Integral respecto a $\varphi$: \[
+      \int_{0}^{\pi} \sin^4\varphi\mathrm{d}\varphi 
+      \] 
+      Usamos la fórmula de reducción para $\sin^{n}\varphi$:
+      \[
+        \int_{0}^{\pi} \sin^n\varphi\mathrm{d}\varphi = \dfrac{n-1}{n}\int_{0}^{\pi} \sin^{n-2}\varphi\mathrm{d}\varphi.  
+      \] 
+      En nuestro caso: \[
+      \begin{aligned}
+        \int_{0}^{\pi} \sin^4\varphi\mathrm{d}\varphi&=\dfrac{4-1}{4}\int_{0}^{\pi} \sin^2\varphi\mathrm{d}\varphi=\dfrac{3}{4}\int_{0}^{\pi} \sin^2\varphi\mathrm{d}\varphi =\dfrac{3}{4}\int_{0}^{\pi} \dfrac{1-\cos^2\varphi}{2}\mathrm{d}\varphi\\
+                                                     &= \dfrac{3}{4}\cdot \left( \dfrac{1}{2}\int_{0}^{1} 1\mathrm{d}\varphi-\dfrac{1}{2}\int_{0}^{\pi} \cos(2\varphi)\mathrm{d}\varphi \right) = \dfrac{3}{4}\cdot \left(\dfrac{1}{2}\cdot  [\varphi]_0^\pi - \tozero{  \dfrac{1}{2}\cdot \left[ \dfrac{1}{2}\sin(2\varphi) \right]_0^\pi}\:  \right)  \\
+                                                     &= \dfrac{3}{4}\cdot \dfrac{\pi}{2}=\dfrac{3\pi}{8} \\
+      \end{aligned}
+      \] 
+    \item Integral respecto a $\theta$: \[
+        \int_{0}^{2\pi} \sin^3\theta\dth =\{\text{Fórmula de reducción}\} =\dfrac{2}{3} \int_{0}^{2\pi}\sin\theta\dth =\dfrac{2}{3}\cdot [-\cos\theta]_0^{2\pi}=\dfrac{2}{3}\cdot (-1-(-1))=0  
+    \] 
+      \end{itemize}
+    \item \[
+        \db{I_2}=\int_{0}^{2\pi} \int_{0}^{\pi} \int_{0}^{\pi} r^3\cos\varphi\sin\varphi=0
+    \] 
+    \begin{itemize}[label=\textbullet]
+      \item Integral respecto a $r$:  \[
+      \int_{0}^{1} r^3\dr =\left[ \dfrac{r^4}{4}  \right] _0^1=\dfrac{1}{4}  
+      \] 
+    \item Integral respecto $\varphi$: \[
+    \int_{0}^{\pi} \cos\varphi\sin\varphi\mathrm{d}\varphi=\int_{0}^{\pi} \dfrac{1}{2}\sin(2\pi)\mathrm{d}\varphi=\dfrac{1}{2}\left[ -\dfrac{\cos(2\pi)}{2}  \right] _0^\pi=\dfrac{1}{2}\cdot \tozero{\left( -\dfrac{1}{2}-\left( -\dfrac{1}{2} \right)  \right) } =0  
+    \] 
+    \end{itemize}
+  \item \[
+      \rc{I_3}=\int_{0}^{2\pi} \int_{0}^{\pi} \int_{0}^{1} r^3\cos\theta\sin^2\varphi\dr \mathrm{d}\varphi\dth = 0
+  \] 
+  \begin{itemize}[label=\textbullet]
+    \item Integral respecto a $r$:
+       \[ 
+      \int_{0}^{1} r^3\dr =\left[ \dfrac{r^4}{4}  \right] _0^1=\dfrac{1}{4}  
+      \] 
+    \item Integral respecto $\varphi$:
+      \[
+        \int_{0}^{\pi} \sin^2\varphi\mathrm{d}\varphi=\{\text{Fórmula de reducción}\}=\dfrac{1}{2}\int_{0}^{\pi} 1\mathrm{d}\varphi=\dfrac{1}{2}\cdot [\varphi]_0^\pi=\dfrac{\pi}{2}   
+      \] 
+    \item Integral respecto a $\theta$: \[
+        \int_{0}^{2\pi} \cos\theta\dth =[\sin\theta]_0^{2\pi}=0 
+    \] 
+  \end{itemize}
+    \end{enumerate}
+
+    Por lo tanto:
+    \[
+    \bboxed{\iiint_\Omega(y^3+z+x)\dx \dy \dz =0+0+0=0} 
+    \] 
+  \end{enumerate}
+
 \item \db{$\iiint_{\Omega}(y\sin z+x)\:\mathrm{d}x\:\mathrm{d}y\:\mathrm{d}z$ en $\Omega=\{ (x,y,z)\in\mathbb{R}^{3}: y\geq z\geq y^{2},0\leq x,y\leq 1 \}.$}
+
+ \begin{enumerate}[label=\arabic*)]
+   \item Analizar la región de integración:
+
+  El recinto $\Omega$ está definido por las siguientes condiciones:
+  \begin{itemize}[label=\textbullet]
+    \item $0\le x\le 1:x$ recorre desde 0 hasta 1.
+    \item $0\le y\le 1:y$ recorre desde 0 hasta 1.
+    \item $y^2\le z\le y: z$ está restringido entre $y^2$ y $y$, con  $z\le y$ y $z\ge y^2$.
+  \end{itemize}
+\item Escribir la integral iterada
+
+  La integral iterada en este caso es: \[
+  \iiint_\Omega(y\sin z+x)\dx \dy \dz =\int_{0}^{1} \int_{0}^{1} (y\sin z+x)\dz \dy \dx.   
+  \] 
+\item Resorlver la integral respecto a $z$:
+  La integral interior es:  \[
+  \int_{y^2}^{y} (y\sin z+x)\dz=\int_{y^2}^{y} y\sin z\dz +\int_{y^2}^{y} x\dz =y\left[ \cos(y^2)-\cos(y) \right] + x(y-y^2).    
+  \] 
+  \begin{enumerate}[label=\alph*)]
+    \item Calcular $\int_{y^2}^{y} y\sin z\dz  $: \[
+        \int_{y^2}^{y} y\sin z\dz =y \int_{y^2}^{y} \sin z\dz =y[-\cos z]_{y^2}^y=y[\cos(y^2)-\cos(y)]  
+    \] 
+  \item Calcular $\int_{y^2}^{y} x\dz $ : \[
+      \int_{y^2}^{y} x\dz =x[z]_{y^2}^y=x(y-y^2)
+  \] 
+  \end{enumerate} 
+\item Resolvemos la integral respecto a $x$:
+  
+  Ahora integramos respecto a  $x$. La integral se convierte en:  \[
+    \int_{0}^{1} \int_{0}^{1} \left( y\left[ \cos(y^2)-\cos(y) \right] +x(y-y^2) \right)\dx \dy  .
+  \] 
+  Separando términos: \[
+  \int_{0}^{1} \int_{0}^{1} y\left[ \cos(y^2)-\cos(y) \right] \dx \dy +\int_{0}^{1} \int_{0}^{1} x(y-y^2)\dx \dy .    
+  \] 
+  \begin{enumerate}[label=\alph*)]
+    \item Primeral integral: \[
+    \int_{0}^{1} \int_{0}^{1} y\left[ \cos(y^2)-\cos(y) \right] \dx =  
+    \] 
+  \end{enumerate}
+ \end{enumerate} 
 \item \db{$\iiint_{\Omega}x\:\mathrm{d}x\:\mathrm{d}y\:\mathrm{d}z$ en $\Omega=\{ (x,y,z)\in\mathbb{R}^{3}:1\geq y^{2}+x^{2},0\leq z\leq 1 \}.$}
 \item \db{$\iiint_{\Omega}yxz\:\mathrm{d}x\:\mathrm{d}y\:\mathrm{d}z$ en $\Omega=\{ (x,y,z)\in\mathbb{R}^{3}:-5\leq z\leq y^{2}+x,-1\leq x,y\leq 1 \}$.}
 \end{enumerate}
