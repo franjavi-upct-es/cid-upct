@@ -507,13 +507,128 @@ A=\int_{0}^{2\pi}\int_{0}^{R}1\cdot r \dr \dth
     \] 
   \end{enumerate}
 \item \db{Cono de altura $h$ y radio de la base $R$.}
+
+  Para cacular el volumen de un cono de altura $h$ y radio de la base  $R$, usamos la fórmula estándar para que el volumen de un cono, que puede derivarse mediante integración o por la relación con una pirámide.
+
+  El volumen de un cono está dado por: \[
+  V=\dfrac{1}{3}\pi R^2h.
+  \] Esta fórmula se puede entender como un tercio del volumen de un cilindro con la misma altura y base.
+
+  Imaginemos que el cono está orientado con su vértice en el origen, su eje a lo largo del eje $z$, y su base en  $z=h$. La ecuación de la generatriz del cono es: \[
+  r(z)=\dfrac{R}{h}z,
+  \] donde $r(z)$ es el radio del círculo en un plano horizintal a una altura  $z$.
+
+  El volumen de un cono puede calcularse integrando los volúmenes de los infinitos discos horizontales:  \[
+  V=\int_{0}^{h} \text{área del disco }\dz . 
+  \] 
+  El área de un disco de una altura $z$ es:  \[
+  \text{Área} =\pi r(z)^2=\pi\left( \dfrac{R}{h}z \right) ^2.
+  \] 
+  Sustituyendo en la integral: \[
+  V=\int_{0}^{h} \pi\left( \dfrac{R}{h}z \right) ^2\dz . 
+  \] 
+  Sacamos constantes fuera de la integral.
+
+ \[
+   V=\pi \left( \dfrac{R}{h} \right) ^2 \int_{0}^{h} z^2\dz =\pi\cdot \dfrac{R^2}{h^2}\cdot \left[ \dfrac{z^3}{3} \right] _{0}^{h}=\pi \dfrac{R^2}{\cancel{h^2}}\cdot \dfrac{h^{\cancel{3}}}{3}=\bboxed{\dfrac{1}{3}\pi R^2h} 
+ \]  
 \item \db{El tronco limitado superiormente por la ecuación $z=2x+1$ e inferiormente por el disco $(x-1)^{2}+y^{2}\leq 1$.}
+
+  El volumen de un sólido se calcula como: \[
+ V=\iiint_{\Omega}1\mathrm{d}V,
+  \] donde la región $\Omega$ es la región tridimensional definina por las restricciones.
+
+  En este caso: 
+   \begin{itemize}[label=\textbullet]
+    \item El plano superior está dado por $z=2x+1$.
+    \item La base del sólido es el disco  $(x-1)^2+y^2\le 1$ en el plano $xy$.
+  \end{itemize}
+  \begin{enumerate}[label=Paso \arabic*:]
+    \item Definir los límites del disco en el plano $xy$
+
+      El disco  $(x-1)^2+y^2\le 1$ tiene centro en $(1,0)$ y radio  $1$. En coordendas polares:  \[
+      x=1+r\cos\theta,\quad y=r\sin\theta,\quad\text{con }0\le r\le 1\text{ y }0\le \theta\le 2\pi.
+      \] 
+    \item Definir los límites para $z$
+
+      Para un punto en la base, el plano superior tiene la altura:  \[
+      z=2x+1.
+      \] Por lo tanto: \[
+      0\le z\le 2x+1.
+      \] 
+    \item Calcular el volumen en coordenadas polares
+
+      El volumen se expresa como: \[
+      V=\iiint_{\Omega}1\mathrm{d}V=\int_{0}^{2\pi} \int_{0}^{1} \int_{0}^{2x+1}1r \dz \dr \dth .    
+      \] 
+      Aquí, $r$ proviene del cambio a coordenadas polares.
+
+    \item Resolver la integral
+      \begin{enumerate}[label=\arabic*)]
+        \item Integral respecto a $z$:  \[
+            \int_{0}^{2x+1}1\dz =[z]_{0}^{2x+1}=2x+1
+        \] 
+        Ahora la integral se reduce a: \[
+        V=\int_{0}^{2\pi} \int_{0}^{1} (2x+1)r \dr \dth .  
+        \] 
+      \item Sustituir $x=1+r\cos\theta$:
+
+        En coordenadas polares, $x=1+r\cos\theta$. Sustituyendo: \[
+        2x+1=2(1+r\cos\theta)+1=3+2r\cos\theta.
+        \] 
+        La integral ahora es: \[
+        V=\int_{0}^{2\pi}\int_{0}^{1} (3+2r\cos\theta)r \dr \dth = \int_{0}^{2\pi}\int_{0}^{1}(3r+2r^2\cos\theta)\dr \dth .
+        \] 
+      \item Separar en dos integrales: \[
+          V=\int_{0}^{2\pi} \int_{0}^{1} 3r \dr \dth +\int_{0}^{2\pi} \int_{0}^{1} 2r^2\cos\theta\dr \dth = 3\pi + 0 =\bboxed{3\pi}.   
+      \] 
+    \item Resolver cada integral:
+      \begin{itemize}[label=\textbullet]
+        \item Para $\int_{0}^{2\pi} \int_{0}^{1}3r \dr \dth$ : \[
+        \begin{array}{c}
+          \int_{0}^{1} 3r \dr =3\left[ \dfrac{r^2}{2} \right] _{0}^1=\dfrac{3}{2}.\\
+          \int_{0}^{2\pi}\dfrac{3}{2}\dth =\dfrac{3}{2}\cdot 2\pi=3\pi.  
+        \end{array}
+        \] 
+      \item Para $\int_{0}^{2\pi} \int_{0}^{1} 2r^2\cos\theta\dr \dth   $ : \[
+      \begin{array}{c}
+        \int_{0}^{1} 2r^2\dr=2\left[ \dfrac{r^3}{3} \right] _{0}^1=2\cdot \dfrac{1}{3}=\dfrac{2}{3}.\\
+        \int_{0}^{2\pi}\dfrac{2}{3}\cos\theta\dth =\dfrac{2}{3}\tozero{\int_{0}^{2\pi}\cos\theta\dth   }=0  
+      \end{array}
+      \] 
+      \end{itemize}
+      \end{enumerate}
+  \end{enumerate}
 \end{enumerate}
 
 \item \lb{Calcular cambiando a coordenadas polares:}
+
+  En coordenadas polares: \[
+  x=r\cos\theta,\quad y=r\sin\theta,\quad \dx \dy =r \dr \dth .
+  \] 
 \begin{enumerate}[label=\color{red}\textbf{\alph*)}]
 \item $\db{\int_{-1}^{1}\int_{0}^{\sqrt{ 1-y^{2} }}\sqrt{ x^{2}+y^{2} }\:\mathrm{d}x\:\mathrm{d}y.}$
+\begin{enumerate}[label=\arabic*)]
+  \item Interpretar la región de integración
 
+    La región está limitada por:
+    \begin{itemize}[label=\textbullet]
+      \item $y\in [-1,1]$.
+      \item $\x\in [0,\sqrt{1-y^2}]$
+    \end{itemize}
+    Esto describe la \textbf{parte superior derecha del círculo de radio 1} centrado en el origen (por $x^2+y^2\le 1$).
+
+    En coordenadas polares: 
+    \begin{itemize}[label=\textbullet]
+      \item El radio $r$ varía entre  $0$ y  $1$.
+      \item El ángulo  $\theta$ varía entre $0$ y  $\dfrac{\pi}{2}$.
+    \end{itemize}
+  \item Cambiar a coordenadas polares
+
+    \[
+      \int_{0}^{\frac{\pi}{2}}\int_{0}^{1} \lbb{\sqrt{r^2\cos^2\theta+r^2\sin^2\theta} }{r}\cdot r \dr \dth =\int_{0}^{\frac{\pi}{2}}r\cdot r \dr \dth =\int_{0}^{\frac{\pi}{2}} r^2\dr \dth .      
+    \] 
+\end{enumerate}
 \item $\db{\int_{\frac{1}{2}}^{1}\int_{0}^{\sqrt{ 1-x^{2} }}(x^{2}+y^{2})^{\frac{3}{2}}\:\mathrm{d}y\:\mathrm{d}x.}$
 \item $\db{\int_{0}^{\frac{1}{2}}\int_{0}^{\sqrt{ 1-y^{2} }}xy\sqrt{ x^{2}+y^{2} }\:\mathrm{d}x\:\mathrm{d}y.}$
 \end{enumerate}
