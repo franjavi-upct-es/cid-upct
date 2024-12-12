@@ -881,41 +881,177 @@ Luego integramos respecto a $\theta$: \[
   \] 
   \begin{enumerate}[label=\alph*)]
     \item Primeral integral: \[
-    \int_{0}^{1} \int_{0}^{1} y\left[ \cos(y^2)-\cos(y) \right] \dx =  
+    \begin{aligned}
+      \int_{0}^{1} \int_{0}^{1} y\left[ \cos(y^2)-\cos(y) \right] \dx &= \int_{0}^{1} y\left[ \cos(y^2)-\cos(y) \right] \int_{0}^{1} 1\dx \dy = \lbb{[x]_0^1}{1} \int_{0}^{1} y\left[ \cos(y^2)-\cos(y) \right] \dy\\
+                                                                      & = \int_{0}^{1} y[\cos(y^2)-\cos(y)] \dy = \lbb{ \int_{0}^{1} y\cos(y^2)\dy }{I_1}-\dbb{\int_{0}^{1}y\cos(y) \dy }{I_2}\\
+                                                                      & = \dfrac{1}{2}\sin(1)-(\sin(1)-1+\cos(1))=1-\cos(1)-\dfrac{1}{2}\sin(1)
+    \end{aligned}
+      \] 
+
+      $\begin{array}{l}
+       
+          \lb{I_1}=\int_{0}^{1} y\cos(y^2)\dy =\left\{ \begin{array}{l}
+            u=y^2\\
+            \du =2y\dy 
+        \end{array} \right\}=\dfrac{1}{2}\int_{0}^{1}\cos(u)\du =\dfrac{1}{2}[\sin(u)]_0^1=\dfrac{1}{2}(\sin(1)-\sin(0))=\dfrac{1}{2}\sin(1)     
+       \\
+        \begin{aligned}
+          \db{I_2}=\int_{0}^{1} y\cos(y)\dy &= \left\{ \begin{array}{ll}
+            u=y & \du =\dy \\
+            \dv=\cos(y)\dy  & v = \sin(y)
+        \end{array} \right\}=[y\sin(y)]_0^1-\int_{0}^{1} \sin(y)\dy =\sin(1)-[-\cos(y)] _0^1\\
+                                            &=\sin(1)-1+\cos(1)
+         \end{aligned}
+      \end{array}$
+    \item Segunda integral: \[
+        \int_{0}^{1} \int_{0}^{1} x(y-y^2)\dx \dy =\left[ \dfrac{x^2}{2} \right] _0^1\cdot \int_{0}^{1} y-y^2\dy =\dfrac{1}{2}\cdot \left[ \dfrac{y^2}{2}-\dfrac{y^3}{3} \right] _0^1=\dfrac{1}{2}-\dfrac{1}{3}=   \dfrac{1}{2}\cdot \dfrac{1}{6}=\dfrac{1}{12}
     \] 
   \end{enumerate}
+  Por lo tanto: \[
+    \int_{0}^{1} \int_{0}^{1} \int_{y^2}^{y} (y\sin z+x)\dz \dx \dy = 1-\cos(1)-\dfrac{1}{2}\sin(1)+\dfrac{1}{12}=\bboxed{\dfrac{13}{12}-\cos(1)-\dfrac{1}{2}\sin(1)} 
+  \] 
  \end{enumerate} 
 \item \db{$\iiint_{\Omega}x\:\mathrm{d}x\:\mathrm{d}y\:\mathrm{d}z$ en $\Omega=\{ (x,y,z)\in\mathbb{R}^{3}:1\geq y^{2}+x^{2},0\leq z\leq 1 \}.$}
+
+  \begin{enumerate}[label=\arabic*)]
+    \item Interpretar la región $\Omega$
+      \begin{itemize}[label=\textbullet]
+        \item La condición $y^2+x^2\le 1$ describe un disco en el plano $xy$ con radio 1 centrado en el origen.
+        \item La condición  $0\le z\le 1$ extiende el disco en la dirección $z$, formando un cilindro de altura 1 con base el disco en el plano $xy$
+
+          \includegraphics[width=0.5\textwidth]{"figures/Figure 5"} 
+      \end{itemize}
+    \item Cambiar a coordenadas cilíndricas
+
+      En coordenadas cilíndricas:
+      \begin{itemize}[label=\textbullet]
+        \item $x=r \cos\theta $. 
+        \item $y=r \cos\theta$.
+        \item $z=z$.
+        \item El jacobiano del cambio de coordenadas es  $\dx \dy \dz =r\dr \dth \dz $.
+      \end{itemize}
+      La región $\Omega$ se transforma en:
+      \begin{itemize}[label=\textbullet]
+        \item $r \in [0,1]$.
+        \item $\theta\in [0,2\pi]$.
+        \item $z=[0,1]$.
+      \end{itemize}
+      La integral en coordenadas cilíndricas es: \[
+        \iiint_{\Omega}x\dx \dy \dz =\int_{0}^{1} \int_{0}^{2\pi} \int_{0}^{1} (r \cos\theta)r\dr \dth \dz=\int_{0}^{1} \int_{0}^{2\pi} \int_{0}^{1} r^2\cos\theta\dr \dth \dz=\bboxed{0}  .   
+      \] 
+    \item Resolver la integral
+      \begin{enumerate}[label=\arabic*)]
+        \item Integración respecto a $r$:  \[
+            \int_{0}^{1} r^2\dr =\left[\dfrac{r^3}{3} \right]_0^1=\dfrac{1}{3}
+        \] 
+        La integral queda: \[
+        \int_{0}^{1} \int_{0}^{2\pi} \dfrac{1}{3}\cos\theta\dth \dz .  
+        \] 
+      \item Integración respecto a $\theta$: 
+        \[
+          \int_{0}^{2\pi} \cos\theta\dth =[\sin\theta] _0^{2\pi}=\sin(2\pi)-\sin(0)=0
+        \] 
+      \end{enumerate}
+  \end{enumerate} 
 \item \db{$\iiint_{\Omega}yxz\:\mathrm{d}x\:\mathrm{d}y\:\mathrm{d}z$ en $\Omega=\{ (x,y,z)\in\mathbb{R}^{3}:-5\leq z\leq y^{2}+x,-1\leq x,y\leq 1 \}$.}
+  \begin{enumerate}[label=\arabic*)]
+    \item Interpretar el recinto $\Omega$
+      \begin{itemize}[label=\textbullet]
+        \item La variable $z$ está limitada por:  \[
+            z\in [-5,y^2+x].
+        \] 
+      \item La variables $x$ está limitada por:  \[
+          x \in [-1,1].
+      \] 
+    \item La variable $y$ está limitada por:  \[
+        y\in [-1,1]
+    \] 
+      \end{itemize}
+      Por lo tanto, la integral iterada es: \[
+      \iiint_\Omega yxz\dx \dy \dz =\int_{-1}^{1} \int_{-1}^{1} \int_{-5}^{y^2+x}yxz\dz \dx \dy .    
+      \] 
+    \item Resolver la integral respecto a $z$
+       \[
+         \int_{-5}^{y^2+x}yxz\dz =yx \int_{-5}^{y^2+x}z\dz =yz\cdot \left[ \dfrac{y^2}{2} \right]_{-5}^{y^2+x}=yx\cdot \left( \dfrac{(y^2+x)^2}{2}- \frac{(-5)^2}{2}  \right) =\dfrac{1}{2}yx((y^2+x)^2-25)    
+      \] 
+    \item Resolver la integral respecto a $x$
+       \[
+      \begin{aligned} 
+        \int_{-1}^{1} \int_{-1}^{1} \dfrac{yx}{2} \cdot (y^4+2y^2x+x^2-25)\dx \dy &= \int_{-1}^{1} \left[ \dfrac{xy}{2} y^4+y^3x^2+\dfrac{yx^3}{2} -\dfrac{25xy}{2}  \right] \dx \dy   \\ 
+                                                                                  &= \dfrac{y^5}{2}\tozero{\left[ \dfrac{x^2}{2} \right ]_{-1}^1}+y^3\left[ \dfrac{x^3}{3} \right]_{-1}^1+\dfrac{y}{2}\cdot \tozero{\left[ \dfrac{x^4}{4}   \right]_{-1}^1}-\dfrac{25y}{2}\cdot \tozero{\left[ \dfrac{x^2}{2} \right  ]_{-1}^1}  \\
+                                                                                  &= \dfrac{2}{3}y^3 \\
+      \end{aligned}
+       \] 
+     \item Resolver la integral respecto a $y$
+        \[
+          \int_{-1}^{1} \dfrac{2}{3}y^3\dy =\dfrac{2}{3}\left[ \dfrac{y^4}{4} \right]_{-1}^1=\bboxed{0}  
+       \] 
+  \end{enumerate}
 \end{enumerate}
 
 \item \lb{Calcular el volumen del sólido limitado superiormente por $z=1$ e inferiormente por $z=\sqrt{ x^{2}+y^{2} }$.}
 
-\item \lb{Calcular el volumen del sólido limitado superiormente por el cilindro parabólico $z=1-y^{2}$, inferiormente por el plano $2x+3y+z+10=0$ y lateralmente por el cilindro circular $x^{2}+y^{2}+x=0$.}
+  La superficie inferior es $z=\sqrt{x^2+y^2}$, que describe un cono circular de base centrada en el origen. La superficie superior, $z=1$, corta este cono en un círculo con radio  $r$, donde:  \[
+  \sqrt{x^2+y^2}\le 1\longrightarrow x^2+y^2\le 1.
+  \] 
+  Por lo tanto, la región de proyección en el plano $xy$ es el círculo  \[
+  x^2+y^2\le 1.
+  \] 
 
-\item \lb{Hallar el volumen del sólido limitado por los paraboloides de ecuaciones $z=2-x^{2}-y^{2}$ y $z=x^{2}+y^{2}$.}
+  El volumen se calcular como: \[
+  V=\iiint_\Omega 1\mathrm{d}V,
+  \] 
+  donde $\Omega$ es el sólido descrito por: \[
+  \sqrt{x^2+y^2}\le z\le 1,\quad x^2+y^2\le 1. 
+  \] 
+  En coordenadas cilíndricas:
+  \begin{itemize}[label=\textbullet]
+    \item $x=r\cos\theta$
+    \item $y=r\sin\theta$
+    \item $z=z$
+    \item  $\mathrm{d}V=r\dr \dth \dz $
+  \end{itemize}
+  La región cilíndrica queda descrita como:
+  \begin{itemize}[label=\textbullet]
+    \item $r\in [0,1]$
+    \item $\theta\in [0,2\pi]$
+    \item $z\in [r,1]$
+  \end{itemize}
+  Entonces, el volumen es:\[
+  V=\int_{0}^{2\pi} \int_{0}^{1} \int_{r}^{1} r\dz \dr \dth = \bboxed{\dfrac{\pi}{3}} 
+  \] 
 
-\item \lb{Calcular el volumen del sólido limitado superiormente por la superficie cilíndrica $x^{2}+z=4$, inferiormente por el plano $x+z=2$ y lateralmente por lo planos $y=0$ e $y=3$.}
+  $\begin{array}{l}
+    \int_{r}^{1} r\dz =r \int_{r}^{1} 1\dz =r\cdot [z]_{r}^1=r(1-r)=r-r^2  \\
+    \int_{0}^{1} r-r^2\dr =\left[ \dfrac{r^2}{2}-\dfrac{r^3}{3} \right] _0^1 =\dfrac{1}{2}-\dfrac{1}{3}=\dfrac{1}{6}\\
+    \int_{0}^{2\pi} \dfrac{1}{6}\dth =\dfrac{1}{6}\cdot [\theta]_0^{2\pi}=\dfrac{1}{6}\cdot 2\pi=\dfrac{\pi}{3} 
+  \end{array}$
 
-\item \lb{Haciendo uso de las coordenadas esféricas $x=r\sin \phi \cos\theta,yr\sin \phi \sin\theta$ y $z=r\cos \phi$, calcular:}
-\begin{enumerate}[label=\color{red}\textbf{\alph*)}]
-\item \db{El volumen de una esfera de radio $R$.}
-\item \db{$\iiint_{\Omega}(x^{2}+y^{2}+z^{2})\:\mathrm{d}x\:\mathrm{d}y\:\mathrm{d}z$ en el recinto $\Omega=\{(x,y,z)\in\mathbb{R}^{3}:1\leq x^{2}+y^{2}+z^{2}\leq 2 \}$.}
-\item \db{El volumen del recinto del apartado (b).}
-\end{enumerate}
-
-\item \lb{Calcular el volumen del cuerpo limitado por las ecuaciones $z=x^{2}+4y^{2}$, el plano $z=0$ y lateralmente por los cilindros $x=y^{2}$ y $x^{2}=y$.}
-
-\item \lb{Calcular $\iint_{\Omega}e^{ \frac{x-y}{x+y} }\:\mathrm{d}x\:\mathrm{d}y$ siendo $\Omega$ el triángulo formado por los ejes de coordenadas y la recta $x+y=1$.}
-
-\item \lb{Calcular el volumen comprendido entre los cilindros $z=x^{2}$ y $z=4-y^{2}$.}
-
-\item \lb{Calcular el volumen del balón de Rugby de ecuaciones $\dfrac{x^{2}}{a^{2}}+\dfrac{y^{2}}{b^{2}}+\dfrac{z^{2}}{c^{2}}=1$.}
-
-\item \lb{Calcular $$
-\underset{\Omega}{ \iiint }\dfrac{\:\mathrm{d}x\:\mathrm{d}y\:\mathrm{d}z}{(x^{2}+y^{2}+x^{2})^{\frac{3}{2}}},
-$$
-donde $\Omega$ es la región limitado por las esferas $x^{2}+y^{2}+z^{2}=a^{2}$ y $x^{2}+y^{2}+z^{2}=b^{2}$, donde $0<b<a$. Indicación: hacer el cambio a coordenadas esféricas.}
+%\item \lb{Calcular el volumen del sólido limitado superiormente por el cilindro parabólico $z=1-y^{2}$, inferiormente por el plano $2x+3y+z+10=0$ y lateralmente por el cilindro circular $x^{2}+y^{2}+x=0$.}
+%
+%\item \lb{Hallar el volumen del sólido limitado por los paraboloides de ecuaciones $z=2-x^{2}-y^{2}$ y $z=x^{2}+y^{2}$.}
+%
+%\item \lb{Calcular el volumen del sólido limitado superiormente por la superficie cilíndrica $x^{2}+z=4$, inferiormente por el plano $x+z=2$ y lateralmente por lo planos $y=0$ e $y=3$.}
+%
+%\item \lb{Haciendo uso de las coordenadas esféricas $x=r\sin \phi \cos\theta,y=r\sin \phi \sin\theta$ y $z=r\cos \phi$, calcular:}
+%\begin{enumerate}[label=\color{red}\textbf{\alph*)}]
+%\item \db{El volumen de una esfera de radio $R$.}
+%\item \db{$\iiint_{\Omega}(x^{2}+y^{2}+z^{2})\:\mathrm{d}x\:\mathrm{d}y\:\mathrm{d}z$ en el recinto $\Omega=\{(x,y,z)\in\mathbb{R}^{3}:1\leq x^{2}+y^{2}+z^{2}\leq 2 \}$.}
+%\item \db{El volumen del recinto del apartado (b).}
+%\end{enumerate}
+%
+%\item \lb{Calcular el volumen del cuerpo limitado por las ecuaciones $z=x^{2}+4y^{2}$, el plano $z=0$ y lateralmente por los cilindros $x=y^{2}$ y $x^{2}=y$.}
+%
+%\item \lb{Calcular $\iint_{\Omega}e^{ \frac{x-y}{x+y} }\:\mathrm{d}x\:\mathrm{d}y$ siendo $\Omega$ el triángulo formado por los ejes de coordenadas y la recta $x+y=1$.}
+%
+%\item \lb{Calcular el volumen comprendido entre los cilindros $z=x^{2}$ y $z=4-y^{2}$.}
+%
+%\item \lb{Calcular el volumen del balón de Rugby de ecuaciones $\dfrac{x^{2}}{a^{2}}+\dfrac{y^{2}}{b^{2}}+\dfrac{z^{2}}{c^{2}}=1$.}
+%
+%\item \lb{Calcular $$
+%\underset{\Omega}{ \iiint }\dfrac{\:\mathrm{d}x\:\mathrm{d}y\:\mathrm{d}z}{(x^{2}+y^{2}+x^{2})^{\frac{3}{2}}},
+%$$
+%donde $\Omega$ es la región limitado por las esferas $x^{2}+y^{2}+z^{2}=a^{2}$ y $x^{2}+y^{2}+z^{2}=b^{2}$, donde $0<b<a$. Indicación: hacer el cambio a coordenadas esféricas.}
 
 \end{enumerate}
 
