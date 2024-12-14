@@ -102,13 +102,13 @@ $\lb{I_{1}}=\int_{\frac{1}{2}}^{1}\dfrac{x^{2}(1-x^{2})}{2}\:\mathrm{d}x=\dfrac{
 $\db{I_{2}}=\int_{\frac{1}{2}}^{1}\log x(x-x^{2})\:\mathrm{d}x=\int_{\frac{1}{2}}^{1}x\log x-x^{2}\log x\:\mathrm{d}x=\lb{(\ast)}=\left( -\dfrac{1}{8}\log \left( \dfrac{1}{2} \right) -\dfrac{3}{16} \right)-\left( -\dfrac{1}{24}\log \left(\dfrac{1}{2}\right) -\dfrac{7}{72}\right)=-\dfrac{1}{12}\log \left( \dfrac{1}{2} \right)-\dfrac{13}{144}$
 $$\lb{(\ast)}\begin{aligned}
 \int_{\frac{1}{2}}^{1} x\log x\:\mathrm{d}x&=\left\{ \begin{array}{ll}
-u=\log x & \mathrm{d}u=\frac{1}{x}\:\mathrm{d}x \\
-\mathrm{d}v=x\:\mathrm{d}x & v=\frac{x^{2}}{2}
+u=\log x & \:\mathrm{d}u=\frac{1}{x}\:\mathrm{d}x \\
+\:\mathrm{d}v=x\:\mathrm{d}x & v=\frac{x^{2}}{2}
 \end{array} \right\}=\left[ \log x\cdot \dfrac{x^{2}}{2} \right]_{x=0.5}^{x=1}-\int_{\frac{1}{2}}^{1} \dfrac{x^{\cancel{2}}}{2}\cdot \dfrac{1}{\cancel{x}}\:\mathrm{d}x=-\dfrac{1}{8}\log \left( \dfrac{1}{2} \right)-\dfrac{1}{2}\int_{\frac{1}{2}}^{1}x\:\mathrm{d}x\\
 &=-\dfrac{1}{8}\log \left( \dfrac{1}{2} \right)-\dfrac{1}{2}\left[ \dfrac{x^{2}}{2} \right]_{x=0.5}^{x=1}=-\dfrac{1}{8}\log \left( \dfrac{1}{2} \right)-\dfrac{3}{16} \\
 \int_{\frac{1}{2}}^{1} x^{2}\log x\:\mathrm{d}x&=\left\{ \begin{array}{ll}
-u=\log x & \mathrm{d}u=\frac{1}{x}\:\mathrm{d}x \\
-\mathrm{d}v=x^{2}\:\mathrm{d}x & v=\frac{x^{3}}{3}
+u=\log x & \:\mathrm{d}u=\frac{1}{x}\:\mathrm{d}x \\
+\:\mathrm{d}v=x^{2}\:\mathrm{d}x & v=\frac{x^{3}}{3}
 \end{array} \right\}=\left[ \log x\cdot \dfrac{x^{3}}{3} \right]_{x=0.5}^{x=1}-\int_{\frac{1}{2}}^{1} \dfrac{x^{\cancel{3}}}{3}\cdot \dfrac{1}{\cancel{x}}\:\mathrm{d}x=-\dfrac{1}{24}\log \left( \dfrac{1}{2} \right)-\dfrac{1}{3}\int_{\frac{1}{2}}^{1} x^{2}\:\mathrm{d}x\\
 &=-\dfrac{1}{24}\log \left( \dfrac{1}{2} \right)-\dfrac{1}{3}\left[ \dfrac{x^{3}}{3} \right]_{x=0.5}^{x=1}=-\dfrac{1}{24}\log \left( \dfrac{1}{2} \right)-\dfrac{7}{72}
 \end{aligned}$$
@@ -399,7 +399,7 @@ A=\int_{0}^{2\pi}\int_{0}^{R}1\cdot r \dr \dth
   \begin{enumerate}[label=\arabic*)]
     \item Interpretación del problema
 
-      La ecuación $\dfrac{x}{2}+\dfrac{y}{3}+\dfrac{z}{4}=1$ represeta un plano en el espacio tridimensional. os planos coordenados $(xy,yz,xz)$ actúan como restricciones, lo que signifia que el sólido está contenido en el primer octante.
+      La ecuación $\dfrac{x}{2}+\dfrac{y}{3}+\dfrac{z}{4}=1$ representa un plano en el espacio tridimensional. os planos coordenados $(xy,yz,xz)$ actúan como restricciones, lo que significa que el sólido está contenido en el primer octante.
 
       Los puntos donde el plano corta los ejes son:
        \begin{itemize}[label=\textbullet]
@@ -510,7 +510,7 @@ A=\int_{0}^{2\pi}\int_{0}^{R}1\cdot r \dr \dth
   \end{enumerate}
 \item \db{Cono de altura $h$ y radio de la base $R$.}
 
-  Para cacular el volumen de un cono de altura $h$ y radio de la base  $R$, usamos la fórmula estándar para que el volumen de un cono, que puede derivarse mediante integración o por la relación con una pirámide.
+  Para calcular el volumen de un cono de altura $h$ y radio de la base  $R$, usamos la fórmula estándar para que el volumen de un cono, que puede derivarse mediante integración o por la relación con una pirámide.
 
   El volumen de un cono está dado por: \[
   V=\dfrac{1}{3}\pi R^2h.
@@ -518,7 +518,7 @@ A=\int_{0}^{2\pi}\int_{0}^{R}1\cdot r \dr \dth
 
   Imaginemos que el cono está orientado con su vértice en el origen, su eje a lo largo del eje $z$, y su base en  $z=h$. La ecuación de la generatriz del cono es: \[
   r(z)=\dfrac{R}{h}z,
-  \] donde $r(z)$ es el radio del círculo en un plano horizintal a una altura  $z$.
+  \] donde $r(z)$ es el radio del círculo en un plano horizontal a una altura  $z$.
 
   El volumen de un cono puede calcularse integrando los volúmenes de los infinitos discos horizontales:  \[
   V=\int_{0}^{h} \text{área del disco }\dz . 
@@ -537,8 +537,8 @@ A=\int_{0}^{2\pi}\int_{0}^{R}1\cdot r \dr \dth
 \item \db{El tronco limitado superiormente por la ecuación $z=2x+1$ e inferiormente por el disco $(x-1)^{2}+y^{2}\leq 1$.}
 
   El volumen de un sólido se calcula como: \[
- V=\iiint_{\Omega}1\mathrm{d}V,
-  \] donde la región $\Omega$ es la región tridimensional definina por las restricciones.
+ V=\iiint_{\Omega}1\:\mathrm{d}V,
+  \] donde la región $\Omega$ es la región tridimensional definida por las restricciones.
 
   En este caso: 
    \begin{itemize}[label=\textbullet]
@@ -548,7 +548,7 @@ A=\int_{0}^{2\pi}\int_{0}^{R}1\cdot r \dr \dth
   \begin{enumerate}[label=Paso \arabic*:]
     \item Definir los límites del disco en el plano $xy$
 
-      El disco  $(x-1)^2+y^2\le 1$ tiene centro en $(1,0)$ y radio  $1$. En coordendas polares:  \[
+      El disco  $(x-1)^2+y^2\le 1$ tiene centro en $(1,0)$ y radio  $1$. En coordenadas polares:  \[
       x=1+r\cos\theta,\quad y=r\sin\theta,\quad\text{con }0\le r\le 1\text{ y }0\le \theta\le 2\pi.
       \] 
     \item Definir los límites para $z$
@@ -561,7 +561,7 @@ A=\int_{0}^{2\pi}\int_{0}^{R}1\cdot r \dr \dth
     \item Calcular el volumen en coordenadas polares
 
       El volumen se expresa como: \[
-      V=\iiint_{\Omega}1\mathrm{d}V=\int_{0}^{2\pi} \int_{0}^{1} \int_{0}^{2x+1}1r \dz \dr \dth .    
+      V=\iiint_{\Omega}1\:\mathrm{d}V=\int_{0}^{2\pi} \int_{0}^{1} \int_{0}^{2x+1}1r \dz \dr \dth .    
       \] 
       Aquí, $r$ proviene del cambio a coordenadas polares.
 
@@ -758,10 +758,10 @@ Luego integramos respecto a $\theta$: \[
       \begin{itemize}[label=\textbullet]
         \item $r$ es la distancia al origen $(0\le r\le 1)$.
         \item $\varphi$ es el ángulo polar $(0\le \varphi\le \pi)$.
-        \item $\theta$ es el ángulo anzimutal $(0\le \theta\le 2\pi)$.
+        \item $\theta$ es el ángulo azimutal $(0\le \theta\le 2\pi)$.
       \end{itemize}
-      El elemento de volumen en coordenadas esferícas es: \[
-      \dx \dy \dz =r^2 \sin\varphi\dr \mathrm{d}\varphi\dth .
+      El elemento de volumen en coordenadas esféricas es: \[
+      \dx \dy \dz =r^2 \sin\varphi\dr \:\mathrm{d}\varphi\dth .
       \] 
     \item Expresar la función en coordenadas esféricas
 
@@ -772,7 +772,7 @@ Luego integramos respecto a $\theta$: \[
     \item Integración en $\Omega$
 
       La integral es: \[
-    \iiint_{\Omega}(y^3+z+x)\dx \dy \dz=\int_{0}^{2\pi} \int_{0}^{\pi} \int_{0}^{1} r^3 \sin ^3\theta \sin ^3\varphi+r \cos\varphi+r \cos\theta \sin \varphi\cdot  r^2\sin\varphi\dr \mathrm{d}\varphi\dth .
+    \iiint_{\Omega}(y^3+z+x)\dx \dy \dz=\int_{0}^{2\pi} \int_{0}^{\pi} \int_{0}^{1} r^3 \sin ^3\theta \sin ^3\varphi+r \cos\varphi+r \cos\theta \sin \varphi\cdot  r^2\sin\varphi\dr \:\mathrm{d}\varphi\dth .
     \] 
 
   \item Separar la integral
@@ -780,27 +780,27 @@ Luego integramos respecto a $\theta$: \[
     Separamos la integral en tres términos:
 
     \[
-      \lbb{\int_{0}^{2\pi} \int_{0}^{\pi} \int_{0}^{1} r^5\sin^3\theta\sin^4\varphi\dr \mathrm{d}\varphi\dth }{I_1} + \dbb{\int_{0}^{2\pi} \int_{0}^{\pi} \int_{0}^{1} r^3\cos\varphi\sin\varphi\dr \mathrm{d}\varphi\dth  }{I_2}+\rub{\int_{0}^{2\pi} \int_{0}^{\pi} \int_{0}^{1} r^3\cos\theta\sin^2\varphi\dr \mathrm{d}\varphi\dth }{I_3}
+      \lbb{\int_{0}^{2\pi} \int_{0}^{\pi} \int_{0}^{1} r^5\sin^3\theta\sin^4\varphi\dr \:\mathrm{d}\varphi\dth }{I_1} + \dbb{\int_{0}^{2\pi} \int_{0}^{\pi} \int_{0}^{1} r^3\cos\varphi\sin\varphi\dr \mathrm{d}\varphi\dth  }{I_2}+\rub{\int_{0}^{2\pi} \int_{0}^{\pi} \int_{0}^{1} r^3\cos\theta\sin^2\varphi\dr \mathrm{d}\varphi\dth }{I_3}
     \] 
     \begin{enumerate}[label=Término \arabic*:]
       \item \[
-          \lb{I_1}=\int_{0}^{2\pi} \int_{0}^{\pi} \int_{0}^{1} r^5\sin^3\theta\sin^4\varphi\dr \mathrm{d}\varphi\dth =   0\cdot \dfrac{3\pi}{8}\cdot \dfrac{1}{6}=0
+          \lb{I_1}=\int_{0}^{2\pi} \int_{0}^{\pi} \int_{0}^{1} r^5\sin^3\theta\sin^4\varphi\dr \:\mathrm{d}\varphi\dth =   0\cdot \dfrac{3\pi}{8}\cdot \dfrac{1}{6}=0
       \] 
       \begin{itemize}[label=\textbullet]
         \item Integral respecto a $r$:  \[
         \int_{0}^{1} r^5\dr =\left[ \dfrac{r^6}{6}  \right]_0^1=\dfrac{1}{6}   
         \] 
       \item Integral respecto a $\varphi$: \[
-      \int_{0}^{\pi} \sin^4\varphi\mathrm{d}\varphi 
+      \int_{0}^{\pi} \sin^4\varphi\:\mathrm{d}\varphi 
       \] 
       Usamos la fórmula de reducción para $\sin^{n}\varphi$:
       \[
-        \int_{0}^{\pi} \sin^n\varphi\mathrm{d}\varphi = \dfrac{n-1}{n}\int_{0}^{\pi} \sin^{n-2}\varphi\mathrm{d}\varphi.  
+        \int_{0}^{\pi} \sin^n\varphi\:\mathrm{d}\varphi = \dfrac{n-1}{n}\int_{0}^{\pi} \sin^{n-2}\varphi\mathrm{d}\varphi.  
       \] 
       En nuestro caso: \[
       \begin{aligned}
-        \int_{0}^{\pi} \sin^4\varphi\mathrm{d}\varphi&=\dfrac{4-1}{4}\int_{0}^{\pi} \sin^2\varphi\mathrm{d}\varphi=\dfrac{3}{4}\int_{0}^{\pi} \sin^2\varphi\mathrm{d}\varphi =\dfrac{3}{4}\int_{0}^{\pi} \dfrac{1-\cos^2\varphi}{2}\mathrm{d}\varphi\\
-                                                     &= \dfrac{3}{4}\cdot \left( \dfrac{1}{2}\int_{0}^{1} 1\mathrm{d}\varphi-\dfrac{1}{2}\int_{0}^{\pi} \cos(2\varphi)\mathrm{d}\varphi \right) = \dfrac{3}{4}\cdot \left(\dfrac{1}{2}\cdot  [\varphi]_0^\pi - \tozero{  \dfrac{1}{2}\cdot \left[ \dfrac{1}{2}\sin(2\varphi) \right]_0^\pi}\:  \right)  \\
+        \int_{0}^{\pi} \sin^4\varphi\:\mathrm{d}\varphi&=\dfrac{4-1}{4}\int_{0}^{\pi} \sin^2\varphi\mathrm{d}\varphi=\dfrac{3}{4}\int_{0}^{\pi} \sin^2\varphi\mathrm{d}\varphi =\dfrac{3}{4}\int_{0}^{\pi} \dfrac{1-\cos^2\varphi}{2}\mathrm{d}\varphi\\
+                                                     &= \dfrac{3}{4}\cdot \left( \dfrac{1}{2}\int_{0}^{1} 1\:\mathrm{d}\varphi-\dfrac{1}{2}\int_{0}^{\pi} \cos(2\varphi)\mathrm{d}\varphi \right) = \dfrac{3}{4}\cdot \left(\dfrac{1}{2}\cdot  [\varphi]_0^\pi - \tozero{  \dfrac{1}{2}\cdot \left[ \dfrac{1}{2}\sin(2\varphi) \right]_0^\pi}\:  \right)  \\
                                                      &= \dfrac{3}{4}\cdot \dfrac{\pi}{2}=\dfrac{3\pi}{8} \\
       \end{aligned}
       \] 
@@ -816,11 +816,11 @@ Luego integramos respecto a $\theta$: \[
       \int_{0}^{1} r^3\dr =\left[ \dfrac{r^4}{4}  \right] _0^1=\dfrac{1}{4}  
       \] 
     \item Integral respecto $\varphi$: \[
-    \int_{0}^{\pi} \cos\varphi\sin\varphi\mathrm{d}\varphi=\int_{0}^{\pi} \dfrac{1}{2}\sin(2\pi)\mathrm{d}\varphi=\dfrac{1}{2}\left[ -\dfrac{\cos(2\pi)}{2}  \right] _0^\pi=\dfrac{1}{2}\cdot \tozero{\left( -\dfrac{1}{2}-\left( -\dfrac{1}{2} \right)  \right) } =0  
+    \int_{0}^{\pi} \cos\varphi\sin\varphi\:\mathrm{d}\varphi=\int_{0}^{\pi} \dfrac{1}{2}\sin(2\pi)\mathrm{d}\varphi=\dfrac{1}{2}\left[ -\dfrac{\cos(2\pi)}{2}  \right] _0^\pi=\dfrac{1}{2}\cdot \tozero{\left( -\dfrac{1}{2}-\left( -\dfrac{1}{2} \right)  \right) } =0  
     \] 
     \end{itemize}
   \item \[
-      \rc{I_3}=\int_{0}^{2\pi} \int_{0}^{\pi} \int_{0}^{1} r^3\cos\theta\sin^2\varphi\dr \mathrm{d}\varphi\dth = 0
+      \rc{I_3}=\int_{0}^{2\pi} \int_{0}^{\pi} \int_{0}^{1} r^3\cos\theta\sin^2\varphi\dr \:\mathrm{d}\varphi\dth = 0
   \] 
   \begin{itemize}[label=\textbullet]
     \item Integral respecto a $r$:
@@ -829,7 +829,7 @@ Luego integramos respecto a $\theta$: \[
       \] 
     \item Integral respecto $\varphi$:
       \[
-        \int_{0}^{\pi} \sin^2\varphi\mathrm{d}\varphi=\{\text{Fórmula de reducción}\}=\dfrac{1}{2}\int_{0}^{\pi} 1\mathrm{d}\varphi=\dfrac{1}{2}\cdot [\varphi]_0^\pi=\dfrac{\pi}{2}   
+        \int_{0}^{\pi} \sin^2\varphi\:\mathrm{d}\varphi=\{\text{Fórmula de reducción}\}=\dfrac{1}{2}\int_{0}^{\pi} 1\mathrm{d}\varphi=\dfrac{1}{2}\cdot [\varphi]_0^\pi=\dfrac{\pi}{2}   
       \] 
     \item Integral respecto a $\theta$: \[
         \int_{0}^{2\pi} \cos\theta\dth =[\sin\theta]_0^{2\pi}=0 
@@ -859,7 +859,7 @@ Luego integramos respecto a $\theta$: \[
   La integral iterada en este caso es: \[
   \iiint_\Omega(y\sin z+x)\dx \dy \dz =\int_{0}^{1} \int_{0}^{1} (y\sin z+x)\dz \dy \dx.   
   \] 
-\item Resorlver la integral respecto a $z$:
+\item Resolver la integral respecto a $z$:
   La integral interior es:  \[
   \int_{y^2}^{y} (y\sin z+x)\dz=\int_{y^2}^{y} y\sin z\dz +\int_{y^2}^{y} x\dz =y\left[ \cos(y^2)-\cos(y) \right] + x(y-y^2).    
   \] 
@@ -880,7 +880,7 @@ Luego integramos respecto a $\theta$: \[
   \int_{0}^{1} \int_{0}^{1} y\left[ \cos(y^2)-\cos(y) \right] \dx \dy +\int_{0}^{1} \int_{0}^{1} x(y-y^2)\dx \dy .    
   \] 
   \begin{enumerate}[label=\alph*)]
-    \item Primeral integral: \[
+    \item Primera integral: \[
     \begin{aligned}
       \int_{0}^{1} \int_{0}^{1} y\left[ \cos(y^2)-\cos(y) \right] \dx &= \int_{0}^{1} y\left[ \cos(y^2)-\cos(y) \right] \int_{0}^{1} 1\dx \dy = \lbb{[x]_0^1}{1} \int_{0}^{1} y\left[ \cos(y^2)-\cos(y) \right] \dy\\
                                                                       & = \int_{0}^{1} y[\cos(y^2)-\cos(y)] \dy = \lbb{ \int_{0}^{1} y\cos(y^2)\dy }{I_1}-\dbb{\int_{0}^{1}y\cos(y) \dy }{I_2}\\
@@ -999,7 +999,7 @@ Luego integramos respecto a $\theta$: \[
   \] 
 
   El volumen se calcular como: \[
-  V=\iiint_\Omega 1\mathrm{d}V,
+  V=\iiint_\Omega 1\:\mathrm{d}V,
   \] 
   donde $\Omega$ es el sólido descrito por: \[
   \sqrt{x^2+y^2}\le z\le 1,\quad x^2+y^2\le 1. 
@@ -1009,7 +1009,7 @@ Luego integramos respecto a $\theta$: \[
     \item $x=r\cos\theta$
     \item $y=r\sin\theta$
     \item $z=z$
-    \item  $\mathrm{d}V=r\dr \dth \dz $
+    \item  $\:\mathrm{d}V=r\dr \dth \dz $
   \end{itemize}
   La región cilíndrica queda descrita como:
   \begin{itemize}[label=\textbullet]
@@ -1026,32 +1026,595 @@ Luego integramos respecto a $\theta$: \[
     \int_{0}^{1} r-r^2\dr =\left[ \dfrac{r^2}{2}-\dfrac{r^3}{3} \right] _0^1 =\dfrac{1}{2}-\dfrac{1}{3}=\dfrac{1}{6}\\
     \int_{0}^{2\pi} \dfrac{1}{6}\dth =\dfrac{1}{6}\cdot [\theta]_0^{2\pi}=\dfrac{1}{6}\cdot 2\pi=\dfrac{\pi}{3} 
   \end{array}$
-
+\newpage
 \item \lb{Calcular el volumen del sólido limitado superiormente por el cilindro parabólico $z=1-y^{2}$, inferiormente por el plano $2x+3y+z+10=0$ y lateralmente por el cilindro circular $x^{2}+y^{2}+x=0$.}
+
+  Nos piden calcular el volumen de un sólido definido por:
+  \begin{enumerate}[label=\arabic*)]
+    \item \textbf{Superiormente:} $x=1-y^2$ (cilindro parabólico)
+    \item \textbf{Inferiormente:} $2x+3y+z+10=0$ que se reescribe como  $z=-10-2x-3y$
+    \item \textbf{Lateralmente:} $x^2+y^2+x=0$, que se puede reescribir como $\left( x+\dfrac{1}{2} \right) ^2+y^2=\dfrac{1}{4}$ completando el cuadrado para el término $x^2+x$, es decir, haciendo que se la expansión de $(x+a)^2$. 
+      \begin{itemize}[label=\textbullet]
+        \item Tomamos el coeficiente de $x$ (que es 1), lo dividimos entre dos y lo elevamos al cuadrado:  \[
+        \left( \dfrac{1}{2} \right) =\dfrac{1}{4}.
+        \] 
+      \item Entonces $x^2+x$ se convierte en: \[
+      x^2+x=\left( x+\dfrac{1}{2} \right) ^2-\dfrac{1}{4}
+      \] 
+      \end{itemize}
+    De esta forma se convierte en un cilindro circular centrado en $\left( -\dfrac{1}{2},0 \right) $ con radio $\dfrac{1}{2}$.
+    \begin{enumerate}[label=Paso \arabic*:]
+      \item Interpretar la región de integración
+
+        La región de integración está limitada lateralmente por un cilindro circular. Para calcular el volumen, utilizamos coordenadas cilíndricas:
+        \begin{itemize}[label=\textbullet, leftmargin=*]
+          \item $x=r\cos\theta-\dfrac{1}{2}$
+          \item $y=r\sin\theta$
+          \item $z=z$
+          \item  $\:\mathrm{d}V=r\dr \dth \dz $
+        \end{itemize}
+        En estas coordenadas, la proyección del plano $xy$ corresponde al círculo:  \[
+          r\in \left[ 0, \dfrac{1}{2} \right], \theta\in [0,2\pi].
+        \] 
+      \item Expresar los límites en coordenadas cilíndricas:
+        \begin{itemize}[label=\textbullet, leftmargin=*]
+          \item $z_{\mathrm{sup}}=1-y^2=1r^2\sin^2\theta$ 
+          \item $z_{\mathrm{inf}}=-2x-3y-10=-2\left( r\cos\theta-\dfrac{1}{2} \right)-2r\sin\theta-10=-2r\cos\theta+1-3r\sin\theta -10=-2r\cos\theta-3r\sin\theta-9$
+        \end{itemize}
+      \item Escribir la integral iterada
+
+        El volumen se calcula como: \[
+        V=\int_{0}^{2\pi} \int_{0}^{\frac{1}{2} } \int_{z_{\mathrm{inf}}}^{z_{\mathrm{sup}}} r\dz \dr \dth . 
+        \] 
+        $\begin{array}{l}
+          \begin{aligned}
+            \int_{z_{\mathrm{inf}}}^{z_{\mathrm{sup}}} r\dz &=r \int_{z_{\mathrm{inf}}}^{z_{\mathrm{sup}}} 1\dz =r\cdot [z]_{z_{\mathrm{inf}}}^{z_{\mathrm{sup}}}=r\cdot (1-r^2\sin^2+2rcis\theta+3r\sin\theta+9)\\
+            &= 10r-r^3\sin\theta+2r^2\cos\theta+3r^2\sin\theta \\
+          \end{aligned}\\
+          \int_{0}^{\frac{1}{2} } 10r-r^3\sin^2\theta+2r^2\cos\theta+3r^2\sin\theta\dr =\dfrac{5}{4}-\dfrac{1}{64}\sin^2\theta+\dfrac{1}{12}\cos\theta+\dfrac{1}{8}\sin\theta\\
+          \int_{0}^{\frac{1}{2} }10r\dr =[5r^2] _{0}^{\frac{1}{2} }=\dfrac{5}{4}\\
+          \int_{0}^{\frac{1}{2} }r^3\sin^2\theta\dr =\sin^2\theta\cdot \left[ \dfrac{r^4}{4}  \right] _{0}^{\frac{1}{2} }=\dfrac{1}{64}\cdot \sin^2\theta\\
+          \int_{0}^{\frac{1}{2} }2r^2\cos\theta\dr = 2\cos\theta\cdot \left[ \dfrac{r^3}{3} \right]_{0}^{\frac{1}{2} }=\dfrac{1}{12\cdot }\cos\theta\\
+          \int_{0}^{\frac{1}{2} } 3r^2\sin\theta\dr =3\sin\theta\cdot \left[ \dfrac{r^3}{3} \right] _{0}^{\frac{1}{2} } 
+        \end{array}$ 
+        \[
+        \int_{0}^{2\pi} \dfrac{5}{4}-\dfrac{1}{64}\sin^2\theta+\dfrac{1}{12}\cos\theta+\dfrac{1}{8}\sin\theta\dth =\dfrac{5\pi}{2}-\dfrac{\pi}{64}=\bboxed{\dfrac{159}{64}\pi}  
+        \] 
+        $\begin{array}{l}
+          \int_{0}^{2\pi} \dfrac{5}{4}\dth =\dfrac{5}{4}\cdot [\theta] _0^{2\pi}=\dfrac{5\pi}{2}\\
+          \int_{0}^{2\pi} \dfrac{1}{64}\sin^2\theta=\{\text{Fórmula de reducción}\}=\dfrac{1}{64}\cdot \dfrac{1}{2}\int_{0}^{2\pi} 1\dth =\dfrac{1}{128}\cdot [\theta] _{0}^{2\pi}=\dfrac{\pi}{64}\\
+          \int_{0}^{2\pi} \dfrac{1}{12}\cos\theta\dth =\dfrac{1}{12}\cdot [\sin\theta] _0^{2\pi}=0\\
+          \int_{0}^{2\pi} \dfrac{1}{8}\sin\theta\dth =\dfrac{1}{8}\cdot [-\cos\theta]_0^{2\pi}=\dfrac{1}{8}\cdot (-1+1)=0 
+        \end{array}$
+    \end{enumerate}
+  \end{enumerate}
 
 \item \lb{Hallar el volumen del sólido limitado por los paraboloides de ecuaciones $z=2-x^{2}-y^{2}$ y $z=x^{2}+y^{2}$.}
 
+  Nos piden calcular el volumen del sólido limitado por las paraboloides:
+  \begin{itemize}[label=\textbullet]
+    \item \textbf{Superiormente:} $z=2-x^2-y^2$
+    \item \textbf{Inferiormente:} $z=x^2+y^2$
+  \end{itemize}
+  \begin{enumerate}[label=\arabic*)]
+    \item Encontrar la región de proyección en el plano $xy$
+
+      Para determinar la región en el plano  $xy$, igualamos las ecuaciones de las paraboloides:
+       \[
+      \begin{aligned}
+        2-x^2-y^2&= x^2+y^2 \\
+        2&= 2x^2+2y^2 \\
+        1&= x^2+y^2 \\
+      \end{aligned}
+      \] 
+      La proyección es un círculo de radio $r=1$ centrado en el origen, definido por:  \[
+      x^2+y^2\le 1.
+      \] 
+    \item Escribir el volumen en forma integral
+
+      El volumen se calcula como: \[
+        V=\iint_R[(z_{\mathrm{sup}}-z_{\mathrm{inf}})]\:\mathrm{d}A,
+      \] 
+      donde:
+      \begin{itemize}[label=\textbullet]
+        \item $z_{\mathrm{sup}}=2-x^2-y^2$
+        \item $z_{\mathrm{inf}}=x^2+y^2$
+      \end{itemize}
+      Por lo tanto: \[
+      z_\mathrm{sup}-z_\mathrm{inf}=(2-x^2-y^2)-(x^2+y^2)=2-2x^2-2y^2
+      \] 
+      En el plano $xy$, la región  $R$ corresponde al círculo  $x^2+y^2\le 1$. Para simplificar usamos coordenadas polares: \[
+      x=r\cos\theta,\quad y=r\sin\theta,\quad \:\mathrm{d}A=r\dr \dth .
+      \] 
+      En estas coordenadas, $x^2+y^2=r^2$, y el volumen se convierte en: \[
+      V=\int_{0}^{2\pi} \int_{0}^{1} (2-2r^2)\cdot r\dr \dth .  
+      \] 
+    \item Resolver la integral iterada:
+      \[
+      \begin{array}{c}
+        \int_{0}^{1} 2r-r^3\dr =2 \int_{0}^{1} r-r^3\dr =2\cdot \left[ \dfrac{r^2}{2}-\dfrac{r^4}{4} \right]_0^1=2\cdot \left( \dfrac{1}{2}-\dfrac{1}{4} \right) =2\cdot \dfrac{1}{4}=\dfrac{1}{2}\\
+        \int_{0}^{2\pi} \dfrac{1}{2}\dth =\dfrac{1}{2}\cdot [\theta] _0^{2\pi}=\bboxed{\pi} 
+      \end{array}
+      \] 
+  \end{enumerate}
+
 \item \lb{Calcular el volumen del sólido limitado superiormente por la superficie cilíndrica $x^{2}+z=4$, inferiormente por el plano $x+z=2$ y lateralmente por lo planos $y=0$ e $y=3$.}
+
+  Nos piden calcular el volumen de un sólido limitado:
+  \begin{itemize}[label=\textbullet]
+    \item \textbf{Superiormente:} La superficie cilíndrica $x^2+z=4$ .
+    \item \textbf{Inferiormente:} El plano $x+z=2$.
+  \item \textbf{Lateralmente:}  Los planos $y=0$ e  $y=3$.
+  \end{itemize}
+    \begin{enumerate}[label=Paso \arabic*:]
+      \item Identificar la región de integración
+
+        La región del sólido está definida por:
+        \begin{itemize}[label=\textbullet]
+          \item En el plano $xz$, la superficie superior $x^2+z=4$
+          \item En el plano $xz$, la superficie inferior  $x+z=2$
+          \item En el plano  $y$, el sólido está limitado entre  $y=0$ e  $y=3$
+        \end{itemize}
+
+        El sólido proyectado en el plano $xz$ es la intersección de las curvas $z=4-x^2$ y $z=2-x$.
+        
+        Igualamos las ecuaciones:  \[
+        \begin{array}{c}
+          4-x^2=2-x\longrightarrow x^2-x-2=0\\
+          x=\dfrac{1\pm\sqrt{(-1)^2-4\cdot 1\cdot (-2)} }{2\cdot 1}=\dfrac{1\pm\sqrt{9} }{2} =\begin{cases}
+            \frac{1+3}{2} =2\\
+            \frac{1-3}{2} =-1
+          \end{cases} 
+        \end{array}
+        \] 
+        La región de integración en el plano $xz$ es el intervalo  $x \in [-1,2]$ y está limitada por $z$ entre  $2-x$ (inferior) y  $4-x^2$ (superior).
+      \item  Escribir la integral de volumen
+
+        El volumen se calcular como: \[
+        V=\iiint_R 1\:\mathrm{d}V.
+        \] 
+        En este caso:
+        \begin{itemize}[label=\textbullet]
+          \item $y\in [0,3]$
+          \item $x \in [-1,2]$
+          \item $z\in [2-x, 4-x^2]$
+        \end{itemize}
+        Entonces la integral es: \[
+        V=\int_{0}^{3} \int_{-1}^{2} \int_{2-x}^{4-x^2} 1\dz \dx \dy=\bboxed{\dfrac{27}{2}}      
+        \] 
+        $\begin{array}{l}
+          \int_{2-x}^{4-x^2} 1\dz =[z]_{2-x}^{4-x^2}=(4-x^2-2+x)=-x^2+x+2\\
+          \int_{-1}^{2} -x^2+x+2\dx =\left[ -\dfrac{x^3}{3}+\dfrac{x^2}{2}+2x \right]_{-1}^2=\left( -\dfrac{8}{3}+2+4-\left( \dfrac{1}{3}+\dfrac{1}{2}-2 \right)  \right)=\dfrac{10}{3}+\dfrac{7}{6}=\dfrac{9}{2} \\
+          \int_{0}^{3} \dfrac{9}{2}\dy =\dfrac{9}{2}\cdot [y] _0^3=\dfrac{9}{2}\cdot 3=\dfrac{27}{2}
+        \end{array}$
+    \end{enumerate}
 
 \item \lb{Haciendo uso de las coordenadas esféricas $x=r\sin \phi \cos\theta,y=r\sin \phi \sin\theta$ y $z=r\cos \phi$, calcular:}
 \begin{enumerate}[label=\color{red}\textbf{\alph*)}]
 \item \db{El volumen de una esfera de radio $R$.}
+
+  En coordenadas esféricas, las relaciones son:
+  \begin{itemize}[label=\textbullet]
+    \item $x=r\sin\phi\cos\theta$
+    \item $y=r\sin\phi\sin\theta$
+    \item $x=r\cos\theta$
+    \item $\:\mathrm{d}V=r^2\sin\phi\dr \:\mathrm{d}\phi\dth $
+  \end{itemize}
+  La ecuación de la esfera de radio $R$ es:  \[
+  x^2+y^2+z^2=R^2
+  \] 
+  lo que en coordenadas esféricas se traduce $r\in [0, R]$.
+
+  \begin{enumerate}[label=Paso \arabic*:]
+    \item Definir los límites de integración
+
+      La región que ocupa la esfera completa se describe en coordenadas esféricas como:
+      \begin{itemize}[label=\textbullet]
+        \item $r\in [0,R]$
+        \item $\phi\in [0,\pi]$
+        \item $\theta\in [0,2\pi]$
+      \end{itemize}
+      El volumen de la esfera es: \[
+      V=\iiint_{\mathrm{Esfera}}1\:\mathrm{d}V=\int_{0}^{2\pi} \int_{0}^{\pi} \int_{0}^{R}r^2\sin\phi\dr \:\mathrm{d}\phi\dth . 
+      \] 
+      $\begin{array}{l}
+        \int_{0}^{R} r^2\dr =\left[ \dfrac{r^3}{3} \right] _0^R=\dfrac{R^3}{3}\\
+        \int_{0}^{\pi} \dfrac{R^3}{3}\sin\phi\:\mathrm{d}\phi=\dfrac{R^3}{3} \cdot [-\cos(\phi)]_0^\pi=\dfrac{R^3}{3}\cdot (-\cos(\pi)-(-\cos(0)))=\dfrac{2}{3}R^3\\
+        \int_{0}^{2\pi} \dfrac{2}{3}R^3\dth =\dfrac{2}{3}R^3\cdot [\theta] _0^{2\pi}=\dfrac{4}{3}\pi R^3
+      \end{array}$ 
+      \[
+      \bboxed{V=\dfrac{4}{3}\pi R^3} 
+      \] 
+  \end{enumerate}
 \item \db{$\iiint_{\Omega}(x^{2}+y^{2}+z^{2})\:\mathrm{d}x\:\mathrm{d}y\:\mathrm{d}z$ en el recinto $\Omega=\{(x,y,z)\in\mathbb{R}^{3}:1\leq x^{2}+y^{2}+z^{2}\leq 2 \}$.}
+
+  Nos piden calcular la integral: \[
+    \iiint_{\Omega}(x^{2}+y^{2}+z^{2})\:\mathrm{d}x\:\mathrm{d}y\:\mathrm{d}z,
+  \] 
+  en el recinto: \[
+    \Omega=\{(x,y,z)\in\mathbb{R}^{3}:1\leq x^{2}+y^{2}+z^{2}\leq 2 \}.
+  \] 
+  \begin{enumerate}[label=Paso \arabic*:]
+    \item Interpretar la región en coordenadas esféricas
+
+      En coordenadas esféricas:
+      \begin{itemize}[label=\textbullet]
+        \item $x=r\sin\phi\cos\theta$
+        \item $y=r\sin\phi\sin\theta$
+        \item $z=r\cos\phi$
+      \end{itemize}
+      La región $\Omega$ está definida por: \[
+        1\le r^2\le 2,\quad r \in [1,\sqrt{2}  ],\quad \phi\in [0,\pi],\quad\theta\in [0,2\pi].
+      \] 
+      En coordenadas esféricas, $x^2+y^2+z^2=r^2$. Por lo tanto, el integrando se convierte en: \[
+      x^2+y^2+z^2=r^2.
+      \] 
+    \item Escribir la integral en coordenadas esféricas
+
+      La integral se convierte en: \[
+      \iiint_{\Omega}(x^2+y^2+z^2)\dx \dy \dz =\int_{0}^{2\pi} \int_{0}^{\pi} \int_{1}^{\sqrt{2} } r^2\cdot r^2\sin\phi\dr \:\mathrm{d}\phi \dth=\int_{0}^{2\pi} \int_{0}^{\pi} \int_{1}^{\sqrt{2} } r^4\sin\phi\dr \:\mathrm{d}\phi\dth.   
+      \] 
+    \item Resolver la integral iterada
+      \[
+        \int_{0}^{2\pi} \int_{0}^{\pi} \int_{1}^{\sqrt{2} } r^4\sin\phi\dr \:\mathrm{d}\phi\dth.
+      \] 
+      $\begin{array}{l}
+        \int_{1}^{\sqrt{2} }r^4\dr =\left[ \dfrac{r^5}{5} \right] _1^{\sqrt{2}}=\dfrac{(\sqrt{2} )^5}{5}-\dfrac{1}{5}=\dfrac{4\sqrt{2} }{5} - \dfrac{1}{5}=\dfrac{4\sqrt{2} -1}{5} \\
+        \int_{0}^{\pi}  \dfrac{4\sqrt{2}-1 }{5} \sin\phi\:\mathrm{d}\phi=\dfrac{4\sqrt{2}-1 }{5}\cdot [-\cos\phi]_0^\pi=\dfrac{8\sqrt{2}-2 }{5}\\
+        \int_{0}^{2\pi} \dfrac{8\sqrt{2}-2 }{5}\dth =  \dfrac{8\sqrt{2} -2}{5} \cdot [\theta]_0^{2\pi}=\bboxed{\dfrac{4\pi(\sqrt{2}-1 )}{5} } 
+      \end{array}$
+  \end{enumerate}
 \item \db{El volumen del recinto del apartado (b).}
+
+Para calcular el \textbf{volumen del recinto $\Omega$}, únicamente debemos integrar $1$ en lugar de  $x^2+y^2+z^2$. Es decir, debemos calcular: \[
+V=\iiint_{\Omega}1\dx \dy \dz .
+\] 
+\begin{enumerate}[label=Paso \arabic*:]
+  \item Expresar en coordenadas esféricas
+
+    En coordenadas esféricas, la integral del volumen se convierte en: \[
+    V=\int_{0}^{2\pi} \int_{0}^{\pi} \int_{1}^{\sqrt{2} } r^2\sin\phi\dr \:\mathrm{d}\phi\dth .   
+    \] 
+  \item Resolver la integral iterada
+
+$\begin{array}{l}
+      \int_{1}^{\sqrt{2} } r^2\dr =\left[ \dfrac{r^3}{3}  \right]_1^{\sqrt{2} } =\dfrac{(\sqrt{2} )^3}{3}-\dfrac{1}{3}=\dfrac{2\sqrt{2}-1 }{3}\\
+      \int_{0}^{\pi} \sin\phi\:\mathrm{d}\phi=[-\cos\phi] _0^\pi=-(-1)+1=2\\
+      \int_{0}^{2\pi}1\dth =[\theta]_0^{2\pi}=2\pi
+    \end{array}$
+
+    \[
+        V=2\cdot 2\pi\cdot \dfrac{2\sqrt{2}-1 }{3}=\bboxed{\dfrac{4\pi(2\sqrt{2}-1 )}{3} }
+    \] 
+\end{enumerate}
 \end{enumerate}
 
 \item \lb{Calcular el volumen del cuerpo limitado por las ecuaciones $z=x^{2}+4y^{2}$, el plano $z=0$ y lateralmente por los cilindros $x=y^{2}$ y $x^{2}=y$.}
 
+Nos piden calcular el volumen del sólido limitado por:
+\begin{enumerate}[label=\arabic*)]
+  \item El paraboloide $z=x^2+4y^2$.
+  \item El plano $z=0$.
+  \item Lateralmente por los cilindros:
+     \begin{itemize}[label=\textbullet]
+      \item $x=y^2$
+      \item $x^2=y$
+    \end{itemize}
+\end{enumerate}
+\begin{enumerate}[label=Paso \arabic*:]
+  \item Determinar la región en el plano $xy$
+
+    Para determinar los límits de integración en  $x$ y  $y$, analizamos la región en el plano  $xy$ definida por los cilíndros  $x=y^2$ y $x^2=y$.
+
+    \textbf{Encontrar los puntos de intersección:}
+    \begin{enumerate}[label=\arabic*)]
+      \item Igualamos $x=y^2$ y $x^2=y$: \[
+      y^2=x,\quad y=x^2.
+      \] 
+      Sustityendo $x=y^2$ en $y=x^2$: \[
+      y=(y^2)^2\longrightarrow y=y^4
+      \] 
+      Factorizamos: \[
+      y(y^3-1)=0\longrightarrow \begin{cases}
+        y=0\\
+        y^3=1\longrightarrow y=1
+      \end{cases}
+      \] 
+      Por lo tanto, los puntos de intersección son: \[
+        (x,y)=(0,0)\quad\text{y}\quad(x,y)=(1,1)
+      \] 
+    \end{enumerate}
+    \textbf{Describir la región en el plano $\mathbf{xy}$ :}
+    \begin{itemize}[label=\textbullet]
+      \item $x$ varía entre  $x=0$ y  $x=1$.
+      \item Para un valor fijo de  $x$, $y$ varía entre  $y=x^2$ (inferior) y $y=\sqrt{x} $  (superior)
+
+\begin{center}
+\includegraphics[width=0.5\linewidth]{"figures/Figure 7"}
+\end{center}
+
+      \item Escribir la integral para el volumen
+
+        El paraboloide está definido por $z=x^2+4y^2$, y el plano inferior es $z=0$. El volumen se calcula como:  \[
+        V=\iint_{\text{Región}}(x^2+4y^2)\:\mathrm{d}A=\int_{0}^{1} \int_{x^2}^{\sqrt{x} } (x^2+4y^2) \dy \dx . 
+        \] 
+
+    \end{itemize}
+      \item Resolver la integral iterada
+
+        $\int_{x^2}^{\sqrt{x} } (x^2+4y^2)\dy  =\left[x^2y+\dfrac{4y^3}{3}  \right]_{x^2}^{\sqrt{x} }=x^2(\sqrt{x}-x^2 )+4\left( \dfrac{x^{\frac{3}{2} }}{3} - \dfrac{x^6}{3}  \right)=x^2(\sqrt{x}-x^2 )+\dfrac{4x^{\frac{3}{2} }}{3} -\dfrac{4x^6}{3} $ 
+
+        $\begin{array}{l}
+          \int_{0}^{1} \left[x^2(\sqrt{x}-x^2 )+\dfrac{4x^{\frac{3}{2} }}{3} -\dfrac{4x^6}{3} \right]\dx =\int_{0}^{1} x^2\sqrt{x}-x^4+\dfrac{4x^{\frac{3}{2} }}{3}-\dfrac{4x^6}{3}\dx      \\
+        \int_{0}^{1} x^2\sqrt{x}\dx =\int_{0}^{1} x^{\frac{5}{2} }\dx =\left[ \dfrac{x^{\frac{7}{2} }}{\frac{7}{2} }  \right] _0^1=\dfrac{2}{7}\\
+        \int_{0}^{1} x^4\dx =\left[\dfrac{x^5}{5}\right]_0^1=\dfrac{1}{5}\\
+        \int_{0}^{1} \dfrac{4x^{\frac{3}{2} }}{3}=\dfrac{4}{3}\int_{0}^{1} x^{\frac{3}{2} }\dx =\dfrac{4}{3}\left[ \dfrac{x^{\frac{5}{2} }}{\frac{5}{2} }  \right] _0^1=\dfrac{4}{3}\cdot \dfrac{2}{5}=\dfrac{8}{15}\\
+        \int_{0}^{1} \dfrac{4x^6}{3}\dx =\dfrac{4}{3}\int_{0}^{1} x^6\dx =\dfrac{4}{3}\left[ \dfrac{x^7}{7} \right]_0^1=\dfrac{4}{3}\cdot \dfrac{1}{7}=\dfrac{4}{21}
+        \end{array} $
+
+      \item Sumar los términos
+        
+        \[ V=\dfrac{2}{7}-\dfrac{1}{5}+\dfrac{8}{15}-\dfrac{4}{21}=\bboxed{\dfrac{3}{7}} \]
+\end{enumerate}
+
 \item \lb{Calcular $\iint_{\Omega}e^{ \frac{x-y}{x+y} }\:\mathrm{d}x\:\mathrm{d}y$ siendo $\Omega$ el triángulo formado por los ejes de coordenadas y la recta $x+y=1$.}
+
+Nos piden calcular: \[
+\iint_{\Omega}e^{\frac{x-y}{x+y} } \dx \dy ,
+\] 
+donde $\Omega$ es el triángulo formado por los ejes coordenados $(x=0, y=0)$ y la recta  $x+y=1$.
+
+\begin{center}
+  \begin{tikzpicture}[> =latex]
+    \draw[->] (-1,0) -- (4,0);
+    \draw[->] (0,-1) -- (0, 4);
+    \node (O) at (0,0) {};
+    \fill[color=blue!20, opacity=0.5]  (0,0) -- (0,1) -- (1,0) -- cycle;
+    \foreach \x in {-1,...,3} {
+      \draw (\x, 0.1) -- (\x, -0.1);
+    }
+    \foreach \y in {-1,...,3} {
+      \draw (0.1, \y) -- (-0.1,\y);
+    }
+    \draw[lightblue, domain=-1:2] plot (\x, {1-\x}) node[below right] {$y=1-x$};
+    \fill[lightblue] (O) circle (2pt) node[below left] {$(0,0)$};
+  \end{tikzpicture}
+\end{center}
+
+\begin{enumerate}[label=Paso \arabic*:]
+  \item Región de integración
+
+    La región triangular está definida como: 
+    \begin{itemize}[label=\textbullet]
+      \item $x\ge 0$
+      \item $y\ge 0$
+      \item $x+y\le 1$
+    \end{itemize}
+    En términos de límites:
+    \begin{itemize}[label=\textbullet]
+      \item $x \in [0,1]$
+      \item Para un valor fijo de $x,y\in [0, 1-x]$
+    \end{itemize}
+  \item Cambio de variable
+
+    Observamos que el integrando involucra la expresión $\frac{x-y}{x+y}$. Esto sugiere un cambio de variables adecuado para simplificar la integración. Definimos: \[
+    u=x+y,\quad v=x-y
+    \] 
+    Con esto:
+    \begin{itemize}[label=\textbullet]
+      \item $x=\dfrac{u+x}{2},\quad y=\dfrac{u-v}{2}  $
+      \item El jacobiano del cambio de variables es:
+        \[
+        \begin{vmatrix}
+          \frac{\partial x}{\partial u} & \frac{\partial x}{\partial v} \\
+            \frac{\partial y}{\partial u} & \frac{\partial y}{\partial v} 
+        \end{vmatrix} = \begin{vmatrix} 
+            \dfrac{1}{2} & \dfrac{1}{2}\\
+            \dfrac{1}{2} & -\dfrac{1}{2}
+        \end{vmatrix} =\left( -\dfrac{1}{4}-\dfrac{1}{4} \right)=-\dfrac{1}{2} 
+        \] 
+    \end{itemize}
+    Por lo tanto, $\dx \dy =\dfrac{1}{2}\du \dv $.
+  \item Región en las nuevas variables
+
+    La región $\Omega$ en las variables $(u,v)$ se transforma como sigue:
+     \begin{itemize}[label=\textbullet]
+       \item $x+y=u$, con  $u\in [0,1]$.
+       \item $x-y=v$, con  $v\in [-u,u]$.
+    \end{itemize}
+    Por lo tanto, la región en $(u,v)$ está definida por:  \[
+      u\in [0,1],\quad v\in [-u,v].
+    \] 
+  \item Reescribir la integral
+
+    El integrando se convierte en: \[
+    \dfrac{x-y}{x+y} =\dfrac{v}{u}.
+    \] 
+    La integral original se transforma en: \[
+    \iint_{\Omega}e^{\frac{x-y}{x+y} } \dx \dy =\int_{0}^{1} \int_{-u}^{u} e^{\frac{v}{u} } \cdot \dfrac{1}{2}\dv \du .  
+    \] 
+  \item Resolver la integral 
+
+    Para $u$ fijo, integramos respecto a  $v$:  \[
+    \int_{-u}^{u} e^{\frac{v}{u} } \dv . 
+    \] 
+Realizamos el cambio de variable $t=\dfrac{v}{u}$, de donde: \[
+v=ut,\quad\dv =u\dt
+\] 
+Los límites de integración cambian:
+\begin{itemize}[label=\textbullet]
+  \item Cuando $v=-u,\, t=-1$
+  \item Cuando  $v=u,\, t=1$
+\end{itemize}
+La integral respecto a $v$ se convierte en:  \[
+  \int_{-u}^{u} e^{\frac{v}{u} } \dv =\int_{-1}^{1} e^{t}\cdot u\dt=u \int_{-1}^{1} e^{t}\dt=u\cdot [e^{t} ]_{-1}^1=u\cdot \left(e-\dfrac{1}{e}\right)
+\] 
+Sustituimos el resultado interior en la integral original: \[
+  V=\dfrac{1}{2}\int_{0}^{1} u\left( e-\dfrac{1}{e} \right) \du =\dfrac{1}{2}\left( e-\dfrac{1}{e} \right) \int_{0}^{1} u\du =\dfrac{1}{2}\left( e-\dfrac{1}{e} \right) \cdot \left[ \dfrac{u^2}{2} \right] _0^1=\bboxed{\dfrac{1}{4}\cdot \left( e-\dfrac{1}{e} \right)}
+\] 
+\end{enumerate}
 
 \item \lb{Calcular el volumen comprendido entre los cilindros $z=x^{2}$ y $z=4-y^{2}$.}
 
+  Nos piden calcular el volumen del sólido comprendido entre los cilindros parabólicos:
+  \begin{enumerate}[label=\arabic*)]
+    \item $z=x^2$ (abierto hacia el plano $xy$ en  $x$).
+    \item $z=4-y^2$ (abierto hacia el plano $xy$ en  $y$).
+  \end{enumerate}
+  \begin{enumerate}[label=Paso \arabic*:]
+    \item Determinar la región en el plano $xy$
+
+      Para encontrar la región en el plano $xy$, igualamos las ecuaciones de los cilindros:  \[
+      x^2=4-y^2\longrightarrow x^2+y^2=4
+      \]
+      Esto corresponde a un círculo de radio $2$ centrado en el origen.
+
+      La región de proyección en el plano  $xy$ está dada por:  \[
+      x^2+y^2\le 4
+      \] 
+    \item Expresar el volumen como una integral
+
+      El volumen del sólido está dado por:
+      \[
+        V=\iint_{\text{Región}}[(z_\mathrm{sup}- z_\mathrm{inf})]\:\mathrm{d}A,
+      \] 
+      donde:
+      \begin{itemize}[label=\textbullet]
+        \item $z_\mathrm{sup}=4-y^2$ 
+        \item $z_\mathrm{inf}=x^2$
+      \end{itemize}
+      Por lo tanto: \[
+      z_\mathrm{sup} - z_\mathrm{inf} = (4-y^2)-x^2=4-x^2-y^2
+      \] 
+      La integral del volumen se convierte en:
+      \[
+      V=\iint_{x^2+y^2\le 4}(4-x^2-y^2)\:\mathrm{d}A.
+      \] 
+    \item Cambiar a coordenadas polares:
+
+      En coordenadas polares:
+      \begin{itemize}[label=\textbullet]
+        \item $x=r\cos\theta,\, y=r\sin\theta$
+        \item $x^2+y^2=r^2$ 
+        \item $\:\mathrm{d}A=r\dr \dth $
+      \end{itemize}
+      La región se describe como: \[
+        r\in [0,2],\quad\theta\in [0,2\pi].
+      \] 
+      El integrando se convierte en: \[
+      4-x^2-y^2=4-r^2.
+      \] 
+      La integral en coordenadas polares es: \[
+      V=\int_{0}^{2\pi} \int_{0}^{2} (4-r^2)\cdot r\dr \dth .  
+      \] 
+    \item Resolver la integral
+\[
+  \begin{array}{l} 
+  \int_{0}^{2} 4r-r^3\dr =\left[2r^2-\dfrac{r^4}{4}\right]_0^2=8-4=4 \\
+  \int_{0}^{2\pi} 4\dth =4\cdot [\theta]_0^{2\pi}=\bboxed{8\pi}  
+  \end{array}
+\] 
+  \end{enumerate}
+
 \item \lb{Calcular el volumen del balón de Rugby de ecuaciones $\dfrac{x^{2}}{a^{2}}+\dfrac{y^{2}}{b^{2}}+\dfrac{z^{2}}{c^{2}}=1$.}
+
+Nos piden calcular el volumen del sólido definido por la ecuación: \[
+\dfrac{x^2}{a^2}+\dfrac{y^2}{b^2}+\dfrac{z^2}{c^2}=1,
+\] 
+que describe un \textbf{elipsoide} centrado en el origen, con semiejes $a, b$, y  $c$. 
+\begin{enumerate}[label=Paso \arabic*:]
+  \item Reescribir la ecuación del elipsoide
+
+    El elipsoide puede ser escrito como: \[
+    x^2+y^2+z^2\le 1\quad(\text{en un espacio escalado por $a,b$ y  $c$}).
+    \] 
+    Para facilitar el cálculo, hacemos un cambio de variables: \[
+    u=\dfrac{x}{a},\quad v=\dfrac{y}{b}, \quad w=\dfrac{z}{c}.
+    \] 
+    Esto transforma la ecuación del elipsoide en una esfera: \[
+    u^2+v^2+w^2\le 1
+    \] 
+    El jacobiano del cambio de variables es: \[
+    \dx \dy \dz =\det \begin{pmatrix} 
+      a & 0 & 0\\
+      0 & b & 0\\
+      0 & 0 & c
+    \end{pmatrix} \du \dv \:\mathrm{d}w=abc\du \dv \mathrm{d}w.
+    \] 
+    El volumen se transforma en: \[
+    V=\iiint_{u^2+v^2+w^2\le 1}abc\du \dv \:\mathrm{d}w=abc \iiint_{u^2+v^2+w^2\le 1}1\du \dv \mathrm{d}w.
+    \]
+  \item Volumen de la esfera unitaria
+
+    La integral restante es el volumen de una esfera unitaria en coordenadas esféricas: \[
+    u=r\sin\phi\cos\theta,\quad v=r\sin\phi\sin\theta,\quad w=r\cos\phi,
+    \] 
+    y el elemento del volumen es: \[
+    \du \dv \:\mathrm{d}w=r^2\sin\phi\dr \:\mathrm{d}\phi\dth .
+    \] 
+    El volumen se convierte en:
+    \[
+    abc\cdot \iiint_{u^2+v^2+w^2\le 1}1\du \dv \:\mathrm{d}w=abc\cdot \int_{0}^{1} \int_{0}^{\pi} \int_{0}^{2\pi}r^2\sin\phi\dth \:\mathrm{d}\phi\dr =\dfrac{1}{2}\cdot 2\cdot 2\pi\cdot abc = \bboxed{\dfrac{4\pi}{3}abc} 
+    \] 
+  \item Resolver las integrales
+
+    \[
+    \begin{array}{c}
+      \int_{0}^{2\pi} 1\dth =[\theta]_0^{2\pi}=2\pi\\
+      \int_{0}^{\pi} \sin\phi\:\mathrm{d}\phi=[-\cos\theta]_0^{2\pi}=-(-1)+1=2\\
+      \int_{0}^{1} r^2\dr =\left[ \dfrac{r^3}{3} \right]_0^1=\dfrac{1}{3}  
+    \end{array}
+    \] 
+\end{enumerate}
 
 \item \lb{Calcular $$
 \underset{\Omega}{ \iiint }\dfrac{\:\mathrm{d}x\:\mathrm{d}y\:\mathrm{d}z}{(x^{2}+y^{2}+x^{2})^{\frac{3}{2}}},
 $$
 donde $\Omega$ es la región limitado por las esferas $x^{2}+y^{2}+z^{2}=a^{2}$ y $x^{2}+y^{2}+z^{2}=b^{2}$, donde $0<b<a$. Indicación: hacer el cambio a coordenadas esféricas.}
 
+Queremos calcular: \[
+  \iint_\Omega \dfrac{\dx \dy \dz }{(x^2+y^2+z^2)^{\frac{2}{3} }}, 
+\] 
+donde $\Omega$ es la región limitada por las esferas $x^2+y^2+z^2=a^2$ y $x^2+y^2+z^2=b^2$, con $0\le b\le a$.
+\begin{enumerate}[label=Paso \arabic*:]
+  \item Cambio a coordenadas esféricas:
+    \begin{itemize}[label=\textbullet]
+      \item $x=r\sin\phi\cos\theta$
+      \item $y=r\sin\phi\sin\theta$
+      \item $z=r\cos\phi$ 
+      \item $\dx \dy \dz =r^2\sin\phi\dr \:\mathrm{d}\phi\dth $
+    \end{itemize}
+    La región en coordenadas esféricas está definida por:
+    \begin{itemize}[label=\textbullet]
+      \item $r \in [b,a]$
+      \item $\phi\in [0,\pi]$
+      \item $\theta\in [0,2\pi]$
+    \end{itemize}
+    El integrando se transforma en: \[
+      \dfrac{1}{(x^2+y^2+z^2)^{\frac{3}{2} }}=\dfrac{1}{r^3}.
+    \] 
+    Por lo tanto, la integral se convierte en: \[
+    \iiint_\Omega\dfrac{\dx \dy \dz }{(x^2+y^2+z^2)^{\frac{3}{2} }} =\int_{0}^{2\pi} \int_{0}^{\pi} \int_{b}^{a} \dfrac{r^2\sin\phi}{r^3} \dr \:\mathrm{d}\phi\dth =\int_{0}^{2\pi} \int_{0}^{\pi} \int_{b}^{a} \dfrac{1}{r}\sin\phi\dr \:\mathrm{d}\phi\dth       
+    \] 
+  \item Separar la integral
+
+    Separamos las integrales: \[
+    \begin{array}{c}
+      \int_{b}^{a} \dfrac{1}{r}\dr =[\ln(r)]_b^a=\ln(a)-\ln(b)=\ln\left( \dfrac{a}{b} \right) \\
+      \int_{0}^{\pi} \sin\phi\:\mathrm{d}\phi=[-\cos(\phi)]_0^\pi=-(-1)+1=2\\
+      \int_{0}^{2\pi} 1\dth =[\theta]_0^{2\pi}=2\pi 
+    \end{array}
+    \] 
+  \item Multiplicar los resultados
+
+    El volumen total es: \[
+    V=2\pi\cdot 2\cdot \ln\left( \dfrac{a}{b} \right) =\bboxed{4\pi\ln\left( \dfrac{a}{b} \right) } 
+    \] 
 \end{enumerate}
+\end{enumerate}
+
+\begin{center}
+  \noindent\rule{0.5\textwidth}{0.5pt}
+\end{center}
+\input{Capítulo 2.tex}
 \end{document}
