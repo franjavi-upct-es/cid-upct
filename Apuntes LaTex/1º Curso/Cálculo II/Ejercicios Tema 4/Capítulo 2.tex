@@ -488,7 +488,7 @@ f(x,y,z)=\ln(x^2+y^2+z^2)+C,
 
       Tenemos que: \[
       \mathrm{rot} (\mathbf{F} )=0.
-      \] Por lo tanto, el campo $F$ es conservativo. Esto implica que existe una función potencial  $f(x,y,z)$ tal que:  \[
+      \] Por lo tanto, el campo $\mathbf{F} $ es conservativo. Esto implica que existe una función potencial  $f(x,y,z)$ tal que:  \[
       \mathbf{F} =\nabla f.
       \] 
 Esto implica que: \[
@@ -517,7 +517,7 @@ Sustituyendo en $f(x,y,z)$:  \[
 f(x,y,z)=\dfrac{x^2}{2}+y^2x+\text{constante}=\dfrac{x^2}{2}+y^2x+C,
 \] 
 donde $C\in \R$ es una constante arbitraria.
-    \item \db{$\mathbf{F} (x,y,z)=\dfrac{x}{(x^2+y^2+z^2)^{\frac{3}{2} }}\mathbf{i}+\dfrac{y}{(x^2+y^2+z^2)^{\frac{3}{2} }}\mathbf{j} +\dfrac{z}{(x^2+y^2+z^2)^{\frac{3}{2} }} \mathbf{k} $} 
+    \item \db{$\mathbf{F} (x,y,z)=\dfrac{x}{(x^1+y^2+z^2)^{\frac{3}{2} }}\mathbf{i}+\dfrac{y}{(x^2+y^2+z^2)^{\frac{3}{2} }}\mathbf{j} +\dfrac{z}{(x^2+y^2+z^2)^{\frac{3}{2} }} \mathbf{k} $} 
 
       El rotacional se define como: \[
       \mathrm{rot} (\mathbf{F} )=\nabla \times \mathbf{F} =\begin{vmatrix} 
@@ -566,22 +566,259 @@ donde $C\in \R$ es una constante arbitraria.
       \[
       \frac{\partial f}{\partial x} =\dfrac{x}{(x^2+y^2+z^2)^{\frac{3}{2} }},\quad \frac{\partial f}{\partial y} = \dfrac{y}{(x^2+y^2+z^2)^{\frac{3}{2} }}, \quad \frac{\partial f}{\partial z} =\dfrac{z}{(x^2+y^2+z^2)^{\frac{3}{2} }}.
       \] 
+Integramos $\frac{\partial f}{\partial x} $ respecto a $x$:  \[
+\begin{aligned}
+  f(x,y,z)=\int \dfrac{x}{(x^2+y^2+z^2)^{\frac{3}{2} }}\dx & =\left\{ \begin{array}{l}
+  u=x^2+y^2+z^2\\
+  \du =2x\dx 
+\end{array} \right\}=\int \dfrac{1}{u^{\frac{3}{2} }}\dfrac{\du}{2}=\dfrac{1}{2}\int \dfrac{1}{u^{\frac{3}{2} }}\du =\dfrac{1}{2}\int u^{-\frac{3}{2}}\du\\ 
+                                                           & = \dfrac{1}{\cancel{2} }\cdot \left(-\dfrac{\cancel{2} }{\sqrt{u}}\right)=-\dfrac{1}{\sqrt{u} }=-\dfrac{1}{\sqrt{x^2+y^2+z^2} }+C(y,z),
+\end{aligned}
+\] 
+donde $C(y,z)$ es una función que puede depender de  $y$ y  $z$.
 
+Derivamos  $f(x,y,z)$ respecto a  $y$: \[
+\frac{\partial f}{\partial y} =\frac{\partial }{\partial y} \left( -\dfrac{1}{\sqrt{x^2+y^2+z^2} }+C(y,z) \right)=-\frac{\partial }{\partial y} \left( (x^2+y^2+z^2)^{-\frac{1}{2} } \right) =\dfrac{y}{(x^2+y^2+z^2)^{\frac{3}{2} }}.
+\]
+Esto coincide con el compononente $F_y$, por lo que  $C(y,z)$ no depende de  $y$ ni de  $z$. Por simetría del campo, verificamos también el componente respecto a  $z$.
+
+Finalmente, la función potencial es:  \[
+f(x,y,z)=-\dfrac{1}{\sqrt{x^2+y^2+z^2} }+C,
+\] 
+donde $C$ es una constante arbitraria.
     \item \db{$\mathbf{F} (x,y,z)=(y+z)\mathbf{i} +(x+z)\mathbf{j} +(x+y)\mathbf{k} $} 
+
+      El rotacional se define como: \[
+      \mathrm{rot} (\mathbf{F} )=\nabla \times \mathbf{F} =\begin{vmatrix} 
+        \mathbf{i} & \mathbf{j} & \mathbf{k} \\
+        \frac{\partial }{\partial x} & \frac{\partial }{\partial y} & \frac{\partial }{\partial z} \\
+        F_x & F_y & F_z
+      \end{vmatrix} 
+      \] 
+      donde: \[
+        F_x=y+z,\quad F_y=x+z, \quad F_z=x+y
+      \] 
+      Sustituyendo tenemos: \[
+      \mathrm{rot} (\mathbf{F}) = \nabla \times \mathbf{F} =\begin{vmatrix} 
+        \mathbf{i} & \mathbf{j} &\mathbf{k} \\
+        \frac{\partial }{\partial x} & \frac{\partial }{\partial y} & \frac{\partial }{\partial z} \\
+        y+z & x+z & x+y
+      \end{vmatrix} = \mathbf{i} (1-1) -\mathbf{j} (1-1)+\mathbf{k}(1-1)=0
+      \] 
+      Tenemos que: \[
+      \mathrm{rot} (\mathbf{F} )=0.
+      \] 
+      Por lo tanto, el campo $\mathbf{F} $ es conservativo. Esto implica que existe una función potencial $f(x,y,z)$ tal que: \[
+      \mathbf{F} =\nabla f.
+      \] 
+      Esto implica que: \[
+        \frac{\partial f}{\partial x} =y+z ,\quad \frac{\partial f}{\partial y} =x+z,\quad \frac{\partial f}{\partial z} =x+y.
+      \] 
+      Integramos $F_x$ respecto de $x$:  \[
+      f(x,y,z)=\int y+z\dx =xy+xz + C(y,z),
+      \] donde $C(y,z)$ es una función que puede depender de  $y$ y  $z$.
+
+      Ahora derivamos $f(x,y,z)$ respecto a $y$ y comparamos con  $F_y$: \[
+      \frac{\partial f}{\partial y} =\frac{\partial }{\partial y} \left( xy+xz+C(y,z) \right) =x+\frac{\partial C(y,z)}{\partial y} 
+      \] 
+      Igualamos con $F_y=x+z$:  \[
+      x+\frac{\partial C(y,z)}{\partial y} =x+z\longrightarrow \frac{\partial C(y,z)}{\partial y} =z\longrightarrow C(y,z)=yz+D(z),
+      \] 
+donde $D(z)$ es una función que puede depender de $z$.
+
+Derivamos  $f(x,y,z)$ respecto a  $z$ y comparamos con  $F_z$:  \[
+f(x,y,z)=xy+xz+yz+D(z) \longrightarrow \frac{\partial f}{\partial z} =x+y+\frac{\partial D(z)}{\partial z} 
+\] 
+Igualamos con $F_z$:  \[
+x+y+\frac{\partial D(z)}{\partial z} =x+y\longrightarrow \frac{\partial D(z)}{\partial z} =0 \longrightarrow D(z)=\text{constante}.
+\]
+Sustituyendo todo, obtenemos: \[
+f(x,y,z)=xy+xz+yz+C,
+\] donde $C\in \R$ es una constante arbitraria.
+
     \item \db{$\mathbf{F} (x,y,z)=(4x+2y+2z)\mathbf{i} +(2x+4y+2z)\mathbf{j} +(2x+2y+4z)\mathbf{k} $} 
+  
+      El rotacional se define como: \[
+      \mathrm{rot} (\mathbf{F} )=\nabla \times \mathbf{F} =\begin{vmatrix} 
+        \mathbf{i}  & \mathbf{j} & \mathbf{k} \\
+        \frac{\partial }{\partial x}  & \frac{\partial }{\partial y} & \frac{\partial }{\partial z} \\
+        F_x & F_y & F_z
+      \end{vmatrix} 
+      \] donde: \[
+      F_x=4x+2y+2z,\quad F_y=2x+4y+2z, F_z=2x+2y+4z
+      \] 
+      Sustituyendo tenemos: \[
+      \mathrm{rot} (\mathbf{F} )=\nabla \times F=\begin{vmatrix} 
+        \mathbf{i} & \mathbf{j} & \mathbf{k} \\ 
+        \frac{\partial }{\partial x} & \frac{\partial }{\partial y} & \frac{\partial }{\partial z} \\
+        4x+2y+2z & 2x+4y+2x & 2x+2y+4z
+      \end{vmatrix} = \mathbf{i} (2-2) -\mathbf{j} (2-2)+\mathbf{k} (2-2)=0
+      \] 
+      Tenemos que: \[
+     \mathrm{rot} (\mathbf{F})=0.
+      \] 
+      Por lo tanto, el campo $\mathbf{F} $ es conservativo. Esto implica que existe una función potencial $f(x,y,z)$ tal que:  \[
+      \mathbf{F} =\nabla f.
+      \] 
+      Esto implica que: \[
+      \frac{\partial f}{\partial x} =4x+2y+2z,\quad \frac{\partial f}{\partial y} =2x+4y+2x,\quad \frac{\partial f}{\partial z} =2x+2y+4z.
+      \] 
+      Integramos $F_x$ respecto de $x$:  \[
+      f(x,y,z)=\int 4x+2y+2z\dx =2x^2+2xy+2xz+C(y,z),
+      \] 
+      donde $C(y,z)$ es una función que puede depender de  $y$ y  $z$.
+
+      Ahora derivamos $f(x,y,z)$ respecto a  $y$ y comparamos con  $F_y$:  \[
+      \frac{\partial f}{\partial y} =\frac{\partial }{\partial y} \left( 2x^2+2xy+2xz+C(y,z) \right) = 2x+\frac{\partial C(y,z)}{\partial y} 
+      \] 
+      Igualamos con $F_y=2x+4y+2z$: \[
+      2x+\frac{\partial C(y,z)}{\partial y} =2x+4y+2z\longrightarrow \frac{\partial C(y,z)}{\partial y} =4y+2z\longrightarrow C(y,z) = 2y^2+2yz+D(z),
+      \] donde $D(z)$ es una función que puede depender de $z$.
+
+      Derivamos  $f(x,y,z)$ respecto a  $z$ y comparamos con  $F_z$:
+       \[
+         \frac{\partial f}{\partial z} =\frac{\partial }{\partial z}\left( 2x^2+2xy+2xz+4y^2+2yz+D(z) \right) =2x+2y+\frac{\partial D(z)}{\partial z} 
+      \] 
+      Igualamos con $F_z=2x+2y+4z$:  \[
+      2x+2y+\frac{\partial D(z)}{\partial z}=2x+2y+4z\longrightarrow \frac{\partial D(z)}{\partial z} =4z\longrightarrow D(z)=2z^2+\text{constante}. 
+      \] 
+      Sustituyendo todo en $f(x,y,z)$:  \[
+      f(x,y,z)=2x^2+2xy+2xz+2y^2+2yz+2z^2+C,
+      \] 
+      donde $C\in \R$ es una constante arbitraria.
   \end{enumerate}
 \item \lb{Dada $f(x,y)$, calcular el gradiente de  $f$ en coordenadas polares.}
 
+  Sea $f(x,y)$ una función escalar en el plano cartesiano. En coordenadas polares, las relaciones entre las coordenadas cartesianas  $(x,y)$ y las polares  $(r,\theta)$ son:
+  \begin{enumerate}[label=\arabic*)]
+    \item $x=r\cos\theta$
+    \item $y=r\sin\theta$
+  \end{enumerate}
+  El gradiente de $f(x,y)$ en coordenadas cartesianas está definido como:  \[
+  \nabla f=\frac{\partial f}{\partial x} \mathbf{i} +\frac{\partial f}{\partial y} \mathbf{j} .
+  \] 
+  En coordenadas polares, deseamos expresar $\nabla f$ en términos de las coordenadas $(r,\theta)$ y los vectores base $\mathbf{e}_r$ y $\mathbf{e}_\theta$, donde:
+  \begin{enumerate}[label=\arabic*)]
+    \item $\mathbf{e}_r=\cos\theta\mathbf{i} +\sin\theta\mathbf{j} $
+    \item $\mathbf{e}_\theta=-\sin\theta\mathbf{i} +\cos\theta\mathbf{j} $
+  \end{enumerate}
+  La transformación de las derivadas parciales en coordenadas polares está dada por:
+  \begin{enumerate}[label=\arabic*)]
+    \item $\frac{\partial }{\partial x} =\cos\theta \frac{\partial }{\partial r} -\frac{\sin\theta}{r}\frac{\partial }{\partial \theta} $ 
+    \item $\frac{\partial }{\partial y} =\sin\theta \frac{\partial }{\partial r} +\dfrac{\cos\theta}{r}\frac{\partial }{\partial \theta} $
+  \end{enumerate}
+  Sutituyendo estas expresioes en el gradiente cartesiano: \[
+  \nabla f=\left( \frac{\partial f}{\partial x}  \right) \mathbf{i} +\left( \frac{\partial f}{\partial y}  \right) \mathbf{j} .
+  \] 
+  Reescribirmos cada derivada parcial en términos de $r $ y $\theta$: \[
+  \begin{array}{l}
+    \frac{\partial f}{\partial x} =\cos\theta \frac{\partial f}{\partial r} -\dfrac{\sin\theta}{r}\frac{\partial f}{\partial \theta}\\
+    \frac{\partial f}{\partial y} =\sin\theta \frac{\partial f}{\partial r} +\dfrac{\cos\theta}{r}\frac{\partial f}{\partial \theta} 
+  \end{array}
+  \] 
+  Sustituimos en $\nabla f:$ \[
+  \nabla f=\left( \cos\theta \frac{\partial f}{\partial r} -\dfrac{\sin\theta}{r}\frac{\partial f}{\partial \theta}  \right) \mathbf{i} +\left( \sin\theta \frac{\partial f}{\partial r}+\dfrac{\cos\theta}{r}\frac{\partial f}{\partial \theta}   \right) \mathbf{j} .
+  \] 
+  Usamos las relaciones: \[
+  \mathbf{i} =\cos\theta\mathbf{e}_r -\sin\theta\mathbf{e} _\theta,\quad \mathbf{j} =\sin\theta\mathbf{e} _r+\cos\theta\mathbf{e} _\theta.
+  \] 
+  Sustituimos $\mathbf{i} $ y $\mathbf{j} $ en $\nabla f$: \[
+  \nabla f=\left( \frac{\partial f}{\partial x}  \right) \mathbf{e} _r+\left( \dfrac{1}{r}\frac{\partial f}{\partial \theta}  \right) \mathbf{e} _\theta,
+  \] donde:
+  \begin{itemize}[label=\textbullet]
+    \item $\mathbf{e} _r=\cos\theta\mathbf{i} +\sin\theta\mathbf{j} $
+    \item $\mathbf{e} _\theta=-\sin\theta\mathbf{i} +\cos\theta\mathbf{j} $
+  \end{itemize}
 \item \lb{Sea $f:\R^2 \backslash  \{(0,0)\} \to \R$ es un campo escalar de clase $C^2$. Comprobar que \[
 \dfrac{1}{x^2+y^2}\left( \frac{\partial^2 f}{\partial x^2} (x,y)+\frac{\partial^2 f}{\partial y^2} (x,y) \right) =4\left( \frac{\partial^2 f}{\partial u^2} (u,v)+\frac{\partial^2 f}{\partial v^2} (u,v) \right) 
 \] donde $u=x^2-y^2$ y $v=2xy$. } 
 
+Dado $u=x^2-y^2$ y $v=2xy$, notamos que  $f(x,y)$ puede ser reespresado en términos de  $u$ y  $v$:  \[
+f(x,y)=f(u(x,y), v(x,y))-
+\] 
+Por la regla de la cadena, las derivadas parciales de $f$ respecto a  $x$ e  $y$ se expresan como:
+
+\begin{center}
+\begin{tikzpicture}[>=latex, baseline=(current bounding box.center)]
+\node (f) at (0,0) {$f$};
+\node[above right=of f] (u) {$u$};
+\node[below right=of f] (v) {$v$};
+\node[above right=0.5cm and 1cm of u] (x1) {$x$};
+\node[above right=0.5cm and 1cm of v] (x2) {$x$};
+\node[below right=0.5cm and 1cm of u] (y1) {$y$};
+\node[below right=0.5cm and 1cm of v] (y2) {$y$};
+\draw[->] (f) -- (u);
+\draw[->] (f) -- (v);
+\draw[->] (u) -- (x1);
+\draw[->] (u) -- (y1);
+\draw[->] (v) -- (x2);
+\draw[->] (v) -- (y2);
+\end{tikzpicture}\qquad$\displaystyle\begin{array}{l}
+\dfrac{\partial f}{\partial x}=\dfrac{\partial f}{\partial u}\cdot\dfrac{\partial u}{\partial x}+\dfrac{\partial f}{\partial v}\cdot\dfrac{\partial v}{\partial x}\longrightarrow \frac{\partial^2 f}{\partial x^2} =\frac{\partial }{\partial x} \left( \frac{\partial f}{\partial x}  \right) \\
+\dfrac{\partial f}{\partial y}=\dfrac{\partial f}{\partial y}\cdot\dfrac{\partial u}{\partial y}+\dfrac{\partial f}{\partial v}\cdot\dfrac{\partial v}{\partial y}\longrightarrow \frac{\partial^2 f}{\partial y^2}=\frac{\partial }{\partial y} \left( \frac{\partial f}{\partial y}  \right)  \\
+\end{array}$
+\end{center}
+
+Las derivadas de $u$ y  $v$ respecto a  $x$ e $y$ son:
+
+\[
+\begin{array}{l}
+  \frac{\partial u}{\partial x} =2x,\quad \frac{\partial u}{\partial y} =-2y\\
+  \frac{\partial v}{\partial x} =2y,\quad \frac{\partial v}{\partial y} =2x
+\end{array}
+\] 
+Sustituyendo estas derivadas en las expresiones de las primeras y segundas derivadas de $f$, obtenemos:  \[
+\begin{array}{l}
+  \frac{\partial f}{\partial x} =\frac{\partial f}{\partial u} \cdot 2x+\frac{\partial f}{\partial v} \cdot 2y\longrightarrow \frac{\partial^2 f}{\partial x^2} =2 \frac{\partial f}{\partial u} +4x^2 \frac{\partial^2 f}{\partial u^2} +8xy \frac{\partial^2 f}{\partial u \partial v} + 4y^2 \frac{\partial^2 f}{\partial v^2}\\
+  \frac{\partial f}{\partial y} =\frac{\partial f}{\partial u} \cdot (-2y)+\frac{\partial f}{\partial v} \cdot 2x\longrightarrow \frac{\partial^2 f}{\partial y^2} =-2 \frac{\partial f}{\partial u} +4y^2 \frac{\partial^2 f}{\partial u^2} -8xy\dfrac{\partial f}{\partial v\partial u}+4x^2 \frac{\partial^2 f}{\partial v^2}
+\end{array}
+\] 
+Sumamos $\frac{\partial^2 f}{\partial x^2} $ y $\frac{\partial^2 f}{\partial y^2} $: \[
+\begin{array}{c}
+\frac{\partial^2 f}{\partial x^2} +\frac{\partial^2 f}{\partial y^2} =\cancel{\left(2 \frac{\partial f}{\partial u} -2\dfrac{\partial f}{\partial u}\right)}+4(x^2+y^2)\left( \frac{\partial^2 f}{\partial u^2} +\frac{\partial^2 f}{\partial v^2}  \right) +\cancel{\left(8xy\dfrac{\partial f}{\partial u\partial v}-8xy\dfrac{\partial f}{\partial u\partial v}\right)}\\
+\frac{\partial^2 f}{\partial x^2} +\frac{\partial^2 f}{\partial y^2} =4(x^2+y^2)\left( \frac{\partial^2 f}{\partial u^2} +\frac{\partial^2 f}{\partial v^2}  \right)\longrightarrow \bboxed{\dfrac{1}{x^2+y^2}\left(\frac{\partial^2 f}{\partial x^2} +\frac{\partial^2 f}{\partial y^2}\right)=4\left( \frac{\partial^2 f}{\partial u^2} +\frac{\partial^2 f}{\partial v^2}  \right)}
+\end{array}
+\] 
 \item \lb{Demostrar que si $f:\R^2\to \R$ es un campo escalar de clase $C^2$ y se verifica la igualdad \[
 \frac{\partial^2 f}{\partial x^2} (x,y)+\frac{\partial^2 f}{\partial y^2} (x,y)=0,
 \]
 entonces también se verifica 
 \[
-\frac{\partial^2 f}{\partial u^2} (u,v)+\frac{\partial^2 f}{\partial v^2} =0
+\frac{\partial^2 f}{\partial u^2} (u,v)+\frac{\partial^2 f}{\partial v^2}(u,v) =0
 \]
 donde $x=\dfrac{u}{u^2+v^2} $ e $y=\dfrac{v}{u^2+v^2}$.} 
+
+Dado que $f(x,y)$ es una función escalar de  $(x,y)$, podemos expresarla en términos de las coordenadas  $(u,v)$:  \[
+f(x,y)=f\left( \dfrac{u}{u^2+v^2},\dfrac{v}{u^2+v^2} \right).
+\] 
+Por lo tanto, las derivadas parciales de $f$ respecto de  $u$ y  $v$ puede ser calculadas usando la regla de la cadena.
+
+\begin{center}
+  \begin{tikzpicture}[>=latex, baseline=(current bounding box.center)]
+    \node (f) at (0,0) {$f$};
+    \node[above right=of f] (u) {$x$};
+    \node[below right=of f] (v) {$y$};
+    \node[above right=0.5cm and 1cm of u] (x1) {$u$};
+    \node[above right=0.5cm and 1cm of v] (x2) {$u$};
+    \node[below right=0.5cm and 1cm of u] (y1) {$v$};
+    \node[below right=0.5cm and 1cm of v] (y2) {$v$};
+    \draw[->] (f) -- (u);
+    \draw[->] (f) -- (v);
+    \draw[->] (u) -- (x1);
+    \draw[->] (u) -- (y1);
+    \draw[->] (v) -- (x2);
+    \draw[->] (v) -- (y2);
+    \end{tikzpicture}\qquad$\displaystyle\begin{array}{l}
+    \dfrac{\partial f}{\partial u}=\dfrac{\partial f}{\partial x}\cdot\dfrac{\partial x}{\partial u}+\dfrac{\partial f}{\partial y}\cdot\dfrac{\partial y}{\partial u}\longrightarrow \frac{\partial^2 f}{\partial u^2} =\frac{\partial }{\partial u} \left( \frac{\partial f}{\partial u}  \right ) \\
+    \dfrac{\partial f}{\partial v}=\dfrac{\partial f}{\partial x}\cdot\dfrac{\partial x}{\partial v}+\dfrac{\partial f}{\partial y}\cdot\dfrac{\partial y}{\partial v}\longrightarrow \frac{\partial^2 f}{\partial v^2}=\frac{\partial }{\partial v} \left( \frac{\partial f}{\partial v}  \right )  \\
+  \end{array}$
+\end{center}
+
+\[
+\begin{array}{l}
+  \frac{\partial^2 f}{\partial u^2} =\frac{\partial }{\partial u}\left( \frac{\partial f}{\partial x}\frac{\partial x}{\partial u} +\frac{\partial f}{\partial y} \frac{\partial y}{\partial u}  \right)  = \frac{\partial^2 f}{\partial x^2} \left( \frac{\partial x}{\partial u}  \right) ^2+2 \frac{\partial^2 f}{\partial x \partial y} \frac{\partial x}{\partial u} \frac{\partial y}{\partial u} +\frac{\partial^2 f}{\partial y^2} \left( \frac{\partial y}{\partial u}  \right) ^2+\frac{\partial f}{\partial x} \frac{\partial^2 x}{\partial u^2} +\frac{\partial f}{\partial y} \frac{\partial^2 y}{\partial u^2} \\
+  \frac{\partial^2 f}{\partial v^2} =\frac{\partial }{\partial v}\left( \frac{\partial f}{\partial x}\frac{\partial x}{\partial v} +\frac{\partial f}{\partial y} \frac{\partial y}{\partial v}  \right)  = \frac{\partial^2 f}{\partial x^2} \left( \frac{\partial x}{\partial v}  \right) ^2+2 \frac{\partial^2 f}{\partial x \partial y} \frac{\partial x}{\partial v} \frac{\partial y}{\partial v} +\frac{\partial^2 f}{\partial y^2} \left( \frac{\partial y}{\partial v}  \right) ^2+\frac{\partial f}{\partial x} \frac{\partial^2 x}{\partial v^2} +\frac{\partial f}{\partial y} \frac{\partial^2 y}{\partial v^2} \\
+\end{array}
+\] 
+Sumando $\frac{\partial^2 f}{\partial u^2} $ y $\frac{\partial^2 f}{\partial v^2} $, obtenemos: 
 \end{enumerate}

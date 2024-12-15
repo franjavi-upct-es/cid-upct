@@ -1,6 +1,7 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.26 (MiKTeX 24.3.31) (preloaded format=pdflatex 2024.5.23)  14 DEC 2024 12:48
+This is pdfTeX, Version 3.141592653-2.6-1.40.26 (MiKTeX 24.3.31) (preloaded format=pdflatex 2024.5.23)  15 DEC 2024 22:07
 entering extended mode
  restricted \write18 enabled.
+ file:line:error style messages enabled.
  %&-line parsing enabled.
 **"./Ejercicios Tema 4.tex"
 (Ejercicios Tema 4.tex
@@ -1303,7 +1304,8 @@ File: pgflibraryarrows.code.tex 2023-01-15 v3.1.10 (3.1.10)
 )
 \@quotelevel=\count488
 \@quotereset=\count489
- (Ejercicios Tema 4.aux)
+
+No file "Ejercicios Tema 4".aux.
 \openout1 = `"Ejercicios Tema 4.aux"'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 4.
@@ -1320,7 +1322,6 @@ LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 4.
 LaTeX Font Info:    ... okay on input line 4.
 LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 4.
 LaTeX Font Info:    ... okay on input line 4.
-
 (C:\Program Files\MiKTeX\tex/context/base/mkii\supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
 \scratchcounter=\count490
@@ -1360,9 +1361,9 @@ Package biblatex Info: Automatic encoding selection.
 \openout4 = `"Ejercicios Tema 4.bcf"'.
 
 Package biblatex Info: Trying to load bibliographic data...
-Package biblatex Info: ... file '"Ejercicios Tema 4".bbl' found.
+Package biblatex Info: ... file '"Ejercicios Tema 4".bbl' not found.
 
-(Ejercicios Tema 4.bbl)
+No file "Ejercicios Tema 4".bbl.
 Package biblatex Info: Reference section=0 on input line 4.
 Package biblatex Info: Reference segment=0 on input line 4.
 
@@ -1531,20 +1532,29 @@ Overfull \hbox (5.94502pt too wide) in paragraph at lines 552--557
 $[]$ 
  []
 
-[43]) [44] (Ejercicios Tema 4.aux)
+[43] [44] [45] [46] [47]) [48] (Ejercicios Tema 4.aux)
  ***********
 LaTeX2e <2023-11-01> patch level 1
 L3 programming layer <2024-03-14>
  ***********
+
+
+LaTeX Warning: There were undefined references.
+
+
+Package biblatex Warning: Please (re)run Biber on the file:
+(biblatex)                "Ejercicios Tema 4"
+(biblatex)                and rerun LaTeX afterwards.
+
 Package logreq Info: Writing requests to '"Ejercicios Tema 4".run.xml'.
 \openout1 = `"Ejercicios Tema 4.run.xml"'.
 
  ) 
 Here is how much of TeX's memory you used:
- 44334 strings out of 474424
- 1053289 string characters out of 5751554
- 1970433 words of memory out of 5000000
- 65985 multiletter control sequences out of 15000+600000
+ 44389 strings out of 474424
+ 1054056 string characters out of 5751554
+ 1970371 words of memory out of 5000000
+ 66043 multiletter control sequences out of 15000+600000
  567263 words of font info for 75 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  98i,21n,100p,1210b,2565s stack positions out of 10000i,1000n,20000p,200000b,200000s
@@ -1564,9 +1574,10 @@ m/cmsy10.pfb><C:/Program Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy5.pfb>
 iles/MiKTeX/fonts/type1/public/amsfonts/cm/cmti10.pfb><C:/Program Files/MiKTeX/
 fonts/type1/public/amsfonts/latxfont/line10.pfb><C:/Program Files/MiKTeX/fonts/
 type1/public/amsfonts/symbols/msbm10.pfb>
-Output written on "Ejercicios Tema 4.pdf" (44 pages, 522452 bytes).
+Output written on "C:/Users\fcoja\cid-upct\Apuntes LaTex\1º Curso\Cálculo II\
+Ejercicios Tema 4\Ejercicios Tema 4.pdf" (48 pages, 539471 bytes).
 PDF statistics:
- 250 PDF objects out of 1000 (max. 8388607)
+ 262 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
  43 words of extra memory for PDF output out of 10000 (max. 10000000)
 
