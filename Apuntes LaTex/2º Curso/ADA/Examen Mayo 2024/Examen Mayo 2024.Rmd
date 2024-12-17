@@ -1,0 +1,40 @@
+---
+title: "Análisis y Diseño de Algoritmos"
+subtitle: "Examen Diciembre 2023"
+author: "Francisco Javier Mercader Martínez"
+output: pdf_document
+geometry: "a4paper, margin=1.5cm"
+header-includes:
+- \renewcommand{\and}{\\}
+- \usepackage{fvextra}
+- \usepackage{hyperref}
+- \DefineVerbatimEnvironment{Highlighting}{Verbatim}{breaklines, commandchars=\\\{\}}
+---
+
+1.  
+
+    a.  Calcular el tiempo de ejecución de este algoritmo y expresarlo con $O,\Omega$ y $\Theta$:
+
+    ``` python
+    def Directa(x, n, v):
+        for i in range(n):
+            x = v[i]
+            j = i - 1
+            while j >= 1and v[j] > x:
+                v[j + 1] = v[j]
+                j = j - 1
+            v[j + 1] = x
+    ```
+
+    b.  Determinar el orden de esta ecuación de recurrencia: $$
+        \begin{array}{ll}
+        t(n)=1 & \text{si }n<1\\
+        t(n)=3t(n/2)+n^3 & \text{si }n\ge1
+        \end{array}
+        $$
+    c.  Resolver esta ecuación de recurrencia: $$
+        \begin{array}{ll}
+        t(n)=1 & \text{si }n<1\\
+        t(n)=3t(n-1)+2^n & \text{si }n\ge1
+        \end{array} 
+        $$
