@@ -1,0 +1,358 @@
+\input{../../../Macros.tex}
+\lstset{
+language=Python,
+basicstyle=\ttfamily\small,
+numberstyle=\tiny,
+keywordstyle=\color{blue},
+commentstyle=\color{olive},
+stringstyle=\color{red},
+breakatwhitespace=false, 
+breaklines=true,
+showspaces=false,
+showstringspaces=false,
+showtabs=false, 
+tabsize=2,
+literate={á}{{\'a}}1 {é}{{\'e}}1 {í}{{\'i}}1 {ó}{{\'o}}1 {ú}{{\'u}}1{ñ}{{\~n}}1 {Á}{{\'A}}1 {Í}{{\'I}}1,
+mathescape=false,
+backgroundcolor=\color{lightgray!10},
+}
+\title{Análisis y Diseño de Algoritmos\\Ejercicios Tema 3}
+
+\begin{document}
+\maketitle
+  \begin{enumerate}[label=\color{red}\textbf{\arabic*)}]
+    \item \lb{Diseñar una solución para el problema de colaración de grafos utilizando \textit{backtracking}. Se supondrá que el grafo consta de \textbf{\texttt{n}} nodos y que utilizamos una representación  con matriz de adyacencia \textbf{\texttt{A[1..n][1..n]}} de booleanos. En lugar de colores se asignarán etiquetas numéricas a los nodos $1,2,3\dots$ Una solución será representada como una tupla $S=(s_1,s_2,\dots,sn)$ donde $s_i$, que puede tomar valores  $1,2,3\dots$ representa el color asignado al nodo \textbf{\texttt{i}}.}
+
+\begin{enumerate}[label=\arabic*)]
+  \item Descripción del algoritmo
+
+    El algoritmo explora todas las posibles asignaciones de colores a los nodos del grafo siguiendo estas reglas:
+    \begin{itemize}[label=\textbullet]
+      \item Se asigna un color a cada nodo en orden secuencial.
+      \item Antes de asignar un color a un nodo, se verifica si este es \textbf{compatible} (es decir, no se asigna un color que ya esté presente en los nodos adyacentes).
+      \item Si se alcanza una asignación completa y válida para todos los nodos, se reporta como solución.
+    \end{itemize}
+    El \textbf{backtracking} asegura que si se asigna un color no válido en algún caso, se retrocede y se intenta otro color.
+  \item Representación de los datos
+    \begin{enumerate}[label=\arabic*)]
+      \item La matriz de adyacencia \textbf{\texttt{A[1..n][1..n] }} representará el grafo.
+         \begin{itemize}[label=\textbullet]
+           \item \textbf{\texttt{A[i][j]=True}} si hay una arista entre \textbf{\texttt{i}} y \textbf{\texttt{j}}, y \textbf{\texttt{False}} en caso contrario.
+        \end{itemize}
+      \item Un arreglo $S=[s_1,s_2,\dots,s_n]$ almacenará el color (número) asignado a cada nodo.
+    \end{enumerate}
+  \item Funciones clave del algoritmo
+    \begin{enumerate}[label=\arabic*)]
+      \item \textbf{\texttt{es\_valido}:} Verifica si asignar un color \textbf{\texttt{c}} al nodo \textbf{\texttt{v}} es válido (no está en conflicto con los nodos adyacentes).
+      \item \textbf{\texttt{backtracking}:} Explora las asignaciones de colores a los nodos de manera recursiva.
+      \item \textbf{\texttt{solucionar\_coloreo}:} Inicia el proceso y muestra el resultado final. 
+    \end{enumerate}
+  \item Implementación en Python
+    \lstinputlisting{"Ejercicio 1.py"}
+  \item Explicación del código
+    \begin{enumerate}[label=\arabic*)]
+      \item \textbf{\texttt{es\_valido}:}
+        \begin{itemize}[label=\textbullet]
+          \item Comprueba si asignar un color al nodo actual no entra en conflicto con los colores de los nodos adyacentes.
+        \end{itemize}
+      \item \textbf{\texttt{backtracking}:}
+        \begin{itemize}[label=\textbullet]
+          \item Recursivamente asigna colores a los nodos.
+          \item Si encuentra una asignación válida para todos los nodos, termina.
+          \item De lo contrario, realiza un \textbf{backtrack} (deshace una asignación y prueba otra opción).
+        \end{itemize}
+      \item \textbf{\texttt{solucionar\_coloreo}:}
+        \begin{itemize}[label=\textbullet]
+          \item Es la función principal que inicializa el proceso y muestra el resultado.
+        \end{itemize}
+    \end{enumerate}
+  \item Ejemplo de salida
+
+    Para la matriz de adyacencia del ejemplo y con un máximo de \textbf{3 colores}, la salida es:
+    \begin{verbatim}
+## Solución encontrada:
+## [1,2,3,2]
+    \end{verbatim}
+  \item Complejidad Temporal
+    La complejidad del algoritmo es $O(m^{n})$, donde $n$ es el número de nodos y  $m$ el número máximo de colores. Aunque esta complejidad es exponencial en el peor caso, el backtracking con poda reduce el tiempo considerablemente en la práctica.
+\end{enumerate}
+
+    \item \lb{Diseñar una solución para el problema del ciclo hamiltoniano utilizando \textit{backtracking}.}
+
+      \begin{enumerate}[label=\arabic*)]
+        \item Problema del Ciclo Hamiltoniano
+
+          Un \textbf{ciclo hamiltoniano} es un recorrido que pasa \textbf{exactamente una vez} por todos los vértices de un grafo y regresa al vértice inicial. El objetivo del algoritmo es determinar si existe tal ciclo en un grafo dado y mostrar la secuencia de vértices que forma el ciclo.
+
+        \item Implementación en Python
+
+          \lstinputlisting{"Ejercicio 2.py"}
+
+        \item Representación del grafo
+
+          El grafo se representa mediante una \textbf{matriz de adyacencia}, donde:
+          \begin{itemize}[label=\textbullet]
+            \item \textbf{\texttt{grafo[i][j]=1}} significa que hay una arista entre los vértices \textbf{\texttt{i}} y \textbf{\texttt{j}}.
+            \item \textbf{\texttt{grafo[i][j]=0}} indica que no hay aristas entre ellos.
+          \end{itemize}
+        \item Explicación de las funciones
+          \begin{enumerate}[label=\arabic*)]
+            \item \textbf{\texttt{es\_valido}:}
+              \lstinputlisting[firstline=1, lastline=18]{"Ejercicio 2.py"}
+              \begin{itemize}[label=\textbullet]
+                \item \textbf{Propósito:} Verifica si es válido añadir un vértice \textbf{\texttt{v}} al camino actual.
+                \item \textbf{Chequeos:}
+                  \begin{enumerate}[label=\arabic*)]
+                    \item Comprueba si existe una arista entre el último vértice del camino \textbf{\texttt{v}}.
+                    \item Verifica que \textbf{\texttt{v}} no haya sido visitado antes.
+                  \end{enumerate}
+              \end{itemize}
+            \item \textbf{\texttt{backtracking\_hamiltoniano}:}
+            \lstinputlisting[firstline=20, lastline=48]{"Ejercicio 2.py"}
+            \begin{itemize}[label=\textbullet]
+              \item \textbf{Propósito:} Aplica \textbf{backtracking} para construir el camino hamiltoniano paso a paso.
+              \item \textbf{Lógica:}
+                \begin{enumerate}[label=\arabic*)]
+                  \item Si se han añadido todos los vértices (\textbf{\texttt{pos==n}}), verifica si existe una arista que conecte el último vértice con el inicial.
+                  \item Prueba todos los vértices desde \textbf{\texttt{1}} hasta \textbf{\texttt{n-1}}:
+                    \begin{itemize}[label=\textbullet]
+                      \item Si el vértice es válido (\textbf{\texttt{es\_valido}}), lo añade al camino y llama recursivamente.
+                      \item Si no encuentra una solución, elimina el vértice (\textbf{backtrack}).
+                    \end{itemize}
+                \end{enumerate}
+            \end{itemize}
+          \item \textbf{\texttt{encontrar\_ciclo\_hamiltoniado}:}
+            \lstinputlisting[firstline=50,lastline=64]{"Ejercicio 2.py"}
+            \begin{itemize}[label=\textbullet]
+              \item \textbf{Propósito:} Es la función principal que incializa el proceso.
+              \item \textbf{Lógica:}
+                \begin{enumerate}[label=\arabic*)]
+                  \item El camino empieza desde el vértice $0$.
+                  \item LLama a \textbf{\texttt{backtracking\_hamiltoniano}} para encontrar el ciclo.
+                  \item Si se encuentra una solución, muestra el camino junto con el vértice inicial al cerrar el ciclo.
+                \end{enumerate}
+            \end{itemize}
+          \end{enumerate}
+        \item Ejemplo de uso
+
+          Para el siguiente grafo de 5 vértices:
+          \lstinputlisting[firstline=67, lastline=75]{"Ejercicio 2.py"}
+          \begin{itemize}[label=\textbullet]
+            \item El grafo tiene las siguientes aristas:
+              \begin{itemize}[label=\textbullet]
+                \item $0\longleftrightarrow 1, 0 \longleftrightarrow 3$
+                \item $0\longleftrightarrow 2, 1\longleftrightarrow 3, 1\longleftrightarrow 4$
+                \item $2\longleftrightarrow 4$
+                \item $3\longleftrightarrow 4$
+              \end{itemize}
+          \end{itemize}
+          Salida del programa
+          \begin{verbatim}
+## Ciclo Hamiltoniano encontrado:
+## [0, 1, 2, 4, 3, 0]
+          \end{verbatim}
+          El ciclo recorre los vértice en el orden: $0\to 1\to 2\to 4\to 3\to 0$, cumpliendo las condiciones del ciclo hamiltoniano.
+        \item Complejidad del algoritmo
+
+          \begin{itemize}[label=\textbullet]
+            \item \textbf{Tiempo:} $O(n!)$, ya que prueban todas las permutaciones posibles de los  $n$ vértices.
+          \end{itemize}
+      \end{enumerate}
+
+    \item \lb{En un matriz cuadrada \textbf{\texttt{M}}, de tamaño $n\times n$ representamos un laberinto. Partimos de la posición $(1,1)$ y el objetivo es moverse en la posición  $(n,n)$. Podemos pasar por la casilla  $(i,j)$ si y sólo si  \textbf{\texttt{M[i,j]=A}} (abierta). Si \textbf{\texttt{M[i,j]=C}} (cerrada) entonces no podemos pasar por esa casilla. Desde cada casilla existen 4 posibles movimientos: arriba, abajo, izquierda y derecha.
+      \begin{center}
+        \begin{tabular}{|c|c|c|c|}
+          \hline
+          A & C & A & A \\ \hline
+          A & A & A & C \\ \hline
+          A & C & A & A \\ \hline
+          C & A & A & A \\ \hline
+        \end{tabular}
+      \end{center}
+Describe la forma de resolver el problema utilizando \textit{backtracking}. Pista: ten en cuenta que en cada movimiento sólo necesitamos conocer la posición actual.}
+
+\begin{enumerate}[label=\arabic*)]
+  \item Descripción del problema
+
+    Dado un \textbf{laberinto} representado por una matriz cuadrada \textbf{\texttt{M}} de tamaño $n\times n$:
+    \begin{itemize}[label=\textbullet]
+      \item Cada celda puede estar \textbf{abierta} (\textbf{\texttt{A}}) o \textbf{cerrada} (\textbf{\texttt{C}}).
+      \item Se parte de la celda $(0,0)$ (esquina superior izquierda).
+      \item El objetivo es llega a la celda  \textbf{\texttt{(n-1,n-1)}} (esquina inferior derecha) moviéndose en las \textbf{4 direcciones posibles}:
+        \begin{itemize}[label=\textbullet]
+          \item \textbf{Abajo:} (\textbf{\texttt{x+1,y}} ) 
+          \item \textbf{Derecha: \texttt{(x,y+1)}} 
+          \item \textbf{Arriba: \texttt{(x-1,y)}} 
+          \item \textbf{Izquierda: \texttt{(x,y-1)}} 
+        \end{itemize}
+    \end{itemize}
+  \item Implementación en Python
+
+    \lstinputlisting{"Ejercicio 3.py"}
+  \item Estrategia del algoritmo
+    \begin{enumerate}[label=\arabic*)]
+      \item Empezamos desde la posición inicial $(0,0)$ y seguimos probando movimientos válidos.
+      \item En cada celda, realizamos los siguientes pasos:
+         \begin{itemize}[label=\textbullet]
+          \item Marcamos la celda como \textbf{visitada}.
+          \item Intentamos movernos a una de las \textbf{4 direcciones} posibles.
+          \item Si llegamos a la celda destino \textbf{\texttt{(n-1, n-1)}}, hemos encontrado un camino válido.
+        \end{itemize}
+      \item Si un movimiento no lleva a un solución (camino sin salida), retrocedemos (\textbf{backtrack}) y probamos con otra dirección.
+      \item El proceso se repite hasta que se encuentra un camino válido o se verifica que no hay solución.
+    \end{enumerate}
+  \item Explicación de las funciones
+    \begin{enumerate}[label=\arabic*)]
+      \item \textbf{\texttt{es\_valido}:}
+        \lstinputlisting[firstline=1, lastline=9]{"Ejercicio 3.py"}
+        \begin{itemize}[label=\textbullet]
+          \item \textbf{Propósito:} Verificar si una celda \textbf{\texttt{(x, y)}}  es válida para moverse.
+          \item \textbf{Condiciones:}
+            \begin{enumerate}[label=\arabic*)]
+              \item La celda está dentro de los límites de la matriz.
+              \item La celda está \textbf{abierta \texttt{(M[x][y] == "A")}}.
+              \item La celda \textbf{no ha sido visitada} aún. 
+            \end{enumerate}
+        \end{itemize}
+      \item \textbf{\texttt{backtracking\_laberinto}:}
+        \lstinputlisting[firstline=11, lastline=42]{"Ejercicio 3.py"}
+        \begin{itemize}[label=\textbullet]
+          \item \textbf{Lógica:}
+            \begin{enumerate}[label=\arabic*)]
+              \item Si estamos en la posición final \textbf{\texttt{(n-1, n-1)}}, añadimos la celda al camino y retornamos \textbf{\texttt{True}}.
+              \item Marcamos la celda actual como visitada y la añadimos al camino.
+              \item Probamos los \textbf{4 movimientos posibles}:
+                \begin{itemize}[label=\textbullet]
+                  \item Si el movimiento es válido, hacemos una llamada recursiva.
+                  \item Si encontramos un camino válido, retornamos \textbf{\texttt{True}}. 
+                \end{itemize}
+              \item Si ningún movimiento es válido, \textbf{retrocedemos}:
+                \begin{itemize}[label=\textbullet]
+                  \item Desmarcamos la celda como visitada.
+                  \item Eliminamos la celda del camino.
+                \end{itemize}
+            \end{enumerate}
+        \end{itemize}
+      \item \textbf{\texttt{resolver\_laberinto}:}
+        \lstinputlisting[firstline=44, lastline=58]{"Ejercicio 3.py"}
+        \begin{itemize}[label=\textbullet]
+          \item \textbf{Propósito:} Inicia el proceso resolviendo el laberinto desde $(0,0)$.
+          \item \textbf{Resultado:}
+            \begin{itemize}[label=\textbullet]
+              \item Si se encuentra un camino válido, se imprime el camino.
+              \item Si no hay solución, se muestra un mensaje de error.
+            \end{itemize}
+        \end{itemize}
+    \end{enumerate}
+  \item Ejemplo de uso:
+
+    \textbf{Entrada:}
+    \lstinputlisting[firstline=62, lastline=67]{"Ejercicio 3.py"}
+    \textbf{Salida:}
+    \begin{verbatim}
+## Camino encontrado:
+## (0, 0)
+## (1, 0)
+## (1, 1)
+## (1, 2)
+## (2, 2)
+## (3, 2)
+## (3, 3)
+    \end{verbatim}
+  \item \textbf{Tiempo:} $O(4^{n^2})$ en el peor caso, porque en cada celda probamos 4 direcciones posibles. 
+\end{enumerate}
+\item \lb{En una liga de fútbol participan \textbf{\texttt{n}} equipos (suponemos que \textbf{\texttt{n}} es par). En cada jornada se juegan $\mathbf{\mathtt{\dfrac{n}{2}}}$ partidos, que enfrentan a dos equipos, dirigidos por un árbitro. Existen \textbf{\texttt{m}} árbitros disponibles, siendo $m>\dfrac{n}{2}$. Cada equipo \textbf{\texttt{i}} valora cada árbitro \textbf{\texttt{j}} con una puntuación \textbf{\texttt{P[i,j]}} entre $0$ y $10$, indicando su preferencia por ese árbitro. un valor alto indica que le gusta el árbitro y un valor bajo que no le gusta. Si el árbitro y el equipo son de la misma región entonces \textbf{\texttt{P[i,j]=$-\infty$}}.\newline
+  El objetivo es (para cada jornada contreta) asignar un árbitro distinto a cada partido, de manera que se maximice la puntuación total de los árbitros asignados, teniendo en cuenta las preferencias de todos los equipos.\newline
+  Dar una solución óptima para el problema usando \textit{backtracking}. Exponer cómo es la representación de la solución, cuál es el esquema que habría que utilizar, cuál la condición de fin y cómo son las soluciones del esquema (\textbf{\texttt{Generar, MasHermanos, Criterio, Solucion\dots}}). 
+  } 
+  \begin{enumerate}[label=\arabic*)]
+    \item Representación del problema
+      \begin{itemize}[label=\textbullet]
+        \item \textbf{\texttt{n}:} Número de equipo (par).
+        \item \textbf{\texttt{m}:} Número de árbitros disponibles $\mathbf{\mathtt{\left( m>\dfrac{n}{2} \right) }}$.
+        \item \textbf{\texttt{P[i][j]}:} Matriz $n\times m$ que representa la puntuación de preferencia del equipo \textbf{\texttt{i}} por el árbitro \textbf{\texttt{j}}:
+          \begin{itemize}[label=\textbullet]
+            \item \textbf{\texttt{P[i][j]}} alto: el equipo \textbf{\texttt{i}} prefiere al árbitro \textbf{\texttt{j}}.
+            \item \textbf{\texttt{P[i][j]=$-\infty$}:} el árbitro \textbf{\texttt{j}} no puede arbitrar al equipo \textbf{\texttt{j}} (misma región). 
+          \end{itemize}
+      \end{itemize}
+    \item Representación de la solución
+      \begin{itemize}[label=\textbullet]
+        \item La solución se representa como una \textbf{tupla}:
+          \[
+          S=(a_1,a_2,\dots,a_{k})
+          \] 
+          donde $a_k$ es el árbitro asignado al partido  $k$, y  $k=\dfrac{n}{2}$ es el número total de partidos por jornada.
+      \end{itemize}
+    \item Esquema de Backtracking
+      \begin{itemize}[label=\textbullet]
+        \item \textbf{\texttt{Generar}:}
+          \begin{itemize}[label=\textbullet]
+            \item En la posición $k$-ésima (el partido $k$), se intenta asignar un de los \textbf{\texttt{m} árbitros} disponibles que no haya sido asignado aún.
+          \end{itemize}
+        \item \textbf{\texttt{MasHermanos}:}
+          \begin{itemize}[label=\textbullet]
+            \item Un árbitro \textbf{\texttt{j}} tiene \textbf{más hermanos} si existe otro árbitro candidato válido que no haya sido asignado.
+          \end{itemize}
+        \item \textbf{\texttt{Criterio}:}
+          \begin{itemize}[label=\textbullet]
+            \item Se verifica que:
+              \begin{enumerate}[label=\arabic*)]
+                \item El árbitro \textbf{\texttt{j}} no haya sido asignado a ningún partido anterior.
+                \item El árbitro \textbf{\texttt{j}} no tiene preferencia $-\infty$ con los equipos que juegan en el partido \textbf{\texttt{k}}.
+              \end{enumerate}
+          \end{itemize}
+        \item \textbf{\texttt{Solucion}:}
+          \begin{itemize}[label=\textbullet]
+            \item La asignación se completa cuando se asignan árbitros a los \textbf{$\mathbf{\dfrac{n}{2}}$ partidos}. 
+          \end{itemize}
+        \item Función objetivo:
+          \begin{itemize}[label=\textbullet]
+            \item El objetivo es \textbf{maximizar la suma de puntuaciones} de los árbitros asignados según las preferencias de los equipos.
+          \end{itemize}
+      \end{itemize}
+    \item Condición de fin
+      \begin{itemize}[label=\textbullet]
+        \item La condición de fin se alcanza cuando:
+          \begin{itemize}[label=\textbullet]
+            \item Todos los partidos $k=1,\dots,\dfrac{n}{2}$ tienen asignado un árbitro válido.
+          \end{itemize}
+      \end{itemize}
+    \item Implementación del algoritmo
+      \lstinputlisting{"Ejercicio 4.py"}
+    \item Explicación del algoritmo
+      \begin{enumerate}[label=\arabic*)]
+        \item Entrada:
+          \begin{itemize}[label=\textbullet]
+            \item \textbf{\texttt{P}:} Matriz de puntuaciones con preferencias de cada equipo para cada árbitro.
+            \item \textbf{\texttt{partidos}:} Lista con los equipos enfrenteados en cada partido. 
+          \end{itemize}
+        \item Backtracking:
+          \begin{itemize}[label=\textbullet]
+            \item El algoritmo intenta asignar árbitros a cada partido de manera secuencial.
+            \item Verifica si un árbitro es válido con la función \textbf{\texttt{es\_valido}}:
+              \begin{itemize}[label=\textbullet]
+                \item No debe estar asignado aún.
+                \item La puntuación no debe ser $-\infty$ para ninguno de los equipos en el partido.
+              \end{itemize}
+            \item Se actualiza con la puntuación total conforme se asignan árbitros.
+          \end{itemize}
+        \item Condición de Fin:
+          \begin{itemize}[label=\textbullet]
+            \item Si todos los partidos tienen asignado un árbitro, se compara la puntuación total obtenida con la máxima registrada.
+          \end{itemize}
+        \item Solución Óptima:
+          \begin{itemize}[label=\textbullet]
+            \item  Se guarda la asignación que maximiza la puntuación total.
+          \end{itemize}
+      \end{enumerate}
+    \item Ejemplo de salida
+
+      Para la matriz de preferencias y los partidos dados:
+      \begin{verbatim}
+## Mejor puntuación total: 29
+## Asignación de árbitros a partidos: [0, 1]
+      \end{verbatim}
+  \end{enumerate}
+  \end{enumerate}
+\end{document}

@@ -4,13 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="cb3e1152-4c03-4efb-aecf-6750f30e83e5" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.vim/UltiSnips/tex.snippets" beforeDir="false" afterPath="$PROJECT_DIR$/.vim/UltiSnips/tex.snippets" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Apuntes LaTex/1º Curso/Cálculo II/Ejercicios Tema 4/figures/Untitled.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/Apuntes LaTex/1º Curso/Cálculo II/Ejercicios Tema 4/figures/Untitled.ipynb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Prácticas/2º Curso/1º Cuatrimestre/FRD/Práctica 5/Informe Práctica 5.Rmd" beforeDir="false" afterPath="$PROJECT_DIR$/Prácticas/2º Curso/1º Cuatrimestre/FRD/Práctica 5/Informe Práctica 5.Rmd" afterDir="false" />
-    </list>
+    <list default="true" id="cb3e1152-4c03-4efb-aecf-6750f30e83e5" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -71,6 +65,10 @@
     &quot;LaTeX.Examen Diciembre 2023.executor&quot;: &quot;Run&quot;,
     &quot;LaTeX.Examen Enero 2024.executor&quot;: &quot;Run&quot;,
     &quot;LaTeX.Untitled.executor&quot;: &quot;Run&quot;,
+    &quot;Python.Ejercicio 1.executor&quot;: &quot;Run&quot;,
+    &quot;Python.Ejercicio 2.executor&quot;: &quot;Run&quot;,
+    &quot;Python.Ejercicio 3.executor&quot;: &quot;Run&quot;,
+    &quot;Python.Ejercicio 4.executor&quot;: &quot;Run&quot;,
     &quot;Python.Prueba.executor&quot;: &quot;Run&quot;,
     &quot;Python.codigo.executor&quot;: &quot;Run&quot;,
     &quot;Python.prueba.executor&quot;: &quot;Run&quot;,
@@ -98,73 +96,7 @@
     ]
   }
 }</component>
-  <component name="RunManager" selected="LaTeX.Untitled">
-    <configuration name="Ejercicios Tema 4" type="LATEX_RUN_CONFIGURATION" factoryName="LaTeX configuration factory" singleton="false" temporary="true">
-      <texify>
-        <compiler>PDFLATEX</compiler>
-        <compiler-path />
-        <sumatra-path />
-        <pdf-viewer>BUILT-IN-PDF-VIEWER</pdf-viewer>
-        <viewer-command />
-        <compiler-arguments />
-        <envs />
-        <before-run-command />
-        <main-file />
-        <output-path>$PROJECT_DIR$/Apuntes LaTex/1º Curso/Cálculo II/Ejercicios Tema 4</output-path>
-        <auxil-path>$PROJECT_DIR$/Apuntes LaTex/1º Curso/Cálculo II/Ejercicios Tema 4</auxil-path>
-        <compile-twice>false</compile-twice>
-        <output-format>PDF</output-format>
-        <latex-distribution>MIKTEX</latex-distribution>
-        <has-been-run>true</has-been-run>
-        <bib-run-config>[]</bib-run-config>
-        <makeindex-run-config>[]</makeindex-run-config>
-      </texify>
-      <method v="2" />
-    </configuration>
-    <configuration name="Examen Diciembre 2023" type="LATEX_RUN_CONFIGURATION" factoryName="LaTeX configuration factory" temporary="true">
-      <texify>
-        <compiler>PDFLATEX</compiler>
-        <compiler-path />
-        <sumatra-path />
-        <pdf-viewer>NONE</pdf-viewer>
-        <viewer-command />
-        <compiler-arguments />
-        <envs />
-        <before-run-command />
-        <main-file />
-        <output-path>$PROJECT_DIR$/out</output-path>
-        <auxil-path>$PROJECT_DIR$/auxil</auxil-path>
-        <compile-twice>false</compile-twice>
-        <output-format>PDF</output-format>
-        <latex-distribution>MIKTEX</latex-distribution>
-        <has-been-run>true</has-been-run>
-        <bib-run-config>[]</bib-run-config>
-        <makeindex-run-config>[]</makeindex-run-config>
-      </texify>
-      <method v="2" />
-    </configuration>
-    <configuration name="Examen Enero 2024" type="LATEX_RUN_CONFIGURATION" factoryName="LaTeX configuration factory" temporary="true">
-      <texify>
-        <compiler>PDFLATEX</compiler>
-        <compiler-path />
-        <sumatra-path />
-        <pdf-viewer>NONE</pdf-viewer>
-        <viewer-command />
-        <compiler-arguments />
-        <envs />
-        <before-run-command />
-        <main-file>$PROJECT_DIR$/Apuntes LaTex/1º Curso/Cálculo II/Examen Enero 2024/Examen Enero 2024.tex</main-file>
-        <output-path>$PROJECT_DIR$/out</output-path>
-        <auxil-path>$PROJECT_DIR$/auxil</auxil-path>
-        <compile-twice>false</compile-twice>
-        <output-format>PDF</output-format>
-        <latex-distribution>MIKTEX</latex-distribution>
-        <has-been-run>true</has-been-run>
-        <bib-run-config>[]</bib-run-config>
-        <makeindex-run-config>[]</makeindex-run-config>
-      </texify>
-      <method v="2" />
-    </configuration>
+  <component name="RunManager" selected="Python.Ejercicio 4">
     <configuration name="Untitled" type="LATEX_RUN_CONFIGURATION" factoryName="LaTeX configuration factory" temporary="true">
       <texify>
         <compiler>PDFLATEX</compiler>
@@ -187,7 +119,7 @@
       </texify>
       <method v="2" />
     </configuration>
-    <configuration name="Prueba" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+    <configuration name="Ejercicio 1" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="cid-upct" />
       <option name="ENV_FILES" value="" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -196,12 +128,81 @@
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
       <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/Apuntes LaTex/1º Curso/Cálculo II/Ejercicios Tema 4/figures" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/Apuntes LaTex/2º Curso/ADA/Ejercicios Tema 3" />
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Apuntes LaTex/1º Curso/Cálculo II/Ejercicios Tema 4/figures/Prueba.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Apuntes LaTex/2º Curso/ADA/Ejercicios Tema 3/Ejercicio 1.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="Ejercicio 2" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="cid-upct" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/Apuntes LaTex/2º Curso/ADA/Ejercicios Tema 3" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Apuntes LaTex/2º Curso/ADA/Ejercicios Tema 3/Ejercicio 2.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="Ejercicio 3" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="cid-upct" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/Apuntes LaTex/2º Curso/ADA/Ejercicios Tema 3" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Apuntes LaTex/2º Curso/ADA/Ejercicios Tema 3/Ejercicio 3.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="Ejercicio 4" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="cid-upct" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/Apuntes LaTex/2º Curso/ADA/Ejercicios Tema 3" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Apuntes LaTex/2º Curso/ADA/Ejercicios Tema 3/Ejercicio 4.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -218,11 +219,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.Ejercicio 4" />
+        <item itemvalue="Python.Ejercicio 1" />
+        <item itemvalue="Python.Ejercicio 3" />
+        <item itemvalue="Python.Ejercicio 2" />
         <item itemvalue="LaTeX.Untitled" />
-        <item itemvalue="LaTeX.Examen Diciembre 2023" />
-        <item itemvalue="LaTeX.Examen Enero 2024" />
-        <item itemvalue="LaTeX.Ejercicios Tema 4" />
-        <item itemvalue="Python.Prueba" />
       </list>
     </recent_temporary>
   </component>
@@ -274,6 +275,7 @@
       <workItem from="1734349272836" duration="1108000" />
       <workItem from="1734423009202" duration="1662000" />
       <workItem from="1734437050339" duration="870000" />
+      <workItem from="1734453231513" duration="7930000" />
     </task>
     <task id="LOCAL-00001" summary="Tarea 5 FRD terminado">
       <option name="closed" value="true" />
@@ -427,7 +429,15 @@
       <option name="project" value="LOCAL" />
       <updated>1734299931556</updated>
     </task>
-    <option name="localTasksCounter" value="20" />
+    <task id="LOCAL-00020" summary="Ejercicios Tema 3 ADA">
+      <option name="closed" value="true" />
+      <created>1734461499737</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1734461499738</updated>
+    </task>
+    <option name="localTasksCounter" value="21" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -464,11 +474,16 @@
     <MESSAGE value="Ajustes en la carpeta de Optimización II" />
     <MESSAGE value="Capítulo 1 Tema 3 terminado, hasta el ejercicio 6 capítulo 2 Cálculo II&#10;Merge pull request #77 from imhosseinzadeh/imhosseinzadeh-docs-correct-vim-plug-keyword&#10;&#10;fix vim-plug installation part issue" />
     <MESSAGE value="Examen Enero 2024 Cálculo II" />
-    <option name="LAST_COMMIT_MESSAGE" value="Examen Enero 2024 Cálculo II" />
+    <MESSAGE value="Ejercicios Tema 3 ADA" />
+    <option name="LAST_COMMIT_MESSAGE" value="Ejercicios Tema 3 ADA" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/Untitled_ipynb$Prueba.coverage" NAME="Prueba Coverage Results" MODIFIED="1734196348436" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Apuntes LaTex/1º Curso/Cálculo II/Ejercicios Tema 4/figures" />
+    <SUITE FILE_PATH="coverage/Untitled_ipynb$Ejercicio_1.coverage" NAME="Ejercicio 1 Coverage Results" MODIFIED="1734459618111" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Apuntes LaTex/2º Curso/ADA/Ejercicios Tema 3" />
+    <SUITE FILE_PATH="coverage/Untitled_ipynb$Ejercicio_3.coverage" NAME="Ejercicio 3 Coverage Results" MODIFIED="1734459615291" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Apuntes LaTex/2º Curso/ADA/Ejercicios Tema 3" />
     <SUITE FILE_PATH="coverage/Untitled_ipynb$codigo.coverage" NAME="codigo Coverage Results" MODIFIED="1734078351982" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Apuntes LaTex/2º Curso/Optimización II/Apuntes Tema 11" />
+    <SUITE FILE_PATH="coverage/Untitled_ipynb$Ejercicio_2.coverage" NAME="Ejercicio 2 Coverage Results" MODIFIED="1734454149171" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Apuntes LaTex/2º Curso/ADA/Ejercicios Tema 3" />
     <SUITE FILE_PATH="coverage/mecanicos_y_averias_b_py$prueba.coverage" NAME="prueba Coverage Results" MODIFIED="1732907101158" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/Untitled_ipynb$Ejercicio_4.coverage" NAME="Ejercicio 4 Coverage Results" MODIFIED="1734461246572" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Apuntes LaTex/2º Curso/ADA/Ejercicios Tema 3" />
   </component>
 </project>
