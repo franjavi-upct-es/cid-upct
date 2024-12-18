@@ -1,0 +1,90 @@
+\input{../../../Macros.tex}
+
+\lstset{
+language=Python,
+basicstyle=\ttfamily\small,
+numberstyle=\tiny,
+keywordstyle=\color{blue},
+commentstyle=\color{olive},
+stringstyle=\color{red},
+breakatwhitespace=false, 
+breaklines=true,
+showspaces=false,
+showstringspaces=false,
+showtabs=false, 
+tabsize=2,
+literate={á}{{\'a}}1 {é}{{\'e}}1 {í}{{\'i}}1 {ó}{{\'o}}1 {ú}{{\'u}}1{ñ}{{\~n}}1 {Á}{{\'A}}1 {Í}{{\'I}}1,
+mathescape=false,
+backgroundcolor=\color{lightgray!10},
+}
+\title{Análisis y Diseño de Algoritmos\\Ejercicios Tema 4}
+
+\begin{document}
+\maketitle
+\begin{enumerate}[label=\color{red}\textbf{\arabic*)}]
+  \item \lb{Diseñar un algoritmo para calcular el mayor y el segundo mayor elemento de un array de enteros utilizando la técnica divide y venceras.\newline
+    Calcular el número de comparaciones realizadas en el peor y el mejor caso suponenido \textbf{\texttt{n}} potencia de 2.\newline
+  ¿Sería el orden obtenido extrapolable a un \textbf{\texttt{n}} que no sea potencia de 2?} 
+  \begin{enumerate}[label=\arabic*)]
+        \item  Algoritmo de Divide y Vencerás
+
+          La idea principal es dividir el problema en subproblemas más pequeños, resolverlos y luego cominar las soluciones.
+
+          \textbf{Esquema General:}
+          \begin{enumerate}[label=\arabic*)]
+            \item División:
+              \begin{itemize}[label=\textbullet]
+                \item Divide el arreglo en dos mitades iguales.
+              \end{itemize}
+            \item Conquista:
+              \begin{itemize}[label=\textbullet]
+                \item Encuentra el mayor y el segundo mayor en cada mitad de forma recursiva.
+              \end{itemize}
+              \begin{itemize}[label=\textbullet]
+                \item Combinación:
+                  \begin{itemize}[label=\textbullet]
+                    \item Combina las soluciones de las dos mitades:
+                      \begin{itemize}[label=\textbullet]
+                        \item El mayor de las dos mitades es el mayor global.
+                        \item El segundo mayor será el mayor de:
+                          \begin{itemize}[label=\textbullet]
+                            \item El segundo mayor de la mitad que contiene el mayor global.
+                            \item El mayor de la otra mitad
+                          \end{itemize}
+                      \end{itemize}
+                  \end{itemize}
+              \end{itemize}
+          \end{enumerate}
+              \textbf{Implementación} 
+    \lstinputlisting{"Ejercicio 1.py"}
+  \item Análisis del número de comparaciones
+
+    \textbf{Peor caso y mejor caso}
+
+    El número de comparaciones es el mismo en el peor y el mejor caso, ya que cada división implica el mismo número de subproblemas y combinaciones.
+    \begin{enumerate}[label=\arabic*)]
+      \item Caso base:
+        \begin{itemize}[label=\textbullet]
+          \item Para $n=2$: Se realiza una única comparación.
+        \end{itemize}
+      \item Generalización para $n=2^{k}$:
+        \begin{itemize}[label=\textbullet]
+          \item Hay $n-1$ comparaciones para encontrar el mayor (esto se debe a que cada elemento pierde contra el mayor exactamente una vez).
+          \item Hay $\log_2(n)-1$ comparaciones adicionales para encontrar el segundo mayor, porque el segundo mayor es el que pierde contra el mayor en el "torneo".
+
+            \textbf{Total de comparaciones:} \[
+            T(n)=(n-1)(log_2(n)-1)=n\log_2(n)-2.
+            \]  
+        \end{itemize}
+    \end{enumerate}
+  \item Orden para $n$ no potencia de 2
+
+    Cuando  $n$ no es potencia de 2, el algoritmo sigue siendo aplicable:
+     \begin{enumerate}[label=\arabic*)]
+      \item Se rellena el arreglo con elementos adiciones $(-\infty)$ para completar una potencia de 2.
+      \item Las comparaciones adicionales no afectan significativamente el orden del algoritmo, ya que $T(n)=O(n+\log_2(n))$ sigue siendo válido.
+    \end{enumerate}
+  \end{enumerate}
+\item 
+\end{enumerate}
+\end{document}
