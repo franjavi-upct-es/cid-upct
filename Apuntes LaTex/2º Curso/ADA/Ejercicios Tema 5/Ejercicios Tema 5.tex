@@ -46,7 +46,32 @@ Conociendo el resultado puede er calculado también con la fórmula: $\dfrac{n!}
 
   \item \lb{Una agencia de turismo realiza planificaciones de viajes aéreos. Para ir de una ciudad \textbf{\texttt{A}} a \textbf{\texttt{B}}  puede ser necesario coger varios vuelos distintos. El tiempo de un vuelo directo desde  \textbf{\texttt{I}} hasta \textbf{\texttt{J}} ser´á  \textbf{\texttt{T[i,j]}}. Hay que tener en cuenta que si cogemos un vuelo (de \textbf{\texttt{A}} a \textbf{\texttt{B}}) y después otro (de \textbf{\texttt{B}} a \textbf{\texttt{C}}) será  necesario esperar un tiempo de "escala" adicional en el aeropuesto (almacenado en \textbf{\texttt{E[A, B, C]}}).}
     \begin{enumerate}[label=\color{red}\alph*)]
-      \item 
+      \item \db{Diseñar una solución para resolver este problema utilizando programación dinámica. Explicar cómo, a partir de las tablas, se puede obtener el conjunto de vuelos necesarios para hacer un viaje concreto.}
+      \item \db{Mostrar la ejecución del algoritmo sobre la siguiente matriz \textbf{\texttt{T}}, suponiendo que todos los \textbf{\texttt{E[A, B , C]}} tienen valor 1. ¿Cuál es el orden de complejidad del algoritmo?
+
+              \begin{tabular}{|c|c|c|c|c|}
+              \hline
+              \textbf{\texttt{T[i,j]}} & \textbf{\texttt{A}} & \textbf{\texttt{B}} & \textbf{\texttt{C}} & \textbf{\texttt{D}}\\ \hline
+              \textbf{\texttt{A}} & - & 2 & 1 & 3\\ \hline
+              \textbf{\texttt{B}} & 2 & 2 & - & 1\\ \hline
+              \textbf{\texttt{D}} & 3 & 4 & 8 & -\\ \hline
+\end{tabular}}
     \end{enumerate}
+
+\item \lb{Supongamos una serie de \textbf{\texttt{n}} trabajos denominados \textbf{\texttt{a, b, c, \dots}} y una tabla \textbf{\texttt{B[1..n, 1..n]}}, en la que cada posición \textbf{\texttt{B[i,j]}} almacena el beneficio de ejecutar el trabajo \textbf{\texttt{i}}  y a continuación el trabajo \textbf{\texttt{j}}. Se quiere encontrar la sucesión de \textbf{\texttt{m}} trabajos que dé un beneficio óptimo. No hay límite en el número de veces que se puede ejecutar un trabajo concreto.}
+        \begin{enumerate}[label=\color{red}\alph*)]
+                \item \db{Idear un algoritmo por programación dinámica que resuelva el problema. Para ello, definir un subproblema (que permita realiza la combinación de problemas pequeños para resolver problemas grandes), especifica la ecuación de recurrencia para el mismo (con sus cosas base) y después describe las tablas necesarias y cómo son rellenadas.}
+                \item \db{Ejecutar el algoritmo sobre la siguiente tabla, suponiendo que  \textbf{\texttt{m=5}}.
+                                \begin{tabular}{|c|c|c|c|}
+        \hline
+        \textbf{\texttt{B[i,j]}} & \textbf{\texttt{a}} & \textbf{\texttt{b}} & \textbf{\texttt{c}} \\ \hline
+        \textbf{\texttt{A}}  & 2 & 2 & 5\\ \hline
+        \textbf{\texttt{B}}  & 4 & 1 & 3\\ \hline
+        \textbf{\texttt{C}}  & 3 & 2 & 2\\ \hline
+\end{tabular}
+                        } 
+                \item \db{Estimar el tiempo de ejecución del algoritmo. El tiempo estimado ¿es un orden exacto o una cota superior del peor caso?} 
+        \end{enumerate}
+\item \lb{Resolver el siguiente problema con programación dinámica. Tenemos un conjunto de \textbf{\texttt{n}} objetos, cada uno con un peso $\mathbf{\mathtt{p=(p_1,p_2,...,p_n)}}$. El objetivo es repartir los objetos entre dos montones diferentes, de manera que queden lo más equilibrados posible en peso. Esto es, se debe minimizar la diferencia entre los pesos totales de ambos montones. Aplciar sobre el ejemplo con \textbf{\texttt{n=4}} y \textbf{\texttt{p=(2,1,3,4)}}.} 
 \end{enumerate}
 \end{document}
