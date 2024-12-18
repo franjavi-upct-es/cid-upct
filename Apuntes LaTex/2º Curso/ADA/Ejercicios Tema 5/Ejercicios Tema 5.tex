@@ -1,0 +1,40 @@
+\input{../../../Macros.tex}
+\setlistdepth{9}
+\lstset{
+   language=Python,
+   basicstyle=\ttfamily\small,
+   numberstyle=\tiny,
+   keywordstyle=\color{blue},
+   commentstyle=\color{olive},
+   stringstyle=\color{red},
+   breakatwhitespace=false, 
+   breaklines=true,
+   showspaces=false,
+   showstringspaces=false,
+   showtabs=false, 
+   tabsize=2,
+   literate={á}{{\'a}}1 {é}{{\'e}}1 {í}{{\'i}}1 {ó}{{\'o}}1 {ú}{{\'u}}1{ñ}{{\~n}}1 {Á}{{\'A}}1 {Í}{{\'I}}1,
+   mathescape=false,
+   backgroundcolor=\color{lightgray!10},   
+}
+\title{Análisis y Diseño de Algoritmos\\Ejercicios Tema 4}
+
+\begin{document}
+\begin{enumerate}[label=\color{red}\textbf{\arabic*)}]
+  \item \lb{En el problema de la mochila (igual que en el problema del cambio de monedas) puede existir en general más de un solución óptima para unas entradas determinadas. ¿Cómo se puede comprobar si una solución óptima es única o no, suponiendo que hemos resuelto el problema utilizando programación dinámica? Dar un algoritmo para que, a paritr de las tablas resultantes del problema de la mochila, muestre todas las soluciones óptimas.}
+  \item \lb{El número de combinaciones de \textbf{\texttt{m}} objetos entre un conjunto de \textbf{\texttt{n}}, denotado por $\dbinom{n}{m}$, para $n\le 1$ y $0\le m\le n$, se puede definir recurisvamente por: \[
+  \begin{array}{ll}
+    \dbinom{n}{m}=1 & \text{Si $m=0$ ó  $m=n$}\\
+    \dbinom{n}{m}=\dbinom{n-1}{m}+\dbinom{n-1}{m-1}& \text{Si }0<m<n
+  \end{array}
+  \]
+Conociendo el resultado puede er calculado también con la fórmula: $\dfrac{n!}{m!\cdot (n-m)!}$}
+\begin{enumerate}[label=\color{red}\alph*)]
+  \item \db{Dar una función recursiva para calcular $\dibnom{n}{m}$, usando la primera de las definiciones. ¿Cuál será el orden de complejidad de este algoritmo? Sugerencia: la respuesta es inmediata.}
+  \item \db{Diseñar un algoritmo de programación dinámica para calcular $\dbinom{n}{m}$. Nota: la tabla construida por el algoritmo es conocida como "el triángulo de Pasca". ¿Cuál será el tiempo de ejecución en este caso?} 
+\end{enumerate}
+\item \lb{Considerar el problema de la mochila 0/1. En este ejercicio estamos interesados en calcular el número de formas distintas de meter o no los objetos en la mochila, pero respetando la capcaidad máxima de la mochila. Por ejemplo, si todos los \textbf{\texttt{n}} objetos cupieran en la mochila, existirían $\mathbf{\mathtt{2^n}}$ formas posibles. Pero en general, si no caben todos, habrán muchas menos. Resolver mediante programación dinámica el problema de calcular el número de formas distintas de completar total o parcialmente la mochila. Datos del problema: \textbf{\texttt{n}} objetos, \textbf{\texttt{M}} capacidad de la mochila, $\mathbf{\mathtt{p=(p1,p2,\dots,p_n)}}$ pesos de los objetos.} 
+        
+\item \lb{Una variante del problema de la mochila es la siguiente. Tenemos un conjunto de enteros (positivos) $A=\{a_1,a_2,\dots,a_n\} $ y un entero $K$. El objetico es encontrar si existe algún subconjunto de  $A$ cuya suma sea exactamente  $K$.} 
+\end{enumerate}
+\end{document}
