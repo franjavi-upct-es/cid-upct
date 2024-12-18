@@ -38,7 +38,25 @@ Para determinar si una solución óptima al problema de la mochila es única y m
 \item El valor óptimo se encuentra en \textbf{\texttt{dp[n][W]}}, donde $n$ es el número de elementos y $W$ es la capacidad máxima de la mochila.
 \end{itemize}
 \item Rastrea todas la soluciones posibles:
-\begin{itemize}
+ \begin{itemize}[label=\textbullet]
+   \item  A partir de \textbf{\texttt{dp[n][W]}}, rastrea todas las combinaciones de elementos que generan el valor \textbf{\texttt{dp[n][W]}}.
+   \item Para cada elemento \textbf{\texttt{i}}, verifica si está incluido en la solución utilizando la condición: 
+     \begin{center}
+       \textbf{\texttt{dp[i][w]=dp[i-1][w]}} o \textbf{\texttt{dp[i][w]=dp[i-1][w-peso[i]] + valor[i]}}.  
+     \end{center}
+   \item Si el elemento puede estar incluido, explora ambas posibilidades (incluirlo y no incluirlo).
+ \end{itemize}
+  \item Construye todas las combinaciones:
+    \begin{itemize}[label=\textbullet]
+      \item Usa una búsqueda recursiva o iterativa para explorar todas las combinaciones posibles.
+      \item Si llegas a un peso \textbf{\texttt{w=0}} o \textbf{\texttt{i=0}}, almacena la combinación como una solución válida.
+    \end{itemize}
+  \item Verifica unicidad:
+    \begin{itemize}[label=\textbullet]
+      \item Si encuentras más de una solución válida, la solución no es única. Si solo encuentras una solución, es única.
+    \end{itemize}
+
+    
 \end{enumerate}
   \item \lb{El número de combinaciones de \textbf{\texttt{m}} objetos entre un conjunto de \textbf{\texttt{n}}, denotado por $\dbinom{n}{m}$, para $n\le 1$ y $0\le m\le n$, se puede definir recurisvamente por: \[
   \begin{array}{ll}
@@ -55,14 +73,14 @@ Conociendo el resultado puede er calculado también con la fórmula: $\dfrac{n!}
         
 \item \lb{Una variante del problema de la mochila es la siguiente. Tenemos un conjunto de enteros (positivos) $A=\{a_1,a_2,\dots,a_n\} $ y un entero $K$. El objetico es encontrar si existe algún subconjunto de  $A$ cuya suma sea exactamente  $K$.}
   \begin{enumerate}[label=\color{red}\textbf{\arabic*)}]
-    \item \db{Desarrollar un algoritmo para resolver este problema, utilizando programación  dinámica. ¿Cuál  es el orden de complejidad de este algoritmo?}
-    \item \db{Mostrar cómo  se puede obtener el conjunto de objetos resultantes (en caso de existir solución) a partir de las tablas utilizadas por el algoritmo.}
+    \item \db{Desarrollar un algoritmo para resolver este problema, utilizando programación dinámica. ¿Cuál es el orden de complejidad de este algoritmo?}
+    \item \db{Mostrar cómo se puede obtener el conjunto de objetos resultantes (en caso de existir solución) a partir de las tablas utilizadas por el algoritmo.}
     \item \db{Aplicar el algoritmo sobre el siguiente ejemplo $A=\{2,3,5,2\},\, K=7 $. ¿Cómo se puede comprobar que la solución no es única?} 
   \end{enumerate}
-\item \lb{En el problema de la mochila 0/1 disponemos de dos mochilas, con capacidades \textbf{\texttt{M1}} y \textbf{\texttt{M2}}. El objetivo es maxmizar la suma de beneficios de los objetos transportados en ambas mochilas, respetando las capacidades de cada una. Resolver el problema mediante programación  dinámica, definiendo la ecuación  recurrente, las tablas usadas y el algoritmo para rellenarlas.\newline
+\item \lb{En el problema de la mochila 0/1 disponemos de dos mochilas, con capacidades \textbf{\texttt{M1}} y \textbf{\texttt{M2}}. El objetivo es maxmizar la suma de beneficios de los objetos transportados en ambas mochilas, respetando las capacidades de cada una. Resolver el problema mediante programación dinámica, definiendo la ecuación recurrente, las tablas usadas y el algoritmo para rellenarlas.\newline
     Datos del problema: \textbf{\texttt{n}} objetos, \textbf{\texttt{M1}} capacidad de la mochila 1, \textbf{\texttt{M2}} capacidad de la mochila 2, $\mathbf{\mathtt{p=(p_1,p_2,\dots,p_n)}}$ pesos de los objetos, $\mathbf{\mathtt{b=(b_1,b_2,\dots,b_n)}}$ beneficios de los objetos.}
 
-  \item \lb{Una agencia de turismo realiza planificaciones de viajes aéreos. Para ir de una ciudad \textbf{\texttt{A}} a \textbf{\texttt{B}}  puede ser necesario coger varios vuelos distintos. El tiempo de un vuelo directo desde  \textbf{\texttt{I}} hasta \textbf{\texttt{J}} ser´á  \textbf{\texttt{T[i,j]}}. Hay que tener en cuenta que si cogemos un vuelo (de \textbf{\texttt{A}} a \textbf{\texttt{B}}) y después otro (de \textbf{\texttt{B}} a \textbf{\texttt{C}}) será  necesario esperar un tiempo de "escala" adicional en el aeropuesto (almacenado en \textbf{\texttt{E[A, B, C]}}).}
+  \item \lb{Una agencia de turismo realiza planificaciones de viajes aéreos. Para ir de una ciudad \textbf{\texttt{A}} a \textbf{\texttt{B}}  puede ser necesario coger varios vuelos distintos. El tiempo de un vuelo directo desde  \textbf{\texttt{I}} hasta \textbf{\texttt{J}} será \textbf{\texttt{T[i,j]}}. Hay que tener en cuenta que si cogemos un vuelo (de \textbf{\texttt{A}} a \textbf{\texttt{B}}) y después otro (de \textbf{\texttt{B}} a \textbf{\texttt{C}}) será necesario esperar un tiempo de "escala" adicional en el aeropuesto (almacenado en \textbf{\texttt{E[A, B, C]}}).}
     \begin{enumerate}[label=\color{red}\alph*)]
       \item \db{Diseñar una solución para resolver este problema utilizando programación dinámica. Explicar cómo, a partir de las tablas, se puede obtener el conjunto de vuelos necesarios para hacer un viaje concreto.}
       \item \db{Mostrar la ejecución del algoritmo sobre la siguiente matriz \textbf{\texttt{T}}, suponiendo que todos los \textbf{\texttt{E[A, B , C]}} tienen valor 1. ¿Cuál es el orden de complejidad del algoritmo?
