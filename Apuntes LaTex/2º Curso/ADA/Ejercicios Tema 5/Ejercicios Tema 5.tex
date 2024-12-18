@@ -35,6 +35,18 @@ Conociendo el resultado puede er calculado también con la fórmula: $\dfrac{n!}
 \end{enumerate}
 \item \lb{Considerar el problema de la mochila 0/1. En este ejercicio estamos interesados en calcular el número de formas distintas de meter o no los objetos en la mochila, pero respetando la capcaidad máxima de la mochila. Por ejemplo, si todos los \textbf{\texttt{n}} objetos cupieran en la mochila, existirían $\mathbf{\mathtt{2^n}}$ formas posibles. Pero en general, si no caben todos, habrán muchas menos. Resolver mediante programación dinámica el problema de calcular el número de formas distintas de completar total o parcialmente la mochila. Datos del problema: \textbf{\texttt{n}} objetos, \textbf{\texttt{M}} capacidad de la mochila, $\mathbf{\mathtt{p=(p1,p2,\dots,p_n)}}$ pesos de los objetos.} 
         
-\item \lb{Una variante del problema de la mochila es la siguiente. Tenemos un conjunto de enteros (positivos) $A=\{a_1,a_2,\dots,a_n\} $ y un entero $K$. El objetico es encontrar si existe algún subconjunto de  $A$ cuya suma sea exactamente  $K$.} 
+\item \lb{Una variante del problema de la mochila es la siguiente. Tenemos un conjunto de enteros (positivos) $A=\{a_1,a_2,\dots,a_n\} $ y un entero $K$. El objetico es encontrar si existe algún subconjunto de  $A$ cuya suma sea exactamente  $K$.}
+  \begin{enumerate}[label=\color{red}\textbf{\arabic*)}]
+    \item \db{Desarrollar un algoritmo para resolver este problema, utilizando programación  dinámica. ¿Cuál  es el orden de complejidad de este algoritmo?}
+    \item \db{Mostrar cómo  se puede obtener el conjunto de objetos resultantes (en caso de existir solución) a partir de las tablas utilizadas por el algoritmo.}
+    \item \db{Aplicar el algoritmo sobre el siguiente ejemplo $A=\{2,3,5,2\},\, K=7 $. ¿Cómo se puede comprobar que la solución no es única?} 
+  \end{enumerate}
+\item \lb{En el problema de la mochila 0/1 disponemos de dos mochilas, con capacidades \textbf{\texttt{M1}} y \textbf{\texttt{M2}}. El objetivo es maxmizar la suma de beneficios de los objetos transportados en ambas mochilas, respetando las capacidades de cada una. Resolver el problema mediante programación  dinámica, definiendo la ecuación  recurrente, las tablas usadas y el algoritmo para rellenarlas.\newline
+    Datos del problema: \textbf{\texttt{n}} objetos, \textbf{\texttt{M1}} capacidad de la mochila 1, \textbf{\texttt{M2}} capacidad de la mochila 2, $\mathbf{\mathtt{p=(p_1,p_2,\dots,p_n)}}$ pesos de los objetos, $\mathbf{\mathtt{b=(b_1,b_2,\dots,b_n)}}$ beneficios de los objetos.}
+
+  \item \lb{Una agencia de turismo realiza planificaciones de viajes aéreos. Para ir de una ciudad \textbf{\texttt{A}} a \textbf{\texttt{B}}  puede ser necesario coger varios vuelos distintos. El tiempo de un vuelo directo desde  \textbf{\texttt{I}} hasta \textbf{\texttt{J}} ser´á  \textbf{\texttt{T[i,j]}}. Hay que tener en cuenta que si cogemos un vuelo (de \textbf{\texttt{A}} a \textbf{\texttt{B}}) y después otro (de \textbf{\texttt{B}} a \textbf{\texttt{C}}) será  necesario esperar un tiempo de "escala" adicional en el aeropuesto (almacenado en \textbf{\texttt{E[A, B, C]}}).}
+    \begin{enumerate}[label=\color{red}\alph*)]
+      \item 
+    \end{enumerate}
 \end{enumerate}
 \end{document}
