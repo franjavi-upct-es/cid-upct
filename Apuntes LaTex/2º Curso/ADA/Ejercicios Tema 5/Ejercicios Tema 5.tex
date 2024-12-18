@@ -17,11 +17,29 @@
    mathescape=false,
    backgroundcolor=\color{lightgray!10},   
 }
-\title{Análisis y Diseño de Algoritmos\\Ejercicios Tema 4}
+\title{Análisis y Diseño de Algoritmos\\Ejercicios Tema 5}
 
 \begin{document}
+\maketitle
 \begin{enumerate}[label=\color{red}\textbf{\arabic*)}]
   \item \lb{En el problema de la mochila (igual que en el problema del cambio de monedas) puede existir en general más de un solución óptima para unas entradas determinadas. ¿Cómo se puede comprobar si una solución óptima es única o no, suponiendo que hemos resuelto el problema utilizando programación dinámica? Dar un algoritmo para que, a paritr de las tablas resultantes del problema de la mochila, muestre todas las soluciones óptimas.}
+
+Para determinar si una solución óptima al problema de la mochila es única y mostrar toas las soluciones óptimas, se puede utilziar el siguiente engoque basado en tablas generadas por el algoritmo de programación dinámica.
+
+\textbf{Algoritmo}
+
+\begin{enumerate}[label=\arabic*)]
+\item Resuelve el problema de la mochila usando programación dinámica:
+\begin{itemize}[label=\textbullet]
+\item Construye la tabla \textbf{\texttt{dp[i][w]}}, donde \textbf{\texttt{dp[i][w]}} es el valor máximo que se puede obtener utilizando los primeros \textbf{\texttt{i}} elementos y un peso máximo \textbf{\texttt{w}}.
+\end{itemize}
+\item Encuentra el valor óptimo:
+\begin{itemize}[label=\textbullet]
+\item El valor óptimo se encuentra en \textbf{\texttt{dp[n][W]}}, donde $n$ es el número de elementos y $W$ es la capacidad máxima de la mochila.
+\end{itemize}
+\item Rastrea todas la soluciones posibles:
+\begin{itemize}
+\end{enumerate}
   \item \lb{El número de combinaciones de \textbf{\texttt{m}} objetos entre un conjunto de \textbf{\texttt{n}}, denotado por $\dbinom{n}{m}$, para $n\le 1$ y $0\le m\le n$, se puede definir recurisvamente por: \[
   \begin{array}{ll}
     \dbinom{n}{m}=1 & \text{Si $m=0$ ó  $m=n$}\\
@@ -30,7 +48,7 @@
   \]
 Conociendo el resultado puede er calculado también con la fórmula: $\dfrac{n!}{m!\cdot (n-m)!}$}
 \begin{enumerate}[label=\color{red}\alph*)]
-  \item \db{Dar una función recursiva para calcular $\dibnom{n}{m}$, usando la primera de las definiciones. ¿Cuál será el orden de complejidad de este algoritmo? Sugerencia: la respuesta es inmediata.}
+  \item \db{Dar una función recursiva para calcular $\dbinom{n}{m}$, usando la primera de las definiciones. ¿Cuál será el orden de complejidad de este algoritmo? Sugerencia: la respuesta es inmediata.}
   \item \db{Diseñar un algoritmo de programación dinámica para calcular $\dbinom{n}{m}$. Nota: la tabla construida por el algoritmo es conocida como "el triángulo de Pasca". ¿Cuál será el tiempo de ejecución en este caso?} 
 \end{enumerate}
 \item \lb{Considerar el problema de la mochila 0/1. En este ejercicio estamos interesados en calcular el número de formas distintas de meter o no los objetos en la mochila, pero respetando la capcaidad máxima de la mochila. Por ejemplo, si todos los \textbf{\texttt{n}} objetos cupieran en la mochila, existirían $\mathbf{\mathtt{2^n}}$ formas posibles. Pero en general, si no caben todos, habrán muchas menos. Resolver mediante programación dinámica el problema de calcular el número de formas distintas de completar total o parcialmente la mochila. Datos del problema: \textbf{\texttt{n}} objetos, \textbf{\texttt{M}} capacidad de la mochila, $\mathbf{\mathtt{p=(p1,p2,\dots,p_n)}}$ pesos de los objetos.} 
@@ -48,20 +66,33 @@ Conociendo el resultado puede er calculado también con la fórmula: $\dfrac{n!}
     \begin{enumerate}[label=\color{red}\alph*)]
       \item \db{Diseñar una solución para resolver este problema utilizando programación dinámica. Explicar cómo, a partir de las tablas, se puede obtener el conjunto de vuelos necesarios para hacer un viaje concreto.}
       \item \db{Mostrar la ejecución del algoritmo sobre la siguiente matriz \textbf{\texttt{T}}, suponiendo que todos los \textbf{\texttt{E[A, B , C]}} tienen valor 1. ¿Cuál es el orden de complejidad del algoritmo?
+<<<<<<< HEAD
 
+=======
+\begin{center}
+>>>>>>> 455d1cc79fcd0d2377e3f2b59c4513a9e6de2b91
               \begin{tabular}{|c|c|c|c|c|}
               \hline
               \textbf{\texttt{T[i,j]}} & \textbf{\texttt{A}} & \textbf{\texttt{B}} & \textbf{\texttt{C}} & \textbf{\texttt{D}}\\ \hline
               \textbf{\texttt{A}} & - & 2 & 1 & 3\\ \hline
               \textbf{\texttt{B}} & 2 & 2 & - & 1\\ \hline
               \textbf{\texttt{D}} & 3 & 4 & 8 & -\\ \hline
+<<<<<<< HEAD
 \end{tabular}}
+=======
+\end{tabular}
+\end{center}}
+>>>>>>> 455d1cc79fcd0d2377e3f2b59c4513a9e6de2b91
     \end{enumerate}
 
 \item \lb{Supongamos una serie de \textbf{\texttt{n}} trabajos denominados \textbf{\texttt{a, b, c, \dots}} y una tabla \textbf{\texttt{B[1..n, 1..n]}}, en la que cada posición \textbf{\texttt{B[i,j]}} almacena el beneficio de ejecutar el trabajo \textbf{\texttt{i}}  y a continuación el trabajo \textbf{\texttt{j}}. Se quiere encontrar la sucesión de \textbf{\texttt{m}} trabajos que dé un beneficio óptimo. No hay límite en el número de veces que se puede ejecutar un trabajo concreto.}
         \begin{enumerate}[label=\color{red}\alph*)]
                 \item \db{Idear un algoritmo por programación dinámica que resuelva el problema. Para ello, definir un subproblema (que permita realiza la combinación de problemas pequeños para resolver problemas grandes), especifica la ecuación de recurrencia para el mismo (con sus cosas base) y después describe las tablas necesarias y cómo son rellenadas.}
                 \item \db{Ejecutar el algoritmo sobre la siguiente tabla, suponiendo que  \textbf{\texttt{m=5}}.
+<<<<<<< HEAD
+=======
+\begin{center}
+>>>>>>> 455d1cc79fcd0d2377e3f2b59c4513a9e6de2b91
                                 \begin{tabular}{|c|c|c|c|}
         \hline
         \textbf{\texttt{B[i,j]}} & \textbf{\texttt{a}} & \textbf{\texttt{b}} & \textbf{\texttt{c}} \\ \hline
@@ -69,9 +100,23 @@ Conociendo el resultado puede er calculado también con la fórmula: $\dfrac{n!}
         \textbf{\texttt{B}}  & 4 & 1 & 3\\ \hline
         \textbf{\texttt{C}}  & 3 & 2 & 2\\ \hline
 \end{tabular}
+<<<<<<< HEAD
                         } 
                 \item \db{Estimar el tiempo de ejecución del algoritmo. El tiempo estimado ¿es un orden exacto o una cota superior del peor caso?} 
         \end{enumerate}
 \item \lb{Resolver el siguiente problema con programación dinámica. Tenemos un conjunto de \textbf{\texttt{n}} objetos, cada uno con un peso $\mathbf{\mathtt{p=(p_1,p_2,...,p_n)}}$. El objetivo es repartir los objetos entre dos montones diferentes, de manera que queden lo más equilibrados posible en peso. Esto es, se debe minimizar la diferencia entre los pesos totales de ambos montones. Aplciar sobre el ejemplo con \textbf{\texttt{n=4}} y \textbf{\texttt{p=(2,1,3,4)}}.} 
+=======
+\end{center}
+                        } 
+                \item \db{Estimar el tiempo de ejecución del algoritmo. El tiempo estimado ¿es un orden exacto o una cota superior del peor caso?} 
+        \end{enumerate}
+\item \lb{Resolver el siguiente problema con programación dinámica. Tenemos un conjunto de \textbf{\texttt{n}} objetos, cada uno con un peso $\mathbf{\mathtt{p=(p_1,p_2,...,p_n)}}$. El objetivo es repartir los objetos entre dos montones diferentes, de manera que queden lo más equilibrados posible en peso. Esto es, se debe minimizar la diferencia entre los pesos totales de ambos montones. Aplciar sobre el ejemplo con \textbf{\texttt{n=4}} y \textbf{\texttt{p=(2,1,3,4)}}.}
+
+\item \lb{Nos vamos de comprar al mercado. Tenemos \textbf{\texttt{K}} euros en el bolsillo y una lista de \textbf{\texttt{m}} productos que podemos comprar. Cada producto tiene un precio $\mathbf{\mathtt{p_i}}$ (que será simpre un número entero), y una utilidad, $\mathbf{\mathtt{u_i}}$. De cada producto podemos comprar como máximo 3 unidades. Además, tenemos una oferta según según la cual la segunda unidad nos cuesta 1 euro menos, y la tercera 2 euros menos. Queremos elegir los productos a comprar, maximizando la utilidad de los productos comprados. Resolver el problema por programación dinámica, indicando la ecuación recurrene, con sus casos base, las tablas, el algoritmo para rellenarlas y la forma de componer la solución a partir de las tablas.}
+
+\item \lb{Resolver el siguiente problema usando programación dinámica. Dada una secuencia de enteros positivos $\mathbf{\mathtt{(a_1,a_2,a_3,\dots,a_n)}}$, encontrar la subsecuencia creciente más larga de elementos no necesariamente consecutivos. Es decir, encontrar una subseuencia $\mathbf{\mathtt{(a_{i1}, a_{i2}, \dots,a_{ik})}}$, con $\mathbf{\mathtt{(a_{i1}< a_{i2}< \cdots< a_{ik})}}$ y $\mathbf{\mathtt{(1\le i1<i2<\cdots<ik\le n)}}$. Por ejemplo, para la siguiente secuencia la solución sería longitud 6 (formada por los números señalados en negrita): 3, \textbf{1}, 3, \textbf{2}, \textbf{3}, 8, \textbf{4}, 7, \textbf{5}, 4, \textbf{6}.}
+
+
+>>>>>>> 455d1cc79fcd0d2377e3f2b59c4513a9e6de2b91
 \end{enumerate}
 \end{document}
