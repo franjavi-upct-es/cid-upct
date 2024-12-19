@@ -568,10 +568,169 @@ Tabla \textbf{\texttt{B}}: \[
         
 \item \lb{Resolver el siguiente problema con programación dinámica. Tenemos un conjunto de \textbf{\texttt{n}} objetos, cada uno con un peso $\mathbf{\mathtt{p=(p_1,p_2,...,p_n)}}$. El objetivo es repartir los objetos entre dos montones diferentes, de manera que queden lo más equilibrados posible en peso. Esto es, se debe minimizar la diferencia entre los pesos totales de ambos montones. Aplciar sobre el ejemplo con \textbf{\texttt{n=4}} y \textbf{\texttt{p=(2,1,3,4)}}.} 
 
+  \textbf{Definición del problema}
 
-\item \lb{Nos vamos de compras al mercado. Tenemos \textbf{\texttt{K}} euros en el bolsillo y una lista de \textbf{\texttt{m}} productos que podemos comprar. Cada producto tiene un precio $\mathbf{\mathtt{p_i}}$ (que será simpre un número entero), y una utilidad, $\mathbf{\mathtt{u_i}}$. De cada producto podemos comprar como máximo 3 unidades. Además, tenemos una oferta según según la cual la segunda unidad nos cuesta 1 euro menos, y la tercera 2 euros menos. Queremos elegir los productos a comprar, maximizando la utilidad de los productos comprados. Resolver el problema por programación dinámica, indicando la ecuación recurrene, con sus casos base, las tablas, el algoritmo para rellenarlas y la forma de componer la solución a partir de las tablas.}
+  Dado un conjunto de pesos $\mathbf{\mathtt{p_1,p_2,\cdots,p_n}}$, queremos dividir los objetos en dos subconjuntos $\mathbf{\mathtt{S_1}}$ y $\mathbf{\mathtt{S_2}}$ tal que: \[
+  \mathbf{\mathtt{\left| \mathrm{sum}(S_1)-\mathrm{sum}(S_2) \right| }}
+  \] sea mínimo.
 
+  \textbf{Idea principañ}
+  \begin{enumerate}[label=\arabic*)]
+      \item La suma total de todos los pesos es: \[
+              \mathbf{\mathtt{\mathrm{sum}(p)=P}}
+      \] 
+      Nuestro objetivo es encontrar un subconjunto $\mathbf{\mathtt{S_1}}$ con suma $\mathbf{\mathtt{\left\lfloor \dfrac{P}{2} \right\rfloor }}$ que maximice su suma. Esto asegura que $\mathbf{\mathtt{\left| P-2\cdot \mathrm{sum}(S_1) \right| }}$ sea mínimo.
+  \item Usaremos programación dinámica para determinar si es posible obtener cada suma parcial has $\left\lfloor \dfrac{P}{2} \right\rfloor$ usando los objetos disponibles.
+  \end{enumerate}
+  \textbf{Definición del subproblema}
+
+  Sea \textbf{\texttt{dp[i][w]}} un valor booleano que indica si es posible obtener una suma \textbf{\texttt{w}} usando los primeros \textbf{\texttt{i}} objetos.
+
+  \textbf{Ecuación de recurrencia} 
+
+  \begin{enumerate}[label=\arabic*)]
+      \item Si no incluimos el objeto \textbf{\texttt{i}}: \[
+              \mathbf{\mathtt{dp[i][w]=dp[i-1][w]}}
+      \] 
+  \item Si incluimos el objeto \textbf{\texttt{i}} (siempre que $\mathbf{\mathtt{w\ge p[i])}}$: \[
+          \mathbf{\mathtt{dp[i][w]=dp[i-1][w]}}\text{ o }\mathbf{\mathtt{dp[i-1][w-p[i]}}
+  \] 
+  \textbf{Condiciones iniciales}
+  \begin{enumerate}[label=\arabic*)]
+  \item \textbf{\texttt{dp[0][0]=True}} (es posible tener suma 0 usando 0 objetos).
+  \item \textbf{\texttt{dp[0][w]=False}} para $\mathbf{\mathtt{w>0}}$ (no es posible tener una suma positiva sin objetos).
+  \end{enumerate}
+
+  \textbf{Reconstrucción de la solución}
+
+  Al terminar la tabla \textbf{\texttt{dp}}, buscamos el mayor $\mathbf{\mathtt{w\le \left\lfloor \dfrac{P}{2} \right\rfloor}}$ tal que \textbf{\texttt{dp[n][w]=True}}. Este valor corresponde a $\mathbf{\mathtt{\mathrm{sum}(S_1)}}$, y el otro subconjunto tendrá suma $\mathbf{\mathtt{P-\mathrm{sum}(S_1)}}$.
+
+  \textbf{Implementación en Python}
+
+  \lstinputlisting{"Ejercicio 8.py"}
+
+  \begin{verbatim}
+## Diferencia mínima: 0
+## Montón 1: 5, Montón 2: 5
+  \end{verbatim}
+
+  \textbf{Complejidad temporal:} $O\left( n\cdot l\left\lfloor \dfrac{P}{2} \right\rfloor \right)  $, donde $n$ es el número de objetos y $P$ es la suma total de los pesos.
+\end{enumerate}
+\item \lb{Nos vamos de compras al mercado. Tenemos \textbf{\texttt{K}} euros en el bolsillo y una lista de \textbf{\texttt{m}} productos que podemos comprar. Cada producto tiene un precio $\mathbf{\mathtt{p_i}}$ (que será simpre un número entero), y una utilidad, $\mathbf{\mathtt{u_i}}$. De cada producto podemos comprar como máximo 3 unidades. Además, tenemos una oferta según según la cual la segunda unidad nos cuesta 1 euro menos, y la tercera 2 euros menos. Queremos elegir los productos a comprar, maximizando la utilidad de los productos comprados. Resolver el problema por programación dinámica, indicando la ecuación recurrente, con sus casos base, las tablas, el algoritmo para rellenarlas y la forma de componer la solución a partir de las tablas.}
+
+    \textbf{Definición del problema}
+
+    Queremos maximizar la utilidad de los productos comprados, respetando las siguientes condiciones:
+    \begin{itemize}[label=\textbullet]
+        \item Disponemos de \textbf{\texttt{K}} euros.
+        \item Hay \textbf{\texttt{m}} productos, cada uno con:
+            \begin{itemize}[label=\textbullet]
+                \item Precio base $\mathbf{\mathtt{p_i}}$.
+                \item Utilidad $\mathbf{\mathtt{u_i}}$.
+            \end{itemize}
+        \item Se pueden comprar como máximo 3 unidades de cada producto.
+        \item Los precios disminuyen según la cantidad comprada.
+            \begin{itemize}[label=\textbullet]
+                \item Segunda unidad: $\mathbf{\mathtt{p_i-1}}$.
+                \item Tercera unidad: $\mathbf{\mathtt{p_i-2}}$.
+            \end{itemize}
+    \end{itemize}
+    \textbf{Subproblema}
+
+    Sea \textbf{\texttt{dp[j]}} la utilidad máxima que se puede obtener con un presupuesto de \textbf{\texttt{j}} euros. La meta es calcular \textbf{\texttt{dp[K]}}.
+
+    \textbf{Ecuación de recurrencia}
+
+    Para cada producto \textbf{\texttt{i}} con precio base $\mathbf{\mathtt{p_i}}$ y utilidad $\mathbf{\mathtt{u_i}}$:
+    \begin{enumerate}[label=\arabic*)]
+        \item Si no compramos el producto: \[
+                \mathbf{\mathtt{dp[j]=dp[j]}}
+        \] 
+    \item Si compramos 1 unidad del producto $(\mathbf{\mathtt{j\ge p_i}})$: \[
+            \mathbf{\mathtt{dp[j]=\max(dp[j], dp[j-p_i]+u_i)}}
+    \] 
+    \item Si compramos 2 unidad del producto $(\mathbf{\mathtt{j\ge 2\cdot p_i-1}})$: \[
+            \mathbf{\mathtt{dp[j]=\max(dp[j], dp[j-(2\cdot p_i-1)]+2\cdot u_i)}}
+    \] 
+    \item Si compramos 3 unidad del producto $(\mathbf{\mathtt{j\ge 3\cdot p_i-3}})$: \[
+            \mathbf{\mathtt{dp[j]=\max(dp[j], dp[j-(3\cdot p_i-3)]+3\cdot u_i)}}
+    \] 
+    \end{enumerate}
+    \textbf{Casos base}
+    \begin{enumerate}[label=\arabic*)]
+    \item \textbf{\texttt{dp[0]=0}:} Si no tenemos presupuesto, la utilidad es 0.
+    \item \textbf{\texttt{dp[j]=0} para todos \texttt{j<0}:} No se puede usar un presupuesto negativo.
+    \end{enumerate}
+
+    \textbf{Algoritmo para llenar la tabla}
+    \begin{enumerate}[label=\arabic*)]
+    \item Inicializa la tabla \textbf{\texttt{dp}} con ceros.
+    \item Itera por cada producto \textbf{\texttt{i}}.
+    \item Para cada producto, itera desde el presupuesto máximo \textbf{\texttt{K}} hacia abajo para evitar reutilización indebida de los valores.
+    \item Para cada \textbf{\texttt{j}} en el presupuesto, calcular \textbf{\texttt{dp[j]}} usando la ecuación de recurrencia.
+    \end{enumerate}
+    \textbf{Reconstrucción de la solución}
+    \begin{enumerate}[label=\arabic*)]
+    \item A partir de \textbf{\texttt{dp[K]}}, identifica qué productos y cuántas unidades de cada contribuyen a la utilidad máxima.
+    \item Usa una tabla auxiliar para rastrear decisiones, o simplemente simula hacia atrás verificando qué opciones generaron la utilidad.
+    \end{enumerate}
+    \textbf{Implementación en Python} 
+    \lstinputlisting{"Ejercicio 9.py"}
+    \begin{verbatim}
+## Máxima utilidad: 15
+## Productos comprados (unidades por producto): [2, 1]
+    \end{verbatim}
+    \textbf{Complejidad temporal:} $O(m\cdot K)$, donde $m$ es el número de productos y $K$ es el presupuesto.
 \item \lb{Resolver el siguiente problema usando programación dinámica. Dada una secuencia de enteros positivos $\mathbf{\mathtt{(a_1,a_2,a_3,\dots,a_n)}}$, encontrar la subsecuencia creciente más larga de elementos no necesariamente consecutivos. Es decir, encontrar una subseuencia $\mathbf{\mathtt{(a_{i1}, a_{i2}, \dots,a_{ik})}}$, con $\mathbf{\mathtt{(a_{i1}< a_{i2}< \cdots< a_{ik})}}$ y $\mathbf{\mathtt{(1\le i1<i2<\cdots<ik\le n)}}$. Por ejemplo, para la siguiente secuencia la solución sería longitud 6 (formada por los números señalados en negrita): 3, \textbf{1}, 3, \textbf{2}, \textbf{3}, 8, \textbf{4}, 7, \textbf{5}, 4, \textbf{6}.}
 
+    \textbf{Definición del problema}
+
+    Dada una secuencia de enteros $\mathbf{\mathtt{a=[a_1,a_2,\dots,a_n]}}$, queremos encontrar la longitud de la \textbf{subsecuencia creciente más larga} y, opcionalmente, la subsecuencia en sí. 
+  
+    \textbf{Subproblema}
+
+    Sea \textbf{\texttt{dp[i]}} la longitud de la subsecuencia creciente más larga que termina en el elemento \textbf{\texttt{a[i]}}. El objetivo es calcular \[
+        \mathbf{\mathtt{\overset{n}{\underset{i=1 }{\max } }\, dp[i]}}
+    \] 
+    \textbf{Ecuación de recurrencia}
+
+    Para cada posición \textbf{\texttt{i}}:
+    \[
+        \mathbf{\mathtt{dp[i]}=\overset{i-1}{\underset{j=1 }{\max }(dp[j] + 1) }}\text{ si }\mathbf{\mathtt{a[j]<a[i]}},\text{ o $1$ (si no hay \textbf{\texttt{j}} que cumpla la condición).}
+    \] 
+    \textbf{Casos base}
+    \[
+        \mathbf{\mathtt{dp[i]=1\quad \forall i.}}
+    \] 
+    Cada elemento individual es, al menos, una subsecuencia creciente de longitud 1.
+
+    \textbf{Reconstrucción de la subsecuencia}
+    \begin{enumerate}[label=\arabic*)]
+        \item Usa una tabla \textbf{\texttt{prev[i]}} para rastrear el índice del elemento anterior en la subsecuencia creciente que termina en \textbf{\texttt{a[i]}}.
+        \item La subsecuencia se reconstruye siguiente los índices almacenados en \textbf{\texttt{prev}} comenzando desde el índice \textbf{\texttt{i}} donde \textbf{\texttt{dp[i]}} es máximo.
+    \end{enumerate}
+    \textbf{Algoritmo}
+    \begin{enumerate}[label=\arabic*)]
+        \item Inicializa \textbf{\texttt{dp[i]=1}} para todos \textbf{\texttt{i}} y \textbf{\texttt{prev[i]=-1}}.
+        \item Para cada \textbf{\texttt{i}} de 1 a \textbf{\texttt{n}}: 
+            \begin{itemize}[label=\textbullet]
+                \item Para cada \textbf{\texttt{j}} de 1 a \textbf{\texttt{i-1}}:
+                    \begin{itemize}[label=\textbullet]
+                        \item Si \textbf{\texttt{a[j]<a[i]}}, actualiza \textbf{\texttt{dp[i]}}: \[
+                                \mathbf{\mathtt{dp[i]=\max(dp[i], dp[j] + 1)}}
+                            \] y actualiza \textbf{\texttt{prev[i]}} para rastrear el índice \textbf{\texttt{j}}.
+                    \end{itemize}
+            \end{itemize}
+        \item Encuentra el índice \textbf{\texttt{i}} donde \textbf{\texttt{dp[i]}} es máximo. Esto da la longitud de la subsecuencia más larga.
+        \item Usa \textbf{\texttt{prev}} para reconstruir la subsecuencia.
+    \end{enumerate}
+    \textbf{Complejidad temporal:} $O(n^2)$ debido a los bucles anidados.
+
+    \textbf{Implementación en Python} 
+    \lstinputlisting{"Ejercicio 10.py"}
+    \begin{verbatim}
+## Longitud de la subsecuencia creciente más larga: 6
+## Subsecuencia: [1, 2, 3, 4, 5, 6]
+    \end{verbatim}
 \end{enumerate}
 \end{document}
