@@ -38,7 +38,46 @@ Para determinar si una solución óptima al problema de la mochila es única y m
 \item El valor óptimo se encuentra en \textbf{\texttt{dp[n][W]}}, donde $n$ es el número de elementos y $W$ es la capacidad máxima de la mochila.
 \end{itemize}
 \item Rastrea todas la soluciones posibles:
-\begin{itemize}
+ \begin{itemize}[label=\textbullet]
+   \item  A partir de \textbf{\texttt{dp[n][W]}}, rastrea todas las combinaciones de elementos que generan el valor \textbf{\texttt{dp[n][W]}}.
+   \item Para cada elemento \textbf{\texttt{i}}, verifica si está incluido en la solución utilizando la condición: 
+     \begin{center}
+       \textbf{\texttt{dp[i][w]=dp[i-1][w]}} o \textbf{\texttt{dp[i][w]=dp[i-1][w-peso[i]] + valor[i]}}.  
+     \end{center}
+   \item Si el elemento puede estar incluido, explora ambas posibilidades (incluirlo y no incluirlo).
+ \end{itemize}
+  \item Construye todas las combinaciones:
+    \begin{itemize}[label=\textbullet]
+      \item Usa una búsqueda recursiva o iterativa para explorar todas las combinaciones posibles.
+      \item Si llegas a un peso \textbf{\texttt{w=0}} o \textbf{\texttt{i=0}}, almacena la combinación como una solución válida.
+    \end{itemize}
+  \item Verifica unicidad:
+    \begin{itemize}[label=\textbullet]
+      \item Si encuentras más de una solución válida, la solución no es única. Si solo encuentras una solución, es única.
+    \end{itemize}
+\textbf{Implementación en psudocódigo:}
+\lstinputlisting{"Ejercicio 1.py"}
+\textbf{Explicación}
+\begin{enumerate}[label=\arabic*)]
+  \item Tabla \textbf{\texttt{dp}}:
+    \begin{itemize}[label=\textbullet]
+      \item Esta tabla se generó al resolver el problema de la mochila mediante programación dinámica.
+    \end{itemize}
+  \item Búsqueda de todas las soluciones:
+    \begin{itemize}[label=\textbullet]
+      \item La función \textbf{\texttt{backtrack}} recorre la tabla \textbf{\texttt{dp}} desde \textbf{\texttt{dp[n][W]}} hacia atrás, explorando todas las combinaciones posibles de inclusión y exclusión de elementos que generan el valor óptimo. 
+    \end{itemize}
+  \item Verificación de unicidad:
+    \begin{itemize}[label=\textbullet]
+      \item La lista \textbf{\texttt{solutions}} contendrá todas las combinaciones óptimas. Si su longitud es mayor a 1, significa que hay múltiples soluciones.
+    \end{itemize}
+\end{enumerate}
+    
+    \textbf{Complejidad:}
+    \begin{itemize}[label=\textbullet]
+      \item La complejidad temporal adicional para encontrar todas las soluciones es proporcional al número de combinaciones óptimas, que puede ser exponencial en el peor caso.
+      \item Sin embargo, este proceso es manejable para entradas pequeñas o moderadas.
+    \end{itemize}
 \end{enumerate}
   \item \lb{El número de combinaciones de \textbf{\texttt{m}} objetos entre un conjunto de \textbf{\texttt{n}}, denotado por $\dbinom{n}{m}$, para $n\le 1$ y $0\le m\le n$, se puede definir recurisvamente por: \[
   \begin{array}{ll}
@@ -49,20 +88,140 @@ Para determinar si una solución óptima al problema de la mochila es única y m
 Conociendo el resultado puede er calculado también con la fórmula: $\dfrac{n!}{m!\cdot (n-m)!}$}
 \begin{enumerate}[label=\color{red}\alph*)]
   \item \db{Dar una función recursiva para calcular $\dbinom{n}{m}$, usando la primera de las definiciones. ¿Cuál será el orden de complejidad de este algoritmo? Sugerencia: la respuesta es inmediata.}
+
+    La función recursiva se basa directametne en la definición dada: 
+    \begin{enumerate}[label=\arabic*)]
+      \item Definición recursiva: \[
+          \dbinom{n}{m}=\begin{cases}
+            1 & \text{si }m=0\: m=n\\
+            \binom{n-1}{m} +\binom{n-1}{m-1} & \text{si }0<m<n 
+          \end{cases}
+      \] 
+    \item Implementación en Python:
+\lstinputlisting[firstline=1, lastline=4]{"Ejercicio 2.py"}
+\item Complejidad:
+
+  La complejidad de este algoritmo es \textbf{exponencial}, $O(2^n)$, porque calcula repetidamente los mismos valores para diferentes combinaciones de  $n$ y $m$. Por ejemplo, calcular  $\dbinom{n-1}{m} $, se vuelve a calcular los subproblemas de $\binom{n-2}{m} $ y $\binom{n-2}{m-1} $, causando redundancia.
+    \end{enumerate}
+
   \item \db{Diseñar un algoritmo de programación dinámica para calcular $\dbinom{n}{m}$. Nota: la tabla construida por el algoritmo es conocida como "el triángulo de Pasca". ¿Cuál será el tiempo de ejecución en este caso?} 
+
+    Para evitar cálculos repetidos, podemos usar un enfoque de \textbf{programación dinámica} que construye una tabla que almacena los valores de $\binom{n}{m} $. Esta tabla es conocida como el "Triángulo de Pascal".
+    \begin{enumerate}[label=\arabic*)]
+      \item Idea básica:
+        \begin{itemize}[label=\textbullet]
+          \item Construimos: una tabla \textbf{\texttt{dp}} de dimensiones $(n+1)\times (m+1)$.
+          \item Inicializamos las condiciones base:
+            \begin{itemize}[label=\textbullet]
+              \item \textbf{\texttt{dp[i][0]=1}} para todo \textbf{\texttt{i}}, porque $\binom{\mathtt{i} }{0}=1 $.
+              \item \textbf{\texttt{dp[i][i]=1}} para todo \textbf{\texttt{i}}, porque $\binom{\mathtt{i}}{\mathtt{i}}=1$.
+            \end{itemize}
+          \item Rellemanos la tabla usando la fórmula recursiva:
+            \begin{center}
+              \textbf{\texttt{dp[i][j]=dp[i-1][j]+dp[i-1][j-1]}}. 
+            \end{center}
+        \end{itemize}
+    \end{enumerate}
+  \item Implementación en Python
+    \lstinputlisting[firstline=6, lastline=21]{"Ejercicio 2.py"}
+  \item Complejidad:
+    \begin{itemize}[label=\textbullet]
+      \item \textbf{Tiempo:} $O(n\cdot m)$. Cada celda en la tabla se calcula una vez y depende de dos valores previos. 
+    \end{itemize}
+  \item Ejemplo de uso:
+    \lstinputlisting[firstline=24, lastline=26]{"Ejercicio 2.py"}
+    \begin{verbatim}
+## Resultado con recursión: 10
+## Resultado con DP: 10
+    \end{verbatim}
 \end{enumerate}
+\textbf{Comparación de enfoques:}
+\begin{center}
+  \begin{tabular}{|l|c|p{5cm}|}
+    \hline
+    \textbf{Enfoque} & \textbf{Complejidad temporal} & \textbf{Ventajas/Desventajas}\\ \hline
+    Recursivo & $O(2^n)$ & Simple de implementar pero extremadamente ineficiente.\\ \hline
+    Programación dinámica & $O(n\cdot m)$ & Eficiente, especialmente para valores grandes de $n$ y  $m$.\\ \hline
+  \end{tabular}
+\end{center}
 \item \lb{Considerar el problema de la mochila 0/1. En este ejercicio estamos interesados en calcular el número de formas distintas de meter o no los objetos en la mochila, pero respetando la capcaidad máxima de la mochila. Por ejemplo, si todos los \textbf{\texttt{n}} objetos cupieran en la mochila, existirían $\mathbf{\mathtt{2^n}}$ formas posibles. Pero en general, si no caben todos, habrán muchas menos. Resolver mediante programación dinámica el problema de calcular el número de formas distintas de completar total o parcialmente la mochila. Datos del problema: \textbf{\texttt{n}} objetos, \textbf{\texttt{M}} capacidad de la mochila, $\mathbf{\mathtt{p=(p1,p2,\dots,p_n)}}$ pesos de los objetos.} 
+
+  \textbf{Definición del subproblema}
+
+  Sea \textbf{\texttt{dp[i][w]}} el número de formas de llenar la mochila con un subconjunto de los primeros \textbf{\texttt{i}} objetos, de manera que el peso total sea \textbf{\texttt{w}}.
+
+  \textbf{Casos base:}
+  \begin{enumerate}[label=\arabic*)]
+    \item \textbf{\texttt{dp[0][w]=1}} para todo \textbf{\texttt{w$\ge$ 0}}: hay exactamente una forma de no seleccionar ningún objeto (la mochila vacía).
+    \item \textbf{\texttt{dp[i][0]=1}} para todo \textbf{\texttt{i}}: hay exactamente una forma de obtener un peso de $0$ (no seleccionar ningún objeto).
+  \end{enumerate}
+  \textbf{Relación de recurrencia:} 
         
+  Para cada objeto \textbf{\texttt{i}} con el peso \textbf{\texttt{p[i]}}:
+  \begin{itemize}[label=\textbullet]
+    \item Si no seleccionados el objeto \textbf{\texttt{i}}, las formas posibles son \textbf{\texttt{dp[i-1][w]}} (todas las formas de llenar la mochila con los \textbf{\texttt{i-1}} objetos y el mismo peso \textbf{\texttt{w}} ).
+    \item Si seleccionamos el objeto \textbf{\texttt{i}}, las formas posibles son \textbf{\texttt{dp[i-1][w-p[i]]}} (todas las formas de llenar la mochila con \textbf{\texttt{i-1}} objetos y un peso \textbf{\texttt{w-p[i]}}).
+  \end{itemize}
+  Por lo tanto:
+  \begin{center}
+    \textbf{\texttt{dp[i][w]=dp[i-1][w]+dp[i-1][w-p[i]]}} si \textbf{\texttt{w $\ge$ p[i]}}. 
+  \end{center}
+  \textbf{Algoritmo}
+  \begin{enumerate}[label=\arabic*)]
+    \item \textbf{Inicializa la tabla} \textbf{\texttt{dp}} con dimensiones $(n+1)\times (M+1)$, donde $n$ es el número de objetos y $M$ es la capacidad de la mochila.
+    \item Usa la relación de recurrencia para llenar la tabla.
+    \item La suma de todos los valores en la última fila (\textbf{\texttt{dp[n][w]}} para \textbf{\texttt{w=0}} hasta \textbf{\texttt{w=W}}) será el número total de formas válidas.
+  \end{enumerate}
+  \textbf{Implementación en Python}
+
+  \lstinputlisting{"Ejercicio 3.py"}
+  \begin{verbatim}
+## Número de formas de llenar la mochila: 6
+  \end{verbatim}
+  \textbf{Ejemplo de ejecución}
+  
+  Supongamos:
+  \begin{itemize}[label=\textbullet]
+    \item $n=3$
+    \item  $M=4$
+    \item  $p = [1,2,3]$
+  \end{itemize}
+  \begin{enumerate}[label=Paso \arabic*:]
+    \item Inicialización
+
+      La tabla \textbf{\texttt{dp}} se inicializa con: 
+      \begin{center}
+        \textbf{\texttt{dp[0][w]=1}} para todo \textbf{\texttt{w}}. 
+      \end{center}
+    \item Llenado de la tabla
+      \begin{itemize}[label=\textbullet]
+        \item Para \textbf{\texttt{i=1 (p[1]=1)}:}
+          \begin{center}
+            \textbf{\texttt{dp[1][w]=dp[0][w] + dp[0][w-1]}} si \textbf{\texttt{w $\ge $ 1}}.  
+          \end{center}
+        \item Para \textbf{\texttt{i=2 (p[2]=2)}:}
+          \begin{center}
+            \textbf{\texttt{dp[2][w]=dp[1][w] + dp[1][w-2]}} si \textbf{\texttt{w $\ge $ 2}}.  
+          \end{center}
+        \item Para \textbf{\texttt{i=3 (p[3]=3)}:}
+          \begin{center}
+            \textbf{\texttt{dp[3][w]=dp[2][w] + dp[2][w-3]}} si \textbf{\texttt{w $\ge $ 3}}.  
+          \end{center}
+      \end{itemize}
+  \end{enumerate}
+  \textbf{Resultado final}
+
+  La suma de \textbf{\texttt{dp[3][w]}} para \textbf{\texttt{w=0}} a \textbf{\texttt{w=4}} da el número total de formas válida.
 \item \lb{Una variante del problema de la mochila es la siguiente. Tenemos un conjunto de enteros (positivos) $A=\{a_1,a_2,\dots,a_n\} $ y un entero $K$. El objetico es encontrar si existe algún subconjunto de  $A$ cuya suma sea exactamente  $K$.}
   \begin{enumerate}[label=\color{red}\textbf{\arabic*)}]
-    \item \db{Desarrollar un algoritmo para resolver este problema, utilizando programación  dinámica. ¿Cuál  es el orden de complejidad de este algoritmo?}
-    \item \db{Mostrar cómo  se puede obtener el conjunto de objetos resultantes (en caso de existir solución) a partir de las tablas utilizadas por el algoritmo.}
+    \item \db{Desarrollar un algoritmo para resolver este problema, utilizando programación dinámica. ¿Cuál es el orden de complejidad de este algoritmo?}
+    \item \db{Mostrar cómo se puede obtener el conjunto de objetos resultantes (en caso de existir solución) a partir de las tablas utilizadas por el algoritmo.}
     \item \db{Aplicar el algoritmo sobre el siguiente ejemplo $A=\{2,3,5,2\},\, K=7 $. ¿Cómo se puede comprobar que la solución no es única?} 
   \end{enumerate}
-\item \lb{En el problema de la mochila 0/1 disponemos de dos mochilas, con capacidades \textbf{\texttt{M1}} y \textbf{\texttt{M2}}. El objetivo es maxmizar la suma de beneficios de los objetos transportados en ambas mochilas, respetando las capacidades de cada una. Resolver el problema mediante programación  dinámica, definiendo la ecuación  recurrente, las tablas usadas y el algoritmo para rellenarlas.\newline
+\item \lb{En el problema de la mochila 0/1 disponemos de dos mochilas, con capacidades \textbf{\texttt{M1}} y \textbf{\texttt{M2}}. El objetivo es maxmizar la suma de beneficios de los objetos transportados en ambas mochilas, respetando las capacidades de cada una. Resolver el problema mediante programación dinámica, definiendo la ecuación recurrente, las tablas usadas y el algoritmo para rellenarlas.\newline
     Datos del problema: \textbf{\texttt{n}} objetos, \textbf{\texttt{M1}} capacidad de la mochila 1, \textbf{\texttt{M2}} capacidad de la mochila 2, $\mathbf{\mathtt{p=(p_1,p_2,\dots,p_n)}}$ pesos de los objetos, $\mathbf{\mathtt{b=(b_1,b_2,\dots,b_n)}}$ beneficios de los objetos.}
 
-  \item \lb{Una agencia de turismo realiza planificaciones de viajes aéreos. Para ir de una ciudad \textbf{\texttt{A}} a \textbf{\texttt{B}}  puede ser necesario coger varios vuelos distintos. El tiempo de un vuelo directo desde  \textbf{\texttt{I}} hasta \textbf{\texttt{J}} ser´á  \textbf{\texttt{T[i,j]}}. Hay que tener en cuenta que si cogemos un vuelo (de \textbf{\texttt{A}} a \textbf{\texttt{B}}) y después otro (de \textbf{\texttt{B}} a \textbf{\texttt{C}}) será  necesario esperar un tiempo de "escala" adicional en el aeropuesto (almacenado en \textbf{\texttt{E[A, B, C]}}).}
+  \item \lb{Una agencia de turismo realiza planificaciones de viajes aéreos. Para ir de una ciudad \textbf{\texttt{A}} a \textbf{\texttt{B}}  puede ser necesario coger varios vuelos distintos. El tiempo de un vuelo directo desde  \textbf{\texttt{I}} hasta \textbf{\texttt{J}} será \textbf{\texttt{T[i,j]}}. Hay que tener en cuenta que si cogemos un vuelo (de \textbf{\texttt{A}} a \textbf{\texttt{B}}) y después otro (de \textbf{\texttt{B}} a \textbf{\texttt{C}}) será necesario esperar un tiempo de "escala" adicional en el aeropuesto (almacenado en \textbf{\texttt{E[A, B, C]}}).}
     \begin{enumerate}[label=\color{red}\alph*)]
       \item \db{Diseñar una solución para resolver este problema utilizando programación dinámica. Explicar cómo, a partir de las tablas, se puede obtener el conjunto de vuelos necesarios para hacer un viaje concreto.}
       \item \db{Mostrar la ejecución del algoritmo sobre la siguiente matriz \textbf{\texttt{T}}, suponiendo que todos los \textbf{\texttt{E[A, B , C]}} tienen valor 1. ¿Cuál es el orden de complejidad del algoritmo?
