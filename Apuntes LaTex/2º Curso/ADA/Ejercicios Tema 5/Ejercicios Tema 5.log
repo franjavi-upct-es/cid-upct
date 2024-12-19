@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.26 (MiKTeX 24.3.31) (preloaded format=pdflatex 2024.5.23)  18 DEC 2024 22:08
+This is pdfTeX, Version 3.141592653-2.6-1.40.26 (MiKTeX 24.3.31) (preloaded format=pdflatex 2024.5.23)  19 DEC 2024 13:48
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1449,44 +1449,61 @@ Underfull \hbox (badness 7256) in paragraph at lines 144--144
 []|\OT1/cmr/m/n/10 Eficiente, es-pe-cial-mente para
  []
 
-[4] (Ejercicio 3.py) [5] [6]
-Overfull \hbox (8.81952pt too wide) in paragraph at lines 259--260
+[4] (Ejercicio 3.py) [5] (Ejercicio 4.py) [6] (Ejercicio 4.py) [7] [8]
+(Ejercicio 5.py [9]) [10]
+LaTeX Font Info:    Trying to load font information for TS1+cmtt on input line 
+400.
+ (C:\Program Files\MiKTeX\tex/latex/base\ts1cmtt.fd
+File: ts1cmtt.fd 2023/04/13 v2.5m Standard LaTeX font definitions
+)
+
+LaTeX Font Warning: Font shape `TS1/cmtt/bx/n' undefined
+(Font)              using `TS1/cmtt/m/n' instead
+(Font)              for symbol `textrightarrow' on input line 400.
+
+[11] (Ejercicio 6.py [12]) [13] [14] (Ejercicio 7.py [15])
+Overfull \hbox (8.81952pt too wide) in paragraph at lines 574--575
 [][]\OT1/cmr/m/n/10 Resolver el sigu-iente prob-lema us-ando pro-gra-maci^^Son 
 din^^Samica. Dada una se-cuen-cia de en-teros pos-i-tivos $[]$,
  []
 
-[7] (Ejercicios Tema 5.aux)
+[16] (Ejercicios Tema 5.aux)
  ***********
 LaTeX2e <2023-11-01> patch level 1
 L3 programming layer <2024-03-14>
  ***********
+
+
+LaTeX Font Warning: Some font shapes were not available, defaults substituted.
+
 Package logreq Info: Writing requests to '"Ejercicios Tema 5".run.xml'.
 \openout1 = `"Ejercicios Tema 5.run.xml"'.
 
  ) 
 Here is how much of TeX's memory you used:
- 44150 strings out of 474424
- 1040472 string characters out of 5751554
- 2112947 words of memory out of 5000000
- 65785 multiletter control sequences out of 15000+600000
- 567580 words of font info for 78 fonts, out of 8000000 for 9000
+ 44249 strings out of 474424
+ 1042567 string characters out of 5751554
+ 2282972 words of memory out of 5000000
+ 65866 multiletter control sequences out of 15000+600000
+ 567877 words of font info for 79 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 98i,12n,100p,1210b,2022s stack positions out of 10000i,1000n,20000p,200000b,200000s
- <C:\Users\fcoja\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\tcrm
-1000.pk><C:/Program Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmbx10.pfb><C:/
-Program Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmex10.pfb><C:/Program File
-s/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi10.pfb><C:/Program Files/MiKTeX/fon
-ts/type1/public/amsfonts/cm/cmmi7.pfb><C:/Program Files/MiKTeX/fonts/type1/publ
-ic/amsfonts/cm/cmr10.pfb><C:/Program Files/MiKTeX/fonts/type1/public/amsfonts/c
-m/cmr12.pfb><C:/Program Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmr17.pfb><
-C:/Program Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmr7.pfb><C:/Program Fil
-es/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy10.pfb><C:/Program Files/MiKTeX/fo
-nts/type1/public/amsfonts/cm/cmtt10.pfb><C:/Program Files/MiKTeX/fonts/type1/pu
-blic/amsfonts/cm/cmtt8.pfb><C:/Program Files/MiKTeX/fonts/type1/public/amsfonts
-/cm/cmtt9.pfb>
-Output written on "Ejercicios Tema 5.pdf" (7 pages, 180673 bytes).
+ 98i,12n,100p,1210b,2024s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ <C:\Users\fcoja\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\tctt
+1000.pk> <C:\Users\fcoja\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi60
+0\tcrm1000.pk><C:/Program Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmbx10.pf
+b><C:/Program Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmex10.pfb><C:/Progra
+m Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi10.pfb><C:/Program Files/MiKT
+eX/fonts/type1/public/amsfonts/cm/cmmi7.pfb><C:/Program Files/MiKTeX/fonts/type
+1/public/amsfonts/cm/cmr10.pfb><C:/Program Files/MiKTeX/fonts/type1/public/amsf
+onts/cm/cmr12.pfb><C:/Program Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmr17
+.pfb><C:/Program Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmr7.pfb><C:/Progr
+am Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy10.pfb><C:/Program Files/MiK
+TeX/fonts/type1/public/amsfonts/cm/cmtt10.pfb><C:/Program Files/MiKTeX/fonts/ty
+pe1/public/amsfonts/cm/cmtt8.pfb><C:/Program Files/MiKTeX/fonts/type1/public/am
+sfonts/cm/cmtt9.pfb>
+Output written on "Ejercicios Tema 5.pdf" (16 pages, 220080 bytes).
 PDF statistics:
- 94 PDF objects out of 1000 (max. 8388607)
+ 127 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
  13 words of extra memory for PDF output out of 10000 (max. 10000000)
 
