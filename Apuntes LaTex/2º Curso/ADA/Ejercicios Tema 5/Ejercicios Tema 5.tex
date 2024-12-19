@@ -13,7 +13,7 @@
    showstringspaces=false,
    showtabs=false, 
    tabsize=2,
-   literate={á}{{\'a}}1 {é}{{\'e}}1 {í}{{\'i}}1 {ó}{{\'o}}1 {ú}{{\'u}}1{ñ}{{\~n}}1 {Á}{{\'A}}1 {Í}{{\'I}}1,
+   literate={á}{{\'a}}1 {é}{{\'e}}1 {í}{{\'i}}1 {ó}{{\'o}}1 {ú}{{\'u}}1{ñ}{{\~n}}1 {Á}{{\'A}}1 {Í}{{\'I}}1 {Ú}{{\'U}}1 {¿}{{\textexclamdown}}1,
    mathescape=false,
    backgroundcolor=\color{lightgray!10},   
 }
@@ -213,45 +213,315 @@ Conociendo el resultado puede er calculado también con la fórmula: $\dfrac{n!}
 
   La suma de \textbf{\texttt{dp[3][w]}} para \textbf{\texttt{w=0}} a \textbf{\texttt{w=4}} da el número total de formas válida.
 \item \lb{Una variante del problema de la mochila es la siguiente. Tenemos un conjunto de enteros (positivos) $A=\{a_1,a_2,\dots,a_n\} $ y un entero $K$. El objetico es encontrar si existe algún subconjunto de  $A$ cuya suma sea exactamente  $K$.}
-  \begin{enumerate}[label=\color{red}\textbf{\arabic*)}]
+  \begin{enumerate}[label=\color{red}\textbf{\alph*)}]
     \item \db{Desarrollar un algoritmo para resolver este problema, utilizando programación dinámica. ¿Cuál es el orden de complejidad de este algoritmo?}
+
+      Este problema se puede resolver utilizando \textbf{programación dinámica} con un enfoque similar al problema de la mochila, La idea es contruir una tabla \textbf{\texttt{dp[i][j]}}, donde:
+      \begin{itemize}[label=\textbullet]
+        \item \textbf{\texttt{dp[i][j]}} es \textbf{\texttt{True}}  si es posible obtener una suma \textbf{\texttt{j}} utilizando los primeros \textbf{\texttt{i}} elementos del conjunto $A$.
+        \item \textbf{\texttt{dp[i][j]}} es \textbf{\texttt{False}} en caso contrario.
+      \end{itemize}
+      \begin{enumerate}[label=\arabic*)]
+        \item Casos base
+          \begin{enumerate}[label=\arabic*)]
+            \item \textbf{\texttt{dp[0][0]=True}:} Es posible obtener una suma de $0$ utilizando un subconjunto vacío.
+            \item \textbf{\texttt{dp[i][0]=True} para todo \texttt{i}:} También es posible obtener $0$ sin incluir ningún elemento.
+            \item \textbf{\texttt{dp[0][j]=False} para todo $\mathbf{\mathtt{j>0}}$:} No es posible obtener una suma mayor que $0$ con un subconjunto vacío.
+          \end{enumerate}
+        \item Relación de recurrencia
+
+          Para cada \textbf{\texttt{i}} y \textbf{\texttt{j}}, el estado de \textbf{\texttt{dp[i][j]}} depende de:
+          \begin{enumerate}[label=\arabic*)]
+            \item No incluir el elemento actual $\mathbf{\mathtt{a_i}}$: Entonces \textbf{\texttt{dp[i][j]=dp[i-1][j]}}.
+            \item Incluir el elemento actual $\mathbf{\mathtt{a_i}}$ (si $\mathbf{\mathtt{j\ge a_i}}$): Entonces \textbf{\texttt{dp[i][j]=dp[i-1][j-$\mathbf{\mathtt{a_i}}$]}}.
+          \end{enumerate}
+          Por lo tanto: 
+          \begin{center}
+            \textbf{\texttt{dp[i][j]=dp[i-1][j]} OR \texttt{dp[i-1][j-$\mathbf{\mathtt{a_i}}$]} }\quad (si $\mathbf{\mathtt{j\ge  a_i}}$).
+          \end{center}
+          \item Complejidad temporal: $O(n\cdot K)$, donde $n$ es el número de elementos en $A$ y $K$ es la suma objetivo.
+
+            \textbf{Implementación}
+
+            \lstinputlisting[firstline=1, lastline=24]{"Ejercicio 4.py"}
+            \begin{verbatim}
+## ¿Existe una solución? True
+            \end{verbatim}
+      \end{enumerate}
     \item \db{Mostrar cómo se puede obtener el conjunto de objetos resultantes (en caso de existir solución) a partir de las tablas utilizadas por el algoritmo.}
+
+      Para obtener el subconjunto que produce la suma $K$, podemos rastrear la tabla  \textbf{\texttt{dp}} desde \textbf{\texttt{dp[n][K]}} hacia atrás:
+      \begin{enumerate}[label=\arabic*)]
+        \item Comenzamos desde \textbf{\texttt{dp[n][K]}} y verificamos si el elemento \textbf{\texttt{A[i]}} está incluido:
+          \begin{itemize}[label=\textbullet]
+            \item Si \textbf{\texttt{dp[i][K]$\neq $dp[i-1][K]}}, significa que el elemento \textbf{\texttt{A[i-1]}} está incluido.
+            \item Restamos \textbf{\texttt{A[i-1]}} de $K$ y continuamos con \textbf{\texttt{dp[i-1][K - A[i-1]]}}.
+          \end{itemize}
+        \item Si \textbf{\texttt{dp[i][K]=dp[i-1][K]}}, el elemento no está incluido.
+        \item Detenemos cuando $K=0$.
+      \end{enumerate}
+      \textbf{Implementación}
+
+      \lstinputlisting[firstline=26]{"Ejercicio 4.py"}
+
+      \begin{verbatim}
+## Subconjunto encontrado: [5, 2]
+      \end{verbatim}
     \item \db{Aplicar el algoritmo sobre el siguiente ejemplo $A=\{2,3,5,2\},\, K=7 $. ¿Cómo se puede comprobar que la solución no es única?} 
+
+      Para $A=\{2,3,5,2\} $ y $K=7$, construimos la tabla  \textbf{\texttt{dp}}:
+
+      \begin{center}
+      \begin{tabular}{|l|c|c|c|c|c|c|l|l|}
+        \hline
+        \textbf{i/j} & \textbf{0} & \textbf{1} & \textbf{2} & \textbf{3} & \textbf{4} & \textbf{5} & \textbf{6} & \textbf{7} \\ \hline
+        0 & T & F & F & F & F & F & F & F \\ \hline
+        1(2) & T & F & T & F & F & F & F & F \\ \hline
+        2(3) & T & F & T & T & F & T & F & F \\ \hline
+        3(5) & T & F & T & T & F & T & T & T \\ \hline
+        4(2) & T & F & T & T & T & T & T & T \\ \hline
+      \end{tabular}
+      \end{center}
+      \begin{itemize}[label=\textbullet]
+        \item \textbf{Solución:} \textbf{\texttt{dp[4][7]=True}}, por lo que existe al menos un subconjunto. 
+      \end{itemize}
+      \textbf{Obtener subconjunto:}
+
+      Siguiendo la tabla:
+      \begin{itemize}[label=\textbullet]
+        \item \textbf{\texttt{A[3]=2}} está incluido $(K=7\to K=5)$.
+        \item \textbf{\texttt{A[2]=5}} está incluido $(K=5\to K=0)$.
+      \end{itemize}
+      \textbf{Subconjunto:} $\{5,2\}$.
+
+      \textbf{Comprobación de unicidad:}
+
+      Para verificar si hay múltiples soluciones, buscamos otras formas de descomponer $K=7$:
+      \begin{enumerate}[label=\arabic*)]
+        \item Si \textbf{\texttt{dp[i][K - A[i-1]]=True}} para diferentes \textbf{\texttt{i}}, hay más soluciones.
+        \item En este caso, otra solución es $\{3,2,2\} $.
+      \end{enumerate}
+      \textbf{Conclusión:} La solución no es única.
   \end{enumerate}
 \item \lb{En el problema de la mochila 0/1 disponemos de dos mochilas, con capacidades \textbf{\texttt{M1}} y \textbf{\texttt{M2}}. El objetivo es maxmizar la suma de beneficios de los objetos transportados en ambas mochilas, respetando las capacidades de cada una. Resolver el problema mediante programación dinámica, definiendo la ecuación recurrente, las tablas usadas y el algoritmo para rellenarlas.\newline
     Datos del problema: \textbf{\texttt{n}} objetos, \textbf{\texttt{M1}} capacidad de la mochila 1, \textbf{\texttt{M2}} capacidad de la mochila 2, $\mathbf{\mathtt{p=(p_1,p_2,\dots,p_n)}}$ pesos de los objetos, $\mathbf{\mathtt{b=(b_1,b_2,\dots,b_n)}}$ beneficios de los objetos.}
+    
+    \textbf{Definición del subproblema} 
 
+    Sea \textbf{\texttt{dp[i][$\mathtt{c_1}$][$\mathtt{c_2}$]}} es el beneficio máximo que se puede obtener utilizando los primeros \textbf{\texttt{i}} objetos, con capacidad disponible $\mathbf{\mathtt{c_1}}$ en la mochila 1 y $\mathbf{\mathtt{c_2}}$ en la mochila 2.
+
+    \textbf{Casos base:}
+    \begin{enumerate}[label=\arabic*)]
+      \item $\mathbf{\mathtt{dp[0][c_1][c_2]=0}}$: Si no consideramos ningún objeto $(\mathbf{\mathtt{i=0}})$, el beneficio es $0$, sin importar las capacidades de $\mathbf{\mathtt{c_1}}$ y $\mathbf{\mathtt{c_2}}$.
+      \item $\mathbf{\mathtt{cp[i][0][c_2]=dp[i][c_1][0]=0}}$: Si alguna mochila tiene capacidad $0$, no se puede incluir objetos en ella.
+    \end{enumerate}
+    \textbf{Relación de recurrencia:}
+
+    Para cada objeto \textbf{\texttt{i}} con peso $\mathbf{\mathtt{p[i]}}$ y beneficio $\mathbf{\mathtt{b[i]}}$, tenemos tres opciones:
+    \begin{enumerate}[label=\arabic*)]
+      \item No incluir el objeto \textbf{\texttt{i}} en ninguna mochila: \[
+          \mathbf{\mathtt{dp[i][c_1][c_2]=dp[i-1][c_1][c_2]}}.
+      \] 
+    \item Incluir el objeto \textbf{\texttt{i}} en la mochila 1 (si cabe): \[
+        \mathbf{\mathtt{dp[i][c_1][c_2]= \max(dp[i][c_1][c_2], dp[i-1][c_1-p[i]][c_2]+b[i])}}\quad \text{si }\mathbf{\mathtt{c_1\ge p[i]}}.
+    \] 
+    \item Incluir el objeto \textbf{\texttt{i}} en la mochila 2 (si cabe): \[
+        \mathbf{\mathtt{dp[i][c_1][c_2]= \max(dp[i][c_1][c_2], dp[i-1][c_1][c_2-p[i]]+b[i])}}\quad \text{si }\mathbf{\mathtt{c_2\ge p[i]}}.
+    \] 
+    \end{enumerate}
+En resumen: \[
+  \mathbf{\mathtt{dp[i][c_1][c_2]=\max(dp[i-1][c_1][c_2], dp[i-1][c_1-p[i]][c_2]+b[i], dp[i-1][c_1][c_2-p[i]]+b[i])}}.
+\]
+\textbf{Algoritmo}
+\begin{enumerate}[label=\arabic*)]
+  \item Inicialización:
+    \begin{itemize}[label=\textbullet]
+      \item Crear una tabla $\mathbf{\mathtt{dp[i][c_1][c_2]}}$ de dimensiones $(n+1)\times (M_1+1)\times (M_2+1)$.
+      \item Inicializar $\mathbf{\mathtt{dp[0][c_1][c_2]}}=0$ para todas las combinaciones de $\mathbf{\mathtt{c_1}}$ y $\mathbf{\mathtt{c_2}}$.
+    \end{itemize}
+  \item Llenado de la tabla:
+    \begin{itemize}[label=\textbullet]
+      \item Iterrar sobre los objetos (\textbf{\texttt{1}} de $1$ a  $n$).
+      \item Para cada combinación de capacidades $\mathbf{\mathtt{c_1}}$ y $\mathbf{\mathtt{c_2}}$, calcular el valor de $\mathbf{\mathtt{dp[i][c_1][c_2]}}$ usando la relación de recurrencia.
+    \end{itemize}
+  \item Resultado:
+    \begin{itemize}[label=\textbullet]
+      \item El beneficio máximo está en $\mathbf{\mathtt{dp[n][M_1][M_2]}}$.
+    \end{itemize}
+  \item Reconstrucción de la solución:
+    \begin{itemize}[label=\textbullet]
+      \item Para determinar qué objetos se seleccionaron y en qué mochila, rastrear las decisiones tomadas al llenar la tabla  \textbf{\texttt{dp}}.
+    \end{itemize}
+\end{enumerate}
+\textbf{Implementación en Python} 
+
+\lstinputlisting{"Ejercicio 5.py"}
+\begin{verbatim}
+## Beneficio máximo: 18
+## Objetos en la mochila 1: [3, 2]
+## Objetos en la mochila 2: [1, 0]
+\end{verbatim}
+\textbf{Complejidad temporal:} $O(n\cdot M_1\cdot M_2)$, ya que iteramos sobre $n,M_1$ y $M_2$. 
   \item \lb{Una agencia de turismo realiza planificaciones de viajes aéreos. Para ir de una ciudad \textbf{\texttt{A}} a \textbf{\texttt{B}}  puede ser necesario coger varios vuelos distintos. El tiempo de un vuelo directo desde  \textbf{\texttt{I}} hasta \textbf{\texttt{J}} será \textbf{\texttt{T[i,j]}}. Hay que tener en cuenta que si cogemos un vuelo (de \textbf{\texttt{A}} a \textbf{\texttt{B}}) y después otro (de \textbf{\texttt{B}} a \textbf{\texttt{C}}) será necesario esperar un tiempo de "escala" adicional en el aeropuesto (almacenado en \textbf{\texttt{E[A, B, C]}}).}
     \begin{enumerate}[label=\color{red}\alph*)]
       \item \db{Diseñar una solución para resolver este problema utilizando programación dinámica. Explicar cómo, a partir de las tablas, se puede obtener el conjunto de vuelos necesarios para hacer un viaje concreto.}
-      \item \db{Mostrar la ejecución del algoritmo sobre la siguiente matriz \textbf{\texttt{T}}, suponiendo que todos los \textbf{\texttt{E[A, B , C]}} tienen valor 1. ¿Cuál es el orden de complejidad del algoritmo?
-<<<<<<< HEAD
 
-=======
+        El problema se puede resolver utilizando una variante del algoritmo de \textbf{Floyd-Warshall} para calcular el tiempo mínimo necesario para viajar entre dos ciudades teniendo en cuenta tiempos de escala adicionales.
+        \begin{enumerate}[label=\arabic*)]
+          \item Representación del problema
+            \begin{itemize}[label=\textbullet]
+              \item Supongamos que tenemos  \textbf{\texttt{n}} ciudades, y una matriz \textbf{\texttt{T[i,j]}} que almacena el tiempo de vuelo directo entre las ciudades \textbf{\texttt{i}} y \textbf{\texttt{j}}. Si no hay vuelo directo entre dos ciudades, representaremos esto como infinito $(\infty)$.
+              \item Además, la matriz \textbf{\texttt{E[i,j,k]}} indica el tiempo de escala adicional necesario si tomamos el vuelo de \textbf{\texttt{i}} a \textbf{\texttt{j}} y luego de \textbf{\texttt{j}} a\textbf{\texttt{k}}.
+            \end{itemize}
+          \item Idea general
+            \begin{enumerate}[label=\arabic*)]
+              \item Usa programación dinámica para calcular la tabla \textbf{\texttt{dp[k][i][j]}}, que representa el tiempo mínimo necesario para viajar de \textbf{\texttt{i}} a \textbf{\texttt{j}} utilizando como máximo \textbf{\texttt{k}} ciudades intermedias.
+              \item Define:
+                \begin{itemize}[label=\textbullet]
+                  \item Si no se usa ninguna ciudad intermedia  \textbf{\texttt{(k=0)}}, el tiempo es simplemente tiempo de vuelo directo \textbf{\texttt{T[i][j]}}.
+                  \item Para $\mathbf{\mathtt{k>0}}$, el tiempo mínimo se calcular como:
+                    \[
+                      \mathbf{\mathtt{dp[k][i][j]=\min(dp[k-1][i][j], dp[k-1][i][m]+E[i,m,j]+dp[k-1][m][j])}}
+                    \] donde \textbf{\texttt{m}} es una ciudad intermedia.
+                \end{itemize}
+              \item El tiempo óptimo para ir de \textbf{\texttt{A}} a \textbf{\texttt{B}} se encuentra en \textbf{\texttt{dp[n][A][B]}}, donde \textbf{\texttt{n}} es el número total de ciudades.
+            \end{enumerate}
+          \item Algoritmo paso a paso
+            \begin{enumerate}[label=\arabic*)]
+              \item Inicializa \textbf{\texttt{dp[0][i][j]}} con los valores de \textbf{\texttt{T[i][j]}}. Si no hay vuelo directo, establece $\mathbf{\mathtt{dp[0][i][j]=\infty}}$.
+              \item Para cada \textbf{\texttt{k}}, calcula \textbf{\texttt{dp[k][i][j]}} utilizando la fórmula recursiva.
+              \item Almacena en una tabla auxiliar \textbf{\texttt{next[i][j]}} el vuelo intermedio que minimiza el tiempo. Esto permite reconstruir el conjunto de vuelos necesarios.
+            \end{enumerate}
+          \item Obtención del conjunto de vuelos
+            \begin{enumerate}[label=\arabic*)]
+              \item A partir de la tabla \textbf{\texttt{next}}, se puede reconstruir el conjunto de vuelos necesaros de la siguiente manera:
+                \begin{itemize}[label=\textbullet]
+                  \item Si \textbf{\texttt{next[A][B]=C}}, significa que la ruta óptima de \textbf{\texttt{A}} a \textbf{\texttt{B}} pasa por \textbf{\texttt{C}}.
+                  \item Recursivamente, descompín \textbf{\texttt{A\textrightarrow B}} en \textbf{\texttt{A\textrightarrow C}} y \textbf{\texttt{C\textrightarrow B}}.   
+                \end{itemize}
+            \end{enumerate}
+        \end{enumerate}
+      \item \db{Mostrar la ejecución del algoritmo sobre la siguiente matriz \textbf{\texttt{T}}, suponiendo que todos los \textbf{\texttt{E[A, B , C]}} tienen valor 1. ¿Cuál es el orden de complejidad del algoritmo?}
+
 \begin{center}
->>>>>>> 455d1cc79fcd0d2377e3f2b59c4513a9e6de2b91
+\color{blue}
               \begin{tabular}{|c|c|c|c|c|}
               \hline
               \textbf{\texttt{T[i,j]}} & \textbf{\texttt{A}} & \textbf{\texttt{B}} & \textbf{\texttt{C}} & \textbf{\texttt{D}}\\ \hline
               \textbf{\texttt{A}} & - & 2 & 1 & 3\\ \hline
               \textbf{\texttt{B}} & 2 & 2 & - & 1\\ \hline
               \textbf{\texttt{D}} & 3 & 4 & 8 & -\\ \hline
-<<<<<<< HEAD
-\end{tabular}}
-=======
+
 \end{tabular}
-\end{center}}
->>>>>>> 455d1cc79fcd0d2377e3f2b59c4513a9e6de2b91
+\end{center}
+
+        Dado: \[
+        \mathbf{\mathtt{T=\begin{bmatrix} 
+              - & 2 & 1 & 3\\
+              2 & - & - & 1\\
+              3 & 4 & 8 & -
+        \end{bmatrix},\quad E[i,j,k]=1. }}
+        \] 
+
+        \begin{enumerate}[label=Paso \arabic*:]
+          \item Inicialización
+            \begin{itemize}[label=\textbullet]
+              \item La matriz inicial (\textbf{\texttt{dp[0][i][j]}}) es: \[
+                  \mathbf{\mathtt{dp[0]=}}\begin{bmatrix} 
+                    \infty & 2 & 1 & 3\\
+                    2 & \infty & \infty & 1\\
+                    3 & 4 & 8 & \infty
+                  \end{bmatrix}. 
+              \] 
+            \end{itemize}
+          \item Iteración para \textbf{\texttt{k=1}} 
+            \begin{itemize}[label=\textbullet]
+              \item Para cada par de ciudades \textbf{\texttt{i}} y \textbf{\texttt{j}}, actualizamos: \[
+                  \mathbf{\mathtt{dp[1][i][j]=\min(dp[0][i][j],dp[0][i][m]+E[i,m,j]+dp[0][m][j]),}}
+              \] donde \textbf{\texttt{m}} es la ciudad intermedia.
+            \end{itemize}
+        \end{enumerate}
+        Por ejemplo:
+        \begin{enumerate}[label=\arabic*)]
+          \item Para $\mathbf{\mathtt{A\to D}}$: \[
+              \mathbf{\mathtt{dp[1][A][D]=\min(dp[0][A][D], dp[0][A][B]+E[A,B,D]+dp[0][B][D]).}}
+          \] 
+          Sustituyendo: \[
+            \mathbf{\mathtt{dp[1][A][D]=\min(3,2+1+1)=\min(3,4)=3.}}
+          \] 
+          \begin{itemize}[label=\textbullet, leftmargin=*]
+            \item Repite este cálculo para todos los pares \textbf{\texttt{(i,j)}}.
+          \end{itemize}
+        \end{enumerate}
+      \item Resultado final
+
+        La matriz \textbf{\texttt{dp[n]}} después de iterar por todas las ciudades intermedias será: \[
+        \mathbf{\mathtt{dp=\begin{bmatrix} 
+              \infty & 2 & 1 & 3\\
+              2 & \infty & 3 & 1\\
+              3 & 4 & 8 & 4
+        \end{bmatrix}. }}
+        \] 
     \end{enumerate}
+    \textbf{Implementación en Python}
+
+    \lstinputlisting{"Ejercicio 6.py"}
+\begin{verbatim}
+## Matriz de tiempos mínimos (dp):
+## [[5. 2. 1.]
+## [2. 5. 4.]
+## [3. 4. 5.]]
+## 
+## Matriz next_city:
+## [[1, 1, 2], [0, 0, 0], [0, 1, 0]
+## 
+## Ruta óptima de 0 a 2: [0, 2]]]]]
+\end{verbatim}
+    \textbf{Complejidad temporal:} $O(n^3)$, esto se debe a que para cada par de ciudades \textbf{\texttt{(i,j)}}, iteramos sobre todas las ciudades intermedias \textbf{\texttt{m}}.
 
 \item \lb{Supongamos una serie de \textbf{\texttt{n}} trabajos denominados \textbf{\texttt{a, b, c, \dots}} y una tabla \textbf{\texttt{B[1..n, 1..n]}}, en la que cada posición \textbf{\texttt{B[i,j]}} almacena el beneficio de ejecutar el trabajo \textbf{\texttt{i}}  y a continuación el trabajo \textbf{\texttt{j}}. Se quiere encontrar la sucesión de \textbf{\texttt{m}} trabajos que dé un beneficio óptimo. No hay límite en el número de veces que se puede ejecutar un trabajo concreto.}
         \begin{enumerate}[label=\color{red}\alph*)]
                 \item \db{Idear un algoritmo por programación dinámica que resuelva el problema. Para ello, definir un subproblema (que permita realiza la combinación de problemas pequeños para resolver problemas grandes), especifica la ecuación de recurrencia para el mismo (con sus cosas base) y después describe las tablas necesarias y cómo son rellenadas.}
-                \item \db{Ejecutar el algoritmo sobre la siguiente tabla, suponiendo que  \textbf{\texttt{m=5}}.
-<<<<<<< HEAD
-=======
+
+                  \begin{enumerate}[label=\arabic*)]
+                    \item Definición del subproblema:
+
+                      Sea \textbf{\texttt{dp[k][j]}} el beneficio máximo que se pued eobtener ejeutando  \textbf{\texttt{k}} trabajos, donde el último trabajo es \textbf{\texttt{j}}. El objetivo es calcular: \[
+                        \mathbf{\mathtt{\underset{j}{\max}\,dp[m][j]}}
+                      \] donde \textbf{\texttt{m}} es el número total de trabajos en la secuencia.
+                    \item Ecuación de recurrencia:
+
+                      Para calcular \textbf{\texttt{dp[k][j]}}, consideramos que el último trabajo de la secuencia es \textbf{\texttt{j}} y el penúltimo trabajo es \textbf{\texttt{i}}. La relación es: \[
+                        \mathbf{\mathtt{dp[k][j]=\underset{i}{\max}(dp[k-1][i]+B[i][j])}}
+                      \] donde:
+                      \begin{itemize}[label=\textbullet]
+                        \item \textbf{\texttt{dp[k-1][i]}} es el beneficio para \textbf{\texttt{k-1}} trabajos terminando en \textbf{\texttt{i}}.
+                        \item \textbf{\texttt{B[i][j]}} es el beneficio de ejecutar el trabajo \textbf{\texttt{i}} seguido del trabajo \textbf{\texttt{j}}.
+                      \end{itemize}
+                    \item Condiciones base: \[
+                        \mathbf{\mathtt{dp[1][j]=0\quad \forall j}}
+                    \] 
+                    No hay beneficio inicial para \textbf{\texttt{k=1}} porque no hay trabajo anterior.
+                  \item Tablas necesarias:
+                    \begin{itemize}[label=\textbullet]
+                      \item Una tabla \textbf{\texttt{dp[k][j]}} de dimensiones $m\times n$, donde \textbf{\texttt{k}} es el número de trabajos y \textbf{\texttt{j}} es el índice del último trabajo.
+                      \item Una tabla auxiliar \textbf{\texttt{prev[k][j]}} para reconstruir la secuencia óptima.
+                    \end{itemize}
+                  \item Proceso de llenado:
+                    \begin{enumerate}[label=\arabic*)]
+                      \item Inicializar \textbf{\texttt{dp[1][j]=0}}.
+                      \item Para cada \textbf{\texttt{k}} de 2 a \textbf{\texttt{m}}, y para cada \textbf{\texttt{j}}, calcular: \[
+                          \mathbf{\mathtt{dp[k][j]=\underset{i}{\max}(dp[k-1][i]+B[i][j])}}
+                        \] y almacenar en \textbf{\texttt{prev[k][j]}} el índice \textbf{\texttt{i}} que maximiza el beneficio.
+                    \end{enumerate}
+                  \item Reconstrucción de la solución:
+
+                    Comenzando desde el índice \textbf{\texttt{j}} que maximizar \textbf{\texttt{dp[m][j]}}, usar \textbf{\texttt{prev[k][j]}} para retroceder y encontrar la secuencia de trabajos óptima.
+                  \end{enumerate}
+                \item \db{Ejecutar el algoritmo sobre la siguiente tabla, suponiendo que  \textbf{\texttt{m=5}}.}
+                
 \begin{center}
->>>>>>> 455d1cc79fcd0d2377e3f2b59c4513a9e6de2b91
+\color{blue}
                                 \begin{tabular}{|c|c|c|c|}
         \hline
         \textbf{\texttt{B[i,j]}} & \textbf{\texttt{a}} & \textbf{\texttt{b}} & \textbf{\texttt{c}} \\ \hline
@@ -259,23 +529,49 @@ Conociendo el resultado puede er calculado también con la fórmula: $\dfrac{n!}
         \textbf{\texttt{B}}  & 4 & 1 & 3\\ \hline
         \textbf{\texttt{C}}  & 3 & 2 & 2\\ \hline
 \end{tabular}
-<<<<<<< HEAD
-                        } 
-                \item \db{Estimar el tiempo de ejecución del algoritmo. El tiempo estimado ¿es un orden exacto o una cota superior del peor caso?} 
-        \end{enumerate}
-\item \lb{Resolver el siguiente problema con programación dinámica. Tenemos un conjunto de \textbf{\texttt{n}} objetos, cada uno con un peso $\mathbf{\mathtt{p=(p_1,p_2,...,p_n)}}$. El objetivo es repartir los objetos entre dos montones diferentes, de manera que queden lo más equilibrados posible en peso. Esto es, se debe minimizar la diferencia entre los pesos totales de ambos montones. Aplciar sobre el ejemplo con \textbf{\texttt{n=4}} y \textbf{\texttt{p=(2,1,3,4)}}.} 
-=======
 \end{center}
-                        } 
-                \item \db{Estimar el tiempo de ejecución del algoritmo. El tiempo estimado ¿es un orden exacto o una cota superior del peor caso?} 
-        \end{enumerate}
-\item \lb{Resolver el siguiente problema con programación dinámica. Tenemos un conjunto de \textbf{\texttt{n}} objetos, cada uno con un peso $\mathbf{\mathtt{p=(p_1,p_2,...,p_n)}}$. El objetivo es repartir los objetos entre dos montones diferentes, de manera que queden lo más equilibrados posible en peso. Esto es, se debe minimizar la diferencia entre los pesos totales de ambos montones. Aplciar sobre el ejemplo con \textbf{\texttt{n=4}} y \textbf{\texttt{p=(2,1,3,4)}}.}
 
-\item \lb{Nos vamos de comprar al mercado. Tenemos \textbf{\texttt{K}} euros en el bolsillo y una lista de \textbf{\texttt{m}} productos que podemos comprar. Cada producto tiene un precio $\mathbf{\mathtt{p_i}}$ (que será simpre un número entero), y una utilidad, $\mathbf{\mathtt{u_i}}$. De cada producto podemos comprar como máximo 3 unidades. Además, tenemos una oferta según según la cual la segunda unidad nos cuesta 1 euro menos, y la tercera 2 euros menos. Queremos elegir los productos a comprar, maximizando la utilidad de los productos comprados. Resolver el problema por programación dinámica, indicando la ecuación recurrene, con sus casos base, las tablas, el algoritmo para rellenarlas y la forma de componer la solución a partir de las tablas.}
+Tabla \textbf{\texttt{B}}: \[
+\mathbf{\mathtt{B=\begin{bmatrix} 
+      2 & 2 & 5\\
+      4 & 1 & 3\\
+      3 & 2 & 2
+\end{bmatrix} }}
+\]  
+\textbf{Parámetros:}
+\begin{itemize}[label=\textbullet]
+  \item \textbf{\texttt{n=3}} (número de trabajos).
+  \item \textbf{\texttt{m=5}} (longitud de la secuencia).
+\end{itemize}
+
+\textbf{Algoritmo de Python:}
+
+\lstinputlisting{"Ejercicio 7.py"}
+\begin{verbatim}
+## Beneficio máximo: 17.0
+## Secuencia óptima: [1, 0, 2, 0, 2]
+\end{verbatim}
+                \item \db{Estimar el tiempo de ejecución del algoritmo. El tiempo estimado ¿es un orden exacto o una cota superior del peor caso?} 
+
+                  \begin{enumerate}[label=\arabic*)]
+                    \item Tiempo de ejecución:
+                      \begin{itemize}[label=\textbullet]
+                        \item La fórmula \textbf{\texttt{dp[k][j]}} requiere calcular $\mathbf{\mathtt{\max_i(dp[k-1][i]+B[i][j])}}$, lo cual tiene un complejidad de $O(n)$.
+                        \item LLenar toda la tabla  \textbf{\texttt{dp}} implica $O(m\cdot n^2)$
+                      \end{itemize}
+                    \item Cota:
+                      \begin{itemize}[label=\textbullet]
+                        \item El tiempo estimado es una \textbf{cota superior del peor caso} porque considera todas las combinaciones posibles de trabajos. 
+                      \end{itemize}
+                  \end{enumerate}
+        \end{enumerate}
+        
+\item \lb{Resolver el siguiente problema con programación dinámica. Tenemos un conjunto de \textbf{\texttt{n}} objetos, cada uno con un peso $\mathbf{\mathtt{p=(p_1,p_2,...,p_n)}}$. El objetivo es repartir los objetos entre dos montones diferentes, de manera que queden lo más equilibrados posible en peso. Esto es, se debe minimizar la diferencia entre los pesos totales de ambos montones. Aplciar sobre el ejemplo con \textbf{\texttt{n=4}} y \textbf{\texttt{p=(2,1,3,4)}}.} 
+
+
+\item \lb{Nos vamos de compras al mercado. Tenemos \textbf{\texttt{K}} euros en el bolsillo y una lista de \textbf{\texttt{m}} productos que podemos comprar. Cada producto tiene un precio $\mathbf{\mathtt{p_i}}$ (que será simpre un número entero), y una utilidad, $\mathbf{\mathtt{u_i}}$. De cada producto podemos comprar como máximo 3 unidades. Además, tenemos una oferta según según la cual la segunda unidad nos cuesta 1 euro menos, y la tercera 2 euros menos. Queremos elegir los productos a comprar, maximizando la utilidad de los productos comprados. Resolver el problema por programación dinámica, indicando la ecuación recurrene, con sus casos base, las tablas, el algoritmo para rellenarlas y la forma de componer la solución a partir de las tablas.}
 
 \item \lb{Resolver el siguiente problema usando programación dinámica. Dada una secuencia de enteros positivos $\mathbf{\mathtt{(a_1,a_2,a_3,\dots,a_n)}}$, encontrar la subsecuencia creciente más larga de elementos no necesariamente consecutivos. Es decir, encontrar una subseuencia $\mathbf{\mathtt{(a_{i1}, a_{i2}, \dots,a_{ik})}}$, con $\mathbf{\mathtt{(a_{i1}< a_{i2}< \cdots< a_{ik})}}$ y $\mathbf{\mathtt{(1\le i1<i2<\cdots<ik\le n)}}$. Por ejemplo, para la siguiente secuencia la solución sería longitud 6 (formada por los números señalados en negrita): 3, \textbf{1}, 3, \textbf{2}, \textbf{3}, 8, \textbf{4}, 7, \textbf{5}, 4, \textbf{6}.}
 
-
->>>>>>> 455d1cc79fcd0d2377e3f2b59c4513a9e6de2b91
 \end{enumerate}
 \end{document}
