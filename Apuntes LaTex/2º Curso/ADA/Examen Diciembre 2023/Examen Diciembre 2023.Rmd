@@ -101,7 +101,11 @@ c)  Resolver esta ecuación de recurrencia: $$
 
 <!-- -->
 
-2.  Sustituyendo: \\underline{Divide y vencerás}
+2.  Sustituyendo: 
+
+$$t(n)=3^n+3\cdot \dfrac{3^n-1}{2}=3^n+\dfrac{3^n-3}{2}.$$
+
+\underline{Divide y vencerás}
 
 **Subsecuencia ascendente.** Nos piden encontrar dentro de una secuencia $S$ de $n$ números indexados por `i=1..n`, cuál es la subsecuencia ascendente más larga.
 
