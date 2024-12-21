@@ -194,12 +194,11 @@ fdr2@localhost:~> ip a
     link/ether 96:02:a7:03:95:10 brd ff:ff:ff:ff:ff:ff
 4: s1: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc noqueue state UNKNOWN group default qlen 1000
     link/ether 82:60:53:d4:67:4a brd ff:ff:ff:ff:ff:ff
-
 ```
 
 -   Haz un ping desde una máquina virtual de la red NAT a la máquina anfitrión. ¿Ha tenido éxito?
 
-```bash
+``` bash
 fdr2@localhost:~> ping 192.168.56.1
 PING 192.168.56.1 (192.168.56.1) 56(84) bytes of data.
 64 bytes from 192.168.56.1: icmp_seq=1 ttl=127 time=5.68 ms
@@ -217,7 +216,7 @@ rtt min/avg/max/mdev = 1.153/2.361/5.683/1.406 ms
 
 -   Haz un ping desde la máquina anfitrión a una máquina virtual de la red NAT. ¿Ha tenido éxito?
 
-```bash
+``` bash
 (base) PS C:\Users\fcoja> ping 10.0.2.15
 
 Haciendo ping a 10.0.2.15 con 32 bytes de datos:
@@ -233,7 +232,7 @@ Estadísticas de ping para 10.0.2.15:
 
 -   Haz un ping desde una máquina virtual de la red NAT a otra. ¿Ha tenido éxito?
 
-```bash
+``` bash
 fdr2@localhost:~> ping 10.0.2.15
 PING 10.0.2.15 (10.0.2.15) 56(84) bytes of data.
 64 bytes from 10.0.2.15: icmp_seq=1 ttl=64 time=1.09 ms
@@ -252,3 +251,81 @@ rtt min/avg/max/mdev = 0.048/0.219/1.086/0.322 ms
 ```
 
 -   Apaga ambas máquinas virtuales.
+
+## Tarea 8.1
+
+-   En la máquina virtual FRD1, cambia el modo de red el primer interfaz y configúralo en modo Adaptador Puente o modo Bridge.
+
+    ![](figures/Captura de pantalla 2024-12-21 203840.png)
+
+-   Arranca la máquina virtual y averigua la dirección IP de la tarjeta. ¿Cómo crees que ha obtenido la máquina virtual dicha dirección IP?
+
+    ``` bash
+    fdr1@localhost:~> ip a
+    1: lo: <LOOPBACK,UP,LOWER_UP> mtu 65536 qdisc noqueue state UNKNOWN group default qlen 1000
+        link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
+        inet 127.0.0.1/8 scope host lo
+           valid_lft forever preferred_lft forever
+        inet6 ::1/128 scope host noprefixroute 
+           valid_lft forever preferred_lft forever
+    2: eth2: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc pfifo_fast state UP group default qlen 1000
+        link/ether 08:00:27:b6:b3:20 brd ff:ff:ff:ff:ff:ff
+        altname enp0s3
+        inet 192.168.18.24/24 brd 192.168.18.255 scope global dynamic noprefixroute eth2
+           valid_lft 3596sec preferred_lft 3596sec
+        inet6 fe80::3058:70d4:6136:4738/64 scope link noprefixroute 
+           valid_lft forever preferred_lft forever
+    3: ovs-system: <BROADCAST,MULTICAST> mtu 1500 qdisc noop state DOWN group default qlen 1000
+        link/ether e2:80:dd:ce:26:94 brd ff:ff:ff:ff:ff:ff
+    4: s1: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc noqueue state UNKNOWN group default qlen 1000
+        link/ether 82:60:53:d4:67:4a brd ff:ff:ff:ff:ff:ff
+    ```
+
+-   Haz un ping de la máquina virtual a la máquina anfitriona. ¿Ha tenido éxito?
+
+    ``` bash
+    fdr1@localhost:~> ping 192.168.56.1
+    PING 192.168.56.1 (192.168.56.1) 56(84) bytes of data.
+    ^C
+    --- 192.168.56.1 ping statistics ---
+    14 packets transmitted, 0 received, 100% packet loss, time 13319ms
+    ```
+
+    No funciona bien, lo más probable es que sea por el Firewall.
+
+-   Haz un ping de la máquina anfitriona a la máquina virtual. ¿Ha tenido éxito?
+
+    ``` bash
+    (base) PS C:\Users\fcoja> ping 192.168.18.24
+
+    Haciendo ping a 192.168.18.24 con 32 bytes de datos:
+    Respuesta desde 192.168.18.24: bytes=32 tiempo<1m TTL=64
+    Respuesta desde 192.168.18.24: bytes=32 tiempo<1m TTL=64
+    Respuesta desde 192.168.18.24: bytes=32 tiempo=1ms TTL=64
+    Respuesta desde 192.168.18.24: bytes=32 tiempo<1m TTL=64
+
+    Estadísticas de ping para 192.168.18.24:
+        Paquetes: enviados = 4, recibidos = 4, perdidos = 0
+        (0% perdidos),
+    Tiempos aproximados de ida y vuelta en milisegundos:
+        Mínimo = 0ms, Máximo = 1ms, Media = 0ms
+    ```
+
+    Aquí si funciona.
+
+-   Apaga la máquina virtual FRD1
+
+## Tarea 9.1
+
+-   Crea una red interna a la que estén conectadas las máquinas virtuales FRD1 y FRD2
+    usando su primer interfaz de red.
+
+-   Arranca las 2 máquinas y asígnales manualmente la siguiente dirección IP: **`192.168.8.1/24`** a FRD1, **`192.168.8.2/24`** a FRD2.
+
+-   Haz un ping entre las máquinas virtuales de la red interna. ¿Ha tenido éxito?
+
+-   En la máquina FRD1 añade un segundo interfaz de red en modo NAT. Arranca de nuevo la máquina y vuelve a configurar la tarjeta de red que pertenece a la red interna. Comprueba la conectividad de esta máquina con la máquina anfitrión y con el exterior. ¿Has tenido éxito?
+
+-   Comprueba la conectividad desde FRD2 con la máquina anfitrión y con el exterior. ¿Has tenido éxito? Si la respuesta es negativa, qué deberías hacer para que tuviera éxito.
+
+-    Apaga las máquinas virtuales.
