@@ -175,13 +175,80 @@ La IP es `10.03.15` porque hemos actividado la tarjeta 2 y el plan de direcciona
         link/ether 82:60:53:d4:67:4a brd ff:ff:ff:ff:ff:ff
     ```
 
-    ``` bash
-    ```
+``` bash
+fdr2@localhost:~> ip a
+1: lo: <LOOPBACK,UP,LOWER_UP> mtu 65536 qdisc noqueue state UNKNOWN group default qlen 1000
+    link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
+    inet 127.0.0.1/8 scope host lo
+       valid_lft forever preferred_lft forever
+    inet6 ::1/128 scope host noprefixroute 
+       valid_lft forever preferred_lft forever
+2: eth1: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc pfifo_fast state UP group default qlen 1000
+    link/ether 08:00:27:83:d1:0b brd ff:ff:ff:ff:ff:ff
+    altname enp0s3
+    inet 10.0.2.15/24 brd 10.0.2.255 scope global dynamic noprefixroute eth1
+       valid_lft 437sec preferred_lft 437sec
+    inet6 fe80::5ac8:3010:77f1:97ea/64 scope link noprefixroute 
+       valid_lft forever preferred_lft forever
+3: ovs-system: <BROADCAST,MULTICAST> mtu 1500 qdisc noop state DOWN group default qlen 1000
+    link/ether 96:02:a7:03:95:10 brd ff:ff:ff:ff:ff:ff
+4: s1: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc noqueue state UNKNOWN group default qlen 1000
+    link/ether 82:60:53:d4:67:4a brd ff:ff:ff:ff:ff:ff
+
+```
 
 -   Haz un ping desde una máquina virtual de la red NAT a la máquina anfitrión. ¿Ha tenido éxito?
 
+```bash
+fdr2@localhost:~> ping 192.168.56.1
+PING 192.168.56.1 (192.168.56.1) 56(84) bytes of data.
+64 bytes from 192.168.56.1: icmp_seq=1 ttl=127 time=5.68 ms
+64 bytes from 192.168.56.1: icmp_seq=2 ttl=127 time=2.09 ms
+64 bytes from 192.168.56.1: icmp_seq=3 ttl=127 time=1.96 ms
+64 bytes from 192.168.56.1: icmp_seq=4 ttl=127 time=2.26 ms
+64 bytes from 192.168.56.1: icmp_seq=5 ttl=127 time=1.15 ms
+64 bytes from 192.168.56.1: icmp_seq=6 ttl=127 time=1.37 ms
+64 bytes from 192.168.56.1: icmp_seq=7 ttl=127 time=2.02 ms
+^C
+--- 192.168.56.1 ping statistics ---
+7 packets transmitted, 7 received, 0% packet loss, time 6015ms
+rtt min/avg/max/mdev = 1.153/2.361/5.683/1.406 ms
+```
+
 -   Haz un ping desde la máquina anfitrión a una máquina virtual de la red NAT. ¿Ha tenido éxito?
 
+```bash
+(base) PS C:\Users\fcoja> ping 10.0.2.15
+
+Haciendo ping a 10.0.2.15 con 32 bytes de datos:
+Tiempo de espera agotado para esta solicitud.
+Tiempo de espera agotado para esta solicitud.
+Tiempo de espera agotado para esta solicitud.
+Tiempo de espera agotado para esta solicitud.
+
+Estadísticas de ping para 10.0.2.15:
+    Paquetes: enviados = 4, recibidos = 0, perdidos = 4
+    (100% perdidos),
+```
+
 -   Haz un ping desde una máquina virtual de la red NAT a otra. ¿Ha tenido éxito?
+
+```bash
+fdr2@localhost:~> ping 10.0.2.15
+PING 10.0.2.15 (10.0.2.15) 56(84) bytes of data.
+64 bytes from 10.0.2.15: icmp_seq=1 ttl=64 time=1.09 ms
+64 bytes from 10.0.2.15: icmp_seq=2 ttl=64 time=0.387 ms
+64 bytes from 10.0.2.15: icmp_seq=3 ttl=64 time=0.048 ms
+64 bytes from 10.0.2.15: icmp_seq=4 ttl=64 time=0.050 ms
+64 bytes from 10.0.2.15: icmp_seq=5 ttl=64 time=0.078 ms
+64 bytes from 10.0.2.15: icmp_seq=6 ttl=64 time=0.114 ms
+64 bytes from 10.0.2.15: icmp_seq=7 ttl=64 time=0.057 ms
+64 bytes from 10.0.2.15: icmp_seq=8 ttl=64 time=0.071 ms
+64 bytes from 10.0.2.15: icmp_seq=9 ttl=64 time=0.080 ms
+^C
+--- 10.0.2.15 ping statistics ---
+9 packets transmitted, 9 received, 0% packet loss, time 8177ms
+rtt min/avg/max/mdev = 0.048/0.219/1.086/0.322 ms
+```
 
 -   Apaga ambas máquinas virtuales.
