@@ -1,0 +1,26 @@
+```{r}
+poblacion <- c(rep(1, 25900000), rep(0, 11100000))
+set.seed(314159)
+p_muestra <- mean(sample(poblacion, 3000, replace = FALSE))
+
+library(tidyverse)
+p_muestras <- replicate(
+  10000,
+  sample(poblacion, 3000, replace = FALSE),
+  simplify = FALSE
+) |> 
+  map_dbl(mean)
+
+head(p_muestras)
+
+tibble(p = p_muestras) |> 
+    ggplot(aes(x = p)) + 
+    geom_histogram(
+        aes(y = after_stat(density)),
+        alpha = 0.8,
+        fill = "lightblue"
+    ) + 
+    labs(title = expression(paste("Distribución de ", hat(p), ", 10000 muestras"))) +
+  theme_bw()
+```
+

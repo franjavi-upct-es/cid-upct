@@ -1,0 +1,97 @@
+\section{Muestreo y distribuciones muestrales}
+\subsection{Introducción}
+\begin{tcolorbox}[colback=blue!5!white, colframe=blue!75!black, title=El contexto]
+\begin{itemize}[label=\textbullet]
+    \item Tenemos una pregunta acerca de un fenómenos aleatorio.
+    \item Formulamos un modelo para la varaible de interés $X$.
+    \item Traducimos la pregunta de interés en términos de uno o varios parámetros del modelo.
+    \item Repetimos el experimento varias veces, apuntamos los valores de  $X$.
+    \item ¿Cómo usar estos valores para extraer información sobre el parámetro?
+\end{itemize}
+\end{tcolorbox}
+
+\subsection{Ejemplos}
+
+\begin{tcolorbox}[colback=blue!5!white, colframe=blue!75!black, title=¿Está la moneda trucada?]
+\begin{itemize}[label=\textbullet]
+    \item Experimento: tirar la modena. $X=$ resultado obtenido.
+
+         $P(X=+)=p,P(X=c)=1-p$  \[
+         \text{¿} p = \dfrac{1}{2}?
+         \] 
+\end{itemize}
+\end{tcolorbox}
+
+\begin{tcolorbox}[colback=blue!5!white, colframe=blue!75!black, title=Sondeo sobre intención de participación en unas elecciones]
+\begin{itemize}[label=\textbullet]
+    \item Queremos estima la tasa de participación antes de unas elecciones generales.
+    \item Formulamos un modelo:
+        \begin{itemize}[label=\textrightarrow]
+            \item Experimento: "escoger una persona al azar en el censo".
+            \item $X$: participación, variable dicotómica ("Sí" o "No").  $p=P(X=\text{Si})$.
+        \end{itemize}
+    \item ¿Cuánto vale $p$?
+    \item Censo: aproximadamente 37 000 000. Escogemos aproximadamente 3000 personas.
+\end{itemize}
+\end{tcolorbox}
+
+\begin{tcolorbox}[colback=blue!5!white, colframe=blue!75!black, title=Determinación de la concentración de un producto]
+\begin{itemize}[label=\textbullet]
+    \item Quiero determinar la concentración de un producto.
+    \item Formulo el modelo:
+        \begin{itemize}[label=\textrightarrow]
+            \item Experimento: "llevar a cabo una medición".
+            \item $X$: "valor proporcionado por el aparato".
+            \item  $X\sim \mathcal{N}(\mu,\sigma^2)$.
+        \end{itemize}
+    \item ¿Qué vale $\mu$?
+\end{itemize}
+\end{tcolorbox}
+\subsection{Surge una pregunta}
+En todas estas situaciones donde nos basamos en la repetición de un experimento simple\dots
+\begin{itemize}[label=\textbullet]
+    \item ¿Cómo sabemos que nuestra estimación es fiable?
+    \item ¿Qué confianza tenemos al extrapolar los resultados de una muestra de 3000 personas a una población de 37 millones de personas?
+\end{itemize}
+\subsection{Esbozo de respuesta: tasa de participación}
+\begin{tcolorbox}[colback=blue!5!white, colframe=blue!75!black, title=Para convenceros, un experimento de simulación]
+\begin{itemize}[label=\textbullet]
+    \item Voy a simular el proceso de extracción de una muestra de 3000 personas en una población de 37 millones de personas.
+    \item Construyo a mi antojo los distintos componentes:
+        \begin{itemize}[label=\textrightarrow]
+            \item \textbf{La población:} defino en mi ordenador un conjunto de 37 000 000 de ceros y unos. ($\Leftrightarrow$ el censo electoral)
+                \begin{itemize}[label=\textbullet]
+                    \item "1" $\Leftrightarrow$ "la persona piensa ir a votar".
+                    \item "0" $\Leftrightarrow$ "la persona \textbf{no} peinsa ir a votar"
+                \end{itemize}
+            \item \textbf{La tasa de participación "real":} Decido que en mi población el 70\% piensa ir a votar $\to 25\,900\,000$ "1"s.
+            \item \textbf{La extracción de una muestra:} construyo un pequeño programa que extrae al azar una muestra de 3000 números dentro del conjunto grande. 
+        \end{itemize}
+\end{itemize}
+\end{tcolorbox}
+\begin{lstlisting}
+poblacion <- c(rep(1, 25900000), rep(0, 11100000))
+set.seed(314159)
+p_muestra <- mean(sample(poblacion, 3000, replace = FALSE))
+p_muestra   
+\end{lstlisting}
+\begin{verbatim}
+## [1] 0.705667    
+\end{verbatim}
+
+Queremos descartar que haya sido suerte. Vamos a repetir muchas veces (10000 veces por ejemplo), la extracción de una muestra de 3000 personas en la población.
+\begin{lstlisting}
+library(tidyverse)
+lista_muestras <- replicate(
+    10000,
+    sample(poblacion, 3000, replace = FALSE),
+    simplify = FALSE
+)
+p_muestras <- map_dbl(lista_muestras, mean)
+head(p_muestras)
+\end{lstlisting}
+\begin{verbatim}
+## [1] 0.6970000  0.7030000  0.7036667  0.7023333  0.7013333  0.7226667
+\end{verbatim}
+
+Recogemos los valores obtenidos en un histograma.
