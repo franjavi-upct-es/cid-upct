@@ -1,0 +1,120 @@
+\input{../../../Macros.tex}
+\title{Álgebra Lineal\\ Ejercicios Tema 2: Vectores, matrices y tensores}
+
+\begin{document}
+\maketitle
+\begin{enumerate}[label=\color{red}\textbf{\arabic*)}]
+    \item \lb{Determina la verdad o falsedad de la siguiente afirmación: si $u_1$ es combinación lineal de $u_2$ y $u_3$, entonces $u_3$ es combinación lineal de $u_1$ y $u_2$.}
+\item \lb{Consideremos los vectores $u=(1,1,0)$ y  $v=(0,1,1)$. Encuentra un vector $w$ ortogonal a $u$ y $v$. Comprueba que $w$ es ortogonal a cualquier combinación lineal de $u$ y $v$. Encuentra ahora un vector que \underline{no} sea lineal de $u,v$ y comprueba que no es ortogonal a $w$.}
+\item \lb{Haz un dibujo de los siguientes conjuntos de $\R^2$: \[
+\begin{array}{l}
+    \{(x,y)\in \R^2\text{ tal que }\|(x,y)\|_1=1\}\\ 
+    \{(x,y)\in \R^2\text{ tal que }\|(x,y)\|_2=1\}\\ 
+    \{(x,y)\in \R^2\text{ tal que }\|(x,y)\|_\infty=1\}\\ 
+\end{array}
+\] } 
+\item \lb{Prueba que $\|u\|_2\le \sqrt{\|u\|_1\|u\|_\infty} $.}
+
+\item \lb{Dos vectores son ortogonales cuando su producto escalar es cero, pero ¿qué pasa si su producto escalar es próximo a cero? Sean $x=[1,-0.75]$ e $y=[0.3,0.3]$. Calcula el producto escalar  $x\cdot y$ y el ángulo que forman. ¿Qué conclusión puedes sacar?\newline Si dos vectores $x,y$ son unitarios, entonces  $-1\le x\cdot y\le 1$ (¿por qué?). En este caso, ¿qué podemos decir si $x\cdot y$ es aproximadamente $-1,1$ o cero?}
+
+\item \lb{Sean $u,v$ dos vectores unitarios de  $\R^{n}$ que forman un ángulo de 60º. Calcula $\|2u+v\|$.}
+
+\item \lb{Sena $u,v$ dos vectores de  $\R^n$ de norma $2$ y  $3$ respectivamente que forman un ángulo de  $60º$. ¿Qué ángulo forman los vectores $u$ y  $2u-v$?} 
+
+\item \lb{Calcula $A+B,(A+B)^\intercal, AB, BA, (AB)^\intercal, A^\intercal B^\intercal$ y $B^\intercal A^\intercal$ para las matrices  \[
+A=\begin{bmatrix} 
+    1 & 0 & 3\\
+    2 & 2 & 3\\
+    3 & 0 & 3
+\end{bmatrix}\quad\text{y} \quad B=\begin{bmatrix} 
+    2 & 1 & 0\\
+    1 & 2 & 0\\
+    0 & 1 & 2
+\end{bmatrix} 
+\] } 
+\item \lb{Prueba que no existe ninguna matriz $A$ tal que  $A^2=\begin{bmatrix} 
+            0 & 1\\
+            0 & 0
+\end{bmatrix} $.}
+
+\item \lb{¿Existen matrices reales no nula $2\times 2$ tales que $A\cdot A^\intercal=0$? ¿y si son matrices complejas?}
+
+\item \lb{Sean $A,B$ matrices tales que  $I+AB$ es invertible y sea  $S$ la inversa de  $I+AB$. Prueba que  $I+BA$ también es invertible y su inversa es  $I-BSA$.} 
+
+\item \lb{Sea $A$ una matriz  $n\times m$ y sea $B$ una matriz $m\times n$. Suponiendo que las matrices $I+AB$ y  $I+BA$ sea invertibles, prueba que se cumple la igualdad  \[
+            (I+AB)^{-1}A=A(1-BA)^{-1}
+\]Si $m$ es mucho más pequeño que  $n$, ¿cuál de las dos expresiones es más fácil de calcular desde el punto de vista computacional?}
+
+\item \lb{Sea $A$ una matriz  $n\times p$ y $B$ una matriz $p\times m$. Si llamamos \textbf{flop} a una operación, ya sea una suma, resta, multiplicación o división, prueba que para calcular $AB$ son necesarios  $mn(2p-1)$ flops (haciendo la multiplicación de forma estándar). Si  $A$ es una matriz  $10\times 2$, $B$ una matriz $2\times 10$ y $C$ una matriz  $10\times 10$ y queremos calcular $ABC$, ¿qué es mejor desde el punto de vista computacional, calcular $(AB)C$ o $A(BC)$?} 
+
+\item \lb{Dadas dos matrices cuadradas $A,B$, se define el  \textbf{conmutador} de $A,B$ como  \[
+            [A,B]=AB-BA
+\]Por una parte, el spin de un electrón se suele representar a través de las siguiente tres matrices, llamadas matrices de Pauli: \[
+S_x=\dfrac{1}{2}\overline{h}\begin{bmatrix} 
+    0 & 1\\
+    1 & 0
+\end{bmatrix} \quad S_y=\dfrac{1}{2}\overline{h}\begin{bmatrix} 
+    0 & -j\\
+    j & 0
+\end{bmatrix} \quad S_z=\dfrac{1}{2}\overline{h}\begin{bmatrix} 
+    1 & 0\\
+    0 & -1
+\end{bmatrix} 
+\]donde $\overline{h}=\dfrac{h}{2\pi}$, con $h$ constante de Plank. Comprueba que \[
+[S_x,S_y]=j\overline{h}S_z,\quad [S_y,S_z]= j\overline{h} S_x, \quad [S_z,S_x]=j\overline{h}S_y
+\]y que \[
+S_x ^2+S_y^2+S_z^2=\dfrac{3}{4}\overline{h}^2I_3
+\] con $I_3$ la matriz identidad $3\times 3$. }
+
+\item \lb{Si $A$ es una matriz simétrica, ¿son las matrices $B^\intercal AB,A+A^\intercal$ y $A-A^\intercal$ simétricas?}
+
+\item \lb{Prueba que si $A$ es una matriz invertible simétrica, entonces  $A^{-1}$ es también simétrica.}
+
+\item \lb{Sean $u_1,\dots,u_m$ vectores de $\mathbb{K}^n$ y supongamos que para ciertos escalares $x_1,\dots,x_m$ se tiene $x_1u_1+\cdots+x_mu_m=0$. Expresa esta última igualdad en forma matricial.}
+
+\item \lb{Sean $u,v$ dos vectores no nulos vistos como matrices columna  $n\times 1$. Observa que $1+v^\intercal u$ es un escalar, que suponemos no nulo. Prueba que la matriz $I+uv^\intercal$ es no singular y su inversa es \[
+            (I+uv^\intercal)^{-1}=I-\dfrac{uv^\intercal}{1+v^\intercal u}
+\] } 
+\item \lb{Sea $u$ un vector de $\R^n$ con $\|u\|=1$ y consideremos la matriz  $A=I-2uu^\intercal$. Prueba que $A$ es simétrica y  $A^2=I$.}
+
+\item \lb{Sea $A$ la matriz dada por bloques  \[
+A=\begin{bmatrix} 
+    A_{11} & A_{12}\\
+    A_{21} & A_{22}
+\end{bmatrix} 
+\]con $A_{11}$ invertible. Prueba que existen matrices $X,Y$ tales que  \[
+A=\begin{bmatrix} 
+    1 & 0\\
+    X & 1
+\end{bmatrix} \begin{bmatrix} 
+    A_{11} & 0\\
+    0 & S
+\end{bmatrix} \begin{bmatrix} 
+    I & Y\\
+    0 & I
+\end{bmatrix} 
+\] donde $S=A_{22}-A_{21}A_{11}^{-1}A_{12}$ e $I$ es la matriz identidad del tamaño adecuado (la matriz  $S$ se denomina el  \textbf{complemento dde Schur} de $A_{11}$ ).}
+
+\item \lb{Expresa la matriz $AB$ como suma de matrices de rango  $1$, donde  \[
+A=\begin{bmatrix} 
+    1 & -1 & 3\\
+    2 & 1 & 4
+\end{bmatrix},\qquad B=\begin{bmatrix} 
+    1 & 2 & 3\\
+    0 & 1 & 4\\
+    1 & 0 & 5
+\end{bmatrix}  
+\] } 
+
+\item \lb{Sea $u^\intercal=\left[ \dfrac{1}{3},\dfrac{2}{3},-\dfrac{2}{3} \right], v^\intercal=\left[ \dfrac{2}{3},\dfrac{1}{3},\dfrac{2}{3} \right]  $ y $w^\intercal=[a,b,c]$. Halla $a,b,c$ para que la matriz  $Q=[u,v,w]$ sea ortogonal de determinante 1.}
+
+\item \lb{\textbf{(Traza de una matriz)} Dada una matriz cuadrada $A$, se define la \textbf{traza} de $A$ como $\mathrm{tr}(A)=\sum_{i=1}^{n} [A]_{ii}$, es decir, como la suma de los elementos de la diagonal principal. Prueba las siguientes propiedades:}
+    \begin{enumerate}[label=\color{red}\textbf{\alph*)}]
+        \item \db{$\mathrm{tr}(A+B)=\mathrm{tr}(A)+\mathrm{tr}(B)$.} 
+        \item \db{$\mathrm{tr}(A)=\mathrm{tr}(A^\intercal)$.} 
+        \item \db{$\mathrm{tr}(AB)=\mathrm{tr}(BA)$.} 
+        \item \db{$\mathrm{tr}(P^{-1}AP)=\mathrm{tr}(A)$ con $P$ invertible.} 
+    \end{enumerate}
+\end{enumerate}
+\end{document}
+
