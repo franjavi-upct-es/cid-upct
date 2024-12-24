@@ -814,3 +814,16 @@ COMMIT;
         -   El número de artículos que ha redactado para la revista (un 0 si no tiene artículos).
 
         Columnas de la vista: **`(revista, periodista, sueldo, contrato, annos, articulos)`**.
+
+    b.  **Muestra** (con **`SELECT *`**) el contenido de la vista, ordenado por **`revista`** y **`periodista`**.
+
+    c.  **Modifica** la definición de la **vista** para que \underline{desaparezca} la columna de la \underline{fecha de contrato} y que se muestre el \underline{sueldo una vez restado el 21% del IRPF}.
+
+        -   Vuelve a **mostrar** la vista (paso **b**) y confirma que el paso **(c)** se ha realizado correctamente.
+    
+    d.  **Inserta** un nuevo periodista **contratado** en la revista **`R03`**, sin tutor, con fecha de contrato **`20/05/1028`** y sueldo **`2300€`**.
+
+    e.  Visualiza el contenido de la vista (repite el paso **b**) y contesta: ¿Aparece el nuevo contratado? ¿Se aplica el cambio del 21% a la nueva fila? ¿O sólo se aplica a las filas que ya existían antes de insertar la nueva?
+
+    f.  **Confirma** (sentencia **`COMMIT`**) los cambios realizados.
+
