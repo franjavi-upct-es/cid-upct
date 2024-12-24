@@ -4,7 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="cb3e1152-4c03-4efb-aecf-6750f30e83e5" name="Changes" comment="" />
+    <list default="true" id="cb3e1152-4c03-4efb-aecf-6750f30e83e5" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/91a326d1-698b-4950-a6a3-db83645b8cdb.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/91a326d1-698b-4950-a6a3-db83645b8cdb.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Prácticas/2º Curso/1º Cuatrimestre/BD I/Práctica 3/Sesión 1/MercaderFranciscoJavier_AlarconPedro-p3ej1-insert.sql" beforeDir="false" afterPath="$PROJECT_DIR$/Prácticas/2º Curso/1º Cuatrimestre/BD I/Práctica 3/Sesión 1/MercaderFranciscoJavier_AlarconPedro-p3ej1-insert.sql" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -59,6 +64,7 @@
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     "Database Script.MercaderFranciscoJavier_AlarconPedro-p3ej0-esquema.sql.executor": "Run",
+    "Database Script.MercaderFranciscoJavier_AlarconPedro-p3ej1-insert.sql.executor": "Run",
     "Docker.Dockerfile.executor": "Run",
     "LaTeX.Ejercicios Tema 3.executor": "Run",
     "LaTeX.Ejercicios Tema 4.executor": "Run",
@@ -96,11 +102,24 @@
     ],
     "RunConfigurationTargetLRU": [
       "e8bcb332-1eed-4343-a913-a113970ac5d1",
-      "91a326d1-698b-4950-a6a3-db83645b8cdb"
+      "91a326d1-698b-4950-a6a3-db83645b8cdb",
+      "91a326d1-698b-4950-a6a3-db83645b8cdb/schema/\"SYSTEM\""
     ]
   }
 }]]></component>
-  <component name="RunManager" selected="Python.Ejercicio 6">
+  <component name="RunManager" selected="Database Script.MercaderFranciscoJavier_AlarconPedro-p3ej1-insert.sql">
+    <configuration name="MercaderFranciscoJavier_AlarconPedro-p3ej0-esquema.sql" type="DatabaseScript" editBeforeRun="true" focusToolWindowBeforeRun="true" singleton="false" temporary="true" nameIsGenerated="true">
+      <script-file value="$PROJECT_DIR$/Prácticas/2º Curso/1º Cuatrimestre/BD I/Práctica 3/Sesión 1/MercaderFranciscoJavier_AlarconPedro-p3ej0-esquema.sql" />
+      <script-mode>FILE</script-mode>
+      <data-source id="91a326d1-698b-4950-a6a3-db83645b8cdb" namespace="schema/&quot;SYSTEM&quot;" />
+      <method v="2" />
+    </configuration>
+    <configuration name="MercaderFranciscoJavier_AlarconPedro-p3ej1-insert.sql" type="DatabaseScript" editBeforeRun="true" singleton="false" temporary="true" nameIsGenerated="true">
+      <script-file value="$PROJECT_DIR$/Prácticas/2º Curso/1º Cuatrimestre/BD I/Práctica 3/Sesión 1/MercaderFranciscoJavier_AlarconPedro-p3ej1-insert.sql" />
+      <script-mode>FILE</script-mode>
+      <data-source id="91a326d1-698b-4950-a6a3-db83645b8cdb" namespace="schema/&quot;SYSTEM&quot;" />
+      <method v="2" />
+    </configuration>
     <configuration name="Ejercicios Tema 5" type="LATEX_RUN_CONFIGURATION" factoryName="LaTeX configuration factory" temporary="true">
       <texify>
         <compiler>PDFLATEX</compiler>
@@ -123,29 +142,6 @@
       </texify>
       <method v="2" />
     </configuration>
-    <configuration name="Ejercicio 2 (1)" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
-      <module name="cid-upct" />
-      <option name="ENV_FILES" value="" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/Apuntes LaTex/2º Curso/ADA/Ejercicios Tema 5" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Apuntes LaTex/2º Curso/ADA/Ejercicios Tema 5/Ejercicio 2.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
     <configuration name="Ejercicio 3 (1)" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="cid-upct" />
       <option name="ENV_FILES" value="" />
@@ -161,29 +157,6 @@
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Apuntes LaTex/2º Curso/ADA/Ejercicios Tema 5/Ejercicio 3.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
-    <configuration name="Ejercicio 4" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
-      <module name="cid-upct" />
-      <option name="ENV_FILES" value="" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/Apuntes LaTex/2º Curso/ADA/Ejercicios Tema 3" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Apuntes LaTex/2º Curso/ADA/Ejercicios Tema 3/Ejercicio 4.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -223,11 +196,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Database Script.MercaderFranciscoJavier_AlarconPedro-p3ej1-insert.sql" />
+        <item itemvalue="Database Script.MercaderFranciscoJavier_AlarconPedro-p3ej0-esquema.sql" />
         <item itemvalue="Python.Ejercicio 6" />
         <item itemvalue="Python.Ejercicio 3 (1)" />
         <item itemvalue="LaTeX.Ejercicios Tema 5" />
-        <item itemvalue="Python.Ejercicio 2 (1)" />
-        <item itemvalue="Python.Ejercicio 4" />
       </list>
     </recent_temporary>
   </component>

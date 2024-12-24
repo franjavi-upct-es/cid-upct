@@ -268,6 +268,7 @@ INSERT INTO
   ARTICULO (idart, titulo, tipo, contratado, freelance, revista, numero)
   VALUES ('A030', 'TOXICOS EN EL AGUA', 'Informacion', '11223344P', NULL, 
           'R01', 3); 
+
 INSERT INTO
   ARTICULO (idart, titulo, tipo, contratado, freelance, revista, numero)
   VALUES ('A031', 'RECUPERAR EL SUELO AGRARIO', 'Informacion', '22334455A', NULL, 
