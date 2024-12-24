@@ -1,13 +1,225 @@
-/*
-Asignatura: Bases de Datos I
-Curso académico: 2024/25
-Convocatoria: Enero
-P3. Definición y modificación de datos en SQL
-Autores:
-- Francisco Javier Mercader Martínez
-- Pedro Alarcón Fuentes
-*/
+---
+title: "Bases de Datos I"
+subtitle: "Práctica 2: Consultas Oracle SQL"
+author: "Francisco Javier Mercader Martínez"
+output:
+  pdf_document:
+    latex_engine: pdflatex
+geometry: margin=1.5cm, a4paper
+header-includes:
+- \renewcommand{\and}{\\}
+- \usepackage{fvextra}
+- \usepackage{hyperref}
+- \DefineVerbatimEnvironment{Highlighting}{Verbatim}{breaklines, commandchars=\\\{\}}
+- \usepackage{setspace}
+- \setstretch{1.35}
+---
 
+```{r setup, include=FALSE}
+library(knitr)
+library(DBI)
+library(RJDBC)
+library(stringr)
+
+jdbcDriver <- JDBC(driverClass = "oracle.jdbc.OracleDriver",
+                   classPath = "C:/Users/fcoja/Downloads/sqldeveloper-24.3.0.284.2209-x64/sqldeveloper/jdbc/lib/ojdbc11.jar")
+
+conn <- dbConnect(jdbcDriver,                "jdbc:oracle:thin:@localhost:1521:XE",
+                  "SYSTEM",
+                  "1234")
+
+conn@jc$setAutoCommit(FALSE)
+
+# Guardar la conexión en las opciones globales de chunk
+knitr::opts_chunk$set(sql.connection = conn)
+
+knitr::knit_engines$set(sql = function(options) {
+  con <- options$sql.connection
+  if (is.null(con)) stop('No se encontró una conexión de base de datos')
+  
+  # Convierte el código del chunk en un string
+  sql_query <- paste(options$code, collapse = "\n")
+  
+  # Detección (muy básica) de si es SELECT o no
+  is_select <- grepl("^SELECT|^WITH", trimws(toupper(sql_query)))
+  
+  if (is_select) {
+    # Consulta que retorna filas
+    res <- DBI::dbGetQuery(con, sql_query)
+    
+    # Aquí usamos `format = "simple"`.
+    output <- knitr::kable(
+      res,
+      format = "simple",
+      align = "l",
+      col.names = toupper(colnames(res))
+    )
+  } else {
+    # Consulta que NO retorna filas (UPDATE, INSERT, etc.)
+    RJDBC::dbSendUpdate(con, sql_query)
+    output <- "Consulta ejecutada con éxito (sin resultado)."
+  }
+  
+  knitr::engine_output(options, options$code, output)
+})
+```
+
+# Creación de las tablas
+
+``` sql
+-- Sentencia DROP para eliminar la tabla aunque tenga restricciones
+DROP TABLE REVISTA CASCADE CONSTRAINTS;
+DROP TABLE NUMERO CASCADE CONSTRAINTS;
+DROP TABLE ARTICULO CASCADE CONSTRAINTS;
+DROP TABLE CONTRATADO CASCADE CONSTRAINTS;
+DROP TABLE FREELANCE CASCADE CONSTRAINTS;
+DROP TABLE COLABORACION CASCADE CONSTRAINTS;
+DROP TABLE ESPECIALIDAD_FREELANCE CASCADE CONSTRAINTS;
+
+-- Sentencias CREATE (y ALTER) para crear las tablas del esquema
+-- en el orden que evite errores de integridad referencial
+
+-- Crear tabla REVISTA
+CREATE TABLE REVISTA (
+    idrev CHAR(3),
+    nombre VARCHAR2(50) UNIQUE NOT NULL,
+    web VARCHAR2(50) NULL,
+    tema VARCHAR2(50) NOT NULL,
+    periodicidad VARCHAR2(50) NOT NULL,
+    coordinador CHAR(9) UNIQUE NOT NULL,
+    CONSTRAINT periodicidad_ok CHECK (
+        periodicidad IN ('Semanal', 'Quincenal', 'Mensual', 'Bimestral', 'Trimestral', 'Anual')
+    ),
+    CONSTRAINT pk_revista PRIMARY KEY (idrev)
+);
+
+-- Crear tabla NUMERO
+CREATE TABLE NUMERO (
+    numero NUMBER(4) NOT NULL,
+    fecha DATE NOT NULL,
+    num_articulos NUMBER NOT NULL,
+    revista CHAR(3) NOT NULL,
+    CONSTRAINT pk_numero PRIMARY KEY (revista, numero),
+    CONSTRAINT num_articulos_ok CHECK (num_articulos >= 0),
+    CONSTRAINT numero_ok CHECK (numero > 0)
+);
+
+-- Crear tabla ARTICULO
+CREATE TABLE ARTICULO (
+    idart CHAR(4),
+    titulo VARCHAR2(60) NOT NULL,
+    tipo VARCHAR2(20) NOT NULL,
+    revista CHAR(3) NULL,
+    numero NUMBER(4) NULL,
+    contratado CHAR(9) NULL,
+    freelance CHAR(9) NULL,
+    CONSTRAINT pk_articulo PRIMARY KEY (idart),
+    CONSTRAINT diferente_periodista CHECK (
+        ((contratado IS NOT NULL) AND (freelance IS NULL)) OR
+        ((contratado IS NULL) AND (freelance IS NOT NULL))
+    ),
+    CONSTRAINT tipo_ok CHECK (tipo IN ('Opinion', 'Informacion', 'Analisis')),
+    CONSTRAINT revista_numero_ok CHECK (
+    ((revista is NULL) AND (numero IS NULL)) OR ((revista IS NOT NULL) AND (numero IS NOT NULL))
+    )
+);
+
+-- Crear tabla CONTRATADO
+CREATE TABLE CONTRATADO (
+    dni CHAR(9),
+    nombre VARCHAR2(50) NOT NULL,
+    email VARCHAR2(50) UNIQUE NOT NULL,
+    sueldo NUMBER(10, 2) CHECK (sueldo > 0) NOT NULL,
+    fecha_contrato DATE NOT NULL,
+    revista CHAR(4) NOT NULL,
+    tutor CHAR(9) NULL,
+    CONSTRAINT pk_contratado PRIMARY KEY (dni),
+    CONSTRAINT dni_diferente_a_tutor CHECK (dni <> tutor)
+);
+
+-- Crear tabla FREELANCE
+CREATE TABLE FREELANCE (
+    dni CHAR(9),
+    nombre VARCHAR2(50) NOT NULL,
+    email VARCHAR(50) UNIQUE NOT NULL,
+    CONSTRAINT pk_freelance PRIMARY KEY (dni)
+);
+
+-- Crear tabla COLABORACION
+CREATE TABLE COLABORACION(
+    revista CHAR(3) NOT NULL,
+    freelance CHAR(9) NOT NULL,
+    pago_articulo NUMBER(10, 2) NOT NULL, 
+    CONSTRAINT pk_colaboracion PRIMARY KEY (revista, freelance),
+    CONSTRAINT pago_articulo_ok CHECK (pago_articulo > 0) 
+);
+
+-- Crear tabla ESPECIALIDAD_FREELANCE
+CREATE TABLE ESPECIALIDAD_FREELANCE(
+    freelance CHAR(9) NOT NULL,
+    especialidad VARCHAR(20) NOT NULL,
+    CONSTRAINT pk_especialidad_freelance PRIMARY KEY (freelance, especialidad)
+);
+
+-- Agregar las restricciones una vez están creadas las tablas
+
+ALTER TABLE REVISTA 
+    ADD CONSTRAINT coordinador_fk_contratado FOREIGN KEY (coordinador) REFERENCES CONTRATADO(dni);
+    -- ON DELETE NO ACTION
+    -- ON UPDATE CASCADE
+    
+ALTER TABLE NUMERO 
+    ADD CONSTRAINT numero_fk_revista FOREIGN KEY (revista) REFERENCES REVISTA (idrev)
+    ON DELETE CASCADE;
+    -- ON UPDATE CASCADE
+
+ALTER TABLE ARTICULO ADD (
+    CONSTRAINT articulo_fk_revista_numero FOREIGN KEY (revista, numero) REFERENCES NUMERO(revista, numero),
+    -- ON DELETE NO ACTION
+    -- ON UPDATE CASCADE
+    CONSTRAINT articulo_fk_contratado FOREIGN KEY (contratado) REFERENCES CONTRATADO(dni),
+    -- ON DELETE NO ACTION
+    -- ON UPDATE CASCADE
+    CONSTRAINT articulo_fk_freelance FOREIGN KEY (freelance) REFERENCES FREELANCE(dni)
+    -- ON DELETE NO ACTION
+    -- ON UPDATE CASCADE
+);
+
+ALTER TABLE CONTRATADO ADD (
+    CONSTRAINT contratado_fk_revista FOREIGN KEY (revista) REFERENCES REVISTA(idrev),
+    -- ON DELETE NO ACTION
+    -- ON UPDATE CASCADE
+    CONSTRAINT contratado_fk_tutor FOREIGN KEY (tutor) REFERENCES CONTRATADO(dni)
+    -- ON DELETE NO ACTION
+    -- ON UPDATE CASCADE
+);
+
+ALTER TABLE COLABORACION ADD (
+    CONSTRAINT colaboracion_fk_revista FOREIGN KEY (revista) REFERENCES REVISTA(idrev),
+    -- ON DELETE NO ACTION
+    -- ON UPDATE CASCADE
+    CONSTRAINT colaboracion_fk_freelance FOREIGN KEY (freelance) REFERENCES FREELANCE(dni)
+    -- ON DELTE NO ACTION
+    -- ON UPDATE CASCADE
+);
+
+ALTER TABLE ESPECIALIDAD_FREELANCE 
+    ADD CONSTRAINT especialidad_fk_freelance FOREIGN KEY (freelance) REFERENCES FREELANCE(dni)
+    ON DELETE CASCADE;
+    -- ON UPDATE CASCADE
+```
+
+# Insercción de filas
+
+1.  Copia los INSERT en tu script **`bdixyy-p3ej1-insert.sql`** y realiza lo siguiente:
+
+    a.  Es imprescindible **solucionar** el **problema** del ciclo referencia que hay entre las tablas **`REVISTA`** y **`CONTRATADO`**.
+
+    b.  ES indeludible **reordenar** las sentencias **`INSERT`** sobre **`CONTRATADO`**, que contiene una **autoreferencia**, para que cuando se ejecuten no provoquen errores de integridad referencia (claves ajenas).
+
+    c.  Incluye en tu scropt una sentencia **`COMMIT`** para **confirmar** los datos insertados.
+
+``` sql
 -- Sentencias INSERT
 -- REVISTAS
 ALTER TABLE revista DISABLE CONSTRAINT coordinador_fk_contratado;
@@ -268,7 +480,6 @@ INSERT INTO
   ARTICULO (idart, titulo, tipo, contratado, freelance, revista, numero)
   VALUES ('A030', 'TOXICOS EN EL AGUA', 'Informacion', '11223344P', NULL, 
           'R01', 3); 
-
 INSERT INTO
   ARTICULO (idart, titulo, tipo, contratado, freelance, revista, numero)
   VALUES ('A031', 'RECUPERAR EL SUELO AGRARIO', 'Informacion', '22334455A', NULL, 
@@ -360,3 +571,246 @@ UPDATE NUMERO N SET num_articulos= (SELECT COUNT(*)
                                     WHERE A.revista = N.revista 
                                       AND A.numero = N.numero);
 COMMIT;
+```
+
+2.  **Modificar valores de una columna**
+
+    a.  Obtener el **listado** de los freelances **`(DNI, nombre)`** que colaboran con más de 2 revistas, indicando lo que cobran por artículo **`(pago_articulo)`** en cada una de las revistas **`(id)`** con las que colaboran, ordenado por DNI. Columnas: **`(DNI, nombre, revista, pago_articulo)`**
+
+        ```{sql, connection=conn}
+        SELECT F.dni, F.nombre, C.revista, C.pago_articulo
+        FROM FREELANCE F
+            JOIN COLABORACION C ON C.freelance = F.dni
+        WHERE F.dni IN (SELECT freelance
+                        FROM COLABORACION
+                        GROUP BY freelance
+                        HAVING COUNT(revista) > 2)
+        ORDER BY F.dni, C.revista
+        ```
+
+    b.  **Aumentar** un 3% los pagos por artículo de cada periodista freelance que colabore con más de 2 revistas.
+
+        ```{sql}
+        UPDATE COLABORACION
+        SET pago_articulo = pago_articulo * 1.03
+        WHERE freelance IN (SELECT freelance
+                            FROM COLABORACION
+                            GROUP BY freelance
+                            HAVING COUNT(revista) > 2)
+        ```
+
+        -   Volver a mostrar el listado del paso **(a)** y comprobar que se ha realizado bien el cambio.
+
+        ```{sql, connection=conn}
+        SELECT F.dni, F.nombre, C.revista, C.pago_articulo
+        FROM FREELANCE F
+            JOIN COLABORACION C ON C.freelance = F.dni
+        WHERE F.dni IN (SELECT freelance
+                        FROM COLABORACION
+                        GROUP BY freelance
+                        HAVING COUNT(revista) > 2)
+        ORDER BY F.dni, C.revista
+        ```
+
+    c.  **Deshacer** la modificación realizada en el paso **(b)** utilizando la sentencia **`ROLLBACK`**
+
+        ```{sql}
+        ROLLBACK
+        ```
+
+        -   Mostrar de nuevo el listado del paso **(a)** y comprobar que los datos están como al principio.
+
+        ```{sql, connection=conn}
+        SELECT F.dni, F.nombre, C.revista, C.pago_articulo
+        FROM FREELANCE F
+            JOIN COLABORACION C ON C.freelance = F.dni
+        WHERE F.dni IN (SELECT freelance
+                        FROM COLABORACION
+                        GROUP BY freelance
+                        HAVING COUNT(revista) > 2)
+        ORDER BY F.dni, C.revista
+        ```
+
+3.  **Modificar el valor de una clave primaria**
+
+    Este ejercicio consiste en implementar *a mano* una cadena de **`ON UPDATE CASCADE`**.
+
+    a.  **Cambia el DNI del periodista contratado** cuyo DNI es "**`11223344P`**" por el nuevo valor "**`99001122P`**". Hay que tener en cuenta que dicho periodista está referenciado desde otras tablas.
+
+        Soluciona los problemas que puedan surgir con las restricciones de integridad referencial (claves ajenas), realizando las operaciones adecuadas y en el \underline{orden} correcto.
+
+        Se permite desactivar/reactivar restricciones de integridad (sólo las estrictamente necesarias, no todas).
+
+        ```{sql}
+        ALTER TABLE REVISTA DISABLE CONSTRAINT coordinador_fk_contratado
+        ```
+
+        ```{sql}
+        ALTER TABLE ARTICULO DISABLE CONSTRAINT articulo_fk_contratado
+        ```
+
+        ```{sql}
+        ALTER TABLE CONTRATADO DISABLE CONSTRAINT contratado_fk_tutor
+        ```
+
+        ```{sql}
+        UPDATE REVISTA SET coordinador = '99001122P'
+        WHERE coordinador = '11223344P'
+        ```
+
+        ```{sql}
+        UPDATE ARTICULO SET contratado = '99001122P'
+        WHERE contratado = '11223344P'
+        ```
+
+        ```{sql}
+        UPDATE CONTRATADO SET tutor = '99001122P'
+        WHERE tutor = '11223344P'
+        ```
+
+        ```{sql}
+        UPDATE CONTRATADO SET dni = '99001122P'
+        WHERE dni = '11223344P'
+        ```
+
+        ```{sql}
+        ALTER TABLE REVISTA ENABLE CONSTRAINT coordinador_fk_contratado
+        ```
+
+        ```{sql}
+        ALTER TABLE ARTICULO ENABLE CONSTRAINT articulo_fk_contratado
+        ```
+
+        ```{sql}
+        ALTER TABLE CONTRATADO ENABLE CONSTRAINT contratado_fk_tutor
+        ```
+
+        -   Comprueba que el cambio ha quedado correcta y completamente realizado en todas las tablas afectadas.
+
+        ```{sql}
+        SELECT * FROM CONTRATADO WHERE dni = '99001122P'
+        ```
+
+        ```{sql}
+        SELECT * FROM REVISTA WHERE coordinador = '99001122P'
+        ```
+
+        ```{sql}
+        SELECT * FROM ARTICULO WHERE contratado = '99001122P'
+        ```
+
+        ```{sql}
+        SELECT * FROM CONTRATADO WHERE tutor = '99001122P'
+        ```
+
+    b.  **Confirma** (sentencia **`COMMIT`**) los cambios realizados
+
+        ```{sql}
+        COMMIT
+        ```
+
+4.  **Borrar algunas filas de una tabla**
+
+    a.  **Elimina** los artículos cuya publicación haya sido anterior al 31 de diciembre de 2023, y estén escritos por un periodista contratado no coordinador de revista.
+
+        Antes de redactar el **`DELETE`**, te ayudará redactar una **`SELECT`** que muestre los artículos que se desea eliminar. Son 5 artículos, por cierto.
+
+        ```{sql}
+        SELECT A.titulo, N.fecha
+        FROM articulo A
+        JOIN NUMERO N ON A.revista = N.revista AND A.numero = N.numero
+        WHERE N.fecha < TO_DATE('31/12/2023', 'DD/MM/YYYY')
+        AND A.contratado NOT IN (SELECT coordinador
+                              FROM revista)
+        ```
+
+        ```{sql}
+        DELETE FROM ARTICULO 
+        WHERE titulo IN (SELECT A.titulo
+                        FROM articulo A
+                        JOIN NUMERO N ON A.revista = N.revista AND A.numero = N.numero
+                        WHERE N.fecha < TO_DATE('31/12/2023', 'DD/MM/YYYY')
+                        AND A.contratado NOT IN (SELECT coordinador
+                                                FROM revista))
+        ```
+
+    b.  **Confirma** (sentencia **`COMMIT`**) los cambios realizados
+
+        ```{sql}
+        COMMIT
+        ```
+
+5.  **Borrar algunas filas de varias tablas**
+
+    Este ejercicio consiste en implementar *a mano* una cadena de **`ON DELETE CASCADE`**.
+
+    a.  **Elimina** todos los datos referentes a la revista con identificador **`R01`**, para la que existen diversos números y artículos, que tienen varios periodistas contratados y que colabora con diferentes periodistas freelance.
+
+        Es decir, se desea **eliminar toda la información** que pueda existir en la base de datos **relacionada con la revista `R01`**. Toda
+
+        Antes de hacerlo, ten en cuenta que, puesto que una revista puede referenciar a filas y también ser referenciada desde otras tablas, es importante que \underline{encuentres el modo más adecuado} de eliminar toda la información afectada.
+
+        Así que 1) establece un \underline{orden} de borrado que minimice los problemas con las claves ajenas (referencias) y 2) soluciona los problemas que surjan debido a claves ajenas y que no se pueden resolver con el orden.
+
+        ```{sql}
+        ALTER TABLE REVISTA DISABLE CONSTRAINT coordinador_fk_contratado
+        ```
+
+        ```{sql}
+        DELETE FROM ARTICULO 
+        WHERE revista = 'R01'
+        ```
+
+        ```{sql}
+        DELETE FROM NUMERO 
+        WHERE revista = 'R01'
+        ```
+
+        ```{sql}
+        DELETE FROM CONTRATADO
+        WHERE revista = 'R01'
+        ```
+
+        ```{sql}
+        DELETE FROM COLABORACION 
+        WHERE revista = 'R01'
+        ```
+
+        ```{sql}
+        DELETE FROM REVISTA 
+        WHERE idrev = 'R01'
+        ```
+
+        ```{sql}
+        ALTER TABLE REVISTA ENABLE CONSTRAINT coordinador_fk_contratado
+        ```
+
+        -   **Confirma** (sentencia **`COMMIT`**) los cambios realizados
+
+        ```{sql}
+        COMMIT
+        ```
+
+6.  **Eliminar algunas columnas.**
+
+    a.  Elimina, una a una, las columnas que contienen la web y la periodicidad de las revistas.
+
+    b.  ¿Es posible hacer esta operación mediante una sola sentencia? Si es así, indica cómo: escribe cuál sería la sentencia SQL.
+
+7.  **Crear y manipular una vista**
+
+    a.  **Define** una vista llamada **`CONTRATO`** que, para cada revista, muestre la siguiente información acerca de sus periodistas contratados (deben aparecer todos sus contratados, aunque, debido a borrados en ejercicios anteriores, en este momento no tengan ningún artículo):
+
+        -   El nombre de la revista.
+
+        -   El nombre del periodista contratado.
+
+        -   El sueldo.
+
+        -   La fecha de contrato.
+
+        -   Los años que lleva trabajando en la revista (calculados a partir de la diferencia entre la fecha de contrato y la fecha actual).
+
+        -   El número de artículos que ha redactado para la revista (un 0 si no tiene artículos).
+
+        Columnas de la vista: **`(revista, periodista, sueldo, contrato, annos, articulos)`**.
