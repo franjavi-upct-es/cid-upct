@@ -1,6 +1,6 @@
 \section{Muestreo y distribuciones muestrales}
 \subsection{Introducción}
-\begin{tcolorbox}[colback=blue!5!white, colframe=blue!75!black, title=El contexto]
+\begin{tcolorbox}[colback=blue!5!white, colframe=blue!75!black, title=\textbf{El contexto}]
 \begin{itemize}[label=\textbullet]
     \item Tenemos una pregunta acerca de un fenómenos aleatorio.
     \item Formulamos un modelo para la varaible de interés $X$.
@@ -12,7 +12,7 @@
 
 \subsection{Ejemplos}
 
-\begin{tcolorbox}[colback=blue!5!white, colframe=blue!75!black, title=¿Está la moneda trucada?]
+\begin{tcolorbox}[colback=blue!5!white, colframe=blue!75!black, title=\textbf{¿Está la moneda trucada?}]
 \begin{itemize}[label=\textbullet]
     \item Experimento: tirar la modena. $X=$ resultado obtenido.
 
@@ -22,7 +22,7 @@
 \end{itemize}
 \end{tcolorbox}
 
-\begin{tcolorbox}[colback=blue!5!white, colframe=blue!75!black, title=Sondeo sobre intención de participación en unas elecciones]
+\begin{tcolorbox}[colback=blue!5!white, colframe=blue!75!black, title=\textbf{Sondeo sobre intención de participación en unas elecciones}]
 \begin{itemize}[label=\textbullet]
     \item Queremos estima la tasa de participación antes de unas elecciones generales.
     \item Formulamos un modelo:
@@ -35,7 +35,7 @@
 \end{itemize}
 \end{tcolorbox}
 
-\begin{tcolorbox}[colback=blue!5!white, colframe=blue!75!black, title=Determinación de la concentración de un producto]
+\begin{tcolorbox}[colback=blue!5!white, colframe=blue!75!black, title=\textbf{Determinación de la concentración de un producto}]
 \begin{itemize}[label=\textbullet]
     \item Quiero determinar la concentración de un producto.
     \item Formulo el modelo:
@@ -54,7 +54,7 @@ En todas estas situaciones donde nos basamos en la repetición de un experimento
     \item ¿Qué confianza tenemos al extrapolar los resultados de una muestra de 3000 personas a una población de 37 millones de personas?
 \end{itemize}
 \subsection{Esbozo de respuesta: tasa de participación}
-\begin{tcolorbox}[colback=blue!5!white, colframe=blue!75!black, title=Para convenceros, un experimento de simulación]
+\begin{tcolorbox}[colback=blue!5!white, colframe=blue!75!black, title=\textbf{Para convenceros, un experimento de simulación}]
 \begin{itemize}[label=\textbullet]
     \item Voy a simular el proceso de extracción de una muestra de 3000 personas en una población de 37 millones de personas.
     \item Construyo a mi antojo los distintos componentes:
@@ -95,3 +95,262 @@ head(p_muestras)
 \end{verbatim}
 
 Recogemos los valores obtenidos en un histograma.
+
+\begin{center}
+\includegraphics[width=0.7\linewidth]{"Tema 1/figures/Figure 1"}
+\end{center}
+
+\subsection{Realización del experimento: conclusiones}
+\begin{itemize}[label=\textbullet]
+  \item La enorme mayoría de las muestras de 3000 individuos proporcionan una tasa de partición muy próxima a la de la población.
+    \begin{itemize}[label=\textrightarrow]
+      \item \textbf{\rc{El riesgo}} de cometer un error superior a $\pm 2$ puntos, al coger \textbf{\rc{una}} muestra de 3000 individuos es muy pequeño (y asumible\dots)
+    \end{itemize}
+    \item Si nos limitamos a muestras de 300 individuos, ¿qué esperáis?
+\end{itemize}
+\begin{center}
+  \includegraphics[width=0.7\linewidth]{"Tema 1/figures/Figure 2"}
+\end{center}
+\subsection{En la práctica}
+\begin{tcolorbox}[colback=blue!5!white, colframe=blue!75!black, title=\textbf{Usamos las distribuciones muestrales}]
+\begin{itemize}[label=\textbullet]
+  \item Las empresas de sondeos no se basan en simulaciones sino en cálculos teóricos.
+  \item Experimento aleatorio: escoger al azar una muestra de 3000 personas dentro de una población de 37 000 000, con una tasa de participación $p$.
+  \item Llamamos a  $\hat{p}$ la variables aleatoria: proporción de "1"s en la muestra escogida.
+  \item ¿Cuál es la distribución de valores de $\hat{p}$? \[
+  \hat{p}\sim \mathcal{N}\left( p,\dfrac{p(1-p)}{n} \right) 
+  \] 
+  Es lo qe llamamos la \lb{distribución muestral} de $\hat{p}$.
+\end{itemize}
+\end{tcolorbox}
+\subsection{Uso de la distribución muestral}
+\begin{tcolorbox}[colback=blue!5!white, colframe=blue!75!black, title=\textbf{La distribución muestral de $\hat{p}$:}]
+Es la distribución esperada de los valores de $\hat{p}$ respecto a todas las muestras de ese tamaño que podría extraer.
+\end{tcolorbox}
+\begin{center}
+  \includegraphics[width=0.7\textwidth]{"Tema 1/figures/Figure 3"}
+\end{center}
+\subsection{Antes de extraer una muestra:}
+\begin{itemize}[label=\textbullet]
+  \item ¿Es suficiente el tamaño de la muestra para el riesgo asumible y la precisión requerida?
+  \item Una vez extraida la muestra:
+    \begin{itemize}[label=\textrightarrow]
+      \item ¿Puedo dar un margen de error?
+      \item ¿Puedo de decidir si $p$ poblacional es, por ejemplo, mayor que un valor dado?
+    \end{itemize}
+\end{itemize}
+\subsection{Otro ejemplo: valores muestrales de una distribución normal}
+\begin{center}
+  \includegraphics[width=\textwidth]{"Tema 1/figures/Figure 4"}\\
+  \includegraphics[width=\textwidth]{"Tema 1/figures/Figure 5"}\\
+\end{center}
+\subsection{Un resultado importante}
+\begin{tcolorbox}[colback=blue!5!white, colframe=blue!75!black, title=\textbf{Ley (débil) de los grandes números}]
+Sea $X$ una variable aletoria y $g(X)$ una variable aleatoria transformada de  $X$, con esperanza y momento de orden 2 finitos. Supongamos $X_1,X_2,\dots,X_n,\dots$ una sucesión de variables aleatorias (vv.aa) independientes con la misma distribución que $X$, entonces  \[
+  \lim_{n \to +\infty} P\left[ \left| \dfrac{\sum_{i=1}^{n} g(X_i)}{n}-E[g(X)] \right| < \varepsilon \right] =1,\text{ para todo }\varepsilon>0.
+\] 
+\end{tcolorbox}
+\subsection{Algunos términos}
+\begin{tcolorbox}[colback=blue!5!white, colframe=blue!75!black, title=\textbf{Definición}]
+\begin{itemize}[label=\textbullet]
+  \item Sea una variable aleatoria $X$. Consideramos $n$ variables aleatorias independientes e idénticamente distribuidas  $X_1,X_2,\dots,X_n$, que se distribuyen como $X$. La variable aleatoria multidimensional  $(X_1,X_2,\dots,X_n)$ es una \lb{muestra aleatoria simple} (m.a.s) de $X$.
+  \item Cualquier cantidad calculada a partir de las observaciones de un muestra: \lb{estadístico}.
+  \item Experimento aleatorio: extraer una muestra. Consideramos un estadístico como una variable aleatoria. Nos interesa conocer la distribución del estadístico: \lb{distribución muestral}. 
+\end{itemize}
+\end{tcolorbox}
+\subsection{Ejemplos de estadísticos}
+\begin{itemize}[label=\textbullet]
+  \item Proporción muestral: $\hat{p}$
+  \item Media muestral: $\overline{X}=\dfrac{1}{n}\sum_{i=1}^{n} X_i$.
+  \item Desviación típica muestral: $S_X=\sqrt{\dfrac{1}{n+1}\sum_{i=1}^{n} (X_i-\overline{X})^2} $
+\end{itemize}
+\subsection{La media muestral}
+\begin{tcolorbox}[colback=blue!5!white, colframe=blue!75!black, title=\textbf{Contexto}]
+Estudiamos una variable $X$ cuantitativa.
+\begin{itemize}[label=\textbullet]
+  \item Estamos interesados en $\mu$, el centro de la distribución de $X$.
+  \item Extraemos una muestra de tamaño  $n$:  \[
+  x_1,x_2,\dots,x_{n}
+  \] 
+\item Calculamos su media $\overline{x}$ para aproximar  $\mu$.
+\item ¿Cuál es la distribución muestral de $\overline{X}$?
+\end{itemize}
+\end{tcolorbox}
+\Ej
+\begin{itemize}[label=\textbullet]
+  \item Quiero medir una cantidad. Hay variabilidad en las mediciones.
+  \item Introduzco una variable aleatoria $X$="valor proporcionado por el aparato".
+  \item  $\mu$ representa el centro de los valores.
+  \item Extraigo una muestra de tamaño 5 del valor de $X$
+\end{itemize}
+\subsubsection{Esperanza y varianza de la media muestral}
+Llamamos $\mu=E[X]$ y $\sigma^2=\mathrm{Var}(X)$.
+\begin{itemize}[label=\textbullet]
+  \item Tenemos \[
+      \bboxed{E[\overline{X}]=\mu.} 
+  \] 
+  \begin{itemize}[label=\textrightarrow]
+    \item Es decir que el centro de la distribución muestral de $\overline{X}$ coincide con el centro de la distribución  $X$.
+  \end{itemize}
+\item Tenemos $\mathrm{Var}(\overline{X})=\dfrac{\sigma^2}{n}$, es decir, la dispersión de la distribución muestral de $\overline{X}$ es  $\sqrt{n} $ veces más pequeña que la dispersión inicial de $X$.
+\end{itemize}
+\textbf{Ilustración: $X$ inicial,  $\overline{X}$ con  $n=3, \overline{X} $ con $n=10$.}
+\begin{center}
+  \includegraphics[width=\textwidth]{"Tema 1/figures/Figure 6"}
+\end{center}
+\subsection{Consecuencia práctica}
+\begin{tcolorbox}[colback=blue!5!white, colframe=blue!75!black, title=\textbf{Aparato de medición}]
+\begin{itemize}[label=\textbullet]
+  \item Experimento: llevar a cabo una medición con un aparato.
+  \item Variable aleatoria $X$: "valor propocionado por el aparato".
+  \item  $E[X]$: centro de la distribución de los valores proporcionados por el aparato.
+    \begin{itemize}[label=\textrightarrow]
+      \item Lo deseable: $E[X]$=valor exacto de la cantidad que buscamos medir.
+      \item En este caso, decimos: el aparato es  \lb{exacto}. 
+    \end{itemize}
+  \item $\sigma_X$: dispersión de la distribución de los valores proporcionados por el aparato.
+    \begin{itemize}[label=\textrightarrow]
+      \item Lo deseable: $\sigma_X$ pequeño.
+      \item En este caso, decimos: el aparato es \lb{preciso}. 
+    \end{itemize}
+\end{itemize}
+\end{tcolorbox}
+\subsubsection{Analogía con una diana}
+\begin{center}
+  \includegraphics[width=\textwidth]{"Tema 1/figures/Figure 7"}
+\end{center}
+\subsection{Varianza muestral}
+Si $(X_1,X_2,\dots,X_n)$ es una muestra aleatoria simple de $X$, definimos la  \lb{varianza muestral} $S_n^2$ como \[
+  S_n^2=\dfrac{1}{n-1}\sum_{i=1}^{n} \left( X_i-\overline{X}_n \right)^2. 
+\] 
+\begin{tcolorbox}[colback=blue!5!white, colframe=blue!75!black, title=\textbf{Fórmula alternativa para $S_n^2$:}]
+\[
+  S_n^2=\dfrac{n}{n-1}\left( \overline{X^2}_n-(\overline{X}_n)^2 \right) ,
+\] donde $\overline{X^2}_n=\dfrac{1}{n}\sum_{i=1}^{n}X_i^2$.
+\end{tcolorbox}
+\subsubsection{Dos apuntes}
+\begin{tcolorbox}[colback=blue!5!white, colframe=blue!75!black, title=\textbf{En algunos textos en castellano:}]
+  Se suele llama $S_n^2$ \lb{cuasi-varianza muestra}, reservando el término varianza muestral para la cantidad $\dfrac{1}{n}\sum_{i=1}^{n} \left( X_i-\overline{X}_n \right) ^2$. 
+\end{tcolorbox}
+\begin{tcolorbox}[colback=blue!5!white, colframe=blue!75!black, title=\textbf{En estas fórmulas:}]
+  Omitimos, si no hay confusión posible, el subíndice $n$, escribiendo  $S^2,\, \overline{X}=\sum_{i=1}^{n} X_i$ y $\overline{X^2}=\dfrac{1}{n}\sum_{i=1}^{n} X_i^2$.
+\end{tcolorbox}
+\subsection{Esperanza de la varianza muestral}
+\begin{tcolorbox}[colback=blue!5!white, colframe=blue!75!black, title=\textbf{Proposición}]
+Si $(X_1,X_2,\dots,X_n)$ es una muestra aleatoria simple de $X$ con varianza  $\sigma_X^2$, \[
+  E[S_n^2]=\sigma_X^2.
+\] 
+\end{tcolorbox}
+\subsection{Distribuciones muestrales de $\overline{X}$ y  $S^2$}
+\begin{tcolorbox}[colback=olive!5!white, colframe=olive!75!black, title=\textbf{Tened en cuenta}]
+\begin{itemize}[label=\textbullet]
+  \item Los resultados anteriores sobre $E[\overline{X}]$ y  $\sigma_{\overline{X}}$ son válidos sea cual sea el modelo escogido para la distribución de $X$.
+  \item Si queremos decir algo más preciso sobre la distribución de  $\overline{X}$ (densidad, etc\dots) necesitamos especificar la distribución de $X$.
+  \item En el caso en que la variable  $X$ siga una distribución normal, el  \textbf{teorema de Fisher} analiza cómo se comportan los estadísticos anteriores y nos permiten establecer una serie de consecuencias que serán utilizadas posteriormente en los temas de intervalos de confianza y de constrastes de hipótesis. 
+\end{itemize}
+\end{tcolorbox}
+\subsection{Distribución de $\overline{X}$ y  $S^2$ para una m.a.s. de una distribución normal}
+\begin{tcolorbox}[colback=blue!5!white, colframe=blue!75!black, title=\textbf{Teorema de Fisher}]
+Consideramos una muestra aleatoria simple de una variable aleatoria $X$ con distribución normal  $\mathcal{N}(\mu,\sigma^2)$, entonces se verifica:
+\begin{enumerate}[label=\arabic*)]
+  \item $\overline{X}_n$ y  $S_n^2$ son dos variables aleatorias independientes.
+  \item $\dfrac{\overline{X}_n-\mu}{\sigma / \sqrt{n} }\sim \mathcal{N}(0,1)$
+  \item $\dfrac{(n-1)S_n^2}{\sigma^2}\sim \chi_{n-1}^2$.
+\end{enumerate}
+\end{tcolorbox}
+\subsection{Recordatorio: distribución $\chi^2$ con $p$ grados de libertad}
+\begin{tcolorbox}[colback=blue!5!white, colframe=blue!75!black, title=\textbf{La distribución $\chi^2$.}]
+Para $p\in \N^{+}$, la función de densidad de la distribución $\chi^2$ es igual a \[
+\dfrac{1}{\Gamma\left( \frac{p}{2}  \right) 2^{\frac{p}{2} }}\cdot x^{\frac{p}{2} -1}e^{\frac{x}{2} },\quad \text{si }x>0,
+\] donde $\Gamma$ denota la función Gamma (Nota: para cualquier real $\alpha>0,\Gamma(\alpha)=\int_{0}^{+\infty} t^{\alpha-1}e^{-t}\dt$).
+\end{tcolorbox}
+\begin{tcolorbox}[colback=blue!5!white, colframe=blue!75!black, title=\textbf{Caracterización de la $\chi^2$}]
+Si $ Z_1,\dots,Z_p$ son $p$ variables aleatorias independientes, con $Z_i\sim \mathcal{N}(0,1)$, entonces la variable aleatoria $X$ definida como \[
+X=Z_1^2+\cdots+Z_p^2=\sum_{i=1}^{p} Z_i^2
+\] tiene una distribución $\chi^2$ con $p$ grados de libertad.
+\end{tcolorbox}
+\begin{itemize}[label=\color{red}\textbullet, leftmargin=*]
+  \item \lb{¿Cómo es su función de densidad?}
+\end{itemize}
+Depende de los grados de libertad
+\begin{center}
+  \includegraphics[width=\textwidth]{"Tema 1/figures/Figure 8"}
+\end{center}
+\subsection{Distribución t-Student}
+\begin{tcolorbox}[colback=blue!5!white, colframe=blue!75!black, title=\textbf{Hemos visto, si $X$ es Normal:}]
+\[
+  \dfrac{\overline{X}_n-\mu}{\sigma / \sqrt{n} }\sim \mathcal{N}(0,1).
+\] Si queremos centrarnos en $\mu$ es natural sustituir en ella $\sigma$ por $S_n$.
+\end{tcolorbox}
+\begin{tcolorbox}[colback=blue!5!white, colframe=blue!75!black, title=\textbf{Proposición}]
+Sea $(X_1,\dots,X_n)$ una muestra aleatoria simple de una población $\mathcal{N}(\mu,\sigma^2)$, \[
+  T=\dfrac{\overline{X}-\mu}{S / \sqrt{n} }
+\] tiene por densidad 
+\begin{equation}
+  f_{n-1}(t)\propto \dfrac{1}{\left( \frac{1+t^2}{n-1}  \right)^{\frac{n}{2}  }},\quad-\infty<t<\infty,
+\end{equation}
+La distribución que admite esta densidad se llama \lb{distribución t-Student} con $n-1$ grados de libertad. Escribimos  $T\sim t_{n-1}$.
+\end{tcolorbox}
+\begin{tcolorbox}[colback=red!5!white, colframe=red!75!black, title=\textbf{Su densidad}]
+La función de densidad de un t-Student con $k$ grados de libertad: \[
+f_k(t)=\dfrac{\Gamma\left( \frac{k+1}{2}  \right) }{\Gamma\left( \frac{k}{2}  \right) }\cdot \dfrac{1}{\sqrt{k\pi} }\cdot \dfrac{1}{\left( \frac{1\tau^2}{k}  \right) ^{\frac{k+1}{2} }},\quad-\infty<t<\infty,
+\] donde $\Gamma$ denota la función Gamma.
+\end{tcolorbox}
+\begin{tcolorbox}[colback=blue!5!white, colframe=blue!75!black, title=\textbf{Caracterización de la t-Student como cociente}]
+Si $Z$ e $Y$ son dos variables aleatorias independientes, con $Z\sim \mathcal{N}(0,1)$ e $Y\sim \chi_p^2$, el cociente \[
+T=\dfrac{Z}{\sqrt{\frac{Y}{p} } }\sim t_p,
+\] donde $t_p$ denota la t-Student con  $p$ grados de libertad.
+\end{tcolorbox}
+\begin{itemize}[label=\color{red}\textbullet, leftmargin=*]
+  \item \lb{¿Cuál es la forma de la densidad de una t-Student?}
+\end{itemize}
+Tiene colas más pesadas que una normal
+\begin{center}
+  \includegraphics[width=0.7\textwidth]{"Tema 1/figures/Figure 9"}
+\end{center}
+\subsection{Distribución F de Snedecor para el cociente de varianzas}
+\begin{tcolorbox}[colback=blue!5!white, colframe=blue!75!black, title=\textbf{Proposición}]
+Consideremos $U_1$ y $U_2$ dos variables aleatorias independientes con distribución $\chi^2$ con $p_1$ y $p_2$ grados de libertad, respectivamente.
+
+El cociente $F=\dfrac{\frac{U_1}{p_1} }{\frac{U_2}{p_2}}$ admite la densidad \[
+  f_F(x)=\dfrac{\Gamma\left( \frac{p_1+p_2}{2}  \right) }{\Gamma(p_1)\Gamma(p_2)}\left( \dfrac{p_1}{p_2} \right) ^{p_1}\dfrac{x^{\frac{p_{1}}{2 }-1}}{\left( 1+\frac{p_1}{p_2} x \right) ^{\frac{p_1+p_2}{2} }}.
+\] Esta distribución se llama F de Snedecor $p_1$ y $p_2$ grados de libertad y escribimos $F\sim F_{p_1,p_2}$.
+\end{tcolorbox}
+\begin{tcolorbox}[colback=blue!5!white, colframe=blue!75!black, title=\textbf{Consecuencia}]
+Consideremos $X$ e $Y$ variables aleatorias normales independientes con varianzas $\sigma_X^2$ y $\sigma_Y^2$, así como $X_1,\dots,X_{n_x}$ e $Y_1,\dots,Y_{n_Y}$ dos muestras aleatorias simples de $X$ e $Y$, respectivamente. Deducimos que \[
+  \dfrac{\frac{S_X^2}{\sigma_X^2}}{\frac{S_Y^2}{\sigma_Y^2} }\sim F_{n_X-1,n_Y-1}.
+\] 
+\end{tcolorbox}
+\begin{itemize}[label=\color{red}\textbullet, leftmargin=*]
+  \item \lb{¿Cuál es la forma de la densidad de una F de Snedecor?}
+\end{itemize}
+Depende mucho de los grados de libertad
+
+\begin{center}
+  \includegraphics[width=0.85\textwidth]{"Tema 1/figures/Figure 10"}
+\end{center}
+\subsection{Si la distribución de $X$ no es Normal}
+No podemos decir nada en general, \lb{excepto} si $n$ es grande\dots
+\begin{tcolorbox}[colback=blue!5!white, colframe=blue!75!black, title=\textbf{Teorema Central del Límite}]
+  Si $n$ es \textit{"suficientemente"} grande, se puede aproximar la distribución de $\overline{X}$ por una Normal con media  $\mu$ y varianza $\dfrac{\sigma^2}{n}$: \[
+    \overline{X}\sim \mathcal{N}\left( \mu,\dfrac{\sigma^2}{n} \right) \text{ aproximadamente. }
+  \]  
+\end{tcolorbox}
+\begin{tcolorbox}[colback=blue!5!white, colframe=blue!75!black, title=\textbf{Formulación matemática}]
+  El resultado anterior se taduce por una convergencia de la sucesión de las variables aleatorias $\left( \overline{X}_n \right)_n $ en distribución cuando $n\to \infty$.
+\end{tcolorbox}
+\begin{itemize}[label=\color{red}\textbullet, leftmargin=*]
+  \item \lb{¿Cuándo considerar que $n$ es grande?}
+\end{itemize}
+Depende de la forma de la distribución de $X$:
+ \begin{itemize}[label=\textbullet]
+  \item Si $X$ casi Normal: $n$ pequeño es suficiente.
+  \item Si $X$ es muy asimétrico: $n$ mucho más grande necesario.
+\end{itemize}
+En general, se suele considerar $n\ge 30$ suficiente\dots
+
+\textbf{Ilustración, $X$ inicial $\sim \mathrm{Exp}(\lambda=0.5),\,\overline{X}$ con $n=3,10$ y  $n=30$}
+\begin{center}
+  \includegraphics[width=\textwidth]{"Tema 1/figures/Figure 11"}
+\end{center}
+
