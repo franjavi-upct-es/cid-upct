@@ -5,19 +5,101 @@
 \maketitle
 \begin{enumerate}[label=\color{red}\textbf{\arabic*)}]
     \item \lb{Determina la verdad o falsedad de la siguiente afirmación: si $u_1$ es combinación lineal de $u_2$ y $u_3$, entonces $u_3$ es combinación lineal de $u_1$ y $u_2$.}
+
+La afirmación es \textbf{falsa}  en general. Vamos a analizarla cuidadosamente:
+\begin{itemize}[label=\textbullet]
+    \item Supongamos que $u_2$ y $u_3$ son linealmente independientes y $u_1$ se define como una combinación lineal de $u_2$ y $u_3$. Por ejemplo, tomemos: \[
+    u_1=u_2+u_3.
+    \] 
+\item En este caso, aunque $u_1$ es una combinación lineal de $u_2$ y $u_3$, no podemos escribir $u_3$ como una combinación lineal de $u_1$ y $u_2$, ya que: \[
+u_3=u_1-u_2
+\] y esta relación no es válida en todos los espacios vectoriales. La implicación original depende de la independencia lineal de los vectores involucrados.
+\item Para que $u_3$ sea combinación lineal de $u_1$ y $u_2$, deben cumplorse condiciones adicionales, como que $u_1,u_2,u_3$ estén en un subespacio con dimensión menor o igual a 2.
+\end{itemize}
 \item \lb{Consideremos los vectores $u=(1,1,0)$ y  $v=(0,1,1)$. Encuentra un vector $w$ ortogonal a $u$ y $v$. Comprueba que $w$ es ortogonal a cualquier combinación lineal de $u$ y $v$. Encuentra ahora un vector que \underline{no} sea lineal de $u,v$ y comprueba que no es ortogonal a $w$.}
+
+    \begin{enumerate}[label=\arabic*)]
+        \item Vector $w$ ortogonal a $u$ y $v$:
+
+            El vector  $w$ encontrado mediante el producto cruz es: \[
+            w=(1,-1,1).
+            \] 
+        \item Verificación de la ortogonalidad:
+            \begin{itemize}[label=\textbullet]
+                \item $w\cdot u=0:\,w$ es ortogonal a $u$.
+                \item  $w\cdot v=0:\,w$ es ortogonal a $v$.
+            \end{itemize}
+        \item Ortogonalidad respecto a una combinación lineal de $u$ y  $v$:
+
+            Para una combinación lineal genérica  $c_1u+c_2v$, se cumple:  \[
+           w\cdot (c_1u+c_2v)=0. 
+            \] 
+            Esto demuestra que $w$ es ortogonal a cualquier combinación lineal de $u$ y $v$.
+        \item Vector que no es combinación lineal de $u$ y $v$:
+
+            Un vector que no es combinación lineal de  $u$ y $v$ es:  \[
+                (1,0,0)
+            \] 
+        \item Comprobación de no ortogonalidad con $w$:
+
+            El producto escalar entre  $w$ y  $(1,0,0)$ es:  \[
+            w\cdot (1,0,0)=1.
+            \] 
+            Por lo tanto, no es ortogonal a $w$.
+    \end{enumerate}
 \item \lb{Haz un dibujo de los siguientes conjuntos de $\R^2$: \[
 \begin{array}{l}
     \{(x,y)\in \R^2\text{ tal que }\|(x,y)\|_1=1\}\\ 
     \{(x,y)\in \R^2\text{ tal que }\|(x,y)\|_2=1\}\\ 
     \{(x,y)\in \R^2\text{ tal que }\|(x,y)\|_\infty=1\}\\ 
 \end{array}
-\] } 
+\] }
+\begin{center}
+    \includegraphics[width=0.5\textwidth]{"figures/Figure 1"}
+\end{center}
 \item \lb{Prueba que $\|u\|_2\le \sqrt{\|u\|_1\|u\|_\infty} $.}
 
+    Dado un vector $u=(u_1,u_2,\dots,u_n)\in \R^n$, las normas son: 
+    \begin{enumerate}[label=\arabic*)]
+        \item Norma $\|u\|_2$:  \[
+        \|u\|_2=\sqrt{\sum_{i=1}^{n} u_i^2} .
+        \] 
+    \item Norma $\|u\|_1$:  \[
+    \|u\|_1=\sum_{i=1}^{n} |u_i|.
+    \] 
+\item Norma $\|u\|_\infty$: \[
+\|u\|_\infty=\max(|u_1|,|u_2|,\dots,|u_n|).
+\] 
+    \end{enumerate}
+    Expandimos la definción de $\|u\|_2^2$: \[
+    \|u\|_2^2=\sum_{i=1}^{n} u_i^2.
+    \] 
+    Usamos la desigualdad $u_i^2\le |u_i|\cdot \|u\|_\infty$ (ua que $|u_1|\le \|u\|_{\infty}$ para todo $i$): \[
+    \sum_{i=1}^{n} u_i^2\le  \sum_{i=1}^{n} |u_i|\cdot \|u\|_\infty\longrightarrow \sum_{i=1}^{n} u_i^2\le \|u\|_\infty \sum_{i=1}^{n} |u_i|.
+    \] 
+    Por definición, $\sum_{i=1}^{n} |u_i|=\|u\|_1$, por lo que: \[
+    \|u\|_2^2\le \|u\|_\infty\|u\|1.
+    \] 
+Tomando raíces cuadradas en ambos lados de la desigualdad: \[
+\|u\|_2\le \sqrt{\|u\|_1\|u\|_\infty}. 
+\] 
 \item \lb{Dos vectores son ortogonales cuando su producto escalar es cero, pero ¿qué pasa si su producto escalar es próximo a cero? Sean $x=[1,-0.75]$ e $y=[0.3,0.3]$. Calcula el producto escalar  $x\cdot y$ y el ángulo que forman. ¿Qué conclusión puedes sacar?\newline Si dos vectores $x,y$ son unitarios, entonces  $-1\le x\cdot y\le 1$ (¿por qué?). En este caso, ¿qué podemos decir si $x\cdot y$ es aproximadamente $-1,1$ o cero?}
 
-\item \lb{Sean $u,v$ dos vectores unitarios de  $\R^{n}$ que forman un ángulo de 60º. Calcula $\|2u+v\|$.}
+    \begin{enumerate}[label=\arabic*)]
+        \item  Producto escalar: \[
+        x\cdot y=0.075
+        \] 
+    \item Ángulo que forman los vectores:
+        \begin{itemize}[label=\textbullet]
+            \item Coseno del ángulo: \[
+            \cos(\theta)=0.1414
+            \] 
+        \item Ángulo en radianes: \[
+        \theta \approx 
+        \] 
+        \end{itemize}
+    \end{enumerate}
+\item \lb{Sean $u,v$ dos vectores unitarios de  $\R^{n}$ que forman un ángulo de 60$^\circ$. Calcula $\|2u+v\|$.}
 
 \item \lb{Sena $u,v$ dos vectores de  $\R^n$ de norma $2$ y  $3$ respectivamente que forman un ángulo de  $60º$. ¿Qué ángulo forman los vectores $u$ y  $2u-v$?} 
 
