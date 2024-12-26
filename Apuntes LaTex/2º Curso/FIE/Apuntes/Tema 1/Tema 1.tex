@@ -353,4 +353,206 @@ En general, se suele considerar $n\ge 30$ suficiente\dots
 \begin{center}
   \includegraphics[width=\textwidth]{"Tema 1/figures/Figure 11"}
 \end{center}
+\subsection{Distribución muestral de la proporción muestral}
+\begin{tcolorbox}[colback=blue!5!white, colframe=blue!75!black, title=\textbf{Contexto}]
+\begin{itemize}[label=\textbullet]
+    \item Hay situaciones donde $X$ toma el valor 0 o 1, con probabilidades $1-p$ y $p$, respectivamente.
+    \item Por ejemplo, el siguiente experimento: escoger una pieza en la producción. $X=1$ si es defectuosa,  $X=0$ si es correcta.
+    \item Repetimos  $n$ veces el experimento. Obtenemos $$x_1=1,x_2=0,x_3=0,x_4=1,x_5=0,\dots,x_n$$ Contamos $N$ el número de "1"s.
+    \item La proporción muestral es: \[
+    \hat{p}=\dfrac{N}{n}.
+    \] 
+\end{itemize}
+\end{tcolorbox}
+\begin{tcolorbox}[colback=blue!5!white, colframe=blue!75!black, title=\textbf{Distribución exacta de $\hat{p}$}]
+¿Cuál es la distribución de $N$?
+\begin{itemize}[label=\textbullet]
+    \item Experimento simple con situación dicotómica, repetimos $n$ veces \dots \[
+    N=\mathcal{B}(n,p).
+    \] 
+\item POdemos usar esta distribución para hacer cálculos exactos\dots
+\end{itemize}
+\end{tcolorbox}
+\begin{tcolorbox}[colback=blue!5!white, colframe=blue!75!black, title=\textbf{Distribución aproximada de $\hat{p}$}]
+Tenemos que $N=X_1+X_2+\cdots+X_n$, por lo tanto \[
+    \hat{p}=\dfrac{N}{n}=\dfrac{X_1+X_2+\cdots+X_n}{n}=\overline{X}.
+\] 
+Por el Teorema Central del Límite: \[
+\hat{p}\sim \mathcal{N}\left( p, \dfrac{p(1-p)}{n} \right) \:\text{aproximadamente.}
+\] Podemos usar esta distribución para hacer cálculos aproximados.
+\end{tcolorbox}
+\subsection{Simulación y método de Monte-Carlo}
+\begin{tcolorbox}[colback=blue!5!white, colframe=blue!75!black, title=\textbf{Motivación}]
+En muchas situaciones, la capacidad de simular valores de las distribuciones de interés puede resultar útil calcular o estimar cantidades relevantes para la inferencia sobre la distribución de $X_1,X_2,\dots,X_n$.
+\end{tcolorbox}
+\begin{tcolorbox}[colback=blue!5!white, colframe=blue!75!black, title=\textbf{¿Qué es ser capaz de simular valores de una distribución $f$?}]
+\begin{itemize}[label=\textbullet]
+    \item Se refiere a la posibilidad de producir, para cualquier tamaño $k$, conjuntos de valores $u_1,u_2,\dots,u_k$, cuyo comportamiento imita el de $k$ realizaciones aleatorias independientes de la distribución $f$.
+    \item Quiere ecir que las propiedades del conjunto generado lo hacer indistinguible, si le aplicamos tests de independencia o de bondad de ajuste, de  $k$ realizaciones independientes de $f$.
+\end{itemize}
+\end{tcolorbox}
+\begin{tcolorbox}[colback=blue!5!white, colframe=blue!75!black, title=\textbf{Simulación y método de Monte-Carlo}]
+\begin{itemize}[label=\textbullet]
+    \item Como hemos visto en los primeros ejemplos, gráficos como el histograma de frecuencias se comportan como la función de densidad de la variable de la que provienen las observaciones. También se pueden utilizar gráficos como la función de distribución empírica que veremos más adelante.
+    \item Como consecuencia, dado un estadístico, si podemos obtener un número grande de observaciones del mismo podemos a través de alunos gráficos obtener información sobre su distribución.
+    \item Podemos generar esas observaciones a través de lo que se conoce como simulaciones, observaciones generadas mediante algún algoritmo.
+    \item Esta metodología que se puede aplicar en muchas otras situaciones se conoce como el \lb{método de Monte-Carlo}. 
+\end{itemize}
+\end{tcolorbox}
+\subsubsection{Muestreo de Monte-Carlo para aproximar esperanzas}
+\begin{tcolorbox}[colback=blue!5!white, colframe=blue!75!black, title=\textbf{Ley de los grandes números}]
+    Consideremos una muestra aleatoria simple $X_1,X_2,\dots,X_n$ de una distribución $X$. Para cualquier función  $g$ que cumple  $E[g^2(X)]<+\infty$, tenemos que, con probabilidad 1, \[
+        \lim_{n \to \infty} \dfrac{1}{n}\sum_{i=1}^{n} g(X_i)=E[g(X)].
+    \] 
+\end{tcolorbox}
+\subsubsection*{Ejemplos}
+\begin{itemize}[label=\textbullet]
+    \item $g(x)=x: \lim_{n \to \infty} \dfrac{1}{n}\sum_{i=1}^{n} X_i=E[X]$, es decir $\overline{X}_n\longrightarrow E[X]=\mu_X$.
+    \item $g(x)=(x-\mu_X)^2: \lim_{n \to \infty} \dfrac{1}{n}\sum_{i=1}^{n} (X_i-\mu_X)^2=E[(X-\mu_X)^2]=\mathrm{Var}(X)$.
+    \item Si combinamos las dos convergencias anteriores: $\lim_{n \to \infty} \dfrac{1}{n}(X_i-\overline{X}_n)^2=\mathrm{Var}(X)$, es decir, $S_n^2\longrightarrow \mathrm{Var}(X)$.
+    \item $g(x)=1_{x\le q}: \lim_{n \to \infty} \dfrac{1}{n}\sum_{i=1}^{n} 1_{X_i\le q}=P(X\le q)$, es decir, que las frecuencias acumuladas relativas convergen hacia la probabilidad asociada.
+\end{itemize}
+\subsubsection*{Aplicaciones}
+\begin{tcolorbox}[colback=blue!5!white, colframe=blue!75!black, title=\textbf{Ejemplo: el movimiento Browniano}]
+    \begin{itemize}[label=\textbullet]
+        \item Es proceso muy usado en la predicción de precios (opciones) en matemáticas financieras.
+        \item Una caracterización simplificada: es la suma infinitesimal de pequeñas contribuciones normales independientes.
+        \item Para cualquier $t,W_t\sim \sum_{i=1}^{\frac{t}{h} }\sqrt{h} \cdot Z_i $, donde $h$ es el paso infinitesimal y $Z_i$ son normales estándares independientes e idénticamente distribuidos 
+    \end{itemize}
+\end{tcolorbox}
+\subsection{Movimiento Browniano}
+\begin{center}
+    \includegraphics[width=0.8\textwidth]{"Tema 1/figures/Figure 12"}
+\end{center}
+\subsection{En finanzas, el modelo de Black-Scholes}
+\begin{tcolorbox}[colback=blue!5!white, colframe=blue!75!black, title=\textbf{El movimiento Browniano Geométrico:}]
+Lo propusieron Merton, Scholes y Black como modelo teórico para precios de acciones: \[
+S_t=S_0\exp\left( \left( \mu-\dfrac{1}{2}\sigma^2 \right) t+\sigma W_t \right) .
+\] 
+\begin{itemize}[label=\textbullet]
+    \item $S_0$: precio inicial de la acción.
+    \item  $\mu$: el drift.
+    \item $\sigma^2$: la volatilidad
+\end{itemize}
+\end{tcolorbox}
+\begin{center}
+    \includegraphics[width=0.8\textwidth]{"Tema 1/figures/Figure 13"}
+\end{center}
+\subsection*{¿Cuán observaremos $S(t)\ge 110$€?}
+\begin{center}
+    \includegraphics[width=0.8\textwidth]{"Tema 1/figures/Figure 14"}
+\end{center}
+\begin{itemize}[label=\textbullet]
+    \item Podemos simular muchas trayectorias del Movimiento Browniano Geométrico y observa qué pasa con el tiempo en el que supera el umbral 110.
+    \item Esto es Monte-Carlo.
+    \item Luego podremos obtener indicadores de la distribución de este tiempo.
+\end{itemize}
+\begin{itemize}[label=\color{red}\textbullet, leftmargin=*]
+    \item \lb{Representamos las 8 primeras}
+        \begin{center}
+            \includegraphics[width=0.8\textwidth]{"Tema 1/figures/Figure 15"}
+        \end{center}
+    \item \lb{¿Cuál es la probabilidad de que alcance el umbral antes de un año?}
 
+        \begin{tcolorbox}[colback=blue!5!white, colframe=blue!75!black, title=\textbf{Por Monte-Carlo:}]
+        Simulamos 1000 trayectorias hata el año y aproximamos la probabilidad que nos interesa por la porporción de trayectorias que alcanzan los 110 euros.
+        \end{tcolorbox}
+\end{itemize}
+\subsection{Simulación y método de Monte-Carlo}
+\begin{tcolorbox}[colback=blue!5!white, colframe=blue!75!black, title=\textbf{Simulación de variables aleatorias}]
+    \begin{itemize}[label=\textbullet, leftmargin=*]
+        \item Lo que nos planteamos ahora es qué algoritmo podemos utilizar para generar observaciones (simulaciones) de una variable aleatoria.
+        \item Para un gran número de varaibles aleatorias y modelos probabilísticos, estas simulaciones ya están incorporadas en los paquetes y lenguajes de programación con enfoque matemático y estadístico, como \textbf{\texttt{R}}.
+        \item Aquí describiremo uno de los métodos más básicos, basado en la inversa de la función de distribución.
+        \item El \lb{método de la función inversa} es uno de los principales métodos de simulación de variables aleatorias.
+        \item Está basado en la inversa de la función de distribución de una variable aleatoria.
+        \item No todas las funciones de distribucion admiten inversa, como la conocemos usualmente. Para ello es necesaria que sea continua y estrictamente creciente.
+        \end{itemize} 
+\end{tcolorbox}
+\begin{tcolorbox}[colback=blue!5!white, colframe=blue!75!black, title=\textbf{Inversa generalizada de la función de distribución o función cuantil}]
+ Dada una función de distribución $F$, su \lb{función cuantil (inversa generalizada)}  se define como \[
+ F^{-1}(p)=\inf \{x|F(x)\ge p\}\text{, para todo }p\in (0,1). 
+ \] 
+\end{tcolorbox}
+\begin{tcolorbox}[colback=blue!5!white, colframe=blue!75!black, title=\textbf{Propiedades de la función cuantil}]
+\begin{enumerate}[label=\arabic*)]
+    \item $F(F^{-1}(p))\ge p$, para todo $p \in (0,1)$.
+    \item $F^{-1}(F(x))\le x$, para todo $x$ donde  $F(x)>0$.
+    \item Si $U\sim U(0,1)$ entonces $F^{-1}(U)$ tiene como distribución $F$.
+    \item Dada una variable aleatoria  $X$, con media finita y función de distribución  $F$ se verifica que \[
+            E[X]=\int_{0}^{1} F^{-1}(u) \du .
+    \] 
+\end{enumerate}
+\end{tcolorbox}
+\begin{tcolorbox}[colback=blue!5!white, colframe=blue!75!black, title=\textbf{Método de la función inversa}]
+\begin{itemize}[label=\textbullet]
+    \item Dada una variable aleatoria $X$ con función de distribución $F$, si generamos observaciones independientes $U\sim U(0,1),\,u_1,u_2,\dots,u_n$, entonces los valores $$x_1=F^{-1}(u_1),x_2=F^{-1}(u_2),\dots,x_n=F^{-1}(u_n)$$ constituyen una observación de la muestra aleatoria simple de tamaño $n$ de la variable aleatoria $X$.
+\end{itemize}
+\end{tcolorbox}
+
+\subsubsection*{Generación de valores de una distribución uniforme}
+\begin{center}
+    \includegraphics[width=0.7\textwidth]{"Tema 1/figures/Figure 16"}
+\end{center}
+\subsubsection*{Generación de valores de una distribución gamma}
+\begin{center}
+    \includegraphics[width=0.7\textwidth]{"Tema 1/figures/Figure 17"}
+\end{center}
+\subsection*{Transformación de una variable aleatoria}
+\begin{tcolorbox}[colback=blue!5!white, colframe=blue!75!black, title=\textbf{Planteamiento del problema}]
+En muchas ocasiones, tenemos una variable aleatoria continua $X$, de la que conocemos la función de densidad, pero nos interesa conocer cómo se comporta una transformación de $X,\,Y=\varphi(X)$.
+
+\end{tcolorbox}
+\begin{tcolorbox}[colback=blue!5!white, colframe=blue!75!black, title=\textbf{Teorema}]
+Sea $X$ una viarble aleatoria con función de densidad $f_X$ definida en un intervalo abierto  $(a,b)\subseteq \R$. Sea $\varphi:(a,b)\to \R$ tal que:
+\begin{itemize}[label=\textbullet]
+    \item Es continua.
+    \item Es estrictamente creciente o decreciente.
+    \item $\varphi^{-1}$ es diferenciable.
+\end{itemize}
+Entonces, la variable aleatoria $Y=\varphi(X)$ tiene función de densidad \[
+f_Y(y)=\begin{cases}
+    f_X(\varphi^{-1}(y))\left| \dfrac{\mathrm{d}}{\mathrm{d}x}(\varphi^{-1}(y)) \right| , & \text{si }y\in \varphi(a,b)\\
+    0 & \text{en otro caso}
+
+\end{cases}
+\] 
+\end{tcolorbox}
+\subsection*{Función característica}
+\begin{tcolorbox}[colback=blue!5!white, colframe=blue!75!black, title=\textbf{Definición}]
+Sea $X$ una variable aleatoria cualquiera. La \lb{función característica} de  $X$ se define como \[
+    \phi(t)=E[e^{itX} ]=\int_{-\infty}^{\infty} e^{itx}\mathrm{d}F(x)  
+\] en donde $i=\sqrt{-1} $
+\end{tcolorbox}
+\begin{tcolorbox}[colback=red!5!white, colframe=red!75!black]
+Nota: $\phi(t)=\int_{-\infty}^{\infty} xos(tx)\mathrm{d}F(x)+i \int_{-\infty}^{\infty} \sin(tx)\mathrm{d}F(x).  $
+\end{tcolorbox}
+\begin{tcolorbox}[colback=blue!5!white, colframe=blue!75!black, title=\textbf{Propiedades}]
+\begin{itemize}[label=\textbullet]
+    \item \lb{Existencia:} $|\phi(t)|\le 1$, para todo $t\in \R$.
+    \item Si $X$ e  $Y$ son variables aleatorias \lb{independientes}, entonces \[
+    \phi_{X+Y}(t)=\phi_X(t)\phi_Y(t),
+    \]para todo $t\in \R$.
+\end{itemize}
+\end{tcolorbox}
+\subsection*{Desigualdades}
+\begin{tcolorbox}[colback=blue!5!white, colframe=blue!75!black, title=\textbf{Desigualdad de Markov}]
+    Si $Z$ es una variable aleatoria no negativa con medi finita  $E[Z]$ y  $\varepsilon>0 $, entonces \[
+        \varepsilon\mathrm{Pr}[Z\ge\varepsilon ]=\varepsilon\int_{[\varepsilon,\infty)}\mathrm{d}F_Z(x)\le \int_{[\varepsilon,\infty)}x\mathrm{d}F_Z(x)\le \int_{[0,\infty)}x\mathrm{d}F_Z(x)=E(Z)
+    \] (donde $F_Z(x)=\mathrm{Pr}[Z\le x]$ es su función de distribución), es decir \[
+    \mathrm{Pr}[Z\ge \varepsilon]\le \dfrac{E[Z]}{\varepsilon}.
+    \] 
+\end{tcolorbox}
+\begin{tcolorbox}[colback=blue!5!white, colframe=blue!75!black, title=\textbf{Desigualdad de Chebyshev}]
+    Si $X$ es una variable aleatoria con media finita $\mu=E[X]$ y varianza $\sigma^2=\mathrm{Var}(X)>0$, entonces tomando $Z=\dfrac{(X-\mu)^2}{\sigma^2}\ge 0$ y aplicando la desigualdad de Markov, tenemos \[
+    \mathrm{Pr}\left[ \dfrac{(X-\mu)^2}{\sigma^2}\ge \varepsilon \right] \le \dfrac{1}{\varepsilon}
+    \] para todo $\varepsilon>0$.
+
+    También se puede escribir como \[
+        \mathrm{Pr}[(X-\mu)^2<\varepsilon\sigma^2]\ge 1-\dfrac{1}{\varepsilon}
+    \] o como \[
+    \mathrm{Pr}[|X-\mu|<r]\ge 1-\dfrac{\sigma^2}{r^2},
+    \] para todo $r>0$.
+\end{tcolorbox}
+\newpage
+\input{"Tema 1/Ejercicios Tema 1/Ejercicios Tema 1.tex"}

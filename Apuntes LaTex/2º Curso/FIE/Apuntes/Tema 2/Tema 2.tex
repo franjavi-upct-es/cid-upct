@@ -1,0 +1,126 @@
+\section{Estimación}
+\subsection{Introducción}
+\begin{itemize}[label=\textbullet]
+    \item Hemos modelizado un experimento con una variable aleatoria $X$.
+    \item La \lb{estimación} hace referencia al proceso de conseguir información sobre la distribución de $X$ a partir de los valores de una muestra, aproximando valores asociados a la distribución mediante el valor de un estadístico en una muestra concreta.
+\end{itemize}
+\begin{tcolorbox}[colback=red!5!white, colframe=red!75!black, title=\textbf{Dos situaciones}]
+\begin{itemize}[label=\textbullet]
+    \item Nuestro modelo supone que la distribución de $X$ pertence a una familia paramétrica de distribuciones: tienen una determinada forma con unos parámetros variables.
+        \begin{itemize}[label=\textrightarrow]
+            \item Buscamos información sobre el valor de los parámetros. \lb{Estimación paramétrica}. 
+        \end{itemize}
+    \item No limitados la familia de distribuciones a la que pertence nuestro modelo.
+        \begin{itemize}[label=\textrightarrow]
+            \item Buscamos información sobre la distribución en sí (función de distribución, de densidad o función puntual de probabilidad). \lb{Estimación no paramétrica}.
+        \end{itemize}
+    \item A lo largo de las prácticas veremos también la estimación de parámetros que no necesitan de una familia paramétrica, como es el caso de la mediana.
+\end{itemize}
+\end{tcolorbox}
+\subsection{Ejemplos de estimación paramétrica}
+\begin{tcolorbox}[colback=blue!5!white, colframe=blue!75!black, title=\textbf{Sondeo sobre intención de participación en una elecciones}]
+\begin{itemize}[label=\textbullet]
+    \item Queremos estimar la tasa de participación antes de unas elecciones generales.
+    \item Formulamos un modelo: experimento: "escoger una persona al azar en el censo". $X$: variable dicotómica ("Sí", o "No").  $p=P(X=\mathrm{Si})$
+    \item El modelo pertenece a la familia paramétrica de Bernoulli.
+\end{itemize}
+\end{tcolorbox}
+\begin{tcolorbox}[colback=blue!5!white, colframe=blue!75!black, title=\textbf{Determinación de la concentración de un producto}]
+\begin{itemize}[label=\textbullet]
+    \item Quiero determinar la concentración.
+    \item Formulo el modelo: experimento="llevar a cabo una medición". $X$: "valor proporcionado por el aparato".  $X\sim \mathcal{N}(\mu,\sigma^2)$.
+    \item El modelo pertence a la familia paramétrica de las distribuciones normales
+\end{itemize}
+\end{tcolorbox}
+\subsection{Estimación paramétrica: estimación puntual}
+\begin{tcolorbox}[colback=blue!5!white, colframe=blue!75!black, title=\textbf{Ingredientes del modelo}]
+\begin{itemize}[label=\textbullet]
+    \item Experimento aleatoria
+    \item Variable aleatoria $X$ con una distribución $f$ que pertence a una familia paramétrica $\{f_\theta,\theta \in \Theta\} $.
+    \item Disponemos de una muestra de la distribución de $X$.
+\end{itemize}
+\end{tcolorbox}
+\begin{tcolorbox}[colback=blue!5!white, colframe=blue!75!black, title=\textbf{Definición}]
+Cualquier estadístico diseñado para aproximar el valor de un parámetro $\theta$ del modelo, se llama \lb{estimador puntual} del parámetro $\theta$.
+\end{tcolorbox}
+\begin{tcolorbox}[colback=blue!5!white, colframe=blue!75!black, title=\textbf{Ejemplos de estimadores paramétricos}]
+\begin{center}
+    \begin{tabular}{cc}
+        $\theta$ & \textbf{Estimador}\\ \hline
+        $\mu$ & $\overline{X}$, media muestral\\ \hline
+        $\sigma^2$ & $S^2$, varianza muestral\\ \hline
+        $p$ & $\hat{p}$, proporción muestral
+    \end{tabular}
+\end{center}
+\end{tcolorbox}
+\begin{tcolorbox}[colback=olive!5!white, colframe=olive!75!black, title=\textbf{A tener en cuenta:}]
+\begin{itemize}[label=\textbullet]
+    \item Un estimador es una variable aleatoria, su valor depende de la muestra concreta escogida.
+    \item Para controlar bondad de nuestra estimación, nos basaremos en el estudio de la distribución del estimador.
+\end{itemize}
+\end{tcolorbox}
+\subsection{Métodos de construcción de estimadores}
+Para $\mu,\sigma^2$ o $p$, es fácil pensar en estimadores naturales, pero para modelos o parámetros más sofisticados, vamos a ver métodos generales.
+
+\textbf{Veremos dos métodos en este tema}:
+\begin{itemize}[label=\textbullet]
+    \item El método de los momentos
+    \item El método de la máxima verosimilitud
+\end{itemize}
+\subsection{Método de los momentos}
+\begin{tcolorbox}[colback=blue!5!white, colframe=blue!75!black, title=\textbf{Contexto}]
+\begin{itemize}[label=\textbullet]
+    \item Experimento con una variable aleatoria $X$, suponemos $f_X \in \{x\longmapsto f_\theta(x),\theta \in \Theta \} $.
+    \item El parámetro $\theta$ tiene dimensión $p$.
+    \item Consideramos una muestra aleatoria simple  $X_1,\dots,X_n$ de $X$.
+\end{itemize}
+\end{tcolorbox}
+Si $\theta$ tiene dimensión $p$, igualamos los $p$ primeros momentos de $f_\theta$ con los equivalentes muestrales.
+
+Sea $\mu_k(\theta)$ el momento de orden $k$ de la distribución $f_\theta, \mu_k=E[X^k]$. Resolvemos: \[
+\begin{array}{r}
+    \mu_1(\theta)=\overline{X},\\
+    \mu_2(\theta)=\overline{X^2},\\
+    \vdots\\
+    \mu_p(\theta)=\overline{X^p}.
+\end{array}
+\] 
+\subsection*{Ejemplos}
+\begin{tcolorbox}[colback=red!5!white, colframe=red!75!black, title=\textbf{Calculad los estimadores usando el método de los momentos en los dos casos:}]
+\begin{itemize}[label=\textbullet]
+    \item Modelo normal: $X\sim \mathcal{N}(\mu, \sigma^2)$, donde $\theta=(\mu,\sigma^2)$. \[
+    \begin{array}{ll}
+        X\leadsto \mathcal{N}(\mu,\sigma^2) & \mu=E[X]\\
+        \theta=(\mu,\sigma^2),\quad p=2 & \sigma^2=\mathrm{Var}[X]=E[X^2]-(E[X])^2\longrightarrow E[X^2]=\sigma^2+\mu^2\\
+        \mu_1(\theta)=E[X]=\overline{x} & \hat{\mu}=\overline{x}\\
+        \mu_2(\theta)=E[X^2]=\overline{x^2} & \hat{\sigma}^2=\overline{x^2}-(\overline{x})^2
+    \end{array}
+    \] 
+\item Modelo de Bernoulli: $X\sim \mathrm{Bernoulli}(p)$, donde desconocemos $p$.
+     \[
+    \begin{array}{l}
+        X\leadsto \mathrm{Bernoulli}(p),\quad 0<p<1\\
+        \theta=p\\
+        \mu(\theta)=E[X]=\overline{x}=p\\
+        \hat{p}=\overline{x}\lb{\text{ (proporción muestral)}} 
+    \end{array}
+    \] 
+\end{itemize}
+\end{tcolorbox}
+\subsection{Método de máxima verosimilitud}
+\begin{itemize}[label=\textbullet]
+    \item El método más utilizado de construicción de un estimador puntual.
+    \item Se basa en lo que se conoce como \lb{función de verosimilitud}. 
+\end{itemize}
+\begin{tcolorbox}[colback=blue!5!white, colframe=blue!75!black, title=\textbf{Definición}]
+\begin{itemize}[label=\textbullet]
+    \item Sea $X$ una variable aleatoria, con distribución $x\longmapsto f_X(x;\theta)$ (función de densidad o función puntual de probabilidad), donde $\theta$ es de dimensión $p:\theta\in \Theta\subset \R^p$.
+    \item Para un valor concreto de una muestra aleatoria simpl $(X_1,\dots,X_n)$, que denotamos por $(x_1,\dots,x_n)$, consideramos la función de $\theta$: \[
+    L_n: \begin{cases}
+        \Theta\subset \R^p\longrightarrow \R^+\\
+        \theta\longmapsto L_n(\theta)=f_{X_1,\dots,X_n}(x_1,\dots,x_n;\theta)=\prod_{i=1}^{n} f_X(x_i;\theta). 
+    \end{cases}
+    \] 
+\item La función $L_n$ es la  \lb{función de verosimilitud}. Nos dice lo creíblles (verosímiles) que son las observaciones para ese valor del parámetro. 
+\end{itemize}
+\end{tcolorbox}
