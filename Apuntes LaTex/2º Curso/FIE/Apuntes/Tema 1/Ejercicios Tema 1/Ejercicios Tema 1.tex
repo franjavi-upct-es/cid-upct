@@ -81,13 +81,13 @@
                 \mathrm{Gamma}(1,\lambda)=\mathrm{Exp}(\lambda).
                 \] 
         \end{enumerate}
-    \item \lb{Sea $X$ variable aleatoria con distribución  $N(\mu,\sigma^2)$. Sea $(X_1,\dots,X_n)$ una m.a.s de $X$, estudiar la distribución en el muestreo de  $S=\sum_{j=1}^{n} X_j$.}
+    \item \lb{Sea $X$ variable aleatoria con distribución  $\mathcal{N}(\mu,\sigma^2)$. Sea $(X_1,\dots,X_n)$ una m.a.s de $X$, estudiar la distribución en el muestreo de  $S=\sum_{j=1}^{n} X_j$.}
 
-        Dado que $X\sim N(\mu,\sigma^2)$, y que $(X_1,\dots,X_n)$ es una muestra aleatoria simple (m.a.s) de $X$, las  $X_i$ son independientes e idénticamente distribuidas con  $X_i\sim N(\mu,\sigma^2)$. Queremos analizar la distribución en el muestreo de $S=\sum_{j=1}^{n} X_j$.
+        Dado que $X\sim \mathcal{N}(\mu,\sigma^2)$, y que $(X_1,\dots,X_n)$ es una muestra aleatoria simple (m.a.s) de $X$, las  $X_i$ son independientes e idénticamente distribuidas con  $X_i\sim N(\mu,\sigma^2)$. Queremos analizar la distribución en el muestreo de $S=\sum_{j=1}^{n} X_j$.
 
         \textbf{Propiedades relevantes:}
         \begin{enumerate}[label=\arabic*)]
-            \item \textbf{Suma de variables normales independientes:} Si $X_1,\dots,X_n$ son independientes y $X_i\sim N(\mu,\sigma^2)$, entonces la suma: \[
+            \item \textbf{Suma de variables normales independientes:} Si $X_1,\dots,X_n$ son independientes y $X_i\sim \mathcal{N}(\mu,\sigma^2)$, entonces la suma: \[
             S=\sum_{j=1}^{n} X_j
             \] sigue una distribución normal: \[
             S\sim N(n\mu,n\sigma^2).
@@ -165,14 +165,78 @@ f(x,\theta)=\dfrac{\theta}{(1+x)^{1+\theta}}\chi_{(0,+\infty)}(x).
 T(X_1,X_2,\dots,X_n)=\dfrac{\sum_{j=1}^{n} \ln(1+X_j)}{n}.
 \]Obtener su media y su varianza. }
 
-\begin{enumerate}[label=Paso \arabic*:]
-    \item Verificar la distribución de $X$
+\begin{enumerate}[label=\arabic*)]
+    \item Identificación de la distribución de $X$
 
-        La función de densidad de probabilidad  $X$ es:  \[
-        f(x;\theta)=\dfrac{\theta}{(1+x)^{1+\theta}}\chi_{(0,\infty)}(x).
+        La función de densidad de  $X$ viene dada por:  \[
+        f(x,\theta)=\dfrac{\theta}{(1+x)^{1+\theta}}\chi_{(0,+\infty)}(x),\quad \theta>0.
         \] 
-        Esta densidad corresponde a la \textbf{ditribución de Pareto} con parámetro de forma $\theta>0$ y parámetro de escala igual a:
+        Observemos que, para $x>0$, la forma  $\dfrac{1}{(1+x)^{1+\theta}}$ sugiere una transformación logarítmica conveniente: \[
+        Y=\ln(1+X).
+        \] 
+        Vamos a encontrar la distribución de $Y$.
+    \item Transformación  $Y=\ln(1+X)$
+        \begin{enumerate}[label=\arabic*)]
+            \item Relación entre $X$ y $Y$: \[
+            Y=\ln(1+X)\longleftrightarrow X=e^{Y}-1. 
+            \] 
+        \item Soporte:
 
+            Dado que $x>0$, entonces  $1+x>1$ y por ende  $Y>\ln(1)=0$. De modo que $Y\in (0,+\infty)$.
+        \item Derivada $\dfrac{\dx}{\dy } $: \[
+        \dfrac{\dx }{\dy }=\dfrac{\mathrm{d}}{\mathrm{d}y}(e^{Y}-1 )=e^{Y}. 
+        \] 
+    \item Función de densidad de $Y$: 
+
+        Partiendo de que $f_X(x,\theta)$ es la densidad de $X$, la densidad de  $Y$ se obtiene mediante: \[
+        f_X(y)=F_X(x(y))\cdot \left| \dfrac{\dx }{\dy } \right| .
+        \] 
+        Sustituyendo $x=e^{Y} -1$, obtenemos: \[
+        f_X(e^{Y}-1,\theta )=\dfrac{\theta}{(1+(e^{Y} -1))^{1+\theta}}=\dfrac{\theta}{(e^{Y})^{1+\theta} }=\theta e^{-(1+\theta)Y}. 
+        \] 
+        Por último, multiplicamos por $\dfrac{\dx }{\dy }=e^{Y} $: \[
+        f_Y(y)=\left[ \theta e^{-(1+\theta)Y}  \right] \cdot e^{Y}=\theta e^{-(1+\theta)Y} e^{Y}=\theta e^{-\theta Y}, \quad y>0.
+        \] 
+        Esta es precisamente la \textbf{densidad de una Exponencial} con parámetro $\theta$. Por tanto, \[
+        Y=\ln(1+X)\sim \mathrm{Exp}(\theta).
+        \] 
+        \end{enumerate}
+    \item Distribución del estadístico
+        \[
+        T(X_1,\dots,X_n)=\dfrac{1}{n}\sum_{j=1}^{n} \ln(1+X_j).
+        \] 
+        Definamos \[
+        Y_j=\ln(1+X_j).
+        \] 
+        Cada $Y_j$ es  $\mathrm{Exp}(\theta)$ y son independientes e idénticamente distribuidas al provenir de una muestra aleatoria simple de $X$. Entonces  \[
+        T=\dfrac{1}{n}\sum_{j=1}^{n} Y_j.
+        \] 
+        \begin{itemize}[label=\textbullet]
+            \item La suma $S=\sum_{j=1}^{n} Y_j$ sigue una $\mathrm{Gamma}(n,\theta)$.
+            \item El estadístico $T=\dfrac{1}{n}S$ es simplemente la suma escalada por $\dfrac{1}{n}$.
+        \end{itemize}
+        \begin{enumerate}[label=\arabic*), leftmargin=*]
+            \item Si $S\sim \Gamma(n,\theta )$, entonces $T=\dfrac{1}{n}S$ tiene parámetro de forma $n$ y de \textbf{tasa} $n\theta$. En otras palabras, \[
+            T\sim \Gamma(n, n\theta).
+            \]  
+            Explícitamente, su función de densidad es: \[
+            f_T(t)=\dfrac{(n\theta)^n}{\Gamma(n)}t^{n-1}e^{-n\theta t},\quad t>0. 
+            \] 
+        \end{enumerate}
+    \item Media y varianza de $T$
+
+        Para una  $\Gamma(k,\lambda)$, se sabe que: \[
+            E[W]=\dfrac{k}{\lambda},\qquad \mathrm{Var}(W)=\dfrac{k}{\lambda^2}.
+        \] 
+        En nuestro caso, $T\sim \Gamma(n,n\theta)$. Luego: 
+        \begin{enumerate}[label=\arabic*)]
+            \item Media de $T$:  \[
+                    E[T]=\dfrac{n}{n\theta}=\dfrac{1}{\theta}
+            \] 
+        \item Varianza de $T$:  \[
+        \mathrm{Var}(T)=\dfrac{n}{(n\theta)^2}=\dfrac{1}{n\theta^2}.
+        \] 
+        \end{enumerate}
 \end{enumerate}
 
 \item \lb{Sea $X$ una variable aleatoria con función de densidad en todo $\R$: \[
@@ -181,10 +245,154 @@ f(x,\theta)=\exp(-(x-\theta))\exp(-\exp(-(x-\theta))).
 T(X_1,X_2,\dots,X_n)=\dfrac{\sum_{j=1}^{n} \exp(-X_j)}{n}.
 \]Obtener su media y su varianza.}
 
-\item \lb{Sea $X_1,X_2,\dots,X_n$ una m.a.s de una variable $X$ con distribución  $N(\mu,\sigma^2)$. Sean $\overline{X}$ y  $S^2$ su media y cuasi-varianzas muestrales, respectivamente. Sea $X_{n+1}$ una nueva observación de $X$ independiente de $X_1,X_2,\dots,X_n$. Obtener la distribución en el muestreo del estadístico: \[
+\begin{enumerate}[label=\arabic*)]
+    \item Identificar la distribución de $X$
+
+        La función de densidad que se nos da es, para todo  $x\in \R$, \[
+        f(x,\theta)=\exp(-(x-\theta))\exp\left( -\exp(-(x-\theta)) \right) .
+        \] 
+        Obsérvese que si definimos \[
+        Z=X-\theta, 
+        \] 
+        la densidad $Z$ queda  \[
+            f_Z(z)=\exp(-z)\exp(-e^{-z} ),\quad z \in \R.
+        \] 
+        Esta es la \textbf{distribución Gumbel} estándar (con parámetro de localización 0 y escala 1) pa el máximo. Por lo tanto, $X$ se distribuye como una $\mathrm{Gumble}(\theta,1)$  con localización $\theta$ y escala $1$.
+
+        En resumen:  \[
+        X\sim \mathrm{Gumble}(\theta,1)\longleftrightarrow Z=X-\theta\sim \mathrm{Gumble(0,1)} .
+        \] 
+    \item Analizar el estadístico
+        \[
+        T(X_1,\dots,X_n)=\dfrac{1}{n}\sum_{j=1}^{n} \exp(-X_j).
+        \] 
+        Definamos \[
+        Y_j=\exp(-X_j).
+        \] 
+        El objetivo es estudiar la distribución de \[
+        T=\dfrac{1}{n}\sum_{j=1}^{n} Y_j=\dfrac{1}{n}\sum_{j=1}^{n} e^{-X_j}. 
+        \] 
+        \begin{enumerate}[label=2.\arabic*)]
+            \item Distribución de $Y_j=e^{-X_j} $ 
+
+                Usaremos el hecho de que $Z_j=X_j-\theta$ es Gumbel estándar. Entonces \[
+                X_j=Z_j+\theta\longrightarrow e^{-X_j}=e^{-\theta}e^{-Z_j}.   
+                \] 
+                Definamos $W_j=e^{-Z_j} $. Veamos la distribución de $W_j$:
+                 \begin{itemize}[label=\textbullet]
+                    \item  Si $Z_j\sim \mathrm{Gumbel}(0,1)$, la función de distribución acumulativa (CDF) de $Z_j$ es  \[
+                    F_{Z_j}(z)=e^{-e^{-z} } , z\in \R.
+                    \] 
+                \item Entonces \[
+                W_j=e^{-Z_j} >0.
+                \] 
+                Para $w>0$,  \[
+                \{W_j\le w\} \equiv \{e^{-Z_j} \le w\} \equiv \{Z_j\ge -\ln w\} .
+                \] 
+                Por tanto, \[
+                F_{W_j}(w)=\mathrm{Pr}(Z_j\ge -\ln w)=1-\mathrm{Pr}(Z_j<-\ln w)=1-F_{Z_j}(-\ln w).
+                \] 
+                Usando $F_{Z_j}(z)=e^{-e^{-z} } $, se obtiene \[
+                F_{Z_j}(-\ln w)=e^{-\exp(-(-\ln w))} =e^{-w}. 
+                \] 
+                Por lo tanto, \[
+                F_{W_j}(-\ln w)=e^{-w},\quad w> 0,  
+                \] 
+                que es la función de distribución acumulativa de una \textbf{Exponencial}. 
+                \end{itemize}
+                En consecuencia, \[
+                W_j\sim \mathrm{Exp}(1)
+                \] 
+                Como \[
+                Y_j=e^{-\theta}W_j, 
+                \] 
+                entonces $Y-j$ es simplemente  $W_j$ escalada por  $e^{-\theta} $.
+                \begin{itemize}[label=\textbullet]
+                \item Si $W_j\sim \mathrm{Exp}(1)$, entonces la variable $c\cdot W_j$ con $c>0 $ es $\mathrm{Exp}\left( \dfrac{1}{c} \right) $.
+                \item Aquí $c=e^{-\theta}\longrightarrow \dfrac{1}{c}=e^{\theta}  $.
+                \end{itemize}
+                Por tanto: \[
+                Y_j=e^{-\theta}W_j\sim \mathrm{Exp}(e^{\theta} ) .
+                \] 
+                Es decir, cada $Y_j$ tiene tasa  $e^{\theta} $.
+            \item Distribución de la media muestral $T$
+
+                Dado que los  $Y_j$ son independientes e idénticamente distribuidos $\mathrm{Exp}(e^{\theta} )$, la suma \[
+                S=\sum_{j=1}^{n} Y_j
+                \] 
+                sigue una distribución \textbf{Gamma} con forma $n$ y tasa $e^{\theta} $; escribimos \[
+                S\sim \Gamma(n,e^{\theta} ).
+                \] 
+                El estadístico \[
+                T=\dfrac{S}{n}
+                \] es simplemente la suma $S$ escalada por $\dfrac{1}{n}$. Se conoce la siguiente propiedad de la distribución Gamma:
+                \begin{itemize}[label=\textbullet]
+                    \item Si $S\sim \Gamma(n,\lambda)$, entonces $\alpha S\sim \Gamma\left( n,\dfrac{\lambda}{\alpha} \right) $.
+                \end{itemize}
+                En nuestro caso, $\alpha=\dfrac{1}{n}$. Por tanto, \[
+                T=\dfrac{S}{n}\sim \Gamma\left( n,ne^{\theta}  \right) .
+                \] 
+        \end{enumerate}
+    \item Media y varianza de $T$
+
+        Sea  $T\sim \Gamma(k,\lambda)$ con $k=n$ y $\lambda=ne^{\theta} $. Recordemos que: \[
+            E[\Gamma(k,\lambda)]=\dfrac{k}{\lambda}, \quad \mathrm{Var}[\Gamma(k,\lambda)]=\dfrac{k}{\lambda^2}.
+        \] 
+        Por tanto:
+        \begin{enumerate}[label=\arabic*)]
+            \item Media de $T$:  \[
+                    E[T]=\dfrac{n}{ne^{\theta} }=\dfrac{1}{e^{\theta} }.
+            \] 
+        \item Varianza de $T$:  \[
+        \mathrm{Var}(T)=\dfrac{n}{\left( ne^{\theta}  \right) ^2}=\dfrac{n}{n^2e^{2\theta} }=\dfrac{1}{ne^{2\theta} }.
+        \] 
+        \end{enumerate}
+\end{enumerate}
+\item \lb{Sea $X_1,X_2,\dots,X_n$ una m.a.s de una variable $X$ con distribución  $\mathcal{N}(\mu,\sigma^2)$. Sean $\overline{X}$ y  $S^2$ su media y cuasi-varianzas muestrales, respectivamente. Sea $X_{n+1}$ una nueva observación de $X$ independiente de $X_1,X_2,\dots,X_n$. Obtener la distribución en el muestreo del estadístico: \[
             \dfrac{X_{n+1}-\overline{X}}{S}\sqrt{\dfrac{n}{n+1}} .
 \] } 
-\item \lb{Sean $X_1,X_2,\dots,X_{n_1}$ e $Y_1,Y_2,\dots,Y_{n_2}$ muestras aleatorias simples independientes de dos poblaciones $X\sim N(\mu_1,\sigma^2)$ e $Y\sim N(\mu_2,\sigma^2)$, respectivamente. Obtener la distribución en el muestreo estadístico: \[
+
+\begin{enumerate}[label=\arabic*)]
+    \item Distribución de $X_{n+1}-\overline{X}$ 
+        \begin{enumerate}[label=\arabic*)]
+            \item La media muestral $\overline{X}=\dfrac{1}{n}\sum_{j=1}^{n} X_j$ es independiente de $X_{n+1}$ (porque $X_{n+1}$ es una nueva observación independiente).
+            \item Cada $X_i$ (incluyendo $X_{n+1}$) se distribuye como $\mathcal{N}(\mu,\sigma^2)$.
+            \item Se sabe que \[
+            \overline{X}\sim \mathcal{N}\left( \mu,\dfrac{\sigma^2}{n} \right) ,\quad X_{n+1}\sim \mathcal{N}(\mu,\sigma^2),
+            \] 
+            y son independientes. Por ende, \[
+            X_{n+1}-\overline{X}\sim \mathcal{N}\left( 0,\sigma^2+\dfrac{\sigma^2}{n} \right) =\mathcal{N}\left( 0,\sigma^2\cdot \dfrac{n+1}{n} \right) .
+            \] 
+            Es decir, \[
+            \mathrm{Var}(X_{n+1}-\overline{X})=\sigma^2\cdot \dfrac{n+1}{n}.
+            \] 
+        \end{enumerate}
+    \item Relación con el cociente Normal-Chi-cuadrado
+
+        Sabemos además que la cuasi-varianza $S^2$ satisface \[
+            (n-1) \dfrac{S^2}{\sigma^2}\sim ~\chi_{n-1}^2,
+        \] y es independiente de $\overline{X}$ (y por tanto también independiente de $X_{n+1}$).
+
+        Para simplicar la notación, definamos \[
+        Y=X_{n+1}-\overline{X}.
+        \] 
+        Entonces $Y\sim \mathcal{N}\left( 0,\sigma^2\cdot \dfrac{n+1}{n} \right) $. Podemos escribir \[
+            T=\dfrac{Y}{S}\sqrt{\dfrac{n}{n+1}} =\underbrace{\dfrac{\frac{Y}{\sigma} }{\sqrt{\frac{n+1}{n} } }}_{\displaystyle =U\sim \mathcal{N}(0,1)} \bigg/ \underbrace{\dfrac{S}{\sigma}}_{\displaystyle \sqrt{\dfrac{\chi_{n-1}^2}{n-1}} }.
+        \] 
+        \begin{itemize}[label=\textbullet]
+            \item La variable $U=\dfrac{\frac{Y}{\sigma} }{\sqrt{\frac{n+1}{n} } }\sim \mathcal{N}(0,1)$.
+            \item $\dfrac{S^2}{\sigma^2}$ es $\dfrac{1}{n-1}$ veces una $\chi^2$ con $n-1$ grados de libertad.
+            \item  $U$ y $\dfrac{S^2}{\sigma^2}$ son independientes.
+        \end{itemize}
+        La razón \[
+        \dfrac{U}{\sqrt{\dfrac{\chi_{n-1}^2}{n-1}} }
+        \] sigue una distribución \textbf{t de Stuent} con $n-1$ grados de libertad.
+
+        Por lo tanto, \[
+        T=\dfrac{Y}{S}\sqrt{\dfrac{n}{n+1}}=\dfrac{U}{\frac{S}{\sigma} } =\dfrac{U}{\sqrt{\frac{\chi_{n-1}^2}{n-1} } }\sim t_{n-1}.
+        \] 
+\end{enumerate}
+\item \lb{Sean $X_1,X_2,\dots,X_{n_1}$ e $Y_1,Y_2,\dots,Y_{n_2}$ muestras aleatorias simples independientes de dos poblaciones $X\sim \mathcal{N}(\mu_1,\sigma^2)$ e $Y\sim \mathcal{N}(\mu_2,\sigma^2)$, respectivamente. Obtener la distribución en el muestreo estadístico: \[
             \dfrac{\alpha(\overline{X}-\mu_1)+\beta(\overline{Y}-\mu_2)}{\sqrt{\frac{(n_1-1)S_1^2+(n_2+1)S_2^2}{n_1+n_2-2} }\sqrt{\frac{\alpha^2}{n_1} +\frac{\beta^2}{n_2}}  },
 \]siendo $\alpha$ y $\beta$ dos números reales fijos.} 
 
