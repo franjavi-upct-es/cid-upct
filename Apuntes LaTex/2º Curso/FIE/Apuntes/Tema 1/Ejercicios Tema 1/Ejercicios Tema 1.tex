@@ -396,21 +396,325 @@ T(X_1,X_2,\dots,X_n)=\dfrac{\sum_{j=1}^{n} \exp(-X_j)}{n}.
             \dfrac{\alpha(\overline{X}-\mu_1)+\beta(\overline{Y}-\mu_2)}{\sqrt{\frac{(n_1-1)S_1^2+(n_2+1)S_2^2}{n_1+n_2-2} }\sqrt{\frac{\alpha^2}{n_1} +\frac{\beta^2}{n_2}}  },
 \]siendo $\alpha$ y $\beta$ dos números reales fijos.} 
 
+Tenemos dos muestras aleatorias simples e independientes:
+\begin{itemize}[label=\textbullet]
+    \item $X_1,X_2,\dots,X_{n_1}$ de una población $X\sim \mathcal{N}(\mu_1,\sigma^2)$.
+    \item $Y_1,Y_2,\dots,Y_{n_2}$ de otra población $Y\sim \mathcal{N}(\mu_2,\sigma^2)$.
+\end{itemize}
+Se denotan:
+\begin{itemize}[label=\textbullet]
+    \item $\overline{X}=\dfrac{1}{n_1}\sum_{i_{01}}^{n_1} X_i$ la media muestral de la primera población.
+    \item $\overline{Y}=\dfrac{1}{n_2}\sum_{j=1}^{n_2} Y_j$ la media muestral de la segunda población.
+    \item $S_1^2$ la cuasi-varianza muestral de la primera muestra.
+    \item $S_2^2$ la cuasi-varianza muestral de la segunda muestra.
+\end{itemize}
+Sabemos que ambas poblaciones comparten la misma varianza $\sigma^2$.
+
+El estadístico a estudiar es: \[
+T=\dfrac{\alpha(\overline{X}-\mu_1)+\beta(\overline{Y}-\mu_2)}{\sqrt{\dfrac{(n_1-1)S_1^2+(n_2-1)S_2^2}{n_1+n_2-2}}\sqrt{\dfrac{\alpha^2}{n_1}+\dfrac{\beta^2}{n_2}}  },
+\] 
+donde $\alpha,\beta \in \R$ son constantes dadas.
+
+\begin{enumerate}[label=\arabic*)]
+    \item Distribución del numerador
+
+        Sea \[
+        Z=\alpha(\overline{X}-\mu_1)+\beta(\overline{Y}-\mu_2).
+        \] 
+        \begin{enumerate}[label=\arabic*)]
+            \item Propiedad de $\overline{X}-\mu_1$:
+
+                $\overline{X}$ es $\mathcal{N}\left( \mu_1,\dfrac{\sigma^2}{n_1} \right) $. Por lo tanto, \[
+                \overline{X}-\mu_1\sim \mathcal{N}\left( 0,\dfrac{\sigma^2}{n_1} \right) .
+                \] 
+            \item Propiedad de $\overline{Y}-\mu_2$: 
+
+                $\overline{Y}$ es $\mathcal{N}\left( \mu_2,\dfrac{\sigma^2}{n_2} \right) $. Entonces \[
+                \overline{Y}-\mu_2\sim \mathcal{N}\left( 0,\dfrac{\sigma^2}{n_2} \right) .
+                \] 
+            \item Independencia de las dos muestras:
+
+                Como las dos muestras (de $X$ y de  $Y$) son independientes, también lo son $\overline{X}-\mu_1$ y $\overline{Y}-\mu_2$.
+        \end{enumerate}
+        Por consiguiente, la variable \[
+        Z=\alpha(\overline{X}-\mu_1)+\beta(\overline{Y}-\mu_2)
+        \] es normal de media $0$ y varianza \[
+        \mathrm{Var}(Z)=\alpha^2(\overline{X}-\mu_1)+\beta^2\mathrm{Var}(\overline{Y}-\mu_2)=\alpha^2\dfrac{\sigma^2}{n_1}+\beta^2 \dfrac{\sigma^2}{n_2}.
+        \] 
+        Por tanto, \[
+        Z\sim \mathcal{N}\left( 0,\sigma^2\left( \dfrac{\alpha^2}{n_1}+\dfrac{\beta^2}{n_2} \right)  \right) .
+        \] 
+    \item Distribución de la varianza combinada en el denominador
+
+        En el denominador aparece el factor \[
+        \sqrt{\dfrac{(n_1-1)S_1^2+(n_2-1)S_2^2}{n_1+n_2-2}} .
+        \] 
+        Este es el \textbf{estimador combinado} de la desviación típica $\sigma$. Recordemos que si las dos muestras provienen con la \textbf{misma} varianza $\sigma^2$, entonces \[
+        \dfrac{(n_1-1)S_1^2+(n_2-1)S_2^2}{\sigma^2}\sim \chi_{n_1+n_2-2}^2.
+        \]   
+        Además, este estimador combinado de la varianza es independiente e las medias muestrales $\overline{X}$ y $\overline{Y}$, y por ende, es independiente del numerador $Z$.
+    \item El estadístico  $T$
+
+        Reescribimos el estadístico:  \[
+            T=\dfrac{\alpha(\overline{X}-\mu_1)+\beta(\overline{Y}-\mu_2)}{\sqrt{\dfrac{(n_1-1)S_1^2+(n_2-1)S_2^2}{n_1+n_2-2}} \sqrt{\dfrac{\alpha^2}{n_1}+\dfrac{\beta^2}{n_2}} }=\dfrac{\dfrac{Z}{\sigma} }{\frac{\sqrt{\dfrac{(n_1-1)S_1^2+(n_2-1)S_2^2}{\sigma^2(n_1+n_2-2)}\sqrt{\dfrac{\alpha^2}{n_1} +\dfrac{\beta^2}{n_2}}}}{\sigma}  }.
+        \] 
+        \begin{itemize}[label=\textbullet]
+            \item La variable \[
+                    \dfrac{Z}{\sigma}=\dfrac{Z}{\sqrt{\mathrm{Var}(Z)} }\cdot \sqrt{\dfrac{\mathrm{Var}(Z)}{\sigma^2}} \sim \mathcal{N}\left( 0,\dfrac{\mathrm{Var}(Z)}{\sigma^2} \right)\quad \text{con}\quad \mathrm{Var}(Z)=\sigma^2\left( \dfrac{\alpha^2}{n_1}+\dfrac{\beta^2}{n_2} \right) .
+            \] 
+            Dividiendo $Z$ por  $\sigma\sqrt{\dfrac{\alpha^2}{n_1}+\dfrac{\beta^2}{n_2}} $ se obtiene un $\mathcal{N}(0,1)$.
+        \item La parte \[
+        \dfrac{(n_1-1)S_1^2+(n_2-1)S_2^2}{\sigma^2}\sim \chi_{n_1+n_2-2}^2\text{ e independiente de $Z$.}
+        \] 
+        \end{itemize}
+        Por la definición de la distribución $t$ de Student con  $k$ grados de libertad, \[
+        t_k=\dfrac{\mathcal{N}(0,1)}{\sqrt{\dfrac{\chi_k^2}{k}} },
+        \] 
+        nuestro estadístico $T$ encaja exactamente con esta forma, con  $k=n_1+n_2-2$.
+    \item Conclusión
+
+        El estadístico \[
+T=\dfrac{\alpha(\overline{X}-\mu_1)+\beta(\overline{Y}-\mu_2)}{\sqrt{\dfrac{(n_1-1)S_1^2+(n_2-1)S_2^2}{n_1+n_2-2}}\sqrt{\dfrac{\alpha^2}{n_1}+\dfrac{\beta^2}{n_2}}  }
+    \] sigue, en el muestreo, una distribución \textbf{t de Student} con $n_1+n_2-2$ grados de libertad. Es decir, \[
+    \boxed{T\sim t_{n_1+n_2-2}.}
+    \]  
+\end{enumerate}
 \item \lb{Una empresa de agua produce botellas que deberían contener 300ml pero que presentan en la práctica una variabilidad modelada por una distribución Normal con media $\mu=298\mathrm{ml}$ y desviación típica $\sigma=3\mathrm{ml}$.}
     \begin{enumerate}[label=\color{red}\textbf{\alph*)}]
         \item \db{¿Cuál es la probabilidad de que una botella elegida al azar de la producción contenga menos de 295ml?}
+
+            Tenemos botellas cuyo contenido $(X)$ está modelado por una distribución normal con media  $\mu=298\mathrm{ml}$ y desviación típica $\sigma=3\mathrm{ml}$. Es decir, \[
+            X\sim \mathcal{N}(298,3^2).
+            \] 
+            Queremos calcular \[
+            P(X<295).
+            \] 
+            Definimos la variable tipificada \[
+            Z=\dfrac{X-\mu}{\sigma}=\dfrac{X-298}{3}.
+            \] 
+            Entonces, \[
+           P(X<295)=P\left( Z<\dfrac{295-298}{3} \right)  =P(Z<-1)=P(Z>1)=1-P(Z<1)=1-0.8413 =0.1587.
+            \] 
         \item \db{¿Cuál es la probabilidad de que el contenido medio de un paquete de seis botellas sea inferior a 295ml?} 
+
+            Sea $\overline{X}_6$ la media muestral de 6 botellas independientes. \[
+            \overline{X}_6=\dfrac{1}{6}\sum_{i=1}^{6} X_i.
+            \] 
+            Dado que cada $X_i\sim \mathcal{N}(\mu,\sigma^2)$ y son independientes, la media $\overline{X}_6$ sigue una distribución normal con: 
+            \begin{itemize}[label=\textbullet]
+                \item Media $\mu_{\overline{X}_{6}}=\mu=298$.
+                \item Desviación típica $\sigma_{\overline{X}_6}=\dfrac{\sigma}{\sqrt{6} }=\dfrac{3}{\sqrt{6} }.$
+            \end{itemize}
+            Por lo tanto, \[
+            \overline{X}_6\sim \mathcal{N}\left( 298,\left( \dfrac{3}{\sqrt{6} } \right) ^2 \right) .
+            \] 
+            Queremos \[
+            \begin{aligned}
+                P(\overline{X}_6<295)&=P\left( Z<\dfrac{295-298}{\frac{3}{\sqrt{6} } } \right)=P\left( Z<\dfrac{-3}{\frac{3}{\sqrt{6} } } \right) =P(Z<-\sqrt{6} )\\ 
+                                     & =P(Z>\sqrt{6} )=1-P(Z<\sqrt{6} )\simeq 1-P(Z<2.45)=1-0.9929=0.0071 .
+            \end{aligned}
+            \] 
     \end{enumerate}
 \item \lb{Se realiza una medición de peso en un laboratorio, sabiendo que la desviación típica de las mediciones es $\sigma=10\mathrm{mg}$. La medición se repite 3 veces, se calcula la media $\overline{x}$, y este es el resultado proporcionado como estimación del peso.}
     \begin{enumerate}[label=\color{red}\textbf{\alph*)}]
         \item \db{¿Cuál es la desviación típica del resultado calculado?}
+
+        Si cada una de las mediciones $X_i$ tiene varianza  $\sigma^2=10^2\mathrm{mg}^2$, y las mediciones son independientes, entonces la varianza de la \textbf{media muestral} de $n$ mediciones es \[
+        \mathrm{Var}(\overline{X})=\dfrac{\sigma^2}{n}.
+        \]  
+        En consecuencia, la \textbf{desviación típica} de la media (o error estándar de la media) es \[
+        \sqrt{\mathrm{Var}(\overline{X})} =\dfrac{\sigma}{\sqrt{n} }.
+        \]  
+        Para $n=3$ mediciones,  \[
+        \sqrt{\mathrm{Var}(\overline{X})} =\dfrac{10}{\sqrt{3} }\approx 5.77\mathrm{mg}.
+        \] 
         \item \db{¿Cuántas veces se debe repetir la medición para que la desviación típica del valor medio se reduzca a 5?} 
+
+            Queremos que la desviación típica de $\overline{X}$ sea 5 mg.
+
+            Usando \[
+            \sqrt{\mathrm{Var}(\overline{X})} =\dfrac{10}{\sqrt{n} }=5,
+            \] 
+            resolvemos para $n$:  \[
+            \dfrac{10}{\sqrt{n} }=5\longrightarrow \sqrt{n} =2\longrightarrow n=4.
+            \] 
+            Por lo tanto, \textbf{necesitamos 4 mediciones} para reducir la desviación típica de la media a 5 mg. 
     \end{enumerate}
 \item \lb{El resultado de una encuesta fue que el 59\% de la población española opina que el contexto económico es bueno o muy bueno. Supongamos que, extrapolando al conjunto de la población, efectivamente la proporción de todos los españoles que piensan que la situación es buena o muy buena es del 0.59.}
+
+    Tenemos una población en la que la proporción real de persobas que piensan que la situación económica es buena o muy buena es $p=0.59$.
+
+    Cuando el tamaño de la muestra $n$ es suficientemente grande, podemos aproximar la distribución de $\hat{p}$ mediante una Normal con media $p$ y desviación típica \[
+    \sqrt{\dfrac{p(1-p)}{n}} .
+    \] 
+    En este problema: 
+    \begin{itemize}[label=\textbullet]
+        \item $p=0.59$
+        \item  $q=1-p=0.41$ 
+        \item Desviación típica de $\hat{p}$: \[
+        \sigma(\hat{p})=\sqrt{\dfrac{pq}{n}}=\sqrt{\dfrac{0.59\cdot 0.41}{n}}.  
+        \] 
+        Nos interesa \[
+            P(0.56\le \hat{p}\le 0.62)=P(\hat{p}-0.59\in [-0.03,0.03]).
+        \] 
+        Definamos la variable tipificada \[
+        Z=\dfrac{\hat{p}-p}{\sqrt{\frac{pq}{n} } }\sim \mathcal{N}(0,1).
+        \] 
+        Entonces \[
+        P(|\hat{p}-0.59|\le 0.03)=P(-0.03\le \hat{p}-0.59\le 0.03)=P(-z_0\le Z\le z_0),
+        \] donde \[
+        z_0=\dfrac{0.03}{\sqrt{\frac{0.59\cdot 0.41}{n} } }
+        \] 
+    \end{itemize}
     \begin{enumerate}[label=\color{red}\textbf{\alph*)}]
         \item \db{Sabemos que las encuentas incluyen márgenes de error que son aproximadamente $\pm 3$ puntos. ¿Cuál es la probabilidad de que una muestra aleatoria de 300 españoles presente una proporción muestral que caiga dentro del intervalo $0.59\pm 0.03$?}
+
+             \begin{enumerate}[label=\arabic*)]
+                \item \textbf{Cálculo de la desviación típica de $\hat{p}$ :} \[
+                \sqrt{\dfrac{0.59\cdot 0.41}{300}} =\sqrt{\dfrac{0.2419}{300}}\simeq 0.0284. 
+                \]  
+            \item \textbf{Cálculo de $z_0$:}
+
+                La amplitud del intervalo es $0.03$. Dividimos por la desviación típica:  \[
+                z_0=0.\dfrac{03}{0.0284}\simeq 1.06
+                \] 
+            \item \textbf{Probabilidad asociada:}
+
+                $Z\sim \mathcal{N}(0,1)$. Entonces \[
+                P(-1.06\le Z\le 1.06).
+                \] 
+                Usando tablas o función de distribución normal, \[
+                \Phi(1.06)\simeq 0.8554,
+                \] de modo que \[
+                P(-1.06\le Z\le 1.06)=\Phi(1.06)-(1-\Phi(1.06))=0.8554-(1-0.8554)=0.8554-0.1446=0.7108\approx 0.71
+                \] 
+                Por lo tanto, \textbf{la probabilidad es aproximadamente 0.71} (un 71\%). 
+            \end{enumerate}
         \item \db{Contesta a la pregunta anterior en el caso en que la muestra consta de 600 personas y cuando la muestra consta de 1200 personas. ¿Cuál es el efecto de aumentar el tamaño de la muestra?} 
+
+            \textbf{Caso $n=600$:} 
+            \begin{enumerate}[label=\arabic*)]
+            \item \textbf{Desviación típica de $\hat{p}$:} \[
+            \sqrt{\dfrac{0.2419}{600}} \simeq 0.0201.
+            \] 
+        \item \textbf{Cálculo de $z_0$:} \[
+        z_0=\dfrac{0.03}{0.0201}\simeq 1.49
+        \]  
+    \item \textbf{Probabilidad:} \[
+    P(-1.49\le Z\le 1.49).
+    \]  
+    Tenemos que $\Phi(1.49)\approx 0.9319$. Por lo tanto,  \[
+    P(-1.49\le Z\le 1.49)=0.9319-(1-0.9319)=0.9319-0.0681=0.8638\approx 0.86
+    \] 
+    Por lo tanto, \textbf{la probabilidad es aproximadamente 0.86} (un 86\%). 
+            \end{enumerate}
+            \textbf{Caso $n=1200$:}
+            \begin{enumerate}[label=\arabic*)]
+                \item \textbf{Desviación típica de $\hat{p}$:} \[
+                \sqrt{\dfrac{0.2419}{1200}}\approx 0.0142. 
+                \]  
+            \item \textbf{Cálculo de $z_0$:} \[
+            z_0=\dfrac{0.03}{0.0142}\approx 2.11
+            \]  
+        \item \textbf{Probabilidad:} \[
+        P(-2.11\le Z\le 2.11).
+        \]  
+        Tenemos que $\Phi(2.11)\approx 0.9826$. Entonces,  \[
+        P(-2.11\le Z\le 2.11)=0.9826-(1-0.9826)=0.9826-0.0174=0.9652\approx 0.965.
+        \] 
+        Por tanto, \textbf{la probabilidad es aproximadamente 0.965} (un 96.5\%). 
+            \end{enumerate}
     \end{enumerate}
 \item \lb{Un aparato de medición es exacto (el valor proporcionado medio es el valor auténtico de la señal) y la desviación típica del valor medido es 0.1 unidades. La distribución del valor medido es aproximadamente normal. ¿Cuál es la probabilidad de que el valor de una medición se aleje de la señal auténtica en más de 0.1 unidades? ¿Y si se repite la medición 5 veces y se toma la media de los 5 valores obtenidos?}
+
+    Tenemos un aparato de medición que, al medir una señal (valor esperado $\mu$), proporciona un valor $X$ que es:
+    \begin{itemize}[label=\textbullet]
+        \item \textbf{Exacto en promedio:} $E[X]=\mu$.
+        \item \textbf{Normalmente distribuido} con desviación típica $\sigma=0.1$. Es decir, \[
+        X\sim \mathcal{N}(\mu,0.1^2).
+        \]  
+    \end{itemize}
+        Queremos calcular: 
+        \begin{enumerate}[label=\arabic*)]
+            \item $P(|X-\mu|> 0.1)$, es decir, la probabilidad de que \textbf{una medición individual} se aleje más de 0.1 unidades de la señal real.
+            \item $P(\overline{X}_5-\mu| >0.1)$, donde $\overline{X}_5$ es la \textbf{media de 5 mediciones independientes}. 
+        \end{enumerate}
+        \begin{enumerate}[label=\arabic*), leftmargin=*]
+            \item Probabilidad de que una sola medición difiera de $\mu$ es más de 0.1
+
+                Sea $X$ la lectura, $X\sim \mathcal{N}(\mu,0.1^2)$. Entonces \[
+                P(|X-\mu| >0.1)=P(X-\mu>0.1\text{ o }X-\mu<-0.1).
+                \] 
+                Tipificamos usando $Z=\dfrac{X-\mu}{0.1}$, que sigue $\mathcal{N}(0,1)$. Así, \[
+                P(|X-\mu| >0.1)=P(|Z| >1)=2(1-\Phi(1)).
+                \] 
+                Tenemos que $1-\Phi(1)\approx 0.1587$. Por tanto, \[
+                P(|Z|>1)=2\cdot 0.1587=0.3174.
+                \] 
+            \item Probabilidad de que la media de 5 mediciones difiera que $\mu$ en más de 0.1
+
+                Sea $\overline{X}_5=\dfrac{1}{5}\sum_{i=1}^{5} X_i$. Dado que cada $X_i\sim \mathcal{N}(\mu,0.1^2)$ y son independientes, se tiene
+                \begin{itemize}[label=\textbullet]
+                    \item $E[\overline{X}_5]=\mu$
+                    \item $\mathrm{Var}(\overline{X}_5)=\dfrac{\sigma^2}{5}=\frac{0.1^2}{5}$
+                    \item $\sigma(\overline{X}_5)=\dfrac{0.1}{\sqrt{5} }$
+                \end{itemize}
+                La probabilidad de interés es \[
+                P(|\overline{X}_5-\mu| >0.1).
+                \] 
+                Tipificamos con \[
+                Z=\dfrac{\overline{X}_5-\mu}{\frac{0.1}{\sqrt{5} } }\sim \mathcal{N}(0,1).
+                \] 
+                Entonces, \[
+                P(|\overline{X}_5-\mu| >0.1)=P\left( |Z| > \frac{0.1}{\frac{0.1}{\sqrt{5} } } \right) =P(|Z|>\sqrt{5} )\approx 1 - \Phi(Z<2.24)=0.0127.
+                \] 
+                De modo que \[
+                P(|Z| >2.24)=2\cdot (1-\Phi(2.24))\approx 2\cdot 0.0127=0.0254.
+                \] 
+                
+        \end{enumerate}
 \item \lb{En condiciones normales, una máquina produce piezas con una tasa de defectuosas del 1\%. Para controlar que la máquina sigue bien ajustada, se escogen al azar cada día 100 piezas en la producción y se somete a un test. ¿Cuál es la probabilidad de que, si la máquina está bien ajustada, haya, en una de esas muestras, más del 2\% de piezas defectuosas? Si un día, 3 piezas resultan defectuosas, ¿cuáles son las conclusiones que sacaríamos sobre el funcionamiento de la máquina?} 
+
+    Bajo el supuesto de que la máquina está bien ajustada, $X$ (número de piezas defectuosas en la muestra) sigue una distribución  \textbf{Binomial}  con parámetros $n=100$ y $p=0.01$.  \[
+    X\sim \mathcal{B}(n=100,p=0.01).
+    \] 
+    \begin{enumerate}[label=\arabic*)]
+        \item Probabilidad de obtener más del 2\% de piezas defectuosas si la máquina está bien
+
+            El 2\% de 100 piezas son 2 piezas. Por tanto, "más del 2\%" significa que en la muestras salen \textbf{3 o más defectuosas}. Queremos \[
+            P(X>2)=1-P(X\le 2).
+        \]
+            \begin{enumerate}[label=1.\arabic*)]
+                \item Aproximación con distribución Poisson
+
+Dado que $p=0.01$ es bastante pequeño y $n=100$ moderado, podemos usar la \textbf{aproximación Poisson} con $\lambda=np=1$.
+
+Entonces $X\approx \mathrm{Poisson}(\lambda=1)$. Se calcula \[
+P(X\le 2)=P(X=0)+P(X=1)+P(X=2),
+\] donde, para Poisson($\lambda=1$): \[
+P(X=k)=\dfrac{e^{-1}1^k}{k!}.
+\]
+\begin{itemize}[label=\textbullet]
+\item $P(X=0)=e^{-1}\approx 0.3679$
+\item $P(X=1)=e^{-1}\cdot \dfrac{1}{1!}=0.3679 $ 
+\item $P(X=2)=e^{-1} \cdot  \dfrac{1^2}{2!}=0.1839 $
+\end{itemize}
+Sumamos: \[
+P(X\le 2)=0.3679+0.3679+0.1839=0.9197
+\] 
+
+Por tanto, \[
+P(X>2)=1-0.9197=0.0803\approx 0.08.
+\] 
+Esto indica que, si la máquina está bien, hay alrededor de un 8\% de probabilidad de observar 3 o más piezas defectuosas en una muestra de 100
+            \end{enumerate}
+        \item Interpretación en un día con 3 defectuosas observadas
+
+            Si en la muestra diaria (de 100 piezas) aparecen \textbf{3 defectuosas}, podemos preguntarnos si esto sugiere que la máquina se ha desajustado.
+            \begin{itemize}[label=\textbullet]
+                \item Hemos visto que, si realmente la máquina sigue produciendo al 1\% de defectos, la probabilidad de ver 3 o más defectuosas es alrededor de un 8\%.
+                \item Un 8\% no es un suceso extremadamente raro. En un test de hipótesis con un nivel de significación típico del 5\%, podríamos decir que la \textbf{p-value}$\approx$ 0.08 es \textbf{mayor} que 0.05, de modo que no \textbf{no} rechazariamos la hipótesis de que la máquina está bien.  
+            \end{itemize}
+            En otras palabras, \textbf{3 piezas defectuosas no es una evidencia suficientemente fuerte} para concluir que la máquina está mal ajustada.  
+    \end{enumerate}
 \end{enumerate}
