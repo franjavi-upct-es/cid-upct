@@ -744,15 +744,165 @@ S_x^2+S_y^2+S_z^2=\dfrac{\overline{h}^2}{4}\begin{bmatrix}
 \] 
 \item \lb{Si $A$ es una matriz simétrica, ¿son las matrices $B^\intercal AB,A+A^\intercal$ y $A-A^\intercal$ simétricas?}
 
+    \begin{enumerate}[label=\arabic*)]
+        \item Matriz $B^\intercal AB$
+
+            Para qu $B^\intercal AB$ sea simétrica, debe cumplirse: \[
+                (B^\intercal AB)^\intercal=b^\intercal AB.
+            \] 
+            Usamos la propiedad de la transposición: \[
+                (B^\intercal AB)^\intercal=B^\intercal A^\intercal(B^\intercal)^\intercal= B^\intercal A^\intercal B.
+            \] 
+            Como $A$ es simétrica ($A^\intercal =A$): \[
+                (B^\intercal AB)^\intercal=B^\intercal AB.
+            \]  
+            Por lo tanto, $B^\intercal AB$ \textbf{es simétrica} siempre que $A$ sea simétrica.
+        \item Matriz $A+A^\intercal$
+
+            Para que $A+A^\intercal$ sea simétrica, debe cumplirse: \[
+                (A+A^\intercal)^\intercal=A+A^\intercal.
+            \] 
+            Usamos la propiedad de la transposición:
+            \[
+                (A+A^\intercal)^\intercal=A^\intercal+(A^\intercal)^\intercal.
+            \] 
+            Dado que $A$ es simétrica  $(A^\intercal = A)$: \[
+                (A+A^\intercal)^\intercal=A+A^\intercal.
+            \] 
+            Por lo tanto, $A+A^\intercal$ \textbf{es simétrica} siempre que $A$ sea simétrica. 
+        \item Matriz $A-A^\intercal$
+
+            Para que $A-A^\intercal$ sea simétrica, debe cumplirse: \[
+                (A-A^\intercal)^\intercal=A-A^\intercal.
+            \] 
+            Usamos la propiedad de la transpoción: \[
+                (A-A^\intercal)^\intercal=A^\intercal-(A^\intercal)^\intercal.
+            \] 
+            Dado que $A$ es simétrica $(A^\intercal =A)$: \[
+                (A-A^\intercal)^\intercal=A-A^\intercal.
+            \] 
+            Esto implica que: \[
+            A-A^\intercal=0.
+            \] 
+            Por lo tanto, $A-A^\intercal$ \textbf{no puede ser simétrica a menos que $A=0$}.  
+    \end{enumerate}
 \item \lb{Prueba que si $A$ es una matriz invertible simétrica, entonces  $A^{-1}$ es también simétrica.}
 
+        \textbf{Propiedades necesarias}
+        \begin{enumerate}[label=\arabic*)]
+            \item \textbf{Simetría de $A$:} $A^\intercal=A$.
+            \item \textbf{Propiedad de la inversa:} $A A^{-1}=A^{-1}A=I $, donde $I$ es la matriz identidad.
+            \item \textbf{Transposición del producto:} Para cualquier par de matrices $X$ e  $Y$, se cumple:  \[
+                    (XY)^\intercal=Y^\intercal X^\intercal.
+            \]  
+        \end{enumerate}
+        Partimos de la definición de la inversa: \[
+        A A^{-1}=I.
+        \] 
+        Tomamos la traspuesta de ambos lados: \[
+            (A A^{-1} )^\intercal=I^\intercal.
+        \] 
+        Usando la propiedad de la transpoción del producto: \[
+            (A A^{-1})^\intercal=(A^{-1})^\intercal A^\intercal.
+        \] 
+        Como $I^\intercal=I$ (la identidad es simétrica) y $A^\intercal=A$ (porque $A$ es simétrica), esto se convierte en \[
+            (A^{-1})^\intercal A=I.
+        \] 
+        De la definición de la inversa, sabes que $A^{-1}$ es la única matriz que satisface $A^{-1} A=I$. Por lo tanto: \[
+            (A^{-1})^\intercal=A^{-1}.
+        \] 
 \item \lb{Sean $u_1,\dots,u_m$ vectores de $\mathbb{K}^n$ y supongamos que para ciertos escalares $x_1,\dots,x_m$ se tiene $x_1u_1+\cdots+x_mu_m=0$. Expresa esta última igualdad en forma matricial.}
 
+    La ecuación $x_1u_1+x_2u_2+\cdots+x_m u_m=0$ puede representarse en forma matricial como sigue:
+    \begin{enumerate}[label=\arabic*)]
+        \item \textbf{Escribir los vectores en forma de matriz}: Sean $u_1,u_2,\dots,u_m$ vectres en $\K^n$, es decir, cada $u_j$ tiene $n$ componentes: \[
+        u_j=\begin{bmatrix} 
+        u_{j1}\\
+        u_{j 2}\\
+        \vdots\\
+        u_{jn}
+    \end{bmatrix},\quad \text{para $j=1,2,\dots,m$. }
+        \] 
+        Formamos una matriz $U$ de dimensión $n\times m$ donde las columnas son los vectores $u_1,u_2,\dots,u_m$: \[
+        U=\begin{bmatrix} 
+            u_{11} & u_{21} & \cdots & u_{m1}\\
+            u_{12} & u_{22} & \cdots & u_{m2}\\
+            \vdots & \vdots & \ddots & \vdots\\
+            u_{1n} & u_{2n} & \cdots & u_{mn}
+        \end{bmatrix}. 
+        \] 
+    \item \textbf{Escribir los escalares $x_1,x_2,\dots,x_m$ como un vector columna:} \[
+    x=\begin{bmatrix} 
+    x_1\\
+    x_2\\
+    \vdots\\
+    x_m
+    \end{bmatrix} .
+    \]  
+\item \textbf{Expresar la combinación lineal:} La combinación lineal $x_1u_1+x_2u_2+\cdots+x_m u_m$ se puede escribir como el producto matricial: \[
+Ux=\begin{bmatrix} 
+            u_{11} & u_{21} & \cdots & u_{m1}\\
+            u_{12} & u_{22} & \cdots & u_{m2}\\
+            \vdots & \vdots & \ddots & \vdots\\
+            u_{1n} & u_{2n} & \cdots & u_{mn}
+        \end{bmatrix}\cdot\begin{bmatrix} 
+    x_1\\
+    x_2\\
+    \vdots\\
+    x_m
+    \end{bmatrix}.
+\]  
+\item \textbf{Igualdad en forma matricial:} La igualdad $x_1u_1+x_2u_2+\cdots+x_m u_m=0$ queda en forma matricial como: \[
+Ux=0,
+\]  donde $U$ es la matriz de dimensión $n\times m$, $x$ es el vectore de escalares de dimensión $m$, y  $0$ es el vector nulo de dimensión $n$.
+    \end{enumerate}
 \item \lb{Sean $u,v$ dos vectores no nulos vistos como matrices columna  $n\times 1$. Observa que $1+v^\intercal u$ es un escalar, que suponemos no nulo. Prueba que la matriz $I+uv^\intercal$ es no singular y su inversa es \[
             (I+uv^\intercal)^{-1}=I-\dfrac{uv^\intercal}{1+v^\intercal u}
 \] } 
+
+\begin{enumerate}[label=Paso \arabic*:]
+    \item Propiedad de la inversa
+
+        Para verificar que la matriz propuesta es la inversa, debemos comprobar que: \[
+            (I+uv^\intercal)\left( I-\dfrac{uv^\intercal}{1+v^\intercal u} \right) =I.
+        \] 
+        Expandimos el producto: \[
+            (I+uv^\intercal)\left( I-\dfrac{uv^\intercal}{1+v^\intercal u} \right) =I+uv^\intercal-\dfrac{uv^\intercal}{1+v^\intercal u}-uv^\intercal\cdot \dfrac{uv^\intercal}{1+v^\intercal u}=I+uv^\intercal-\dfrac{uv^\intercal}{1+v^\intercal u}-\dfrac{u(v^\intercal u)v^\intercal}{1+v^\intercal u}.
+        \] 
+    \item Agrupamos términos
+
+        Agrupamos los términos relacionados con $uv^\intercal$: \[
+        uv^\intercal-\dfrac{uv^\intercal}{1+v^\intercal u}-\dfrac{u(v^\intercal u)v^\intercal}{1+v^\intercal u}.
+        \] 
+        Sacamos $uv^\intercal$ como factor común: \[
+        uv^\intercal\left( 1-\dfrac{1}{1+v^\intercal u}-\dfrac{v^\intercal u}{1+v^\intercal u} \right)=uv^\intercal\left( 1-\dfrac{1+v^\intercal u}{1+v^\intercal u} \right) =uv^\intercal\cdot (1-1)=0 .
+        \] 
+        Por lo tanto, todos los términos relacionados con $uv^\intercal$ se cancelan, dejando: \[
+            (I+uv^\intercal)\left( I-\dfrac{uv^\intercal}{1+v^\intercal u} \right) =I.
+        \] 
+\end{enumerate}
 \item \lb{Sea $u$ un vector de $\R^n$ con $\|u\|=1$ y consideremos la matriz  $A=I-2uu^\intercal$. Prueba que $A$ es simétrica y  $A^2=I$.}
 
+    \begin{enumerate}[label=Parte \arabic*:]
+        \item $A$ es simétrica
+
+            Una matriz  $A$ es simétrica si  $A^\intercal=A$. Calculemos $A^\intercal$:
+            \[
+            A^\intercal=(I-2uu^\intercal)^\intercal.
+            \] 
+            Usamos la propiedad de la transpoción: \[
+            A^\intercal=I^\intercal-2(uu^\intercal)^\intercal=I-2u^\intercal u=I-2uu^\intercal.
+            \] 
+            Por lo tanto: \[
+            A^\intercal=A.
+            \] 
+            Esto demuestra que la matriz $A$ \textbf{es simétrica}.
+        \item $A^2=I$
+
+            Calculemos $A^2$: \[
+            A^2=(I-2uu^\intercal)(I-2uu^\intercal).=I-2uu^\intercal-2uu^\intercal+4(uu^\intercal)(uu^\intercal)=I-4uu^\intercal-4u\lbb{(u^\intercal u)}{1}u^\intercal=I-\cancel{4uu^\intercal}+\cancel{4uu^\intercal}=I.
+            \] 
+    \end{enumerate}
 \item \lb{Sea $A$ la matriz dada por bloques  \[
 A=\begin{bmatrix} 
     A_{11} & A_{12}\\
@@ -771,6 +921,68 @@ A=\begin{bmatrix}
 \end{bmatrix} 
 \] donde $S=A_{22}-A_{21}A_{11}^{-1}A_{12}$ e $I$ es la matriz identidad del tamaño adecuado (la matriz  $S$ se denomina el  \textbf{complemento dde Schur} de $A_{11}$ ).}
 
+\begin{enumerate}[label=Paso \arabic*:]
+    \item Expansión del producto
+
+        Expandimos el producto de matrices en bloques:
+        \begin{enumerate}[label=\arabic*)]
+            \item Multiplicamos las primeras dos matrices: 
+        \[
+        \begin{bmatrix} 
+            1 & 0\\
+            X & 1
+        \end{bmatrix} \begin{bmatrix} 
+            A_{11} & 0\\
+            0 & S
+        \end{bmatrix} =\begin{bmatrix} 
+            A_{11} & 0\\
+            XA_{11} & S
+        \end{bmatrix} .
+        \] 
+    \item Multiplicamos el resultado por la tercera matriz: \[
+    \begin{bmatrix} 
+        A_{11} & 0\\
+        XA_{11} & S
+    \end{bmatrix} \begin{bmatrix} 
+        I & Y\\
+        0 & I
+    \end{bmatrix} =\begin{bmatrix} 
+        A_{11} & A_{11}Y\\
+        XA_{11} & XA_{11}Y+S
+    \end{bmatrix} .
+    \] 
+        \end{enumerate}
+        Por lo tanto, tenemos: \[
+        A=\begin{bmatrix} 
+            A_{11} & A_{11}Y\\
+            XA_{11} & XA_{11}Y+S
+        \end{bmatrix} .
+        \] 
+    \item Identificar las submatrices
+
+        Comparando con la matriz original: \[
+        A=\begin{bmatrix} 
+            A_{11} & A_{12}\\
+            A_{21} & A_{22}
+        \end{bmatrix} ,
+        \] 
+        obtenemos las siguientes ecuaciones para identificar $X,Y$ y  $S$: 
+         \begin{enumerate}[label=\arabic*)]
+            \item De la entrada $(1,1)$:  \[
+            A_{11}=A_{11}
+            \] 
+            Esto es trivialmente cierto.
+        \item De la entrada $(1,2)$:  \[
+        A_{12}=A_{11}Y\longrightarrow Y=A_{11}^{-1}A_{12}.
+        \] 
+    \item De la entrada $(2,1)$:  \[
+    A_{21}=XA_{11}\longrightarrow X=A_{21}A_{11}^{-1}
+    \] 
+\item De la entrada $(2,2)$:  \[
+A_{22}=XA_{11}Y+S=(A_{21}A_{11})^{-1}A_{11}(A_{11}^{-1}A_{12})+S=A_{21}A_{11}^{-1}A_{12}+S\longrightarrow S=A_{22}-A_{21}A_{11}^{-1}A_{12}.
+\] 
+        \end{enumerate}
+\end{enumerate}
 \item \lb{Expresa la matriz $AB$ como suma de matrices de rango  $1$, donde  \[
 A=\begin{bmatrix} 
     1 & -1 & 3\\
@@ -782,14 +994,225 @@ A=\begin{bmatrix}
 \end{bmatrix}  
 \] } 
 
+Para expresar $AB$ como una suma de matrices de rango $1$, utilizamos la propiedad de la multiplicación de matrices en términos de columnas de  $B$ y filas de  $A$. El producto  $AB$ se puede descomponer como una suma de las matrices de rango 1:  \[
+AB=\sum_{k=1}^{m}a_kb_k^\intercal, 
+\]donde: 
+\begin{itemize}[label=\textbullet]
+    \item $a_k$ es la  $k$-ésima columna de  $A$.
+    \item  $b_k^\intercal$ es la $k$-ésima fila de  $B$.
+\end{itemize}
+Dado que \[
+A=\begin{bmatrix} 
+    1 & -1 & 3\\
+    2 & 1 & 4
+\end{bmatrix},\quad B=\begin{bmatrix} 
+    1 & 2 & 3\\
+    0 & 1 & 4\\
+    1 & 0 & 5
+\end{bmatrix},  
+\] identificamos que $A$ tiene 3 columnas  $(m=3)$, por lo que:  \[
+AB=a_1b_1^\intercal+a_2b_2^\intercal+a_3b_3^\intercal.
+\] 
+\begin{enumerate}[label=Paso \arabic*:]
+    \item Identificar las columnas de $A$ y filas de  $B$
+         \begin{itemize}[label=\textbullet]
+            \item $a_1=\begin{bmatrix} 
+            1\\
+            2
+            \end{bmatrix},\quad a_2=\begin{bmatrix} 
+            -1\\
+            1
+            \end{bmatrix}, a_3 =\begin{bmatrix} 
+            3\\
+            4
+            \end{bmatrix}  $.
+        \item $b_1^\intercal=\begin{bmatrix} 
+                1 & 2 & 3 
+        \end{bmatrix}, \quad b_2^\intercal=\begin{bmatrix} 
+                0 & 1 & 4 
+        \end{bmatrix},\quad b_3^\intercal=\begin{bmatrix} 
+                1 & 0 & 5 
+        \end{bmatrix}$.
+        \end{itemize}
+    \item Calcular cada matriz de rango 1
+        \begin{enumerate}[label=\arabic*)]
+            \item \textbf{Primera matriz:} $a_1b_1^\intercal$ \[
+            a_1b_1^\intercal=\begin{bmatrix} 
+            1\\
+            2
+            \end{bmatrix} \cdot \begin{bmatrix} 
+            1 & 2 & 3 
+            \end{bmatrix} =\begin{bmatrix} 
+            1 & 2 & 3\\
+            2 & 4 & 6
+            \end{bmatrix} .
+            \]  
+        \item \textbf{Segunda matriz}: $a_2b_2^\intercal$ \[
+        a_2b_2^\intercal=\begin{bmatrix} 
+        -1\\
+        1
+        \end{bmatrix} \cdot \begin{bmatrix} 
+        0 & 1 & 4 
+        \end{bmatrix} =\begin{bmatrix} 
+        0 & -1 & -4\\
+        0 & 1 & 4
+        \end{bmatrix} .
+        \]  
+    \item \textbf{Tercera matriz:} $a_3b_3^\intercal$
+        \[
+        a_3b_3^\intercal=\begin{bmatrix} 
+        3\\
+        4
+        \end{bmatrix} \cdot \begin{bmatrix} 
+        1 & 0 & 5 
+        \end{bmatrix} =\begin{bmatrix} 
+        3 & 0 & 15\\
+        4 & 0 & 20
+        \end{bmatrix} .
+        \] 
+        \end{enumerate}
+    \item Sumar las matrices \[
+    AB=a_1b_1^\intercal+a_2b_2^\intercal+a_3b_3^\intercal
+    \] 
+    Sustituyendo: \[
+    AB=\begin{bmatrix} 
+        1 & 2 & 3\\
+        2 & 4 & 6
+    \end{bmatrix}+\begin{bmatrix} 
+        0 & -1 & -4\\
+        0 & 1 & 4
+    \end{bmatrix}+\begin{bmatrix} 
+        3 & 0 & 15\\
+        4 & 0 & 20
+    \end{bmatrix} =\begin{bmatrix} 
+        4 & 1 & 14\\
+        6 & 5 & 30
+    \end{bmatrix} .  
+    \] 
+\end{enumerate}
 \item \lb{Sea $u^\intercal=\left[ \dfrac{1}{3},\dfrac{2}{3},-\dfrac{2}{3} \right], v^\intercal=\left[ \dfrac{2}{3},\dfrac{1}{3},\dfrac{2}{3} \right]  $ y $w^\intercal=[a,b,c]$. Halla $a,b,c$ para que la matriz  $Q=[u,v,w]$ sea ortogonal de determinante 1.}
 
+    Para que $Q=[u,v,w]$ sea una matriz ortogonal de determinante 1, debe cumplir las siguientes condiciones:
+     \begin{enumerate}[label=\arabic*)]
+        \item \textbf{Ortogonalidad:} Las columnas $u,v,w$ de  $Q$ deben ser ortogonales entre sí:  \[
+        u^\intercal v=0,\quad u^\intercal w=0,\quad v^\intercal w=0
+        \]  
+    \item \textbf{Norma unitaria:} Cada columna debe tener norma 1: \[
+    \|w\|=1.
+    \]  
+\item \textbf{Determinante:} El determinante de $Q$ debe ser 1:  \[
+\mathrm{det}(Q)=1.
+\]   
+\begin{enumerate}[label=Paso \arabic*:]
+    \item Condiciones iniciales
+
+        Dado \[
+        u^\intercal=\begin{bmatrix} 
+            \dfrac{1}{3} & \dfrac{2}{3} & -\dfrac{2}{3} 
+        \end{bmatrix} ,\quad v^\intercal=\begin{bmatrix} 
+            \dfrac{2}{3} & \dfrac{1}{3} & \dfrac{2}{3} 
+        \end{bmatrix} .
+        \] 
+        Comprobemos que $u$ y  $v$ son ortogonales:  \[
+        u^\intercal v=\dfrac{1}{3}\cdot \dfrac{2}{3}+\dfrac{2}{3}\cdot \dfrac{1}{3}+\left( -\dfrac{2}{3} \right) \cdot \dfrac{2}{3}=\dfrac{2}{9}+\dfrac{2}{9}-\dfrac{4}{9}=0.
+        \] 
+        Por lo tanto, $u$ y  $v$ son ortogonales. 
+    \item Contruir $w$
+
+        Para garantizar que  $Q=[u,v,w]$ sea ortogonal,  $w$ debe ser ortogonal a  $u$ y  $v$. Además,  $\|w\|=1$.
+
+         \textbf{Condición de ortogonalidad con $u$:} \[
+         u^\intercal w=\dfrac{1}{3}a+\dfrac{2}{3}b-\dfrac{2}{3}c=0.
+         \]  
+         \textbf{Condición de ortogonalidad con $v$:} \[
+         v^\intercal w=\dfrac{2}{3}a+\dfrac{1}{3}b+\dfrac{2}{3}c=0.
+         \]  
+         Estas dos ecuaciones lineales son: \[
+         \begin{cases}
+             \dfrac{1}{3}a+\dfrac{2}{3}b-\dfrac{2}{3}c=0\\
+             \dfrac{2}{3}a+\dfrac{1}{3}b+\dfrac{2}{3}c=0
+         \end{cases}\longrightarrow \begin{cases}
+             a+2b-2c=0\\
+             2a+b+2c=0
+         \end{cases} \begin{array}{l}
+             \longrightarrow a=-2b+2c\\
+
+         \end{array}
+         \] 
+         $\begin{aligned}
+             2(-2+2c)+b+2c&=0\\
+             -4b+4c+b+2c&= 0 \\
+             -3b+6c&= 0 \\
+             b&=2c
+         \end{aligned}$ 
+         Sustituyendo $b=2c$ en  $a=-2b+2c$:  \[
+         a=-2(2c)+2c=-4c+2c=-2c.
+         \] 
+         Por lo tanto: \[
+         a=-2c,\quad b=2c.
+         \] 
+     \item Normalizar $w$
+
+         Para garantizar que  $\|w\|=1$, calculamos:  \[
+             \begin{array}{c}
+         \|w\|^2=a^2+b^2+c^2=(-2c)^2+(2c)^2+c^2=4c^2+4c^2+c^2=9c^2.\\
+         \|w\|=\sqrt{9c^2}=3|c|. 
+             \end{array}
+         \] 
+         Por lo tanto, normalizamos $w$ dividiendo por 3: \[
+         w=\dfrac{1}{3}\begin{bmatrix} 
+         -2c\\
+         2c\\
+         c
+         \end{bmatrix} =\begin{bmatrix} 
+         -\frac{2}{3} \\
+         \frac{2}{3} \\
+         \frac{1}{3} 
+         \end{bmatrix}. 
+         \] 
+\end{enumerate}
+    \end{enumerate}
 \item \lb{\textbf{(Traza de una matriz)} Dada una matriz cuadrada $A$, se define la \textbf{traza} de $A$ como $\mathrm{tr}(A)=\sum_{i=1}^{n} [A]_{ii}$, es decir, como la suma de los elementos de la diagonal principal. Prueba las siguientes propiedades:}
     \begin{enumerate}[label=\color{red}\textbf{\alph*)}]
         \item \db{$\mathrm{tr}(A+B)=\mathrm{tr}(A)+\mathrm{tr}(B)$.} 
+
+            Sea $A$ y  $B$ matrices cuadradas de tamaño $n\times n$. La traza de la suma es: \[
+\mathrm{tr}(A+B)=\sum_{i=1}^{n}[(A+B)]_{ii}.
+\]
+Usando la propiedad de la suma de matrices, sabemos que los elementos diagonales de $A+B$ son la suma de los elementos diagonales de $A$ y $B$: \[[(A+B)]_{ii}=[A]_{ii}+[B]_{ii}.\]
+Por lo tanto: \[
+\mathrm{tr}(A+B)=B)=\sum_{i=1}^{n}[(A+B)]_{ii}=\sum_{i=1}^{n}[A]_{ii}+\sum_{i=1}^{n}[B]_{ii}=\mathrm{tr}(A)+\mathrm{tr}(B).
+\]
         \item \db{$\mathrm{tr}(A)=\mathrm{tr}(A^\intercal)$.} 
+
+            Sea $A$ una matriz cuadrada de tamaño  $n\times n$. La traza de $A$ es:  \[
+                \mathrm{tr}(A)=\sum_{i=1}^{n} [A]_{ii}.
+            \] 
+            La matriz transpuesta  $A^\intercal$ tiene la misma diagonal principal que $A$, ya que  $[A^\intercal]_{ii}=[A]_{ii}$. Por lo tanto: \[
+                \mathrm{tr}(A^\intercal)=\sum_{i=1}^{n} [A^\intercal]_{ii}=\sum_{i=1}^{n} [A]_{ii}=\mathrm{tr}(A).
+            \] 
         \item \db{$\mathrm{tr}(AB)=\mathrm{tr}(BA)$.} 
+
+            Sea $A$ una matriz  $n\times m$ y $B$ una matriz  $m\times n$. Usando la definición de la traza: \[
+                \mathrm{tr}(AB)=\sum_{i=1}^{n} [(AB)]_{ii}.
+            \] 
+            El elemento $[(AB)]_{ii}$ es la suma: \[
+                [(AB)]_{ii}=\sum_{k=1}^{m} [A]_{ik}[B]_{ki}.
+            \] 
+            Sustituyendo en la traza: \[
+                \mathrm{tr}(AB)=\sum_{i=1}^{n} \sum_{k=1}^{m}[A]_{ik}[B]_{ki}. 
+            \] 
+            Reorganizamos los índices de la suma: \[
+                \mathrm{tr}(AB)=\sum_{k=1}^{m} \sum_{i=1}^{n} [B]_{ki}[A]_{ik}.
+            \] 
+            El término $\sum_{i=1}^{n} [B]_{ki}[A]_{ik}$ es precisamente $[(BA)]_{kk}$, y sumando sobre $k$, obtenemos: \[
+                \mathrm{tr}=\sum_{k=1}^{m} [(BA)]_{kk}=\mathrm{tr}(BA).
+            \] 
         \item \db{$\mathrm{tr}(P^{-1}AP)=\mathrm{tr}(A)$ con $P$ invertible.} 
+
+            Sea $P$ una matriz invertible de tamaño  $n\times n$ y $A$ una matriz cuadrada  $n\times n$. Usamos la propiedad de $\mathrm{tr}(AB)=\mathrm{tr}(BA)$:  \[
+                \mathrm{tr}(P^{-1}AP)=\mathrm{tr}((P^{-1}A)P)=\mathrm{tr}(A(PP^{-1}))=\mathrm{tr}(AI)=\mathrm{tr}(A).
+            \] 
     \end{enumerate}
 \end{enumerate}
 \end{document}
