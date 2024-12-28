@@ -1,0 +1,391 @@
+\input{../../../Macros.tex}
+\title{Álgebra Lineal\\ Ejercicios Tema 3: Sistemas de ecuaciones y determinantes}
+\renewcommand{\arraystretch}{1}
+\setlength{\arraycolsep}{6pt}
+
+\begin{document}
+\maketitle
+\begin{enumerate}[label=\color{red}\textbf{\arabic*)}]
+    \item \lb{Sea $\{w_1,w_2,w_3\} $ un conjunto independiente de vectores de $\R^3$. Se definen los vectores $v_1=w_1+w_2,v_2=w_1+2w_2+w_3$ y $v_3=w_2+cw_3$. Si $V=[v_1,v_2,v_3]$ y $W=[w_1,w_2,w_3]$, entonces se tiene $V=WC$ con  \[
+    C=\begin{bmatrix} 
+        1 & 1 & 0\\
+        1 & 2 & 1\\
+        0 & 1 & c
+    \end{bmatrix} 
+    \]¿Qué condición debe cumplir $c$ para que los vectores  $v_1,v_2,v_3$ sean linealmente independientes? } 
+
+    Para determinar la condición que debe cumplir $c$ para que los vectores  $v_1,v_2,v_3$ sean linealmente indpendientes, observa que:
+\begin{enumerate}[label=\arabic*)]
+\item \textbf{Los vectores $\{w_1,w_2,w_3\} $} son linealmente independientes en $\R^3$. Esto implica que la matriz \[
+        W=[w_1,w_2,w_3]
+    \] es invertible  (tiene determinante distinto de cero).
+\item \textbf{Los vectores $\{v_1,v_2,v_3\} $} se pueden expresar como \[
+        V=[v_1,v_2,v_3]=WC,
+\] donde \[
+C=\begin{bmatrix} 
+    1 & 1 & 0 \\
+    1 & 2 & 1\\
+    0 & 1 & c
+\end{bmatrix}. 
+\] 
+\item \textbf{Independencia lineal de $v_1,v_2,v_3$.} Puesto que $W$ es invertible  $v_1,v_2,v_3$ serán linealmente independientes si y solo si la matriz $C$ es invertible; es decir,  si y sólo si $\mathrm{det}(C)\neq 0$.
+\item \textbf{Cálculo de $\mathrm{det}(C)$.} Calculamos el determinante de la matriz $C$:  \[
+\mathrm{det}(C)=\begin{vmatrix} 
+    1 & 1 & 0\\
+    1 & 2 & 1\\
+    0 & 1 & c
+\end{vmatrix}=(2c+0+0)-(0+c+1)=2c-c-1=c-1 
+\]  
+\item \textbf{Condición de independencia.} Para que $C$ sea invertible, necesitamos  $\mathrm{det}(C)\neq 0$. Dado que \[
+\mathrm{det}(C)=c-1,
+\] se requiere \[
+c-1\neq 0\longrightarrow c\neq 1.
+\] 
+\end{enumerate}
+    \item \lb{Dadas las matrices \[
+    A=\begin{bmatrix} 
+        1 & 1 & -1\\
+        2 & 4 & 2\\
+        0 & 1 & 1\\
+        3 & 2 & 1
+    \end{bmatrix}\qquad B=\begin{bmatrix} 
+        2 & 4 & 2\\
+        3 & 2 & 1\\
+        1 & 1 & -1\\
+        0 & 1 & 1
+    \end{bmatrix}  
+    \]Halla una matriz de permutación $P$ tal que $PA=B$ y escribe  $P$ como producto de matrices de permutación simples.}
+
+    Para encontrar una matriz de permutación $P$ tal que  $PA=B$, procedemos de la siguiente manera: 
+
+     {
+\renewcommand{\arraystretch}{1}
+\setlength{\arraycolsep}{6pt}
+$\begin{aligned}
+      \left[ \begin{array}{ccc:cccc}
+			1 & 1 & -1 & 1 & 0 & 0 & 0\\
+			2 & 4 & 2 & 0 & 1 & 0 & 0\\
+			0 & 1 & 1 & 0 & 0 & 1 & 0\\
+			3 & 2 & 1 & 0 & 0 & 0 & 1
+      \end{array} \right]& \xrightarrow{F_1\leftrightarrow F_2}      \left[ \begin{array}{ccc:cccc}
+2 & 4 & 2 & 0 & 1 & 0 & 0\\
+1 & 1 & -1 & 1 & 0 & 0 & 0\\
+0 & 1 & 1 & 0 & 0 & 1 & 0\\
+3 & 2 & 1 & 0 & 0 & 0 & 1
+      \end{array} \right]\xrightarrow{F_3\leftrightarrow F_4}\left[ \begin{array}{ccc:cccc}
+2 & 4 & 2 & 0 & 1 & 0 & 0\\
+1 & 1 & -1 & 1 & 0 & 0 & 0\\
+3 & 2 & 1 & 0 & 0 & 0 & 1\\
+0 & 1 & 1 & 0 & 0 & 1 & 0
+      \end{array} \right]\\
+&\xrightarrow{F_2\leftrightarrow F_3}\left[ \begin{array}{ccc:cccc}
+2 & 4 & 2 & 0 & 1 & 0 & 0\\
+3 & 2 & 1 & 0 & 0 & 0 & 1\\
+1 & 1 & -1 & 1 & 0 & 0 & 0 \\
+0 & 1 & 1 & 0 & 0 & 1 & 0\\
+      \end{array} \right]\Longrightarrow P=\begin{bmatrix}
+0 & 1 & 0 & 0\\
+0 & 0 & 0 & 1\\
+1 & 0 & 0 & 0\\
+0 & 0 & 1 & 0
+\end{bmatrix}
+     \end{aligned}$}
+    \item \lb{Se tiene una matriz $A=(a_{ij})$ de tamaño $5\times 5$, donde $a_{ij}$ en la cantidad de mensajes que la persona $i$ manda a la persona $j$. Las filas y columnas siguen el orden: Juan, Ana, Pedro, María, Maite. Halla una matriz de permutación $P$ tal que las columnas y filas de  $PAP^\intercal$ sigan el orden: Ana, María, Juan, Maite, Pedro.}
+
+        Para encontrar la matriz de permutación $P$ tal que las filas y columnas de  $PAP^\intercal$ estén en el orden deseado, seguimos estos paso:
+        \begin{enumerate}[label=\arabic*)]
+            \item Entender el problema:
+
+                La matriz $A$ tiene filas y columas y columnas ordendas como: \[
+                \text{Orden original: }\{\mathrm{Juan},\mathrm{Ana},\mathrm{Pedro}, \text{María},\text{Maite}\} .
+                \] 
+                Queremos reorganizar filas y columnas para que queden en este orden:
+                \begin{center}
+                    Nuevo orden: \{Ana, María, Juan, Maite, Pedro\}.
+                \end{center}
+                La matriz de permutación $P$ realizará este cambio
+            \item Definir $P$:
+
+                La matriz de permutación $P$ es una matriz identidad $5\times 5$ con las filas reordenadas de acuerdo con el nuevo orden. Cada fila de $P$ indica la nueva posición de una fila de la matriz identidad:
+                \begin{itemize}[label=\textbullet]
+                    \item El orden original:
+                        \begin{itemize}[label=\textbullet]
+                            \item Ana $(i=2)$ pasa a la posición 1.
+                            \item María $(i=4)$ pasa a la posición 2.
+                            \item Juan $(i=1)$ pasa a la posició 3.
+                            \item Maite $(i=5)$ pasa a la posición 4.
+                            \item Pedro $(i=3)$ pasa a la posición 5.
+                        \end{itemize}
+                \end{itemize}
+                Entonces, $P$ se construye intercambiando las filas de la identidad en consecuencia: \[
+                P=\begin{bmatrix} 
+                    0 & 1 & 0 & 0 & 0\\
+                    0 & 0 & 0 & 1 & 0\\
+                    1 & 0 & 0 & 0 & 0\\
+                    0 & 0 & 0 & 0 & 1\\
+                    0 & 0 & 1 & 0 & 0
+                \end{bmatrix} .
+                \] 
+            \item Interpretación de $PAP^\intercal$:
+
+                La operación $PAP^\intercal$ realiza dos pasos:
+                \begin{enumerate}[label=\arabic*)]
+                    \item \textbf{Reorganizar las filas de $A$ según $P$}, es decir, poner las filas de $A$ en el orden especificado.
+                    \item  \textbf{Reorganizar las columnas de $A$} (mediante $P^\intercal$) en el mismo orden.
+                \end{enumerate}
+        \end{enumerate}
+    \item \lb{Consideremos la matriz por bloques $\begin{bmatrix} 
+                A & B 
+    \end{bmatrix} $ con $A$ una matriz de tamaño  $n\times n$ y $B$ una matriz de tamaño  $n\times p$. Supongamos que haciendo operaciones elementales de filas se obtiene la matriz $\begin{bmatrix} 
+                I_n & X 
+    \end{bmatrix} $. Prueba que $X=A^{-1}B$.}
+
+    Para probar que $X=A^{-1}B$, analizamos el problema paso a paso:
+    \begin{enumerate}[label=\arabic*)]
+        \item Definición del problema.
+
+            La matriz por bloques es \[
+            \begin{bmatrix} 
+                A & B 
+            \end{bmatrix}, 
+            \] donde $A$ es una matriz cuadrada de tamaño  $n\times n$, y $B$ es una matriz de tamaño  $n\times p$.
+
+            Por hipótesis, haciendo operaciones elementales de filas, se transforma en \[
+            \begin{bmatrix} 
+                I_n & X 
+            \end{bmatrix}, 
+            \] donde $I_n$ es la matriz identidad de tamaño  $n\times n$ y $X$ es una matriz de tamaño  $n\times p$.
+
+            Queremos demostrar que $X=A^{-1}B$.
+        \item Operaciones elementales y equivalencia de filas:
+
+            Hacer operaciones elementales de filas sobre una matriz equivale a multiplicarla a la izquierda por una matriz invertible $P$. Esto significa que existe una matriz  $P$ de tamaño $n\times n$ tal que: \[
+            P\begin{bmatrix} 
+                A & B 
+            \end{bmatrix} =\begin{bmatrix} 
+                I_n & X 
+            \end{bmatrix} .
+            \] 
+            Separando los bloques, esta ecuación se escribe como: \[
+            P\begin{bmatrix} 
+            A & B 
+            \end{bmatrix} =\begin{bmatrix} 
+            PA & PB 
+            \end{bmatrix} .
+            \] 
+            De la igualdad con $\begin{bmatrix} 
+                I_n & X 
+            \end{bmatrix} $, concluimos que: \[
+            PA=I_n\quad \text{y}\quad PB=X.
+            \] 
+            De la igualda $PA=I_n$, vemos que  $P$ es la inversa de  $A$:  \[
+            P=A^{-1}.
+            \] 
+            Sustituyendo $P=A^{-1}$ en $PB=X$, obtenemos:  \[
+            X=A^{-1}B.
+            \] 
+    \end{enumerate}
+    \item \lb{Halla una relación de dependencia entre los vectores $u_1=(1,0,1,0),\,u_2=(2,1,0,1),\,u_3=(0,2,-1,1)$ y $u_4=(3,-1,2,0)$.}
+
+        Para encontrar una relación de dependencia lineal entre los vectores $u_1,u_2,u_3$ y $u_4$, necesitamos determinar si existen coeficientes $c_1,c_2,c_3,c_4$, no todos cero, tales que: \[
+        c_1u_1+c_2u_2+c_3u_3+c_4u_4=0,
+        \] o equivalentemente: \[
+        c_1(1,0,1,0)+c_2(2,1,0,1)+c_3(0,2-1,1)+c_4(3,-1,2,0)=(0,0,0,0).
+        \] 
+        Esto genera el sistema de ecuaciones lineales: \[
+        \begin{cases}
+            c_1+2c_2+3c_4=0\\
+            c_2+2c_3-c_4=0\\
+            c_1-c_3+2c_4=0\\
+            c_2+c_3=0
+        \end{cases}
+        \] 
+        \begin{enumerate}[label=\arabic*)]
+            \item Formar la matriz del sistema:
+
+                Escribimos este sistema como una matriz aumentada: 
+                \[
+                    \begin{bmatrix}
+                    1 & 2 & 0 & 3 & 0\\
+                    0 & 1 & 2 & -1 & 0\\
+                    1 & 0 & -1 & 2 & 0\\
+                    0 & 1 & 1 & 0 & 0
+                \end{bmatrix}
+                \] 
+            \item Resolver por eliminación gaussiana:
+
+$\begin{aligned}\begin{bmatrix}
+                    1 & 2 & 0 & 3 & 0\\
+                    0 & 1 & 2 & -1 & 0\\
+                    1 & 0 & -1 & 2 & 0\\
+                    0 & 1 & 1 & 0 & 0
+                \end{bmatrix}&\xrightarrow{F_3\to F_3-F_1}\begin{bmatrix}
+                    1 & 2 & 0 & 3 & 0\\
+                    0 & 1 & 2 & -1 & 0\\
+                    0 & -2 & -1 & -1 & 0\\
+                    0 & 1 & 1 & 0 & 0
+                \end{bmatrix}\xrightarrow[F_4\to F_4-F_1]{F_3\to F_3+2F_1}\begin{bmatrix}
+                    1 & 2 & 0 & 3 & 0\\
+                    0 & 1 & 2 & -1 & 0\\
+                    0 & 0 & 3 & -3 & 0\\
+                    0 & 0 & -1 & 1 & 0
+                \end{bmatrix}\\
+&\xrightarrow{F_3\leftrightarrow F_4}\begin{bmatrix}
+                    1 & 2 & 0 & 3 & 0\\
+                    0 & 1 & 2 & -1 & 0\\
+                    0 & 0 & -1 & 1 & 0\\
+                    0 & 0 & 3 & -3 & 0\\
+                \end{bmatrix}\xrightarrow{F_4\to F_4+3F_3}\begin{bmatrix}
+                    1 & 2 & 0 & 3 & 0\\
+                    0 & 1 & 2 & -1 & 0\\
+                    0 & 0 & -1 & 1 & 0\\
+                    0 & 0 & 0 & 0 & 0\\
+                \end{bmatrix}\end{aligned}$
+
+Esta matriz reducida resultante muestra que la última fila es cero, indicando una relación de dependencia lineal entre los vectores $u_1,u_2,u_3,u_4$.
+\item Relación de dependencia:
+
+    De la matriz reducida, obtenemos las ecuaciones: 
+    \begin{itemize}[label=\textbullet]
+        \item $c_1+c_4=0\longrightarrow c_1=-c_4$
+        \item $c_2+c_4=0\longrightarrow c_2=-c_4$
+        \item $c_3-c_4=0\longrightarrow c_3=c_4$
+    \end{itemize}
+    Al sustituir en la combinación lineal, podemos escribir la relación de dependencia como: \[
+    c_1u_1+c_2u_2+c_3u_3+c_4u_4=0\quad \text{con}\quad c_1=c_2=-c_4,c_3=c_4.
+    \] 
+        \end{enumerate}
+    \item \lb{Sean $A$ y  $B$ matrices del mismo tamaño. Sea  $A'$ la matriz que resulta de  $A$ después de intercambiar las columnas  $i,j$ y sea  $B'$ la matriz que resulta de  $B$ después de intercambiar las filas  $i,j$. Escribe las matrices  $A'$ y  $B'$ en términos de  $A,B$ y matrices elementales. ¿Por qué se verifica que $AB=A'B'$?}
+
+        \begin{enumerate}[label=Paso \arabic*:]
+            \item Representar $A'$ y  $B'$ en términos de matrices elementales
+
+                Supongamos que  $A$ y  $B$ son matrices de tamaño  $n\times n$. Queremos describir las matrices $A'$ y  $B'$ que resultan al intercambiar columnas y filas, respectivamente.
+                 \begin{enumerate}[label=1.\arabic*)]
+                    \item Matriz $A'$:
+
+                        Para obtener  $A'$, intercambiamos las columnas  $i$ y $j$ de $A$. Esto se logra multiplicando $A$ por una matriz de permutación  $P_{ij}$  desde la derecha: \[
+                        A'=AP_{ij},
+                        \] 
+                        donde $P_{ij}$ es una matriz identidad $n\times n$ con las columnas $i$ y $j$ intercambiadas.
+                    \item Matriz $B'$:
+
+                        Para obtener  $B'$, intercambiamos las filas  $i$ y $j$ de $B$. Esto se logra multiplicando  $B$ por una matriz de permutación  $P_{ij}$  desde la izquierda: \[
+                        B'=P_{ij}B.
+                        \] 
+                \end{enumerate}
+            \item Producto $AB$ en términos de  $A'$ y $B'$  
+
+                El producto $AB$ se transforma en $A'B'$. Sustituyendo  $A'=AP_{ij}$ y $B'=P_{ij}B$, tenemos: \[
+                A'B'=(AP_{ij})(P_{ij}B).
+                \] 
+                Por la propiedad asociativa del producto de matrices: \[
+                    A'B'=A(P_{ij}P_{ij})B.
+                \] 
+                La clave es que $P_{ij}$ es una matriz de permutación, y el producto de una matriz de permutación consigo misma es la identidad: \[
+                P_{ij}P_{ij}=I.
+                \] 
+                Por lo tanto: \[
+                A'B'=AIB=AB.
+                \] 
+        \end{enumerate}
+    \item \lb{Calcula el rango de la matriz \[
+    B=\begin{bmatrix} 
+        a & 0 & 0 & b\\
+        b & a & 0 & 0\\
+        0 & b & a & 0\\
+        0 & 0 & b & a
+    \end{bmatrix} 
+    \]en función de los parámetros $a$ y  $b$.}
+    \begin{enumerate}[label=Paso \arabic*:]
+        \item Propiedades básicas
+
+            La matriz $B$ es una matriz $4\times 4$. El rango es actual al número de filas (o columnas) linealmente independientes. Si el determinante de $B$ es no nulo, entonces el rango es 4. Si el determinante es nulo, reduciremos  $B$ para determinar su rango.
+        \item Determinante de $B$
+\[
+\mathrm{det}(B)=a\begin{vmatrix}
+a & 0 & 0\\
+b & a & 0\\
+0 & b & a
+\end{vmatrix}-b\begin{vmatrix}
+b & a & 0\\
+0 & b & a\\
+0 & 0 & b
+\end{vmatrix}=a^4-3a^2b^2+b^4.
+\] 
+
+\item Análisis de $\mathrm{det}(B)$ 
+    \begin{enumerate}[label=\arabic*)]
+        \item Si $a^4+b^4\neq 0$, entonces $\mathrm{det}(B)\neq 0$, y el rango de $B$ es 4.
+        \item Si  $a^4+b^4=0$, entonces $a^4=-b^4$. Esto ocurre si
+    \end{enumerate}
+    \end{enumerate}
+
+    \item \lb{Dada la matriz $M=\begin{bmatrix} 
+                2 & 0 & 2 & 6\\
+                1 & 1 & 0 & 2\\
+                3 & 2 & 1 & 7
+    \end{bmatrix} $ calcula matrices invertibles $P$ y  $Q$ tales que  \[
+    PMQ=\left[ \begin{array}{c|c}
+            1_r & 0\\ \hline
+            0 & 0
+    \end{array} \right] 
+    \] con $r$ el rango de $M$.}
+
+    \item \lb{Halla la inversa de la matriz $A=\begin{bmatrix} 
+                1 & 1 & -3\\
+                3 & 4 & -2\\
+                -1 & -1 & 2
+    \end{bmatrix} $ y expresa $A$ y  $A^{-1}$ como producto de matrices elementales.} 
+
+
+\item \lb{Determina el valor del parámetro $a$ para el cual la matriz $A=\begin{bmatrix} 
+            1 & 0 & 0 & 0\\
+            a & 1 & 0 & 0\\
+            a^2 & a & 1 & 0\\
+            a^3 & a^2 & a & 1
+\end{bmatrix} $ es invertible y calcula su inversa} 
+
+\item \lb{Resuelve el siguiente sistema de ecuaciones lineales \[
+\left.\begin{array}{r}
+    x+2y-z-2t=5\\
+    -2x-4y+2z+4t=-10\\
+    y+t=1\\
+    x+3y-z-t=6\\
+    x-z-4t=3
+\end{array}\right\}
+\] } 
+
+\item \lb{Discute en el cuerpo de los números reales los siguientes sistemas de ecuaciones en función del parámetro $a$  \[
+\left\{ \begin{array}{rcrcrcrcc}
+        x & + & ay & & & + & at & = & a\\
+        ax & + & y & + & z & + & t & = & a\\
+        x & + & y & az & + & t & = & 1
+\end{array} \right. 
+\] } 
+
+\item \lb{Si $A=[u_1,\dots,u_n]$, expresa el determinante de $B=[u_n u_1\cdots u_{n-1}]$ en función del determinante de $A$.}
+
+\item \lb{Una matriz $A$ que cumple  $A=-A^\intercal$ se llama \textbf{antisimétrica}. Prueba que una matriz antisimétrica e tamaño impar tiene determinante nulo. }
+
+\item \lb{Calcula el determinante \[
+\begin{vmatrix} 
+    1 & 2 & 3 & \cdots & n\\
+    2 & 3 & 4 & \cdots & n+1\\
+    \vdots & \vdots & \vdots & & \vdots\\
+    n & n+1 & n+2 & \cdots & 2n-1
+\end{vmatrix} 
+\] } 
+
+\item \lb{
+\setlength{\arraycolsep}{1pt}
+Considera el sistema de ecuaciones \[
+\left.\begin{array}{rl}
+2x+y+z&=0\\
+4x-6y-2x&=2\\
+-2x+15y+7z&=-4
+\end{array}\right\}
+\]
+Observa que podemos eliminar la última ecuación pues es combinación lineal de las dos primeras. Considerando ahora los términos en $z$ como si fuesen términos independientes, observa que el sistema es un sistema de Cramer en  $x,y$.  Resuélvelo con la fórmula de Cramer y después expresa las soluciones en la forma $x_0+u$ ($x_0$ solución parcial y $u$ solución genérica del sistema homogéneo).} 
+\end{enumerate}
+\end{document}
