@@ -397,13 +397,13 @@ $\begin{aligned}\left[\begin{array}{cccc}
     0 & 1 & -1 & -1\\
     0 & 0 & 1 & 0\\
     0 & 0 & 0 & 1
-\end{bmatrix}\end{aligned}$
+    \end{bmatrix}\end{aligned}$
 
 Finalmente tenemos una matriz $PMQ=\begin{bmatrix} 
     1 & 0 & 0 & 0\\
     0 & 1 & 0 & 0\\
     0 & 0 & 0 & 0
-\end{bmatrix} $ que tiene la forma \[
+    \end{bmatrix}$ que tiene la forma \[
 \left[ \begin{array}{c|c}
         I_n & 0\\ \hline
         0 & 0
@@ -416,13 +416,79 @@ Finalmente tenemos una matriz $PMQ=\begin{bmatrix}
                 -1 & -1 & 2
     \end{bmatrix} $ y expresa $A$ y  $A^{-1}$ como producto de matrices elementales.} 
 
+    Vamos a calcular la inversa de la matriz $A$ usando el método de Gauss-Jordan, que implica reducir $A$ a la matriz identidad $I$ y aplicar las mismas operaciones elementales a $I$. Luego expresaremos $A$ y $A^{-1}$ como producto de matrices elementales.
 
+$\begin{aligned}\left[ \begin{array}{ccc|ccc}
+        1 & 1 & -3 & 1 & 0 & 0\\
+        3 & 4 & -2 & 0 & 1 & 0\\
+        -1 & -1 & 2 & 0 & 0 & 1
+\end{array} \right]&\xrightarrow[F_3\to F_3+F_1]{F_2\to F_2-3F_1}\left[ \begin{array}{ccc|ccc}
+        1 & 1 & -3 & 1 & 0 & 0\\
+        0 & 1 & 7 & -3 & 1 & 0\\
+        0 & 0 & -1 & 1 & 0 & 1
+\end{array} \right]\xrightarrow[F_3\to F_3+F_2]{F_1\to F_1-F_2} \left[ \begin{array}{ccc|ccc}
+    1 & 0 & -10 & 4 & -1 & 0\\
+    0 & 1 & 7 & -3 & 1 & 0\\
+    0 & 0 & -1 & 1 & 1 & 1
+\end{array}\right]\\ 
+& \xrightarrow{F_3\to -F_3} \left[ \begin{array}{ccc|ccc}
+    1 & 0 & -10 & 4 & -1 & 0\\
+    0 & 1 & 7 & -3 & 1 & 0\\
+    0 & 0 & 1 & -1 & -1 & -1
+\end{array}\right]\xrightarrow[F_2\to F_2-7F_3]{F1\to F1+10F_3}\left[ \begin{array}{ccc|ccc}
+    1 & 0 & 0 & -6 & 9 & 10\\
+    0 & 1 & 0 & 4 & -6 & -7\\
+    0 & 0 & 1 & -1 & -1 & -1
+\end{array}\right]\\ 
+& \longrightarrow A^{-1}=\begin{bmatrix} 
+    -6 & 9 & 10\\
+    4 & -6 & -7\\
+    -1 & -1 & -1
+\end{bmatrix}. \end{aligned}$
 \item \lb{Determina el valor del parámetro $a$ para el cual la matriz $A=\begin{bmatrix} 
             1 & 0 & 0 & 0\\
             a & 1 & 0 & 0\\
             a^2 & a & 1 & 0\\
             a^3 & a^2 & a & 1
-\end{bmatrix} $ es invertible y calcula su inversa} 
+\end{bmatrix} $ es invertible y calcula su inversa.} 
+
+El determinante de $A$ se puede calcular expandiendo por cofactores, pero notamos que $A$ tiene una estructura triangular. En matrices triangulares, el determinante es igual al producto de los elementos de la diagonal principal.
+
+Por lo tanto: \[
+\mathrm{det}(A)=1\cdot 1\cdot 1\cdot 1=1.
+\] 
+El determinante de $A$ es siempre 1, independientemente del valor de $a$. Esto implica que la matriz  $A$ \textbf{siempre es invertible}, para cualquier valor de $a$.
+
+La inversa de una matriz triangular inferior como $A$ también es triangular inferior, y sus elementos se calculan directamente utilizando las relaciones entre las filas y columnas.
+
+\textbf{Construcción de $A^{-1}$}
+
+La inversa de $A$ tiene la forma:  \[
+A^{-1}=\begin{bmatrix} 
+    1 & 0 & 0 & 0\\
+    -a & 1 & 0 & 0\\
+    a^2 & -a & 1 & 0\\
+    -a^3 & a^2 & -a & 1
+\end{bmatrix} .
+\] 
+Para verificar que la matriz calculada es la inversa, multiplicamos $A$ y $A^{-1}$, y comprobamos que el resultado es la matriz identidad $I_4$. \[
+A\cdot A^{-1}=\begin{bmatrix} 
+    1 & 0 & 0 & 0\\
+    a & 1 & 0 & 0\\
+    a^2 & a & 1 & 0\\
+    a^3 & a^2 & a & 1
+\end{bmatrix} \cdot \begin{bmatrix} 
+    1 & 0 & 0 & 0\\
+    -a & 1 & 0 & 0\\
+    a^2 & -a & 1 & 0\\
+    -a^3 & a^2 & -a & 1
+\end{bmatrix}=\begin{bmatrix} 
+    1 & 0 & 0 & 0 \\
+    0 & 1 & 0 & 0\\
+    0 & 0 & 1 & 0\\
+    0 & 0 & 0 & 1
+\end{bmatrix} . 
+\] 
 
 \item \lb{Resuelve el siguiente sistema de ecuaciones lineales \[
 \left.\begin{array}{r}
@@ -434,18 +500,277 @@ Finalmente tenemos una matriz $PMQ=\begin{bmatrix}
 \end{array}\right\}
 \] } 
 
+Para resolver el sistema de ecuaciones, usaremos el método de eliminación gaussiana. Reescribimos el sistema en forma de matriz aumentada: \[
+    \begin{aligned}
+\left[ \begin{array}{cccc|c}
+        1 & 2 & -1 & -2 & 5\\
+        -2 & -4 & 2 & 4 & -10\\
+        0 & 1 & 0 & 1 & 1 \\
+        1 & 3 & -1 & -1 & 6\\
+        1 & 0 & -1 & -4 & 3
+\end{array} \right] & \xrightarrow[\begin{subarray}{l}
+    F_4\to F_4-F_1\\
+    F_5\to F_5-F_1
+\end{subarray}]{F_2\to F_2+2F_1} \left[\begin{array}{cccc|c} 
+1 & 2 & -1 & -2 & 5\\
+0 & 0 & 0 & 0 & 0\\
+0 & 1 & 0 & 1 & 1\\
+0 & 1 & 0 & 1 & 1\\
+0 & -2 & 0 & -2 & -2
+\end{array}\right] \xrightarrow[F_5\to F_5+2F_3]{F_4\to F_4-F_3}\left[ \begin{array}{cccc|c}
+1 & 2 & -1 & -2 & 5\\
+0 & 0 & 0 & 0 & 0\\
+0 & 1 & 0 & 1 & 1\\
+0 & 0 & 0 & 0 & 0\\
+0 & 0 & 0 & 0 & 0\\
+\end{array} \right] .
+    \end{aligned}
+\] 
+El sistema ahora se simplifica como:
+\begin{enumerate}[label=\arabic*)]
+    \item $x+2y-z-2t=5$.
+    \item $y+t=1$.
+\end{enumerate}
+De la segunda ecuación: \[
+t=1-y.
+\] 
+Sustituyendo $t=1-y$ en la primera ecuación:  \[
+\begin{aligned}
+    x+2y-z-2(1-y)&= 5 \\
+    x+2y-z-2+2y&= 5 \\
+    x+2y-z&=5
+\end{aligned}
+\] 
+Ahora tenemos: \[
+\begin{cases}
+    x+4y-z=7\\
+    t=1-y
+\end{cases}
+\] 
+De las dos ecuaciones restante, el sistema tiene \textbf{dos grados de libertad}. Sea $y=s$ y $z=r$ donde  $s,r \in\R$. Entonces:
+\begin{enumerate}[label=\arabic*)]
+    \item De $x+2y-z=7$:  \[
+    x=7-4s+r.
+    \] 
+\item De $t=1-y$:  \[
+t=1-s.
+\] 
+El sistema tiene solución paramétrica: \[
+x=7-4s+r, \quad y=s, \quad z=r, \quad t=1-s.
+\] donde $s,r \in \R$ son parámetros libres.
+\end{enumerate}
 \item \lb{Discute en el cuerpo de los números reales los siguientes sistemas de ecuaciones en función del parámetro $a$  \[
 \left\{ \begin{array}{rcrcrcrcc}
         x & + & ay & & & + & at & = & a\\
         ax & + & y & + & z & + & t & = & a\\
-        x & + & y & az & + & t & = & 1
+        x & + & y & + & az & + & t & = & 1
 \end{array} \right. 
 \] } 
 
+Podemos escribir el sistema de ecuaciones lineales en forma matricial como \[
+    \underbrace{\begin{bmatrix} 
+            1 & a & 0 & a\\
+            a & 1 & 1 & 1\\
+            1 & 1 & a & 1
+    \end{bmatrix} }_M\cdot \underbrace{\begin{bmatrix} 
+    x\\
+    y\\
+    z\\
+    t
+    \end{bmatrix} }_{\mathbf{v}}=\underbrace{\begin{bmatrix} 
+    a\\
+    a\\
+    1
+    \end{bmatrix} }_{\mathbf{b}}.
+\] 
+Observemos que hay 4 incógnitas pero solo 3 ecuaciones, de modo que, si el sistema es compatible, normalemente esperamos soluciones con (al menos) un grado de libertado. Sin embargo, dependiendo del valor de $a$, podría ocurrir que el sistema:
+ \begin{enumerate}[label=\arabic*)]
+    \item Sea \textbf{incompatible} (no tenga soluciones).
+    \item Sea \textbf{compatible} con una familia infinita de soluciones de dimensión 1.
+    \item Sea \textbf{compatible}  pero con una familia de soluciones de mayor dimensión (si se reduce el rango de la matriz de coeficientes).
+\end{enumerate}
+A continuación discutiremos cada caso.
+
+\begin{enumerate}[label=\arabic*), leftmargin=*]
+    \item Reducción y búsqueda de condiciones de compatibilidad
+
+        Partiendo de las ecuaciones:
+        \begin{enumerate}[label=\arabic*)]
+            \item $x+ay+at=a$.
+            \item $ax+y+z+t=a$.
+            \item $x+y+az+t=1$.
+        \end{enumerate}
+        \begin{enumerate}[label=1.\arabic*), leftmargin=*]
+            \item De la primera ecuación, \[
+            x=a-ay-at.
+            \] 
+        \item Sustituir e las otras dos
+            \begin{itemize}[label=\textbullet]
+                \item En la segunda: \[
+                ax+y+z+t=a\quad\longrightarrow \quad a(a-ay-at)+y+z+t=a.
+                \] 
+                Desarrollando, \[
+                a^2-a^2y-a^2t+y+z+y=a\longrightarrow z=a-a^2-(1-a^2)(y+t).
+                \] 
+            \item En la tercera: \[
+            x+y+az+t=1\longrightarrow (a-ay-at)+y+az+t=1\longrightarrow a+(1-a)(y-t)+az=1\longrightarrow  az=1-a-(1-a)(y+t),
+            \] 
+            y si $a\neq 0$, \[
+            z=\dfrac{1-a-(1-a)(y+t)}{a}.
+            \] 
+            \end{itemize}
+        \item De las segunda y tercera ecuación obtenemos la condición de compatibilidad: \[
+        a-a^2-(1-a^2)(y+t)=\dfrac{1-a-(1-a)(y+t)}{a}\quad \text{asumiendo $a\neq 0$.}
+        \] 
+        Multiplicando ambos lados por $a$ y reordenando se llega a la siguiente ecuación en $S:= y+t$:  \[
+            (a^2-a^3)+(a^3-a)S=(1-a)[1-S]\longrightarrow a^2-a^3+a^3S-aS=1-a-S+aS\longrightarrow\underbrace{(a^2-a^3+a-1)}_{\text{término constante}}+\underbrace{(a^3-2a+1)S}_{\text{término en $S$}} =0.
+        \] 
+        \begin{itemize}[label=\textbullet]
+            \item Se factoriza \[
+            a^2-a^3+a-1=(a-1)(1-a^2)=(a-1)(1-a)(1+a).
+            \] 
+        \item Asimismo, \[
+        a^3-2a+1=(a-1)(a^2+a-1).
+        \] 
+        \end{itemize}
+        Por tanto, la ecuación completa se factoriza como \[
+            (a-1)\left[ (1-a)(1+a) \right] +S\left[ (a-1)(a^2+a-1) \right] =0,
+        \] o \[
+        (a-1)\left[ (1-a)(1+a)+S(a^2+a-1) \right] =0.
+        \] 
+        De aquí surgen \textbf{dos grandes ramas}:
+        \begin{enumerate}[label=\arabic*)]
+            \item $a-1=0\longrightarrow a=1$.
+            \item $(1-a)(1+a)+S(a^2+a-1)=0$.
+
+                Si $a\neq 1$, esto equivale a \[
+                1-a^2+S(a^2+a-1)=0\longrightarrow S=\dfrac{a^2-1}{a^2+a-1},
+                \] 
+                siempre que $a^2+a-1\neq 0$.
+        \end{enumerate}
+        De modo que, \textbf{salvo casos especiales}, se fija \[
+        S=y+t=\dfrac{a^2-1}{a^2+a-1}.
+        \]  
+        \end{enumerate}
+    \item Discusión según el valor de $a$
+
+        A partir de lo anterior, distinguimos:
+         \begin{enumerate}[label=2.\arabic*), leftmargin=*]
+            \item Caso $a=1$
+
+                Si  $a=1$, las ecuaciones se convierten en:
+                 \begin{enumerate}[label=\arabic*.]
+                    \item $x+y+t=1$.
+                    \item  $x+y+z+t=1$.
+                    \item  $x+y+z+t=1$.
+                \end{enumerate}
+                Obsérvese que las ecuaciones 2 y 3 son \textbf{idénticas}. Por tanto, el sistema realmente queda en: 
+                \begin{itemize}[label=\textbullet]
+                    \item $x+y+t=1$.
+                    \item  $x+y+z+t=1$.
+                \end{itemize}
+                Restando la primera a la segunda, se ve que $z=0$.
+
+                Entonces la primera ecuación imponer  $x+y+t=1$. Aquí hay 3 incógnitas  $(x,y,t)$ y solo una ecuación, de modo que la dimensión del conjunto de soluciones es  $3-1=2$. En otras palabras,  \textbf{existen infinitas soluciones} (un plano de soluciones en $\R^3$), que además se extiene a la cuarta variable $z=0$ fijo.
+
+                Por tanto,
+                 \begin{center}
+                     \fbox{Para $a=1$, el sistema es compatible con infinitas soluciones (dimensión 2).}
+                \end{center}
+            \item Caso $a^2+a-1=0$
+
+                La ecuación $a^2+a-1=0$ tiene dos raíces reales: \[
+                a=\dfrac{-1\pm\sqrt{1+4} }{2}=\dfrac{-1\pm\sqrt{5} }{2}=\begin{cases}
+                    a_+=\frac{-1+\sqrt{5} }{2} \\
+                    a_-=\frac{-1+\sqrt{5} }{2} 
+                \end{cases}.
+                \] 
+
+                En este caso, la fórmula para $s=\dfrac{a^2-1}{a^2+a-1}$ no es aplicable porque el denominador es cero. Además, si uno examina la factorización final, el término que quedaba era $$(1-a)(1+a)+S(a^2+a-1),$$pero si $a^2+a-1=0$, entonces $(1-a)(1+a)=1-a^2$ se vuelve \[
+                1-a^2=1-(1-a)=a\quad(\text{pues }a^2=1-a).
+                \] 
+                De modo que la condición de cimplatibilidad sería $a+0\cdot S=0$, esto es $a=0$, que  \textbf{no}  coincide con $a_{\pm}$. Por tanto, \textbf{no hay manera de que el sistema sea consistente} en esos valores. 
+                \begin{center}
+                    \fbox{Para $a=\dfrac{-1\pm\sqrt{5} }{2}$, el sistema es incompatible (no tiene soluciones).}
+                \end{center}
+            \item Caso restante: $a\neq 1$ y $a^2+a-1\neq 0$
+
+                En este caso, no salta ninguna inconsistencia. Para que el sistema sea compatible basta imponer \[
+                y+t=S=\dfrac{a^2-1}{a^2+a-1}.
+                \] 
+                Es decir, $y+t$ viene  \textbf{fijado} por esa fórmula en función de $a$. Una vez impuesto  $y+t=S$, podemos:
+                 \begin{itemize}[label=\textbullet]
+                    \item Escoger libremente (por ejemplo) a $y$ como parámetro libre $\lambda$.
+                    \item Determinar $t=S-y=S-\lambda$.
+                    \item Con ello, de la primera ecuación se halla $x$, y de la segunda/tercera se determina  $z$.
+                \end{itemize}
+                Como hay 4 incógnitas y finalmente 3 ecuaciones \textbf{independientes}, el espacio de soluciones (cuando es no vacío) tiene dimensión $4-3=1$. Por tanto: 
+                 \begin{center}
+                     \fbox{Para $a\neq 1$ y $a^2+a-1\neq 0$, existe una familia infinita (1-paramétrica) de soluciones.}
+                \end{center}
+                Obsérvese que dentro de este caso "restante" también se incluye $a=0$. De hecho, si  $a=0$, la condición  $y+t=1$ (que se verifica fácilmente sustituyendo en las ecuaciones) produce soluciones infinitas de dimensión 1.
+        \end{enumerate}
+\end{enumerate}
 \item \lb{Si $A=[u_1,\dots,u_n]$, expresa el determinante de $B=[u_n u_1\cdots u_{n-1}]$ en función del determinante de $A$.}
 
+    Supongamos que $A=[u_1,u_2,\dots,u_n]$ es una matriz $n\times n$ cuyas columnas son los vectores $u_1,u_2,\dots,u_n$. La matriz \[
+        B=[u_n,u_1,u_2,\dots,u_{n-1}]
+    \] 
+    se obtiene a partir de $A$ al realizar una permutación cíclica de columnas: \[
+        (u_1,u_2,\dots,u_{n-1},u_n)\longmapsto (u_n,u_1,u_2,\dots,u_{n-1}).
+    \]
+    Esta permutación de columnas corresponde al ciclo \[
+    1\mapsto 2,\quad 2\mapsto 3,\quad\dots,\quad(n-1)\mapsto n,\quad n\mapsto 1,
+    \] 
+    que es un ciclo de longitud $n$. Recordemos que el signo de un ciclo de longitud $n,\, \sigma=(-1)^{n-1}$.
+    
+    Dado que $\mathrm{det}(A)$ cambia por el factor $\sigma$ al permutar sus columnas, obtenemos: \[
+    \mathrm{det}(B)=(-1)^{n-1}\mathrm{det}(A).
+    \] 
+    En conclusión, \[
+        \bboxed{\mathrm{det}([u_n,u_1,\dots,u_{n-1}])=(-1)^{n-1}\mathrm{det}([u_1,\dots,u_n]).}
+    \] 
 \item \lb{Una matriz $A$ que cumple  $A=-A^\intercal$ se llama \textbf{antisimétrica}. Prueba que una matriz antisimétrica e tamaño impar tiene determinante nulo. }
 
+    \textbf{Idea de la demostración}
+
+    La clave está en la relación entre el determinante de una matriz y el determinante de su traspuesta, junto con el hecho de multiplicar una matriz por $-1$.
+     \begin{enumerate}[label=\arabic*)]
+        \item Sabemos que $\mathrm{det}(A)=\mathrm{det}(A^\intercal)$.
+        \item Dado que $A=-A^\intercal$, se tendrá $A^\intercal=-A$.
+        \item Por propiedades del determinante, $\mathrm{det}(-A)=(-1)^n\mathrm{det}(A)$.
+    \end{enumerate}
+    Juntando estas ideas, al ser $n$ impar, concluiremos que $\mathrm{det}(A)=0$.
+
+    \textbf{Demostración detallada}
+
+    \begin{enumerate}[label=\arabic*)]
+        \item \textbf{Relación entre $\mathrm{det}(A)$ y $\mathrm{det}(A^\intercal)$.}
+
+            Para cualquier matriz cuadrada $A$ de orden  $n$, se cumple \[
+            \mathrm{det}(A)=\mathrm{det}(A^\intercal).
+            \] 
+            Esto es una propiedad estándar del determinante.
+        \item \textbf{Relación entre $A$ y $A^\intercal$ para $A$ antisimétrica.}
+
+            Por hipótesis, $A$ es antisimétrica, es decir, \[
+            A=-A^\intercal\longrightarrow A^\intercal=-A.
+            \] 
+        \item \textbf{Determinante de $-A$.}
+
+            Si multiplicamos una matriz $A$ de orden $n$ por $-1$, el nuevo determinante $\mathrm{det}(-A)$ equivale a \[
+            \mathrm{det}(-A)=(-1)^n\mathrm{det}(A).
+            \] 
+        \item \textbf{Caso $n$ impar.}
+
+            Suponiendo que $n$ es \textit{impar}, se tiene $(-1)^n=-1$. Por tanto,  \[
+            \mathrm{det}(A)=(-1)^n\mathrm{det}(A)=-\mathrm{det}(A).
+            \]  
+            Lo cual implica \[
+            \mathrm{det}(A)=-\mathrm{det}(A)\longrightarrow 2\mathrm{det}(A)=0\longrightarrow \mathrm{det}(A)=0.
+            \] 
+    \end{enumerate}
+    En consecuencia, \textbf{toda matriz antisimétrica de orden impar es singular}, es decir, tiene determinante nulo. 
 \item \lb{Calcula el determinante \[
 \begin{vmatrix} 
     1 & 2 & 3 & \cdots & n\\
@@ -453,7 +778,64 @@ Finalmente tenemos una matriz $PMQ=\begin{bmatrix}
     \vdots & \vdots & \vdots & & \vdots\\
     n & n+1 & n+2 & \cdots & 2n-1
 \end{vmatrix} 
-\] } 
+\] }
+\begin{enumerate}[label=\arabic*)]
+    \item Casos pequeños: $n=1$ y  $n=2$
+         \begin{itemize}[label=\textbullet]
+            \item Caso $n=1$:
+                \[
+                \mathrm{det}(M)=1.
+                \] 
+            \item Caso $n=2$:  \[
+            \mathrm{det}(M)=\begin{vmatrix} 
+                1 & 2\\
+                2 & 3
+            \end{vmatrix} =3-4=-1
+            \] 
+        \end{itemize}
+    \item Caso general $n\ge 3$
+
+        Veremos que para $n\ge 3$ el determinante es $0$. Para ello, haremos operaciones elementales sobre las filas que no cambian o solo cambian el determinante por un factor distitnto de cero. En particular, restar una fila de otra \textit{no altera} el valor del determinante.
+        \begin{enumerate}[label=\arabic*)]
+            \item Restar la primera fila a las demás
+
+                Para $k=2,\dots,n$, hacemos \[
+                R_k\longleftarrow R_k-R_1.
+                \] 
+                \begin{itemize}[label=\textbullet]
+                    \item La primera fila $R_1$ se queda igual: \[
+                    R_1=(1,2,3,\dots,n).
+                    \] 
+                \item La fila $R_k$ original era  $(k,k+1,k+2,\dots,k+(n-1))$.
+
+                    Al restarle $R_1$, obtenemos \[
+                    R_k-R_1=(k-1,(k+1)-2, (k+2)-3,\dots,(k+n-1)-n).
+                    \] 
+                    Observando cada componente: \[
+                        (k+j-1)-(1+j-1)=(k-1).
+                    \] 
+                    En efecto, para cada columna $j$, el resultado es  \textbf{constante} e igual a $k-1$. 
+                \end{itemize}
+                Por tanto, después de esas $n-1$ restas, la matriz queda:  \[
+                M'=\begin{vmatrix} 
+                    1 & 2 & 3 & \cdots & n\\
+                    1 & 1 & 1 & \cdots & 1\\
+                    2 & 2 & 2 & \cdots & 2\\
+                    \vdots & \vdots & \vdots & & \vdots\\
+                    n-1 & n-1 & n-1 & \cdots & n-1
+                \end{vmatrix}. 
+                \] 
+            \item Examinar las filas resultantes
+
+                A partir de la segunda fila, todas están dentro del mismo subespacio de dimensión 1. Esto implica que la matriz $M'$  \textbf{tiene rango menor que $n$} tan pronto como $n\ge 3$. Si el rango es menor que $n$, el determinante debe ser cero.
+
+                Más concretamente, podemos incuso anular una de esas filas con una combinación adecuada. Por ejemplo, si restamos 2 veces la fila 2 a la fila 3, obtenemos una fila completamente nula: \[
+                R_3\longleftarrow R_3-2R_2=(2-2\cdot 1,2-2\cdot 1,\dots,2-2\cdot 1)=(0,0,\dots,0).
+                \] 
+                En cuanto aparece una fila de ceros, el determinante es $0$.
+        \end{enumerate}
+        Por lo tanto, para $n\ge 3$ el determinante se anula.
+\end{enumerate}
 
 \item \lb{
 \setlength{\arraycolsep}{1pt}
@@ -465,5 +847,69 @@ Considera el sistema de ecuaciones \[
 \end{array}\right\}
 \]
 Observa que podemos eliminar la última ecuación pues es combinación lineal de las dos primeras. Considerando ahora los términos en $z$ como si fuesen términos independientes, observa que el sistema es un sistema de Cramer en  $x,y$.  Resuélvelo con la fórmula de Cramer y después expresa las soluciones en la forma $x_0+u$ ($x_0$ solución parcial y $u$ solución genérica del sistema homogéneo).} 
+
+Se observa que la tercera ecuación es combinación lineal de las dos primeras $(3\cdot (1)-2\cdot (2)=(3))$, por lo que puede eliminarse. Quedamos con el sistema reducido a las dos primeras ecuaciones: \[
+\begin{cases}
+    2x+y+z=0\\
+    4x-4y-2z=2
+\end{cases}
+\] 
+Consideremos los términos en $z$ como si fuesen términos independientes. Esto nos permite escribir el sistema como un sistema de Cramer en  $x$ y $y$, donde los coeficientes de $z$ se tratan como términos constantes.
+
+Podemos expresar el sistema en forma matricial como: \[
+\begin{pmatrix} 
+    2 & 1\\
+    4 & -6
+\end{pmatrix} \begin{pmatrix} 
+x\\
+y
+\end{pmatrix} =\begin{pmatrix} 
+-z\\
+2+2z
+\end{pmatrix} .
+\] 
+El determinante de la matriz de coeficientes es: \[
+\nabla =\begin{vmatrix} 
+    2 & 1\\
+    4 & -6
+\end{vmatrix} = -12-4=-16
+\] 
+Dado que $\nabla \neq 0$, el sistema tiene una única solución en $x$ e $y$ para cualquier valor de $z$.
+
+Usando la fórmula de Cramer:  \[
+\begin{array}{c}
+    x=\dfrac{\begin{vmatrix} 
+            -z & 1\\
+            2+2z & -6
+    \end{vmatrix} }{-16}=\dfrac{6z-2-2z}{-16}=\dfrac{4z-2}{-16}=\dfrac{1}{8}-\dfrac{z}{4}.\\
+    y=\dfrac{\begin{vmatrix} 
+            2 & -z\\
+            4 & 2+2z
+    \end{vmatrix} }{-16}=\dfrac{4+4z+4z}{-16}=\dfrac{4+8z}{-16}=-\dfrac{1}{4}-\dfrac{z}{2}.
+\end{array}
+\] 
+Escribimos las soluciones en la forma $ x_0+u$.
+\begin{enumerate}[label=\arabic*)]
+    \item Sistema homogéneo:
+
+        Tomemos $z=0$ en el sistema, resolviendo: \[
+        \begin{cases}
+            2x+y=0\\
+           4x-6y=0 
+        \end{cases}
+        \] 
+        De la primera, $y=-2x$. Sustituyendo en la segunda:  \[
+        4x-6(-2x)=0\longrightarrow 4x+12x=0\longrightarrow x=0,y=0.
+        \] 
+        Entonces, la solución homogénea general es: \[
+            (x,y,z)=(0,0,t),\quad t\in \R.
+        \] 
+    \item Solución general:
+
+        Sumamos la solución particular $x_0=\left( \dfrac{1}{8},-\dfrac{1}{4},0 \right) $ y la solución homogénea: \[
+            (x,y,z)=\left( \dfrac{1}{8},-\dfrac{1}{4},0 \right) +t(0,0,1),
+        \]
+        donde $t=z$ es el parámetro libre.
+\end{enumerate}
 \end{enumerate}
 \end{document}
