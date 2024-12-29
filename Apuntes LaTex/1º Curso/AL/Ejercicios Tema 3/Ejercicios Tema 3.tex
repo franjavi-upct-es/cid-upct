@@ -297,28 +297,27 @@ Esta matriz reducida resultante muestra que la última fila es cero, indicando u
         0 & 0 & b & a
     \end{bmatrix} 
     \]en función de los parámetros $a$ y  $b$.}
-    \begin{enumerate}[label=Paso \arabic*:]
-        \item Propiedades básicas
 
-            La matriz $B$ es una matriz $4\times 4$. El rango es actual al número de filas (o columnas) linealmente independientes. Si el determinante de $B$ es no nulo, entonces el rango es 4. Si el determinante es nulo, reduciremos  $B$ para determinar su rango.
-        \item Determinante de $B$
-\[
-\mathrm{det}(B)=a\begin{vmatrix}
-a & 0 & 0\\
-b & a & 0\\
-0 & b & a
-\end{vmatrix}-b\begin{vmatrix}
-b & a & 0\\
-0 & b & a\\
-0 & 0 & b
-\end{vmatrix}=a^4-3a^2b^2+b^4.
-\] 
-
-\item Análisis de $\mathrm{det}(B)$ 
+    \underline{Posibles casos:}
     \begin{enumerate}[label=\arabic*)]
-        \item Si $a^4+b^4\neq 0$, entonces $\mathrm{det}(B)\neq 0$, y el rango de $B$ es 4.
-        \item Si  $a^4+b^4=0$, entonces $a^4=-b^4$. Esto ocurre si
-    \end{enumerate}
+        \item $a=b=0\longrightarrow B=[0]\longrightarrow \mathrm{rango}(B)=0$ 
+        \item $a=0,b\neq 0\longrightarrow B=\begin{bmatrix} 
+                0 & 0 & 0 & b\\
+                b & 0 & 0 & 0\\
+                0 & b & 0 & 0\\
+                0 & 0 & b & 0
+                \end{bmatrix}\xrightarrow{C_4\to C_1}\underset{\text{forma escalonada}}{\begin{bmatrix} 
+                b & 0 & 0 & 0\\
+                0 & b & 0 & 0\\
+                0 & 0 & b & 0\\
+                0 & 0 & 0 & b
+        \end{bmatrix}}\longrightarrow \mathrm{rango}(B)=4  $ 
+        \item $a\neq 0,b=0\longrightarrow B=\begin{bmatrix} 
+                a & 0 & 0 & 0\\
+                0 & a & 0 & 0\\
+                0 & 0 & a & 0\\
+                0 & 0 & 0 & a
+        \end{bmatrix}\longrightarrow \mathrm{rango}(B)=4 $
     \end{enumerate}
 
     \item \lb{Dada la matriz $M=\begin{bmatrix} 
@@ -331,6 +330,85 @@ b & a & 0\\
             0 & 0
     \end{array} \right] 
     \] con $r$ el rango de $M$.}
+
+$\begin{aligned}
+\left[ 
+    \begin{array}{cccc|ccc}
+        2 & 0 & 2 & 6 & 1 & 0 & 0\\
+        1 & 1 & 0 & 2 & 0 & 1 & 0\\
+        3 & 2 & 1 & 7 & 0 & 0 & 1
+    \end{array}
+    \right]& \xrightarrow{F_1\leftrightarrow F_2}\left[ \begin{array}{cccc|ccc}
+            1 & 1 & 0 & 2 & 0 & 1 & 0\\
+            2 & 0 & 2 & 6 & 1 & 0 & 0\\
+            3 & 2 & 1 & 7 & 0 & 0 & 1
+    \end{array} \right] \xrightarrow[F_3\to F_3-3F_1]{F_2\to F_2-2F_1} \left[ \begin{array}{cccc|ccc}
+            1 & 1 & 0 & 2 & 0 & 1 & 0\\
+            0 & -2 & 2 & 2 & 1 & -2 & 0\\
+            0 & -1 & 1 & 1 & 0 & -3 & 1\\
+    \end{array} \right]\\
+           & \xrightarrow{F_2\leftrightarrow F_3}\left[ \begin{array}{cccc|ccc}
+            1 & 1 & 0 & 2 & 0 & 1 & 0\\
+            0 & -1 & 1 & 1 & 0 & -3 & 1 \\
+            0 & -2 & 2 & 2 & 1 & -2 & 0
+    \end{array} \right] \xrightarrow{F_3\to F_3-2F_2}\left[ \begin{array}{cccc|ccc}
+            1 & 1 & 0 & 2 & 0 & 1 & 0\\
+            0 & -1 & 1 & 1 & 0 & -3 & 4\\
+            0 & 0 & 0 & 0 & 1 & 4 & -2
+    \end{array} \right]\\
+           & \xrightarrow{F_2\to -F_2}\left[ \begin{array}{cccc|ccc}
+            1 & 1 & 0 & 2 & 0 & 1 & 0\\
+            0 & 1 & -1 & -1 & 0 & 3 & 1\\
+            0 & 0 & 0 & 0 & 1 & 4 & -2
+    \end{array} \right] \longrightarrow P=\begin{bmatrix} 
+            0 & 1 & 0\\
+            0 & 3 & -1\\
+            1 & 4 & -2
+    \end{bmatrix} 
+\end{aligned}$
+
+$\begin{aligned}\left[\begin{array}{cccc}
+    1 & 1 & 0 & 2\\ 
+    0 & 1 & -1 & -1\\
+    0 & 0 & 0 & 0\\ \hline
+    1 & 0 & 0 & 0\\
+    0 & 1 & 0 & 0\\
+    0 & 0 & 1 & 0\\
+    0 & 0 & 0 & 1
+\end{array}\right]&\xrightarrow[C_4\to C_4-2C_1]{C_2\to C_2-C_1}\left[ \begin{array}{cccc}
+    1 & 0 & 0 & 0\\
+    0 & 1 & -1 & -1\\
+    0 & 0 & 0 & 0\\ \hline
+    1 & -1 & 0 & -2\\
+    0 & 1 & 0 & 0\\
+    0 & 0 & 1 & 0\\
+    0 & 0 & 0 & 1
+\end{array} \right] \xrightarrow[C_4\to C_4-C_2]{C_{3}\to C_3-C_2}\left[ \begin{array}{cccc}
+    1 & 0 & 0 & 0\\
+    0 & 1 & 0 & 0\\
+    0 & 0 & 0 & 0\\ \hline
+    1 & -1 & 1 & -1\\
+    0 & 1 & -1 & -1\\
+    0 & 0 & 1 & 0\\
+    0 & 0 & 0 & 1
+\end{array} \right]\\ 
+& \longrightarrow Q=\begin{bmatrix} 
+    1 & -1 & 1 & -1\\
+    0 & 1 & -1 & -1\\
+    0 & 0 & 1 & 0\\
+    0 & 0 & 0 & 1
+\end{bmatrix}\end{aligned}$
+
+Finalmente tenemos una matriz $PMQ=\begin{bmatrix} 
+    1 & 0 & 0 & 0\\
+    0 & 1 & 0 & 0\\
+    0 & 0 & 0 & 0
+\end{bmatrix} $ que tiene la forma \[
+\left[ \begin{array}{c|c}
+        I_n & 0\\ \hline
+        0 & 0
+\end{array} \right] 
+\] donde $I_r$ es la matriz identidad con  $r=\mathrm{rango}(M)=2$.
 
     \item \lb{Halla la inversa de la matriz $A=\begin{bmatrix} 
                 1 & 1 & -3\\
