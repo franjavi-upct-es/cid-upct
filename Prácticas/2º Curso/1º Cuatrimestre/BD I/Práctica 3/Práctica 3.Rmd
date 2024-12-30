@@ -13,6 +13,7 @@ header-includes:
 - \DefineVerbatimEnvironment{Highlighting}{Verbatim}{breaklines, commandchars=\\\{\}}
 - \usepackage{setspace}
 - \setstretch{1.35}
+- \usepackage{soul}
 ---
 
 ```{r setup, include=FALSE}
@@ -795,7 +796,21 @@ COMMIT;
 
     a.  Elimina, una a una, las columnas que contienen la web y la periodicidad de las revistas.
 
+        ```{sql}
+        ALTER TABLE REVISTA DROP COLUMN web
+        ```
+
+        ```{sql}
+        ALTER TABLE REVISTA DROP COLUMN periodicidad
+        ```
+
+        ```{sql}
+        SELECT * FROM REVISTA
+        ```
+
     b.  ¿Es posible hacer esta operación mediante una sola sentencia? Si es así, indica cómo: escribe cuál sería la sentencia SQL.
+
+        Si es posible, la sentencia sería **`ALTER TABLE REVISTA DROP COLUMN (web, periodicidad);`**
 
 7.  **Crear y manipular una vista**
 
@@ -815,14 +830,117 @@ COMMIT;
 
         Columnas de la vista: **`(revista, periodista, sueldo, contrato, annos, articulos)`**.
 
+        ```{sql}
+        CREATE OR REPLACE VIEW CONTRATO
+        AS SELECT
+                R.nombre revista,
+                C.nombre periodista,
+                C.sueldo sueldo,
+                C.fecha_contrato contrato,
+                2024 - EXTRACT(YEAR FROM C.fecha_contrato) annos,
+                NVL((SELECT COUNT(*)
+                    FROM ARTICULO A
+                    WHERE A.contratado = C.dni AND A.revista = R.idrev), 0) AS articulos
+        FROM revista R
+                LEFT JOIN CONTRATADO C ON C.revista = R.idrev
+        ```
+
     b.  **Muestra** (con **`SELECT *`**) el contenido de la vista, ordenado por **`revista`** y **`periodista`**.
+
+        ```{sql}
+        SELECT * FROM CONTRATO
+        ORDER BY revista, periodista
+        ```
 
     c.  **Modifica** la definición de la **vista** para que \underline{desaparezca} la columna de la \underline{fecha de contrato} y que se muestre el \\underline{sueldo una vez restado el 21% del IRPF}.
 
+        ```{sql}
+        CREATE OR REPLACE VIEW CONTRATO AS 
+        SELECT
+            R.nombre revista,
+            C.nombre periodista,
+            C.sueldo * 0.79 sueldo,
+            C.fecha_contrato contrato,
+            2024 - EXTRACT(YEAR FROM C.fecha_contrato) annos,
+            NVL((SELECT COUNT(*)
+                FROM ARTICULO A
+                WHERE A.contratado = C.dni AND A.revista = R.idrev), 0) AS articulos
+        FROM revista R
+        LEFT JOIN CONTRATADO C ON C.revista = R.idrev
+        ```
+
         -   Vuelve a **mostrar** la vista (paso **b**) y confirma que el paso **(c)** se ha realizado correctamente.
+
+            ```{sql}
+            SELECT * FROM CONTRATO
+            ORDER BY revista, periodista
+            ```
 
     d.  **Inserta** un nuevo periodista **contratado** en la revista **`R03`**, sin tutor, con fecha de contrato **`20/05/1028`** y sueldo **`2300€`**.
 
+        ```{sql}
+        INSERT INTO CONTRATADO (dni, nombre, email, sueldo, revista, fecha_contrato, tutor)
+        VALUES ('99002211X', 'NUEVO PERIODISTA', 'nperiodista@mail.com', 2300, 'R03', TO_DATE('20/05/2018', 'DD/MM/YYYY'), NULL)
+        ```
+
     e.  Visualiza el contenido de la vista (repite el paso **b**) y contesta: ¿Aparece el nuevo contratado? ¿Se aplica el cambio del 21% a la nueva fila? ¿O sólo se aplica a las filas que ya existían antes de insertar la nueva?
 
+        ```{sql}
+        SELECT * FROM CONTRATO
+        ORDER BY revista, periodista
+        ```
+
     f.  **Confirma** (sentencia **`COMMIT`**) los cambios realizados.
+
+        ```{sql}
+        COMMIT
+        ```
+
+8.  **Restricciones de integridad**
+
+    -   Redacta en código **ANSI SQL** el **aserto** que garantice el cumplimiento de la restricción de integridad general `"El periodista coordinador de una revista ha de ser uno de los periodista contratados por dicha revista"`
+
+        ``` sql
+        CREATE ASSERTION CoordinadorEsContratado
+        CHECK (
+               NOT EXISTS (
+                    SELECT 1
+                    FROM REVISTA R
+                    WHERE R.coordinador NOT IN (
+                        SELECT C.dni
+                        FROM CONTRATADO C
+                        WHERE R.revista = R.idrev
+                    )
+            )
+        );
+        ```
+
+9.  **Creación y uso de índices**
+
+    -   Sea la siguiente consulta que, para cada contratado cuyo sueldo es el más alto dentro de su revista obtiene el nombre del periodista, el de la revista donde trabaja y el sueldo del periodista.
+
+        ``` sql
+        SELECT C.nombre periodista, R.nombre revista, C.sueldo
+        FROM CONTRATADO C
+            JOIN REVISTA R ON C.revista = R.idrev
+        WHERE C.sueldo = (SELECT MAX(sueldo)
+                          FROM CONTRATADO CC
+                          WHERE CC.revista = C.revista);
+        ```
+
+    a.  Ejecuta esta consulta en el SQL Developer y visualiza el **plan de ejecución** mediante el cual el SGBD Oracle la ha realizado. Para ello pincha el botón `"Explicación del plan..."` o pulsa la tecla `F10`. Anota el primer valor de la columna **`"COST"`**, que da la medida de lo que le ha costado SGBD ejecutar la sentencia. \hl{Indica dentro de un comentario} cuál es el valor de **`COST`**.
+
+        -   **`COST`** inicial = 11
+
+    b.  Escribe una **sentencia para crear un índice** que acelere la consulta anterior, de forma que encuentre más rápidamente a los contratados según su revista. Puedes observar cuáles son los índices ya existentes sobre la tabla **`CONTRATADO`** y **`REVISTA`**. Piensa bien en cuál columna (de alguna de las tablas que participan en la **`SELECT`**) es la idónea para construir ese índice.
+
+        ``` sql
+        CREATE INDEX idx_contratado_revista_sueldo
+        ON CONTRATADO (revista, sueldo)
+        ```
+
+    c.  Vuelve a ejecutar la **`SELECT`** del apartado (a) y visualiza de **nuevo** el **plan de ejecución**. Mira si ha utilizado el índice que has creado y observa si ha **cambiado el coste** de ejecutar la consulta. \hl{Indica dentro de un comentario} **si** el SGBD Oracle **ha usado tu índice**, cuál es el **nuevo valor de `COST`** y si **ha mejorado o no** respecto de la ejecución previa a la existencia del índice.
+
+        -   **`COST`** = 8
+
+        -   El índice ha mejorado el rendimiento de la consulta.
