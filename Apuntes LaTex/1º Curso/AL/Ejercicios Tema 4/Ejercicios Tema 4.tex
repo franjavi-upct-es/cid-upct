@@ -1,0 +1,223 @@
+\input{../../../Macros.tex}
+\renewcommand{\arraystretch}{1}
+\setlength{\arraycolsep}{6pt}
+
+\title{Álgebra Lineal\\Ejercicios Tema 4: Subespacios vectoriales, bases y coordenadas}
+
+\begin{document}
+\maketitle
+\begin{enumerate}[label=\color{red}\textbf{\arabic*)}]
+    \item \lb{Determina cuáles de ls siguientes subonjunto de $\R^3$ son subespacios vectoriales:}
+        \begin{enumerate}[label=\color{red}\textbf{\alph*)}]
+            \item \db{$\{(x,y,z|x=1)\} $} 
+
+                No es un subespacio vectorial porque no contiene al $(0,0,0)$.
+            \item \db{$\{(x,y,z)|xyz=0\} $} 
+
+                $W=\{(x,y,z)|xyz=0\} $ 
+
+                Tomamos $(x_1,y_1,z_1),(x_2,y_2,z_2)\in W\longrightarrow \underbrace{(x_1,y_1,z_1)+(x_2,y_2,z_2)}_{(x_1+x_2,y_1+y_2,z_1+z_2)}\in W$ 
+
+                $(x_1+x_2)\cdot (y_1+y_2)\cdot (z_1+z_2)=0$
+
+                Claramente no es un subespacio vectorial porque \textit{"las tres componentes  están multiplicando"} 
+
+                Para verlo más claramente: \[
+                \begin{array}{l}
+                    v_1=(1,1,0)\in W\text{ ya que }1\cdot 1\cdot 0=0\\
+                    v_2=(0,0,1)\in W\text{ ya que }0\cdot 0\cdot 1=0
+                \end{array}
+                \]
+                Sin embargo, $v_1+v_2=(1,1,1)\notin W$ ya que \[
+                1\cdot 1\cdot 1=1\neq 0.
+                \] 
+            \item \db{$\{(x,y,z)|x+y+z=0\} $} 
+
+                $(x_1,y_1,z_1),(x_2,y_2,z_2)\in W\longrightarrow (x_1+x_2,y_1+y_2,z_1+z_2)\in W$
+
+                $(x_1+x_2)+(y_1+y_2)+(z_1+z_2)=\underbrace{(x_1+y_1+z_1)}_{=0}+\underbrace{(x_2+y_2+z_2)}_{=0}=0$
+
+                Sean ahora $(x_1,y_1,z_1)\in W$ y $\alpha\in \R\longrightarrow \alpha(x_1,y_1,z_1)\in W$
+
+                $\begin{array}{l}
+                    \alpha(x_1,y_1,z_1)=(\alpha x_1,\alpha y_1,\alpha z_1)\\
+                    \alpha x_1+\alpha y_1+\alpha z_1=\alpha\underbrace{(x_1+y_1+z_1)}_{=0}=0
+                \end{array}$
+        \end{enumerate}
+    \item \lb{Comprueba que, en $\R^3$, el subespacio generado por los vectores $(1,2,1)$ y  $(6,1,-16)$ coincide con el subespacio generador por los vectores  $(-3,7,20)$ y  $(4,9,6)$.} 
+
+        Para verificar si el subespacio generador po $\{(1,2,1),(6,1,-16)\} $ coincide con el generado por $\{(-3,7,20),(4,9,6)\} $ en $\R^3$, debemos comprobar si cada conjunto de vectores puede ser expresado como una combinación lineal de los vectores del otro conjunto. Esto implica que ambos subconjuntos generan el mismo campo vectorial.
+
+        Paso a seguir:
+        \begin{enumerate}[label=\arabic*)]
+            \item \textbf{Matriz ampliada:} Consideramos todos los vectores como filas de una matriz y verificamos si los vectores de un conjunto son combinación lineal de los del otro. Esto se hace calculando las filas escalonadas (rango). \[
+            A_1=\begin{bmatrix} 
+                1 & 2 & 1\\
+                6 & 1 & -16\\
+                -3 & 7 & 20\\
+                4 & 9 & 6
+            \end{bmatrix} 
+            \]  
+            Reducimos la matriz a su forma escalonada para identificar si el rango es igual a 2 (dimensión de un plano en $\R^3$).
+        \item \textbf{Dependencia lineal:} Si se confirma que el rango es 2, probamos si los vectores de un conjunto pertenecen al subespacio generado por los vectores del otro. Para esto, verificamos si existe una relación lineal. 
+
+            $\begin{bmatrix} 
+                1 & 2 & 1 \\
+                6 & 1 & -16\\
+                -3 & 7 & 20\\
+                4 & 9 & 6
+            \end{bmatrix}\xrightarrow[\begin{subarray}{l}
+                F_3\to F_3+3F_1\\
+                F_4\to F_4-4F_1
+            \end{subarray}]{F_2\to F_2-6F_1}\begin{bmatrix} 
+                1 & 2 & 1\\
+                0 & -11 & -22\\
+                0 & 13 & 23\\
+                0 & 1 & 2
+            \end{bmatrix}\xrightarrow{F_2\leftrightarrow F_4}\begin{bmatrix} 
+                1 & 2 & 1\\
+                0 & 1 & 2\\
+                0 & 13 & 23\\
+                0 & -11 & -22
+            \end{bmatrix}\xrightarrow[\begin{subarray}{l}
+                F_3\to F_3-13F_2\\
+                F_4\to F_4-F_2
+            \end{subarray}]{F_1\to F_1-2F_2}\begin{bmatrix} 
+                1 & 0 & 3\\
+                0 & 1 & 2\\
+                0 & 0 & -3\\
+                0 & 0 & 0
+            \end{bmatrix}\xrightarrow{F_3\to -\frac{1}{3} F_3}\begin{bmatrix} 
+                1 & 0 & -3\\
+                0 & 1 & 2\\
+                0 & 0 & 1\\
+                0 & 0 & 0
+            \end{bmatrix}\xrightarrow[F_2\to F_2-2F_3]{F_1\to F_1+3F_3}\begin{bmatrix} 
+                1 & 0 & 0\\
+                0 & 1 & 0\\
+                0 & 0 & 1\\
+                0 & 0 & 0
+            \end{bmatrix}$
+
+            La matriz tiene rango 3, lo cual indica que los cuatro vectores son linealmente independientes. Por lo tanto, los subespacios generados por los conjuntos $\{(1,2,1),(6,1,-16)\} $ y $\{(-3,7,20),(4,9,6)\} $ \textbf{no coinciden}, ya que el espacio generado por los cuatro vectores abarca todo $\R^3$. 
+            
+        \end{enumerate}
+
+\item \lb{Usando determinantes, halla una base del subespacio $W$ del ejercicio anterior que esté contenida en el conjunto generador dado.}
+
+    \item \lb{Sean $v_1nv_2nv_3\in \mathbb{K}^n$ con $n\ge 3$. Pon un ejemplo de una matriz $A$ tal que los sistemas de ecuaciones $Ax=v_1$ y $Ax=v_2$ tengan solución pero el sistema $Ax=v_3$ no lo tenga.}
+    \item \lb{Completa la frase "el vector $b$ pertenee a $\mathrm{Col}(A)$ cuando \dots\dots tiene solución".}
+
+
+    \item \lb{Cierto o falso: "si el vector cero pertenece a $\mathrm{Fil}(A)$, entonces las filas de $A$ son linealmente dependientes".}
+
+    \item \lb{Halla una base del subespacio vectorial $W$ de $\R^5$ generado por los vectores \[
+                (-1,0,0,1,-2)\quad(2,1,0,-1,2)\quad(1,3,1,0,-1)\quad(0,2,1,0,-1)\quad(3,1,0,-2,4).
+    \] } 
+    \item \lb{Amplía el conjunto $\{(1,-1,1)\} $ a una base ortonormal de $\R^3$.}
+    \item \lb{En $\R^5$, si las ecuaciones del subespacio $U$ son $\left\{ \begin{array}{l}
+        x+y+z+t+u=0\\
+        x-y+z-t+u=0
+    \end{array} \right\} $, encuentra las de $U^{\perp}$.}
+
+    \item \lb{Halla una base de siguientes subespacios vectoriales de $\R^4$:}
+        \begin{enumerate}[label=\color{red}\textbf{\alph*)}]
+            \item \db{$\{(x,y,z,t)|x=y=z=t\} $} 
+            \item \db{$\{(x,y,z,t)|x+y+z+t=0\} $} 
+        \end{enumerate}
+    \item \lb{Dados los subespacios \[
+    U=\{(a,b,a-b,a-2b):a,b\in \R\} \qquad W=\{(x,x-y,-x+y,y):x,y\in \R\} 
+    \]calcula una base de cada uno de ellos y determina si están en suma directa.}
+
+    \item \lb{Dada la matriz $U=\begin{bmatrix} 
+                1 & 0 & 1 & 0 & 1\\
+                0 & 1 & 0 & 1 & 0
+    \end{bmatrix} $ calcula:}
+    \begin{enumerate}[label=\color{red}\textbf{\alph*)}]
+        \item \db{tres bases distintas de $\mathrm{Col}(U)$.} 
+        \item \db{dos bases distintas de $\mathrm{Fil}(U)$.} 
+    \end{enumerate}
+    \item \lb{Sea $S$ un conjunto de 6 vectores de $\R^4$. De las opciones entre paréntesis escoge la(s) correcta(s):}
+        \begin{enumerate}[label=\color{red}\textbf{\alph*)}]
+            \item \db{$S$ (es)(no es)(no necesariamente es) un conjunto generadr de $\R^4$.}
+            \item \db{$S$ (es)(no es)(puede ser) un conjunto linealmente independiente.}
+            \item \db{un subconjunto de $S$ con 4 vectores (es)(no es)(puede ser) una base de $\R^4$.} 
+        \end{enumerate}
+    \item \lb{Determina los valores que faltan en la siguiente matriz sabiendo que tiene rango 1: \[
+    \begin{bmatrix} 
+        7 & - & -\\
+        - & 8 & -\\
+        - & 12 & 6\\
+        - & - & 2\\
+        21 & 6 & -
+    \end{bmatrix} 
+    \] }
+    \item \lb{Dadas dos matrices $A$ y $B$, prueba las siguientes afirmaciones:}
+        \begin{enumerate}[label=\color{red}\textbf{\alph*)}]
+            \item \db{$\mathrm{rango}(A+B)\le \mathrm{rango}(A)+\mathrm{rango}(B)$}
+            \item \db{$\mathrm{rango}(AB)\le \mathrm{rango}(A),\mathrm{rango}(B)$} 
+        \end{enumerate}
+    \item \lb{Sea $A$ una matriz $m\times n$ de rango $k$. Prueba que existe una matriz  $B$ de tamaño $m\times k$ y rango $k$ y una matriz $C$ de tamaño $k\times n$ tales que $A=BC$ (esta factorización se llama \textbf{full rank factorization}). Si $k$ es mucho menor que $n$ y $m$, razona si es mejor, en términos de memoria, almacenar $A$ o almacenar $B$ y $C$.} 
+
+    \item \lb{Calcula la "full rank factorization" para la matriz \[
+    \begin{bmatrix} 
+        1 & 0 & 2 & 3\\
+        -1 & -3 & 1 & 0
+    \end{bmatrix} 
+    \] } 
+    \item \lb{Utiliza la "full rank factorization" y el ejercicio 15 para ver que una matriz $A$ tiene rango $k$ si y solo si se puede expresar como suma de $k$ matrices de rango 1, pero no se puede expresar como suma de menos de $k$ matrices de rango 1. Expresa la matriz del ejercicio anterior como suma de 2 matrices de rango 1.}
+
+    \item \lb{Se consideran las matrices \[
+    A=\begin{bmatrix} 
+        1 & 3 & 2\\
+        0 & 1 & 1\\
+        1 & 3 & 2
+    \end{bmatrix} \qquad B=\begin{bmatrix} 
+        1 & 3 & 2\\
+        0 & 1 & 1\\
+        0 & 0 & 0
+    \end{bmatrix} 
+    \] en donde $B$ se obtiene de $A$ restando la fila uno a la fila tres. ¿Qué relación hay entre los cuatro subespacios fundamentales de las dos matrices? Calcula una base para cada uno de ellos.}
+    \item \lb{Pon un ejemplo de una matriz cuadradada $A$ en la que $\mathrm{Col}(A)=\mathrm{Fil}(A)$ y otro en el que $\mathrm{Col}(A)\neq \mathrm{Fil}(A)$.}
+
+    \item \lb{Sea $A$ una matriz $10\times 10$ que cumple $A^2=0$. Prueba que $\mathrm{Col}(A)\subseteq \mathrm{Nuc}(A)$ y en consecuencia, el rango de $A$ es menor o igual que 5.}
+
+    \item \lb{Sea $A$ una matriz cuadrada invertible. Calcula una base para cada uno de los subespacios fundamentales de las matrices $A$ y $B=\begin{bmatrix} 
+                A & A
+    \end{bmatrix} $.} 
+    \item \lb{Sin calcular la matriz $A$, encuentra bases para sus cuatro subespacios fundamentales \[
+    A=\begin{bmatrix} 
+        1 & 0 & 0\\
+        6 & 1 & 0\\
+        9 & 8 & 1
+    \end{bmatrix}\begin{bmatrix} 
+        1 & 2 & 3 & 4\\
+        0 & 1 & 2 & 3\\
+        0 & 0 & 1 & 2
+    \end{bmatrix}  
+    \] } 
+\item \lb{Halla una base del subespacio de $\R^4$ dado por el núcleo de $A$, donde \[
+A=\begin{bmatrix} 
+    3 & 0 & 1 & 2\\
+    1 & 1 & 0 & 1 
+\end{bmatrix} 
+\]Comprueba que el vector $(1,1,1-2)$ pertenece a $\mathrm{Nuc}(A)$ y calcula sus coordenadas respecto de la base obtenida.}
+
+\item \lb{Dadas las siguientes bases de $\R^4$ \[
+\begin{array}{c}
+    \mathcal{B}_1=\{v_1=(1,1,0,0),v_2=(0,1,0,0),v_3=(0,0,1,1),v_4=(0,0,0,1)\} \\
+    \mathcal{B}_2=\{w_1=(1,2,0,0),w_2=(0,1,2,-1),w_3=(0,1,1,1),w_4=(0,1,2,0)\}
+\end{array}
+\]encuentra la matriz de cambio de base de $\mathcal{B}_1$ y $\mathcal{B}_2$ y la del cambio inverso. ¿Qué coordenadas tiene el vector $3v_1-v_3+2v_2$ con respecto a la base $\mathcal{B}_2$? ¿Qué coordenadas tiene el vector $3w_1-w_3+2w_2$ con respecto a la base $\mathcal{B}_1$?} 
+
+\item \lb{Calcula una base y unas ecuaciones implícitas de $U+V$, donde  \[
+\begin{array}{c}
+    U=\left<(1,2,3,4,5),(5,4,3,2,1),(-1,0,1,2,3) \right>\\
+    V=\left\{ (x,y,z,r,s): \begin{array}{l}
+        3x+r=2y\\
+        3x+s=2y
+    \end{array} \right\} 
+\end{array}
+\] } 
+\end{enumerate}
+\end{document}
