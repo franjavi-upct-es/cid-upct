@@ -31,9 +31,9 @@
     </schema>
     <schema id="10" parent="1" name="PUBLIC">
       <AutoIntrospectionLevel>1</AutoIntrospectionLevel>
-      <LastIntrospectionL1Timestamp>2024-12-24.12:14:40</LastIntrospectionL1Timestamp>
+      <LastIntrospectionL1Timestamp>2024-12-30.14:34:03</LastIntrospectionL1Timestamp>
       <LastIntrospectionLevel>1</LastIntrospectionLevel>
-      <LastIntrospectionLocalTimestamp>2024-12-24.11:14:40</LastIntrospectionLocalTimestamp>
+      <LastIntrospectionLocalTimestamp>2024-12-30.13:34:03</LastIntrospectionLocalTimestamp>
       <ObjectId>1</ObjectId>
     </schema>
     <schema id="11" parent="1" name="SYS">
@@ -44,12 +44,12 @@
       <CommentsHash>19632991153593</CommentsHash>
       <CreatedTimestamp>2011-08-29.00:10:59</CreatedTimestamp>
       <Current>1</Current>
-      <LastIntrospectionL1Timestamp>2024-12-24.12:14:40</LastIntrospectionL1Timestamp>
-      <LastIntrospectionL2Timestamp>2024-12-24.12:14:40</LastIntrospectionL2Timestamp>
+      <LastIntrospectionL1Timestamp>2024-12-30.14:34:03</LastIntrospectionL1Timestamp>
+      <LastIntrospectionL2Timestamp>2024-12-30.14:34:03</LastIntrospectionL2Timestamp>
       <LastIntrospectionLevel>2</LastIntrospectionLevel>
-      <LastIntrospectionLocalTimestamp>2024-12-24.11:14:41</LastIntrospectionLocalTimestamp>
+      <LastIntrospectionLocalTimestamp>2024-12-30.13:34:03</LastIntrospectionLocalTimestamp>
       <LastIntrospectionVersion>200820</LastIntrospectionVersion>
-      <ModifiedTimestamp>2024-12-24.12:14:40</ModifiedTimestamp>
+      <ModifiedTimestamp>2024-12-30.14:34:02</ModifiedTimestamp>
       <ObjectId>5</ObjectId>
     </schema>
     <schema id="13" parent="1" name="XDB">
@@ -32246,24 +32246,24 @@
       <TemporaryPreserve>1</TemporaryPreserve>
     </table>
     <table id="4042" parent="12" name="ARTICULO">
-      <CreatedTimestamp>2024-12-24.12:14:28</CreatedTimestamp>
+      <CreatedTimestamp>2024-12-30.14:33:56</CreatedTimestamp>
       <DetailsLevel>2</DetailsLevel>
-      <ModifiedTimestamp>2024-12-24.12:14:30</ModifiedTimestamp>
-      <ObjectId>20219</ObjectId>
+      <ModifiedTimestamp>2024-12-30.14:33:57</ModifiedTimestamp>
+      <ObjectId>20277</ObjectId>
       <TemporaryPreserve>1</TemporaryPreserve>
     </table>
     <table id="4043" parent="12" name="COLABORACION">
-      <CreatedTimestamp>2024-12-24.12:14:29</CreatedTimestamp>
+      <CreatedTimestamp>2024-12-30.14:33:56</CreatedTimestamp>
       <DetailsLevel>2</DetailsLevel>
-      <ModifiedTimestamp>2024-12-24.12:14:30</ModifiedTimestamp>
-      <ObjectId>20227</ObjectId>
+      <ModifiedTimestamp>2024-12-30.14:33:57</ModifiedTimestamp>
+      <ObjectId>20285</ObjectId>
       <TemporaryPreserve>1</TemporaryPreserve>
     </table>
     <table id="4044" parent="12" name="CONTRATADO">
-      <CreatedTimestamp>2024-12-24.12:14:28</CreatedTimestamp>
+      <CreatedTimestamp>2024-12-30.14:33:56</CreatedTimestamp>
       <DetailsLevel>2</DetailsLevel>
-      <ModifiedTimestamp>2024-12-24.12:14:40</ModifiedTimestamp>
-      <ObjectId>20221</ObjectId>
+      <ModifiedTimestamp>2024-12-30.14:34:02</ModifiedTimestamp>
+      <ObjectId>20279</ObjectId>
       <TemporaryPreserve>1</TemporaryPreserve>
     </table>
     <table id="4045" parent="12" name="DEF$_AQCALL">
@@ -32345,17 +32345,17 @@
       <TemporaryPreserve>1</TemporaryPreserve>
     </table>
     <table id="4055" parent="12" name="ESPECIALIDAD_FREELANCE">
-      <CreatedTimestamp>2024-12-24.12:14:30</CreatedTimestamp>
+      <CreatedTimestamp>2024-12-30.14:33:57</CreatedTimestamp>
       <DetailsLevel>2</DetailsLevel>
-      <ModifiedTimestamp>2024-12-24.12:14:30</ModifiedTimestamp>
-      <ObjectId>20229</ObjectId>
+      <ModifiedTimestamp>2024-12-30.14:33:58</ModifiedTimestamp>
+      <ObjectId>20287</ObjectId>
       <TemporaryPreserve>1</TemporaryPreserve>
     </table>
     <table id="4056" parent="12" name="FREELANCE">
-      <CreatedTimestamp>2024-12-24.12:14:29</CreatedTimestamp>
+      <CreatedTimestamp>2024-12-30.14:33:56</CreatedTimestamp>
       <DetailsLevel>2</DetailsLevel>
-      <ModifiedTimestamp>2024-12-24.12:14:29</ModifiedTimestamp>
-      <ObjectId>20224</ObjectId>
+      <ModifiedTimestamp>2024-12-30.14:33:56</ModifiedTimestamp>
+      <ObjectId>20282</ObjectId>
       <TemporaryPreserve>1</TemporaryPreserve>
     </table>
     <table id="4057" parent="12" name="HELP">
@@ -33027,10 +33027,10 @@
       <TemporaryPreserve>1</TemporaryPreserve>
     </table>
     <table id="4149" parent="12" name="NUMERO">
-      <CreatedTimestamp>2024-12-24.12:14:28</CreatedTimestamp>
+      <CreatedTimestamp>2024-12-30.14:33:55</CreatedTimestamp>
       <DetailsLevel>2</DetailsLevel>
-      <ModifiedTimestamp>2024-12-24.12:14:30</ModifiedTimestamp>
-      <ObjectId>20217</ObjectId>
+      <ModifiedTimestamp>2024-12-30.14:33:57</ModifiedTimestamp>
+      <ObjectId>20275</ObjectId>
       <TemporaryPreserve>1</TemporaryPreserve>
     </table>
     <table id="4150" parent="12" name="OL$">
@@ -33395,10 +33395,10 @@
       <TemporaryPreserve>1</TemporaryPreserve>
     </table>
     <table id="4196" parent="12" name="REVISTA">
-      <CreatedTimestamp>2024-12-24.12:14:28</CreatedTimestamp>
+      <CreatedTimestamp>2024-12-30.14:33:55</CreatedTimestamp>
       <DetailsLevel>2</DetailsLevel>
-      <ModifiedTimestamp>2024-12-24.12:14:40</ModifiedTimestamp>
-      <ObjectId>20213</ObjectId>
+      <ModifiedTimestamp>2024-12-30.14:34:02</ModifiedTimestamp>
+      <ObjectId>20271</ObjectId>
       <TemporaryPreserve>1</TemporaryPreserve>
     </table>
     <table id="4197" parent="12" name="SQLPLUS_PRODUCT_PROFILE">
@@ -33445,7 +33445,7 @@
       <DetailsLevel>2</DetailsLevel>
       <Invalid>1</Invalid>
       <Modifiable>1</Modifiable>
-      <ModifiedTimestamp>2024-12-19.12:32:29</ModifiedTimestamp>
+      <ModifiedTimestamp>2024-12-30.13:10:22</ModifiedTimestamp>
       <ObjectId>20078</ObjectId>
       <SourceTextLength>353</SourceTextLength>
     </view>
@@ -33881,7 +33881,7 @@ DESTINATION</ColNames>
       <ColNames>CONTRATADO
 FREELANCE</ColNames>
       <InitiallyDeferred>1</InitiallyDeferred>
-      <ModifiedTimestamp>2024-12-24.12:14:28</ModifiedTimestamp>
+      <ModifiedTimestamp>2024-12-30.14:33:56</ModifiedTimestamp>
       <Predicate>((contratado IS NOT NULL) AND (freelance IS NULL)) OR
         ((contratado IS NULL) AND (freelance IS NOT NULL))</Predicate>
     </check>
@@ -33889,13 +33889,13 @@ FREELANCE</ColNames>
       <ColNames>NUMERO
 REVISTA</ColNames>
       <InitiallyDeferred>1</InitiallyDeferred>
-      <ModifiedTimestamp>2024-12-24.12:14:28</ModifiedTimestamp>
+      <ModifiedTimestamp>2024-12-30.14:33:56</ModifiedTimestamp>
       <Predicate>((revista is NULL) AND (numero IS NULL)) OR ((revista IS NOT NULL) AND (numero IS NOT NULL))</Predicate>
     </check>
     <check id="4278" parent="4042" name="TIPO_OK">
       <ColNames>TIPO</ColNames>
       <InitiallyDeferred>1</InitiallyDeferred>
-      <ModifiedTimestamp>2024-12-24.12:14:28</ModifiedTimestamp>
+      <ModifiedTimestamp>2024-12-30.14:33:56</ModifiedTimestamp>
       <Predicate>tipo IN (&apos;Opinion&apos;, &apos;Informacion&apos;, &apos;Analisis&apos;)</Predicate>
     </check>
     <column id="4279" parent="4042" name="IDART">
@@ -33932,43 +33932,43 @@ REVISTA</ColNames>
     <foreign-key id="4286" parent="4042" name="ARTICULO_FK_REVISTA_NUMERO">
       <ColNames>REVISTA
 NUMERO</ColNames>
-      <ModifiedTimestamp>2024-12-24.12:14:30</ModifiedTimestamp>
+      <ModifiedTimestamp>2024-12-30.14:33:57</ModifiedTimestamp>
       <OnDelete>restrict</OnDelete>
       <RefKeyName>PK_NUMERO</RefKeyName>
       <RefTableName>NUMERO</RefTableName>
     </foreign-key>
     <foreign-key id="4287" parent="4042" name="ARTICULO_FK_CONTRATADO">
       <ColNames>CONTRATADO</ColNames>
-      <ModifiedTimestamp>2024-12-24.12:14:30</ModifiedTimestamp>
+      <ModifiedTimestamp>2024-12-30.14:33:57</ModifiedTimestamp>
       <OnDelete>restrict</OnDelete>
       <RefKeyName>PK_CONTRATADO</RefKeyName>
       <RefTableName>CONTRATADO</RefTableName>
     </foreign-key>
     <foreign-key id="4288" parent="4042" name="ARTICULO_FK_FREELANCE">
       <ColNames>FREELANCE</ColNames>
-      <ModifiedTimestamp>2024-12-24.12:14:30</ModifiedTimestamp>
+      <ModifiedTimestamp>2024-12-30.14:33:57</ModifiedTimestamp>
       <OnDelete>restrict</OnDelete>
       <RefKeyName>PK_FREELANCE</RefKeyName>
       <RefTableName>FREELANCE</RefTableName>
     </foreign-key>
     <index id="4289" parent="4042" name="PK_ARTICULO">
       <ColNames>IDART</ColNames>
-      <CreatedTimestamp>2024-12-24.12:14:28</CreatedTimestamp>
-      <ModifiedTimestamp>2024-12-24.12:14:28</ModifiedTimestamp>
-      <ObjectId>20220</ObjectId>
+      <CreatedTimestamp>2024-12-30.14:33:56</CreatedTimestamp>
+      <ModifiedTimestamp>2024-12-30.14:33:56</ModifiedTimestamp>
+      <ObjectId>20278</ObjectId>
       <Unique>1</Unique>
       <TablespaceName>SYSTEM</TablespaceName>
     </index>
     <key id="4290" parent="4042" name="PK_ARTICULO">
       <InitiallyDeferred>1</InitiallyDeferred>
-      <ModifiedTimestamp>2024-12-24.12:14:28</ModifiedTimestamp>
+      <ModifiedTimestamp>2024-12-30.14:33:56</ModifiedTimestamp>
       <Primary>1</Primary>
       <UnderlyingIndexName>PK_ARTICULO</UnderlyingIndexName>
     </key>
     <check id="4291" parent="4043" name="PAGO_ARTICULO_OK">
       <ColNames>PAGO_ARTICULO</ColNames>
       <InitiallyDeferred>1</InitiallyDeferred>
-      <ModifiedTimestamp>2024-12-24.12:14:29</ModifiedTimestamp>
+      <ModifiedTimestamp>2024-12-30.14:33:56</ModifiedTimestamp>
       <Predicate>pago_articulo &gt; 0</Predicate>
     </check>
     <column id="4292" parent="4043" name="REVISTA">
@@ -33988,14 +33988,14 @@ NUMERO</ColNames>
     </column>
     <foreign-key id="4295" parent="4043" name="COLABORACION_FK_REVISTA">
       <ColNames>REVISTA</ColNames>
-      <ModifiedTimestamp>2024-12-24.12:14:30</ModifiedTimestamp>
+      <ModifiedTimestamp>2024-12-30.14:33:57</ModifiedTimestamp>
       <OnDelete>restrict</OnDelete>
       <RefKeyName>PK_REVISTA</RefKeyName>
       <RefTableName>REVISTA</RefTableName>
     </foreign-key>
     <foreign-key id="4296" parent="4043" name="COLABORACION_FK_FREELANCE">
       <ColNames>FREELANCE</ColNames>
-      <ModifiedTimestamp>2024-12-24.12:14:30</ModifiedTimestamp>
+      <ModifiedTimestamp>2024-12-30.14:33:57</ModifiedTimestamp>
       <OnDelete>restrict</OnDelete>
       <RefKeyName>PK_FREELANCE</RefKeyName>
       <RefTableName>FREELANCE</RefTableName>
@@ -34003,15 +34003,15 @@ NUMERO</ColNames>
     <index id="4297" parent="4043" name="PK_COLABORACION">
       <ColNames>REVISTA
 FREELANCE</ColNames>
-      <CreatedTimestamp>2024-12-24.12:14:29</CreatedTimestamp>
-      <ModifiedTimestamp>2024-12-24.12:14:29</ModifiedTimestamp>
-      <ObjectId>20228</ObjectId>
+      <CreatedTimestamp>2024-12-30.14:33:56</CreatedTimestamp>
+      <ModifiedTimestamp>2024-12-30.14:33:56</ModifiedTimestamp>
+      <ObjectId>20286</ObjectId>
       <Unique>1</Unique>
       <TablespaceName>SYSTEM</TablespaceName>
     </index>
     <key id="4298" parent="4043" name="PK_COLABORACION">
       <InitiallyDeferred>1</InitiallyDeferred>
-      <ModifiedTimestamp>2024-12-24.12:14:29</ModifiedTimestamp>
+      <ModifiedTimestamp>2024-12-30.14:33:57</ModifiedTimestamp>
       <Primary>1</Primary>
       <UnderlyingIndexName>PK_COLABORACION</UnderlyingIndexName>
     </key>
@@ -34019,13 +34019,13 @@ FREELANCE</ColNames>
       <ColNames>DNI
 TUTOR</ColNames>
       <InitiallyDeferred>1</InitiallyDeferred>
-      <ModifiedTimestamp>2024-12-24.12:14:28</ModifiedTimestamp>
+      <ModifiedTimestamp>2024-12-30.14:33:56</ModifiedTimestamp>
       <Predicate>dni &lt;&gt; tutor</Predicate>
     </check>
-    <check id="4300" parent="4044" name="SYS_C007490">
+    <check id="4300" parent="4044" name="SYS_C007646">
       <ColNames>SUELDO</ColNames>
       <InitiallyDeferred>1</InitiallyDeferred>
-      <ModifiedTimestamp>2024-12-24.12:14:28</ModifiedTimestamp>
+      <ModifiedTimestamp>2024-12-30.14:33:56</ModifiedTimestamp>
       <NameSurrogate>1</NameSurrogate>
       <Predicate>sueldo &gt; 0</Predicate>
     </check>
@@ -34066,46 +34066,46 @@ TUTOR</ColNames>
     <foreign-key id="4308" parent="4044" name="CONTRATADO_FK_REVISTA">
       <ColNames>REVISTA</ColNames>
       <Disabled>1</Disabled>
-      <ModifiedTimestamp>2024-12-24.12:14:40</ModifiedTimestamp>
+      <ModifiedTimestamp>2024-12-30.14:34:02</ModifiedTimestamp>
       <OnDelete>restrict</OnDelete>
       <RefKeyName>PK_REVISTA</RefKeyName>
       <RefTableName>REVISTA</RefTableName>
     </foreign-key>
     <foreign-key id="4309" parent="4044" name="CONTRATADO_FK_TUTOR">
       <ColNames>TUTOR</ColNames>
-      <ModifiedTimestamp>2024-12-24.12:14:30</ModifiedTimestamp>
+      <ModifiedTimestamp>2024-12-30.14:33:57</ModifiedTimestamp>
       <OnDelete>restrict</OnDelete>
       <RefKeyName>PK_CONTRATADO</RefKeyName>
       <RefTableName>CONTRATADO</RefTableName>
     </foreign-key>
     <index id="4310" parent="4044" name="PK_CONTRATADO">
       <ColNames>DNI</ColNames>
-      <CreatedTimestamp>2024-12-24.12:14:28</CreatedTimestamp>
-      <ModifiedTimestamp>2024-12-24.12:14:28</ModifiedTimestamp>
-      <ObjectId>20222</ObjectId>
+      <CreatedTimestamp>2024-12-30.14:33:56</CreatedTimestamp>
+      <ModifiedTimestamp>2024-12-30.14:33:56</ModifiedTimestamp>
+      <ObjectId>20280</ObjectId>
       <Unique>1</Unique>
       <TablespaceName>SYSTEM</TablespaceName>
     </index>
-    <index id="4311" parent="4044" name="SYS_C007493">
+    <index id="4311" parent="4044" name="SYS_C007649">
       <ColNames>EMAIL</ColNames>
-      <CreatedTimestamp>2024-12-24.12:14:29</CreatedTimestamp>
-      <ModifiedTimestamp>2024-12-24.12:14:29</ModifiedTimestamp>
+      <CreatedTimestamp>2024-12-30.14:33:56</CreatedTimestamp>
+      <ModifiedTimestamp>2024-12-30.14:33:56</ModifiedTimestamp>
       <NameSurrogate>1</NameSurrogate>
-      <ObjectId>20223</ObjectId>
+      <ObjectId>20281</ObjectId>
       <Unique>1</Unique>
       <TablespaceName>SYSTEM</TablespaceName>
     </index>
     <key id="4312" parent="4044" name="PK_CONTRATADO">
       <InitiallyDeferred>1</InitiallyDeferred>
-      <ModifiedTimestamp>2024-12-24.12:14:29</ModifiedTimestamp>
+      <ModifiedTimestamp>2024-12-30.14:33:56</ModifiedTimestamp>
       <Primary>1</Primary>
       <UnderlyingIndexName>PK_CONTRATADO</UnderlyingIndexName>
     </key>
-    <key id="4313" parent="4044" name="SYS_C007493">
+    <key id="4313" parent="4044" name="SYS_C007649">
       <InitiallyDeferred>1</InitiallyDeferred>
-      <ModifiedTimestamp>2024-12-24.12:14:29</ModifiedTimestamp>
+      <ModifiedTimestamp>2024-12-30.14:33:56</ModifiedTimestamp>
       <NameSurrogate>1</NameSurrogate>
-      <UnderlyingIndexName>SYS_C007493</UnderlyingIndexName>
+      <UnderlyingIndexName>SYS_C007649</UnderlyingIndexName>
     </key>
     <column id="4314" parent="4045" name="Q_NAME">
       <Position>1</Position>
@@ -34817,7 +34817,7 @@ CATCHUP</ColNames>
     </column>
     <foreign-key id="4447" parent="4055" name="ESPECIALIDAD_FK_FREELANCE">
       <ColNames>FREELANCE</ColNames>
-      <ModifiedTimestamp>2024-12-24.12:14:30</ModifiedTimestamp>
+      <ModifiedTimestamp>2024-12-30.14:33:58</ModifiedTimestamp>
       <OnDelete>cascade</OnDelete>
       <RefKeyName>PK_FREELANCE</RefKeyName>
       <RefTableName>FREELANCE</RefTableName>
@@ -34825,15 +34825,15 @@ CATCHUP</ColNames>
     <index id="4448" parent="4055" name="PK_ESPECIALIDAD_FREELANCE">
       <ColNames>FREELANCE
 ESPECIALIDAD</ColNames>
-      <CreatedTimestamp>2024-12-24.12:14:30</CreatedTimestamp>
-      <ModifiedTimestamp>2024-12-24.12:14:30</ModifiedTimestamp>
-      <ObjectId>20230</ObjectId>
+      <CreatedTimestamp>2024-12-30.14:33:57</CreatedTimestamp>
+      <ModifiedTimestamp>2024-12-30.14:33:57</ModifiedTimestamp>
+      <ObjectId>20288</ObjectId>
       <Unique>1</Unique>
       <TablespaceName>SYSTEM</TablespaceName>
     </index>
     <key id="4449" parent="4055" name="PK_ESPECIALIDAD_FREELANCE">
       <InitiallyDeferred>1</InitiallyDeferred>
-      <ModifiedTimestamp>2024-12-24.12:14:30</ModifiedTimestamp>
+      <ModifiedTimestamp>2024-12-30.14:33:57</ModifiedTimestamp>
       <Primary>1</Primary>
       <UnderlyingIndexName>PK_ESPECIALIDAD_FREELANCE</UnderlyingIndexName>
     </key>
@@ -34854,32 +34854,32 @@ ESPECIALIDAD</ColNames>
     </column>
     <index id="4453" parent="4056" name="PK_FREELANCE">
       <ColNames>DNI</ColNames>
-      <CreatedTimestamp>2024-12-24.12:14:29</CreatedTimestamp>
-      <ModifiedTimestamp>2024-12-24.12:14:29</ModifiedTimestamp>
-      <ObjectId>20225</ObjectId>
+      <CreatedTimestamp>2024-12-30.14:33:56</CreatedTimestamp>
+      <ModifiedTimestamp>2024-12-30.14:33:56</ModifiedTimestamp>
+      <ObjectId>20283</ObjectId>
       <Unique>1</Unique>
       <TablespaceName>SYSTEM</TablespaceName>
     </index>
-    <index id="4454" parent="4056" name="SYS_C007497">
+    <index id="4454" parent="4056" name="SYS_C007653">
       <ColNames>EMAIL</ColNames>
-      <CreatedTimestamp>2024-12-24.12:14:29</CreatedTimestamp>
-      <ModifiedTimestamp>2024-12-24.12:14:29</ModifiedTimestamp>
+      <CreatedTimestamp>2024-12-30.14:33:56</CreatedTimestamp>
+      <ModifiedTimestamp>2024-12-30.14:33:56</ModifiedTimestamp>
       <NameSurrogate>1</NameSurrogate>
-      <ObjectId>20226</ObjectId>
+      <ObjectId>20284</ObjectId>
       <Unique>1</Unique>
       <TablespaceName>SYSTEM</TablespaceName>
     </index>
     <key id="4455" parent="4056" name="PK_FREELANCE">
       <InitiallyDeferred>1</InitiallyDeferred>
-      <ModifiedTimestamp>2024-12-24.12:14:29</ModifiedTimestamp>
+      <ModifiedTimestamp>2024-12-30.14:33:56</ModifiedTimestamp>
       <Primary>1</Primary>
       <UnderlyingIndexName>PK_FREELANCE</UnderlyingIndexName>
     </key>
-    <key id="4456" parent="4056" name="SYS_C007497">
+    <key id="4456" parent="4056" name="SYS_C007653">
       <InitiallyDeferred>1</InitiallyDeferred>
-      <ModifiedTimestamp>2024-12-24.12:14:29</ModifiedTimestamp>
+      <ModifiedTimestamp>2024-12-30.14:33:56</ModifiedTimestamp>
       <NameSurrogate>1</NameSurrogate>
-      <UnderlyingIndexName>SYS_C007497</UnderlyingIndexName>
+      <UnderlyingIndexName>SYS_C007653</UnderlyingIndexName>
     </key>
     <column id="4457" parent="4057" name="TOPIC">
       <NotNull>1</NotNull>
@@ -40520,13 +40520,13 @@ QUERYID#</ColNames>
     <check id="5631" parent="4149" name="NUM_ARTICULOS_OK">
       <ColNames>NUM_ARTICULOS</ColNames>
       <InitiallyDeferred>1</InitiallyDeferred>
-      <ModifiedTimestamp>2024-12-24.12:14:28</ModifiedTimestamp>
+      <ModifiedTimestamp>2024-12-30.14:33:55</ModifiedTimestamp>
       <Predicate>num_articulos &gt;= 0</Predicate>
     </check>
     <check id="5632" parent="4149" name="NUMERO_OK">
       <ColNames>NUMERO</ColNames>
       <InitiallyDeferred>1</InitiallyDeferred>
-      <ModifiedTimestamp>2024-12-24.12:14:28</ModifiedTimestamp>
+      <ModifiedTimestamp>2024-12-30.14:33:55</ModifiedTimestamp>
       <Predicate>numero &gt; 0</Predicate>
     </check>
     <column id="5633" parent="4149" name="NUMERO">
@@ -40551,7 +40551,7 @@ QUERYID#</ColNames>
     </column>
     <foreign-key id="5637" parent="4149" name="NUMERO_FK_REVISTA">
       <ColNames>REVISTA</ColNames>
-      <ModifiedTimestamp>2024-12-24.12:14:30</ModifiedTimestamp>
+      <ModifiedTimestamp>2024-12-30.14:33:57</ModifiedTimestamp>
       <OnDelete>cascade</OnDelete>
       <RefKeyName>PK_REVISTA</RefKeyName>
       <RefTableName>REVISTA</RefTableName>
@@ -40559,15 +40559,15 @@ QUERYID#</ColNames>
     <index id="5638" parent="4149" name="PK_NUMERO">
       <ColNames>REVISTA
 NUMERO</ColNames>
-      <CreatedTimestamp>2024-12-24.12:14:28</CreatedTimestamp>
-      <ModifiedTimestamp>2024-12-24.12:14:28</ModifiedTimestamp>
-      <ObjectId>20218</ObjectId>
+      <CreatedTimestamp>2024-12-30.14:33:55</CreatedTimestamp>
+      <ModifiedTimestamp>2024-12-30.14:33:55</ModifiedTimestamp>
+      <ObjectId>20276</ObjectId>
       <Unique>1</Unique>
       <TablespaceName>SYSTEM</TablespaceName>
     </index>
     <key id="5639" parent="4149" name="PK_NUMERO">
       <InitiallyDeferred>1</InitiallyDeferred>
-      <ModifiedTimestamp>2024-12-24.12:14:28</ModifiedTimestamp>
+      <ModifiedTimestamp>2024-12-30.14:33:55</ModifiedTimestamp>
       <Primary>1</Primary>
       <UnderlyingIndexName>PK_NUMERO</UnderlyingIndexName>
     </key>
@@ -44309,7 +44309,7 @@ USER_ID</ColNames>
     <check id="6242" parent="4196" name="PERIODICIDAD_OK">
       <ColNames>PERIODICIDAD</ColNames>
       <InitiallyDeferred>1</InitiallyDeferred>
-      <ModifiedTimestamp>2024-12-24.12:14:28</ModifiedTimestamp>
+      <ModifiedTimestamp>2024-12-30.14:33:55</ModifiedTimestamp>
       <Predicate>periodicidad IN (&apos;Semanal&apos;, &apos;Quincenal&apos;, &apos;Mensual&apos;, &apos;Bimestral&apos;, &apos;Trimestral&apos;, &apos;Anual&apos;)</Predicate>
     </check>
     <column id="6243" parent="4196" name="IDREV">
@@ -44343,54 +44343,54 @@ USER_ID</ColNames>
     </column>
     <foreign-key id="6249" parent="4196" name="COORDINADOR_FK_CONTRATADO">
       <ColNames>COORDINADOR</ColNames>
-      <ModifiedTimestamp>2024-12-24.12:14:40</ModifiedTimestamp>
+      <ModifiedTimestamp>2024-12-30.14:34:02</ModifiedTimestamp>
       <OnDelete>restrict</OnDelete>
       <RefKeyName>PK_CONTRATADO</RefKeyName>
       <RefTableName>CONTRATADO</RefTableName>
     </foreign-key>
     <index id="6250" parent="4196" name="PK_REVISTA">
       <ColNames>IDREV</ColNames>
-      <CreatedTimestamp>2024-12-24.12:14:28</CreatedTimestamp>
-      <ModifiedTimestamp>2024-12-24.12:14:28</ModifiedTimestamp>
-      <ObjectId>20214</ObjectId>
+      <CreatedTimestamp>2024-12-30.14:33:55</CreatedTimestamp>
+      <ModifiedTimestamp>2024-12-30.14:33:55</ModifiedTimestamp>
+      <ObjectId>20272</ObjectId>
       <Unique>1</Unique>
       <TablespaceName>SYSTEM</TablespaceName>
     </index>
-    <index id="6251" parent="4196" name="SYS_C007470">
+    <index id="6251" parent="4196" name="SYS_C007626">
       <ColNames>NOMBRE</ColNames>
-      <CreatedTimestamp>2024-12-24.12:14:28</CreatedTimestamp>
-      <ModifiedTimestamp>2024-12-24.12:14:28</ModifiedTimestamp>
+      <CreatedTimestamp>2024-12-30.14:33:55</CreatedTimestamp>
+      <ModifiedTimestamp>2024-12-30.14:33:55</ModifiedTimestamp>
       <NameSurrogate>1</NameSurrogate>
-      <ObjectId>20215</ObjectId>
+      <ObjectId>20273</ObjectId>
       <Unique>1</Unique>
       <TablespaceName>SYSTEM</TablespaceName>
     </index>
-    <index id="6252" parent="4196" name="SYS_C007471">
+    <index id="6252" parent="4196" name="SYS_C007627">
       <ColNames>COORDINADOR</ColNames>
-      <CreatedTimestamp>2024-12-24.12:14:28</CreatedTimestamp>
-      <ModifiedTimestamp>2024-12-24.12:14:28</ModifiedTimestamp>
+      <CreatedTimestamp>2024-12-30.14:33:55</CreatedTimestamp>
+      <ModifiedTimestamp>2024-12-30.14:33:55</ModifiedTimestamp>
       <NameSurrogate>1</NameSurrogate>
-      <ObjectId>20216</ObjectId>
+      <ObjectId>20274</ObjectId>
       <Unique>1</Unique>
       <TablespaceName>SYSTEM</TablespaceName>
     </index>
     <key id="6253" parent="4196" name="PK_REVISTA">
       <InitiallyDeferred>1</InitiallyDeferred>
-      <ModifiedTimestamp>2024-12-24.12:14:28</ModifiedTimestamp>
+      <ModifiedTimestamp>2024-12-30.14:33:55</ModifiedTimestamp>
       <Primary>1</Primary>
       <UnderlyingIndexName>PK_REVISTA</UnderlyingIndexName>
     </key>
-    <key id="6254" parent="4196" name="SYS_C007470">
+    <key id="6254" parent="4196" name="SYS_C007626">
       <InitiallyDeferred>1</InitiallyDeferred>
-      <ModifiedTimestamp>2024-12-24.12:14:28</ModifiedTimestamp>
+      <ModifiedTimestamp>2024-12-30.14:33:55</ModifiedTimestamp>
       <NameSurrogate>1</NameSurrogate>
-      <UnderlyingIndexName>SYS_C007470</UnderlyingIndexName>
+      <UnderlyingIndexName>SYS_C007626</UnderlyingIndexName>
     </key>
-    <key id="6255" parent="4196" name="SYS_C007471">
+    <key id="6255" parent="4196" name="SYS_C007627">
       <InitiallyDeferred>1</InitiallyDeferred>
-      <ModifiedTimestamp>2024-12-24.12:14:28</ModifiedTimestamp>
+      <ModifiedTimestamp>2024-12-30.14:33:55</ModifiedTimestamp>
       <NameSurrogate>1</NameSurrogate>
-      <UnderlyingIndexName>SYS_C007471</UnderlyingIndexName>
+      <UnderlyingIndexName>SYS_C007627</UnderlyingIndexName>
     </key>
     <column id="6256" parent="4197" name="PRODUCT">
       <NotNull>1</NotNull>
