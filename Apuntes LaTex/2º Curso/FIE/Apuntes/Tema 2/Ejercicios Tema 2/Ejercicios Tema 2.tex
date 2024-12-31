@@ -1,0 +1,421 @@
+\begin{center}
+    \textbf{\large Hoja de ejercicios Tema 2: Estimación} 
+\end{center}
+\begin{enumerate}[label=\color{red}\textbf{\arabic*)}]
+    \item \lb{Sea $X$ variable aleatoria con distribución Bernoulli, de parámetro $p(X\sim b(p))$ y sea $X_1,X_2,\dots,X_n$ una muestra aleatoria simple (m.a.s) de $X$}
+        \begin{enumerate}[label=\color{red}\textbf{\alph*)}]
+            \item \db{Obtener el estimador de los momentos y el estimador de máxima verosimilitud de $p$.}
+                \begin{enumerate}[label=\arabic*)]
+                    \item Estimador de momentos
+
+                        Sea $X\sim \mathrm{Bernoulli}(p)$, entonces \[
+                            E[X]=p
+                        \] 
+                        Si $X_1,X_2,\dots,X_n$ es una muestra aleatoria simple, el estimador de momentos  $\hat{p}$ se obtiene igualando $E[X]$ a la media muestral:  \[
+                        \hat{p}=\overline{X}=\dfrac{1}{n}\sum_{i=1}^{n} X_i.
+                        \] 
+                    \item Estimador de máxima verosimilitud
+
+                        La función de verosimilitud para una muestra de tamaño $n$ es: \[
+                        L(p)=\prod_{i=1}^{n} p^{X_i}(1-p)^{1-X_i} 
+                        \] 
+                        Tomando logaritmos: \[
+                            \ell(p)=\ln(L(p))=\sum_{i=1}^{n} [X_i\ln(p)+(1-X_i)\ln(1-p)]
+                        \] 
+                        Derivamos respecto a $p$ e igualamos a cero: \[
+                        \frac{\partial \ell(p)}{\partial p} =\dfrac{\sum_{i=1}^{n} X_i}{p}-\dfrac{n-\sum_{i=1}^{n} X_i}{1-p}=0
+                        \] 
+                        Simplificamos: \[
+                        \begin{array}{c}
+                            \sum_{i=1}^{n} x_i(1-p)=\sum_{i=1}^{n} p\\
+                            \sum_{i=1}^{n}x_i-p \sum_{i=1}^{n} x_i=p \sum_{i=1}^{n} (1-x_i)\\
+                            \sum_{i=1}^{n}x_i =p \sum_{i=1}^{n} x_i+p \sum_{i=1}^{n} (1-x_i)\\
+                            \sum_{i=1}^{x_i}x_i= p \sum_{i=1}^{n} 1\\
+                            p = \dfrac{1}{n}\sum_{i=1}^{n} x_i=\overline{X}.
+                        \end{array}
+                        \] 
+                \end{enumerate}
+            \item \db{Calcular el sesgo y el error cuadrático medio de ambos estimadores.} 
+                \begin{enumerate}[label=\arabic*)]
+                    \item Sesgo
+
+                        El sesgo de un estimador $\hat{p}$ es: \[
+                            \mathrm{Sesgo}(\hat{p})=E[\hat{p}]-p=p-p=0
+                        \] 
+                        Dado que $\overline{X}\sim \mathcal{B}(n,p)/n$: \[
+                            E[\overline{X}]=E\left[ \dfrac{\sum_{i=1}^{n} X_i}{n} \right] =\dfrac{1}{n}\sum_{i=1}^{n} E[X_i]=\dfrac{1}{n} \cdot n\cdot p=p
+                        \] 
+                        Por lo tanto, tanto el estimador de momentos como el estimador de máxima verosimilitud son insesgados.
+                    \item Error Cuadrático Medio (ECM)
+
+                        El ECM de un estimador $\hat{p}$ es: \[
+                            \mathrm{ECM}(\hat{p})=E[(\hat{p}-p)^2]
+                        \] 
+                        Usano la relación $\mathrm{ECM}(\hat{p})=\mathrm{Var}(\hat{p})+(\mathrm{Sesgo}(\hat{p}))^2$, y como los estimadores son insesgados, el ECM coincide con la varianza: \[
+                        \mathrm{ECM}(\hat{p})=\mathrm{Var}(\hat{p})
+                        \] 
+                        La varianza de $\overline{X}$ es: \[
+                        \mathrm{Var}(\overline{X})=\mathrm{Var}\left( \dfrac{1}{n}\sum_{i=1}^{n} X_i \right) =\dfrac{1}{n^2}\sum_{i=1}^{n} \mathrm{Var}(X_i)
+                        \] 
+                        Dado que $X_i\sim \mathrm{Bernoulli}(p)$, la varianza de $X_i$ es  $\mathrm{Var}(X_i)=p(1-p)$. Por lo tanto: \[
+                        \mathrm{Var}(\overline{X})=\dfrac{1}{n^2}(n\cdot p(1-p))=\dfrac{p(1-p)}{n}
+                        \] 
+                        Por lo tanto, el ECM de ambos estimadores es: \[
+                        \mathrm{ECM}(\hat{p})=\dfrac{p(1-p)}{n}
+                        \] 
+                \end{enumerate}
+        \end{enumerate}
+    \item \lb{Sea $X$ variable aleatoria con distribución exponencial, de parámetro $\lambda(X\sim P(\lambda))$ y sea $X_1,X_2,\dots,X_n$ una muestra aleatoria simple (m.a.s) de $X$. Obtener el estimador de los momentos y el estimador de máxima verosimilitud de $\lambda$.} 
+
+        Dado que $X\sim \mathrm{Exp}(\lambda)$, su función de densidad de probabilidad es: \[
+        f_X(x;\lambda)=\begin{cases}
+            \lambda e^{-\lambda x}, & x\ge 0\\
+            0, & x<0
+        \end{cases}
+        \] 
+        Donde $\lambda >0$ es el parámetro de la distribución.
+        \begin{enumerate}[label=\arabic*)]
+            \item Estimador de los momentos
+
+                Para el método de los momentos, igualamos el momento teórico con el momento muestral. El primero momento de $X$, es decir, la media esperada, es:  \[
+                    E[X]=\dfrac{1}{\lambda}.
+                \] 
+                La media muestra $\overline{X}$ es: \[
+                \overline{X}=\dfrac{1}{n}\sum_{i=1}^{n} X_i.
+                \] 
+                Igualamos la media teórica con la media muestral para estimar $\lambda$:
+                \[
+                    E[X]=\overline{X}\longrightarrow \dfrac{1}{\lambda}=\overline{X}
+                \] 
+                Por lo tanto, el \textbf{estimador de los momentos} para $\lambda$ es: \[
+                \hat{\lambda}=\dfrac{1}{\overline{X}}
+                \]  
+            \item Estimador de máxima verosimilitud
+
+                La función de verosimilitud para la muestra $X_1,X_2,\dots,X_n$ es el producto de las densidades: \[
+                L(\lambda)=\prod_{i=1}^{n} f_X(X_i;\lambda)=\prod_{i=1}^{n} \lambda e^{-\lambda X_i}.   
+                \] 
+                Romando logaritmos naturales para simplificar: \[
+                \ell(\lambda)=\ln L(\lambda)=\sum_{i=1}^{n} \ln(\lambda)-\lambda \sum_{i=1}^{n} X_i.
+                \] 
+                Derivamos respecto a $\lambda$ e igualamos a cero para encontrar el máximo: \[
+                \frac{\partial \ell(\lambda)}{\partial \lambda} =\dfrac{n}{\lambda}-\sum_{i=1}^{n} X_i=0\longrightarrow \lambda=\dfrac{n}{\sum_{i=1}^{n} X_i}.
+                \] 
+                Dado que $\sum_{i=1}^{n} X_i=n\overline{X}$, esto puede reescribirse como: \[
+                \hat{\lambda}=\dfrac{1}{\overline{X}}.
+                \] 
+        \end{enumerate}
+    \item \lb{Demostrar que, si $\theta\mapsto L_n(\theta)$ es una verosimilitud, maximizar $\theta\mapsto L_n(\theta)$ es equivalente a maximizar $\theta\mapsto \log(L_n(\theta))$.} 
+
+        Para demostrar que maximizar $\theta\longmapsto L_n(\theta)$ es equivalente a maximizar $\theta\longmapsto \log(L_n(\theta))$, analizaremos la relación entre ambas funciones.
+        \begin{enumerate}[label=\arabic*)]
+            \item Propiedad de la función logaritmo
+
+                La función logaritmo natural, $\log(x)$, es estrictamente creciente para $x>0 $. Esto significa que si $x_1>x_2>0$, entonces $\log(x_1)>\log(x_2)$. Por lo tanto, maximizar una función positiva $L_n(\theta)>0$ es equivalente a maximizar su logaritmo natural $\log(L_n(\theta))$.
+            \item Relación entre $L_n(\theta)$ y $\log(L_n(\theta))$
+
+                Supongamos que $\theta^*$ maximiza $L_n(\theta)$. Esto implica que para todo $\theta$: \[
+                L_n(\theta^*)\ge L_n(\theta).
+                \] 
+                Dado que $\log(x)$ es estrictamente creciente, tomar logaritmos no altera la relación: \[
+                \log(L_n(\theta^*))\ge \log(L_n(\theta)).
+                \] 
+                Esto muestra que $\theta^*$ también maximiza $\log(L_n(\theta))$.
+        \end{enumerate}
+    \item \lb{Sea $X$ variable aleatoria con distribución de Poisson, de parámetro $\lambda(X\sim P(\lambda))$ y sea $X_1,X_2,\dots,X_n$ una muestra aleatoria simple (m.a.s) de $X$. Obtener el estimador de los momentos y el estimador de máxima verosimilitud de  $\lambda$.}
+
+        Para estimar el parámetro $\lambda$ de una distribución de Poisson, analizamos los dos métodos de estimación: \textbf{método de los momentos} y \textbf{máxima verosimilitud}.
+        \begin{enumerate}[label=\arabic*)]
+            \item Función de probabilidad de Poisson
+
+                La función de probabilidad de una variable aleatoria $X\sim \mathrm{Poisson}(\lambda)$ es: \[
+                P(X=k)=\dfrac{\lambda^{k}e^{-\lambda} }{k!},\quad k=0,1,2,\dots
+                \] 
+            \item Estimador de los momentos
+
+                El momento teórico de primer orden de $X$ es su esperanza: \[
+                    E[X]=\lambda.
+                \] 
+                Por el método de los momentos, igualamos la media teórica con la media muestral: \[
+                    E[X]=\overline{X}\longrightarrow \lambda=\overline{X}.
+                \] 
+                Por lo tanto, el \textbf{estimador de los momentos} para $\lambda$ es: \[
+                \hat{\lambda}=\overline{X}.
+                \] 
+            \item Estimador de máxima verosimilitud
+
+                La función de verosimilitud para una muestra aleatoria simple $X_1,X_2,\dots,X_n$ es el producto de las probabilidades individuales: \[
+                    L(\lambda)=\prod_{i=1}^{n} \dfrac{\lambda^{X_i}e^{-\lambda} }{X_i!}=\lambda^{\sum_{i=1}^{n} X_i}e^{-n\lambda}\prod_{i=1}^{n} \dfrac{1}{X_i!}  . 
+                \] 
+                Tomamos el logaritmo natural para facilitar el cálculo: \[
+                \ell(\lambda)=\ln L(\lambda)=\left( \sum_{i=1}^{n} X_i \right) \ln(\lambda)-n\lambda-\sum_{i=1}^{n} \ln(X_i!).
+                \] 
+                Derivamos respecto a $\lambda$ e igualamos a cero para encontrar el máximo: \[
+                \frac{\partial \ell(\lambda)}{\partial \lambda}=\dfrac{\sum_{i=1}^{n} X_i}{\lambda}-n=0\longrightarrow \lambda=\dfrac{1}{n}\sum_{i=1}^{n} X_i=\overline{X}. 
+                \] 
+                Por lo tanto, el \textbf{estimador de máxima verosimilitud} para lambda es: \[
+                \hat{\lambda}=\overline{X}.
+                \]  
+        \end{enumerate}
+    \item \lb{Sea $X$ variable aleatoria con distribución normal, de parámetros $\mu$ y $\sigma^2(X\sim \mathcal{N}(\mu,\sigma^2))$ y sea $X_1,X_2,\dots,X_n$ una muestra aleatoria simple (m.a.s.) de $X$. Obtener el estimador de máxima verosimilitud de  $(\mu,\sigma^2)$. ¿Cuál es el sesgo y el error cuadrático medio para el estimador de máxima verosimilitud de $\mu$?} 
+        \begin{enumerate}[label=\arabic*)]
+            \item Planteamiento del problema
+
+                Dado que $X\sim \mathcal{N}(\mu,\sigma^2)$, la función de densidad de probabilidad es: \[
+                f_X(x;\mu,\sigma^2)=\dfrac{1}{\sqrt{2\pi\sigma^2} }e^{-\frac{(x-\mu)^2}{2\sigma^2} } .
+                \] 
+                Para una muestra aleatoria simple $X_1,X_2,\dots,X_n$ necesitamos encontrar los estimadores de máxima verosimilitud para $\mu$ y $\sigma^2$.
+            \item Función de verosimilitud
+
+                La función de verosimilitud es: \[
+                L(\mu,\sigma^2)=\prod_{i=1}^{n} f_X(X_i;\mu,\sigma^2) =\prod_{i=1}^{n} \dfrac{1}{\sqrt{2\pi\sigma^2} }e^{-\frac{(X_i-\mu)^2}{2\sigma^2} }=(2\pi\sigma^2)^{-\frac{n}{2} }e^{-\frac{1}{2\sigma^2}\sum_{i=1}^{n} (X_i-\mu)^2 }.
+                \] 
+            \item Logaritmo de la verosimilitud 
+
+                Tomamos el logaritmo natural para facilitar los cálculos: \[
+                \ell(\mu,\sigma^2)=\ln L(\mu,\sigma^2)=-\dfrac{n}{2}\ln(2\pi)-\dfrac{n}{2}\ln(\sigma^2)-\dfrac{1}{2\sigma^2}\sum_{i=1}^{n} (X_i-\mu)^2.
+                \] 
+            \item Derivadas y estimadores
+                \begin{enumerate}[label=\alph*)]
+                    \item Para $\mu$:
+
+                        Derivamos respecto a $\mu$ e igualamos a cero: \[
+                        \frac{\partial \ell(\mu,\sigma^2)}{\partial \mu}=\dfrac{1}{\sigma^2}\sum_{i=1}^{n} (X_i-\mu)=0\longrightarrow \sum_{i=1}^{n} (X_i-\mu)=0\longrightarrow \sum_{i=1}^{n} X_i=n\mu\longrightarrow \hat{\mu}=\dfrac{1}{n}\sum_{i=1}^{n} X_i=\overline{X}
+                        \] 
+                        Por tanto, el \textbf{estimador de máxima verosimilitud de $\mu$} es la \textbf{media muestral}, $\overline{X}$.
+                    \item Para $\sigma^2$:
+
+                        Derivamos respecto a $\sigma^2$ e igualamos a cero: \[
+                            \begin{aligned}
+                                \frac{\partial \ell(\mu,\sigma^2)}{\partial \sigma^2}=-\dfrac{n}{2}\dfrac{1}{\sigma^2}+\dfrac{1}{2(\sigma^2)^2}\sum_{i=1}^{n} (X_i-\overline{X})^2=0 & \longrightarrow -\dfrac{n}{2\sigma^2}+\dfrac{1}{2(\sigma^2)^2}\sum_{i=1}^{n} (X_i-\overline{X})^2=0\longrightarrow \sum_{i=1}^{n} (X_i-\overline{X})^2=n\hat{\sigma^2} \\
+                                                                                                                                                                                                      & \longrightarrow \hat{\sigma}^2=\dfrac{1}{n}\sum_{i=1}^{n} (X_i-\overline{X})^2
+                            \end{aligned}
+                        \]  
+                        Este estimador de máxima verosimilitud de $\sigma^2$ es \textbf{no} insesgado.
+                \end{enumerate}
+            \item Sesgo y ECM del estimador de $\mu$
+                \begin{enumerate}[label=\alph*)]
+                    \item Sesgo
+
+                        El sesgo de un estimador $\hat{\mu}$ es: \[
+                            \mathrm{Sesgo}(\hat{\mu})=E[\hat{\mu}]-\mu.
+                        \] 
+                        Como $\hat{\mu}=\overline{X}$ y sabemos que $E[\overline{X}]=\mu$, se tiene: \[
+                        \mathrm{Sesgo}(\hat{\mu})=\mu-\mu=0
+                        \] 
+                        El estimador de $\mu$ es \textbf{insesgado}.
+                    \item Error cuadrático medio (ECM)
+
+                        El ECM de $\hat{\mu}$ es: \[
+                        \mathrm{ECM}(\hat{\mu})=\mathrm{Var}(\hat{\mu})+(\mathrm{Sesgo}(\hat{\mu}))^2=\mathrm{Var}(\hat{\mu})=\mathrm{Var}(\overline{X})=\dfrac{\sigma^2}{n}.
+                        \] 
+                        Por lo tanto: \[
+                        \mathrm{ECM}(\hat{\mu})=\dfrac{\sigma^2}{n}.
+                        \] 
+                \end{enumerate}
+        \end{enumerate}
+    \item \lb{Sea $X$ una variable aleatoria con función de densidad \[
+    f(x,\theta)=\dfrac{2x}{\theta}\exp\left( -\dfrac{x^2}{\theta} \right) \chi_{(0,+\infty)}(x).
+    \]Sea $X_1,X_2,\dots,X_n$ una muestra aleatoria simple (m.a.s) de $X$. Obtener el estimador de máxima verosimilitud de $\theta$.}
+
+    \begin{enumerate}[label=\arabic*)]
+        \item Función de verosimilitud
+
+            La función de verosimilitud para la muestra $X_1,X_2,\dots,X_n$ es el producto de las densidades individuales: \[
+            L(\theta)=\prod_{i=1}^{n} f(X_i,\theta)=\prod_{i=1}^{n} \dfrac{2X_i}{\theta}\exp\left( -\dfrac{X_i^2}{\theta} \right) =\left( \dfrac{2}{\theta} \right)^2 \prod_{i=1}^{n} X_i\cdot \exp\left( -\dfrac{1}{\theta}\sum_{i=1}^{n} X_i^2 \right)    . 
+            \] 
+        \item Logaritmo de la función de verosimilitud
+
+            \[
+                \ell(\theta)=\ln L(\theta)=n\ln 2-n\ln\theta+\sum_{i=1}^{n} \ln X_i-\dfrac{1}{\theta}\sum_{i=1}^{n} X_i^2.
+            \] 
+        \item Derivada y condición de máximo
+
+            Para maximizar $\ell(\theta)$, derivamos respecto a $\theta$ e igualamos a cero: \[
+            \frac{\partial \ell(\theta)}{\partial \theta}=-\dfrac{n}{\theta}+\dfrac{1}{\theta^2}\sum_{i=1}^{n} X_i^2=0\longrightarrow -n\theta+\sum_{i=1}^{n} X_i^2=0\longrightarrow \theta=\dfrac{1}{n}\sum_{i=1}^{n} X_i^2. 
+            \] 
+        \item Estimador de máxima verosimilitud
+
+            El estimador de máxima verosimilitud para $\theta$ es: \[
+            \hat{\theta}=\dfrac{1}{n}\sum_{i=1}^{n} X_i^2,
+            \] 
+            es decir, el promedio de los cuadrado de las observaciones.
+    \end{enumerate}
+\item \lb{Sea $X$ una variable aleatoria con función de densidad \[
+    f(x,\theta)=\dfrac{\theta}{(1+x)^{1+\theta}}\chi_{(0,+\infty)}(x).
+    \]Sea $X_1,X_2,\dots,X_n$ una muestra aleatoria simple (m.a.s) de $X$. Obtener el estimador de máxima verosimilitud de $\theta$.}
+
+    \begin{enumerate}[label=\arabic*)]
+        \item Función de verosimilitud
+
+            La función de verosimilitud para una muestra $X_1,X_2,\dots,X_n$ es: \[
+            L(\theta)=\prod_{i=1}^{n} f(X_i,\theta)=\prod_{i=1}^{n} \dfrac{\theta}{(1+X_i)^{1+\theta}}=\theta^n \prod_{i=1}^{n} (1+X_i)^{-(1+\theta)} =\theta^n \prod_{i=1}^{n} (1+X_i)^{-1}\prod_{i=1}^{n} (1+X_i)^{-\theta}   . 
+            \] 
+        \item Logaritmo de la función de verosimilitud
+
+            Tomamos el logaritmo natural para facilitar el cálculo: \[
+            \ell(\theta)=\ln L(\theta)=n\ln\theta-(1+\theta)\sum_{i=1}^{n} \ln(1+X_i)
+            \] 
+        \item Derivada e igualación a cero
+
+            Para encontrar el valor de $\theta$ que maximiza la función de verosimiliutd, derivamos $\ell(\theta)$ respecto a $\theta$ e igualamos a cero: \[
+            \frac{\partial \ell(\theta)}{\partial \theta}=\dfrac{n}{\theta}-\sum_{i=1}^{n} \ln(1+X_i)=0\longrightarrow \dfrac{n}{\theta}=\sum_{i=1}^{n} \ln(1+X_i)\longrightarrow \theta=\dfrac{n}{\sum_{i=1}^{n} \ln(1+X_i)} .
+            \] 
+        \item Estimador de máxima verosimilitud
+
+            El \textbf{estimador de máxima verosimilitud} para $\theta$ es: \[
+            \hat{\theta}=\dfrac{n}{\sum_{i=1}^{n} \ln(1+X_i)}.
+            \] 
+             
+    \end{enumerate}
+
+    \item \lb{Sea $X$ una variable aleatoria con distribución uniforme en el intervalo  $(a,5)$ con  $a<5(X\sim U(a,5))$. Sea $X_1,X_2,\dots,X_n$ una muestra aleatoria simple $(m.a.s.)$ de $X$. Obtener el estimador de máxima verosimilitud de $a$. Estudiar su distribución en el muestreo.} 
+
+        \begin{enumerate}[label=\arabic*)]
+            \item Planteamiento
+
+                Dada la variable aleatoria $X\sim U(a,5)$ con $a<5$, la función de densidad de probabilidad es: \[
+                f(x;a)=\begin{cases}
+                    \dfrac{1}{5-a} & \text{si }a<x<5\\
+                    0 & \text{en otro caso}
+                \end{cases}
+                \] 
+            \item Función de verosimilitud
+
+                La función de verosimilitud para la muestra es el producto de las densidades: \[
+                L(a)=\prod_{i=1}^{n} f(X_i;a). 
+                \] 
+                Sustituyendo $f(x;a)$:  \[
+                L(a)=\begin{cases}
+                    \left( \dfrac{1}{5-a} \right)^n & \text{si $a<\min(X_1,X_2,\dots,X_n)$}\\
+                    0 & \text{en otro caso}
+                \end{cases}
+                \] 
+                Para que $f(x;a)>0$, se requiere que  $a<\min(X_i)$. De lo contrario,  $L(a)=0$.
+                
+                Por lo tanto, la función de verosimilitud se expresa como:  \[
+                L(a)=\left( \dfrac{1}{5-a} \right) ^n,\quad \text{para $a<\min(X_i)$}.
+                \] 
+            \item Estimador de máxima verosimilitud
+
+                El estimador de máxima verosimilitud es el valor de $a$ que maximiza $L(a)$. Observamos que  $L(a)$ decrece conforme  $a$ aumenta. Por lo tanto, para maximizar $L(a)$,  $a$ debe ser los más grande posible mientras satisface  $a<\min(X_i)$.
+
+                Así, el estiador de máxima verosimilitud es:  \[
+                \hat{a}=\min(X_1,X_2,\dots,X_n).
+                \] 
+            \item Distribución del estimador en el muestreo
+
+                Sabemos que para una muestra aleatoria simple $X_1,X_2,\dots,X_n$ de una distribución uniforme $U(a,5)$, la función de distribución acumulada de  $X_i$ es:  \[
+                F_{X_i}(x)=\begin{cases}
+                    0 & \text{si }x<a\\
+                    \dfrac{x-a}{5-a} & \text{si }a\le x\le 5\\
+                    1 & \text{si }x>5
+                \end{cases}
+                \] 
+                El estimador $\hat{a}=\min(X_1,X_2,\dots,X_n)$ es el mínimo de $n$ observaciones independientes, cuya función de distribución acumulada es: \[
+                F_{\hat{a}}(x)=P(\hat{a}\le x)=1-P(\hat{a}>x)=1-P(X_1>x,X_2>x,\dots,X_n>x).
+                \] 
+                Dado que las observaciones son independientes: \[
+                P(\hat{a}>x)=P(X_1>x)^n=(1-F_{X_i}(x))^n.
+                \] 
+                Sustituyendo $F_{X_i}(x)$ para $a\le x\le 5$: \[
+                1-F_{X_i}(x)=1-\dfrac{x-a}{5-a}=\dfrac{5-x}{5-a}.
+                \] 
+                Por lo tanto: \[
+                F_{\hat{a}}(x)=\begin{cases}
+                    0 & \text{si }x<a\\
+                    1-\left( \dfrac{5-x}{5-a} \right) ^n & \text{si }a\le x\le 5\\
+                    1 & \text{si }x>5
+                \end{cases}
+                \] 
+                La densidad $\hat{a}$ se obtiene derivando la función de distribución acumulada: \[
+                f_{\hat{a}}(x)=\begin{cases}
+                    n\dfrac{(5-x)^{n-1}}{(5-a)^{n-1}} & \text{si }a\le x\le 5\\
+                    0 & \text{en otro caso}
+                \end{cases}
+                \] 
+        \end{enumerate}
+    \item \lb{Sea $X$ variable aleatoria con distribución $\mathrm{Gamma}(\alpha,\beta)$, de parámetros $\alpha$ y $\beta(X\sim \mathrm{Gamma}(\alpha,\beta))$ y sea $X_1,X_2,\dots,X_n$ una muestra aleatoria simple (m.a.s.) de $X$.} 
+        \begin{enumerate}[label=\color{red}\textbf{\alph*)}]
+            \item \db{Obtener los estimadores de $\alpha$ y $\beta$ usando el método de los momentos.}
+
+                La distribución $X\sim \mathrm{Gamma}(\alpha,\beta)$ tiene los siguientes momentos teóricos:
+                \begin{enumerate}[label=\arabic*)]
+                    \item La media es: \[
+                            E[X]=\dfrac{\alpha}{\beta}.
+                    \] 
+                \item La varianza es: \[
+                \mathrm{Var}(X)=\dfrac{\alpha}{\beta^2}
+                \] 
+                \end{enumerate}
+                Para el método de los momentos, igualamos estos momentos teóricos a los momentos muestrales:
+                \begin{itemize}[label=\textbullet]
+                    \item \textbf{Media muestral:} \[
+                    \overline{X}=\dfrac{1}{n}\sum_{i=1}^{n} X_i.
+                    \]  
+                \item \textbf{Varianza muestral:} \[
+                S^2=\dfrac{1}{n}\sum_{i=1}^{n} (X_i-\overline{X})^2.
+                \]  
+                \end{itemize}
+                Igualamos los momentos:
+                \begin{enumerate}[label=\arabic*)]
+                    \item De la media: \[
+                            E[X]=\dfrac{\alpha}{\beta}\longrightarrow \dfrac{\alpha}{\beta}=\overline{X}
+                    \] 
+                \item De la varianza: \[
+                \mathrm{Var}(X)=\dfrac{\alpha}{\beta^2}\longrightarrow \dfrac{\alpha}{\beta^2}=S^2.
+                \] 
+                \end{enumerate}
+                De la primera ecuación: \[
+                    \alpha=\beta\overline{X}.
+                \] 
+                Sustituimos en la segunda ecuación de la varianza: \[
+                \dfrac{\beta\overline{X}}{\beta^2}=S^2\longrightarrow \dfrac{\overline{X}}{\beta}=S^2\longrightarrow \beta=\dfrac{\overline{X}}{S^2}.
+                \] 
+                Finalmente, sustituimos este valor de $\beta$ en $\alpha=\beta\overline{X}$: \[
+                \alpha=\dfrac{\overline{X}}{Ss^2}\cdot \overline{X}=\dfrac{\overline{X}^2}{S^2}.
+                \] 
+
+                \textbf{Estimadores de los momentos:} \[
+                \hat{\alpha}=\dfrac{\overline{X}^2}{S^2},\quad \beta=\dfrac{\overline{X}}{S^2}.
+                \]  
+            \item \db{Obtener la log-verosimilitud como función de $(\alpha,\beta)$} 
+
+                La función de densidad de la distribución gamma es: \[
+                f(x;\alpha,\beta)=\dfrac{\beta^{\alpha}}{\Gamma(\alpha)}x^{\alpha-1}e^{-\beta x},\quad x>0, 
+                \] 
+                donde $\Gamma(\alpha)$ es la función gamma. Para una muestra aleatoria simple $X_1,X_2,\dots,X_n$, la función de verosimilitud es: \[
+                L(\alpha,\beta)=\prod_{i=1}^{n} \dfrac{\beta^{\alpha}}{\Gamma(\alpha)} X_i^{\alpha-1}e^{-\beta X_i}=\dfrac{\beta^{n\alpha}}{\Gamma(\alpha)^n}\prod_{i=1}^{n} X_i^{\alpha-1}e^{-\beta \sum_{i=1}^{n} X_i}  . 
+                \] 
+                La log-verosimilitud es el logaritmo de esta función: \[
+                \ell(\alpha,\beta)=\ln L(\alpha,\beta)=n\alpha\ln\beta-n\ln\Gamma(\alpha)+(\alpha-1)\sum_{i=1}^{n} \ln X_i-\beta \sum_{i=1}^{n} X_i.
+                \] 
+        \item \db{Demostrar que, para un valor $\alpha$ fijado, el valor de $\beta$ que maximiza la log-verosimilitud es: \[
+        \hat{\beta}=\dfrac{\overline{x}}{\alpha}.
+        \] }
+
+        \begin{enumerate}[label=Paso \arabic*:]
+            \item Derivada respecto a $\beta$
+
+                Derivamos $\ell(\alpha,\beta)$ respecto a $\beta$: \[
+                \frac{\partial \ell(\alpha,\beta)}{\partial \beta}=-n\alpha \dfrac{1}{\beta}+\dfrac{1}{\beta^2}\sum_{i=1}^{n} X_i=-n\alpha\beta+\sum_{i=1}^{n} X_i=0. 
+                \] 
+            \item Igualamos la derivada a cero
+
+                Para maximizar $\ell(\alpha,\beta)$, igualamos la derivada a cero: \[
+                    n\alpha\beta=\sum_{i=1}^{n} X_i\longrightarrow \beta=\dfrac{\sum_{i=1}^{n} X_i}{n\alpha}.
+                \] 
+            \item Relación con la media muestral
+
+                Recordemos que la media muestral es: \[
+                \overline{X}=\dfrac{1}{n}\sum_{i=1}^{n} X_i.
+                \] 
+                Sustituyendo $\sum_{i=1}^{n} X_i=n\overline{X}$ en la ecuación para $\beta$: \[
+                    \beta=\dfrac{n\overline{X}}{n\alpha}=\dfrac{\overline{X}}{\alpha}
+                \] 
+                Por lo tanto, el valor de $\beta$ que maximiza la log-verosimilitud para un $\alpha$ fijo es: \[
+                \hat{\beta}=\dfrac{\overline{X}}{\alpha}
+                \] 
+        \end{enumerate}
+        \end{enumerate}
+\end{enumerate}
