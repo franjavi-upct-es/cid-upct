@@ -108,42 +108,470 @@
     \item \lb{Sean $v_1,v_2,v_3\in \mathbb{K}^n$ con $n\ge 3$. Pon un ejemplo de una matriz $A$ tal que los sistemas de ecuaciones $Ax=v_1$ y $Ax=v_2$ tengan solución pero el sistema $Ax=v_3$ no lo tenga.}
 
         
-    \item \lb{Completa la frase "el vector $b$ pertenee a $\mathrm{Col}(A)$ cuando \dots\dots tiene solución".}
+        Para encontrar un ejemplo de una matriz $A$ en $\mathbb{K}^{n\times n}$ (donde $\mathbb{K}$ es un cuerpo, como $\R$ o $\mathbb{C}$), junto con vectore $v_1,v_2,v_3\in \mathbb{K}^n$, tal que:
+        \begin{enumerate}[label=\arabic*)]
+            \item $Ax=v_1$ y $Ax=v_2$ tienen solución.
+            \item $Ax=v_3$ no tiene solución.
+        \end{enumerate}
+        Seguimos estos pasos:
 
+        \textbf{Construcción del ejemplo:}
+        \begin{enumerate}[label=\arabic*)]
+            \item Para que $Ax=v_1$ y $Ax=v_2$ tengan solución, los vectores $v_1$ y $v_2$ deber pertenecer al espacio columnas de $A$, es decir,  $\mathrm{Im}(A)$.
+            \item Para que $Ax=v_3$ no tenga solución, $v_3$ debe estar fuera del espacio columna de $A$.
+        \end{enumerate}
 
+        Supongamos que $A\in \R^{3\times 3}$, con rango 2 (por simplicidad). Esto implica que $\mathrm{Im}(A)$ es un subespacio de dimensión $2$ en  $\R^3$.
+
+        Sea: \[
+        A=\begin{bmatrix} 
+            1 & 0 & 0\\
+            0 & 1 & 0\\
+            0 & 0 & 0
+        \end{bmatrix} .
+        \] 
+        \begin{enumerate}[label=\arabic*)]
+            \item \textbf{Espacio columna de $A$:} El espacio columna de $A$ está generado por $\{(1,0,0),(0,1,0)\} $, que es un subespacio de $\R^3$ de dimensión 2.
+
+            \item \textbf{Elegir $v_1$ y $v_2$ dentro de $\mathrm{Im}(A)$:} Escogemos $v_1=(1,1,0)$ y $v_2=(2,-1,0)$, ambos en $\mathrm{Im}(A)$.
+            \item \textbf{Elegir $v_3$ fuera de $\mathrm{Im}(A)$:} Escogemos $v_3=(0,0,1)$, que no pertenece a $\mathrm{Im}(A)$, ya que su componente en la tercera coordenada es no nula y la tercera fila de $A$ es cero.
+        \end{enumerate}
+        \textbf{Verificación}
+        \begin{enumerate}[label=\arabic*)]
+            \item \textbf{Sistemas $Ax=v_1$ y $Ax=v_2$:} El sistema $Ax=v_1$ tiene solución porque $v_1\in \mathrm{Im}(A)$. Por ejemplo, una solución es: \[
+            v_1=\begin{bmatrix} 
+            1\\
+            1\\
+            0
+            \end{bmatrix} .
+            \]
+            Similarmente, $Ax=v_2$ tiene solución, como: \[
+            v_2=\begin{bmatrix} 
+            2\\
+            -1\\
+            0
+            \end{bmatrix} .
+            \] 
+        \item \textbf{Sistema $Ax=v_3$:} No tiene solución porque $v_3=(0,0,1)$ no pertence al espacio columna de $A$, que está contenido en el plano $\{(x,y,0)|x,y\in \R\} $.
+        \end{enumerate}
+    \item \lb{Completa la frase "el vector $b$ pertenece a $\mathrm{Col}(A)$ cuando \dots\dots tiene solución".}
+
+        El vector $b$ pertenece a $\mathrm{Col}(A)$ cuando \textbf{el sistema de ecuaciones lineales $Ax=b$} tiene solución.
     \item \lb{Cierto o falso: "si el vector cero pertenece a $\mathrm{Fil}(A)$, entonces las filas de $A$ son linealmente dependientes".}
 
+        \textbf{Cierto.}
+
+        Si el vector cero pertenece a $\mathrm{Fil}(A)$ (el espacio fila de $A$), significa que al menos una de las filas de $A$ es el vector cero. Esto implica automáticamente que las filas de $A$ son linealmente dependientes, porque cualquier conjunto de vectores que incluya el vector cero no puede ser linealmente independiente.
     \item \lb{Halla una base del subespacio vectorial $W$ de $\R^5$ generado por los vectores \[
                 (-1,0,0,1,-2)\quad(2,1,0,-1,2)\quad(1,3,1,0,-1)\quad(0,2,1,0,-1)\quad(3,1,0,-2,4).
     \] } 
+
+    Para hallar una base del subespacio $W\subset \R^5$ generado por los vectores dados, necesitamos determinar un conjunto de vectores linealmente independientes que generen $W$. Esto lo logramos aplicando reducción por filas a la matriz formada por estos vectores.
+    \[
+    A=\begin{bmatrix} 
+        -1 & 0 & 0 & 1 & -2 \\
+        2 & 1 & 0 & -1 & 2\\
+        1 & 3 & 1 & 0 & -1\\
+        0 & 2 & 1 & 0 & -1\\
+        3 & 1 & 0 & -2 & 4
+    \end{bmatrix} 
+    \] 
+$\begin{aligned}
+\begin{bmatrix} 
+        -1 & 0 & 0 & 1 & -2 \\
+        2 & 1 & 0 & -1 & 2\\
+        1 & 3 & 1 & 0 & -1\\
+        0 & 2 & 1 & 0 & -1\\
+        3 & 1 & 0 & -2 & 4
+    \end{bmatrix}&\xrightarrow{F_1\to -F_1}\begin{bmatrix} 
+        1 & 0 & 0 & -1 & 2 \\
+        2 & 1 & 0 & -1 & 2\\
+        1 & 3 & 1 & 0 & -1\\
+        0 & 2 & 1 & 0 & -1\\
+        3 & 1 & 0 & -2 & 4
+        \end{bmatrix}\xrightarrow[\begin{subarray}{l}
+            F_3\to F_3-F_1\\
+            F_5\to F_5-3F_1
+    \end{subarray}]{F_2\to F_2-2F_1}\begin{bmatrix} 
+        1 & 0 & 0 & -1 & 2\\
+        0 & 1 & 0 & 1 & -2\\
+        0 & 3 & 1 & 1 & -3\\
+        0 & 2 & 1 & 0 & -1\\
+        0 & 1 & 0 & 1 & -2
+    \end{bmatrix}\\ 
+& \xrightarrow[\begin{subarray}{l}
+        F_4\to F_4-2F_2\\
+        F_5\to F_5-F_2
+    \end{subarray}]{F_3\to F_3-3F_2} \begin{bmatrix} 
+        1 & 0 & 0 & -1 & 2\\
+        0 & 1 & 0 & 1 & -2\\
+        0 & 0 & 1 & -2 & 3\\
+        0 & 0 & 1 & -2 & 3\\
+        0 & 0 & 0 & 0 & 0\\
+    \end{bmatrix}\xrightarrow{F_4\to F_4-F_3}\begin{bmatrix} 
+        1 & 0 & 0 & -1 & 2\\
+        0 & 1 & 0 & 1 & -2\\
+        0 & 0 & 1 & -2 & 3\\
+        0 & 0 & 0 & 0 & 0\\
+        0 & 0 & 0 & 0 & 0
+    \end{bmatrix} \end{aligned} $
+
+    Tomamos las filas originales correspondientes a las posiciones de los pivotes $(v_1,v_2,v_3)$: \[
+    \text{Base de }W=\{(-1,0,0,1,-2),(2,1,0,-1,2),(1,3,1,0,-1)\} .
+    \] 
     \item \lb{Amplía el conjunto $\{(1,-1,1)\} $ a una base ortonormal de $\R^3$.}
+
+Para ampliar el conjunto $\{(1,-1,1)\} $ a una base ortonormal de $\R^3$, seguiremos los pasos utilizando el proceso de \textbf{Gram-Schmidt} y la normalización. El objetivo es encontrar dos vectores ortogonales adicionales, completar la base y normalizar todos los vectores.
+
+       \begin{enumerate}[label=Paso \arabic*:]
+           \item Normalizamos el primer vector
+
+               El vector dado es $v_1=(1,-1,1)$. Calculamos su norma: \[
+               \|v_1\|=\sqrt{1^2+(-1)^2+1^2}= \sqrt{3}. 
+               \] 
+               Normalizamos $v_1$: \[
+               e_1=\dfrac{v_1}{\|v_1\|}=\left( \dfrac{1}{\sqrt{3} },-\dfrac{1}{\sqrt{3} },\dfrac{1}{\sqrt{3} } \right) .
+               \] 
+           \item Escogemos un vector independiente para construir el siguiente
+
+               Escogemos $v_2=(1,1,0)$, que no es paralelo a $v_1$. Proyectamos $v_2$ sobre $e_1$ y restamos para garantizar ortogonalidad: \[
+               \text{Proyección de $v_2$ sobre $e_1=\left<v_2,e_1 \right>e_1$.}
+               \] 
+               Calculamos: \[
+               \left<v_2,e_1 \right> = 1\cdot \dfrac{1}{\sqrt{3} }+1\cdot \left( -\dfrac{1}{\sqrt{3} } \right) +0\cdot \dfrac{1}{\sqrt{3} }=0.
+               \] 
+               Dado que la proyección es cero, $v_2$ ya es ortogonal a $v_1$. Continuamos con $v_2$ sin cambios: \[
+               u_2=v_2=(1,1,0).
+               \] 
+               Normalizamos $u_2$: \[
+               \|u_2\|=\sqrt{1^2+1^2+0^2}=\sqrt{2},\quad e_2=\dfrac{u_2}{\|u_2\|}=\left( \dfrac{1}{\sqrt{2} },\dfrac{1}{\sqrt{2} },0 \right).
+               \] 
+           \item Encontramos el tercer vector ortogonal
+
+               Escogemos $v_3=(0,0,1)$, que es independiente de $v_1$ y $v_2$. Proyectamos $v_3$ sobre $e_1$ y $e_2$ para garantizar ortogonalidad: \[
+               \text{Proyección de $v_3$ sobre $e_1=\left<v_3,e_1 \right>e_1$,}\quad \text{Proyección de $v_3$ sobre $e_2=\left<v_3,e_2 \right>e_2$.}
+               \] 
+               Calculamos: \[
+               \begin{array}{c}
+                   \left<v_3,e_1 \right> = 0\cdot \dfrac{1}{\sqrt{3} }+0\cdot \left( -\dfrac{1}{\sqrt{3} } \right) +1\cdot \dfrac{1}{\sqrt{3} }=\dfrac{1}{3},\\
+                   \left<v_3,e_2 \right> = 0\cdot \dfrac{1}{\sqrt{2} }+0\cdot \dfrac{1}{\sqrt{2} }+1\cdot 0=0.
+               \end{array}
+               \] 
+               Entonces: \[
+               \text{Proyección total: }\dfrac{1}{\sqrt{3} }e_1=\dfrac{1}{\sqrt{3} }\left( \dfrac{1}{\sqrt{3} },-\dfrac{1}{\sqrt{3} },\dfrac{1}{\sqrt{3} } \right) =\left( \dfrac{1}{3},-\dfrac{1}{3},\dfrac{1}{3} \right) .
+               \] 
+               Restamos esta proyección de $v_3$: \[
+               u_3=v_3-\text{Proyección total}=(0,0,1)-\left( \dfrac{1}{3},-\dfrac{1}{3},\dfrac{1}{3} \right) =\left( -\dfrac{1}{3},\dfrac{1}{3},\dfrac{2}{3} \right) .
+               \] 
+               Normalizamos $u_3$: \[
+               \begin{array}{c}
+                   \|u_3\|=\sqrt{\left( -\dfrac{1}{3} \right) ^2+\left( \dfrac{1}{3} \right) ^2+\left( \dfrac{2}{3} \right) ^2}=\sqrt{\dfrac{1}{9}+\dfrac{1}{9}+\dfrac{4}{9}} =\sqrt{\dfrac{6}{9}} =\sqrt{\dfrac{2}{3}} . \\
+                   e_3=\dfrac{u_3}{\|u_3\|}=\left( -\dfrac{1}{\sqrt{6} },\dfrac{1}{\sqrt{6} },\dfrac{2}{\sqrt{6} } \right) 
+               \end{array}
+               \] 
+       \end{enumerate}
+       \textbf{Base ortonormal completa:} \[
+       \mathcal{B}=\left\{ \left( \dfrac{1}{\sqrt{3} },-\dfrac{1}{\sqrt{3} },\dfrac{1}{\sqrt{3} } \right) ,\left( \dfrac{1}{\sqrt{2} },\dfrac{1}{\sqrt{2} },0 \right) ,\left( -\dfrac{1}{\sqrt{6} },\dfrac{1}{\sqrt{6} },\dfrac{2}{\sqrt{6} } \right)  \right\} .
+       \]  
     \item \lb{En $\R^5$, si las ecuaciones del subespacio $U$ son $\left\{ \begin{array}{l}
         x+y+z+t+u=0\\
         x-y+z-t+u=0
     \end{array} \right\} $, encuentra las de $U^{\perp}$.}
 
+        \textbf{Propiedades de $U$ y $U^\perp$:}
+        \begin{enumerate}[label=\arabic*)]
+            \item Un vector $v=(x,y,z,t,u)\in U^\perp$ pertenece al subespacio ortogonal si y solo si satisface: \[
+            \left<v,w \right> = 0\quad \forall w\in U.
+            \] 
+            Es decir, $v$ es ortogonal a todos los vectores de $U$.
+        \item Si $U$ está definido por $m$ ecuaciones, el rago del sistema de ecuaciones es $m$, y la dimensión de $U$ es $n-m$, donde  $n=5$ en este caso. El subespacio ortogonal  $U^\perp$ tendrá dimensión  $m$.
+        \end{enumerate}
+        \begin{enumerate}[label=Paso \arabic*:]
+            \item Escribir las ecuaciones de $U$ en forma matricial
+
+                Las ecuaciones de $U$ puede escribirsr como un sistema lineal: \[
+                \begin{bmatrix} 
+                    1 & 1 & 1 & 1 & 1\\ 
+                    1 & -1 & 1 & -1 & 1\\ 
+                \end{bmatrix} \begin{bmatrix} 
+                x\\
+                y\\
+                z\\
+                t\\
+                u
+                \end{bmatrix} =\begin{bmatrix} 
+                0\\ 0 
+                \end{bmatrix} .
+                \] 
+                La matriz de coeficientes es: \[
+                A=\begin{bmatrix} 
+                    1 & 1 & 1 & 1 & 1\\ 
+                    1 & -1 & 1 & -1 & 1\\ 
+                \end{bmatrix} .
+                \] 
+            \item Calcular el espacio nulo de $A$
+
+                El subespacio  $U^\perp$ está generado por los vectores que forma una base del espacio fila de  $A$. Esto corresponde a calcular el espacio nulo de $A^\intercal$, donde: \[
+                A^\intercal=\begin{bmatrix} 
+                    1 & 1 \\
+                    1 & -1\\
+                    1 & 1\\
+                    1 & -1\\
+                    1 & 1
+                \end{bmatrix} .
+                \] 
+                Resolvemos $A^\intercal v=0$, es decir: \[
+                \begin{aligned}
+                    v_1+v_2+v_3+v_4+v_5&= 0 \\
+                    v_1-v_2+v_3-v_4+v_5&= 0 \\
+                \end{aligned}
+                \] 
+            \item Simplificar el sistema
+
+                Sumamos ambas ecuaciones: \[
+                2v_1+2v_3+2v_5=0\longrightarrow v_1+v_3+v_5=0.
+                \] 
+                Restamos ambas ecuaciones: \[
+                2v_2+2v_4=0\longrightarrow v_2+v_4=0.
+                \] 
+                El sistema simplificado es: \[
+                \begin{aligned}
+                    v_1+v_3+v_5&= 0 \\
+                    v_2+v_4&= 0 \\
+                \end{aligned}
+                \] 
+            \item Conclusión
+
+                Las ecuaciones del subespacio $U^\perp$ son: \[
+                \begin{aligned}
+                    x+z+u&= 0 \\
+                    y+t&= 0 \\
+                \end{aligned}
+                \] 
+        \end{enumerate}
     \item \lb{Halla una base de siguientes subespacios vectoriales de $\R^4$:}
         \begin{enumerate}[label=\color{red}\textbf{\alph*)}]
             \item \db{$\{(x,y,z,t)|x=y=z=t\} $} 
+
+                El subespacio está formado por los vectores de la forma $(x,x,x,x)$, donde  $x\in \R$. Esto indica que cualquier vector en este subespacio es un múltiplo del vector $(1,1,1,1)$.
+
+                El subespacio es unidimensional, ya que cualquier vector puede escribirse como: \[
+                    (x,x,x,x)=x\cdot (1,1,1,1).
+                \] 
+                Por lo tanto, una base del subespacio es: \[
+                \mathcal{B}=\{(1,1,1,1)\} .
+                \] 
             \item \db{$\{(x,y,z,t)|x+y+z+t=0\} $} 
+                
+                El subespacio $U$ está definido por una ecuación lineal homogénea en $\R^4$, por lo que es un subespacio de dimensión $4-1=3$. Queremos encontrar una base para este subespacio.
+                 \begin{enumerate}[label=Paso \arabic*:]
+                    \item Representación de los vectores en $U$ 
+
+                        La ecuación $x+y+z+t=0$ implica que:  \[
+                        x=-y-z-t.
+                        \] 
+                        Podemos parametrizar los vectores en $U$ en términos de $y,z,$ y  $t$:  \[
+                            (x,y,z,t)=(-y-z-t,y,z,t).
+                        \] 
+                        Reescribiendo: \[
+                            (x,y,z,t)=y(-1,1,0,0)+z(-1,0,1,0)+t(-1,0,0,1).
+                        \] 
+                    \item Vectores generados
+
+                        Los vectores generadores de $U$ son: \[
+                        v_1=(-1,1,0,0),\quad v_2=(-1,0,1,0),\quad v_3=(-1,0,0,1).
+                        \] 
+                    \item Conclusión
+
+                        Una base del subespacio $U$ es: \[
+                        \mathcal{B}=\{(-1,1,0,0),(-1,0,1,0),(-1,0,0,1)\} .
+                        \] 
+                \end{enumerate}
         \end{enumerate}
     \item \lb{Dados los subespacios \[
     U=\{(a,b,a-b,a-2b):a,b\in \R\} \qquad W=\{(x,x-y,-x+y,y):x,y\in \R\} 
     \]calcula una base de cada uno de ellos y determina si están en suma directa.}
 
+        \begin{enumerate}[label=Paso \arabic*:]
+            \item Determinar una base para $U$ 
+
+                El subespacio $U$ está definido como: \[
+                U=\{(a,b,a-b,a-2b)|a,b\in \R\} .
+                \] 
+                Escribimos un vector genérico en $U$: \[
+                    (a,b,a-b,a-2b)=a(1,0,1,1)+b(0,1,-1,-2).
+                \] 
+                Por lo tanto, los vectores generadores de $U$ son: \[
+                v_1=(1,0,1,1),\quad v_2=(0,1,-1,-2).
+                \] 
+                Ambos vectores son linealmente independientes, pues ninguno es múltiplo del otro. Por lo tanto, una base de $U$ es: \[
+                \mathcal{B}_U=\{(1,0,1,1),(0,1,-1,-2)\} .
+                \] 
+            \item Determinar una base para $W$
+
+                El subespacio  $W$ está definido como: \[
+                W=\{(x,x-y,-z+y,y)|x,y\in \R\} .
+                \] 
+                Escribimos un vector genérico en $W$: \[
+                    (x,x-y,-x+y,y)=x(1,1,-1,0)+y(0,-1,1,1).
+                \] 
+                Ambos vectores son linealmente independientes, pues ninguno es múltiplo del otro. Por lo tanto, una base de $W$ es: \[
+                \mathcal{B}_W=\{(1,1,-1,0),(0,-1,1,1)\} .
+                \] 
+            \item Verificar si $U$ y $W$ están en suma directa
+
+                La suma de los subespacios $U$ y $W$ está en suma directa si $U\cap W=\{0\} $, es decir, si la intersección de $U$ y $W$ solo contiene el vector nulo.
+
+                Para comprobar esto, resolvemos el sistema $u=w$, donde:  \[
+                    (a,b,a-b,a-2b)=(x,x-y,-x+y,y).
+                \] 
+                Esto nos da las ecuaciones: \[
+                a=x,\quad b=x-y,\quad a-b=-x+y,\quad a-2b=y.
+                \] 
+                Sustituyendo $b=x-y$ en las demás ecuaciones: 
+                 \begin{enumerate}[label=\arabic*)]
+                    \item $a-b=-x+y$ implica  $a-(x-y)=-x+y$, lo cual es siempre cierto.
+                    \item $a-2b=y$ implica  $a-2(x-y)=y$, o  $a-2x=+2y=y$, lo que simplifica a  $a=2x-y$.
+                \end{enumerate}
+                Sustituyendo $a=2x-y$ y  $b=x-y$ en  $(a,b,a-b,a-2b)$, verificamos que el único vector que satisface ambas estructuras es el vector nulo  $(0,0,0,0)$.
+        \end{enumerate}
     \item \lb{Dada la matriz $U=\begin{bmatrix} 
                 1 & 0 & 1 & 0 & 1\\
                 0 & 1 & 0 & 1 & 0
     \end{bmatrix} $ calcula:}
     \begin{enumerate}[label=\color{red}\textbf{\alph*)}]
         \item \db{tres bases distintas de $\mathrm{Col}(U)$.} 
+
+            \begin{enumerate}[label=Paso \arabic*:]
+                \item Determinar una base canónica de $\mathrm{Col}(U)$ 
+
+                    La matriz $U$ tiene dos filas, por lo que el espacio columna estará en $\R^2$. Las columnas de $U$ son: \[
+                    \mathbf{c}_1=\begin{bmatrix} 
+                    1\\ 0 
+                    \end{bmatrix} ,\quad\mathbf{c}_2=\begin{bmatrix} 
+                    0\\ 1 
+                    \end{bmatrix} ,\quad\mathbf{c}_3=\begin{bmatrix} 
+                    1\\ 0 
+                    \end{bmatrix} ,\quad\mathbf{c}_4=\begin{bmatrix} 
+                    0\\ 1 
+                    \end{bmatrix},\quad\mathbf{c}_5=\begin{bmatrix} 
+                    1\\ 0 
+                    \end{bmatrix}.
+                    \] 
+Eliminando repeticiones, las columnas $\mathbf{c}_1=\begin{bmatrix} 
+                    1\\ 0 
+                    \end{bmatrix}$ y $\mathbf{c}_2=\begin{bmatrix} 
+                    0\\ 1 
+                    \end{bmatrix}$ forman una base de $\mathrm{Col}(U)$.
+
+                    \textbf{Primera base:} \[
+                    \mathcal{B}_1=\left\{ \begin{bmatrix} 
+                    1\\0 
+                    \end{bmatrix},\begin{bmatrix} 
+                    0\\ 1 
+                    \end{bmatrix}   \right\} .
+                    \]  
+                \item Construir otras base de $\mathrm{Col}(U)$ 
+
+                    Dado que cualquier base de un espacio vectorial es un conjunto de vectores linealmente independientes que genera el espacio, podemos construir otras bases tomando combinacines lineales de las columnas originales.
+
+                    \textbf{Segunda base:}
+
+                    Combinamos las columnas originales: \[
+                    \mathbf{v}_1=\mathbf{c}_1+\mathbf{c}_5=\begin{bmatrix} 
+                    1\\ 0 
+                    \end{bmatrix} +\begin{bmatrix} 
+                    1\\ 0 
+                    \end{bmatrix} =\begin{bmatrix} 
+                    2\\ 0
+                    \end{bmatrix} ,\quad \mathbf{v}_2=\mathbf{c}_2+\mathbf{c}_4=\begin{bmatrix} 
+                    0\\ 1 
+                    \end{bmatrix} +\begin{bmatrix} 
+                    0\\ 1 
+                    \end{bmatrix} =\begin{bmatrix} 
+                    0\\ 2 
+                    \end{bmatrix} .
+                    \] 
+                    Entonces: \[
+                    \mathcal{B}_2=\left\{ \begin{bmatrix} 
+                    2\\ 0 
+                    \end{bmatrix},\begin{bmatrix} 
+                    0\\ 2 
+                    \end{bmatrix}   \right\} .
+                    \] 
+
+                    \textbf{Tercera base:}
+
+                    Tomamos combinaciones no triviales de las columnas, como: \[
+                    \mathbf{v}_1=\mathbf{c}_1+\mathbf{c}_3=\begin{bmatrix} 
+                    1\\ 0 
+                    \end{bmatrix} +\begin{bmatrix} 
+                    1\\ 0 
+                    \end{bmatrix} =\begin{bmatrix} 
+                    2\\ 0 
+                    \end{bmatrix} ,\quad \mathbf{v}_2=\mathbf{c}_2+2\mathbf{c}_4=\begin{bmatrix} 
+                    0\\ 1 
+                    \end{bmatrix} +2\begin{bmatrix} 
+                    0\\ 1 
+                    \end{bmatrix} =\begin{bmatrix} 
+                    0\\ 3 
+                    \end{bmatrix} .
+                    \] 
+                    Entonces: \[
+                    \mathcal{B}_3=\left\{ \begin{bmatrix} 
+                    2\\ 0 
+                    \end{bmatrix},\begin{bmatrix} 
+                    0\\ 3 
+                    \end{bmatrix}   \right\} .
+                    \] 
+            \end{enumerate}
         \item \db{dos bases distintas de $\mathrm{Fil}(U)$.} 
+            \begin{enumerate}[label=Paso \arabic*:]
+                \item Comprobar la independencia lineal de las filas
+
+                    La matriz tiene dos filas: \[
+                    v_1=(1,0,1,0,1),\quad v_2=(0,1,0,1,0).
+                    \] 
+                    Notamos que $v_1$ y $v_2$ son linealmente independientes, ya que no son proporcionales. Por lo tanto, estas dos filas generan el subespacio $\mathrm{Fil}(U)$ y forman una base.
+
+                    \textbf{Primera base:} \[
+                    \mathcal{B}_1=\{(1,0,1,0,1),(0,1,0,1,0)\} .
+                    \]  
+                \item Generar una base distinta
+
+                    Podemos generar nuevas bases del subespacio $\mathrm{Fil}(U)$ tomando combinaciones lineales de las filas originales que sean linealmente independientes.
+
+                    Elegimos combinacines lineales de $v_1$ y $v_2$ que mantengan independencia: \[
+                    v_3=v_1+v_2=(1,1,1,1,1),\quad v_4=v_2=(0,1,0,1,0).
+                    \] 
+                    Comprobamos que $v_3$ y $v_4$ son linealmente independientes (no proporcionales).
+
+                    \textbf{Segunda base:} \[
+                    \mathcal{B}_2=\{(1,1,1,1,1),(0,1,0,1,0)\} .
+                    \]  
+                \item Generar otra base distinta
+
+                    Ahora tomamos otra combinación lineal. Por ejemplo: \[
+                    v_{5}=v_1-v_2=(1,-1,1,-1,1),\quad v_6=v_1=(1,0,1,0,1).
+                    \] 
+                    Comprobamos que $v_5$ y $v_6$ son linealmente independientes.
+
+                    \textbf{Tercera base:} \[
+                    \mathcal{B}_3=\{(1,-1,1,-1,1),(1,0,1,0,1)\} .
+                    \]  
+            \end{enumerate}
     \end{enumerate}
     \item \lb{Sea $S$ un conjunto de 6 vectores de $\R^4$. De las opciones entre paréntesis escoge la(s) correcta(s):}
         \begin{enumerate}[label=\color{red}\textbf{\alph*)}]
             \item \db{$S$ (es)(no es)(no necesariamente es) un conjunto generadr de $\R^4$.}
+
+                $S$  \textbf{no necesariamente es} un conjunto conjunto generador $\R^4$. 
             \item \db{$S$ (es)(no es)(puede ser) un conjunto linealmente independiente.}
-            \item \db{un subconjunto de $S$ con 4 vectores (es)(no es)(puede ser) una base de $\R^4$.} 
+
+                $S$  \textbf{no es} un conjunto linealmente independiente. 
+            \item \db{Un subconjunto de $S$ con 4 vectores (es)(no es)(puede ser) una base de $\R^4$.} 
+
+                Un subconjutno de $S$ con 4 vectores  \textbf{puede ser} una base de $\R^4$. 
         \end{enumerate}
     \item \lb{Determina los valores que faltan en la siguiente matriz sabiendo que tiene rango 1: \[
     \begin{bmatrix} 
@@ -154,6 +582,98 @@
         21 & 6 & -
     \end{bmatrix} 
     \] }
+
+    Si la matriz tiene rango 1, esto implica que todas las filas (o columnas) de las matriz son \textbf{linealmente dependientes}. En otras palabras, cada fila es un múltiplo de cualquier otra fila no nula. Usaremos esta propiedad para determinar los valores que faltan.
+
+    \textbf{Matriz inicial}
+    \[
+    A=\begin{bmatrix} 
+        7 & a & b \\
+        c & 8 & d \\
+        e & 12 & 6 \\
+        f & g & 2\\
+        21 & 6 & h
+    \end{bmatrix} .
+    \] 
+    \begin{enumerate}[label=Paso \arabic*:]
+        \item Relación entre las filas.
+
+            Tomamos la primera fila como referencia: $(7,a,b)$. Cada fila debe ser un múltiplo de esta primera fila. Es decir:
+             \begin{enumerate}[label=\arabic*)]
+                \item Fila 2: $(c,8,d)=k_1(7,a,b)$.
+                \item Fila 3: $(e,12,6)=k_2(7,a,b)$.
+                \item Fila 4: $(f,g,2)=k_3(7,a,b)$.
+                \item Fila 5: $(21,6,h)=k_4(7,a,b)$.
+            \end{enumerate}
+        \item Determinar los múltiplos usando los datos conocidos
+
+            \textbf{Relación entre la fila 1 y la fila 5}
+
+            La fila 5 es un múltiplo de la fila 1. Como el primer elemento de la fila 5 es 21, y el primer elemento de la fila 1 es 7, el factor de proporcionalidad es: \[
+            k_4=\dfrac{21}{7}=3.
+            \] 
+            Por lo tanto: \[
+                (21,6,h)=3(7,a,b).
+            \] 
+            Esto implica: \[
+                \begin{array}{c}
+                    6=3a\longrightarrow a=2,\\
+                    h=3b.
+                \end{array}
+            \] 
+            \textbf{Relación entre la fila 1 y la fila 3:}
+
+            El tercer elemento de la fila 3 es 6. Como el tercer elemento de la fila 1 es $b$, el factor de proporcionalidad es: \[
+            k_2=\dfrac{6}{b}.
+            \] 
+            Esto implica: \[
+            \begin{array}{c}
+                e=7k_2=7\left( \dfrac{6}{b} \right) =\dfrac{42}{b},\\
+                12=ak_2=2\left( \dfrac{6}{b} \right) =\dfrac{12}{b}.
+            \end{array}
+            \] 
+            Por tanto: \[
+           b=1. 
+            \] 
+        \item Sustitución de $b=1$ y $a=2$
+
+            Sustituyendo estos valores en las relaciones anteriores:
+             \begin{enumerate}[label=\arabic*)]
+                \item Para la fila 5: \[
+                h=3b=3\cdot 1=3.
+                \] 
+            \item Para la fila 3: \[
+            e=\dfrac{42}{b}=\dfrac{42}{1}=42.
+            \] 
+            \textbf{Relación entre la fila 1 y la fila 2:}
+
+            La segunda entrada de la fila 2 es $8$, y la regunda entreada de la fila $1$ es  $a=2$. El factor de proporcionalidad es: \[
+            k_1=\dfrac{8}{2}=4.
+            \] 
+            Entonces: \[
+            c=7k_1=7\cdot 4=28,\quad d=1k_1=1\cdot 4=4
+            \] 
+            \textbf{Relación entre la fila 1 y la fila 4:} 
+
+            El tercer elemento de la fila 4 es $2$, y el tercer elemento de la fila 1 es  $1$. El factor de proporcionalidad es:  \[
+            k_3=\dfrac{2}{1}=2.
+            \] 
+            Entonces: \[
+            f=7k_3=7\cdot 2=14,\quad g=2k_3=2\cdot 2=4
+            \] 
+        \item Matriz final
+
+            Sustituyendo todos los valores encontrados, la matriz es: \[
+            A=\begin{bmatrix} 
+                7 & 2 & 1\\
+                28 & 8 & 4\\
+                42 & 12 & 6\\
+                14 & 4 & 2\\
+                21 & 6 & 3
+            \end{bmatrix} 
+            \] 
+            \end{enumerate}
+    \end{enumerate}
     \item \lb{Dadas dos matrices $A$ y $B$, prueba las siguientes afirmaciones:}
         \begin{enumerate}[label=\color{red}\textbf{\alph*)}]
             \item \db{$\mathrm{rango}(A+B)\le \mathrm{rango}(A)+\mathrm{rango}(B)$}
@@ -161,12 +681,120 @@
         \end{enumerate}
     \item \lb{Sea $A$ una matriz $m\times n$ de rango $k$. Prueba que existe una matriz  $B$ de tamaño $m\times k$ y rango $k$ y una matriz $C$ de tamaño $k\times n$ tales que $A=BC$ (esta factorización se llama \textbf{full rank factorization}). Si $k$ es mucho menor que $n$ y $m$, razona si es mejor, en términos de memoria, almacenar $A$ o almacenar $B$ y $C$.} 
 
+        Sea $A$ una matriz de tamaño  $m\times n$ y rango $k$. Por definición del rango, $k$ es el número máximo de filas o columnas linealmente independientes de $A$. Seguimos los paso para construir las matrices $B$ y $C$:
+         \begin{enumerate}[label=Paso \arabic*:]
+            \item Descomposición de $A$ en bases de sus filas y columnas
+
+                \begin{enumerate}[label=\arabic*)]
+                    \item Existen matrices de permutación $P$ y $Q$ (por reordenamiento de filas y columnas) tales que: \[
+                    A=P\begin{bmatrix} 
+                        R & 0 \\ 0 & 0 
+                    \end{bmatrix} Q,
+                    \] donde $R$ es una matriz $k\times k$ invertible, y los ceros corresponden a entradas no relevantes debido al rango.
+                \item Usando esta permutación, podemos descomponer $A$ como: \[
+                A=URV^\intercal,
+                \] donde $U(m\times k)$ y $V^\intercal(k\times n)$ son submatrices formadas por columnas y filas independientes de $A$, respectivamente.
+                \end{enumerate}
+            \item Definición de las matrices $B$ y $C$
+
+                Definimos:
+                 \begin{itemize}[label=\textbullet]
+                    \item $B=UR$, una matriz  $m\times k$ con rango $k$ porque $R$ es invertible.
+                    \item $C=V^\intercal$, una matriz $k\times n$.
+                \end{itemize}
+                Entonces: \[
+                A=BC,
+                \] donde $B$ tiene tamaño $m\times k$ y rango $k$, y $C$ tiene tamaño $k\times n$.
+        \end{enumerate}
+        Si $k\ll m,n$, es \textbf{más eficiente en términos de memoria} almacenar las matrices $B$ y $C$ en lugar de  $A$, ya que se requieren aproximadamente  \[
+            (m\times k)+(k\times n)=k(m+n)
+        \]  elementos frente a $m\times n$.
     \item \lb{Calcula la "full rank factorization" para la matriz \[
     \begin{bmatrix} 
         1 & 0 & 2 & 3\\
         -1 & -3 & 1 & 0
     \end{bmatrix} 
-    \] } 
+    \] }
+
+    \begin{enumerate}[label=Paso \arabic*:]
+        \item Determinar el rango de $A$
+
+            Calculamos el rango de  $A$. Si las filas de  $A$ son linealmente independientes, el rango será 2. \[
+            \begin{bmatrix} 
+            1 & 0 & 2 & 3\\
+            -1 & -3 & 1 & 0
+        \end{bmatrix}\xrightarrow{F_2\to F_2+F_1}\begin{bmatrix} 
+            1 & 0 & 2 & 3\\
+            0 & -3 & 3 & 3
+        \end{bmatrix} \xrightarrow{F_2\to -\frac{1}{3} F_2}\begin{bmatrix} 
+            1 & 0 & 2 & 3\\
+            0 & 1 & -1 & -1
+        \end{bmatrix}  
+            \] 
+            Esta forma escalonada muestra que las dos filas son independientes, así que, el rango de $A=2$.
+        \item Descomponer  $A$ en $BC$
+
+            Dado que el rango de  $A$ es 2, buscamos:
+            \begin{itemize}[label=\textbullet]
+                \item $B$ de tamaño  $2\times 2$ con rango 2.
+                \item $C$ de tamaño  $2\times 4$ con rango 2, de forma de que $A=BC$.
+            \end{itemize}
+            \textbf{Seleccionar submatrices independientes}
+
+            Tomamos como pivotes las columnas 1 y 2 de $A$:  \[
+            \text{Submatriz independiente: }A_p=\begin{bmatrix} 
+                1 & 0\\
+                -1 & -3
+            \end{bmatrix} ,
+            \] donde: \[
+            |A_p|=\begin{vmatrix} 
+                1 & 0\\
+                -1 & -3
+            \end{vmatrix} =-3-0=-3\neq 0.
+            \] 
+            Por lo tanto, la matriz tiene rango 2 y es invertible.
+
+            \textbf{Construir $B$ y $C$}
+
+            La matriz $B$ corresponde a las columnas independientes de $A$:  \[
+            B=\begin{bmatrix} 
+                1 & 0\\
+                -1 & -3
+            \end{bmatrix} .
+            \] 
+            La columna $C$ se calcula como:  \[
+            C=B^{-1}A.
+            \] 
+            Calculamos $B^{-1}$: \[
+            B^{-1}=\dfrac{1}{\mathrm{det}(B)}(A^*)^\intercal
+            \] ,
+            donde $\mathrm{det}(B)=-3$ y $(A^*)^\intercal$ es: \[
+            \left( \begin{bmatrix} 
+                    -3 & 1\\
+                    0 & 1
+            \end{bmatrix}  \right) ^\intercal=\begin{bmatrix} 
+                    -3 & 0\\
+                    1 & 1
+            \end{bmatrix} .
+            \] 
+            Así: \[
+            B^{-1}=\begin{bmatrix} 
+                1 & 0\\
+                -\frac{1}{3}  & -\frac{1}{3} 
+            \end{bmatrix} .
+            \] 
+            Multiplicamos: \[
+            C=B^{-1}A=\begin{bmatrix} 
+                1 & 0\\ -\frac{1}{3} & -\frac{1}{3}  
+            \end{bmatrix} \begin{bmatrix} 
+                1 & 0 & 2 & 3\\
+                -1 & -3 & 1 & 0
+            \end{bmatrix} =\begin{bmatrix} 
+                1 & 0 & 2 & 3\\
+                0 & 1 & -1 & -1
+            \end{bmatrix} 
+            \] 
+    \end{enumerate}
     \item \lb{Utiliza la "full rank factorization" y el ejercicio 15 para ver que una matriz $A$ tiene rango $k$ si y solo si se puede expresar como suma de $k$ matrices de rango 1, pero no se puede expresar como suma de menos de $k$ matrices de rango 1. Expresa la matriz del ejercicio anterior como suma de 2 matrices de rango 1.}
 
     \item \lb{Se consideran las matrices \[
@@ -180,13 +808,242 @@
         0 & 0 & 0
     \end{bmatrix} 
     \] en donde $B$ se obtiene de $A$ restando la fila uno a la fila tres. ¿Qué relación hay entre los cuatro subespacios fundamentales de las dos matrices? Calcula una base para cada uno de ellos.}
-    \item \lb{Pon un ejemplo de una matriz cuadradada $A$ en la que $\mathrm{Col}(A)=\mathrm{Fil}(A)$ y otro en el que $\mathrm{Col}(A)\neq \mathrm{Fil}(A)$.}
+
+        Dado que $B$ se obtiene de $A$ restando la primera fila de $A$ a la tercera fila, las matrices comparten algunas propiedades:
+        \begin{enumerate}[label=\arabic*)]
+            \item \textbf{Espacio columna ($\mathrm{Col}(A)$ y $\mathrm{Col}(B)$):} Como la operación realizada para obtener $B$ no afecta a  las combinaciones lineales de las columnas de $A$, el espacio columna de  $A$ y $B$ son \textbf{iguales}: \[
+            \mathrm{Col}(A)=\mathrm{Col}(B).
+            \]  
+        \item \textbf{Espacio nulo ($\mathrm{nuc}(A)$ y $\mathrm{Nul}(B)$):} Las matrices $A$ y $B$ tienen diferentes ecuaciones en el espacio nulo, ya que el rango de $B$ es menor que el rango de $A$. Por lo tanto: \[
+        \mathrm{nuc}(A)\subseteq \mathrm{Nul}(B).
+        \]  
+    \item \textbf{Espacio fila ($\mathrm{Fil}(A)$ y $\mathrm{Fil}(B)$):} Dado que $B$ se obtiene por una operación elemental sobre las filas de $A$, el espacio fila de $A$ y $B$ son \textbf{iguales}: \[
+    \mathrm{Fil}(A)=\mathrm{Fil}(B).
+    \]   
+\item \textbf{Espacio nulo a la izquierda ($\mathrm{nuc}(A^\intercal)=\mathrm{nuc}(B^\intercal)$):} Como las filas de $B$ son combinaciones lineales de $A$, el espacio nulo a la izquierda de $A$ y $B$ también son \textbf{iguales}: \[
+\mathrm{nuc}(A^\intercal)=\mathrm{nuc}(B^\intercal).
+\]   
+        \end{enumerate}
+        \textbf{Bases para los subespacioes fundamentales}
+        \begin{enumerate}[label=Paso \arabic*:]
+            \item Calcular el rango de $A$ y $B$
+
+                La matriz  $A$ es: \[
+                A=\begin{bmatrix} 
+        1 & 3 & 2\\
+        0 & 1 & 1\\
+        1 & 3 & 2
+    \end{bmatrix}\xrightarrow{F_3\to F_3-F_1}
+    \begin{bmatrix} 
+        1 & 3 & 2\\
+        0 & 1 & 1\\
+        0 & 0 & 0 
+    \end{bmatrix} . 
+                \] El rango de $A$ es 2. 
+                
+                La matriz $B$ es:  \[
+    \begin{bmatrix} 
+        1 & 3 & 2\\
+        0 & 1 & 1\\
+        0 & 0 & 0 
+    \end{bmatrix} . 
+                \] El rango de $B$ también es 2, ya que la tercera fila es nula.
+            \item Bases de los subespacios fundamentales
+
+                 \begin{enumerate}[label=\arabic*)]
+                    \item $\mathrm{Col}(A)$ y $\mathrm{Col}(B)$: Las columnas pivote de $A$  (o $B$) son las columnas 1 y 2. Por tanto, una base es: \[
+                    \mathcal{B}_{\mathrm{Col}(A)}=\mathcal{B}_{\mathrm{Col}(B)}=\left\{ \begin{bmatrix} 
+                    1\\ 0\\ 1 
+                    \end{bmatrix},\begin{bmatrix} 
+                    3\\ 1\\ 3 
+                    \end{bmatrix}   \right\} .
+                    \] 
+                \item $\mathrm{Fil}(A)$ y $\mathrm{Fil}(B)$: Tomamos las filas no nulas de la matriz escalonada por filas: \[
+                \mathcal{B}_{\mathrm{Fil}(A)}=\mathcal{B}_{\mathrm{Fil}(B)}=\left\{\begin{bmatrix} 
+                        1 & 3 & 2 
+                \end{bmatrix},\begin{bmatrix} 
+                        0 & 1 & 1 
+                \end{bmatrix}  \right\} .
+                \] 
+            \item $\mathrm{nuc}(A)$: Resolviendo $Ax=0$:  \[
+            \begin{bmatrix} 
+                1 & 3 & 2\\
+                0 & 1 & 1\\
+                1 & 3 & 2
+            \end{bmatrix}\to \begin{bmatrix} 
+                1 & 3 & 2\\
+                0 & 1 & 1\\
+                1 & 3 & 2
+            \end{bmatrix}\cdot \begin{bmatrix} 
+            x\\ y\\ z 
+            \end{bmatrix}=\begin{bmatrix} 
+            0\\ 0\\ 0 
+            \end{bmatrix} \longrightarrow \begin{cases}
+                x+3y+2z&= 0 \\
+                y+z&= 0 \\
+            \end{cases}\longrightarrow z=\alpha \to y=-\alpha \to x=-3y-2z=3\alpha-2\alpha=\alpha
+            \]  
+            Por lo tanto: \[
+            \mathrm{nuc}(A)=\mathrm{nuc}(B)=\left\{ \begin{bmatrix} 
+                    1\\  -1\\ 1 
+            \end{bmatrix}  \right\} .
+            \] 
+        \item $\mathrm{nuc}(A^\intercal)$ y $\mathrm{nuc}(B^\intercal)$: Como las filas de $A$ y $B$ son las mismas, el espacio nulo a la izquierda también es el mismo. Calculando: \[
+                \begin{aligned}
+       \mathrm{nuc}(A^\intercal)=\mathrm{Col}(A)^\perp=\left\{ (x,y,z): \begin{array}{l}
+               (x,y,z)\cdot (1,0,1)=0\\
+               (x,y,z)\cdot (3,1,3)=0
+       \end{array} \right\}&\longrightarrow \begin{cases}
+           x-z&= 0 \\
+           3x+y+3z&= 0 \\
+       \end{cases}\\
+       & \longrightarrow z=\alpha \to x=\alpha \to y=-3x-3z=-6\alpha
+                \end{aligned}
+        \] 
+        Por lo tanto: \[
+        \mathcal{B}_{\mathrm{nuc}(A^\intercal)}=\mathcal{B}_{\mathrm{nuc}(B^\intercal)}=\left\{ \begin{bmatrix} 
+        1\\ -6\\ 1 
+        \end{bmatrix}  \right\} .
+        \] 
+                \end{enumerate}
+        \end{enumerate}
+
+\item \lb{Pon un ejemplo de una matriz cuadradada $A$ en la que $\mathrm{Col}(A)=\mathrm{Fil}(A)$ y otro en el que $\mathrm{Col}(A)\neq \mathrm{Fil}(A)$.}
+
+    $\begin{array}{l}
+        A_1=\begin{bmatrix} 
+            1 & 0\\ 0 & 1 
+        \end{bmatrix} \\
+        \mathrm{Fil}(A_1)=\left<(1,0),(0,1) \right> = \R^2\\
+        \mathrm{Col}(A_1)=\left<(1,0),(0,1) \right> =\R^2
+    \end{array}$ 
+
+    $\begin{array}{l}
+        A_2=\begin{bmatrix} 
+            1 & 1\\ 0 & 0 
+        \end{bmatrix} \\
+        \mathrm{Fil}(A_2)= <(1,1)>\\
+\mathrm{Col}(A_2)= <(1,0)>
+    \end{array}\qquad$
+    \begin{tikzpicture}[>=latex, baseline=(current bounding box.center)]
+        \draw (-1,0) -- (2,0);
+        \draw (0,-1) -- (0,2);
+        \draw[lightblue, ->, line width=1.3] (0,0) -- (1,1) node[above right] {$\mathrm{Fil}(A_2)$};
+        \draw[lightblue, ->, line width=1.3] (0,0) -- (1,0) node[above right] {$\mathrm{Col}(A_2)$};
+    \end{tikzpicture}
 
     \item \lb{Sea $A$ una matriz $10\times 10$ que cumple $A^2=0$. Prueba que $\mathrm{Col}(A)\subseteq \mathrm{Nuc}(A)$ y en consecuencia, el rango de $A$ es menor o igual que 5.}
 
+        Sea $v\in \mathrm{Col}(A)\longrightarrow \exists x\in \R^{10}:Ax=v$ 
+
+        Por tanto: \[
+            \underbrace{A(Ax)}_{A^2x=0}=Av,
+        \] 
+        es decir, $v$ es solución de  $Av=0\longrightarrow v \in \mathrm{Nuc}(A)$.
+
+        Por el \textbf{teorema de la dimensión}, tenemos: \[
+        \mathrm{dimCol}(A)+\mathrm{dimNuc}(A)=10.
+        \]  
+        Llamemos: \[
+        \mathrm{dimCol}(A)=r\quad(\text{el rango de $A$}).
+        \] 
+        Entonces: \[
+            \mathrm{dimNuc}(A)=10-r.
+        \] 
+        Dado que $\mathrm{Col}(A)\subseteq\mathrm{Nuc}(A)$, se cumple: \[
+        r\le \mathrm{dimNuc}(A).
+        \] 
+        Sustituyendo $\mathrm{dimNuc}(A)$, se cumple: \[
+        r\le \mathrm{dimNuc}(A).
+        \] 
+        Sustituyendo $\mathrm{dimNuc}(A)=10-r$, obtenemos: \[
+        r\le 10-r\longrightarrow 2r\le 10\longrightarrow r\le 5.
+        \] 
+        Por lo tanto, el rango de $A$ es como máximo 5.
     \item \lb{Sea $A$ una matriz cuadrada invertible. Calcula una base para cada uno de los subespacios fundamentales de las matrices $A$ y $B=\begin{bmatrix} 
                 A & A
     \end{bmatrix} $.} 
+
+    \textbf{Subespacios fundamentales de $A$}
+
+    Dado que $A$ es invertible:
+    \begin{enumerate}[label=\arabic*)]
+        \item $\mathrm{Col}(A)$:
+            \begin{itemize}[label=\textbullet]
+                \item Como $A$ es invertible, sus columnas forman una base de $\R^n$.
+                \item Base: Las columnas de $A$.
+            \end{itemize}
+        \item $\mathrm{Fil}(A)$:
+            \begin{itemize}[label=\textbullet]
+                \item Dado que $A$ es invertible, sus filas abarcan también todo  $\R^n$.
+                \item Base: Las filas de $A$.
+            \end{itemize}
+        \item $\mathrm{nuc}(A)$ ;
+            \begin{itemize}[label=\textbullet]
+                \item Dado que $A$ es invertible,  $Ax=0$ solo tiene la solución trivial  $x=0$.
+                \item Base:  $\varnothing$ (dimensión 0).
+            \end{itemize}
+        \item $\mathrm{nuc}(A^\intercal)$:
+            \begin{itemize}[label=\textbullet]
+                \item Dado que $A$ es invertible,  $A^\intercal y=0$ también tiene solo la solución trivial $y=0$ 
+                \item Base:  $\varnothing$ (dimensión 0).
+            \end{itemize}
+    \end{enumerate}
+    \textbf{Subespacios fundamentales de $B=\begin{bmatrix} 
+            A & A 
+    \end{bmatrix} $} 
+
+    La matriz $B$ tiene tamaño $n\times 2n$. Analices sus subespacios fundamentales:
+    \begin{enumerate}[label=\arabic*)]
+        \item $\mathrm{Col}(B)$:
+            \begin{itemize}[label=\textbullet]
+                \item Las columans de $B$ son combinaciones lineales de las columnas de $A$. Como $A$ es invertible, sus columnas ya abarcan todo  $\R^n$.
+                \item Base: Las columnas de $A$.
+            \end{itemize}
+        \item $\mathrm{Fil}(B)$:
+            \begin{itemize}[label=\textbullet]
+                \item Las filas de $B$ son las mismas que las filas de $A$ duplicadas, pero no generan un espacio mayor que el de $A$.
+                \item Base: Las filas de  $A$.
+            \end{itemize}
+        \item $\mathrm{Nuc}(B)$:
+            \begin{itemize}[label=\textbullet]
+                \item Resolviendo $Bx=0$, donde  $B=\begin{bmatrix} 
+                        A & A 
+                \end{bmatrix} $ :
+                \[
+                \begin{bmatrix} 
+                    A & A 
+                \end{bmatrix} \begin{bmatrix} 
+                x_1\\ x_2 
+                \end{bmatrix} =0\longrightarrow A(x_1+x_2)=0.
+                \] 
+                Como $A$ es invertible,  $x_1+x_2=0$, es decir, $x_1=-x_2$. Esto implica que: \[
+                \begin{bmatrix} 
+                x_1\\ x_2 
+                \end{bmatrix} =\begin{bmatrix} 
+                -x_2\\ x_2 
+                \end{bmatrix} =x_2\begin{bmatrix} 
+                -1\\ 1 
+                \end{bmatrix} .
+                \] 
+            \item Base: $\left<(-1,1) \right>$.
+            \end{itemize}
+        \item $\mathrm{Nuc}(B^\intercal)$ :
+            \begin{itemize}[label=\textbullet]
+                \item Resolviendo $B^\intercal y=0$, donde: \[
+                B^\intercal=\begin{bmatrix} 
+                A^\intercal\\ A^\intercal 
+                \end{bmatrix} .
+                \] 
+                Esto implica que: \[
+                \begin{bmatrix} 
+                A^\intercal\\ A^\intercal 
+                \end{bmatrix} y=0\longrightarrow A^\intercal y_1=0\text{ y }A^\intercal y_2=0.
+                \] 
+                Como $A$ es invertible,  $A^\intercal y=0$ solo tiene la solución trivial. Por lo tanto, el espacio nulo a la izquierda es trivial.
+            \item Base: $\varnothing$.
+            \end{itemize}
+    \end{enumerate}
     \item \lb{Sin calcular la matriz $A$, encuentra bases para sus cuatro subespacios fundamentales \[
     A=\begin{bmatrix} 
         1 & 0 & 0\\
@@ -205,6 +1062,99 @@ A=\begin{bmatrix}
 \end{bmatrix} 
 \]Comprueba que el vector $(1,1,1-2)$ pertenece a $\mathrm{Nuc}(A)$ y calcula sus coordenadas respecto de la base obtenida.}
 
+    \begin{enumerate}[label=Paso \arabic*:]
+        \item Calcular el núcleo de $A$
+
+            El núcelo de  $A$ es el conjunto de vectores $x \in \R^4$ tales que $Ax=0$. Resolvemos el sistema homogéneo  $Ax=0$:  \[
+            Ax=\begin{bmatrix} 
+                3 & 0 & 1 & 2\\
+                1 & 1 & 0 & 1
+            \end{bmatrix} \begin{bmatrix} 
+            x_1\\ x_2\\ x_3\\ x_4 
+            \end{bmatrix} =\begin{bmatrix} 
+            0\\ 0 
+            \end{bmatrix} \longrightarrow \begin{cases}
+                3x_1+x_3+2x_4=0\\
+                x_1+x_2+x_4=0
+            \end{cases}
+            \] 
+        \item Resolver el sistema
+
+            De la segunda ecuación: \[
+            x_2=-x_1-x_4.
+            \] 
+            Sustituyendo $x_2$ en la primera ecuación: \[
+            3x_1+x_3+2x_4=0\longrightarrow x_3=-3x_1-2x_4.
+            \] 
+            Ahora expresamos $x$ en función de $x_1$ y $x_4$: \[
+            x=\begin{bmatrix} 
+            x_1\\ x_2\\x_3\\x_4 
+            \end{bmatrix} =\begin{bmatrix} 
+            x_1\\ -x_1-x_4\\-3x_1-2x_4\\x_4 
+            \end{bmatrix}=x_1\begin{bmatrix} 
+            1\\-1\\3\\0 
+            \end{bmatrix}+x_4\begin{bmatrix} 
+            0\\-1\\-2\\1 
+            \end{bmatrix}.
+            \] 
+        \item Base del núcleo de $A$
+
+            Los vectores generadores del núcleo son:  \[
+            v_1=\begin{bmatrix} 
+            1\\-1\\-3\\0 
+            \end{bmatrix},\quad v_2=\begin{bmatrix} 
+            0\\-1\\-2\\1 
+            \end{bmatrix}.  
+            \] 
+            Por lo tanto, una base del núcleo de $A$ es:  \[
+            \mathcal{B}_{\mathrm{Nuc}(A)}= <(1,-1,-3,-0),(0,-1,-2,1)>.
+            \] 
+        \item Verficiar que $(1,1,1,-2)\in \mathrm{Nuc}(A)$ 
+
+            Sea $x=(1,1,1,-2)$. Comprobamos si  $Ax=0$:  \[
+            Ax=\begin{bmatrix} 
+                3 & 0 & 1 & 2\\
+                1 & 1 & 0 & 1
+            \end{bmatrix} \begin{bmatrix} 
+            1\\1\\1\\-2 
+            \end{bmatrix}=\begin{bmatrix} 
+            3+1-4\\ 1+1-2 
+            \end{bmatrix}=\begin{bmatrix} 
+            0\\ 0 
+            \end{bmatrix}.
+            \] 
+            Por lo tanto, $x \in \mathrm{Nuc}(A)$.
+        \item Coordenadas de $(1,1,1,-2)$ respecto de la base $\mathcal{B}_{\mathrm{Nuc}(A)}$ 
+
+            Queremos expresar $(1,1,1,-2)$ como combinación lineal de  $v_1$ y $v_2$: \[
+                (1,1,1,-2)=c_1v_1+c_2v_2,
+            \] donde: \[
+            c_1\begin{bmatrix} 
+            1\\-1\\-3\\0 
+            \end{bmatrix}+c_2\begin{bmatrix} 
+            0\\-1\\-2\\1 
+            \end{bmatrix}=\begin{bmatrix} 
+            1\\1\\1\\-2 
+            \end{bmatrix}\longrightarrow \begin{cases}
+                c_1=1\\
+                -c_1-c_2=1\\
+                -3c_1-2c_2=1\\
+                c_2=-2
+            \end{cases}.   
+            \] 
+            De la primera y cuarta ecuación: \[
+            c_1=1,\quad c_2=-2.
+            \] 
+            Verificamos con las demás ecuaciones: \[
+            \begin{array}{l}
+                -1\cdot 1-1\cdot (-2)=-1+2=1\quad\lb{\checkmark}\\
+                -3\cdot 1-2\cdot (-2)=-3+4=1\quad \lb{\checkmark} 
+            \end{array}
+            \] 
+            Por lo tanto, las coordenadas de $(1,1,1,-2)$ respecto de la base son:  \[
+                (1,1,1,-2)=1\cdot v_1-2\cdot v_2.
+            \] 
+    \end{enumerate}
 \item \lb{Dadas las siguientes bases de $\R^4$ \[
 \begin{array}{c}
     \mathcal{B}_1=\{v_1=(1,1,0,0),v_2=(0,1,0,0),v_3=(0,0,1,1),v_4=(0,0,0,1)\} \\
