@@ -595,6 +595,40 @@ for file_path in file_paths_in:
 ## En el caso 149: Todo correcto y el porcentaje de averías reparadas es del 100%.
 ## La media porcentual para 150 casos es del 99.66%.
 ```
+----
+
+## Estudio teórico del tiempo de ejecución
+
+**Orden de complejidad temporal:**
+
+1. **Entrada y preparación:**
+
+   - Las funciones **`leer_entrada`** y **`procesar_matriz`** presentan una complejidad $O(L)$, donde $L$ es el total de líneas en los archivos **`.in`**.
+
+2. **Procesamiento de datos:**
+
+   - Itera sobre $P$ casos, ejecutando operaciones de complejidad $O(M\cdot A)$ por caso.
+
+3. **Salida y validación:**
+
+   - La escritura y validación de los resultados es proporcional al número de casos $P$ y líneas generadas.
+
+**Complejidad total:** $$O(L)+O(P\cdot M\cdot A)+O(C\cdot I),$$
+donde:
+
+- $L$: Total de líneas de entrada
+
+- $P$: Número de casos
+
+- $M$: Número de mecánicos por caso.
+
+- $A$: Número de averías por caso.
+
+- $C$: Total de candidatos procesados.
+
+- $I$: Iteraciones necesarias en el algoritmo voraz.  
+----
+
 ### Análisis del Desempeño del Algoritmo Voraz
 
 ```{python}
