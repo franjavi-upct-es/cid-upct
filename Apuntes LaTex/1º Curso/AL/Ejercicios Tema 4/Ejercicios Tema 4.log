@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.21 (TeX Live 2020) (preloaded format=latex 2020.4.29)  2 JAN 2025 09:01
+This is pdfTeX, Version 3.14159265-2.6-1.40.21 (TeX Live 2020) (preloaded format=latex 2020.4.29)  3 JAN 2025 07:37
 entering extended mode
 **"Ejercicios Tema 4.tex"
 (Ejercicios Tema 4.tex
@@ -1636,13 +1636,24 @@ cmm/m/it/10 z \OT1/cmr/m/n/10 = 3\OML/cmm/m/it/10 ^^K \OMS/cmsy/m/n/10 ^^@ \OT1
 /cmr/m/n/10 2\OML/cmm/m/it/10 ^^K \OT1/cmr/m/n/10 = \OML/cmm/m/it/10 ^^K
  []
 
-[14] [15] [16] [17] [18] (Ejercicios Tema 4.aux)
+[14] [15] [16] [17] [18] [19] [20] [21]
+Overfull \hbox (10.97903pt too wide) in paragraph at lines 1487--1488
+[]\OT1/cmr/m/n/10 La ma-triz tiene rango com-pleto $([](\OML/cmm/m/it/10 U \OT1
+/cmr/m/n/10 + \OML/cmm/m/it/10 V\OT1/cmr/m/n/10 ) = 5)$. Por lo tanto, los vec-
+tores gen-er-adores $(1\OML/cmm/m/it/10 ; \OT1/cmr/m/n/10 2\OML/cmm/m/it/10 ; \
+OT1/cmr/m/n/10 3\OML/cmm/m/it/10 ; \OT1/cmr/m/n/10 4\OML/cmm/m/it/10 ; \OT1/cmr
+/m/n/10 5)\OML/cmm/m/it/10 ; \OT1/cmr/m/n/10 (5\OML/cmm/m/it/10 ; \OT1/cmr/m/n/
+10 4\OML/cmm/m/it/10 ; \OT1/cmr/m/n/10 3\OML/cmm/m/it/10 ; \OT1/cmr/m/n/10 2\OM
+L/cmm/m/it/10 ; \OT1/cmr/m/n/10 1)$,
+ []
+
+[22] (Ejercicios Tema 4.aux)
 Package logreq Info: Writing requests to '"Ejercicios Tema 4".run.xml'.
  ) 
 Here is how much of TeX's memory you used:
  41295 strings out of 480618
  1010258 string characters out of 5894377
- 1732355 words of memory out of 5000000
+ 1752354 words of memory out of 5000000
  56512 multiletter control sequences out of 15000+600000
  541225 words of font info for 62 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
@@ -1682,9 +1693,9 @@ e/Application/38CAA5E5-7B85-4BF0-8BF3-3C6105CB5C84/TeX Writer.app/texmf-base/./
 fonts/type1/public/amsfonts/symbols/msbm10.pfb></var/mobile/Containers/Data/App
 lication/467E7597-C7BE-49DF-AE4E-DDA95A01BBDF/Library/Caches/texmf-dist/./fonts
 /type1/public/cm-super/sfrm1000.pfb>
-Output written on "Ejercicios Tema 4.pdf" (18 pages, 243552 bytes).
+Output written on "Ejercicios Tema 4.pdf" (22 pages, 255693 bytes).
 PDF statistics:
- 132 PDF objects out of 1000 (max. 8388607)
+ 145 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
  13 words of extra memory for PDF output out of 10000 (max. 10000000)
 
