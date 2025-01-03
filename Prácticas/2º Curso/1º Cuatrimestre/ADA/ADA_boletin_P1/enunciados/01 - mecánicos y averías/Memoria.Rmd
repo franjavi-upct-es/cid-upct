@@ -18,7 +18,7 @@ header-includes:
 
 ```{r include=FALSE}
 library(reticulate)
-use_condaenv("optim-2", conda="C:/ProgramData/anaconda3/Scripts/conda.exe", required = TRUE)
+use_condaenv("optim-2", required = TRUE)
 py_config()
 ```
 
@@ -313,7 +313,7 @@ def generar_salida(matrices):
     return resultados
 ```
 
-```{python}
+```{python, results="hold"}
 file_paths_in = encontrar_archivos_in('.')
 file_paths_out = encontrar_archivos_out('.')
 
@@ -627,6 +627,7 @@ donde:
 - $C$: Total de candidatos procesados.
 
 - $I$: Iteraciones necesarias en el algoritmo voraz.  
+
 ----
 
 ### Análisis del Desempeño del Algoritmo Voraz
@@ -686,6 +687,7 @@ def analyse_complexity(file_path):
 ```{python}
 analyse_complexity(file_path="tests/T3/701c.in")
 ```
+
 En el gráfico, observamos que el tiempo de ejecución del algoritmo voraz aumenta de manera progresiva conforme se incrementa el número de casos. Este crecimiento parece ser bastante lineal, lo cual es positivo, ya que el algoritmo maneja bastante bien el aumento de datos sin volverse excesivamente lento.
 
 Además, el patrón escalonado en el gráfico sugiere que algunas operaciones del algoritmo un poco más de tiempo en ciertos puntos, posiblemente debido a ciertas decisiones o procesos internos que demandan un esfuerzo adicional. A pesar de esto, el incremento sigue siendo controlado y predecible.
