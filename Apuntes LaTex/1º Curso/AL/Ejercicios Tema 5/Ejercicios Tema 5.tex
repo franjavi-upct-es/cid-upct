@@ -1,0 +1,266 @@
+\input{../../../Macros.tex}
+\renewcommand{\arraystretch}{1}
+\setlength{\arraycolsep}{6pt}
+
+\title{Álgebra Lineal\\Ejercicios Tema 5: Transformaciones lineales}
+
+\begin{document}
+\maketitle
+\begin{enumerate}[label=\color{red}\textbf{\arabic*)}]
+    \item \lb{Comprueba que si $v=(a_1,a_2,a_3)$ es un vector fijo, entonces la aplicación $T_V:\R^3\to \R^3$ definida por $T_V(x)=x+v$  \underline{no} es lineal. Este tipo de aplicación se llama una \textbf{traslación de vector} $v$ y no se puede representar por medio de una matriz $3\times 3$. Sin embargo, esta dificultad se soluciona aumentando en uno el tamaño de la matriz de modo que la traslación de vector $v=(a_1,a_2,a_3)$ se calcula por medio de la matriz \[
+    T=\begin{bmatrix} 
+        1 & 0 & 0 & a_1\\
+        0 & 1 & 0 & a_2\\
+        0 & 0 & 1 & a_3\\
+        0 & 0 & 0 & 1
+    \end{bmatrix} ,
+    \]es decir, se tiene que \[
+    \begin{bmatrix} 
+        1 & 0 & 0 & a_1\\
+        0 & 1 & 0 & a_2\\
+        0 & 0 & 1 & a_3\\
+        0 & 0 & 0 & 1
+    \end{bmatrix} \begin{bmatrix} 
+    x_1\\x_2\\x_3\\1 
+    \end{bmatrix} =\begin{bmatrix} 
+    a_1+x_1\\ a_2+x_2\\a_3+x_3\\1 
+    \end{bmatrix} 
+    \] Las 4 coordenadas $(x_1,x_2,x_3,1)$ del vector tridimensional $x$ se llaman coordenadas homogéneas de $x$.} 
+
+    \textbf{Verificación de que $T_V(x)=x+v$ no es una transformación lineal:}
+
+    Una transformación $T:\R^3\to \R^3$ es lineal si satisface las siguientes dos propiedades para todos $u,w\in \R^3$ y $\lambda\in \R$:
+    \begin{enumerate}[label=\arabic*)]
+        \item $T(u+w)=T(u)+T(w)$ (preserva la suma de vectores).
+        \item  $T(\lambda u)=\lambda T(u)$ (preserva la multiplicación por escalar).
+    \end{enumerate}
+    En caso de $T_V(x)=x+v$, con  $v=(a_1,a_2,a_3)$, veamos si estas propiedades se cumplen: 
+    \begin{enumerate}[label=\arabic*)]
+        \item Preservación de la suma: \[
+        T_V(u+w)=(u+w)+v,
+        \] pero \[
+        T_V(u)+T_V(w)=(u+v)+(w+v)=u+w+2v.
+        \] 
+        Como $T_V(u+w)\neq T_V(u)+T_V(w)$ (debido al término extra $v$), $T_V$ preserva la suma de vectores.
+    \item Preservación de la multiplicación por escalar:  \[
+    T_V(\lambda u)=\lambda u+v,
+    \] pero \[
+    \lambda T_V(u)=\lambda(u+v)=\lambda u+\lambda v.
+    \] 
+    Como $T_V(\lambda u)\neq \lambda T_V(u)$ (debido al término $\lambda v\neq v$), $T_V$ no preserva la multiplicación por escalar.
+
+    Por lo tanto,  $T_V$  \textbf{no es lineal}.
+
+    \end{enumerate}
+    \textbf{Representación de la traslación mediante una matriz en coordenadas homogéneas}
+
+    Para resolver la dificultad de que $T_V$ no es lineal, se utiliza un truco geométrico añadiendo una coordenada adicional para representar los punto en  $\R^3$ como vectores en $\R^4$. Este sistema se llama \textbf{coordenadas homogéneas}.
+
+    Dado $x=(x_1,x_2,x_3)\in \R^3$, su representación en coordenadas homogéneas es $(x_1,x_2,x_3,1)$. 
+
+    La traslación por un vector $v=(a_1,a_2,a_3)$ se puede representar mediante la matriz $T$ en coordenadas homogéneas:  \[
+    T=\begin{bmatrix} 
+        1 & 0 & 0 & a_1\\
+        0 & 1 & 0 & a_2\\
+        0 & 0 & 1 & a_3\\
+        0 & 0 & 0 & 1
+    \end{bmatrix}. 
+    \] 
+    \textbf{Entonces, aplicando $T$ a un vector homogéneo $\begin{bmatrix} 
+    x_1\\x_2\\x_3\\1 
+    \end{bmatrix} $, obtenemos:} \[
+    T\begin{bmatrix} 
+    x_1\\x_2\\x_3\\1 
+    \end{bmatrix} =\begin{bmatrix} 
+        1 & 0 & 0 & a_1\\
+        0 & 1 & 0 & a_2\\
+        0 & 0 & 1 & a_3\\
+        0 & 0 & 0 & 1
+    \end{bmatrix} \begin{bmatrix} 
+    x_1\\x_2\\x_3\\1 
+    \end{bmatrix} \begin{bmatrix} 
+    x_1+a_1\\ x_2+a_2\\ x_3+a_3\\ 1 
+    \end{bmatrix} .
+    \]  
+    De esta manera, la traslación de $x$ se representa linealmente en el espacio de coordenadas homogéneas.
+\item \lb{Sea $\mathcal{B}=\{v_1,v_2,v_3\} $ con $v_1=(-2,3,-2),v_2=(-4,5,-3)$ y $v_3=(5,-6,4)$ una base de $\R^3$. Calcula la matriz en la base $\mathcal{B}$ de la transformación lineal cuya matriz en las bases canónicas es \[
+A=\begin{bmatrix} 
+    6 & 26 & 34\\
+    -6 & -31 & -42\\
+    4 & 20 & 27
+\end{bmatrix} 
+\] } 
+
+Para calcular la matriz de la transformación linea $T$ en la base $\mathcal{B}=\{v_1,v_2,v_3\} $, procedemos como sigue:
+\begin{enumerate}[label=Paso \arabic*:]
+    \item Transformación de la base $\mathcal{B}$ mediante $A$
+
+        Sabemos que la matriz de la transformación en la base  $\mathcal{B}$, que llamaremos $[T]_{\mathcal{B}}$, está relacionada con la matriz en la base canónica $A$ por la fórmula: \[
+            [T]_{\mathcal{B}}=P^{-1}AP,
+        \]donde $P$ es la matriz de cambio de base de $\mathcal{B}$ a la base canónica. Esto significa que las columnas de $P$ son los vectores de la base $\mathcal{B}$ expresados en la base canónica, es decir: \[
+        P=\begin{bmatrix} 
+            v_1 & v_2 & v_3 
+        \end{bmatrix}\begin{bmatrix} 
+            -2 & -4 & 5\\
+            3 & 5 & -6\\
+            -2 & -3 & 4
+        \end{bmatrix}. 
+        \] 
+    \item Calcular $P^{-1}$
+
+        Invertimos la matriz $P$ para obtener $P^{-1}$. \[
+        P^{-1}=\dfrac{1}{|P|}(\mathrm{adj}(P))^\intercal=\dfrac{1}{1}\cdot \begin{bmatrix} 
+            2 & 1 & -1\\
+            0 & 2 & 3\\
+            1 & 2 & 2
+        \end{bmatrix}=\begin{bmatrix} 
+            2 & 1 & -1\\
+            0 & 2 & 3\\
+            1 & 2 & 2
+        \end{bmatrix}  
+        \] 
+        $\mathrm{det}(P)=\begin{vmatrix} 
+            -2 & -4 & 5\\
+            3 & 5 & -6\\
+            -2 & -3 & 4
+        \end{vmatrix}=1\neq 0 \to $es invertible
+    \item Calcular $[T]_{\mathcal{B}}$
+
+        Una vez obtenida $P^{-1}$, calculamos: \[
+            [T]_{\mathcal{B}}=P^{-1}AP=\begin{bmatrix} 
+            -2 & -4 & 5\\
+            3 & 5 & -6\\
+            -2 & -3 & 4
+            \end{bmatrix} \begin{bmatrix} 
+            6 & 26 & 34\\
+            -6 & -31 & -42\\
+            4 & 20 & 27
+            \end{bmatrix}\begin{bmatrix} 
+            -2 & -4 & 5\\
+            3 & 5 & -6\\
+            -2 & -3 & 4
+            \end{bmatrix} =\begin{bmatrix} 
+            2 & 1 & -1\\
+            0 & -2 & -3\\
+            2 & 4 & 4
+            \end{bmatrix}\begin{bmatrix} 
+            -2 & -4 & 5\\
+            3 & 5 & -6\\
+            -2 & -3 & 4
+            \end{bmatrix} =\begin{bmatrix} 
+            1 & 0 & 0\\
+            0 & -1 & 0\\
+            0 & 0 & 2
+            \end{bmatrix}.
+        \] 
+\end{enumerate}
+\item \lb{Las llamadas \textbf{rotaciones de Givens} son las transformaciones lineales que vienen dadas por las matrices \[
+R_X(\alpha)=\begin{bmatrix} 
+    1 & 0 & 0\\
+    0 & c & -s\\
+    0 & s & c
+\end{bmatrix},\quad R_y(\alpha) =\begin{bmatrix} 
+    c & 0 & -s\\
+    0 & 1 & 0\\
+    s & 0 & c
+\end{bmatrix},\quad R_z(\alpha)=\begin{bmatrix} 
+    c & -s & 0\\
+    s & c & 0\\
+    0 & 0 & 1
+\end{bmatrix}  
+\]donde $c=\cos\alpha$ y $s=\sin\alpha$ para un cierto ángulo $\alpha$. ¿Qué interpretación geométrica tienen?\newline
+Dada la transformación lineal que tiene por matriz en las bases canónicas \[
+A=\begin{bmatrix} 
+    1 & -2 & 2\\
+    0 & -1 & 2\\
+    -1 & 0 & 1
+\end{bmatrix} 
+\]calcula la matriz en la base $\mathcal{B}=\{u_1,u_2,u_3\} $, donde \[
+u_1=(1,1,1),\quad u_2=(0,1,1),\quad u_3=(1,1,0)
+\]A la vista del resultado, ¿cuál es la interpretación geométrica de la transformación lineal dada por la matriz $A$?}
+
+\textbf{Interpretación geométrica de las rotaciones de Givens} 
+
+Las matrices $R_X(\alpha), R_Y(\alpha),R_Z(\alpha)$ representan \textbf{rotaciones en $R^3$} alrededor de los ejes coordenados $X,Y,$ y $Z$, respectivamente:
+ \begin{enumerate}[label=\arabic*.]
+    \item $R_X(\alpha)$: Rotación en el plano $YZ$ alrededor del eje $X$ por un ángulo $\alpha$.
+    \item $R_Y(\alpha)$: Rotación en el plano $XZ$ alrededor del eje $Y$ por un ángulo $\alpha$.
+    \item $R_Z(\alpha)$: Rotación en el plano $XY$ alrededor del eje $Z$ por un ángulo $\alpha$.
+\end{enumerate}
+Estas matrices preservan las nromas de los vectores (son ortogonales) y no cambian volúmenes, lo que significa que son \textbf{transformaciones isométricas} (rotaciones propiamente dichas).
+
+\textbf{Cálculo de la matriz en la base $\mathcal{B}$} 
+
+La matriz de la transformación lineal en la base $\mathcal{B}$, denotada como $[T]_{\mathcal{B}}$, se calcula con la fórmula: \[
+    [T]_{\mathcal{B}}=P^{-1}AP,
+\] donde:
+\begin{itemize}[label=\textbullet]
+    \item $A$ es la matriz en la base canónica
+    \item $P$ es la matriz de cambio de base, cuyas columnas son los vectores de la base $\mathcal{B}=\{u_1,u_2,u_3\} $ : \[
+            P=\begin{bmatrix} 
+                u_1 & u_2 & u_3 
+            \end{bmatrix} =\begin{bmatrix} 
+                1 & 0 & 1 \\
+                1 & 1 & 1 \\
+                1 & 1 & 0
+            \end{bmatrix} .
+    \] 
+    Procedemos a calcular $[T]_{\mathcal{B}}$.
+
+    $P^{-1}=\dfrac{1}{|P|}(\mathrm{adj}(P))^\intercal=\dfrac{1}{-1}\cdot \begin{bmatrix} 
+        -1 & 1 & -1\\
+        1 & -1 & 0\\
+        0 & -1 & 1
+    \end{bmatrix}=\begin{bmatrix} 
+        1 & -1 & 1 \\
+        -1 & 1 & 0\\
+        0 & 1 & -1
+    \end{bmatrix}  $ 
+
+    \[
+        [T]_{\mathcal{B}}=P^{-1}AP=\begin{bmatrix} 
+        1 & -1 & 1 \\
+        -1 & 1 & 0\\
+        0 & 1 & -1
+        \end{bmatrix} \begin{bmatrix} 
+        1 & -2 & 2\\
+        0 & -1 & 2\\
+        -1 & 0 & 1
+        \end{bmatrix} \begin{bmatrix} 
+                1 & 0 & 1 \\
+                1 & 1 & 1 \\
+                1 & 1 & 0
+        \end{bmatrix} =\begin{bmatrix} 
+                0 & -1 & 1 \\
+                -1 & 1 & 0 \\
+                1 & -1 & 1
+        \end{bmatrix} \begin{bmatrix} 
+                1 & 0 & 1\\
+                1 & 1 & 1\\
+                1 & 1 & 0
+        \end{bmatrix} =\begin{bmatrix} 
+                0 & 0 & -1\\
+                0 & 1 & 0\\
+                1 & 0 & 0
+        \end{bmatrix} 
+    \] 
+\end{itemize}
+\item \lb{Consideremos un plano $\R^3$ que pasa por el origen, es decir, un subespacio vectorial de ecuación $ax+by+cz=0$. Sea $v=(a,b,c)$ el vector normal al plano y consideremos la matriz  \[
+H=I-\dfrac{2uv^\intercal}{v^\intercal v}
+\]Entonces, $H$ es la matriz de la simetría ortogonal respecto del plano y recibe el nombre de \textbf{reflexión de Householder}. Para verlo, prueba que si $x$ es un vector arbitrario, entonces $x+Hx$ es ortogonal a  $v$ (es decir, $x+HX$ pertenece al plano) y $x-Hx$ es proporcional a  $v$ (estas dos cosas prueba que $Hx$ es el simétrico de  $x$ respecto del plano dado).} 
+
+\item \lb{Calcula la proyección del vector $(2,3,4)$ sobre el subespacio  $\mathrm{Col}(A)$, donde $A=\begin{bmatrix} 
+            1 & 1\\ 0 & 1\\ 0 & 0 
+\end{bmatrix} $. Hazlo de tres formas distintas: como en el ejemplo 5.17, como en el ejemplo 5.18 y como en el ejemplo 5.21.}
+
+\item \lb{¿Qué combinación lineal de los vectores $(1,2,-1)$ y  $(1,0,1)$ está más "cerca" del vector $(2,1,1)$?}
+
+\item \lb{Encuentra una base ortonormal $\{u_1,u_2,u_{3}\} $ de $R^3$ tal que $\mathrm{Col}(A)$ sea el subespacio generado por $u_1,u_2$, donde \[
+A=\begin{bmatrix} 
+    1 & 1\\
+    2 & -1\\
+    -2 & 4
+\end{bmatrix} 
+\]¿Cuál de los cuatro subespacios fundamentales de $A$ contiene $u_3$? Calcula la proyección ortogonal de $b^\intercal=(1,2,7)$ sobre $\mathrm{Col}(A)$ y explica por qué esta proyección es una solución aproximada del sistema de ecuaciones $Ax=b$.} 
+\end{enumerate}
+\end{document}
