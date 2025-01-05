@@ -487,7 +487,43 @@ if __name__ == '__main__':
         print(f"Índice de inicio: {resultado[0]} \nMáximo de apariciones consecutivas: {resultado[1]}")
 ```
 
-### Análisis de la complejidad
+### Estudio teórico del tiempo de ejecución
+
+**Orden de complejidad temporal:**
+
+1. **Entrada y preparación:**
+
+   - La preparación de los datos, como la generación de la cadena y los parámetros iniciales, tiene una complejidad $O(n)$, donde $n$ es la longitud de la cadena `A`.
+
+2. **Procesamiento de datos mediante divide y vencerás:**
+
+   - La función `divide_y_venceras` divide el problema en dos subproblemas del mismo tamaño, resolviendo cada uno de ellos recursivamente.
+   - Además, combina las soluciones de ambas mitades evaluando un caso central.
+   - El tiempo de ejecución en cada nivel de la recursión puede descomponerse en:
+     - Dos llamadas recursivas de tamaño $\frac{n}{2}$.
+     - Una operación lineal $O(n)$ para evaluar el caso central.
+
+   Esto lleva a una recurrencia del tipo:
+   $$T(n) = 2T\left(\frac{n}{2}\right) + O(n)$$
+
+   Resolviendo la recurrencia (usando el método maestro), obtenemos:
+   $$T(n) = O(n \log n)$$
+
+3. **Salida y validación:**
+
+   - La escritura y validación de los resultados es proporcional al número de caracteres procesados, con una complejidad $O(1)$ si solo se imprime el resultado.
+
+**Complejidad total:**  
+La complejidad del algoritmo de divide y vencerás es:
+$$T(n) = O(n \log n),$$  
+donde $n$ es la longitud de la cadena de entrada.
+
+**Detalles adicionales:**
+
+- **Resolver subproblemas pequeños:** Cuando la longitud de la cadena en un subproblema es menor o igual a `m`, se utiliza la función `resolver_directo`. Esta tiene una complejidad $O(m^2)$ en el peor de los casos (cuando todas las subcadenas posibles de longitud `m` deben evaluarse).
+
+- **Espacio auxiliar:** Dado que el algoritmo es recursivo, el espacio auxiliar está determinado por la profundidad de la pila de recursión, que es $O(\log n)$.
+
 
 ```{python, include = FALSE}
 def analyse_complexity_divide_y_venceras(test_cases):
