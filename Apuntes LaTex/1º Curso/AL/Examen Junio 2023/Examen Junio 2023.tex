@@ -1,0 +1,41 @@
+\input{../../../Macros.tex}
+\title{Álgebra Lineal\\Examen Convocatoria Junio 2023}
+
+\begin{document}
+\maketitle
+\begin{enumerate}[label=\color{red}\textbf{\arabic*)}]
+    \item \lb{Consideremos los número complejos \[
+    x_1=-1-j,\quad z_2=\sqrt{2}e^{\frac{\pi}{4} j}  .
+    \]Calcula $z_1+z_2,z_1\cdot z_2$ y $\dfrac{z_2}{z_1}$ y expresa el resultado en forma exponencial.}
+
+\item \lb{Dada una matriz cuadrada $D$, se llama de  \textit{similitud producto-escalar} a la matriz $S=DD^\intercal$, con $D^\intercal$ la traspuesta de $D$. Se pide:}
+    \begin{enumerate}[label=\color{red}\textbf{\alph*)}]
+        \item \db{Demuestra que $S$ simétrica.}
+        \item \db{Sea $P$ una matriz ortogonal del mismo tamaño que $D$ y consideremos la matriz $DP$. Denotemos por  $S$ y  $S'$ a las matrices de similitud producto-escalar de  $D$ y  $DP$, respectivamente. Comprueba que  $S=S'$.} 
+    \end{enumerate}
+\item \lb{Sea $A$ una matriz. Explica con detalle en qué consiste la factorización en valores singulares  $(SVD)$ de  $A$. Por supuesto, se ha de explicar qué son los valores singulares y cómo se calculan las matrices que aparecen en dicha factorización. Pon también un ejemplo de aplicación de la factorización  $SVD$ en Ciencia de datos.}
+
+\item \lb{Consideremos el sistema de ecuaciones \[
+\left.\begin{array}{rcc}
+        4x-4y & 0 & 8\\
+        -4x+5y+z & = & -9\\
+        y+2z &=&1
+\end{array}  \right\} 
+\] } 
+\begin{enumerate}[label=\color{red}\textbf{\alph*)}]
+    \item \db{Comprueba que la matriz de coeficientes del sistema es simétrica definida positiva.}
+    \item \db{Calcula la factorización de Cholesky de la matriz de coeficientes.}
+    \item \db{Resuelve el sistema usando la factorización anterior}
+\end{enumerate}
+\item \lb{Dada la matriz \[
+\begin{bmatrix} 
+    1 & 1 & 0 & 1\\
+    0 & -1 & -1 & 1\\
+    1 & 2 & 1 & 0
+\end{bmatrix} 
+\] calcula una base ortonormal del subespacio $\mathrm{Col}(A)$. Si $B$ es una matriz de tamaño  $4\times m$, ¿qué podemos decir de la dimensión del subespacio $\mathrm{Col}(AB)$?}
+\item \lb{Dada la matriz $\begin{bmatrix} 
+            a & 0\\b&a 
+\end{bmatrix} $ con $b\neq 0$, explica por qué no existe ninguna matriz invertible $P$ tal que la matriz  $P^{-1}AP$ sea una matriz diagonal.} 
+\end{enumerate}
+\end{document}

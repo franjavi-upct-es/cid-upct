@@ -1,0 +1,521 @@
+\input{../../../Macros.tex}
+\title{Álgebra Lineal\\ Examen Convocatoria Enero 2023}
+\renewcommand{\arraystretch}{1}
+\setlength{\arraycolsep}{6pt}
+
+\begin{document}
+\maketitle
+\begin{enumerate}[label=\color{red}\textbf{\arabic*)}]
+    \item \lb{Consideremos los número complejos \[
+    z_1=-1-j,\quad z_2=\sqrt{2}e^{\frac{\pi}{4} j}  .
+    \]Calcula $z_1+z_2,z_1\cdot z_2$ y $\dfrac{z_2}{z_1}$ y expresa el resultado en forma exponencial.}
+
+    $z_2=\sqrt{2}e^{\frac{\pi}{4} j} =\sqrt{2} \cdot \left( \cos\dfrac{\pi}{4}+j\sin\dfrac{\pi}{4} \right)= 1+j $
+\begin{itemize}[label=\textbullet]
+    \item $z_1+z_2=(-1-j)+1+j=0$
+    \item $z_1\cdot z_2=(-1-j)\cdot (1+j)=-1-j-j+1=-2j$
+    \item $\dfrac{z_2}{z_1}=\dfrac{1+j}{-1-j}=\dfrac{1+j}{-1-j}\cdot \dfrac{-1+j}{-1+j}=\frac{(1+j)\cdot (-1+j)}{2}=\dfrac{-2}{2}=-1$
+\end{itemize}
+\item \lb{Dada una matriz cuadrada $D$, se llama de  \textit{similitud producto-escalar} a la matriz $S=DD^\intercal$, con $D^\intercal$ la traspuesta de $D$. Se pide:}
+    \begin{enumerate}[label=\color{red}\textbf{\alph*)}]
+        \item \db{Demuestra que $S$ simétrica.}
+
+            Sabemos que: \[
+            S=DD^\intercal
+            \] donde $D^\intercal$ es la traspuesta de $D$. Para verificar que  $S$ es simétrica, necesitamos comprobar que $S=S^\intercal$.
+
+            El cálculo de la traspuesta de $S$ es:  \[
+            S^\intercal=( D D^\intercal )^\intercal
+            \] 
+            Utilizando la propiedad de la trasposición de un producto de matrices: $(AB)^\intercal=B^\intercal A^\intercal$. Entonces: \[
+            S^\intercal=(D D^\intercal)^\intercal=(D^\intercal)^\intercal D^\intercal
+            \] 
+            Sabmos que $(D^\intercal)^\intercal=D$. Por lo tanto: \[
+            S^\intercal=D D^\intercal
+            \] 
+            Dado que $S=DD^\intercal$, se concluye que $S=S^\intercal$, lo que prueba que $S$ es simétrica.
+        \item \db{Sea $P$ una matriz ortogonal del mismo tamaño que $D$ y consideremos la matriz $DP$. Denotemos por  $S$ y  $S'$ a las matrices de similitud producto-escalar de  $D$ y  $DP$, respectivamente. Comprueba que  $S=S'$.} 
+            
+            Definimos:
+            \begin{itemize}[label=\textbullet]
+                \item $S=D D^\intercal$ como la matriz de similitud producto escalar de $D$.
+                \item  $S'$ como la matriz de similitud producto-escalar de  $DP$, donde $P$ es una matriz ortogonal.
+            \end{itemize}
+            Dado que $P$ es ortogonal, satisface $P^\intercal P=I$, donde $I$ es la matriz identidad. La matriz  $S'$ está dada por: \[
+            S'=(DP)(DP)^\intercal
+            \] 
+            Calculamos $(DP)^\intercal$ utilizando la propiedad de la transposición de producto de matrices: \[
+                (DP)^\intercal=P^\intercal D^\intercal
+            \] 
+            Sustituimos esto en la definición de $S'$:  \[
+            S'=(DP)(DP)^\intercal=(DP)(P^\intercal D^\intercal)
+            \] 
+            Distribuimos el producto: \[
+            S'=D(PP^\intercal)D^\intercal=DID^\intercal=D D^\intercal=S
+            \] 
+            Esto prueba que $S'=S$.
+    \end{enumerate}
+\item \lb{Sea $A$ una matriz. Explica con detalle en qué consiste la factorización en valores singulares  $(SVD)$ de  $A$. Por supuesto, se ha de explicar qué son los valores singulares y cómo se calculan las matrices que aparecen en dicha factorización. Pon también un ejemplo de aplicación de la factorización  $SVD$ en Ciencia de datos.}
+
+    La \textbf{Factorización en Valores Singulares (SVD)} descompone cualquier matriz $A$ (de tamaño $m\times n$) en el producto de tres matrices específicas: \[
+    A=U\Sigma V^\intercal,
+    \]donde:
+    \begin{enumerate}[label=\arabic*)]
+        \item $U$ es una matriz ortogonal de tamaño $m\times m$.
+        \item $\Sigma$ es una matriz diagonal de tamaño  $m\times n$, cuyos elementos no nulos en la diagonal se llaman \textbf{valores singulares}.
+        \item $V^\intercal$ es la traspuesta de una matriz ortogonal $V$ de tamaño  $n\times n$.
+    \end{enumerate}
+    \textbf{Definición de los componentes}
+
+    \begin{enumerate}[label=\arabic*)]
+        \item \textbf{Matriz $U$:}
+            \begin{itemize}[label=\textbullet]
+                \item Sus columans son los \textbf{vectores singulares izquierdos} de $A$, que son vectores propios de $A A^\intercal$.
+                \item Representan las direcciones principales del espacio de salida de $A$.
+                \item  $U$ es ortogonal:  $U^\intercal U=I_m$.
+            \end{itemize}
+        \item \textbf{Matriz $\Sigma$:}
+            \begin{itemize}[label=\textbullet]
+                \item Es una matriz diagonal cuyos elementos $\sigma_1\ge \sigma_2\ge \cdots\ge \sigma_r\ge 0$ (donde $r$ es el rango de  $A$) se llaman \textbf{valores singulares}.
+                \item Los valores singulares son las raíces cuadradas de los valores propios de $A^\intercal A$ o $A A^\intercal$: \[
+                \sigma_i=\sqrt{\lambda_i},\quad \text{donde $\lambda_i$ son los valores propios de  $A^\intercal A$.} 
+                \] 
+                \end{itemize}
+            \item \textbf{Matriz $V$:}
+                \begin{itemize}[label=\textbullet]
+                    \item Sus columnas son los \textbf{vectores singulares derechos} de $A$, que son vectores propios de  $A^\intercal A$.
+                    \item Representan las direcciones principales del espacio de entrada de $A$.
+                    \item  $V$ es ortogonal:  $V^\intercal V=I_n$.
+            \end{itemize}
+    \end{enumerate}
+\textbf{Cálculo del SVD:}
+\begin{enumerate}[label=Paso \arabic*:]
+    \item Calcular los valores propios de $A^\intercal A$ y $A A^\intercal$:
+        \begin{itemize}[label=\textbullet]
+            \item Los valores propios de $A^\intercal A$ (o $A A^\intercal$) determinan lso valores singulares $\sigma_i^2$.
+                
+        \end{itemize}
+    \item Encontrar los vectores propios:
+        \begin{itemize}[label=\textbullet]
+            \item Los vectores propios de $A^\intercal A$ son las columnas de $V$.
+            \item Los vectores propios de  $A A^\intercal$ son las columnas de $U$.
+        \end{itemize}
+    \item Construir $\Sigma$: 
+         \begin{itemize}[label=\textbullet]
+            \item Los valores singulares se colocan en la diagonal de $\Sigma$.
+        \end{itemize}
+\end{enumerate}
+\item \lb{Responde a las siguientes preguntas:}
+    \begin{enumerate}[label=\color{red}\textbf{\alph*)}]
+        \item \db{Explica qué es una matriz ortogonal.}
+
+            Una matriz $Q$ de tamaño  $n\times n$ es \textbf{ortogonal} si sus columnas forma un conjunto ortonormal. Esto significa que:
+           \begin{enumerate}[label=Paso \arabic*:]
+               \item Las columnas de $Q$ son  \textbf{ortogonales entre sí} (el producto escalar entre dos columnas distintas es $0$).
+               \item Cada columna de $Q$ tiene  \textbf{norma 1} (su longitud es igual a 1). 
+           \end{enumerate} 
+           En términos matemáticos, una matriz $Q$ es ortogonal si satisface:  \[
+           Q^\intercal Q=I_n\quad \text{o}\quad Q Q^\intercal=I_n,
+           \] 
+           donde: 
+           \begin{itemize}[label=\textbullet]
+               \item $Q^\intercal$ es la traspuesta de $Q$.
+               \item  $I_n$ es la matriz identidad de tamaño  $n\times n$.
+           \end{itemize}
+        \item \db{Explica en qué consiste la factorización $QR$ de una matriz cuadrada  $A$.}
+
+            La factorización $QR$ de una matriz cuadrada  $A$ descompone  $A$ en el producto de dos matrices:  \[
+            A=QR,
+            \] donde:
+            \begin{enumerate}[label=\arabic*)]
+                \item $Q$: Es una matriz ortogonal ($Q^\intercal Q=I$). Las columnas de $Q$ son ortonormales, es decir, forman una base de ortonormal para el espacio columna de  $A$.
+                \item  $R$: Es una matriz triangular superior (todos los elementos debajo de la diagonal son 0).
+            \end{enumerate}
+        \item \db{¿Qué propiedad tiene que cumplir $A$ para que se pueda calcular su factorización  $QR$?}
+
+            Anque cualquier matriz $A$ tiene una factorización  $QR$, en ciertos contextos puede haber condiciones adicionales:
+             \begin{itemize}[label=\textbullet]
+                \item Rango completo de columnas: Para que el proceso de Gram-Schmidt sea válido, se requiere que las columnas de $A$ sean linealmente independientes.
+            \end{itemize}
+        \item \db{Razona si la siguiente afirmación es cierta o falsa: sea $A$ una matriz no singular. El sistema lineal  $Ax=b$ siempre se puede resolver mediante factorización $LU$ y Choleski. Además, siempre hemos de elegir el método de Cholesky porque su coste computacional es menor que el de la  $LU$.} 
+
+            La afirmación es \textbf{falsa}, porque: 
+            \begin{enumerate}[label=\arabic*)]
+                \item Aunque $Ax=b$ siempre se puede resolver mediante  $LU$ si $A$ es no singular (invertible), \textbf{Cholesky no siempre es aplicable}. La factorización de Cholesky requiere que $A$ sea simétrica ($A=A^\intercal$) y definida positiva ($x^\intercal Ax>0$ para todo $x\neq 0$), lo cual no está garantizado para cualquier matriz no singular.
+                \item Aunque el coste computacional de Cholesky es menor que el de $LU$,  \textbf{no siempre se puede elegir Cholesky} debido a las restricciones mencionadas. 
+            \end{enumerate}
+    \end{enumerate}
+\item \lb{Consideremos la matriz \[
+A=\begin{bmatrix} 
+    1 & 1 & 1 & 1\\
+    1 & 2 & 3 & 4\\
+    1 & 3 & 6 & 10\\
+    1 & 4 & 10 & 20
+\end{bmatrix} .
+\]Calcula la factorización $LU$ de  $A$ y utiliza dicha factorización para calcular el determinante de $A$. Por curiosidad, la matriz  $L$ que aparece en la factorización anterior contiene el llamado  \textit{triángulo de Pascal}, que se usa, por ejemplo, en Combinatoria.}
+
+$$\begin{aligned}
+    \left[ \begin{array}{cccc|cccc}
+            1 & 1 & 1 & 1 & 1 & 0 & 0 & 0\\
+            1 & 2 & 3 & 4 &  & 1 & 0 & 0\\
+            1 & 3 & 6 & 10 &  &  & 1 & 0\\
+            1 & 4 & 10 & 20 &  &  &  & 1\\
+        \end{array} \right]& \xrightarrow[\begin{subarray}{l}
+            F_3\to F_3-F_1\\
+            F_4\to F_4-F_1
+    \end{subarray}]{F_2\to F_2-F_1}\left[ \begin{array}{cccc|cccc}
+            1 & 1 & 1 & 1 & 1 & 0 & 0 & 0\\
+            0 & 1 & 2 & 3 & 1 & 1 & 0 & 0\\
+            0 & 2 & 5 & 9 & 1 &  & 1 & 0\\
+            0 & 3 & 9 & 19 & 1 & & & 1
+    \end{array} \right] \\
+    &\xrightarrow[F_4\to F_4-3F_2]{F_3\to F_3-2F_2} \left[ \begin{array}{cccc|cccc}
+            1 & 1 & 1 & 1 & 1 & 0 & 0 & 0\\
+            0 & 1 & 2 & 3 & 1 & 1 & 0 & 0\\
+            0 & 0 & 1 & 3 & 1 & 2 & 1 & 0\\
+            0 & 0 & 3 & 10 & 1 & 3 & & 1
+    \end{array} \right] \\
+    &\xrightarrow{F_4\to F_4-3F_3}\left[ \begin{array}{cccc|cccc}
+            1 & 1 & 1 & 1 & 1 & 0 & 0 & 0\\
+            0 & 1 & 2 & 3 & 1 & 1 & 0 & 0\\
+            0 & 0 & 1 & 3 & 1 & 2 & 1 & 0\\
+            0 & 0 & 0 & 1 & 1 & 3 & 3 & 1 
+    \end{array} \right] 
+\end{aligned}$$
+Tenemos: \[
+L=\begin{bmatrix} 
+    1 & 0 & 0 & 0\\
+    1 & 1 & 0 & 0\\
+    1 & 2 & 1 & 0\\
+    1 & 3 & 3 & 1
+\end{bmatrix}, \qquad U=\begin{bmatrix} 
+    1 & 1 & 1 & 1\\
+    0 & 1 & 2 & 3\\
+    0 & 0 & 1 & 3\\
+    0 & 0 & 0 & 1
+\end{bmatrix} 
+\] 
+El determinante de $A$ se calcula como el producto de elentos de la diagonal de $U$:  \[
+\mathrm{det}(A)=1\cdot 1\cdot 1\cdot 1=1.
+\] 
+\item \lb{Consideremos la matriz $A=\begin{bmatrix} 
+            3 & 0\\ 4 & 5 
+\end{bmatrix}. $ Se pide:}
+\begin{enumerate}[label=\color{red}\textbf{\alph*)}]
+    \item \db{Calcula los valores propios y una base ortonormal de vectores propios de la matriz $A^\intercal A$. Denotemos por $\lambda_1,\lambda_2$ dichos vectores propios y por $v_1,v_2$ dicha base ortonormal de vectores propios asociados a $\lambda_1$ y $\lambda_2$, respectivamente. LLamaremos $V$ a la matriz cuyas columnas son, en este orden,  $v_1$ y $v_2$.}
+
+        \[
+        A^\intercal A=\begin{bmatrix} 
+            3 & 4\\
+            0 & 5
+        \end{bmatrix} \begin{bmatrix} 
+            3 & 0\\
+            4 & 5
+        \end{bmatrix} =\begin{bmatrix} 
+            25 & 20\\
+            20 & 25
+        \end{bmatrix}
+        \] 
+        $\mathrm{det}(A^\intercal-\lambda I)=\mathrm{det}\begin{bmatrix} 
+            25-\lambda & 20\\
+            20 & 25-\lambda
+        \end{bmatrix}=(25-\lambda)^2-400=\lambda^2-50\lambda+625-400=\lambda^2-50\lambda+225=0 $ \[
+        \lambda=\dfrac{50\pm\sqrt{(-50)^2-4\cdot 1\cdot 225} }{2\cdot 1}=\dfrac{50\pm\sqrt{1600} }{2}=\begin{cases}
+            \dfrac{50+40}{2}=45=\lambda_1\\
+            \dfrac{50-40}{2}=5=\lambda_2
+        \end{cases}
+        \]
+        \begin{itemize}[label=\textbullet]
+            \item Para $\lambda_1=45$ \[
+           \mathrm{Nuc}(A^\intercal A-45I )=\begin{bmatrix} 
+               -20 & 20\\
+               20 & -20
+           \end{bmatrix}\begin{bmatrix} 
+           x\\y 
+           \end{bmatrix}=\begin{bmatrix} 
+           0\\0 
+           \end{bmatrix} \longrightarrow \begin{cases}
+               -20x+20y=0\\
+               20x-20y=0
+           \end{cases}\longrightarrow 20x=20y\longrightarrow x=y\longrightarrow (1,1)
+            \] 
+            $v_1=\dfrac{1}{\|v_1\|}\begin{bmatrix} 
+            1\\1 
+            \end{bmatrix}=\dfrac{1}{\sqrt{2} }\begin{bmatrix} 
+            1\\1 
+            \end{bmatrix}=\begin{bmatrix} 
+            \tfrac{\sqrt{2} }{2} \\ \tfrac{\sqrt{2} }{2}  
+            \end{bmatrix}  $ 
+        \item Para $\lambda_2=5$ \[
+        \mathrm{Nuc}(A^\intercal A-5I)=\begin{bmatrix} 
+            20 & 20\\
+            20 & 20
+        \end{bmatrix} \begin{bmatrix} 
+        x\\ y 
+        \end{bmatrix} =\begin{bmatrix} 
+        0\\0 
+        \end{bmatrix} \longrightarrow \begin{cases}
+            20x+20y=0\\
+            20x+20y=0
+        \end{cases}\longrightarrow 20x=-20y\longrightarrow x=-y\longrightarrow (1,-1)
+        \] 
+        $v_2=\dfrac{1}{\|v_2\|}\begin{bmatrix} 
+        1\\-1 
+        \end{bmatrix}=\dfrac{1}{\sqrt{2} }\begin{bmatrix} 
+        1\\-1 
+        \end{bmatrix}=\begin{bmatrix} 
+        \tfrac{\sqrt{2} }{2}\\-\tfrac{\sqrt{2} }{2}   
+        \end{bmatrix}   $
+        \end{itemize}
+\[
+V=\begin{bmatrix} 
+    \tfrac{\sqrt{2} }{2}  & \tfrac{\sqrt{2} }{2} \\
+    \tfrac{\sqrt{2} }{2}  & -\tfrac{\sqrt{2} }{2} 
+\end{bmatrix} 
+\] 
+
+    \item \db{Sean $\sigma_1=\sqrt{\lambda_1} $ y $\sigma_2=\sqrt{\lambda_2} $. Calcula los vectores $u_1=\dfrac{1}{\sigma_1}Av_1$ y $u_2=\dfrac{1}{\sigma_2}Av_2$ y comprueba que forman una base ortonormal de vectores propios asociados a $\lambda_1$ y $\lambda_2$ para la matriz $A A^\intercal$.} 
+
+        \[
+        \begin{array}{l}
+            \sigma_1=\sqrt{45}\\
+            \sigma_2=\sqrt{5} 
+        \end{array}
+        \] 
+        $\begin{array}{l}
+            u_1=\dfrac{1}{\sqrt{45} }\begin{bmatrix} 
+                3 & 0\\
+                4 & 5
+            \end{bmatrix} \begin{bmatrix} 
+            \tfrac{\sqrt{2} }{2} \\ \tfrac{\sqrt{2} }{2}  
+            \end{bmatrix} =\dfrac{\sqrt{10} }{30}\begin{bmatrix} 
+            3\\9 
+            \end{bmatrix} =\begin{bmatrix} 
+            \tfrac{\sqrt{10} }{10} \\ \tfrac{3\sqrt{10} }{10}
+            \end{bmatrix}\\
+            u_2=\dfrac{1}{\sqrt{5} }\begin{bmatrix} 
+                3 & 0\\ 4 & 5 
+            \end{bmatrix} \begin{bmatrix} 
+            \tfrac{\sqrt{2} }{2}\\ -\tfrac{\sqrt{2}}{2}   
+            \end{bmatrix} =\dfrac{\sqrt{10} }{10}\begin{bmatrix} 
+            3\\-1 
+            \end{bmatrix} =\begin{bmatrix} 
+            \tfrac{3\sqrt{10} }{10}\\ -\tfrac{\sqrt{10} }{10} 
+            \end{bmatrix} 
+        \end{array}$
+
+
+    Para comprobar que $u_1$ y $u_2$ son vectores propios de $A A^\intercal$, debemos verificar que satisfacen: \[
+    A A^\intercal u_i=\lambda_iu_i,\quad i=1,2.
+    \] 
+    \begin{itemize}[label=\textbullet]
+        \item Para $u_1$: 
+
+            Sustituimos  $u_1=\dfrac{1}{\sigma_1}Av_1$ en $A A^\intercal u_1$: \[
+            A A^\intercal u_1=A A^\intercal\left( \dfrac{1}{\sigma_1}Av_1 \right)=\dfrac{1}{\sigma_1}A(A^\intercal Av_1). 
+            \] 
+            Sabemos que $A^\intercal Av_1=\lambda_1v_1$, así que: \[
+                A A^\intercal u_1=\dfrac{1}{\sigma_1}A(\lambda_1v_1)=\lbb{\dfrac{\lambda_1}{\sigma_1}}{\sqrt{\lambda_1} }Av_1=\sigma_1Av_1=\lambda_1u_1.
+            \] 
+        \item Para $u_2$: 
+
+            Sustituimos $u_2=\dfrac{1}{\sigma_2}Av_2$ en $A A^\intercal u_2$: \[
+            A A^\intercal u_2=A A^\intercal\left( \dfrac{1}{\sigma_2}Av_2 \right) =\dfrac{1}{\sigma_2}A(A^\intercal Av_2).
+            \] 
+
+            Sabemos que $A^\intercal Av_2=\lambda_2v_2$, así que: \[
+            A A^\intercal u_2=\dfrac{1}{\sigma_2}A(\lambda_2v_2)=\lbb{\dfrac{\lambda_2}{\sigma_2}}{\sqrt{\lambda_2} } Av_2=\sigma_2Av_2=\lambda_2u_2.
+            \] 
+    \end{itemize}
+    Por lo tanto, $u_1$ y $u_2$ son vectores propios de $A A^\intercal$ asociados a $\lambda_1$ y $\lambda_2$, respectivamente.
+
+Para demostrar que $u_1$ y $u_2$ son ortogonales, calulamos el producto escalar: \[u_1\cdot u_2=\left(\dfrac{1}{\sigma_1}Av_1\right)\cdot\left(\dfrac{1}{\sigma_2}Av_2\right)=\dfrac{1}{\sigma_1\sigma_2}(Av_1)^\intercal(Av_2).\]
+
+Sabemos que $(Av_1)^\intercal(Av_2)=v_1^\intercal(A^\intercal A)v_2$. Usamos que $v_1$ y $v_2$ son ortogonales (porque son vectores propios de $A^\intercal A$ asociados a diferentes valores propios): \[v_1^\intercal(A^\intercal A)v_2=\lambda_2v_1^\intercal v_2=0\]
+Por lo tanto: \[u_1\cdot u_2=0,\]lo que demuestra que $u_1$ y $u_2$ son ortogonales.
+
+    \item \db{Sean $U$ la matriz que tiene por columnas los vectores $u_1$ y $u_2$, en ese orden, y $\Sigma$ la matriz diagonal que tiene en su diagonal los números  $\sigma_1$ y $\sigma_2$. Comprueba que \[
+    A=\sigma_1u_1v_1^\intercal+\sigma_2u_2v_2^\intercal=U\Sigma V^\intercal.
+    \] } 
+
+    Por definición de $\sigma_i,u_i$, y  $v_i$, tenemos:  \[
+    A=\sigma_1u_1v_1^\intercal+\sigma_2u_2v_2^\intercal.
+    \] 
+    Expandimos cada términos: \[
+    \begin{array}{c}
+        \sigma_1u_1v_1^\intercal=\sigma_1\begin{bmatrix} 
+        u_{11}\\u_{12} 
+        \end{bmatrix} \begin{bmatrix} 
+        v_{11} & v_{12} 
+        \end{bmatrix} \\
+        \sigma_2u_2v_2^\intercal=\sigma_2\begin{bmatrix} 
+        u_{21}\\u_{22} 
+        \end{bmatrix} \begin{bmatrix} 
+        v_{21} & v_{22} 
+        \end{bmatrix} 
+    \end{array}
+    \] 
+    La suma es:
+    \[
+    A=\sigma_1\begin{bmatrix} 
+        u_{11}\\u_{12} 
+        \end{bmatrix} \begin{bmatrix} 
+        v_{11} & v_{12} 
+        \end{bmatrix}+\sigma_2\begin{bmatrix} 
+        u_{21}\\u_{22} 
+        \end{bmatrix} \begin{bmatrix} 
+        v_{21} & v_{22} 
+        \end{bmatrix} 
+    \] 
+
+    Agrupamos los términos para formar $A$, ya que  $u_1,u_2$ y $v_1,v_2$ forman las bases ortonormales en $U$ y $V$.
+
+    La forma general de $U\Sigma V\intercal$ es: \[
+    U\Sigma V^\intercal=\begin{bmatrix} 
+        u_1 & u_2 
+    \end{bmatrix}\begin{bmatrix} 
+        \sigma_1 & 0\\0 & \sigma_2 
+    \end{bmatrix} \begin{bmatrix} 
+    v_1^\intercal\\ v_2^\intercal 
+    \end{bmatrix}  .
+    \] 
+    Realizamos el producto: \[
+    U\Sigma = \begin{bmatrix} 
+        u_1 & u_2 
+    \end{bmatrix}\begin{bmatrix} 
+        \sigma_1 & 0\\0 & \sigma_2 
+    \end{bmatrix}  =\begin{bmatrix} 
+        \sigma_1u_1 & \sigma_2u_2 
+    \end{bmatrix} .
+    \] 
+
+    Multiplicamos por $V^\intercal$: 
+    \[
+    U\Sigma V^\intercal=\begin{bmatrix} 
+        \sigma_1u_1 & \sigma_2u_2 
+    \end{bmatrix} \begin{bmatrix} 
+    v_1^\intercal\\v_2^\intercal 
+    \end{bmatrix} =\sigmau_1v_1^\intercal+\sigma_2u_2v_2^\intercal.
+    \] 
+    
+    Por lo que queda demostrado que: \[
+    A=\sigma_1u_1v_1^\intercal+\sigma_2u_2v_2^\intercal=U\Sigma V^\intercal.
+    \] 
+\item \db{¿Cómo se llaman los números $\sigma_1$ y $\sigma_2$? ¿Cómo se llama la factorización de $A$ que hemos hecho en el aparato anterior?} 
+
+    Los números $\sigma_1$ y  $\sigma_2$ son los \textbf{valores singulares} de la matriz $A$.
+    \begin{itemize}[label=\textbullet]
+        \item Los valores singulares son raíces cuadradas de los valores propios de la matriz $A^\intercal A$, es decir: \[
+        \sigma_i=\sqrt{\lambda_i},\quad \text{donde $\lambda_i$ son los valores propios de  $A^\intercal A$.} 
+        \] 
+    \item Los valores singulares miden \textit{"la magnitud"} de la transformación lineal inducida por $A$ en diferentes direcciones del espacio.
+    \end{itemize}
+    La factorización de $A$ que hemos realizado se llama \textbf{Factorización en Valores Singulares (SVD)}. En esta factorización descomponemos $A$ como: \[
+    A=U\Sigma V^\intercal,
+    \] 
+    donde:
+    \begin{itemize}[label=\textbullet]
+        \item $U$ es la matriz ortogonal formada por los vectores singulares izquierdos $(u_i)$ de  $A$, que son los vectores propios de  $A A^\intercal$.
+        \item $V$ es una matriz ortogonal formada por los vectores singulares derechos  $(v_i)$ de  $A$, que son vectores propios de  $A^\intercal A$.
+        \item $\Sigma$ es una matriz diagonal cuyos elementos son los valores singulares ($\sigma_1,\sigma_2$) de $A$.
+    \end{itemize}
+\end{enumerate}
+\item \lb{Consideremos la matriz $A=\begin{bmatrix} 
+            1 & 1 & 1\\
+            1 & 2 & 3
+\end{bmatrix} $.}
+\begin{enumerate}[label=\color{red}\textbf{\alph*)}]
+    \item \db{Calcula la dimensión y una base de los cuatro subespacios fundamentales de $A$, es decir,  $\mathrm{Fil}(A),\mathrm{Col}(A),\mathrm{Nuc}(A)$ y $\mathrm{Nuc}(A^\intercal)$.}
+        \begin{enumerate}[label=\arabic*)]
+            \item $\mathrm{Fil}(A)$: 
+
+                \[
+                \begin{bmatrix} 
+                    1 & 1 & 1\\
+                    1 & 2 & 3
+                \end{bmatrix}\xrightarrow{F_2\to F_2-F_1}\begin{bmatrix} 
+                    1 & 1 & 1\\
+                    0 & 1 & 2
+                \end{bmatrix}  
+                \]  
+                Los vectores independientes son $(1,1,1)$ y  $(0,1,2)$. Por lo tanto:
+                $$\mathrm{Fil}(A)= <(1,1,1),(0,1,2)>.$$
+                La dimensión de $\mathrm{Fil}(A)$ es: \[
+                \mathrm{dimFil}(A)=2.
+                \] 
+            \item $\mathrm{Col}(A):$ 
+
+                \[
+                \begin{bmatrix} 
+                    1 & 1 & 1\\
+                    1 & 2 & 3
+                \end{bmatrix}\xrightarrow[C_3\to C_3-C_1]{C_2\to C_2-C_1} \begin{bmatrix} 
+                    1 & 0 & 0\\
+                    1 & 1 & 2
+                \end{bmatrix}\xrightarrow{C_3\to C_3-2C_2}\begin{bmatrix} 
+                    1 & 0 & 0\\
+                    1 & 1 & 0
+                \end{bmatrix}  
+                \] 
+                Las columnas $(1,1)^\intercal$ y $(1,2)^\intercal$ son independientes. Por lo tanto: \[
+                \mathrm{Col}(A)= <(1,1),(1,2)>.
+                \] 
+                La dimensión de $\mathrm{Col}(A)$ es: \[
+                \mathrm{dimCol}(A)=2.
+                \] 
+            \item $\mathrm{Nuc}(A):$ \[
+            \begin{bmatrix} 
+                1 & 1 & 1\\
+                1 & 2 & 3
+            \end{bmatrix} \begin{bmatrix} 
+            x\\ y\\z 
+            \end{bmatrix} =\begin{bmatrix} 
+            0\\0 
+            \end{bmatrix} \longrightarrow \begin{cases}
+                x+y+z=0\\
+                x+2y+3z=0
+            \end{cases}\longrightarrow \begin{cases}
+                x+y+z=0\\
+                y+2z=0
+            \end{cases}\longrightarrow y=-2z\longrightarrow x=2z-z=z
+            \] 
+            Por lo tanto, el núcleo es: \[
+            \mathrm{Nuc}(A)= <(1,-2,1) >.
+            \] 
+            La dimensión de $\mathrm{Nuc}(A)$ es: \[
+            \mathrm{dimNuc}(A)=1.
+            \] 
+        \item $\mathrm{Nuc}(A^\intercal):$ \[
+        \begin{bmatrix} 
+            1 & 1\\
+            1 & 2\\
+            1 & 3
+        \end{bmatrix} \begin{bmatrix} 
+        x\\y 
+        \end{bmatrix} =\begin{bmatrix} 
+        0\\0\\0 
+        \end{bmatrix} \longrightarrow \begin{cases}
+            x+y=0\\
+            x+2y=0\\
+            x+3y
+        \end{cases}\longrightarrow x=-y
+        \] 
+        Por lo tanto, el núcleo es: \[
+        \mathrm{Nuc}(A^\intercal)=<(-1,1)>
+        \] 
+        La dimensión de $\mathrm{Nuc}(A^\intercal)$ es: \[
+        \mathrm{dimNuc}(A^\intercal)=1.
+        \] 
+        \end{enumerate}
+    \item \db{En general, ¿qué relaciones pueden dar entre los subespacios anteriores?} 
+        \begin{enumerate}[label=\arabic*)]
+            \item \textbf{Relaciones entre dimensiones:} Por el \textbf{teorema fundamental del álgebra lineal:} \[
+            \mathrm{dimFil}(A)=\mathrm{dimCol}(A)=\mathrm{rango}(A),
+            \] y \[
+            \mathrm{dimNuc}(A)+\mathrm{dimFil}(A)=n, \quad \mathrm{dimNuc}(A^\intercal)+\mathrm{dimCol}(A)=m,
+            \]   donde $n$ es el número de columnas y  $m$ es el número de filas de $A$.
+        \item \textbf{Ortogonalidad:} Los vectores en $\mathrm{Nuc}(A)$ son ortogonales a los vectores de $\mathrm{Fil}(A)$, y los vectores en $\mathrm{Nuc}(A^\intercal)$ son ortogonales a los vectores de $\mathrm{Col}(A)$.
+        \end{enumerate}
+\end{enumerate}
+\end{enumerate}
+\end{document}

@@ -1,0 +1,55 @@
+\input{../../../Macros.tex}
+\title{Álgebra Lineal\\Examen Convocatoria Mayo 2023}
+
+\begin{document}
+\maketitle
+\begin{enumerate}[label=\color{red}\textbf{\arabic*)}]
+    \item \lb{Se pide:}
+        \begin{enumerate}[label=\color{red}\textbf{\alph*)}]
+            \item \db{Expresa en forma binomial y exponencial el número complejo \[
+            z=\dfrac{3+i}{1+2i}
+            \] } 
+        \item \db{Calcula y expresa en forma binomial el número complejo $z^{7}$.} 
+        \end{enumerate}
+    \item \lb{Consideremos la matriz $A=\begin{bmatrix} 
+                0.5 & 0.3\\-0.5 & 0.1 
+    \end{bmatrix} $.}
+    \begin{enumerate}[label=\color{red}\textbf{\alph*)}]
+        \item \db{Recordemos que la norma 1 de una matriz $B=(b_{ij})$ se define como \[
+       \|B\|_1=\max_{1\le j\le n}\left\{ \sum_{i=1}^{n} |b_{ij}| \right\}  
+        \]Calcula el número de condición de $A$ utilizando la norma 1.}
+    \item \db{Supongamos que queremos resolver el sistema lineal $Ax=b$ y que, debido a errores de redondeo o medida, cometemos un error relativo en el término independiente de aproximadamente  $10^{-2}$. Obtén una cota del error relativo que se cometería en la solución $x$.}
+        
+    \end{enumerate}
+\item \lb{Consideremos la matriz $A=\begin{bmatrix} 
+            1 & 1 & 1 & -1\\
+            2 & 1 & 5 & 2\\
+            3 & 2 & 6 & 1
+\end{bmatrix} $.}
+\begin{enumerate}[label=\color{red}\textbf{\alph*)}]
+    \item \db{Calcula una base ortogonal de $\mathrm{Col}(A)$ (subespacio de columnas de $A$) ¿Cuál es el rango de $A$?}
+    \item \db{¿Qué ecuaciones debe cumplor un vector $(x,y,z)$ para pertenecer a  $\mathrm{Col}(A)$?} 
+    \item \db{Calcula la proyección ortogonal del vector $b=(1,1,0)$ sobre el subespacio  $\mathrm{Col}(A)$.}
+\end{enumerate}
+\item \lb{Consideremos la matriz $A=\begin{bmatrix} 
+            0 & 1 & -1\\
+            1 & 0 & 0\\
+            1 & 1 & 0
+\end{bmatrix} $}
+\begin{enumerate}[label=\color{red}\textbf{\alph*)}]
+    \item \db{Calcula una matriz de permutación $P$, una matriz triangular inferior  $L$ y una matriz triangular superior  $U$ tales que  $PA=LU$ (factorización $PLU$).}
+    \item \db{Utilizando la factorización anterior, explica cómo resolverías el sistema de ecuaciones $Ax=b$.} 
+\end{enumerate}
+\item \lb{Consideremos la matriz $A=\begin{bmatrix} 
+            3 & 8\\
+            0 & 3
+\end{bmatrix} $} 
+\begin{enumerate}[label=\color{red}\textbf{\alph*)}]
+    \item \db{Calcula los valores propios y los valores singulares de $A$.}
+    \item \db{¿Es $A$ diagonalizable? Justifica la respuesta.}
+    \item \db{Calcula matrices $U$ y  $V$ ortogonales tales que  $A=U\Sigma V^\intercal$, donde $\Sigma=\begin{bmatrix} 
+                \sigma_1 & 0\\ 0 & \sigma_2 
+    \end{bmatrix} $ con $\sigma_1,\sigma_2$ los valores singulares de $A$.} 
+\end{enumerate}
+\end{enumerate}
+\end{document}
