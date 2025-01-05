@@ -26,7 +26,7 @@ Esperamos que al menos se tenga en cuenta el trabajo realizado para intentar res
 
 ```{r include=FALSE}
 library(reticulate)
-use_condaenv("optim-2", conda="C:/ProgramData/anaconda3/Scripts/conda.exe", required = TRUE)
+use_condaenv("optim-2", required = TRUE)
 py_config()
 ```
 
@@ -330,6 +330,83 @@ resultados = solution_todas(P, casos)
 print(resultados)
   
 ```
+
+### Estudio teórico del tiempo de ejecución
+
+Para realizar un estudio teórico del tiempo de ejecución del algoritmo de backtracking implementado, es importante analizar cada una de las funciones y su complejidad. A continuación se presenta un análisis detallado: 
+
+**Análisis de complejidad**
+
+1. **Función `encontrar_archivos_in`:**
+
+    - **Descripción:** Encuentra todos los archivos con extensión **`.in`** en el directorio `/tests` para comprobar el correcto funcionamiento del código.
+    
+    - **Complejidad:** $O(n)$, donde $n$ es el número de archivos en el directorio. En este caso: $n=3$ (total de archivos).
+
+2. **Función `leer_entrada`:**
+
+    - **Descripción:** Lee un archivo de entrada y organiza los casos de prueba.
+
+    - **Complejidad:** $O(P\cdot M\cdot A)$, donde $P$ es el número de casos de prueba, $M$ es el número de mecánicos y $A$ es el número averías
+
+3. **Función `generar`:**
+
+	- **Descripción:** Genera una asignación de mecánico para una avería específica.
+
+	- **Complejidad:** $O(M)$, donde $M$ es el número de mecánicos.
+
+4. **Función `solucion`:** 
+
+	- **Descripción:** Verifica si se ha encontrado una solución completa.
+
+	- **Complejidad:** $O(1)$.
+
+5. **Función `criterio`:** 
+
+	- **Descripción:** Determina si existen más mecánicos que pueden ser asignados a una avería en el nivel actual.
+
+	- **Complejidad:** $O(A)$, donde $A$ es el número de averías.
+
+6. **Función `masHermanos`:**
+
+	- **Descripción:** Determina si existen más mecánicos que pueden ser asignados a una avería en el nivel actual.
+
+	- **Complejidad:** $O(M)$
+
+7. **Función `retroceder`:**
+
+	- **Descripción:** Retrocede un nivel en el árbol de decisiones deshaciendo la asignación de un mecánico.
+	
+    - **Complejidad:** $O(1)$.
+
+8. **Función `bactracking`:**
+
+	- **Descripción:** Implementa el algoritmo de backtracking para encontrar la asignación óptima de mecánicos a averías.
+
+	- **Complejidad:** En el peor de los casos, el algoritmo debe explorar todas las posibles asignaciones sin reutilizar mecánicos, lo que implica un orden aproximado de $O\left( \frac{M!}{(M-A)!} \right)$, cuando $A\leq M$.
+
+9. **Función `backtracking_todas`:**
+
+	- **Descripción:** Encuentra la mejor solución posible utilizando el algoritmo de backtracking.
+
+	- **Complejidad:** $O\left( \frac{M!}{(M-A)!} \right)$, ya que llama a la función **`backtracking`**.
+
+10. **Función `solucion_todas`:** 
+
+	- **Descripción:** Procesa todos los casos de prueba y obtiene las soluciones óptimas para cada uno, utilizando el algoritmo de backtracking adaptado.
+
+	- **Complejidad:** $O\left( P\cdot \left( \frac{M!}{(M-A)!} \right) \right)$, ya que llama a la función **`backtracking_todas`** para cada caso de prueba.
+
+**Resumen del Tiempo de Ejecución **
+
+El tiempo de ejecución del algoritmo de backtracking en el peor de los casos es factorial, lo que significa que puede crecer rápidamente con el aumento del número de mecánicos $(M)$ y averías $(A)$. En términos generales, la complejidad del algoritmo es: 
+$$
+O\left( P\cdot \left( \frac{M!}{(M-A)!} \right) \right),
+$$
+donde:
+- $P$ es el número de casos de prueba.
+- $M$ es el número de mecánicos.
+- $A$ es el número de averías.
 
 ### Análisis del Desempeño del Algoritmo de Backtracking
 

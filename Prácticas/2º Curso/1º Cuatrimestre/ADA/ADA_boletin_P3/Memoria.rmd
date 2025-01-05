@@ -18,7 +18,7 @@ header-includes:
 
 ```{r include = FALSE}
 library(reticulate)
-use_condaenv("optim-2", conda="C:/ProgramData/anaconda3/Scripts/conda.exe", required = TRUE)
+use_condaenv("optim-2", required = TRUE)
 py_config()
 ```
 
