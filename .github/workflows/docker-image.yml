@@ -7,12 +7,33 @@ on:
     branches: [ "main" ]
 
 jobs:
-
   build:
-
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v4
+    # Verificar el código fuente
+    - name: Check out the code
+      uses: actions/checkout@v4
+
+    # Configurar login en Docker Hub (opcional si necesitas empujar la imagen)
+    - name: Log in to Docker Hub
+      uses: docker/login-action@v2
+      with:
+        username: ${{ secrets.DOCKER_USERNAME }}
+        password: ${{ secrets.DOCKER_PASSWORD }}
+
+    # Construir la imagen de Docker (si tienes un Dockerfile personalizado)
     - name: Build the Docker image
-      run: docker build . --file Dockerfile --tag my-image-name:$(date +%s)
+      run: |
+        docker build . --file Dockerfile --tag esanguin/oraclexe:latest
+
+    # Ejecutar el contenedor con parámetros específicos
+    - name: Run Oracle XE Container
+      run: |
+        docker run --name oraclexe --shm-size=1g -p 1521:1521 -p 8080:8080 \
+        -e ORACLE_PWD=1234 -d esanguin/oraclexe:latest
+
+    # Verificar que el contenedor está corriendo
+    - name: Check Oracle XE is running
+      run: |
+        docker ps | grep oraclexe
