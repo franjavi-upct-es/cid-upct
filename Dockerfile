@@ -1,4 +1,8 @@
-FROM docker/whalesay:latest
-LABEL Name=cidupct Version=0.0.1
-RUN apt-get -y update && apt-get install -y fortunes
-CMD ["sh", "-c", "/usr/games/fortune -a | cowsay"]
+# Usa la imagen base de Oracle XE
+FROM esanguin/oraclexe:latest
+
+# Exponer los puertos necesarios
+EXPOSE 1521 8080
+
+# Comando para iniciar la base de datos al iniciar el contenedor
+CMD ["/bin/bash", "-c", "/entrypoint.sh"]
