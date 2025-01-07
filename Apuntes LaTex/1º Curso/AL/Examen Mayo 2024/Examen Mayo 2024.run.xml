@@ -44,10 +44,10 @@
   <internal package="biblatex" priority="9" active="0">
     <generic>latex</generic>
     <provides type="dynamic">
-      <file>AL.bcf</file>
+      <file>"Examen Mayo 2024".bcf</file>
     </provides>
     <requires type="dynamic">
-      <file>AL.bbl</file>
+      <file>"Examen Mayo 2024".bbl</file>
     </requires>
     <requires type="static">
       <file>blx-dm.def</file>
@@ -64,22 +64,19 @@
     <generic>biber</generic>
     <cmdline>
       <binary>biber</binary>
-      <infile>AL</infile>
+      <infile>"Examen Mayo 2024"</infile>
     </cmdline>
     <input>
-      <file>AL.bcf</file>
+      <file>"Examen Mayo 2024".bcf</file>
     </input>
     <output>
-      <file>AL.bbl</file>
+      <file>"Examen Mayo 2024".bbl</file>
     </output>
     <provides type="dynamic">
-      <file>AL.bbl</file>
+      <file>"Examen Mayo 2024".bbl</file>
     </provides>
     <requires type="dynamic">
-      <file>AL.bcf</file>
-    </requires>
-    <requires type="editable">
-      <file>biblatex-examples.bib</file>
+      <file>"Examen Mayo 2024".bcf</file>
     </requires>
   </external>
 </requests>

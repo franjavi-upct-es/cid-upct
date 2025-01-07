@@ -1,0 +1,43 @@
+\input{../../../Macros.tex}
+\renewcommand{\arraystretch}{1}
+\setlength{\arraycolsep}{6pt}
+\setstretch{1.15}
+\title{Álgebra Lineal\\ Examen Junio 2024}
+
+\begin{document}
+\maketitle
+\begin{enumerate}[label=\color{red}\textbf{\arabic*)}]
+    \item \lb{Sea $A$ una matriz. Explica en qué consisten, cuándo se pueden calcular, y dónde se pueden utilizar las siguientes factorizaciones de  $A$.}
+        \begin{enumerate}[label=\color{red}\textbf{\alph*)}]
+            \item \db{Factorización $LU$ y Cholesky.}
+            \item \db{Factorización QR.}
+            \item \db{Factorización en valores propios.}
+            \item \db{Factorización en valores singulares.} 
+        \end{enumerate}
+    \item \lb{Sean $u$ y $v$ dos vectores unitarios de  $\R^n$. Consideremos la matriz $A=uu^\intercal+vv^\intercal$. Supongamos que $u$ es un vector propio de $A$ asociado al valor propio $\lambda=1$. Demuestra que los vectores  $u$ y $v$ son ortogonales.}
+    \item \lb{Consideremos los números complejos $z_1=-\sqrt{2}+\sqrt{2}j  $ y $z_2=\dfrac{1}{1+\sqrt{3}j }$} 
+        \begin{enumerate}[label=\color{red}\textbf{\alph*)}]
+            \item \db{Calcula la forma exponencial de $z_1$ y $z_2$.}
+            \item \db{Calcula $z_1\cdot z_2$ y expresa el resultado en forma binómica.}
+        \end{enumerate}
+    \item \lb{Consideremos el sistema de ecuaciones $Ax=b$, donde  \[
+    A=\begin{bmatrix} 
+        1 & 2\\ 2 & 4 
+    \end{bmatrix} ,\quad b=\begin{bmatrix} 
+    1\\1 
+    \end{bmatrix} .
+    \]Se pide: }
+    \begin{enumerate}[label=\color{red}\textbf{\alph*)}]
+        \item \db{Comprueba que el sistema de ecuaciones $Ax=b$ no tiene solución, y calcula la proyección ortogonal del vector  $v$ sobre el subespacio  $\mathrm{Col}(A)$.}
+        \item \db{Calcula la factorización SVD de la matriz $A$, es decir, calcula matrices ortogonales  $U$ y  $V$, y una matriz diagonal  $\Sigma$, de modo que  $A=U\Sigma V^\intercal$.}
+        \item \db{Se define la pseudo-inversa de Moore-Penrose como la matriz $$A_{-1}=V\Sigma_{-1}U^\intercal$$ donde la matriz diagonal $\Sigma_{-1}$ contiene en su diagonal, los inversos de los valores singulares de $A$ no nulos. Calcula  $A_{1}$.}
+        \item \db{Halla todos los vectores $X^\intercal=(x,y)$ tales que $Ax=u$, donde  $u$ es la proyección ortogonal que has calculado en el primer apartado, y comprueba que el que tiene la forma mínimia es precisamente $A_{-1}b$.} 
+    \end{enumerate}
+\item \lb{Consideremos la base $\mathcal{B}=\{v_1=(1,2),v_2=(-2,1)\} $ en $\R^2$, y una aplicación lineal que cumple que $f(v_1)=v_2$ y $f(v_2)=v_1$. Se pide:}
+    \begin{enumerate}[label=\color{red}\textbf{\alph*)}]
+        \item \db{Encuentra la matriz asociada a la aplicación lineal $f$ en la base  $\mathcal{B}$.}
+        \item \db{Encuentra la matriz asociada a la aplicación lineal $f$ en la base canónica de  $\R^2$.}
+        \item \db{Si $A$ es la matriz del apartado anterior, halla la descomposición espectral de $A$, es decir, escribe  $A$ como  $\lambda_1u_1u_1^\intercal+\lambda_2u_2u_2^\intercal$ con $\lambda_1,\lambda_2$ los valores propios de $A$ y  $u_1,u_2$ vectores propios adecuados.} 
+    \end{enumerate}
+\end{enumerate}
+\end{document}
