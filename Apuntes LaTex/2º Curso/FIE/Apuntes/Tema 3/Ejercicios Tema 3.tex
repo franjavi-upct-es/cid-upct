@@ -1,0 +1,40 @@
+\begin{center}
+    \textbf{\large Hoja de ejercicios Tema 3: Intervalos de confianza} 
+\end{center}
+\begin{enumerate}[label=\color{red}\textbf{\arabic*)}]
+    \item \lb{Sea $X\sim \mathcal{N}(\mu,\sigma^2)$ y se considera una m.a.s. de tamaño $n$ de $X$.}
+        \begin{enumerate}[label=\color{red}\textbf{\alph*)}]
+            \item \db{Suponiendo $\sigma^2$ conocida obtener el intervalo de confianza para $\mu$ con nivel de confianza $1-\alpha$. Determinar el tamaño de muestra necesario para estimar $\mu$ con una precisión $\pm\delta$.}
+            \item \db{Suponiendo $\sigma^2$ desconocida, obtener un intervalo de confianza óptimo para $\mu$ con nivel de confianza $1-\alpha$. Determinar el tamaño de muestra necesario para estimar $\mu$ con una precisión $\pm\delta$.} 
+        \end{enumerate}
+    \item \lb{Sean $X\sim \mathcal{N}(\mu_1,\sigma_1^2)$ e $Y\sim \mathcal{N}(\mu_2,\sigma_2^2)$ independientes. Se considera una m.a.s. de tamaño $n_1$ de $X$ y una m.a.s. de tamaño  $n_2$ de $Y$.}
+        \begin{enumerate}[label=\color{red}\textbf{\alph*)}]
+            \item \db{Suponiendo $\sigma_1^2$ y $\sigma_2^2$ conocidas obtener un intervalo de confianza para $\mu_1-\mu_2$ con nivel de confianza $1-\alpha$.}
+            \item \db{Suponiendo $\sigma_1^2$ y $\sigma_2^2$ desconocidas pero iguales, obtener un intervalo de confianza para $\mu_1-\mu_2$ con nivel de confianza $1-\alpha$.} 
+        \end{enumerate}
+    \item \lb{Sea $X\sim \mathcal{N}(\mu,\sigma^2)$. Se considera una muestra aleatoria simple de tamaño $n$ de  $X$. Suponiendo  $\mu$ desconocida obtener un intervalo de confianza para $\sigma^2$ con nivel de confianza $1-\alpha$.}
+    \item \lb{Sea $X$ una población con función de densidad  \[
+    f(x,\theta)=\dfrac{2x}{\theta^2}\text{ para $x \in (0,\theta)$},
+    \]siendo $\theta$ un parámetro positivo desconocido. Se considera una muestra aleatoria simple de tamaño $n$ de $X$. Obtener el intervalo de confianza óptimo para  $\theta$ con nivel de confianza $1-\alpha$.}
+\item \lb{Sea $X$ una población con función de densidad  \[
+f(x,\theta)=\exp(-(x-\theta)),\text{ para $x \in (\theta,+\infty)$,}
+\]siendo $\theta$ un parámetro positivo desconocido. Se considera una muestra aleatoria simple de tamaño $n$ de  $X$. Obtener el intervalo de confianza óptimo para  $\theta$ con nivel de confianza $1-\alpha$.}
+\item \lb{En un laboratorio, se estudia la velocidad de combustión de dos tipos de combustibles sólidos A y B. Se pretende determinar qué combustibles presentan una velocidad de combustión en promedio mayor de 50 cm/s. Los resultados obtenidos fueron:}
+
+\begin{center}
+    \color{lightblue}
+    \begin{tabular}{cccc}
+        \hline
+        Combustible & Tamaño muestral & Media muestral & Varianza muestral \\ \hline
+        A & 25 & 51.3 & 3.9 \\
+        B & 30 & 51.5 & 3.6 \\ \hline
+\end{tabular}
+\end{center}
+    \lb{Suponiendo que la distribución de las variables es normal, se pide:}
+    \begin{enumerate}[label=\color{red}\textbf{\alph*)}]
+        \item \db{Obtener un intervalo de confianza al 95\% para la velocidad esperada para el combustible A y otro para el combustible B.}
+        \item \db{Obtener un intervalo de confianza al 95\% para la varianza de la velocidad de combustión del combustible A.}
+        \item \db{Obtener un intervalo de confianza al 95\% para el cociente de las varianzas $\sigma_A^2 / \sigma_B^2$.}
+        \item \db{Suponiendo que las varianzas $\sigma_A^2$ y $\sigma_B^2$ son iguales, construir un intervalo de confianza para la diferencia entre la velocidad esperada para el combustible A y la velocidad esperada para el combustible B.} 
+    \end{enumerate}
+\end{enumerate}
