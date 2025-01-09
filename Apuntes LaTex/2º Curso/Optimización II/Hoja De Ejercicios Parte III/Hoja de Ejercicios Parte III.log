@@ -1,7 +1,7 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.21 (TeX Live 2020) (preloaded format=latex 2020.4.29)  5 DEC 2024 17:10
+This is pdfTeX, Version 3.14159265-2.6-1.40.21 (TeX Live 2020) (preloaded format=latex 2020.4.29)  9 JAN 2025 21:44
 entering extended mode
-**"Hoja de ejercicios Parte III.tex"
-(Hoja de ejercicios Parte III.tex
+**"Hoja de Ejercicios Parte III.tex"
+(Hoja de Ejercicios Parte III.tex
 LaTeX2e <2020-02-02> patch level 5
 L3 programming layer <2020-03-06> (../../../Macros.tex
 (/private/var/containers/Bundle/Application/38CAA5E5-7B85-4BF0-8BF3-3C6105CB5C8
@@ -34,6 +34,10 @@ Package: fullpage 1999/02/23 1.1 (PWD)
 Package: inputenc 2018/08/11 v1.3c Input encoding file
 \inpenc@prehook=\toks15
 \inpenc@posthook=\toks16
+)
+(/var/mobile/Containers/Data/Application/467E7597-C7BE-49DF-AE4E-DDA95A01BBDF/L
+ibrary/Caches/texmf-dist/./tex/latex/setspace/setspace.sty
+Package: setspace 2011/12/19 v6.7a set line spacing
 )
 (/var/mobile/Containers/Data/Application/467E7597-C7BE-49DF-AE4E-DDA95A01BBDF/L
 ibrary/Caches/texmf-dist/./tex/latex/pict2e/pict2e.sty
@@ -1492,21 +1496,21 @@ File: l3backend-pdfmode.def 2020-03-12 L3 backend support: PDF mode
 \l__kernel_color_stack_int=\count464
 \l__pdf_internal_box=\box148
 )
-(Hoja de ejercicios Parte III.aux)
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 3.
-LaTeX Font Info:    ... okay on input line 3.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 3.
-LaTeX Font Info:    ... okay on input line 3.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 3.
-LaTeX Font Info:    ... okay on input line 3.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 3.
-LaTeX Font Info:    ... okay on input line 3.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 3.
-LaTeX Font Info:    ... okay on input line 3.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 3.
-LaTeX Font Info:    ... okay on input line 3.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 3.
-LaTeX Font Info:    ... okay on input line 3.
+(Hoja de Ejercicios Parte III.aux)
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 4.
+LaTeX Font Info:    ... okay on input line 4.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 4.
+LaTeX Font Info:    ... okay on input line 4.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 4.
+LaTeX Font Info:    ... okay on input line 4.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 4.
+LaTeX Font Info:    ... okay on input line 4.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 4.
+LaTeX Font Info:    ... okay on input line 4.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 4.
+LaTeX Font Info:    ... okay on input line 4.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 4.
+LaTeX Font Info:    ... okay on input line 4.
 
 (/var/mobile/Containers/Data/Application/467E7597-C7BE-49DF-AE4E-DDA95A01BBDF/L
 ibrary/Caches/texmf-dist/./tex/context/base/mkii/supp-pdf.mkii
@@ -1541,12 +1545,12 @@ Package biblatex Info: Input encoding 'utf8' detected.
 Package biblatex Info: Automatic encoding selection.
 (biblatex)             Assuming data encoding 'utf8'.
 Package biblatex Info: Trying to load bibliographic data...
-Package biblatex Info: ... file '"Hoja de ejercicios Parte III".bbl' not found.
+Package biblatex Info: ... file '"Hoja de Ejercicios Parte III".bbl' not found.
 
 
-No file "Hoja de ejercicios Parte III".bbl.
-Package biblatex Info: Reference section=0 on input line 3.
-Package biblatex Info: Reference segment=0 on input line 3.
+No file "Hoja de Ejercicios Parte III".bbl.
+Package biblatex Info: Reference section=0 on input line 4.
+Package biblatex Info: Reference segment=0 on input line 4.
 \AtBeginShipoutBox=\box150
 
 (/var/mobile/Containers/Data/Application/467E7597-C7BE-49DF-AE4E-DDA95A01BBDF/L
@@ -1563,7 +1567,7 @@ Package pdflscape Info: Auto-detected driver: pdftex on input line 81.
 Package pgfplots Warning: running in backwards compatibility mode (unsuitable t
 ick labels; missing features). Consider writing \pgfplotsset{compat=1.17} into 
 your preamble.
- on input line 3.
+ on input line 4.
 
 *geometry* driver: auto-detecting
 *geometry* detected driver: pdftex
@@ -1599,22 +1603,20 @@ your preamble.
 * \@reversemarginfalse
 * (1in=72.27pt=25.4mm, 1cm=28.453pt)
 
-LaTeX Font Info:    Trying to load font information for U+msa on input line 13.
-
+LaTeX Font Info:    Trying to load font information for U+msa on input line 5.
 
 (/private/var/containers/Bundle/Application/38CAA5E5-7B85-4BF0-8BF3-3C6105CB5C8
 4/TeX Writer.app/texmf-base/./tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Trying to load font information for U+msb on input line 13.
-
+LaTeX Font Info:    Trying to load font information for U+msb on input line 5.
 
 (/private/var/containers/Bundle/Application/38CAA5E5-7B85-4BF0-8BF3-3C6105CB5C8
 4/TeX Writer.app/texmf-base/./tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )
-LaTeX Font Info:    Trying to load font information for U+lasy on input line 13
-.
+LaTeX Font Info:    Trying to load font information for U+lasy on input line 5.
+
 
 (/private/var/containers/Bundle/Application/38CAA5E5-7B85-4BF0-8BF3-3C6105CB5C8
 4/TeX Writer.app/texmf-base/./tex/latex/base/ulasy.fd
@@ -1623,19 +1625,19 @@ File: ulasy.fd 1998/08/17 v2.2e LaTeX symbol font definitions
 
 {/private/var/containers/Bundle/Application/38CAA5E5-7B85-4BF0-8BF3-3C6105CB5C8
 4/TeX Writer.app/texmf-base/./fonts/map/pdftex/updmap/pdftex.map}] [2] [3] [4] 
-[5] [6]
-(Hoja de ejercicios Parte III.aux)
-Package logreq Info: Writing requests to '"Hoja de ejercicios Parte III".run.xm
+[5] [6] [7]
+(Hoja de Ejercicios Parte III.aux)
+Package logreq Info: Writing requests to '"Hoja de Ejercicios Parte III".run.xm
 l'.
  ) 
 Here is how much of TeX's memory you used:
- 41727 strings out of 480618
- 1023034 string characters out of 5894377
- 1726831 words of memory out of 5000000
- 56946 multiletter control sequences out of 15000+600000
- 541791 words of font info for 66 fonts, out of 8000000 for 9000
+ 41773 strings out of 480618
+ 1023990 string characters out of 5894377
+ 1727397 words of memory out of 5000000
+ 56987 multiletter control sequences out of 15000+600000
+ 542090 words of font info for 67 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 69i,18n,100p,1219b,2400s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 69i,18n,100p,1219b,2396s stack positions out of 5000i,500n,10000p,200000b,80000s
 </private/var/containers/Bundle/Application/38CAA5E5-7B85-4BF0-8BF3-3C6105CB5
 C84/TeX Writer.app/texmf-base/./fonts/type1/public/amsfonts/cm/cmbx10.pfb></pri
 vate/var/containers/Bundle/Application/38CAA5E5-7B85-4BF0-8BF3-3C6105CB5C84/TeX
@@ -1653,31 +1655,34 @@ public/amsfonts/cm/cmmi9.pfb></private/var/containers/Bundle/Application/38CAA5
 E5-7B85-4BF0-8BF3-3C6105CB5C84/TeX Writer.app/texmf-base/./fonts/type1/public/a
 msfonts/cm/cmr10.pfb></private/var/containers/Bundle/Application/38CAA5E5-7B85-
 4BF0-8BF3-3C6105CB5C84/TeX Writer.app/texmf-base/./fonts/type1/public/amsfonts/
-cm/cmr5.pfb></private/var/containers/Bundle/Application/38CAA5E5-7B85-4BF0-8BF3
--3C6105CB5C84/TeX Writer.app/texmf-base/./fonts/type1/public/amsfonts/cm/cmr6.p
-fb></private/var/containers/Bundle/Application/38CAA5E5-7B85-4BF0-8BF3-3C6105CB
-5C84/TeX Writer.app/texmf-base/./fonts/type1/public/amsfonts/cm/cmr7.pfb></priv
-ate/var/containers/Bundle/Application/38CAA5E5-7B85-4BF0-8BF3-3C6105CB5C84/TeX 
-Writer.app/texmf-base/./fonts/type1/public/amsfonts/cm/cmr8.pfb></private/var/c
-ontainers/Bundle/Application/38CAA5E5-7B85-4BF0-8BF3-3C6105CB5C84/TeX Writer.ap
-p/texmf-base/./fonts/type1/public/amsfonts/cm/cmr9.pfb></private/var/containers
-/Bundle/Application/38CAA5E5-7B85-4BF0-8BF3-3C6105CB5C84/TeX Writer.app/texmf-b
-ase/./fonts/type1/public/amsfonts/cm/cmsy10.pfb></private/var/containers/Bundle
+cm/cmr12.pfb></private/var/containers/Bundle/Application/38CAA5E5-7B85-4BF0-8BF
+3-3C6105CB5C84/TeX Writer.app/texmf-base/./fonts/type1/public/amsfonts/cm/cmr17
+.pfb></private/var/containers/Bundle/Application/38CAA5E5-7B85-4BF0-8BF3-3C6105
+CB5C84/TeX Writer.app/texmf-base/./fonts/type1/public/amsfonts/cm/cmr5.pfb></pr
+ivate/var/containers/Bundle/Application/38CAA5E5-7B85-4BF0-8BF3-3C6105CB5C84/Te
+X Writer.app/texmf-base/./fonts/type1/public/amsfonts/cm/cmr6.pfb></private/var
+/containers/Bundle/Application/38CAA5E5-7B85-4BF0-8BF3-3C6105CB5C84/TeX Writer.
+app/texmf-base/./fonts/type1/public/amsfonts/cm/cmr7.pfb></private/var/containe
+rs/Bundle/Application/38CAA5E5-7B85-4BF0-8BF3-3C6105CB5C84/TeX Writer.app/texmf
+-base/./fonts/type1/public/amsfonts/cm/cmr8.pfb></private/var/containers/Bundle
 /Application/38CAA5E5-7B85-4BF0-8BF3-3C6105CB5C84/TeX Writer.app/texmf-base/./f
-onts/type1/public/amsfonts/cm/cmsy7.pfb></private/var/containers/Bundle/Applica
-tion/38CAA5E5-7B85-4BF0-8BF3-3C6105CB5C84/TeX Writer.app/texmf-base/./fonts/typ
-e1/public/amsfonts/cm/cmsy8.pfb></private/var/containers/Bundle/Application/38C
+onts/type1/public/amsfonts/cm/cmr9.pfb></private/var/containers/Bundle/Applicat
+ion/38CAA5E5-7B85-4BF0-8BF3-3C6105CB5C84/TeX Writer.app/texmf-base/./fonts/type
+1/public/amsfonts/cm/cmsy10.pfb></private/var/containers/Bundle/Application/38C
 AA5E5-7B85-4BF0-8BF3-3C6105CB5C84/TeX Writer.app/texmf-base/./fonts/type1/publi
-c/amsfonts/cm/cmsy9.pfb></private/var/containers/Bundle/Application/38CAA5E5-7B
+c/amsfonts/cm/cmsy7.pfb></private/var/containers/Bundle/Application/38CAA5E5-7B
 85-4BF0-8BF3-3C6105CB5C84/TeX Writer.app/texmf-base/./fonts/type1/public/amsfon
-ts/cm/cmti10.pfb></private/var/containers/Bundle/Application/38CAA5E5-7B85-4BF0
--8BF3-3C6105CB5C84/TeX Writer.app/texmf-base/./fonts/type1/public/amsfonts/cm/c
-mtt10.pfb></private/var/containers/Bundle/Application/38CAA5E5-7B85-4BF0-8BF3-3
-C6105CB5C84/TeX Writer.app/texmf-base/./fonts/type1/public/amsfonts/symbols/msa
-m7.pfb>
-Output written on "Hoja de ejercicios Parte III.pdf" (6 pages, 226943 bytes).
+ts/cm/cmsy8.pfb></private/var/containers/Bundle/Application/38CAA5E5-7B85-4BF0-
+8BF3-3C6105CB5C84/TeX Writer.app/texmf-base/./fonts/type1/public/amsfonts/cm/cm
+sy9.pfb></private/var/containers/Bundle/Application/38CAA5E5-7B85-4BF0-8BF3-3C6
+105CB5C84/TeX Writer.app/texmf-base/./fonts/type1/public/amsfonts/cm/cmti10.pfb
+></private/var/containers/Bundle/Application/38CAA5E5-7B85-4BF0-8BF3-3C6105CB5C
+84/TeX Writer.app/texmf-base/./fonts/type1/public/amsfonts/cm/cmtt10.pfb></priv
+ate/var/containers/Bundle/Application/38CAA5E5-7B85-4BF0-8BF3-3C6105CB5C84/TeX 
+Writer.app/texmf-base/./fonts/type1/public/amsfonts/symbols/msam7.pfb>
+Output written on "Hoja de Ejercicios Parte III.pdf" (7 pages, 249651 bytes).
 PDF statistics:
- 105 PDF objects out of 1000 (max. 8388607)
+ 118 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
  17 words of extra memory for PDF output out of 10000 (max. 10000000)
 

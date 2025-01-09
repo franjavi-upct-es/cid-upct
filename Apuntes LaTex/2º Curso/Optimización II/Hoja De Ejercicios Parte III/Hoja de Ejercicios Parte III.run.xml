@@ -44,10 +44,10 @@
   <internal package="biblatex" priority="9" active="0">
     <generic>latex</generic>
     <provides type="dynamic">
-      <file>"Hoja de ejercicios Parte III".bcf</file>
+      <file>"Hoja de Ejercicios Parte III".bcf</file>
     </provides>
     <requires type="dynamic">
-      <file>"Hoja de ejercicios Parte III".bbl</file>
+      <file>"Hoja de Ejercicios Parte III".bbl</file>
     </requires>
     <requires type="static">
       <file>blx-dm.def</file>
@@ -64,19 +64,19 @@
     <generic>biber</generic>
     <cmdline>
       <binary>biber</binary>
-      <infile>"Hoja de ejercicios Parte III"</infile>
+      <infile>"Hoja de Ejercicios Parte III"</infile>
     </cmdline>
     <input>
-      <file>"Hoja de ejercicios Parte III".bcf</file>
+      <file>"Hoja de Ejercicios Parte III".bcf</file>
     </input>
     <output>
-      <file>"Hoja de ejercicios Parte III".bbl</file>
+      <file>"Hoja de Ejercicios Parte III".bbl</file>
     </output>
     <provides type="dynamic">
-      <file>"Hoja de ejercicios Parte III".bbl</file>
+      <file>"Hoja de Ejercicios Parte III".bbl</file>
     </provides>
     <requires type="dynamic">
-      <file>"Hoja de ejercicios Parte III".bcf</file>
+      <file>"Hoja de Ejercicios Parte III".bcf</file>
     </requires>
   </external>
 </requests>

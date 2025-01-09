@@ -1,9 +1,8 @@
 \input{../../../Macros.tex}
+\title{Óptimización II\\Hoja de ejercicios Parte III: Problemas con restricciones}
 
 \begin{document}
-\begin{center}
-    HOJA DE EJERCICIOS. PARTE III: PROBLEMAS CON RESTRICCIONES
-\end{center}
+\maketitle
 
 \begin{enumerate}[label=\color{red}\arabic*.]
     \item \lb{Consideremos el problema \[ \begin{cases}
@@ -22,7 +21,7 @@
     	
     	\item \db{Calcula la solución del problema dual y el \textit{duality group}}
     \end{enumerate}
-    \item \lb{\textbf{Ejercicio para entrega.} En este ejercicio estudiaremos una versión sencilla del problema de clasificación con máquinas de vector soporte. Consideremos un conjunto de datos con sólo dos datos \[ X=\{(-1,-,1;-1),(1,1;1)\} \]donde las dos primeras componentes de cada uno de los vectores anteriores representa sus características, y la tercera componente sirve para clasificar dicho dato dentro de dos clases $y=+1$ e $y=-1$. Supongamos que el hiperplano de separación de las dos clases de datos se escribe como \[ x_{1}+x_{2}x+x_{3}y=0 \]Se pide:}
+    \item \lb{\textbf{Ejercicio para entregar.} En este ejercicio estudiaremos una versión sencilla del problema de clasificación con máquinas de vector soporte. Consideremos un conjunto de datos con sólo dos datos \[ X=\{(-1,-,1;-1),(1,1;1)\} \]donde las dos primeras componentes de cada uno de los vectores anteriores representa sus características, y la tercera componente sirve para clasificar dicho dato dentro de dos clases $y=+1$ e $y=-1$. Supongamos que el hiperplano de separación de las dos clases de datos se escribe como \[ x_{1}+x_{2}x+x_{3}y=0 \]Se pide:}
     \begin{enumerate}[label=\color{red}\alph*)]
     	\item \db{Demuestra que el problema de clasificación con SVD para estos datos se formula como \[ (Primal)\begin{cases}
     	\text{Minimizar en }(x_{1},x_{2},x_{3}) & f(x_1,x_2,x_3)=\dfrac{1}{2}(x_2^2+x_3^2)\\
