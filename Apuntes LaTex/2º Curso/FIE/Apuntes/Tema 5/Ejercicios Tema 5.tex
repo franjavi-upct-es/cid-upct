@@ -1,0 +1,22 @@
+\begin{center}
+    \textbf{\large Hoja de ejercicios Tema 5: Inferencia Bayesiana} 
+\end{center}
+\begin{enumerate}[label=\color{red}\textbf{\arabic*)}]
+    \item \lb{Consideramos el caso en que $X\sim P(\lambda)$ y $\pi(\lambda)$ sigue una distribución gamma con densidad \[
+    \pi(\lambda)\propto \lambda^{\alpha-1}\exp\left( -\dfrac{\lambda}{\beta} \right) 
+    \]Observamos una m.a.s de $X$, estudiar la distribución a posteriori de  $\lambda$.}
+\item \lb{Consideramos una m.a.s. de $X\sim \mathcal{N}(\mu,\sigma^2)$, con $\sigma^2$ conocida y escogemos como distribución a priori $\pi(\mu)$, una distribución normal con densidad \[
+\pi(\mu)\propto \exp\left( -\dfrac{1}{2\tau^2}(\mu-\mu_0)^2 \right) 
+\]Demostrar que la distribución a posteriori de $\mu$ es Normal con media y varianza: \[
+\begin{array}{c}
+    E[\mu|x]=\mu_0 \dfrac{\frac{\sigma^2}{n}}{\tau^2+\frac{\sigma^2}{n}}+\overline{x} \dfrac{\tau^2}{\tau^2+\frac{\sigma^2}{n}}\\
+    \mathrm{Var}[\mu|x]=\kappa^2=\dfrac{\frac{\tau^2\sigma^2}{n}}{\tau^2+\frac{\sigma^2}{n}}
+\end{array}
+\] } 
+\item \lb{Consideramos una m.a.s. de $X\sim \mathrm{Exp}(1 /\kappa)$. Nota: $\kappa$ es la esperanza de  $X$. Consideramos a priori  $\pi(\kappa)\propto \dfrac{1}{\kappa}$, que se considera una a priori no informativa y es la usual en este caso.}
+    \begin{enumerate}[label=\color{red}\textbf{\alph*)}]
+        \item \db{Demostrar que la densidad a posteriori de $\kappa|\mathbf{x}$ es proporcional $\kappa^{-n-1}\exp\left( -\sum_{i} \dfrac{x_i}{\kappa} \right) $} 
+        \item \db{Demostrar que, si transformamos $\kappa$, considerando  $\lambda=\dfrac{1}{\kappa},\,\lambda|\mathbf{x}$ admite una densidad gamma con parámetros $n$ y $\dfrac{1}{\sum_i x_i}$.}
+        \item \db{En un experimento sobre duración de dispositivos, obtenemos los siguientes valores en horas: 6562, 2280, 50, 989, 1797. Obtener un intervalo de credibilidad al 90\% para la inversa de $k$. Obtener el mismo intervalo para  $\kappa$.} 
+    \end{enumerate}
+\end{enumerate}
