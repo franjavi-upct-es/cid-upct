@@ -484,3 +484,192 @@ Determinamos la constante $k$, imponiendo que el test tenga extensión $\alpha$,
 \sup_{\theta\in\Theta_0}P((X_1,\dots,X_n)\in S_1|\theta)=\alpha.
 \] 
 \end{tcolorbox}
+\subsection{Test RVG para la media de una población normal con varianza conocida}
+\begin{tcolorbox}[colback=blue!5!white, colframe=blue!75!black, title=\textbf{Ejercicio}]
+\begin{itemize}[label=\textbullet]
+    \item $X\sim \mathcal{N}(\mu,\sigma^2)$, suponemos $\sigma$ conocida.
+    \item M.a.s  $X_1,\dots,X_n$ de $X$.
+    \item Formulamos las hipótesis  \[
+            \begin{array}{l}
+    H_0:\mu=\mu_0\\
+    H_1:\mu\neq \mu_0
+            \end{array}
+    \] 
+\end{itemize}
+\begin{enumerate}[label=\arabic*)]
+    \item Demostrar que el test que rechaza $H_0$ si $\left| \dfrac{\mathbf{\overline{X}}-\mu_0}{\sigma / \sqrt{n} } \right| >z_{1-\frac{\alpha}{2} }$ es de extensión $\alpha$.
+    \item Demostrar que el test anterior es el test de RVG.
+\end{enumerate}
+\end{tcolorbox}
+\textbf{¿Es de extensión $\alpha$?} 
+\begin{itemize}[label=\textbullet]
+    \item Hemos de comrpboar que: $\sup_{\theta\in \Theta_0}P_{i,\delta}(\theta)=\alpha$.
+    \item En este caso $H_0$ es simple, si $\mu=\mu_0$ se cumple que $\dfrac{\mathbf{\overline{X}}-\mu_0}{\sigma / \sqrt{n} }\sim \mathcal{N}(0,1)$. \[
+    P\left( \left| \dfrac{\mathbf{\overline{X}}-\mu_0}{\sigma / \sqrt{n} } \right|>z_{1-\frac{\alpha}{2} }|\mu_0  \right) =\alpha.
+    \] 
+    \begin{center}
+        \includegraphics[width=0.7\textwidth]{Tema 4/figures/Figure 4}
+    \end{center}
+\end{itemize}
+\textbf{¿Es el test de RVG?}
+\[
+\lambda(\mathbf{x})=\dfrac{\displaystyle \sup_{\mu=\mu_0}L(\mathbf{x};\mu)}{\displaystyle \sup_{\mu\in R}L(\mathbf{x};\mu)}.
+\] 
+\begin{itemize}[label=\textbullet]
+    \item Numerador: \[
+    L(\mathbf{X};\mu_0)=\dfrac{1}{\sigma^{\frac{n}{2} }(2\pi)^{\frac{n}{2} }}\exp\left( -\dfrac{1}{2\sigma^2}\sum_{i=1}^{n} (x_i-\mu_0)^2 \right) 
+    \] 
+\item El supremos en el denominador se alcanza en el EMV $\hat{\mu}=\overline{x}_n$.
+
+    \[
+        \lambda(\mathbf{x})=\exp\left( -\dfrac{n}{2\sigma^2}\sum_{i=1}^{n} (\overline{x}_n-\mu_0)^2 \right)
+    \] 
+\end{itemize}
+\textbf{¿Es el test de RVG?} 
+\begin{itemize}[label=\textbullet]
+    \item Determinamos la constante $k$, imponiendo que el test tenga extensión  $\alpha$, es decir, \[
+    \begin{array}{c}
+        P(\lambda(\mathbf{x})<k|\mu_0)=\alpha\\
+        \begin{aligned}
+            \alpha&= P\left( 0<\exp\left( -\dfrac{n}{2\sigma^2}\sum_{i=1}^{n} (\overline{x}_n-\mu_0)^2 \right) <k|\mu_0 \right)  \\
+            &= P\left( -\infty<-\dfrac{n}{2\sigma^2}\sum_{i=1}^{n} (\overline{x}_n-\mu_0)^2<\log(k)|\mu_0 \right)  \\
+            &= P\left( \left( \dfrac{\overline{x}_n-\mu_0}{\sigma / \sqrt{n} } \right) ^2>-2\log(k)|\mu_0 \right)  \\
+            &= P\left( \left| \dfrac{\overline{x}_n-\mu_0}{\sigma / \sqrt{n} } \right| >\sqrt{-2\log(k)}|\mu_0  \right)=P\left( \left| \dfrac{\overline{x}_n-\mu_0}{\sigma /\sqrt{n} } \right| >c|\mu_0 \right)   \\
+        \end{aligned}
+    \end{array}
+    \] tomamos $c\impliedby_{1-\frac{\alpha}{2} }$.
+\end{itemize}
+\subsection{Test de razón de verosimilitudes generalizada}
+\begin{tcolorbox}[colback=olive!5!white, colframe=olive!75!black, title=\textbf{Lo más difícil}]
+Aunque el test RVG sea un test que suele tener buenas propiedades en cuanto a errores, para muchos modelos, no es sencillo deducir su distribución muestral.
+\end{tcolorbox}
+\begin{tcolorbox}[colback=blue!5!white, colframe=blue!75!black, title=\textbf{Aproximación asintótica de la distribución muestral para el test RVG}]
+Para el contraste \[
+H_0:\theta\in \Theta_0
+\] frente a la alternativa \[
+H_1:\theta\in \Theta_1
+\] si $\dim(\Theta)=q$ y  $\dim(\Theta_0)=q'$ se verifica, bajo ciertas condiciones, que el estadístico $-2\log\lambda(\mathbf{X})$ converge en distribución a una ji-cuadrado con $q-q'$ grados de libertad.
+\end{tcolorbox}
+\subsection{Test de bondad de ajuste}
+\begin{tcolorbox}[colback=blue!5!white, colframe=blue!75!black, title=\textbf{Es un contraste no paramétrico}]
+\begin{itemize}[label=\textbullet]
+    \item Su objetivo es comprobar hasta qué punto los daots observados parecen haber sido generados por una distribución de probabilidad dada.
+    \item Se conoce como "contraste chi-cuadrado", porque es la distribución que usamos para construir nuestra regla de decisión.
+\end{itemize}
+\end{tcolorbox}
+\begin{tcolorbox}[colback=blue!5!white, colframe=blue!75!black, title=\textbf{Primer ejemplo, el caso más sencillo:}]
+\begin{itemize}[label=\textbullet]
+    \item Tenemos $k$ clases posibles asociadas a un experimento aleatorio: $A_1,\dots,A_k$.
+    \item Tenemos unos valores esperados para sus probabilidades \[
+    p_1=P(A_1),\dots,p_k=P(A_k).
+    \] 
+\item Observamos $n$ realizaciones del experimento y queremos decidir si lo observado es compatible con los valores esperados.
+\end{itemize}
+\end{tcolorbox}
+\subsection*{Caso sencillo bondad de ajuste}
+\begin{tcolorbox}[colback=blue!5!white, colframe=blue!75!black, title=\textbf{El caso más sencillo:}]
+\begin{itemize}[label=\textbullet]
+    \item Planteamos \[
+    \begin{array}{l}
+        H_0:P(A_i)=p_i,\,i=1,\dots,k\\
+        H_1:\text{Existe $i$ tal que  $P(A_i)\neq p_i$.}
+    \end{array}
+    \] 
+\item Tenemos $k$ clases posibles asociadas a un experimento aleatorio: $A_1,\dots,A_k$.
+\item Tenemos unos valores esperados para sus probabilidades \[
+p_1=P(A_1),\dots,p_k=P(A_k).
+\] 
+\item Observamos $n$ realizaciones del experimento y queremos decidir si lo observado es compatible con los valores esperados.
+\end{itemize}
+\end{tcolorbox}
+\subsection*{Caso sencillo bondad de ajuste: grupo sanguíneo}
+\begin{tcolorbox}[colback=blue!5!white, colframe=blue!75!black, title=\textbf{Cuatro grupos sanguíneos}]
+Experimento: escoger una persona
+\begin{itemize}[label=\textbullet]
+    \item $A_1=\text{"Su grupo es O"},A_2=\text{"Su grupo es A"},A_3=\text{"Su grupo es B"},A_4=\text{"Su grupo es AB"}.$ 
+    \item Los valores esperados para sus probabilidades son $$p_1=43\%,p_2=40\%,p_3=12\%,p_4=5\%.$$ 
+    \item En un grupo de 250 personas, observamos $f_1=110\text{ "O", }f_2=100\text{"A"},f_3=30\text{"B"},f_4=10\text{"AB"}$.
+    \item En el grupo de 250, esperamos $\hat{f_1}=250\times 43\%\simeq 107.5\text{"O"},\hat{f_2}=2500\times 40\%\simeq 100\text{"A"},\hat{f_3}=250\times 12\%\simeq 30\text{"B"},\hat{f_4}=250\times 5\%\simeq 12.5\text{"AB"}$.
+    \item Escribimos los datos en una tabla 
+        \begin{center}
+            \begin{tabular}{p{2cm}llll}
+                \textbf{Clases} & $A_1$ & $A_2$ & $A_3$ & $A_4$\\ \hline
+                Frecuencia observada & $f_1=110$ & $f_2=100$ & $f_3=30$ & $f_4=10$\\ \hline
+                Frecuencia esperada & $\hat{f_1}=107.5$ & $\hat{f_2}=100$ & $\hat{f_3}=30$ & $\hat{f_4}=12.5$
+            \end{tabular}
+        \end{center}
+\end{itemize}
+\end{tcolorbox}
+\subsubsection*{Construimos el estadístico para el constraste:}
+\begin{tcolorbox}[colback=blue!5!white, colframe=blue!75!black, title=\textbf{El estaístico chi-cuadrado de Pearson}]
+Para constrastar \[
+\begin{array}{l}
+    H_0:P(A_i)=p_i,\:i=1,\dots,k\\
+    H_1:\text{Existe $i$ tal que  $P(A_i)\neq p_i$.}
+\end{array}
+\] 
+Karl Pearson propuso el estadístico \[
+\chi^2=\sum_{i=1}^{k} \dfrac{\left( f_i-\hat{f_i} \right) ^2}{\hat{f_i}}.
+\] 
+Si $n$ es suficientemente grande,  \[
+\chi^2=\sum_{i=1}^{k} \dfrac{\left( f_i-\hat{f_i} \right) ^2}{\hat{f_i}}\text{ es aprox. $\chi_{k-1}^2$. }
+\] 
+\end{tcolorbox}
+\[
+\chi^2=\sum_{i=1}^{k} \dfrac{\left( f_i-\hat{f_i} \right) ^2}{\hat{f_i}}=\dfrac{(100-107.5)^2}{107.5}+\dfrac{0^2}{100}+\dfrac{0^2}{30}+\dfrac{(10-12.5)^2}{12.5}=1.02
+\] 
+Para calcular el p-valor, lo comparamos con los cuantiles de una $\chi_3^2$, valores extremos positivos nos llevan a rechazar $H_0$.
+\begin{tcolorbox}[colback=blue!5!white, colframe=blue!75!black, title=\textbf{p-valor:}]
+Encontramos $p-\text{valor}=0.79$, lo que nos lleva a afirmar que los datos apoyan la hipótesis nula, y son compatibls con los valores esperados $p_1=43\%\text{"O"},p_2=40\%\text{"A"},p_3=12\%\text{"B"},p_4=5\%\text{"AB"}$.
+\end{tcolorbox}
+\begin{tcolorbox}[colback=olive!5!white, colframe=olive!75!black, title=\textbf{Validez de la aproximación de la distribución de estadístico de Pearson por un $\chi_{k-1}^2$.}]
+$n$ debe ser "suficientemente" grande.
+\begin{itemize}[label=\textbullet]
+    \item Se suele considerar que todas las frecuencias esperadas deben ser al menos 5, excepto una, y que esa sea mayor que 0.5.
+    \item Si dos de ellas son pequeñas, entonces esas no deben ser menor que 1, y el resto debe ser al menos 5.
+    \item Si no se cumple, se agrupan clases.
+\end{itemize}
+\end{tcolorbox}
+\subsubsection*{Segundo caso: debemos estimar parámetros para calcular las frecuencias esperadas.}
+\begin{tcolorbox}[colback=blue!5!white, colframe=blue!75!black, title=\textbf{Segundo ejemplo, un caso común:}]
+\begin{itemize}[label=\textbullet]
+    \item Tenemos $k$ clases posibles asociadas a un experimento aleatorio $A_1,\dots,A_k$.
+    \item Los valores esperados para las probabilidades $p_1=P(A_1),\dots,p_k=P(A_k)$ dependen de unos parámetros desconocidos.
+    \item Observamos $n$ realizaciones del experimento y queremos decidir si lo observado es compatible con los valores esperados.
+    \item Planteamos $H_0:P(A_i)=p_i,\: i=1,\dots,k$ frente a $H_1$: Existe $i$ tal que $P(A_i)\neq p_i$.
+\end{itemize}
+\end{tcolorbox}
+\begin{tcolorbox}[colback=olive!5!white, colframe=olive!75!black, title=\textbf{Procederemos igual que antes, pero:}]
+\begin{itemize}[label=\textbullet]
+    \item Estimaremos los parámetros desconocidos a partir de las observaciones.
+    \item El estadístico de Pearson tendrá como distribución aproximada $\chi_{k-d-1}^2$, donde $d$ es el número de parámetros que debemos estimar para aproximar las frecuencias esperadas.
+\end{itemize}
+\end{tcolorbox}
+\subsubsection*{Ejemplo: daltonismo}
+\begin{tcolorbox}[colback=blue!5!white, colframe=blue!75!black, title=\textbf{La incidencia del daltonismo depende del sexo:}]
+\begin{itemize}[label=\textbullet]
+    \item Los genes responsables del daltonismo se encuentran en el cromosoma $X$.
+    \item Los hombres tienen un solo cromosoma  $X\Longrightarrow $ una copia del gen defectuoso en su cromosoma $X$ es suficiente para ser daltónico.
+    \item Las mujeres tienen dos cromosomas  $X\Longrightarrow $ dos copias del gen defectuoso son necesarias para ser daltónicas.
+\end{itemize}
+\end{tcolorbox}
+\begin{tcolorbox}[colback=blue!5!white, colframe=blue!75!black, title=\textbf{Si llamamos $q$ a la probabilidad de que el cromosoma  $X$ tenga el gen defectuoso y  $p=1-q$.}]
+Tenemos:
+\begin{center}
+    \begin{tabular}{cll}
+      & \textbf{Masculino} & \textbf{Femenino}\\ \hline
+        Normales & $\dfrac{p}{2}$ & $\dfrac{p^2}{2}+pq$\\ \hline
+        Daltónicos & $\dfrac{q}{2}$ & $\dfrac{q^2}{2}$
+ \end{tabular}   
+\end{center}
+\end{tcolorbox}
+\subsection*{Datos observados:}
+\begin{tcolorbox}[colback=blue!5!white, colframe=blue!75!black, title=\textbf{Para una muestra de 1000 personas:}]
+\begin{center}
+    \begin{tabular}{cll}
+        & \textbf{Masculino} & \textbf{Feminino} \\ \hline
+        Normales & 442 & 514\\
+        Daltónicos & 38 & 6\\
+    \end{tabular}
+\end{center}
+\end{tcolorbox}
