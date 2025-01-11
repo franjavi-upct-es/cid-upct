@@ -1,1 +1,3 @@
 R -e "rmarkdown::render('Control 3 Prácticas.Rmd', output_format='pdf_document')"
+
+quarto render inferencia-bayesiana-handout.qmd --to pdf
