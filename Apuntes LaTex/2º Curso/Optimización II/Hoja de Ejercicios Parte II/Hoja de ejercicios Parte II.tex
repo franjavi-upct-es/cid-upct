@@ -1,8 +1,10 @@
 \input{../../../Macros.tex}
 \title{Óptimización II\\ Hoja de ejercicios Parte II: Problemas sin restricciones}
-
+\pagestyle{empty}
 \begin{document}
+\thispagestyle{empty}
 \maketitle
+\thispagestyle{empty}
 \begin{enumerate}[label=\color{red}\textbf{\arabic*)}]
 	\item \lb{Consideramos la función $f(x_1,x_2)=2x_1^2+x_2^2+x_1x_2-x_1-3x_2$}
 	\begin{enumerate}[label=\color{red}\textbf{\alph*)}]
@@ -11,7 +13,9 @@
 		\item \db{Demuestra en general que las direcciones consecutivas de búsqueda en el método del gradiente con búsquedas lineales exactas son ortogonales.}
 		\item \db{A partir de dicho resultado, ¿cómo se comportará el método del gradiente en un problema de optimización sin restricciones en el que el número de condición de la función objetivo sea grande, siendo dicha función estrictamente convexa?}
 	\end{enumerate}
+\newpage
 	\item \lb{Resuelve el ejercicio anterior usando el método de gradiente conjugado para la misma inicialización $x^{(0)}=(1,1)^{\intercal}.$}
+\newpage
 	\item \lb{\textbf{Ejercicio para entregar.} Consideremos el problema de minimizar la función cuadrática \[ f(x)=x^2. \]Tomemos la sucesión de puntos $x_1=2,\quad  x_n=1+\dfrac{1}{2^{n-1}},\quad n=2,3,\dots$}
 	\begin{enumerate}[label=\color{red}\textbf{\arabic*)}]
 		\item \db{Comprueba a mano que la sucesión $x_n$ se obtiene usando un método de descenso del tipo \[ x_{n+1}=x_k+\alpha_nd_n,\quad\alpha_n=\dfrac{1}{2^n},\quad d_n=-1 \] Un cálculo directo muestra que $x_n\rightarrow1$. Sin embargo $x^*=1$ no es el mínimo de $f$.}
@@ -22,15 +26,18 @@
 		\item \db{Implementa el algoritmo de descenso anterior, incluyendo paso que cumplen las condiciones de Wolfe, y para los datos del inicio.}
 		\item \db{Ya que estamos recibiendo la ayuda de ChatGPT para resolver problemas matemáticos, averigua cómo hemos de comunicarnos con ChatGPT cuando tengamos que transmitirle una fórmula en un prompt.}
 	\end{enumerate}
-	\item \lb{Calcula los grafos computaciones en modos forwars y backward para las siguientes funciones y calcula, utilizando diferenciación automática, sus gradientes en los puntos que se indican:}
+	\item \lb{Calcula los grafos computaciones en modos forward y backward para las siguientes funciones y calcula, utilizando diferenciación automática, sus gradientes en los puntos que se indican:}
 	\begin{enumerate}[label=\alph*)]
 		\item \db{$f(x_1,x_2)=x_1x_2+\sin(x_1)$ en el punto $(x_1,x_2)=(1,1)$}
 		\item \db{$f(x_1,x_2)=\log(3x_1^2+5x_1x_2)$ en el punto $(x_1,x_2)=(2,3)$}
 		\item \db{$\mathrm{\omega_1,\omega_2}=(\sigma(2\omega_1+3\omega_2)-1)^2$ en el punto $(\omega_1,\omega_2)=(1,2)$ siendo $\sigma(s)=\tanh(s)$.}
 	\end{enumerate}
 \lb{Comprueba los resultados obtenidos con \texttt{tensorflow} y \texttt{pytorch}.}
+\newpage
 	\item \lb{Para cada una de las funciones del ejercicios anterior, calcula, usando \texttt{tensorflow} y \texttt{pytorch}, sus matrices hessianas en los puntos que se indican, e indica si dichas funciones son convexas, estrictamente convexas, o ni una cosa ni otra, en un entorno de dichos puntos. Recuerda que puedes calcular los valores propios de una matriz con el método \texttt{eig} de \texttt{numpy}. También has de dibujar dichas funciones en un entorno de dichos puntos.}
+\newpage
 	\item \lb{Sea $L\in\N$ un número natural positivo. Consideramos la función \[ f_L(\omega)=g_L(g_{L-1}(\cdots g_1(\omega))). \] Supongamos que para cada $1\le\ell\le L$ se tiene que $g_\ell'(\omega)\approx a^\ell$ para todo $\omega\in\R$. Calcula el $\lim_{L\to\infty}f_L'(\omega)$ en los casos $0<a<1$ y $a>1$. Explica qué le sucederá a un algoritmo de gradiente que utilizase los cálculos anteriores.}
+\newpage
 	\item \lb{Sea $0<b<1$. Consideremos el problema \[ \text{Minimizar en }(x_1,x_2):\quad f(x_1,x_2)=\dfrac{1}{2}(x_1^2+bx_2^2) \]Se pide:}
 	\begin{enumerate}[label=\color{red}\textbf{\alph*)}]
 		\item \db{Tomando como inicialización $x^{(0)}=(2,2)$ y para $b=0.01$, realiza a manos dos iteraciones del método de gradiente con búsquedas lineales exactas. Realiza también 100 iteraciones con la implementación del algoritmo de gradiente que vimos en la práctica de Python.}
@@ -38,6 +45,7 @@
 		\item \db{Tomando como inicialización un punto genérico $x^{(0)}=(x_1^0,x_2^0)$, realiza una iteración con el método de Newton.}
 		\item \db{A tenor de los resultados obtenidos, razona sobre qué método es más conveniente usar para problemas cuadráticos.}
 	\end{enumerate}
+\newpage
 	\item \lb{Consideremos la función $f(x)=7x-\ln x$. Se pide:}
 	\begin{enumerate}[label=\color{red}\textbf{\alph*)}]
 		\item \db{Realiza tres iteraciones del método de Newton partiendo de $x^{(0)}=0.2$ e indica cuál crees que podría ser, aproximadamente, el mínimo buscado. Para ello es conveniente que dibujes la función $f(x)=7x-\ln x$.}

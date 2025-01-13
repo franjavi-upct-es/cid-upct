@@ -1,8 +1,9 @@
 \input{../../../Macros.tex}
 \title{Óptimización II\\Hoja de ejercicios Parte I: Teoría básica}
-
+\pagestyle{empty}
 \begin{document}
 \maketitle
+\thispagestyle{empty}
 \begin{enumerate}[label=\color{red}\textbf{\arabic*)}]
     \item \lb{\textbf{Regresión Lineal.} Posiblemente, el modelo de predicción más sencillo en Machine Learning (ML) es de la regresión lineal. Partimos de un conjunto de datos (dataset) de la forma \[
     S=\left\{ \left( x_i^j,y^j \right),1\le i\le d,1\le j\le N  \right\} .
@@ -31,6 +32,7 @@
     \text{Sujeto a} & Bx=0
 \end{cases}
 \]donde $x=(x_1,\dots,x_n)$ y $b=(b_1,\dots,b_n)$.} 
+\newpage
 \item \lb{Dado el problema de programación no lineal \[
             (\mathrm{PPNL})\begin{cases}
                 \text{Minimizar} & f(x_1,\dots,x_n)\\
@@ -41,8 +43,9 @@
     \]se define el Lagrangiano asociado a dicho problema como \[
    \mathcal{L} (x,\lambda)=f(x)+\lambda\cdot h(x)
     \]donde $h=(h_1,\dots,h_d)$ y $\lambda=(\lambda_1,\dots,\lambda_d)$. Comprueba que si $x^{0}$ es un mínimo de (PPNL), entonces $x^0$ es un punto estacionario para  $\mathcal{L}$, es decir, \[
-    \frac{\partial \mathcal{L}}{\partial x_{i}}(x^0,\lambda)=0\quad \text{y}\quad \frac{\partial \mathcal{L}}{\partial \lambda_j}(x^0,\lambda),\quad 1\le i\le n,\:1\le j\le d.
+    \frac{\partial \mathcal{L}}{\partial x_{i}}(x^0,\lambda)=0\quad \text{y}\quad \frac{\partial \mathcal{L}}{\partial \lambda_j}(x^0,\lambda)=0,\quad 1\le i\le n,\:1\le j\le d.
     \] }
+\newpage
 \item \lb{Demuestra las siguientes afirmaciones:}
     \begin{enumerate}[label=\color{red}\textbf{\alph*)}]
         \item \db{Toda aplicación lineal es convexa, pero no estrictamente convexa.}
@@ -52,12 +55,14 @@
         \item \db{Las funciones $f(x)=\|x\|$ y  $g(x)=\|x\|^p,\,p\ge 1$ son convexas.}
         \item \db{Consideremos el problema de programación no lineal siendo $f$ una función lineal no nula y  $\mathcal{K}\subset \R^n$ un conjunto convexo y compacto. Demuestra que si $x^0$ es solución de este problema, entonces  $x^0$ es un punto de la frontera del conjunto  $\mathcal{K}$.} 
     \end{enumerate}
+\newpage
 \item \lb{Sea $c\in \R^n,c\neq 0$. Utiliza las condiciones de KKT para encontrar la solución óptima del problema \[
 \begin{cases}
     \text{Maximizar} & f(x)=c^\intercal x\\
     \text{Sujeto a} & \|x\|^2\le 1
 \end{cases}
 \]\textit{Indicación: recuerda el apartado $(f)$ del ejercicio anterior.}} 
+\newpage
 \item \lb{Consideremos el problema \[
 \begin{cases}
     \text{Minimizar} & f(x_1,x_2)=x_1\\
@@ -65,12 +70,14 @@
                     & -x_2\le 0
 \end{cases}
 \]Comprueba que el punto $(0,0)$ es un mínimo global y que, sin embargo dicho punto no cumple las condiciones necesarias de optimalidad de Karush-Kuhn-Tucker. Explica qué está sucediendo.}
+\newpage
 \item \lb{Resolver el siguiente PPNL y comprobar que se satisfacen las condiciones suficientes de optimalidad: \[
 \begin{cases}
     \text{Maximizar} & \|\mathbf{x}\|^2=x_1^2+x_2^2+\cdots+x_n^2\\
     \text{Sujeto a} & \mathbf{a\cdot x}=c
 \end{cases}
 \]donde $\mathbf{a}=(a_1,a_2,\dots,a_n)$ es un vector no nulo de $n$ componentes, $c$ es una constante y  $\mathbf{x}=(x_1,x_2,\dots,x_n)$.} 
+\newpage
 \item \lb{Consideremos el problema \[
             (\mathrm{PPNL})=\begin{cases}
                 \text{Minimizar} & f(x_1,x_2,x_3)=x_1^2+x_2^2+x_3^2\\
@@ -84,6 +91,7 @@
     \] }
 \item \db{Comprueba que la solución de (PPNL) es $x_1=x_2=-\dfrac{1}{2},x_3=-1$.} 
 \end{enumerate}
+\newpage
 \item \lb{Consideremos el problema de propamación no lineal \[
             (\mathrm{PPNL})=\begin{cases}
                 \text{Minimizar} & f(x_1,x_2)=x_1^2+x_2^2\\

@@ -5,20 +5,15 @@ author:
     affiliations: Universidad de Murcia
   - name:  María del Carmen Bueso, Pilar Sanmartín
     affiliations: Universidad Politécnica de Cartagena
-format: pdf
+format: html
 editor: visual
 title-block-banner: true
 self-contained: true
-fontsize: 10pt
-margin: 1.5
-keep-tex: true
 ---
 
 # Introducción
 
-En esta práctica veremos el uso de `R` para realizar inferencia bayesiana en algunos de los modelos de familias conjugadas que hemos visto en clase. Para ello utilzaremos el paquete [`bayesrules`].
-
-  [`bayesrules`]: https://cran.r-project.org/web/packages/bayesrules/index.html
+En esta práctica veremos el uso de `R` para realizar inferencia bayesiana en algunos de los modelos de familias conjugadas que hemos visto en clase. Para ello utilzaremos el paquete [`bayesrules`](https://cran.r-project.org/web/packages/bayesrules/index.html).
 
 # Modelo binomial-beta
 
