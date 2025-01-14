@@ -60,7 +60,7 @@ x = np.linspace(-3, 3, 500)
 y = norm.pdf(x)  # f(z) = pdf de la Normal(0,1)
 
 # Creamos la figura
-plt.figure(figsize=(8, 5))
+plt.figure()
 
 # Dibujamos la curva de densidad
 plt.plot(x, y, color='blue', label='Densidad $N(0,1)$')

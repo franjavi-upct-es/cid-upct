@@ -1,0 +1,248 @@
+\input{../../../Macros.tex}
+\title{Fundamentos de Inferencia Estadística\\Contenidos de teoría}
+
+\begin{document}
+\maketitle
+\section{Distribución en el muestreo}
+\begin{enumerate}[label=\color{red}\textbf{\arabic*)}]
+  \item \lb{Definición de muestra aleatoria simple} 
+
+    Sea una variable aleatoria $X$. Consideramos $n$ variables aleatorias independientes e idénticamente distribuidas \linebreak $X_1,X_2,\dots,X_n$, que se distribuyen como $X$. La variable aleatoria multidimensional  $(X_1,X_2,\dots,X_n)$ es una muestra aleatoria simple de $X$.
+
+  \item  \lb{Definición de estadístico} 
+
+    Cualquier cantidad calculada a partir de las observaciones de una muestra.
+
+  \item \lb{Demostración de la ley de los grandes números} 
+
+    Consideremos una m.a.s $X_1,X_2,\dots,X_n$ de una distribución $X$. Para cualquier función  $g$ que cumple  $E[g^2(X)]<+\infty$, tenemos que, con probabilidad 1, \[
+      \lim_{n \to \infty} \dfrac{1}{n}\sum_{i=1}^{n} g(X_i)=E[g(X)].
+    \] 
+  \item \lb{Concepto de distribución muestral de un estadístico}
+
+    El \textbf{concepto de distribución de un estadístico} se refiere al comportamiento probabilístico de un estadístico (como la media, varianza, etc.) calculado a partir de muestras repetidas de una población. Describe valores que puede tomar el estadístico y con qué probabilidad, formando una distribución teórica que depende del tamaño de la muestra y la distribución de la población.
+
+  \item \lb{Obtención de la esperanza y la varianza de la media muestral, para cualquier población.}
+
+    Llamamos $\mu=E[X]$ y $\sigma^2=\mathrm{Var}(X)$.
+    \begin{itemize}[label=\textbullet]
+      \item Tenemos $E[\overline{X}]=\mu$, es decir, que el centro de la distribución muestral de $\overline{X}$ coincide con el centro de la distribución $X$.
+      \item Tenemos,  $\mathrm{Var}(\overline{X})=\dfrac{\sigma^2}{n}$, es decir, la dispersión de la distribución muestral de $\overline{X}$ es $\sqrt{n} $ veces más pequeña que la dispersión inicial de $X$.
+    \end{itemize}
+  \item \lb{Obtención de la esperanza de la varianza muestral.}
+
+    Si $(X_1,X_2,\dots,X_n)$ es una muestra aleatoria simple de $X$ con varianza  $\sigma_X^2$, \[
+      \mathbb{E}[S_n^2]=\sigma_X^2.
+    \] 
+  \item \lb{Demostración del teorema de Fisher.}
+
+    Consideramos una m.a.s de una v.a $X$ con distribución normal  $\mathcal{N}(\mu,\sigma^2)$, entonces se verifica:
+    \begin{enumerate}[label=\arabic*)]
+      \item $\overline{X}_n$ y $S_n^2$ son dos vv.aa. independientes.
+      \item $\dfrac{\overline{X}_n-\mu}{\sigma/\sqrt{n} }\sim \mathcal{N}(0,1)$.
+      \item $(n-1)S_n^2 /\sigma^2\sim \chi_{n-1}^2$.
+    \end{enumerate}
+  \item \lb{Obtención de la distribución muestral de la proporción muestral.} 
+
+    Tenemos que $N=X_1+X_2+\cdots+X_n$, por lo tanto \[
+    \hat{p}=\dfrac{N}{n}=\dfrac{X_1+X_2+\cdots+X_n}{n}=\overline{X}.
+    \] 
+    Por el Teorema Central del Límite: \[
+    \hat{p}\sim \mathcal{N}\left( p,\dfrac{p(1-p)}{n} \right) \quad \text{aproximadamente.}
+    \] 
+\end{enumerate}
+\section{Estimación}
+\begin{enumerate}[label=\color{red}\textbf{\arabic*)}]
+  \item \lb{Descripción del método de los momentos para la estimación de parámetros.}
+    \begin{itemize}[label=\textbullet]
+      \item Experimento con una variable aleatoria $X$, suponemos  $f_X\in \{x\mapsto f_\theta(x),\theta\in \Theta\} $.
+      \item El parámetro $\theta$ tiene dimensión  $p$.
+      \item Consideramos una muestra aleatoria simple  $X_1,\dots,X_n$ de $X$.
+    \end{itemize} 
+  \item \lb{Definición de la función de verosimilitud.}
+
+    Sea $X$ una v.a, con distribución  $x\mapsto f_X(x;\theta)$ (función de densidad o función puntual de probabilidad), donde $\theta$ es de dimensión  $p: \theta\in \Theta\subset \R^p$.
+
+    Para un valor concreto de una m.a.s. $(X_1,\dots,X_n)$, que denotamos $(x_1,\dots,x_n)$, consideramos la función de $\theta$:  \[
+    L_n: \begin{cases}
+      \Theta\subset \R^p\to \R^+\\
+      \theta\mapsto L_n(\theta)=F_{X_1,\dots,X_n}(x_1,\dots,x_n;\theta)=\prod_{i=1}^{n} f_X(x_i;\theta).  
+    \end{cases}
+    \] 
+    La función $L_n$ es la  \textbf{función de verosimilitud}. Nos dice lo creíbles (verosímiles) que son las observaciones para ese valor del parámetro. 
+  \item \lb{Descripción del método de máxima verosimilitud para la estimación de parámetros.}
+
+    El \textbf{método de máxima verosimilitud} es un procedimiento estadístico para estimar los parámetros de un modelo basado en datos observados. Consiste en contrar los valores de los parámetros que maximizan la función de verosimilitud, es decir, que hacen más problable observar los datos bajo el modelo asumido.
+  \item \lb{Obtención del estimador de máxima verosimilitud de $(\mu,\sigma^2)$ para una m.a.s de una $\mathcal{N}(\mu,\sigma^2)$ (solo se pide ver cuáles son las soluciones de las ecuaciones de las primeras derivadas parciales igualadas a cero).}
+
+    La función de densidad de una variable aleatoria $X$ con distribución normal es:  \[
+    f(x|\mu,\sigma^2)=\dfrac{1}{\sqrt{2\pi\sigma^2} }\exp\left( -\dfrac{(x-\mu)^2}{2\sigma^2} \right) 
+    \] 
+    Si tenemos una muestra de tamaño $n$, es decir,  $X_1,\dots,X_n$ que son observaciones independientes e identicamente distribuidas como $\mathcal{N}(\mu,\sigma^2)$, entonces la función de verosimilitud $L(\mu,\sigma^2)$ es el producto de las funciones de densidad de cada observación \[
+    L(\mu,\sigma^2)=\prod_{i=1}^{n} f(x_i|\mu,\sigma^2)=\prod_{i=1}^{n} \dfrac{1}{2\pi\sigma^2}\exp\left( -\dfrac{(x_i-\mu)^2}{2\sigma^2} \right)  
+    \] 
+    Para simplificar los cálculos se toma el logaritmo de la función de verosimilitud, lo que da la función de log-verosimilitud $\ell(\mu,\sigma^2)$: \[
+    \begin{aligned}
+      \ell(\mu,\sigma^2)=\log L(\mu,\sigma^2)&= \sum_{i=1}^{n} \log\left( \dfrac{1}{2\pi\sigma^2} \right) +\sum_{i=1}^{n} \log\left( \exp\left( -\dfrac{(x_i-\mu)^2}{2\sigma^2} \right)  \right)  \\
+      &= \sum_{i=1}^{n} \log\left( (2\pi\sigma^2)^{-\frac{1}{2} } \right) +\sum_{i=1}^{n} -\dfrac{(x_i-\mu)^2}{2\sigma^2}=\sum_{i=1}^{n} -\dfrac{1}{2}\log(2\pi\sigma^2)-\dfrac{1}{2\sigma^2}(x_i-\mu)^2 \\
+      &= -\dfrac{n}{2}\cdot \log(\sigma^2)-\dfrac{n}{2}\cdot \log(\sigma^2)-\dfrac{1}{2\sigma^2}\sum_{i=1}^{n} (x_i-\mu)^2 \\
+    \end{aligned}
+    \] 
+    Para encontrar los estimadores de máxima verosimilitud, derivamos $\ell(\mu,\sigma^2)$ con respecto a $\mu$ y $\sigma^2$, e igualamos a cero: \[
+    \begin{array}{l}
+      \frac{\partial }{\partial \mu} \ell(\mu,\sigma^2)=\dfrac{\cancel{2} }{\cancel{2}\sigma^2 }\sum_{i=1}^{n} (x_i-\mu)=0\longrightarrow \sum_{i=1}^{n} (x_i-\mu)=0\longrightarrow \hat{\mu}=\dfrac{1}{n}\sum_{i=1}^{n} x_i=\overline{x}\\
+      \frac{\partial }{\partial \sigma^2}\ell(\mu,\sigma^2)=-\dfrac{n}{2\sigma^2}+\dfrac{1}{2\sigma^4}\sum_{i=1}^{n} (x_i-\mu)^2=0\longrightarrow -n\sigma^2 +\sum_{i=1}^{n} (x_i-\mu)^2=0\longrightarrow \hat{\sigma}^2=\dfrac{1}{n}\sum_{i=1}^{n} (x_i-\hat{\mu})^2
+    \end{array}
+    \] 
+  \item \lb{Definición de estimador insesgado.}
+
+    Si el sesgo ($E_{\theta}[\hat{\theta}]-\theta$) de un estimador es nulo para todo valor de $\theta$, decimo que el estimador es  \textbf{insesgado}. 
+  \item \lb{Definición del error cuadrático medio para un estimador.}
+
+    El \textbf{error cuadrático medio del estimador} $\hat{\theta}$ es la función de $\theta$ definida por  \[
+      \theta\longmapsto E_{\theta}[(\hat{\theta}-\theta)^2].
+    \]  
+  \item \lb{Definición de estimador consistente.}
+
+    Una sucesión de estimadores $(\hat{\theta}_n)_n$ es consistente si converge hacia $\theta$ en probabilidad, para todo  $\theta$. Es decir:  \[
+      \forall \epsilon>0,\quad P_{\theta}\left[ |\hat{\theta}_n-\theta|>\epsilon \right] \xrightarrow[n\to \infty]{}0
+    \] 
+  \item \lb{Definición del estimador tipo núcleo.}
+
+    Cualquier estimador de una función de densidad, con una función núcleo $K$, recibe el nombre de  \textbf{estimador tipo núcleo}. 
+  \item \lb{Descripción del cálculo del error estándar mediante Bootstrap.}
+
+    \begin{itemize}[label=\textbullet]
+      \item A partir de la muestra original de tamaño $n$, se generan múltiples muestra $B$ mediante remuestreo con reemplazo (pueden aparecer valores repetidos). Cada muestra tiene el mismo tamaño  $n$ que la original.
+      \item Para cada muestra Bootstrap, se calcula el estadístico de interés (la media, la mediana, etc.).
+      \item Se obtiene la distribución de los valores del estadístico calculados en las $B$ muestras Bootstrap.
+      \item El error estándar del estadístico se calcula como la desviación estándar de los valores del estadístico en la distribución Bootstrap:  \[
+      \hat{se}=\sqrt{\dfrac{1}{B}\sum_{i=1}^{B}(\hat{\theta}_i-\overline{\theta})^2 }, 
+      \] donde $\hat{\theta}_i$ es el estadístico calculado para la $i$-ésima muestra Bootstrap y  $\overline{\theta}$ es su promedio.
+    \end{itemize}
+\end{enumerate}
+\section{Estimación por intervalos}
+\begin{enumerate}[label=\color{red}\textbf{\arabic*)}]
+  \item \lb{Interpretación del nivel de confianza para la estimación por intervalos.}
+    \begin{itemize}[label=\textbullet]
+      \item El intervalo de confianza obtenido, es un intervalo \textbf{aleatorio}.
+      \item Al extraer una muestra, tengo una probabilidad $\alpha$ de que, al afirmar que $\mu$ se encuentra en dicho intervalo de confianza, me equivoque.
+    \end{itemize}
+  \item \lb{Factores que afectan a la precisión del intervalo.}
+
+    Utilizando, como ejemplo, el margen de error $z_{1-\frac{\alpha}{2} }\dfrac{\sigma}{\sqrt{n} }$ de un distribución Normal:
+    \begin{itemize}[label=\textbullet]
+      \item Al aumentar el valor de $n$, la precisión aumenta.
+      \item Al aumentar el valor de  $\sigma$, la precisión disminuye.
+      \item Al incrementar el intervalo de confianza, la precisión disminuye.
+    \end{itemize}
+  \item \lb{Construcción de un intervalo de confianza a partir de un estadístico pivotal.}
+  \item \lb{Intervalo de confianza basado en percentiles Bootstrap}
+\end{enumerate}
+\section{Contrastes de hipótesis}
+\begin{enumerate}[label=\color{red}\textbf{\arabic*)}]
+  \item \lb{Definición de un test.}
+
+    Un \textbf{test de hipótesis} es una regla que nos lleva a decidir si lo observado en la muestra es compatible con una hipótesis sobre los parámetros del modelo. 
+  \item \lb{Definición de los errores de tipo I y II.}
+    \begin{itemize}[label=\textbullet]
+      \item Error de tipo I: rechazar la hipótesis nula $H_0$ cuando es cierta.
+      \item Error de tipo II: aceptar la hipótesis nula $H_0$ cuando es falsa.
+    \end{itemize}
+  \item \lb{Definición de potencia de un test.}
+
+    La \textbf{función potencia} de un test $\delta$ asocia a cada  $\theta$ la probabilidad de rechazar la hipótesis nula:  \[
+    \theta\mapsto \pi_\delta(\theta)=P_\theta(X\in S_1),\quad \text{con $\theta\in \Theta$.}
+    \]  
+  \item \lb{Construcción de contrastes de hipótesis uniformes de máxima potencia para hipótesis nula y alternativa simples mediante el teorema de Neyman-Pearson.}
+  \item \lb{Demostración del teorema de Neyman-Pearson.}
+
+    Sea $\delta^*$ el test definido anteriormente.
+             \begin{itemize}[label=\textbullet]
+                           \item La condición \[
+                                           \alpha=P(\mathbf{X}\in S_1|\theta=\theta_0)
+                                                       \] nos asegura que $\delta^*\in T_\alpha$. Sea ahora $\delta\in T_\alpha$ cualquiera. Tenemos que probar que: \[
+                                                                   \pi_{\delta^*}(\theta_1)\ge \pi_{\delta}(\theta_1)
+                                                                               \] supondremos $X$ variable aleatoria continua (en el caso discreto se razonará de forma análoga).
+                                                                                       \item Sea  $\mathbf{X}\in \mathrm{sop}(X)$ se verifica que: \[
+                                                                                                           (\delta^*(\mathbf{X})-\delta(\mathbf{X}))(L(\mathbf{x},\theta_1)-kL(\mathbf{x},\theta_0))\ge 0.
+                                                                                                                   \] 
+                                                                                                                       \item Si $\delta(\mathbf{X})^*=1$ entonces: \[
+                                                                                                                               \dfrac{L(\mathbf{x},\theta_1)}{L(\mathbf{x},\theta_0)}\ge k\longleftrightarrow L(\mathbf{x},\theta_1)-kL(\mathbf{x},\theta_0)\ge 0
+                                                                                                                                   \] y $\delta^*(\mathbf{X})-\delta(\mathbf{X})\ge 0$ ($\delta(\mathbf{X})$ sólo puede ser 0 o 1) y el producto es no negativo.
+                                                                                                                                 \item Si $\delta(\mathbf{X})^*=0$ entonces: \[
+                                                                                                                                         \dfrac{L(\mathbf{x},\theta_1)}{L(\mathbf{x},\theta_0)}< k\longleftrightarrow L(\mathbf{x},\theta_1)-kL(\mathbf{x},\theta_0)< 0
+                                                                                                                                       \] y $\delta^*(\mathbf{X})-\delta(\mathbf{X})\le 0$ ($\delta(\mathbf{X})$ sólo puede ser 0 o 1) y el producto es no negativo.
+                                                                                                                                     \item La integral de la expresión anterior sobre el $\mathrm{sop}(\mathbf{X})$ será no negativa: \[
+                                                                                                                                                 \begin{array}{c}
+                                                                                                                                                   \int_{\mathrm{sop}(\mathbf{X})}(\delta^*(\mathbf{X})-\delta(\mathbf{X}))(L(\mathbf{x},\theta_1)-kL(\mathbf{x},\theta_0))\mathrm{d}\mathbf{x}\ge 0\\ \int_{\mathrm{sop}(\mathbf{X})}\delta^*(\mathbf{X})L(\mathbf{x},\theta_1)\mathrm{d}\mathbf{x}-\int_{\mathrm{sop}(\mathbf{X})}\delta(\mathbf{X})L(\mathbf{x},\theta_1)\mathrm{d}\mathbf{x}-k\int_{\mathrm{sop}(\mathbf{X})}\delta^*(\mathbf{X})L(\mathbf{x},\theta_0)\mathrm{d}\mathbf{x}-\int_{\mathrm{sop}(\mathbf{X})}\delta(\mathbf{X})L(\mathbf{x},\theta_0)\mathrm{d}\mathbf{x}\ge 0
+                                                                                                                                                           \end{array}
+                                                                                                                                                         \] 
+                                                                                                                                                         notar que ambos contrastes solo toman el valor 1 en sus respectivas regiones de rechazo (y cero en las regiones de aceptación) con lo que al desarrollar los terminos de la integral tenemos: \[
+                                                                                                                                                           \pi_{\delta^*}-\pi_\delta(\theta_1)-k(\pi_{\delta^*}(\theta_0)-\pi_\delta(\theta_0))\ge 0.
+                                                                                                                                                         \]
+                                                                                                                                                       \item Como $\delta\in T_\alpha$ tenemos que $\pi_\delta(\theta_0)\le \alpha$ con lo que: \[
+                                                                                                                                                           0\le \alpha-\pi_\delta(\theta_0)=\pi_{\delta^*}(\theta_0)-\pi_\delta(\theta_0)
+                                                                                                                                                         \] y por lo tanto: \[
+                                                                                                                                                         k(\pi_{\delta^*}(\theta_0)-\pi_\delta(\theta_0))\ge 0
+                                                                                                                                                       \] con lo que: \[
+                                                                                                                                                       0\le \pi_{\delta^*}(\theta_1)-\pi_\delta(\theta_1)-k(\pi_{\delta^*}(\delta_0)-\pi_\delta(\theta_0))\le \pi_{\delta^*}(\theta_1)-\pi_\delta(\theta_1)
+                                                                                                                                                     \] de donde se deduce: \[
+                                                                                                                                                     \pi_{\delta^*}(\theta_1)\ge \pi_\delta(\theta_1)
+                                                                                                                                                   \] que era lo que queríamos probar.
+                                                                                                                                                           \end{itemize}
+  \item \lb{Definición del p-valor. Uso correcto del p-valor e interpretación erróneas.}
+
+    Consideramos un contraste, un test, y hemos observado una muestra concreta $\mathbf{x}$.
+    \begin{itemize}[label=\textbullet]
+          \item El \lb{p-valor} es el nivel de significación más pequeño que nos lleve, para esa muestra $\mathbf{x}$, a rechazar la hipótesis nula.
+                \item El p-valor está asociado a la región $S_1$ más pequeñas que nos lleve, para esa muestra, a rechazar $H_0$.
+                \end{itemize}
+  \item \lb{Definición del estadístico chi-cuadrado de Pearson, en el caso en que las frecuencias esperadas son conocidas.}
+
+Para constrastar \[
+\begin{array}{l}
+    H_0:P(A_i)=p_i,\:i=1,\dots,k\\
+    H_1:\text{Existe $i$ tal que  $P(A_i)\neq p_i$.}
+\end{array}
+\] 
+Karl Pearson propuso el estadístico \[
+\chi^2=\sum_{i=1}^{k} \dfrac{\left( f_i-\hat{f_i} \right) ^2}{\hat{f_i}}.
+\] 
+Si $n$ es suficientemente grande,  \[
+\chi^2=\sum_{i=1}^{k} \dfrac{\left( f_i-\hat{f_i} \right) ^2}{\hat{f_i}}\text{ es aproximadamente $\chi_{k-1}^2$. }
+\] \end{enumerate}
+\section{Inferencia Bayesiana}
+\begin{enumerate}[label=\color{red}\textbf{\arabic*)}]
+  \item \lb{Descripción del enfoque Bayesiano para la estimación de un parámetro. Distribución a priori y a posteriori.}
+    \begin{itemize}[label=\textbullet]
+      \item La inferencia bayesiana asume que modelizamos la información que podemos tener sobre el parámetro a través de una distribución de probabilidad.
+      \item Formulamos como parte del modelo una \textbf{distribución a priori} sobre $\theta$. Su función de densidad se dentoa por  $\pi(\theta)$.
+    \item La inferencia bayesiana actualiza la información a priori, usando para ello la muestra \textbf{x} observada, para obtener la \textbf{distribución a posteriori} $\pi(\theta|\mathbf{x})$.
+    \end{itemize}
+  \item \lb{Demostración de que las distribuciones beta y Bernoulli son conjugadas.} 
+
+    Supongamos que el parámetro $p$ tiene una distribución Beta prior:  \[
+    f(p)=\dfrac{1}{\mathrm{Be}(\alpha,\beta)}p^{\alpha-1}(1-p)^{\beta-1}.
+    \] 
+    Dado que $X_1,X_2,\dots,X_n$ son observaciones independientes y siguen una distribución Bernoulli, la función de voersimilitud es: \[
+      P(\mathbf{X}|p)=\prod_{i=1}^{n}p^{x_i}(1-p)^{1-x_i},
+    \]  donde $x_i\in \{0,1\} $.
+
+    Esto se puede reescribir como: \[
+    P(\mathbf{X}|p)=p^{\sum_{i=1}^{n} x_i}(1-p)^{n-\sum_{i=1}^{n} x_i}.
+    \] 
+    La distribución a posteriori es proporcional al producto de la verosimilitud y la función a priori: \[
+    f(p|\mathbf{X})\propto P(\mathbf{X}|p)f(p).
+    \] 
+    Sustituyendo las expresiones: \[
+    f(p|\mathbf{X})\propto p^{\sum_{i=1}^{n} x_i}(1-p)^{n-\sum_{i=1}^{n} x_i}\cdot p^{\alpha-1}(1-p)^{\beta-1}.
+    \] 
+    Combinando los exponentes de $p$ y  $1-p$:  \[
+    f(p|\mathbf{X})\propto p^{\alpha+\sum_{i=1}^{n} x_i-1}(1-p)^{\beta+n-\sum_{i=1}^{n} x_i-1}.
+    \] 
+    Por lo tanto: \[
+      f(p|\mathbf{X})=\mathrm{Be}\left( \alpha+\sum_{i=1}^{n} x_i,\beta+n-\sum_{i=1}^{n} x_i \right) .
+    \] 
+\end{enumerate}
+\end{document}
