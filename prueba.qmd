@@ -14,8 +14,14 @@ format:
             \usepackage{graphics}
 papersize: a4
 geometry: margin=1.5cm
+editor_options: 
+  chunk_output_type: console
 ---
-
+```{r include=FALSE}
+library(reticulate)
+use_condaenv("optim-2", conda="C:/ProgramData/anaconda3/Scripts/conda.exe", required = TRUE)
+py_config()
+```
 \newpage
 
 # Prueba título
@@ -39,11 +45,7 @@ Hola
 
 $x^2-2=4\longrightarrow x^2=6\longrightarrow x=\sqrt{6}$
 
-```{python}
-#| echo: false
-#| fig-align: "center"
-#| fig-width: 8
-#| fig-height: 4
+```{python, echo = FALSE, fig.align = "center", fig.scale=0.5}
 import numpy as np
 import matplotlib.pyplot as plt
 from scipy.stats import norm
@@ -113,4 +115,25 @@ plt.gca().set_facecolor("none")
 plt.gca().patch.set_facecolor("none")
 plt.gcf().patch.set_facecolor("none")
 plt.show()
+```
+
+```{python, echo = FALSE}
+for i in range(10):
+    print(i)
+```
+
+```{r}
+#| fig-align: 'center'
+#| warning: false
+library(bayesrules)
+library(tidyverse)
+plot_beta_binomial(
+    alpha = 1,
+    beta = 1,
+    y = 8,
+    n = 20,
+    prior = TRUE,
+    likelihood = FALSE,
+    posterior = TRUE
+)
 ```

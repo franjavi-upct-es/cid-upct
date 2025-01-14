@@ -21,13 +21,11 @@ py_config()
 
 # Simulated annealing from scratch
 
-Consideramos el benchmark en optimización global de la función de Ackley
-$$
+Consideramos el benchmark en optimización global de la función de Ackley $$
 f(x)=-20e^{-0.2\sqrt{0.5x^2}}-e^{0.5\cos(2\pi x)}+e+20
-$$
-en el intervalo $[-5,5]$.
+$$ en el intervalo $[-5,5]$.
 
-```{python}
+```{python, fig.scale = 0.5}
 import numpy as np
 import matplotlib.pyplot as plt
 
@@ -94,7 +92,9 @@ def simulated_annealing(objective, bounds, n_iterations, step_size, temp):
             curr, curr_eval = candidate, candidate_eval
     return [best, best_eval, scores]
 ```
+
 Ejecutamos varias veces el simulated annealing algo porque la aleatoriedad juega un papel decisivo
+
 ```{python, results='hold'}
 # seed the pseudorandom number generator for reproducibility
 # np.random.seed(1)
@@ -118,4 +118,3 @@ ax.set_ylabel(r'$f(x)$')
 
 plt.show()
 ```
-
