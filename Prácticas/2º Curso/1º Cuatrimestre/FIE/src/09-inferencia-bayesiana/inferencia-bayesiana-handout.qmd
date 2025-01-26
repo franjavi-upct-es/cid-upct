@@ -13,7 +13,9 @@ self-contained: true
 
 # Introducción
 
-En esta práctica veremos el uso de `R` para realizar inferencia bayesiana en algunos de los modelos de familias conjugadas que hemos visto en clase. Para ello utilzaremos el paquete [`bayesrules`](https://cran.r-project.org/web/packages/bayesrules/index.html).
+En esta práctica veremos el uso de `R` para realizar inferencia bayesiana en algunos de los modelos de familias conjugadas que hemos visto en clase. Para ello utilzaremos el paquete [`bayesrules`].
+
+  [`bayesrules`]: https://cran.r-project.org/web/packages/bayesrules/index.html
 
 # Modelo binomial-beta
 

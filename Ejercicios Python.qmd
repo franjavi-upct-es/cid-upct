@@ -1,0 +1,341 @@
+---
+title: "Prácticas con Python"
+author: "Francisco Javier Mercader Martínez"
+format:
+    pdf:
+        documentclass: article
+        hightlight-style: github
+        header-includes: |
+            \usepackage{multicol}
+            \usepackage{enumitem}
+linestrectch: 1.5
+fontisize: 10
+papersize: a4
+geometry: margin=1.5cm
+---
+
+**Actividad 1.** Realizar las siguientes operaciones con Python:
+
+\begin{multicols}{3}
+\begin{enumerate}[label=(\alph*)]
+\item $(2^4+3)^2$
+\item $\dfrac{2+4^4}{1+\frac{2}{4\cdot 3^3}}$
+\item $\left(\dfrac{4+4^3}{2}+5^2\right)^6$
+\item $1+2\dfrac{7}{2^4+5}$
+\item $(2+3^2+5^3)^{\frac{1}{3}}$
+\item $\left(1+2^3\dfrac{5}{2^4+1}\right)^{\frac{1}{2}}$
+\end{enumerate}
+\end{multicols}
+
+```{python}
+#| output: false
+(2**4+3)**2
+(2+4**4)/(1+2/(4*3**3))
+((4+4**3)/2+5**2)**6
+(1+2*(7/(2**4+5)))
+(2+3**2+5**3)**(1/3)
+(1+2**3*5/(2**4+1))**(1/2)
+```
+
+$(2^4+3)^2=$ `{python} (2**4+3)**2`
+
+$\dfrac{2+4^4}{1+\frac{2}{4\cdot 3^3}}=$ `{python} (2+4**4)/(1+2/(4*3**3))`
+
+$\left(\dfrac{4+4^3}{2}+5^2\right)^6=$ `{python} ((4+4**3)/2+5**2)**6`
+
+$1+2\dfrac{7}{2^4+5}=$ `{python} (1+2*(7/(2**4+5)))`
+
+$(2+3^2+5^3)^{\frac{1}{3}}=$ `{python} (2+3**2+5**3)**(1/3)`
+
+$\left(1+2^3\dfrac{5}{2^4+1}\right)^{\frac{1}{2}}=$ `{python} (1+2**3*5/(2**4+1))**(1/2)`
+
+**Activadad 2.** Obtener el resto y el cociente de las siguientes divisiones enteras:
+
+\begin{multicols}{2}
+\begin{enumerate}[label=(\alph*)]
+\item 45 entre 3
+\item 111 entre 67
+\item 99 entre 54
+\item 103964 entre 78
+\end{enumerate}
+\end{multicols}
+
+```{python}
+print("45 entre 3")
+print(f"Cociente: {45 // 3}")
+print(f"Resto: {45 % 3}")
+print()
+print("111 entre 67")
+print(f"Cociente: {111 // 67}")
+print(f"Resto: {111 % 67}")
+print()
+print("99 entre 54")
+print(f"Cociente: {99 // 54}")
+print(f"Resto: {99 % 54}")
+print()
+print("103964 entre 78")
+print(f"Cociente: {103964 // 78}")
+print(f"Resto: {103964 % 78}")
+```
+
+**Actividad 3.** Dadas las listas $A$ de los 10 primeros números naturales pares y $B$ de los 5 primeros múltiplos de 3, hacer las siguientes operaciones:
+
+```{python}
+A = list((i+1)*2 for i in range(10))
+B = list((i+1)*3 for i in range(5))
+```
+
+1.  Hacer la unión de $A$ y $B$. Llamar $C$ a esta nueva lista
+
+    ```{python}
+    C = list(set(A) | set(B))
+    print(f"C = {C}")
+    ```
+
+2.  Eliminar los elementos repetidos de $C$ eliminado el elemento repetido que aparece en primer lugar.
+
+    ```{python}
+    C = list(dict.fromkeys(C))
+    print(f"C sin repetidos (primer lugar): {C}")
+    ```
+
+3.  Añadir a la lista resultante los número 5 y 7 al final de la lista.
+
+    ```{python}
+    C.extend([5, 7])
+    print(f"C con 5 y 7 añadidos: {C}")
+    ```
+
+4.  Añadir a la lista resultante los números 3, 4 y 5 al principio de la lista.
+
+    ```{python}
+    C = [3,4,5] + C
+    print(f"C on 3, 4 y 5 al principio: {C}")
+    ```
+
+5.  Eliminar los elementos repetidos de $C$ eliminado el elemento repetido que aparece en último lugar.
+
+    ```{python}
+    C = list(dict.fromkeys(C[::-1]))[::-1]
+    print(f"C sin elementos repetidos (último lugar): {C}")
+    ```
+
+6.  Crear una nueva lista $D$ con los elementos pares de $C$, sin escribir el número en cuestión, sino seleccionándolo de la lista $C$.
+
+    ```{python}
+    D = [i for i in C if i % 2 == 0]
+    print(f"D = {D}")
+    ```
+
+**Actividad 4.** Dada la función $f(x)=3.95x(1-x)$ y $x_0=0.5$, obtener los 100 primeros elementos de la recursión $$
+x_{n+1}=f(x_n)
+$$
+
+```{python}
+# Definir la función f(x)
+def f(x):
+    return 3.5 * x * (1-x)
+
+# Inicilizar la lista con el valor inicial x_0
+x_0 = 0.5
+val_recursion = [x_0]
+
+# Calcular los 100 primeros elementos de la recursión
+for _ in range(100):
+    x_next = f(val_recursion[-1])
+    val_recursion.append(x_next)
+
+# Imprimir los primeros 10 valores de la recursión para ver qué todo es correcto
+for i, val in enumerate(val_recursion[:10]):
+    print(f"x_{i} = {val}")
+```
+
+**Actividad 5.** Dada la recursión de la activada 4, obtener los 100 primeros elementos pares, es decir, los de la sucesión $x_0,x_2,x_4,x_6,...$
+
+```{python}
+# Definir la función f(x)
+def f(x):
+    return 3.5 * x * (1-x)
+
+# Inicilizar la lista con el valor inicial x_0
+x_0 = 0.5
+val_recursion_pares = [x_0]
+
+# Calcular los 200 primeros elementos de la recursión para luego hacer la separación
+for _ in range(200):
+    x_next = f(val_recursion_pares[-1])
+    val_recursion_pares.append(x_next)
+
+val_recursion_pares = val_recursion_pares[::2][:100]
+    
+# Imprimir los primeros 10 valores de la recursión para ver qué todo es correcto
+for i, val in enumerate(val_recursion_pares[:10]):
+    print(f"x_{2*i} = {val}")
+```
+
+**Actividad 6.** Dada la recursión de la actividad 4, obtener los 100 primeros elementos múltiplos de 4, es decir, los de la sucesión $x_0,x_4,x_8,x_{12}$.
+
+```{python}
+# Definir la función f(x)
+def f(x):
+    return 3.5 * x * (1-x)
+
+# Inicilizar la lista con el valor inicial x_0
+x_0 = 0.5
+val_recursion_4 = [x_0]
+
+# Calcular los 400 primeros elementos de la recursión para luego hacer la separación
+for _ in range(400):
+    x_next = f(val_recursion_4[-1])
+    val_recursion_4.append(x_next)
+
+val_recursion_4 = val_recursion_4[::4][:100]
+    
+# Imprimir los primeros 10 valores de la recursión para ver qué todo es correcto
+for i, val in enumerate(val_recursion_4[:10]):
+    print(f"x_{4*i} = {val}")
+```
+
+**Actividad 7.** Dada la función $f(x)=3.95x(1-x)$ y $x_0=0.5,x_1=0.25$, obtener los 100 primeros elementos de la recursión
+
+$$
+x_{n+1}=0.25\cdot x_{n-1}+0.75\cdot f(x_n).
+$$
+
+```{python}
+# Definir la función f(x)
+def f(x):
+    return 3.5 * x * (1-x)
+
+# Inicilizar la lista con el valor inicial x_0
+x_0 = 0.5
+x_1 = 0.25
+val_recursion_2 = [x_0, x_1]
+
+# Calcular los 100 primeros elementos de la recursión para luego hacer la separación
+for _ in range(100):
+    x_next = 0.25 * val_recursion_2[-2] + 0.75*f(val_recursion_2[-1])
+    val_recursion_2.append(x_next)
+    
+# Imprimir los primeros 10 valores de la recursión para ver qué todo es correcto
+for i, val in enumerate(val_recursion_2[:10]):
+    print(f"x_{i} = {val}")
+```
+
+**Actividad 8.** Dados los elementos obtenidos en las actividades 4 y 7, obtener una lista que resulte de multiplicar los elementos de las dos lista dos a dos.
+
+```{python}
+val_recursion_3 = []
+
+for i, val_1 in enumerate(val_recursion):
+    for j, val_2 in enumerate(val_recursion_2):
+        val_recursion_3.append(val_1 * val_2)
+
+for i, val in enumerate(val_recursion_3[:10]):
+    print(f"x_{i} = {val}")
+```
+
+**Actividad 9.** Definir las funciones siguientes
+
+$$
+\begin{array}{ll}
+f_1(x,y)=3x^2+x-1 & f_2(x)=\dfrac{2x+1}{x^2+1}\\
+f_3(x)=\begin{cases}2x & \text{si }x\le 0\\ x^2&\text{si }x>0\end{cases} & f_4(x)=\begin{cases}\dfrac{2x}{x+1} & \text{si }0<x\le 2\\ x^2+3&\text{si }x>2\end{cases}\\
+f_5(x)=\begin{cases}2x & \text{si }x\le 0\\ x^2&\text{si }0<x<2\\ x^3+1&\text{si }x\ge2\end{cases} & f_6(x)=\begin{cases}\dfrac{2x+1}{x^2} & \text{si }x\le -1\\ x^2&\text{si }0<x<2\\ 0 & \text{si }x\ge3\end{cases}
+\end{array}
+$$
+
+```{python}
+def f_1(x):
+    return 3*x**2+x-1
+
+def f_2(x):
+    return (2*x+1)/(x**2+1)
+
+def f_3(x):
+    if x <= 0:
+        return 2*x
+    else:
+        return x**2
+
+def f_4(x):
+    if x > 0 and x <= 2:
+        return 2*x/(x+1)
+    elif x > 2:
+        return x**2+3
+
+def f_5(x):
+    if x <= 0:
+        return 2*x
+    elif x > 0 and x < 2:
+        return x**2
+    else:
+        return x**3 + 1
+
+def f_6(x):
+    if x <= -1:
+        return (2*x+1)/x**2
+    elif x > 0 and x < 2:
+        return x**2
+    elif x >= 3:
+        return 0
+```
+
+**Actividad 10.** Definir las funciones siguientes
+
+$$
+\begin{array}{ll}
+f_{1}(x,y)=xy^{2} & f_{2}(x,y)=\dfrac{x+y^{2}}{x-y} \\
+f_{3}(x,y,z)=xy^{2}+zy^{3} & f_{4}(x,y,z,t)=x^{2}+y^{2}-z^{t-x} \\
+f_{5}(x,y)=\begin{cases}
+2xy & \text{si }xy \leq 0 \\
+xy^{2} & \text{si }xy>0
+\end{cases} & f_{6}(x,y)=\begin{cases}
+2x^{y} & \text{si }x+y^{2}\leq 1 \\
+x^{y^{2}} & \text{si }x+y^{2}>1
+\end{cases}
+\end{array}
+$$
+
+```{python}
+def f1(x, y):
+    return x * y**2
+
+def f2(x, y):
+    return (x + y**2) / (x - y)
+
+def f3(x, y, z):
+    return x * y**2 + z * y**3
+
+def f4(x, y, z, t):
+    return x**2 + y**2 - z**(t - x)
+
+def f5(x, y):
+    if x * y <= 0:
+        return 2 * x * y
+    else:
+        return x * y**2
+
+def f6(x, y):
+    if x + y**2 <= 1:
+        return 2 * x**y
+    else:
+        return x**(y**2)
+```
+
+**Actividad 11.** Dadas las lista $A$ de los 10 primeros números naturales impares y $B$ de los 5 primeros múltiplos de 4, hacer las siguientes operaciones:
+
+```{python}
+A = [i for i in range(1, 20, 2)]
+B = [(i+1)*4 for i in range(5)]
+```
+
+1.  Insertar en $A$ el número 10 en la posición 2 y llamar $A$ a la lista resultante.
+
+2.  Eliminar de $B$ el primer y último elemento y llamar $B$ a la lista resultante.
+
+3.  Añadir a $A$ los dos primeros elementos de $B$ y llamar $A$ a la lista resultante.
+
+4.  Definir $C$ como la unión de $B$ y $A$, por este orden.
+
+5.  Añadir a la lista resultante los números 3,4 y 5 al final de la lista.
