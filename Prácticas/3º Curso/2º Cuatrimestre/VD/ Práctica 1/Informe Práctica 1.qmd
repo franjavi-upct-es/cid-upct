@@ -1,0 +1,28 @@
+---
+title: "Visualización de Datos"
+subtitle: "Práctica 1: Entornos de Desarrollo para Jupyter Notebook"
+format: 
+    pdf:
+        documentclass: article
+        fontsize: 10pt
+        papersize: a4
+engine: knitr
+---
+
+# Parte 1. Desarrollo local con Docker y Jupyter
+
+## Actividades
+
+**Actividad 1.** Ejecutar un servidor de Jupyter Notebook con Docker.
+
+1. **Descargar la Imagen de Jupyter:**
+    ```{bash}
+    docker pull jupyter/base-notebook
+    docker images
+    ```
+
+2. **Ejecutar el Contenedor:**
+
+3. **Acceder al Servidor Jupyter:**
+
+**Actividad 2.** Instalar paquetes adicionales
