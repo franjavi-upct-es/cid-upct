@@ -30,18 +30,18 @@ docker pull jupyter/base-notebook
 docker images
 ```
 
-```bash
+``` bash
 # Ejecutar el contenedor
 docker run -p 8888:8888 jupyter/base-notebook
 ```
 
-```
+```         
 http://127.0.0.1:8888/lab?token=7738cd1b7384d071bf5375d61a74949f8634da3dc8e04a58
 ```
 
 **Actividad 2.** Instalar paquetes adicionales.
 
-```bash
+``` bash
 # Verificar el contenedor en ejecución
 docker ps
 
@@ -55,7 +55,7 @@ docker stop 7d434b11306e
 docker run -p 8888:8888 jupyter/base-notebook
 ```
 
-```
+```         
 CONTAINER ID   IMAGE                   COMMAND                  CREATED          STATUS                    PORTS                                       NAMES
 7d434b11306e   jupyter/base-notebook   "tini -g -- start-no…"   14 seconds ago   Up 13 seconds (healthy)   0.0.0.0:8888->8888/tcp, :::8888->8888/tcp   elastic_pascal
 
@@ -71,33 +71,138 @@ Successfully installed numpy-2.2.2
 
 **Actividad 3**
 
-- Paso 1: Crear un Dockerfile
+-   Paso 1: Crear un Dockerfile
 
-```dockerfile
+``` dockerfile
 FROM jupyter/base-notebook
 RUN pip install numpy pandas matplotlib
 ```
 
-- Paso 2: Construir la imagen personalizada
+-   Paso 2: Construir la imagen personalizada
 
-```bash
+``` bash
 docker build -t custom-notebook .
 ```
 
-- Paso 3: Ejecutar el contenedor con la nueva imagen
+-   Paso 3: Ejecutar el contenedor con la nueva imagen
 
-```bash
+``` bash
 docker run -p 8888:8888 custom-notebook
 ```
 
-- Paso 4: Crear una imagen a partir de un contenedor en ejecución
+-   Paso 4: Crear una imagen a partir de un contenedor en ejecución
 
-```bash
+``` bash
 docker ps
 docker commit 3567320794e5 alt-custom-notebook
 ```
 
-```
+```         
 CONTAINER ID   IMAGE             COMMAND                  CREATED          STATUS                    PORTS                                       NAMES
 3567320794e5   custom-notebook   "tini -g -- start-no…"   19 seconds ago   Up 19 seconds (healthy)   0.0.0.0:8888->8888/tcp, :::8888->8888/tcp   festive_torvalds
+```
+
+**Actividad 4.** Acceder desde el Host
+
+```{bash}
+pwd
+```
+
+``` bash
+docker run -p 8888:8888 -v wor:/home/jovyan/work custom-notebook
+```
+
+# Parte 2: Gestión de paquetes y entornos virtuales en Python
+
+**Actividad 1.** Crear un Entorno virtual con **`venv`** y **`conda`**.
+
+```{bash}
+python -m venv mi_entorno
+source mi_entorno/bin/activate
+```
+
+``` bash
+conda create --name mi_entorno
+conda activate mi_entorno
+```
+
+**Actividad 2.** Gestión de paquetes con **`pip`** y **`conda`**
+
+```{bash}
+pip install numpy pandas matplotlib
+pip list
+```
+
+``` bash
+conda install numpy pandas matplotlib
+conda list
+```
+
+```bash
+pip install jupyter
+python -m ipykernel install --user --name=mi_entorno --display-name "Python (mi entorno)"
+jupyter notebook
+```
+
+**Actividad 3.** Cambiar entre Entornos Virtuales
+
+```{bash}
+# Exportar paquetes instalados
+pip freese > requierements.txt
+
+# Desactivar el entorno actual
+deactivate
+```
+
+```bash
+# Crear un nuevo entorno y restaurar los paquetes
+python -m venv otro_entorno
+source otro_entorno/bin/activate
+pip install -r requierements.txt
+```
+
+# Parte 3. Control de versiones con Git y GitHub
+
+**Actividad 1.** Configuración de Git en el Entorno Local
+
+```bash
+git config --global user.name "Francisco Javier Mercader Martínez"
+git config --global user.email "franciscojavier.mercader@edu.upct.es"
+```
+
+```bash
+# Comprobamos que tenemos la clave de SSH
+ls -l ~/.ssh/
+
+# Agregar la clave SSH a GitHub
+cat ~/.ssh/id_rsa.pub | xclip -selection clipboard
+```
+
+**Actividad 2.** Creación y Clonación de un Repositorio en GitHub
+
+``` bash
+git clone https://github.com/franjavi-upct-es/cid-upct
+cd cid-upct
+```
+
+**Actividad 3.** Agregar y Versionar un Jupyter Notebook
+
+```{bash}
+git add .
+git commit -m "Añadir mi notebook"
+git push origin main
+```
+
+**Actividad 4.** Gestión de Cambios y Resolución de Conflictos
+
+```{bash}
+git pull origin main
+```
+
+**Actividad 5.** Uso de Ramas y Colaboración con Pull Requests
+
+``` bash
+git checkout -b master
+git commit -m "Cambios en la rama `master`"
+git push origin master
 ```
