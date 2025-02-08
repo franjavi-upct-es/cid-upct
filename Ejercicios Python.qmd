@@ -4,7 +4,7 @@ author: "Francisco Javier Mercader Martínez"
 format:
     pdf:
         documentclass: article
-        hightlight-style: github
+        highlight-style: tango
         header-includes: |
             \usepackage{multicol}
             \usepackage{enumitem}
@@ -12,7 +12,6 @@ linestrectch: 1.5
 fontisize: 10
 papersize: a4
 geometry: margin=1.5cm
-engine: knitr
 ---
 
 **Actividad 1.** Realizar las siguientes operaciones con Python:
@@ -38,17 +37,17 @@ engine: knitr
 (1+2**3*5/(2**4+1))**(1/2)
 ```
 
-$(2^4+3)^2=$ `{python} (2**4+3)**2`
+$(2^4+3)^2=$ `{python} round((2**4+3)**2, 4)`
 
-$\dfrac{2+4^4}{1+\frac{2}{4\cdot 3^3}}=$ `{python} (2+4**4)/(1+2/(4*3**3))`
+$\dfrac{2+4^4}{1+\frac{2}{4\cdot 3^3}}=$ `{python} round((2+4**4)/(1+2/(4*3**3)), 4)`
 
-$\left(\dfrac{4+4^3}{2}+5^2\right)^6=$ `{python} ((4+4**3)/2+5**2)**6`
+$\left(\dfrac{4+4^3}{2}+5^2\right)^6=$ `{python} round(((4+4**3)/2+5**2)**6)`
 
-$1+2\dfrac{7}{2^4+5}=$ `{python} (1+2*(7/(2**4+5)))`
+$1+2\dfrac{7}{2^4+5}=$ `{python} round((1+2*(7/(2**4+5))), 4)`
 
-$(2+3^2+5^3)^{\frac{1}{3}}=$ `{python} (2+3**2+5**3)**(1/3)`
+$(2+3^2+5^3)^{\frac{1}{3}}=$ `{python} round((2+3**2+5**3)**(1/3), 4)`
 
-$\left(1+2^3\dfrac{5}{2^4+1}\right)^{\frac{1}{2}}=$ `{python} (1+2**3*5/(2**4+1))**(1/2)`
+$\left(1+2^3\dfrac{5}{2^4+1}\right)^{\frac{1}{2}}=$ `{python} round((1+2**3*5/(2**4+1))**(1/2), 4)`
 
 **Activadad 2.** Obtener el resto y el cociente de las siguientes divisiones enteras:
 
@@ -333,10 +332,237 @@ B = [(i+1)*4 for i in range(5)]
 
 1.  Insertar en $A$ el número 10 en la posición 2 y llamar $A$ a la lista resultante.
 
+    ```{python}
+    A.insert(2, 10)
+    print(A)
+    ```
+
 2.  Eliminar de $B$ el primer y último elemento y llamar $B$ a la lista resultante.
+
+    ```{python}
+    B = B[1:-1]
+    print(B)
+    ```
 
 3.  Añadir a $A$ los dos primeros elementos de $B$ y llamar $A$ a la lista resultante.
 
+    ```{python}
+    A.extend(B[:2])
+    print(A)
+    ```
+
 4.  Definir $C$ como la unión de $B$ y $A$, por este orden.
 
+    ```{python}
+    C = B + A
+    print(C)
+    ```
+
 5.  Añadir a la lista resultante los números 3,4 y 5 al final de la lista.
+
+    ```{python}
+    C.extend([3,4,5])
+    print(C)
+    ```
+
+**Actividad 12.** Dados los conjuntos
+
+$$
+\begin{array}{c}
+A=\{1,2,3,4,5\}\\
+B=\{2,4,6,8,10,12\}
+\end{array}
+$$
+
+y
+
+$$
+C=\{1,9,4,3,2,5,11\}
+$$
+
+obtener:
+
+\begin{multicols}{3}
+\begin{enumerate}[label=(\alph*)]
+\item $A\cap B\cup C$
+\item $B\backslash C\cup A$
+\item $(B\backslash C)\cup A$
+\item $(A\cup C)\triangle B$
+\item $A\cap (C\triangle B)$
+\item $(A\triangle B)\cup (B\backslash C)$
+\end{enumerate}
+\end{multicols}
+
+```{python}
+A = {1,2,3,4,5}
+B = {2,4,6,8,10,12}
+C = {1,9,4,3,2,5,11}
+
+print(f"a) {A & B | C}")
+print(f"b) {B - C | A}")
+print(f"c) {(B - C) | A}")
+print(f"d) {(A | C) ^ B}")
+print(f"e) {A & (C ^ B)}")
+print(f"f) {(A ^ B) | (B - C)}")
+```
+
+**Actividad 13.** Crear un módulo llamado **`fun1var.py`** con las funciones definidas en la actividad 9.
+
+**Actividad 14.** Crear un módulo llamado **`fun2var.py`** con las funciones definidas en la actividad 10.
+
+**Actividad 15.** Construir con Python las tablas de verdad de $p\lor q,\, p\land q,$ y $p\leftrightarrow q$.
+
+``` python
+from sympy import symbols, Or, And, Equivalent
+
+# Definición de las variables lógicas
+p, q = symbols('p q')
+
+# Lista de combinaciones de valores para p y q
+combinaciones = [(True, True), (True, False), (False, True), (False, False)]
+
+# Evaluación y conversión a 1 (True) o 0 (False)
+for p_val, q_val in combinaciones:
+    or_res    = Or(p, q).subs({p: p_val, q: q_val})
+    and_res   = And(p, q).subs({p: p_val, q: q_val})
+    equiv_res = Equivalent(p, q).subs({p: p_val, q: q_val})
+```
+
+```{python}
+#| echo: false
+#| results: asis
+from sympy import symbols, Or, And
+from sympy.logic.boolalg import Equivalent
+from tabulate import tabulate
+from IPython.display import Markdown, display
+
+# Definición de las variables lógicas
+p, q = symbols('p q')
+
+# Encabezados de la tabla
+headers = [r"$p$", r"$q$", r"$p \lor q$", r"$p \land q$", r"$p \leftrightarrow q$"]
+
+# Lista de combinaciones para p y q
+combinaciones = [(True, True), (True, False), (False, True), (False, False)]
+
+# Construir las filas evaluando cada combinación, con 1 para True y 0 para False
+filas = []
+for p_val, q_val in combinaciones:
+    or_res    = int(bool(Or(p, q).subs({p: p_val, q: q_val})))
+    and_res   = int(bool(And(p, q).subs({p: p_val, q: q_val})))
+    equiv_res = int(bool(Equivalent(p, q).subs({p: p_val, q: q_val})))
+    filas.append([int(p_val), int(q_val), or_res, and_res, equiv_res])
+
+# Generar la tabla Markdown usando tabulate con el formato "pipe"
+tabla = tabulate(filas, headers=headers, colalign=("center" for _ in headers))
+
+# Mostrar la tabla como Markdown para que Quarto la renderice correctamente
+display(Markdown(tabla))
+```
+
+**Actividad 16.** Comprobar que $p\lor \neg(p\land q)$ es una tautología.
+
+``` python
+from sympy import symbols, Or, And, Not
+
+# Definición de las variables lógicas
+p, q = symbols('p q')
+
+# Lista de combinaciones de valores para p y q
+combinaciones = [(True, True), (True, False), (False, True), (False, False)]
+
+# Evaluación y conversión a 1 (True) o 0 (False)
+for p_val, q_val in combinaciones:
+    p_and_q = And(p, q).subs({p: p_val, q: q_val})
+    not_p_and_q = Not(And(p, q)).subs({p: p_val, q: q_val})
+    p_or_not_p_and_q = Or(p, Not(And(p, q))).subs({p: p_val, q: q_val})
+```
+
+```{python}
+#| echo: false
+from sympy import symbols, Or, And, Not
+from tabulate import tabulate
+from IPython.display import Markdown, display
+
+# Definición de las variables lógicas
+p, q = symbols('p q')
+
+# Encabezados de la tabla
+headers = [r"$p$", r"$q$", r"$p \land q$", r"$\neg(p \land q)$", r"$p \lor \neg(p \land q)$"]
+
+# Lista de combinaciones para p y q
+combinaciones = [(True, True), (True, False), (False, True), (False, False)]
+
+# Construir las filas evaluando cada combinación, con 1 para True y 0 para False
+filas = []
+for p_val, q_val in combinaciones:
+    p_and_q  = int(bool(And(p, q).subs({p: p_val, q: q_val})))
+    not_p_and_q   = int(bool(Not(And(p, q)).subs({p: p_val, q: q_val})))
+    p_or_not_p_and_q = int(bool(Or(p, Not(And(p, q))).subs({p: p_val, q: q_val})))
+    filas.append([int(p_val), int(q_val), or_res, and_res, equiv_res])
+
+# Generar la tabla Markdown usando tabulate con el formato "pipe"
+tabla = tabulate(filas, headers=headers, colalign=("center" for _ in headers))
+
+# Mostrar la tabla como Markdown para que Quarto la renderice correctamente
+display(Markdown(tabla))
+```
+
+**Actividad 17.** Demostrar que las proposiciones $\neg (p\land q)$ y $\neg p\lor \neg q$ son lógicamente equivalentes.
+
+```{python}
+from sympy import symbols, Or, And, Not
+
+p, q = symbols('p q')
+
+print(Not(Or(p, q)).equals(And(Not(p), Not(q))))
+```
+
+**Actividad 18.** Demostrar que el argumento $\{p\to q,\neg p\}$ implica $\neg q$ es una falacia.
+
+``` python
+from sympy import symbols, Or, And, Not, Implies
+
+p, q = symbols('p q')
+
+combinaciones = [(True, True), (True, False), (False, True), (False, False)]
+
+# Evaluación y conversión a 1 (True) o 0 (False)
+for p_val, q_val in combinaciones:
+    p_to_q = Implies(p, q).subs({p: p_val, q: q_val})
+    p_to_q_and_not_p = And(Implies(p, q), Not(p)).subs({p: p_val, q: q_val})
+    p_to_q_and_not_p_implies_not_p = Implies(And(Implies(p, q), Not(p)), 
+                                             Not(q)).subs({p: p_val, q: q_val})
+```
+
+```{python}
+#| echo: false
+from sympy import symbols, Or, And, Not, Implies
+from tabulate import tabulate
+from IPython.display import Markdown, display
+
+# Definición de las variables lógicas
+p, q = symbols('p q')
+
+# Encabezados de la tabla
+headers = [r"$p$", r"$q$", r"$p\to q$", r"$\neg p$", r"$\neg q$", r"$(p\to q)\land \neg p$", r"$((p\to q)\land \neg p)\to \neg q$"]
+
+# Lista de combinaciones para p y q
+combinaciones = [(True, True), (True, False), (False, True), (False, False)]
+
+# Construir las filas evaluando cada combinación, con 1 para True y 0 para False
+filas = []
+for p_val, q_val in combinaciones:
+    p_to_q = int(bool(Implies(p, q).subs({p: p_val, q: q_val})))
+    p_to_q_and_not_p = int(bool(And(Implies(p, q), Not(p)).subs({p: p_val, q: q_val})))
+    p_to_q_and_not_p_implies_not_p = int(bool(Implies(And(Implies(p, q), Not(p)), Not(q)).subs({p: p_val, q: q_val})))
+    not_p = int(bool(Not(p).subs({p: p_val, q: q_val})))
+    not_q = int(bool(Not(q).subs({p: p_val, q: q_val})))
+    filas.append([int(p_val), int(q_val), p_to_q, not_p, not_q, p_to_q_and_not_p, p_to_q_and_not_p_implies_not_p])
+
+# Generar la tabla Markdown usando tabulate con el formato "pipe"
+tabla = tabulate(filas, headers=headers, colalign=("center" for _ in headers))
+
+# Mostrar la tabla como Markdown para que Quarto la renderice correctamente
+display(Markdown(tabla))
+```
