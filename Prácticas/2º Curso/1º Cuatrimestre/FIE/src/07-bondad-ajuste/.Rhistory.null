@@ -1,0 +1,512 @@
+# Configurar el diseño de 2x2 para los gráficos
+par(mfrow = c(2, 2)) # Crear una cuadrícula de 2 filas x 2 columnas
+# 1. Densidad empírica y teórica
+plotdist(iberdrola$weekly_return, distr = "norm", para = list(mean = mean_est, sd = sd_est))
+# 1. Densidad empírica y teórica
+plotdist(iberdrola$weekly_return, distr = "norm", para = list(mean = ajuste$estimate["mean"], sd = ajuste$estimate["sd"]))
+# Completar aquí
+library(ggplot2)
+# Configurar el diseño de 2x2 para los gráficos
+par(mfrow = c(2, 2)) # Crear una cuadrícula de 2 filas x 2 columnas
+# 1. Densidad empírica y teórica
+plotdist(iberdrola$weekly_return, distr = "norm", para = list(mean = ajuste$estimate["mean"], sd = ajuste$estimate["sd"]))
+plot(ajuste)
+dev.new(width = 10, height = 7)
+plot(ajuste)
+# Completar aquí
+library(ggplot2)
+par(mar = c(4, 4, 2, 1))
+plot(ajuste)
+#Fin de completar aquí
+library(MASS)
+ajuste <- fitdistr((na.omit(iberdrola$weekly_return)), "t")
+ajuste
+muhat <- unname(ajuste$estimate["m"])
+sigmahat <- unname(
+ajuste$estimate["s"]
+* sqrt(ajuste$estimate["df"] / (ajuste$estimate["df"] - 2))
+)
+nuhat <- unname(ajuste$estimate["df"])
+library(fGarch)
+ajuste <- fitdist(
+c(na.omit(iberdrola$weekly_return)),
+"std",
+start = list(mean = muhat, sd = sigmahat, nu = nuhat)
+## start = list(mean = muhat, sd = sigmahat, nu = nuhat)
+)
+#| warning: false
+# Completar aquí
+library(tibble)
+library(tidyverse)
+frecuencias_ejemplo1 <- tibble(
+observadas = c(34, 10, 20),
+teoricas = c(9/16, 3/16, 4/16),
+esperadas = c(64 * 9/16, 64 * 3/16, 64 * 4/16)
+)
+# Fin Completar aquí
+# Completar aquí
+chi <- sum((frecuencias_ejemplo1$observadas - frecuencias_ejemplo1$esperadas)^2 / frecuencias_ejemplo1$esperadas)
+# Fin Completar aquí
+str_glue("El valor del chi-cuadrado de Pearson es {round(chi, 4)}")
+# Completar aquí
+# Número de clases (k)
+k <- 3
+# Grados de libertad
+df <- k - 1
+# Calculamos el p-valor asocuado al estadistico chi-cuadrado
+p_valor <- pchisq(chi, df = df, lower.tail = FALSE)
+str_glue("El p-valor del chi-cuadrado de Pearson es {round(p_valor, 4)}")
+# Fin Completar aquí
+# Completar aquí
+# Realizar el test de bondad de ajuste usando chisq.test
+chi2_bondad_ajuste <- chisq.test(
+x = frecuencias_ejemplo1$observadas,
+p = frecuencias_ejemplo1$teoricas,
+rescale.p = TRUE # Asegurar que p se escala a 1
+)
+# Fin Completar aquí
+chi2_bondad_ajuste
+str_glue("El valor del estadístico de prueba es {chi2_bondad_ajuste$statistic}")
+str_glue("El p-valor es {chi2_bondad_ajuste$p.value}")
+set.seed(314159)
+simulaciones <- rmultinom(100, 64, prob = c(9 / 16, 3 / 16, 4 / 16))
+lista_simulaciones <- asplit(simulaciones, 2)
+head(lista_simulaciones)
+# Completar aquí
+library(purrr)
+# Calcular los valores del estadístico chi-cuadrado para cada simulación
+chi2sq_valores <- map_dbl(
+lista_simulaciones,
+~ chisq.test(.x, p = c(9 / 16, 3 / 16, 4 / 16), rescale.p = TRUE)$statistic
+)
+# Fin Completar aquí
+head(chi2sq_valores)
+tibble(estadistico = chi2sq_valores, y = 0) |>
+ggplot(aes(x = estadistico, y = y)) +
+geom_point(col = "blue") +
+geom_function(fun = \(x) dchisq(x, 2), xlim = c(0, 20)) +
+labs(x= expression(paste(chi,2)), y = "Func. densidad", title = "Simulación del estadístico chi-cuadrado") +
+geom_hline(yintercept = 0) +
+geom_vline(xintercept = qchisq(0.99, 2), col = "red")
+# Completar aquí
+iberdrola <- read.table("../../data/Iberdrola.txt", header = FALSE)
+iberdrola <- tibble(precio = iberdrola$V1)
+# Fin Completar aquí
+head(iberdrola)
+iberdrola <- iberdrola |> slice(1:240)
+iberdrola <- iberdrola |>
+mutate(
+shifted = lead(precio, 5 ),
+weekly_return = (precio - shifted) / shifted
+)
+#| warning: false
+library(fitdistrplus)
+# Completar aquí
+iberdrola <- iberdrola |> filter(!is.na(weekly_return), is.finite(weekly_return))
+ajuste <- fitdist(iberdrola$weekly_return, "norm")
+#Fin de Completar aquí
+# Completar aquí
+summary(ajuste)
+#Fin de completar aquí
+# Completar aquí
+gof <- gofstat(ajuste)
+gof$chisq
+#Fin de completar aquí
+# Completar aquí
+p_valor <- gof$chisqpvalue
+p_valor
+#Fin de completar aquí
+# Completar aquí
+gof$chisqtable
+#Fin de completar aquí
+# Completar aquí
+gof$chisqdf
+#Fin de completar aquí
+# Completar aquí
+library(ggplot2)
+par(mar = c(4, 4, 2, 1))
+plot(ajuste)
+#Fin de completar aquí
+library(MASS)
+ajuste <- fitdistr((na.omit(iberdrola$weekly_return)), "t")
+ajuste
+muhat <- unname(ajuste$estimate["m"])
+sigmahat <- unname(
+ajuste$estimate["s"]
+* sqrt(ajuste$estimate["df"] / (ajuste$estimate["df"] - 2))
+)
+nuhat <- unname(ajuste$estimate["df"])
+library(fGarch)
+ajuste <- fitdist(
+c(na.omit(iberdrola$weekly_return)),
+"std",
+start = list(mean = muhat, sd = sigmahat, nu = nuhat)
+## start = list(mean = muhat, sd = sigmahat, nu = nuhat)
+)
+# Completar aquí
+# Fin de Completar aquí
+# Completar aquí
+# fin de Completar aquí
+# Completar aquí
+# Fin de completar aquí
+muhat <- unname(ajuste$estimate["mean"])
+sigmahat <- unname(
+ajuste$estimate["sd"]
+* sqrt(ajuste$estimate["df"] / (ajuste$estimate["df"] - 2))
+)
+nuhat <- unname(ajuste$estimate["df"])
+library(fGarch)
+ajuste <- fitdist(
+c(na.omit(iberdrola$weekly_return)),
+"std",
+start = list(mean = muhat, sd = sigmahat, nu = nuhat)
+## start = list(mean = muhat, sd = sigmahat, nu = nuhat)
+)
+library(fGarch)
+ajuste <- fitdist(
+c(na.omit(iberdrola$weekly_return)),
+"std",
+start = list(mean = muhat, sd = sigmahat, nu = nuhat)
+## start = list(mean = muhat, sd = sigmahat, nu = nuhat)
+)
+ajuste <- fitdist(
+c(na.omit(iberdrola$weekly_return)),
+"std",
+start = list(mean = muhat, sd = sigmahat, nu = nuhat, na.rm = TRUE)
+## start = list(mean = muhat, sd = sigmahat, nu = nuhat)
+)
+muhat <- unname(ajuste$estimate["m"])
+sigmahat <- unname(
+ajuste$estimate["s"]
+* sqrt(ajuste$estimate["df"] / (ajuste$estimate["df"] - 2))
+)
+nuhat <- unname(ajuste$estimate["df"])
+library(fGarch)
+ajuste <- fitdist(
+c(na.omit(iberdrola$weekly_return)),
+"std",
+start = list(mean = muhat, sd = sigmahat, nu = nuhat)
+## start = list(mean = muhat, sd = sigmahat, nu = nuhat)
+)
+ajuste <- fitdist(
+c(na.omit(iberdrola$weekly_return)),
+"std",
+## start = list(mean = muhat, sd = sigmahat, nu = nuhat)
+start = list(mean = muhat, sd = sigmahat, nu = nuhat)
+)
+library(fGarch)
+ajuste <- fitdist(
+c(na.omit(iberdrola$weekly_return)),
+"std",
+## start = list(mean = muhat, sd = sigmahat, nu = nuhat)
+start = list(mean = muhat, sd = sigmahat, nu = nuhat)
+)
+#| warning: false
+library(fitdistrplus)
+# Completar aquí
+iberdrola <- iberdrola |> dplyr::filter(!is.na(weekly_return), is.finite(weekly_return))
+ajuste <- fitdist(iberdrola$weekly_return, "norm")
+#Fin de Completar aquí
+# Completar aquí
+summary(ajuste)
+#Fin de completar aquí
+# Completar aquí
+gof <- gofstat(ajuste)
+gof$chisq
+#Fin de completar aquí
+# Completar aquí
+p_valor <- gof$chisqpvalue
+p_valor
+#Fin de completar aquí
+# Completar aquí
+gof$chisqtable
+#Fin de completar aquí
+# Completar aquí
+gof$chisqdf
+#Fin de completar aquí
+# Completar aquí
+library(ggplot2)
+par(mar = c(4, 4, 2, 1))
+plot(ajuste)
+#Fin de completar aquí
+library(MASS)
+ajuste <- fitdistr((na.omit(iberdrola$weekly_return)), "t")
+ajuste
+muhat <- unname(ajuste$estimate["m"])
+sigmahat <- unname(
+ajuste$estimate["s"]
+* sqrt(ajuste$estimate["df"] / (ajuste$estimate["df"] - 2))
+)
+nuhat <- unname(ajuste$estimate["df"])
+library(fGarch)
+ajuste <- fitdist(
+c(na.omit(iberdrola$weekly_return)),
+"std",
+## start = list(mean = muhat, sd = sigmahat, nu = nuhat)
+start = list(mean = muhat, sd = sigmahat, nu = nuhat)
+)
+#| warning: false
+# Completar aquí
+library(tibble)
+library(tidyverse)
+frecuencias_ejemplo1 <- tibble(
+observadas = c(34, 10, 20),
+teoricas = c(9/16, 3/16, 4/16),
+esperadas = c(64 * 9/16, 64 * 3/16, 64 * 4/16)
+)
+# Fin Completar aquí
+# Completar aquí
+chi <- sum((frecuencias_ejemplo1$observadas - frecuencias_ejemplo1$esperadas)^2 / frecuencias_ejemplo1$esperadas)
+# Fin Completar aquí
+str_glue("El valor del chi-cuadrado de Pearson es {round(chi, 4)}")
+# Completar aquí
+# Número de clases (k)
+k <- 3
+# Grados de libertad
+df <- k - 1
+# Calculamos el p-valor asocuado al estadistico chi-cuadrado
+p_valor <- pchisq(chi, df = df, lower.tail = FALSE)
+str_glue("El p-valor del chi-cuadrado de Pearson es {round(p_valor, 4)}")
+# Fin Completar aquí
+# Completar aquí
+# Realizar el test de bondad de ajuste usando chisq.test
+chi2_bondad_ajuste <- chisq.test(
+x = frecuencias_ejemplo1$observadas,
+p = frecuencias_ejemplo1$teoricas,
+rescale.p = TRUE # Asegurar que p se escala a 1
+)
+# Fin Completar aquí
+chi2_bondad_ajuste
+str_glue("El valor del estadístico de prueba es {chi2_bondad_ajuste$statistic}")
+str_glue("El p-valor es {chi2_bondad_ajuste$p.value}")
+set.seed(314159)
+simulaciones <- rmultinom(100, 64, prob = c(9 / 16, 3 / 16, 4 / 16))
+lista_simulaciones <- asplit(simulaciones, 2)
+head(lista_simulaciones)
+# Completar aquí
+library(purrr)
+# Calcular los valores del estadístico chi-cuadrado para cada simulación
+chi2sq_valores <- map_dbl(
+lista_simulaciones,
+~ chisq.test(.x, p = c(9 / 16, 3 / 16, 4 / 16), rescale.p = TRUE)$statistic
+)
+# Fin Completar aquí
+head(chi2sq_valores)
+tibble(estadistico = chi2sq_valores, y = 0) |>
+ggplot(aes(x = estadistico, y = y)) +
+geom_point(col = "blue") +
+geom_function(fun = \(x) dchisq(x, 2), xlim = c(0, 20)) +
+labs(x= expression(paste(chi,2)), y = "Func. densidad", title = "Simulación del estadístico chi-cuadrado") +
+geom_hline(yintercept = 0) +
+geom_vline(xintercept = qchisq(0.99, 2), col = "red")
+# Completar aquí
+iberdrola <- read.table("../../data/Iberdrola.txt", header = FALSE)
+iberdrola <- tibble(precio = iberdrola$V1)
+# Fin Completar aquí
+head(iberdrola)
+iberdrola <- iberdrola |> slice(1:240)
+iberdrola <- iberdrola |>
+mutate(
+shifted = lead(precio, 5 ),
+weekly_return = (precio - shifted) / shifted
+)
+#| warning: false
+library(fitdistrplus)
+# Completar aquí
+iberdrola <- iberdrola |> dplyr::filter(!is.na(weekly_return), is.finite(weekly_return))
+ajuste <- fitdist(iberdrola$weekly_return, "norm")
+#Fin de Completar aquí
+# Completar aquí
+summary(ajuste)
+#Fin de completar aquí
+# Completar aquí
+gof <- gofstat(ajuste)
+gof$chisq
+#Fin de completar aquí
+# Completar aquí
+p_valor <- gof$chisqpvalue
+p_valor
+#Fin de completar aquí
+# Completar aquí
+gof$chisqtable
+#Fin de completar aquí
+# Completar aquí
+gof$chisqdf
+#Fin de completar aquí
+# Completar aquí
+library(ggplot2)
+par(mar = c(4, 4, 2, 1))
+plot(ajuste)
+#Fin de completar aquí
+library(MASS)
+ajuste <- fitdistr((na.omit(iberdrola$weekly_return)), "t")
+ajuste
+muhat <- unname(ajuste$estimate["m"])
+sigmahat <- unname(
+ajuste$estimate["s"]
+* sqrt(ajuste$estimate["df"] / (ajuste$estimate["df"] - 2))
+)
+nuhat <- unname(ajuste$estimate["df"])
+library(fGarch)
+ajuste <- fitdist(
+c(na.omit(iberdrola$weekly_return)),
+"std",
+## start = list(mean = muhat, sd = sigmahat, nu = nuhat)
+start = list(mean = muhat, sd = sigmahat, nu = nuhat)
+)
+# Completar aquí
+# Fin de Completar aquí
+# Completar aquí
+# fin de Completar aquí
+# Completar aquí
+# Fin de completar aquí
+#| warning: false
+library(fGarch)
+ajuste <- fitdist(
+c(na.omit(iberdrola$weekly_return)),
+"std",
+## start = list(mean = muhat, sd = sigmahat, nu = nuhat)
+start = list(mean = muhat, sd = sigmahat, nu = nuhat)
+)
+# Completar aquí
+summary(ajuste)
+# Completar aquí
+gof <- gofstat(ajuste)
+gof
+gof$chisq
+gof$chisqdf
+# Completar aquí
+gof <- gofstat(ajuste)
+gof$chisq
+gof$chisqpvalue
+# fin de Completar aquí
+# Completar aquí
+plot(ajuste)
+# Completar aquí
+par(mfrow = c(4, 4, 2, 1))
+# Completar aquí
+par(mar = c(4, 4, 2, 1))
+plot(ajuste)
+# Fin de completar aquí
+#| warning: false
+# Completar aquí
+library(tibble)
+library(tidyverse)
+frecuencias_ejemplo1 <- tibble(
+observadas = c(34, 10, 20),
+teoricas = c(9/16, 3/16, 4/16),
+esperadas = c(64 * 9/16, 64 * 3/16, 64 * 4/16)
+)
+# Fin Completar aquí
+# Completar aquí
+chi <- sum((frecuencias_ejemplo1$observadas - frecuencias_ejemplo1$esperadas)^2 / frecuencias_ejemplo1$esperadas)
+# Fin Completar aquí
+str_glue("El valor del chi-cuadrado de Pearson es {round(chi, 4)}")
+# Completar aquí
+# Número de clases (k)
+k <- 3
+# Grados de libertad
+df <- k - 1
+# Calculamos el p-valor asocuado al estadistico chi-cuadrado
+p_valor <- pchisq(chi, df = df, lower.tail = FALSE)
+str_glue("El p-valor del chi-cuadrado de Pearson es {round(p_valor, 4)}")
+# Fin Completar aquí
+# Completar aquí
+# Realizar el test de bondad de ajuste usando chisq.test
+chi2_bondad_ajuste <- chisq.test(
+x = frecuencias_ejemplo1$observadas,
+p = frecuencias_ejemplo1$teoricas,
+rescale.p = TRUE # Asegurar que p se escala a 1
+)
+# Fin Completar aquí
+chi2_bondad_ajuste
+str_glue("El valor del estadístico de prueba es {chi2_bondad_ajuste$statistic}")
+str_glue("El p-valor es {chi2_bondad_ajuste$p.value}")
+set.seed(314159)
+simulaciones <- rmultinom(100, 64, prob = c(9 / 16, 3 / 16, 4 / 16))
+lista_simulaciones <- asplit(simulaciones, 2)
+head(lista_simulaciones)
+# Completar aquí
+library(purrr)
+# Calcular los valores del estadístico chi-cuadrado para cada simulación
+chi2sq_valores <- map_dbl(
+lista_simulaciones,
+~ chisq.test(.x, p = c(9 / 16, 3 / 16, 4 / 16), rescale.p = TRUE)$statistic
+)
+# Fin Completar aquí
+head(chi2sq_valores)
+tibble(estadistico = chi2sq_valores, y = 0) |>
+ggplot(aes(x = estadistico, y = y)) +
+geom_point(col = "blue") +
+geom_function(fun = \(x) dchisq(x, 2), xlim = c(0, 20)) +
+labs(x= expression(paste(chi,2)), y = "Func. densidad", title = "Simulación del estadístico chi-cuadrado") +
+geom_hline(yintercept = 0) +
+geom_vline(xintercept = qchisq(0.99, 2), col = "red")
+# Completar aquí
+iberdrola <- read.table("../../data/Iberdrola.txt", header = FALSE)
+iberdrola <- tibble(precio = iberdrola$V1)
+# Fin Completar aquí
+head(iberdrola)
+iberdrola <- iberdrola |> slice(1:240)
+iberdrola <- iberdrola |>
+mutate(
+shifted = lead(precio, 5 ),
+weekly_return = (precio - shifted) / shifted
+)
+#| warning: false
+library(fitdistrplus)
+# Completar aquí
+iberdrola <- iberdrola |> dplyr::filter(!is.na(weekly_return), is.finite(weekly_return))
+ajuste <- fitdist(iberdrola$weekly_return, "norm")
+#Fin de Completar aquí
+# Completar aquí
+summary(ajuste)
+#Fin de completar aquí
+# Completar aquí
+gof <- gofstat(ajuste)
+gof$chisq
+#Fin de completar aquí
+# Completar aquí
+p_valor <- gof$chisqpvalue
+p_valor
+#Fin de completar aquí
+# Completar aquí
+gof$chisqtable
+#Fin de completar aquí
+# Completar aquí
+gof$chisqdf
+#Fin de completar aquí
+# Completar aquí
+library(ggplot2)
+par(mar = c(4, 4, 2, 1))
+plot(ajuste)
+#Fin de completar aquí
+library(MASS)
+ajuste <- fitdistr((na.omit(iberdrola$weekly_return)), "t")
+ajuste
+muhat <- unname(ajuste$estimate["m"])
+sigmahat <- unname(
+ajuste$estimate["s"]
+* sqrt(ajuste$estimate["df"] / (ajuste$estimate["df"] - 2))
+)
+nuhat <- unname(ajuste$estimate["df"])
+#| warning: false
+library(fGarch)
+ajuste <- fitdist(
+c(na.omit(iberdrola$weekly_return)),
+"std",
+## start = list(mean = muhat, sd = sigmahat, nu = nuhat)
+start = list(mean = muhat, sd = sigmahat, nu = nuhat)
+)
+# Completar aquí
+summary(ajuste)
+# Fin de Completar aquí
+# Completar aquí
+gof <- gofstat(ajuste)
+gof$chisq
+gof$chisqpvalue
+# fin de Completar aquí
+# Completar aquí
+par(mar = c(4, 4, 2, 1))
+plot(ajuste)
+# Fin de completar aquí
