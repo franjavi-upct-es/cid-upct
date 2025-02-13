@@ -566,3 +566,24 @@ tabla = tabulate(filas, headers=headers, colalign=("center" for _ in headers))
 # Mostrar la tabla como Markdown para que Quarto la renderice correctamente
 display(Markdown(tabla))
 ```
+
+**Actividad 19.** Determinar la validez del argumento $\{p\to q,\neg p\}$ implica $\neg q$.
+
+``` python
+from sympy import symbols, Or, And, Not, Implies
+
+p, q = symbols('p q')
+
+combinaciones = [(True, True), (True, False), (False, True), (False, False)]
+
+# Evaluación y conversión a 1 (True) o 0 (False)
+for p_val, q_val in combinaciones:
+    p_to_q = Implies(p, q).subs({p: p_val, q: q_val})
+    p_to_q_and_not_p = And(Implies(p, q), Not(p)).subs({p: p_val, q: q_val})
+    p_to_q_and_not_p_implies_not_p = Implies(And(Implies(p, q), Not(p)), 
+                                             Not(q)).subs({p: p_val, q: q_val})
+```
+
+```{python}
+
+```
