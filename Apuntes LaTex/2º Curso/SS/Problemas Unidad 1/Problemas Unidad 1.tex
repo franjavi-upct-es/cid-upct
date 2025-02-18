@@ -600,6 +600,38 @@ Si la señal $x(t)$ es cero para  $t<3$, al aplicar la expansión por el factor 
         La señal no es periódica.
     \end{enumerate}
   \item \lb{Determine el periodo fundamental de la señal $x(t)=2\cos(10t+1)-\sin(4t-1)$.} 
+
+        Para determinar el \textbf{periodo fundamental} de la señal $x(t)=2\cos(10t+1)-\sin(4t-1)$, debemos analizar los periodos de las componentes individuales de la señal y encontrar el \textbf{mínimo común múltiplo} de estos periodos.
+        \begin{enumerate}[label=Paso \arabic*:]
+            \item Identificar las frecuencias angulares
+
+                La señal está compuesta por dos términos:
+                \begin{itemize}[label=\textbullet]
+                    \item $2\cos(10t+1)$: Su frecuencia angular es $\omega_1=10$.
+                    \item $-\sin(4t-1)$: Su frecuencia angular es $\omega_2=4$.
+                \end{itemize}
+                El periodo de una señal está relacionado con su frecuencia angular mediante la fórmula: \[
+                T=\dfrac{2\pi}{\omega}.
+                \] 
+            \item Calcular los periodos de las componentes
+                \begin{itemize}[label=\textbullet]
+                    \item Para $\omega_1=10$, el periodo es: \[
+                    R=\dfrac{2\pi}{10}=\dfrac{\pi}{5}.
+                    \] 
+                \item Para $\omega_2=4$, el periodo es: \[
+                T_2=\dfrac{2\pi}{4}=\dfrac{\pi}{2}.
+                \] 
+                \end{itemize}
+            \item Encontrar el periodo fundamental
+
+                El periodo fundamental de la señal compuesta es el \textbf{mínimo común múltiplo} de los periodos $T_1$ y $T_2$. Para encontrarlo, debemos expresar ambos periodos como fracciones con el mismo denominador: \[
+                T_1=\dfrac{\pi}{5},\quad T_2=\dfrac{\pi}{2}\longrightarrow T_1=\dfrac{2\pi}{10},\quad T_2=\dfrac{5\pi}{10}\longrightarrow .
+                \]  
+                El \textbf{mcm} de $\dfrac{2\pi}{10}$ y $\dfrac{5\pi}{10}$ es $\dfrac{10\pi}{10}=\pi$.
+        \end{enumerate}
+        El periodo fundamental de la señal $x(t)$ es:  \[
+        T=\pi.
+        \] 
   \item \lb{Determine el periodo fundamental de la señal $x[n]=1+e^{j\frac{4\pi n}{7}}-e^{j\frac{2\pi n}{5} }$.}
   \item \lb{Considere la señal en tiempo discreto $x[n]=1-\sum_{k=3}^{\infty} \delta[n-1-k]$. Determine los valores de los números enteros $M$ y  $n_0$ que permiten que $x[n]$ pueda expresarse como  $x[n]=u[Mn+n_0]$} 
   \item \lb{Considere la señal en tiempo continuo $x(t)=\delta(t+2)-\delta(t+2)$. Calcule la energía de la señal  $y(t)=\int_{-\infty}^{t} x(\tau)\mathrm{d}\tau $.}
