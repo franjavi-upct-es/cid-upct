@@ -219,14 +219,14 @@
         \draw[-*, lightblue, line width=1.5] (1,0) -- (1,2);
         \draw[-*, lightblue, line width=1.5] (3,0) -- (3,-1);
         \foreach \x/\n in {-1/0, 2/0, 4/0, 5/0} {
-        \fill[lightblue] (\x,\n) circle (4pt);
+        \fill[lightblue] (\x,\n) circle (3pt);
         }
       \end{tikzpicture}\qquad
       \begin{tikzpicture}[>=latex]
         \draw[->] (-1,0) -- (6,0) node[right] {$n$};
         \draw[->] (0,-1) -- (0,2.1) node[above] {$h[n]$};
         \foreach \x/\n in {-1/2,0/0,1/2,2/0,3/0,4/0,5/0} {
-          \fill[lightblue] (\x,\n) circle (4pt);
+          \fill[lightblue] (\x,\n) circle (3pt);
         }
         \foreach \x in {-1,1} {\draw[lightblue, line width=1.5] (\x,0) -- (\x,2);}
       \end{tikzpicture}
@@ -526,6 +526,79 @@ y(t)=x(t)\ast h(t)=x(t+2)+2x(t+1)
   \] } 
   \begin{enumerate}[label=\color{red}\textbf{\alph*)}]
     \item \db{Determine y esboce $y(t)=x(t)\ast h(t)$.}
+
+      La convolución de $x(t)$ y  $h(t)$ está definida como:  \[
+      y(t)=(x\ast h)(t)=\int_{-\infty}^{\infty} x(\tau)h(t-\tau)\mathrm{d}\tau 
+      \] 
+      Dado que $x(t)$ es una función rectangular definida como:  \[
+      x(t)=\begin{cases}
+        1, & 0\le t\le 1\\
+        0, & \text{en otro caso}
+      \end{cases}
+      \] 
+      y que $h(t)=x\left( \dfrac{t}{\alpha} \right) $, podemos escribir $h(t)$ como:  \[
+      h(t)=\begin{cases}
+        1, & 0\le \dfrac{t}{\alpha}\le 1\\
+        0, & \text{en otro caso}
+        \end{cases} \begin{array}{l}
+        \longrightarrow 0\le t\le \alpha\\
+        \\
+      \end{array}
+      \] 
+      Por lo tanto: \[
+      h(t)=\begin{cases}
+        1, & 0\le t\le \alpha\\
+        0, & \text{en otro caso}
+      \end{cases}
+      \] 
+      Ambas señales son rectángulos, y la convolución de dos rectángulos es un triángulo. El soporte de $y(t)$ será la suma de los soporte de  $x(t)$ y $h(t)$, es decir:  \[
+        \text{Soporte de }y(t):\quad [0,1+\alpha]
+      \] 
+      \textbf{Cálculo de $y(t)$:} 
+
+      La convolución se calcula como: $$y(t)=\int_{-\infty}^{\infty} x(\tau)h(t-\tau)\mathrm{d}\tau $$
+      Dado que $x(\tau)$ y  $h(t-\tau)$, son no nula en los intervalos  $[0,1]$ y  $[t-\alpha,t]$, respectivamente, la integral se reduce al intervalo donde ambos se solapan. Esto depende del valor de $t$:
+       \begin{itemize}[label=\textbullet]
+        \item \textbf{Para $0\le t\le \alpha$:}
+
+          En este caso, el solapamiento ocurre en $[0,t]$. Por lo tanto:  \[
+            y(t)=\int_{0}^{t} 1\cdot 1\mathrm{d}\tau=[\tau]_0^t=t 
+          \] 
+        \item \textbf{Para $\alpha\le t\le 1$:} 
+
+          En este caso, el solapamiento ocurre en $[t-\alpha,t]$. Por lo tanto: \[
+            y(t)=\int_{t-\alpha}^{t} 1\cdot 1\mathrm{d}\tau=[\tau]_{t-\alpha}^{t}=t-(t-\alpha)=\alpha 
+          \] 
+        \item \textbf{Para $1<t\le 1+\alpha$:}
+
+          En este caso, el solapamiento ocurre en $[t-\alpha,1]$. Por lo tanto: \[
+            y(t)=\int_{t-\alpha}^{1} 1\cdot 1\mathrm{d}\tau=[\tau]_{t-\alpha}^1=1-(t-\alpha)=1+\alpha-t 
+          \] 
+        \item \textbf{Para $t>1+\alpha$:} 
+
+          No hay solapamiento, por lo que: \[
+          y(t)=0
+          \] 
+      \end{itemize}
+      La salida $y(t)$ es:  \[
+      y(t)=\begin{cases}
+        t, & 0\le t\le \alpha\\
+        \alpha, & \alpha<t\le 1\\
+        1+\alpha-t, & 1<t\le 1+\alpha\\
+        0, & \text{en otro caso}
+      \end{cases}
+      \] 
+      Esto corresponde a un triángulo con bas en $[0,1+\alpha]$, que crece linealmente en $[0,\alpha]$, se mantiene constante en $[\alpha,1]$, y decrece linealmente en $[1,1+\alpha]$.
+      \begin{center}
+        \begin{tikzpicture}[>=latex, scale=3]
+          \draw[->] (-0.5, 0) -- (2,0) node[right] {$t$};
+          \draw[->] (0,-0.1) -- (0,1.2) node[above] {$y(t)$};
+          \foreach \x in {-0.5, 0, 0.5, ..., 2} {\draw (\x, 0.01) -- (\x,-0.01) node[below] {$\x$};}
+          \draw[lightblue, line width=1.5] (-0.5,0) -- (0,0) -- (0.5,0.5) -- (1,0.5) -- (1.5,0) -- (2,0) node[below right] {$\alpha=0.5$};
+          \draw[blue, line width=1.5] (-0.5,0) -- (0,0) -- (1,1) -- (2,0) node[above right] {$\alpha=1$};
+          \draw (0.01,1) -- (-0.01,1) node[left] {$1$};
+        \end{tikzpicture}
+      \end{center}
     \item \db{Si $\dfrac{\mathrm{d}y(t)}{\dt}$ contiene sólo tres discontinuidades, ¿cuál es el valor de $\alpha$?} 
   \end{enumerate}
 \item \lb{Sean \[
@@ -556,12 +629,53 @@ x(t)=u(t-3)-u(t-5)\qquad h(t)=e^{-3t} u(t)
 \item \lb{Para las siguientes respuestas al impulso de sistemas LTI, determine si cada sistema es causal y/o estable, justificando la respuesta.}
   \begin{enumerate}[label=\color{red}\textbf{\alph*)}]
     \item \db{$h[n]=\left( \dfrac{1}{5} \right) ^nu[n]$} 
+
+      \begin{itemize}[label=\textbullet]
+        \item \textbf{Causalidad:} El término $u[n]$ asegura que  $h[n]=0$ para  $n<0$. Por lo tanto, el sistema es \lb{causal}.
+        \item \textbf{Escalabilidad:} Para $n\ge 0,|h[n]|=\left( \dfrac{1}{5} \right) ^{n}$. La suma de esta serie geométrica es: \[
+        \sum_{n=0}^{\infty} \left( \dfrac{1}{5} \right) ^n=\dfrac{1}{1-\frac{1}{5} }=\dfrac{5}{4}<\infty
+        \] Por lo tanto, el sistema es \lb{estable} 
+      \end{itemize}
     \item \db{$h[n]=0.8^nu[n+2]$} 
+      \begin{itemize}[label=\textbullet]
+        \item \textbf{Causalidad:} El término $u[n+2]$ implica que $h[n]\neq 0$ para $n\ge -2$. Como $h[n]\neq 0$ para $n<0$, el sistema  \lb{no es causal}.
+        \item \textbf{Estabilidad:} Para $n\ge -2,|h[n]|=0.8^n$. Cambiando el índice de la suma $(m=n+2)$, tenemos:  \[
+        \sum_{n=-2}^{\infty} 0.8^n=0.8^{-2}\sum_{m=0}^{\infty} 0.8^m=\dfrac{1}{0.8^2}\cdot \dfrac{1}{1-0.8}=\dfrac{1}{0.64}\cdot 5=7.8125<\infty
+        \] 
+        Por lo tanto, el sistema es \lb{estable}. 
+      \end{itemize}
     \item  \db{$h[n]=\left( \dfrac{1}{2} \right) ^n u[-n]$} 
+
+      \begin{itemize}[label=\textbullet]
+        \item \textbf{Causalidad:} El término $u[-n]$ implica que $h[n]\neq 0$ solo para $n\le 0$. Esto significa que el sistema depende de valores futuros de la entrada, por lo que \lb{no es causal}.
+        \item \textbf{Estabilidad:} Para $n\le 0,|h[n]|=\left( \dfrac{1}{2} \right) ^n=2^{-n}$. Cambiando el índice $(m=-n)$, tenemos:  \[
+        \sum_{n=-\infty}^{0} 2^{-n}=\sum_{m=0}^{\infty} 2^m
+        \] 
+        Esta serie geométrica diverge, por lo que el sistema \lb{no es estable}. 
+      \end{itemize}
     \item \db{$h[n]=5^nu[3-n]$} 
+      \begin{itemize}[label=\textbullet]
+        \item \textbf{Causalidad:} El término $u[3-n]$  implica que $h[n]\neq 0$ solo para $n\le 3$. Esto significa que el sistema depende de valores futuros de la entrada, por lo que \lb{no es causal}.
+        \item \textbf{Estabilidad:} Para $n\le 3,|h[n]|=5^n$. Esta serie incluye términos crecientes (por ejemplo, $5^3$), por lo que no es absolutamente sumable. El sistema \lb{no es estable}. 
+      \end{itemize}
     \item \db{$h[n]=\left( -\dfrac{1}{2} \right) ^nu[n]+1.01^nu[n-1]$} 
+      \begin{itemize}[label=\textbullet]
+        \item \textbf{Causalidad:} Ambos términos incluyen $u[n]$ o  $u[n-1]$, lo que asegura que $h[n]=0$ para $n<0$. Por lo tanto, el sistema es  \lb{causal}. 
+        \item \textbf{Estabilidad:} EL primer término $\left( -\dfrac{1}{2} \right) ^{n}u[n]$ es absolutamente sumable, ya que: \[
+        \sum_{n=0}^{\infty} \left| \left( -\dfrac{1}{2} \right) ^{n} \right| =\sum_{n=0}^{\infty} \left( \dfrac{1}{2} \right) ^n=2
+        \] 
+        Sin embargo, el segundo término $1.01^nu[n-1]$ crece exponencialmente y no es absolutamente sumable. Por lo tanto, el sistema  \lb{no es estable}.
+      \end{itemize}
     \item \db{$h[n]=\left( -\dfrac{1}{2} \right) ^nu[n]+1.01^nu[1-n]$} 
+      \begin{itemize}[label=\textbullet]
+        \item \textbf{Causalidad:} El primer término $\left( -\dfrac{1}{2} \right) ^nu[n]$ es causal, pero el segundo término $1.01^nu[1-n]$ implica que  $h[n]\neq 0$ para  $n>1$. Por lo tanto, el sistema  \lb{no es causal}.
+      \item \textbf{Estabilidad:} El primer término es aboslutamente sumable, pero el segundo término $1.01^nu[1-n]$ no lo es, ya que incluye términos crecientes. Por lo tanto, el sistema \lb{no es estable}.
+      \end{itemize}
     \item \db{$h[n]=n\left( \dfrac{1}{3} \right) ^nu[n-1]$} 
+      \begin{itemize}[label=\textbullet]
+        \item \textbf{Causalidad:} El término $u[n-1]$  asegura que $h[n]=0$ para  $n<1$. Por lo tanto el sistema es  \lb{causal}.
+        \item Para $n\ge 1,|h[n]|=n\left( \dfrac{1}{3} \right) ^n$ decrece exponencialmente, el factor $n$ hace que la serie no sea absolutamente sumable. Por ejemplo, usando el criterio de comparación, la serie diverge. Por lo tanto, el sistema  \lb{no es estable}. 
+      \end{itemize}
   \end{enumerate}
 \item \lb{Considere un sistema LTI que se encuentra incialmente en reposo y cuya entrada $x(t)$ y salida $y(t)$ se relacionan por la ecuación diferencial \[
 \dfrac{\mathrm{d}}{\dt}y(t)+4y(t)=x(t)

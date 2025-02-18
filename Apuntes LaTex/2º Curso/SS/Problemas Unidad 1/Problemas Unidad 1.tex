@@ -483,30 +483,121 @@ Si la señal $x(t)$ es cero para  $t<3$, al aplicar la expansión por el factor 
   \item \lb{Determine si cada de las siguientes señales es periódica:}
     \begin{enumerate}[label=\color{red}\textbf{\alph*)}]
       \item \db{$x(t)=2e^{j\left( t+\frac{\pi}{4}  \right)u(t) } $} 
+
+        \begin{itemize}[label=\textbullet]
+          \item La parte exponencial $\left( e^{j\left( t+\frac{\pi}{4}  \right) }  \right) $ es un señal compleja con una frecuencia $\omega_0=1$, lo cual sugiere periodicidad.
+          \item Sin embargo, la función escalón $u(t)$ hace que la señal solo existe para  $t\ge 0$. Esto significa que la señal no se repite en todo el dominio de $t$, por lo tanto, no es periódica.
+        \end{itemize}
       \item \db{$x(t)=x[n]=e[n]+u[-n]$} 
+        \begin{itemize}[label=\textbullet]
+          \item $u[n]$ es la función escalón, que es 1 para  $n\ge 0$ y $0$ para  $n<0$.
+          \item  $u[-n]$ es la función escalón reflejada, que es 1 para $n\le 0$ y 0 para $n>0$.
+          \item Sumando ambas funciones: la señal es 1 para todo  $n$, es decir,  $x[n]=1$ para todo  $n$, esto hace que la señal sea constante, por lo tanto, es periódica para cualquier período  $N$.
+        \end{itemize}
       \item \db{$x[n]=\sum_{k=-\infty}^{\infty} (\delta[n-4k]-\delta[n-1-4k])$}  
+        \begin{itemize}[label=\textbullet]
+          \item La señal está compuesta por dos deltas desplazadas en el tiempo.
+          \item la forma general es de dos impulsos cada intervalo de 4 muestras.
+          \item Por lo tanto, la señal es periódica con período $N=4$.
+        \end{itemize}
     \end{enumerate}
   \item \lb{Para cada una de las señales siguientes determine los valores de la variable independiente en los que se garantice que la parte par de la señal es cero.}
     \begin{enumerate}[label=\color{red}\textbf{\alph*)}]
       \item \db{$x[n]=u[n]-u[n-4]$} 
+
+        Esta señal es un tren de impulsos rectangular con valores de 1, en $0\le n\le 3$ y 0 en otros lugares.
+        \begin{itemize}[label=\textbullet]
+          \item Antisimetría respecto a $n=\dfrac{3}{2}$, por lo que su parte par será cero en los puntos donde $x[n]=-x[-n]$.
+          \item Para $n=0,1,2,3$ tenemos valores de 1.
+          \item Para  $n=-1,-2,-3$, la función es 0.
+          \item La parte par será cero en los valores fuera del intervalo  $[-3,3]$.
+        \end{itemize}
       \item $\db{x(t)=\sin\left( \dfrac{t}{2} \right) } $ 
-      \item \db{$x[n]=\left( \dfrac{1}{2} \right) ^nu[n-3]$} 
+
+        La función seno es impar, es decir: \[
+        \sin\left( \dfrac{t}{2} \right) +\sin\left( \dfrac{t}{2} \right) =0
+        \] 
+        Por definición, su parte par es cero para todo $t$.
+      \item \db{$x[n]=\left( \dfrac{1}{2} \right) ^nu[n-3]$}
+
+        Esta señal es una secuencia geométrica desplazada a partir de $n=3$, es decir:  \[
+          x[n]=\begin{cases}
+            \left( \dfrac{1}{2} \right) ^{n} & \text{si }n\ge 3\\
+            0 & \text{en otro caso}
+          \end{cases}
+        \] 
+        Para que su parte par sea cero, debe cumplirse $x[n]=-x[-n]$, pero como la función es unilateral, su parte par será cero donde  $x[n]=0$, es decir, donde  $n<3$.
       \item \db{$x(t)=e^{-5t}u(t+2) $} 
+
+        Esta señal es una exponencial decreciente activada en $t\ge -2$.
+        \begin{itemize}[label=\textbullet]
+          \item Es unilateral y no tiene valores negativos simétricos, por lo que su parte par será cero antes de la activación, es decir, cuando $t\le -2$.
+        \end{itemize}
     \end{enumerate}
   \item \lb{Exprese la parte real de cada una de las siguientes señales de la forma $Ae^{-at}\cos(\omega t+\varphi) $, donde $A,a,\omega$ y $\varphi$ son números reales con $A\ge 0$ y $-\pi\le \varphi\le \pi$.} 
     \begin{enumerate}[label=\color{red}\textbf{\alph*)}]
       \item \db{$x(t)=-2$} 
+        \[
+        x(t)=2e^{-0t}\cos(0t+\pi), 
+        \] donde: \[
+        \begin{array}{ll}
+          \bullet\, A=2 & \bullet\, \omega=0\\
+          \bullet\, a=0 & \bullet\, \varphi=\pi
+        \end{array}
+        \] 
       \item \db{$x(t)=\sqrt{2} e^{j\frac{\pi}{4} } \cos(3t+2\pi)$} 
+
+        $x(t)=\sqrt{2} e^{j\frac{\pi}{4} } \cos(\lbb{3t+2\pi}{\theta+2\pi=\theta})=\sqrt{2}\left( \cos\left( \dfrac{\pi}{4} \right) +j\cdot \sin\left( \dfrac{\pi}{4} \right)  \right) \cos(3t)=(1+j)\cos(3t)$
+
+        Solo tomamos la parte real, por lo que: \[
+        x(t)=\cos\left( 3t+\dfrac{\pi}{4} \right) ,
+        \] donde: \[
+        \begin{array}{ll}
+          \bullet\, A=1 & \bullet\, \omega=3\\
+          \bullet\, a=0 & \bullet\,\varphi=\dfrac{\pi}{4}
+        \end{array}
+        \] 
       \item \db{$x(t)=e^{-t}\sin(3t+\pi) $} 
+
+        Usaremos la identidad: \[
+        \sin(\theta)=\cos\left( \theta-\dfrac{\pi}{2} \right) ,
+        \] por lo que: \[
+        x(t)=e^{-t}\cos\left( 3t+\pi-\dfrac{\pi}{2} \right) =e^{-t}\cos\left( 3t+\dfrac{\pi}{2} \right)   ,
+        \] donde: \[
+        \begin{array}{ll}
+          \bullet\, A=1 & \bullet\,\omega=3\\
+          \bullet\, a=1 & \bullet\, \varphi=\dfrac{\pi}{2}
+        \end{array}
+        \] 
       \item \db{$x(t)=je^{(-2+j 100)t} $} 
     \end{enumerate}
   \item \lb{Determine si cada una de las siguientes señales es periódica. En caso afirmativo especifique su periodo fundamental.}
     \begin{enumerate}[label=\color{red}\textbf{\alph*)}]
       \item \db{$x(t)=-2$} 
+
+        La señal tiene la forma $x(t)=e^{j\omega t} $, que es periódica si la frecuencia angular $\omega$ es un múltiplo racional de $2\pi$: \[
+        \omega=10.
+        \] 
+        El periodo fundamental es: \[
+        T=\dfrac{2\pi}{\omega}=\dfrac{2\pi}{10}=\dfrac{\pi}{5}.
+        \] 
+        La señal es periódica con periodo fundamental $T=\dfrac{\pi}{5}$.
       \item \db{$x(t)=e^{(-1+j)t} $} 
+
+        Esta señal tiene un término $e^{-t} $, que representa un decrecimiento exponencial. Si hay un término exponencial con un exponente real negativo, la señal nunca se repite exactamente, ya que disminuye continuamente, por lo tanto, no es periódica.
       \item \db{$x[n]=e^{j 7\pi n} $} 
+
+        $\omega=7\pi\longrightarrow N=\dfrac{2\pi}{\omega}\cdot m=\dfrac{2\pi}{7\pi}\cdot m=\dfrac{2}{7}\cdot m\longrightarrow N=2\:(m=7)$
+
+        La señal es periódica, con periodo fundamental $N=2$.
       \item \db{$x[n]=3e^{j3\pi\frac{n+\frac{1}{2} }{5} } $} 
+
+        $\omega=\dfrac{2\pi}{5}\longrightarrow N=\dfrac{2\pi}{\omega}\cdot m=\dfrac{2\pi}{\frac{3\pi}{5} }\cdot m=\dfrac{10}{3}\cdot m\longrightarrow N=10\:(m=3)$
       \item \db{$x[n]=3e^{j\frac{3}{5} \left( n+\frac{1}{2}  \right) } $} 
+
+        $\omega=\dfrac{3}{5}\longrightarrow N=\dfrac{2\pi}{\omega}\cdot m=\dfrac{2\pi}{\frac{3}{5} }\cdot m=\dfrac{10\pi}{3}\cdot m\longrightarrow $ No se puede.
+
+        La señal no es periódica.
     \end{enumerate}
   \item \lb{Determine el periodo fundamental de la señal $x(t)=2\cos(10t+1)-\sin(4t-1)$.} 
   \item \lb{Determine el periodo fundamental de la señal $x[n]=1+e^{j\frac{4\pi n}{7}}-e^{j\frac{2\pi n}{5} }$.}
