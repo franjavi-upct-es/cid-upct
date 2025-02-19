@@ -687,5 +687,248 @@ Si la señal $x(t)$ es cero para  $t<3$, al aplicar la expansión por el factor 
       \item \db{$x(t)=\mathrm{Par}\{\sin(4\pi t)u(t)\} $} 
       \item \db{$x(t)=\sum_{n=-\infty}^{\infty} e^{-(2t-n)}u(2t-n) $} 
     \end{enumerate}
+\item \lb{Determine si cada una de las siguientes señales discretas es periódica. En caso afirmativo obtenga su periodo fundamental.}
+    \begin{enumerate}[label=\color{red}\textbf{\alph*)}]
+        \item \db{$x[n]=\sin\left( \dfrac{6\pi}{7}n+1 \right) $} 
+        \item \db{$x[n]=\cos\left( \dfrac{n}{8}-\pi \right) $} 
+        \item \db{$\cos\left( \dfrac{\pi}{8}n^2 \right) $} 
+        \item \db{$x[n]=\cos\left( \dfrac{\pi}{2}n \right) \cos\left( \dfrac{\pi}{4}n \right) $} 
+        \item \db{$x[n]=2\cos\left( \dfrac{\pi}{4}n \right) +\sin\left( \dfrac{\pi}{8}n \right) -2\cos\left( \dfrac{\pi}{2}n +\dfrac{\pi}{6}\right) $} 
+    \end{enumerate}
+\item \lb{Determine el módulo, así como la parte real e imaginaria de la señal \[
+x(t)=te^{j_3\pi t}\prod\left( \dfrac{2t-4}{8} \right) -2\delta(2t+3) 
+\]}
+\item \lb{Calcule la energía y la potencia de la señal mostrada en la figura 3. Indique si se encuentra definida en enegería o en potencia.}
+\begin{center}
+    \begin{tikzpicture}[>=latex,scale=0.7]
+        \draw[->] (-10,0) -- (10,0) node[right] {$t$};
+        \draw[->] (0,-2.5) -- (0,2.5) node[above] {$x(t)$};
+        \foreach \x in {0,4,8} {\draw (\x,0.1) -- (\x,-0.1) node[below right] {$\x$};}
+        \foreach \y in {-2,2} {\draw (0.1,\y) -- (-0.1,\y) node[left] {$\y$};}
+            \draw[lightblue, line width=1.5] (-10,0) -- (0,0) -- (0,2) -- (4,2) -- (4,-2) -- (8,-2) -- (8,0) -- (9.5,0);
+    \end{tikzpicture}\\
+    \lb{Figura 3} 
+\end{center}
+\item \lb{Represente detalladamente las señales $x_1(t)$ y $x(t)$, definidas como \[
+\begin{array}{c}
+    x_1(t)=2\prod\left( \dfrac{t}{4} \right) +(6-2t)\left[ \prod\left( \dfrac{t-2.5}{1} \right) -\prod\left( \dfrac{t-3.5}{1} \right)  \right] \\
+    x(t)=\sum_{n=-\infty}^{\infty} x_1(t-6n)
+\end{array}
+\] } 
+\item \lb{Represente detalladamente las señales $x(t)$ y  $h(t)$ dadas por  \[
+            \begin{array}{c}
+            x(t)=t\prod\left( \dfrac{2t}{4} \right) +t[u(t-1)-u(3t-9)]\\
+            h(t)=2\prod\left( \dfrac{t-1}{4} \right) +\delta(t+4)
+            \end{array}
+\] } 
+\item \lb{Calcule la energía y la potencia de la señal $x(t)$ del ejercicio 21, indicando si se trata de una señal definida en energía  o en potencia.}
+
+\item \lb{Represente detalladamente las señales \[
+\begin{array}{c}
+    x[n]=e^{j\frac{\pi}{4} n} u[n]\\
+    h[n]=\cos\left( \dfrac{\pi}{4}n \right) \prod\left( \dfrac{n-2}{11} \right) 
+\end{array}
+\] } 
+\item \lb{Calcule la energía y la potncia de la señal $x[n]$ del ejercicio 23, indicando si se trata de una señal definida en energía o en potencia.}
+\item \lb{Indique si la señal $x[n]$ del ejercicio 23 y la señal  $z[n]=x[n]+x^*[-n]$ son periódicas y, en su caso, obtenga el valor de los correspondientes periodos.}
+\item \lb{Considere la señal continua no periódica mostrada en la figura 4 y represente su partes par e impar.}
+    \begin{center}
+        \begin{tikzpicture}
+            \draw[-latex] (-3,0) -- (5,0) node[right] {$t$};
+            \draw[-latex] (0,-0.1) -- (0,1.5) node[above] {$x(t)$};
+            \foreach \x in {-1,0,2,3} {\draw (\x,0.1) -- (\x,-0.1) node[below] {$\x$};}
+                \node[left] at (0,1) {$1$};
+                \draw[lightblue, line width=1.5] (-3,0) -- (-1,0) -- (0,1) -- (2,1) -- (3,0) -- (4.5,0);
+        \end{tikzpicture}\\
+        \lb{Figura 4} 
+    \end{center}
+\item \lb{Calcule la energía y la potencia de la señal de la figura 4, indicando si se trata de una señal definida en energía o en potencia.}
+
+\item \lb{Represente detalladamente las siguientes señales: \[
+\begin{array}{c}
+    x[n]=\left( \dfrac{1}{2} \right) ^{2n}(u[n+3]-u[n+4]u[-n-5])\\
+    h[n]=3^nu[-n-1]+3^{-n-1}u[n]
+\end{array}
+\] } 
+\item \lb{Calcule la energía y la potencia de la señal $x[n]$ del ejercicio 28, indicando si se trata de una señal definida en energía o en potencia.}
+\item \lb{Calcule la energía y la potencia de la señal de la figura 5, indicando si está definida en energía o en potencia.}
+    \begin{center}
+        \begin{tikzpicture}
+            \draw[-latex] (-4,0) -- (4,0) node[right] {$t$};
+            \draw[-latex] (0,0) -- (0,1.5) node[above] {$x(t)$};
+            \foreach \x in {-2,-1,0,1} {\draw (\x,0.1) -- (\x,-0.1) node[below] {$\x$};}
+                \node[left] at (0,1) {$1$};
+                \draw[lightblue, line width=1.5] (-4,0) -- (-2,0) -- (-1,1) -- (0,0) -- (1,1) -- (4,1);
+        \end{tikzpicture}
+    \\
+    \lb{Figura 5} 
+    \end{center}
+\item \lb{Represente detalladamente las señales \[
+\begin{array}{c}
+    x(t)=-\left( \dfrac{t}{2}+1 \right) \prod\left( \dfrac{t}{4} \right) \\
+h(t)=1-u(t-1)u(t-3)-u(1-t)
+\end{array}
+\] } 
+\item \lb{Calcule la energía y la potencia de la señal $x(t)$ del ejercicio 31, indicando si se trata de una señal definida en energía o en potencia.}
+\item \lb{Represente detalladamente la señal \[
+x(t)=\dfrac{1+\mathrm{sign}(\sin(t))}{2}\sin(t)
+\] } 
+\item \lb{Represente detalladamente las señales \[
+x(t)=e^{-(2+j_3)t}u(t+3)\\
+h(t)=\prod\left( \dfrac{t-1.5}{5} \right) -5\delta(t-5)
+\] } 
+\item \lb{Calcule la energía y la potencia de la señal $x(t)$ del ejercicio 34, indicando si se trata de una señal definida en energía o en potencia.}
+\item \lb{Calcule la energía y la potencia de la señal $x(t)$, indicando si se trata de una señal definida en energía o en potencia.  \[
+x(t)=\bigwedge\left( \dfrac{t}{b} \right) 
+\] } 
+\item \lb{Considere un sistema discreto cuya señal de entrada es $x[n]$ y la sñela de salida es  $y[n]$. La relación entre la entrada y la salida viene dada por  \[
+            y[n]=x[n]x[n-2]
+\] } 
+\begin{enumerate}[label=\color{red}\textbf{\alph*)}]
+    \item \db{¿Tiene memoria el sistema?} 
+
+        Un sistema tiene memoria si su salida en un tiempo $n$ depende de valores pasados o futuros de la entrada.
+         \begin{itemize}[label=\textbullet]
+             \item La salida $y[n]$ se define en términos de  $x[n]$ y  $x[n-2]$.
+             \item Como depende del valor presente  $x[n]$ y de un valor pasado  $x[n-2]$, el sistema tiene memoria.
+        \end{itemize}
+    \item \db{Determine la señal de salida del sistema cuando la entrada es $A\delta[n]$, siendo  $A$ una constante real o compleja.}
+
+        Sustituyendo $A\delta[n]$ en la ecuación del sistema:  \[
+            y[n]=x[n]x[n-2]=A\delta[n]\cdot A\delta[n-2].
+        \] 
+        Dado que $\delta[n]$ solo es distinto de cero cuando  $n=0$ y  $\delta[n-2]$ solo es distinto de cero cuando  $n=2$, su producto será diferente de cero si ambos índices coinciden, lo cual nunca ocurre.
+
+        Por lo tanto:  \[
+            y[n]=0, \forall n.
+        \] 
+    \item \db{¿Es invertible el sistema?} 
+        Un sistema es invertible si podemos recuperar la entrada $x[n]$ a partir de la salida  $y[n]$.
+         \begin{itemize}[label=\textbullet]
+             \item De la ecuación $y[n]=x[n]x[n-2]$, observamos que hay dos valores de  $x[n]$ que intervienen en la salida.
+             \item Si  $x[n]=0$ o  $x[n-2]=0$, entonces  $y[n]=0$, lo que significa que no podemos distinguir entre diferentes posibles entradas que produzcan la misma salida.
+             \item Por lo tanto, el sistema no es invertible.
+        \end{itemize}
+\end{enumerate}
+\item \lb{Considere un sistema continuo cuya señal de entrada es $x(t)$ y de salida  $y(t)$ relacionadas por  \[
+y(t)=x(\sin(t))
+\] } 
+\begin{enumerate}[label=\color{red}\textbf{\alph*)}]
+    \item \db{¿Es causal el sistema?}
+
+        Un sistema es causal si la salida $y(t)$ en cualquier instante  $t$ depende únicamente de valores presentes o pasados de la entrada  $x(t)$, es decir, no puede depender de valores futuros de  $x(t)$.
+         \begin{itemize}[label=\textbullet]
+            \item  En este caso, la salida $y(t)=x(\sin(t))$ evalúa la entrada en $\sin(t)$, que no siempre es menor o igual a $t$.
+            \item Como  $\sin(t)$ oscila en el intervalo $[-1,1]$, la salida en  $t$ depende de valores de la entrada en tiempos futuros y pasados.
+        \end{itemize}
+        Por lo tanto, el sistema no es causal.
+    \item \db{¿Es lineal?} 
+
+        Un sistema es lineal si cumple las propiedades de superposición y homogeneidad.
+        \begin{enumerate}[label=\arabic*)]
+            \item Superposición: Si $x_1(t)\to y_1(t)$ y $x_2(t)\to y_2(t)$, entonces: \[
+            x_1(t)+x_2(t)\to y_1(t)+y_2(t).
+            \] 
+        \item Homogeneidad: Si $x(t)\to y(t)$, entonces: \[
+        \alpha x(t)\to \alpha y(t)
+        \] 
+        \end{enumerate}
+        Probemos si el sistema cumple estras propiedades:
+        \begin{itemize}[label=\textbullet]
+            \item Si tenemos dos entradas $x_1(t)$ y $x_2(t)$, entonces las salidas son: \[
+            y_1(t)=x_1(\sin(t)),\: y_2(t)=x_2(\sin(t))
+            \] 
+        \item Si aplicamos la entrada combinada $x_1(t)+x_2(t)$, salida es: \[
+        y(t)=(x_1+x_2)(\sin(t))=x_1(\sin(t))+x_2(\sin(t))=y_1(t)+y_2(t).
+        \] 
+        \end{itemize}
+        La propiedad de superposición se cumple.
+
+        Si aplicamos una constante $\alpha$, tenemos: \[
+        y(t)=(\alpha x)(\sin(t))=\alpha x(\sin(t))=\alpha y(t).
+        \] 
+        Como se cumple la propiedad de homogeneidad, el sistema es lineal.
+
+\end{enumerate}
+\item \lb{Para cada una de las siguientes relaciones entrada-salida determine si el sistema correspondiente es lineal, invariante en el tiempo o ambos.}
+    \begin{enumerate}[label=\color{red}\textbf{\alph*)}]
+        \item \db{$y(t)=t^2x(t-1)$} 
+
+            Para ser lineal, el sistema debe cumplir superposición y homogeneidad.
+
+            Si la entrada es $x_1(t)$ con salida $y_1(t)$, y $x_2(t)$ con salida $y_2(t)$, entonces para la entrada combinada $x_1(t)+x_2(t)$, la salida debería ser: \[
+            y(t)=t^2(x_1(t-1)+x_2(t-1))=t^2x_1(t-1)+t^2x_2(t-1)=y_1(t)+y_2(t)
+            \] 
+            Cumple superposición.
+
+            Para homogeneidad: \[
+            y(t)=t^2(\alpha x(t-1))=\alpha t^2x(t-1)=\alpha y(t).
+            \] 
+            Es lineal.
+
+            Si desplazamos la entrada $x(t)\to x(t-t_0)$, la salida se convierte en: \[
+            y'(t)=t^2x(t-1-t_0)
+            \] pero la salida original desplazada es: \[
+            y(t-t_0)=(t-t_0)^2x(t-t_0-1).
+            \] 
+        \item  \db{$y[n]=x^2[n-2]$} 
+        \item \db{$y[n]=x[n+1]-x[n-1]$} 
+        \item \db{$y(t)=\mathrm{Impar}\{x(t)\} $} 
+    \end{enumerate}
+\item \lb{Determine si cada uno de los siguientes sistemas es invertible. En caso afirmativo, construya el sistema inverso y, en caso negativo, encuentre dos señales de entrada al sistema que generen la misma señal de salida.}
+    \begin{enumerate}[label=\color{red}\textbf{\alph*)}]
+        \item \db{$y(t)=x(t-4)$} 
+        \item \db{$y(t)=\cos(x(t))$} 
+        \item \db{$y[n]=nx[n]$} 
+        \item \db{$y(t)=\int_{-\infty}^{t} x(\tau)\mathrm{d}\tau $} 
+        \item \db{$y[n]=\begin{cases}
+                    x[n-1], & n\ge 1\\
+                    0, & n=0\\
+                    x[n], & n\le -1
+        \end{cases}$} 
+    \item \db{$y[n]=x[n]x[n-1]$} 
+    \item \db{$y[n]=x[1-n]$} 
+        \item \db{$y(t)=\int_{-\infty}^{t} e^{-(t-\tau)}\mathrm{d}\tau  $} 
+        \item \db{$y[n]=\sum_{k=-\infty}^{\infty} \left( \dfrac{1}{2} \right) ^{n-k}x[k]$} 
+        \item \db{$y(t)=\dfrac{\mathrm{d}x(t)}{\dt}$} 
+        \item \db{$y[n]=\begin{cases}
+                    x[n+1], & n\ge 0\\
+                    x[n], & n\le -1
+        \end{cases}$} 
+        \item \db{$y(t)=x(2t)$} 
+        \item \db{$y[n]=x[2n]$} 
+        \item \db{$y[n]=\begin{cases}
+                    x\left[ \dfrac{n}{2} \right] , & \text{$n$ par}\\
+                    0, & \text{$n$ impar}
+        \end{cases}$} 
+    \end{enumerate}
+\item \lb{En este ejercicio se ilustra una de las consecuencias más importantes de las propiedades de linealidad e invarianza temporal. En concreto, cuando se conoce la respuesta de un sistema lineal e invariante en el tiempo (linear time-invariant systema, LTI) a una entrada determinada o la respuesta a varias entradas, se puede calcular la respuesta del sistema a otras señales de entrada.}
+    \begin{center}
+        \includegraphics[width=0.7\textwidth]{"41"}\\
+        \lb{Figura 6} 
+    \end{center}
+    \begin{enumerate}[label=\color{red}\textbf{\alph*)}]
+        \item \db{Considere un sistema LTI cuya respuesta a la señal $x_1(t)$ de la Figura 6(a) es la señal $y_1(t)$ mostrada en la Figura 6(b). Determine y represente la respuesta del sistema a la entrada $x_2(t)$ de la Figura 6(c).}
+        \item \db{Determine y represente la respuesta del sistema considerado en el apartado anterior a la señal de entrada $x_3(t)$ mostrada en la Figura 6(d).} 
+    \end{enumerate}
+\item \lb{La salida de un sistema viene dada por $y[n]=x[2+n]x[2-n]$. Indique razonadamente si el sistema cumple las propiedades de memoria, causalidad, estabilidad, invarianza en el tiempo y linealidad.}
+\item \lb{Considere la señal $x[n]=\bigwedge\left( \dfrac{n}{3} \right) +\bigwedge\left( \dfrac{n-3}{3} \right) $. Obtenga y represente las partes par e impar de dicha señal. Asimismo, calcule la energía y la potencia de $x[n]$, indicando si se trata de una señal definida en energía o en potencia.}
+\item \lb{Calcule la energía y la potencia de $x[n]$, indicando si se trata de una señal definida en energía o en potencia.  \[
+            x[n]=(u[n+6]-u[n-7]+\delta[-n+10])u[-n+10]
+\] } 
+\item \lb{Calcule la energía y la potencia de $x(t)$, indicando si se trata de una señal definida en energía o en potencia.  \[
+x(t)=(t-2)u(t-1)u(4-t)\prod\left( \dfrac{t}{10} \right) 
+\] } 
+\item \lb{Determine si cada uno de los siguientes sistemas verifica las propiedades de memoria, causalidad, estabilidad, invarianza y linealidad.}
+    \begin{enumerate}[label=\color{red}\textbf{\alph*)}]
+        \item \db{$y(t)=e^{x(t)} $} 
+        \item \db{$y[n]=x[n]x[n-1]$} 
+        \item \db{$y(t)=\dfrac{\mathrm{d}x(t)}{\dt}$} 
+        \item \db{$y[n]=x[-n]$} 
+        \item \db{$y(t)=\sin(6t)x(t)$} 
+        \item \db{$y[n]=\sum_{k=-2}^{n+4} $} 
+        \item \db{$y[n]=nx[n]$} 
+        \item \db{$y[n]=x[2n]$} 
+    \end{enumerate}
 \end{enumerate}
 \end{document}
