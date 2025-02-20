@@ -585,5 +585,32 @@ for p_val, q_val in combinaciones:
 ```
 
 ```{python}
+#| echo: false
+#| results: asis
+from sympy import symbols, Or, And, Implies
+from tabulate import tabulate
+from IPython.display import Markdown, display
 
+# Definición de las variables lógicas
+p, q = symbols('p q')
+
+# Encabezados de la tabla
+headers = [r"$p$", r"$q$", r"$\neg p$", r"$\neg q$", r"$p \lor q$", r"$p \land q$", r"$p \leftrightarrow q$"]
+
+# Lista de combinaciones para p y q
+combinaciones = [(True, True), (True, False), (False, True), (False, False)]
+
+# Construir las filas evaluando cada combinación, con 1 para True y 0 para False
+filas = []
+for p_val, q_val in combinaciones:
+    or_res    = int(bool(Or(p, q).subs({p: p_val, q: q_val})))
+    and_res   = int(bool(And(p, q).subs({p: p_val, q: q_val})))
+    equiv_res = int(bool(Equivalent(p, q).subs({p: p_val, q: q_val})))
+    filas.append([int(p_val), int(q_val), or_res, and_res, equiv_res])
+
+# Generar la tabla Markdown usando tabulate con el formato "pipe"
+tabla = tabulate(filas, headers=headers, colalign=("center" for _ in headers))
+
+# Mostrar la tabla como Markdown para que Quarto la renderice correctamente
+display(Markdown(tabla))
 ```
