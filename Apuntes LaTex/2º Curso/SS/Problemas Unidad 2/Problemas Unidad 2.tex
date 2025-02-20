@@ -588,7 +588,7 @@ y(t)=x(t)\ast h(t)=x(t+2)+2x(t+1)
         0, & \text{en otro caso}
       \end{cases}
       \] 
-      Esto corresponde a un triángulo con bas en $[0,1+\alpha]$, que crece linealmente en $[0,\alpha]$, se mantiene constante en $[\alpha,1]$, y decrece linealmente en $[1,1+\alpha]$.
+      Esto corresponde a un triángulo con base en $[0,1+\alpha]$, que crece linealmente en $[0,\alpha]$, se mantiene constante en $[\alpha,1]$, y decrece linealmente en $[1,1+\alpha]$.
       \begin{center}
         \begin{tikzpicture}[>=latex, scale=3]
           \draw[->] (-0.5, 0) -- (2,0) node[right] {$t$};
@@ -600,6 +600,16 @@ y(t)=x(t)\ast h(t)=x(t+2)+2x(t+1)
         \end{tikzpicture}
       \end{center}
     \item \db{Si $\dfrac{\mathrm{d}y(t)}{\dt}$ contiene sólo tres discontinuidades, ¿cuál es el valor de $\alpha$?} 
+
+        La derivada de $y(t)$ seá: 
+         \begin{itemize}[label=\textbullet]
+            \item Para $0\le t\le \alpha,\,y(t)=t$, por lo que: \[
+            \dfrac{\mathrm{d}y(t)}{\dt}=1
+            \] 
+        \item Para $\alpha<t\le 1,y(t)=\alpha$, por lo que: \[
+        \dfrac{\mathrm{d}y(t)}{\dt}=0
+        \] 
+        \end{itemize}
   \end{enumerate}
 \item \lb{Sean \[
 x(t)=u(t-3)-u(t-5)\qquad h(t)=e^{-3t} u(t)
@@ -682,21 +692,261 @@ x(t)=u(t-3)-u(t-5)\qquad h(t)=e^{-3t} u(t)
 \] } 
 \begin{enumerate}[label=\color{red}\textbf{\alph*)}]
   \item \db{Obtenga la respuesta al impulso del sistema.}
+
+		La ecuación diferencial que describe el sistema es:
+		\[
+		\dfrac{\mathrm{d}}{\dt}y(t)+4y(t)=x(t).
+		\]
+		Para encontrar la \textbf{respuesta al impulso} $h(t)$, consideramos la entrada $x(t)=\delta(t)$. En este caso, la ecuación difernecial se convierte en: \[\dfrac{\mathrm{d}}{\dt}y(t)+4h(t)=\delta(t).\]
+
+\textbf{Resolviendo la ecuación diferencial}
+\begin{itemize}[label=\textbullet]
+\item \textbf{Ecuación homogénea:} Primero resolvemos la ecuación homogénea asociada $(x(t)=0)$: \[\dfrac{\mathrm{d}}{\dt}h_h(t)+4h_h(t)=0.\]
+La solución general de esta ecuación es: \[h_h(t)=Ce^{-4t},\] donde $C$ es una constante que se determinará con las condiciones iniciales.
+\item \textbf{Solución particular:} Dado que la entrada es un impulso $\delta(t)$, la solución particular se encuentra considerando la propiedad de causalidad del sistema LTI. La respuesta al impulso $h(t)$ debe ser cero para $t<0$. Además, integramos ambos lados de la ecuación diferencial en un intervalo infinitesimal alrededor de $t=0$ para determinar la discontinuidad en $h(t)$: \[\int_{-\epsilon}^\epsilon\left(\dfrac{\mathrm{d}}{\dt}h(t)+4h(t)\right)\dt=\int_{-\epsilon}^{\epsilon}\delta(t)\dt.\]
+\end{itemize}
+El primer término se evalúa como: \[
+\int_{-\epsilon}^{\epsilon}\dfrac{\mathrm{d}}{\dt}h(t)\dt=h(\epsilon)-h(-\epsilon).  
+\] 
+Para un sistema causal, $h(t)=0$ para  $t<0$, por lo que  $h(-\epsilon)=0$. Esto implica: \[
+h(\epsilon)-0+\int_{-\epsilon}^{\epsilon} 4h(t)\dt=1. 
+\] 
+En el límite $\epsilon\to 0$, el término $\int_{-\epsilon}^{\epsilon} 4h(t)\dt $ desaparece, y obtenemos: \[
+h(0^+)=1.
+\] 
+\begin{itemize}[label=\textbullet]
+    \item \textbf{Solución completa:} La solución completa es: \[
+    h(t)=\begin{cases}
+        e^{-4t}, & t\ge 0\\
+        0, & t<0
+    \end{cases}
+    \]  
+\end{itemize}
+Por lo tanto, la \textbf{respuesta al impulso} del sistema es: \[
+h(t)=e^{-4t}u(t), 
+\]  donde $u(t)$ es la función escalón unitario.
   \item \db{Si $x(t)=e^{(-1+3j)t} u(t)$, calcule $y(t)$} 
+
+      La salida de un sistema LTI se obitnee mediante la convolución de la entrada $x(t)$ con la respuesta al impulso  $h(t)$:  \[
+      y(t)=x(t)\ast h(t)=\int_{-\infty}^{\infty} x(\tau)h(t-\tau)\mathrm{d}\tau. 
+      \] 
+      Sustituyendo $x(t)=e^{(-1+3j)t} u(t)$ y $h(t)=e^{-4t}u(t) $, tenemos: \[
+      y(t)=\int_{-\infty}^{\infty} e^{(-1+3j)\tau}u(\tau)e^{-4(t-\tau)} u(t-\tau)\mathrm{d}\tau.
+      \] 
+      Debido a las funciones escalón $u(\tau)$ y  $u(t-\tau)$, los límites de integración se restringen a $0\le \tau\le t$. Por lo tanto: \[
+      y(t)=\int_{0}^{t} e^{(-1+4j)\tau}e^{-4(t-\tau)}   \mathrm{d}\tau.
+      \] 
+      Simplificamos el exponente: \[
+      e^{(-1+3j)\tau}e^{-4(t-\tau)}  =e^{-4t}e^{(3j-1+4)\tau}=e^{-4t}e^{(3j+3)\tau}.    
+      \] 
+      Entonces: \[
+      y(t)=e^{-4t}\int_{0}^{t} e^{(3j+3)\tau}\mathrm{d}\tau.   
+      \] 
+      Resolvemos la integral: \[
+      \int_{0}^{t} e^{(3j+3)\tau}\mathrm{d}\tau=\dfrac{1}{3j+3}\left[ e^{(3j+3)\tau}  \right] _0^t=\dfrac{1}{3j+3}\left( e^{(3j+3)t}-1  \right)   .
+      \] 
+      Por lo tanto: \[
+      y(t)=e^{-4t}\cdot \dfrac{1}{3j+3}\left( e^{(3j+3)t}-1  \right)  =\dfrac{1}{3j+3}\left( e^{(-1+3j)t}-e^{-4t}   \right) .
+      \] 
 \end{enumerate}
 \item \lb{Considere un sistema LTI que se encuentra inicialmente en reposo y cuya entrada  $x(t)$ y salida  $y(t)$ se relacionan por la ecuación diferencial  \[
 \dfrac{\mathrm{d}}{\dt}y(t)+3y(t)=2x(t)
 \] } 
 \begin{enumerate}[label=\color{red}\textbf{\alph*)}]
   \item \db{Si $x(t)=\cos(2t)u(t)$, calcule $y(t)$.}
+
+      La ecuación diferencia que describe el sistema es: \[
+      \dfrac{\mathrm{d}}{\dt}y(t)+3y(t)=2x(t).
+      \] 
+      Dado que $x(t)=\cos(2t)u(t)$, la entrada es causal, y el sistema está inicialmente en resposo. Resolveremos esta ecuación diferencial para $y(t)$.
+      \begin{center}
+          \begin{tikzpicture}
+              \begin{axis}[
+                  xmin= -2, xmax= 10,
+                  ymin= -1, ymax = 1,
+                  axis lines = middle,
+              ]
+                  \addplot[domain=-2:10, samples=1000, lightblue, line width=1.5]{x<0 ? 0 : cos(deg(2*x))};
+              \end{axis}
+          \end{tikzpicture}
+      \end{center}
+       \begin{enumerate}[label=Paso \arabic*:]
+          \item Representación de la entrada
+
+              La entrada $x(t)=\cos(2t)u(t)$ puede escribirse en términos de exponenciales complejas usando la identidad de Euler: \[
+              \cos(2t)=\dfrac{e^{j2t}+e^{-j 2t}  }{2}.
+              \] 
+              Por lo tanto: \[
+              x(t)=\dfrac{1}{2}\left( e^{j 2t}+e^{-j 2t}   \right) u(t).
+              \] 
+          \item Solución de la ecuación diferencial
+
+              La solución general de la ecuación difernecial tiene dos componentes: \[
+              y(t)=y_h(t)+y_p(t),
+              \] donde $y_h(t)$ es la solución de la ecuación homogénea asociada  $(x(t)=0)$ y  $y_p(t)$ es una solución particular.
+               \begin{enumerate}[label=\alph*)]
+                  \item Solución homogénea
+
+                      La ecuación homogénea es: \[
+                      \dfrac{\mathrm{d}}{\dt}y_h(t)+3y_h(t).
+                      \]
+                      Resolviendo, obtenemos: \[
+                      y(t)=Ce^{-3t} ,
+                      \] donde $C$ es una constante que se determinará con las condiciones iniciales.
+                  \item Solución particular
+
+                      Para encontrar $y_p(t)$, asumimos una solución de la forma:  \[
+                      y_p(t)=Ae^{j 2t}+Be^{-j 2t}.
+                      \] 
+                      Sustituyendo $y_p(t)$ en la ecuación diferencial:  \[
+                      \dfrac{\mathrm{d}}{\dt}\left( Ae^{j 2t}+Be^{-j 2t}   \right) +3\left( Ae^{j 2t} +Be^{-j 2t}  \right) =2x(t).
+                      \] 
+                      Calculamos la derivada: \[
+                      \dfrac{\mathrm{d}}{\dt}\left( Ae^{j 2t}+Be^{-j 2t}   \right) =j 2Ae^{j2t}-j2 Be^{-j2t}  .
+                      \] 
+                      Sustituyendo: \[
+                          (j 2A+3A)e^{j2t} +(-j 2B+3B)e^{-j 2t}=2\cdot \dfrac{1}{2}\left( e^{j 2t}+e^{-j 2t}   \right)  .
+                      \] 
+                      Agrupando términos: \[
+                          ((j 2+3)A)e^{j2t}+((-j 2+3)B)e^{-j 2t}=e^{j2t}+e^{-j 2t} .
+                      \] 
+                      Igualando coeficientes de $e^{j 2t} $ y $e^{-j 2t} $:
+                      \begin{itemize}[label=\textbullet]
+                          \item Para $e^{j 2t}:(j 2+3)A=1 $.
+                          \item Para $e^{-j 2t}:(-j 2+3)B=1 $.
+                      \end{itemize}
+                      Resolviendo para $A$ y  $B$:  \[
+                      A=\dfrac{1}{2j+3},\quad B=\dfrac{1}{-2j+3}.
+                      \] 
+                      Simplificamos $A$ y $B$ multiplicando numerador y denominador por el conjugado del denominador: \[
+                      \begin{array}{c}
+                          A=\dfrac{1}{2j+3}\cdot \dfrac{-2j+3}{-2j+3}=\dfrac{-2j+3}{(2j+3)(-2j+3)}=\dfrac{-2j+3}{13}\\
+                          B=\dfrac{1}{-2j+3}\cdot \dfrac{2j+3}{2j+3}=\dfrac{2j+3}{(2j+3)(-2j+3)}=\dfrac{2j+3}{13}
+                      \end{array}
+                      \] 
+                      Por lo tanto, la solución particular es: \[
+                      y_p(t)=\dfrac{-2j+3}{13}e^{j 2t}+\dfrac{2j+3}{13}e^{-j 2t}.  
+                      \] 
+                      Usando la identidad de Euler para regresar a términos reales: \[
+                      y_p(t)=\dfrac{3}{13}\cos(2t)+\dfrac{2}{13}\sin(2t).
+                      \] 
+                  \item Solución completa
+
+                      La solución completa es:
+                      \[
+                      y(t)=y_h(t)+y_p(t)=Ce^{-3t}+\dfrac{3}{13}\cos(2t)+\dfrac{2}{13}\sin(2t). 
+                      \] 
+                      Dado que el sistema está inicialmente en reposo $(y(0)=0)$, sustituimos  $t=0$ para determinar  $C$:  \[
+                      \begin{array}{c}
+                          y(0)=C+\dfrac{3}{13}\cos(0)+\cancel{\dfrac{2}{13}\sin(0)} =0.\\
+                          C+\dfrac{3}{13}=0\longrightarrow C=-\dfrac{3}{13}.
+                      \end{array}
+                      \] 
+                      Por lo tanto, la solución final es: \[
+                      y(t)=-\dfrac{3}{13}e^{-3t}+\dfrac{3}{13}\cos(2t)+\dfrac{2}{13}\sin(2t). 
+                      \] 
+              \end{enumerate}
+      \end{enumerate}
   \item \db{Obtenga la respuesta al impulso del sistema.} 
+
+      La respuesta al impulso $h(t)$ se obtiene resolviendo la ecuación diferencial con  $x(t)=\delta(t)$. La ecuación se convierte en:  \[
+      \dfrac{\mathrm{d}}{\dt}h(t)+3h(t)=2\delta(t).
+      \] 
+      Integrando ambos lados en un intervalo infinitesimal alrededor de $t=0$, obtenemos:  \[
+      \int_{-\epsilon}^{\epsilon} \dfrac{\mathrm{d}}{\dt}h(t)\dt+\int_{-\epsilon}^{\epsilon} 3h(t) \dt=\int_{-\epsilon}^{\epsilon} 2\delta(t)\dt.  
+      \] 
+      El primer término es $h(\epsilon)-h(-\epsilon)$, y dado que $h(t)=0$ para  $t< 0$, esto se reduce a $h(0^+)=2$. Por lo tanto, la solución es:  \[
+      h(t)=Ce^{-3t}u(t). 
+      \] 
+      Usando $h(0^+)=2$, tenemos  $C=2$. Por lo tanto:  \[
+      h(t)=2e^{-3t}u(t) .
+      \] 
 \end{enumerate}
 \item \lb{Obtenga la respuesta al impulso, así como las propiedades de memoria, causalidad, estabilidad, invarianza en el tiempo y linealidad de los siguientes sistemas:}
   \begin{enumerate}[label=\color{red}\textbf{\alph*)}]
     \item \db{$y(t)=\int_{-\infty}^{t} x(\tau)\mathrm{d}\tau $} 
+
+        \textbf{Respuesta al impulso}
+
+        Para encontrar la respuesta al impulso $h(t)$, sustituimos  $x(t)=\delta(t)$:  \[
+        y(t)=\int_{-\infty}^{t} \delta(\tau) \mathrm{d}\tau.
+        \] 
+        La integral de la delta de Dirac es la función escalón unitario $u(t)$. Por lo tanto:  \[
+        h(t)=u(t).
+        \] 
+        \textbf{Propiedades}
+        \begin{itemize}[label=\textbullet]
+            \item \textbf{Memoria:} El sistema tiene memoria, ya que la salida en $t$ depende de los valores pasado de la entrada ($x(\tau)$ para $\tau\le t$).
+            \item \textbf{Causalidad:} El sistema es causal, ya que la salida en $t$ depende únicamente de valores de la entrada para  $\tau\le t$.
+            \item \textbf{Estabilidad:} El sistema no es estable. Por ejemplo, si $x(t)=1$ (una entrada acotada), la salida es  $y(t)=t$, que no está acotada.
+            \item \textbf{Invarianza en el tiempo:} El sistema es invariante en el tiempo. Si desplazamos la entrada $x(t)$ por  $t_0$, la salida también se desplaza por $t_0$.
+            \item \textbf{Linealidad:} El sistema es lineal, ya que satisface la superposición.
+        \end{itemize}
     \item \db{$y(t)=\int_{-\infty}^{t} 2x(\tau-5)\mathrm{d}\tau $} 
+
+        \textbf{Respuesta al impulso}
+
+        Sustituyendo $x(t)=\delta(t)$:  \[
+        y(t)=\int_{-\infty}^{t}  2\delta(\tau-5)\mathrm{d}\tau.
+        \] 
+        La delta de Dirac se activa en $\tau=5$, y la integral es cero para  $t<5$ y 2 para  $t\ge 5$. Por lo tanto: \[
+        h(t)=2u(t-5).
+        \] 
+        \textbf{Propiedades}
+        \begin{itemize}[label=\textbullet]
+            \item \textbf{Memoria:} El sistema tiene memoria, ya que la salida depende de valores pasados de la entrada.
+            \item \textbf{Causalidad:} El sistema no es causal, ya que la salida en $t$ depende de valores de la entrada en $\tau=t-5$, que puede ser un valor futuro si  $t<5$.
+            \item \textbf{Estabilidad:} El sistema no es estable. Por ejemplo, si $x(t)=1$, la salida crece sin límite.
+            \item \textbf{Invarianza en el tiempo:} El sistema es invariante en el tiempo. UN desplazamiento en la entrada produce un desplazamiento equivalente en la salida.
+            \item \textbf{Linealidad:} El sistema es lineal, ya que satisface la superposición.
+        \end{itemize}
     \item \db{$y(t)=\int_{-\infty}^{t} e^{-(t-\tau)} 3x(\tau-2)\mathrm{d}\tau $} 
+       
+        \textbf{Respuesta al impulso}
+
+        Sustituyendo $x(t)=\delta(t)$:  \[
+        y(t)=\int_{-\infty}^{t} e^{-(t-\tau)}3\delta(\tau-2)\mathrm{d}\tau.  
+        \] 
+        La delta de DIrac se activa en $\tau=2$, y la integral evalúa:  \[
+        y(t)=3e^{-(t-2)} \text{ para }t\ge 2.
+        \] 
+        Por lo tanto: \[
+        h(t)=3e^{-(t-2)} u(t-2).
+        \] 
+        \textbf{Propiedades}
+        \begin{itemize}[label=\textbullet]
+            \item \textbf{Memoria:} El sistema tiene memoria, ya que la salida depende de valores pasados de la entrada.
+            \item \textbf{Causalidad:} El sistema no es causal, ya que la salida en $t$ depende de valores de la entrada  $\tau=t-2$, que puede ser un valor futuro si  $t<2$.
+            \item \textbf{Estabilidad:} El sistema es estable. La respuesta al impulso $h(t)$ es absolutamente integrable, ya que:  \[
+            \int_{-\infty}^{\infty} |h(t)|\dt=\int_{2}^{\infty} 3e^{-(t-2)}\dt=3.   
+            \] 
+            \item \textbf{Invarianza en el tiempo:} El sistema no es invariante en el tiempo debido al término $e^{-(t-\tau)} $, que depende explícitamente de $t$.
+            \item \textbf{Linealidad:} El sistema es lineal, ya que satisface la superposición.
+        \end{itemize}
     \item \db{$y(t)=\int_{t-3}^{t+2} e^{-(t+\tau)} x(\tau-2)\mathrm{d}\tau $} 
+        
+        \textbf{Respuesta al impulso}
+
+        Sustituyendo $x(t)=\delta(t)$:  \[
+        y(t)=\int_{t-3}^{t+2}e^{-(t+\tau)}\delta(\tau-2)\mathrm{d}\tau.
+        \] 
+        La delta de Dirac se activa en $\tau=2$, pero esto ocurre solo si  $t-3\le 2\le t+2$, es decir, si $t\in [1,5]$, En este intervalo, la integral evalúa: \[
+            y(t)=e^{-(t+2)}\text{ para } t\in [1,5].
+        \] 
+        Fuera de este intervalo ($t<1$ o $t>5$), la integral es cero. Por lo tanto: \[
+        h(t)=\begin{cases}
+            e^{-(t+2)} , & 1\le t\le 5\\
+            0, & \text{en otro caso}
+        \end{cases}
+        \] 
+        \textbf{Propiedades}
+        \begin{itemize}[label=\textbullet]
+            \item \textbf{Memoria:} El sistema tiene memoria, ya que la salida depende de valores pasados de la entrada.
+            \item \textbf{Causalidad:} El sistema no es causal, ya que la salida en $t$ depende de valores de la entrada en  $\tau-2$, que puede ser un valor futuro.
+            \item \textbf{Estabilidad:} El sistema es estable. La respuesta al impulso $h(t)$ es absolutamente integrable, ya que está acotada en el intervalo $[1,5]$.
+            \item \textbf{Invarianza en el tiempo:} El sistema no es invariante en el tiempo debido al término $e^{-(t+\tau)} $, que depende explícitamente de $t$.
+            \item \textbf{Linealidad:} El sistema es lineal, ya que satisface la superposición.
+        \end{itemize}
   \end{enumerate}
 \item \lb{Un sistema discreto viene determinado por la relación entrada-salida \[
       y[n]=e^{j\frac{2\pi}{10} (n+2)}x[n-2]. 

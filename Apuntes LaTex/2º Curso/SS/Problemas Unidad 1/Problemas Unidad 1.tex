@@ -633,8 +633,106 @@ Si la señal $x(t)$ es cero para  $t<3$, al aplicar la expansión por el factor 
         T=\pi.
         \] 
   \item \lb{Determine el periodo fundamental de la señal $x[n]=1+e^{j\frac{4\pi n}{7}}-e^{j\frac{2\pi n}{5} }$.}
+
+      Para determinar el periodo fundamental de la señal \[x[n]=1+e^{j\frac{4\pi n}{7}}-e^{j\frac{2\pi n}{5} },\] debemos analizar la periodicidad de cada término.
+       \begin{itemize}[label=\textbullet]
+          \item El término constante 1 es periódico con cualquier periodo.
+          \item En el término $e^{j\frac{4\pi n}{4} } $, buscamos $N$ tal que \[
+          e^{j\frac{4\pi(n+N)}{7} } =e^{j\frac{4\pi n}{7} } ,
+          \] lo que implica \[
+          e^{j\frac{4\pi N}{7} } =1.
+          \] 
+          Esto es cierto cuando \[
+          \dfrac{4\pi N}{7}=2\pi k,\quad k\in \Z.
+          \] 
+          De aquí se obtiene \[
+          N=\dfrac{7k}{2}.
+          \] 
+          Se requiere que $N$ sea entero, por lo que el menor $k$ que cumple esto es $k=2$, dando $N=7$.
+      \item Para el término  $-e^{j\frac{2\pi n}{5} } $, se sigue un razonamiento similar. Se busca $N$ tal que \[
+      e^{j\frac{2\pi(n+N)}{5} } =e^{j\frac{2\pi n}{5} } ,
+      \] lo que requiere \[
+      e^{j\frac{2\pi N}{5} } =1.
+      \] 
+      Esto se cumple si \[
+      \dfrac{2\pi N}{5}=2\pi m,\quad m\in \Z,
+      \] y de donde se obtiene \[
+      N=5m.
+      \] El mínimo $m=1$ nos da  $N=5$.
+      \end{itemize}
+      La señal completa $x[n]$ es la suma de componentes periódicas con periodos 7 y 5. El periodo fundamental de  $x[n]$ será el mínimo común múltiplo entre 7 y 5, que es  \[
+      N=\mathrm{lcm}(7,5)=35.
+      \] 
+      Por lo tanto, el periodo fundamental de la señal es \textbf{35}. 
   \item \lb{Considere la señal en tiempo discreto $x[n]=1-\sum_{k=3}^{\infty} \delta[n-1-k]$. Determine los valores de los números enteros $M$ y  $n_0$ que permiten que $x[n]$ pueda expresarse como  $x[n]=u[Mn+n_0]$} 
+
+      \begin{enumerate}[label=Paso \arabic*:]
+          \item Analicemos la señal
+
+              El término 1 indica que $x[n]$ comienza con un valor inicial de 1. El segundo término, $-\sum_{k=3}^{\infty} \delta[n-1-k]$, representa una suma de deltas desplazadas, que restan 1 en ciertos valores de $n$. Específicamente, el índice de cada delta es: \[
+              n=1+k,\quad k\ge 3.
+              \] 
+              Sustituyendo $k=3,4,5,\dots$, obtenemos los valores de $n$ donde las deltas están activas: \[
+              n=4,5,6,\dots
+              \] 
+              Por lo tanto, la señal $x[n]$ se puede describir como:  \[
+                  x[n]=\begin{cases}
+                      1, & n<4\\
+                      0, & n\ge 4
+                  \end{cases}
+              \] 
+              Esto significa que $x[n]$ es una señal que vale 1 para  $n<4$ y 0 para  $n\ge 4$.
+          \item Relación con $u[Mn+n_0]$
+
+              La función escalón unitario $u[n]$ está definida como:  \[
+                  u[n]=\begin{cases}
+                      1, & n\ge 0\\
+                      0, & n<0
+                  \end{cases}
+              \] 
+              Queremos expresar $x[n]$ en la forma  $x[n]=u[Mn+n_0]$. Esto implica que debemos encontrar valores de $M$ y $n_0$ tales que: \[
+                  u[Mn+n_0]=\begin{cases}
+                      1, & n<4\\
+                      0, & n\ge 4
+                  \end{cases}
+              \] 
+              Para que esto sea cierto, el argumento el escalón unitario debe cambiar de signo en $n=4$. Específicamente:
+               \begin{itemize}[label=\textbullet]
+                   \item Para $n<4$, queremos que  $Mn+n_0<0$, lo que asegura que $u[Mn+n_0]=1$.
+                   \item Oara $n\ge 4$, queremos que $Mn+n_0\ge 0$, lo que asegura que $u[Mn+n_0]=0$.
+              \end{itemize}
+          \item Determinación de $M$ y  $n_0$
+
+              El cambio ocurre en $n=4$, por lo que imponemos la condición de igualdad en el argumento del escalón:  \[
+              M(4)+n_0=0\longrightarrow n_0=-4M.
+              \] 
+              Para que $u[Mn+n_0]$ sea válido, $M$ debe ser negativo (ya que queremos que el escalón sea 1 para $n<4$ y 0 para  $n\ge 4$). Tomemos $M=-1$. Sustituyendo en la ecuación anterior:  \[
+              n_0=-4(-1)=4.
+              \] 
+              Por lo tanto, los valores son: \[
+              M=-1,\quad n_0=4.
+              \] 
+          \item Verificación
+
+              Sustituimos $M=-1$ y  $n_0=4$ en $u[Mn+n_0]$: \[
+                  u[Mn+n_0]=u[-n+4].
+              \] 
+              \begin{itemize}[label=\textbullet]
+                  \item Para $n<4,-n+4>0$, por lo que  $u[-n+4]=1$.
+                  \item Para  $n\ge 4,-n+4\le 0$, por lo que $u[-n-4]=0$.
+              \end{itemize}
+              Esto coincide exactamente con $x[n]$. Por lo tanto, la señal puede expresarse como:  \[
+                  x[n]=u[-n+4].
+              \] 
+              Los valores son: \[
+              M=-1,\quad n_0=4.
+              \] 
+      \end{enumerate}
   \item \lb{Considere la señal en tiempo continuo $x(t)=\delta(t+2)-\delta(t+2)$. Calcule la energía de la señal  $y(t)=\int_{-\infty}^{t} x(\tau)\mathrm{d}\tau $.}
+
+      Dada la señal en tiempo continuo: \[
+      x(t)=\delta(t+2)-\delta(t+2),
+      \] es evidente que $x(t)=0$, ya que los términos se cancelan.
   \item \lb{La figura 1 muestra la señal continua $x(t)$. Represente cada una de las siguientes señales.}
     \begin{center}
       \begin{tikzpicture}[scale=1.5]
@@ -871,16 +969,97 @@ y(t)=x(\sin(t))
             \] pero la salida original desplazada es: \[
             y(t-t_0)=(t-t_0)^2x(t-t_0-1).
             \] 
+            Como $(t-t_0)^2\neq t^2$, el sistema no es invariante en el tiempo.
         \item  \db{$y[n]=x^2[n-2]$} 
+
+            Dado que la ecuación contiene $x[n]$ al cuadrado, no cumple la propiedad de superposición:  \[
+                (x_1+x_2)^2\neq x_1^2+x_2^2.
+            \] 
+            Por lo tanto, no es lineal.
+
+            Si desplazamos la entrada $x[n]\to x[n-k]$, la salida se convierte en: \[
+                y'[n]=x^2[n-k-2]
+            \] y la salida original desplazada es: \[
+            y[n-k]=x^2[n-k-2]
+            \] 
+            Como ambas expresiones son iguales, es invariante en el tiempo.
         \item \db{$y[n]=x[n+1]-x[n-1]$} 
+
+            Aplicamos superposición: \[
+            \begin{aligned}
+                y[n]&= (x_1+x_2)[n+1]-(x_1+x_2)[n-1] \\
+                    &= x_1[n+1]+x_2[n+1]-x_1[n-1]-x_2[n-1] \\
+                    &= (x_1[n+1]-x_1[n-1])+(x_2[n+1]-x_2[n-1]) \\
+                    &= y_1[n]+y_2[n] \\
+            \end{aligned}
+            \] 
+            Cumple superposición.
+
+            Para homogeneidad: \[
+                y[n]=\alpha x[n+1]-\alpha x[n-1]=\alpha y[n]
+            \] 
+            Es lineal.
+
+            Si desplazamos la entrada $x[n]\to x[n-k]$, la salida se convierte en: \[
+           \begin{aligned}
+               y'[n]&= x[n+1-k]-x[n-1-k] \\
+                    &= x[(n-k)+1]-x[(n-k)-1] \\
+                    &= y[n-k] \\
+           \end{aligned} 
+            \] 
+            Como la forma de la salida se mantiene tras el desplazamiento, es invariante en el tiempo.
         \item \db{$y(t)=\mathrm{Impar}\{x(t)\} $} 
+
+            Recordemos que la parte impar de una señal se define como: \[
+            \mathrm{Impar}\{x(t)\} =\dfrac{x(t)-x(-t)}{2}
+            \] 
+            Si tomamos dos entradas $x_1(t)$ y $x_2(t)$, aplicamos superposición: \[
+           \begin{aligned}
+               \mathrm{Impar}\{x_1(t)+x_2(t)\}&= \dfrac{x_1(t)+x_2(t)-x_1(-t)-x_2(-t)}{2} \\
+               &= \dfrac{x_1(t)-x_1(-t)}{2} +\dfrac{x_2(t)-x_2(-t)}{2}\\
+               &= \mathrm{Impar}\{x_1(t)\} +\mathrm{Impar}\{x_2(t)\}  \\
+           \end{aligned} 
+            \] 
+            Cumple superposición.
+
+            Para homogeneidad: \[
+            \mathrm{Impar}\{\alpha x(t)\} =\dfrac{\alpha x(t)-\alpha x(-t)}{2}=\alpha\mathrm{Impar}\{x(t)\} 
+            \] 
+            Es lineal.
+
+            Si desplazamos la entrada $x(t)\to x(t-t_0)$, la salida se convierte en \[
+            y'(t)=\dfrac{x(t-t_0)-x(t-t_0)}{2}
+            \] 
+            Mientras que la señal original desplazada es: \[
+            y(t-t_0)=\dfrac{x(t-t_0)-x(-t+t_0)}{2}.
+            \] 
+            Como las expresiones no son iguales, no es invariante en el tiempo.
     \end{enumerate}
 \item \lb{Determine si cada uno de los siguientes sistemas es invertible. En caso afirmativo, construya el sistema inverso y, en caso negativo, encuentre dos señales de entrada al sistema que generen la misma señal de salida.}
     \begin{enumerate}[label=\color{red}\textbf{\alph*)}]
         \item \db{$y(t)=x(t-4)$} 
+            \begin{itemize}[label=\textbullet]
+                \item Invertible: Si
+                \item Sistema inverso: $x(t)=y(t+4)$
+            \end{itemize}
         \item \db{$y(t)=\cos(x(t))$} 
+            \begin{itemize}[label=\textbullet]
+                \item Invertible: No
+                \item Razón: La función coseno no es inyectiva, ya que diferentes valores de $x(t)$ pueden producir el mismo  $y(t)$. Por ejemplo: 
+                    \begin{center}
+                        $x(t)=0$ y  $x(t)=2\pi$ generan $y(t)=1$.
+                    \end{center}
+            \end{itemize}
         \item \db{$y[n]=nx[n]$} 
+            \begin{itemize}[label=\textbullet]
+                \item Invertible: Si, para $n\neq 0$.
+                \item Sistema inverso: $x[n]=\dfrac{1}{n}y[n]$ para $n\neq 0$.
+            \end{itemize}
         \item \db{$y(t)=\int_{-\infty}^{t} x(\tau)\mathrm{d}\tau $} 
+            \begin{itemize}[label=\textbullet]
+                \item Invertible: Si
+                \item Sistema inverso: $x(t)=\dfrac{\mathrm{d}}{\dt}y(t)$
+            \end{itemize}
         \item \db{$y[n]=\begin{cases}
                     x[n-1], & n\ge 1\\
                     0, & n=0\\
@@ -909,7 +1088,57 @@ y(t)=x(\sin(t))
     \end{center}
     \begin{enumerate}[label=\color{red}\textbf{\alph*)}]
         \item \db{Considere un sistema LTI cuya respuesta a la señal $x_1(t)$ de la Figura 6(a) es la señal $y_1(t)$ mostrada en la Figura 6(b). Determine y represente la respuesta del sistema a la entrada $x_2(t)$ de la Figura 6(c).}
+
+            Podemos expresar $x_2(t)$ en función de $x_1(t)$: \[
+            x_2(t)=x_1(t)-x_1(t-2)
+            \] 
+            Al ser LTI podemos expresar su salida como: \[
+            y_2(t)=y_1(t)-y_1(t-2)
+            \] 
+            \begin{center}
+            \begin{tikzpicture}[baseline=(current bounding box.center)]
+                \draw[-latex] (-0.5,0) -- (4.5,0) node[right] {$t$};
+                \draw[-latex] (0,-2.5) -- (0,2.5) node[above] {$x_2(t)$};
+                \foreach \y in {-2,-1,1,2} {\draw (0.1,\y) -- (-0.1,\y) node[left] {$\y$};}
+                    \foreach \x in {0,1,...,4} {\draw (\x,0.1) -- (\x,-0.1) node[below] {$\x$};}
+                        \draw[lightblue, line width=1.5] (0,0) -- (0,1) -- (2,1) -- (2,-1) -- (4,-1) -- (4,0);
+            \end{tikzpicture}\qquad
+            \begin{tikzpicture}[baseline=(current bounding box.center)]
+                \draw[-latex] (-0.5,0) -- (4.5,0) node[right] {$t$};
+                \draw[-latex] (0,-2.5) -- (0,2.5) node[above] {$y_2(t)$};
+                \foreach \y in {-2,-1,1,2} {\draw (0.1,\y) -- (-0.1,\y) node[left] {$\y$};}
+                    \foreach \x in {0,1,...,4} {\draw (\x,0.1) -- (\x,-0.1) node[below] {$\x$};}
+                        \draw[lightblue, line width=1.5] (0,0) -- (1,2) -- (3,-2) -- (4,0);
+            \end{tikzpicture}
+        \end{center}
         \item \db{Determine y represente la respuesta del sistema considerado en el apartado anterior a la señal de entrada $x_3(t)$ mostrada en la Figura 6(d).} 
+
+            Podemos expresar $x_3(t)$ en función de $x_1(t)$: \[
+            x_3(t)=x_1(t+1)+x_1(t)
+            \] 
+            Al ser LTI, podemos expresar su salida como: \[
+            y_3(t)=y_1(t+1)+y_1(t)
+            \] 
+            \begin{center}
+            \begin{tikzpicture}[baseline=(current bounding box.center)]
+                \draw[-latex] (-1.5,0) -- (3.5,0) node[right] {$t$};
+                \draw[-latex] (0,-0.5) -- (0,2.5) node[above] {$x_3(t)$};
+                \foreach \y in {1,2} {\draw (0.1,\y) -- (-0.1,\y) node[left] {$\y$};}
+                    \foreach \x in {-1,0,1,...,3} {\draw (\x,0.1) -- (\x,-0.1) node[below] {$\x$};}
+                        \draw[lightblue, line width=1.5] (-1,0) -- (-1,1) -- (0,1) -- (0,2) -- (1,2) -- (1,1) -- (2,1) -- (2,0);
+            \end{tikzpicture}\qquad
+            \begin{tikzpicture}[baseline=(current bounding box.center)]
+                \draw[-latex] (-1.5,0) -- (4.5,0) node[right] {$t$};
+                \draw[-latex] (0,-0.5) -- (0,2.5) node[above] {$y_3(t)$};
+                \foreach \y in {1,2} {\draw (0.1,\y) -- (-0.1,\y) node[left] {$\y$};}
+                    \foreach \x in {-1,0,1,...,3} {\draw (\x,0.1) -- (\x,-0.1) node[below] {$\x$};}
+                        \draw[lightblue, line width=1.5] (-1,0) -- (0,2) -- (1,0);
+                        \draw[lightblue, line width=1.5] (0,0) -- (1,2) -- (2,0);
+                        \draw[blue, line width=2] (-1,0) -- (0,2) -- (1,2) -- (2,0);
+
+            \end{tikzpicture}
+                
+            \end{center}
     \end{enumerate}
 \item \lb{La salida de un sistema viene dada por $y[n]=x[2+n]x[2-n]$. Indique razonadamente si el sistema cumple las propiedades de memoria, causalidad, estabilidad, invarianza en el tiempo y linealidad.}
 \item \lb{Considere la señal $x[n]=\bigwedge\left( \dfrac{n}{3} \right) +\bigwedge\left( \dfrac{n-3}{3} \right) $. Obtenga y represente las partes par e impar de dicha señal. Asimismo, calcule la energía y la potencia de $x[n]$, indicando si se trata de una señal definida en energía o en potencia.}
