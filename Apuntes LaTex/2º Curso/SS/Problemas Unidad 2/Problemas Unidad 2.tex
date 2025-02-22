@@ -127,7 +127,9 @@
               ylabel={$x(t)$},
               ymin=-0.1, ymax=1.1,
               axis line style={-},
-              every axis plot/.append style={thick, lightblue}
+              every axis plot/.append style={line width=1.5, lightblue},
+		  xlabel style={at={(axis cs:6,0)}, anchor=west},
+        ylabel style={at={(axis cs:0,1.1)}, anchor=south},
           ]
               \addplot[
                   domain=-2:6,
@@ -145,8 +147,9 @@
               ylabel={$h(t)$},
               ymin=-0.1, ymax=1.1,
               axis line style={-},
-              every axis plot/.append style={thick, lightblue},
-              x label style={at={(current axis.right of origin)}}
+              every axis plot/.append style={line width=1.5, lightblue},
+              xlabel style={at={(axis cs:6,0)}, anchor=west},
+        ylabel style={at={(axis cs:0,1.1)}, anchor=south},
           ]
               \addplot[
                   domain=-2:6,
@@ -202,7 +205,9 @@
               ylabel={$y(t)$},
               axis line style={-},
               ymin=-0.1, ymax=0.6,
-              every axis plot/.append style={thick, lightblue}
+              every axis plot/.append style={line width=1.5, lightblue},
+		  xlabel style={at={(axis cs:6,0)}, anchor=west},
+        ylabel style={at={(axis cs:0,0.6)}, anchor=south},
               ]
               \addplot[domain=-2:6, samples=1000] {x < 3 ? 0.5*exp(2*x-6) : 0.5};
               \addplot[blue, dashed, domain=-2:3, samples=2] {0.5};
@@ -215,9 +220,9 @@
       \begin{tikzpicture}[>=latex]
         \draw[->] (-1,0) -- (6,0) node[right] {$n$};
         \draw[->] (0,-1) -- (0,2.1) node[above] {$x[n]$};
-        \draw[-*, lightblue, line width=1.5] (0,0) -- (0,1);
-        \draw[-*, lightblue, line width=1.5] (1,0) -- (1,2);
-        \draw[-*, lightblue, line width=1.5] (3,0) -- (3,-1);
+        \draw[-*, lightblue, line width=1.2] (0,0) -- (0,1);
+        \draw[-*, lightblue, line width=1.2] (1,0) -- (1,2);
+        \draw[-*, lightblue, line width=1.2] (3,0) -- (3,-1);
         \foreach \x/\n in {-1/0, 2/0, 4/0, 5/0} {
         \fill[lightblue] (\x,\n) circle (3pt);
         }
@@ -609,27 +614,380 @@ y(t)=x(t)\ast h(t)=x(t+2)+2x(t+1)
         \item Para $\alpha<t\le 1,y(t)=\alpha$, por lo que: \[
         \dfrac{\mathrm{d}y(t)}{\dt}=0
         \] 
+    \item Para $1<t\le 1+\alpha,y(t)=1+\alpha-t$, por lo que: \[
+    \dfrac{\mathrm{d}y(t)}{\dt}=-1
+    \] 
+\item Para $t>1+\alpha,y(t)=0$, por lo que: \[
+\dfrac{\mathrm{d}y(t)}{\dt}=0
+\] 
         \end{itemize}
+        Las discontinuidades en $\dfrac{\mathrm{d}y(t)}{\dt}$ ocurren en los puntos donde $y(t)$ cambia de pendiente. Estos puntos son:
+         \begin{itemize}[label=\textbullet]
+            \item En $t=\alpha$, donde la pendiente cambia de $1$ a $0$.
+            \item En $t=1$, donde la pendiente cambia de $0$ a $-1$.
+            \item En  $t=1+\alpha$, donde la pendiente cambia de $-1$ a  $0$.
+        \end{itemize}
+        Para que haya \textbf{solo tres discontinuidades}, los puntos $\alpha$  y $1+\alpha$ deben coincidir, es decir: \[
+        \alpha=1+\alpha\longrightarrow \alpha=1.
+        \] 
   \end{enumerate}
 \item \lb{Sean \[
 x(t)=u(t-3)-u(t-5)\qquad h(t)=e^{-3t} u(t)
 \] } 
 \begin{enumerate}[label=\color{red}\textbf{\alph*)}]
   \item \db{Calcule $y(t)=x(t)\ast h(t)$} 
+
+      \textbf{Planteamiento}
+
+      La convolución de $x(t)$ y  $h(t)$ está definida como:  \[
+      y(t)=(x\ast h)(t)=\int_{-\infty}^{\infty} x(\tau)h(t-\tau)\mathrm{d}\tau 
+      \] 
+      Dado que:
+      \begin{itemize}[label=\textbullet]
+          \item $x(t)=u(t-3)-u(t-5)$, es un pulso rectangular definido en el intervalo  $[3,5]$.
+          \item  $h(t)=e^{-3t}u(t) $, es una función exponencial decreciente que comienza en $t=0$
+      \end{itemize}
+      \begin{center}
+          \begin{tikzpicture}
+              \begin{axis}[
+                  xmin= -1, xmax= 7,
+                  ymin= -0.1, ymax = 1.1,
+                  xlabel={$t$}, ylabel={$x(t)$},
+						xtick={0,1,2,3,4,5,6},
+                  axis lines = middle,
+		  xlabel style={at={(axis cs:7,0)}, anchor=west},
+        ylabel style={at={(axis cs:0,1.1)}, anchor=south},
+              ]
+                  \addplot[domain=-1:7, samples=1000, line width=1.5, lightblue]{x < 3 ? 0 : (x < 5 ? 1 : 0)};
+              \end{axis}
+          \end{tikzpicture}\qquad
+				\begin{tikzpicture}
+              \begin{axis}[
+                  xmin= -3, xmax= 4,
+                  ymin= -0.1, ymax = 1.1,
+                  xlabel={$t$}, ylabel={$h(t)$},
+                  axis lines = middle,
+		  xlabel style={at={(axis cs:4,0)}, anchor=west},
+        ylabel style={at={(axis cs:0,1.1)}, anchor=south},
+              ]
+                  \addplot[domain=-3:4, samples=1000, line width=1.5, lightblue]{x < 0 ? 0 : exp(-3*x)};
+              \end{axis}
+          \end{tikzpicture}
+      \end{center}
+      El soporte de $x(t)$ es  $[3,5]$, y el soporte de  $h(t)$ es  $[0,\infty)$. Por lo tanto, el soporte de  $y(t)$ será:  \[
+          \text{Soporte de $y(t)$:}\quad[3,5+\infty)=[3,\infty).
+      \] 
+      \textbf{Cálculo de $y(t)$} 
+
+      La convolución se evalúa en diferentes intervalos dependiendo del valor de $t$. Para  $t\ge 3$, el solapamiento entre $x(\tau)$ y  $h(t-\tau)$ ocurre en el intervalo  $[3,5]$. Por lo tanto, la integral se reduce a:  \[
+      y(t)=\int_{3}^{5} h(t-\tau)\mathrm{d}\tau=\int_{3}^{5} e^{-3(t-\tau)}u(t-\tau)\mathrm{d}\tau.
+      \] 
+      El término $u(t-\tau)$ asegura que  $t-\tau\ge 0$, es decir, $\tau\le t$. Esto implica que el interalo de integración es: \[
+          \tau\in [3,\min(5,t)]
+      \] 
+      Por lo tanto, el resultado depende de $t$:
+       \begin{itemize}[label=\textbullet]
+          \item \textbf{Para $3\le t<5$:}
+
+              En este caso, $\min(5,t)=t$, y la integral se evalúa en  $[3,t]$:  \[
+              y(t)=\int_{3}^{t} e^{-2(t-\tau)}\mathrm{d}\tau.  
+              \] 
+              Hacemos el cambio de variable $x=t-\tau$, lo que implica que  $\dx =\mathrm{d}\tau$. Los límites cambia de $\tau=3$ a  $\tau=t$, lo que da  $x=t-3$ a  $x=0$. La integral se convierte en:  \[
+              y(t)=\int_{t-3}^{0} e^{-3x}(-\dx )=\int_{0}^{t-3}e^{-3x}\dx =\left[ \dfrac{e^{-3x} }{-3x} \right] _0^{t-3}=\dfrac{1}{3}\left( 1-e^{-3(t-3)}  \right).      
+              \] 
+          \item \textbf{Para $t\ge 5$:}
+
+              En este caso, $\min(5,t)=5$, y la integral se evalúa en  $[3,5]$:  \[
+              y(t)=\int_{3}^{5} e^{-3(t-\tau)}  \mathrm{d}\tau.
+              \] 
+              Usando el mismo cambio de variable $x=t-\tau$, con límites  $\tau=3$ a $\tau=5$, obtenemos $x=t-3$ a $x=t-5$. La integral se convierte en: \[
+              y(t)=\int_{t-5}^{t-3}e^{-3x}\dx =\left[ \dfrac{e^{-3x} }{-3} \right]_{t-5}^{t-3}=\dfrac{1}{3}\left( e^{-3(t-5)}-e^{-3(t-3)}   \right)     .
+              \] 
+      \end{itemize}
+      \textbf{Resultado final para $y(t)$} \[
+      y(t)=\begin{cases}
+          \dfrac{1}{3}(1-e^{-3(t-3)}), & 3\le t<5\\
+          \dfrac{1}{3}\left( e^{-3(t-5)}-e^{-3(t-3)}   \right)  & t\ge 5
+      \end{cases}
+      \] 
+      \begin{center}
+          \begin{tikzpicture}
+              \begin{axis}[
+                  xmin= -1, xmax= 8,
+                  ymin= -0.2, ymax = 0.4,
+                  axis lines = middle,
+                  xlabel={$t$}, ylabel={$y(t)$},
+		  xlabel style={at={(axis cs:8,0)}, anchor=west},
+        ylabel style={at={(axis cs:0,0.4)}, anchor=south},
+              ]
+                  \addplot[domain=3:5, samples=1000, lightblue, line width=1.5] {(1-exp(-3*(x-3)))/3};
+                  \addplot[domain=5:8, samples=1000, lightblue, line width=1.5] {(exp(-3*(x-5))-exp(-3*(x-3)))/3};
+              \end{axis}
+          \end{tikzpicture}
+      \end{center}
   \item \db{Calcule $g(t)=\dfrac{\mathrm{d}x(t)}{\dt}\ast h(t)$} 
+
+      \textbf{Derivada de $x(t)$} 
+
+      La derivada de $x(t)$ es: \[
+      \dfrac{\mathrm{d}x(t)}{\dt}=\delta(t-3)-\delta(t-5).
+      \] 
+      Por lo tanto, la convolución $g(t)$ es:  \[
+      g(t)=(\delta(t-3)-\delta(t-5))\ast h(t).
+      \] 
+          Usando la propiedad de desplazamiento de la convolución, sabemos que: \[
+          \delta(t-t_0)\ast h(t)=h(t-t_0).
+      \] 
+      Por lo tanto: \[
+      g(t)=h(t-3)-h(t-5).
+      \] 
+      Sustituyendo $h(t)=e^{-2t}u(t) $, tenemos: \[
+          h(t-3)=e^{-3(t-3)}u(t-3),\quad h(t-5)=e^{-3(t-5)}u(t-5)  
+      \] 
+      Por lo tanto: \[
+      g(t)=e^{-3(t-3)} u(t-3)-e^{-3(t-5)} u(t-5).
+      \] 
+      \begin{center}
+          \begin{tikzpicture}
+              \begin{axis}[
+                  xmin= -1, xmax= 8,
+                  ymin= -1.2, ymax = 1.2,
+                  axis lines = middle,
+						xlabel={$t$}, ylabel={$g(t)$},
+		  xlabel style={at={(axis cs:8,0)}, anchor=west},
+        ylabel style={at={(axis cs:0,1.2)}, anchor=south},
+              ]
+                  \addplot[domain=-1:5, samples=1000, lightblue, line width=1.5]{x<3 ? 0 : exp(-3*(x-3))};
+                  \addplot[domain=4.9:8, samples=1000, lightblue, line width=1.5]{x<5 ? 0 : -exp(-3*(x-5))};
+              \end{axis}
+          \end{tikzpicture}
+      \end{center}
   \item \db{Establece una relación entre $g(t)$ e $y(t)$} 
+
+      Sabemos que $x(t)$ está relacionado con su derivada por:  \[
+      x(t)=\int_{-\infty}^{t} \dfrac{\mathrm{d}x(\tau)}{\mathrm{d}\tau} \mathrm{d}\tau.
+      \] 
+      Por la propiedad de la convolución, esto implica que: \[
+      y(t)=(x(t)\ast h(t))=\int_{-\infty}^{t} g(\tau)\mathrm{d}\tau .
+      \] 
+      En otras palabras, $y(t)$  \textbf{es la integral acumulativa de $g(t)$:} \[
+      y(t)=\int_{-\infty}^{t} g(\tau)\mathrm{d}\tau. 
+      \]  
 \end{enumerate}
 \item \lb{Calcule la convolución de los siguientes pares de señales:}
   \begin{enumerate}[label=\color{red}\textbf{\alph*)}]
     \item \db{$x[n]=\alpha^nu[n],\quad h[n]=\beta^nu[n],\quad \alpha\neq \beta$} 
+
+        Ambas señales están definidas para $n\ge 0$ debido a la presencia de $u[n]$. La convolución es:  \[
+            y[n]=\sum_{k=-\infty}^{\infty} x[k]h[n-k]=\sum_{k=0}^{n} \alpha^k\beta^{n-k}
+        \] 
+        Factorizamos los términos comunes: \[
+            y[n]=\beta^n \sum_{k=0}^{n} \left( \dfrac{\alpha}{\beta} \right) ^k
+        \] 
+        La suma es una serie geométrica finita, cuya fórmula es: \[
+        \sum_{k=0}^{n} r^k=\dfrac{1-r^{n+1}}{1-r},\quad \text{si }r\neq 1
+        \] 
+        Aquí, $r=\dfrac{\alpha}{\beta}$. Sustituyendo: \[
+            y[n]=\beta^n\dfrac{1-\left( \frac{\alpha}{\beta}  \right) ^{n+1}}{1-\frac{\alpha}{\beta} }=\dfrac{\beta^{n+1}-\alpha^{n+1}}{\beta-\alpha},\quad \alpha\neq \beta
+        \] 
     \item \db{$x[n]=h[n]=\alpha^nu[n]$} 
+
+        En este caso, ambas señales son iguales. La convolución es: \[
+            y[n]=\sum_{k=0}^{n} \alpha^k\alpha^{n-k}=\sum_{k=0}^{n} \alpha^n=\alpha^n \sum_{k=0}^{n} 1=\alpha^n(n+1)
+        \] 
     \item \db{$x[n]=\left( -\dfrac{1}{2} \right) ^{n}u[n-4],\quad h[n]=4^nu[2-n]$} 
+
+        Primero, analizamos los soportes de la señales:
+        \begin{itemize}[label=\textbullet]
+            \item $x[n]=\left( -\dfrac{1}{2} \right) ^nu[n-4]$ está definida para $n\ge 4$.
+            \item $h[n]=4^nu[2-n]$ está definida para  $n\le 2$.
+        \end{itemize}
+        \begin{center}
+            \begin{tikzpicture}
+                \begin{axis}[
+                    xmin= -10, xmax= 10,
+                    ymin= -0.05, ymax = 0.1,
+                    axis lines = middle,
+                    xlabel={$n$}, ylabel={$x[n]$},
+		  xlabel style={at={(axis cs:10,0)}, anchor=west},
+        ylabel style={at={(axis cs:0,0.1)}, anchor=south},
+                ]
+                \addplot[lightblue, line width=1.5, ycomb, mark=*] coordinates {
+                      (-10, 0.0)
+(-9, -0.0)
+(-8, 0.0)
+(-7, -0.0)
+(-6, 0.0)
+(-5, -0.0)
+(-4, 0.0)
+(-3, -0.0)
+(-2, 0.0)
+(-1, -0.0)
+(0, 0.0)
+(1, -0.0)
+(2, 0.0)
+(3, -0.0)
+(4, 0.0625)
+(5, -0.03125)
+(6, 0.015625)
+(7, -0.0078125)
+(8, 0.00390625)
+(9, -0.001953125)
+(10, 0.0009765625)
+                    };
+                \end{axis}
+            \end{tikzpicture}\qquad
+					\begin{tikzpicture}
+                \begin{axis}[
+                    xmin= -5, xmax= 5,
+                    ymin= -0.1, ymax=16.1,
+                    axis lines = middle,
+                    xlabel={$n$}, ylabel={$h[n]$},
+		  xlabel style={at={(axis cs:5,0)}, anchor=west},
+        ylabel style={at={(axis cs:0,16.1)}, anchor=south},
+                ]
+                \addplot[lightblue, line width=1.5, ycomb, mark=*] coordinates {
+(-5, 0.0009765625)
+(-4, 0.00390625)
+(-3, 0.015625)
+(-2, 0.0625)
+(-1, 0.25)
+(0, 1.0)
+(1, 4.0)
+(2, 16.0)
+(3, 0.0)
+(4, 0.0)
+(5, 0.0)
+                    };
+                \end{axis}
+            \end{tikzpicture}
+        \end{center}
+        Por lo tanto, no hay traslape entre las señales, ya que $x[k]$ y  $h[n-k]$ no son simultáneamente no nulas para ningún  $n$. Esto implica que:  \[
+            y[n]=0,\quad \forall n.
+        \] 
     \item \db{$x[n]=2^nu[-n],\quad h[n]=u[n]$}
+
+        Primero, analizamos los soportes de las señales:
+        \begin{itemize}[label=\textbullet]
+            \item $x[n]=2^nu[-n]$ está definida para  $n\le 0$.
+            \item $h[n]=u[n]$ está definida para  $n\ge 0$.
+        \end{itemize}
+        \begin{center}
+            \begin{tikzpicture}
+                \begin{axis}[
+                    xmin= -5, xmax= 5,
+                    ymin= -0.1, ymax = 1.1,
+                    axis lines = middle,
+                    xlabel={$n$}, ylabel={$x[n]$},
+		  xlabel style={at={(axis cs:5,0)}, anchor=west},
+        ylabel style={at={(axis cs:0,1.1)}, anchor=south},
+                ]
+                \addplot[lightblue, line width=1.5, ycomb, mark=*] coordinates {
+(-5, 0.03125)
+(-4, 0.0625)
+(-3, 0.125)
+(-2, 0.25)
+(-1, 0.5)
+(0, 1.0)
+(1, 0.0)
+(2, 0.0)
+(3, 0.0)
+(4, 0.0)
+(5, 0.0)
+                    };
+                \end{axis}
+            \end{tikzpicture}\qquad
+				\begin{tikzpicture}
+                \begin{axis}[
+                    xmin= -5, xmax= 5,
+                    ymin= -0.1, ymax = 1.1,
+                    axis lines = middle,
+                    xlabel={$n$}, ylabel={$h[n]$},
+		  xlabel style={at={(axis cs:5,0)}, anchor=west},
+        ylabel style={at={(axis cs:0,1.1)}, anchor=south},
+                ]
+                \addplot[lightblue, line width=1.5, ycomb, mark=*] coordinates {
+(-5, 0.0)
+(-4, 0.0)
+(-3, 0.0)
+(-2, 0.0)
+(-1, 0.0)
+(0, 1.0)
+(1, 1.0)
+(2, 1.0)
+(3, 1.0)
+(4, 1.0)
+(5, 1.0)
+                    };
+                \end{axis}
+            \end{tikzpicture}
+        \end{center}
+        La convolución es: \[
+            y[n]=\sum_{k=-\infty}^{\infty} x[k]h[n-k]
+        \] 
+
+        Debido a los soportes de $x[k]$ y  $h[n-k]$, la suma solo es no nula cuando  $k\le 0$ y $n-k\ge 0$, es decir, $k\le 0$ y $k\ge n$. Esto implica que $n\le k\le 0$. Por lo tanto, la suma se reduce a: \[
+            y[n]=\sum_{k=n}^{0} 2^k
+        \] 
+        Esta es una serie geométrica finita con razón $r=2$, y su suma es:  \[
+        \sum_{k=n}^{0} 2^k=\dfrac{2^{0+1}-2^n}{1-2}=2\cdot (1-2^n)
+        \] 
+        Por lo tanto: \[
+            y[n]=\begin{cases}
+                2(1-2^n), & n\le 0\\
+                0, & n>0
+            \end{cases}
+        \] 
+\begin{center}
+\begin{tikzpicture}
+                \begin{axis}[
+                    xmin= -5, xmax= 5,
+                    ymin= -0.1, ymax = 2.1,
+                    axis lines = middle,
+                    xlabel={$n$}, ylabel={$y[n]$},
+		  xlabel style={at={(axis cs:5,0)}, anchor=west},
+        ylabel style={at={(axis cs:0,2.1)}, anchor=south},
+                ]
+                \addplot[lightblue, line width=1.5, ycomb, mark=*] coordinates {
+(-5, 1.9375)
+(-4, 1.875)
+(-3, 1.75)
+(-2, 1.5)
+(-1, 1.0)
+(0, 0.0)
+(1, -0.0)
+(2, -0.0)
+(3, -0.0)
+(4, -0.0)
+(5, -0.0)
+                    };
+                \end{axis}
+            \end{tikzpicture}
+\end{center}
   \end{enumerate}
 \item \lb{¿Cuál/es de las siguientes respuestas al impulso corresponden a sistemas LTI estables?} 
   \begin{enumerate}[label=\color{red}\textbf{\alph*)}]
     \item \db{$h(t)=e^{-(1-2j)t}u(t) $} 
+
+        Primeros, descomponemos el exponente complejo: \[
+        e^{-(1-2j)t}=e^{-t}e^{2jt}   
+        \] 
+        Aquí, $e^{-t} $ es una exponencial decreciente (para $t\ge 0$), y $e^{2jt} $ es una oscilación compleja de magnitud unitaria. Por lo tanto: \[
+        |h(t)|=\left| e^{-t}e^{2jt}   \right| =|e^{-t} |=e^{-t},\quad t\ge 0. 
+        \] 
+        La integral de $|h(t)|$ es:  \[
+            \int_{-\infty}^{\infty} |h(t)|\dt=\int_{0}^{\infty} e^{-t}\dt=[-e^{-t} ]_0^{\infty}=(0-(-1))=1.   
+        \] 
+        Por lo tanto, el sistema es \textbf{estable}. 
     \item \db{$h(t)=e^{-t}\cos(2t)u(t) $} 
+
+        La función $\cos(2t)$ es una oscilación de magnitud unitaria, y $e^{-t} $ es una exponencial decreciente (para $t\ge 0$). Por lo tanto: \[
+        |h(t)|=|e^{-t}\cos(2t) |\le e^{-t},\quad t\ge 0 .
+        \] 
+        La integral de $|h(t)|$ está acotada por la integral de  $e^{-t} $, que ya sabemos que converge: \[
+        \int_{-\infty}^{\infty} |h(t)|\dt=\int_{0}^{\infty} |e^{-t}\cos(2t) |\dt\le \int_{0}^{\infty} e^{-t}\dt=1    
+        \] 
+        Por lo tanto, esta integral también converge, y el sistema es \textbf{estable}. 
   \end{enumerate}
 \item \lb{¿Cuál/es de las siguientes respuestas al impulso corresponden a sistemas LTI estables?} 
   \begin{enumerate}[label=\color{red}\textbf{\alph*)}]
@@ -958,5 +1316,186 @@ h(t)=e^{-4t}u(t),
 \] \underline{Nota:} la suma de una progresión aritmética $a_{n_i}, a_{n_i+1},\dots,a_{n_f}$, con $a_{n_i+1}=a_{n_i}+d,a_{n_i+2}=a_{n_i}+2d,\dots$ es \[
 \sum_{k=n_i}^{n_f} a_k=\dfrac{(n_f-n_i+1)(a_{n_i}+a_{n_f})}{2}.
 \] } 
+\item \lb{Se pretende procesar la señal $x(t)$ de la figura con un sistema LTI cuya respuesta al impulso es  \[
+h(t)=t\prod\left( \dfrac{2t-4}{8} \right) -2\delta(t+12)
+\] } 
+\begin{center}
+\begin{tikzpicture}
+    \begin{axis}[
+        axis lines=middle,
+        xmin=-10, xmax=10,
+        ymin=-2.2, ymax=2.2,
+        xlabel={$t$}, ylabel={$x(t)$},
+        samples=500,
+        xtick={-8,-6,-4,-2,0,2,4,6,8},
+        ytick={-2,-1,0,1,2},
+		  width=15cm, height=6cm,
+		  xlabel style={at={(axis cs:10,0)}, anchor=west},
+        ylabel style={at={(axis cs:0,2.2)}, anchor=south},
+    ]
+
+    \addplot[lightblue, ultra thick] coordinates {
+        (-10,0) (0,0) (0,2) (4,2) (4,-2) (8,-2) (8,0) (9,0)
+    };
+    \end{axis}
+\end{tikzpicture}
+\end{center}
+\begin{enumerate}[label=\color{red}\textbf{\alph*)}]
+    \item \db{Obtenga la salida del sistema $y(t)$.} 
+    \item \db{Indique razonadamente si este sistema posee las propiedades de memoria, causalidad y estabilidad.}
+    \item \db{Calcule la energía total y la potencia media de $x(t)$, e indique si está definida en energía o en potencia.}
+    \item \db{A partir del resultado del apartado (a), y utilizando únicamente propiedades de la convolución, obtenga la salida del sistema frente a la entrada \[
+    z(t)=8\bigwedge\left( \dfrac{t-4}{4} \right) 
+    \] } 
+\end{enumerate}
+\item \lb{Se pretende procesar la señal $x[n]=\sin\left( \dfrac{\pi}{4}n \right) u[n]$ con un sistema LTI cuya respuesta al impulso es $h[n]=\sin\left( \dfrac{\pi}{4}n \right) u[n+2]$.}
+    \begin{enumerate}[label=\color{red}\textbf{\alph*)}]
+        \item \db{Represente en detalle $x[n]$ y  $h[n]$.}
+        \item \db{Indique razonadamente si este sistema definido por $h[n]$ posee las propiedades de memoria, causalidad y estabilidad.}
+        \item \db{Calcule la señal de salida del sistema.}
+        \item \db{Calcule la energía total y la potencia media de $x[n]$, e indique si está definida en energía o en potencia.} 
+        \item \db{Indique si la señal $z[n]=x[n]+x^*[-n]$ es periódica y, en su caso, obtenga el valor de su periodo.} 
+    \end{enumerate}
+\item \lb{Sean la señal de entrada $x(t)$ y la respuesta al impulso $h(t)$ de un sistema LTI las siguientes: \[
+x(t)=\sin(3\pi t)\qquad h(t)=\prod\left( \dfrac{t-2}{6} \right) 
+\] } 
+\begin{enumerate}[label=\color{red}\textbf{\alph*)}]
+    \item \db{Razone si el sistema tiene memoria, si es causal y si es estable.}
+    \item \db{Calcule analíticamente la señal de salida.}
+    \item \db{Calcule la energía total y la potencia media de $x(t)$, e indique si está definida en energía o en potencia.} 
+    \item \db{A partir del resultado del apartado (b), y aplicando únicamente propiedades de la convolución, obtenga la señal de salida producida por la entrada $z(t)=\cos(3\pi t)$.}
+\end{enumerate}
+\item \lb{Sea \[
+y(t)=e^{-t} u(t)\ast \sum_{k=-\infty}^{\infty} \delta(t-3k). 
+\] Demuestre que $y(t)=Ae^{-t} $ para $0\le t<3$, y determine el valor de $A$.} 
+\item \lb{Sea un sistema discreto $S_1$ con respuesta al impulso $h[n]=\left( \dfrac{1}{5} \right) ^nu[n]$.}
+    \begin{enumerate}[label=\color{red}\textbf{\alph*)}]
+        \item \db{Determine el número real $A$ tal que  $h[n]-Ah[n-1]=\delta[n]$.}
+        \item \db{A partir del resultado del apartado anterior, determine la respuesta al impulso del sistema inverso de $S_1$.} 
+    \end{enumerate}
+\item \lb{Sea la conexión en cascada de dos sistemas $S_1$ y $S_2$ LTI causal tal que:\\
+    En $S_1$ la relación entre entrada $x[n]$ y salida  $w[n]=\dfrac{1}{2}w[n-1]+x[n]$.\\
+En $S_2$ la relación entre entrada $w[n]$ y salida  $y[n]$ es  $y[n]=\alpha y[n-1]+\beta[n]$.\\ Si la ecuación en diferencias que relaciona $y[n]$ y  $x[n]$ es  \[
+    y[n]=-\dfrac{1}{8}y[n-2]+\dfrac{3}{4}y[n-1]+x[n]
+\] } 
+\begin{enumerate}[label=\color{red}\textbf{\alph*)}]
+    \item \db{Determine $\alpha$ y $\beta$.}
+    \item \db{Obtenga la respuesta al impulso de la conexión en cascada de $S_1$ y $S_2$.} 
+\end{enumerate}
+\item \lb{La salida de un sistema viene dada por $y[n]=x[2+n]+x[2-n]$.}
+    \begin{enumerate}[label=\color{red}\textbf{\alph*)}]
+        \item \db{Indique razonadamente si el sistema cumple las propiedades de memoria, causalidad, estabilidad, invarianza en el tiempo y/o linealidad.}
+        \item \db{Considere la señal $x[n]=\bigwedge\left( \dfrac{n}{3} \right) +\bigwedge\left( \dfrac{n-6}{3} \right) $. Obtenga y represente la parte par $x[n]$, indicando si se trata de una señal definida en energía o en potencia.}
+        \item \db{Realice la convolución discreta $x_1[n]\ast x_2[n]$, siendo \[
+        \begin{array}{c}
+            x_1[n]=\prod\left( \dfrac{n-6}{13} \right) +u[n-13]\\
+            x_2[n]=\bigwedge\left( \dfrac{n-3}{5} \right) .
+        \end{array}
+        \] } 
+    \end{enumerate}
+\item \lb{Se pretende filtrar la señal $x(t)$ con un sistema LTI cuya respuesta al impulso es $h(t)$. \[
+\begin{array}{c}
+    x(t)=\left( 1+\bigwedge\left( \dfrac{t-4}{1} \right)  \right) \prod\left( \dfrac{t-1.5}{5} \right) \\
+    h(t)=\dfrac{9}{2}\bigwedge\left( \dfrac{t-4}{3} \right) u(t-5)+2\delta(t)
+\end{array}
+\] } 
+\begin{enumerate}[label=\color{red}\textbf{\alph*)}]
+    \item \db{Represente detalladamente las señales $x(t)$ y $h(t)$.}
+    \item \db{Indique razonadamente si el sistema definido por $h(t)$ cumple las propiedades de memoria, causalidad, estabilidad y/o invarianza.}
+    \item \db{Calcule de forma analítica la convolución $y(t)=x(t)\ast h(t)$. (\underline{Nota:} puede hacer uso de las propiedades de la convolución).}
+    \item \db{Calcule la energía y la potencia de $x(t)$, indicando si se trata de una señal definida en energía o en potencia.} 
+\end{enumerate}
+\item \lb{Considere un sistema LTI cuya señal de salida $y(t)$ viene dada por \[
+y(t)=\int_{1}^{\infty} 3e^{-(2+5j)\tau}x(t-\tau)\mathrm{d}\tau.  
+\] } 
+\begin{enumerate}[label=\color{red}\textbf{\alph*)}]
+    \item \db{Obtenga la respuesta al impulso del sistema LTI.}
+    \item \db{Indique razonadamente si el sistema posee las propiedades de memoria, causalidad y/o estabilidad.}
+    \item \db{Calcule la señal de salida del sistema cuando la señal de entrada es un escalón unitario.}
+    \item \db{Calcule la energía y potencia de la señal $y(t)$, indicando si se trata de una señal definida en energía o en potencia.} 
+\end{enumerate}
+
+\item \lb{Se pretende filtrar la señal $x[n]$ con un sistema LTI cuya respuesta al impulso es  $h[n]$:  \[
+\begin{array}{c}
+    x[n]=(u[n+6]-u[n-7]+\delta[-n+7])u[-n+10]\\
+    h[n]=0.4^{n-2}u[n-2]u[n]
+\end{array}
+\] } 
+\begin{enumerate}[label=\color{red}\textbf{\alph*)}]
+    \item \db{Represente detalladamente $x[n]$ y  $h[n]$.}
+    \item \db{Indique razonadamente si el sistema definido por $h[n]$ cumple las propiedades de memoria, causalidad y/o estabilidad.}
+    \item \db{Utilizando la definición, calcule la convolución $y[n]=x[n]\ast h[n]$.}
+    \item \db{Calcule la energía y la potencia de $x[n]$, indicando si es una señal definida en energía o en potencia.} 
+\end{enumerate}
+\item \lb{Considere el siguiente diagrama de bloques de un sistema causal (figura 2).}
+    \begin{center}
+\begin{tikzpicture}[
+    block/.style={draw, minimum width=1cm, minimum height=1cm},
+    sum/.style={draw, circle, minimum size=5mm, inner sep=0pt},
+    connector/.style={-Latex, thick},
+    node distance=1.5cm and 1.5cm,
+	scale=0.7
+]
+
+% Nodos
+\node (input) at (0,0) {$x[n]$};
+\node[sum, right=1.5cm of input] (sum) {+};
+\node[block, below right=0.5cm and 2.2cm of sum] (D1) {$D$};
+\node[block, below=1.5cm of D1] (D2) {$D$};
+\node[right=7cm of sum] (output) {$y[n]$};
+
+% Líneas y conexiones
+\draw[connector] (input) -- (sum);
+
+% Bucle superior
+\draw[connector] (D1) ++(0,-1.5) -| node[pos=0.25, above] {$\tfrac{1}{2}$} (sum);
+\draw[connector] (sum) -| (D1);
+
+% Bucle inferior
+\draw[connector] (D1) -- (D2);
+\draw[connector] (D2) |- ++(0,-1.5) -| node[above, pos=0.25] {$-3$} ++(4,0) |- (output);
+
+\end{tikzpicture}\\
+\lb{Figura 2}
+    \end{center}
+\item \lb{Considere el sistema descrito por la siguiente relación entre la entrada y la salida: \[
+            y[n]=\sum_{k=-\infty}^{n-1} x[k-1]
+\] } 
+\begin{enumerate}[label=\color{red}\textbf{\alph*)}]
+    \item \db{Indique razonadamente si el anterior sistema cumple las propiedades de memoria, causalidad, estabilidad, invertibilidad, linealidad y/o invarianza temporal.}
+    \item \db{¿Se trata de un sistema LTI? En caso afirmativo, obtenga y represente su respuesta al impulso $h[n]$.}
+    \item \db{Utiliza la definición de convolución, obtenga la salida del sistema del enunciado, $y[n]$, cuando a su entrada se tiene la señal  $x[n]=(n+1)u[n]$.}
+    \item \db{Calcule la energía total y la potencia media de la señal $x[n]$ del apartado anterior, indicando de qué tipo de señal se trata según estos valores.} 
+\end{enumerate}
+\item \lb{Considere el sistema LTI discreto consistente en la conexión en serie de los subsistemas LTI descritos por \[
+\begin{array}{c}
+    h_1[n]=n\delta[n-1]\\
+    h_2[n]=\left( \dfrac{1}{3} \right) ^{n-1}u[n+1]
+\end{array}
+\] Obtenga la salida del sistema $y[n]$ cuando la entrada es  \[
+x[n]=(-1)^{n}(u[2-n]-u[-n-1])
+\] } 
+\item \lb{Represente el diagrama de bloques en forma canónica del sistema dado por la ecuación diferencial \[
+\dfrac{\mathrm{d}^2y(t)}{\dt^2}+2\dfrac{\mathrm{d}y(t)}{\dt}-8y(t)=x(t)-\dfrac{\mathrm{d}x(t)}{\dt}
+\] } 
+\item \lb{Dibuje el diagrama de bloques de los siguientes sistemas LTI causales descritos mediante sus ecuaciones en diferencias:}
+    \begin{enumerate}[label=\color{red}\textbf{\alph*)}]
+        \item \db{$y[n]=\dfrac{1}{3}y[n-1]+\dfrac{1}{2}x[n]$} 
+        \item \db{$y[n]=\dfrac{1}{3}y[n-1]+x[n-1]$} 
+    \end{enumerate}
+\item \lb{Dibuje el diagrama de bloques de los siguientes sistemas LTI causales descritos mediante sus ecuaciones diferenciales:}
+    \begin{enumerate}[label=\color{red}\textbf{\alph*)}]
+        \item \db{$y(t)=-\dfrac{1}{2}\dfrac{\mathrm{d}y(t)}{\dt}+4x(t)$} 
+        \item \db{$\dfrac{\mathrm{d}y(t)}{\dt}+3y(t)=x(t)$} 
+    \end{enumerate}
+\item \lb{Obtenga las formas directas I y II del sistema LTI causal cuya entrada $x[n]$ y salida $y[n]$ están relacionadas mediante la ecuación en diferencias \[
+            y[n]=-ay[n-1]+b_0x[n]+b_1x[n-1]
+\] } 
+\item \lb{Obtenga las formas directas I y II del sistema LTI causal cuya entrada $x(t)$ y salida  $y(t)$ están relacionadas mediante la ecuación diferencial  \[
+a_1 \dfrac{\mathrm{d}y(t)}{\dt}+a_0y(t)=b_0x(t)+b_1 \dfrac{\mathrm{d}x(t)}{\dt}
+\] } 
+\item \lb{Obtenga que la ecuación diferencial del ejercicio anterior se puede escribir en forma de ecuación integral como \[
+y(t)=A \int_{-\infty}^{t} y(\tau)\mathrm{d}\tau+Bx(t)+C \int_{-\infty}^{t} x(\tau)\mathrm{d}\tau  
+\] expresando las constantes $A,B$ y  $C$ en términos de las constantes $a_0,a_1,b_0$ y $b_1$.\\ Obtenga las formas directas I y II del sistema LTI causal expresado según esta ecuación integral.} 
 \end{enumerate}
 \end{document}
