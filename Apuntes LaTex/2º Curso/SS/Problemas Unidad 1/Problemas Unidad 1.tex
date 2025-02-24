@@ -619,7 +619,7 @@ Si la señal $x(t)$ es cero para  $t<3$, al aplicar la expansión por el factor 
             \item Encontrar el periodo fundamental
 
                 El periodo fundamental de la señal compuesta es el \textbf{mínimo común múltiplo} de los periodos $T_1$ y $T_2$. Para encontrarlo, debemos expresar ambos periodos como fracciones con el mismo denominador: \[
-                T_1=\dfrac{\pi}{5},\quad T_2=\dfrac{\pi}{2}\longrightarrow T_1=\dfrac{2\pi}{10},\quad T_2=\dfrac{5\pi}{10}\longrightarrow .
+                T_1=\dfrac{\pi}{5},\quad T_2=\dfrac{\pi}{2}\longrightarrow T_1=\dfrac{2\pi}{10},\quad T_2=\dfrac{5\pi}{10}.
                 \]  
                 El \textbf{mcm} de $\dfrac{2\pi}{10}$ y $\dfrac{5\pi}{10}$ es $\dfrac{10\pi}{10}=\pi$.
         \end{enumerate}
@@ -693,7 +693,7 @@ Si la señal $x(t)$ es cero para  $t<3$, al aplicar la expansión por el factor 
               Para que esto sea cierto, el argumento el escalón unitario debe cambiar de signo en $n=4$. Específicamente:
                \begin{itemize}[label=\textbullet]
                    \item Para $n<4$, queremos que  $Mn+n_0<0$, lo que asegura que $u[Mn+n_0]=1$.
-                   \item Oara $n\ge 4$, queremos que $Mn+n_0\ge 0$, lo que asegura que $u[Mn+n_0]=0$.
+                   \item Para $n\ge 4$, queremos que $Mn+n_0\ge 0$, lo que asegura que $u[Mn+n_0]=0$.
               \end{itemize}
           \item Determinación de $M$ y  $n_0$
 
@@ -938,23 +938,207 @@ Si la señal $x(t)$ es cero para  $t<3$, al aplicar la expansión por el factor 
   \item \lb{Determine si cada una de las siguientes señales continuas es periódica. En caso afirmativo obtenga su periodo fundamental.}
     \begin{enumerate}[label=\color{red}\textbf{\alph*)}]
       \item \db{$x(t)=3\cos\left(4t+\dfrac{\pi}{3}\right)$} 
+
+          La señal es una función coseno, que es periódica si su frecuencia angular $\omega=4$ es finita. El periodo fundamental se calcula como: \[
+          T_0=\dfrac{2\pi}{\omega}=\dfrac{2\pi}{4})\dfrac{\pi}{2}.
+          \] 
+          Por lo tanto, \textbf{la señal es periódica} con periodo fundamental $T_0=\dfrac{\pi}{2}$.
       \item \db{$x(t)=e^{j(\pi t-1)} $} 
+          
+          Esta señal es una exponencial compleja, que puede expresarse como: \[
+          x(t)=e^{-j}\cdot e^{j\pi t}.  
+          \] 
+          El término $e^{-j} $ es una constante, y el término $e^{j\pi t} $ es periódico si su frecuencia angular $\omega=\pi$ es finita. El periodo fundamental se calcula como: \[
+          t_0=\dfrac{2\pi}{\omega}=\dfrac{2\pi}{\pi})2.
+          \] 
+          Por lo tanto, \textbf{la señal es periódica} con periodo fundamental $T_0=2$.
       \item \db{$x(t)=\cos^2\left( 2t-\dfrac{\pi}{3} \right) $} 
+
+          Utilizamos la identidad trigonométrica: \[
+          \cos^2(\theta)=\dfrac{1+\cos(\theta)}{2}.
+          \] 
+          Sustituyendo $\theta=2t-\dfrac{\pi}{3}$, tenemos: \[
+          x(t)=\dfrac{1}{2}+\dfrac{1}{2}\cos\left( 2\left( 2t-\dfrac{\pi}{3} \right)  \right) =\dfrac{1}{2}+\dfrac{1}{2}\cos\left( 4t-\dfrac{2\pi}{3} \right) .
+          \] 
+          El primer término $\left( \dfrac{1}{2} \right) $ es constante, y el segundo término es un conseno con frecuencia angular $\omega=4$. El periodo fundamental de este término es: \[
+          T_0=\dfrac{2\pi}{\omega}=\dfrac{2\pi}{4}=\dfrac{\pi}{2}.
+          \] 
+          Por lo tanto, \textbf{la señal es periódica} con periodo fundamental $T_0=\dfrac{\pi}{2}$.
       \item \db{$x(t)=\mathrm{Par}\{\cos(4\pi t)u(t)\} $} 
+
+          Aquí, $u(t)$ es la función escalón unitario, que es no nula solo para $t\ge 0$. La función $\mathrm{Par}\{\cdot \} $ denota la parte par de la señal, definida como: \[
+          \mathrm{Par}\{x(t)\} =\dfrac{x(t)+x(-t)}{2}.
+          \] 
+          Susituyendo $x(t)=\cos(4\pi t)u(t)$, tenemos: \[
+          \mathrm{Par}\{\cos(4\pi t)u(t)\} =\dfrac{\cos(4\pi t)u(t)+\cos(-4\pi t)u(-t)}{2}.
+          \] 
+          Para $t\ge 0,u(t)=1$ y $u(-t)=0$, mientras que  $t<0,u(t)=0$ y $u(-t)=1$. Esto implica que la señal no es continua en todo  $t$, y por lo tanto  \textbf{no es periódica}. 
       \item \db{$x(t)=\mathrm{Par}\{\sin(4\pi t)u(t)\} $} 
+
+          Aquí, $u(t)$ es la función escalón unitario, que es no nula solo para $t\ge 0$. La función $\mathrm{Par}\{\cdot \} $ denota la parte par de la señal, definida como: \[
+          \mathrm{Par}\{x(t)\} =\dfrac{x(t)+x(-t)}{2}.
+          \] 
+          Susituyendo $x(t)=\sin(4\pi t)u(t)$, tenemos: \[
+          \mathrm{Par}\{\sin(4\pi t)u(t)\} =\dfrac{\sin(4\pi t)u(t)+\sin(-4\pi t)u(-t)}{2}.
+          \] 
+          Para $t\ge 0,u(t)=1$ y $u(-t)=0$, mientras que  $t<0,u(t)=0$ y $u(-t)=1$. Esto implica que la señal no es continua en todo  $t$, y por lo tanto  \textbf{no es periódica}. 
+
       \item \db{$x(t)=\sum_{n=-\infty}^{\infty} e^{-(2t-n)}u(2t-n) $} 
+
+          Esta señal es una suma infinita de términos desplazados y modulados por la función escalón unitario $u(2t-n)$. Para analizar su periodicidad, debemos verificar si existe un $T>0$ tal que $x(t+T)=x(t)$.
+
+          El término  $u(2t-n)$ es no nulo solo cuando  $2t-n\ge 0$, es decir, $t\ge \dfrac{n}{2}$. Esto significa que cada término de la suma está activo sólo en un intervalo específico. Debido a la dependencia de $n$ y la naturaleza de la suma, la señal \textbf{no es periódica}. 
     \end{enumerate}
 \item \lb{Determine si cada una de las siguientes señales discretas es periódica. En caso afirmativo obtenga su periodo fundamental.}
     \begin{enumerate}[label=\color{red}\textbf{\alph*)}]
         \item \db{$x[n]=\sin\left( \dfrac{6\pi}{7}n+1 \right) $} 
+
+            La frecuencia angular de la señal es $\omega=\dfrac{6\pi}{7}$. Para que la señal sea periódica, $\omega$ debe ser un múltiplo racional de $2\pi$, es decir, $\dfrac{\omega}{2\pi}=\dfrac{6}{7}$ debe ser racional. Esto es cierto, ya que $\dfrac{6}{7}$ es una fracción irreducible.
+
+            El periodo fundamental $N$ se calcula como el denominador del cociente $\dfrac{\omega}{2\pi}$, es decir: \[
+            N=7.
+            \] Por lo tanto, \textbf{la señal es periódica} con periodo fundamental $N=7$.
+
         \item \db{$x[n]=\cos\left( \dfrac{n}{8}-\pi \right) $} 
+
+            La frecuencia angular de la señal es $\omega=\dfrac{1}{8}$. Para que la señal sea periódica, $\dfrac{\omega}{2\pi}=\dfrac{1}{16\pi}$ debe ser racional. Sin embargo, $\dfrac{1}{16\pi}$ no es racional porque $\pi$ es irracional. Por lo tanto, \textbf{la señal no es periódica.} 
         \item \db{$\cos\left( \dfrac{\pi}{8}n^2 \right) $} 
+
+            En este caso, la frecuencia angular depende de $n^2$, lo que significa que la señal no tiene una frecuencia angular constante. Esto implica que la señal no puede ser periódica, ya que no existe un $N$ tal que $x[n+N]=x[n]$ para todo $n$. Por lo tanto,  \textbf{la señal no es periódica}. 
         \item \db{$x[n]=\cos\left( \dfrac{\pi}{2}n \right) \cos\left( \dfrac{\pi}{4}n \right) $} 
+
+            Utilizamos la identidad trigonométrica para el producto de cosenos: \[
+            \cos(a)\cos(b)=\dfrac{1}{2}\left[ \cos(a-b)+\cos(a+b) \right] .
+            \] 
+            Sustituyendo $a=\dfrac{\pi}{2}$ y $b=\dfrac{\pi}{4}n$, tenemos: \[
+                x[n]=\dfrac{1}{2}\left[ \cos\left( \dfrac{\pi}{2}n-\dfrac{\pi}{4}n \right) +\cos\left( \dfrac{\pi}{2}n+\dfrac{\pi}{4}n \right)  \right] =\dfrac{1}{2}\left[ \cos\left( \dfrac{\pi}{4}n \right) +\cos\left( \dfrac{3\pi}{4}n \right)  \right] .
+            \] 
+            La señal es la suma de dos cosenos con frecuencias angulares $\omega_1=\dfrac{\pi}{4}$ y $\omega_2=\dfrac{3\pi}{4}$. Para que la señal sea periódica, ambas frecuencias deben ser múltiplos racionales de $2\pi$, y el periodo fundamental será el mínimo común múltiplo (mcm) de sus periodos individuales.
+            \begin{itemize}[label=\textbullet]
+                \item Para $\omega_1=\dfrac{\pi}{4}$, el periodo $N_1=\dfrac{2\pi}{\omega_1}=8$.
+                \item Para $\omega_2=\dfrac{3\pi}{4}$, el periodo $N_2=\dfrac{2\pi}{\omega_2}=\dfrac{8}{3}$, que no es entero.
+            \end{itemize}
+            Dado que $N_2$ no es entero, \textbf{la señal no es periódica.} 
+            
         \item \db{$x[n]=2\cos\left( \dfrac{\pi}{4}n \right) +\sin\left( \dfrac{\pi}{8}n \right) -2\cos\left( \dfrac{\pi}{2}n +\dfrac{\pi}{6}\right) $} 
+
+            La señal es una combinación lineal de tres términos con diferentes frecuencias angulares: 
+            \begin{itemize}[label=\textbullet]
+                \item $\omega_1=\dfrac{\pi}{4}$ 
+                \item $\omega_2=\dfrac{\pi}{8}$ 
+                \item $\omega_3=\dfrac{\pi}{2}$
+            \end{itemize}
+            Para que la señal sea periódica, todas las frecuencias deben ser múltiplos racionales de $2\pi$, y el periodo fundamental será el mcm de los periodos individuales.
+            \begin{itemize}[label=\textbullet]
+                \item Para $\omega_1=\dfrac{\pi}{4}$, el periodo es $N_1=\dfrac{2\pi}{\omega_1}=8$.
+                \item Para $\omega_2=\dfrac{\pi}{8}$, el periodo es $N_2=\dfrac{2\pi}{\omega_2}=16$.
+                \item Para $\omega_3=\dfrac{\pi}{2}$, el periodo es $N_3=\dfrac{2\pi}{\omega_3}=4$.
+            \end{itemize}
+            El mcm de $N_1=8,N_2=16$ y $N_3=4$ es $16$. Por lo tanto,  \textbf{la señal es periódica} con periodo fundamental $N=16$. 
     \end{enumerate}
 \item \lb{Determine el módulo, así como la parte real e imaginaria de la señal \[
 x(t)=te^{j_3\pi t}\prod\left( \dfrac{2t-4}{8} \right) -2\delta(2t+3) 
 \]}
+
+\begin{enumerate}[label=Paso \arabic*:]
+    \item Descomposición de la señal
+
+        La señal tiene dos términos:
+        \begin{itemize}[label=\textbullet]
+            \item $te^{j 3\pi t}\prod\left( \dfrac{2t-4}{8} \right)  $: Este término es una función ocnitnua que incluye un factor exponencia complejo, una función rectangular $\left( \prod \right) $ y un término lineal $t$.
+            \item $-2\delta(2t+3)$: Este término es un impulso desplazado y escalado.
+        \end{itemize}
+        Analizaremos cada término por separado.
+    \item Análisis del primer término $te^{j 3\pi t}\prod\left( \dfrac{2t-4}{8} \right)  $ 
+        \begin{enumerate}[label=\alph*)]
+            \item Parte exponencial $e^{j 3\pi t} $ 
+
+                La exponencial compleja puede escribirse como: \[
+                e^{j 3\pi t}=\cos(3\pi t)+j\sin(3\pi t). 
+                \] 
+                Por lo tanto, el término completo se convierte en: \[
+                    te^{j 3\pi t}=t[\cos(3\pi t)+j\sin(3\pi t)] .
+                \] 
+            \item Función rectangular $\prod\left( \dfrac{2t-4}{8} \right) $
+
+                La función rectangular $\prod(x)$ está definida como:  \[
+                \prod(x)=\begin{cases}
+                    1, & \text{si }|x|\le \dfrac{1}{2}\\
+                    0, & \text{si }|x| > \dfrac{1}{2}
+                \end{cases}
+                \] 
+                En este caso, el argumento de la función es $\dfrac{2t-4}{8}$, lo que implica que la función rectangular es no nula cuando: \[
+                \left| \dfrac{2t-4}{8} \right| \le \dfrac{1}{2}.
+                \] 
+                Resolviendo la desigualdad: \[
+                -\dfrac{1}{2}\le \dfrac{2t-4}{8}\le \dfrac{1}{2}\longrightarrow -4\le 2t-4\le 4\longrightarrow 0\le 2t\le 8\longrightarrow 0\le t\le 4.
+                \] 
+                Por lo tanto, la función rectangular $\prod\left( \dfrac{2t-4}{8} \right) $ es igual a 1 en el intervalo $t\in [0,4]$, y 0 fuera de este intervalo.
+            \item Producto completo
+
+                El primer término de la señal es: \[
+               te^{j 3\pi t}\prod\left( \dfrac{2t-4}{8} \right) =\begin{cases}
+                   t[\cos(3\pi t)+j\sin(3\pi t)], & \text{si }t\in [0,4]\\
+                   0, & \text{si }t\notin [0,4]
+               \end{cases}  
+                \] 
+        \end{enumerate}
+    \item Análisis del segundo término $-2\delta(2t+3)$
+
+        El término  $\delta(2t+3)$ es un impulso desplazado. La propiedad de escalamiento y desplazamiento del delta de Dirac nos dice que:  \[
+        \delta(2t+3)=\dfrac{1}{2}\delta\left( t+\dfrac{3}{2} \right) .
+        \] 
+        Por lo tanto, el segundo término se convierte en: \[
+        -2\delta(2t+3)=-2\cdot \dfrac{1}{2}\delta\left( t+\dfrac{3}{2} \right) =-\delta\left( t+\dfrac{3}{2} \right) .
+        \] 
+    \item Parte real, imaginaria y módulo de $x(t)$
+
+        La señal completa es:  \[
+        x(t)=\begin{cases}
+            t[\cos(3\pi t)+j\sin(3\pi t)], & \text{si }t\in [0,4]\\
+            \delta\left( t+\dfrac{3}{2} \right) , & \text{si }t=-\dfrac{3}{2}\\
+            0, & \text{en otro caso}
+        \end{cases}
+        \] 
+        \begin{enumerate}[label=\textbf{\alph*)}]
+            \item \textbf{Parte real} 
+
+                La parte real de $x(t)$ es:  \[
+                \mathrm{Re}\{x(t)\} =\begin{cases}
+                    t\cos(3\pi t), & \text{si }t\in [0,4]\\
+                    -\delta\left( t+\dfrac{3}{2} \right) , & \text{si }t=-\dfrac{3}{2}\\
+                    0, & \text{en otro caso}
+                \end{cases}
+                \] 
+            \item \textbf{Parte imaginaria}
+
+                La parte imaginaria de $x(t)$ es:  \[
+                \mathrm{Im}\{x(t)\} =\begin{cases}
+                    t\sin(3\pi t), & \text{si }t\in [0,4]\\
+                    0, & \text{en otro caso}
+                \end{cases}
+                \] 
+            \item \textbf{Módulo}
+
+                El módulo de $x(t)$ es: \[
+                |x(t)|=\begin{cases}
+                    \sqrt{(t\cos(3\pi t))^2+(t\sin(3\pi t))^2}, & \text{si }t\in [0,4]\\
+                    \left| \delta\left( t+\dfrac{3}{2} \right)  \right| , & \text{si }t=-\dfrac{3}{2}\\
+                    0, & \text{en otro caso}
+                \end{cases}
+                \] 
+                Simplificando el módulo en $t\in [0,4]$: \[
+                |x(t)|=\sqrt{t^2\cos^2(3\pi t)+t^2\sin^2(3\pi t)}=\sqrt{t^2(\cos^2(3\pi t)+\sin^2(3\pi t))}=\sqrt{t^2}=|t|.   
+                \] 
+                Por lo tanto: \[
+                |x(t)|=\begin{cases}
+                    t, & \text{si }t\in [0,4]\\
+                    \left| \delta\left( t+\dfrac{3}{2} \right)  \right| , & \text{si }t=-\dfrac{3}{2}\\
+                    0, & \text{en otro caso}
+                \end{cases}
+                \] 
+        \end{enumerate}
+\end{enumerate}
 \item \lb{Calcule la energía y la potencia de la señal mostrada en la figura 3. Indique si se encuentra definida en enegería o en potencia.}
 \begin{center}
     \begin{tikzpicture}[>=latex,scale=0.7]
@@ -966,20 +1150,107 @@ x(t)=te^{j_3\pi t}\prod\left( \dfrac{2t-4}{8} \right) -2\delta(2t+3)
     \end{tikzpicture}\\
     \lb{Figura 3} 
 \end{center}
+La señal $x(t)$ es una señal a trozos definida como: \[
+x(t)=\begin{cases}
+    2, & 0\le t<4\\
+    -2, & 4\le t<8\\
+    0, & \text{en otro caso}
+\end{cases}
+\] 
+La energía de una señal $x(t)$ se define como:  \[
+E=\int_{-\infty}^{\infty} |x(t)|^2\dt .
+\] 
+Dado que $x(t)$ es no nula solo en el intervalo $[0,8]$, la integral se reduce a:  \[
+E=\int_{0}^{4} |2|^2\dt+\int_{4}^{8} |-2|^2\dt.  
+\] 
+Calculamos cada término:
+\begin{itemize}[label=\textbullet]
+    \item Para $0\le t<4,x(t)=2$, entonces: \[
+            \int_{0}^{4} |2|^2\dt=\int_{0}^{4} 4\dt=4 \int_{0}^{4} 1\dt=4[t]_0^4=4\cdot (4-0)=16.   
+    \] 
+\item Para $4\le t<8, x(t)=-2$, entonces: \[
+        \int_{4}^{8} |-2|^2\dt=\int_{4}^{8} 4\dt=4 \int_{4}^{8} 1\dt=4[t]_4^8=4\cdot (8-4)=16   
+\] 
+\end{itemize}
+Sumando ambos términos: \[
+E=16+16=32.
+\] 
+Por lo tanto, la \textbf{energía de la señal} es: \[
+E=32.
+\] 
+La potencia de una señal $x(t)$ se define como:  \[
+P=\lim_{T \to \infty} \dfrac{1}{2T}\int_{-T}^{T} |x(t)|^2\dt=\lim_{T \to \infty} \dfrac{E}{2T}=\dfrac{32}{\infty}=0. 
+\] 
+Por lo tanto, la señal está \textbf{definida en energía}. 
 \item \lb{Represente detalladamente las señales $x_1(t)$ y $x(t)$, definidas como \[
 \begin{array}{c}
     x_1(t)=2\prod\left( \dfrac{t}{4} \right) +(6-2t)\left[ \prod\left( \dfrac{t-2.5}{1} \right) -\prod\left( \dfrac{t-3.5}{1} \right)  \right] \\
     x(t)=\sum_{n=-\infty}^{\infty} x_1(t-6n)
 \end{array}
 \] } 
+\begin{center}
+\includegraphics[width=0.45\textwidth]{"20_1"}\qquad
+\includegraphics[width=0.45\textwidth]{"20_2"}
+\end{center}
 \item \lb{Represente detalladamente las señales $x(t)$ y  $h(t)$ dadas por  \[
             \begin{array}{c}
             x(t)=t\prod\left( \dfrac{2t}{4} \right) +t[u(t-1)-u(3t-9)]\\
             h(t)=2\prod\left( \dfrac{t-1}{4} \right) +\delta(t+4)
             \end{array}
 \] } 
+\begin{center}
+\includegraphics[width=0.45\textwidth]{"21_1"}\qquad
+\includegraphics[width=0.45\textwidth]{"21_2"}
+\end{center}
 \item \lb{Calcule la energía y la potencia de la señal $x(t)$ del ejercicio 21, indicando si se trata de una señal definida en energía  o en potencia.}
 
+    La señal $x(t)$ está compuesta por dos términos:
+    \begin{itemize}[label=\textbullet]
+        \item \textbf{Primer término:} $t\prod\left( \dfrac{2t}{4} \right) $, que incluye una función rectangular $\prod(x)$. La función rectangular $\prod(x)$ está definida como:  \[
+        \prod(x)=\begin{cases}
+            1, & \text{si }|x|\le \dfrac{1}{2}\\
+            0, & \text{si }|x| > \dfrac{1}{2}
+        \end{cases}
+        \]  
+        En este caso, el argumento es $\dfrac{2t}{4}=\dfrac{t}{2}$, por lo que la función de ventana es no nula solo cuando: \[
+        \left| \dfrac{t}{2} \right| \le \dfrac{1}{2}\longrightarrow -1\le t\le 1.
+        \] 
+        Por lo tanto, el primer término es no nulo únicamente en el intervalo $t\in [-1,1]$, y en este intervalo vale $t$.
+    \item  \textbf{Segundo término:} $t[u(t-1)-u(3t-9)]$, que incluye funciones escalón unitario $u(t)$. Analicemos los intervalos donde este término es no nulo:
+        \begin{itemize}[label=\textbullet]
+            \item $u(t-1)$ es no nulo para  $t\ge 1$.
+            \item $u(3t-9)$ es no nulo para  $t\ge 3$.
+        \end{itemize}
+        Por lo tanto, $u(t-1)-u(3t-9)$ es no nulo en el intervalo  $1\le t<3$, y en este intervalo vale 1. Entonces, el segundo término es: \[
+            t[u(t-1)-u(3t-9)]=\begin{cases}
+                t, & \text{si }1\le t<3\\
+                0, & \text{en otro caso}
+            \end{cases}
+        \] 
+    \end{itemize}
+    Combinando ambos términos, la señal $x(t)$ se puede escribir como: \[
+    x(t)=\begin{cases}
+        t, & \text{si }-1\le t\le 1\\
+        t, & \text{si }1\le t<3\\
+        0, & \text{en otro caso}
+    \end{cases}=\begin{cases}
+        t, & \text{si }-1\le t<3\\
+        0, & \text{en otro caso}
+    \end{cases}
+    \]
+    La energía de una señal $x(t)$ se define como: \[
+    E=\int_{-\infty}^{\infty} |x(t)|^2\dt. 
+    \] 
+    Dado que $x(t)$ es no nula solo en el intervalo  $t\in [-1,3]$, la integral se reduce a: \[
+    E=\int_{-1}^{3} |t|^2\dt=\int_{-1}^{3} t^2\dt=\left[ \dfrac{t^3}{3} \right] _{-1}^3=\dfrac{3^3}{3}-\dfrac{(-1)^3}{3}=\dfrac{27}{3}-\dfrac{-1}{3}=9+\dfrac{1}{3}=\dfrac{28}{3}.  
+    \] 
+    Por lo tanto, la \textbf{energía de la señal} es: \[
+    E=\dfrac{28}{3}.
+    \] 
+    La potencia de una señal $x(t)$ se define como: \[
+    P=\lim_{T \to \infty} \dfrac{1}{2T}\int_{-T}^{T} |x(t)|^2\dt=\lim_{T \to \infty} \dfrac{E}{2T}=\dfrac{\frac{28}{3} }{\infty}=0. 
+    \] 
+    Por lo tanto, la señal está \textbf{definida en energía}. 
 \item \lb{Represente detalladamente las señales \[
 \begin{array}{c}
     x[n]=e^{j\frac{\pi}{4} n} u[n]\\
