@@ -1309,13 +1309,158 @@ h(t)=e^{-4t}u(t),
 \item \lb{Un sistema discreto viene determinado por la relación entrada-salida \[
       y[n]=e^{j\frac{2\pi}{10} (n+2)}x[n-2]. 
 \] Analice las propiedades de memoria, causalidad, estabilidad, invarianza en el tiempo y linealidad del sistema.}
+\begin{enumerate}[label=\textbf{\arabic*)}]
+    \item \textbf{Memoria}
+
+        Un sistema tiene memoria si la salida en un instante $n$ depende de valores pasados o futuros de la entrada. Si la salida depende únicamente del valor actual de la entrada, el sistema es sin memoria.
+
+        En este caso, la salida $y[n]$ depende de $x[n-2]$, que es un valor pasado de la entrada (desplazados dos unidades en el tiempo). Por lo tanto, \textbf{el sistema tiene memoria.}
+    \item \textbf{Causalidad}
+
+        Un sistema es causal si la salida en un instante $n$ depende únicamente de valores presentes o pasados de la entrada, es decir, no depende de valores futuros de la entrada.
+
+        Aquí, $y[n]$ depende de $x[n-2]$, que es un valor pasado de la entrada. No hay dependencia de valores futuros de  $x[n]$. Por lo tanto,  \textbf{el sistema es causal.}
+    \item \textbf{Estabilidad}
+
+        Un sistema es estable si para toda entrada acotada $x[n]$, la salida $y[n]$ también es acotada. 
+
+        La salida está dada por: \[
+            y[n]=e^{j\frac{2\pi}{10} (n+2)}x[n-2]. 
+        \] 
+        El término $e^{j\frac{2\pi}{10} (n+2)} $ es una exponencial compleja de magnitud unitaria ($|e^{j\theta} |=1$ para cualquier $\theta$). Por lo tanto, si $x[n-2]$ es acotada,  $y[n]$ también será acotada. Esto implica que  \textbf{el sistema es estable}.
+    \item \textbf{Invarianza en el tiempo} 
+
+        Un sistema es invariante en el tiempo si un desplazamiento en la entrada produce un desplazamiento equivalente en la salida, sin cambiar la forma de la relación entrada-salida.
+
+        Supongamos que desplazamos la entrada $x[n]$ por $k$ unidades, es decir, consideramos una nueva entrada $x_k[n]=x[n-k]$. La salida correspondiente sería:  \[
+            y_k[n]=e^{j\frac{2\pi}{10} (n+2)}x_k[n-2]=e^{j\frac{2\pi}{10} (n+2)} x[n-k-2]. 
+        \] 
+        Comparando con la salida original $y[n]=e^{j\frac{2\pi}{10} (n+2)} x[n-2]$, vemos que el desplazamiento en la entrada introduce un cambio en el argumento de $x$, pero no se traduce en un simple desplazamiento de la salida. Esto significa que  \textbf{el sistema no es invariante en el tiempo.} 
+
+    \item \textbf{Linealidad}
+
+        Un sistema es lineal si satisface el principio de superposición, es decir, si para dos entradas $x_1[n]$ y $x_2[n]$ y sus respectivas salidas $y_1[n]$ y $y_2[n]$, se cumple que: \[
+            a_1x_1[n]+a_2x_2[n]\longrightarrow a_1y_1[n]+a_2y_2[n].
+        \] 
+        En este caso, la relación entrada-salida es: \[
+            y[n]=e^{j\frac{2\pi}{10} (n+2)} x[n-2].
+        \] 
+        Si la entrada es una combinación lineal $x[n]=a_1x_1[n]+a_2x_2[n]$, la salida será: \[
+            y[n]=e^{j\frac{2\pi}{10} (n+2)}(a_1x_1[n-2]+a_2x_2[n-2])=a_1e^{j\frac{2\pi}{10} (n+2)} x_1[n-2]+a_2e^{j\frac{2\pi}{10} (n+2)}x_2[n-2]  .
+        \] 
+        Esto corresponde a $a_1y_1[n]+a_2y_2[n]$, lo que demuestra que \textbf{el sistema es lineal.} 
+\end{enumerate}
 \item \lb{Considere la señal $x[n]=\bigwedge\left( \dfrac{n}{4} \right) +\prod\left( \dfrac{n-2}{5} \right) $. Obtenga y represente la parte par e impar de esta señal. Calcule la energía y potencia de $x[n]$, indicando si se trata de una señal defindia en energía o en potencia.}
+
+    \begin{enumerate}[label=\textbf{\arabic*)}]
+        \item \textbf{Parte par e impar de la señal}
+
+            La parte par $(x_e[n])$ y la parte impar  $(x_o[n])$ de una señal  $x[n]$ se definen como:  \[
+                x_e[n]=\dfrac{x[n]+x[-n]}{2},\quad x_o=\dfrac{x[n]-x[-n]}{2}.
+            \] 
+            \begin{enumerate}[label=\alph*)]
+                \item Cálculo de $x[-n]$
+
+                    La señal invertida en el tiempo es:  \[
+                        x[-n]=\bigwedge\left( \dfrac{-n}{4} \right) +\prod\left( \dfrac{-n-2}{5} \right) .
+                    \] 
+                \item Parte par $(x_e[n])$
+ 
+                    Sustituyendo en la fórmula de la parte par: \[
+                        x_e[n]=\dfrac{\bigwedge\left( \frac{n}{4}  \right) +\prod\left( \frac{n-2}{5}  \right) +\bigwedge\left( \frac{-n}{4}  \right) +\prod\left( \frac{-n-2}{5}  \right) }{2}.
+                    \] 
+                \item Parte impar $(x_o[n])$
+
+                    Sustituyendo en la fórmula de la parte impar:  \[
+                        x_o[n]=\dfrac{\bigwedge\left( \frac{n}{4}  \right) +\prod\left( \frac{n-2}{5}  \right) -\bigwedge\left( \frac{-n}{4}  \right) -\prod\left( \frac{-n-2}{5}  \right) }{2}.
+                    \] 
+            \end{enumerate}
+            Para obtener las expresiones explícitas de $x_e[n]$ y  $x_o[n]$, se necesita evaluar las propiedades de simetría de las funciones  $\bigwedge$ y  $\prod$:
+             \begin{itemize}[label=\textbullet]
+                \item La función triangular $\bigwedge(x)$ es  \textbf{par}, es decir, $\bigwedge(-x)=\bigwedge(x)$ .
+                \item La función rectangular $\prod(x)$ es  \textbf{par}, es decir, $\prod\left( -x \right) =\prod(x)$ .
+            \end{itemize}
+            Por lo tanto:
+            \begin{itemize}[label=\textbullet]
+                \item $\bigwedge\left( \dfrac{-n}{4} \right) =\bigwedge\left( \dfrac{n}{4} \right) $.
+                \item $\prod\left( \dfrac{-n-2}{5} \right) =\prod\left( \dfrac{n+2}{5} \right) $.
+            \end{itemize}
+            Sustituyendo estas propiedades: \[
+            \begin{array}{c}
+                x_e[n]=\dfrac{\bigwedge\left( \frac{n}{4} \right)+\prod\left( \frac{n-2}{5}  \right) + \bigwedge\left( \frac{n}{4}  \right) +\prod\left( \frac{n+2}{5}  \right) }{2}=\bigwedge\left( \dfrac{n}{4} \right) +\dfrac{\prod\left( \frac{n-2}{5}  \right) +\prod\left( \frac{n+2}{5}  \right) }{2}. \\
+                x_o[n]=\dfrac{\bigwedge\left( \frac{n}{4}  \right) +\prod\left( \frac{n-2}{5}  \right) -\bigwedge\left( \frac{n}{4}  \right) -\prod\left( \frac{n+2}{5}  \right) }{2}=\dfrac{\prod\left( \frac{n-2}{5}  \right) -\prod\left( \frac{n+2}{5}  \right) }{2}.
+            \end{array}
+            \] 
+        \item \textbf{Cálculo de energía y potencia}
+
+            La energía de una señal $x[n]$ se define como: \[
+                E_x=\sum_{n=-\infty}^{\infty} |x[n]|^2.
+            \] 
+            La potencia de una señal $x[n]$ se define como:  \[
+                P_x=\lim_{N \to \infty} \dfrac{1}{2N+1}\sum_{n=-N}^{N} |x[n]|^2.
+            \] 
+            \begin{enumerate}[label=\alph*)]
+                \item Naturaleza de la señal $x[n]$
+
+                    La señal  $x[n]$ está compuesta por una función triangular $\left( \bigwedge \right) $ y una función rectangular $\left( \prod \right) $, ambas de soporte finito. Esto significa que $x[n]$ es no nula solo en el intervalo finito de  $n$. Por lo tanto, la suma de  $|x[n]|^2$ será finita, y la energía será finita. Además, dado que la señal no es periódica y tiene soporte finito, su potencia será cero.
+                \item Cálculo de la energía
+
+                    Para calcular la energía, evaluamos: \[
+                    E_x=\sum_{n=-\infty}^{\infty} \left| \bigwedge\left( \dfrac{n}{4} \right) +\prod\left( \dfrac{n-2}{5} \right)  \right| ^2.
+                    \] 
+                    Dado que $\bigwedge(x)$ y  $\prod(x)$ tienen soporte finito, la suma se produce a un intervalo finitp de  $n$. La energía se puede calcular explícitamente evaluando  $x[n]$ en los puntos donde no es cero.
+                \item Potencia
+
+                    La potencia será:  \[
+                        P_x=\lim_{N \to \infty} \dfrac{1}{2N+1}\sum_{n=-N}^{N} |x[n]|^2.
+                    \] 
+                    Dado que $x[n]$ tiene soporte finito, la suma $\sum_{n=-N}^{N} |x[n]|^2$ no crece con $N$, y al dividir entre $2N+1$, el resultado tiende a cero. Por lo tanto, la potencia es:  \[
+                    P_x=0.
+                    \] 
+            \end{enumerate}
+            Por lo tanto, \textbf{la señal está definida en energía.} 
+    \end{enumerate}
 
 \item \lb{Calcule la convolución de las señales \[
       x_1[n]=(n-6)\prod\left( \dfrac{n-6}{13} \right) \qquad x_2[n]=\prod\left( \dfrac{-n-3}{5} \right) 
 \] \underline{Nota:} la suma de una progresión aritmética $a_{n_i}, a_{n_i+1},\dots,a_{n_f}$, con $a_{n_i+1}=a_{n_i}+d,a_{n_i+2}=a_{n_i}+2d,\dots$ es \[
 \sum_{k=n_i}^{n_f} a_k=\dfrac{(n_f-n_i+1)(a_{n_i}+a_{n_f})}{2}.
-\] } 
+\] }
+
+\begin{enumerate}[label=\textbf{\arabic*)}]
+    \item \textbf{Soporte de las señales}
+        \begin{enumerate}[label=\alph*)]
+            \item Soporte de $x_1[n]$
+
+                La función rectangular $\prod\left( \dfrac{n-6}{13} \right) $ es no nula solo cuando: \[
+                \left| \dfrac{n-6}{13} \right| \le \dfrac{1}{2}\longrightarrow -\dfrac{13}{2}\le n-6\le \dfrac{13}{2}\longrightarrow -\dfrac{1}{2}\le n\le \dfrac{25}{2}.
+                \] 
+                Dado que $n$ es un número entero, el soporte de $x_1[n]$ es: \[
+                    n\in \{0,1,2,\dots,12\} .
+                \] 
+            \item Soporte de $x_2[n]$
+
+                La función rectangular $\prod\left( \dfrac{-n-3}{5} \right) $ es no nula solo cuando: \[
+                \left| \dfrac{-n-3}{5} \right| \le \dfrac{1}{2}\longrightarrow -\dfrac{5}{2}\le -n-3\le \dfrac{5}{2}\longrightarrow -\dfrac{1}{2}\le -n\le \dfrac{11}{2}\longrightarrow -\dfrac{11}{2}\le n\le \dfrac{1}{2}.
+                \] 
+                Dado que $n$ es un número entero, el soporte de $x_2[n]$ es: \[
+                n\in \{-5,-4,-3,-2,-2,-1,0\}. 
+                \] 
+        \end{enumerate}
+    \item \textbf{Soporte de la convolución}
+
+        El soporte de la convolución $y[n]=(x_1\ast x_2)[n]$ es la suma de los soportes de $x_1[n]$ y $x_2[n]$. Como el soporte de $x_1[n]$ es $\{0,1,\dots,12\} $ y el soporte de $x_2[n]$ es $\{-5,-4,\dots,0\} $, $y[n]$ será no nula en  $n\in \{-5,-4,\dots,12\} $.
+
+    \item \textbf{Expresión de la convolución}
+
+        La convolución se calcula como: \[
+            y[n]=\sum_{k=-\infty}^{\infty} x_1[k]x_2[n-k].
+        \] 
+        Dado que $x_1[k]$ y $x_2[n-k]$ son no nulas solo en sus respectivos soportes, la suma se reduce a los valores de $k$ donde ambos términos son no nulos. Esto ocurre cuando: \[
+        k\in \{0,1,\dots,12\} ,\quad n-k\in \{-5,-4,\dots,0\} .
+        \] 
+        Para que $n-k\in \{-5,-4,\dots,0\} $, se tiene:
+\end{enumerate}
 \item \lb{Se pretende procesar la señal $x(t)$ de la figura con un sistema LTI cuya respuesta al impulso es  \[
 h(t)=t\prod\left( \dfrac{2t-4}{8} \right) -2\delta(t+12)
 \] } 
@@ -1430,19 +1575,19 @@ y(t)=\int_{1}^{\infty} 3e^{-(2+5j)\tau}x(t-\tau)\mathrm{d}\tau.
 \item \lb{Considere el siguiente diagrama de bloques de un sistema causal (figura 2).}
     \begin{center}
 \begin{tikzpicture}[
-    block/.style={draw, minimum width=1cm, minimum height=1cm},
-    sum/.style={draw, circle, minimum size=5mm, inner sep=0pt},
-    connector/.style={-Latex, thick},
+    block/.style={draw, minimum width=1cm, minimum height=1cm, lightblue},
+    sum/.style={draw, circle, minimum size=5mm, inner sep=0pt, lightblue},
+    connector/.style={-Latex, thick, lightblue},
     node distance=1.5cm and 1.5cm,
 	scale=0.7
 ]
 
 % Nodos
-\node (input) at (0,0) {$x[n]$};
+\node[lightblue] (input) at (0,0) {$x[n]$};
 \node[sum, right=1.5cm of input] (sum) {+};
 \node[block, below right=0.5cm and 2.2cm of sum] (D1) {$D$};
 \node[block, below=1.5cm of D1] (D2) {$D$};
-\node[right=7cm of sum] (output) {$y[n]$};
+\node[right=7cm of sum, lightblue] (output) {$y[n]$};
 
 % Líneas y conexiones
 \draw[connector] (input) -- (sum);
