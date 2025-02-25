@@ -1459,34 +1459,7 @@ h(t)=e^{-4t}u(t),
         Dado que $x_1[k]$ y $x_2[n-k]$ son no nulas solo en sus respectivos soportes, la suma se reduce a los valores de $k$ donde ambos términos son no nulos. Esto ocurre cuando: \[
         k\in \{0,1,\dots,12\} ,\quad n-k\in \{-5,-4,\dots,0\} .
         \] 
-        Para que $n-k\in \{-5,-4,\dots,0\} $, se tiene: \[
-        -5\le n-k\le 0\longrightarrow n\le k+5\text{ y }k\le n.
-        \] 
-        Por lo tanto, los valores de $k$ están restringidos por: \[
-        \max(0,n-5)\le k\le \min(12,n).
-        \] 
-        La convolución se convierte en: \[
-            y[n]=\sum_{k=\max(0,n-5)}^{\min(12,n)} (k-6)\prod\left( \dfrac{k-6}{13} \right) \prod\left( \dfrac{-(n-k)-3}{5} \right) .
-        \] 
-    \item \textbf{Evaluación de los productos}
-        \begin{enumerate}[label=\alph*)]
-            \item Propiedades de $\prod(x)$
-
-                La función rectangular  $\prod(x)$ es igual a 1 cuando  $|x|\le \dfrac{1}{2}$ y 0 en otro caso. Por lo tanto:
-                \begin{itemize}[label=\textbullet]
-                    \item $\prod\left( \dfrac{k-6}{13} \right) $ si $k\in \{0,1,\dots,12\} $, y $0$ en otro caso.
-                    \item  $\prod\left( \dfrac{-(n-k)-3}{5} \right) =1$ si $n-k\in \{-5,-4,\dots,0\} $, y 0 en otro caso.
-                \end{itemize}
-                Esto asegura que la suma realiza únicamente en el intervalo $k\in [\max(0,n-5),\min(12,n)]$.
-        \end{enumerate}
-    \item \textbf{Suma de una progresión aritmética} 
-
-        Dentro del intervalo válido para $k$, el término $k-6$ forma una progresión aritmética con diferencia $d=1$. La suma de una progresión aritmética  $a_k=k-6$ desde  $k=k_{\min}$ hasta $k_{\max}$ es: \[
-        \sum_{k=k_{\min}}^{k_{\max}}(k-6)=\dfrac{(k_{\max}-k_{\min}+1)((k_{\min})-6)+(k_{\max}-6)}{2}. 
-        \] 
-        Aquí: \[
-        k_{\min}=max(0,n-5),\quad k_{\max}=\min(12,n).
-        \] 
+        Para que $n-k\in \{-5,-4,\dots,0\} $, se tiene:
 \end{enumerate}
 \item \lb{Se pretende procesar la señal $x(t)$ de la figura con un sistema LTI cuya respuesta al impulso es  \[
 h(t)=t\prod\left( \dfrac{2t-4}{8} \right) -2\delta(t+12)
