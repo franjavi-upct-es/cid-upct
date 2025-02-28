@@ -127,7 +127,7 @@
               ylabel={$x(t)$},
               ymin=-0.1, ymax=1.1,
               axis line style={-},
-              every axis plot/.append style={line width=1.5, lightblue},
+              every axis plog/.append style={line width=1.5, lightblue},
 		  xlabel style={at={(axis cs:6,0)}, anchor=west},
         ylabel style={at={(axis cs:0,1.1)}, anchor=south},
           ]
@@ -1514,28 +1514,413 @@ h(t)=t\prod\left( \dfrac{2t-4}{8} \right) -2\delta(t+12)
 \end{center}
 \begin{enumerate}[label=\color{red}\textbf{\alph*)}]
     \item \db{Obtenga la salida del sistema $y(t)$.} 
+
+        La salida $y(t)$ de un sistema LTI se obtiene mediante la convolución de la entrada  $x(t)$ con la respuesta al impulso $h(t)$: \[
+        y(t)=x(t)\ast h(t)=\int_{-\infty}^{\infty} x(\tau)h(t-\tau)\mathrm{d}\tau. 
+        \] 
+        \textbf{Respuestal al impulso $h(t)$:} \[
+        h(t)=t\prod\left( \dfrac{2t-4}{8} \right) -2\delta(t+12).
+        \]  
+        \begin{itemize}[label=\textbullet]
+            \item El término $t\prod\left( \dfrac{2t-4}{8} \right) $ es un pulso triangular centrado en $t=2$ con un ancho de 4 (no nulo para $t\in [0,4]$).
+            \item El término $-2\delta(t+12)$ es una función delta de Dirac escalada en  $t=-12$.
+        \end{itemize}   
+        \textbf{Señal de entrada $x(t)$:}
+
+        De la figura, $x(t)$ es un pulso rectangular definido como:  \[
+        x(t)=\begin{cases}
+            2, & 0\le t<4\\
+            -2, & 4\le t<8\\
+            0, & \text{en otro caso}
+        \end{cases}
+        \] 
+        \begin{enumerate}[label=Paso \arabic*:]
+            \item Descomposición de la convolución
+
+                La convolución se puede dividir en dos términos debido a la estructura de $h(t)$:
+                 \[
+                y(t)=\left( x(t)\ast t\prod\left( \dfrac{2t-4}{8} \right)  \right) -2(x(t)\ast\delta(t+12)).
+                \] 
+                \begin{enumerate}[label=\alph*)]
+                    \item Convolución con $\delta(t+12)$:
+
+                        La convolución con la delta desplaza la entrada  $x(t)$ por $-12$:  \[
+                        x(t)\ast \delta(t+12)=x(t+12).
+                        \] 
+                        Como $x(t)$ es no nula solo para $t\in [0,8],x(t+12)$ será no nula para $t\in [-12,4]$. Por lo tanto: \[
+                        -2(x(t)\ast\delta(t+12))=\begin{cases}
+                            -4, & -12\le t<-8\\
+                            4, & -8\le t<-4\\
+                            0, & \text{en otro caso}
+                        \end{cases}
+                        \] 
+                    \item Convolución con $t\prod\left( \dfrac{2t-4}{8} \right) $ :
+
+                        El término $t\prod\left( \dfrac{2t-4}{8} \right) $ es un pulso triangular centrado en $t=2$ con un ancho de 4 (no nulo para $t\in [0,4]$). La convolución iimplica entregar la superposición de $x(\tau)$ y el pulso triangular desplazado $t\prod\left( \dfrac{2(t-\tau)-4}{8} \right) $.
+                \end{enumerate}
+            \item Soportes de las señales
+
+                \textbf{Soporte de $x(t)$:}
+
+                La señal $x(t)$ es no nula para  $t\in [0,8]$.
+
+                \textbf{Soporte de $t\prod\left( \dfrac{3t-4}{8} \right) $ :} 
+
+                El pulso tringular es no nulo para $t\in [0,4]$.
+
+                \textbf{Soporte de la convolución:}
+
+                El soporte de la convolución es la suma de los soporte de $x(t)$ y $t\prod\left( \dfrac{2t-4}{8} \right) $, es decir: \[
+                    [0,8]+[0,4]=[0,12].
+                \] 
+                Por lo tanto, $y(t)$ será no nula para $t\in [0,12]$.
+            \item Evaluación de la convolución
+
+                La convolución se evalúa como: \[
+                y(t)=\int_{-\infty}^{\infty} x(\tau)\cdot (t-\tau)\prod\left( \dfrac{2(t-\tau)-4}{8} \right) \mathrm{d}\tau. 
+                \] 
+                \begin{enumerate}[label=\alph*)]
+                    \item Intervalos de integración:
+
+                        La integral se evalúa en los intervalos donde $x(\tau)$ y $(t-\tau)\prod\left( \dfrac{2(t-\tau)-4}{8} \right) $ se superponen. Esto depende de $t$:
+                         \begin{itemize}[label=\textbullet]
+                            \item Para $0\le t<4$, el pulso triangular está completamente dentro del soporte de $x(t)$.
+                            \item Para  $4\le t<8$, el pulso triangular se superpone parcialmente con $x(t)$.
+                            \item Para  $8\le t<12$, le pulso traingular se superpone con la segunda parte de $x(t)$.
+                        \end{itemize}
+                    \item Evaluación en cada intervalo:
+                        \begin{itemize}[label=\textbullet]
+                            \item Para $0\le t<4$:
+
+                                En este intervalo, el pulso triangular está completamente dentro del soporte de $x(t)$. La integral es:  \[
+                                y(t)=\int_{0}^{t} 2(t-\tau)\mathrm{d}\tau=2 \int_{0}^{t} (t-\tau)\mathrm{d}\tau=2\left[ t \tau-\dfrac{\tau^2}{2} \right] _0^t=2\left[ t^2-\dfrac{t^2}{2} \right] =t^2.  
+                                \] 
+                            \item Para $4\le t<8$:
+
+                                En este intervalo, el pulso triangular se superpone parcialmente con $x(t)$. La integral se divide en dos partes: \[
+                                y(t)=\int_{0}^{4} 2(t-\tau)\mathrm{d}\tau+\int_{4}^{t} -2(t-\tau)\mathrm{d}\tau.  
+                                \] 
+                                Resolviendo cada término:
+                                \begin{itemize}[label=\textbullet]
+                                    \item Para $\int_{0}^{4} 2(t-\tau)\mathrm{d}\tau $: \[
+                                            \int_{0}^{4} 2(t-\tau)\mathrm{d}\tau=2\left[ t \tau-\dfrac{\tau^2}{2} \right] _0^4=2[4t-8]=8t-16. 
+                                    \] 
+                                \item Para $\int_{4}^{t} -2(t-\tau)\mathrm{d}\tau $ : \[
+                                \int_{4}^{t} -2(t-\tau)\mathrm{d}\tau=-2\left[ t \tau-\dfrac{\tau^2}{2} \right] _4^t=-2\left[ t^2-\dfrac{t^2}{2} -(4r-8)\right]  =-2\left[ \dfrac{t^2}{2}-4t+8 \right] =-t^2+8-16
+                                \] 
+                                \end{itemize}
+                                    Sumando ambos términos: \[
+                                    y(t)=(8t-16)+(-t^2+8t-16)=-t^2+16t-32
+                                    \] 
+                                \item Para $8\le t<12$:
+
+                                    En este intervalo, el pulso triangular se superpone con la segunda parte de $x(t)$. La integral es:  \[
+                                        \begin{aligned}
+                                    y(t)&= \int_{t-4}^{8} -2(t-\tau)\mathrm{d}\tau=-2 \int_{t-4}^{7} (t-\tau)\mathrm{d}\tau=-2\left[ t \tau-\dfrac{\tau^2}{2} \right] _{t-4}^{8}\\
+                                        & =-2\left[ 8t-32-\left( t^2-4t-\dfrac{t^2-8t+16}{2} \right)  \right]  \\
+                                        &= -2\left[ 16t-64-(2t^2-8t-t^2+8t-16) \right]=-2\left[ -t^2+16t-48 \right]   \\
+                                        &= 2t^2-32t+96 \\
+                                        \end{aligned}
+                                    \] 
+                        \end{itemize}
+                \end{enumerate}
+                La salida $y(t)$ es una función por tramos definida como:  \[
+                y(t)=\begin{cases}
+                    t^2, & 0\le t<4\\
+                    -t^2+16t-32, & 4\le t<8\\
+                    2t^2-32t+96, & 8\le t<12
+                \end{cases}
+                \] 
+        \end{enumerate}
     \item \db{Indique razonadamente si este sistema posee las propiedades de memoria, causalidad y estabilidad.}
+
+        \begin{itemize}[label=\textbullet]
+            \item \textbf{Memoria}
+                \begin{itemize}[label=\textbullet]
+                    \item El sistema tiene memoria porque la respuesta al impulso $h(t)$ depende de $t$ y no solo del valor actual de la entrada.
+                \end{itemize}
+            \item \textbf{Causalidad:}
+                \begin{itemize}[label=\textbullet]
+                    \item El sistema \textbf{no es causal} porque la respuesta al impulso $h(t)$ incluye un término $-2\delta(t+12)$, que depende de valores futuros del entrada (por ejemplo, $t=-12$)
+                \end{itemize}
+            \item \textbf{Estabilidad:}
+                \begin{itemize}[label=\textbullet]
+                    \item El sistema es \textbf{estable} porque la respuesta al impulso $h(t)$ es absolutamente integrable: \[
+                    \int_{-\infty}^{\infty} |h(t)|\dt<\infty. 
+                    \] 
+                \end{itemize}
+        \end{itemize}
     \item \db{Calcule la energía total y la potencia media de $x(t)$, e indique si está definida en energía o en potencia.}
+
+        \begin{itemize}[label=\textbullet]
+            \item \textbf{Energía:}
+
+                La energía de $x(t)$ se define como:  \[
+                E_x=\int_{-\infty}^{\infty} |x(t)|^2\dt. 
+                \] 
+                Como $x(t)$ es constante por partes: \[
+                    E_x=\int_{0}^{4} |2|^2\dt+\int_{4}^{8} |-2|^2\dt=\int_{0}^{4} 4\dt+\int_{4}^{8} 4\dt=4[t]_{0}^4+4[t]_4^8 =16+16=32.
+                \] 
+            \item \textbf{Potencia:}
+
+                La potencia promedio de $x(t)$ es:  \[
+                P_x=\lim_{T \to \infty} \dfrac{1}{2T}\int_{-T}^{T} |x(t)|^2\dt=\lim_{T \to \infty} \dfrac{E_x}{2T}=\dfrac{32}{\infty}=0. 
+                \] 
+        \end{itemize}
+        $x(t)$ es una  \textbf{señal definida en energía} porque tiene energía infinita y potencia nula. 
     \item \db{A partir del resultado del apartado (a), y utilizando únicamente propiedades de la convolución, obtenga la salida del sistema frente a la entrada \[
     z(t)=8\bigwedge\left( \dfrac{t-4}{4} \right) 
     \] } 
+    La función triangular $\bigwedge\left( \dfrac{t-4}{4} \right) $ es una versión escalada y desplazada de un pulso triangular. Usando las propiedades de la convolución.
+    \begin{itemize}[label=\textbullet]
+        \item \textbf{Propiedades de escalamiento:} 
+
+            Si $x(t)\ast h(t)=y(t)$, entonces  $[a\cdot x(t)]\ast h(t)=a\cdot y(t)$. Aquí, $z(t)=8\cdot \bigwedge\left( \dfrac{t-4}{4} \right) $, por lo que la salida se escala por 8.
+        \item \textbf{Propiedad de desplazamiento:}
+
+            Si $x(t)\ast h(t)=y(t)$, entonces  $x(t-t_0)\ast h(t)=y(t-t_0)$. El pulso triangular $\bigwedge\left( \dfrac{t-4}{4} \right) $ está desplazado en 4. Por lo tanto, la salida también se desplaza.
+    \end{itemize}
+    Usando estas propiedades, la salida para $z(t)$ es:  \[
+    y_z(t)=8\cdot y(t-4),
+    \] donde $y(t)$ es el resultado de la parte (a).
+
+
+
+
+
 \end{enumerate}
+
 \item \lb{Se pretende procesar la señal $x[n]=\sin\left( \dfrac{\pi}{4}n \right) u[n]$ con un sistema LTI cuya respuesta al impulso es $h[n]=\sin\left( \dfrac{\pi}{4}n \right) u[n+2]$.}
+
     \begin{enumerate}[label=\color{red}\textbf{\alph*)}]
+
         \item \db{Represente en detalle $x[n]$ y  $h[n]$.}
+
+            \begin{center}
+                \begin{tikzpicture}
+                    \begin{axis}[
+                        xmin= -5, xmax= 5,
+                        ymin= -1, ymax = 1,
+                        axis lines = middle,
+                        xlabel={$n$}, ylabel={$x[n]$},
+                        xlabel style={at={(axis cs:5,0)}, anchor=west},
+                        ylabel style={at={(axis cs:0,1)}, anchor=south},
+                    ]
+                    \addplot[lightblue, line width=1.5, ycomb, mark=*] coordinates {
+                            (-5, 0.0)
+                             (-4, -0.0)
+                              (-3, -0.0)
+                               (-2, -0.0)
+                                (-1, -0.0)
+                                 (0, 0.0)
+                                  (1, 0.7071067811865475)
+                                   (2, 1.0)
+                                    (3, 0.7071067811865476)
+                                     (4, 1.2246467991473532e-16)
+                                      (5, -0.7071067811865475)
+                        };
+                    \end{axis}
+                \end{tikzpicture}\qquad
+                \begin{tikzpicture}
+                    \begin{axis}[
+                        xmin= -5, xmax= 5,
+                        axis lines = middle,
+                        xlabel={$n$}, ylabel={$h[n]$},
+                        xlabel style={at={(axis cs:5,0)}, anchor=west},
+                        ylabel style={at={(axis cs:0,1)}, anchor=south},
+                    ]
+                    \addplot[ycomb, mark=*, lightblue, line width=1.5] coordinates {
+                            (-5, 0.0)
+                             (-4, -0.0)
+                              (-3, -0.0)
+                               (-2, -1.0)
+                                (-1, -0.7071067811865475)
+                                 (0, 0.0)
+                                  (1, 0.7071067811865475)
+                                   (2, 1.0)
+                                    (3, 0.7071067811865476)
+                                     (4, 1.2246467991473532e-16)
+                                      (5, -0.7071067811865475)
+                        };
+                    \end{axis}
+                \end{tikzpicture}
+            \end{center}
         \item \db{Indique razonadamente si este sistema definido por $h[n]$ posee las propiedades de memoria, causalidad y estabilidad.}
+
+            El sistema está definido por su respuesta al impulso $h[n]$. Analizamos las propiedades:
+             \begin{itemize}[label=\textbullet]
+                \item \textbf{Memoria:}
+                    \begin{itemize}[label=\textbullet]
+                        \item Un sistema tiene memoria si su salida depende de valores pasados o futuros de la entrada.
+                        \item En este caso, $h[n]$ depende de  $n$, lo que implica que el sistema tiene memoria.
+                    \end{itemize}
+                \item \textbf{Causalidad:}
+                    \begin{itemize}[label=\textbullet]
+                        \item Un sistema es causal si su salida en un instante $n$ depende solo de valores presentes o pasados de la entrada.
+                        \item Como $h[n]$ es no nula para $n\ge -2$, el sistema \textbf{no es causal}, ya que depende de valores futuros de la entrada (por ejemplo, $n=-2$). 
+                    \end{itemize}
+                \item \textbf{Estabilidad:}
+                    \begin{itemize}[label=\textbullet]
+                        \item Un sistema es estable si su respuesta al impulso $h[n]$ es absolutamente sumable, es decir:  \[
+                                \sum_{n=-\infty}^{\infty} |h[n]|<\infty.
+                        \] 
+                    \item En este caso, $h[n]=\sin\left( \dfrac{\pi}{4}n \right) u[n+2]$ no es absolutamente sumable porque $\sin\left( \dfrac{\pi}{4}n \right) $ no decrece a medida que $n\to \infty$. Por lo tanto, el sistema \textbf{no es estabe}. 
+                    \end{itemize}
+            \end{itemize}
         \item \db{Calcule la señal de salida del sistema.}
+
+            La salida del sistema $y[n]$ se obtiene mediante la convolución de  $x[n]$ con  $h[n]$:  \[
+                y[n]=x[n]\ast h[n]=\sum_{k=\infty}^{\infty} x[k]h[n-k].
+            \] 
+            \textbf{Soportes de $x[n]$ y  $h[n]$:}
+            \begin{itemize}[label=\textbullet]
+                \item $x[n]$ es no nula para  $n\ge 0$.
+                \item $h[n]$ es no nula para  $n\ge -2$.
+            \end{itemize}
+            Por lo tanto, la convolución será no nula para $n\ge -2$.
+
+            \textbf{Cálculo de la convolución:}
+
+            Sustituyendo las expresiones de $x[n]$ y  $h[n]$:  \[
+                y[n]=\sum_{k=0}^{\infty} \sin\left( \dfrac{\pi}{4}k \right) \sin\left( \dfrac{\pi}{4}(n-k) \right) .
+            \] 
+            Usamos la identidad trigonométrica para el producto de senos:
+            \[
+                \sin(A)\sin(B)=\dfrac{1}{2}[\cos(A-B)-\cos(A+B)].
+            \] 
+            Sustituyendo $A=\dfrac{\pi}{4}k$ y $B=\dfrac{\pi}{4(n-k)}$ : \[
+            \sin\left( \dfrac{\pi}{4}k \right) \sin\left( \dfrac{\pi}{4}(n-k) \right) =\dfrac{1}{2}\left[ \cos\left( \dfrac{\pi}{4}k-\dfrac{\pi}{4}(n-k) \right) -\cos\left( \dfrac{\pi}{4}k +\dfrac{\pi}{4}(n-k)\right)  \right] .
+            \] 
+            Simplificando los argumentos: \[
+            \begin{array}{c}
+                \cos\left( \dfrac{\pi}{4}k-\dfrac{\pi}{4}(n-k) \right) =\cos\left( \dfrac{\pi}{4}(2k-n) \right) ,\\
+                \cos\left( \dfrac{\pi}{4}k+\dfrac{\pi}{4}(n-k) \right) =\cos\left( \dfrac{\pi}{4}n \right) 
+            \end{array}
+            \] 
+            Y por lo tanto: \[
+                y[n]=\dfrac{1}{2}\sum_{k=0}^{\infty} \left[ \cos\left( \dfrac{\pi}{4}(2k-n) \right) -\cos\left( \dfrac{\pi}{4}n \right)  \right] .
+            \] 
         \item \db{Calcule la energía total y la potencia media de $x[n]$, e indique si está definida en energía o en potencia.} 
+
+            \begin{itemize}[label=\textbullet]
+                \item \textbf{Energía total:}
+
+                    La energía de $x[n]$ está dada por:  \[
+                        E_x=\sum_{n=-\infty}^{\infty} |x[n]|^2=\sum_{n=0}^{\infty} \sin^2\left( \dfrac{\pi}{4}n \right) =\sum_{n=0}^{\infty} \dfrac{1-\cos\left( \frac{\pi}{2} n \right) }{2}=\dfrac{1}{2}\sum_{n=0}^{\infty} 1-\dfrac{1}{2}\sum_{n=0}^{\infty} \cos\left( \dfrac{\pi}{2}n \right) =\infty.
+                    \] 
+                \item \textbf{Potencia media:}
+
+                    La potencia promedio de $x[n]$ es:  \[
+                        P_x=\lim_{N \to \infty} \dfrac{1}{2N+1}\sum_{n=-N}^{N} |x[n]|^2.
+                    \] 
+                    Como $x[n]$ es periódica con periodo  $N=8$, la potencia promedio es:  \[
+                    P_x=\dfrac{1}{8}\sum_{n=0}^{7} \sin^2\left( \dfrac{\pi}{4}n \right) =\dfrac{1}{8}\cdot 4=\dfrac{1}{2}
+                    \] 
+            \end{itemize}
+            Por lo tanto, $x[n]$ es una  \textbf{señal definida en potencia}. 
         \item \db{Indique si la señal $z[n]=x[n]+x^*[-n]$ es periódica y, en su caso, obtenga el valor de su periodo.} 
+            \begin{itemize}[label=\textbullet]
+                \item \textbf{Periodicidad de $x[n]$:} 
+
+                    $x[n]$ es periódica con periodo  $N=8$.
+                \item  \textbf{Periodicidad de $x^*[-n]$:}
+
+                    $x^*[-n]$ es el conjungado de  $x[-n]$. Como  $x[n]$ es real y periódica con  $N=8,x^*[-n]$ también es periódica con  $N=8$.
+                \item \textbf{Periodicidad de $z[n]$ :}
+
+                    La suma de dos señales periódica con el mismo periodo $N=8$ es también periódica con  $N=8$.
+            \end{itemize}
+            Por lo tanto, $z[n]$ es periódica con periodo: \[
+            N_z=8.
+            \] 
     \end{enumerate}
 \item \lb{Sean la señal de entrada $x(t)$ y la respuesta al impulso $h(t)$ de un sistema LTI las siguientes: \[
-x(t)=\sin(3\pi t)\qquad h(t)=\prod\left( \dfrac{t-2}{6} \right) 
+x(t)=\sin(3\pi t),\qquad h(t)=\prod\left( \dfrac{t-2}{6} \right) 
 \] } 
 \begin{enumerate}[label=\color{red}\textbf{\alph*)}]
     \item \db{Razone si el sistema tiene memoria, si es causal y si es estable.}
+
+        El sistema está definido por su respuesta al impulso $h(t)=\prod\left( \dfrac{t-2}{6} \right) $, que es un pulso rectangular centrado en $t=2$ con un ancho de 6 (no nulo para $t\in [-1,5]$).
+    \begin{enumerate}[label=\textbf{\arabic*)}]
+            \item \textbf{Memoria:}
+                \begin{itemize}[label=\textbullet]
+                    \item Un sistema tiene memoria si su salida depende de valores pasados o futuros de la entrada.
+                    \item En este caso, $h(t)$ depende de  $t$, lo que implica que el sistma tiene memoria.
+                \end{itemize}
+            \item \textbf{Causalidad:}
+                \begin{itemize}[label=\textbullet]
+                    \item Un sistema es causal si su salida en un instante $t$ depende de valores presentes o pasados de la entrada. 
+                    \item Como $h(t)$ es no nula para $t\in [-1,5]$, el sistema \textbf{no es causal}, ya que depende de valores futuros de la entrada (por ejemplo, $t>0$).
+                \end{itemize}
+            \item \textbf{Estabilidad:}
+                \begin{itemize}[label=\textbullet]
+                    \item Un sistema es estable si su respuesta al impulso $h(t)$ es absolutamente integrable, es decir:  \[
+                    \int_{-\infty}^{\infty} |h(t)|\dt<\infty. 
+                    \] 
+                \item En este caso, $h(t)$ es un pulso rectangular con un ancho finito de 6 y una amplitud constante de 1. Por lo tanto:  \[
+                \int_{-\infty}^{\infty} |h(t)|\dt=\int_{-1}^{5} 1\dt=6<\infty.  
+                \] 
+                \end{itemize}
+        \end{enumerate}
+        El sistema \textbf{es estable}. 
     \item \db{Calcule analíticamente la señal de salida.}
+
+        La salida del sistema $y(t)$ se obtiene mediante la convolución de  $x(t)$ con  $h(t)$:  \[
+        y(t)=x(t)\ast h(t)=\int_{-\infty}^{\infty} x(\tau)h(t-\tau)\mathrm{d}\tau. 
+        \] 
+        \textbf{Señales involucradas:}
+        \begin{itemize}[label=\textbullet]
+            \item $x(t)=\sin(3\pi t)$, una señal sinusoidal con frecuencia angular $\omega=3\pi$.
+            \item $h(t)=\prod\left( \dfrac{t-2}{6} \right) $, un pulso rectangular centrado en $t=2$ con ancho 6 (no nulo para $t\in [-1,5]$).
+        \end{itemize}
+        \textbf{Soporte de la convolución:} 
+
+        El soporte de $h(t)$ es $t\in [-1,5]$, y $x(t)$ es no nula para todo $t$. Por lo tanto, el soporte de  $y(t)$ será  $t\in [-1,5]$.
+
+        \textbf{Cálculo de la convolución:}
+
+        Sustituyendo las expresiones de $x(t)$ y  $h(t)$:  \[
+        y(t)=\int_{-\infty}^{\infty} \sin(3\pi \tau)\prod\left( \dfrac{t-\tau-2}{6} \right) \mathrm{d}\tau. 
+        \] 
+        El pulso rectangular $\prod\left( \dfrac{t-\tau-2}{6} \right) $ es no nulo solo para $t-\tau\in [-3,3]$, es decir, $\tau\in [t-3,t+3]$. Por lo tanto, la integral se reduce a: \[
+            y(t)=\int_{t-3}^{t+3} \sin(3\pi \tau)\mathrm{d}\tau=\left[ -\dfrac{\cos(3\pi\tau)}{3\pi}\right]_{t-3}^{t+3}=-\dfrac{1}{3\pi}[\cos(3\pi(t+3))-\cos(3\pi(t-3))] . 
+        \] 
+        Usando la identidad de la diferencia de cosenos: \[
+        \cos(A)-\cos(B)=-2\sin\left( \dfrac{A+B}{2} \right) \sin\left( \dfrac{A-B}{2} \right) .
+        \] 
+        Sustituyendo $A=3\pi(t+3)$ y $B=3\pi(t-3)$: \[
+        A+B=3\pi(t+3)+3\pi(t-3)=6\pi t,\quad A-B=3\pi(t+3)-3\pi(t-3)=18\pi.
+        \] 
+        Por lo tanto: \[
+        y(t)=-\dfrac{1}{3\pi}\left[ -2\sin\left( \dfrac{6\pi t}{2} \right) \sin\left( \dfrac{18\pi}{2} \right)  \right] =\dfrac{2}{3\pi}\sin(3\pi t)\tozero{\sin(9\pi)}=0 .
+        \] 
     \item \db{Calcule la energía total y la potencia media de $x(t)$, e indique si está definida en energía o en potencia.} 
+
+        \textbf{Energía total:}
+
+        La energía de $x(t)$ está dada por:  \[
+        E_x=\int_{-\infty}^{\infty} |x(t)|^2\dt=\int_{-\infty}^{\infty} \sin^2(3\pi t)\dt=\int_{-\infty}^{\infty} \dfrac{1-\cos(6\pi t)}{2}\dt=\dfrac{1}{2}\int_{-\infty}^{\infty} 1\dt-\dfrac{1}{2}\tozero{\int_{-\infty}^{\infty} \cos(6\pi t)\dt } =\infty   . 
+        \] 
+        \textbf{Potencia media:}
+
+        La potencia promedio de $x(t)$ es:  \[
+        P_x=\lim_{T \to \infty} \dfrac{1}{2T}\int_{-T}^{T} |x(t)|^2\dt. 
+        \] 
+        Sustituyendo $x(t)=\sin(3\pi t)$: \[
+        P_x=\lim_{T \to \infty} \dfrac{1}{2}\int_{-T}^{T} \sin^2(3\pi t)\dt. 
+        \] 
+        Usamos nuevamente $\sin^2(A)=\dfrac{1-\cos(2A)}{2}$: \[
+        P_x=\lim_{T \to \infty} \dfrac{1}{2T}\int_{-T}^{T} \dfrac{1}{2}\dt=\lim_{T \to \infty} \dfrac{1}{4T} \left( T-(-T) \right) =\lim_{T \to \infty} \dfrac{2T}{4T}=\dfrac{1}{2}.
+        \] 
+        Por lo tanto, $x(t)$ es una  \textbf{señal definida en potencia.} 
     \item \db{A partir del resultado del apartado (b), y aplicando únicamente propiedades de la convolución, obtenga la señal de salida producida por la entrada $z(t)=\cos(3\pi t)$.}
+
+        Usamos la propiedad de la convolución para señales sinsusoidales. Sabemos que: \[
+        x(t)\sin(3\pi t),\quad z(t)=\cos(3\pi t).
+        \] 
+        La convolución de $z(t)$ con  $h(t)$ será similar a la de  $x(t)$, pero con un desfase. Como la salida para  $x(t)$ fue  $y(t)=0$, la salida para  $z(t)$ también será:  \[
+        y_z(t)=0.
+        \] 
 \end{enumerate}
 \item \lb{Sea \[
 y(t)=e^{-t} u(t)\ast \sum_{k=-\infty}^{\infty} \delta(t-3k). 
