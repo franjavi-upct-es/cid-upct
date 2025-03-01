@@ -1925,10 +1925,90 @@ x(t)=\sin(3\pi t),\qquad h(t)=\prod\left( \dfrac{t-2}{6} \right)
 \item \lb{Sea \[
 y(t)=e^{-t} u(t)\ast \sum_{k=-\infty}^{\infty} \delta(t-3k). 
 \] Demuestre que $y(t)=Ae^{-t} $ para $0\le t<3$, y determine el valor de $A$.} 
+
+\begin{enumerate}[label=Paso \arabic*:]
+    \item Propiedad de la convolución con un tren de impulsos
+
+        La convolución de una función $f(t)$ con un tren de impulsos  $\sum_{k=-\infty}^{\infty} \delta(t-Tk)$ tiene una propiedad importante: \[
+        f(t)\ast \sum_{k=-\infty}^{\infty} \delta(t-Tk)=\sum_{k=-\infty}^{\infty} f(t-Tk).
+        \] 
+        En este caso, $f(t)=e^{-t}u(t) $ y $T=3$. Por lo tanto, la convolución se convierte en:  \[
+        y(t)=\sum_{k=-\infty}^{\infty} e^{-(t-3k)}u(t-3k). 
+        \] 
+    \item Análisis del escalón unitario $u(t-3k)$
+
+        El término  $u(t-3k)$ asegura que cada término de la suma es no nulo solo cuando  $t-3k\ge 0$, es decir, $t\ge 3k$. Esto significa que el término $e^{-(t-3k)} $ contribuye a la suma solo si $t\ge 3k$.
+
+        Por lo tanto, la suma se reduce a los valores de $k$ tales que $3k\le t$. Esto implica que solo un número finito de términos contribuyen a la suma para un valor dado de $t$.
+    \item Determinación de  $y(t)$ en el intervalo  $0\le t<3$.
+
+        En el intervalo $0\le t<3$, el único valor de $k$ que satisface $3k\le t$ es $k=0$, ya que para  $k=-1,3k,=-3$, y para  $k=1,3k=3$, que excede el intervalo.
+
+        Por lo tanto, en este intervalo, la suma se reduce a un solo término:  \[
+        y(t)=e^{-(t-3\cdot 0)} u(t-3\cdot 0)=e^{-t}u(t) 
+        \] 
+        Dado que $u(t)=1$ para  $t\ge 0$, tenemos: \[
+        y(t)=e^{-t},\text{ para $0\le t<3$.} 
+        \] 
+        \begin{center}
+            \begin{tikzpicture}
+                \begin{axis}[
+                    xmin= -2, xmax= 6,
+                    ymin= -0.1, ymax = 1,
+                    xlabel={$t$}, ylabel={$y(t)$},
+                    axis lines = middle,
+                    xlabel style={at={(axis cs:6,0)}, anchor=west},
+                    ylabel style={at={(axis cs:0,1)}, anchor=south},
+                ]
+                    \addplot[domain=-2:6, samples=1000, lightblue, line width=1.5] {x<0 ? 0 : (x<3 ? e^(-x) : 0)};
+                \end{axis}
+            \end{tikzpicture}
+        \end{center}
+    \item Determinación del valor de $A$
+
+        Comparando con la forma dada  $y(t)=Ae^{-t} $ para $0\le t<3$, se concluye que: \[
+        A=1.
+        \] 
+\end{enumerate}
 \item \lb{Sea un sistema discreto $S_1$ con respuesta al impulso $h[n]=\left( \dfrac{1}{5} \right) ^nu[n]$.}
     \begin{enumerate}[label=\color{red}\textbf{\alph*)}]
         \item \db{Determine el número real $A$ tal que  $h[n]-Ah[n-1]=\delta[n]$.}
+
+            El sistema $S_1$ tiene una respuesta al impulso: \[
+                h[n]=\left( \dfrac{1}{5} \right) ^nu[n],
+            \] donde $u[n]$ es la función escalón unitario, que es igual a 1 para  $n\ge 0$ y $0$ para $n<0$.
+
+            Queremos encontrar un valor de  $A$ tal que: \[
+                h[n]-Ah[n-1]=\delta[n],
+            \] donde $\delta[n]$ es de la delta de Dirac discreta, que es igual a 1 para  $n=0$ y 0 para  $n\neq 0$.
+
+            \textbf{Sustitución de $h[n]$ y  $h[n-1]$:}
+
+            Sustituyendo $h[n]=\left( \dfrac{1}{5} \right) ^nu[n]$ y $h[n-1]=\left( \dfrac{1}{5} \right) ^{n-1}u[n-1]$, tenemos: \[
+                h[n]-Ah[n-1]=\left( \dfrac{1}{5} \right) ^nu[n]-A\left( \dfrac{1}{5} \right) ^{n-1}u[n-1].
+            \] 
+            \begin{itemize}[label=\textbullet]
+                \item \textbf{Caso $n=0$:}
+
+                    Para $n=0,u[0]=1$ y  $u[-1]=0$. Por lo tanto:  \[
+                        h[0]-Ah[-1]=\left( \dfrac{1}{5} \right) ^0 -A\cdot 0=1.
+                    \] 
+                    Esto coincide con $\delta[0]=1$.
+                \item  \textbf{Caso $n>0$:}
+
+                    Para $n>0,u[n]=1$ y $u[n-1]=1$. Sustituyendo:  \[
+                        h[n]-Ah[n-1]=\left( \dfrac{1}{5} \right) ^n-A\left( \dfrac{1}{5} \right) ^{n-1}=\left( \dfrac{1}{5} \right) ^{n-1}\left( \dfrac{1}{5}-A \right) .
+                    \] 
+                    Para que esto sea igual a $\delta[n]$, que es 0 para  $n>0$, necesitamos que:  \[
+                    \dfrac{1}{5}-A=0\longrightarrow A=\dfrac{1}{5}.
+                    \] 
+
+            \end{itemize}
         \item \db{A partir del resultado del apartado anterior, determine la respuesta al impulso del sistema inverso de $S_1$.} 
+
+            El sistema inversor de $S_1$ es aquel cuya respuesta al impulso $h_{\text{inv}}[n]$ satisface: \[
+            h_{\text{inv}}
+            \] 
     \end{enumerate}
 \item \lb{Sea la conexión en cascada de dos sistemas $S_1$ y $S_2$ LTI causal tal que:\\
     En $S_1$ la relación entre entrada $x[n]$ y salida  $w[n]=\dfrac{1}{2}w[n-1]+x[n]$.\\
