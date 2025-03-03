@@ -127,13 +127,13 @@
               ylabel={$x(t)$},
               ymin=-0.1, ymax=1.1,
               axis line style={-},
-              every axis plog/.append style={line width=1.5, lightblue},
 		  xlabel style={at={(axis cs:6,0)}, anchor=west},
         ylabel style={at={(axis cs:0,1.1)}, anchor=south},
           ]
               \addplot[
                   domain=-2:6,
-                  samples=1000
+                  samples=1000,
+                  lightblue, line width=1.5
               ]
               {exp(2*x)*(x<=0)};
           \end{axis}
@@ -147,13 +147,13 @@
               ylabel={$h(t)$},
               ymin=-0.1, ymax=1.1,
               axis line style={-},
-              every axis plot/.append style={line width=1.5, lightblue},
               xlabel style={at={(axis cs:6,0)}, anchor=west},
         ylabel style={at={(axis cs:0,1.1)}, anchor=south},
           ]
               \addplot[
                   domain=-2:6,
-                  samples=1000
+                  samples=1000,
+                  lightblue, line width=1.5
               ]
               {x>=3 ? 1 : 0};
           \end{axis}
@@ -1631,6 +1631,20 @@ h(t)=t\prod\left( \dfrac{2t-4}{8} \right) -2\delta(t+12)
                     2t^2-32t+96, & 8\le t<12
                 \end{cases}
                 \] 
+                \begin{center}
+                    \begin{tikzpicture}
+                        \begin{axis}[
+                            xlabel={$t$}, ylabel={$y(t)$},
+                            axis lines = middle,
+                            xlabel style={at={(axis cs:12,0)}, anchor=west},
+                            ylabel style={at={(axis cs:0,30)}, anchor=south},
+                        ]
+                            \addplot[domain=0:4, samples=1000, lightblue, line width=1.5] {x^2};
+                            \addplot[domain=4:8.1, samples=1000, lightblue, line width=1.5] {x>8 ? 0 : -x^2+16*x-32};
+                            \addplot[domain=7.9:12, samples=1000, lightblue, line width=1.5] {x<8 ? 0 : 2*x^2-32*x+96};
+                        \end{axis}
+                    \end{tikzpicture}
+                \end{center}
         \end{enumerate}
     \item \db{Indique razonadamente si este sistema posee las propiedades de memoria, causalidad y estabilidad.}
 
@@ -2007,22 +2021,205 @@ y(t)=e^{-t} u(t)\ast \sum_{k=-\infty}^{\infty} \delta(t-3k).
         \item \db{A partir del resultado del apartado anterior, determine la respuesta al impulso del sistema inverso de $S_1$.} 
 
             El sistema inversor de $S_1$ es aquel cuya respuesta al impulso $h_{\text{inv}}[n]$ satisface: \[
-            h_{\text{inv}}
-            \] 
+                h_{\text{inv}}[n]\ast h[n]=\delta[n],
+            \] donde $\ast$ denota la convolución discreta.
+
+             \textbf{Relación obtenida en el apartado (a):}
+
+             Del apartado (a), sabemos que: \[
+                 h[n]-\dfrac{1}{5}h[n-1]=\delta[n].
+             \] 
+             Esto se puede interpretar como una ecuación en diferencias que describe el sistema inverso. Reescribimos la ecuación como: \[
+                 h[n]=\delta[n]+\dfrac{1}{5}h[n-1].
+             \] 
+             Esta ecuación describe un sistema recursivo, y su solución es la respuesta al impulso del sistema inverso.
+
+             \textbf{Forma explícita de $h_{\text{inv}}[n]$:} 
+
+             La ecuación en diferencias se puede resolver iterativamente. Para $n=0$, tenemos:  \[
+                 h[0]=\delta[0]=1.
+             \] 
+             Para $n=1$, tenemos:  \[
+                 h[1]=\dfrac{1}{5}h[0]=\dfrac{1}{5}
+             \] 
+             Para $n=2$, tenemos:  \[
+                 h[2]=\dfrac{1}{5}h[1]=\dfrac{1}{5}\cdot \dfrac{1}{5}=\left( \dfrac{1}{5} \right) ^2.
+             \] 
+             En general, para $n\ge 0$: \[
+                 h_{\text{inv}}[n]=\left( \dfrac{1}{5} \right) ^nu[n].
+             \] 
+             \begin{center}
+                 \begin{tikzpicture}
+                     \begin{axis}[
+                         xmin= -5, xmax= 5,
+                         ymin= -0.1, ymax = 1,
+                         xlabel={$n$}, ylabel={$h_{\text{inv}}[n]$},
+                         axis lines = middle,
+                         xlabel style={at={(axis cs:5,0)}, anchor=west},
+                         ylabel style={at={(axis cs:0,1)}, anchor=south},
+                     ]
+                         \pgfmathsetmacro{\mysamples}{5-(-5)+1}
+                         \addplot+[ycomb, mark=*, lightblue, line width=1.5, domain=-5:5, samples=\mysamples] {x<0 ? 0 : (1/5)^x};
+                     \end{axis}
+                 \end{tikzpicture}
+             \end{center}
     \end{enumerate}
 \item \lb{Sea la conexión en cascada de dos sistemas $S_1$ y $S_2$ LTI causal tal que:\\
     En $S_1$ la relación entre entrada $x[n]$ y salida  $w[n]=\dfrac{1}{2}w[n-1]+x[n]$.\\
-En $S_2$ la relación entre entrada $w[n]$ y salida  $y[n]$ es  $y[n]=\alpha y[n-1]+\beta[n]$.\\ Si la ecuación en diferencias que relaciona $y[n]$ y  $x[n]$ es  \[
+En $S_2$ la relación entre entrada $w[n]$ y salida  $y[n]$ es  $y[n]=\alpha y[n-1]+\beta w[n]$.\\ Si la ecuación en diferencias que relaciona $y[n]$ y  $x[n]$ es  \[
     y[n]=-\dfrac{1}{8}y[n-2]+\dfrac{3}{4}y[n-1]+x[n]
 \] } 
 \begin{enumerate}[label=\color{red}\textbf{\alph*)}]
     \item \db{Determine $\alpha$ y $\beta$.}
+
+        Se tienen los dos sistemas en cascada:
+        \begin{itemize}[label=\textbullet]
+            \item En $S_1$ la relación es \[
+                    w[n]=\dfrac{1}{2}w[n-1]+x[n].
+            \] 
+            \item En $S_2$ la relación es \[
+                    y[n]=\alpha y[n-1]+\beta w[n].
+            \] 
+        \end{itemize}
+        Como se conectan en cascada, la salida de $S_1$ alimenta a $S_2$. Entonces, sustituyendo la salida de $S_1$ en la ecuación de $S_2$ tenemos: \[
+            y[n]=\alpha y[n-1]+\beta\left( x[n]+\dfrac{1}{2}w[n-1] \right) .
+        \] 
+        Ahora, notamos que la misma relación de $S_2$ aplicada en el instante $n-1$ da: \[
+            y[n-1]=\alpha y[n-2]+\beta w[n-1],
+        \] de donde se despeja: \[
+        w[n-1]=\dfrac{1}{\beta}\left( y[n-1]-\alpha y[n-2] \right) .
+        \] 
+        Sustituyendo esta expresión en la ecuación de $y[n]$ se tiene:  \[
+        \begin{aligned}
+            y[n] &=  \alpha y[n-1]+\beta x[n]+\dfrac{\beta}{2}w[n-1] \\
+                 &= \alpha y[n-1]+\beta x[n]+\dfrac{\beta}{2}\cdot \dfrac{1}{\beta}\left( y[n-1]-\alpha y[n-2] \right)  \\
+                 &= \left( \alpha+\dfrac{1}{2} \right) y[n-1]-\dfrac{\alpha}{2}y[n-2]+\beta x[n]. \\
+        \end{aligned}
+        \] 
+        Pero se nos dice que la ecuación de diferencias global es: \[
+            y[n]=\dfrac{3}{4}y[n-1]-\dfrac{1}{8}y[n-2]+x[n].
+        \] 
+        Al equiparar coeficientes obtenemos: 
+        \begin{itemize}[label=\textbullet]
+            \item Para $y[n-1]$:  \[
+            \alpha+\dfrac{1}{2}=\dfrac{3}{4}\longrightarrow \alpha=\dfrac{3}{4}-\dfrac{1}{2}=\dfrac{1}{4}.
+            \] 
+        \item Para $y[n-2]$ : \[
+        -\dfrac{\alpha}{2}=-\dfrac{1}{8}\longrightarrow \alpha=\dfrac{1}{4}\quad \text{(confirmado).}
+        \] 
+    \item Para $x[n]$:  \[
+    \beta=1.
+    \] 
+        \end{itemize}
+        Por lo tanto, se tiene que: \[
+        \bboxed{\alpha=\dfrac{1}{4}\quad\text{ y }\quad \beta=1.} 
+        \] 
     \item \db{Obtenga la respuesta al impulso de la conexión en cascada de $S_1$ y $S_2$.} 
+
+        Primero se obtiene la respuesta al impulso de cada sistema individual:
+        \begin{itemize}[label=\textbullet]
+            \item \textbf{Sistema $S_1$:}
+
+                La ecuación de diferencias es \[
+                    w[n]-\dfrac{1}{2}w[n-1]=x[n].
+                \] 
+                Con entrada impulso $x[n]=\delta[n]$ y siendo el sistema causal, la respuesta al impulso es:  \[
+                    h_1[n]=\left( \dfrac{1}{2} \right) ^n u[n],
+                \] donde $u[n]$ es la función escalón unitario.
+            \item \textbf{Sistema $S_2$:}
+
+                Con $\alpha=\dfrac{1}{4}$ y $\beta=1$, la ecuación es  \[
+                    y[n]-\dfrac{1}{4}y[n-1]=w[n].
+                \] 
+                Para entrada impulso $w[n]=\delta[n]$ se tiene la respuesta:  \[
+                    h_2[n]=\left( \dfrac{1}{4} \right) ^nu[n].
+                \] 
+                Al conectar en cascada, la respuesta total es la convolución de las respuestas individuales: \[
+\begin{aligned}
+                    h[n]&=h_1[n]\ast h_2[n]=\sum_{k=0}^{n} h_1[k]h_2[n-k]=\sum_{k=0}^{n} \left( \dfrac{1}{2} \right) ^k\left( \dfrac{1}{4} \right) ^{n-k}\\
+&=\left( \dfrac{1}{4} \right) ^n \sum_{k=0}^{n} \left( \dfrac{\frac{1}{2} }{\frac{1}{4} } \right) ^k=\left( \dfrac{1}{4} \right) ^n \sum_{k=0}^{n} 2^k =\left( \dfrac{1}{4} \right) ^n\left( 2^{n+1}-1 \right).
+\end{aligned}
+                \]
+                Alternativamente, se puede escribir la respuesta al impulso en forma factorizada: \[
+                \bboxed{h[n]=2\left( \dfrac{1}{2} \right) ^n-\left( \dfrac{1}{4} \right) ^n,\quad n\ge 0.}
+                \] 
+                \begin{center}
+                    \begin{tikzpicture}
+                        \begin{axis}[
+                            xmin= -1, xmax= 10,
+                            ymin= -0.1, ymax = 1,
+                            xlabel={$n$}, ylabel={$h[n]$},
+                            axis lines = middle,
+                            xlabel style={at={(axis cs:10,0)}, anchor=west},
+                            ylabel style={at={(axis cs:0,1)}, anchor=south},
+                        ]
+                            \pgfmathsetmacro{\mysamples}{10-(-1)+1}
+                            \addplot+[ycomb, mark=*, lightblue, line width=1.5, domain=0:10, samples=\mysamples] {2*(1/2)^x-(1/4)^x};
+                        \end{axis}
+                    \end{tikzpicture}
+                \end{center}
+        \end{itemize}
 \end{enumerate}
 \item \lb{La salida de un sistema viene dada por $y[n]=x[2+n]+x[2-n]$.}
     \begin{enumerate}[label=\color{red}\textbf{\alph*)}]
         \item \db{Indique razonadamente si el sistema cumple las propiedades de memoria, causalidad, estabilidad, invarianza en el tiempo y/o linealidad.}
+
+            Analicemos las propiedades:
+            \begin{enumerate}[label=\textbf{\arabic*)}]
+                \item \textbf{Memoria}
+
+                    Un sistema tiene memoria si su salida depende de valores pasados o futuros de la entrada. En este caso, $y[n]$ depende de  $x[2+n]$ (futuro) y $x[2-n]$ (pasado). Por lo tanto, el sistema  \textbf{tiene memoria}.
+                \item \textbf{Causalidad}
+
+                    Un sistema es causal si su salida en el instante $n$ depende únicamente de valores presentes o pasados de la entrada. Aquí, $y[n]$ depende de  $x[2+n]$, que corresponde a valores futuros de la entrada. Por lo tanto, el sistema  \textbf{no es causal}.
+                \item \textbf{Estabilidad}
+
+                    Un sistema es estable si, para cualquier entrada acotada, la salida también es acotada. Si $x[n]$ es acotada, entonces  $x[2+n]$ y  $x[2-n]$ también son acotadas, y su suma también será acotada. Por lo tanto, el sistema  \textbf{es estable}. 
+                \item \textbf{Invarianza en el tiempo}
+
+                    Un sistema es invariante en el tiempo si un desplazamiento en la entrada produce el mismo desplazamiento en la salida. Supongamos que desplazamos la entrada $x[n]$ por  $k$, es decir, consideramos  $x_k[n]=x[n-k]$. La salida correspondiente sería:  \[
+                        y_k[n]=x_k[2+n]+x_k[2-n]=x[2+n-k]+x[2-n-k].
+                    \] 
+                    Comparando con la salida original $y[n]=x[2+n]+x[2-n]$, vemos que el desplazamiento no se refleja de manera uniforme en la salida. Por lo tanto, el sistema  \textbf{no es invariante en el tiempo}. 
+                \item \textbf{Linealidad}
+                    
+                    Un sistema es lienal si satisface el principio de superposición. Supongamos que las entradas son $x_1[n]$ y $x_2[n]$, con salidas $y_1[n]$ y $y_2[n]$, respectivamente. Si la entrada es una combinación lineal $ax_1[n]+bx_2[n]$, la salida será: \[
+                        y[n]=ax_1[2+n]+ax_1[2-n]+bx_2[2+n]+bx_2[2-n].
+                    \] 
+                    Esto es equivalente a $ay_1[n]+by_2[n]$. Por lo tanto, el sistema \textbf{es lineal.} 
+            \end{enumerate}
         \item \db{Considere la señal $x[n]=\bigwedge\left( \dfrac{n}{3} \right) +\bigwedge\left( \dfrac{n-6}{3} \right) $. Obtenga y represente la parte par $x[n]$, indicando si se trata de una señal definida en energía o en potencia.}
+
+            La señal dada es: \[
+                x[n]=\bigwedge\left( \dfrac{n}{3} \right) +\bigwedge\left( \dfrac{n-6}{3} \right) ,
+            \] donde $\bigwedge(x)$ es el pulso triangular definido como:  \[
+            \bigwedge(x)=\begin{cases}
+                1-|x|, & |x|<1\\
+                0, & \text{en otro caso}
+            \end{cases}
+            \] 
+            \textbf{Parte par de una señal} 
+
+            La parte par de una señal $x[n]$ se define como:  \[
+                x_{\text{par}}[n]=\dfrac{x[n]+x[-n]}{2}.
+            \] 
+            Sustituyendo $x[n]$ en esta fórmula:  \[
+                x_{\text{par}}[n]=\dfrac{\bigwedge\left( \frac{n}{3} \right) +\bigwedge\left( \frac{n-6}{3}  \right) +\bigwedge\left( \frac{-n}{3}  \right) +\bigwedge\left( \frac{-n-6}{3}  \right) }{2}.
+            \] 
+            Ahora evaluamos cada término: 
+            \begin{itemize}[label=\textbullet]
+                \item $\bigwedge\left( \dfrac{-n}{3} \right) =\bigwedge\left( \dfrac{n}{3} \right) $, ya que el pulso triangular es par.
+                \item $\bigwedge\left( \dfrac{-n-4}{3} \right) =\left( \dfrac{-(n+6)}{3} \right) =\bigwedge\left( \dfrac{n+6}{3} \right) $, ya que el pulso traingular también es par.
+            \end{itemize}
+            Por lo tanto: \[
+                x_{\text{par}}[n]=\dfrac{\bigwedge\left( \frac{n}{3}  \right) +\bigwedge\left( \frac{n-6}{3}  \right) +\bigwedge\left( \frac{n}{3}  \right) +\bigwedge\left( \frac{n+6}{3}  \right) }{2}=\bigwedge\left( \dfrac{n}{3} \right) +\dfrac{\bigwedge\left( \frac{n-6}{3}  \right) +\bigwedge\left( \frac{n+6}{3}  \right) }{2}.
+            \] 
+            \textbf{Señal definida en energía o potencia}
+
+            Para determinar si la señal está definida en energía o en potencia, calculamos la energía total: \[
+                E=\sum_{n=-\infty}^{\infty} |x[n]|^2.
+            \] 
+            Dado que $\bigwedge(x)$ tiene soporte finito,  $x[n]$ también tiene soporte finito, lo que implica que la energía es finita. Por lo tanto,  $x[n]$ es una señal  \textbf{definida en energía}. 
         \item \db{Realice la convolución discreta $x_1[n]\ast x_2[n]$, siendo \[
         \begin{array}{c}
             x_1[n]=\prod\left( \dfrac{n-6}{13} \right) +u[n-13]\\
@@ -2038,9 +2235,150 @@ En $S_2$ la relación entre entrada $w[n]$ y salida  $y[n]$ es  $y[n]=\alpha y[n
 \] } 
 \begin{enumerate}[label=\color{red}\textbf{\alph*)}]
     \item \db{Represente detalladamente las señales $x(t)$ y $h(t)$.}
+
+    \begin{center}
+        \begin{tikzpicture}
+            \begin{axis}[
+                xmin= -2, xmax= 8,
+                ymin= -0.5, ymax = 2.5,
+                xlabel={$t$}, ylabel={$x(t)$},
+                axis lines = middle,
+                xlabel style={at={(axis cs:8,0)}, anchor=west},
+                ylabel style={at={(axis cs:0,2.5)}, anchor=south},
+            ]
+            \addplot[lightblue, line width=1.5] coordinates {
+                    (-2,0) (-1,0) (-1,1) (3,1) (4,2) (4,0) (8,0)
+                };
+            \end{axis}
+        \end{tikzpicture}\qquad
+        \begin{tikzpicture}
+            \begin{axis}[
+                xmin= -1, xmax= 8,
+                ymin= -0.5, ymax = 3.5,
+                xlabel={$t$}, ylabel={$h(t)$},
+                axis lines = middle,
+                xlabel style={at={(axis cs:8,0)}, anchor=west},
+                ylabel style={at={(axis cs:0,3.5)}, anchor=south},
+            ]
+            \addplot[lightblue, line width=1.5] coordinates {
+                    (-1,0) (5,0) (5,3) (7,0) (8,0)
+                };
+            \draw[-latex, lightblue, line width=1.5] (axis cs:0,0) -- (axis cs:0,2.2) node[right] {$2\delta(t)$};
+            \end{axis}
+        \end{tikzpicture}
+    \end{center}
     \item \db{Indique razonadamente si el sistema definido por $h(t)$ cumple las propiedades de memoria, causalidad, estabilidad y/o invarianza.}
+
+        Considerando $h(t)\dfrac{9}{2}\bigwedge\left( \dfrac{t-4}{3} \right) u(t-5)+2\delta(t)$, se pueden señalar las siguientes propiedades:
+        \begin{itemize}[label=\textbullet]
+            \item \textbf{Memoria:}
+
+                Un sistema es \textit{sin memoria} si la salida en cada instante depende únicamente de la entrada en ese instante. En los sistemas LTI, esto ocurre solmanete si $h(t)=K\delta(t)$ (un escalamiento instantáneo). EN este caso, al existir además la componente continua (la parte triangular para $t\ge 5$), la salida depende de valores previos o posteriores de la entrada. Por ello, el sistema \textbf{tiene memoria}.
+            \item \textbf{Causalidad:}
+
+                Un sistema causal requiere que $h(t)=0$ para  $t<0$. Aquí:
+                 \begin{itemize}[label=\textbullet]
+                    \item El término $2\delta(t)$ tiene soporte en  $t=0$.
+                    \item La función  $u(t-5)$ obliga a que el pulso triangular sea 0 para $t<5$. Por lo tanto,  $h(t)=0$ para  $t<0$ y el sistema  \textbf{es causal}. 
+                \end{itemize}
+            \item \textbf{Estabilidad:}
+
+                La estabilidad exige que la integral del valor absoluto de la respuesta al impulso sea finita: \[
+                \int_{-\infty}^{\infty} |h(t)|\dt<\infty. 
+                \] 
+                La delta aporta una integral igual a 2, y la parte triangular tiene soporte acotado $(t\in [5,7])$ y está escalada por $\dfrac{9}{2}$, de modo que su integral es finita. Por ello, el sistema \textbf{es estable}.
+            \item \textbf{Invarianza en el tiempo:}
+
+                Dado que la respuesta al impulso $h(t)$ define al sistema LTI, éste es, por construcción, \textbf{invariante en el timepo}. 
+        \end{itemize}
     \item \db{Calcule de forma analítica la convolución $y(t)=x(t)\ast h(t)$. (\underline{Nota:} puede hacer uso de las propiedades de la convolución).}
+
+        Se desea calcular $$y(t)=(x\ast h)(t)=\int_{-\infty}^{\infty} x(\tau)h(t-\tau)\mathrm{d}\tau. $$
+
+        Debido a la linealidad de la convolución y a la estructura de $h(t)$, escribimos  \[
+        y(t)=x(t)\ast\left[ 2+d(t) \right] +x(t)\ast\left[ \dfrac{9}{2}\bigwedge\left( \dfrac{t-4}{3} \right) u(t-5) \right] =2x(t)+\dfrac{9}{2}\int_{-\infty}^{\infty} x(\tau) \bigwedge\left( \dfrac{t-\tau-4}{3} \right) u(t-\tau-5)\mathrm{d}\tau.
+        \] 
+        \textbf{Observaciones para simplificar la integral:}
+        \begin{itemize}[label=\textbullet]
+            \item El escalón $u(t-\tau-5)$ exige que  $t-\tau\ge 5$, es decir, $\tau\le t-5$.
+            \item La función $\bigwedge\left( \dfrac{t-\tau-4}{3} \right) $ es diferente de cero únicamente cuando \[
+                    \left| \dfrac{t-\tau-4}{3} \right| \le 1\longrightarrow t-\tau\in [4,7].
+            \] 
+            \item Combinando los dos puntos anteriores se tiene que el integrando es no nulo cuando: \[
+                t-\tau\in [5,7]\longrightarrow \tau\in [t-7,t-5].
+        \] 
+            \item Además, recordemos que $x(\tau)$ es no nula únicamente en  $\tau\in [-1,4]$.
+        \end{itemize}
+        Por lo tanto, el intervalo efectivo de integración es \[
+            \delta\in\left[ \max \{-1,t-7\}, \min \{4,t-5\}  \right] .
+        \] 
+        En este intervalo (donde además se cumple que $t-\tau\in [5,7]$), se tiene que \[
+        \bigwedge\left( \dfrac{t-\tau-4}{3} \right) =1-\dfrac{t-\tau-4}{3}.
+        \] 
+        Entonces la convolución se puede escribir de forma compacta como \[
+            \boxed{y(t)=2x(t)+\dfrac{9}{2}\int_{\max \{-1,t-7\} }^{\min \{4,t-5\} } x(\tau)\left[ 1-\dfrac{t-\tau-4}{3} \right] \mathrm{d}\tau. }
+        \] 
+        La señal $x(t)$ se define como  \[
+        x(t)=\left( 1+\bigwedge\left( \dfrac{t-4}{1} \right)  \right) \prod\left( \dfrac{t-1.5}{5} \right) .
+        \] 
+        Recordemos que el pulso rectangular \[
+        \prod\left( \dfrac{t-1.5}{5} \right) 
+        \] toma el valor 1 cuando \[
+        \left| \dfrac{t-1.5}{5} \right| \le \dfrac{1}{2}\longrightarrow |t-1.5|\le 2.5\longrightarrow t\in [1.5-2.5,1.5+2.5]=[-1,4],
+        \] y 0 en otro caso.
+
+        La función triangular \[
+        \bigwedge\left( \dfrac{t-4}{1} \right) 
+        \] tiene soporte cuando \[
+        \left| \dfrac{t-4}{1} \right| \le 1\longrightarrow t\in [4-1,4+1]=[3,5],
+        \] y se define como \[
+        \bigwedge\left( \dfrac{t-4}{1} \right) =\begin{cases}
+            1-|t-4|, & t\in [3,5]\\
+            0, & \text{en otro caso}
+        \end{cases}
+        \] 
+        Por lo tanto, la parte de $x(t)$ que esté "dentro" del rectángulo (es decir, para $t\in [-1,4]$) se tiene:
+        \begin{itemize}[label=\textbullet]
+            \item  Si $t$ está fuera del intervalo $[3,5]$ (es decir, para $t\in [-1,3)$) el pulso triangular es 0 y entonces \[
+            x(t)=1+0=1.
+            \] 
+        \item Si $t\in [3,4]$ (recordando que el rectángulo está definido solo hasta $t=4$) el pulso triangular es no nulo y, usando que para estos $t$ se tiene  $|t-4|=4-t$, se obtiene  \[
+        x(t)=1+\left[ 1-(4-t) \right] =t-2.
+        \] 
+        \end{itemize}
+        En resumen: \[
+        x(t)=\begin{cases}
+            1, & t\in [-1,3)\\
+            t-2, & t\in [3,4]\\
+            0, & \text{en otro caso}
+        \end{cases}
+        \] 
+        Esta expresión define completamente a $y(t)$, cuyo soporte se extiende (por las propiedades de la convolución) aproximadamente para $t\in [4,11]$. En particular, para $t<4$ la condición  $\tau\le t-5$ no es compatible con el soporte de $x(\tau)$ (ya que $t-5<-1$) y por lo tanto el término de la integral se anula, de donde $y(t)=2x(t)$ en esos instantes.
     \item \db{Calcule la energía y la potencia de $x(t)$, indicando si se trata de una señal definida en energía o en potencia.} 
+
+        La energía de $x(t)$ se define como  \[
+        E_x=\int_{-\infty}^{\infty} |x(t)|^2\dt. 
+        \] 
+        Como $x(t)$ es no nula únicamente en  $t\in [-1,4]$, se puede separar la integral en dos partes:
+        \begin{itemize}[label=\textbullet]
+            \item Para $t\in [-1,3]$ se tiene $x(t)=1$, de modo que  \[
+                \int_{-1}^{3} 1^2\dt=3-(-1)=4. 
+                \] 
+            \item Para $t\in [3,4]$ se tiene $x(t)=t-2$; por lo tanto  \[
+            \int_{3}^{4} (t-2)^2\dt=\left\{ \begin{array}{l}
+                u=t-2\\
+                \text{Si }t=3\longrightarrow t=1\\
+                \text{Si }t=4\longrightarrow t=2
+            \end{array} \right\} =\int_{1}^{2} u^2\du =\left[ \dfrac{u^3}{3} \right] _1^2=\dfrac{8-1}{3}  =\dfrac{7}{3}.
+            \] 
+        \end{itemize}
+        En conjunto, \[
+        E_x=4+\dfrac{7}{3}=\dfrac{19}{3}.
+        \] 
+        La potencia media de $x(t)$ viene dada por  \[
+        P_x=\lim_{T \to \infty} \dfrac{1}{2T}\int_{-T}^{T} |x(t)|^2\dt=\lim_{T \to \infty} \dfrac{E_x}{2T}=\dfrac{\frac{19}{3} }{\infty}=0.  
+        \] 
+        Por lo tanto, $x(t)$ es una \textbf{señal definida en energía}.
 \end{enumerate}
 \item \lb{Considere un sistema LTI cuya señal de salida $y(t)$ viene dada por \[
 y(t)=\int_{1}^{\infty} 3e^{-(2+5j)\tau}x(t-\tau)\mathrm{d}\tau.  
