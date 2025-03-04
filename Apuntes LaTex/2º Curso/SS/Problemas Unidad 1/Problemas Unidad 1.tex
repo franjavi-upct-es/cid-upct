@@ -1257,8 +1257,169 @@ Por lo tanto, la señal está \textbf{definida en energía}.
     h[n]=\cos\left( \dfrac{\pi}{4}n \right) \prod\left( \dfrac{n-2}{11} \right) 
 \end{array}
 \] } 
-\item \lb{Calcule la energía y la potncia de la señal $x[n]$ del ejercicio 23, indicando si se trata de una señal definida en energía o en potencia.}
+
+\begin{center}
+    \begin{tikzpicture}[scale=0.9]
+        \begin{axis}[
+            xmin= -5, xmax= 10,
+            ymin= -1.1, ymax = 1.1,
+            xlabel={$n$}, ylabel={$x[n]$},
+            axis lines = middle,
+            xlabel style={at={(axis cs:10,0)}, anchor=west},
+            ylabel style={at={(axis cs:0,1.1)}, anchor=south},
+        ]
+            \addplot+[ycomb, mark=*, lightblue, line width=1.5] coordinates {
+(-5, -0.0)
+(-4, 0.0)
+(-3, 0.0)
+(-2, 0.0)
+(-1, 0.0)
+(0, 1.0)
+(1, 0.7071067811865476)
+(2, 6.123233995736766e-17)
+(3, -0.7071067811865475)
+(4, -1.0)
+(5, -0.7071067811865477)
+(6, -1.8369701987210297e-16)
+(7, 0.7071067811865474)
+(8, 1.0)
+(9, 0.7071067811865477)
+(10, 3.061616997868383e-16)
+};
+        \end{axis}
+    \end{tikzpicture}\qquad
+    \begin{tikzpicture}[scale=0.9]
+        \begin{axis}[
+            xmin= -5, xmax= 10,
+            ymin= -1.1, ymax = 1.1,
+            xlabel={$n$}, ylabel={$h[n]$},
+            axis lines = middle,
+            xlabel style={at={(axis cs:10,0)}, anchor=west},
+            ylabel style={at={(axis cs:0,1.1)}, anchor=south},
+        ]
+            \addplot+[ycomb, mark=*, lightblue, line width=1.5] coordinates {
+(-5, -0.0)
+(-4, -0.0)
+(-3, -0.7071067811865475)
+(-2, 6.123233995736766e-17)
+(-1, 0.7071067811865476)
+(0, 1.0)
+(1, 0.7071067811865476)
+(2, 6.123233995736766e-17)
+(3, -0.7071067811865475)
+(4, -1.0)
+(5, -0.7071067811865477)
+(6, -1.8369701987210297e-16)
+(7, 0.7071067811865474)
+(8, 0.0)
+(9, 0.0)
+(10, 0.0)
+};
+        \end{axis}
+    \end{tikzpicture}
+\end{center}
+\item \lb{Calcule la energía y la potencia de la señal $x[n]$ del ejercicio 23, indicando si se trata de una señal definida en energía o en potencia.}
+    \begin{enumerate}[label=\textbf{\arabic*)}]
+        \item \textbf{Energía de la señal} 
+
+            La energía de una señal discreta $x[n]$ se define como:  \[
+                E_x=\sum_{n=-\infty}^{\infty} |x[n]|^2
+            \] 
+            En este caso, la señal es $x[n]=e^{j\frac{\pi}{4} n}u[n] $, donde $u[n]$ es la función escalón unitario, que ale 1 para  $n\ge 0$ y 0 para $n<0$. Por lo tanto, la señal está definida solo para  $n\ge 0$. Además, el módulo de $e^{j\frac{\pi}{4} n} $ es 1, ya que es una exponencial compleja de magnitud constante. Entonces: \[
+                |x[n]|^2=\left| e^{j\frac{\pi}{4} n}  \right| ^2=1
+            \] 
+            Sustituyendo en la fórmula de la energía: \[
+                E_x=\sum_{n=0}^{\infty} |x[n]|^2=\sum_{n=0}^{\infty}1 =\infty
+            \] 
+        \item \textbf{Potencia media de la señal}
+
+            La potencia media de una señal discreta $x[n]$ se define como:  \[
+                P_x=\lim_{N \to \infty} \dfrac{1}{2N+1}\sum_{n=-N}^{N} |x[n]|^2=\lim_{N \to \infty} \dfrac{1}{N+1}\sum_{n=0}^{N} |x[n]|^2=\lim_{N \to \infty} \dfrac{1}{N+1}\sum_{n=0}^{N}1=\lim_{N \to \infty} \dfrac{1}{N+1}(N+1)=1. 
+            \] 
+    \end{enumerate}
+    Por lo tanto, la señal $x[n]$ \textbf{está definida en potencia}.
 \item \lb{Indique si la señal $x[n]$ del ejercicio 23 y la señal  $z[n]=x[n]+x^*[-n]$ son periódicas y, en su caso, obtenga el valor de los correspondientes periodos.}
+    \begin{enumerate}[label=\textbf{\arabic*)}]
+        \item \textbf{Periodicidad de $x[n]=e^{j\frac{\pi}{4} n} u[n]$} 
+
+            La señal $x[n]$ está definida como  $x[n]=e^{j\frac{\pi}{4} n} u[n]$, donde $u[n]$ es la función escalón unitario. Esto significa que  $x[n]$ está definida solo para  $n\ge 0$.
+            \begin{enumerate}[label=\textbf{\alph*)}]
+                \item \textbf{Parte exponencial $e^{j\frac{\pi}{4} n} $} 
+
+                    La parte $e^{j\frac{\pi}{4} n} $ es una exponencial compleja. Para que sea periódica, debe cumplirse que: \[
+                    e^{j\frac{\pi}{4} (n+N)} =e^{j\frac{\pi}{4} n} ,
+                    \] lo que implica: \[
+                    e^{j\frac{\pi}{4} N} =1.
+                    \] 
+                    La condición $e^{j\frac{\pi}{4} N} =1$ se cumple si $\dfrac{\pi}{4}N=2\pi k$, donde $k$ es un entero. Resolviendo para $N$:  \[
+                    N=8k,\quad k\in \Z.
+                    \] 
+                    Por lo tanto, la parte $e^{j\frac{\pi}{4} n} $ es periódica con periodo fundamental $N=8$.
+                \item  \textbf{Efecto de $u[n]$} 
+
+                    La función escalón unitario $u[n]$ es no nula solo para  $n\ge 0$. Esto significa que $x[n]$ no está definida para  $n<0$, lo que rompe la periodicidad de la señal. Por lo tanto,  $x[n]$  \textbf{no es periódica}. 
+            \end{enumerate}
+        \item \textbf{Periodicidad de $z[n]=x[n]+x^*[-n]$} 
+
+            La señal $z[n]$ se define como:  \[
+                z[n]=x[n]+x^*[-n],
+            \] donde $x^*[-n]$ es el conjugado complejo de  $x[-n]$. Analicemos cada término:
+             \begin{enumerate}[label=\textbf{\alph*)}]
+                 \item $x[n]$
+
+                     Como vimos antes,  $x[n]=e^{j\frac{\pi}{4} n} u[n]$ no es periódica debido a la presencia de $u[n]$, que restringe la señal a  $n\ge 0$.
+                 \item $x^*[-n]$
+
+                     El conjugado complejo de  $x[-n]$ es:  \[
+                         x^*[-n]=\left( e^{j\frac{\pi}{4} (-n)} u[-n] \right) ^*=e^{-j\frac{\pi}{4(-n)} } u[-n]=e^{j\frac{\pi}{4} n} u[-n].
+                     \] 
+                     Aquí, $u[-n]$ es no nula solo para  $n\le 0$. Por lo tanto, $x^*[-n]$ está definida solo para  $n\le 0$.
+                 \item \textbf{Combinación $z[n]=x[n]+x^*[-n]$} 
+
+                     La señal $z[n]$ combina  $x[n]$, que está definida para  $n\ge 0$, y $x^*[-n]$, que está definida para  $n\le 0$. Esto significa que $z[n]$ está defindia para todos los valores de  $n$. Además, observamos que:
+                      \begin{itemize}[label=\textbullet]
+                          \item Para $n\ge 0,z[n]=x[n]+0=e^{j\frac{\pi}{4} n}. $ 
+                          \item Para $n\le 0,z[n]=0+x^*[-n]=e^{j\frac{\pi}{4} n} $.
+                     \end{itemize}
+                     En ambos casos, $z[n]=e^{j\frac{\pi}{4} n} $, que es una exponencial compleja. Como vimos antes, esta señal es periódica con periodo fundamental $N=8$.
+            \end{enumerate}
+    \end{enumerate}
+    \begin{center}
+        \begin{tikzpicture}
+            \begin{axis}[
+                xmin= -10, xmax= 10,
+                ymin= -1, ymax = 1,
+                xlabel={$n$}, ylabel={$z[n]$},
+                axis lines = middle,
+                xlabel style={at={(axis cs:10,0)}, anchor=west},
+                ylabel style={at={(axis cs:0,1)}, anchor=south},
+            ]
+                \addplot+[ycomb, mark=*, lightblue, line width=1.5, fill=lightblue] coordinates {
+(-10, 3.061616997868383e-16)
+(-9, 0.7071067811865477)
+(-8, 1.0)
+(-7, 0.7071067811865474)
+(-6, -1.8369701987210297e-16)
+(-5, -0.7071067811865477)
+(-4, -1.0)
+(-3, -0.7071067811865475)
+(-2, 6.123233995736766e-17)
+(-1, 0.7071067811865476)
+(0, 1.0)
+(1, 0.7071067811865476)
+(2, 6.123233995736766e-17)
+(3, -0.7071067811865475)
+(4, -1.0)
+(5, -0.7071067811865477)
+(6, -1.8369701987210297e-16)
+(7, 0.7071067811865474)
+(8, 1.0)
+(9, 0.7071067811865477)
+(10, 3.061616997868383e-16)
+};
+            \end{axis}
+        \end{tikzpicture}
+    \end{center}
 \item \lb{Considere la señal continua no periódica mostrada en la figura 4 y represente su partes par e impar.}
     \begin{center}
         \begin{tikzpicture}
@@ -1270,6 +1431,35 @@ Por lo tanto, la señal está \textbf{definida en energía}.
         \end{tikzpicture}\\
         \lb{Figura 4} 
     \end{center}
+
+    Para descomponer la señal $x(t)$ mostrada en la figura 4 en sus partes par e impar, utilizamos las siguientes definiciones:
+    \begin{itemize}[label=\textbullet]
+        \item \textbf{Parte par ($x_{\text{par}}(t)$):}
+            \[
+            x_{\text{par}}(t)=\dfrac{x(t)+x(-t)}{2}
+            \] 
+        \item \textbf{Parte impar ($x_{\text{impar}}(t)$):}
+            \[
+            x_{\text{impar}}(t)=\dfrac{x(t)-x(-t)}{2}
+            \] 
+    \end{itemize}
+    \textbf{Análisis de la señal}
+
+    La señal $x(t)$ es una función continua defindia por tramos:  \[
+    x(t)=\begin{cases}
+        t+1, & -1\le t<0\\
+        1, & 0\le t\le 2\\
+        -t+3, & 2<t\le 3\\
+        0, & \text{en otro caso}
+    \end{cases}
+    \] 
+    Para obtener $x(-t)$, reflejamos la señal  $x(t)$ respecto al eje vertical. Esto implica que para cada tramo de  $x(t)$, sustituimos  $t$ por  $-t$. Así,  $x(-t)$ queda definida como:  \[
+    x(-t)=\begin{cases}
+        -t+1, & -1\le t<0\\
+        1, & -2\le t<0\\
+        t+3, & -3\le t<-2
+    \end{cases}
+    \] 
 \item \lb{Calcule la energía y la potencia de la señal de la figura 4, indicando si se trata de una señal definida en energía o en potencia.}
 
 \item \lb{Represente detalladamente las siguientes señales: \[
