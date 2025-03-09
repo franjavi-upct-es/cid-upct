@@ -2385,9 +2385,103 @@ y(t)=\int_{1}^{\infty} 3e^{-(2+5j)\tau}x(t-\tau)\mathrm{d}\tau.
 \] } 
 \begin{enumerate}[label=\color{red}\textbf{\alph*)}]
     \item \db{Obtenga la respuesta al impulso del sistema LTI.}
+
+        Recordemos que para un sistema LTI la salida se expresa como \[
+        y(t)=\int_{-\infty}^{\infty} h(\tau)x(t-\tau)\mathrm{d}\tau. 
+        \] 
+        En el enunciado se tiene \[
+        y(t)=\int_{1}^{\infty} 3e^{-(2+5j)\tau}x(t-\tau)\mathrm{d}\tau,  
+        \] lo cual implica que la función $h(\tau)$ del sistema es:  \[
+        \begin{array}{c}
+            h(\tau)=3e^{-(2+5j)\tau}\quad \text{para }\tau\ge 1,\\
+            h(\tau)=0\text{ para }\tau<1.
+        \end{array}
+        \] 
+        Utilizando la función escalón unitario $u(\cdot )$, podemos escribir de forma compacta: \[
+            \boxed{h(t)=3e^{-(2+4j)t}u(t-1). }
+        \] 
     \item \db{Indique razonadamente si el sistema posee las propiedades de memoria, causalidad y/o estabilidad.}
+        \begin{itemize}[label=\textbullet]
+            \item \textbf{Memoria:}
+
+                Un sistema es sin memoria cuando la salida en el tiempo $t$ depende únicamente de  $x(t)$. Dado que en la convolución la salida depende de  $x(t-\tau)$ para  $\tau\ge 1$, la salida depende de valores pasados de la entrada. Por lo tanto, el sistema tiene memoria.
+            \item \textbf{Causalidad:}
+
+                Para que un sistema sea causal es necesario que la respuesta al impulso sea nula para tiempos negativos, es decir, $h(t)=0$ para $t<0$. En nuestro caso,  $h(t)=0$ para  $t<1$, de modo que la salida en  $t$ depende únicamente de valores de entrada en tiempos anteriores. Así, el sistema es causal.
+            \item \textbf{Estabilidad:}
+
+                Un sistema es estable si: \[
+                \int_{-\infty}^{\infty} |h(t)|\dt<\infty. 
+                \] 
+                Dado que \[
+                |h(t)|=3e^{-2t} \text{ para } t\ge 1,
+                \] se tiene \[
+                \int_{-\infty}^{\infty} |h(t)|\dt=\int_{1}^{\infty} 3e^{-2t}\dt=3\left[ \dfrac{e^{-2t} }{-2} \right]_1^\infty=\dfrac{3}{2}e^{-2}<\infty.
+            \] 
+            Por lo tanto, el sistema es estable.
+        \end{itemize}
     \item \db{Calcule la señal de salida del sistema cuando la señal de entrada es un escalón unitario.}
+
+        Sea $x(t)=u(t)$. Entonces a salida es:  \[
+        y(t)=\int_{1}^{\infty} 3e^{-(2+5j)\tau}u(t-\tau)\mathrm{d}\tau.  
+        \] 
+        La función  $u(t-\tau)$ vale 1 cuando  $t-\tau\ge 0$ (es decir, $\tau\le t$) y 0 en caso contrario. Se distinguen dos casos:
+        \begin{itemize}[label=\textbullet]
+            \item Para $t<1$:
+
+                Debido a que  $\tau\ge 1$ en la integración y además $t<1$ implica  $\tau>t$, se tiene  $u(t-\tau)=0$ para todo  $\tau$ en el intervalo de integración. Por ello,  \[
+                y(t)=0,\quad t<1.
+                \] 
+            \item Para $t\ge 1$:
+
+                La variable de integración varía de $\tau=1$ hasta  $\tau=t$ (pues para $\tau>t$ se tiene  $u(t-\tau)=0$). Así, \[
+                y(t)=\int_{1}^{t} 3e^{-(2+5j)\tau}\mathrm{d}\tau=3\left[ \dfrac{e^{-(2+5j)\tau} }{-(2+5j)} \right]_{\tau=1}^{\tau=t} =\dfrac{3}{2+5j}\left( e^{-(2+5j)}-e^{-(2+5j)t}   \right)  . 
+                \] 
+        \end{itemize}
+        Resumiendo: \[
+            \boxed{y(t)=\begin{cases}
+                    0, & t<1,\\
+                    \dfrac{3}{2+5j}\left( e^{-(2+5j)}-e^{-(2+5j)t}   \right) , & t\ge 1.
+            \end{cases}}
+        \] 
     \item \db{Calcule la energía y potencia de la señal $y(t)$, indicando si se trata de una señal definida en energía o en potencia.} 
+
+        Observamos primero el comportamiento de $y(t)$ cuando  $t\to \infty$. Para $t\ge 1,$ \[
+        y(t)=\dfrac{3}{2+5j}\left( e^{-(2+5j)}-e^{-(2+5j)t}   \right) .
+        \] 
+        Dado que \[
+        \lim_{t \to \infty} e^{-(2+5j)t}=0, 
+        \] obtendremos \[
+        \lim_{t \to \infty} y(t)=\dfrac{3}{2+5j}e^{-(2+5j)} =y_\infty.
+        \] 
+        El valor constante no es cero, lo que implica que la salida tiene una componente permanente.
+        \begin{itemize}[label=\textbullet]
+            \item \textbf{Energía:}
+
+                La energía de la señal es \[
+                E_y=\int_{-\infty}^{\infty} |y(t)|^2\dt. 
+                \] 
+                Debido a que para $t\ge T$ (con $T$ suficientemente grande) $y(t)$ se aproxima a un valor constante distinto de cero, la integral diverge a infinito. Es decir, \[
+                E_y=\infty.
+                \] 
+            \item \textbf{Potencia:}
+
+                La potencia media se define mediante \[
+                P_y=\lim_{T \to \infty} \dfrac{1}{T}\int_{0}^{T} |y(t)|^2\dt. 
+                \] 
+                Como para $t$ grande  $y(t)\approx y_\infty$ (constante), la potencia resulta ser el cuadrado del módulo del valor asintótitco: Primero, calculemos el módulo:  \[
+                \left| \dfrac{3}{2+5j} \right| =\dfrac{3}{\sqrt{2^2+5^2} }=\dfrac{3}{\sqrt{29} },
+                \] y \[
+                \left| e^{-(2+5j)}  \right| =e^{-2}. 
+                \] 
+                De modo que \[
+                |y_\infty|=\dfrac{3}{\sqrt{29} }e^{-2}. 
+                \] 
+                Por ello, la potencia es \[
+                P_y=|y_\infty|^2=\left( \dfrac{3e^{-2}}{\sqrt{29}}  \right)^2 =\dfrac{9e^{-4} }{29}.
+                \] 
+        \end{itemize}
+        Dado que la energía es infinita y la potencia es finita, concluimos que la señal $y(t)$ es una señal defindia en potencia.
 \end{enumerate}
 
 \item \lb{Se pretende filtrar la señal $x[n]$ con un sistema LTI cuya respuesta al impulso es  $h[n]$:  \[
@@ -2433,6 +2527,12 @@ y(t)=\int_{1}^{\infty} 3e^{-(2+5j)\tau}x(t-\tau)\mathrm{d}\tau.
 \end{tikzpicture}\\
 \lb{Figura 2}
     \end{center}
+    \begin{enumerate}[label=\color{red}\textbf{\alph*)}]
+        \item \db{Obtenga la ecuación en diferencias con coeficientes constantes que relaciona la señal de entrada $x[n]$ con la señal de salida  $y[n]$.} 
+        \item \db{Obtenga la respuesta al impulso del sistema e indique razonadamente si se trata de un sistema FIR o IIR. Justifique si el sistema cumple las propiedades de memoria, causalidad y/o estabilidad.}
+        \item \db{Considere la señal de entrada $x[n]=\prod\left( \dfrac{n-2}{5} \right) +u[2n-20]u[-n+14]$. Represente la señal y calcule su energía total y potencia media.}
+        \item \db{Determine la señal de salida del sistema $y[n]$ cuando se introduce la señal  $x[n]$ del apartado anterior como señal de entrada.} 
+    \end{enumerate}
 \item \lb{Considere el sistema descrito por la siguiente relación entre la entrada y la salida: \[
             y[n]=\sum_{k=-\infty}^{n-1} x[k-1]
 \] } 

@@ -1460,15 +1460,193 @@ Por lo tanto, la señal está \textbf{definida en energía}.
         t+3, & -3\le t<-2
     \end{cases}
     \] 
+
+\begin{center}
+    \begin{tikzpicture}[declare function={
+            x_t(\t) = (-1 <= \t && \t <= 0) * (\t + 1) + (0 <= \t && \t <= 2) * 1 + (2 < \t && \t <= 3) * (-\t + 3);
+        }]
+    \begin{axis}[
+        xmin= -5, xmax= 5,
+        ymin= -0.1, ymax = 1.1,height=4cm,width=8cm,
+        xlabel={$t$}, ylabel={$x(t)$},
+        axis lines = middle,
+        xlabel style={at={(axis cs:5,0)}, anchor=west},
+        ylabel style={at={(axis cs:0,1.1)}, anchor=south},
+    ]
+    \addplot[domain=-5:5, samples=1000, lightblue, line width=1.5] {x_t(x)};
+    \end{axis}
+\end{tikzpicture}
+\qquad
+\begin{tikzpicture}[declare function={
+            x_t(\t) = (-1 <= \t && \t <= 0) * (\t + 1) + (0 <= \t && \t <= 2) * 1 + (2 < \t && \t <= 3) * (-\t + 3);
+        }]
+    \begin{axis}[
+        xmin= -5, xmax= 5,
+        ymin= -0.1, ymax = 1.1,height=4cm,width=8cm,
+        xlabel={$t$}, ylabel={$x(-t)$},
+        axis lines = middle,
+        xlabel style={at={(axis cs:5,0)}, anchor=west},
+        ylabel style={at={(axis cs:0,1.1)}, anchor=south},
+    ]
+    \addplot[domain=-5:5, samples=1000, lightblue, line width=1.5] {x_t(-x)};
+    \end{axis}
+\end{tikzpicture}
+\\
+\begin{tikzpicture}[declare function={
+            x_t(\t) = (-1 <= \t && \t <= 0) * (\t + 1) + (0 <= \t && \t <= 2) * 1 + (2 < \t && \t <= 3) * (-\t + 3);
+        }]
+    \begin{axis}[
+        xmin= -5, xmax= 5,
+        ymin= -0.1, ymax = 1.1,height=4cm,width=8cm,
+        xlabel={$t$}, ylabel={$x_{\text{par}}(t)$},
+        axis lines = middle,
+        xlabel style={at={(axis cs:5,0)}, anchor=west},
+        ylabel style={at={(axis cs:0,1.1)}, anchor=south},
+    ]
+    \addplot[domain=-5:5, samples=1000, lightblue, line width=1.5] {(x_t(x)+x_t(-x))/2};
+    \end{axis}
+\end{tikzpicture}\qquad
+\begin{tikzpicture}[declare function={
+            x_t(\t) = (-1 <= \t && \t <= 0) * (\t + 1) + (0 <= \t && \t <= 2) * 1 + (2 < \t && \t <= 3) * (-\t + 3);
+        }]
+    \begin{axis}[
+        xmin= -5, xmax= 5, height=4cm,width=8cm,
+        ymin= -0.6, ymax = 0.6,
+        xlabel={$t$}, ylabel={$x_{\text{impar}}(t)$},
+        axis lines = middle,
+        xlabel style={at={(axis cs:5,0)}, anchor=west},
+        ylabel style={at={(axis cs:0,0.6)}, anchor=south},
+    ]
+    \addplot[domain=-5:5, samples=1000, lightblue, line width=1.5] {(x_t(x)-x_t(-x))/2};
+    \end{axis}
+\end{tikzpicture}
+\end{center}
+
 \item \lb{Calcule la energía y la potencia de la señal de la figura 4, indicando si se trata de una señal definida en energía o en potencia.}
 
+    \begin{itemize}[label=\textbullet]
+        \item \textbf{Energía total:} \[
+        E_x=\int_{-\infty}^{\infty} |x(t)|^2\dt. 
+        \]  
+        Dado qe $x(t)=0$ fuera del intervalo  $[-1,3]$, la integral se reduce a:  \[
+        E_x=\int_{-1}^{0} |t+1|^2\dt+\int_{0}^{2} |1|^2\dt+\int_{2}^{3} |-t+3|^2\dt =\dfrac{1}{3}+2+\dfrac{1}{3}=\dfrac{8}{3}  
+        \] 
+        \textbf{Primer intervalo: $-1\le t<0,x(t)=t+1$} \[
+\begin{aligned}
+    \int_{-1}^{0} |t+1|^2\dt&=\int_{-1}^{0} (t+1)^2\dt=\int_{-1}^{0} t^2+2t+1\dt=\left[ \dfrac{t^3}{3}+t^2+t \right]_{-1}^0\\
+                            &=\left( \dfrac{0^3}{3}-\dfrac{(-1)^3}{3} \right) +\left( 0^2-(-1)^2 \right)+(0-(-1))\\
+                            &=\dfrac{1}{3}-1+1=\dfrac{1}{3}
+\end{aligned}
+        \]
+        \textbf{Segundo intervalo: $0\le t\le 2,x(t)=1$} \[
+            \int_{0}^{2} |1|^2\dt=\int_{0}^{2} 1^2\dt=\int_{0}^{2} 1\dt=[t]_0^2=2-0=2   
+        \] 
+        \textbf{Terer intervalo: $(2<t\le 3,x(t)=-t+3)$} \[
+            \begin{aligned}
+                \int_{2}^{3} |-t+3|^2\dt&=\int_{2}^{3} (-t+3)^2= \int_{2}^{3} t^2-6t+9\dt=\left[ \dfrac{t^3}{3}-3t^2+9t \right]_2^3\\
+                                        &= \left( \dfrac{3^3}{3}-\dfrac{2^3}{3} \right) - \left( 3(3^2)-3(2s^2) \right)+(9\cdot 3-9\cdot 2)  \\
+                                        &= \dfrac{19}{3}-15+9=\dfrac{1}{3} \\
+            \end{aligned}
+        \] 
+    \item \textbf{Potencia promedio:} \[
+    P_x=\lim_{T \to \infty} \dfrac{1}{2T}\int_{-T}^{T} |x(t)|^2\dt=\lim_{T \to \infty} \dfrac{1}{2T}\int_{-1}^{3} |x(t)|^2\dt=\lim_{T \to \infty} \dfrac{\frac{8}{3} }{2T}=\dfrac{\frac{8}{3} }{\infty}=0. 
+    \]  
+    \end{itemize}
+    La señal $x(t)$ es una  \textbf{señal definida en energía}. 
 \item \lb{Represente detalladamente las siguientes señales: \[
 \begin{array}{c}
     x[n]=\left( \dfrac{1}{2} \right) ^{2n}(u[n+3]-u[n+4]u[-n-5])\\
     h[n]=3^nu[-n-1]+3^{-n-1}u[n]
 \end{array}
 \] } 
+\begin{center}
+    \begin{tikzpicture}
+        [declare function={
+            u(\t) = \t * (\t >= 0);
+            x_n(\t) = (1/2)^(2*\t) * (u(\t+3) - u(\t+4)*u(-\t-5));
+        }]
+        \begin{axis}[
+            xmin= -10, xmax= 10,
+            xlabel={$n$}, ylabel={$x[n]$},
+            axis lines = middle,
+            xlabel style={at={(axis cs:10,0)}, anchor=west},
+            ylabel style={at={(axis cs:0,16)}, anchor=south},
+        ]
+            \pgfmathsetmacro{\mysamples}{10-(-10)+1}
+            \addplot+[ycomb, mark=*, lightblue, line width=1.5, domain=-10:10, samples=\mysamples] {x_n(x)};
+        \end{axis}
+    \end{tikzpicture}\qquad
+    \begin{tikzpicture}
+        [declare function={
+            u(\t) = \t * (\t >= 0);
+            h_n(\t) = 3^\t * u(-\t-1) + 3^(-\t-1) * u(\t);
+        }]
+        \begin{axis}[
+            xmin= -10, xmax= 10,
+            ymin= -0.05, ymax = 1,
+            xlabel={$n$}, ylabel={$h[n]$},
+            axis lines = middle,
+            xlabel style={at={(axis cs:10,0)}, anchor=west},
+            ylabel style={at={(axis cs:0,1)}, anchor=south},
+        ]
+            \pgfmathsetmacro{\mysamples}{10-(-10)+1}
+            \addplot+[ycomb, mark=*, lightblue, line width=1.5, domain=-10:10, samples=\mysamples] {h_n(x)};
+        \end{axis}
+    \end{tikzpicture}
+\end{center}
 \item \lb{Calcule la energía y la potencia de la señal $x[n]$ del ejercicio 28, indicando si se trata de una señal definida en energía o en potencia.}
+
+    La señal está definida como: \[
+        x[n]=\left( \dfrac{1}{2} \right) ^{2n}(u[n+3]-u[n+4]u[-n-5])
+    \] 
+    \begin{enumerate}[label=Paso \arabic*:]
+        \item Determinar el soporte de la señal
+
+            La señal depende de los términos $u[n+3]$ y  $u[n+4]u[-n-5]$:
+             \begin{itemize}[label=\textbullet]
+                 \item $u[n+3]$: Es el escalón unitario desplazado, que vale 1 para  $n\ge -3$ y $0$ para  $n<-3$.
+                     \begin{center}
+                         \begin{tikzpicture}
+                             [declare function={
+                                u(\t) = \t * (\t >= 0);
+                             }]
+                             \begin{axis}[
+                                 ymin= -0.1, ymax = 1.1,
+                                 xlabel={$n$}, ylabel={$u[n+3]$},
+                                 axis lines = middle,
+                                 xlabel style={at={(axis cs:7,0)}, anchor=west},
+                                 ylabel style={at={(axis cs:0,1.1)}, anchor=south},
+                             ]
+                                 \pgfmathsetmacro{\mysamples}{7-(-1)+1}
+                                 \addplot+[ycomb, mark=*, lightblue, line width=1.5, domain=-1:7, samples=\mysamples] {u(x+3)};
+                             \end{axis}
+                         \end{tikzpicture}
+                     \end{center}
+                 \item  $u[n+4]u[-n-5]$: Es el producto de dos escalones:
+                      \begin{itemize}[label=\textbullet]
+                          \item $u[n+4]$ vale 1 para  $n\ge -4$ y 0 para $n<-4$.
+                          \item $u[-n-5]$ vale 1 para  $n\le -5$ y 0 para $n>-5$.
+                          \item El producto $u[n+4]u[-n-5]$ será 1 solo si  $-5\le n\le -4$, y $0$ en cualquier otro caso.
+                     \end{itemize}
+                     \begin{center}
+                         \begin{tikzpicture}
+                             [declare function={
+                                u(\t) = \t * (\t >= 0);
+                             }]
+                             \begin{axis}[
+                                 ymin= -0.1, ymax = 1.1,
+                                 xlabel={$n$}, ylabel={$u[n+4]u[-n-5]$},
+                                 axis lines = middle,
+                                 xlabel style={at={(axis cs:7,0)}, anchor=west},
+                                 ylabel style={at={(axis cs:0,1.1)}, anchor=south},
+                             ]
+                                 \pgfmathsetmacro{\mysamples}{7-(-1)+1}
+                                 \addplot+[ycomb, mark=*, lightblue, line width=1.5, domain=-1:7, samples=\mysamples] {u(x+4)*u(-x-5)};
+                             \end{axis}
+                         \end{tikzpicture}
+                     \end{center}
+            \end{itemize}
+    \end{enumerate}
 \item \lb{Calcule la energía y la potencia de la señal de la figura 5, indicando si está definida en energía o en potencia.}
     \begin{center}
         \begin{tikzpicture}
