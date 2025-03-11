@@ -1,10 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <dataSource name="centroderportivo">
   <database-model serializer="dbm" dbms="ORACLE" family-id="ORACLE" format-version="4.53">
-    <root id="1">
-      <ServerVersion>11.2.0.2.0</ServerVersion>
-      <TablespacesHash>22649189124</TablespacesHash>
-    </root>
+    <root id="1"/>
     <schema id="2" parent="1" name="ANONYMOUS">
       <ObjectId>35</ObjectId>
     </schema>
