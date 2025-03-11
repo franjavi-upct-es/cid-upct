@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.21 (TeX Live 2020) (preloaded format=latex 2020.4.29)  4 MAR 2025 10:33
+This is pdfTeX, Version 3.14159265-2.6-1.40.21 (TeX Live 2020) (preloaded format=latex 2020.4.29)  9 MAR 2025 22:46
 entering extended mode
 **"Problemas Unidad 1.tex"
 (Problemas Unidad 1.tex
@@ -1705,59 +1705,72 @@ File: 21_2.png Graphic file (type png)
 Package pdftex.def Info: 21_2.png  used on input line 1203.
 (pdftex.def)             Requested size: 243.26941pt x 197.0687pt.
  [22 <20_1.png> <20_2.png> <21_1.png> <21_2.png>] [23] [24]
-[25] [26] [27] [28] [29]
-<41.png, id=133, 1186.4325pt x 813.0375pt>
+[25] [26]
+
+Package pgfplots Warning: You have an axis with empty range (in direction x). R
+eplacing it with a default range and clearing all plots. on input line 1622.
+
+ [warning /pgfplots/warning/empty range cleared axis]
+
+Overfull \hbox (924.74179pt too wide) in paragraph at lines 1623--1624
+ [] 
+ []
+
+[27] [28] [29] [30] [31] [32]
+<41.png, id=144, 1186.4325pt x 813.0375pt>
 File: 41.png Graphic file (type png)
 <use 41.png>
-Package pdftex.def Info: 41.png  used on input line 1677.
+Package pdftex.def Info: 41.png  used on input line 1884.
 (pdftex.def)             Requested size: 378.42001pt x 259.3213pt.
- [30] [31 <41.png>] [32] (Problemas Unidad 1.aux)
+ [33 <41.png>] [34] [35] (Problemas Unidad 1.aux)
 Package logreq Info: Writing requests to '"Problemas Unidad 1".run.xml'.
  ) 
 Here is how much of TeX's memory you used:
- 42039 strings out of 480618
- 1030469 string characters out of 5894377
- 1857897 words of memory out of 5000000
- 57246 multiletter control sequences out of 15000+600000
- 540260 words of font info for 59 fonts, out of 8000000 for 9000
+ 42258 strings out of 480618
+ 1035033 string characters out of 5894377
+ 1874259 words of memory out of 5000000
+ 57463 multiletter control sequences out of 15000+600000
+ 540879 words of font info for 61 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 69i,19n,103p,1209b,2296s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 69i,19n,103p,1209b,2370s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/var/mobile/Containers/Data/Application/467E7597-C7BE-49DF-AE4E-DDA95A01BBDF
 /Library/Caches/texmf-dist/./fonts/enc/dvips/cm-super/cm-super-ts1.enc}</privat
 e/var/containers/Bundle/Application/38CAA5E5-7B85-4BF0-8BF3-3C6105CB5C84/TeX Wr
 iter.app/texmf-base/./fonts/type1/public/amsfonts/cm/cmbx10.pfb></private/var/c
 ontainers/Bundle/Application/38CAA5E5-7B85-4BF0-8BF3-3C6105CB5C84/TeX Writer.ap
-p/texmf-base/./fonts/type1/public/amsfonts/cm/cmex10.pfb></private/var/containe
-rs/Bundle/Application/38CAA5E5-7B85-4BF0-8BF3-3C6105CB5C84/TeX Writer.app/texmf
--base/./fonts/type1/public/amsfonts/cm/cmmi10.pfb></private/var/containers/Bund
-le/Application/38CAA5E5-7B85-4BF0-8BF3-3C6105CB5C84/TeX Writer.app/texmf-base/.
-/fonts/type1/public/amsfonts/cm/cmmi5.pfb></private/var/containers/Bundle/Appli
-cation/38CAA5E5-7B85-4BF0-8BF3-3C6105CB5C84/TeX Writer.app/texmf-base/./fonts/t
-ype1/public/amsfonts/cm/cmmi7.pfb></private/var/containers/Bundle/Application/3
-8CAA5E5-7B85-4BF0-8BF3-3C6105CB5C84/TeX Writer.app/texmf-base/./fonts/type1/pub
-lic/amsfonts/cm/cmr10.pfb></private/var/containers/Bundle/Application/38CAA5E5-
-7B85-4BF0-8BF3-3C6105CB5C84/TeX Writer.app/texmf-base/./fonts/type1/public/amsf
-onts/cm/cmr12.pfb></private/var/containers/Bundle/Application/38CAA5E5-7B85-4BF
-0-8BF3-3C6105CB5C84/TeX Writer.app/texmf-base/./fonts/type1/public/amsfonts/cm/
-cmr17.pfb></private/var/containers/Bundle/Application/38CAA5E5-7B85-4BF0-8BF3-3
-C6105CB5C84/TeX Writer.app/texmf-base/./fonts/type1/public/amsfonts/cm/cmr5.pfb
-></private/var/containers/Bundle/Application/38CAA5E5-7B85-4BF0-8BF3-3C6105CB5C
-84/TeX Writer.app/texmf-base/./fonts/type1/public/amsfonts/cm/cmr7.pfb></privat
-e/var/containers/Bundle/Application/38CAA5E5-7B85-4BF0-8BF3-3C6105CB5C84/TeX Wr
-iter.app/texmf-base/./fonts/type1/public/amsfonts/cm/cmsy10.pfb></private/var/c
-ontainers/Bundle/Application/38CAA5E5-7B85-4BF0-8BF3-3C6105CB5C84/TeX Writer.ap
-p/texmf-base/./fonts/type1/public/amsfonts/cm/cmsy5.pfb></private/var/container
+p/texmf-base/./fonts/type1/public/amsfonts/cm/cmbx7.pfb></private/var/container
 s/Bundle/Application/38CAA5E5-7B85-4BF0-8BF3-3C6105CB5C84/TeX Writer.app/texmf-
-base/./fonts/type1/public/amsfonts/cm/cmsy7.pfb></private/var/containers/Bundle
+base/./fonts/type1/public/amsfonts/cm/cmex10.pfb></private/var/containers/Bundl
+e/Application/38CAA5E5-7B85-4BF0-8BF3-3C6105CB5C84/TeX Writer.app/texmf-base/./
+fonts/type1/public/amsfonts/cm/cmmi10.pfb></private/var/containers/Bundle/Appli
+cation/38CAA5E5-7B85-4BF0-8BF3-3C6105CB5C84/TeX Writer.app/texmf-base/./fonts/t
+ype1/public/amsfonts/cm/cmmi5.pfb></private/var/containers/Bundle/Application/3
+8CAA5E5-7B85-4BF0-8BF3-3C6105CB5C84/TeX Writer.app/texmf-base/./fonts/type1/pub
+lic/amsfonts/cm/cmmi7.pfb></private/var/containers/Bundle/Application/38CAA5E5-
+7B85-4BF0-8BF3-3C6105CB5C84/TeX Writer.app/texmf-base/./fonts/type1/public/amsf
+onts/cm/cmr10.pfb></private/var/containers/Bundle/Application/38CAA5E5-7B85-4BF
+0-8BF3-3C6105CB5C84/TeX Writer.app/texmf-base/./fonts/type1/public/amsfonts/cm/
+cmr12.pfb></private/var/containers/Bundle/Application/38CAA5E5-7B85-4BF0-8BF3-3
+C6105CB5C84/TeX Writer.app/texmf-base/./fonts/type1/public/amsfonts/cm/cmr17.pf
+b></private/var/containers/Bundle/Application/38CAA5E5-7B85-4BF0-8BF3-3C6105CB5
+C84/TeX Writer.app/texmf-base/./fonts/type1/public/amsfonts/cm/cmr5.pfb></priva
+te/var/containers/Bundle/Application/38CAA5E5-7B85-4BF0-8BF3-3C6105CB5C84/TeX W
+riter.app/texmf-base/./fonts/type1/public/amsfonts/cm/cmr7.pfb></private/var/co
+ntainers/Bundle/Application/38CAA5E5-7B85-4BF0-8BF3-3C6105CB5C84/TeX Writer.app
+/texmf-base/./fonts/type1/public/amsfonts/cm/cmsy10.pfb></private/var/container
+s/Bundle/Application/38CAA5E5-7B85-4BF0-8BF3-3C6105CB5C84/TeX Writer.app/texmf-
+base/./fonts/type1/public/amsfonts/cm/cmsy5.pfb></private/var/containers/Bundle
 /Application/38CAA5E5-7B85-4BF0-8BF3-3C6105CB5C84/TeX Writer.app/texmf-base/./f
-onts/type1/public/amsfonts/latxfont/line10.pfb></private/var/containers/Bundle/
-Application/38CAA5E5-7B85-4BF0-8BF3-3C6105CB5C84/TeX Writer.app/texmf-base/./fo
-nts/type1/public/amsfonts/symbols/msbm10.pfb></var/mobile/Containers/Data/Appli
-cation/467E7597-C7BE-49DF-AE4E-DDA95A01BBDF/Library/Caches/texmf-dist/./fonts/t
-ype1/public/cm-super/sfrm1000.pfb>
-Output written on "Problemas Unidad 1.pdf" (32 pages, 494694 bytes).
+onts/type1/public/amsfonts/cm/cmsy7.pfb></private/var/containers/Bundle/Applica
+tion/38CAA5E5-7B85-4BF0-8BF3-3C6105CB5C84/TeX Writer.app/texmf-base/./fonts/typ
+e1/public/amsfonts/latxfont/line10.pfb></private/var/containers/Bundle/Applicat
+ion/38CAA5E5-7B85-4BF0-8BF3-3C6105CB5C84/TeX Writer.app/texmf-base/./fonts/type
+1/public/amsfonts/symbols/msbm10.pfb></var/mobile/Containers/Data/Application/4
+67E7597-C7BE-49DF-AE4E-DDA95A01BBDF/Library/Caches/texmf-dist/./fonts/type1/pub
+lic/cm-super/sfrm1000.pfb>
+Output written on "Problemas Unidad 1.pdf" (35 pages, 539185 bytes).
 PDF statistics:
- 196 PDF objects out of 1000 (max. 8388607)
+ 209 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
  68 words of extra memory for PDF output out of 10000 (max. 10000000)
 
