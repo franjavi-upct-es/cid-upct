@@ -1608,17 +1608,19 @@ Por lo tanto, la señal está \textbf{definida en energía}.
                      \begin{center}
                          \begin{tikzpicture}
                              [declare function={
-                                u(\t) = \t * (\t >= 0);
+                                u(\t) = 1 * (\t >= 0) + 0 * (\t < 0);
                              }]
                              \begin{axis}[
+                                 xmin=-5, xmax=5,
                                  ymin= -0.1, ymax = 1.1,
                                  xlabel={$n$}, ylabel={$u[n+3]$},
                                  axis lines = middle,
-                                 xlabel style={at={(axis cs:7,0)}, anchor=west},
+                                 xtick={-5,...,5},
+                                 xlabel style={at={(axis cs:5,0)}, anchor=west},
                                  ylabel style={at={(axis cs:0,1.1)}, anchor=south},
                              ]
-                                 \pgfmathsetmacro{\mysamples}{7-(-1)+1}
-                                 \addplot+[ycomb, mark=*, lightblue, line width=1.5, domain=-1:7, samples=\mysamples] {u(x+3)};
+                                 \pgfmathsetmacro{\mysamples}{5-(-5)+1}
+                                 \addplot+[ycomb, mark=*, lightblue, line width=1.5, domain=-5:5, samples=\mysamples] {u(x+3)};
                              \end{axis}
                          \end{tikzpicture}
                      \end{center}
@@ -1631,22 +1633,78 @@ Por lo tanto, la señal está \textbf{definida en energía}.
                      \begin{center}
                          \begin{tikzpicture}
                              [declare function={
-                                u(\t) = \t * (\t >= 0);
+                                u(\t) = 1 * (\t >= 0);
                              }]
                              \begin{axis}[
+                                 xmin = -5, xmax = 5,
                                  ymin= -0.1, ymax = 1.1,
                                  xlabel={$n$}, ylabel={$u[n+4]u[-n-5]$},
+                                 xtick={-5,...,5},
                                  axis lines = middle,
-                                 xlabel style={at={(axis cs:7,0)}, anchor=west},
+                                 xlabel style={at={(axis cs:5,0)}, anchor=west},
                                  ylabel style={at={(axis cs:0,1.1)}, anchor=south},
                              ]
-                                 \pgfmathsetmacro{\mysamples}{7-(-1)+1}
-                                 \addplot+[ycomb, mark=*, lightblue, line width=1.5, domain=-1:7, samples=\mysamples] {u(x+4)*u(-x-5)};
+                                 \pgfmathsetmacro{\mysamples}{5-(-5)+1}
+                                 \addplot+[ycomb, mark=*, lightblue, line width=1.5, domain=-5:5, samples=\mysamples] {u(x+4)*u(-x-5)};
                              \end{axis}
                          \end{tikzpicture}
                      \end{center}
             \end{itemize}
+            Por lo tanto: \[
+                u[n+3]-u[n+4]u[-n-5]=\begin{cases}
+                    1, & n\ge -3\\
+                    0, & -5\le n\le -4\\
+                    0, & \text{en otro caso}
+                \end{cases}
+            \] 
+            Esto significa que $x[n]$ es no nula únicamente para  $n\ge -3$.
+        \item Expresión simplificada de $x[n]$
+
+            Para  $n\ge -3,x[n]=\left( \dfrac{1}{2} \right) ^{2n}$. Para $n<-3 ,x[n]=0$.
+
+            Por lo tanto: \[
+                x[n]=\begin{cases}
+                    \left( \dfrac{1}{2} \right) ^{2n}, & n\ge -3\\
+                    0, & n<-3
+                \end{cases}
+            \] 
+            \begin{center}
+                \begin{tikzpicture}
+                    \begin{axis}[
+                        xmin= -5, xmax= 5,
+                        ymin= -0.1, 
+                        xtick={-5,...,5},
+                        xlabel={$n$}, ylabel={$x[n]$},
+                        axis lines = middle,
+                        xlabel style={at={(axis cs:5,0)}, anchor=west},
+                        ylabel style={at={(axis cs:0,65)}, anchor=south},
+                    ]
+                        \pgfmathsetmacro{\mysamples}{5-(-5)+1}
+                        \addplot+[ycomb, mark=*, lightblue, line width=1.5, domain=-5:5, samples=\mysamples] {x<-3 ? 0 : (0.5)^(2*x)};
+                    \end{axis}
+                \end{tikzpicture}
+            \end{center}
     \end{enumerate}
+    \textbf{Cálculo de la energía total}
+
+    La energía total se calcula como: \[
+        E=\sum_{n=-\infty}^{\infty} |x[n]|^2=\sum_{n=-3}^{\infty} \left| \left( \dfrac{1}{2} \right) ^{2n} \right| ^2=\sum_{n=-3}^{\infty} \left( \dfrac{1}{2} \right) ^{4n}
+    \] 
+    Hacemos un cambio de variable para simplificar. Sea $k=n+3$, de modo que  cuando $n=-3,k=0$, y cuando  $n\to\infty, k\to \infty$. Entonces: \[
+    E=\sum_{k=0}^{\infty} \left( \dfrac{1}{2} \right) ^{4(k-3)}=\sum_{k=0}^{\infty} \left( \dfrac{1}{2} \right) ^{4k-12}=\left( \dfrac{1}{2} \right) ^{-12}\sum_{k=0}^{\infty} \left( \dfrac{1}{2} \right) ^{4k}=2^{12}\sum_{k=0}^{\infty} \left( \dfrac{1}{16} \right) ^k
+    \] 
+    La suma es una serie geométrica con razón $r=\dfrac{1}{16}$, y su suma es: \[
+        \sum_{k=0}^{\infty} r^k=\lim_{k \to \infty} \dfrac{\left( \frac{1}{16}  \right) ^0+\tozero{\left( \frac{1}{16}  \right) ^{k+1}} }{1-\frac{1}{16} }=\dfrac{1}{1-\frac{1}{16} }=\dfrac{1}{\frac{15}{16} }=\dfrac{16}{15}
+    \] 
+    Por lo tanto: \[
+    E=2^{12}\cdot \dfrac{16}{15}=\dfrac{2^{16}}{15}=\dfrac{65536}{15}\approx 40369.07\mathrm{W}.
+    \] 
+    \textbf{Cálculo de la potencia promedio}
+
+    La potencia promedio se calcula como: \[
+        P=\lim_{N \to \infty} \dfrac{1}{2N+1}\sum_{n=-N}^{N} |x[n]|^2=\lim_{N \to \infty} \dfrac{E}{2N+1}=\dfrac{\frac{65536}{15} }{\infty}=0.
+    \] 
+    Por lo tanto, la señal $x[n]$ es una \textbf{señal definida en energía}. 
 \item \lb{Calcule la energía y la potencia de la señal de la figura 5, indicando si está definida en energía o en potencia.}
     \begin{center}
         \begin{tikzpicture}
@@ -1699,6 +1757,7 @@ x(t)=\bigwedge\left( \dfrac{t}{b} \right)
             y[n]=0, \forall n.
         \] 
     \item \db{¿Es invertible el sistema?} 
+
         Un sistema es invertible si podemos recuperar la entrada $x[n]$ a partir de la salida  $y[n]$.
          \begin{itemize}[label=\textbullet]
              \item De la ecuación $y[n]=x[n]x[n-2]$, observamos que hay dos valores de  $x[n]$ que intervienen en la salida.
