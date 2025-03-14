@@ -1,6 +1,21 @@
 \input{../../../Macros.tex}
 \title{Señales y Sistemas\\Problemas Tema 2: Sistemas Lineales e Invariantes en el Tiempo}
 
+% Definir la función rectangular
+\pgfmathdeclarefunction{rect}{1}{%
+    \pgfmathparse{abs(#1) <= 0.5 ? 1 : 0}%
+}
+
+% Definir el pulso triangular
+\pgfmathdeclarefunction{tri}{1}{%
+    \pgfmathparse{abs(#1) <= 1 ? (1 - abs(#1)) : 0}%
+}
+
+% Definir la función escalón unitario
+\pgfmathdeclarefunction{u}{1}{%
+    \pgfmathparse{#1 >= 0 ? 1 : 0}%
+}
+
 \begin{document}
 \maketitle
 \begin{enumerate}[label=\color{red}\textbf{\arabic*)}]
