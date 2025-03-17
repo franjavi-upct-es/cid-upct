@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2025) (preloaded format=pdflatex 2025.3.11)  13 MAR 2025 13:58
+This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2025) (preloaded format=pdflatex 2025.3.11)  14 MAR 2025 18:34
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1320,24 +1320,24 @@ File: pgflibraryarrows.code.tex 2023-01-15 v3.1.10 (3.1.10)
 )
 \@quotelevel=\count496
 \@quotereset=\count497
-
-No file "Problemas Unidad 2".aux.
+ (./Problemas Unidad 2.aux)
 \openout1 = `"Problemas Unidad 2.aux"'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 4.
-LaTeX Font Info:    ... okay on input line 4.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 4.
-LaTeX Font Info:    ... okay on input line 4.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 4.
-LaTeX Font Info:    ... okay on input line 4.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 4.
-LaTeX Font Info:    ... okay on input line 4.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 4.
-LaTeX Font Info:    ... okay on input line 4.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 4.
-LaTeX Font Info:    ... okay on input line 4.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 4.
-LaTeX Font Info:    ... okay on input line 4.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 23.
+LaTeX Font Info:    ... okay on input line 23.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 23.
+LaTeX Font Info:    ... okay on input line 23.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 23.
+LaTeX Font Info:    ... okay on input line 23.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 23.
+LaTeX Font Info:    ... okay on input line 23.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 23.
+LaTeX Font Info:    ... okay on input line 23.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 23.
+LaTeX Font Info:    ... okay on input line 23.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 23.
+LaTeX Font Info:    ... okay on input line 23.
+
 (c:/texlive/2025/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
 \scratchcounter=\count498
@@ -1381,8 +1381,8 @@ Package biblatex Info: Trying to load bibliographic data...
 Package biblatex Info: ... file '"Problemas Unidad 2".bbl' not found.
 
 No file "Problemas Unidad 2".bbl.
-Package biblatex Info: Reference section=0 on input line 4.
-Package biblatex Info: Reference segment=0 on input line 4.
+Package biblatex Info: Reference section=0 on input line 23.
+Package biblatex Info: Reference segment=0 on input line 23.
 (c:/texlive/2025/texmf-dist/tex/latex/pdflscape/pdflscape.sty
 Package: pdflscape 2022-10-27 v0.13 Display of landscape pages in PDF
 
@@ -1399,7 +1399,7 @@ Package pdflscape Info: Auto-detected driver: pdftex on input line 81.
 Package pgfplots Warning: running in backwards compatibility mode (unsuitable t
 ick labels; missing features). Consider writing \pgfplotsset{compat=1.18} into 
 your preamble.
- on input line 4.
+ on input line 23.
 
 *geometry* driver: auto-detecting
 *geometry* detected driver: pdftex
@@ -1435,17 +1435,19 @@ your preamble.
 * \@reversemarginfalse
 * (1in=72.27pt=25.4mm, 1cm=28.453pt)
 
-LaTeX Font Info:    Trying to load font information for U+msa on input line 5.
+LaTeX Font Info:    Trying to load font information for U+msa on input line 24.
+
 (c:/texlive/2025/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Trying to load font information for U+msb on input line 5.
+LaTeX Font Info:    Trying to load font information for U+msb on input line 24.
+
 
 (c:/texlive/2025/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )
-LaTeX Font Info:    Trying to load font information for U+lasy on input line 5.
-
+LaTeX Font Info:    Trying to load font information for U+lasy on input line 24
+.
 
 (c:/texlive/2025/texmf-dist/tex/latex/base/ulasy.fd
 File: ulasy.fd 1998/08/17 v2.2e LaTeX symbol font definitions
@@ -1517,7 +1519,7 @@ texmf-dist/fonts/enc/dvips/cm-super/cm-super-ts1.enc}]
 [31]
 
 [32]
-Overfull \hbox (1.89383pt too wide) in paragraph at lines 1707--1708
+Overfull \hbox (1.89383pt too wide) in paragraph at lines 1726--1727
 [][]\OT1/cmr/m/n/10 Se pre-tende proce-sar la se~nal $\OML/cmm/m/it/10 x\OT1/cm
 r/m/n/10 [\OML/cmm/m/it/10 n\OT1/cmr/m/n/10 ] = [] [] \OML/cmm/m/it/10 u\OT1/cm
 r/m/n/10 [\OML/cmm/m/it/10 n\OT1/cmr/m/n/10 ]$ con un sis-tema LTI cuya re-spue
@@ -1562,29 +1564,28 @@ cmr/m/n/10 +
 
 [49]
 
-[50] (./Problemas Unidad 2.aux)
+[50]
+
+[51]
+
+[52]
+
+[53]
+
+[54] (./Problemas Unidad 2.aux)
  ***********
 LaTeX2e <2024-11-01> patch level 2
 L3 programming layer <2025-01-18>
  ***********
-
-
-LaTeX Warning: There were undefined references.
-
-
-Package biblatex Warning: Please (re)run Biber on the file:
-(biblatex)                "Problemas Unidad 2"
-(biblatex)                and rerun LaTeX afterwards.
-
 Package logreq Info: Writing requests to '"Problemas Unidad 2".run.xml'.
 \openout1 = `"Problemas Unidad 2.run.xml"'.
 
  ) 
 Here is how much of TeX's memory you used:
- 44790 strings out of 473190
- 1061795 string characters out of 5719979
- 2222178 words of memory out of 5000000
- 67356 multiletter control sequences out of 15000+600000
+ 44895 strings out of 473190
+ 1064029 string characters out of 5719979
+ 2222500 words of memory out of 5000000
+ 67459 multiletter control sequences out of 15000+600000
  567724 words of font info for 74 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  113i,17n,110p,1209b,2477s stack positions out of 10000i,1000n,20000p,200000b,200000s
@@ -1603,10 +1604,10 @@ e1/public/amsfonts/cm/cmsy7.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/
 amsfonts/cm/cmti10.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/
 latxfont/line10.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/cm-super/sfr
 m1000.pfb>
-Output written on "Problemas Unidad 2.pdf" (50 pages, 435280 bytes).
+Output written on "Problemas Unidad 2.pdf" (54 pages, 455063 bytes).
 PDF statistics:
- 251 PDF objects out of 1000 (max. 8388607)
- 165 compressed objects within 2 object streams
+ 263 PDF objects out of 1000 (max. 8388607)
+ 173 compressed objects within 2 object streams
  0 named destinations out of 1000 (max. 500000)
  13 words of extra memory for PDF output out of 10000 (max. 10000000)
 

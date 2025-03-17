@@ -1,6 +1,10 @@
 \input{../../../Macros.tex}
 \title{Señales y Sistemas\\Problemas Tema 2: Sistemas Lineales e Invariantes en el Tiempo}
 
+\pgfmathdeclarefunction{delta}{1}{%
+    \pgfmathparse{abs(#1) < 0.001 ? 100 : 0}%
+}
+
 % Definir la función rectangular
 \pgfmathdeclarefunction{rect}{1}{%
     \pgfmathparse{abs(#1) <= 0.5 ? 1 : 0}%
@@ -2284,7 +2288,7 @@ En $S_2$ la relación entre entrada $w[n]$ y salida  $y[n]$ es  $y[n]=\alpha y[n
     \end{center}
     \item \db{Indique razonadamente si el sistema definido por $h(t)$ cumple las propiedades de memoria, causalidad, estabilidad y/o invarianza.}
 
-        Considerando $h(t)\dfrac{9}{2}\bigwedge\left( \dfrac{t-4}{3} \right) u(t-5)+2\delta(t)$, se pueden señalar las siguientes propiedades:
+        Considerando $h(t)=\dfrac{9}{2}\bigwedge\left( \dfrac{t-4}{3} \right) u(t-5)+2\delta(t)$, se pueden señalar las siguientes propiedades:
         \begin{itemize}[label=\textbullet]
             \item \textbf{Memoria:}
 
@@ -2507,9 +2511,128 @@ y(t)=\int_{1}^{\infty} 3e^{-(2+5j)\tau}x(t-\tau)\mathrm{d}\tau.
 \] } 
 \begin{enumerate}[label=\color{red}\textbf{\alph*)}]
     \item \db{Represente detalladamente $x[n]$ y  $h[n]$.}
+
+        \begin{tikzpicture}
+            \begin{axis}[
+                xmin= -10, xmax= 10,
+                ymin= -1, ymax = 10,
+                xlabel={$n$}, ylabel={$x[n]$},
+                axis lines = middle,
+                xlabel style={at={(axis cs:10,0)}, anchor=west},
+                ylabel style={at={(axis cs:0,10)}, anchor=south},
+            ]
+                \pgfmathsetmacro{\mysamples}{10-(-10)+1}
+                \addplot+[ycomb, mark=*, lightblue, line width=1.5, domain=-10:10, samples=\mysamples] {(u(x+6)-u(x-7)+delta(-x+7)*u(-x+10))};
+            \end{axis}
+        \end{tikzpicture}\qquad
+        \begin{tikzpicture}
+            \begin{axis}[
+                xmin= -10, xmax= 10,
+                ymin= -0.1, ymax = 1.1,
+                xlabel={$n$}, ylabel={$h[n]$},
+                axis lines = middle,
+                xlabel style={at={(axis cs:10,0)}, anchor=west},
+                ylabel style={at={(axis cs:0,1.1)}, anchor=south},
+            ]
+                \pgfmathsetmacro{\mysamples}{10-(-10)+1}
+                \addplot+[ycomb, mark=*, lightblue, line width=1.5, domain=-10:10, samples=\mysamples] {0.4^(x-2)*u(x-2)*u(x)};
+            \end{axis}
+        \end{tikzpicture}
     \item \db{Indique razonadamente si el sistema definido por $h[n]$ cumple las propiedades de memoria, causalidad y/o estabilidad.}
+
+        El sistema LTI queda definido por su respuesta al impulso $h[n]$.
+         \begin{itemize}[label=\textbullet]
+            \item \textbf{Memoria}
+                \begin{itemize}[label=\textbullet]
+                    \item Un sistema no tiene memoria si la salida en un instante $n$ depende solo de la entrada en ese mismo instante $n$.
+                    \item Una convolución con  $h[n]$ siempre aplica dependencia de muestras pasadas (o futuras), a menos que  $h[n]=0$ excepto en  $n=0$.
+                    \item Dado que  $h[n]$ es distinta de cero en muchos valores (para $n\ge 2$), el sistema claramente tiene memoria.
+                \end{itemize}
+            \item \textbf{Causalidad}
+                \begin{itemize}[label=\textbullet]
+                    \item Un sistema es causal si $h[n]=0$ para  $n<0$.
+                    \item Observando  $h[n]$, vemos que, para  $n<2$, es 0. En particular, para  $n<0$, también es 0. Luego no depende de valores futuros de la entrada.
+                    \item Por lo tanto,  \textbf{sí es causal}. (El hecho de que empiece en $n=2$ no rompe la causalidad; basta con que sea 0 para  $n<0$). 
+                \end{itemize}
+            \item \textbf{Estabilidad}
+                \begin{itemize}[label=\textbullet]
+                    \item Un sistema LTI es estable si su respuesta al impulso es absolutamente sumable: \[
+                            \sum_{n=-\infty}^{\infty} |h[n]|<\infty.
+                    \]  
+                \item Aquí, \[
+                        h[n]=\begin{cases}
+                            0.4^{n-2}, & n\ge 2\\
+                            0, & n<2
+                        \end{cases}
+                \] 
+                Es decir, para $n\ge 2,|h[n]|=0.4^{n-2}$.
+                \item Se trata de una serie geométrica con $|0.4|<1$. Es sabido que  $\sum_{m=0}^{\infty} (0.4)^m$ converge.
+                \item Por lo tanto, la suma total es finita y el sistema \textbf{es estable}.
+                \end{itemize}
+        \end{itemize}
     \item \db{Utilizando la definición, calcule la convolución $y[n]=x[n]\ast h[n]$.}
+
+        Por definición, \[
+            y[n]=\sum_{k=-\infty}^{\infty} x[k]h[n-k].
+        \] 
+        Dado que $x[k]\neq 0$ solo para $-6\le k\le 7$, la suma se reduce a: \[
+            y[n]=\sum_{k=-6}^{7} x[k]h[n-k],
+        \] y recordando que $x[k]=1$ en ese rango de  $k$, tenemos \[
+        y[n]=\sum_{k=-6}^{7} 1\cdot h[n-k].
+        \] 
+        Mientras tanto, $h[m]$ es no nula solo si  $m\ge 2$. En la expresión $h[n-k]$, esto significa que  \[
+        n-k\ge 2\implies k\le n-2.
+        \] 
+        Por ello, el término $h[n-k]$ será 0 si  $k>n-2$. En consecuencia, para cada  $n$, la variable  $k$ se sitúa en \[
+        -6\le k\le 7,\quad k\le n-2.
+        \] 
+        La parte entera de la suma quedará: \[
+            y[n]=\sum_{k=-6}^{\min(7,n-2)} h[n-k].
+        \] 
+        Sustituyendo la expresión de $h[m]$ para  $m\ge 2$: \[
+            h[m]=0.4^{m-2},\quad m\ge 2.
+        \] 
+        Entonces, \[
+            h[n-k]=\begin{cases}
+                0.4^{(n-k)-2}, & \text{si }n-k\ge 2,\\
+                0, & \text{si }n-k<2.
+            \end{cases}
+        \] 
+        La convolución, pues, se vuelve: \[
+            y[n]=\sum_{k=-6}^{\min(7,n-2)} 0.4^{(n-k)-2}.
+        \] 
+        Y, de paso, notamos que \textit{para que exista al menos un término} en la suma, necesitamos $\min(7,n-2)\ge -6$, lo cual se cumple cuando $n-2\ge -6\implies n\ge -4$.
     \item \db{Calcule la energía y la potencia de $x[n]$, indicando si es una señal definida en energía o en potencia.} 
+
+        La energía de una señal discreta se define como \[
+            E=\sum_{n=-\infty}^{\infty} |x[n]|^2.
+        \] 
+        La potencia promedio se define como \[
+            P=\lim_{N \to \infty} \dfrac{1}{2N+1}\sum_{n=-N}^{N} |x[n]|^2.
+        \] 
+        \textbf{Energía de $x[n]$} 
+
+        Hemos visto que \[
+            x[n]=\begin{cases}
+                1, & -6\le n\le 7,\\
+                0, & \text{en otro caso}.
+            \end{cases}
+        \] 
+        Luego $|x[n]|^2=1^2=1$ en $-6\le n\le 7$, y 0 fuera de ese rango. El número de enteros entre -6 y 7 es 14. Entonces, \[
+        E=\sum_{n=-6}^{7} 1=14.
+        \] 
+        \textbf{Potencia de $x[n]$} 
+
+        Para la potencia promedio: \[
+            P=\lim_{N \to \infty} \dfrac{1}{2N+1}\sum_{n=-N}^{N} |x[n]|^2.
+        \] 
+        Como $|x[n]|^2=1$ solo para $-6\le n\le 7$ y 0 en otro caso, cuando $N$ es suficientemente grande, la suma se convierte en la suma de 14 unos. Por lo tanto, \[
+            \sum_{n=-N}^{N} |x[n]|^2=14 \text{ (para $N\ge 7$).}
+        \] 
+        Entonces \[
+            P=\lim_{N \to \infty} \dfrac{14}{2N+1}=0.
+        \] 
+        La energía es finita y distinta de cero, y la potencia promedio es 0. Por definición, esto significa que $x[n]$  \textbf{es una señal definida en energía}. 
 \end{enumerate}
 \item \lb{Considere el siguiente diagrama de bloques de un sistema causal (figura 2).}
     \begin{center}
@@ -2544,9 +2667,80 @@ y(t)=\int_{1}^{\infty} 3e^{-(2+5j)\tau}x(t-\tau)\mathrm{d}\tau.
     \end{center}
     \begin{enumerate}[label=\color{red}\textbf{\alph*)}]
         \item \db{Obtenga la ecuación en diferencias con coeficientes constantes que relaciona la señal de entrada $x[n]$ con la señal de salida  $y[n]$.} 
+            
+            Del diagrama se observa que la salida $y[n]$ se forma sumando la entrada  $x[n]$ con dos "ramas" de realimentación que introducen sendos retardos (cada bloque $D$ corresponde a un retardo de 1 muestra) y factores escalares (en la figura aparecen los coeficientes $+\dfrac{1}{2}$ y $-3$). Al llevar esto a la forma estándar de ecuación en diferencias, uno obtiene: \[
+                \boxed{y[n]-\dfrac{1}{2}y[n-1]+3y[n-2]=x[n].}
+            \] 
+            En otras palabras, la salida actual depende de la entrada actual y de dos salidas anteriores, con los coeficientes indicados.
         \item \db{Obtenga la respuesta al impulso del sistema e indique razonadamente si se trata de un sistema FIR o IIR. Justifique si el sistema cumple las propiedades de memoria, causalidad y/o estabilidad.}
+            \begin{itemize}[label=\textbullet]
+                \item \textbf{Respuesta al impulso}
+
+                    La respuesta al impulso $h[n]=\delta[n]$. De acuerdo con la ecuación en diferencias: \[
+                        h[n]-\dfrac{1}{2}h[n-1]+3h[n-2]=\delta[n],
+                    \] con la condición causal de que $h[n]=0$ para  $n<0$. Resolviendo este sistema (ya sea por métodos directos o por transformada $Z$) se obtiene una secuencia que generalmente \textbf{no} se anula después de un número finito de muestras, precisamente debido a la parte de realimentación $+3y[n-2]$. De hecho, los polos del sistema son las raíces de  \[
+                    r^2-\dfrac{1}{2}r+3=0,
+                \] las cuales resultan ser complejas con magnitud mayor que 1. Esto implica que $h[n]$ es de \textbf{duración finita} (y además crece exponencialmente). 
+                    
+                Por consiguiente:
+                \begin{itemize}[label=\textbullet]
+                    \item El sistema es \textbf{IIR} porque su respuesta al impulso no se reduce a un número finito de muestras distintas de cero. 
+                \end{itemize}
+            \item \textbf{Memoria}
+
+                Un sistema es \textit{sin memoria} solamente si la salida en el instante $n$ depende \textbf{exclusivamente} de la entrada en el mismo instante $n$. Aquí, en cambio,  $y[n]$ depende de salidas pasadas ($y[n-1]$ y  $y[n-2]$), así que \textbf{posee memoria}.
+            \item \textbf{Causalidad}
+
+                El sistema es \textbf{causal} si para toda $n$ la salida depende solo de entradas (y salidas) en instantes presentes o pasados (no futuros). De la ecuación en diferencias se ve que $y[n]$ involucra  $x[n],y[n-1],y[n-2]$ (todas en instantes $\le n$), así que \textbf{sí} es causal.
+            \item \textbf{Estabilidad}
+
+                Un sistema LTI es estable si su respuesta al impulso $h[n]$ es absolutamente sumable. En términos de polos, si alguna raíz de la ecuación característica tiene magnitud mayor o igual que 1, el sistema pierde estabilidad. Aquí las raíces del polinomio  \[
+                r^2-\dfrac{1}{2}r+3=0
+            \] tiene magnitud $\sqrt{3}\approx 1.732>1$. Por tanto, la magnitud de los polos es mayor que 1 y la suma de los valores absolutos de $h[n]$ diverge. El sistema es  \textbf{inestable}.
+            \end{itemize}
+
         \item \db{Considere la señal de entrada $x[n]=\prod\left( \dfrac{n-2}{5} \right) +u[2n-20]u[-n+14]$. Represente la señal y calcule su energía total y potencia media.}
+
+            \begin{center}
+                \begin{tikzpicture}
+                    \begin{axis}[
+                        xmin= -5, xmax= 20,
+                        ymin= -0.1, ymax = 1.1,
+                        xlabel={$n$}, ylabel={$x[n]$},
+                        axis lines = middle,
+                        xlabel style={at={(axis cs:20,0)}, anchor=west},
+                        ylabel style={at={(axis cs:0,1.1)}, anchor=south},
+                    ]
+                        \pgfmathsetmacro{\mysamples}{20-(-5)+1}
+                        \addplot+[ycomb, mark=*, lightblue, line width=1.5, domain=-5:20, samples=\mysamples] {rect((x-2)/5)+u(2*x-20)*u(-x+14)};
+                    \end{axis}
+                \end{tikzpicture}
+            \end{center}
+            \textbf{Energía de $x[n]$} 
+
+            Por definición, la energía en tiempo discreto es \[
+                E=\sum_{n=-\infty}^{\infty} |x[n]|^2.
+            \] 
+            Como $ x[n]=1$ en 10 valores de $n$ (cinco en $[0,4]$ y cinco más en  $[10,14]$), y 0 en otro lado se obtiene \[
+            E=10.
+            \] 
+            \textbf{Potencia promedio}
+\[
+    P=\lim_{N \to \infty} \dfrac{1}{2N+1}\sum_{n=-N}^{N} |x[n]|^2=\lim_{N \to \infty} \dfrac{10}{2N+1}=0.
+\] 
         \item \db{Determine la señal de salida del sistema $y[n]$ cuando se introduce la señal  $x[n]$ del apartado anterior como señal de entrada.} 
+
+            La salida se determina (en principio) resolviendo la misma ecuación en diferencias halladas en (a), pero con $x[n]$ dado por la suma de las dos "ventanas" recién descritas:  \[
+                y[n]-\dfrac{1}{2}y[n-1]+3y[n-2]=x[n],
+            \] con condiciones iniciales típicamente $y[n]=0$ para  $n<0$ si asumimos causalidad "pura" (o se pueden indicar condiciones iniciales específicas, según el problema).  \textbf{No} es necesario aquí detallar cada valor de $y[n]$, pero sí debe notarse que el sistema, al ser inestable (polos de magnitud mayor que 1), tenderá a generar términos crecientes. Incluso con una entrada "finita" de 10 muestras distintas de cero, la solución homogénea a partir de cada pulso puede tener término exponencial creciente.
+
+            En un sistema estable normal hubiéramos convolucionado $x[n]$ con  $h[n]$ y obtenido una señal de duración mayor que la de  $x[n]$ pero acotada. Sin embargo, dada la inestabilidad, la salida puede divergir a medida que avanza  $n$.
+
+            En cualquier caso,  \textbf{la forma explícita} de $y[n]$ proviene de:
+            \begin{itemize}[label=\textbullet]
+                \item Resolver la ecuación en diferencias para $n\ge 0$ (o $-\infty$) usando que $x[n]=1$ en los intervalos mencionados y 0 en otro caso.
+                \item Sumar la solución homogénea (cuyos polos son $|r|>1$) y la particular (que actúa mientras la entrada es no nula).
+            \end{itemize}
     \end{enumerate}
 \item \lb{Considere el sistema descrito por la siguiente relación entre la entrada y la salida: \[
             y[n]=\sum_{k=-\infty}^{n-1} x[k-1]
