@@ -1,202 +1,190 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.21 (TeX Live 2020) (preloaded format=latex 2020.4.29)  11 MAR 2025 22:30
+This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2025) (preloaded format=pdflatex 2025.3.11)  14 MAR 2025 18:11
 entering extended mode
+ restricted \write18 enabled.
+ %&-line parsing enabled.
 **"Problemas Unidad 1.tex"
-(Problemas Unidad 1.tex
-LaTeX2e <2020-02-02> patch level 5
-L3 programming layer <2020-03-06> (../../../Macros.tex
-(/private/var/containers/Bundle/Application/38CAA5E5-7B85-4BF0-8BF3-3C6105CB5C8
-4/TeX Writer.app/texmf-base/./tex/latex/base/article.cls
-Document Class: article 2019/12/20 v1.4l Standard LaTeX document class
-
-(/private/var/containers/Bundle/Application/38CAA5E5-7B85-4BF0-8BF3-3C6105CB5C8
-4/TeX Writer.app/texmf-base/./tex/latex/base/size10.clo
-File: size10.clo 2019/12/20 v1.4l Standard LaTeX file (size option)
+(./Problemas Unidad 1.tex
+LaTeX2e <2024-11-01> patch level 2
+L3 programming layer <2025-01-18>
+(../../../Macros.tex (c:/texlive/2025/texmf-dist/tex/latex/base/article.cls
+Document Class: article 2024/06/29 v1.4n Standard LaTeX document class
+(c:/texlive/2025/texmf-dist/tex/latex/base/size10.clo
+File: size10.clo 2024/06/29 v1.4n Standard LaTeX file (size option)
 )
-\c@part=\count167
-\c@section=\count168
-\c@subsection=\count169
-\c@subsubsection=\count170
-\c@paragraph=\count171
-\c@subparagraph=\count172
-\c@figure=\count173
-\c@table=\count174
-\abovecaptionskip=\skip47
-\belowcaptionskip=\skip48
-\bibindent=\dimen134
+\c@part=\count196
+\c@section=\count197
+\c@subsection=\count198
+\c@subsubsection=\count199
+\c@paragraph=\count266
+\c@subparagraph=\count267
+\c@figure=\count268
+\c@table=\count269
+\abovecaptionskip=\skip49
+\belowcaptionskip=\skip50
+\bibindent=\dimen141
 )
-(/var/mobile/Containers/Data/Application/467E7597-C7BE-49DF-AE4E-DDA95A01BBDF/L
-ibrary/Caches/texmf-dist/./tex/latex/preprint/fullpage.sty
+(c:/texlive/2025/texmf-dist/tex/latex/preprint/fullpage.sty
 Package: fullpage 1999/02/23 1.1 (PWD)
-\FP@margin=\skip49
+\FP@margin=\skip51
 )
-(/private/var/containers/Bundle/Application/38CAA5E5-7B85-4BF0-8BF3-3C6105CB5C8
-4/TeX Writer.app/texmf-base/./tex/latex/base/inputenc.sty
-Package: inputenc 2018/08/11 v1.3c Input encoding file
-\inpenc@prehook=\toks15
-\inpenc@posthook=\toks16
+(c:/texlive/2025/texmf-dist/tex/latex/base/inputenc.sty
+Package: inputenc 2024/02/08 v1.3d Input encoding file
+\inpenc@prehook=\toks17
+\inpenc@posthook=\toks18
 )
-(/var/mobile/Containers/Data/Application/467E7597-C7BE-49DF-AE4E-DDA95A01BBDF/L
-ibrary/Caches/texmf-dist/./tex/latex/setspace/setspace.sty
-Package: setspace 2011/12/19 v6.7a set line spacing
+(c:/texlive/2025/texmf-dist/tex/latex/setspace/setspace.sty
+Package: setspace 2022/12/04 v6.7b set line spacing
 )
-(/var/mobile/Containers/Data/Application/467E7597-C7BE-49DF-AE4E-DDA95A01BBDF/L
-ibrary/Caches/texmf-dist/./tex/latex/pict2e/pict2e.sty
-Package: pict2e 2019/08/20 v0.3c Improved picture commands (HjG,RN,JT)
+(c:/texlive/2025/texmf-dist/tex/latex/pict2e/pict2e.sty
+Package: pict2e 2020/09/30 v0.4b Improved picture commands (HjG,RN,JT)
 
-(/var/mobile/Containers/Data/Application/467E7597-C7BE-49DF-AE4E-DDA95A01BBDF/L
-ibrary/Caches/texmf-dist/./tex/latex/pict2e/pict2e.cfg
+(c:/texlive/2025/texmf-dist/tex/latex/pict2e/pict2e.cfg
 File: pict2e.cfg 2016/02/05 v0.1u pict2e configuration for teTeX/TeXLive
 )
-Package pict2e Info: Driver file: pdftex.def on input line 119.
+Package pict2e Info: Driver file: pdftex.def on input line 112.
 
-(/var/mobile/Containers/Data/Application/467E7597-C7BE-49DF-AE4E-DDA95A01BBDF/L
-ibrary/Caches/texmf-dist/./tex/latex/graphics-def/pdftex.def
-File: pdftex.def 2018/01/08 v1.0l Graphics/color driver for pdftex
+(c:/texlive/2025/texmf-dist/tex/latex/graphics-def/pdftex.def
+File: pdftex.def 2024/04/13 v1.2c Graphics/color driver for pdftex
 )
-Package pict2e Info: Driver file for pict2e: p2e-pdftex.def on input line 121.
+Package pict2e Info: Driver file for pict2e: p2e-pdftex.def on input line 114.
 
-(/var/mobile/Containers/Data/Application/467E7597-C7BE-49DF-AE4E-DDA95A01BBDF/L
-ibrary/Caches/texmf-dist/./tex/latex/pict2e/p2e-pdftex.def
+(c:/texlive/2025/texmf-dist/tex/latex/pict2e/p2e-pdftex.def
 File: p2e-pdftex.def 2016/02/05 v0.1u Driver-dependant file (RN,HjG,JT)
 )
-(/private/var/containers/Bundle/Application/38CAA5E5-7B85-4BF0-8BF3-3C6105CB5C8
-4/TeX Writer.app/texmf-base/./tex/latex/graphics/trig.sty
-Package: trig 2016/01/03 v1.10 sin cos tan (DPC)
+(c:/texlive/2025/texmf-dist/tex/latex/graphics/trig.sty
+Package: trig 2023/12/02 v1.11 sin cos tan (DPC)
 )
-\pIIe@GRAPH=\toks17
-\@arclen=\dimen135
-\@arcrad=\dimen136
-\@tempdimd=\dimen137
+\pIIe@GRAPH=\toks19
+\@arclen=\dimen142
+\@arcrad=\dimen143
+\pIIe@tempdima=\dimen144
+\pIIe@tempdimb=\dimen145
+\pIIe@tempdimc=\dimen146
+\pIIe@tempdimd=\dimen147
+\pIIe@tempdime=\dimen148
+\pIIe@tempdimf=\dimen149
 )
-(/private/var/containers/Bundle/Application/38CAA5E5-7B85-4BF0-8BF3-3C6105CB5C8
-4/TeX Writer.app/texmf-base/./tex/latex/amsmath/amsmath.sty
-Package: amsmath 2020/01/20 v2.17e AMS math features
-\@mathmargin=\skip50
+(c:/texlive/2025/texmf-dist/tex/latex/amsmath/amsmath.sty
+Package: amsmath 2024/11/05 v2.17t AMS math features
+\@mathmargin=\skip52
 
 For additional information on amsmath, use the `?' option.
+(c:/texlive/2025/texmf-dist/tex/latex/amsmath/amstext.sty
+Package: amstext 2021/08/26 v2.01 AMS text
 
-(/private/var/containers/Bundle/Application/38CAA5E5-7B85-4BF0-8BF3-3C6105CB5C8
-4/TeX Writer.app/texmf-base/./tex/latex/amsmath/amstext.sty
-Package: amstext 2000/06/29 v2.01 AMS text
-
-(/private/var/containers/Bundle/Application/38CAA5E5-7B85-4BF0-8BF3-3C6105CB5C8
-4/TeX Writer.app/texmf-base/./tex/latex/amsmath/amsgen.sty
+(c:/texlive/2025/texmf-dist/tex/latex/amsmath/amsgen.sty
 File: amsgen.sty 1999/11/30 v2.0 generic functions
-\@emptytoks=\toks18
-\ex@=\dimen138
+\@emptytoks=\toks20
+\ex@=\dimen150
 ))
-(/private/var/containers/Bundle/Application/38CAA5E5-7B85-4BF0-8BF3-3C6105CB5C8
-4/TeX Writer.app/texmf-base/./tex/latex/amsmath/amsbsy.sty
+(c:/texlive/2025/texmf-dist/tex/latex/amsmath/amsbsy.sty
 Package: amsbsy 1999/11/29 v1.2d Bold Symbols
-\pmbraise@=\dimen139
+\pmbraise@=\dimen151
 )
-(/private/var/containers/Bundle/Application/38CAA5E5-7B85-4BF0-8BF3-3C6105CB5C8
-4/TeX Writer.app/texmf-base/./tex/latex/amsmath/amsopn.sty
-Package: amsopn 2016/03/08 v2.02 operator names
+(c:/texlive/2025/texmf-dist/tex/latex/amsmath/amsopn.sty
+Package: amsopn 2022/04/08 v2.04 operator names
 )
-\inf@bad=\count175
-LaTeX Info: Redefining \frac on input line 227.
-\uproot@=\count176
-\leftroot@=\count177
-LaTeX Info: Redefining \overline on input line 389.
-\classnum@=\count178
-\DOTSCASE@=\count179
-LaTeX Info: Redefining \ldots on input line 486.
-LaTeX Info: Redefining \dots on input line 489.
-LaTeX Info: Redefining \cdots on input line 610.
-\Mathstrutbox@=\box45
-\strutbox@=\box46
-\big@size=\dimen140
-LaTeX Font Info:    Redeclaring font encoding OML on input line 733.
-LaTeX Font Info:    Redeclaring font encoding OMS on input line 734.
-\macc@depth=\count180
-\c@MaxMatrixCols=\count181
-\dotsspace@=\muskip16
-\c@parentequation=\count182
-\dspbrk@lvl=\count183
-\tag@help=\toks19
-\row@=\count184
-\column@=\count185
-\maxfields@=\count186
-\andhelp@=\toks20
-\eqnshift@=\dimen141
-\alignsep@=\dimen142
-\tagshift@=\dimen143
-\tagwidth@=\dimen144
-\totwidth@=\dimen145
-\lineht@=\dimen146
-\@envbody=\toks21
-\multlinegap=\skip51
-\multlinetaggap=\skip52
-\mathdisplay@stack=\toks22
-LaTeX Info: Redefining \[ on input line 2859.
-LaTeX Info: Redefining \] on input line 2860.
+\inf@bad=\count270
+LaTeX Info: Redefining \frac on input line 233.
+\uproot@=\count271
+\leftroot@=\count272
+LaTeX Info: Redefining \overline on input line 398.
+LaTeX Info: Redefining \colon on input line 409.
+\classnum@=\count273
+\DOTSCASE@=\count274
+LaTeX Info: Redefining \ldots on input line 495.
+LaTeX Info: Redefining \dots on input line 498.
+LaTeX Info: Redefining \cdots on input line 619.
+\Mathstrutbox@=\box52
+\strutbox@=\box53
+LaTeX Info: Redefining \big on input line 721.
+LaTeX Info: Redefining \Big on input line 722.
+LaTeX Info: Redefining \bigg on input line 723.
+LaTeX Info: Redefining \Bigg on input line 724.
+\big@size=\dimen152
+LaTeX Font Info:    Redeclaring font encoding OML on input line 742.
+LaTeX Font Info:    Redeclaring font encoding OMS on input line 743.
+\macc@depth=\count275
+LaTeX Info: Redefining \bmod on input line 904.
+LaTeX Info: Redefining \pmod on input line 909.
+LaTeX Info: Redefining \smash on input line 939.
+LaTeX Info: Redefining \relbar on input line 969.
+LaTeX Info: Redefining \Relbar on input line 970.
+\c@MaxMatrixCols=\count276
+\dotsspace@=\muskip17
+\c@parentequation=\count277
+\dspbrk@lvl=\count278
+\tag@help=\toks21
+\row@=\count279
+\column@=\count280
+\maxfields@=\count281
+\andhelp@=\toks22
+\eqnshift@=\dimen153
+\alignsep@=\dimen154
+\tagshift@=\dimen155
+\tagwidth@=\dimen156
+\totwidth@=\dimen157
+\lineht@=\dimen158
+\@envbody=\toks23
+\multlinegap=\skip53
+\multlinetaggap=\skip54
+\mathdisplay@stack=\toks24
+LaTeX Info: Redefining \[ on input line 2953.
+LaTeX Info: Redefining \] on input line 2954.
 )
-(/var/mobile/Containers/Data/Application/467E7597-C7BE-49DF-AE4E-DDA95A01BBDF/L
-ibrary/Caches/texmf-dist/./tex/latex/enumitem/enumitem.sty
-Package: enumitem 2019/06/20 v3.9 Customized lists
-\enitkv@toks@=\toks23
-\labelindent=\skip53
-\enit@outerparindent=\dimen147
-\enit@toks=\toks24
-\enit@inbox=\box47
-\enit@count@id=\count187
-\enitdp@description=\count188
+(c:/texlive/2025/texmf-dist/tex/latex/enumitem/enumitem.sty
+Package: enumitem 2025/02/06 v3.11 Customized lists
+\enitkv@toks@=\toks25
+\labelindent=\skip55
+\enit@outerparindent=\dimen159
+\enit@toks=\toks26
+\enit@inbox=\box54
+\enit@count@id=\count282
+\enitdp@description=\count283
 )
-(/var/mobile/Containers/Data/Application/467E7597-C7BE-49DF-AE4E-DDA95A01BBDF/L
-ibrary/Caches/texmf-dist/./tex/latex/eurosym/eurosym.sty
+(c:/texlive/2025/texmf-dist/tex/latex/eurosym/eurosym.sty
 Package: eurosym 1998/08/06 v1.1 European currency symbol ``Euro''
-\@eurobox=\box48
+\@eurobox=\box55
 )
-(/var/mobile/Containers/Data/Application/467E7597-C7BE-49DF-AE4E-DDA95A01BBDF/L
-ibrary/Caches/texmf-dist/./tex/latex/mathtools/mathtools.sty
-Package: mathtools 2020/03/24 v1.24 mathematical typesetting tools
+(c:/texlive/2025/texmf-dist/tex/latex/mathtools/mathtools.sty
+Package: mathtools 2024/10/04 v1.31 mathematical typesetting tools
 
-(/private/var/containers/Bundle/Application/38CAA5E5-7B85-4BF0-8BF3-3C6105CB5C8
-4/TeX Writer.app/texmf-base/./tex/latex/graphics/keyval.sty
-Package: keyval 2014/10/28 v1.15 key=value parser (DPC)
-\KV@toks@=\toks25
+(c:/texlive/2025/texmf-dist/tex/latex/graphics/keyval.sty
+Package: keyval 2022/05/29 v1.15 key=value parser (DPC)
+\KV@toks@=\toks27
 )
-(/var/mobile/Containers/Data/Application/467E7597-C7BE-49DF-AE4E-DDA95A01BBDF/L
-ibrary/Caches/texmf-dist/./tex/latex/tools/calc.sty
-Package: calc 2017/05/25 v4.3 Infix arithmetic (KKT,FJ)
-\calc@Acount=\count189
-\calc@Bcount=\count190
-\calc@Adimen=\dimen148
-\calc@Bdimen=\dimen149
-\calc@Askip=\skip54
-\calc@Bskip=\skip55
+(c:/texlive/2025/texmf-dist/tex/latex/tools/calc.sty
+Package: calc 2023/07/08 v4.3 Infix arithmetic (KKT,FJ)
+\calc@Acount=\count284
+\calc@Bcount=\count285
+\calc@Adimen=\dimen160
+\calc@Bdimen=\dimen161
+\calc@Askip=\skip56
+\calc@Bskip=\skip57
 LaTeX Info: Redefining \setlength on input line 80.
 LaTeX Info: Redefining \addtolength on input line 81.
-\calc@Ccount=\count191
-\calc@Cskip=\skip56
+\calc@Ccount=\count286
+\calc@Cskip=\skip58
 )
-(/var/mobile/Containers/Data/Application/467E7597-C7BE-49DF-AE4E-DDA95A01BBDF/L
-ibrary/Caches/texmf-dist/./tex/latex/mathtools/mhsetup.sty
-Package: mhsetup 2017/03/31 v1.3 programming setup (MH)
+(c:/texlive/2025/texmf-dist/tex/latex/mathtools/mhsetup.sty
+Package: mhsetup 2021/03/18 v1.4 programming setup (MH)
 )
-LaTeX Info: Thecontrolsequence`\('isalreadyrobust on input line 130.
-LaTeX Info: Thecontrolsequence`\)'isalreadyrobust on input line 130.
-LaTeX Info: Thecontrolsequence`\['isalreadyrobust on input line 130.
-LaTeX Info: Thecontrolsequence`\]'isalreadyrobust on input line 130.
-\g_MT_multlinerow_int=\count192
-\l_MT_multwidth_dim=\dimen150
-\origjot=\skip57
-\l_MT_shortvdotswithinadjustabove_dim=\dimen151
-\l_MT_shortvdotswithinadjustbelow_dim=\dimen152
-\l_MT_above_intertext_sep=\dimen153
-\l_MT_below_intertext_sep=\dimen154
-\l_MT_above_shortintertext_sep=\dimen155
-\l_MT_below_shortintertext_sep=\dimen156
-\xmathstrut@box=\box49
-\xmathstrut@dim=\dimen157
+\g_MT_multlinerow_int=\count287
+\l_MT_multwidth_dim=\dimen162
+\origjot=\skip59
+\l_MT_shortvdotswithinadjustabove_dim=\dimen163
+\l_MT_shortvdotswithinadjustbelow_dim=\dimen164
+\l_MT_above_intertext_sep=\dimen165
+\l_MT_below_intertext_sep=\dimen166
+\l_MT_above_shortintertext_sep=\dimen167
+\l_MT_below_shortintertext_sep=\dimen168
+\xmathstrut@box=\box56
+\xmathstrut@dim=\dimen169
 )
-(/private/var/containers/Bundle/Application/38CAA5E5-7B85-4BF0-8BF3-3C6105CB5C8
-4/TeX Writer.app/texmf-base/./tex/latex/amsfonts/amssymb.sty
+(c:/texlive/2025/texmf-dist/tex/latex/amsfonts/amssymb.sty
 Package: amssymb 2013/01/14 v3.01 AMS font symbols
 
-(/private/var/containers/Bundle/Application/38CAA5E5-7B85-4BF0-8BF3-3C6105CB5C8
-4/TeX Writer.app/texmf-base/./tex/latex/amsfonts/amsfonts.sty
+(c:/texlive/2025/texmf-dist/tex/latex/amsfonts/amsfonts.sty
 Package: amsfonts 2013/01/14 v3.01 Basic AMSFonts support
 \symAMSa=\mathgroup4
 \symAMSb=\mathgroup5
@@ -204,515 +192,472 @@ LaTeX Font Info:    Redeclaring math symbol \hbar on input line 98.
 LaTeX Font Info:    Overwriting math alphabet `\mathfrak' in version `bold'
 (Font)                  U/euf/m/n --> U/euf/b/n on input line 106.
 ))
-(/private/var/containers/Bundle/Application/38CAA5E5-7B85-4BF0-8BF3-3C6105CB5C8
-4/TeX Writer.app/texmf-base/./tex/latex/base/latexsym.sty
+(c:/texlive/2025/texmf-dist/tex/latex/base/latexsym.sty
 Package: latexsym 1998/08/17 v2.2e Standard LaTeX package (lasy symbols)
 \symlasy=\mathgroup6
 LaTeX Font Info:    Overwriting symbol font `lasy' in version `bold'
 (Font)                  U/lasy/m/n --> U/lasy/b/n on input line 52.
 )
-(/var/mobile/Containers/Data/Application/467E7597-C7BE-49DF-AE4E-DDA95A01BBDF/L
-ibrary/Caches/texmf-dist/./tex/latex/cancel/cancel.sty
+(c:/texlive/2025/texmf-dist/tex/latex/cancel/cancel.sty
 Package: cancel 2013/04/12 v2.2 Cancel math terms
 )
-(/var/mobile/Containers/Data/Application/467E7597-C7BE-49DF-AE4E-DDA95A01BBDF/L
-ibrary/Caches/texmf-dist/./tex/latex/caption/subcaption.sty
-Package: subcaption 2020/01/22 v1.3d Sub-captions (AR)
+(c:/texlive/2025/texmf-dist/tex/latex/caption/subcaption.sty
+Package: subcaption 2023/07/28 v1.6b Sub-captions (AR)
 
-(/var/mobile/Containers/Data/Application/467E7597-C7BE-49DF-AE4E-DDA95A01BBDF/L
-ibrary/Caches/texmf-dist/./tex/latex/caption/caption.sty
-Package: caption 2020/01/03 v3.4h Customizing captions (AR)
+(c:/texlive/2025/texmf-dist/tex/latex/caption/caption.sty
+Package: caption 2023/08/05 v3.6o Customizing captions (AR)
 
-(/var/mobile/Containers/Data/Application/467E7597-C7BE-49DF-AE4E-DDA95A01BBDF/L
-ibrary/Caches/texmf-dist/./tex/latex/caption/caption3.sty
-Package: caption3 2020/01/03 v1.8h caption3 kernel (AR)
-Package caption3 Info: TeX engine: e-TeX on input line 61.
-\captionmargin=\dimen158
-\captionmargin@=\dimen159
-\captionwidth=\dimen160
-\caption@tempdima=\dimen161
-\caption@indent=\dimen162
-\caption@parindent=\dimen163
-\caption@hangindent=\dimen164
+(c:/texlive/2025/texmf-dist/tex/latex/caption/caption3.sty
+Package: caption3 2023/07/31 v2.4d caption3 kernel (AR)
+\caption@tempdima=\dimen170
+\captionmargin=\dimen171
+\caption@leftmargin=\dimen172
+\caption@rightmargin=\dimen173
+\caption@width=\dimen174
+\caption@indent=\dimen175
+\caption@parindent=\dimen176
+\caption@hangindent=\dimen177
 Package caption Info: Standard document class detected.
 )
-\c@caption@flags=\count193
-\c@continuedfloat=\count194
+\c@caption@flags=\count288
+\c@continuedfloat=\count289
 )
-\c@subfigure=\count195
-\c@subtable=\count196
+Package caption Info: New subtype `subfigure' on input line 238.
+\c@subfigure=\count290
+Package caption Info: New subtype `subtable' on input line 238.
+\c@subtable=\count291
 )
-(/var/mobile/Containers/Data/Application/467E7597-C7BE-49DF-AE4E-DDA95A01BBDF/L
-ibrary/Caches/texmf-dist/./tex/latex/tcolorbox/tcolorbox.sty
-Package: tcolorbox 2019/11/15 version 4.22 text color boxes
+(c:/texlive/2025/texmf-dist/tex/latex/tcolorbox/tcolorbox.sty
+Package: tcolorbox 2024/10/22 version 6.4.1 text color boxes
 
-(/var/mobile/Containers/Data/Application/467E7597-C7BE-49DF-AE4E-DDA95A01BBDF/L
-ibrary/Caches/texmf-dist/./tex/latex/pgf/basiclayer/pgf.sty
-(/var/mobile/Containers/Data/Application/467E7597-C7BE-49DF-AE4E-DDA95A01BBDF/L
-ibrary/Caches/texmf-dist/./tex/latex/pgf/utilities/pgfrcs.sty
-(/var/mobile/Containers/Data/Application/467E7597-C7BE-49DF-AE4E-DDA95A01BBDF/L
-ibrary/Caches/texmf-dist/./tex/generic/pgf/utilities/pgfutil-common.tex
-\pgfutil@everybye=\toks26
-\pgfutil@tempdima=\dimen165
-\pgfutil@tempdimb=\dimen166
-
-(/var/mobile/Containers/Data/Application/467E7597-C7BE-49DF-AE4E-DDA95A01BBDF/L
-ibrary/Caches/texmf-dist/./tex/generic/pgf/utilities/pgfutil-common-lists.tex))
-
-(/var/mobile/Containers/Data/Application/467E7597-C7BE-49DF-AE4E-DDA95A01BBDF/L
-ibrary/Caches/texmf-dist/./tex/generic/pgf/utilities/pgfutil-latex.def
-\pgfutil@abb=\box50
-
-(/var/mobile/Containers/Data/Application/467E7597-C7BE-49DF-AE4E-DDA95A01BBDF/L
-ibrary/Caches/texmf-dist/./tex/latex/ms/everyshi.sty
-Package: everyshi 2001/05/15 v3.00 EveryShipout Package (MS)
+(c:/texlive/2025/texmf-dist/tex/latex/pgf/frontendlayer/tikz.sty
+(c:/texlive/2025/texmf-dist/tex/latex/pgf/basiclayer/pgf.sty
+(c:/texlive/2025/texmf-dist/tex/latex/pgf/utilities/pgfrcs.sty
+(c:/texlive/2025/texmf-dist/tex/generic/pgf/utilities/pgfutil-common.tex
+\pgfutil@everybye=\toks28
+\pgfutil@tempdima=\dimen178
+\pgfutil@tempdimb=\dimen179
+)
+(c:/texlive/2025/texmf-dist/tex/generic/pgf/utilities/pgfutil-latex.def
+\pgfutil@abb=\box57
+)
+(c:/texlive/2025/texmf-dist/tex/generic/pgf/utilities/pgfrcs.code.tex
+(c:/texlive/2025/texmf-dist/tex/generic/pgf/pgf.revision.tex)
+Package: pgfrcs 2023-01-15 v3.1.10 (3.1.10)
 ))
-(/var/mobile/Containers/Data/Application/467E7597-C7BE-49DF-AE4E-DDA95A01BBDF/L
-ibrary/Caches/texmf-dist/./tex/generic/pgf/utilities/pgfrcs.code.tex
-(/var/mobile/Containers/Data/Application/467E7597-C7BE-49DF-AE4E-DDA95A01BBDF/L
-ibrary/Caches/texmf-dist/./tex/generic/pgf/pgf.revision.tex)
-Package: pgfrcs 2020/01/08 v3.1.5b (3.1.5b)
-))
-Package: pgf 2020/01/08 v3.1.5b (3.1.5b)
+Package: pgf 2023-01-15 v3.1.10 (3.1.10)
 
-(/var/mobile/Containers/Data/Application/467E7597-C7BE-49DF-AE4E-DDA95A01BBDF/L
-ibrary/Caches/texmf-dist/./tex/latex/pgf/basiclayer/pgfcore.sty
-(/private/var/containers/Bundle/Application/38CAA5E5-7B85-4BF0-8BF3-3C6105CB5C8
-4/TeX Writer.app/texmf-base/./tex/latex/graphics/graphicx.sty
-Package: graphicx 2019/11/30 v1.2a Enhanced LaTeX Graphics (DPC,SPQR)
+(c:/texlive/2025/texmf-dist/tex/latex/pgf/basiclayer/pgfcore.sty
+(c:/texlive/2025/texmf-dist/tex/latex/graphics/graphicx.sty
+Package: graphicx 2021/09/16 v1.2d Enhanced LaTeX Graphics (DPC,SPQR)
 
-(/private/var/containers/Bundle/Application/38CAA5E5-7B85-4BF0-8BF3-3C6105CB5C8
-4/TeX Writer.app/texmf-base/./tex/latex/graphics/graphics.sty
-Package: graphics 2019/11/30 v1.4a Standard LaTeX Graphics (DPC,SPQR)
+(c:/texlive/2025/texmf-dist/tex/latex/graphics/graphics.sty
+Package: graphics 2024/08/06 v1.4g Standard LaTeX Graphics (DPC,SPQR)
 
-(/var/mobile/Containers/Data/Application/467E7597-C7BE-49DF-AE4E-DDA95A01BBDF/L
-ibrary/Caches/texmf-dist/./tex/latex/graphics-cfg/graphics.cfg
+(c:/texlive/2025/texmf-dist/tex/latex/graphics-cfg/graphics.cfg
 File: graphics.cfg 2016/06/04 v1.11 sample graphics configuration
 )
-Package graphics Info: Driver file: pdftex.def on input line 105.
+Package graphics Info: Driver file: pdftex.def on input line 106.
 )
-\Gin@req@height=\dimen167
-\Gin@req@width=\dimen168
+\Gin@req@height=\dimen180
+\Gin@req@width=\dimen181
 )
-(/var/mobile/Containers/Data/Application/467E7597-C7BE-49DF-AE4E-DDA95A01BBDF/L
-ibrary/Caches/texmf-dist/./tex/latex/pgf/systemlayer/pgfsys.sty
-(/var/mobile/Containers/Data/Application/467E7597-C7BE-49DF-AE4E-DDA95A01BBDF/L
-ibrary/Caches/texmf-dist/./tex/generic/pgf/systemlayer/pgfsys.code.tex
-Package: pgfsys 2020/01/08 v3.1.5b (3.1.5b)
+(c:/texlive/2025/texmf-dist/tex/latex/pgf/systemlayer/pgfsys.sty
+(c:/texlive/2025/texmf-dist/tex/generic/pgf/systemlayer/pgfsys.code.tex
+Package: pgfsys 2023-01-15 v3.1.10 (3.1.10)
 
-(/var/mobile/Containers/Data/Application/467E7597-C7BE-49DF-AE4E-DDA95A01BBDF/L
-ibrary/Caches/texmf-dist/./tex/generic/pgf/utilities/pgfkeys.code.tex
-\pgfkeys@pathtoks=\toks27
-\pgfkeys@temptoks=\toks28
+(c:/texlive/2025/texmf-dist/tex/generic/pgf/utilities/pgfkeys.code.tex
+\pgfkeys@pathtoks=\toks29
+\pgfkeys@temptoks=\toks30
 
-(/var/mobile/Containers/Data/Application/467E7597-C7BE-49DF-AE4E-DDA95A01BBDF/L
-ibrary/Caches/texmf-dist/./tex/generic/pgf/utilities/pgfkeysfiltered.code.tex
-\pgfkeys@tmptoks=\toks29
+(c:/texlive/2025/texmf-dist/tex/generic/pgf/utilities/pgfkeyslibraryfiltered.co
+de.tex
+\pgfkeys@tmptoks=\toks31
 ))
-\pgf@x=\dimen169
-\pgf@y=\dimen170
-\pgf@xa=\dimen171
-\pgf@ya=\dimen172
-\pgf@xb=\dimen173
-\pgf@yb=\dimen174
-\pgf@xc=\dimen175
-\pgf@yc=\dimen176
-\pgf@xd=\dimen177
-\pgf@yd=\dimen178
+\pgf@x=\dimen182
+\pgf@y=\dimen183
+\pgf@xa=\dimen184
+\pgf@ya=\dimen185
+\pgf@xb=\dimen186
+\pgf@yb=\dimen187
+\pgf@xc=\dimen188
+\pgf@yc=\dimen189
+\pgf@xd=\dimen190
+\pgf@yd=\dimen191
 \w@pgf@writea=\write3
 \r@pgf@reada=\read2
-\c@pgf@counta=\count197
-\c@pgf@countb=\count198
-\c@pgf@countc=\count199
-\c@pgf@countd=\count266
-\t@pgf@toka=\toks30
-\t@pgf@tokb=\toks31
-\t@pgf@tokc=\toks32
-\pgf@sys@id@count=\count267
-
-(/var/mobile/Containers/Data/Application/467E7597-C7BE-49DF-AE4E-DDA95A01BBDF/L
-ibrary/Caches/texmf-dist/./tex/generic/pgf/systemlayer/pgf.cfg
-File: pgf.cfg 2020/01/08 v3.1.5b (3.1.5b)
+\c@pgf@counta=\count292
+\c@pgf@countb=\count293
+\c@pgf@countc=\count294
+\c@pgf@countd=\count295
+\t@pgf@toka=\toks32
+\t@pgf@tokb=\toks33
+\t@pgf@tokc=\toks34
+\pgf@sys@id@count=\count296
+ (c:/texlive/2025/texmf-dist/tex/generic/pgf/systemlayer/pgf.cfg
+File: pgf.cfg 2023-01-15 v3.1.10 (3.1.10)
 )
 Driver file for pgf: pgfsys-pdftex.def
 
-(/var/mobile/Containers/Data/Application/467E7597-C7BE-49DF-AE4E-DDA95A01BBDF/L
-ibrary/Caches/texmf-dist/./tex/generic/pgf/systemlayer/pgfsys-pdftex.def
-File: pgfsys-pdftex.def 2020/01/08 v3.1.5b (3.1.5b)
+(c:/texlive/2025/texmf-dist/tex/generic/pgf/systemlayer/pgfsys-pdftex.def
+File: pgfsys-pdftex.def 2023-01-15 v3.1.10 (3.1.10)
 
-(/var/mobile/Containers/Data/Application/467E7597-C7BE-49DF-AE4E-DDA95A01BBDF/L
-ibrary/Caches/texmf-dist/./tex/generic/pgf/systemlayer/pgfsys-common-pdf.def
-File: pgfsys-common-pdf.def 2020/01/08 v3.1.5b (3.1.5b)
+(c:/texlive/2025/texmf-dist/tex/generic/pgf/systemlayer/pgfsys-common-pdf.def
+File: pgfsys-common-pdf.def 2023-01-15 v3.1.10 (3.1.10)
 )))
-(/var/mobile/Containers/Data/Application/467E7597-C7BE-49DF-AE4E-DDA95A01BBDF/L
-ibrary/Caches/texmf-dist/./tex/generic/pgf/systemlayer/pgfsyssoftpath.code.tex
-File: pgfsyssoftpath.code.tex 2020/01/08 v3.1.5b (3.1.5b)
-\pgfsyssoftpath@smallbuffer@items=\count268
-\pgfsyssoftpath@bigbuffer@items=\count269
+(c:/texlive/2025/texmf-dist/tex/generic/pgf/systemlayer/pgfsyssoftpath.code.tex
+File: pgfsyssoftpath.code.tex 2023-01-15 v3.1.10 (3.1.10)
+\pgfsyssoftpath@smallbuffer@items=\count297
+\pgfsyssoftpath@bigbuffer@items=\count298
 )
-(/var/mobile/Containers/Data/Application/467E7597-C7BE-49DF-AE4E-DDA95A01BBDF/L
-ibrary/Caches/texmf-dist/./tex/generic/pgf/systemlayer/pgfsysprotocol.code.tex
-File: pgfsysprotocol.code.tex 2020/01/08 v3.1.5b (3.1.5b)
-))
-(/var/mobile/Containers/Data/Application/467E7597-C7BE-49DF-AE4E-DDA95A01BBDF/L
-ibrary/Caches/texmf-dist/./tex/latex/xcolor/xcolor.sty
-Package: xcolor 2016/05/11 v2.12 LaTeX color extensions (UK)
+(c:/texlive/2025/texmf-dist/tex/generic/pgf/systemlayer/pgfsysprotocol.code.tex
+File: pgfsysprotocol.code.tex 2023-01-15 v3.1.10 (3.1.10)
+)) (c:/texlive/2025/texmf-dist/tex/latex/xcolor/xcolor.sty
+Package: xcolor 2024/09/29 v3.02 LaTeX color extensions (UK)
 
-(/var/mobile/Containers/Data/Application/467E7597-C7BE-49DF-AE4E-DDA95A01BBDF/L
-ibrary/Caches/texmf-dist/./tex/latex/graphics-cfg/color.cfg
+(c:/texlive/2025/texmf-dist/tex/latex/graphics-cfg/color.cfg
 File: color.cfg 2016/01/02 v1.6 sample color configuration
 )
-Package xcolor Info: Driver file: pdftex.def on input line 225.
-Package xcolor Info: Model `cmy' substituted by `cmy0' on input line 1348.
-Package xcolor Info: Model `hsb' substituted by `rgb' on input line 1352.
-Package xcolor Info: Model `RGB' extended on input line 1364.
-Package xcolor Info: Model `HTML' substituted by `rgb' on input line 1366.
-Package xcolor Info: Model `Hsb' substituted by `hsb' on input line 1367.
-Package xcolor Info: Model `tHsb' substituted by `hsb' on input line 1368.
-Package xcolor Info: Model `HSB' substituted by `hsb' on input line 1369.
-Package xcolor Info: Model `Gray' substituted by `gray' on input line 1370.
-Package xcolor Info: Model `wave' substituted by `hsb' on input line 1371.
-)
-(/var/mobile/Containers/Data/Application/467E7597-C7BE-49DF-AE4E-DDA95A01BBDF/L
-ibrary/Caches/texmf-dist/./tex/generic/pgf/basiclayer/pgfcore.code.tex
-Package: pgfcore 2020/01/08 v3.1.5b (3.1.5b)
+Package xcolor Info: Driver file: pdftex.def on input line 274.
 
-(/var/mobile/Containers/Data/Application/467E7597-C7BE-49DF-AE4E-DDA95A01BBDF/L
-ibrary/Caches/texmf-dist/./tex/generic/pgf/math/pgfmath.code.tex
-(/var/mobile/Containers/Data/Application/467E7597-C7BE-49DF-AE4E-DDA95A01BBDF/L
-ibrary/Caches/texmf-dist/./tex/generic/pgf/math/pgfmathcalc.code.tex
-(/var/mobile/Containers/Data/Application/467E7597-C7BE-49DF-AE4E-DDA95A01BBDF/L
-ibrary/Caches/texmf-dist/./tex/generic/pgf/math/pgfmathutil.code.tex)
-(/var/mobile/Containers/Data/Application/467E7597-C7BE-49DF-AE4E-DDA95A01BBDF/L
-ibrary/Caches/texmf-dist/./tex/generic/pgf/math/pgfmathparser.code.tex
-\pgfmath@dimen=\dimen179
-\pgfmath@count=\count270
-\pgfmath@box=\box51
-\pgfmath@toks=\toks33
-\pgfmath@stack@operand=\toks34
-\pgfmath@stack@operation=\toks35
+(c:/texlive/2025/texmf-dist/tex/latex/graphics/mathcolor.ltx)
+Package xcolor Info: Model `cmy' substituted by `cmy0' on input line 1349.
+Package xcolor Info: Model `hsb' substituted by `rgb' on input line 1353.
+Package xcolor Info: Model `RGB' extended on input line 1365.
+Package xcolor Info: Model `HTML' substituted by `rgb' on input line 1367.
+Package xcolor Info: Model `Hsb' substituted by `hsb' on input line 1368.
+Package xcolor Info: Model `tHsb' substituted by `hsb' on input line 1369.
+Package xcolor Info: Model `HSB' substituted by `hsb' on input line 1370.
+Package xcolor Info: Model `Gray' substituted by `gray' on input line 1371.
+Package xcolor Info: Model `wave' substituted by `hsb' on input line 1372.
 )
-(/var/mobile/Containers/Data/Application/467E7597-C7BE-49DF-AE4E-DDA95A01BBDF/L
-ibrary/Caches/texmf-dist/./tex/generic/pgf/math/pgfmathfunctions.code.tex
-(/var/mobile/Containers/Data/Application/467E7597-C7BE-49DF-AE4E-DDA95A01BBDF/L
-ibrary/Caches/texmf-dist/./tex/generic/pgf/math/pgfmathfunctions.basic.code.tex
+(c:/texlive/2025/texmf-dist/tex/generic/pgf/basiclayer/pgfcore.code.tex
+Package: pgfcore 2023-01-15 v3.1.10 (3.1.10)
+
+(c:/texlive/2025/texmf-dist/tex/generic/pgf/math/pgfmath.code.tex
+(c:/texlive/2025/texmf-dist/tex/generic/pgf/math/pgfmathutil.code.tex)
+(c:/texlive/2025/texmf-dist/tex/generic/pgf/math/pgfmathparser.code.tex
+\pgfmath@dimen=\dimen192
+\pgfmath@count=\count299
+\pgfmath@box=\box58
+\pgfmath@toks=\toks35
+\pgfmath@stack@operand=\toks36
+\pgfmath@stack@operation=\toks37
 )
-(/var/mobile/Containers/Data/Application/467E7597-C7BE-49DF-AE4E-DDA95A01BBDF/L
-ibrary/Caches/texmf-dist/./tex/generic/pgf/math/pgfmathfunctions.trigonometric.
-code.tex)
-(/var/mobile/Containers/Data/Application/467E7597-C7BE-49DF-AE4E-DDA95A01BBDF/L
-ibrary/Caches/texmf-dist/./tex/generic/pgf/math/pgfmathfunctions.random.code.te
+(c:/texlive/2025/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.code.tex)
+(c:/texlive/2025/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.basic.code.te
 x)
-(/var/mobile/Containers/Data/Application/467E7597-C7BE-49DF-AE4E-DDA95A01BBDF/L
-ibrary/Caches/texmf-dist/./tex/generic/pgf/math/pgfmathfunctions.comparison.cod
-e.tex)
-(/var/mobile/Containers/Data/Application/467E7597-C7BE-49DF-AE4E-DDA95A01BBDF/L
-ibrary/Caches/texmf-dist/./tex/generic/pgf/math/pgfmathfunctions.base.code.tex)
-
-(/var/mobile/Containers/Data/Application/467E7597-C7BE-49DF-AE4E-DDA95A01BBDF/L
-ibrary/Caches/texmf-dist/./tex/generic/pgf/math/pgfmathfunctions.round.code.tex
+(c:/texlive/2025/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.trigonometric
+.code.tex)
+(c:/texlive/2025/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.random.code.t
+ex)
+(c:/texlive/2025/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.comparison.co
+de.tex)
+(c:/texlive/2025/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.base.code.tex
 )
-(/var/mobile/Containers/Data/Application/467E7597-C7BE-49DF-AE4E-DDA95A01BBDF/L
-ibrary/Caches/texmf-dist/./tex/generic/pgf/math/pgfmathfunctions.misc.code.tex)
-
-(/var/mobile/Containers/Data/Application/467E7597-C7BE-49DF-AE4E-DDA95A01BBDF/L
-ibrary/Caches/texmf-dist/./tex/generic/pgf/math/pgfmathfunctions.integerarithme
-tics.code.tex)))
-(/var/mobile/Containers/Data/Application/467E7597-C7BE-49DF-AE4E-DDA95A01BBDF/L
-ibrary/Caches/texmf-dist/./tex/generic/pgf/math/pgfmathfloat.code.tex
-\c@pgfmathroundto@lastzeros=\count271
+(c:/texlive/2025/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.round.code.te
+x)
+(c:/texlive/2025/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.misc.code.tex
+)
+(c:/texlive/2025/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.integerarithm
+etics.code.tex)
+(c:/texlive/2025/texmf-dist/tex/generic/pgf/math/pgfmathcalc.code.tex)
+(c:/texlive/2025/texmf-dist/tex/generic/pgf/math/pgfmathfloat.code.tex
+\c@pgfmathroundto@lastzeros=\count300
 ))
-(/var/mobile/Containers/Data/Application/467E7597-C7BE-49DF-AE4E-DDA95A01BBDF/L
-ibrary/Caches/texmf-dist/./tex/generic/pgf/math/pgfint.code.tex)
-(/var/mobile/Containers/Data/Application/467E7597-C7BE-49DF-AE4E-DDA95A01BBDF/L
-ibrary/Caches/texmf-dist/./tex/generic/pgf/basiclayer/pgfcorepoints.code.tex
-File: pgfcorepoints.code.tex 2020/01/08 v3.1.5b (3.1.5b)
-\pgf@picminx=\dimen180
-\pgf@picmaxx=\dimen181
-\pgf@picminy=\dimen182
-\pgf@picmaxy=\dimen183
-\pgf@pathminx=\dimen184
-\pgf@pathmaxx=\dimen185
-\pgf@pathminy=\dimen186
-\pgf@pathmaxy=\dimen187
-\pgf@xx=\dimen188
-\pgf@xy=\dimen189
-\pgf@yx=\dimen190
-\pgf@yy=\dimen191
-\pgf@zx=\dimen192
-\pgf@zy=\dimen193
+(c:/texlive/2025/texmf-dist/tex/generic/pgf/math/pgfint.code.tex)
+(c:/texlive/2025/texmf-dist/tex/generic/pgf/basiclayer/pgfcorepoints.code.tex
+File: pgfcorepoints.code.tex 2023-01-15 v3.1.10 (3.1.10)
+\pgf@picminx=\dimen193
+\pgf@picmaxx=\dimen194
+\pgf@picminy=\dimen195
+\pgf@picmaxy=\dimen196
+\pgf@pathminx=\dimen197
+\pgf@pathmaxx=\dimen198
+\pgf@pathminy=\dimen199
+\pgf@pathmaxy=\dimen256
+\pgf@xx=\dimen257
+\pgf@xy=\dimen258
+\pgf@yx=\dimen259
+\pgf@yy=\dimen260
+\pgf@zx=\dimen261
+\pgf@zy=\dimen262
 )
-(/var/mobile/Containers/Data/Application/467E7597-C7BE-49DF-AE4E-DDA95A01BBDF/L
-ibrary/Caches/texmf-dist/./tex/generic/pgf/basiclayer/pgfcorepathconstruct.code
-.tex
-File: pgfcorepathconstruct.code.tex 2020/01/08 v3.1.5b (3.1.5b)
-\pgf@path@lastx=\dimen194
-\pgf@path@lasty=\dimen195
-)
-(/var/mobile/Containers/Data/Application/467E7597-C7BE-49DF-AE4E-DDA95A01BBDF/L
-ibrary/Caches/texmf-dist/./tex/generic/pgf/basiclayer/pgfcorepathusage.code.tex
-File: pgfcorepathusage.code.tex 2020/01/08 v3.1.5b (3.1.5b)
-\pgf@shorten@end@additional=\dimen196
-\pgf@shorten@start@additional=\dimen197
-)
-(/var/mobile/Containers/Data/Application/467E7597-C7BE-49DF-AE4E-DDA95A01BBDF/L
-ibrary/Caches/texmf-dist/./tex/generic/pgf/basiclayer/pgfcorescopes.code.tex
-File: pgfcorescopes.code.tex 2020/01/08 v3.1.5b (3.1.5b)
-\pgfpic=\box52
-\pgf@hbox=\box53
-\pgf@layerbox@main=\box54
-\pgf@picture@serial@count=\count272
-)
-(/var/mobile/Containers/Data/Application/467E7597-C7BE-49DF-AE4E-DDA95A01BBDF/L
-ibrary/Caches/texmf-dist/./tex/generic/pgf/basiclayer/pgfcoregraphicstate.code.
-tex
-File: pgfcoregraphicstate.code.tex 2020/01/08 v3.1.5b (3.1.5b)
-\pgflinewidth=\dimen198
-)
-(/var/mobile/Containers/Data/Application/467E7597-C7BE-49DF-AE4E-DDA95A01BBDF/L
-ibrary/Caches/texmf-dist/./tex/generic/pgf/basiclayer/pgfcoretransformations.co
-de.tex
-File: pgfcoretransformations.code.tex 2020/01/08 v3.1.5b (3.1.5b)
-\pgf@pt@x=\dimen199
-\pgf@pt@y=\dimen256
-\pgf@pt@temp=\dimen257
-)
-(/var/mobile/Containers/Data/Application/467E7597-C7BE-49DF-AE4E-DDA95A01BBDF/L
-ibrary/Caches/texmf-dist/./tex/generic/pgf/basiclayer/pgfcorequick.code.tex
-File: pgfcorequick.code.tex 2020/01/08 v3.1.5b (3.1.5b)
-)
-(/var/mobile/Containers/Data/Application/467E7597-C7BE-49DF-AE4E-DDA95A01BBDF/L
-ibrary/Caches/texmf-dist/./tex/generic/pgf/basiclayer/pgfcoreobjects.code.tex
-File: pgfcoreobjects.code.tex 2020/01/08 v3.1.5b (3.1.5b)
-)
-(/var/mobile/Containers/Data/Application/467E7597-C7BE-49DF-AE4E-DDA95A01BBDF/L
-ibrary/Caches/texmf-dist/./tex/generic/pgf/basiclayer/pgfcorepathprocessing.cod
+(c:/texlive/2025/texmf-dist/tex/generic/pgf/basiclayer/pgfcorepathconstruct.cod
 e.tex
-File: pgfcorepathprocessing.code.tex 2020/01/08 v3.1.5b (3.1.5b)
+File: pgfcorepathconstruct.code.tex 2023-01-15 v3.1.10 (3.1.10)
+\pgf@path@lastx=\dimen263
+\pgf@path@lasty=\dimen264
 )
-(/var/mobile/Containers/Data/Application/467E7597-C7BE-49DF-AE4E-DDA95A01BBDF/L
-ibrary/Caches/texmf-dist/./tex/generic/pgf/basiclayer/pgfcorearrows.code.tex
-File: pgfcorearrows.code.tex 2020/01/08 v3.1.5b (3.1.5b)
-\pgfarrowsep=\dimen258
+(c:/texlive/2025/texmf-dist/tex/generic/pgf/basiclayer/pgfcorepathusage.code.te
+x
+File: pgfcorepathusage.code.tex 2023-01-15 v3.1.10 (3.1.10)
+\pgf@shorten@end@additional=\dimen265
+\pgf@shorten@start@additional=\dimen266
 )
-(/var/mobile/Containers/Data/Application/467E7597-C7BE-49DF-AE4E-DDA95A01BBDF/L
-ibrary/Caches/texmf-dist/./tex/generic/pgf/basiclayer/pgfcoreshade.code.tex
-File: pgfcoreshade.code.tex 2020/01/08 v3.1.5b (3.1.5b)
-\pgf@max=\dimen259
-\pgf@sys@shading@range@num=\count273
-\pgf@shadingcount=\count274
+(c:/texlive/2025/texmf-dist/tex/generic/pgf/basiclayer/pgfcorescopes.code.tex
+File: pgfcorescopes.code.tex 2023-01-15 v3.1.10 (3.1.10)
+\pgfpic=\box59
+\pgf@hbox=\box60
+\pgf@layerbox@main=\box61
+\pgf@picture@serial@count=\count301
 )
-(/var/mobile/Containers/Data/Application/467E7597-C7BE-49DF-AE4E-DDA95A01BBDF/L
-ibrary/Caches/texmf-dist/./tex/generic/pgf/basiclayer/pgfcoreimage.code.tex
-File: pgfcoreimage.code.tex 2020/01/08 v3.1.5b (3.1.5b)
+(c:/texlive/2025/texmf-dist/tex/generic/pgf/basiclayer/pgfcoregraphicstate.code
+.tex
+File: pgfcoregraphicstate.code.tex 2023-01-15 v3.1.10 (3.1.10)
+\pgflinewidth=\dimen267
+)
+(c:/texlive/2025/texmf-dist/tex/generic/pgf/basiclayer/pgfcoretransformations.c
+ode.tex
+File: pgfcoretransformations.code.tex 2023-01-15 v3.1.10 (3.1.10)
+\pgf@pt@x=\dimen268
+\pgf@pt@y=\dimen269
+\pgf@pt@temp=\dimen270
+)
+(c:/texlive/2025/texmf-dist/tex/generic/pgf/basiclayer/pgfcorequick.code.tex
+File: pgfcorequick.code.tex 2023-01-15 v3.1.10 (3.1.10)
+)
+(c:/texlive/2025/texmf-dist/tex/generic/pgf/basiclayer/pgfcoreobjects.code.tex
+File: pgfcoreobjects.code.tex 2023-01-15 v3.1.10 (3.1.10)
+)
+(c:/texlive/2025/texmf-dist/tex/generic/pgf/basiclayer/pgfcorepathprocessing.co
+de.tex
+File: pgfcorepathprocessing.code.tex 2023-01-15 v3.1.10 (3.1.10)
+)
+(c:/texlive/2025/texmf-dist/tex/generic/pgf/basiclayer/pgfcorearrows.code.tex
+File: pgfcorearrows.code.tex 2023-01-15 v3.1.10 (3.1.10)
+\pgfarrowsep=\dimen271
+)
+(c:/texlive/2025/texmf-dist/tex/generic/pgf/basiclayer/pgfcoreshade.code.tex
+File: pgfcoreshade.code.tex 2023-01-15 v3.1.10 (3.1.10)
+\pgf@max=\dimen272
+\pgf@sys@shading@range@num=\count302
+\pgf@shadingcount=\count303
+)
+(c:/texlive/2025/texmf-dist/tex/generic/pgf/basiclayer/pgfcoreimage.code.tex
+File: pgfcoreimage.code.tex 2023-01-15 v3.1.10 (3.1.10)
+)
+(c:/texlive/2025/texmf-dist/tex/generic/pgf/basiclayer/pgfcoreexternal.code.tex
+File: pgfcoreexternal.code.tex 2023-01-15 v3.1.10 (3.1.10)
+\pgfexternal@startupbox=\box62
+) (c:/texlive/2025/texmf-dist/tex/generic/pgf/basiclayer/pgfcorelayers.code.tex
+File: pgfcorelayers.code.tex 2023-01-15 v3.1.10 (3.1.10)
+)
+(c:/texlive/2025/texmf-dist/tex/generic/pgf/basiclayer/pgfcoretransparency.code
+.tex
+File: pgfcoretransparency.code.tex 2023-01-15 v3.1.10 (3.1.10)
+)
+(c:/texlive/2025/texmf-dist/tex/generic/pgf/basiclayer/pgfcorepatterns.code.tex
+File: pgfcorepatterns.code.tex 2023-01-15 v3.1.10 (3.1.10)
+) (c:/texlive/2025/texmf-dist/tex/generic/pgf/basiclayer/pgfcorerdf.code.tex
+File: pgfcorerdf.code.tex 2023-01-15 v3.1.10 (3.1.10)
+))) (c:/texlive/2025/texmf-dist/tex/generic/pgf/modules/pgfmoduleshapes.code.te
+x
+File: pgfmoduleshapes.code.tex 2023-01-15 v3.1.10 (3.1.10)
+\pgfnodeparttextbox=\box63
+)
+(c:/texlive/2025/texmf-dist/tex/generic/pgf/modules/pgfmoduleplot.code.tex
+File: pgfmoduleplot.code.tex 2023-01-15 v3.1.10 (3.1.10)
+)
+(c:/texlive/2025/texmf-dist/tex/latex/pgf/compatibility/pgfcomp-version-0-65.st
+y
+Package: pgfcomp-version-0-65 2023-01-15 v3.1.10 (3.1.10)
+\pgf@nodesepstart=\dimen273
+\pgf@nodesepend=\dimen274
+)
+(c:/texlive/2025/texmf-dist/tex/latex/pgf/compatibility/pgfcomp-version-1-18.st
+y
+Package: pgfcomp-version-1-18 2023-01-15 v3.1.10 (3.1.10)
+)) (c:/texlive/2025/texmf-dist/tex/latex/pgf/utilities/pgffor.sty
+(c:/texlive/2025/texmf-dist/tex/latex/pgf/utilities/pgfkeys.sty
+(c:/texlive/2025/texmf-dist/tex/generic/pgf/utilities/pgfkeys.code.tex))
+(c:/texlive/2025/texmf-dist/tex/latex/pgf/math/pgfmath.sty
+(c:/texlive/2025/texmf-dist/tex/generic/pgf/math/pgfmath.code.tex))
+(c:/texlive/2025/texmf-dist/tex/generic/pgf/utilities/pgffor.code.tex
+Package: pgffor 2023-01-15 v3.1.10 (3.1.10)
+\pgffor@iter=\dimen275
+\pgffor@skip=\dimen276
+\pgffor@stack=\toks38
+\pgffor@toks=\toks39
+))
+(c:/texlive/2025/texmf-dist/tex/generic/pgf/frontendlayer/tikz/tikz.code.tex
+Package: tikz 2023-01-15 v3.1.10 (3.1.10)
 
-(/var/mobile/Containers/Data/Application/467E7597-C7BE-49DF-AE4E-DDA95A01BBDF/L
-ibrary/Caches/texmf-dist/./tex/generic/pgf/basiclayer/pgfcoreexternal.code.tex
-File: pgfcoreexternal.code.tex 2020/01/08 v3.1.5b (3.1.5b)
-\pgfexternal@startupbox=\box55
-))
-(/var/mobile/Containers/Data/Application/467E7597-C7BE-49DF-AE4E-DDA95A01BBDF/L
-ibrary/Caches/texmf-dist/./tex/generic/pgf/basiclayer/pgfcorelayers.code.tex
-File: pgfcorelayers.code.tex 2020/01/08 v3.1.5b (3.1.5b)
+(c:/texlive/2025/texmf-dist/tex/generic/pgf/libraries/pgflibraryplothandlers.co
+de.tex
+File: pgflibraryplothandlers.code.tex 2023-01-15 v3.1.10 (3.1.10)
+\pgf@plot@mark@count=\count304
+\pgfplotmarksize=\dimen277
 )
-(/var/mobile/Containers/Data/Application/467E7597-C7BE-49DF-AE4E-DDA95A01BBDF/L
-ibrary/Caches/texmf-dist/./tex/generic/pgf/basiclayer/pgfcoretransparency.code.
-tex
-File: pgfcoretransparency.code.tex 2020/01/08 v3.1.5b (3.1.5b)
+\tikz@lastx=\dimen278
+\tikz@lasty=\dimen279
+\tikz@lastxsaved=\dimen280
+\tikz@lastysaved=\dimen281
+\tikz@lastmovetox=\dimen282
+\tikz@lastmovetoy=\dimen283
+\tikzleveldistance=\dimen284
+\tikzsiblingdistance=\dimen285
+\tikz@figbox=\box64
+\tikz@figbox@bg=\box65
+\tikz@tempbox=\box66
+\tikz@tempbox@bg=\box67
+\tikztreelevel=\count305
+\tikznumberofchildren=\count306
+\tikznumberofcurrentchild=\count307
+\tikz@fig@count=\count308
+
+(c:/texlive/2025/texmf-dist/tex/generic/pgf/modules/pgfmodulematrix.code.tex
+File: pgfmodulematrix.code.tex 2023-01-15 v3.1.10 (3.1.10)
+\pgfmatrixcurrentrow=\count309
+\pgfmatrixcurrentcolumn=\count310
+\pgf@matrix@numberofcolumns=\count311
 )
-(/var/mobile/Containers/Data/Application/467E7597-C7BE-49DF-AE4E-DDA95A01BBDF/L
-ibrary/Caches/texmf-dist/./tex/generic/pgf/basiclayer/pgfcorepatterns.code.tex
-File: pgfcorepatterns.code.tex 2020/01/08 v3.1.5b (3.1.5b)
-)
-(/var/mobile/Containers/Data/Application/467E7597-C7BE-49DF-AE4E-DDA95A01BBDF/L
-ibrary/Caches/texmf-dist/./tex/generic/pgf/basiclayer/pgfcorerdf.code.tex
-File: pgfcorerdf.code.tex 2020/01/08 v3.1.5b (3.1.5b)
+\tikz@expandcount=\count312
+
+(c:/texlive/2025/texmf-dist/tex/generic/pgf/frontendlayer/tikz/libraries/tikzli
+brarytopaths.code.tex
+File: tikzlibrarytopaths.code.tex 2023-01-15 v3.1.10 (3.1.10)
 )))
-(/var/mobile/Containers/Data/Application/467E7597-C7BE-49DF-AE4E-DDA95A01BBDF/L
-ibrary/Caches/texmf-dist/./tex/generic/pgf/modules/pgfmoduleshapes.code.tex
-File: pgfmoduleshapes.code.tex 2020/01/08 v3.1.5b (3.1.5b)
-\pgfnodeparttextbox=\box56
-)
-(/var/mobile/Containers/Data/Application/467E7597-C7BE-49DF-AE4E-DDA95A01BBDF/L
-ibrary/Caches/texmf-dist/./tex/generic/pgf/modules/pgfmoduleplot.code.tex
-File: pgfmoduleplot.code.tex 2020/01/08 v3.1.5b (3.1.5b)
-)
-(/var/mobile/Containers/Data/Application/467E7597-C7BE-49DF-AE4E-DDA95A01BBDF/L
-ibrary/Caches/texmf-dist/./tex/latex/pgf/compatibility/pgfcomp-version-0-65.sty
-Package: pgfcomp-version-0-65 2020/01/08 v3.1.5b (3.1.5b)
-\pgf@nodesepstart=\dimen260
-\pgf@nodesepend=\dimen261
-)
-(/var/mobile/Containers/Data/Application/467E7597-C7BE-49DF-AE4E-DDA95A01BBDF/L
-ibrary/Caches/texmf-dist/./tex/latex/pgf/compatibility/pgfcomp-version-1-18.sty
-Package: pgfcomp-version-1-18 2020/01/08 v3.1.5b (3.1.5b)
-))
-(/var/mobile/Containers/Data/Application/467E7597-C7BE-49DF-AE4E-DDA95A01BBDF/L
-ibrary/Caches/texmf-dist/./tex/latex/tools/verbatim.sty
-Package: verbatim 2019/11/10 v1.5r LaTeX2e package for verbatim enhancements
-\every@verbatim=\toks36
-\verbatim@line=\toks37
+(c:/texlive/2025/texmf-dist/tex/latex/tools/verbatim.sty
+Package: verbatim 2024-01-22 v1.5x LaTeX2e package for verbatim enhancements
+\every@verbatim=\toks40
+\verbatim@line=\toks41
 \verbatim@in@stream=\read3
 )
-(/var/mobile/Containers/Data/Application/467E7597-C7BE-49DF-AE4E-DDA95A01BBDF/L
-ibrary/Caches/texmf-dist/./tex/latex/environ/environ.sty
+(c:/texlive/2025/texmf-dist/tex/latex/environ/environ.sty
 Package: environ 2014/05/04 v0.3 A new way to define environments
 
-(/var/mobile/Containers/Data/Application/467E7597-C7BE-49DF-AE4E-DDA95A01BBDF/L
-ibrary/Caches/texmf-dist/./tex/latex/trimspaces/trimspaces.sty
+(c:/texlive/2025/texmf-dist/tex/latex/trimspaces/trimspaces.sty
 Package: trimspaces 2009/09/17 v1.1 Trim spaces around a token list
 ))
-(/var/mobile/Containers/Data/Application/467E7597-C7BE-49DF-AE4E-DDA95A01BBDF/L
-ibrary/Caches/texmf-dist/./tex/latex/etoolbox/etoolbox.sty
-Package: etoolbox 2019/09/21 v2.5h e-TeX tools for LaTeX (JAW)
-\etb@tempcnta=\count275
+(c:/texlive/2025/texmf-dist/tex/latex/etoolbox/etoolbox.sty
+Package: etoolbox 2025/02/11 v2.5l e-TeX tools for LaTeX (JAW)
+\etb@tempcnta=\count313
 )
-\tcb@titlebox=\box57
-\tcb@upperbox=\box58
-\tcb@lowerbox=\box59
-\tcb@phantombox=\box60
-\c@tcbbreakpart=\count276
-\c@tcblayer=\count277
-\tcolorbox@number=\count278
-\tcb@temp=\box61
-\tcb@temp=\box62
-\tcb@temp=\box63
-\tcb@temp=\box64
-\tcb@out=\write4
-\tcb@record@out=\write5
+\tcb@titlebox=\box68
+\tcb@upperbox=\box69
+\tcb@lowerbox=\box70
+\tcb@phantombox=\box71
+\c@tcbbreakpart=\count314
+\c@tcblayer=\count315
+\c@tcolorbox@number=\count316
+\l__tcobox_tmpa_box=\box72
+\l__tcobox_tmpa_dim=\dimen286
+\tcb@temp=\box73
+\tcb@temp=\box74
+\tcb@temp=\box75
+\tcb@temp=\box76
 )
-(/var/mobile/Containers/Data/Application/467E7597-C7BE-49DF-AE4E-DDA95A01BBDF/L
-ibrary/Caches/texmf-dist/./tex/latex/colortbl/colortbl.sty
-Package: colortbl 2020/01/04 v1.0e Color table columns (DPC)
+(c:/texlive/2025/texmf-dist/tex/latex/colortbl/colortbl.sty
+Package: colortbl 2024/07/06 v1.0i Color table columns (DPC)
 
-(/var/mobile/Containers/Data/Application/467E7597-C7BE-49DF-AE4E-DDA95A01BBDF/L
-ibrary/Caches/texmf-dist/./tex/latex/tools/array.sty
-Package: array 2019/08/31 v2.4l Tabular extension package (FMi)
-\col@sep=\dimen262
-\ar@mcellbox=\box65
-\extrarowheight=\dimen263
-\NC@list=\toks38
-\extratabsurround=\skip58
-\backup@length=\skip59
-\ar@cellbox=\box66
+(c:/texlive/2025/texmf-dist/tex/latex/tools/array.sty
+Package: array 2024/10/17 v2.6g Tabular extension package (FMi)
+\col@sep=\dimen287
+\ar@mcellbox=\box77
+\extrarowheight=\dimen288
+\NC@list=\toks42
+\extratabsurround=\skip60
+\backup@length=\skip61
+\ar@cellbox=\box78
 )
-\everycr=\toks39
-\minrowclearance=\skip60
+\everycr=\toks43
+\minrowclearance=\skip62
+\rownum=\count317
 )
-(/var/mobile/Containers/Data/Application/467E7597-C7BE-49DF-AE4E-DDA95A01BBDF/L
-ibrary/Caches/texmf-dist/./tex/latex/wrapfig/wrapfig.sty
-\wrapoverhang=\dimen264
-\WF@size=\dimen265
-\c@WF@wrappedlines=\count279
-\WF@box=\box67
-\WF@everypar=\toks40
+(c:/texlive/2025/texmf-dist/tex/latex/wrapfig/wrapfig.sty
+\wrapoverhang=\dimen289
+\WF@size=\dimen290
+\c@WF@wrappedlines=\count318
+\WF@box=\box79
+\WF@everypar=\toks44
 Package: wrapfig 2003/01/31  v 3.6
 )
-(/var/mobile/Containers/Data/Application/467E7597-C7BE-49DF-AE4E-DDA95A01BBDF/L
-ibrary/Caches/texmf-dist/./tex/latex/arydshln/arydshln.sty
+(c:/texlive/2025/texmf-dist/tex/latex/arydshln/arydshln.sty
 Package: arydshln 2019/02/21 v1.76 
-\dashlinedash=\dimen266
-\dashlinegap=\dimen267
-\adl@box=\box68
-\adl@height=\dimen268
-\adl@heightsave=\dimen269
-\adl@depth=\dimen270
-\adl@depthsave=\dimen271
-\adl@finaldepth=\dimen272
-\adl@columns=\count280
-\adl@ncol=\count281
-\adl@currentcolumn=\count282
-\adl@currentcolumnsave=\count283
-\adl@totalheight=\count284
-\adl@totalheightsave=\count285
-\adl@dash=\count286
-\adl@gap=\count287
-\adl@cla=\count288
-\adl@clb=\count289
-\adl@everyvbox=\toks41
-\adl@LTpagetotal=\dimen273
+\dashlinedash=\dimen291
+\dashlinegap=\dimen292
+\adl@box=\box80
+\adl@height=\dimen293
+\adl@heightsave=\dimen294
+\adl@depth=\dimen295
+\adl@depthsave=\dimen296
+\adl@finaldepth=\dimen297
+\adl@columns=\count319
+\adl@ncol=\count320
+\adl@currentcolumn=\count321
+\adl@currentcolumnsave=\count322
+\adl@totalheight=\count323
+\adl@totalheightsave=\count324
+\adl@dash=\count325
+\adl@gap=\count326
+\adl@cla=\count327
+\adl@clb=\count328
+\adl@everyvbox=\toks45
+\adl@LTpagetotal=\dimen298
 )
-(/var/mobile/Containers/Data/Application/467E7597-C7BE-49DF-AE4E-DDA95A01BBDF/L
-ibrary/Caches/texmf-dist/./tex/latex/mathtools/empheq.sty
-Package: empheq 2017/03/31 v2.15 Emphasizing equations
-\l_EQ_equationtype_int=\count290
-\l_EQ_alignmentmode_int=\count291
-\l_EQ_totalwidth_dim=\dimen274
-\l_EQ_displaywidth_dim=\dimen275
-\l_EQ_temp_linewidth_dim=\dimen276
-\l_EQ_linewidth_dim=\dimen277
-\EmphEqdelimitershortfall=\dimen278
-\EmphEqdelimiterfactor=\count292
-\g_EQ_toptag_height_dim=\dimen279
-\g_EQ_bottomtag_depth_dim=\dimen280
-\g_EQ_toprow_height_dim=\dimen281
-\g_EQ_bottomrow_depth_dim=\dimen282
-\g_EQ_widesttag_dim=\dimen283
-\EQ_mathdisplay_box=\box69
-\EQ_tag_box=\box70
-\g_EQ_temprow_int=\count293
+(c:/texlive/2025/texmf-dist/tex/latex/mathtools/empheq.sty
+Package: empheq 2024/08/09 v2.17 Emphasizing equations
+\l_EQ_equationtype_int=\count329
+\l_EQ_alignmentmode_int=\count330
+\l_EQ_totalwidth_dim=\dimen299
+\l_EQ_displaywidth_dim=\dimen300
+\l_EQ_temp_linewidth_dim=\dimen301
+\l_EQ_linewidth_dim=\dimen302
+\EmphEqdelimitershortfall=\dimen303
+\EmphEqdelimiterfactor=\count331
+\g_EQ_toptag_height_dim=\dimen304
+\g_EQ_bottomtag_depth_dim=\dimen305
+\g_EQ_toprow_height_dim=\dimen306
+\g_EQ_bottomrow_depth_dim=\dimen307
+\g_EQ_widesttag_dim=\dimen308
+\EQ_mathdisplay_box=\box81
+\EQ_tag_box=\box82
+\g_EQ_temprow_int=\count332
 )
-(/var/mobile/Containers/Data/Application/467E7597-C7BE-49DF-AE4E-DDA95A01BBDF/L
-ibrary/Caches/texmf-dist/./tex/latex/parskip/parskip.sty
-Package: parskip 2020-01-22 v2.0d non-zero parskip adjustments
+(c:/texlive/2025/texmf-dist/tex/latex/parskip/parskip.sty
+Package: parskip 2021-03-14 v2.0h non-zero parskip adjustments
 
-(/var/mobile/Containers/Data/Application/467E7597-C7BE-49DF-AE4E-DDA95A01BBDF/L
-ibrary/Caches/texmf-dist/./tex/latex/kvoptions/kvoptions.sty
-Package: kvoptions 2019/11/29 v3.13 Key value format for package options (HO)
+(c:/texlive/2025/texmf-dist/tex/latex/kvoptions/kvoptions.sty
+Package: kvoptions 2022-06-15 v3.15 Key value format for package options (HO)
 
-(/var/mobile/Containers/Data/Application/467E7597-C7BE-49DF-AE4E-DDA95A01BBDF/L
-ibrary/Caches/texmf-dist/./tex/generic/ltxcmds/ltxcmds.sty
-Package: ltxcmds 2019/12/15 v1.24 LaTeX kernel commands for general use (HO)
+(c:/texlive/2025/texmf-dist/tex/generic/ltxcmds/ltxcmds.sty
+Package: ltxcmds 2023-12-04 v1.26 LaTeX kernel commands for general use (HO)
 )
-(/var/mobile/Containers/Data/Application/467E7597-C7BE-49DF-AE4E-DDA95A01BBDF/L
-ibrary/Caches/texmf-dist/./tex/generic/kvsetkeys/kvsetkeys.sty
-Package: kvsetkeys 2019/12/15 v1.18 Key value parser (HO)
+(c:/texlive/2025/texmf-dist/tex/latex/kvsetkeys/kvsetkeys.sty
+Package: kvsetkeys 2022-10-05 v1.19 Key value parser (HO)
 )))
-(/var/mobile/Containers/Data/Application/467E7597-C7BE-49DF-AE4E-DDA95A01BBDF/L
-ibrary/Caches/texmf-dist/./tex/latex/multirow/multirow.sty
-Package: multirow 2019/05/31 v2.5 Span multiple rows of a table
-\multirow@colwidth=\skip61
-\multirow@cntb=\count294
-\multirow@dima=\skip62
-\bigstrutjot=\dimen284
+(c:/texlive/2025/texmf-dist/tex/latex/multirow/multirow.sty
+Package: multirow 2024/11/12 v2.9 Span multiple rows of a table
+\multirow@colwidth=\skip63
+\multirow@cntb=\count333
+\multirow@dima=\skip64
+\bigstrutjot=\dimen309
 )
-(/var/mobile/Containers/Data/Application/467E7597-C7BE-49DF-AE4E-DDA95A01BBDF/L
-ibrary/Caches/texmf-dist/./tex/latex/tools/multicol.sty
-Package: multicol 2019/12/09 v1.8y multicolumn formatting (FMi)
-\c@tracingmulticols=\count295
-\mult@box=\box71
-\multicol@leftmargin=\dimen285
-\c@unbalance=\count296
-\c@collectmore=\count297
-\doublecol@number=\count298
-\multicoltolerance=\count299
-\multicolpretolerance=\count300
-\full@width=\dimen286
-\page@free=\dimen287
-\premulticols=\dimen288
-\postmulticols=\dimen289
-\multicolsep=\skip63
-\multicolbaselineskip=\skip64
-\partial@page=\box72
-\last@line=\box73
-\maxbalancingoverflow=\dimen290
-\mult@rightbox=\box74
-\mult@grightbox=\box75
-\mult@gfirstbox=\box76
-\mult@firstbox=\box77
-\@tempa=\box78
-\@tempa=\box79
-\@tempa=\box80
-\@tempa=\box81
-\@tempa=\box82
-\@tempa=\box83
-\@tempa=\box84
-\@tempa=\box85
-\@tempa=\box86
-\@tempa=\box87
-\@tempa=\box88
-\@tempa=\box89
-\@tempa=\box90
+(c:/texlive/2025/texmf-dist/tex/latex/tools/multicol.sty
+Package: multicol 2024/09/14 v1.9i multicolumn formatting (FMi)
+\c@tracingmulticols=\count334
+\mult@box=\box83
+\multicol@leftmargin=\dimen310
+\c@unbalance=\count335
+\c@collectmore=\count336
+\doublecol@number=\count337
+\multicoltolerance=\count338
+\multicolpretolerance=\count339
+\full@width=\dimen311
+\page@free=\dimen312
+\premulticols=\dimen313
+\postmulticols=\dimen314
+\multicolsep=\skip65
+\multicolbaselineskip=\skip66
+\partial@page=\box84
+\last@line=\box85
+\mc@boxedresult=\box86
+\maxbalancingoverflow=\dimen315
+\mult@rightbox=\box87
+\mult@grightbox=\box88
+\mult@firstbox=\box89
+\mult@gfirstbox=\box90
 \@tempa=\box91
 \@tempa=\box92
 \@tempa=\box93
@@ -737,506 +682,413 @@ Package: multicol 2019/12/09 v1.8y multicolumn formatting (FMi)
 \@tempa=\box112
 \@tempa=\box113
 \@tempa=\box114
-\c@minrows=\count301
-\c@columnbadness=\count302
-\c@finalcolumnbadness=\count303
-\last@try=\dimen291
-\multicolovershoot=\dimen292
-\multicolundershoot=\dimen293
-\mult@nat@firstbox=\box115
-\colbreak@box=\box116
-\mc@col@check@num=\count304
+\@tempa=\box115
+\@tempa=\box116
+\@tempa=\box117
+\@tempa=\box118
+\@tempa=\box119
+\@tempa=\box120
+\@tempa=\box121
+\@tempa=\box122
+\@tempa=\box123
+\@tempa=\box124
+\@tempa=\box125
+\@tempa=\box126
+\c@minrows=\count340
+\c@columnbadness=\count341
+\c@finalcolumnbadness=\count342
+\last@try=\dimen316
+\multicolovershoot=\dimen317
+\multicolundershoot=\dimen318
+\mult@nat@firstbox=\box127
+\colbreak@box=\box128
+\mc@col@check@num=\count343
 )
-(/private/var/containers/Bundle/Application/38CAA5E5-7B85-4BF0-8BF3-3C6105CB5C8
-4/TeX Writer.app/texmf-base/./tex/latex/listings/listings.sty
-\lst@mode=\count305
-\lst@gtempboxa=\box117
-\lst@token=\toks42
-\lst@length=\count306
-\lst@currlwidth=\dimen294
-\lst@column=\count307
-\lst@pos=\count308
-\lst@lostspace=\dimen295
-\lst@width=\dimen296
-\lst@newlines=\count309
-\lst@lineno=\count310
-\lst@maxwidth=\dimen297
+(c:/texlive/2025/texmf-dist/tex/latex/listings/listings.sty
+\lst@mode=\count344
+\lst@gtempboxa=\box129
+\lst@token=\toks46
+\lst@length=\count345
+\lst@currlwidth=\dimen319
+\lst@column=\count346
+\lst@pos=\count347
+\lst@lostspace=\dimen320
+\lst@width=\dimen321
+\lst@newlines=\count348
+\lst@lineno=\count349
+\lst@maxwidth=\dimen322
 
-(/private/var/containers/Bundle/Application/38CAA5E5-7B85-4BF0-8BF3-3C6105CB5C8
-4/TeX Writer.app/texmf-base/./tex/latex/listings/lstmisc.sty
-File: lstmisc.sty 2020/03/24 1.8d (Carsten Heinz)
-\c@lstnumber=\count311
-\lst@skipnumbers=\count312
-\lst@framebox=\box118
+(c:/texlive/2025/texmf-dist/tex/latex/listings/lstpatch.sty
+File: lstpatch.sty 2024/09/23 1.10c (Carsten Heinz)
 )
-(/private/var/containers/Bundle/Application/38CAA5E5-7B85-4BF0-8BF3-3C6105CB5C8
-4/TeX Writer.app/texmf-base/./tex/latex/listings/listings.cfg
-File: listings.cfg 2020/03/24 1.8d listings configuration
+(c:/texlive/2025/texmf-dist/tex/latex/listings/lstmisc.sty
+File: lstmisc.sty 2024/09/23 1.10c (Carsten Heinz)
+\c@lstnumber=\count350
+\lst@skipnumbers=\count351
+\lst@framebox=\box130
+)
+(c:/texlive/2025/texmf-dist/tex/latex/listings/listings.cfg
+File: listings.cfg 2024/09/23 1.10c listings configuration
 ))
-Package: listings 2020/03/24 1.8d (Carsten Heinz)
+Package: listings 2024/09/23 1.10c (Carsten Heinz)
 
-(/var/mobile/Containers/Data/Application/467E7597-C7BE-49DF-AE4E-DDA95A01BBDF/L
-ibrary/Caches/texmf-dist/./tex/latex/pgf/frontendlayer/tikz.sty
-(/var/mobile/Containers/Data/Application/467E7597-C7BE-49DF-AE4E-DDA95A01BBDF/L
-ibrary/Caches/texmf-dist/./tex/latex/pgf/utilities/pgffor.sty
-(/var/mobile/Containers/Data/Application/467E7597-C7BE-49DF-AE4E-DDA95A01BBDF/L
-ibrary/Caches/texmf-dist/./tex/latex/pgf/utilities/pgfkeys.sty
-(/var/mobile/Containers/Data/Application/467E7597-C7BE-49DF-AE4E-DDA95A01BBDF/L
-ibrary/Caches/texmf-dist/./tex/generic/pgf/utilities/pgfkeys.code.tex))
-(/var/mobile/Containers/Data/Application/467E7597-C7BE-49DF-AE4E-DDA95A01BBDF/L
-ibrary/Caches/texmf-dist/./tex/latex/pgf/math/pgfmath.sty
-(/var/mobile/Containers/Data/Application/467E7597-C7BE-49DF-AE4E-DDA95A01BBDF/L
-ibrary/Caches/texmf-dist/./tex/generic/pgf/math/pgfmath.code.tex))
-(/var/mobile/Containers/Data/Application/467E7597-C7BE-49DF-AE4E-DDA95A01BBDF/L
-ibrary/Caches/texmf-dist/./tex/generic/pgf/utilities/pgffor.code.tex
-Package: pgffor 2020/01/08 v3.1.5b (3.1.5b)
+(c:/texlive/2025/texmf-dist/tex/latex/tikz-cd/tikz-cd.sty
+Package: tikz-cd 2021/05/04 v1.0 Commutative diagrams with TikZ
 
-(/var/mobile/Containers/Data/Application/467E7597-C7BE-49DF-AE4E-DDA95A01BBDF/L
-ibrary/Caches/texmf-dist/./tex/generic/pgf/math/pgfmath.code.tex)
-\pgffor@iter=\dimen298
-\pgffor@skip=\dimen299
-\pgffor@stack=\toks43
-\pgffor@toks=\toks44
-))
-(/var/mobile/Containers/Data/Application/467E7597-C7BE-49DF-AE4E-DDA95A01BBDF/L
-ibrary/Caches/texmf-dist/./tex/generic/pgf/frontendlayer/tikz/tikz.code.tex
-Package: tikz 2020/01/08 v3.1.5b (3.1.5b)
-
-(/var/mobile/Containers/Data/Application/467E7597-C7BE-49DF-AE4E-DDA95A01BBDF/L
-ibrary/Caches/texmf-dist/./tex/generic/pgf/libraries/pgflibraryplothandlers.cod
+(c:/texlive/2025/texmf-dist/tex/generic/tikz-cd/tikzlibrarycd.code.tex
+(c:/texlive/2025/texmf-dist/tex/generic/pgf/frontendlayer/tikz/libraries/tikzli
+brarymatrix.code.tex
+File: tikzlibrarymatrix.code.tex 2023-01-15 v3.1.10 (3.1.10)
+)
+(c:/texlive/2025/texmf-dist/tex/generic/pgf/frontendlayer/tikz/libraries/tikzli
+braryquotes.code.tex
+File: tikzlibraryquotes.code.tex 2023-01-15 v3.1.10 (3.1.10)
+)
+(c:/texlive/2025/texmf-dist/tex/generic/pgf/libraries/pgflibraryarrows.meta.cod
 e.tex
-File: pgflibraryplothandlers.code.tex 2020/01/08 v3.1.5b (3.1.5b)
-\pgf@plot@mark@count=\count313
-\pgfplotmarksize=\dimen300
-)
-\tikz@lastx=\dimen301
-\tikz@lasty=\dimen302
-\tikz@lastxsaved=\dimen303
-\tikz@lastysaved=\dimen304
-\tikz@lastmovetox=\dimen305
-\tikz@lastmovetoy=\dimen306
-\tikzleveldistance=\dimen307
-\tikzsiblingdistance=\dimen308
-\tikz@figbox=\box119
-\tikz@figbox@bg=\box120
-\tikz@tempbox=\box121
-\tikz@tempbox@bg=\box122
-\tikztreelevel=\count314
-\tikznumberofchildren=\count315
-\tikznumberofcurrentchild=\count316
-\tikz@fig@count=\count317
-
-(/var/mobile/Containers/Data/Application/467E7597-C7BE-49DF-AE4E-DDA95A01BBDF/L
-ibrary/Caches/texmf-dist/./tex/generic/pgf/modules/pgfmodulematrix.code.tex
-File: pgfmodulematrix.code.tex 2020/01/08 v3.1.5b (3.1.5b)
-\pgfmatrixcurrentrow=\count318
-\pgfmatrixcurrentcolumn=\count319
-\pgf@matrix@numberofcolumns=\count320
-)
-\tikz@expandcount=\count321
-
-(/var/mobile/Containers/Data/Application/467E7597-C7BE-49DF-AE4E-DDA95A01BBDF/L
-ibrary/Caches/texmf-dist/./tex/generic/pgf/frontendlayer/tikz/libraries/tikzlib
-rarytopaths.code.tex
-File: tikzlibrarytopaths.code.tex 2020/01/08 v3.1.5b (3.1.5b)
+File: pgflibraryarrows.meta.code.tex 2023-01-15 v3.1.10 (3.1.10)
+\pgfarrowinset=\dimen323
+\pgfarrowlength=\dimen324
+\pgfarrowwidth=\dimen325
+\pgfarrowlinewidth=\dimen326
 )))
-(/var/mobile/Containers/Data/Application/467E7597-C7BE-49DF-AE4E-DDA95A01BBDF/L
-ibrary/Caches/texmf-dist/./tex/latex/tikz-cd/tikz-cd.sty
-Package: tikz-cd 2018/11/19 v0.9f Commutative diagrams with TikZ
+(c:/texlive/2025/texmf-dist/tex/generic/pgf/frontendlayer/tikz/libraries/tikzli
+braryshapes.code.tex
+File: tikzlibraryshapes.code.tex 2023-01-15 v3.1.10 (3.1.10)
 
-(/var/mobile/Containers/Data/Application/467E7597-C7BE-49DF-AE4E-DDA95A01BBDF/L
-ibrary/Caches/texmf-dist/./tex/generic/tikz-cd/tikzlibrarycd.code.tex
-(/var/mobile/Containers/Data/Application/467E7597-C7BE-49DF-AE4E-DDA95A01BBDF/L
-ibrary/Caches/texmf-dist/./tex/generic/pgf/frontendlayer/tikz/libraries/tikzlib
-rarymatrix.code.tex
-File: tikzlibrarymatrix.code.tex 2020/01/08 v3.1.5b (3.1.5b)
-)
-(/var/mobile/Containers/Data/Application/467E7597-C7BE-49DF-AE4E-DDA95A01BBDF/L
-ibrary/Caches/texmf-dist/./tex/generic/pgf/frontendlayer/tikz/libraries/tikzlib
-raryquotes.code.tex
-File: tikzlibraryquotes.code.tex 2020/01/08 v3.1.5b (3.1.5b)
-)
-(/var/mobile/Containers/Data/Application/467E7597-C7BE-49DF-AE4E-DDA95A01BBDF/L
-ibrary/Caches/texmf-dist/./tex/generic/pgf/libraries/pgflibraryarrows.meta.code
-.tex
-File: pgflibraryarrows.meta.code.tex 2020/01/08 v3.1.5b (3.1.5b)
-\pgfarrowinset=\dimen309
-\pgfarrowlength=\dimen310
-\pgfarrowwidth=\dimen311
-\pgfarrowlinewidth=\dimen312
+(c:/texlive/2025/texmf-dist/tex/generic/pgf/frontendlayer/tikz/libraries/tikzli
+braryshapes.geometric.code.tex
+File: tikzlibraryshapes.geometric.code.tex 2023-01-15 v3.1.10 (3.1.10)
+
+(c:/texlive/2025/texmf-dist/tex/generic/pgf/libraries/shapes/pgflibraryshapes.g
+eometric.code.tex
+File: pgflibraryshapes.geometric.code.tex 2023-01-15 v3.1.10 (3.1.10)
+))
+(c:/texlive/2025/texmf-dist/tex/generic/pgf/frontendlayer/tikz/libraries/tikzli
+braryshapes.misc.code.tex
+File: tikzlibraryshapes.misc.code.tex 2023-01-15 v3.1.10 (3.1.10)
+
+(c:/texlive/2025/texmf-dist/tex/generic/pgf/libraries/shapes/pgflibraryshapes.m
+isc.code.tex
+File: pgflibraryshapes.misc.code.tex 2023-01-15 v3.1.10 (3.1.10)
+))
+(c:/texlive/2025/texmf-dist/tex/generic/pgf/frontendlayer/tikz/libraries/tikzli
+braryshapes.symbols.code.tex
+File: tikzlibraryshapes.symbols.code.tex 2023-01-15 v3.1.10 (3.1.10)
+
+(c:/texlive/2025/texmf-dist/tex/generic/pgf/libraries/shapes/pgflibraryshapes.s
+ymbols.code.tex
+File: pgflibraryshapes.symbols.code.tex 2023-01-15 v3.1.10 (3.1.10)
+))
+(c:/texlive/2025/texmf-dist/tex/generic/pgf/frontendlayer/tikz/libraries/tikzli
+braryshapes.arrows.code.tex
+File: tikzlibraryshapes.arrows.code.tex 2023-01-15 v3.1.10 (3.1.10)
+
+(c:/texlive/2025/texmf-dist/tex/generic/pgf/libraries/shapes/pgflibraryshapes.a
+rrows.code.tex
+File: pgflibraryshapes.arrows.code.tex 2023-01-15 v3.1.10 (3.1.10)
+))
+(c:/texlive/2025/texmf-dist/tex/generic/pgf/frontendlayer/tikz/libraries/tikzli
+braryshapes.callouts.code.tex
+(c:/texlive/2025/texmf-dist/tex/generic/pgf/libraries/shapes/pgflibraryshapes.c
+allouts.code.tex))
+(c:/texlive/2025/texmf-dist/tex/generic/pgf/frontendlayer/tikz/libraries/tikzli
+braryshapes.multipart.code.tex
+File: tikzlibraryshapes.multipart.code.tex 2023-01-15 v3.1.10 (3.1.10)
+
+(c:/texlive/2025/texmf-dist/tex/generic/pgf/libraries/shapes/pgflibraryshapes.m
+ultipart.code.tex
+File: pgflibraryshapes.multipart.code.tex 2023-01-15 v3.1.10 (3.1.10)
+\pgfnodepartlowerbox=\box131
+\pgfnodeparttwobox=\box132
+\pgfnodepartthreebox=\box133
+\pgfnodepartfourbox=\box134
+\pgfnodeparttwentybox=\box135
+\pgfnodepartnineteenbox=\box136
+\pgfnodeparteighteenbox=\box137
+\pgfnodepartseventeenbox=\box138
+\pgfnodepartsixteenbox=\box139
+\pgfnodepartfifteenbox=\box140
+\pgfnodepartfourteenbox=\box141
+\pgfnodepartthirteenbox=\box142
+\pgfnodeparttwelvebox=\box143
+\pgfnodepartelevenbox=\box144
+\pgfnodeparttenbox=\box145
+\pgfnodepartninebox=\box146
+\pgfnodeparteightbox=\box147
+\pgfnodepartsevenbox=\box148
+\pgfnodepartsixbox=\box149
+\pgfnodepartfivebox=\box150
 )))
-(/var/mobile/Containers/Data/Application/467E7597-C7BE-49DF-AE4E-DDA95A01BBDF/L
-ibrary/Caches/texmf-dist/./tex/generic/pgf/frontendlayer/tikz/libraries/tikzlib
-raryshapes.code.tex
-File: tikzlibraryshapes.code.tex 2020/01/08 v3.1.5b (3.1.5b)
-
-(/var/mobile/Containers/Data/Application/467E7597-C7BE-49DF-AE4E-DDA95A01BBDF/L
-ibrary/Caches/texmf-dist/./tex/generic/pgf/frontendlayer/tikz/libraries/tikzlib
-raryshapes.geometric.code.tex
-File: tikzlibraryshapes.geometric.code.tex 2020/01/08 v3.1.5b (3.1.5b)
-
-(/var/mobile/Containers/Data/Application/467E7597-C7BE-49DF-AE4E-DDA95A01BBDF/L
-ibrary/Caches/texmf-dist/./tex/generic/pgf/libraries/shapes/pgflibraryshapes.ge
-ometric.code.tex
-File: pgflibraryshapes.geometric.code.tex 2020/01/08 v3.1.5b (3.1.5b)
-))
-(/var/mobile/Containers/Data/Application/467E7597-C7BE-49DF-AE4E-DDA95A01BBDF/L
-ibrary/Caches/texmf-dist/./tex/generic/pgf/frontendlayer/tikz/libraries/tikzlib
-raryshapes.misc.code.tex
-File: tikzlibraryshapes.misc.code.tex 2020/01/08 v3.1.5b (3.1.5b)
-
-(/var/mobile/Containers/Data/Application/467E7597-C7BE-49DF-AE4E-DDA95A01BBDF/L
-ibrary/Caches/texmf-dist/./tex/generic/pgf/libraries/shapes/pgflibraryshapes.mi
-sc.code.tex
-File: pgflibraryshapes.misc.code.tex 2020/01/08 v3.1.5b (3.1.5b)
-))
-(/var/mobile/Containers/Data/Application/467E7597-C7BE-49DF-AE4E-DDA95A01BBDF/L
-ibrary/Caches/texmf-dist/./tex/generic/pgf/frontendlayer/tikz/libraries/tikzlib
-raryshapes.symbols.code.tex
-File: tikzlibraryshapes.symbols.code.tex 2020/01/08 v3.1.5b (3.1.5b)
-
-(/var/mobile/Containers/Data/Application/467E7597-C7BE-49DF-AE4E-DDA95A01BBDF/L
-ibrary/Caches/texmf-dist/./tex/generic/pgf/libraries/shapes/pgflibraryshapes.sy
-mbols.code.tex
-File: pgflibraryshapes.symbols.code.tex 2020/01/08 v3.1.5b (3.1.5b)
-))
-(/var/mobile/Containers/Data/Application/467E7597-C7BE-49DF-AE4E-DDA95A01BBDF/L
-ibrary/Caches/texmf-dist/./tex/generic/pgf/frontendlayer/tikz/libraries/tikzlib
-raryshapes.arrows.code.tex
-File: tikzlibraryshapes.arrows.code.tex 2020/01/08 v3.1.5b (3.1.5b)
-
-(/var/mobile/Containers/Data/Application/467E7597-C7BE-49DF-AE4E-DDA95A01BBDF/L
-ibrary/Caches/texmf-dist/./tex/generic/pgf/libraries/shapes/pgflibraryshapes.ar
-rows.code.tex
-File: pgflibraryshapes.arrows.code.tex 2020/01/08 v3.1.5b (3.1.5b)
-))
-(/var/mobile/Containers/Data/Application/467E7597-C7BE-49DF-AE4E-DDA95A01BBDF/L
-ibrary/Caches/texmf-dist/./tex/generic/pgf/frontendlayer/tikz/libraries/tikzlib
-raryshapes.callouts.code.tex
-(/var/mobile/Containers/Data/Application/467E7597-C7BE-49DF-AE4E-DDA95A01BBDF/L
-ibrary/Caches/texmf-dist/./tex/generic/pgf/libraries/shapes/pgflibraryshapes.ca
-llouts.code.tex))
-(/var/mobile/Containers/Data/Application/467E7597-C7BE-49DF-AE4E-DDA95A01BBDF/L
-ibrary/Caches/texmf-dist/./tex/generic/pgf/frontendlayer/tikz/libraries/tikzlib
-raryshapes.multipart.code.tex
-File: tikzlibraryshapes.multipart.code.tex 2020/01/08 v3.1.5b (3.1.5b)
-
-(/var/mobile/Containers/Data/Application/467E7597-C7BE-49DF-AE4E-DDA95A01BBDF/L
-ibrary/Caches/texmf-dist/./tex/generic/pgf/libraries/shapes/pgflibraryshapes.mu
-ltipart.code.tex
-File: pgflibraryshapes.multipart.code.tex 2020/01/08 v3.1.5b (3.1.5b)
-\pgfnodepartlowerbox=\box123
-\pgfnodeparttwobox=\box124
-\pgfnodepartthreebox=\box125
-\pgfnodepartfourbox=\box126
-\pgfnodeparttwentybox=\box127
-\pgfnodepartnineteenbox=\box128
-\pgfnodeparteighteenbox=\box129
-\pgfnodepartseventeenbox=\box130
-\pgfnodepartsixteenbox=\box131
-\pgfnodepartfifteenbox=\box132
-\pgfnodepartfourteenbox=\box133
-\pgfnodepartthirteenbox=\box134
-\pgfnodeparttwelvebox=\box135
-\pgfnodepartelevenbox=\box136
-\pgfnodeparttenbox=\box137
-\pgfnodepartninebox=\box138
-\pgfnodeparteightbox=\box139
-\pgfnodepartsevenbox=\box140
-\pgfnodepartsixbox=\box141
-\pgfnodepartfivebox=\box142
-)))
-(/var/mobile/Containers/Data/Application/467E7597-C7BE-49DF-AE4E-DDA95A01BBDF/L
-ibrary/Caches/texmf-dist/./tex/generic/pgf/frontendlayer/tikz/libraries/tikzlib
-rarypositioning.code.tex
-File: tikzlibrarypositioning.code.tex 2020/01/08 v3.1.5b (3.1.5b)
+(c:/texlive/2025/texmf-dist/tex/generic/pgf/frontendlayer/tikz/libraries/tikzli
+brarypositioning.code.tex
+File: tikzlibrarypositioning.code.tex 2023-01-15 v3.1.10 (3.1.10)
 )
-(/var/mobile/Containers/Data/Application/467E7597-C7BE-49DF-AE4E-DDA95A01BBDF/L
-ibrary/Caches/texmf-dist/./tex/generic/pgf/frontendlayer/tikz/libraries/tikzlib
-rarypatterns.code.tex
-File: tikzlibrarypatterns.code.tex 2020/01/08 v3.1.5b (3.1.5b)
+(c:/texlive/2025/texmf-dist/tex/generic/pgf/frontendlayer/tikz/libraries/tikzli
+brarypatterns.code.tex
+File: tikzlibrarypatterns.code.tex 2023-01-15 v3.1.10 (3.1.10)
 
-(/var/mobile/Containers/Data/Application/467E7597-C7BE-49DF-AE4E-DDA95A01BBDF/L
-ibrary/Caches/texmf-dist/./tex/generic/pgf/libraries/pgflibrarypatterns.code.te
-x
-File: pgflibrarypatterns.code.tex 2020/01/08 v3.1.5b (3.1.5b)
+(c:/texlive/2025/texmf-dist/tex/generic/pgf/libraries/pgflibrarypatterns.code.t
+ex
+File: pgflibrarypatterns.code.tex 2023-01-15 v3.1.10 (3.1.10)
+)) (c:/texlive/2025/texmf-dist/tex/latex/tikz-qtree/tikz-qtree.sty
+(c:/texlive/2025/texmf-dist/tex/latex/tikz-qtree/pgftree.sty
+(c:/texlive/2025/texmf-dist/tex/latex/tikz-qtree/pgfsubpic.sty
+(c:/texlive/2025/texmf-dist/tex/latex/tikz-qtree/pgfsubpic.tex
+\pgf@subpicminx=\dimen327
+\pgf@subpicminy=\dimen328
+\pgf@subpicmaxx=\dimen329
+\pgf@subpicmaxy=\dimen330
 ))
-(/var/mobile/Containers/Data/Application/467E7597-C7BE-49DF-AE4E-DDA95A01BBDF/L
-ibrary/Caches/texmf-dist/./tex/latex/tikz-qtree/tikz-qtree.sty
-(/var/mobile/Containers/Data/Application/467E7597-C7BE-49DF-AE4E-DDA95A01BBDF/L
-ibrary/Caches/texmf-dist/./tex/latex/tikz-qtree/pgftree.sty
-(/var/mobile/Containers/Data/Application/467E7597-C7BE-49DF-AE4E-DDA95A01BBDF/L
-ibrary/Caches/texmf-dist/./tex/latex/tikz-qtree/pgfsubpic.sty
-(/var/mobile/Containers/Data/Application/467E7597-C7BE-49DF-AE4E-DDA95A01BBDF/L
-ibrary/Caches/texmf-dist/./tex/latex/tikz-qtree/pgfsubpic.tex
-\pgf@subpicminx=\dimen313
-\pgf@subpicminy=\dimen314
-\pgf@subpicmaxx=\dimen315
-\pgf@subpicmaxy=\dimen316
+(c:/texlive/2025/texmf-dist/tex/latex/tikz-qtree/pgftree.tex
+\levelsep=\dimen331
+\subtreesep=\dimen332
+\smuggle@levelsep=\dimen333
+\smuggle@subtreesep=\dimen334
+\this@levelsep=\dimen335
+\this@subtreesep=\dimen336
+\pgftree@childx=\dimen337
+\pgftree@savechildx=\dimen338
+\pgftree@childy=\dimen339
+\pgftree@savechildy=\dimen340
+\pgftree@childi=\count352
+\pgftree@savechildi=\count353
+\pgftree@level=\count354
+\pgftree@depth=\dimen341
+\pgf@subpic@hbox@children=\box151
+\pgf@subpic@minx@children=\dimen342
+\pgf@subpic@miny@children=\dimen343
+\pgf@subpic@maxx@children=\dimen344
+\pgf@subpic@maxy@children=\dimen345
+\pgftree@lastchildx=\dimen346
+\pgftree@lastchildy=\dimen347
 ))
-(/var/mobile/Containers/Data/Application/467E7597-C7BE-49DF-AE4E-DDA95A01BBDF/L
-ibrary/Caches/texmf-dist/./tex/latex/tikz-qtree/pgftree.tex
-\levelsep=\dimen317
-\subtreesep=\dimen318
-\smuggle@levelsep=\dimen319
-\smuggle@subtreesep=\dimen320
-\this@levelsep=\dimen321
-\this@subtreesep=\dimen322
-\pgftree@childx=\dimen323
-\pgftree@savechildx=\dimen324
-\pgftree@childy=\dimen325
-\pgftree@savechildy=\dimen326
-\pgftree@childi=\count322
-\pgftree@savechildi=\count323
-\pgftree@level=\count324
-\pgftree@depth=\dimen327
-\pgf@subpic@hbox@children=\box143
-\pgf@subpic@minx@children=\dimen328
-\pgf@subpic@miny@children=\dimen329
-\pgf@subpic@maxx@children=\dimen330
-\pgf@subpic@maxy@children=\dimen331
-\pgftree@lastchildx=\dimen332
-\pgftree@lastchildy=\dimen333
+(c:/texlive/2025/texmf-dist/tex/latex/tikz-qtree/tikz-qtree.tex
+\@result=\toks47
+\child@list=\toks48
+\root@node=\toks49
 ))
-(/var/mobile/Containers/Data/Application/467E7597-C7BE-49DF-AE4E-DDA95A01BBDF/L
-ibrary/Caches/texmf-dist/./tex/latex/tikz-qtree/tikz-qtree.tex
-\@result=\toks45
-\child@list=\toks46
-\root@node=\toks47
-))
-(/var/mobile/Containers/Data/Application/467E7597-C7BE-49DF-AE4E-DDA95A01BBDF/L
-ibrary/Caches/texmf-dist/./tex/latex/biblatex/biblatex.sty
-Package: biblatex 2019/12/01 v3.14 programmable bibliographies (PK/MW)
+(c:/texlive/2025/texmf-dist/tex/latex/biblatex/biblatex.sty
+Package: biblatex 2024/03/21 v3.20 programmable bibliographies (PK/MW)
 
-(/var/mobile/Containers/Data/Application/467E7597-C7BE-49DF-AE4E-DDA95A01BBDF/L
-ibrary/Caches/texmf-dist/./tex/latex/pdftexcmds/pdftexcmds.sty
-Package: pdftexcmds 2019/11/24 v0.31 Utility functions of pdfTeX for LuaTeX (HO
+(c:/texlive/2025/texmf-dist/tex/generic/pdftexcmds/pdftexcmds.sty
+Package: pdftexcmds 2020-06-27 v0.33 Utility functions of pdfTeX for LuaTeX (HO
 )
 
-(/var/mobile/Containers/Data/Application/467E7597-C7BE-49DF-AE4E-DDA95A01BBDF/L
-ibrary/Caches/texmf-dist/./tex/generic/infwarerr/infwarerr.sty
+(c:/texlive/2025/texmf-dist/tex/generic/infwarerr/infwarerr.sty
 Package: infwarerr 2019/12/03 v1.5 Providing info/warning/error messages (HO)
 )
-(/var/mobile/Containers/Data/Application/467E7597-C7BE-49DF-AE4E-DDA95A01BBDF/L
-ibrary/Caches/texmf-dist/./tex/generic/iftex/iftex.sty
-Package: iftex 2020/03/06 v1.0d TeX engine tests
+(c:/texlive/2025/texmf-dist/tex/generic/iftex/iftex.sty
+Package: iftex 2024/12/12 v1.0g TeX engine tests
 )
 Package pdftexcmds Info: \pdf@primitive is available.
 Package pdftexcmds Info: \pdf@ifprimitive is available.
 Package pdftexcmds Info: \pdfdraftmode found.
 )
-(/var/mobile/Containers/Data/Application/467E7597-C7BE-49DF-AE4E-DDA95A01BBDF/L
-ibrary/Caches/texmf-dist/./tex/latex/logreq/logreq.sty
+(c:/texlive/2025/texmf-dist/tex/latex/logreq/logreq.sty
 Package: logreq 2010/08/04 v1.0 xml request logger
-\lrq@indent=\count325
+\lrq@indent=\count355
 
-(/var/mobile/Containers/Data/Application/467E7597-C7BE-49DF-AE4E-DDA95A01BBDF/L
-ibrary/Caches/texmf-dist/./tex/latex/logreq/logreq.def
+(c:/texlive/2025/texmf-dist/tex/latex/logreq/logreq.def
 File: logreq.def 2010/08/04 v1.0 logreq spec v1.0
 ))
-(/private/var/containers/Bundle/Application/38CAA5E5-7B85-4BF0-8BF3-3C6105CB5C8
-4/TeX Writer.app/texmf-base/./tex/latex/base/ifthen.sty
-Package: ifthen 2014/09/29 v1.1c Standard LaTeX ifthen package (DPC)
+(c:/texlive/2025/texmf-dist/tex/latex/base/ifthen.sty
+Package: ifthen 2024/03/16 v1.1e Standard LaTeX ifthen package (DPC)
 )
-(/var/mobile/Containers/Data/Application/467E7597-C7BE-49DF-AE4E-DDA95A01BBDF/L
-ibrary/Caches/texmf-dist/./tex/latex/url/url.sty
-\Urlmuskip=\muskip17
+(c:/texlive/2025/texmf-dist/tex/latex/url/url.sty
+\Urlmuskip=\muskip18
 Package: url 2013/09/16  ver 3.4  Verb mode for urls, etc.
 )
-\c@tabx@nest=\count326
-\c@listtotal=\count327
-\c@listcount=\count328
-\c@liststart=\count329
-\c@liststop=\count330
-\c@citecount=\count331
-\c@citetotal=\count332
-\c@multicitecount=\count333
-\c@multicitetotal=\count334
-\c@instcount=\count335
-\c@maxnames=\count336
-\c@minnames=\count337
-\c@maxitems=\count338
-\c@minitems=\count339
-\c@citecounter=\count340
-\c@maxcitecounter=\count341
-\c@savedcitecounter=\count342
-\c@uniquelist=\count343
-\c@uniquename=\count344
-\c@refsection=\count345
-\c@refsegment=\count346
-\c@maxextratitle=\count347
-\c@maxextratitleyear=\count348
-\c@maxextraname=\count349
-\c@maxextradate=\count350
-\c@maxextraalpha=\count351
-\c@abbrvpenalty=\count352
-\c@highnamepenalty=\count353
-\c@lownamepenalty=\count354
-\c@maxparens=\count355
-\c@parenlevel=\count356
-\blx@tempcnta=\count357
-\blx@tempcntb=\count358
-\blx@tempcntc=\count359
-\blx@maxsection=\count360
-\blx@maxsegment@0=\count361
-\blx@notetype=\count362
-\blx@parenlevel@text=\count363
-\blx@parenlevel@foot=\count364
-\blx@sectionciteorder@0=\count365
-\blx@entrysetcounter=\count366
-\labelnumberwidth=\skip65
-\labelalphawidth=\skip66
-\biblabelsep=\skip67
-\bibitemsep=\skip68
-\bibnamesep=\skip69
-\bibinitsep=\skip70
-\bibparsep=\skip71
-\bibhang=\skip72
+\c@tabx@nest=\count356
+\c@listtotal=\count357
+\c@listcount=\count358
+\c@liststart=\count359
+\c@liststop=\count360
+\c@citecount=\count361
+\c@citetotal=\count362
+\c@multicitecount=\count363
+\c@multicitetotal=\count364
+\c@instcount=\count365
+\c@maxnames=\count366
+\c@minnames=\count367
+\c@maxitems=\count368
+\c@minitems=\count369
+\c@citecounter=\count370
+\c@maxcitecounter=\count371
+\c@savedcitecounter=\count372
+\c@uniquelist=\count373
+\c@uniquename=\count374
+\c@refsection=\count375
+\c@refsegment=\count376
+\c@maxextratitle=\count377
+\c@maxextratitleyear=\count378
+\c@maxextraname=\count379
+\c@maxextradate=\count380
+\c@maxextraalpha=\count381
+\c@abbrvpenalty=\count382
+\c@highnamepenalty=\count383
+\c@lownamepenalty=\count384
+\c@maxparens=\count385
+\c@parenlevel=\count386
+\blx@tempcnta=\count387
+\blx@tempcntb=\count388
+\blx@tempcntc=\count389
+\c@blx@maxsection=\count390
+\blx@maxsegment@0=\count391
+\blx@notetype=\count392
+\blx@parenlevel@text=\count393
+\blx@parenlevel@foot=\count394
+\blx@sectionciteorder@0=\count395
+\blx@sectionciteorderinternal@0=\count396
+\blx@entrysetcounter=\count397
+\blx@biblioinstance=\count398
+\labelnumberwidth=\skip67
+\labelalphawidth=\skip68
+\biblabelsep=\skip69
+\bibitemsep=\skip70
+\bibnamesep=\skip71
+\bibinitsep=\skip72
+\bibparsep=\skip73
+\bibhang=\skip74
 \blx@bcfin=\read4
-\blx@bcfout=\write6
-\blx@langwohyphens=\language86
-\c@mincomprange=\count367
-\c@maxcomprange=\count368
-\c@mincompwidth=\count369
+\blx@bcfout=\write4
+\blx@langwohyphens=\language90
+\c@mincomprange=\count399
+\c@maxcomprange=\count400
+\c@mincompwidth=\count401
 Package biblatex Info: Trying to load biblatex default data model...
 Package biblatex Info: ... file 'blx-dm.def' found.
 
-(/var/mobile/Containers/Data/Application/467E7597-C7BE-49DF-AE4E-DDA95A01BBDF/L
-ibrary/Caches/texmf-dist/./tex/latex/biblatex/blx-dm.def
-File: blx-dm.def 2019/12/01 v3.14 biblatex localization (PK/MW)
+(c:/texlive/2025/texmf-dist/tex/latex/biblatex/blx-dm.def
+File: blx-dm.def 2024/03/21 v3.20 biblatex datamodel (PK/MW)
 )
 Package biblatex Info: Trying to load biblatex custom data model...
 Package biblatex Info: ... file 'biblatex-dm.cfg' not found.
-\c@afterword=\count370
-\c@savedafterword=\count371
-\c@annotator=\count372
-\c@savedannotator=\count373
-\c@author=\count374
-\c@savedauthor=\count375
-\c@bookauthor=\count376
-\c@savedbookauthor=\count377
-\c@commentator=\count378
-\c@savedcommentator=\count379
-\c@editor=\count380
-\c@savededitor=\count381
-\c@editora=\count382
-\c@savededitora=\count383
-\c@editorb=\count384
-\c@savededitorb=\count385
-\c@editorc=\count386
-\c@savededitorc=\count387
-\c@foreword=\count388
-\c@savedforeword=\count389
-\c@holder=\count390
-\c@savedholder=\count391
-\c@introduction=\count392
-\c@savedintroduction=\count393
-\c@namea=\count394
-\c@savednamea=\count395
-\c@nameb=\count396
-\c@savednameb=\count397
-\c@namec=\count398
-\c@savednamec=\count399
-\c@translator=\count400
-\c@savedtranslator=\count401
-\c@shortauthor=\count402
-\c@savedshortauthor=\count403
-\c@shorteditor=\count404
-\c@savedshorteditor=\count405
-\c@labelname=\count406
-\c@savedlabelname=\count407
-\c@institution=\count408
-\c@savedinstitution=\count409
-\c@lista=\count410
-\c@savedlista=\count411
-\c@listb=\count412
-\c@savedlistb=\count413
-\c@listc=\count414
-\c@savedlistc=\count415
-\c@listd=\count416
-\c@savedlistd=\count417
-\c@liste=\count418
-\c@savedliste=\count419
-\c@listf=\count420
-\c@savedlistf=\count421
-\c@location=\count422
-\c@savedlocation=\count423
-\c@organization=\count424
-\c@savedorganization=\count425
-\c@origlocation=\count426
-\c@savedoriglocation=\count427
-\c@origpublisher=\count428
-\c@savedorigpublisher=\count429
-\c@publisher=\count430
-\c@savedpublisher=\count431
-\c@language=\count432
-\c@savedlanguage=\count433
-\c@origlanguage=\count434
-\c@savedoriglanguage=\count435
-\c@pageref=\count436
-\c@savedpageref=\count437
-\shorthandwidth=\skip73
-\shortjournalwidth=\skip74
-\shortserieswidth=\skip75
-\shorttitlewidth=\skip76
-\shortauthorwidth=\skip77
-\shorteditorwidth=\skip78
-\locallabelnumberwidth=\skip79
-\locallabelalphawidth=\skip80
-\localshorthandwidth=\skip81
-\localshortjournalwidth=\skip82
-\localshortserieswidth=\skip83
-\localshorttitlewidth=\skip84
-\localshortauthorwidth=\skip85
-\localshorteditorwidth=\skip86
+\c@afterword=\count402
+\c@savedafterword=\count403
+\c@annotator=\count404
+\c@savedannotator=\count405
+\c@author=\count406
+\c@savedauthor=\count407
+\c@bookauthor=\count408
+\c@savedbookauthor=\count409
+\c@commentator=\count410
+\c@savedcommentator=\count411
+\c@editor=\count412
+\c@savededitor=\count413
+\c@editora=\count414
+\c@savededitora=\count415
+\c@editorb=\count416
+\c@savededitorb=\count417
+\c@editorc=\count418
+\c@savededitorc=\count419
+\c@foreword=\count420
+\c@savedforeword=\count421
+\c@holder=\count422
+\c@savedholder=\count423
+\c@introduction=\count424
+\c@savedintroduction=\count425
+\c@namea=\count426
+\c@savednamea=\count427
+\c@nameb=\count428
+\c@savednameb=\count429
+\c@namec=\count430
+\c@savednamec=\count431
+\c@translator=\count432
+\c@savedtranslator=\count433
+\c@shortauthor=\count434
+\c@savedshortauthor=\count435
+\c@shorteditor=\count436
+\c@savedshorteditor=\count437
+\c@labelname=\count438
+\c@savedlabelname=\count439
+\c@institution=\count440
+\c@savedinstitution=\count441
+\c@lista=\count442
+\c@savedlista=\count443
+\c@listb=\count444
+\c@savedlistb=\count445
+\c@listc=\count446
+\c@savedlistc=\count447
+\c@listd=\count448
+\c@savedlistd=\count449
+\c@liste=\count450
+\c@savedliste=\count451
+\c@listf=\count452
+\c@savedlistf=\count453
+\c@location=\count454
+\c@savedlocation=\count455
+\c@organization=\count456
+\c@savedorganization=\count457
+\c@origlocation=\count458
+\c@savedoriglocation=\count459
+\c@origpublisher=\count460
+\c@savedorigpublisher=\count461
+\c@publisher=\count462
+\c@savedpublisher=\count463
+\c@language=\count464
+\c@savedlanguage=\count465
+\c@origlanguage=\count466
+\c@savedoriglanguage=\count467
+\c@pageref=\count468
+\c@savedpageref=\count469
+\shorthandwidth=\skip75
+\shortjournalwidth=\skip76
+\shortserieswidth=\skip77
+\shorttitlewidth=\skip78
+\shortauthorwidth=\skip79
+\shorteditorwidth=\skip80
+\locallabelnumberwidth=\skip81
+\locallabelalphawidth=\skip82
+\localshorthandwidth=\skip83
+\localshortjournalwidth=\skip84
+\localshortserieswidth=\skip85
+\localshorttitlewidth=\skip86
+\localshortauthorwidth=\skip87
+\localshorteditorwidth=\skip88
 Package biblatex Info: Trying to load compatibility code...
 Package biblatex Info: ... file 'blx-compat.def' found.
 
-(/var/mobile/Containers/Data/Application/467E7597-C7BE-49DF-AE4E-DDA95A01BBDF/L
-ibrary/Caches/texmf-dist/./tex/latex/biblatex/blx-compat.def
-File: blx-compat.def 2019/12/01 v3.14 biblatex compatibility (PK/MW)
+(c:/texlive/2025/texmf-dist/tex/latex/biblatex/blx-compat.def
+File: blx-compat.def 2024/03/21 v3.20 biblatex compatibility (PK/MW)
 )
 Package biblatex Info: Trying to load generic definitions...
 Package biblatex Info: ... file 'biblatex.def' found.
 
-(/var/mobile/Containers/Data/Application/467E7597-C7BE-49DF-AE4E-DDA95A01BBDF/L
-ibrary/Caches/texmf-dist/./tex/latex/biblatex/biblatex.def
-File: biblatex.def 2019/12/01 v3.14 biblatex compatibility (PK/MW)
-\c@textcitecount=\count438
-\c@textcitetotal=\count439
-\c@textcitemaxnames=\count440
-\c@biburlbigbreakpenalty=\count441
-\c@biburlbreakpenalty=\count442
-\c@biburlnumpenalty=\count443
-\c@biburlucpenalty=\count444
-\c@biburllcpenalty=\count445
-\biburlbigskip=\muskip18
-\biburlnumskip=\muskip19
-\biburlucskip=\muskip20
-\biburllcskip=\muskip21
-\c@smartand=\count446
+(c:/texlive/2025/texmf-dist/tex/latex/biblatex/biblatex.def
+File: biblatex.def 2024/03/21 v3.20 biblatex compatibility (PK/MW)
+\c@textcitecount=\count470
+\c@textcitetotal=\count471
+\c@textcitemaxnames=\count472
+\c@biburlbigbreakpenalty=\count473
+\c@biburlbreakpenalty=\count474
+\c@biburlnumpenalty=\count475
+\c@biburlucpenalty=\count476
+\c@biburllcpenalty=\count477
+\biburlbigskip=\muskip19
+\biburlnumskip=\muskip20
+\biburlucskip=\muskip21
+\biburllcskip=\muskip22
+\c@smartand=\count478
 )
 Package biblatex Info: Trying to load bibliography style 'numeric'...
 Package biblatex Info: ... file 'numeric.bbx' found.
 
-(/var/mobile/Containers/Data/Application/467E7597-C7BE-49DF-AE4E-DDA95A01BBDF/L
-ibrary/Caches/texmf-dist/./tex/latex/biblatex/bbx/numeric.bbx
-File: numeric.bbx 2019/12/01 v3.14 biblatex bibliography style (PK/MW)
+(c:/texlive/2025/texmf-dist/tex/latex/biblatex/bbx/numeric.bbx
+File: numeric.bbx 2024/03/21 v3.20 biblatex bibliography style (PK/MW)
 Package biblatex Info: Trying to load bibliography style 'standard'...
 Package biblatex Info: ... file 'standard.bbx' found.
 
-(/var/mobile/Containers/Data/Application/467E7597-C7BE-49DF-AE4E-DDA95A01BBDF/L
-ibrary/Caches/texmf-dist/./tex/latex/biblatex/bbx/standard.bbx
-File: standard.bbx 2019/12/01 v3.14 biblatex bibliography style (PK/MW)
-\c@bbx:relatedcount=\count447
-\c@bbx:relatedtotal=\count448
+(c:/texlive/2025/texmf-dist/tex/latex/biblatex/bbx/standard.bbx
+File: standard.bbx 2024/03/21 v3.20 biblatex bibliography style (PK/MW)
+\c@bbx:relatedcount=\count479
+\c@bbx:relatedtotal=\count480
 ))
 Package biblatex Info: Trying to load citation style 'numeric'...
 Package biblatex Info: ... file 'numeric.cbx' found.
 
-(/var/mobile/Containers/Data/Application/467E7597-C7BE-49DF-AE4E-DDA95A01BBDF/L
-ibrary/Caches/texmf-dist/./tex/latex/biblatex/cbx/numeric.cbx
-File: numeric.cbx 2019/12/01 v3.14 biblatex citation style (PK/MW)
+(c:/texlive/2025/texmf-dist/tex/latex/biblatex/cbx/numeric.cbx
+File: numeric.cbx 2024/03/21 v3.20 biblatex citation style (PK/MW)
 Package biblatex Info: Redefining '\cite'.
 Package biblatex Info: Redefining '\parencite'.
 Package biblatex Info: Redefining '\footcite'.
@@ -1252,251 +1104,225 @@ Package biblatex Info: Redefining '\smartcites'.
 Package biblatex Info: Trying to load configuration file...
 Package biblatex Info: ... file 'biblatex.cfg' found.
 
-(/var/mobile/Containers/Data/Application/467E7597-C7BE-49DF-AE4E-DDA95A01BBDF/L
-ibrary/Caches/texmf-dist/./tex/latex/biblatex/biblatex.cfg
+(c:/texlive/2025/texmf-dist/tex/latex/biblatex/biblatex.cfg
 File: biblatex.cfg 
-))
-(/var/mobile/Containers/Data/Application/467E7597-C7BE-49DF-AE4E-DDA95A01BBDF/L
-ibrary/Caches/texmf-dist/./tex/latex/pdfpages/pdfpages.sty
-Package: pdfpages 2020/01/28 v0.5q Insert pages of external PDF documents (AM)
-
-(/var/mobile/Containers/Data/Application/467E7597-C7BE-49DF-AE4E-DDA95A01BBDF/L
-ibrary/Caches/texmf-dist/./tex/latex/eso-pic/eso-pic.sty
-Package: eso-pic 2018/04/12 v2.0h eso-pic (RN)
-
-(/var/mobile/Containers/Data/Application/467E7597-C7BE-49DF-AE4E-DDA95A01BBDF/L
-ibrary/Caches/texmf-dist/./tex/generic/atbegshi/atbegshi.sty
-Package: atbegshi 2019/12/05 v1.19 At begin shipout hook (HO)
-))
-\AM@pagewidth=\dimen334
-\AM@pageheight=\dimen335
-
-(/var/mobile/Containers/Data/Application/467E7597-C7BE-49DF-AE4E-DDA95A01BBDF/L
-ibrary/Caches/texmf-dist/./tex/latex/pdfpages/pppdftex.def
-File: pppdftex.def 2020/01/28 v0.5q Pdfpages driver for pdfTeX (AM)
 )
-\AM@pagebox=\box144
-\AM@global@opts=\toks48
-\AM@pagecnt=\count449
-\AM@toc@title=\toks49
-\c@AM@survey=\count450
-\AM@templatesizebox=\box145
-)
-(/var/mobile/Containers/Data/Application/467E7597-C7BE-49DF-AE4E-DDA95A01BBDF/L
-ibrary/Caches/texmf-dist/./tex/latex/pgfplots/pgfplots.sty
-(/var/mobile/Containers/Data/Application/467E7597-C7BE-49DF-AE4E-DDA95A01BBDF/L
-ibrary/Caches/texmf-dist/./tex/generic/pgfplots/pgfplots.revision.tex)
-Package: pgfplots 2020/02/29 v1.17 Data Visualization (1.17)
+Package biblatex Info: Input encoding 'utf8' detected.
+Package biblatex Info: Document encoding is UTF8 ....
 
-(/var/mobile/Containers/Data/Application/467E7597-C7BE-49DF-AE4E-DDA95A01BBDF/L
-ibrary/Caches/texmf-dist/./tex/generic/pgfplots/pgfplots.code.tex
-(/var/mobile/Containers/Data/Application/467E7597-C7BE-49DF-AE4E-DDA95A01BBDF/L
-ibrary/Caches/texmf-dist/./tex/generic/pgfplots/pgfplotscore.code.tex
-\t@pgfplots@toka=\toks50
-\t@pgfplots@tokb=\toks51
-\t@pgfplots@tokc=\toks52
-\pgfplots@tmpa=\dimen336
-\c@pgfplots@coordindex=\count451
-\c@pgfplots@scanlineindex=\count452
+(c:/texlive/2025/texmf-dist/tex/latex/l3kernel/expl3.sty
+Package: expl3 2025-01-18 L3 programming layer (loader) 
 
-(/var/mobile/Containers/Data/Application/467E7597-C7BE-49DF-AE4E-DDA95A01BBDF/L
-ibrary/Caches/texmf-dist/./tex/generic/pgfplots/sys/pgfplotssysgeneric.code.tex
+(c:/texlive/2025/texmf-dist/tex/latex/l3backend/l3backend-pdftex.def
+File: l3backend-pdftex.def 2024-05-08 L3 backend support: PDF output (pdfTeX)
+\l__color_backend_stack_int=\count481
+\l__pdf_internal_box=\box152
 ))
-(/var/mobile/Containers/Data/Application/467E7597-C7BE-49DF-AE4E-DDA95A01BBDF/L
-ibrary/Caches/texmf-dist/./tex/generic/pgfplots/libs/pgfplotslibrary.code.tex)
-(/var/mobile/Containers/Data/Application/467E7597-C7BE-49DF-AE4E-DDA95A01BBDF/L
-ibrary/Caches/texmf-dist/./tex/generic/pgfplots/oldpgfcompatib/pgfplotsoldpgfsu
-pp_loader.code.tex
-(/var/mobile/Containers/Data/Application/467E7597-C7BE-49DF-AE4E-DDA95A01BBDF/L
-ibrary/Caches/texmf-dist/./tex/generic/pgf/libraries/pgflibraryfpu.code.tex))
-(/var/mobile/Containers/Data/Application/467E7597-C7BE-49DF-AE4E-DDA95A01BBDF/L
-ibrary/Caches/texmf-dist/./tex/generic/pgfplots/util/pgfplotsutil.code.tex
-(/var/mobile/Containers/Data/Application/467E7597-C7BE-49DF-AE4E-DDA95A01BBDF/L
-ibrary/Caches/texmf-dist/./tex/generic/pgfplots/liststructure/pgfplotsliststruc
-ture.code.tex)
-(/var/mobile/Containers/Data/Application/467E7597-C7BE-49DF-AE4E-DDA95A01BBDF/L
-ibrary/Caches/texmf-dist/./tex/generic/pgfplots/liststructure/pgfplotsliststruc
-tureext.code.tex)
-(/var/mobile/Containers/Data/Application/467E7597-C7BE-49DF-AE4E-DDA95A01BBDF/L
-ibrary/Caches/texmf-dist/./tex/generic/pgfplots/liststructure/pgfplotsarray.cod
-e.tex
-\c@pgfplotsarray@tmp=\count453
+Package biblatex Info: ... and expl3
+(biblatex)             2025-01-18 L3 programming layer (loader) 
+(biblatex)             is new enough (at least 2020/04/06),
+(biblatex)             setting 'casechanger=expl3'.
+
+(c:/texlive/2025/texmf-dist/tex/latex/biblatex/blx-case-expl3.sty
+(c:/texlive/2025/texmf-dist/tex/latex/l3packages/xparse/xparse.sty
+Package: xparse 2024-08-16 L3 Experimental document command parser
 )
-(/var/mobile/Containers/Data/Application/467E7597-C7BE-49DF-AE4E-DDA95A01BBDF/L
-ibrary/Caches/texmf-dist/./tex/generic/pgfplots/liststructure/pgfplotsmatrix.co
-de.tex)
-(/var/mobile/Containers/Data/Application/467E7597-C7BE-49DF-AE4E-DDA95A01BBDF/L
-ibrary/Caches/texmf-dist/./tex/generic/pgfplots/numtable/pgfplotstableshared.co
+Package: blx-case-expl3 2024/03/21 v3.20 expl3 case changing code for biblatex
+))
+(c:/texlive/2025/texmf-dist/tex/latex/pdfpages/pdfpages.sty
+Package: pdfpages 2025/01/30 v0.6e Insert pages of external PDF documents (AM)
+
+(c:/texlive/2025/texmf-dist/tex/latex/eso-pic/eso-pic.sty
+Package: eso-pic 2023/05/03 v3.0c eso-pic (RN)
+\ESO@tempdima=\dimen348
+\ESO@tempdimb=\dimen349
+)
+\AM@pagewidth=\dimen350
+\AM@pageheight=\dimen351
+\AM@fboxrule=\dimen352
+
+(c:/texlive/2025/texmf-dist/tex/latex/pdfpages/pppdftex.def
+File: pppdftex.def 2025/01/30 v0.6e Pdfpages driver for pdfTeX (AM)
+)
+\pdfpages@includegraphics@status=\count482
+\AM@pagebox=\box153
+\AM@global@opts=\toks50
+\AM@pagecnt=\count483
+\AM@toc@title=\toks51
+\AM@lof@heading=\toks52
+\c@AM@survey=\count484
+\AM@templatesizebox=\box154
+)
+(c:/texlive/2025/texmf-dist/tex/latex/pgfplots/pgfplots.sty
+(c:/texlive/2025/texmf-dist/tex/generic/pgfplots/pgfplots.revision.tex)
+Package: pgfplots 2021/05/15 v1.18.1 Data Visualization (1.18.1)
+
+(c:/texlive/2025/texmf-dist/tex/generic/pgfplots/pgfplots.code.tex
+(c:/texlive/2025/texmf-dist/tex/generic/pgfplots/pgfplotscore.code.tex
+\t@pgfplots@toka=\toks53
+\t@pgfplots@tokb=\toks54
+\t@pgfplots@tokc=\toks55
+\pgfplots@tmpa=\dimen353
+\c@pgfplots@coordindex=\count485
+\c@pgfplots@scanlineindex=\count486
+
+(c:/texlive/2025/texmf-dist/tex/generic/pgfplots/sys/pgfplotssysgeneric.code.te
+x))
+(c:/texlive/2025/texmf-dist/tex/generic/pgfplots/libs/pgfplotslibrary.code.tex)
+
+(c:/texlive/2025/texmf-dist/tex/generic/pgfplots/oldpgfcompatib/pgfplotsoldpgfs
+upp_loader.code.tex
+(c:/texlive/2025/texmf-dist/tex/generic/pgf/libraries/pgflibraryfpu.code.tex)
+Package pgfplots: loading complementary utilities for your pgf version...
+\t@pgf@toka=\toks56
+\t@pgf@tokb=\toks57
+\t@pgf@tokc=\toks58
+
+(c:/texlive/2025/texmf-dist/tex/generic/pgfplots/oldpgfcompatib/pgfplotsoldpgfs
+upp_pgfutil-common-lists.tex))
+(c:/texlive/2025/texmf-dist/tex/generic/pgfplots/util/pgfplotsutil.code.tex
+(c:/texlive/2025/texmf-dist/tex/generic/pgfplots/liststructure/pgfplotsliststru
+cture.code.tex)
+(c:/texlive/2025/texmf-dist/tex/generic/pgfplots/liststructure/pgfplotsliststru
+ctureext.code.tex)
+(c:/texlive/2025/texmf-dist/tex/generic/pgfplots/liststructure/pgfplotsarray.co
 de.tex
-\c@pgfplotstable@counta=\count454
-\t@pgfplotstable@a=\toks53
+\c@pgfplotsarray@tmp=\count487
 )
-(/var/mobile/Containers/Data/Application/467E7597-C7BE-49DF-AE4E-DDA95A01BBDF/L
-ibrary/Caches/texmf-dist/./tex/generic/pgfplots/liststructure/pgfplotsdeque.cod
-e.tex)
-(/var/mobile/Containers/Data/Application/467E7597-C7BE-49DF-AE4E-DDA95A01BBDF/L
-ibrary/Caches/texmf-dist/./tex/generic/pgfplots/util/pgfplotsbinary.code.tex
-(/var/mobile/Containers/Data/Application/467E7597-C7BE-49DF-AE4E-DDA95A01BBDF/L
-ibrary/Caches/texmf-dist/./tex/generic/pgfplots/util/pgfplotsbinary.data.code.t
-ex))
-(/var/mobile/Containers/Data/Application/467E7597-C7BE-49DF-AE4E-DDA95A01BBDF/L
-ibrary/Caches/texmf-dist/./tex/generic/pgfplots/util/pgfplotsutil.verb.code.tex
+(c:/texlive/2025/texmf-dist/tex/generic/pgfplots/liststructure/pgfplotsmatrix.c
+ode.tex)
+(c:/texlive/2025/texmf-dist/tex/generic/pgfplots/numtable/pgfplotstableshared.c
+ode.tex
+\c@pgfplotstable@counta=\count488
+\t@pgfplotstable@a=\toks59
 )
-(/var/mobile/Containers/Data/Application/467E7597-C7BE-49DF-AE4E-DDA95A01BBDF/L
-ibrary/Caches/texmf-dist/./tex/generic/pgfplots/libs/pgflibrarypgfplots.surfsha
-ding.code.tex
-\c@pgfplotslibrarysurf@no=\count455
-
-(/var/mobile/Containers/Data/Application/467E7597-C7BE-49DF-AE4E-DDA95A01BBDF/L
-ibrary/Caches/texmf-dist/./tex/generic/pgfplots/sys/pgflibrarypgfplots.surfshad
-ing.pgfsys-pdftex.def)))
-(/var/mobile/Containers/Data/Application/467E7597-C7BE-49DF-AE4E-DDA95A01BBDF/L
-ibrary/Caches/texmf-dist/./tex/generic/pgfplots/util/pgfplotscolormap.code.tex
-(/var/mobile/Containers/Data/Application/467E7597-C7BE-49DF-AE4E-DDA95A01BBDF/L
-ibrary/Caches/texmf-dist/./tex/generic/pgfplots/util/pgfplotscolor.code.tex))
-(/var/mobile/Containers/Data/Application/467E7597-C7BE-49DF-AE4E-DDA95A01BBDF/L
-ibrary/Caches/texmf-dist/./tex/generic/pgfplots/pgfplotsstackedplots.code.tex)
-(/var/mobile/Containers/Data/Application/467E7597-C7BE-49DF-AE4E-DDA95A01BBDF/L
-ibrary/Caches/texmf-dist/./tex/generic/pgfplots/pgfplotsplothandlers.code.tex
-(/var/mobile/Containers/Data/Application/467E7597-C7BE-49DF-AE4E-DDA95A01BBDF/L
-ibrary/Caches/texmf-dist/./tex/generic/pgfplots/pgfplotsmeshplothandler.code.te
-x
-(/var/mobile/Containers/Data/Application/467E7597-C7BE-49DF-AE4E-DDA95A01BBDF/L
-ibrary/Caches/texmf-dist/./tex/generic/pgfplots/pgfplotsmeshplotimage.code.tex)
-))
-(/var/mobile/Containers/Data/Application/467E7597-C7BE-49DF-AE4E-DDA95A01BBDF/L
-ibrary/Caches/texmf-dist/./tex/generic/pgfplots/pgfplots.scaling.code.tex)
-(/var/mobile/Containers/Data/Application/467E7597-C7BE-49DF-AE4E-DDA95A01BBDF/L
-ibrary/Caches/texmf-dist/./tex/generic/pgfplots/pgfplotscoordprocessing.code.te
+(c:/texlive/2025/texmf-dist/tex/generic/pgfplots/liststructure/pgfplotsdeque.co
+de.tex)
+(c:/texlive/2025/texmf-dist/tex/generic/pgfplots/util/pgfplotsbinary.code.tex
+(c:/texlive/2025/texmf-dist/tex/generic/pgfplots/util/pgfplotsbinary.data.code.
+tex))
+(c:/texlive/2025/texmf-dist/tex/generic/pgfplots/util/pgfplotsutil.verb.code.te
 x)
-(/var/mobile/Containers/Data/Application/467E7597-C7BE-49DF-AE4E-DDA95A01BBDF/L
-ibrary/Caches/texmf-dist/./tex/generic/pgfplots/pgfplots.errorbars.code.tex)
-(/var/mobile/Containers/Data/Application/467E7597-C7BE-49DF-AE4E-DDA95A01BBDF/L
-ibrary/Caches/texmf-dist/./tex/generic/pgfplots/pgfplots.markers.code.tex)
-(/var/mobile/Containers/Data/Application/467E7597-C7BE-49DF-AE4E-DDA95A01BBDF/L
-ibrary/Caches/texmf-dist/./tex/generic/pgfplots/pgfplotsticks.code.tex)
-(/var/mobile/Containers/Data/Application/467E7597-C7BE-49DF-AE4E-DDA95A01BBDF/L
-ibrary/Caches/texmf-dist/./tex/generic/pgfplots/pgfplots.paths.code.tex)
-(/var/mobile/Containers/Data/Application/467E7597-C7BE-49DF-AE4E-DDA95A01BBDF/L
-ibrary/Caches/texmf-dist/./tex/generic/pgf/frontendlayer/tikz/libraries/tikzlib
-rarydecorations.code.tex
-(/var/mobile/Containers/Data/Application/467E7597-C7BE-49DF-AE4E-DDA95A01BBDF/L
-ibrary/Caches/texmf-dist/./tex/generic/pgf/modules/pgfmoduledecorations.code.te
-x
-\pgfdecoratedcompleteddistance=\dimen337
-\pgfdecoratedremainingdistance=\dimen338
-\pgfdecoratedinputsegmentcompleteddistance=\dimen339
-\pgfdecoratedinputsegmentremainingdistance=\dimen340
-\pgf@decorate@distancetomove=\dimen341
-\pgf@decorate@repeatstate=\count456
-\pgfdecorationsegmentamplitude=\dimen342
-\pgfdecorationsegmentlength=\dimen343
-)
-\tikz@lib@dec@box=\box146
-)
-(/var/mobile/Containers/Data/Application/467E7597-C7BE-49DF-AE4E-DDA95A01BBDF/L
-ibrary/Caches/texmf-dist/./tex/generic/pgf/frontendlayer/tikz/libraries/tikzlib
-rarydecorations.pathmorphing.code.tex
-(/var/mobile/Containers/Data/Application/467E7597-C7BE-49DF-AE4E-DDA95A01BBDF/L
-ibrary/Caches/texmf-dist/./tex/generic/pgf/libraries/decorations/pgflibrarydeco
-rations.pathmorphing.code.tex))
-(/var/mobile/Containers/Data/Application/467E7597-C7BE-49DF-AE4E-DDA95A01BBDF/L
-ibrary/Caches/texmf-dist/./tex/generic/pgf/frontendlayer/tikz/libraries/tikzlib
-rarydecorations.pathreplacing.code.tex
-(/var/mobile/Containers/Data/Application/467E7597-C7BE-49DF-AE4E-DDA95A01BBDF/L
-ibrary/Caches/texmf-dist/./tex/generic/pgf/libraries/decorations/pgflibrarydeco
-rations.pathreplacing.code.tex))
-\pgfplots@numplots=\count457
-\pgfplots@xmin@reg=\dimen344
-\pgfplots@xmax@reg=\dimen345
-\pgfplots@ymin@reg=\dimen346
-\pgfplots@ymax@reg=\dimen347
-\pgfplots@zmin@reg=\dimen348
-\pgfplots@zmax@reg=\dimen349
-)
-(/var/mobile/Containers/Data/Application/467E7597-C7BE-49DF-AE4E-DDA95A01BBDF/L
-ibrary/Caches/texmf-dist/./tex/generic/pgf/frontendlayer/tikz/libraries/tikzlib
-raryplotmarks.code.tex
-File: tikzlibraryplotmarks.code.tex 2020/01/08 v3.1.5b (3.1.5b)
+(c:/texlive/2025/texmf-dist/tex/generic/pgfplots/libs/pgflibrarypgfplots.surfsh
+ading.code.tex
+\c@pgfplotslibrarysurf@no=\count489
 
-(/var/mobile/Containers/Data/Application/467E7597-C7BE-49DF-AE4E-DDA95A01BBDF/L
-ibrary/Caches/texmf-dist/./tex/generic/pgf/libraries/pgflibraryplotmarks.code.t
+(c:/texlive/2025/texmf-dist/tex/generic/pgfplots/sys/pgflibrarypgfplots.surfsha
+ding.pgfsys-pdftex.def)))
+(c:/texlive/2025/texmf-dist/tex/generic/pgfplots/util/pgfplotscolormap.code.tex
+(c:/texlive/2025/texmf-dist/tex/generic/pgfplots/util/pgfplotscolor.code.tex))
+(c:/texlive/2025/texmf-dist/tex/generic/pgfplots/pgfplotsstackedplots.code.tex)
+(c:/texlive/2025/texmf-dist/tex/generic/pgfplots/pgfplotsplothandlers.code.tex
+(c:/texlive/2025/texmf-dist/tex/generic/pgfplots/pgfplotsmeshplothandler.code.t
 ex
-File: pgflibraryplotmarks.code.tex 2020/01/08 v3.1.5b (3.1.5b)
-)))
-(/private/var/containers/Bundle/Application/38CAA5E5-7B85-4BF0-8BF3-3C6105CB5C8
-4/TeX Writer.app/texmf-base/./tex/latex/geometry/geometry.sty
+(c:/texlive/2025/texmf-dist/tex/generic/pgfplots/pgfplotsmeshplotimage.code.tex
+))) (c:/texlive/2025/texmf-dist/tex/generic/pgfplots/pgfplots.scaling.code.tex)
+
+(c:/texlive/2025/texmf-dist/tex/generic/pgfplots/pgfplotscoordprocessing.code.t
+ex)
+(c:/texlive/2025/texmf-dist/tex/generic/pgfplots/pgfplots.errorbars.code.tex)
+(c:/texlive/2025/texmf-dist/tex/generic/pgfplots/pgfplots.markers.code.tex)
+(c:/texlive/2025/texmf-dist/tex/generic/pgfplots/pgfplotsticks.code.tex)
+(c:/texlive/2025/texmf-dist/tex/generic/pgfplots/pgfplots.paths.code.tex)
+(c:/texlive/2025/texmf-dist/tex/generic/pgf/frontendlayer/tikz/libraries/tikzli
+brarydecorations.code.tex
+(c:/texlive/2025/texmf-dist/tex/generic/pgf/modules/pgfmoduledecorations.code.t
+ex
+\pgfdecoratedcompleteddistance=\dimen354
+\pgfdecoratedremainingdistance=\dimen355
+\pgfdecoratedinputsegmentcompleteddistance=\dimen356
+\pgfdecoratedinputsegmentremainingdistance=\dimen357
+\pgf@decorate@distancetomove=\dimen358
+\pgf@decorate@repeatstate=\count490
+\pgfdecorationsegmentamplitude=\dimen359
+\pgfdecorationsegmentlength=\dimen360
+)
+\tikz@lib@dec@box=\box155
+)
+(c:/texlive/2025/texmf-dist/tex/generic/pgf/frontendlayer/tikz/libraries/tikzli
+brarydecorations.pathmorphing.code.tex
+(c:/texlive/2025/texmf-dist/tex/generic/pgf/libraries/decorations/pgflibrarydec
+orations.pathmorphing.code.tex))
+(c:/texlive/2025/texmf-dist/tex/generic/pgf/frontendlayer/tikz/libraries/tikzli
+brarydecorations.pathreplacing.code.tex
+(c:/texlive/2025/texmf-dist/tex/generic/pgf/libraries/decorations/pgflibrarydec
+orations.pathreplacing.code.tex))
+(c:/texlive/2025/texmf-dist/tex/generic/pgfplots/libs/tikzlibrarypgfplots.conto
+urlua.code.tex)
+\pgfplots@numplots=\count491
+\pgfplots@xmin@reg=\dimen361
+\pgfplots@xmax@reg=\dimen362
+\pgfplots@ymin@reg=\dimen363
+\pgfplots@ymax@reg=\dimen364
+\pgfplots@zmin@reg=\dimen365
+\pgfplots@zmax@reg=\dimen366
+)
+(c:/texlive/2025/texmf-dist/tex/generic/pgf/frontendlayer/tikz/libraries/tikzli
+braryplotmarks.code.tex
+File: tikzlibraryplotmarks.code.tex 2023-01-15 v3.1.10 (3.1.10)
+
+(c:/texlive/2025/texmf-dist/tex/generic/pgf/libraries/pgflibraryplotmarks.code.
+tex
+File: pgflibraryplotmarks.code.tex 2023-01-15 v3.1.10 (3.1.10)
+))) (c:/texlive/2025/texmf-dist/tex/latex/geometry/geometry.sty
 Package: geometry 2020/01/02 v5.9 Page Geometry
 
-(/var/mobile/Containers/Data/Application/467E7597-C7BE-49DF-AE4E-DDA95A01BBDF/L
-ibrary/Caches/texmf-dist/./tex/generic/iftex/ifvtex.sty
+(c:/texlive/2025/texmf-dist/tex/generic/iftex/ifvtex.sty
 Package: ifvtex 2019/10/25 v1.7 ifvtex legacy package. Use iftex instead.
 )
-\Gm@cnth=\count458
-\Gm@cntv=\count459
-\c@Gm@tempcnt=\count460
-\Gm@bindingoffset=\dimen350
-\Gm@wd@mp=\dimen351
-\Gm@odd@mp=\dimen352
-\Gm@even@mp=\dimen353
-\Gm@layoutwidth=\dimen354
-\Gm@layoutheight=\dimen355
-\Gm@layouthoffset=\dimen356
-\Gm@layoutvoffset=\dimen357
-\Gm@dimlist=\toks54
+\Gm@cnth=\count492
+\Gm@cntv=\count493
+\c@Gm@tempcnt=\count494
+\Gm@bindingoffset=\dimen367
+\Gm@wd@mp=\dimen368
+\Gm@odd@mp=\dimen369
+\Gm@even@mp=\dimen370
+\Gm@layoutwidth=\dimen371
+\Gm@layoutheight=\dimen372
+\Gm@layouthoffset=\dimen373
+\Gm@layoutvoffset=\dimen374
+\Gm@dimlist=\toks60
 )
-(/var/mobile/Containers/Data/Application/467E7597-C7BE-49DF-AE4E-DDA95A01BBDF/L
-ibrary/Caches/texmf-dist/./tex/latex/titlesec/titlesec.sty
-Package: titlesec 2019/10/16 v2.13 Sectioning titles
-\ttl@box=\box147
-\beforetitleunit=\skip87
-\aftertitleunit=\skip88
-\ttl@plus=\dimen358
-\ttl@minus=\dimen359
-\ttl@toksa=\toks55
-\titlewidth=\dimen360
-\titlewidthlast=\dimen361
-\titlewidthfirst=\dimen362
+(c:/texlive/2025/texmf-dist/tex/latex/titlesec/titlesec.sty
+Package: titlesec 2025/01/04 v2.17 Sectioning titles
+\ttl@box=\box156
+\beforetitleunit=\skip89
+\aftertitleunit=\skip90
+\ttl@plus=\dimen375
+\ttl@minus=\dimen376
+\ttl@toksa=\toks61
+\titlewidth=\dimen377
+\titlewidthlast=\dimen378
+\titlewidthfirst=\dimen379
 )
-(/var/mobile/Containers/Data/Application/467E7597-C7BE-49DF-AE4E-DDA95A01BBDF/L
-ibrary/Caches/texmf-dist/./tex/latex/titlesec/titletoc.sty
-Package: titletoc 2019/10/16 v2.13 TOC entries
-\ttl@leftsep=\dimen363
+(c:/texlive/2025/texmf-dist/tex/latex/titlesec/titletoc.sty
+Package: titletoc 2025/01/04 v2.17 TOC entries
+\ttl@leftsep=\dimen380
 )
-(/var/mobile/Containers/Data/Application/467E7597-C7BE-49DF-AE4E-DDA95A01BBDF/L
-ibrary/Caches/texmf-dist/./tex/latex/tikz-3dplot/tikz-3dplot.sty
-(/var/mobile/Containers/Data/Application/467E7597-C7BE-49DF-AE4E-DDA95A01BBDF/L
-ibrary/Caches/texmf-dist/./tex/generic/pgf/frontendlayer/tikz/libraries/tikzlib
-rarycalc.code.tex
-File: tikzlibrarycalc.code.tex 2020/01/08 v3.1.5b (3.1.5b)
+(c:/texlive/2025/texmf-dist/tex/latex/tikz-3dplot/tikz-3dplot.sty
+(c:/texlive/2025/texmf-dist/tex/generic/pgf/frontendlayer/tikz/libraries/tikzli
+brarycalc.code.tex
+File: tikzlibrarycalc.code.tex 2023-01-15 v3.1.10 (3.1.10)
 )
-(/var/mobile/Containers/Data/Application/467E7597-C7BE-49DF-AE4E-DDA95A01BBDF/L
-ibrary/Caches/texmf-dist/./tex/generic/pgf/frontendlayer/tikz/libraries/tikzlib
-rary3d.code.tex
-File: tikzlibrary3d.code.tex 2020/01/08 v3.1.5b (3.1.5b)
+(c:/texlive/2025/texmf-dist/tex/generic/pgf/frontendlayer/tikz/libraries/tikzli
+brary3d.code.tex
+File: tikzlibrary3d.code.tex 2023-01-15 v3.1.10 (3.1.10)
 )
-(/var/mobile/Containers/Data/Application/467E7597-C7BE-49DF-AE4E-DDA95A01BBDF/L
-ibrary/Caches/texmf-dist/./tex/generic/pgf/frontendlayer/tikz/libraries/tikzlib
-raryarrows.code.tex
-File: tikzlibraryarrows.code.tex 2020/01/08 v3.1.5b (3.1.5b)
+(c:/texlive/2025/texmf-dist/tex/generic/pgf/frontendlayer/tikz/libraries/tikzli
+braryarrows.code.tex
+File: tikzlibraryarrows.code.tex 2023-01-15 v3.1.10 (3.1.10)
 
-(/var/mobile/Containers/Data/Application/467E7597-C7BE-49DF-AE4E-DDA95A01BBDF/L
-ibrary/Caches/texmf-dist/./tex/generic/pgf/libraries/pgflibraryarrows.code.tex
-File: pgflibraryarrows.code.tex 2020/01/08 v3.1.5b (3.1.5b)
-\arrowsize=\dimen364
+(c:/texlive/2025/texmf-dist/tex/generic/pgf/libraries/pgflibraryarrows.code.tex
+File: pgflibraryarrows.code.tex 2023-01-15 v3.1.10 (3.1.10)
+\arrowsize=\dimen381
 )))
-\c@subsubsubsection=\count461
+\c@subsubsubsection=\count495
 )
-\@quotelevel=\count462
-\@quotereset=\count463
+\@quotelevel=\count496
+\@quotereset=\count497
+ (./Problemas Unidad 1.aux)
+\openout1 = `"Problemas Unidad 1.aux"'.
 
-(/private/var/containers/Bundle/Application/38CAA5E5-7B85-4BF0-8BF3-3C6105CB5C8
-4/TeX Writer.app/texmf-base/./tex/latex/l3backend/l3backend-pdfmode.def
-File: l3backend-pdfmode.def 2020-03-12 L3 backend support: PDF mode
-\l__kernel_color_stack_int=\count464
-\l__pdf_internal_box=\box148
-)
-(Problemas Unidad 1.aux)
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 4.
 LaTeX Font Info:    ... okay on input line 4.
 LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 4.
@@ -1512,59 +1338,66 @@ LaTeX Font Info:    ... okay on input line 4.
 LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 4.
 LaTeX Font Info:    ... okay on input line 4.
 
-(/var/mobile/Containers/Data/Application/467E7597-C7BE-49DF-AE4E-DDA95A01BBDF/L
-ibrary/Caches/texmf-dist/./tex/context/base/mkii/supp-pdf.mkii
+(c:/texlive/2025/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count465
-\scratchdimen=\dimen365
-\scratchbox=\box149
-\nofMPsegments=\count466
-\nofMParguments=\count467
-\everyMPshowfont=\toks56
-\MPscratchCnt=\count468
-\MPscratchDim=\dimen366
-\MPnumerator=\count469
-\makeMPintoPDFobject=\count470
-\everyMPtoPDFconversion=\toks57
-)
+\scratchcounter=\count498
+\scratchdimen=\dimen382
+\scratchbox=\box157
+\nofMPsegments=\count499
+\nofMParguments=\count500
+\everyMPshowfont=\toks62
+\MPscratchCnt=\count501
+\MPscratchDim=\dimen383
+\MPnumerator=\count502
+\makeMPintoPDFobject=\count503
+\everyMPtoPDFconversion=\toks63
+) (c:/texlive/2025/texmf-dist/tex/latex/epstopdf-pkg/epstopdf-base.sty
+Package: epstopdf-base 2020-01-24 v2.11 Base part for package epstopdf
+Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 4
+85.
+
+(c:/texlive/2025/texmf-dist/tex/latex/latexconfig/epstopdf-sys.cfg
+File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Liv
+e
+))
 Package caption Info: Begin \AtBeginDocument code.
 Package caption Info: listings package is loaded.
 Package caption Info: wrapfig package is loaded.
 Package caption Info: End \AtBeginDocument code.
- ABD: EveryShipout initializing macros
-\Hy@linkcounter=\count471
-\c@lstlisting=\count472
+\Hy@linkcounter=\count504
+\c@lstlisting=\count505
 Package biblatex Info: Trying to load language 'english'...
 Package biblatex Info: ... file 'english.lbx' found.
 
-(/var/mobile/Containers/Data/Application/467E7597-C7BE-49DF-AE4E-DDA95A01BBDF/L
-ibrary/Caches/texmf-dist/./tex/latex/biblatex/lbx/english.lbx
-File: english.lbx 2019/12/01 v3.14 biblatex localization (PK/MW)
+(c:/texlive/2025/texmf-dist/tex/latex/biblatex/lbx/english.lbx
+File: english.lbx 2024/03/21 v3.20 biblatex localization (PK/MW)
 )
 Package biblatex Info: Input encoding 'utf8' detected.
 Package biblatex Info: Automatic encoding selection.
 (biblatex)             Assuming data encoding 'utf8'.
+\openout4 = `"Problemas Unidad 1.bcf"'.
+
 Package biblatex Info: Trying to load bibliographic data...
 Package biblatex Info: ... file '"Problemas Unidad 1".bbl' not found.
 
 No file "Problemas Unidad 1".bbl.
 Package biblatex Info: Reference section=0 on input line 4.
 Package biblatex Info: Reference segment=0 on input line 4.
-\AtBeginShipoutBox=\box150
+(c:/texlive/2025/texmf-dist/tex/latex/pdflscape/pdflscape.sty
+Package: pdflscape 2022-10-27 v0.13 Display of landscape pages in PDF
 
-(/var/mobile/Containers/Data/Application/467E7597-C7BE-49DF-AE4E-DDA95A01BBDF/L
-ibrary/Caches/texmf-dist/./tex/latex/pdflscape/pdflscape.sty
-Package: pdflscape 2019/12/05 v0.12 Display of landscape pages in PDF (HO)
+(c:/texlive/2025/texmf-dist/tex/latex/pdflscape/pdflscape-nometadata.sty
+Package: pdflscape-nometadata 2022-10-28 v0.13 Display of landscape pages in PD
+F (HO)
 
-(/private/var/containers/Bundle/Application/38CAA5E5-7B85-4BF0-8BF3-3C6105CB5C8
-4/TeX Writer.app/texmf-base/./tex/latex/graphics/lscape.sty
-Package: lscape 2000/10/22 v3.01 Landscape Pages (DPC)
+(c:/texlive/2025/texmf-dist/tex/latex/graphics/lscape.sty
+Package: lscape 2020/05/28 v3.02 Landscape Pages (DPC)
 )
 Package pdflscape Info: Auto-detected driver: pdftex on input line 81.
-)
+))
 
 Package pgfplots Warning: running in backwards compatibility mode (unsuitable t
-ick labels; missing features). Consider writing \pgfplotsset{compat=1.17} into 
+ick labels; missing features). Consider writing \pgfplotsset{compat=1.18} into 
 your preamble.
  on input line 4.
 
@@ -1603,30 +1436,30 @@ your preamble.
 * (1in=72.27pt=25.4mm, 1cm=28.453pt)
 
 LaTeX Font Info:    Trying to load font information for U+msa on input line 5.
-
-(/private/var/containers/Bundle/Application/38CAA5E5-7B85-4BF0-8BF3-3C6105CB5C8
-4/TeX Writer.app/texmf-base/./tex/latex/amsfonts/umsa.fd
+(c:/texlive/2025/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
 LaTeX Font Info:    Trying to load font information for U+msb on input line 5.
 
-(/private/var/containers/Bundle/Application/38CAA5E5-7B85-4BF0-8BF3-3C6105CB5C8
-4/TeX Writer.app/texmf-base/./tex/latex/amsfonts/umsb.fd
+(c:/texlive/2025/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )
 LaTeX Font Info:    Trying to load font information for U+lasy on input line 5.
 
 
-(/private/var/containers/Bundle/Application/38CAA5E5-7B85-4BF0-8BF3-3C6105CB5C8
-4/TeX Writer.app/texmf-base/./tex/latex/base/ulasy.fd
+(c:/texlive/2025/texmf-dist/tex/latex/base/ulasy.fd
 File: ulasy.fd 1998/08/17 v2.2e LaTeX symbol font definitions
-) [1
+)
 
-{/private/var/containers/Bundle/Application/38CAA5E5-7B85-4BF0-8BF3-3C6105CB5C8
-4/TeX Writer.app/texmf-base/./fonts/map/pdftex/updmap/pdftex.map}]
+[1
+
+{c:/texlive/2025/texmf-var/fonts/map/pdftex/updmap/pdftex.map}{c:/texlive/2025/
+texmf-dist/fonts/enc/dvips/cm-super/cm-super-ts1.enc}]
 Overfull \hbox (3.29495pt too wide) in paragraph at lines 140--169
 []$[]$$[][]$ 
  []
+
+
 
 [2]
 Overfull \hbox (3.29495pt too wide) in paragraph at lines 171--200
@@ -1638,6 +1471,8 @@ Overfull \hbox (12.9365pt too wide) in paragraph at lines 239--275
 []$[]$ $[]$ 
  []
 
+
+
 [3]
 Overfull \hbox (12.9365pt too wide) in paragraph at lines 277--313
 []$[]$ $[]$ 
@@ -1648,119 +1483,179 @@ Overfull \hbox (12.9365pt too wide) in paragraph at lines 316--352
 []$[]$ $[]$ 
  []
 
+
+
 [4]
-<Ejercicio 5/Figure 1.png, id=31, 578.16pt x 289.08pt>
+<Ejercicio 5/Figure 1.png, id=32, 578.16pt x 289.08pt>
 File: Ejercicio 5/Figure 1.png Graphic file (type png)
 <use Ejercicio 5/Figure 1.png>
 Package pdftex.def Info: Ejercicio 5/Figure 1.png  used on input line 434.
 (pdftex.def)             Requested size: 360.92007pt x 180.4584pt.
-<Ejercicio 5/Figure 2.png, id=33, 578.16pt x 289.08pt>
+<Ejercicio 5/Figure 2.png, id=34, 578.16pt x 289.08pt>
 File: Ejercicio 5/Figure 2.png Graphic file (type png)
 <use Ejercicio 5/Figure 2.png>
 Package pdftex.def Info: Ejercicio 5/Figure 2.png  used on input line 440.
 (pdftex.def)             Requested size: 243.26941pt x 121.63332pt.
-<Ejercicio 5/Figure 3.png, id=34, 578.16pt x 289.08pt>
+<Ejercicio 5/Figure 3.png, id=35, 578.16pt x 289.08pt>
 File: Ejercicio 5/Figure 3.png Graphic file (type png)
 <use Ejercicio 5/Figure 3.png>
 Package pdftex.def Info: Ejercicio 5/Figure 3.png  used on input line 448.
 (pdftex.def)             Requested size: 243.26941pt x 121.63332pt.
-<Ejercicio 5/Figure 4.png, id=35, 578.16pt x 289.08pt>
+<Ejercicio 5/Figure 4.png, id=36, 578.16pt x 289.08pt>
 File: Ejercicio 5/Figure 4.png Graphic file (type png)
 <use Ejercicio 5/Figure 4.png>
 Package pdftex.def Info: Ejercicio 5/Figure 4.png  used on input line 456.
 (pdftex.def)             Requested size: 243.26941pt x 121.63332pt.
- [5 <Ejercicio 5/Figure 1.png> <Ejercicio 5/Figure 2.png> <Ejercicio 5/Figure 3
-.png>]
-<Ejercicio 5/Figure 5.png, id=42, 578.16pt x 289.08pt>
+
+
+[5 <./Ejercicio 5/Figure 1.png> <./Ejercicio 5/Figure 2.png> <./Ejercicio 5/Fig
+ure 3.png>]
+<Ejercicio 5/Figure 5.png, id=43, 578.16pt x 289.08pt>
 File: Ejercicio 5/Figure 5.png Graphic file (type png)
 <use Ejercicio 5/Figure 5.png>
 Package pdftex.def Info: Ejercicio 5/Figure 5.png  used on input line 464.
 (pdftex.def)             Requested size: 243.26941pt x 121.63332pt.
-<Ejercicio 5/Figure 6.png, id=43, 578.16pt x 289.08pt>
+<Ejercicio 5/Figure 6.png, id=44, 578.16pt x 289.08pt>
 File: Ejercicio 5/Figure 6.png Graphic file (type png)
 <use Ejercicio 5/Figure 6.png>
 Package pdftex.def Info: Ejercicio 5/Figure 6.png  used on input line 472.
 (pdftex.def)             Requested size: 243.26941pt x 121.63332pt.
- [6 <Ejercicio 5/Figure 4.png> <Ejercicio 5/Figure 5.png> <Ejercicio 5/Figure 6
-.png>] [7] [8] [9] [10] [11] [12] [13] [14] [15] [16] [17] [18]
-[19] [20] [21]
-<20_1.png, id=99, 796.9775pt x 439.6425pt>
+
+
+[6 <./Ejercicio 5/Figure 4.png> <./Ejercicio 5/Figure 5.png> <./Ejercicio 5/Fig
+ure 6.png>]
+
+[7]
+
+[8]
+
+[9]
+
+[10]
+
+[11]
+
+[12]
+
+[13]
+
+[14]
+
+[15]
+
+[16]
+
+[17]
+
+[18]
+
+[19]
+
+[20]
+
+[21]
+<20_1.png, id=100, 796.9775pt x 439.6425pt>
 File: 20_1.png Graphic file (type png)
 <use 20_1.png>
 Package pdftex.def Info: 20_1.png  used on input line 1192.
 (pdftex.def)             Requested size: 243.26941pt x 134.19473pt.
-<20_2.png, id=100, 953.5625pt x 518.93875pt>
+<20_2.png, id=101, 953.5625pt x 518.93875pt>
 File: 20_2.png Graphic file (type png)
 <use 20_2.png>
 Package pdftex.def Info: 20_2.png  used on input line 1193.
 (pdftex.def)             Requested size: 243.26941pt x 132.38701pt.
-<21_1.png, id=101, 517.935pt x 412.54124pt>
+<21_1.png, id=102, 517.935pt x 412.54124pt>
 File: 21_1.png Graphic file (type png)
 <use 21_1.png>
 Package pdftex.def Info: 21_1.png  used on input line 1202.
 (pdftex.def)             Requested size: 243.26941pt x 193.76851pt.
-<21_2.png, id=102, 517.935pt x 419.5675pt>
+<21_2.png, id=103, 517.935pt x 419.5675pt>
 File: 21_2.png Graphic file (type png)
 <use 21_2.png>
 Package pdftex.def Info: 21_2.png  used on input line 1203.
 (pdftex.def)             Requested size: 243.26941pt x 197.0687pt.
- [22 <20_1.png> <20_2.png> <21_1.png> <21_2.png>] [23] [24]
-[25] [26] [27] [28] [29] [30] [31] [32] [33]
-<41.png, id=147, 1186.4325pt x 813.0375pt>
+
+
+[22 <./20_1.png> <./20_2.png> <./21_1.png> <./21_2.png>]
+
+[23]
+
+[24]
+
+[25]
+
+[26]
+
+[27]
+
+[28]
+
+[29]
+
+[30]
+
+[31]
+
+[32]
+
+[33]
+<41.png, id=148, 1186.4325pt x 813.0375pt>
 File: 41.png Graphic file (type png)
 <use 41.png>
 Package pdftex.def Info: 41.png  used on input line 1943.
 (pdftex.def)             Requested size: 378.42001pt x 259.3213pt.
- [34 <41.png>] [35] [36]
-(Problemas Unidad 1.aux)
+
+
+[34 <./41.png>]
+
+[35]
+
+[36] (./Problemas Unidad 1.aux)
+ ***********
+LaTeX2e <2024-11-01> patch level 2
+L3 programming layer <2025-01-18>
+ ***********
+
+
+LaTeX Warning: There were undefined references.
+
+
+Package biblatex Warning: Please (re)run Biber on the file:
+(biblatex)                "Problemas Unidad 1"
+(biblatex)                and rerun LaTeX afterwards.
+
 Package logreq Info: Writing requests to '"Problemas Unidad 1".run.xml'.
+\openout1 = `"Problemas Unidad 1.run.xml"'.
+
  ) 
 Here is how much of TeX's memory you used:
- 42290 strings out of 480618
- 1035699 string characters out of 5894377
- 1874259 words of memory out of 5000000
- 57495 multiletter control sequences out of 15000+600000
- 540879 words of font info for 61 fonts, out of 8000000 for 9000
+ 44909 strings out of 473190
+ 1064780 string characters out of 5719979
+ 2118665 words of memory out of 5000000
+ 67474 multiletter control sequences out of 15000+600000
+ 567378 words of font info for 73 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 69i,19n,103p,1209b,2366s stack positions out of 5000i,500n,10000p,200000b,80000s
-{/var/mobile/Containers/Data/Application/467E7597-C7BE-49DF-AE4E-DDA95A01BBDF
-/Library/Caches/texmf-dist/./fonts/enc/dvips/cm-super/cm-super-ts1.enc}</privat
-e/var/containers/Bundle/Application/38CAA5E5-7B85-4BF0-8BF3-3C6105CB5C84/TeX Wr
-iter.app/texmf-base/./fonts/type1/public/amsfonts/cm/cmbx10.pfb></private/var/c
-ontainers/Bundle/Application/38CAA5E5-7B85-4BF0-8BF3-3C6105CB5C84/TeX Writer.ap
-p/texmf-base/./fonts/type1/public/amsfonts/cm/cmbx7.pfb></private/var/container
-s/Bundle/Application/38CAA5E5-7B85-4BF0-8BF3-3C6105CB5C84/TeX Writer.app/texmf-
-base/./fonts/type1/public/amsfonts/cm/cmex10.pfb></private/var/containers/Bundl
-e/Application/38CAA5E5-7B85-4BF0-8BF3-3C6105CB5C84/TeX Writer.app/texmf-base/./
-fonts/type1/public/amsfonts/cm/cmmi10.pfb></private/var/containers/Bundle/Appli
-cation/38CAA5E5-7B85-4BF0-8BF3-3C6105CB5C84/TeX Writer.app/texmf-base/./fonts/t
-ype1/public/amsfonts/cm/cmmi5.pfb></private/var/containers/Bundle/Application/3
-8CAA5E5-7B85-4BF0-8BF3-3C6105CB5C84/TeX Writer.app/texmf-base/./fonts/type1/pub
-lic/amsfonts/cm/cmmi7.pfb></private/var/containers/Bundle/Application/38CAA5E5-
-7B85-4BF0-8BF3-3C6105CB5C84/TeX Writer.app/texmf-base/./fonts/type1/public/amsf
-onts/cm/cmr10.pfb></private/var/containers/Bundle/Application/38CAA5E5-7B85-4BF
-0-8BF3-3C6105CB5C84/TeX Writer.app/texmf-base/./fonts/type1/public/amsfonts/cm/
-cmr12.pfb></private/var/containers/Bundle/Application/38CAA5E5-7B85-4BF0-8BF3-3
-C6105CB5C84/TeX Writer.app/texmf-base/./fonts/type1/public/amsfonts/cm/cmr17.pf
-b></private/var/containers/Bundle/Application/38CAA5E5-7B85-4BF0-8BF3-3C6105CB5
-C84/TeX Writer.app/texmf-base/./fonts/type1/public/amsfonts/cm/cmr5.pfb></priva
-te/var/containers/Bundle/Application/38CAA5E5-7B85-4BF0-8BF3-3C6105CB5C84/TeX W
-riter.app/texmf-base/./fonts/type1/public/amsfonts/cm/cmr7.pfb></private/var/co
-ntainers/Bundle/Application/38CAA5E5-7B85-4BF0-8BF3-3C6105CB5C84/TeX Writer.app
-/texmf-base/./fonts/type1/public/amsfonts/cm/cmsy10.pfb></private/var/container
-s/Bundle/Application/38CAA5E5-7B85-4BF0-8BF3-3C6105CB5C84/TeX Writer.app/texmf-
-base/./fonts/type1/public/amsfonts/cm/cmsy5.pfb></private/var/containers/Bundle
-/Application/38CAA5E5-7B85-4BF0-8BF3-3C6105CB5C84/TeX Writer.app/texmf-base/./f
-onts/type1/public/amsfonts/cm/cmsy7.pfb></private/var/containers/Bundle/Applica
-tion/38CAA5E5-7B85-4BF0-8BF3-3C6105CB5C84/TeX Writer.app/texmf-base/./fonts/typ
-e1/public/amsfonts/latxfont/line10.pfb></private/var/containers/Bundle/Applicat
-ion/38CAA5E5-7B85-4BF0-8BF3-3C6105CB5C84/TeX Writer.app/texmf-base/./fonts/type
-1/public/amsfonts/symbols/msbm10.pfb></var/mobile/Containers/Data/Application/4
-67E7597-C7BE-49DF-AE4E-DDA95A01BBDF/Library/Caches/texmf-dist/./fonts/type1/pub
-lic/cm-super/sfrm1000.pfb>
-Output written on "Problemas Unidad 1.pdf" (36 pages, 545743 bytes).
+ 113i,19n,110p,1209b,2445s stack positions out of 10000i,1000n,20000p,200000b,200000s
+<c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb><c:/tex
+live/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx7.pfb><c:/texlive/2025/
+texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb><c:/texlive/2025/texmf-dis
+t/fonts/type1/public/amsfonts/cm/cmmi10.pfb><c:/texlive/2025/texmf-dist/fonts/t
+ype1/public/amsfonts/cm/cmmi5.pfb><c:/texlive/2025/texmf-dist/fonts/type1/publi
+c/amsfonts/cm/cmmi7.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts
+/cm/cmr10.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.
+pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb><c:/te
+xlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr5.pfb><c:/texlive/2025/
+texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb><c:/texlive/2025/texmf-dist/
+fonts/type1/public/amsfonts/cm/cmsy10.pfb><c:/texlive/2025/texmf-dist/fonts/typ
+e1/public/amsfonts/cm/cmsy5.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/
+amsfonts/cm/cmsy7.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/l
+atxfont/line10.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/symb
+ols/msbm10.pfb><c:/texlive/2025/texmf-dist/fonts/type1/public/cm-super/sfrm1000
+.pfb>
+Output written on "Problemas Unidad 1.pdf" (36 pages, 527700 bytes).
 PDF statistics:
- 212 PDF objects out of 1000 (max. 8388607)
+ 232 PDF objects out of 1000 (max. 8388607)
+ 136 compressed objects within 2 object streams
  0 named destinations out of 1000 (max. 500000)
  68 words of extra memory for PDF output out of 10000 (max. 10000000)
 
