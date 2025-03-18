@@ -127,7 +127,8 @@ B = list((i+1)*3 for i in range(5))
     print(f"D = {D}")
     ```
 
-**Actividad 4.** Dada la función $f(x)=3.95x(1-x)$ y $x_0=0.5$, obtener los 100 primeros elementos de la recursión $$
+**Actividad 4.** Dada la función $f(x)=3.95x(1-x)$ y $x_0=0.5$, obtener los 100 primeros elementos de la recursión 
+$$
 x_{n+1}=f(x_n)
 $$
 
@@ -587,7 +588,7 @@ for p_val, q_val in combinaciones:
 ```{python}
 #| echo: false
 #| results: asis
-from sympy import symbols, Or, And, Implies
+from sympy import symbols, Or, And, Implies, Not, Equivalent
 from tabulate import tabulate
 from IPython.display import Markdown, display
 
@@ -606,7 +607,9 @@ for p_val, q_val in combinaciones:
     or_res    = int(bool(Or(p, q).subs({p: p_val, q: q_val})))
     and_res   = int(bool(And(p, q).subs({p: p_val, q: q_val})))
     equiv_res = int(bool(Equivalent(p, q).subs({p: p_val, q: q_val})))
-    filas.append([int(p_val), int(q_val), or_res, and_res, equiv_res])
+    not_p     = int(bool(Not(p).subs({p: p_val, q: q_val})))
+    not_q     = int(bool(Not(q).subs({p: p_val, q: q_val})))
+    filas.append([int(p_val), int(q_val), not_p, not_q, or_res, and_res, equiv_res])
 
 # Generar la tabla Markdown usando tabulate con el formato "pipe"
 tabla = tabulate(filas, headers=headers, colalign=("center" for _ in headers))
