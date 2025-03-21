@@ -1,8 +1,9 @@
 \input{../../../Macros.tex}
 \title{Señales y Sistemas\\Problemas Tema 2: Sistemas Lineales e Invariantes en el Tiempo}
+\usetikzlibrary{shapes,arrows}
 
 \pgfmathdeclarefunction{delta}{1}{%
-    \pgfmathparse{abs(#1) < 0.001 ? 100 : 0}%
+    \pgfmathparse{abs(#1) < 0.001 ? 1 : 0}%
 }
 
 % Definir la función rectangular
@@ -2747,9 +2748,128 @@ y(t)=\int_{1}^{\infty} 3e^{-(2+5j)\tau}x(t-\tau)\mathrm{d}\tau.
 \] } 
 \begin{enumerate}[label=\color{red}\textbf{\alph*)}]
     \item \db{Indique razonadamente si el anterior sistema cumple las propiedades de memoria, causalidad, estabilidad, invertibilidad, linealidad y/o invarianza temporal.}
+
+      \begin{itemize}[label=\textbullet]
+        \item \textbf{Memoria:}
+
+            El sistema tiene memoria, ya que la salida $y[n]$ depende de una suma de muestras de la entrada  $x[\cdot ]$ evaluadas en instantes anteriores (en particular, todos los $x[m]$ con  $m\le n-2$ después del cambio de variable que se verá más abajo). No se basa únicamente en el valor de $x[n]$ en el instante actual.
+        \item \textbf{Causalidad:}
+
+            El sistema es causal. Al realizar el cambio de variable $m=k-1$ la expresión se puede escribir como  \[
+                y[n]=\sum_{m=-\infty}^{n-2} x[m].
+            \] 
+            Esto significa que para calcular $y[n]$ solo se utilizan valores de  $x[m]$ para  $m\le n-2$; es decir, únicamente se requieren muestras del pasado (o al menos retrasadas respecto del instante de salida), lo que satisface la definición de causalidad.
+        \item \textbf{Estabilidad:}
+
+            Para que un sistema sea estable, la respuesta al impulso $h[n]$, debe ser absolutamente sumable. En este caso, al ver que la respuesta al impulso es  \[
+                h[n]=u[n-2],
+            \] se tiene \[
+            \sum_{n=-\infty}^{\infty} |h[n]|=\sum_{n=2}^{\infty} 1,
+            \] 
+            lo que diverge. Además, si se alimenta el sistema con una entrada acotada (por ejemplo, $x[n]=1$ para todo  $n$), la salida será una suma infinita de unos, lo que también diverge. Por ello, el sistema \textbf{no es estable}.
+
+        \item \textbf{Invertibilidad:}
+
+            Se puede recuperar la entrada a partir de la salida. En efecto, escribiendo la salida en la forma \[
+                y[n]=\sum_{m=-\infty}^{n-2} x[m],
+            \] 
+            se observa que al tomar la diferencia \[
+                y[n+1]-y[n]=\sum_{m=-\infty}^{n-1}x[m]-\sum_{m=-\infty}^{n-2} x[m]=x[n-1],
+            \] se obtiene la muestra $x[n-1]$. Por lo tanto, salvo la posible determinación de la constante de integración, el sistema es  \textbf{invertible}.
+        \item \textbf{Linealidad:}
+
+            El sistema está definido mediante una suma lineal de los valores de $x[\cdot ]$. Si se aplica la propiedad de aditividad y homogeneidad, resulta inmediato comprobar que se cumple la superposición. Es decir, para entradas $x_1[n]$ y $x_2[n]$ y constantes $a$ y  $b$:  \[
+                y[n]=\sum_{m=-\infty}^{n-2} \left[ ax_1[m]+bx_2[m] \right] =a \sum_{m=-\infty}^{n-2}x_1[m]+b \sum_{m=-\infty}^{n-2} x_2[m], 
+            \] lo que prueba la \textbf{linealidad}. 
+        \item \textbf{Invarianza temporal:}
+
+            Se puede demostrar que el sistema es invariante en el tiempo. Al realizar el cambio de variable $m=k-1$, la expresión queda como  \[
+                y[n]=\sum_{m=-\infty}^{n-2} x[m],
+            \] la cual se puede interpretar como la convolución de $x[n]$ con la función  \[
+            h[n]=u[n-2],
+        \] donde $u[n]$ es la función escalón unitario. Dado que la convolución con una función  $h[n]$ fija garantiza la invarianza temporal, el sistema es  \textbf{invariante en el tiempo}. 
+      \end{itemize}
     \item \db{¿Se trata de un sistema LTI? En caso afirmativo, obtenga y represente su respuesta al impulso $h[n]$.}
+        
+        Hemos observado que el sistema es lineal e invariante en el tiempo. Además, al realizar el cambio de variable $m=k-1$ se reescribe la relación como \[
+            y[n]=\sum_{m=-\infty}^{n-2}x[m]. 
+        \] 
+        Esta expresión corresponde a la convolución \[
+            y[n]=(x\ast h)[n]=\sum_{m=-\infty}^{\infty} x[m]h[n-m],
+        \] donde la respuesta al impulso $h[n]$ debe satisfacer  \[
+        h[n-m]=u[n-m-2],
+        \] de forma que para cualquier $n$ se tiene  \[
+        y[n]=\sum_{m=-\infty}^{n-2} x[m].
+        \] 
+        Para corroborarlo, se puede calcular la salida del sistema ante una entrada impulso. Sea $x[n]=\delta[n]$. Entonces:  \[
+            h[n]=y[n]=\sum_{m=-\infty}^{n-1}\delta[k-1]. 
+        \] 
+        La única contribución ocurre cuando $k-1=0$ (es decir, $k=1$), que estará incluida en la suma siempre que $1\le n-1$ ( o sea, $n\ge 2$ ). Por ello, \[
+            h[n]=\begin{cases}
+                1, & n\ge 2,\\
+                0, & n<2.
+            \end{cases}
+        \] 
+        De lo anterior se concluye que el sistema es \textbf{LTI} y que su respuesta al impulso es \[
+            h[n]=u[n-2].
+        \]  
     \item \db{Utiliza la definición de convolución, obtenga la salida del sistema del enunciado, $y[n]$, cuando a su entrada se tiene la señal  $x[n]=(n+1)u[n]$.}
+
+        Dada la señal de entrada \[
+            x[n]=(n+1)u[n],
+        \] donde $u[n]$ es la función escalón unitario, y utilizando la representación del sistema como convolución con  $h[n]=u[n-2]$, la salida es  \[
+        y[n]=(x\ast h)[n]=\sum_{m=-\infty}^{\infty} x[m]h[n-m]=\sum_{m=-\infty}^{\infty} x[m]u[n-m-2].
+        \] 
+        Dado que $x[m]=0$ para  $m<0$, la suma se reduce a  \[
+            y[n]=\sum_{m=0}^{n-2} x[m]=\sum_{m=0}^{n-2}(m+1), 
+        \] 
+        con la condición de que la suma tenga sentido únicamente cuando $n-2\ge 0$, es decir, para $n\ge 2$. Para $n<2$ la suma es nula y, por lo tanto,  $y[n]=0$.
+
+        La suma  \[
+        \sum_{m=0}^{n-2} (m+1)
+        \] es la suma de los primeros $n-1$ números naturales (empezando en 1), y se conoce que  \[
+        1+2+\cdots+(n-1)=\dfrac{n(n-1)}{2}.
+        \] 
+        Por lo tanto, la respuesta en el tiempo es \[
+            y[n]=\dfrac{n(n-1)}{2}u[n-2]
+        \] 
+        \begin{center}
+            \begin{tikzpicture}
+                \begin{axis}[
+                    xmin= -10, xmax= 10,
+                    ymin= -0.1, ymax = 11,
+                    xlabel={$n$}, ylabel={$x[n]$},
+                    axis lines = middle,
+                    xlabel style={at={(axis cs:10,0)}, anchor=west},
+                    ylabel style={at={(axis cs:0,11)}, anchor=south},
+                ]
+                    \pgfmathsetmacro{\mysamples}{10-(-10)+1}
+                    \addplot+[ycomb, mark=*, lightblue, line width=1.5, domain=-10:10, samples=\mysamples] {(x+1)*u(x)};
+                \end{axis}
+            \end{tikzpicture}\qquad
+            \begin{tikzpicture}
+                \begin{axis}[
+                    xmin= -10, xmax=10,
+                    ymin= -0.1,
+                    xlabel={$n$}, ylabel={$y[n]$},
+                    axis lines = middle,
+                    xlabel style={at={(axis cs:10,0)}, anchor=west},
+                    ylabel style={at={(axis cs:0,45)}, anchor=south},
+                ]
+                    \pgfmathsetmacro{\mysamples}{10-(-10)+1}
+                    \addplot+[ycomb, mark=*, lightblue, line width=1.5, domain=-10:10, samples=\mysamples] {((x*(x-1))/2)*u(x-2)};
+                \end{axis}
+            \end{tikzpicture}
+        \end{center}
     \item \db{Calcule la energía total y la potencia media de la señal $x[n]$ del apartado anterior, indicando de qué tipo de señal se trata según estos valores.} 
+
+        La \textbf{energía total} de un señal discreta se define como \[
+            E=\sum_{n=-\infty}^{\infty} |x[n]|^2=\sum_{n=0}^{\infty} (n+1)^2=+\infty.
+        \] 
+        La potencia media se define por \[
+            P=\lim_{N \to \infty} \dfrac{1}{2N+1}\sum_{n=-N}^{N} |x[n]|^2=\lim_{N \to \infty} \dfrac{1}{2N+1}\sum_{n=-N}^{N} |x[n]|^2=\lim_{N \to \infty} \dfrac{1}{2N+1}\sum_{n=0}^{N} (n+1)^2=\lim_{N \to \infty} \dfrac{\frac{N^3}{3} }{2N}=\lim_{N \to \infty} \dfrac{N^2}{6}=\infty.
+        \] 
+        La señal \textbf{no esta definida en energía ni en potencia}.
 \end{enumerate}
 \item \lb{Considere el sistema LTI discreto consistente en la conexión en serie de los subsistemas LTI descritos por \[
 \begin{array}{c}
@@ -2762,10 +2882,228 @@ x[n]=(-1)^{n}(u[2-n]-u[-n-1])
 \item \lb{Represente el diagrama de bloques en forma canónica del sistema dado por la ecuación diferencial \[
 \dfrac{\mathrm{d}^2y(t)}{\dt^2}+2\dfrac{\mathrm{d}y(t)}{\dt}-8y(t)=x(t)-\dfrac{\mathrm{d}x(t)}{\dt}
 \] } 
+\begin{enumerate}[label=\textbf{Paso \arabic*:}]
+    \item \textbf{Respuesta al impulso equivalente del sistema}
+
+        La respuesta al impulso equivalente del sistema en serie es la convolución de $h_1[n]$ y $h_2[n]$: \[
+            h[n]=h_1[n]\ast h_2[n]=\sum_{k=-\infty}^{\infty} h_1[k]h_2[n-k].
+        \] 
+        \textbf{Respuesta al impulso del primer subsistema $(h_1[n])$:}\[
+            h_1[n]=n\delta[n-1].
+        \] 
+        Esto significa que $h_1[n]$ es cero para todos los valores de $n$ excepto en $n=1$, donde toma el valor  $h_1[1]=1$. Por lo tanto: \[
+            h_1[n]=\begin{cases}
+                1, & n=1,\\
+                0, & \text{en otro caso}.
+            \end{cases}
+        \] 
+        \textbf{Respuesta al impulso del segundo subsistema $(h_2[n])$:} \[
+            h_2[n]=\left( \dfrac{1}{3} \right) ^{n-1}u[n+1].
+        \] 
+        La función escalón $u[n+1]$ es igual a 1 para $n\ge -1$ y 0 para $n<-1$. Por lo tanto, $h_2[n]$ es: \[
+            h_2[n]=\begin{cases}
+                \left( \dfrac{1}{3} \right) ^{n-1}, & n\ge -1,\\
+                0, & n<-1.
+            \end{cases}
+        \] 
+        \textbf{Convolución de $h_1[n]$ y $h_2[n]$:} 
+
+        Dado que $h_1[n]$ es no nula solo en $n=1$, la convolución es simplificada a:  \[
+            h[n]=\sum_{k=-\infty}^{\infty} h_1[k]h_2[n-k]=h_1[1]h_2[n-1].
+        \] 
+        Como $h_1[1]=1$, se tiene: \[
+            h[n]=h_2[n-1].
+        \] 
+        Sustituyendo $h_2[n-1]$: \[
+            h[n]=\left( \dfrac{1}{3} \right) ^{(n-1)-1}u[(n-1)+1]=\left(\dfrac{1}{3}\right)^{n-2}u[n].
+        \] 
+        \begin{center}
+        	\begin{tikzpicture}[scale=0.7]
+        		\begin{axis}[
+        			xmin= -5, xmax= 5,
+        			ymin= -0.1,
+        			xlabel={$n$}, ylabel={$h_1[n]$},
+        			axis lines = middle,
+        			xlabel style={at={(axis cs:5,0)}, anchor=west},
+        			ylabel style={at={(axis cs:0,1)}, anchor=south},
+        			]
+        			\pgfmathsetmacro{\mysamples}{5-(-5)+1}
+        			\addplot+[ycomb, mark=*, lightblue, line width=1.5, domain=-5:5, samples=\mysamples] {x!=0 ? 0 : 1};
+        		\end{axis}
+        	\end{tikzpicture}
+           \qquad
+            \begin{tikzpicture}[scale=0.7]
+                \begin{axis}[
+                    xmin= -5, xmax= 5,
+                    ymin= -0.1,
+                    xlabel={$n$}, ylabel={$h_2[n]$},
+                    axis lines = middle,
+                    xlabel style={at={(axis cs:5,0)}, anchor=west},
+                    ylabel style={at={(axis cs:0,9)}, anchor=south},
+                ]
+                    \pgfmathsetmacro{\mysamples}{5-(-5)+1}
+                    \addplot+[ycomb, mark=*, lightblue, line width=1.5, domain=-5:5, samples=\mysamples] {((1/3)^(x-1))*u(x+1)};
+                \end{axis}
+            \end{tikzpicture}\qquad
+            \begin{tikzpicture}[scale=0.7]
+                \begin{axis}[
+                    xmin= -5, xmax= 5,
+                    ymin= -0.1,
+                    xlabel={$n$}, ylabel={$h[n]$},
+                    axis lines = middle,
+                    xlabel style={at={(axis cs:5,0)}, anchor=west},
+                    ylabel style={at={(axis cs:0,9)}, anchor=south},
+                ]
+                    \pgfmathsetmacro{\mysamples}{5-(-5)+1}
+                    \addplot+[ycomb, mark=*, lightblue, line width=1.5, domain=-5:5, samples=\mysamples] {((1/3)^(x-2))*u(x)};
+                \end{axis}
+            \end{tikzpicture}
+        \end{center}
+        \item \textbf{Salida del sistema}
+
+            La salida del sistema $y[n]$ se obtiene convolucionando la entrada  $x[n]$ con la respuesta al impulso equivalente  $h[n]$: \[
+                y[n]=x[n]\ast h[n]=\sum_{k=-\infty}^{\infty} x[k]h[n-k].
+            \] 
+            \textbf{Entrada $x[n]$:}
+
+            La entrada está dada por: \[
+                x[n]=(-1)^n(u[2-n]-u[-n-1]).
+            \] 
+            Analicemos esta expresión:
+            \begin{itemize}[label=\textbullet]
+                \item $u[2-n]$: Es igual a 1 para  $n\le 2$ y 0 para $n>2$.
+                \item  $u[-n-1]$: Es igual a 1 para  $n\le -1$ y 0 para $n>-1$.
+            \end{itemize}
+            Por lo tanto, $x[n]$ es no nula en el intervalo  $-1< n\le 2$. En este intervalo: \[
+                x[n]=(-1)^n.
+            \] 
+            En resumen: \[
+                x[n]=\begin{cases}
+                    (-1)^n, & -1<n\le 2,\\
+                    0, & \text{en otro caso.}
+                \end{cases}
+            \] 
+            \begin{center}
+                \begin{tikzpicture}
+                    \begin{axis}[
+                        xmin= -5, xmax= 5,
+                        ymin= -1.1, ymax = 1.1,
+                        xlabel={$n$}, ylabel={$x[n]$},
+                        axis lines = middle,
+                        xlabel style={at={(axis cs:5,0)}, anchor=west},
+                        ylabel style={at={(axis cs:0,1.1)}, anchor=south},
+                    ]
+                        \pgfmathsetmacro{\mysamples}{5-(-5)+1}
+                        \addplot+[ycomb, mark=*, lightblue, line width=1.5, domain=-5:5, samples=\mysamples] {(-1)^x*(u(2-x)-u(-x-1))};
+                    \end{axis}
+                \end{tikzpicture}
+            \end{center}
+            \textbf{Convolución $y[n]$:}
+
+            Sustituyendo $h[n]=\left( \dfrac{1}{3} \right) ^{n-2}u[n]$ y $x[n]$ en la convolución:  \[
+                y[n]=\sum_{k=-\infty}^{\infty} x[k]h[n-k].
+            \] 
+            Dado que $x[k]$ es no nula solo para  $-1<k\le 2$, la suma se reduce a: \[
+                y[n]=\sum_{k=0}^{2} x[k]h[n-k].
+            \] 
+            Sustituendo $h[n-k]=\left( \dfrac{1}{3} \right) ^{(n-k)-2}u[n-k]$, la convolución se convierte en: \[
+                y[n]=\sum_{k=0}^{2} x[k]\left( \dfrac{1}{3} \right) ^{n-k-2}u[n-k].
+            \] 
+            El término $u[n-k]$ asegura que solo se suman términos para los cuales  $n\ge k$. Por lo tanto, la suma final es: \[
+                y[n]=\sum_{k=0}^{\min(2,n)}x[k]\left( \dfrac{1}{3} \right) ^{n-k-2}. 
+            \] 
+            Sustituyendo $x[k]=(-1)^k$ para  $k=0,1,2$, se obtiene:  \[
+                y[n]=\sum_{k=0}^{\min(2,n)}(-1)^k\left( \dfrac{1}{3} \right) ^{n-k-2} 
+            \] 
+            \begin{center}
+            	\begin{tikzpicture}
+                \begin{axis}[
+                    xmin= -10, xmax= 10,
+                    ymax=1,
+                    xlabel={$n$}, ylabel={$y[n]$},
+                    axis lines = middle,
+                    xlabel style={at={(axis cs:10,0)}, anchor=west},
+                    ylabel style={at={(axis cs:0,1)}, anchor=south},
+                ]
+                    \pgfmathsetmacro{\mysamples}{10-(-10)+1}
+                    \addplot+[ycomb, mark=*, lightblue, line width=1.5, domain=-10:10, samples=\mysamples] coordinates {
+                    	(-10,0)
+                    	(-9,0)
+                    	(-8,0)
+                    	(-7,0)
+                    	(-6,0)
+                    	(-5,0)
+                    	(-4,0)
+                    	(-3,0)
+                    	(-2,0)
+        (-1,0) 
+        (0,0) 
+        (1,-3) 
+        (2,-3+1/3) 
+        (3,-3+1/3-1/9) 
+        (4,-3+1/3-1/9+1/27) 
+        (5,-3+1/3-1/9+1/27-1/81)
+        (6,-3+1/3-1/9+1/27-1/81+1/243)
+        (7,0)
+        (8,0)
+        (9,0)
+        (10,0)
+                        };
+                \end{axis}
+            \end{tikzpicture}
+            \end{center}
+\end{enumerate}
 \item \lb{Dibuje el diagrama de bloques de los siguientes sistemas LTI causales descritos mediante sus ecuaciones en diferencias:}
     \begin{enumerate}[label=\color{red}\textbf{\alph*)}]
         \item \db{$y[n]=\dfrac{1}{3}y[n-1]+\dfrac{1}{2}x[n]$} 
+            \begin{center}
+                \begin{tikzpicture}[ >=latex,
+                	block/.style={draw, minimum width=1cm, minimum height=1cm},
+                	sum/.style={draw, circle, minimum size=5mm, inner sep=0pt},
+                	connector/.style={-Latex, thick},
+                	node distance=1.5cm and 1.5cm,
+                	scale=0.7
+                	]
+                   \node (x) at (0,0) {$x[n]$};
+                   \node [sum, right=of x] (sum) {\small $\sum$};
+                   \node [block, right=of sum] (gain1) {\small $\tfrac{1}{2}$};
+                   \node [block, below=of gain1] (gain2) {\small $\tfrac{1}{3}$};
+                   \node [block, right=of gain2] (delay) {\small $z^{-1}$};
+                   \node[right= 4cm of gain1] (y) {$y[n]$};
+                   
+                   \draw [->] (x) -- (sum) node[midway, above] {};
+                   \draw [->] (sum) -- (gain1);
+                   \draw [->] (gain1) -- (y);
+                   \draw [->] (y) |- (delay);
+                   \draw [->] (delay) -- (gain2);
+                   \draw [->] (gain2) -| (sum);
+                \end{tikzpicture}
+            \end{center}
         \item \db{$y[n]=\dfrac{1}{3}y[n-1]+x[n-1]$} 
+        
+        \begin{center}
+        \begin{tikzpicture}[node distance=1.5cm, >=latex,
+        	block/.style={draw, minimum width=1cm, minimum height=1cm},
+        	sum/.style={draw, circle, minimum size=5mm, inner sep=0pt},
+        	connector/.style={-Latex, thick},
+        	node distance=1.5cm and 1.5cm]
+        	\node (x) at (0,0) {$x[n]$};
+        	\node [block] (delay1) at (2,0) {\small $z^{-1}$};
+        	\node [sum] (sum) at (4,0) {\small $\sum$};
+        	\node [block] (gain1) at (6,0) {\small $1$};
+        	\node [block] (gain2) at (6,-2) {\small $\frac{1}{3}$};
+        	\node [block] (delay2) at (8,-2) {\small $z^{-1}$};
+        	\node (y) at (10,0) {$y[n]$};
+        	
+        	\draw [->] (x) -- (delay1);
+        	\draw [->] (delay1) -- (sum);
+        	\draw [->] (sum) -- (gain1);
+        	\draw [->] (gain1) -- (y);
+        	\draw [->] (y) |- (delay2);
+        	\draw [->] (delay2) -- (gain2);
+        	\draw [->] (gain2) -| (sum);
+        \end{tikzpicture}
+    \end{center}
     \end{enumerate}
 \item \lb{Dibuje el diagrama de bloques de los siguientes sistemas LTI causales descritos mediante sus ecuaciones diferenciales:}
     \begin{enumerate}[label=\color{red}\textbf{\alph*)}]
