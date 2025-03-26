@@ -4,10 +4,8 @@ author: "Francisco Javier Mercader Martínez"
 format:
     pdf:
         documentclass: article
-        highlight-style: tango
-        header-includes: |
-            \usepackage{multicol}
-            \usepackage{enumitem}
+        listings: true
+        include-in-header: custom-listings.tex
 linestrectch: 1.5
 fontisize: 10
 papersize: a4
