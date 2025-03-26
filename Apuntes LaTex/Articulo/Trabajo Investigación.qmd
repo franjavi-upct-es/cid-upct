@@ -1,0 +1,147 @@
+---
+title: "Trabajo de Investigación"
+subtitle: "Sistemas de Lindenmayer y su aplicación a la representación de fractales geométricos planos"
+author: "Francisco Javier Mercader Martínez"
+format: 
+    pdf:
+        documentclass: article
+        fig-width: 8
+        fig-height: 10
+        listings: true 
+        toc-depth: 4
+        linkcolor: "black"
+        number-sections: true
+        include-in-header: ../../custom-listings.tex
+linestrectch: 1.5 
+fontsize: 11pt
+papersize: a4 
+geometry: margin=1.5cm 
+execute: 
+    echo: false
+---
+
+\newpage
+
+```{python} 
+#| include: false 
+import numpy as np 
+import matplotlib.pyplot as plt
+import math
+from matplotlib.patches import Polygon
+```
+
+# Resumen {.unnumbered}
+
+La simulación con computadoras de diversos procesos físicos complejos en cualquier rama científica ha sido siempre un área de gran interés debido a su versatilidad, "economía" y posibilidad de reproducir experimentos cuya realización podría resultar costosa o hasta imposible en la vida real, es por eso por lo que muchos científicos han dedicado sus estudios a este campo.
+
+Tal es el caso de Aristid Lindenmayer, que se hacía la siguiente pregunta: *¿de qué forma estará codificada la información que hace que una semilla prácticamente amorga llegue a desarrollarse como un árbol o una hierba de gran complejidad?* Pues tratando de responder a ello, fue como inventó los sistemas que llevan su apellido en su honor.
+
+# Abstract {.unnumbered}
+
+Computer simulation of various complex physical processes in any scientific branch has always been an area of great interest due to its versatility, "economy" and the possibility of reproducing experiments whose performance could be expensive or even impossible in real life that is why that many scientists have dedicated their studies to this field.
+
+Such is the case of Aristid Lindenmayer, who asked himself the following question: *in what way will the information that makes a practically amorphous seed develop into a tree or grass of great structural complexity be encoded?* Well, trying to answer it, it was how he invented the systems that bear his surname in his honour.
+
+# Introducción
+
+## Contexto del trabajo y justificación
+
+Este trabajo pertenece al área de las matemáticas, en particular nos vamos a centrar en los Sistemas de Lindenmayer o Sistemas-L y en sus aplicaciones. Puesto que la naturaleza recursiva de las reglas de los sistemas-L conduce a la auto semejanza y por tanto facilita la descripción de formas tipo fractales, nos proponemos generar diversos fractales geométricos en el plano mediante el uso del lenguaje  de programación [Python](https://es.wikipedia.org/wiki/Python)
+
+## Finalidad del proyecto
+
+Explicar el término de fractal al públicos y mostrar de qué manera se pueden obtener a base del lenguaje de programación y también se describirán los sistemas-L para poder explicar las aplicaciones que tienen en la creación de fractales.
+
+## Antecedentes
+
+- Un primer trabajo corresponde a una tesis elaborada por Alfonso Ortega de La Puente en el año 2000 que describe de forma detallada los sistemas de Lindenmayer y los fractales entre otros términos de los que no trataremos en este trabajo.
+
+- Un segundo trabajo realizado por Armando Cervantes Sandoval, Yolanda Rodríguez Pagaza y Luis L. Landois Palencia en el año 2002 cuya finalidad era demostrr qué son y cómo aplicar los sistemas-L a la modelación de formas vegetales donde se revisan aspectos como:
+  
+  1. Lenguajes formales .
+  2. Tipos de sistemas de Lindenmayer.
+  3. Diferencias y semejanzas entre lenguajes formales y sistemas Lindenmayer.
+  4. Patrones de desarrollo en vegetales a nivel de disposición foliar, ramificación y tipo de inflorescencia.
+
+## Fundamentos teóricos
+
+La geometría ha experimentado lo que se puede considerar una revolución en las últimas tres décadas. La realidad no resulta ser geométricamente monstruosa. Esta sensación paradójica: *"la naturaleza nos rodea, la vemos, la tocamos, nos alimentamos de ella pero no podemos describirla formalmente porque no se ajusta a la geometría que somos capaces de entender"*, se ha mantenido desde Euclides hasta nuestros días. Y no solo eso. Puede identificarse las mismas propiedades en el comportamiento de muchos sistemas físicos, de hecho, los fractales son capaces de explicar la complejidad de la dinámica de muchos sistemas que estaban siendo estudiados y simulados en distintas disciplinas. Los fractales resultan tener un enorme poder expresivo para describir la complejidad.
+
+Las relaciones entre sistemas-L y fractales han sido ampliamente estudiadas de una manera más bien sintomática. El innegable atractivo visual de las imágenes fractales generadas por ordenador hace frecuente encontrar multitud de programas que los generan y en ellos se suele añadir la posibilidad de describir fractales según Lindenmayer. El usuario ve que las gramáticas que han descrito son capaces de generar fractales. Realmente ve que una traducción gráfica de cada símbolo de las cadenas derivadas por las gramáticas que escribe representa una curva que recuerda poderosamente a su percepción de algunos fractales. A medida que consigue cadenas más largas, la interpretación gráfica le presenta una aproximación mejor que la curva fractal. Como se ve que es la misma curva se sabe que el sistema de Lindenmayer representa un fractal.
+
+### Fractales 
+
+En los últimos años del siglo XIX científicos como Cantor, von Koch, Peano y Sierpiński estudiaron algunas curvas con propiedades que las hacían ser consideradas como monstruosas. Las peculiaridades de estos objetos extraños han sido observadas en otros procesos. El análisis de estos fenómenos ha descubierto las características que se han vinculado finalmente con el concepto de fractal. El término fue propuesto por el matemático Benoît Mandelbrot 
+
+```{python}
+#| fig-align: 'center'
+#| fig-cap: "Ejemplo de iniciador y generador pentagonal en 6 iteraciones"
+#| fig-format: "png"
+def draw_pentagon(ax, x, y, r, direction, pencolor):
+    """
+    Dibuja un pentágono regular con centro (x,y), radio r y orientación inicial.
+    
+    La rutina simula el comportamiento original de Turtle:
+      1. Se calcula el primer vértice desplazándose r unidades en la dirección dada.
+      2. Se rota 126° para establecer la dirección inicial de dibujo.
+      3. Se calculan los 5 lados con longitud L = 2*r*sin(36°) 
+         y se giran 72° tras cada lado.
+    """
+    L = 2 * r * math.sin(math.radians(36))
+    # Punto de partida en la circunferencia con ángulo 'direction'
+    dir_rad = math.radians(direction)
+    p0 = (x + r * math.cos(dir_rad), y + r * math.sin(dir_rad))
+    vertices = [p0]
+    
+    # Se rota 126° para la dirección inicial de la arista
+    current_angle = math.radians(direction + 126)
+    for _ in range(5):
+        prev_x, prev_y = vertices[-1]
+        new_point = (prev_x + L * math.cos(current_angle),
+                     prev_y + L * math.sin(current_angle))
+        vertices.append(new_point)
+        current_angle += math.radians(72)
+        
+    # Se crea el polígono usando los 5 vértices (se omite el último punto extra)
+    pentagon_patch = Polygon(vertices[:-1], closed=True, edgecolor=pencolor, facecolor='none')
+    ax.add_patch(pentagon_patch)
+
+def pentaflake(ax, x, y, r, direction, n, pencolor='dark cyan'):
+    """
+    Dibuja el fractal pentaflake de forma recursiva.
+    
+    Si n == 0, se dibuja un pentágono; en caso contrario, se calcula un tamaño r2
+    para las figuras subordinadas y se invoca la función recursivamente para 5 
+    posiciones alrededor del centro y una figura central.
+    """
+    if n == 0:
+        draw_pentagon(ax, x, y, r, direction, pencolor)
+        return
+
+    r2 = r / (1 + 2 * math.cos(math.radians(36)))
+    d = 2 * r2 * math.cos(math.radians(36))
+    current_direction = direction
+    # Cinco pentágonos situados alrededor del central
+    for _ in range(5):
+        x2 = x + d * math.cos(math.radians(current_direction))
+        y2 = y + d * math.sin(math.radians(current_direction))
+        pentaflake(ax, x2, y2, r2, current_direction, n - 1, pencolor)
+        current_direction += 72
+    # Pentágono central (con color 'dark green')
+    pentaflake(ax, x, y, r2, current_direction + 180, n - 1, 'k')
+
+# Crear una grilla de 2 filas x 3 columnas para mostrar 5 subplots.
+fig, axes = plt.subplots(2, 3, figsize=(10, 7))
+axes = axes.flatten()
+
+# Dibujar las 5 primeras iteraciones en cada uno de los subplots
+for i in range(6):
+    ax = axes[i]
+    ax.set_xlim(-1000, 1000)
+    ax.set_ylim(-1000, 1000)
+    ax.axis("off")
+    pentaflake(ax, 0, 0, 1000, 90, i, "k")
+plt.gca().set_facecolor('none')
+plt.gcf().set_facecolor('none')
+plt.show()
+```
