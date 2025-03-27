@@ -9,11 +9,13 @@ format:
         fig-height: 10
         listings: true 
         toc-depth: 4
+        toc: true
+        toc-title: "Índice"
         linkcolor: "black"
         number-sections: true
         include-in-header: ../../custom-listings.tex
 linestrectch: 1.5 
-fontsize: 11pt
+fontisize: 10pt
 papersize: a4 
 geometry: margin=1.5cm 
 execute: 
@@ -22,7 +24,7 @@ execute:
 
 \newpage
 
-```{python} 
+```{python}
 #| include: false 
 import numpy as np 
 import matplotlib.pyplot as plt
@@ -46,7 +48,7 @@ Such is the case of Aristid Lindenmayer, who asked himself the following questio
 
 ## Contexto del trabajo y justificación
 
-Este trabajo pertenece al área de las matemáticas, en particular nos vamos a centrar en los Sistemas de Lindenmayer o Sistemas-L y en sus aplicaciones. Puesto que la naturaleza recursiva de las reglas de los sistemas-L conduce a la auto semejanza y por tanto facilita la descripción de formas tipo fractales, nos proponemos generar diversos fractales geométricos en el plano mediante el uso del lenguaje  de programación [Python](https://es.wikipedia.org/wiki/Python)
+Este trabajo pertenece al área de las matemáticas, en particular nos vamos a centrar en los Sistemas de Lindenmayer o Sistemas-L y en sus aplicaciones. Puesto que la naturaleza recursiva de las reglas de los sistemas-L conduce a la auto semejanza y por tanto facilita la descripción de formas tipo fractales, nos proponemos generar diversos fractales geométricos en el plano mediante el uso del lenguaje de programación [Python](https://es.wikipedia.org/wiki/Python)
 
 ## Finalidad del proyecto
 
@@ -54,14 +56,14 @@ Explicar el término de fractal al públicos y mostrar de qué manera se pueden 
 
 ## Antecedentes
 
-- Un primer trabajo corresponde a una tesis elaborada por Alfonso Ortega de La Puente en el año 2000 que describe de forma detallada los sistemas de Lindenmayer y los fractales entre otros términos de los que no trataremos en este trabajo.
+-   Un primer trabajo corresponde a una tesis elaborada por Alfonso Ortega de La Puente en el año 2000 que describe de forma detallada los sistemas de Lindenmayer y los fractales entre otros términos de los que no trataremos en este trabajo.
 
-- Un segundo trabajo realizado por Armando Cervantes Sandoval, Yolanda Rodríguez Pagaza y Luis L. Landois Palencia en el año 2002 cuya finalidad era demostrr qué son y cómo aplicar los sistemas-L a la modelación de formas vegetales donde se revisan aspectos como:
-  
-  1. Lenguajes formales .
-  2. Tipos de sistemas de Lindenmayer.
-  3. Diferencias y semejanzas entre lenguajes formales y sistemas Lindenmayer.
-  4. Patrones de desarrollo en vegetales a nivel de disposición foliar, ramificación y tipo de inflorescencia.
+-   Un segundo trabajo realizado por Armando Cervantes Sandoval, Yolanda Rodríguez Pagaza y Luis L. Landois Palencia en el año 2002 cuya finalidad era demostrr qué son y cómo aplicar los sistemas-L a la modelación de formas vegetales donde se revisan aspectos como:
+
+    1.  Lenguajes formales .
+    2.  Tipos de sistemas de Lindenmayer.
+    3.  Diferencias y semejanzas entre lenguajes formales y sistemas Lindenmayer.
+    4.  Patrones de desarrollo en vegetales a nivel de disposición foliar, ramificación y tipo de inflorescencia.
 
 ## Fundamentos teóricos
 
@@ -69,14 +71,105 @@ La geometría ha experimentado lo que se puede considerar una revolución en las
 
 Las relaciones entre sistemas-L y fractales han sido ampliamente estudiadas de una manera más bien sintomática. El innegable atractivo visual de las imágenes fractales generadas por ordenador hace frecuente encontrar multitud de programas que los generan y en ellos se suele añadir la posibilidad de describir fractales según Lindenmayer. El usuario ve que las gramáticas que han descrito son capaces de generar fractales. Realmente ve que una traducción gráfica de cada símbolo de las cadenas derivadas por las gramáticas que escribe representa una curva que recuerda poderosamente a su percepción de algunos fractales. A medida que consigue cadenas más largas, la interpretación gráfica le presenta una aproximación mejor que la curva fractal. Como se ve que es la misma curva se sabe que el sistema de Lindenmayer representa un fractal.
 
-### Fractales 
+### Fractales
 
-En los últimos años del siglo XIX científicos como Cantor, von Koch, Peano y Sierpiński estudiaron algunas curvas con propiedades que las hacían ser consideradas como monstruosas. Las peculiaridades de estos objetos extraños han sido observadas en otros procesos. El análisis de estos fenómenos ha descubierto las características que se han vinculado finalmente con el concepto de fractal. El término fue propuesto por el matemático Benoît Mandelbrot 
+En los últimos años del siglo XIX científicos como Cantor, von Koch, Peano y Sierpiński estudiaron algunas curvas con propiedades que las hacían ser consideradas como monstruosas. Las peculiaridades de estos objetos extraños han sido observadas en otros procesos. El análisis de estos fenómenos ha descubierto las características que se han vinculado finalmente con el concepto de fractal. El término fue propuesto por el matemático Benoît Mandelbrot en 1975 y deriva del latín *fractus*, que significa quebrado o fracturado. Muchas estructuras naturales son de tipo fractal.
+
+#### Tipos de fractales
+
+Es importante precisar qué tipos de fractales existen, clasificarlos de acuerdo con sus atributos y características, y determinar cuáles son más adecuados para su utilización en esta disciplina. Sin embargo, es conveniente primero recurrir a una clase:
+
+-   Determinísticos: que a su vez pueden ser **algebraicos** o **geométricos**.
+
+-   No determinísticos: también denominados **estocásticos**.
+
+Esta clasificación hace referencia al procedimiento seguido para su generación:
+
+-   En los determinísticos el proceso generativo queda pautado de antemano mediante una fórmula algebraica o algoritmo geométrico de reemplazo e iteración.
+
+-   En los no determinísticos, los procesos generativos están afectados por parámetros accidentales o aleatorios que permiten emular objetos fractales de apariencia más natural.
+
+<u>**Fractales determinísticos**</u>
+
+Los determinados algebraicos, creados mediante procesos algebraicos no lineales en espacios $n$-dimensionales, conforman la mayor clase de fractales. Los procesos más estudiados son los que responde a generativos bidimensionales, interpretando el proceso iterativo no lineal como una sistema dinámico discreto, por lo tanto es común referirse a estos fractales con terminología de la Teoría de Sistemas Dinámicos (*los sistemas dinámicos están definidos como cualquier sistema que exhibe cambios en el tiempo*).
+
+```{python}
+#| fig-align: center
+#| fig-cap: "Tres áreas de atracción del mismo proceso iterativo"
+#| width: 80%
+import numpy as np
+import matplotlib.pyplot as plt
+
+def mandelbrot_array(x_min, x_max, y_min, y_max, 
+                     width=800, height=600, max_iterations=100):
+    """
+    Calcula el número de iteraciones antes de divergir (o 0 si no diverge
+    antes de max_iterations) para cada punto en la región de Mandelbrot
+    especificada por [x_min, x_max] x [y_min, y_max].
+    
+    Retorna:
+    --------
+    divergence_time: np.array (2D)
+        Matriz con el número de iteraciones que cada punto tardó en divergir.
+    extent: tuple
+        Tupla con (x_min, x_max, y_min, y_max) para poder usar en imshow.
+    """
+    # Generamos la malla de puntos complejos
+    x = np.linspace(x_min, x_max, width)
+    y = np.linspace(y_min, y_max, height)
+    X, Y = np.meshgrid(x, y)
+    C = X + 1j*Y
+
+    # Inicializamos Z y la matriz de iteraciones
+    Z = np.zeros_like(C, dtype=complex)
+    divergence_time = np.zeros(C.shape, dtype=int)
+
+    # Máscara para saber qué puntos no han divergido todavía
+    mask = np.ones(C.shape, dtype=bool)
+
+    for i in range(max_iterations):
+        # Sólo iteramos en los puntos que no han divergido
+        Z[mask] = Z[mask]**2 + C[mask]
+        # Marcamos los que ahora superan |Z| > 2
+        diverged = np.abs(Z) > 2
+        divergence_time[mask & diverged] = i
+        # Actualizamos la máscara para ignorar los que ya divergieron
+        mask[mask & diverged] = False
+
+    return divergence_time, (x_min, x_max, y_min, y_max)
+
+
+# Crear la figura con 1 fila y 3 columnas
+fig, axes = plt.subplots(1, 3, figsize=(18, 6))
+
+# 1) Vista general del Conjunto de Mandelbrot
+dt1, ext1 = mandelbrot_array(-2.0, 1.0, -1.2, 1.2, 
+                             width=800, height=600, max_iterations=100)
+im1 = axes[0].imshow(dt1, extent=(ext1[0], ext1[1], ext1[2], ext1[3]),
+                     origin='lower', cmap='hot')
+
+# 2) Primer zoom
+dt2, ext2 = mandelbrot_array(-0.8, -0.7, 0.05, 0.15,
+                             width=800, height=600, max_iterations=200)
+im2 = axes[1].imshow(dt2, extent=(ext2[0], ext2[1], ext2[2], ext2[3]),
+                     origin='lower', cmap='hot')
+
+# 3) Segundo zoom (más profundo)
+dt3, ext3 = mandelbrot_array(-0.75, -0.72, 0.09, 0.12,
+                             width=800, height=600, max_iterations=400)
+im3 = axes[2].imshow(dt3, extent=(ext3[0], ext3[1], ext3[2], ext3[3]),
+                     origin='lower', cmap='hot')
+
+plt.tight_layout()
+plt.show()
+```
+
+Los fractales determinísticos geométricos, son los que siguen una o más reglas de transformación de una figura derivada de la geometría estándar, permite obtener copias de ella misma, reducidas de tamaño.
 
 ```{python}
 #| fig-align: 'center'
 #| fig-cap: "Ejemplo de iniciador y generador pentagonal en 6 iteraciones"
-#| fig-format: "png"
+#| width: 80%
 def draw_pentagon(ax, x, y, r, direction, pencolor):
     """
     Dibuja un pentágono regular con centro (x,y), radio r y orientación inicial.
@@ -131,7 +224,7 @@ def pentaflake(ax, x, y, r, direction, n, pencolor='dark cyan'):
     pentaflake(ax, x, y, r2, current_direction + 180, n - 1, 'k')
 
 # Crear una grilla de 2 filas x 3 columnas para mostrar 5 subplots.
-fig, axes = plt.subplots(2, 3, figsize=(10, 7))
+fig, axes = plt.subplots(2, 3, figsize=(6, 4))
 axes = axes.flatten()
 
 # Dibujar las 5 primeras iteraciones en cada uno de los subplots
@@ -143,5 +236,65 @@ for i in range(6):
     pentaflake(ax, 0, 0, 1000, 90, i, "k")
 plt.gca().set_facecolor('none')
 plt.gcf().set_facecolor('none')
+plt.show()
+```
+
+```{python}
+#| fig-align: center
+import numpy as np
+import matplotlib.pyplot as plt
+
+# Define la regla de reemplazo y la palabra inicial
+rule = {"F": "-F+F-F-F+F+FF-F+F+FF+F-F-FF+FF-FF+F+F-FF-F-F+FF-F-F+F+F-F+"}
+inicio = "F+F+F+F"
+
+# Función para aplicar la regla
+def aplicar_regla(cadena):
+    return "".join([rule.get(c, c) for c in cadena])
+
+# Parámetros iniciales
+punto_inicial = np.array([0, 0])
+vector_unit_tortuga = np.array([0, 1])
+angulo = 90.0
+num_iteraciones = 2
+
+# Generar la palabra final tras aplicar las reglas
+palabra = inicio
+for _ in range(num_iteraciones):
+    palabra = aplicar_regla(palabra)
+
+# Convertir la palabra en una lista de caracteres
+caracteres = list(palabra)
+
+# Inicializar variables para construir el fractal
+fractal = []
+rotacion_actual = 0
+
+# Función para calcular la matriz de rotación
+def matriz_rotacion(angulo):
+    rad = np.radians(angulo)
+    return np.array([[np.cos(rad), -np.sin(rad)], [np.sin(rad), np.cos(rad)]])
+
+# Generar el fractal
+for letra in caracteres:
+    if letra == "+":
+        rotacion_actual += angulo
+    elif letra == "-":
+        rotacion_actual -= angulo
+    elif letra == "F":
+        matriz_rot = matriz_rotacion(rotacion_actual)
+        vector_unit_tortuga = np.dot(matriz_rot, np.array([0, 1]))
+        punto_extremo = punto_inicial + vector_unit_tortuga
+        fractal.append((punto_inicial, punto_extremo))
+        punto_inicial = punto_extremo
+
+# Dibujar el fractal
+plt.figure(figsize=(4, 4))
+for i, (p1, p2) in enumerate(fractal):
+    p1_x, p1_y = p1
+    p2_x, p2_y = p2
+    plt.plot([p1_x, p2_x], [p1_y, p2_y], linewidth=0.5, color=plt.cm.hsv(i / len(fractal)))
+plt.axis("equal")
+plt.axis("off")
 plt.show()
 ```
