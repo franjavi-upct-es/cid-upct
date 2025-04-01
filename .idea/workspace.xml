@@ -4,17 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="cb3e1152-4c03-4efb-aecf-6750f30e83e5" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Apuntes LaTex/2º Curso/SS/Examen Mayo 2024/Examen Mayo 2024.aux" beforeDir="false" afterPath="$PROJECT_DIR$/Apuntes LaTex/2º Curso/SS/Examen Mayo 2024/Examen Mayo 2024.aux" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Apuntes LaTex/2º Curso/SS/Examen Mayo 2024/Examen Mayo 2024.log" beforeDir="false" afterPath="$PROJECT_DIR$/Apuntes LaTex/2º Curso/SS/Examen Mayo 2024/Examen Mayo 2024.log" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Apuntes LaTex/2º Curso/SS/Examen Mayo 2024/Examen Mayo 2024.pdf" beforeDir="false" afterPath="$PROJECT_DIR$/Apuntes LaTex/2º Curso/SS/Examen Mayo 2024/Examen Mayo 2024.pdf" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Apuntes LaTex/2º Curso/SS/Examen Mayo 2024/Examen Mayo 2024.synctex.gz" beforeDir="false" afterPath="$PROJECT_DIR$/Apuntes LaTex/2º Curso/SS/Examen Mayo 2024/Examen Mayo 2024.synctex.gz" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Apuntes LaTex/2º Curso/SS/Examen Mayo 2024/Examen Mayo 2024.tex" beforeDir="false" afterPath="$PROJECT_DIR$/Apuntes LaTex/2º Curso/SS/Examen Mayo 2024/Examen Mayo 2024.tex" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Prácticas/3º Curso/2º Cuatrimestre/PNLE/Tema_4/7_4_Cargar_y_trabajar_con_mo.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/Prácticas/3º Curso/2º Cuatrimestre/PNLE/Tema_4/7_4_Cargar_y_trabajar_con_mo.ipynb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Prácticas/3º Curso/2º Cuatrimestre/VD/Practica_5/Practica5_VD_FJMM_RGM.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/Prácticas/3º Curso/2º Cuatrimestre/VD/Practica_5/Practica5_VD_FJMM_RGM.ipynb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Prácticas/3º Curso/2º Cuatrimestre/VD/Practica_5/Practica5_VD_FJMM_RGM.pdf" beforeDir="false" afterPath="$PROJECT_DIR$/Prácticas/3º Curso/2º Cuatrimestre/VD/Practica_5/Practica5_VD_FJMM_RGM.pdf" afterDir="false" />
-    </list>
+    <list default="true" id="cb3e1152-4c03-4efb-aecf-6750f30e83e5" name="Changes" comment="Actualización del archivo de configuración del espacio de trabajo: se añadieron nuevos archivos de apuntes y prácticas." />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -274,6 +264,7 @@
       <workItem from="1743496347583" duration="328000" />
       <workItem from="1743496692677" duration="428000" />
       <workItem from="1743497144173" duration="90000" />
+      <workItem from="1743500027055" duration="963000" />
     </task>
     <task id="LOCAL-00001" summary="Tarea 5 FRD terminado">
       <option name="closed" value="true" />
@@ -515,7 +506,15 @@
       <option name="project" value="LOCAL" />
       <updated>1742984551449</updated>
     </task>
-    <option name="localTasksCounter" value="31" />
+    <task id="LOCAL-00031" summary="Actualización del archivo de configuración del espacio de trabajo: se añadieron nuevos archivos de apuntes y prácticas.">
+      <option name="closed" value="true" />
+      <created>1743501210305</created>
+      <option name="number" value="00031" />
+      <option name="presentableId" value="LOCAL-00031" />
+      <option name="project" value="LOCAL" />
+      <updated>1743501210305</updated>
+    </task>
+    <option name="localTasksCounter" value="32" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -540,7 +539,6 @@
   <component name="VcsManagerConfiguration">
     <option name="CHECK_NEW_TODO" value="false" />
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
-    <MESSAGE value="Últimos cambios de la Memoria de DyV ADA" />
     <MESSAGE value="Ejercicios Tema 3 (Hasta el 21) Cálculo II" />
     <MESSAGE value="Ejercicios Tema 3 (Hasta el 27) Cálculo II" />
     <MESSAGE value="Ejercicio a mano Práctica 9 Optimización II" />
@@ -565,7 +563,8 @@
     <MESSAGE value="Práctica Clústering ML" />
     <MESSAGE value="Informe 3 VD terminado" />
     <MESSAGE value="Mejoras en los ejercicios de MD y Cálculo II" />
-    <option name="LAST_COMMIT_MESSAGE" value="Mejoras en los ejercicios de MD y Cálculo II" />
+    <MESSAGE value="Actualización del archivo de configuración del espacio de trabajo: se añadieron nuevos archivos de apuntes y prácticas." />
+    <option name="LAST_COMMIT_MESSAGE" value="Actualización del archivo de configuración del espacio de trabajo: se añadieron nuevos archivos de apuntes y prácticas." />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/Untitled_ipynb$Prueba.coverage" NAME="Prueba Coverage Results" MODIFIED="1734196348436" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Apuntes LaTex/1º Curso/Cálculo II/Ejercicios Tema 4/figures" />
