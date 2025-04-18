@@ -5,6 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="cb3e1152-4c03-4efb-aecf-6750f30e83e5" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/rSettings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/rSettings.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -87,6 +88,7 @@
     &quot;Python.Ejercicio 6.executor&quot;: &quot;Run&quot;,
     &quot;Python.Prueba.executor&quot;: &quot;Run&quot;,
     &quot;Python.codigo.executor&quot;: &quot;Run&quot;,
+    &quot;Python.extract_reddit.executor&quot;: &quot;Run&quot;,
     &quot;Python.prueba.executor&quot;: &quot;Run&quot;,
     &quot;Python.prueba_grafica_interactiva.executor&quot;: &quot;Run&quot;,
     &quot;Python.prueba_oracle.executor&quot;: &quot;Run&quot;,
@@ -104,7 +106,7 @@
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
     &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
     &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;Jupyter Settings&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   },
   &quot;keyToStringList&quot;: {
@@ -118,7 +120,7 @@
     ]
   }
 }</component>
-  <component name="RunManager" selected="Python.prueba_grafica_interactiva">
+  <component name="RunManager" selected="Python.extract_reddit">
     <configuration name="Local OracleXE.sql" type="DatabaseScript" editBeforeRun="true" singleton="false" temporary="true" nameIsGenerated="true">
       <script-file value="$PROJECT_DIR$/Prácticas/2º Curso/1º Cuatrimestre/BD I/Práctica 1 Sesión 3/Local OracleXE.sql" />
       <script-mode>FILE</script-mode>
@@ -137,16 +139,33 @@
       <data-source id="91a326d1-698b-4950-a6a3-db83645b8cdb" namespace="schema/&quot;SYSTEM&quot;" />
       <method v="2" />
     </configuration>
-    <configuration name="MercaderFranciscoJavier_AlarconPedro-p3ej1-insert.sql" type="DatabaseScript" editBeforeRun="true" singleton="false" temporary="true" nameIsGenerated="true">
-      <script-file value="$PROJECT_DIR$/Prácticas/2º Curso/1º Cuatrimestre/BD I/Práctica 3/Sesión 1/MercaderFranciscoJavier_AlarconPedro-p3ej1-insert.sql" />
-      <script-mode>FILE</script-mode>
-      <data-source id="91a326d1-698b-4950-a6a3-db83645b8cdb" namespace="schema/&quot;SYSTEM&quot;" />
-      <method v="2" />
-    </configuration>
     <configuration name="bd-tt1-esquema-clientes.sql" type="DatabaseScript" editBeforeRun="true" temporary="true" nameIsGenerated="true">
       <script-file value="$PROJECT_DIR$/Prácticas/2º Curso/1º Cuatrimestre/BD I/Práctica 1 Sesión 3/bd-tt1-esquema-clientes.sql" />
       <script-mode>FILE</script-mode>
       <data-source id="91a326d1-698b-4950-a6a3-db83645b8cdb" namespace="schema/&quot;SYSTEM&quot;" />
+      <method v="2" />
+    </configuration>
+    <configuration name="extract_reddit" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="cid-upct" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/Prácticas/3º Curso/2º Cuatrimestre/PNLE/Practica 2 Evaluable" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Prácticas/3º Curso/2º Cuatrimestre/PNLE/Practica 2 Evaluable/extract_reddit.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
     <configuration name="prueba_grafica_interactiva" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
@@ -203,11 +222,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.extract_reddit" />
         <item itemvalue="Python.prueba_grafica_interactiva" />
         <item itemvalue="Python.prueba_oracle" />
         <item itemvalue="Database Script.Local OracleXE.sql" />
         <item itemvalue="Database Script.bd-tt1-esquema-clientes.sql" />
-        <item itemvalue="Database Script.MercaderFranciscoJavier_AlarconPedro-p3ej1-insert.sql" />
       </list>
     </recent_temporary>
   </component>
@@ -301,6 +320,11 @@
       <workItem from="1744313910045" duration="1606000" />
       <workItem from="1744364769771" duration="137000" />
       <workItem from="1744614138470" duration="105000" />
+      <workItem from="1744876804512" duration="2390000" />
+      <workItem from="1744900263047" duration="5187000" />
+      <workItem from="1744906925265" duration="3676000" />
+      <workItem from="1744962689548" duration="139000" />
+      <workItem from="1744962846864" duration="339000" />
     </task>
     <task id="LOCAL-00001" summary="Tarea 5 FRD terminado">
       <option name="closed" value="true" />
@@ -638,6 +662,7 @@
     <SUITE FILE_PATH="coverage/Untitled_ipynb$Ejercicio_6.coverage" NAME="Ejercicio 6 Coverage Results" MODIFIED="1734610646368" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Apuntes LaTex/2º Curso/ADA/Ejercicios Tema 5" />
     <SUITE FILE_PATH="coverage/Untitled_ipynb$Prueba.coverage" NAME="Prueba Coverage Results" MODIFIED="1734196348436" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Apuntes LaTex/1º Curso/Cálculo II/Ejercicios Tema 4/figures" />
     <SUITE FILE_PATH="coverage/Untitled_ipynb$Ejercicio_3__1_.coverage" NAME="Ejercicio 3 (1) Coverage Results" MODIFIED="1734555742239" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Apuntes LaTex/2º Curso/ADA/Ejercicios Tema 5" />
+    <SUITE FILE_PATH="coverage/CID_UPCT$extract_reddit.coverage" NAME="extract_reddit Coverage Results" MODIFIED="1744963474433" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Prácticas/3º Curso/2º Cuatrimestre/PNLE/Practica 2 Evaluable" />
     <SUITE FILE_PATH="coverage/Untitled_ipynb$Ejercicio_3.coverage" NAME="Ejercicio 3 Coverage Results" MODIFIED="1734459615291" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Apuntes LaTex/2º Curso/ADA/Ejercicios Tema 3" />
     <SUITE FILE_PATH="coverage/CID_UPCT$prueba_grafica_interactiva.coverage" NAME="prueba_grafica_interactiva Coverage Results" MODIFIED="1744098270596" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="//wsl.localhost/Ubuntu-22.04/home/pyros" />
     <SUITE FILE_PATH="coverage/Untitled_ipynb$Ejercicio_4.coverage" NAME="Ejercicio 4 Coverage Results" MODIFIED="1734461246572" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Apuntes LaTex/2º Curso/ADA/Ejercicios Tema 3" />
