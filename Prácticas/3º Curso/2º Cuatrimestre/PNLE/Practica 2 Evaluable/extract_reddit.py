@@ -4,6 +4,8 @@ import json
 import re
 from datetime import datetime
 import os
+import warnings
+warnings.filterwarnings("ignore")
 
 from sklearn.ensemble import RandomForestClassifier
 
@@ -31,6 +33,7 @@ reddit = praw.Reddit(
 def convertir_fecha(utc):
     """
     Convierte un timestamp UTC (float) a una cadena legible "YYYY-MM-DD HH:MM:SS".
+
     :param utc: tiempo en formato UNIX UTC.
     :return: Cadena con fecha y hora en UTC.
     """
@@ -39,11 +42,12 @@ def convertir_fecha(utc):
 def extraer_corpus_raw(subreddit_nombre, limite_hilos=20, limite_comentarios=None):
     """
     Extrae hilos y comentarios de un subreddit, sin filtrado temático.
-    :param subreddit_nombre: nombre del subreddit (str)
+
+    :param subreddit_nombre: nombre del subreddit (`str`)
     :param limite_hilos: número máximo de hilos a extraer
-    :param limite_comentarios: máximo de comentarios por hilo (None = todos)
+    :param limite_comentarios: máximo de comentarios por hilo (`None` = todos)
     :return: lista de dicts con campos:
-        title, flair, author, date, score, description, comments.
+        `title`, `flair`, `author`, `date`, `score`, `description`, `comments`.
     """
     subreddit = reddit.subreddit(subreddit_nombre)
     resultados = [] # Lista donde almacenamos la información de cada hilo
@@ -102,7 +106,7 @@ def preparar_datos_clasificacion(corpus):
     Construye un dataset para clasificación a partir del corpus
 
     :param corpus: diccionario con clave=subreddit y valor=lista de hilos.
-    :return: datasets.Dataset con columnas 'text' (comentario) y 'label' (subreddit).
+    :return: datasets.Dataset con columnas `text` (comentario) y `label` (subreddit).
     """
     texts, labels = [], []
     for subreddit, threads in corpus.items():
@@ -142,7 +146,8 @@ def finetune_transformer(train_ds, val_ds,
                          output_dir='./finetuned-model'):
     """
     Fine-tuning de un modelo Transformer (BERT multilingüe) para clasificación.
-    :param train_ds, val_ds: datasets.Dataset con columnas 'text' y 'label'.
+
+    :param train_ds, val_ds: datasets.Dataset con columnas `text` y `label`.
     :param model_name: Identificador del modelo en Hugging Face.
     :param output_dir: Carpeta para guardar el modelo entrenado.
     :return: modelo y tokenizer entrenados.
@@ -168,19 +173,23 @@ def finetune_transformer(train_ds, val_ds,
     data_collator = DataCollatorWithPadding(tokenizer)
 
     # Cargamos el modelo preentrenado para clasificación con el número de clases adecuado
-    num_labels = len(set(train_ds['labels'])) # Calculamos cuántas etiquetas únicas hay
+    num_labels = len(set(train_tok['labels'])) # Calculamos cuántas etiquetas únicas hay
     model = AutoModelForSequenceClassification.from_pretrained(model_name, num_labels=num_labels)
 
     # Definimos los argumentos de entrenamiento
     args = TrainingArguments(
         output_dir=output_dir,
-        evaluation_strategy='epoch',
+        eval_strategy="steps",        # Evalúa en intervalos de pasos
+        save_strategy="steps",        # Guarda el modelo en intervalos de pasos
+        logging_steps=500,            # Registra métricas cada 500 pasos
+        eval_steps=500,               # Evalúa cada 500 pasos
+        save_steps=500,               # Guarda el modelo cada 500 pasos
         learning_rate=2e-5,
         per_device_train_batch_size=16,
         per_device_eval_batch_size=16,
         num_train_epochs=3,
         weight_decay=0.01,
-        load_best_model_at_end=True
+        load_best_model_at_end=True,   # Carga el mejor modelo al final
     )
 
     # Creamos el Trainer
@@ -219,7 +228,7 @@ def buscar_hilos_similares(corpus, modelo_name='all-MiniLM-L6-v2', top_k=5):
     :param corpus: Diccionario con datos extraídos
     :param modelo_name: Identificador de modelo SentenceTransformer
     :param top_k: Cuántos vecinos similares devolver
-    :return: Diccionario con clave=(subreddit, índice del hilo), valor=listado de top_k similares
+    :return: Diccionario con `clave`=(subreddit, índice del hilo), `valor`=listado de top_k similares
     """
     # Cargamos el modelo de embeddings
     model = SentenceTransformer(modelo_name)
@@ -251,28 +260,36 @@ from transformers import pipeline
 
 def analisis_sentimiento(corpus):
     """
-    Añade análisis de sentimiento y emoción a cada comentario
+    Añade análisis de sentimiento y emoción a cada comentario.
 
     :param corpus: Diccionario con hilos y comentarios.
     :return: Corpus modificado con nuevos campos en cada comentario.
     """
     # Pipeline para sentimiento (positivo/negativo/neutro)
-    sent_pipe = pipeline('sentiment-analysis', model='finiteautomata/beto-sentiment-analysis')
+    sent_pipe = pipeline('sentiment-analysis', model='finiteautomata/beto-sentiment-analysis', truncation=True, max_length=128)
     # Pipeline para emociones múltiples con puntuaciones
-    emo_pipe = pipeline('text-classification', model='pysentimiento/robertuito-emotion-analysis', return_all_scores=True)
+    emo_pipe = pipeline('text-classification', model='pysentimiento/robertuito-emotion-analysis', return_all_scores=True, truncation=True, max_length=128)
 
     # Iteramos sobre todos los comentarios
     for threads in corpus.values():
         for th in threads:
             for c in th['comments']:
-                # Obtenemos etiqueta y puntuación de sentimiento
-                s = sent_pipe(c['comment'])[0]
-                # Obtenemos distribución de emociones
-                e = emo_pipe(c['comment'])[0]
-                # Guardamos resultados en el diccionario del comentario
-                c['sentiment'] = s['label']
-                c['sentiment_score'] = s['score']
-                c['emotion'] = {x['label']: x['score'] for x in e}
+                # Truncamos el comentario si excede el límite
+                texto = c['comment'][:512]  # Ajusta el límite según sea necesario
+                try:
+                    # Obtenemos etiqueta y puntuación de sentimiento
+                    s = sent_pipe(texto)[0]
+                    # Obtenemos distribución de emociones
+                    e = emo_pipe(texto)[0]
+                    # Guardamos resultados en el diccionario del comentario
+                    c['sentiment'] = s['label']
+                    c['sentiment_score'] = s['score']
+                    c['emotion'] = {x['label']: x['score'] for x in e}
+                except Exception as ex:
+                    print(f"Error procesando comentario: {texto[:50]}... - {ex}")
+                    c['sentiment'] = None
+                    c['sentiment_score'] = None
+                    c['emotion'] = None
 
     return corpus
 
@@ -287,7 +304,7 @@ def resumen_preentrenado(corpus, model_name='csebuetnlp/mT5_multilingual_XLSum')
 
     :param corpus: Diccionario con hilos.
     :param model_name: Modelo de Hugging Face para resumen.
-    :return: Corpus con campo 'summary_pretrained' en cada hilo.
+    :return: Corpus con campo `summary_pretrained` en cada hilo.
     """
     tokenizer = SumTokenizer.from_pretrained(model_name)
     model = AutoModelForSeq2SeqLM.from_pretrained(model_name)
@@ -356,39 +373,56 @@ def deteccion_inapropiado(corpus):
 
 # Ejecutar todo el pipeline
 if __name__ == '__main__':
-    # Paso 1: extracción básica del subreddit 'technology'
-    raw = extraer_corpus_raw('technology', limite_hilos=20)
-    # Guardamos la extracción inicial en JSON
-    with open('raw_technology.json', 'w', encoding='utf-8') as f:
-        json.dump(raw, f, ensure_ascii=False, indent=4)
+    # Nombre de los archivos JSON
+    raw_json_path = 'raw_technology.json'
+    processed_corpus_path = 'tech_debate_corpus_total.json'
+    full_analysis_path = 'tech_debate_full_analysis.json'
 
-    # Cargamos el corpus ya filtrado/procesado (ejercicio 1 adaptado) para el pipeline completo
-    corpus = cargar_corpus('tech_debate_corpus_total.json')
+    # Paso 1: Extracción básica del subreddit 'technology'
+    if os.path.exists(raw_json_path):
+        print(f"Cargando datos desde {raw_json_path}...")
+        with open(raw_json_path, 'r', encoding='utf-8') as f:
+            raw = json.load(f)
+    else:
+        print("Extrayendo datos del subreddit 'technology'...")
+        raw = extraer_corpus_raw('technology', limite_hilos=20)
+        # Guardamos la extracción inicial en JSON
+        with open(raw_json_path, 'w', encoding='utf-8') as f:
+            json.dump(raw, f, ensure_ascii=False, indent=4)
 
-    # Paso 2: clasificación de comentarios
+    # Paso 2: Cargar o procesar el corpus
+    if os.path.exists(processed_corpus_path):
+        print(f"Cargando corpus procesado desde {processed_corpus_path}...")
+        corpus = cargar_corpus(processed_corpus_path)
+    else:
+        print("Procesando el corpus...")
+        corpus = preparar_datos_clasificacion(raw)
+        # Guardamos el corpus procesado
+        with open(processed_corpus_path, 'w', encoding='utf-8') as f:
+            json.dump(corpus, f, ensure_ascii=False, indent=4)
+
+    # Paso 3: Clasificación de comentarios
     ds = preparar_datos_clasificacion(corpus)
-    # Convertir la columna 'label' a ClassLabel para permitir estratificación correctamente
-    ds = ds.class_encode_column('label')
-    # Dividimos en entrenamiento y validación manteniendo proporción de etiquetas
+    ds = ds.class_encode_column('label')  # Convertir la columna 'label' a ClassLabel
     train_ds, val_ds = ds.train_test_split(test_size=0.3, stratify_by_column='label').values()
     baseline_tfidf_rf(train_ds['text'], train_ds['label'], val_ds['text'], val_ds['label'])
     finetune_transformer(train_ds, val_ds)
 
-    # Paso 3: búsqueda de hilos similares
+    # Paso 4: Búsqueda de hilos similares
     similares = buscar_hilos_similares(corpus)
     print("Ejemplo hilos similares:", list(similares.items())[:1])
 
-    # Paso 4: análisis de sentimiento y emoción
+    # Paso 5: Análisis de sentimiento y emoción
     corpus = analisis_sentimiento(corpus)
 
-    # Paso 5: generación de resúmenes
+    # Paso 6: Generación de resúmenes
     corpus = resumen_preentrenado(corpus)
     corpus = resumen_zero_shot(corpus)
 
-    # Paso 6: detección de contenido inapropiado
+    # Paso 7: Detección de contenido inapropiado
     corpus = deteccion_inapropiado(corpus)
 
     # Guardamos el análisis completo en un solo JSON
-    with open('tech_debate_full_analysis.json', 'w', encoding='utf-8') as f:
+    with open(full_analysis_path, 'w', encoding='utf-8') as f:
         json.dump(corpus, f, ensure_ascii=False, indent=4)
-    print("Análisis completo guardado en 'tech_debate_full_analysis.json'.")
+    print(f"Análisis completo guardado en '{full_analysis_path}'.")
