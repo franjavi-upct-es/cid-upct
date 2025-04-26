@@ -1,10 +1,12 @@
-import os   # Operaciones con archivos y directorios
-import json     # Leer y escribir archivos JSON
-import re   # Expresiones regulares para procesamiento de texto
-import praw     # PRAW: API de Reddit
-import numpy as np      # Cálculos numéricos y vectores
+import os                       # Operaciones con archivos y directorios
+import json                     # Leer y escribir archivos JSON
+import re                       # Expresiones regulares para procesamiento de texto
+import praw                     # PRAW: API de Reddit
+import numpy as np              # Cálculos numéricos y vectores
 from datetime import datetime   # Manejo de fechas
 import warnings
+
+os.chdir(os.path.abspath(os.path.dirname(__file__)))
 
 # scikit-learn: clasificadores, métricas y transformadores de texto
 from sklearn.ensemble import RandomForestClassifier
@@ -190,35 +192,54 @@ def train_baselines(X_train, y_train, X_val, y_val):
 def train_transformer(X_train, y_train, X_val, y_val):
     """
     Fine-tuning de BERT multilingüe para clasificación.
-    Usa Hugging Face y Dataset.
+    Si el modelo ya está entrenado en la carpeta 'finetune', lo carga directamente.
     """
-    datos = {'text': X_train + X_val, 'label': y_train + y_val}
-    ds = Dataset.from_dict(datos).class_encode_column('label')
-    train_ds, val_ds = ds.train_test_split(test_size=len(X_val)/len(ds)).values()
+    from pathlib import Path
 
-    tokenizer = AutoTokenizer.from_pretrained('bert-base-multilingual-uncased')
-    def tokenize_fn(batch):
-        return tokenizer(batch['text'], padding='max_length', truncation=True, max_length=128)
-    train_ds = train_ds.map(tokenize_fn, batched=True).rename_column('label', 'labels')
-    val_ds = val_ds.map(tokenize_fn, batched=True).rename_column('label', 'labels')
+    # Ruta del modelo entrenado
+    finetune_dir = 'finetune'
+    if Path(finetune_dir).exists():
+        print("Cargando modelo ya entrenado desde la carpeta 'finetune'...")
+        model = AutoModelForSequenceClassification.from_pretrained(finetune_dir)
+        tokenizer = AutoTokenizer.from_pretrained(finetune_dir)
+    else:
+        print("Entrenando modelo desde cero...")
+        datos = {'text': X_train + X_val, 'label': y_train + y_val}
+        ds = Dataset.from_dict(datos).class_encode_column('label')
+        train_ds, val_ds = ds.train_test_split(test_size=len(X_val)/len(ds)).values()
 
-    collator = DataCollatorWithPadding(tokenizer)
-    model = AutoModelForSequenceClassification.from_pretrained(
-        'bert-base-multilingual-uncased', num_labels=len(set(y_train))
-    )
-    args = TrainingArguments(
-        output_dir='finetune', num_train_epochs=3,
-        per_device_train_batch_size=16, per_gpu_eval_batch_size=16,
-        eval_strategy='epoch', save_strategy='epoch',
-        load_best_model_at_end=True
-    )
-    trainer = Trainer(
-        model=model, args=args,
-        train_dataset=train_ds, eval_dataset=val_ds,
-        tokenizer=tokenizer, data_collator=collator
-    )
-    trainer.train()
-    res = trainer.predict(val_ds)
+        tokenizer = AutoTokenizer.from_pretrained('bert-base-multilingual-uncased')
+        def tokenize_fn(batch):
+            return tokenizer(batch['text'], padding='max_length', truncation=True, max_length=128)
+        train_ds = train_ds.map(tokenize_fn, batched=True).rename_column('label', 'labels')
+        val_ds = val_ds.map(tokenize_fn, batched=True).rename_column('label', 'labels')
+
+        collator = DataCollatorWithPadding(tokenizer)
+        model = AutoModelForSequenceClassification.from_pretrained(
+            'bert-base-multilingual-uncased', num_labels=len(set(y_train))
+        )
+        args = TrainingArguments(
+            output_dir=finetune_dir, num_train_epochs=3,
+            per_device_train_batch_size=16, per_gpu_eval_batch_size=16,
+            eval_strategy='epoch', save_strategy='epoch',
+            load_best_model_at_end=True
+        )
+        trainer = Trainer(
+            model=model, args=args,
+            train_dataset=train_ds, eval_dataset=val_ds,
+            tokenizer=tokenizer, data_collator=collator
+        )
+        trainer.train()
+        
+        # Guardar el modelo y tokenizador
+        model.save_pretrained(finetune_dir)
+        tokenizer.save_pretrained(finetune_dir)
+
+    # Evaluar el modelo
+    datos = {'text': X_val, 'label': y_val}
+    val_ds = Dataset.from_dict(datos).class_encode_column('label')
+    val_ds = val_ds.map(lambda batch: tokenizer(batch['text'], padding='max_length', truncation=True, max_length=128), batched=True).rename_column('label', 'labels')
+    res = Trainer(model=model).predict(val_ds)
     preds = np.argmax(res.predictions, axis=1)
     print('--- BERT Fine-Tuning ---')
     print(classification_report(val_ds['labels'], preds))
