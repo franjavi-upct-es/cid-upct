@@ -1,0 +1,10 @@
+praw
+numpy
+scikit-learn
+gensim
+transformers[sentencepiece]
+datasets[tensorflow,torch]
+sentence-transformers
+nltk
+torch
+sentencepiece
