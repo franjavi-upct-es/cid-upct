@@ -5,19 +5,18 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "type": "octave",
+            "type": "python",
             "request": "launch",
-            "name": "Octave Debug Adapter(preview)",
-            "exec": "octave-cli",
-            "program": "${command:AskForProgramName}"
+            "name": "Python: Current File",
+            "program": "${file}",
+            "console": "integratedTerminal"
         },
         {
-            "type": "OctaveDebugger",
+            "type": "python",
             "request": "launch",
-            "name": "Execute selected file.",
-            "program": "${file}",
-            "octave": "octave-cli",
-            "sourceFolder": "${workspaceFolder}"
+            "name": "Python: Module",
+            "module": "enter-your-module-name",
+            "console": "integratedTerminal"
         }
     ]
 }
