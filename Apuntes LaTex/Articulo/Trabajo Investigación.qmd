@@ -89,7 +89,7 @@ Esta clasificación hace referencia al procedimiento seguido para su generación
 
 -   En los no determinísticos, los procesos generativos están afectados por parámetros accidentales o aleatorios que permiten emular objetos fractales de apariencia más natural.
 
-<u>**Fractales determinísticos**</u>
+**\underline{Fractales determinísticos}**
 
 Los determinados algebraicos, creados mediante procesos algebraicos no lineales en espacios $n$-dimensionales, conforman la mayor clase de fractales. Los procesos más estudiados son los que responde a generativos bidimensionales, interpretando el proceso iterativo no lineal como una sistema dinámico discreto, por lo tanto es común referirse a estos fractales con terminología de la Teoría de Sistemas Dinámicos (*los sistemas dinámicos están definidos como cualquier sistema que exhibe cambios en el tiempo*).
 
@@ -241,6 +241,9 @@ plt.show()
 
 ```{python}
 #| fig-align: center
+#| layout-ncol: 2
+#| fig-cap: 
+#|      - "Primera prueba fractal"
 import numpy as np
 import matplotlib.pyplot as plt
 
@@ -289,12 +292,14 @@ for letra in caracteres:
         punto_inicial = punto_extremo
 
 # Dibujar el fractal
-plt.figure(figsize=(4, 4))
+plt.figure(figsize=(4,4))
 for i, (p1, p2) in enumerate(fractal):
     p1_x, p1_y = p1
     p2_x, p2_y = p2
-    plt.plot([p1_x, p2_x], [p1_y, p2_y], linewidth=0.5, color=plt.cm.hsv(i / len(fractal)))
+    plt.plot([p1_x, p2_x], [p1_y, p2_y], linewidth=1, color=plt.cm.hsv(i / len(fractal)))
 plt.axis("equal")
 plt.axis("off")
+plt.tight_layout()
 plt.show()
 ```
+
