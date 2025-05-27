@@ -5,11 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="cb3e1152-4c03-4efb-aecf-6750f30e83e5" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/cid-upct.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/cid-upct.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Apuntes LaTex/2º Curso/SS/Problemas Unidad 1/Problemas Unidad 1.pdf" beforeDir="false" afterPath="$PROJECT_DIR$/Apuntes LaTex/2º Curso/SS/Problemas Unidad 1/Problemas Unidad 1.pdf" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Prácticas/2º Curso/2º Cuatrimestre/Machine Learning/2024-2025/Práctica 1/ML_I_Práctica_1_Sesión_Arboles_Random_Forest_Boletín.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/Prácticas/2º Curso/2º Cuatrimestre/Machine Learning/2024-2025/Práctica 1/ML_I_Práctica_1_Sesión_Arboles_Random_Forest_Boletín.ipynb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Prácticas/2º Curso/2º Cuatrimestre/Machine Learning/2024-2025/Práctica 1/Entregable1-2025_Francisco_Javier_Mercader_Martínez.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/Prácticas/2º Curso/2º Cuatrimestre/Machine Learning/2024-2025/Práctica 1/Entregable1-2025_Francisco_Javier_Mercader_Martínez.ipynb" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -51,12 +48,15 @@
     &quot;assignee&quot;: &quot;franjavi-upct-es&quot;
   }
 }</component>
-  <component name="GithubPullRequestsUISettings"><![CDATA[{
-  "selectedUrlAndAccountId": {
-    "url": "https://github.com/franjavi-upct-es/cid-upct.git",
-    "accountId": "b44a20dc-435b-4334-a92f-0487ac9c60f7"
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/franjavi-upct-es/cid-upct.git&quot;,
+    &quot;accountId&quot;: &quot;b44a20dc-435b-4334-a92f-0487ac9c60f7&quot;
   }
-}]]></component>
+}</component>
+  <component name="MaliciousPackageCheckinHandlerState">
+    <option name="packageCheck" value="true" />
+  </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 6
 }</component>
@@ -115,7 +115,7 @@
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "preferences.pluginManager",
+    "settings.editor.selected.configurable": "com.firsttimeinforever.intellij.pdf.viewer.settings.PdfViewerConfigurable",
     "vue.rearranger.settings.migration": "true"
   },
   "keyToStringList": {
@@ -129,6 +129,14 @@
     ]
   }
 }]]></component>
+  <component name="PyConsoleOptionsProvider">
+    <option name="myPythonConsoleState">
+      <console-settings module-name="cid-upct" is-module-sdk="true">
+        <option name="myUseModuleSdk" value="true" />
+        <option name="myModuleName" value="cid-upct" />
+      </console-settings>
+    </option>
+  </component>
   <component name="RunManager" selected="LaTeX.Problemas Unidad 1">
     <configuration name="MER.sql" type="DatabaseScript" editBeforeRun="true" nameIsGenerated="true">
       <script-file value="$PROJECT_DIR$/Prácticas/2º Curso/1º Cuatrimestre/BD I/Práctica 1 Sesión 3/MER.sql" />
@@ -381,7 +389,8 @@
       <workItem from="1747932126861" duration="62000" />
       <workItem from="1747939118596" duration="262000" />
       <workItem from="1747939389087" duration="409000" />
-      <workItem from="1748266826727" duration="1043000" />
+      <workItem from="1748266826727" duration="1344000" />
+      <workItem from="1748378307500" duration="1379000" />
     </task>
     <task id="LOCAL-00001" summary="Tarea 5 FRD terminado">
       <option name="closed" value="true" />
@@ -679,7 +688,15 @@
       <option name="project" value="LOCAL" />
       <updated>1747940890992</updated>
     </task>
-    <option name="localTasksCounter" value="38" />
+    <task id="LOCAL-00038" summary="Actualiza la configuración del entorno Python a la versión 3.9">
+      <option name="closed" value="true" />
+      <created>1748268099020</created>
+      <option name="number" value="00038" />
+      <option name="presentableId" value="LOCAL-00038" />
+      <option name="project" value="LOCAL" />
+      <updated>1748268099020</updated>
+    </task>
+    <option name="localTasksCounter" value="39" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -689,6 +706,9 @@
     <option featureType="dependencySupport" implementationName="executable:docker" />
     <option featureType="com.intellij.configurationType" implementationName="LATEX_RUN_CONFIGURATION" />
     <option featureType="dependencySupport" implementationName="executable:kubectl" />
+  </component>
+  <component name="UpdateCopyrightCheckinHandler">
+    <option name="UPDATE_COPYRIGHT" value="true" />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
     <option name="TAB_STATES">
@@ -704,7 +724,6 @@
   <component name="VcsManagerConfiguration">
     <option name="CHECK_NEW_TODO" value="false" />
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
-    <MESSAGE value="Práctica 9 FIE" />
     <MESSAGE value="Últimos ejercicios Cálculo II con Latex" />
     <MESSAGE value="Ajustes en la carpeta de Optimización II" />
     <MESSAGE value="Capítulo 1 Tema 3 terminado, hasta el ejercicio 6 capítulo 2 Cálculo II&#10;Merge pull request #77 from imhosseinzadeh/imhosseinzadeh-docs-correct-vim-plug-keyword&#10;&#10;fix vim-plug installation part issue" />
@@ -729,7 +748,8 @@
     <MESSAGE value="Revisión final del archivo" />
     <MESSAGE value="Merge remote-tracking branch 'origin/main'" />
     <MESSAGE value="Primer commit desde Ubuntu" />
-    <option name="LAST_COMMIT_MESSAGE" value="Primer commit desde Ubuntu" />
+    <MESSAGE value="Actualiza la configuración del entorno Python a la versión 3.9" />
+    <option name="LAST_COMMIT_MESSAGE" value="Actualiza la configuración del entorno Python a la versión 3.9" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -738,6 +758,11 @@
           <url>file://$PROJECT_DIR$/Prácticas/3º Curso/2º Cuatrimestre/PNLE/Tema_4/8_2_LLM_clasificacion.ipynb</url>
           <line>258</line>
           <option name="timeStamp" value="1" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="jupyter-line">
+          <url>file://$PROJECT_DIR$/Prácticas/2º Curso/2º Cuatrimestre/Machine Learning/2024-2025/Práctica 1/Entregable1-2025_Francisco_Javier_Mercader_Martínez.ipynb</url>
+          <line>127</line>
+          <option name="timeStamp" value="2" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
