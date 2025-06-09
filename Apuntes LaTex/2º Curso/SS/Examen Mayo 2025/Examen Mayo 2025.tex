@@ -1,0 +1,214 @@
+\input{../../../Macros.tex}
+\title{Señales y Sistemas\\Examen Mayo 2025}
+
+\usetikzlibrary{shapes,arrows}
+
+\pgfmathdeclarefunction{delta}{1}{%
+    \pgfmathparse{abs(#1) < 0.001 ? 1 : 0}%
+}
+
+% definir la función rectangular
+\pgfmathdeclarefunction{rect}{1}{%
+    \pgfmathparse{abs(#1) <= 0.5 ? 1 : 0}%
+}
+
+% definir el pulso triangular
+\pgfmathdeclarefunction{tri}{1}{%
+    \pgfmathparse{abs(#1) <= 1 ? (1 - abs(#1)) : 0}%
+}
+
+% definir la función escalón unitario
+\pgfmathdeclarefunction{u}{1}{%
+    \pgfmathparse{#1 >= 0 ? 1 : 0}%
+}
+
+\begin{document}
+\maketitle
+\rc{\textbf{\underline{Problema 1} } }\lb{Dominio del tiempo.}
+
+\lb{Sea un sistema LTI continuo cuya respuesta al impulso es $h(t)=u(t)+\delta(t-6)$.}
+
+\begin{enumerate}[label=\color{red}\textbf{\alph*)}]
+	\item \db{Represente $h(t)$ y $h(2t-2)$.}
+
+	      \begin{center}
+              \begin{tikzpicture}[declare function={
+                      h(\t)=u(\t)+delta(\t-6);
+                  }]
+			      \begin{axis}[
+					      xmin= -2, xmax= 8,
+					      ymin= -0.5, ymax = 1.5,
+					      xlabel={$t$}, ylabel={$h(t)$},
+					      axis lines = middle,
+					      xlabel style={at={(axis cs:8,0)}, anchor=west},
+					      ylabel style={at={(axis cs:0,1.5)}, anchor=south},
+				      ]
+				      \addplot[domain=-2:8, samples=1000, lightblue, line width=1.5] {h(x)};
+			      \end{axis}
+		      \end{tikzpicture}\qquad
+              \begin{tikzpicture}[declare function={
+                      h(\t)=u(\t)+delta(\t-6);
+                  }]
+                  \begin{axis}[
+                      xmin= -2, xmax= 8,
+                      ymin= -0.5, ymax = 1.5,
+                      xlabel={$t$}, ylabel={$h(2t-2)$},
+                      axis lines = middle,
+                      xlabel style={at={(axis cs:8,0)}, anchor=west},
+                      ylabel style={at={(axis cs:0,1.5)}, anchor=south},
+                  ]
+                      \addplot[domain=-2:8, samples=1000, lightblue, line width=1.5] {h(2*x-2)};
+                  \end{axis}
+              \end{tikzpicture}
+	      \end{center}
+
+	\item \db{Estuda las propiedades de memoria, causalidad y estabilidad del sistema.}
+
+        $\begin{array}{l}
+            h(t)\neq 0\text{ para }t\neq 0\longrightarrow \text{ con memoria }\\
+            h(t)= 0\text{ para }t<0\longrightarrow \text{ causal }\\
+            \int_{0}^{\infty} |h(t)|\dt=\infty\longrightarrow \text{}u
+        \end{array}$
+	\item \db{Calcule la señal de salida cuando a la entrada se aplica la señal $x(t)=e^{-t}u(t) $.}
+
+        La salida es: \[
+            y(t)=x(t)\ast h(t)=x(t)\ast [u(t)+\delta(t-6)]=x(t)\ast u(t)+x(t)\ast \delta(t-6)
+        \] 
+        \begin{enumerate}[label=\arabic*)]
+            \item $x(t)\ast u(t)=\int_{0}^{t} e^{-\tau}\mathrm{d}\tau=1-e^{-t}$
+            \item $x(t)\ast \delta(t-6)=x(t-6)=e^{-(t-6)}u(t-6) $
+        \end{enumerate}
+        Resultado final: \[
+        y(t)=(1-e^{-t} )+e^{-(t-6)}u(t-6) 
+        \] 
+	\item \db{Calcule la energía total y potencia media de la señal de entrada $x(t)$.}
+
+        \[
+        \begin{array}{c}
+           E=\int_{-\infty}^{\infty} |x(t)|^2\dt=\int_{0}^{\infty} e^{-2t}\dt=\left[ -\dfrac{1}{2}e^{-2t}  \right]_0^\infty=\left( \tozero{-\dfrac{e^{-\infty} }{2}} -\left( -\dfrac{e^{0} }{2} \right)  \right) =\dfrac{1}{2}\\
+           P=\lim_{T \to \infty} \dfrac{1}{2T}\int_{-T}^{T}|x(t)|^2\dt=\lim_{T \to \infty} \dfrac{E}{2T}=\dfrac{\frac{1}{2} }{\infty}=0
+        \end{array}
+        \] 
+	\item \db{Si la señal de entrada es $3e^{-(t-1)}u(t-1)+2e^{-(t-3)}u(t-3)  $, ¿cuál será la señal de salida?}
+
+        Usamos la linealidad de la convolución: \[
+        y(t)=3e^{-(t-1)}u(t-1)\ast h(t)+2e^{-(t-3)}u(t-3)\ast h(t)  
+        \] 
+        Sabemos que: \[
+        e^{-(t-a)}u(t-a)\ast h(t)=(1-e^{-(t-a)} )u(t-a)+e^{-(t-a-6)} u(t-a-6)
+        \] 
+        Entonces:
+        \begin{itemize}[label=\textbullet]
+            \item Para el primer término ($a=1$): \[
+            3\left[ (1-e^{-(t-1)} )u(t-1)+e^{-(t-7)}u(t-7)  \right] 
+            \] 
+            \item Para el segundo término $(a=3)$:  \[
+            2\left[ (1-e^{-(t-3)} )u(t-3)+e^{-(t-9)}u(t-9)  \right] 
+            \] 
+        \end{itemize}
+        Resultado final: \[
+        y(t)=3(1-e^{-(t-1)} )u(t-1)+3e^{-(t-7)} u(t-7)+2(1-e^{-(t-3)} )u(t-3)+2e^{-(t-9)}u(t-9) 
+        \] 
+\end{enumerate}
+\lb{Sea el sistema LTI discreto dado por la relación salida-entrada \[
+	y[n]=\dfrac{1}{2}y[n-1]+x[n]+x[n-1]
+\] }
+\begin{enumerate}[label=\color{red}\textbf{\alph*)}, start=6]
+	\item \db{Obtenga y represente la respuesta al impulso $h[n]$.}
+
+        La respuesta al impulso se obtiene aplicando como entrada: \[
+            x[n]=\delta[n]
+        \] 
+        Y calculando la salida $y[n]=h[n]$ paso a paso.
+
+        $\begin{array}{l}
+            n=0\longrightarrow \tozero{\dfrac{1}{2}y[-1]}+x[0]+\tozero{x[-1]}=1\\
+            n=1\longrightarrow \dfrac{1}{2}y[0]+\tozero{x[1]}+x[0]=\dfrac{1}{2}\cdot 1+1=\dfrac{3}{2}\\
+            n=2\longrightarrow \dfrac{1}{2}y[1]+\tozero{x[2]}+\tozero{x[1]}=\dfrac{1}{2}\cdot \dfrac{3}{2}=\dfrac{3}{4}\\
+            n=3\longrightarrow \dfrac{1}{2}y[2]+\tozero{x[3]}+\tozero{x[2]}=\dfrac{1}{2}\cdot \dfrac{3}{4}=\dfrac{3}{8}\\
+            n=4\longrightarrow \dfrac{1}{2}y[3]+\tozero{x[4]}+\tozero{x[3]}=\dfrac{1}{2}\cdot \dfrac{3}{8}=\dfrac{3}{16}\\
+            \vdots
+        \end{array}$
+
+        Es un sistema IIR, ya que tiene retroalimentación.
+	\item \db{Dibuje el diagrama de bloques del sistema en su forma directa I.}
+        \begin{center}
+            \begin{tikzpicture}[ >=latex,
+                	block/.style={draw, minimum width=1cm, minimum height=1cm},
+                	sum/.style={draw, circle, minimum size=5mm, inner sep=0pt},
+                	connector/.style={-Latex, thick},
+                	node distance=1.5cm and 1.5cm,
+                	]
+                    \node (x) at (0,0) {$x[n]$};
+                    \node [block] (delay1) at (2, -2) {\small $z^{-1}$};
+                    \node [sum] (sum1) at (4, 0) {$+$};
+                    \node (y) at (10,0) {$y[n]$};
+                    \node [block] (delay2) at (8,-2) {\small $z^{-1}$};
+                    \node [sum] (sum2) at (6,0) {$+$};
+
+                    \draw[->] (x) -- (sum1) -- (sum2) -- (y);
+                    \draw[->] (2,0) -- (delay1) -| (sum1);
+                    \draw[->] (8,0) -- (delay2) -| (sum2);
+                    \fill[black] (7,-1.75) -- (7,-2.25) -- (6.5,-2) -- cycle  node[above left] {\small $\tfrac{1}{2} $};
+            \end{tikzpicture}
+        \end{center}
+	\item \db{Calcule la salida cuando la entrada es $x[n]=u[n]-u[n-2]$. Represéntela hasta $n=4$.}
+
+        \begin{center}
+            \begin{tikzpicture}
+                \begin{axis}[
+                    xmin= -1, xmax= 6,
+                    ymin= -0.1, ymax = 1.1,
+                    xlabel={$n$}, ylabel={$x[n]$},
+                    axis lines = middle,
+                    xlabel style={at={(axis cs:6,0)}, anchor=west},
+                    ylabel style={at={(axis cs:0,1.1)}, anchor=south},
+                ]
+                    \pgfmathsetmacro{\mysamples}{6-(-1)+1}
+                    \addplot+[ycomb, mark=*, lightblue, line width=1.5, domain=-1:6, samples=\mysamples] {u(x)-u(x-2)};
+                \end{axis}
+            \end{tikzpicture}
+        \end{center}
+
+        $\begin{array}{l}
+            n=0\longrightarrow y[0]=\dfrac{1}{2}y[-1]+x[0]+x[-1]=1\\
+            n=1\longrightarrow y[1]=\dfrac{1}{2}y[0]+x[1]+x[0]=\dfrac{1}{2}\cdot 1+1+1=\dfrac{5}{2}\\
+            n=2\longrightarrow y[2]=\dfrac{1}{2}y[1]+x[2]+x[1]=\dfrac{1}{2}\cdot \dfrac{5}{2}+0+1=\dfrac{9}{4}\\
+            n=3\longrightarrow y[3]=\dfrac{1}{2}y[2]+x[3]+x[2]=\dfrac{9}{8}\\
+            n=4\longrightarrow y[4]=\dfrac{1}{2}y[3]+x[4]+x[3]=\dfrac{9}{16}
+        \end{array}$
+
+        \begin{center}
+            \begin{tikzpicture}
+                \begin{axis}[
+                    xmin= -1, xmax= 4.5,
+                    ymin= -0.1, ymax = 3,
+                    xlabel={$n$}, ylabel={$h[n]$},
+                    axis lines = middle,
+                    xlabel style={at={(axis cs:4.5,0)}, anchor=west},
+                    ylabel style={at={(axis cs:0,3)}, anchor=south},
+                ]
+                \addplot+[ycomb, mark=*, lightblue, line width=1.5] coordinates { 
+                        (-1,0)
+                        (0,1) 
+                        (1,5/2) 
+                        (2,9/4)
+                        (3,9/8)
+                        (4,9/16)
+                    };
+                \end{axis}
+            \end{tikzpicture}
+        \end{center}
+\end{enumerate}
+
+\rc{\textbf{\underline{Problema 2} } }\lb{Dominio de la frecuencia.}
+\begin{enumerate}[label=\color{red}\textbf{\alph*)}]
+	\item \db{Obtenga \underline{de 2 formas distintas} la expresión analítica del espectro $X(\omega)$ correspondiente a la señal $x(t)=\prod\left( \dfrac{t-\frac{3}{2} }{3}  \right) -\prod\left( \dfrac{t-\frac{9}{2} }{3}  \right) $.}
+
+
+	\item \db{Considere ahora la señal $z(t)=\sum_{n=-\infty}^{\infty}x(t-6n) $. Represente detalladamente la señal $z(t)$, indique si es periódica y, en caso afirmativo, exprese la señal  $z(t)$ como una combinación lineal de exponenciales complejas. Obtenga la salida  $y(t)$ que resultaría de procesar la señal  $z(t)$ con el sistema LTI caracterizado por la respuesta al impulso  $h(t)=e^{-2t}u(t) $.}
+	\item \db{Se nuestra ahora la sñela $x(t)$ del apartado a) tomando una muestra cada  $T_s=0.5$ seg. Escriba la expresión analítica de la secuencia  $x[n]$ resultante, e indique si se habrá producido solapamiento espectral (\textit{aliasing} ) al muestrear.}
+	\item \db{Se desea filtrar los 300 primeros valores (esto es, para los índices $0\le n\le 299$) de la secuencia $x[n]$ del apartado anterior con un sistema causal cuya respuesta al impulso  $h[n]$ está comprendida entre los índices  $0\le n\le 199$. Indique \underline{de la forma más eficiente} de obtener el resultado de dicho procesado, $y[n]$, especificando el número de puntos sobre el que se realizarán los cálculos.}
+\end{enumerate}
+\end{document}
+
