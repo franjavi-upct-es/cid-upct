@@ -205,9 +205,137 @@
 \begin{enumerate}[label=\color{red}\textbf{\alph*)}]
 	\item \db{Obtenga \underline{de 2 formas distintas} la expresión analítica del espectro $X(\omega)$ correspondiente a la señal $x(t)=\prod\left( \dfrac{t-\frac{3}{2} }{3}  \right) -\prod\left( \dfrac{t-\frac{9}{2} }{3}  \right) $.}
 
+\begin{enumerate}[label=\bfseries Forma \arabic*:]
+    \item \textbf{Usando propiedades de la Transformada de Fourier}
 
+        \begin{enumerate}[label=Paso \arabic*:]
+            \item Transformada de la función rectángular básica
+
+                La función rectangular: \[
+                \prod\left( \dfrac{t}{T} \right) 
+                \] 
+                tiene una Transformada de Fourier conocida: \[
+                \mathcal{F}\left\{ \prod\left( \dfrac{t}{T} \right)  \right\} =T\cdot \text{sinc}\left( \dfrac{\omega T}{2} \right) 
+                \] donde  \[
+                \text{sinc}(x)=\dfrac{\sin(x)}{x}.
+                \] 
+            \item Cambios en la señal original
+
+                Cada función en  $x(t)$ es una versión  \textbf{escalada y desplazada} de la rectangular básica: 
+                \[
+                x(t)=\prod\left( \dfrac{t-\frac{3}{2} }{3} \right) - \prod\left( \dfrac{t-\frac{9}{2} }{3} \right) 
+                \] 
+                La forma general es: \[
+                \prod\left( \dfrac{t-t_0}{T} \right) \implies \mathcal{F}\left\{ \prod\left( \dfrac{t-t_0}{T} \right)  \right\} =T\cdot \text{sinc}\left( \dfrac{\omega T}{2} \right) e^{-j\omega t_0} 
+                \] 
+            \item Aplicar la propiedad lineal
+
+                Aplicamos la Transformada de Fourier a cada término:
+                \begin{itemize}[label=\textbullet]
+                    \item Para el primero:
+                        \[
+                        \mathcal{F}\left\{ \prod\left( \dfrac{t-\frac{3}{2} }{3} \right)  \right\} =3\cdot \text{sinc}\left( \dfrac{3\omega}{2} \right) e^{-j\omega\cdot \frac{3}{2} } 
+                        \] 
+                    \item Para el segundo:
+                        \[
+                       \mathcal{F}\left\{ \prod\left( \dfrac{t-\frac{9}{2} }{3} \right)  \right\} =3\cdot \text{sinc}\left( \dfrac{3\omega}{2} \right) e^{-j\omega\cdot \frac{9}{2} }  
+                        \] 
+                \end{itemize}
+        \end{enumerate}
+        \textbf{Resultado (Forma 1):} \[
+        X(\omega)=3\cdot \text{sinc} \left( \dfrac{3\omega}{2} \right) \left( e^{-j\omega\cdot \frac{3}{2} } -e^{-j\omega\cdot \frac{9}{2} }  \right) 
+        \]
+    \item \textbf{Diferencia de funciones rectangulares como combinación de deltas en frecuencia}
+
+        Podemos escribir la señal como la resta de dos funciones idénticas, desplazadas: \[
+        x(t)=f\left( t-\dfrac{3}{2} \right) -f\left( t-\dfrac{9}{2}) \right) \text{ con }f(t)=\prod\left( \dfrac{t}{3} \right) 
+        \] 
+        Entonces su espectro es: \[
+        X(\omega)=\mathcal{F}\left\{ f\left( t-\dfrac{3}{2} \right) \right\}  -\mathcal{F}\left\{ f\left( t- \dfrac{9}{2} \right)  \right\} =e^{-j\omega\cdot \frac{3}{2} } F(\omega)-e^{-j\omega\cdot \frac{9}{2} } F(\omega)=F(\omega)\left[ e^{-j\frac{3}{2} \omega}-e^{-j\frac{9}{2} \omega}   \right] 
+        \] 
+        Con $F(\omega)=3\cdot \text{sinc}\left( \dfrac{3\omega}{2} \right) $, tenemos: \[
+        X(\omega)=3\cdot \text{sinc}\left( \dfrac{3\omega}{2} \right) \left[ e^{-j\frac{3}{2} \omega}-e^{-j\frac{9}{2} \omega}   \right] 
+        \] 
+\end{enumerate}
 	\item \db{Considere ahora la señal $z(t)=\sum_{n=-\infty}^{\infty}x(t-6n) $. Represente detalladamente la señal $z(t)$, indique si es periódica y, en caso afirmativo, exprese la señal  $z(t)$ como una combinación lineal de exponenciales complejas. Obtenga la salida  $y(t)$ que resultaría de procesar la señal  $z(t)$ con el sistema LTI caracterizado por la respuesta al impulso  $h(t)=e^{-2t}u(t) $.}
-	\item \db{Se nuestra ahora la sñela $x(t)$ del apartado a) tomando una muestra cada  $T_s=0.5$ seg. Escriba la expresión analítica de la secuencia  $x[n]$ resultante, e indique si se habrá producido solapamiento espectral (\textit{aliasing} ) al muestrear.}
+
+        Se nos da: \[
+        z(t)=\sum_{n=-\infty}^{\infty} x(t-6n)
+        \] 
+        Donde: \[
+        x(t)=\prod\left( \dfrac{t-\frac{3}{2} }{3} \right) -\prod\left( \dfrac{t-\frac{9}{2} }{3} \right) 
+        \] 
+        Esto representa una \textbf{replicación periódica} de $x(t)$ cada 6 unidades de tiempo. En otras palabras, $z(t)$ es la  \textbf{versión periódica} de $x(t)$ con periodo $T=6$.
+
+         \underline{Representación en el tiempo:}
+
+         Recordemos la forma de $x(t)$:
+          \begin{itemize}[label=\textbullet]
+             \item $x(t)$ es la  \textbf{resto de dos funciones rectangulares} de anchura 3 y de centros en $t=\dfrac{3}{2}$ y $\dfrac{t}{9}$.
+             \item Es decir:
+                 \begin{itemize}[label=\textbullet]
+                     \item La primera parte está entre $[0,3]$
+                     \item La segunda está entre  $[3,6]$
+                     \item En resumen:  \[
+                     x(t)=\begin{cases}
+                         1 & t\in [0,3)\\
+                         -1 & t\in [3,6)\\
+                         0 & \text{en otro caso}
+                     \end{cases}
+                     \] 
+                 \end{itemize}
+         \end{itemize}
+         Entonces, al hacer la suma periódica: \[
+         z(t)=x(t)-x(t-6)+x(t-12)+\cdots
+         \] 
+         Esta señal repite el mismo patrón:
+         \begin{itemize}[label=\textbullet]
+             \item \textbf{Pulso de +1} entre $[0+6n,3+6n)$ 
+             \item \textbf{Pulso de -1} entre $[3+6n,6+6n)$ 
+         \end{itemize}
+         \underline{Representación con exponenciales complejas}
+
+         Como $z(t)$ es  \textbf{periódica de periodo} $T=6$, podemos expresarla como una serie de Fourier:  \[
+         z(t)=\sum_{k=-\infty}^{\infty} c_ke^{jk\omega_0t}\text{ con }\omega_0=\dfrac{2\pi}{T}=\dfrac{\pi}{3} 
+         \]
+         Los coeficientes de Fourier se calculan como: \[
+         c_k=\dfrac{1}{T}\int_{0}^{T} z(t)e^{-jk\omega_0t}\dt  
+         \] 
+         Pero en $x(t)$ se tiene un patrón definido en cada periodo:
+          \begin{itemize}[label=\textbullet]
+              \item Entre $t\in [0,3)$, valor = 1.
+              \item Entre $t\in [3,6)$, valor = -1.
+         \end{itemize}
+         Entonces: \[
+         c_k=\dfrac{1}{6}\left( \int_{0}^{3} e^{-jk\frac{\pi}{3} t}\dt-\int_{3}^{6} e^{-jk\frac{\pi}{3} t} \dt\right) 
+         \] 
+         Calculamos: \[
+         \begin{array}{c}
+             \int_{0}^{3} e^{-jk\frac{\pi}{3} } \dt=\left[ \dfrac{e^{-jk\frac{\pi}{3} t} }{-jk\frac{\pi}{3} } \right]_0^3=\dfrac{1}{-jk\frac{\pi}{3} }(e^{-jk\pi}-1 )\\
+             \int_{3}^{6} e^{-jk\frac{\pi}{3} } \dt=\left[ \dfrac{e^{-jk\frac{\pi}{3} t} }{-jk\frac{\pi}{3} } \right]_3^6=\dfrac{1}{-jk\frac{\pi}{3} }(e^{-jk2\pi}-e^{-jk\pi}  )\\
+         \end{array}
+         \] 
+         Entonces:
+         \[
+         c_k=\dfrac{1}{6}\cdot\left( \dfrac{e^{-jk\pi}-1 }{-jk\frac{\pi}{3} }-\dfrac{e^{-jk 2\pi}-e^{-jk\pi}  }{-jk\frac{\pi}{3} } \right) =\dfrac{1}{6}\cdot \dfrac{(e^{-jk\pi}-1 )-(e^{-jk 2\pi}-e^{-jk\pi} )}{-jk\frac{\pi}{3}}=\dfrac{1}{6}\cdot \dfrac{2e^{-jk\pi}-e^{-jk 2\pi}-1 }{-jk\frac{\pi}{3}}
+         \] 
+         Esa es la expresión general de los coeficientes $c_k$, por tanto, la señal es:  \[
+         z(t)=\dfrac{1}{6}\cdot \sum_{k=-\infty}^{\infty} \dfrac{2e^{-jk\pi}-e^{-jk 2\pi}-1 }{-jk\frac{\pi}{3}}e^{jk\frac{\pi}{3} t} 
+         \] 
+         \underline{Salida del sistema LTI con $h(t)=e^{-2t}u(t) $} 
+
+         Este sistema LTI es una convolución: \[
+         y(t)=z(t)\ast h(t)
+         \] 
+         En el dominio de Fourier:
+         \begin{itemize}[label=\textbullet]
+             \item Si $z(t)=\sum c_ke^{jk\omega_0t} $,
+             \item Y el sistema tiene respuesta al impulso $h(t)\implies H(\omega)=\dfrac{1}{jw+2}$ 
+         \end{itemize}
+         Entonces, al pasar $z(t)$ por el sistema, cada exponencial complejas se multiplica por el valor de  $H(\omega)$ evaluado en $\omega_k=k\omega_0$: \[
+         y(t)=\sum_{k=-\infty}^{\infty} c_k\cdot H(k\omega_0)\cdot e^{jk\omega_0t}=\dfrac{1}{6}\cdot \sum_{k=-\infty}^{\infty} \dfrac{2e^{-jk\pi}-e^{-jk 2\pi}-1 }{-jk\frac{\pi}{3}}\cdot \dfrac{1}{2+jk\frac{\pi}{3} } \cdot e^{jk\frac{\pi}{3} t}
+         \] 
+	\item \db{Se nuestra ahora la señal $x(t)$ del apartado a) tomando una muestra cada  $T_s=0.5$ seg. Escriba la expresión analítica de la secuencia  $x[n]$ resultante, e indique si se habrá producido solapamiento espectral (\textit{aliasing} ) al muestrear.}
 	\item \db{Se desea filtrar los 300 primeros valores (esto es, para los índices $0\le n\le 299$) de la secuencia $x[n]$ del apartado anterior con un sistema causal cuya respuesta al impulso  $h[n]$ está comprendida entre los índices  $0\le n\le 199$. Indique \underline{de la forma más eficiente} de obtener el resultado de dicho procesado, $y[n]$, especificando el número de puntos sobre el que se realizarán los cálculos.}
 \end{enumerate}
 \end{document}
