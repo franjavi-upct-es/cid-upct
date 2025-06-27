@@ -1,6 +1,25 @@
 \input{../../../Macros.tex}
 \title{Señales y Sistemas\\Problemas Unidad 3}
 
+% definir la función rectangular
+\pgfmathdeclarefunction{rect}{1}{%
+	\pgfmathparse{abs(#1) <= 0.5 ? 1 : 0}%
+}
+
+% definir el pulso triangular
+\pgfmathdeclarefunction{tri}{1}{%
+	\pgfmathparse{abs(#1) <= 1 ? (1 - abs(#1)) : 0}%
+}
+
+% definir la función escalón unitario
+\pgfmathdeclarefunction{u}{1}{%
+	\pgfmathparse{#1 >= 0 ? 1 : 0}%
+}
+
+\pgfmathdeclarefunction{sinc}{1}{%
+	\pgfmathparse{sin(deg(pi*#1))/(#1*pi)}%
+}
+
 \begin{document}
 \maketitle
 \begin{enumerate}[label=\color{red}\textbf{\arabic*)}]
@@ -144,6 +163,264 @@ $a_k=\dfrac{1}{T}\int_{-\frac{T}{2} }^{\frac{T}{2} } \delta(t)\cdot e^{-jk\frac{
 
     $P_{\infty}=P_T=\dfrac{1}{T}\int_{-\frac{T}{2}}^{\frac{T}{2}}|x(t)|^2\dt=\dfrac{3}{2}\int_{-\frac{1}{3}}^{\frac{1}{3}}|\sin(3\pi t)|^2\dt \equiv\sum_{k=-\infty}^{\infty}|a_k|^2=\left|\dfrac{1}{2j}\right|^2+\left|-\dfrac{1}{2j}\right|^2=\dfrac{1}{2}W$
 
-  \item \lb{}
+\item \lb{Obtener el espectro de la señal \[
+x(t)=e^{-at}u(t),\:a>0 
+\] } 
+$X(\omega)=\int_{0}^{\infty} e^{-at}e^{-jk\omega t}\dt=\int_{0}^{\infty} e^{(-a-j\omega)t}\dt=\left[ \dfrac{e^{(-a-j\omega)t} }{-a-j\omega} \right] _0^\infty=\dfrac{0}{-a-j\omega}-\dfrac{1}{-a-j\omega}=\dfrac{1}{a+j\omega}     $
+  \item \lb{Obtener el espectro de la señal \[
+  x(t)=\delta(t)
+  \] }
+  \begin{minipage}{0.5\textwidth}
+  $ \begin{aligned}
+      X(\omega)&=\int_{-\infty}^{\infty} \delta(t)\cdot e^{-j\omega t}\dt=\left\{ \delta(t)\to t_0=0\to e^{-jk\omega \cdot 0}=1  \right\}\\
+               &=\int_{-\infty}^{\infty} \delta(t)\cdot 1=1 
+  \end{aligned}$
+  \end{minipage}\qquad
+  \begin{minipage}{0.4\textwidth}
+      \begin{tikzpicture}[scale=0.7]
+          \begin{axis}[
+              xmin= -5, xmax= 5,
+              ymin= -0.1, ymax = 1.1,
+              xlabel={$\omega$}, ylabel={$X(\omega)$},
+              axis lines = middle,
+              xlabel style={at={(axis cs:5,0)}, anchor=west},
+              ylabel style={at={(axis cs:0,1.1)}, anchor=south},
+          ]
+              \addplot[domain=-5:5, samples=1000, lightblue, line width=1.5] {1};
+          \end{axis}
+      \end{tikzpicture}
+  \end{minipage}
+  \newpage
+\item \lb{Obtener el espectro de la señal  \[
+x(t)=\cos(\omega_0t)
+\] } 
+ $\begin{aligned}
+ 	X(\omega)&=\int_{-\infty}^{\infty} \cos(\omega_0t)e^{-j\omega t}\dt=\int_{-\infty}^{\infty} \dfrac{e^{j\omega_0 t}+e^{-j\omega_0t}  }{2}\cdot e^{-j\omega t}\dt=\begin{cases}
+     a_1=\tfrac{1}{2}\\
+     a_{-1}=\tfrac{1}{2}
+ \end{cases}\\
+ &=2\pi\cdot \dfrac{1}{2}\delta(\omega-\omega_0)+2\pi\cdot  \dfrac{1}{2}\delta(\omega+\omega_0)=\pi\cdot (\delta(\omega-\omega_0)+\delta(\omega+\omega_0))
+ \end{aligned}$
+
+ \begin{tcolorbox}[colback=red!5!white, colframe=red!75!black, title=\textbf{Nota}]
+     \begin{enumerate}[label=\arabic*)]
+         \item Transformada de Fourier de un coseno
+             \[
+             x(t)=\cos(\omega_0t)
+             \] 
+             Usamos la identidad de Euler: \[
+             \cos(\omega_0t)=\dfrac{1}{2}(e^{j\omega_0t}-e^{-j\omega_0t}  )
+             \] 
+             Y su transformada es: \[
+             \mathcal{F}\{\cos(\omega_0t)\} =\pi\left[ \delta(\omega-\omega_0)+\delta(\omega+\omega_0) \right] 
+             \] 
+         \item Transformada de Fourier de un seno
+             \[
+             \begin{array}{c}
+                 x(t)=\sin(\omega_0t)\\
+                 \sin(\omega_0t)=\dfrac{1}{2j}(e^{j\omega_0t}-e^{-j\omega_0t}  )
+             \end{array}
+             \] 
+             Entonces: \[
+                 \mathcal{F}\{\sin(\omega_0t)\}=j\pi[\delta(\omega-\omega_0)-\delta(\omega+\omega_0)]
+             \] 
+         \item Fórmula general usando el signo $\pm$
+
+             Para compactar estas dos transformadas en una sola fórmula general, usamos: \[
+             \mathcal{F}\{e^{\pm j\omega_0t} \} =2\pi\delta(\omega\mp \omega_0)
+             \] 
+     \end{enumerate}
+ \end{tcolorbox}
+\item  \lb{Obtener el espectro de la señal \[
+x(t)=\sin(\omega_0t)
+\] } 
+
+$
+\begin{aligned}
+    X(\omega)&=\int_{-\infty}^{\infty} \sin(\omega_0t)e^{-j\omega t}\dt=\int_{-\infty}^{\infty} \dfrac{e^{j\omega_0t}-e^{-j\omega_0t}  }{2j}e^{-j\omega t}\dt=\begin{cases}
+        a_1=\tfrac{1}{2j} \\
+        a_{-1}=-\tfrac{1}{2j}
+    \end{cases}\\
+             &=\dfrac{1}{2j}\cdot 2\pi\delta(\omega-\omega_0)-\dfrac{1}{2j}\cdot 2\pi\delta(\omega+\omega_0)=\lbb{\dfrac{1}{j}}{-j}\cdot \pi\left( \delta(\omega-\omega_0)-\delta(\omega+\omega_0) \right)=j\pi \left( \delta(\omega+\omega_0)-\delta(\omega-\omega_0) \right) \\
+\end{aligned}
+$
+\item \lb{Obtener el espectro de la señal \[
+x(t)=\sum_{n=-\infty}^{\infty} \delta(t-nT)
+\] } 
+Es una señal periódica con periodo $T$, por lo que se puede expresar mediante  \textbf{Series de Fourier}: \[
+x(t)=\sum_{k=-\infty}^{\infty} c_ke^{jk\omega_0t},\text{ donde } \omega_0=\dfrac{2\pi}{T}
+\]  
+\begin{enumerate}[label=Paso \arabic*:]
+    \item Cálculo de los coeficientes $c_k$  \[
+    c_k=\dfrac{1}{T}\int_{0}^{T} x(t)e^{-jk\omega_0t}\dt
+    \] 
+    Dado que $x(t)$ tiene un solo impulso en cada periodo  $T$, y concretamente uno en  $t=0$, la integral se reduce a evaluar en el impulso:  \[
+    c_k=\dfrac{1}{T}e^{-jk\omega_0\cdot 0}=\dfrac{1}{T},\:\forall k 
+    \] 
+\item Sustituir en la serie \[
+x(t)=\sum_{k=-\infty}^{\infty} \dfrac{1}{T}e^{jk\omega_0t} 
+\] 
+Ahora, calculamos su \textbf{Transformada de Fourier}: \[
+X(\omega)=\mathcal{F}\{x(t)\} =\mathcal{F}\left\{ \sum_{k=-\infty}^{\infty} \dfrac{1}{T}e^{jk\omega_0t}  \right\} 
+\] 
+\item Transformada de una exponencial compleja
+
+    Sabemos que: \[
+    \mathcal{F}\{e^{jk\omega_0t} \} =2\pi\delta(\omega-k\omega_0)
+    \] 
+    Aplicamos la linealidad: \[
+    X(\omega)=\sum_{k=-\infty}^{\infty} \dfrac{1}{T}\cdot 2\pi\delta(\omega-k\omega)=\dfrac{2\pi}{T}\sum_{k=-\infty}^{\infty} \delta(\omega-k\omega_0)\text{ con }\omega_0=\dfrac{2\pi}{T}
+    \] 
+\end{enumerate}
+\begin{tcolorbox}[colback=red!5!white, colframe=red!75!black, title=\textbf{Nota: Transformada de Fourier de una señal periódica}]
+Sea una señal periódica $x(t)$ de periodo  $T$, con expansión en serie de Fourier:  \[
+x(t)=\sum_{k=-\infty}^{\infty} c_ke^{jk\omega_0t}\text{ con } \omega=\dfrac{2\pi}{T}
+\] 
+Entonces su transformada de Fourier es: \[
+X(\omega)=2\pi \sum_{k=-\infty}^{\infty} c_k\cdot \delta(\omega-k\omega_0)
+\]
+\end{tcolorbox}
+\item \lb{Obtener el espectro de la señal \[
+x(t)=\bigwedge \left( \dfrac{t}{\tau} \right) 
+\] } 
+$x(t)=\bigwedge \left( \dfrac{t}{\tau} \right)\xrightarrow{TF}\tau\text{sinc}^2\left( \dfrac{\tau}{2\pi}\cdot \omega \right) $
+\item \lb{Obtener la expresión del espectro de la señal $x(t)=u(t)$} 
+
+   \begin{minipage}{0.45\textwidth}
+       \begin{tikzpicture}
+           \begin{axis}[
+               xmin= -1, xmax= 5,
+               ymin= -0.1, ymax = 1.1,
+               xlabel={$t$}, ylabel={$x(t)$},
+               axis lines = middle,
+               xlabel style={at={(axis cs:5,0)}, anchor=west},
+               ylabel style={at={(axis cs:0,1.1)}, anchor=south},
+           ]
+               \addplot[domain=-1:5, samples=1000, lightblue, line width=1.5] {u(x)};
+           \end{axis}
+       \end{tikzpicture}
+   \end{minipage}\qquad
+   \begin{minipage}{0.45\textwidth}
+       Utilizamos la propiedad de integración. Recodemos que si una función $x(t)$ se expresa como:  \[
+       x(t)=\int_{-\infty}^{t} y(\tau)\mathrm{d}\tau, 
+       \] 
+       su transformada de Fourier se relaciona con la de $y(t)$ mediante la siguiente propiedad:  \[
+       X(\omega)=\dfrac{Y(\omega)}{j\omega}+\pi Y(0)\delta(\omega),
+       \] 
+       donde $Y(\omega)$ es la transformada de Fourier de $y(t)$.
+   \end{minipage}
+
+   En nuestro caso se tiene que la función escalón se puede escribir como \[
+   u(t)=\int_{-\infty}^{t} \delta(\theta) \mathrm{d}\tau.
+   \] 
+   Como la transformada de Fourier de la delta de Dirac es \[
+   \mathcal{F}\{\delta(t)\} =1,
+   \] entonces $Y(\omega)=1$ para todo $\omega$ y, en particular, $Y(0)=1$.
+
+   Aplicando la propiedad de integración se obtiene:  \[
+   X(\omega)=\dfrac{1}{j\pi}+\pi\delta(\omega).
+   \] 
+\item \lb{Calcular la energía total de la señal $x(t)=\text{sinc}(t)$} 
+
+    \begin{minipage}{0.45\textwidth}
+        \begin{tikzpicture}
+            \begin{axis}[
+                xmin= -10, xmax= 10,
+                ymin= -0.5, ymax = 1.1,
+                xlabel={$t$}, ylabel={$x(t)$},
+                axis lines = middle,
+                xlabel style={at={(axis cs:10,0)}, anchor=west},
+                ylabel style={at={(axis cs:0,1.1)}, anchor=south},
+            ]
+                \addplot[domain=-10:10, samples=1000, lightblue, line width=1.5] {sin(deg(pi*x))/(pi*x)};
+            \end{axis}
+        \end{tikzpicture}
+    \end{minipage}\qquad
+    \begin{minipage}{0.45\textwidth}
+        Sabemos que: \[
+        \text{sinc}(t)=\dfrac{\sin(\pi t)}{\pi t}
+        \] 
+        Y su transformada de Fourier es: \[
+        \mathcal{F}\{\text{sinc}(t)\} =\prod(f)
+        \] 
+        Donde: \[
+        \prod(f)=\begin{cases}
+            1, & |f|\le \frac{1}{2}\\
+            0, & \text{en otro caso}
+        \end{cases}
+        \] 
+    \end{minipage}
+
+    La propiedad de Parseval para señales de energía dice: \[
+    E_T=\int_{-\infty}^{\infty} |x(t)|^2\dt=\int_{-\infty}^{\infty} |X(f)|^2\mathrm{d}f
+    \] 
+    Donde $X(f)=\mathcal{F}\{x(t)\} $ 
+
+    En nuestro caso: \[
+    X(f)=\prod(f)\implies|X(f)|^2=\prod(f)
+    \] 
+    Entonces: \[
+        E_T=\int_{-\infty}^{\infty} \prod(f)\mathrm{d}f =\int_{-\frac{1}{2} }^{\frac{1}{2} } 1\mathrm{d}f=[f]_{-\frac{1}{2} }^{\frac{1}{2} }=\dfrac{1}{2}-\left( -\dfrac{1}{2} \right)=1J
+    \] 
+
+\item \lb{Obtener la transformada de Fourier de $x(t)=(1+\cos(\pi t))\prod\left( \dfrac{t}{2} \right) $} 
+
+    \begin{center}
+    	\begin{tikzpicture}
+        \begin{axis}[
+            xmin= -3, xmax= 3,
+            ymin= -0.5, ymax = 3,
+            xlabel={$t$},
+            axis lines = middle,
+            xlabel style={at={(axis cs:3,0)}, anchor=west},
+            legend pos=north east,
+        ]
+            \addplot[domain=-3:3, samples=1000, lightblue, line width=1.5] {1+cos(deg(pi*x))};
+            \addlegendentry{$1+\cos(\pi t)$};
+            \addplot[domain=-3:3, samples=1000, red, dashed, line width=1.5] {rect(x/2)};
+            \addlegendentry{$\prod\left( \tfrac{t}{2} \right) $};
+        \end{axis}
+    \end{tikzpicture}\qquad
+    \begin{tikzpicture}
+        \begin{axis}[
+            xmin= -3, xmax= 3,
+            ymin= -0.5, ymax = 3,
+            xlabel={$t$}, ylabel={$x(t)$},
+            axis lines = middle,
+            xlabel style={at={(axis cs:3,0)}, anchor=west},
+            ylabel style={at={(axis cs:0,3)}, anchor=south},
+        ]
+            \addplot[domain=-3:3, samples=1000, lightblue, line width=1.5] {(1+cos(deg(pi*x)))*rect(x/2)};
+        \end{axis}
+    \end{tikzpicture}
+    \end{center}
+    $x(t)=(1+\cos(\pi t))\prod\left( \dfrac{t}{2} \right)=\prod\left( \dfrac{t}{2} \right) +\prod\left( \dfrac{t}{2} \right) \cos(\pi t)=\lbb{\prod\left( \dfrac{t}{2} \right) }{d(t)}+\lbb{\prod\left( \dfrac{t}{2} \right) \dfrac{e^{j\pi t} }{2}}{s(t)}+\lbb{\prod\left( \dfrac{t}{2} \right) \dfrac{e^{-j\pi t} }{2}}{r(t)}$
+
+     \[
+    \begin{array}{l}
+        d(t)=\prod\left( \dfrac{t}{2} \right) \xrightarrow{TF} 2\cdot \text{sinc}\left( \dfrac{\omega}{\pi} \right) =D(\omega)\\
+        s(t)=\prod\left( \dfrac{t}{2} \right) \dfrac{e^{j\pi t} }{2}\xrightarrow{TF}\cancel{\dfrac{2}{2}} \text{sinc}\left( \dfrac{\pi-\omega}{\omega} \right) =S(\omega)\\
+        r(t)=\prod\left( \dfrac{t}{2} \right) \dfrac{e^{-j\pi t}}{2}\xrightarrow{TF}\cancel{\dfrac{2}{2}} \text{sinc}\left( \dfrac{\pi+\omega}{\omega} \right) =R(\omega)
+    \end{array}
+    \] 
+    $X(\omega)=D(\omega)+S(\omega)+R(\omega)=2\text{sinc}\left( \dfrac{\omega}{\pi} \right) +\text{sinc}\left( \dfrac{\pi-\omega}{\omega} \right) +\text{sinc}\left( \dfrac{\pi+\omega}{\omega} \right) $
+\item \lb{Obtener de 2 formas distintas la transformada de Fourier de $x(t)$}
+    \begin{center}
+        \begin{tikzpicture}[>=latex, scale=0.7]
+            \draw[->] (-5,0) -- (5,0) node[right] {$t$};
+            \draw[->] (0,-1) -- (0,3) node[above] {$x(t)$};
+            \draw[lightblue, line width = 1.5] (-4,0) -- (-2,2) -- (2,2) -- (4,0);
+            \foreach \x in {-4,-2,2,4} {\draw (\x,0.1) -- (\x,-0.1) node[below] {$\x$};}
+                \node[above left] at (0,2) {$2$};
+        \end{tikzpicture}
+    \end{center}
+    \begin{enumerate}[label=Forma \arabic*:]
+        \item $x(t)=4\cdot \bigwedge\left( \dfrac{t}{4} \right) -2\cdot \bigwedge\left( \dfrac{t}{2} \right) $ 
+
+            \[
+            X(\omega)=4\cdot 4\cdot \text{sinc}^2\left( \dfrac{4\omega}{2\pi} \right) -2\cdot 2\cdot \text{sinc}^2\left( \dfrac{2\omega}{2\pi} \right) =16\text{sinc}^2\left( \dfrac{2\omega}{\pi} \right) -4\cdot \text{sinc}^2\left( \dfrac{\omega}{\pi} \right) 
+            \] 
+        \item $g(t)=\frac{\partial x(t)}{\partial t} =2$
+    \end{enumerate}
 \end{enumerate}
 \end{document}
