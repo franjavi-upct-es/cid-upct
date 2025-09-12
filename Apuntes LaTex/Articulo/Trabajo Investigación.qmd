@@ -30,6 +30,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 import math
 from matplotlib.patches import Polygon
+plt.rcParams['text.usetex'] = True
 ```
 
 # Resumen {.unnumbered}
@@ -234,72 +235,190 @@ for i in range(6):
     ax.set_ylim(-1000, 1000)
     ax.axis("off")
     pentaflake(ax, 0, 0, 1000, 90, i, "k")
-plt.gca().set_facecolor('none')
 plt.gcf().set_facecolor('none')
 plt.show()
 ```
 
-```{python}
-#| fig-align: center
-#| layout-ncol: 2
-#| fig-cap: 
-#|      - "Primera prueba fractal"
-import numpy as np
-import matplotlib.pyplot as plt
+```{python} 
+def generar_fractal_lsystem(reglas, inicio, angulo, iteraciones, escala_color=1, nombre=""):
+    punto_inicial = np.array([0, 0])
+    angulo_actual = 0
+    fractal = []
 
-# Define la regla de reemplazo y la palabra inicial
-rule = {"F": "-F+F-F-F+F+FF-F+F+FF+F-F-FF+FF-FF+F+F-FF-F-F+FF-F-F+F+F-F+"}
-inicio = "F+F+F+F"
+    def aplicar_regla(cadena):
+        return "".join([reglas.get(c, c) for c in cadena])
 
-# Función para aplicar la regla
-def aplicar_regla(cadena):
-    return "".join([rule.get(c, c) for c in cadena])
+    def matriz_rotacion(angulo):
+        rad = np.radians(angulo)
+        return np.array([
+            [np.cos(rad), -np.sin(rad)],
+            [np.sin(rad),  np.cos(rad)]
+        ])
 
-# Parámetros iniciales
-punto_inicial = np.array([0, 0])
-vector_unit_tortuga = np.array([0, 1])
-angulo = 90.0
-num_iteraciones = 2
+    # Aplicar reglas de producción
+    palabra = inicio
+    for _ in range(iteraciones):
+        palabra = aplicar_regla(palabra)
 
-# Generar la palabra final tras aplicar las reglas
-palabra = inicio
-for _ in range(num_iteraciones):
-    palabra = aplicar_regla(palabra)
+    # Procesar la cadena
+    for i, letra in enumerate(palabra):
+        if letra == "+":
+            angulo_actual += angulo
+        elif letra == "-":
+            angulo_actual -= angulo
+        elif letra == "F":
+            rotacion = matriz_rotacion(angulo_actual)
+            vector = np.dot(rotacion, np.array([0, 1]))
+            punto_extremo = punto_inicial + vector
+            fractal.append((punto_inicial.copy(), punto_extremo.copy()))
+            punto_inicial = punto_extremo
 
-# Convertir la palabra en una lista de caracteres
-caracteres = list(palabra)
+    # Dibujar
+    fig, ax = plt.subplots(figsize=(5, 5))
+    for i, (p1, p2) in enumerate(fractal):
+        p1_x, p1_y = p1
+        p2_x, p2_y = p2
+        ax.plot([p1_x, p2_x], [p1_y, p2_y], linewidth=1, color=plt.cm.autumn(i / (len(fractal) * escala_color)))
 
-# Inicializar variables para construir el fractal
-fractal = []
-rotacion_actual = 0
+    ax.set_aspect('equal')
+    ax.axis("off")
 
-# Función para calcular la matriz de rotación
-def matriz_rotacion(angulo):
-    rad = np.radians(angulo)
-    return np.array([[np.cos(rad), -np.sin(rad)], [np.sin(rad), np.cos(rad)]])
+    # Mostrar nombre del fractal
+    if nombre:
+        fig.text(0.5, 0.02, nombre, ha='center', fontsize=12)
 
-# Generar el fractal
-for letra in caracteres:
-    if letra == "+":
-        rotacion_actual += angulo
-    elif letra == "-":
-        rotacion_actual -= angulo
-    elif letra == "F":
-        matriz_rot = matriz_rotacion(rotacion_actual)
-        vector_unit_tortuga = np.dot(matriz_rot, np.array([0, 1]))
-        punto_extremo = punto_inicial + vector_unit_tortuga
-        fractal.append((punto_inicial, punto_extremo))
-        punto_inicial = punto_extremo
+    plt.tight_layout()
+    plt.show()
 
-# Dibujar el fractal
-plt.figure(figsize=(4,4))
-for i, (p1, p2) in enumerate(fractal):
-    p1_x, p1_y = p1
-    p2_x, p2_y = p2
-    plt.plot([p1_x, p2_x], [p1_y, p2_y], linewidth=1, color=plt.cm.hsv(i / len(fractal)))
-plt.axis("equal")
-plt.axis("off")
-plt.tight_layout()
-plt.show()
+fractales_definidos = {
+    "Fractal1": {
+        "reglas": {"F": "-F+F-F-F+F+FF-F+F+FF+F-F-FF+FF-FF+F+F-FF-F-F+FF-F-F+F+F-F+"},
+        "inicio": "F+F+F+F",
+        "angulo": 90,
+        "iteraciones": 2
+    },
+    "Fractal2": {
+        "reglas": {"F": "F-F+F+F-F"},
+        "inicio": "F-F-F-F",
+        "angulo": 90,
+        "iteraciones": 3
+    },
+    "Fractal3": {
+        "reglas": {"X": "YF+XF+Y", "Y": "XF-YF-X"},
+        "inicio": "YF",
+        "angulo": 60,
+        "iteraciones": 5
+    },
+    "Fractal4": {
+        "reglas": {"L": "+RF-LFL-FR+", "R": "-LF+RFR+FL-"},
+        "inicio": "L",
+        "angulo": 90,
+        "iteraciones": 4
+    },
+    "Fractal5": {
+        "reglas": {"X": "XFYFX+F+YFXFY-F-XFYFX", "Y": "YFXFY-F-XFYFX+F+YFXFY"},
+        "inicio": "X",
+        "angulo": 90,
+        "iteraciones": 3
+    },
+    "Fractal6": {
+        "reglas": {"F": "F+F–F+F"},
+        "inicio": "F–F–F",
+        "angulo": 60,
+        "iteraciones": 3
+    },
+    "Fractal7": {
+        "reglas": {"F": "F+F-F-F-F+F+F+F-F"},
+        "inicio": "F",
+        "angulo": 90,
+        "iteraciones": 2
+    },
+    "Fractal8": {
+        "reglas": {"X": "X+YF++YF-FX–FXFX-YF+", "Y": "-FX+YFYF++YF+FX–FX-Y"},
+        "inicio": "FX",
+        "angulo": 60,
+        "iteraciones": 3
+    },
+    "Fractal9": {
+        "reglas": {"F": "F-F+F+FFF-F-F+F"},
+        "inicio": "F+F+F+F",
+        "angulo": 90,
+        "iteraciones": 2
+    },
+    "Fractal10": {
+        "reglas": {"X": "XF-F+F-XF+F+XF-F+F-X"},
+        "inicio": "F+XF+F+XF",
+        "angulo": 90,
+        "iteraciones": 3
+    },
+    "Fractal11": {
+        "reglas": {"F": "FF", "X": "–FXF++FXF++FXF–"},
+        "inicio": "FXF–FF–FF",
+        "angulo": 60,
+        "iteraciones": 4
+    },
+    "Fractal12": {
+        "reglas": {"A": "A-F-FA+F+FA+F+FA+F+FA-F-FA-F-FA-F-FA+F+FA"},
+        "inicio": "+FA",
+        "angulo": 45,
+        "iteraciones": 3
+    },
+    "Fractal13": {
+        "reglas": {"F": "FF++F++F+F++F-F"},
+        "inicio": "F",
+        "angulo": 60,
+        "iteraciones": 5
+    },
+    "Fractal14": {
+        "reglas": {"F": "F+F–F+F"},
+        "inicio": "F",
+        "angulo": 80,
+        "iteraciones": 6
+    },
+    "Fractal15": {
+        "reglas": {"L": "L+R++R-L–LL-R+", "R": "-L+RR++R+L–L-R"},
+        "inicio": "L",
+        "angulo": 60,
+        "iteraciones": 5
+    },
+    "Fractal16": {
+        "reglas": {"L": "R+L+R", "R": "L-R-L"},
+        "inicio": "R",
+        "angulo": 60,
+        "iteraciones": 7
+    }
+}
+
+
+def mostrar_fractal(nombre):
+    if nombre in fractales_definidos:
+        params = fractales_definidos[nombre]
+        generar_fractal_lsystem(**params, nombre=nombre)
+    else:
+        print(f"No se encontró un fractal con el nombre: {nombre}")
 ```
 
+```{python}
+#| fig-align: center
+#| layout-ncol: 3
+for i, (k, v) in enumerate(fractales_definidos.items()):
+  if i >= 6:
+    break
+  mostrar_fractal(k)
+```
+
+```{python}
+#| fig-align: center
+#| layout-ncol: 3
+for i, (k, v) in enumerate(fractales_definidos.items()):
+  if 6 < i <= 12:
+    mostrar_fractal(k)
+```
+
+```{python}
+#| fig-align: center
+#| layout-ncol: 3
+for i, (k, v) in enumerate(fractales_definidos.items()):
+  if 6 > 12:
+    mostrar_fractal(k)
+```
