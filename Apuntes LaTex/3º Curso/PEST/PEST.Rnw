@@ -1,0 +1,139 @@
+\input{../../Macros.tex}
+\title{Procesos Estocásticos y Series Temporales}
+\usepackage{amsthm}
+\theoremstyle{definition}
+\newtheorem{definition}{Definición}[section]
+\usepackage{framed}
+\newenvironment{knitrout}{}{}
+\newcolumntype{C}[1]{>{\centering\arraybackslash}p{#1}}
+% Colores que knitr suele referenciar
+\definecolor{fgcolor}{rgb}{0.345,0.345,0.345}
+\definecolor{shadecolor}{rgb}{0.97,0.97,0.97}
+
+\begin{document}
+\maketitle
+\tableofcontents
+\newpage
+\section{Introducción a los procesos estocásticos}
+Los procesos estocásticos modelizan cantidades numéricas que cambian con el tiempo de manera aleatoria. Ejemplos del mundo real de estos procesos incluyen:
+\begin{enumerate}
+    \item Resultados sucesivos en un juego de azar.
+    \item Número de plazas ocupadas en un parking.
+    \item Porcentaje de cielo cubierto en el cielo de Madrid.
+    \item Evolución del precio de activos financieros: acciones, tipos de cambio de divisas o criptomonedas, materias primas, etc.
+    \item Indicadores económicos como la inflación, el precio de la luz, y el IBEX 35.
+\end{enumerate}
+Los procesos estocásticos proporcionan marcos matemáticos para modelar y comprender estos fenómenos, lo que permite hacer predicciones y tomar decisiones informadas.
+
+\begin{figure}[h]
+<<echo=FALSE, fig=TRUE, fig.width=20, fig.height=7, out.width='0.7\\textwidth', fig.align='center'>>=
+suppressPackageStartupMessages({
+  library(readr)
+  library(dplyr)
+  library(ggplot2)
+  library(lubridate)
+  library(scales)
+  library(stringr)
+})
+
+csv_path <- "/home/pyros05/Descargas/Datos históricos EUR_USD.csv"
+
+# Leer CSV con separador coma
+df <- read_csv(
+  csv_path,
+  locale = locale(decimal_mark = ".", grouping_mark = ","),
+  show_col_types = FALSE
+)
+
+# Normalizar nombres a minúscula
+names(df) <- tolower(names(df))
+
+# --- Funciones auxiliares ---
+parse_any_date <- function(x) {
+  if (inherits(x, "Date")) return(x)
+  if (inherits(x, "POSIXt")) return(as.Date(x))
+  x_chr <- as.character(x)
+  y <- suppressWarnings(parse_date_time(x_chr, orders = c("dmy","ymd","mdy","d.m.y","y.m.d","m.d.y")))
+  as.Date(y)
+}
+
+as_num_locale <- function(v) {
+  if (is.numeric(v)) return(v)
+  v_chr <- as.character(v)
+  v_chr <- str_replace_all(v_chr, "\\.", "")
+  v_chr <- str_replace_all(v_chr, ",", ".")
+  suppressWarnings(as.numeric(v_chr))
+}
+
+# Preparar datos
+dat <- df %>%
+  transmute(
+    date     = parse_any_date(.data[["fecha"]]),
+    apertura = as_num_locale(.data[["apertura"]])
+  ) %>%
+  filter(!is.na(date), !is.na(apertura)) %>%
+  arrange(date)
+
+# --- Gráfico sin nombres en los ejes ---
+p <- ggplot(dat, aes(x = date, y = apertura)) +
+  geom_line(color = "#00AF00", linewidth = 0.7) +
+  scale_x_date(date_breaks = "10 year", date_labels = "%Y") +
+  labs(
+    title   = NULL,
+    x       = NULL,
+    y       = NULL,
+  ) +
+  theme_minimal(base_size = 12) +
+  theme(
+    plot.title   = element_text(face = "bold"),
+    panel.grid = element_blank(),
+    axis.line = element_line(colour = "black"),
+  ) +
+  scale_y_continuous(labels = label_number(accuracy = 0.0001))
+
+print(p)
+@
+\caption{Evolución del tipo de cambio Euro/dolar (Fuente: Google Finance)}
+\end{figure}
+\subsection{Concepto de proceso estocástico, trayectorias y ejemplos}
+A lo largo de este tema, vamos a fijar un espacio de probabilidad $(\Omega, \mathcal{F}, \mathbb{P})$ y un subconjunto $\mathbb{T}\subset[0,\infty)$.
+\begin{definition}
+    Un \textbf{proceso estocástico} $(X_t)_{t\in \mathbb{T}}$ es una colección de variables aleatorias reales $X_t$ definidas en el espacio de probabilidad  $(\Omega, \mathcal{F}, \mathbb{P})$.
+\end{definition}
+Interpretamos $t$ como el tiempo (medido en cierta unidad).
+ \begin{itemize}[label=\textbullet]
+    \item Si $\mathbb{T}$ es contable (por ejemplo, $\mathbb{T}=\{0<1<2<\dots\} $), diremos que el proceso estocástico $(X_t)_{t\in \mathbb{T}}$ es de tiempo discreto.
+    \item Si $\mathbb{T}$ es un intervalo (por ejemplo, $\mathbb{T}=[0,T]$ o $\mathbb{T}=[0,\infty)$), diremos que el proceso estocástico es de tiempo continuo.
+\end{itemize}
+Para cada $t\in \mathbb{T}$ tenemos una variable aleatoria $X_t$. La variable aleatoria  $X_t$ tomará un valor numérico  $X_t(\omega)$ para cada $\omega\in \Omega$. A los posibles valores que toma un proceso estocástico se les llama \textbf{estados}. 
+\begin{itemize}[label=\textbullet]
+    \item Si para cada $t\in \mathbb{T}$ la variable aleatoria $X_t$ es de tipo discreto, diremos que el proceso estocástico  $(X_t)_{t\in \mathbb{T}}$ es de estado discreto.
+    \item Si para cada $t\in \mathbb{T}$ la variable aleatoria $X_t$ es de tipo continuo, diremos que el proceso estocástico  $(X_t)_{t\in \mathbb{T}}$ es de estado continuo.
+\end{itemize}
+\newpage
+\begin{figure}[h]
+    \centering
+    \begin{tabular}{|m{2.5cm}|m{4cm}|m{4cm}|}
+        \hline
+         & $t$ \textbf{Discreto} & $t$  \textbf{Continuo} \\ \hline
+    $X$ \textbf{Discreta} & Proceso de estado discreto y tiempo discreto (Unidades prod. mensualmente de un producto) & Proceso de estado discreto y tiempo continuo (Unidades producidas hasta $t$) \\ \hline
+$X$ \textbf{Continua} & Proceso de estado continuo y tiempo discreto (Toneladas de producción diaria de un producto) & Proceso de estado continuo y tiempo continuo (Velocidad de un vehículo en el instante $t$) \\ \hline
+    \end{tabular}
+    \caption{Tipos de procesos estocásticos}
+\end{figure}
+
+En lo que sigue, siempre supondremos que $0\in \mathbb{T}$. Esta condición no es realmente restrictiva, ya que podemos desplazar el tiempo por una constante para garantizar que dicha condición se cumple.
+\subsection{Procesos gaussianos}
+\begin{definition}
+   Diremos que un proceso estocástico $(X_t)_{t\in T}$ es gaussiano si que cualquier colección de índices temporales $t_1,t_2,\dots,t_n \in T$, el vector aleatorio $(X_{t_1}, X_{t_2},\dots,X_{t_n})$ sigue un \textbf{Normal multivariante}.
+\end{definition}
+\newpage
+\begin{center}
+    \textbf{\Large Hoja 1: Problemas de Introducción a los Procesos Estocásticos} 
+\end{center}
+\begin{enumerate}[label=\color{red}\textbf{\arabic*)}]
+    \item \lb{¿Qué es un proceso estocástico y cómo se define formalmente?}
+    \item \lb{¿Cuáles son los tipos principales de procesos estocásticos en función del tiempo?}
+    \item \lb{¿Cómo se clasifica un proceso estocástico según los estados que puede formar?} 
+\end{enumerate}
+\end{document}
