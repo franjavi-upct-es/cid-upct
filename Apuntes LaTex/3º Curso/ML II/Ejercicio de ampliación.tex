@@ -1,0 +1,76 @@
+\input{../../Macros.tex}
+\title{Machine Learning II\\Ejercicio de ampliación}
+
+\begin{document}
+\maketitle
+\begin{itemize}[label=\color{red}\textbullet, leftmargin=*]
+    \item \lb{He instalado una alarma antirrobo en mi casa, pudiendo ésta activarse $(A)$ tanto si hay un robo $(B)$ como si se produce un terremoto $(E)$.} 
+    \item \lb{Las especificaciones de la alarma son las siguientes: \[ 
+            \begin{array}{ccc} 
+                \hline 
+                B & E & P(A|B,E)\\ \hline 
+                0 & 0 & 0.001\\ 
+                0 & 1 & 0.29\\ 
+                1 & 0 & 0.94\\ 
+                1 & 1 & 0.95\\ \hline 
+            \end{array} 
+        \]} 
+    \item \lb{La tasa diaria de robos en mi vecindario es del $0.1\%$, mientras que la tasa diaria de terremotos en esta zona es del $0.2\%$.} 
+    \item \lb{Si suena la alarma, alguno de mis dos vecinos podría avisarme por teléfono} 
+    \item \lb{Mi vecino Juan me llamará $(J)$ con una probabilidad del $90\%$ si realmente se produce una alarma en mi domicilio, aunque también podría confundirla con el timbre de la puerta con una probabilidad de $5\%$.} 
+    \item \lb{Mi vecina María me llamará $(M)$ si oye la alarma, lo cual tiene una probabilidad del $70\%$ puesto que siempre escucha la múscia muy alta, pudiendo además equivocarse con una probabilidad del $1\%$.} 
+\end{itemize}
+\lb{¿Qué probabilidad hay de que se esté produciendo un robo en mi casa si recibo una llamada de María?} 
+\begin{enumerate}[label=\arabic*)]
+    \item Datos de problema
+        \begin{itemize}[label=\textbullet]
+            \item $P(B)=0.001,\, P(\neg B)=(1-P(B))=0.999$.
+            \item $P(E)=0.002,\,P(\neg E)=(1-P(E))=0.998$. 
+            \item Para María:
+                \begin{itemize}[label=\textbullet]
+                    \item $P(M|A)=0.70$ (llama si oye la alarma, 70\%).
+                    \item  $P(M|\neg A)=0.01$ (se confunde, 1\%).
+                \end{itemize}
+        \end{itemize}
+    \item Probabilidad de que suene la alarma $P(A)$
+         \[
+            P(A)=\lbb{P(A|\neg B,\neg E)P(\neg B)P(\neg E)}{t_1}+\lbb{P(A|\neg B,E)P(\neg B)P(E)}{t_2}+\lbb{P(A|B,\neg E)P(B)P(\neg E)}{t_3}+\lbb{P(A|B,E)P(B)P(E)}{t_4}.
+        \] 
+        Cálculo numérico:
+        \begin{itemize}[label=\textbullet]
+            \item $t_1=0.001\cdot 0.999\cdot 0.998=0.000997002$
+            \item $t_2=0.29\cdot 0.999\cdot 0.002=0.00057942$
+            \item $t_3=0.94\cdot 0.001\cdot 0.998=0.00093812$
+            \item $t_4=0.95\cdot 0.001\cdot 0.002=0.0000019$
+        \end{itemize}
+        \[
+        P(A)=t_1+t_2+t_3+t_4=0.002516442
+        \] 
+    \item Probabilidad de recibir llamada de María $P(M)$
+         \[
+        P(M)=P(M|A)P(A)+P(M|\neg A)P(\neg A)=0.7\cdot P(A)+0.01\cdot (1-P(A))=0.01173634498
+        \] 
+    \item Probabilidad conjunto $P(B,M)$
+
+        Descomponemos por  $A$:  \[
+        P(B,M)=P(M|A)P(A,B)+P(M|\neg A)P(\neg A,B).
+        \] 
+        Primero $P(A,B)$:
+         \[
+        P(A,B)=P(A|B,\neg E)P(B)P(\neg E)+P(A|B,E)P(B)P(E)=0.00093812+0.0000019=0.00094002
+        \] 
+        Luego $P(\neg A,B)=P(B)-P(A,B)=0.001-0.00094002=0.00005998$.
+
+        Así, \[
+            \begin{aligned}
+                P(B,M)&= 0.7\cdot 0.00094002+0.01\cdot 0.00005998\\
+                &= 0.000658014+0.0000005998 \\
+                &= 0.0006586138 \\
+            \end{aligned}
+        \] 
+    \item Posterior buscado $P(B|M)$
+         \[
+        P(B|M)=\dfrac{P(B,M)}{P(M)}=\dfrac{0.0006586138}{0.01173634498}\approx 0.5612.
+        \] 
+\end{enumerate}
+\end{document}
