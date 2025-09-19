@@ -1,0 +1,32 @@
+\begin{center}
+    \textbf{\Large Hoja 1: Problemas de Introducción a los Procesos Estocásticos} 
+\end{center}
+\begin{enumerate}[label=\color{red}\textbf{\arabic*)}]
+    \item \lb{¿Qué es un proceso estocástico y cómo se define formalmente?}
+    \item \lb{¿Cuáles son los tipos principales de procesos estocásticos en función del tiempo?}
+    \item \lb{¿Cómo se clasifica un proceso estocástico según los estados que puede formar?} 
+    \item \lb{¿Qué es una trayectoria en el contexto de un proceso estocástico?} 
+    \item \lb{¿Qué es un pasea aleatorio y cómo se define en términos de variables aleatorias? Simular, usando  \textbf{\texttt{R}}, 4 trayectorias de un paseo aleatorio con variables aleatorias i.i.d. dadas por la distribución $N(0,1)$.} 
+    \item \lb{¿Qué características tiene un paseo aleatorio simple y en qué se diferencia del paseo aleatorio simétrico? Simular, usando \textbf{\texttt{R}}, 6 trayectorias de un paseo aleatorio simple $p=\dfrac{1}{3}$.} 
+    
+<<echo=TRUE>>=
+a <- 10
+a
+@
+    
+    \item \lb{} 
+    \item \lb{} 
+    \item \lb{} 
+    \item \lb{} 
+    \item \lb{} 
+    \item \lb{} 
+    \item \lb{} 
+    \item \lb{} 
+    \item \lb{} 
+    \item \lb{} 
+    \item \lb{} 
+    \item \lb{} 
+    \item \lb{} 
+    \item \lb{} 
+    \item \lb{} 
+\end{enumerate}

@@ -1,30 +1,3 @@
-\input{../../Macros.tex}
-\title{Procesos Estocásticos y Series Temporales}
-\usepackage{amsthm}
-\usepackage{knitr}
-
-\newtheorem{definition}{Definición}[subsection]
-\newtheorem{theorem}{Teorema}[subsection]
-% \usepackage{framed}
-\newcolumntype{C}[1]{>{\centering\arraybackslash}p{#1}}
-% Colores que knitr suele referenciar
-\definecolor{fgcolor}{rgb}{0.345,0.345,0.345}
-\definecolor{shadecolor}{rgb}{0.97,0.97,0.97}
-\usepackage{xcolor}
-\usepackage{framed}
-\usepackage{fancyvrb}
-\usepackage{alltt}
-\usepackage{listings}
-\lstset{basicstyle=\ttfamily,breaklines=true}
-
-
-
-
-\begin{document}
-\maketitle
-\tableofcontents
-\newpage
-
 \section{Introducción a los procesos estocásticos}
 Los procesos estocásticos modelizan cantidades numéricas que cambian con el tiempo de manera aleatoria. Ejemplos del mundo real de estos procesos incluyen:
 \begin{enumerate}
@@ -37,15 +10,73 @@ Los procesos estocásticos modelizan cantidades numéricas que cambian con el ti
 Los procesos estocásticos proporcionan marcos matemáticos para modelar y comprender estos fenómenos, lo que permite hacer predicciones y tomar decisiones informadas.
 
 \begin{figure}[h]
-\begin{knitrout}
-\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
+<<echo=FALSE, fig=TRUE, fig.width=20, fig.height=7, out.width='0.7\\textwidth', fig.align='center'>>=
+suppressPackageStartupMessages({
+  library(readr)
+  library(dplyr)
+  library(ggplot2)
+  library(lubridate)
+  library(scales)
+  library(stringr)
+})
 
-{\centering \includegraphics[width=0.7\textwidth]{figure/unnamed-chunk-6-1} 
+csv_path <- "/home/pyros05/Descargas/Datos históricos EUR_USD.csv"
 
+# Leer CSV con separador coma
+df <- read_csv(
+  csv_path,
+  locale = locale(decimal_mark = ".", grouping_mark = ","),
+  show_col_types = FALSE
+)
+
+# Normalizar nombres a minúscula
+names(df) <- tolower(names(df))
+
+# --- Funciones auxiliares ---
+parse_any_date <- function(x) {
+  if (inherits(x, "Date")) return(x)
+  if (inherits(x, "POSIXt")) return(as.Date(x))
+  x_chr <- as.character(x)
+  y <- suppressWarnings(parse_date_time(x_chr, orders = c("dmy","ymd","mdy","d.m.y","y.m.d","m.d.y")))
+  as.Date(y)
 }
 
+as_num_locale <- function(v) {
+  if (is.numeric(v)) return(v)
+  v_chr <- as.character(v)
+  v_chr <- str_replace_all(v_chr, "\\.", "")
+  v_chr <- str_replace_all(v_chr, ",", ".")
+  suppressWarnings(as.numeric(v_chr))
+}
 
-\end{knitrout}
+# Preparar datos
+dat <- df %>%
+  transmute(
+    date     = parse_any_date(.data[["fecha"]]),
+    apertura = as_num_locale(.data[["apertura"]])
+  ) %>%
+  filter(!is.na(date), !is.na(apertura)) %>%
+  arrange(date)
+
+# --- Gráfico sin nombres en los ejes ---
+p <- ggplot(dat, aes(x = date, y = apertura)) +
+  geom_line(color = "#00AF00", linewidth = 0.7) +
+  scale_x_date(date_breaks = "10 year", date_labels = "%Y") +
+  labs(
+    title   = NULL,
+    x       = NULL,
+    y       = NULL,
+  ) +
+  theme_minimal(base_size = 12) +
+  theme(
+    plot.title   = element_text(face = "bold"),
+    panel.grid = element_blank(),
+    axis.line = element_line(colour = "black"),
+  ) +
+  scale_y_continuous(labels = label_number(accuracy = 0.0001))
+
+print(p)
+@
 \caption{Evolución del tipo de cambio Euro/dolar (Fuente: Google Finance)}
 \end{figure}
 \subsection{Concepto de proceso estocástico, trayectorias y ejemplos}
@@ -93,15 +124,24 @@ Supongamos también que el valor de $R>0$ es fijado cuando metes el dinero en la
 
 Para cada observación particular $R=r$ de la variable  $R$ tendremos una trayectoria del proceso estocástico  $(X_t)_{t=0,1,2,\dots}$. Podemos simular y dibujar cinco trayectorias de este proceso estocástico mediante el siguiente código en \textbf{\texttt{R}}: 
 
-\begin{knitrout}
-\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
+<<echo=FALSE, fig=TRUE, fig.width=8, fig.height=5, out.width='0.7\\textwidth', fig.align='center'>>=
+set.seed(145)
+nsim <- 20
+nlanzamientos <- 100
+y <- sample(c(-1,1), size=nlanzamientos, replace = TRUE)
+x <- c(0, cumsum(y))
+tiempo <- 0:nlanzamientos
 
-{\centering \includegraphics[width=0.7\textwidth]{figure/unnamed-chunk-7-1} 
+colores <- rainbow(nsim)
 
+plot(tiempo, x, col=colores[1], type = "l", lty = 1, ylim=c(-20, 20))
+
+for (i in 2:nsim){
+  y <- sample(c(-1,1), size=nlanzamientos, replace = TRUE)
+  x <- c(0, cumsum(y))
+  lines(tiempo, x, col=colores[i])
 }
-
-
-\end{knitrout}
+@
 
 \subsection{Funciones asociadas a un proceso estocástico}
 
@@ -265,15 +305,13 @@ Claramente el ruido blanco gaussiano es un proceso gaussiano. Además, $\mu_X(t)
 
 Podemos simular en \textbf{\texttt{R}} una trayectoria del ruido blanco gaussiano: 
 
-\begin{knitrout}
-\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
-
-{\centering \includegraphics[width=0.7\textwidth]{figure/unnamed-chunk-8-1} 
-
-}
-
-
-\end{knitrout}
+<<echo=FALSE, fig=TRUE, fig.width=8, fig.height=5, out.width='0.7\\textwidth', fig.align='center'>>=
+set.seed(11)
+sigma <- 1
+tiempos = seq(from = 0, to = 1, by = 0.001)
+x=rnorm(length(tiempos), 0, sigma)
+plot(tiempos, x, type = "l", lty = 1)
+@
 
 Obtenemos una trayectoria extremadamente irregular. Además, observamos a simple vista un comportamiento estacionario del proceso.
 \subsubsection{Movimiento Browniano}
@@ -325,68 +363,3 @@ Calcular función de medias, varianzas, covarianzas y correlaciones.
         
         Sí, porque tiene la función de medias constante y la función de covarianzas (o de correlaciones) depende sólo del salto de tiempo $h$.
 \end{itemize}
-\newpage
-
-\begin{center}
-    \textbf{\Large Hoja 1: Problemas de Introducción a los Procesos Estocásticos} 
-\end{center}
-\begin{enumerate}[label=\color{red}\textbf{\arabic*)}]
-    \item \lb{¿Qué es un proceso estocástico y cómo se define formalmente?}
-    \item \lb{¿Cuáles son los tipos principales de procesos estocásticos en función del tiempo?}
-    \item \lb{¿Cómo se clasifica un proceso estocástico según los estados que puede formar?} 
-    \item \lb{¿Qué es una trayectoria en el contexto de un proceso estocástico?} 
-    \item \lb{¿Qué es un pasea aleatorio y cómo se define en términos de variables aleatorias? Simular, usando  \textbf{\texttt{R}}, 4 trayectorias de un paseo aleatorio con variables aleatorias i.i.d. dadas por la distribución $N(0,1)$.} 
-    \item \lb{¿Qué características tiene un paseo aleatorio simple y en qué se diferencia del paseo aleatorio simétrico? Simular, usando \textbf{\texttt{R}}, 6 trayectorias de un paseo aleatorio simple $p=\dfrac{1}{3}$.} 
-    
-\begin{knitrout}
-\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
-\begin{verbatim}
-a <- 10
-a
-## [1] 10
-\end{verbatim}
-\end{kframe}
-\end{knitrout}
-    
-    \item \lb{} 
-    \item \lb{} 
-    \item \lb{} 
-    \item \lb{} 
-    \item \lb{} 
-    \item \lb{} 
-    \item \lb{} 
-    \item \lb{} 
-    \item \lb{} 
-    \item \lb{} 
-    \item \lb{} 
-    \item \lb{} 
-    \item \lb{} 
-    \item \lb{} 
-    \item \lb{} 
-\end{enumerate}
-\newpage
-
-\section{Cadenas de Markov}
-En este tema vamos a estudiar un tipo particular de procesos estocásticos: las cadenas de Markov. Este tipo de procesos describen cambios de estado en un sistema, con la peculiaridad de que dichos cambios dependen únicamente del estado actual y no están influencidos por ningún estado que haya tomado previamente.
-
-Por ejemplo, imaginemos un aparcamiento y consideremos la variable $X_n$ representando el número de plazas de aparcamiento ocupadas en cada instante de tiempo  $n\in \{0,1,2,\dots\} $. Claramente el valor de $X_{n+1}$ dependerá de $X_n$ ya que  $X_{n+1}$ se obtiene de $X_n$ sumándole los coches que han aparcado y restándole los que se han ido entre los instantes  $n$ y  $n+1$. Por tanto, conocido  $X_n$, parece razonable que la cantidad  $X_{n+1}$ no dependa de los valores previos $X_0,X_1,X_2,\dots,X_{n-1}$.
-
-Este tipo de procesos, en los que el valor $X_{n+1}$ depende exclusivamente de $X_n$ y no se ve influenciado por los estados previos  $X_0,X_1,X_2,\dots,x_{n-1}$ es formalizado matemáticamente mediante el concepto de cadena de Markov.
-
-\subsection{Cadenas de Markov de tiempo discreto}
-\begin{definition}
-    Un proceso estocástico $(X_n)_{n=0,1,2,\dots}$ de tiempo discreto se dice que es una \textbf{cadena de Markov} (de tiempo discreto) si se verifica:
-    \begin{enumerate}[label=\arabic*)]
-        \item Cada $X_n$ toma valores en un conjunto numerable (es decir, finito o infinito numerable)  $\mathcal{S}$ llamado \textbf{espacio de estados}.
-        \item Se cumple que 
-            \begin{equation}\label{eq:1}
-                \mathbb{P}(X_{n+1}=a_{n+1}|X_n=a_n,X_{n-1}=a_{n-1},\dots,X_0=a_0)\\
-                =\mathbb{P}(X_{n+1}=a_{n+1}|X_n=a_n),
-            \end{equation}
-            donde $a_0,a_1,\dots,a_n,a_{n+1}\in \mathcal{S}$.
-    \end{enumerate}
-\end{definition}
-La condición \ref{eq:1} arriba se llama \textbf{propiedad de Markov}. La interpretación es que la probabilidad de cualquier valor futuro del proceso, dado el valor actal, no está influenciada por ningún valor pasado. Se dice que las cadenas de Markov son procesos estocásticos sin memoria.
-
-\textbf{Ejemplo. (PageRank)} es un algoritmo creado y desarrollado por la compañía teconológica estadounidense Google para ordenar las apariciones  
-\end{document}

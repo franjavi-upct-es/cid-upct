@@ -1,0 +1,23 @@
+\section{Cadenas de Markov}
+En este tema vamos a estudiar un tipo particular de procesos estocásticos: las cadenas de Markov. Este tipo de procesos describen cambios de estado en un sistema, con la peculiaridad de que dichos cambios dependen únicamente del estado actual y no están influencidos por ningún estado que haya tomado previamente.
+
+Por ejemplo, imaginemos un aparcamiento y consideremos la variable $X_n$ representando el número de plazas de aparcamiento ocupadas en cada instante de tiempo  $n\in \{0,1,2,\dots\} $. Claramente el valor de $X_{n+1}$ dependerá de $X_n$ ya que  $X_{n+1}$ se obtiene de $X_n$ sumándole los coches que han aparcado y restándole los que se han ido entre los instantes  $n$ y  $n+1$. Por tanto, conocido  $X_n$, parece razonable que la cantidad  $X_{n+1}$ no dependa de los valores previos $X_0,X_1,X_2,\dots,X_{n-1}$.
+
+Este tipo de procesos, en los que el valor $X_{n+1}$ depende exclusivamente de $X_n$ y no se ve influenciado por los estados previos  $X_0,X_1,X_2,\dots,x_{n-1}$ es formalizado matemáticamente mediante el concepto de cadena de Markov.
+
+\subsection{Cadenas de Markov de tiempo discreto}
+\begin{definition}
+    Un proceso estocástico $(X_n)_{n=0,1,2,\dots}$ de tiempo discreto se dice que es una \textbf{cadena de Markov} (de tiempo discreto) si se verifica:
+    \begin{enumerate}[label=\arabic*)]
+        \item Cada $X_n$ toma valores en un conjunto numerable (es decir, finito o infinito numerable)  $\mathcal{S}$ llamado \textbf{espacio de estados}.
+        \item Se cumple que 
+            \begin{equation}\label{eq:1}
+                \mathbb{P}(X_{n+1}=a_{n+1}|X_n=a_n,X_{n-1}=a_{n-1},\dots,X_0=a_0)\\
+                =\mathbb{P}(X_{n+1}=a_{n+1}|X_n=a_n),
+            \end{equation}
+            donde $a_0,a_1,\dots,a_n,a_{n+1}\in \mathcal{S}$.
+    \end{enumerate}
+\end{definition}
+La condición \ref{eq:1} arriba se llama \textbf{propiedad de Markov}. La interpretación es que la probabilidad de cualquier valor futuro del proceso, dado el valor actal, no está influenciada por ningún valor pasado. Se dice que las cadenas de Markov son procesos estocásticos sin memoria.
+
+\textbf{Ejemplo. (PageRank)} es un algoritmo creado y desarrollado por la compañía teconológica estadounidense Google para ordenar las apariciones  
