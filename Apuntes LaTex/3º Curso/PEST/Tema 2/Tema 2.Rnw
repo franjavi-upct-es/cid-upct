@@ -18,6 +18,360 @@ Este tipo de procesos, en los que el valor $X_{n+1}$ depende exclusivamente de $
             donde $a_0,a_1,\dots,a_n,a_{n+1}\in \mathcal{S}$.
     \end{enumerate}
 \end{definition}
-La condición \ref{eq:1} arriba se llama \textbf{propiedad de Markov}. La interpretación es que la probabilidad de cualquier valor futuro del proceso, dado el valor actal, no está influenciada por ningún valor pasado. Se dice que las cadenas de Markov son procesos estocásticos sin memoria.
+La condición (\ref{eq:1}) arriba se llama \textbf{propiedad de Markov}. La interpretación es que la probabilidad de cualquier valor futuro del proceso, dado el valor actal, no está influenciada por ningún valor pasado. Se dice que las cadenas de Markov son procesos estocásticos sin memoria.
 
-\textbf{Ejemplo. (PageRank)} es un algoritmo creado y desarrollado por la compañía teconológica estadounidense Google para ordenar las apariciones  
+\textbf{Ejemplo. (PageRank)} es un algoritmo creado y desarrollado por la compañía teconológica estadounidense Google para ordenar las apariciones de las páginas en cada búsqueda, dando preferencia a aquellas páginas que sean más "importantes" o "populares". Para medir esto, se analiza la cadena de Markov resultante de un individuo o "surfeador de la web" que va pulsando links al azar en un conjunto de páginas de internet. Por ejemplo, supongamos que el surfeador de la web navega haciendo clics al azar en las páginas A,B,C,D donde:
+\begin{itemize}[label=\textbullet]
+    \item A tiene enlace a B.
+    \item B tiene enlaces a A y C.
+    \item C tiene enlace a A.
+    \item D tienes enlaces a las otras tres páginas.
+\end{itemize}
+Este proceso da lugar a una cadena de Markov con espacio de estados $\{A,B,C,D\} $, el cuál puede ser descrito mediante el siguiente grafo.
+\begin{center}
+\begin{tikzpicture}[node distance=3cm, main node/.style={circle,draw,font=\sffamily\large\bfseries}, >=latex]
+    \node[main node] (A) {A};
+    \node[main node] (B) [right of=A] {B};
+    \node[main node] (C) [below of=A] {C};
+    \node[main node] (D) [below of=B] {D};
+    \draw[->] (A) edge [bend left] (B);
+    \draw[->] (B) edge [bend left] (A);
+    \draw[->] (B) -- (C);
+    \draw[->] (D) -- (A);
+    \draw[->] (C) edge [bend left] (A);
+    \draw[->] (D) edge [bend right] (B);
+    \draw[->] (D) edge [bend left] (C);
+\end{tikzpicture}
+\end{center}
+Además, tenemos las siguientes probabilidades de transición entre estados.
+
+\begin{center}
+\begin{tabular}{c|c|c|c|c|}
+     & \textbf{A} & \textbf{B} & \textbf{C} & \textbf{D}\\ \hline
+    \textbf{A} & 0\% & 100\% & 0\% & 0\%\\ \hline
+    \textbf{B} & 50\% & 0\% & 50\% & 0\%\\ \hline
+    \textbf{C} & 100\% & 0\% & 0\% & 0\%\\ \hline
+    \textbf{D} & 33.3333\% & 33.3333\% & 33.3333\% & 0\%\\ \hline
+\end{tabular}
+\end{center}
+Claramente este proceso da lugar a una cadena de Markov, ya que, en cada paso, las probabilidades de visitar una página u otra, sólo depende de en qué página se encuentre el surfeador, sin importar qué páginas haya visitado anteriormente.
+
+El algoritmo PageRank trata de determinar la probabilidad con la que una página es visitada a medida que el surfeador hace más y más clics, considerando como más importantes aquellas páginas para las que esta probabilidad. Éste es el criterio usado para ordenar las páginas en cada búsqueda en Google. Analizaremos este problema en detalle al final del tema.
+
+\textbf{Ejemplo.} El paseo aleatorio simétrico $(X_n)_{n=0,1,2,\dots}$ es una cadena de Markov con espacio de estados infinito \[
+\mathcal{S}=\Z=\{\dots,-3,-2,-1,0,1,2,3,\dots\} .
+\] 
+En este caso, para todo $i\in \mathcal{S}$ \[
+\begin{array}{c}
+    \mathbb{P}(X_{n+1}=i+1|X_n=i)=\mathbb{P}(X_{n+1}=i-1|X_n=i)=\dfrac{1}{2},\\
+    \mathbb{P}(X_{n+1}=j|X_n=i)=0\text{ si }j\neq i\pm 1.
+\end{array}
+\] 
+\begin{definition}
+    Supongamos que $(X_{n})_{n=0,1,2,\dots}$ es una cadena de Markov con espacio de estados $\mathcal{S}$. Las \textbf{probabilidades de transición} son las probabilidades \[
+    p_{x,y}(n)=\mathbb{P}(X_n=y|X_{n-1}=x),
+    \] donde $x,y\in \mathcal{S}$ y $n=1,2,3,\dots$
+\end{definition}
+\begin{definition}
+    Decimos que la cadena de Markov $(X_n)_{n=0,1,2,\dots}$ es \textbf{homogénea} si las probabilidades de transición no dependen del tiempo. En tal caso, definimos \[
+    \begin{aligned}
+        p_{x,y}&= \mathbb{P}(X_n=y|X_{n-1}=x) \\
+        &= \mathbb{P}(X_1=y|X_0=x) \\
+    \end{aligned}
+    \]  donde hemos eliminado $n$ de la notación.
+\end{definition}
+En el resto de este tema vamos a trabajar con cadenas de Markov homogéneas con un número de estados \textbf{finito}. Por lo que a partir de ahora, cada vez que nos refiramos a una \textbf{cadena} estaremos hablando de una cadena de Markov con esas características.
+
+En general, usaremos que $(X_{n})_{n=0,1,2,\dots}$ es una cadena con espacio de estados finito que denotaremos por $\mathcal{S}=\{1,2,3,\dots,N\} $.
+\begin{definition}
+    Definimos la \textbf{matriz de transición} de $(X_n)_{n=0,1,2,\dots}$ como \[
+    P=(p_{i,j})_{i,j=1,2,\dots,N}= \begin{bmatrix} 
+        p_{1,1} & p_{1,2} & \cdots & p_{1,N}\\
+        p_{2,1} & p_{2,2} & \cdots & p_{2,N}\\
+        \cdots & \cdots & \cdots & \cdots\\
+        p_{N,1} & p_{N,2} & \cdots & p_{N,N}
+    \end{bmatrix} 
+    \]  
+\end{definition}
+Obsérvese que las entradas de la fila 1 describen todas las probabilidades posibles condicionadas a empezar en el estado $i=1$. Por tanto, la suma de todas ellas debe ser igual a 1. Obviamente, lo mismo es cierto para el resto de filas, es decir,  $p_{i,1}+p_{i,2}+\dots+p_{i,N}=1$ para cada $i$. Por tanto, en una matriz de transcición, la suma de todos los elementos de cualquier fila debe de ser 1. Sin embargo, esta condición no tiene por qué verificarse para las columnas de una matriz de transición.
+
+ \textbf{Ejemplo. (Urnas de Ehrenfest)} Supongamos que tenemos dos urnas, $U_1$ y $U_2$. En ellas están distribuidas $N$ bolas numeradas. En cada paso, se elige un número al azar entre  $\{1,2,\dots,N\} $. A continuación se observa en qué urna está la bola con el número elegido y se cambia de urna. Denotemos por $X_n$ el número de bolas contenidas en la urna  $U_1$ en tiempo $n$. De esta manera, definimos una cadena  $(X_n)_{n=0,1,2,\dots}$ con espacio de estados $\mathcal{S}=\{0,1,2,\dots,N\} $ y probabilidades de transición
+ \[
+ \begin{array}{l}
+     \mathbb{P}(X_n=i+1|X_{n-1}=i)=\dfrac{N-i}{N},\\
+     \mathbb{P}(X_n=i-1|X_{n-1}=i)=\dfrac{i}{N},\\
+     \mathbb{P}(X_n=j|X_{n-1}=i)=0\quad\text{ si }j\neq i\pm 1.
+ \end{array}
+ \] 
+ Por ejemplo, si $N=3$ tenemos espacio de estados  $\{0,1,2,3\} $ y una matriz de transición \[
+ P=\begin{bmatrix} 
+     0 & 1 & 0 & 0\\
+     \tfrac{1}{3} & 0 & \tfrac{2}{3} & 0\\
+     0 & \tfrac{2}{3} & 0 & \tfrac{1}{3}\\
+     0 & 0 & 1 & 0
+ \end{bmatrix} .
+ \] 
+ \textbf{Ejemplo. (Ruina del jugador)} Consideremos un individuo que juega a la ruleta, que posee una riqueza inicial de $X_0$ euros, y que apuesta 1 euro al rojo en cada jugada con probabilidad de ganar $p$. El jugador seguirá apostando hasta que, o bien alcance una riqueza objetivo  $M$, o bien hasta que se arruine. El proceso  $(X_n)_{n=0,1,2,\dots}$ de la riqueza acumulada hasta la jugada $n$ es una cadena de Markov con espacio de estados finito  $\mathcal{S}=\{0,1,\dots,M\} $.
+
+<<echo=FALSE, fig=TRUE, fig.width=7, fig.height=5, out.width='0.7\\textwidth', fig.align='center'>>=
+# Ruina del jugador simulation
+
+# Parameters
+set.seed(123)         # For reproducibility
+n_players <- 10       # Number of players (simulations)
+n_rounds <- 250       # Maximum number of rounds
+p_win <- 0.49         # Probability of winning a round
+initial_capital <- 10 # Starting capital (X0)
+goal <- 30            # Target capital (M)
+
+# Matrix to store trajectories
+trajectories <- matrix(NA, nrow = n_rounds + 1, ncol = n_players)
+trajectories[1, ] <- initial_capital
+
+# Simulate each player's path
+for (player in 1:n_players) {
+  capital <- initial_capital
+  
+  for (round in 1:n_rounds) {
+    if (capital == 0 || capital == goal) {
+      break
+    }
+    
+    outcome <- ifelse(runif(1) < p_win, 1, -1)
+    capital <- capital + outcome
+    capital <- max(min(capital, goal), 0)
+    
+    trajectories[round + 1, player] <- capital
+  }
+}
+
+# Plot
+matplot(
+  trajectories,
+  type = "l",
+  lty = 1,
+  col = rainbow(n_players),
+  ylim = c(0, goal),
+  xlab = "Numero de partidas",
+  ylab = "Capital del jugador"
+)
+abline(h = goal, lty = 2)  # Dashed line for target capital
+
+@
+
+En este caso, el proceso de la fortuna acumulada $(X_n)_{n=0,1,2,\dots}$ es una cadena de estados $\{0,1,2,\dots,M\} $ y transición 
+\[
+P=\begin{bmatrix} 
+    1 & 0 & 0 & 0 & \cdots & 0 & 0 & 0\\
+    1-p & 0 & p & 0 & \cdots & 0 & 0 & 0\\
+    0 & 1-p & 0 & p & \cdots & 0 & 0 & 0\\
+    \vdots & \vdots & \vdots & \vdots& \vdots & \vdots & \vdots & \vdots\\
+    0 & 0 & 0 & 0 & \cdots & 0 & p & 0\\
+    0 & 0 & 0 & 0 & \cdots & 1-p & 0 & p\\
+    0 & 0 & 0 & 0 & \cdots & 0 & 0 & 1\\
+\end{bmatrix} 
+\] 
+\subsection{Matriz de transición de $n$ pasos}
+En esta sección, sea $(X_n)_{n=0,1,2,\dots}$ una cadena con espacio de estados $\mathcal{S}=\{1,2,\dots,N\} $. En general, definimos lo siguiente.
+\begin{definition}
+    Dados dos estados $i,j\in \mathcal{S}$, definimos la probabilidad de transición de $n$ pasos  \[
+    p_{i,j}^{(n)}=\mathbb{P}(X_n=j|X_0=i).
+    \] 
+    Definimos la \textbf{matriz de transición} de $n$ pasos de  $(X_n)_{n=0,1,2,\dots}$ como \[
+    P^{(n)}=\left( p_{i,j}^{(n)} \right)_{i,j=1,2,\dots,N}=\begin{bmatrix} 
+        p_{1,1}^{(n)} & p_{1,2}^{(n)} & \cdots & p_{1,N}^{(n)}\\
+        p_{2,1}^{(n)} & p_{2,2}^{(n)} & \cdots & p_{2,N}^{(n)}\\
+        \cdots & \cdots & \cdots & \cdots\\
+        p_{N,1}^{(n)} & p_{N,2}^{(n)} & \cdots & p_{N,N}^{(n)}
+    \end{bmatrix} .
+    \] 
+\end{definition}
+Para entender cómo calcular la matriz de transición de $n$ pasos analicemos el siguiente ejemplo. Consideremos la cadena  $(X_n)_{n=0,1,2,\dots}$ dada por el grafo:
+\begin{center}
+	\begin{tikzpicture}[
+		state/.style={circle,draw,font=\sffamily\large\bfseries},
+		>=stealth
+		]
+		% Nodos
+		\node[state] (s1) at (0,0) {1};
+		\node[state] (s2) [right=2cm of s1] {2};
+		\node[state] (s3) [right=2cm of s2] {3};
+		\node[state] (s4) [right=2cm of s3] {4};
+		
+		% Bucles grandes (sin automata)
+		\draw[->] (s1) to[out=120,in=240,looseness=12] node[left]  {$\tfrac{1}{2}$} (s1);
+		\draw[->] (s4) to[out=60,in=-60,looseness=12]  node[right] {$1$}        (s4);
+		
+		% Enlaces
+		\draw[->] (s1) to[bend left=20] node[above] {$\tfrac{1}{2}$} (s2);
+		\draw[->] (s2) to[bend left=20] node[below] {$\tfrac{1}{3}$} (s1);
+		\draw[->] (s2) to[bend left=15] node[above] {$\tfrac{2}{3}$} (s3);
+		\draw[->] (s3) to[bend left=15] node[above] {$\tfrac{1}{2}$} (s4);
+		\draw[->] (s1) to[bend right=38] node[below] {$\tfrac{1}{2}$} (s3);
+	\end{tikzpicture}
+\end{center}
+Esta cadena tiene matriz de transición \[
+P=\begin{bmatrix} 
+    \tfrac{1}{2} & \tfrac{1}{2} & 0 & 0\\
+    \tfrac{1}{3} & 0 & \tfrac{2}{3} & 0\\
+    \tfrac{1}{2} & 0 & 0 & \tfrac{1}{2}\\
+    0 & 0 & 0 & 1
+\end{bmatrix} 
+\] 
+Queremos ver lo que ocurre tras dos pasos del proceso.
+
+Por ejemplo, veamos la probabilidad de llegar al estado 1 desde el estado 1 en dos pasos \[
+    p_{1,1}^{(2)}=\mathbb{P}(111)+\mathbb{P}(121)=p_{1,1}\cdot p_{1,1}+p_{1,2}\cdot p_{2,1}=\dfrac{1}{2}\cdot \dfrac{1}{2}+\dfrac{1}{2}\cdot \dfrac{1}{3}=\dfrac{5}{12}
+\] 
+Incluyendo todos los posibles caminos, incluso aquellos que no existen en el grafo, podemos poner \[
+\begin{aligned}
+    p_{1,1}^{(2)}&=\mathbb{P}(111)+\mathbb{P}(121)+\mathbb{P}(131)+\mathbb{P}(141) \\
+    &= p_{1,1} \cdot p_{1,1}+p_{1,2}\cdot p_{2,1}+p_{1,3}\cdot p_{3,1}+p_{1,4}\cdot p_{4,1}\\
+    &= \dfrac{1}{2}\cdot \dfrac{1}{2}+\dfrac{1}{2}\cdot \dfrac{1}{3}+0+0=\dfrac{5}{12}. \\
+\end{aligned}
+\]
+Escrito de esta manera, vemos que $p_{1,1}^{(2)}$ es la primera entrada de la matriz $P^2=P\cdot P$. Es más, tenemos que $P^2=(p_{i,j}^2)_{i,j\in \{1,2,3,4\} }$.
+
+En general, tenemos lo siguiente.
+\begin{theorem}
+    La matriz de transición de $n$ pasos vendrá dada por  $n$-ésima potencia de  $P$. Es decir,  \[
+    P^n=(p_{i,j}^{(n)})_{i,j=1,2,\dots,N}.
+    \] 
+\end{theorem}
+Como consecuencia, se tiene la relación: \[
+\pi^{(n)}=\pi^{(0)}\cdot P^n
+\] donde:
+\[
+\pi^{(0)}=\left( \pi_1^{(0)},\dots,\pi_N^{(0)} \right) 
+\] denota el vector de probabilidades iniciales de cada estado, es decir, $\pi_j^{(0)}=\mathbb{P}(X_0=j)$ y \[
+\pi^{(n)}=\left( \pi_1^{(n)},\dots,\pi_N^{(n)} \right) 
+\] denota el vector de probabilidades iniciales de cada estado en el instante $n$, es decir,  $\pi_j^{(n)}=\mathbb{P}(X_n=j)$, para todo $j=1,2,\dots,N$.
+
+Teniendo en cuenta el teorema anterior junto al hecho de que $P^{m+n}=P^mP^n$, tenemos lo siguiente.
+\begin{corollary}
+    (Ecuaciones de Chapman-Kolmogorov)
+    \[
+    p_{i,j}^{(n+m)}=\sum_{k=1}^{N} p_{i,k}^{(n)}p_{k,j}^{(m)}.
+    \] 
+\end{corollary}
+\subsection{Clasificación de los estados}
+Sea $(X_n)_{n=0,1,2,\dots}$ una cadena con espacio de estados $\mathcal{S}$. Dados dos estados $x,y\in \mathcal{S}$, definimos \[
+r_{x,y}=\mathbb{P}(X_n=y \text{ para algún }n\ge 1|X_0=x).
+\] 
+Esto es, $r_{x,y}$ es la probabilidad de que la cadena alcance el estado $y$ (en algún tiempo futuro) si la cadena se inicia en el estado  $x$.
+\begin{definition}
+    Sean $x,y\in \mathcal{S}$ con $x\neq y$.
+    \begin{enumerate}[label=\arabic*)]
+        \item Decimos que $y$ es  \textbf{accesible} desde $x$ si  $r_{x,y}>0$. En tal caso escribimos $x\to y$.
+        \item Decimos que $x$ se  \textbf{comunica} con $y$ si son accesibles entre sí (es decir, $x\to y,y\to x$). En tal caso escribimos $x\leftrightarrow y$. 
+    \end{enumerate}
+    Por convenio, se considera que cualquier estado $x$ es accesible desde sí mismo  $(x\to y)$, y que se comunica consigo mismo $(x\leftrightarrow x)$, incluyendo el caso de que $r_{x,x}=0$.
+\end{definition}
+Cada cadena puede ser representada con un grado. Podemos ver la accesibilidad simplemente observando si en el grafo existe un camino desde $x$ hasta  $y$ respetando la dirección de las flechas. Cuando haya caminos en ambas direcciones, significará que ambos estados se comunican.
+
+\begin{figure}[h]
+    \centering
+    \begin{tikzpicture}[
+		state/.style={circle,draw,font=\sffamily\large\bfseries},
+		>=stealth
+		]
+        \node[state] (1) at (2,0) {1};
+        \node[state] (2) at (4,0) {2};
+        \node[state] (3) at (6,0) {3};
+        \node[state] (4) at (3,2) {4};
+        \node[state] (5) at (0,1) {5};
+        \node[state] (6) at (0,-1) {6};
+
+        \draw[->] (5) to[in=45, out=135, looseness=10] node[above] {$\tfrac{1}{2} $} (5);
+        \draw[->] (4) to[in=45, out=135, looseness=10] node[above] {$\tfrac{1}{2} $} (4);
+        \draw[->] (6) to[in=225, out=315, looseness=10] node[below] {$\tfrac{1}{2} $} (6);
+        \draw[->] (3) to[in=45, out=-45, looseness=10] node[right] {$1$} (3);
+        \draw[->] (5) to[bend right=30] node[left] {$\tfrac{1}{2} $} (6);
+        \draw[->] (6) to[bend right=30] node[right] {$\tfrac{1}{2} $} (5);
+        \draw[->] (1) to[bend right=20] node[above] {$\tfrac{1}{3} $} (5);
+        \draw[->] (1) to[bend left=20] node[below] {$\tfrac{1}{3} $} (6);
+        \draw[->] (1) to[bend left=20] node[left] {$\tfrac{1}{3} $} (4);
+        \draw[->] (4) to[bend left=20] node[right] {$\tfrac{1}{2} $} (2);
+        \draw[->] (2) to[bend left=20] node[below] {$\tfrac{1}{2} $} (1);
+        \draw[->] (2) -- node[above] {$\tfrac{1}{2} $} (3);
+    \end{tikzpicture}
+    \caption{Observando las flechas podemos analizar la accesibilidad y la conexión entre estados}
+    \label{diagram:1}
+\end{figure}
+
+Por ejemplo, consideremos la cadena dada por el grafo de la Figura \ref{diagram:1}. Vemos que por ejemplo que  $1\to 3$ ya que podemos ir desde 1 hasta 3, siguiendo la dirección de las flechas, pasando por 4 y 2. Sin embargo, $3\nrightarrow 1$, ya que de 3 sólo se puede volver a saltar a sí mismo. Por otro lado,  $1\leftrightarrow 2$ ya que podemos conectar ambos estados por caminos tanto empezando en 1 como empezando en 2. 
+
+En general, si un estado $y$ es accesible desde un estado  $x$, siempre será posible encontrar un camino desde  $x$ hasta $y$ de modo que dicho camino no pase por un mismo estado dos veces. Para ello, basta considerar cualquier camino desde $x$ hasta  $y$, y si algún estado  $z$ aparece dos veces en el camino, eliminamos el tramos del camino desde la primera aparición de dicho estado hasta la última aparición del mismo, de modo que aparezca una sola vez. Dicho camino, al no pasar dos veces por un mismo estado, tendrá como mucho tantos pasos como estados tenga la cadena. En definitiva, tenemos lo siguiente.
+ 
+\begin{proposition}
+    Supongamos que el espacio de estados $\mathcal{S}$ tiene $N$ elementos. Entonces,  \[
+    x\to y\quad \text{si, y sólo si,}\quad p_{x,y}^{(n)}>0\text{ para algún }n\le N.
+    \] 
+\end{proposition}
+La relación entre estados definida por la propiedad de estar comunicados es una relación de equivalencia. Es decir, tenemos lo siguiente.
+\begin{proposition}
+    Dado el espacio de estados $\mathcal{S}$, siempre es posible dividirlo en clases disjuntas 
+    \begin{equation}\label{eq:2}
+    \mathcal{S}=C_1\cup C_2\cup \dots\cup C_n
+    \end{equation}
+    donde para todo $x,y\in \mathcal{S}$ se verifica \[
+    \begin{array}{c}
+        x\leftrightarrow y\quad \text{si }x,y\in C_i,\\
+        x\nleftrightarrow y\quad \text{si }x\in C_i,y\in C_j,\,i\neq j.
+    \end{array}
+    \] 
+\end{proposition}
+Las clases en (\ref{eq:2}) se llaman \textit{clases irreducibles}. La proposición nos dice que cada cadena admite  siempre una descomposición en clases irreducibles. Una cadena se dice que es \textit{irreducible} si sólo posee una clase irreducible, es decir, todos sus estados se comunican entre sí.
+
+Las clases irreducibles pueden ser fácilmente identificadas mirando el grafo de la cadena. Observando de nuevo el grado de la cadena de la Figura \ref{diagram:1}, vemos que $1\to 5$ pero $5\nrightarrow 1$, por lo que están en clases diferentes. Por otro lado,  $1\to 4,4\to 2,2\to 1$, por lo que están en la misma clase. Finalmente, 3 no está comunicado con nadie, luego forma él solo una clase. En la Figura \ref{diagram:2}, podemos ver las tres clases irreducibles de la cadena que hemos identificado.
+
+\begin{figure}[h]
+    \centering
+    \begin{tikzpicture}[
+		state/.style={circle,draw,font=\sffamily\large\bfseries},
+		>=stealth
+		]
+        \node[state] (1) at (2,0) {1};
+        \node[state] (2) at (4,0) {2};
+        \node[state] (3) at (6,0) {3};
+        \node[state] (4) at (3,2) {4};
+        \node[state] (5) at (0,1) {5};
+        \node[state] (6) at (0,-1) {6};
+
+        \draw[->] (5) to[in=45, out=135, looseness=10] node[above] {$\tfrac{1}{2} $} (5);
+        \draw[->] (4) to[in=45, out=135, looseness=10] node[above] {$\tfrac{1}{2} $} (4);
+        \draw[->] (6) to[in=225, out=315, looseness=10] node[below] {$\tfrac{1}{2} $} (6);
+        \draw[->] (3) to[in=45, out=-45, looseness=10] node[right] {$1$} (3);
+        \draw[->] (5) to[bend right=30] node[left] {$\tfrac{1}{2} $} (6);
+        \draw[->] (6) to[bend right=30] node[right] {$\tfrac{1}{2} $} (5);
+        \draw[->] (1) to[bend right=20] node[above] {$\tfrac{1}{3} $} (5);
+        \draw[->] (1) to[bend left=20] node[below] {$\tfrac{1}{3} $} (6);
+        \draw[->] (1) to[bend left=20] node[left] {$\tfrac{1}{3} $} (4);
+        \draw[->] (4) to[bend left=20] node[right] {$\tfrac{1}{2} $} (2);
+        \draw[->] (2) to[bend left=20] node[below] {$\tfrac{1}{2} $} (1);
+        \draw[->] (2) -- node[above] {$\tfrac{1}{2} $} (3);
+        \fill[rounded corners=5pt, fill=magenta,  fill opacity=.5] (-0.5,1.5) rectangle (0.5, -1.5); 
+        \fill[rounded corners=5pt, fill=cyan,  fill opacity=.5] (1.5,2.5) rectangle (4.5, -0.5); 
+        \fill[rounded corners=5pt, fill=green,  fill opacity=.5] (5.5,0.5) rectangle (6.5, -0.5); 
+    \end{tikzpicture}
+    \caption{Tenemos en distinto color las tres clases irreducibles}
+    \label{diagram:2}
+\end{figure}
+A continuación vamos a introducir un criterio para clasificar los distintos estados de una cadena.
+\begin{definition}
+    Sea $x\in \mathcal{S}$.
+    \begin{itemize}[label=\textbullet]
+        \item Decimos que $x$ es  \textbf{recurrente} si $r_{x,x}=1$.
+        \item Decimos que $x$ es  \textbf{transitorio} si $r_{x,x}<1$.
+        \item Decimos que $x$ es  \textbf{absorbente} si $p_{x,x}=1$.
+    \end{itemize}
+\end{definition}
+Si $x$ es recurrente, tendremos que una vez que la cadena alcanza el estado  $x$ entonces tendremos total certeza de que volverá a alcanzar el estado  $x$ en el futuro.
+
+Si  $x$ es transitorio, tendremo que una vez que la cadena alcanza el estado  $x$ entonces no tendremos certeza de que la cadena vuelva a alcanzar el estado  $x$ de nuevo.
+
+Si  $x$ es absorbente, tendremos que una vez que la cadena alcanza el estado $x$ con toda certeza permanezca en el estado  $x$ en el futuro. En particular, todo estado absorbente es también recurrente.
+
+Mirando de nuevo al grafo de la Figura \ref{diagram:2} arriba, vemos que el estado 3 es absorbente (y por tanto recurrente), ya que si comenzamos en él solo llegaremos al él mismo. Los estados 5 y 6 son recurrentes. Por ejemplo, vemos que si empezamos en 5 no podremos llegar a ningún otro estado excepto 6 y él mismo. Además, la única manera para que, empezando en 5, no se vuelva a visitar 5 es que la cadena se cambie al estado 6 y permanezca en ese estado en lo sucesivo. Pero la probabilidad de que eso ocurra es $\tfrac{1}{2}\cdot \tfrac{1}{2}\cdot \tfrac{1}{2}\cdot \dots=0$. Así que con probabilidad 1 se volverá en algún momento a 5, y por lo tanto es recurrente. El mismo argumento es aplicable a 6. Finalmente, los estados 1, 2 y 4 son transitorios ya que desde esos estados se accede a zonas de las que no se puede volver.
+
+

@@ -1,33 +1,47 @@
 \input{../../Macros.tex}
 \title{Procesos Estocásticos y Series Temporales}
-\usepackage{amsthm}
-\usepackage{knitr}
-
 \newtheorem{definition}{Definición}[subsection]
 \newtheorem{theorem}{Teorema}[subsection]
-% \usepackage{framed}
-\newcolumntype{C}[1]{>{\centering\arraybackslash}p{#1}}
-% Colores que knitr suele referenciar
-\definecolor{fgcolor}{rgb}{0.345,0.345,0.345}
-\definecolor{shadecolor}{rgb}{0.97,0.97,0.97}
-\usepackage{xcolor}
-\usepackage{framed}
+\newtheorem{corollary}{Corolario}[subsection]
+\newtheorem{proposition}{Proposición}[subsection]
+% ==== Soporte knitr para bloques sombreados y \hl... ====
+\usepackage{color}
 \usepackage{fancyvrb}
+\usepackage{framed}
+\definecolor{shadecolor}{RGB}{248,248,248}
+\definecolor{fgcolor}{rgb}{0.345,0.345,0.345}
+\usepackage{knitr}
+\usepackage{amssymb}
 \usepackage{alltt}
-\usepackage{listings}
-\lstset{basicstyle=\ttfamily,breaklines=true}
+\usetikzlibrary{positioning,arrows}
 
+% Fondo gris de los bloques (como RMarkdown)
+\newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+
+% Paleta de macros \hl... que usa knitr
+\newcommand{\hlnum}[1]{\textcolor[rgb]{0,0,1}{#1}}          % azul
+\newcommand{\hlstr}[1]{\textcolor[rgb]{0.9,0,0}{#1}}        % rojo
+\newcommand{\hlcom}[1]{\textcolor[rgb]{0,0.9,0}{\textit{#1}}} % verde
+\newcommand{\hlopt}[1]{#1}
+\newcommand{\hlstd}[1]{\textcolor[rgb]{0,0,0}{#1}}    % gris oscuro
+\newcommand{\hlkwa}[1]{\textcolor[rgb]{0,0,0.6}{\textbf{#1}}} % azul marino
+\newcommand{\hlkwb}[1]{\textcolor[rgb]{0.58,0,0.83}{#1}}    % púrpura
+\newcommand{\hlkwc}[1]{\textcolor[rgb]{0.133,0.545,0.133}{#1}} % verde bosque
+\newcommand{\hlkwd}[1]{\textcolor[rgb]{0.58,0,0.83}{\textbf{#1}}}
+\newcommand{\hldef}[1]{\hlstd{#1}}
+\newcommand{\hlsng}[1]{\hlstr{#1}}
 
 <<setup, include=FALSE>>=
-knitr::opts_chunk$set(highlight = FALSE)
-knitr::render_latex()
+knitr::opts_chunk$set(highlight = TRUE, echo = TRUE)
 @
+
 
 \begin{document}
 \maketitle
 \tableofcontents
 \newpage
-<<child='Tema 1/Tema_1.Rnw'>>=
+<<child='Tema 1/Tema 1.Rnw'>>=
 @
 \newpage
 <<child='Tema 1/Hoja 1.Rnw'>>=

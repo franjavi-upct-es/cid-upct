@@ -7,26 +7,58 @@
     \item \lb{¿Cómo se clasifica un proceso estocástico según los estados que puede formar?} 
     \item \lb{¿Qué es una trayectoria en el contexto de un proceso estocástico?} 
     \item \lb{¿Qué es un pasea aleatorio y cómo se define en términos de variables aleatorias? Simular, usando  \textbf{\texttt{R}}, 4 trayectorias de un paseo aleatorio con variables aleatorias i.i.d. dadas por la distribución $N(0,1)$.} 
-    \item \lb{¿Qué características tiene un paseo aleatorio simple y en qué se diferencia del paseo aleatorio simétrico? Simular, usando \textbf{\texttt{R}}, 6 trayectorias de un paseo aleatorio simple $p=\dfrac{1}{3}$.} 
+    \item \lb{¿Qué características tiene un paseo aleatorio simple y en qué se diferencia del paseo aleatorio simétrico? Simular, usando \textbf{\texttt{R}}, 6 trayectorias de un paseo aleatorio simple $p=\dfrac{1}{3}$.}
+    \item \lb{¿Qué es una función de distribuión finito dimensional en un proceso estocástico?} 
+    \item \lb{¿Cómo se define la función de medias de un proceso estocástico? ¿Y la de covarianzas y correlaciones?} 
+    \item \lb{¿Qué relación existe entre la función de varianza y la función de covarianza en un proceso estocástico?} 
+    \item \lb{¿Qué condiciones deben cumplirse para que un proceso sea estacionario y en qué se diferencia de la estacionariedad débil?} 
+    \item \lb{¿Qué diferencias hay entre un proceso estocástico gaussiano y un ruido blanco gaussiano? Simular, usando \textbf{\texttt{R}}, 2 trayectorias de un ruido blanco gaussiano con varianza $\sigma^2$.} 
+    \item \lb{¿Cuál es la definición de un proceso de Wiener o movimiento Browniano? Simular, usando \textbf{\texttt{R}}, 3 trayectorias de un movimiento Browniano.} 
+    \item \lb{¿Cuál de las siguientes es una condición necesaria para que un proceso estocástico sea débilmente estacionario?}
+        \begin{enumerate}[label=\color{red}\textbf{(\alph*)}]
+            \item \db{La varianza depende del tiempo.} 
+            \item \db{La media es constante en el tiempo.} 
+            \item \db{La covarianza es cero para todos los tiempos.} 
+        \end{enumerate}
+    \item \lb{Si $(X_t)_{t\in [0,\infty)}$ es ruido blanco (gaussiano) con varianza $\sigma^2$, ¿cuál de las siguientes afirmaciones es verdadera?}
+        \begin{enumerate}[label=\color{red}\textbf{(\alph*)}]
+            \item \db{$\mathrm{Cov}(X_t,X_{t+h})=\sigma^2$ para todo $t$ y  $h$.} 
+            \item \db{$\mathrm{Cov}(X_t,X_{t+h})=\sigma^2$ si $h=0,\,\mathrm{Cov}(X_t,X_{t+h})=0$ si  $h\neq 0$.} 
+            \item \db{$\mathrm{Cov}(X_t,X_{t+h})=\dfrac{1}{2}\sigma^2$ para todo $t$ y  $h$.} 
+        \end{enumerate}
+    \item \lb{¿Cuál de las siguientes afirmaciones es verdadera para un ruido blanco?}
+        \begin{enumerate}[label=\color{red}\textbf{(\alph*)}]
+            \item \db{Tiene una función de correlación que decrece exponencialmente.} 
+            \item \db{Su media es no nula.} 
+            \item \db{Sus valores en diferentes tiempos son independientes.} 
+        \end{enumerate}
+    \item \lb{¿Qué describe la función de covarianza de un proceso estocástico?} 
+        \begin{enumerate}[label=\color{red}\textbf{(\alph*)}]
+            \item \db{La relación lineal en el proceso en dos tiempos diferentes.} 
+            \item \db{La suma de todas las realizaciones del proceso.} 
+            \item \db{La frecuencia con la que el proceso cruza la media.} 
+        \end{enumerate}
+    \item \lb{Una condición necesaria para que un proceso estocástico sea débilmente estacionario es que:} 
+        \begin{enumerate}[label=\color{red}\textbf{(\alph*)}]
+            \item \db{La media debe ser cero.} 
+            \item \db{La covarianza depende del tiempo.} 
+            \item \db{La función de covarianza depende solo de la diferencia entre los tiempos.} 
+        \end{enumerate}
+    \item \lb{Consideremos el proceso estocástico de tiempo discreto $(X_t)_{t=0,1,2,\dots}$, con $X_0=a\in \R$ una constante cualquiera y $X_t=3+\varepsilon_t+2\varepsilon_{t-1}$ para todo $t=1,2,\dots$, siendo $(\varepsilon_t)_{t=0,1,2,\dots}$ ruido blanco (gaussiano) de varianza $\sigma^2$.} 
+        \begin{enumerate}[label=\color{red}\textbf{(\alph*)}]
+            \item \db{Calcular la función de medias, covarianzas y correlaciones del proceso $(X_t)_{t=0,1,2,\dots}$} 
+            \item \db{Justificar si el proceso es estacionario en sentido débil.} 
+            \item \db{Justificar si el proceso es estacionario (en sentido fuerte).} 
+        \end{enumerate}
+
+    \lb{\textbf{Nota:} El proceso del enunciado es un proceso denominado MA(1) que estudiará en el tema posterior.}   
+    \item \lb{Consideremos el proceso estocástico de tiempo discreto $(X_t)_{t=0,1,2,\dots}$, con $X_0=a\in \R$ una constante cualquiera y $X_t=\alpha X_{t-1}+\varepsilon_t$, para todo $t=1,2,\dots$, siendo $(\varepsilon_t)_{t=1,2,\dots}$ ruido blanco (gaussiano) de varianza $\sigma^2$. Suponiendo el proceso $(X_t)_{t=0,1,2,\dots}$ es débilmente estacionario, obtener la función de medias y correlaciones.} 
     
-<<echo=TRUE>>=
-a <- 10
-a
-@
-    
-    \item \lb{} 
-    \item \lb{} 
-    \item \lb{} 
-    \item \lb{} 
-    \item \lb{} 
-    \item \lb{} 
-    \item \lb{} 
-    \item \lb{} 
-    \item \lb{} 
-    \item \lb{} 
-    \item \lb{} 
-    \item \lb{} 
-    \item \lb{} 
-    \item \lb{} 
-    \item \lb{} 
+        \lb{\textbf{Nota:} El proceso del enunciado es un proceso denominado AR(1) que estudiará en el tema posterior.}   
+    \item \lb{Sea $(X_t)_{t=0,1,2,\dots}$ un paseo aleatorio simple. Es decir, $X_0=0$ y $X_t=X_{t-1}+Y_t,(Y_t)_{t=0,1,2,\dots}$ variabls aleatorias i.i.d verificando $P(Y_t=1)=p,P(Y_t=-1)=1-p,p \in (0,1)$.} 
+        \begin{enumerate}[label=\color{red}\textbf{(\alph*)}]
+            \item \db{Calcular la función de medias, covarianzas y correlaciones del proceso $(X_t)_{t=0,1,2,\dots}$} 
+            \item \db{Justificar si el proceso es estacionario en sentido débil.} 
+            \item \db{Justificar si el proceso es estacionario (en sentido fuerte).} 
+        \end{enumerate}
 \end{enumerate}
