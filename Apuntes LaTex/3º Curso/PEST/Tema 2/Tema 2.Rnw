@@ -207,7 +207,7 @@ Para entender cómo calcular la matriz de transición de $n$ pasos analicemos el
 		\draw[->] (s2) to[bend left=20] node[below] {$\tfrac{1}{3}$} (s1);
 		\draw[->] (s2) to[bend left=15] node[above] {$\tfrac{2}{3}$} (s3);
 		\draw[->] (s3) to[bend left=15] node[above] {$\tfrac{1}{2}$} (s4);
-		\draw[->] (s1) to[bend right=38] node[below] {$\tfrac{1}{2}$} (s3);
+		\draw[->] (s1) to[bend right=40] node[below] {$\tfrac{1}{2}$} (s3);
 	\end{tikzpicture}
 \end{center}
 Esta cadena tiene matriz de transición \[
@@ -374,4 +374,323 @@ Si  $x$ es absorbente, tendremos que una vez que la cadena alcanza el estado $x$
 
 Mirando de nuevo al grafo de la Figura \ref{diagram:2} arriba, vemos que el estado 3 es absorbente (y por tanto recurrente), ya que si comenzamos en él solo llegaremos al él mismo. Los estados 5 y 6 son recurrentes. Por ejemplo, vemos que si empezamos en 5 no podremos llegar a ningún otro estado excepto 6 y él mismo. Además, la única manera para que, empezando en 5, no se vuelva a visitar 5 es que la cadena se cambie al estado 6 y permanezca en ese estado en lo sucesivo. Pero la probabilidad de que eso ocurra es $\tfrac{1}{2}\cdot \tfrac{1}{2}\cdot \tfrac{1}{2}\cdot \dots=0$. Así que con probabilidad 1 se volverá en algún momento a 5, y por lo tanto es recurrente. El mismo argumento es aplicable a 6. Finalmente, los estados 1, 2 y 4 son transitorios ya que desde esos estados se accede a zonas de las que no se puede volver.
 
+A continuación, enunciamos, sin demostración, algunos resultados sobre el comportamiento de los estados recurrentes.
+\begin{theorem}
+    Si $x\to y$ y $x$ es recurrente, entonces  $y$ también es recurrente y, además,  $r_{x,y}=1=r_{y,x}$.
+\end{theorem}
+El teorema de arriba nos dice que si $y$ es accesible desde un estado recurrente, entonces se realizarán viajes de ida y vuelta entre  $x$ e  $y$, una y otra vez.
+ \begin{theorem}
+    Toda cadena de Markov homogénea posee al menos un estado recurrente.
+\end{theorem}
+Como consecuencia de los dos teoremas anteriores tenemos.
+\begin{corollary}
+    Supongamos que una cadena de Markov tiene descomposición en clases irreducibles \[
+    C_1\cup C_2\cup \dots\cup C_n.
+    \] 
+    Entonces si existe $x \in C_i$ el cual es recurrente (resp. transitorio), entonces todos los $y \in C_i$ son también recurrentes (resp. transitorios).
+\end{corollary}
+
+Obsérvese que, en la Figura \ref{diagram:2} arriba, los estados 1, 2 y 4 están todos en una misma clase y son transitorios; los estados 5 y 6 están los dos en una misma clase y son recurrentes; finalmente, el estado 3 es absorbente y formará él solo una clase irreducible.
+
+En las cadenas de Markov frecuentemente se observan patrones cíclicos, donde una sucesión de estados se recorre en un camino en forma de bucle empezando y acabando en un mismo estado. Esto da lugar al siguiente concepto.
+
+\begin{definition}
+    Un estado $x\in \mathcal{S}$ se dice que tiene \textbf{periodo} $d$ si $p_{x,x}^{(n)}=0$ para todo $n$ que no sea divisible por  $d$, y además  $d$ es el mayor número con esta propiedad. En el caso de que  $p_{x,x}^{(n)}=0$ para todo $n$ (es decir, si $r_{x,x}=0$), entonces diremos que el periodo de $x$ es infinito. Un estado  $x$ con periodo  $1$ se dice que es  \textbf{aperiódico}.
+\end{definition}
+En otras palabras, un estado $x$ tiene periodo  $d$ si la cadena puede volver al estado  $x$ sólo en un número de pasos que sea múltiplo  de $d$. En el caso de que la cadena no vuelva nunca más a  $x$, el periodo es infinito.
+
+Un importante propiedad es la siguiente.
+ \begin{proposition}
+    Si $x\leftrightarrow y$, entonces $x$ e  $y$ tienen el mismo periodo.
+\end{proposition}
+Por definition en una cadena irreducible todos los estados se comunican, por lo que tenemos lo siguiente.
+\begin{corollary}
+    En una cadena irreducible todos los estados tienen el mismo periodo.
+\end{corollary}
+Dado que todos los estados de una cadena irreducible tienen el mismo periodo, tiene sentido introducir lo siguiente.
+\begin{definition}
+    Se dice que una cadena irreducible tiene periodo $d$ si uno de sus estados (y por tanto todos) tienen perido  $d$. Se dice que una cadena es aperiódica si uno de sus estados (y por tanto todos) es aperiódico.
+\end{definition}
+En el caso de cadenas no irreducibles tendremos lo siguiente.
+\begin{corollary}
+    Supongamos que una cadena de Markov tiene descomposición en clases irreducibles \[
+    C_1\cup C_2\cup \dots\cup C_n.
+    \] 
+    Todos los estados pertenecientes a una misma clase $C_i$ tienen el mismo periodo.
+\end{corollary}
+Veremos más adelante que conocer si una cadena irreducible es aperiódica es importante en el estudio límite de las cadenas de Markov. Para determinar si un estado es aperiódico aplicaremos un simple método que explicaremos a continuación.
+
+Recuerda que dos números $n$ y  $m$ son coprimos si su máximo común divisor es 1. Supongamos que podemos encontrar dos números coprimos $n$ y  $m$ tal que  $p_{x,x}^{(n)}>0$ y $p_{x,x}^{(m)}>0$. En este caso, por definición de periodo, $d$ debe dividir a  $n$ y  $m$. Como  $n$ y  $m$ son coprimos, necesariamente tendremos que  $d=1$. Por tanto, para determinar si un estado $x$ es aperiódico, trataremos de buscar en el grafo dos caminos de $x$ en sí mismo de modo que los números de pasos dados en sendos caminos sean coprimos.
+
+Para ilustrar este método, volvamos al ejemplo en la Figura \ref{diagram:2} arriba. Claramente el estado $3$ es aperiódico por ser absorbente. Por otro lado, partiendo del estado 1, podremos volver a dicho estado en tres pasos siguiendo el camino  $1\to 4\to 2\to 1$. Pero, partiendo de 1, también podemos volver a $1$ en cuatro pasos a través del camino  $1\to 4\to 4\to 2\to 1$ en el que pasamos dos veces por 4. Como 3 y 4 son coprimos, necesariamente tendremos que el estado 1 es aperiódico. Además, los estados 2 y 4 también serán aperiódicos por estar en la misma clase irreducible que 1. Un argumento similar muestra que los estados 5 y 6, los cuales están en la misma clase irreducible, son aperiódicos también.
+
+\subsection{Número de visitas}
+En esta sección vamos a estudiar el número medio de veces que una cadena de Markov alcanza un estado determinado a lo largo del tiempo. En lo que sigue consideramos una cadena $(X_n)_{n=0,1,2,\dots}$ con espacio de estados $\mathcal{S}$. Dado $x\in \mathcal{S}$, la probabilidad de que la cadena vuelva a $x$ habiendo empezado en  $x$ es  $r_{x,x}$. Por tanto, si empezamos en $x$, la probabilidad de no volver nunca más a  $x$ es  $1-r_{x,x}$. Teniendo en cuenta ambas cosas, tenemos que 
+\begin{equation}\label{eq:3}
+    \mathbb{P}(\text{"visitar $x$ exactamente  $k$ veces"}|X_0=x)=r_{x,x}^{k}(1-r_{x,x}),
+\end{equation}
+donde no estamos contando la visita a $x$ en tiempo 0.
+
+\textbf{Comentario.} Recordemos que una variable aleatoria discreta $Y$ sigue una distribución geométrica de parámetro  $p\in [0,1]$ si \[
+\mathbb{P}(Y=k)=(1-p)^kp\quad\text{para }k=0,1,2,3,\dots
+\] 
+En este caso, \[
+    \mathbb{E}(Y)=\dfrac{1-p}{p}.
+\] 
+Obsérvese que la anterior esperanza es infinita si $p=0$. Para los demás valores de  $p$ tendremos valores finitos.
+
+A partir de (\ref{eq:3}), vemos que el número de visitas a $x$ partiendo de  $x$ sigue una distribución Geométrica de parámetro  $p=1-r_{x,x}$. En particular, el \textit{número esperado de visitas} a $x$ si salimos de $x$ es  \[
+\mathbb{E}(\text{"número de visitas a $x$"}|X_0=x)=\dfrac{r_{x,x}}{1-r_{x,x}}.
+\] 
+Además, la expresión arriba es finita si, y sólo si, $r_{x,x}<1$, en cuyo caso $x$ es transitorio. En caso contrario, tendremos un estado recurrente y el número esperado de visitas será infinito.
+
+Consideremos ahora un estado  $y$ distinto de  $x$, de modo que  $y$ es accesible desde  $x$. Queremos calcular ahora el número medio de visitas a  $y$ empezado en  $x$. Si partimos de  $x$, tenemos dos posibilidades, o bien la cadena alcanza el estado  $y$ produciendose al menos una visita, lo cual ocurre con probabilidad  $r_{x,y}$; o bien no lo visita nunca, lo cual ocurre con probabilidad $1-r_{x,y}$. De esta manera, el número esperado de visitas a $y$ si salimos de  $x$ es 
+ \[
+\begin{aligned}
+    \mathbb{E}(\text{"número de visitas a $y$"}|X_0=x)&= r_{x,y}\cdot \left( 1+\mathbb{E}(\text{"número de visitas a $y$ con  $n>1$"}|X_1=y) \right)  +(1-r_{x,y})\cdot 0\\
+    &= r_{x,y}\left( 1+\dfrac{r_{y,y}}{1-r_{y,y}} \right)  \\
+    &= \dfrac{r_{x,y}}{1-r_{y,y}}. \\
+\end{aligned}
+\] 
+De nuevo podemos observar que la esperanza anterior es finita si, y sólo si, $r_{y,y}<1$, en cuyo caso $y$ es transitorio.
+
+Resumimos los resultados obtenidos en el siguiente enunciado.
+ \begin{proposition}
+    Supongamos que $x,y$ son dos estados (posiblemente iguales) de modo que  $x\to y$. Entonces, \[
+    \mathbb{E}(\text{"número de visitas a $y$"}|X_0=x)=\dfrac{r_{x,y}}{1-r_{y,y}}.
+    \] 
+    Además, la esperanza anterior es finita si y sólo si $y$ es transitorio.
+\end{proposition}
+\subsection{Probabilidades de absorción y tiempos medios de llegada}
+Cuando se estudian las cadenas de Markov, es habitual preguntarse por la probabilidad de que la cadena alcance cierto estado absorbente y también por el tiempo medio en el que alcanza dicho estado. Por ejemplo, en el caso de la ruina del jugador, podríamos plantearnos cómo de probable es alcanzar las ganancias que el jugador ha fijado antes de retirarse, cuál es la probabilidad de arruinarse, o cuánto tiempo tardarán en producirse dichos sucesos. A continuación, introduciremos los conceptos de probabilidad de absorción y tiempo medio de llegada, y veremos cómo se calculan.
+\subsubsection{Probabilidades de absorción}
+Supongamos que tenemos una cadena con todos sus estados transitorios o absorbentes. Por ejemplo, supongamos que tenemos la cadena dada el siguiente grafo:
+\begin{center}
+    \begin{tikzpicture}[
+		state/.style={circle,draw,font=\sffamily\large\bfseries},
+		>=stealth
+		]
+        \node[state] (1) at (0,0) {1};
+        \node[state] (2) at (2,0) {2};
+        \node[state] (3) at (4,0) {3};
+
+        \draw[->] (1) to[in=225, out=135, looseness=10] node[midway, left] {$1$} (1);
+        \draw[->] (3) to[in=-45, out=45, looseness=10] node[midway, right] {$1$} (3);
+
+        \draw[->] (1) to[bend left=30] node[above, midway] {$\tfrac{1}{2} $} (2);
+        \draw[->] (2) to[bend left=30] node[above, midway] {$\tfrac{1}{3} $} (1);
+        \draw[->] (2) -- node[midway, above] {$\tfrac{2}{3} $} (3);
+    \end{tikzpicture}
+\end{center}
+Definimos $\tau_{1,3}$ como el número de pasos promedio necesarios para alcanzar estado absorbente 3 partiendo de 1, es decir, \[
+    \tau_{1,3}=\mathbb{E}[\text{"Número de pasos hasta la primera visita a 3"}|X_0=1].
+\] 
+Del mismo modo, podemos definir $\tau_{2,3}$ y $\tau_{3,3}$.
+
+Obviante $\tau_{3,3}=0$. Para calcular $\tau_{1,3}$, tenemos que tener en cuenta que, si la cadena se encuentra en el estado 1, en el primer paso dado o bien vuelve al estado 1, o bien va al estado 2. De esa manera, \[
+\tau_{1,3}=1+p_{1,1}\tau_{1,3}+p_{1,2}\tau_{2,3}=1+\dfrac{1}{2}\tau_{1,3}+\dfrac{1}{2}\tau_{2,3}.
+\] 
+Si estamos en el estado 2, daremos el primer paso o bien a 1, o bien a 3. Luego, \[
+\tau_{2,3}=1+p_{2,1}\tau_{1,3}+p_{2,3}\tau_{3,3}=1+\dfrac{1}{3}\tau_{1,3}+\dfrac{2}{3}\tau_{3,3}.
+\] 
+Poniendo todo junto, obtenemos el siguiente sistema de ecuaciones \[
+\begin{cases}
+    \tau_{1,3}=1+\dfrac{1}{2}\tau_{1,3}+\dfrac{1}{2}\tau_{2,3},\\
+    \tau_{2,3}=1+\dfrac{1}{3}\tau_{1,3}+\dfrac{2}{3}\tau_{2,3},\\
+    \tau_{3,3}=0
+\end{cases}
+\] 
+Resolviendo el sistema anterior, obtenemos \[
+\tau_{1,3}=\dfrac{9}{2},\quad\tau_{2,3}=\dfrac{5}{2},\quad\tau_{3,3}=0.
+\] 
+En general, si $(X_n)_{n=0,1,2,\dots}$ una cadena con un solo estado absorbente $a\in \mathcal{S}$ y todos los demás estados transitorios, entonces los tiempos medios de llegada a $a\in \mathcal{S}$ se pueden calcular usando que:
+\begin{enumerate}[label=\arabic*)]
+    \item $\tau_{a,a}=0$.
+    \item Para cualquier estado $x\in \mathcal{S}$ distinto de $a$,  \[
+    \tau_{x,a}=1+\sum_{y\in \mathcal{S}}p_{x,y}\tau_{y,a}.
+    \] 
+\end{enumerate}
+\subsection{Comportamiento asintótico}
+
+Como hemos visto, en una cadena irreducible, todos los estados son recurrentes. Tenemos que es posible pasar de cualquier estado a cualquier otro. De hecho la cadena pasará infinitas veces por todos los estados con probabilidad 1. Nos preguntamos sobre cuál es la probabilidad de que a largo plazo la cadena se encuentre en un estado particular. En otras palabras, queremos saber con qué frecuencia la cadena visitará dicho estado a medida que avanzamos en el tiempo.
+
+En lo que sigue, consideramos una cadena $(X_n)_{n=0,1,2,\dots}$ irreducible con espacio de estados $\mathcal{S}=\{1,2,\dots,N\} $. Para cada $n=01,2,\dots$ y $j\in \mathcal{S}$ consideramos la probabilidad de que la cadena se encuentre en el estado $j$ en  $n$ pasos, es decir,  \[
+\pi_j^{(n)}=\mathbb{P}(X_n=j).
+\] 
+De hecho, podemos considerar el vector \[
+\pi^{(n)}=\left( \pi_1^{(n)},\pi_2^{(n)},\dots,\pi_N^{(n)}\right) .
+\] 
+Al considerar la probabilidad de $n$ pasos para todos los posibles estados, el vector  $\pi^{(n)}$ verificará además que sus componentes suman 1, es decir,  $\sum_{j=1}^{\infty}\pi_j^{(n)} =1$.
+
+Dado un estado $j\in \mathcal{S}$, teniendo en cuenta la probabilidad de empezar en cada uno de los estados, tendremos que \[
+\begin{aligned}
+    \pi_j^{(n)}&= \sum_{i=1}^{N} \mathbb{P}(X_0=i)\cdot \mathbb{P}(X_n=j|X_0=i) \\
+    &= \sum_{i=1}^{\infty} \pi_i^{0}\cdot p_{i,j}^{(n)}\\.
+\end{aligned}
+\] 
+Lo cual conduce a la siguiente ecuación matricial
+\begin{equation}\label{eq:4}
+    \pi^{(n)}=\pi^{(0)}\cdot P^n.
+\end{equation}
+Supongamos que existe el límite $\lim_{n \to \infty} \pi^{(n)}=\pi$. El vector $\pi=(\pi_1,\pi_2,\dots,\pi_N)$ se llama \textbf{distribución límite} de la cadena de Markov. Puesto que $\sum_{j=1}^{N} \pi_j^{(n)}=1$, la distribución límite necesariamente verificará
+\begin{equation}\label{eq:5}
+    \sum_{j=1}^{N} \pi_j=1.
+\end{equation}
+Por otro lado, usando (\ref{eq:4}), tenemos \[
+\begin{aligned}
+    \pi&= \lim_{n \to \infty} \pi^{(n+1)} \\
+    &= \lim_{n \to \infty} \left( \pi^{(0)}\cdot P^{n+1} \right)  \\
+    &= \left( \lim_{n \to \infty} \pi^{(0)} \cdot P^n\right)\cdot P \\
+    &= \left( \lim_{n \to \infty} \pi^{(n)} \right) \cdot P\\
+    &= \pi\cdot P. \\
+\end{aligned}
+\] 
+La distribución límite $\pi$ cumple la ecuación matricial
+\begin{equation}\label{eq:6}
+    \pi=\pi\cdot P
+\end{equation}
+Podemos explicar esta ecuación de forma intuitiva como sigue. Imaginemos que para cierto tiempo $n$, tenemos que  $X_n$ sigue la distribución  $\pi$. Entonces  $X_{n+1}$ sigue la distribución $\pi P$. Si  $\pi=\pi P$, entonces  $X_{n+1}$ sigue también la distribución $\pi$. Por lo que la cadena de Markov habrá alcanzado una distribución estable en el tiempo. A una distribución  $\pi$ verificando (\ref{eq:6}) se llama  \textbf{ditribución estacionaria} de la cadena de Markov.
+
+Hemos argumentado arriba que la distribución límite, si existe, debe cumplir las ecuaciones (\ref{eq:5}) y (\ref{eq:6}). Por otra parte, es posible demostrar que si una cadena irreducible es aperiódica entonces la distribución límite existe. Por tanto, tenemos lo siguiente.
+
+\begin{theorem}
+    Supongamos que $(X_n)_{n=0,1,2,\dots}$ es una cadena irreducible aperiódica. Entonces, la distribución límite existe y está determinada por las ecuaciones \[
+    \begin{cases}
+        \pi=\pi P,\\
+        \sum_{j=1}^{N} \pi_j=1.
+    \end{cases}
+    \] 
+\end{theorem}
+De esta manera, para encontrar la distribución límite de una cadena, bastará con comprobar que la cadena es irreducible y aperiódica, lo cual garantiza la existencia de una distribución límite, y luego resolver las ecuaciones anteriores para determinarla.
+
+\textbf{Ejemplo.} Consideremos una cadena de Markov con sólo dos estados $\mathcal{S}=\{1,2\} $, y con matriz de transición \[
+P=\begin{bmatrix} 
+    \tfrac{2}{3} & \tfrac{1}{3} \\
+    \tfrac{1}{2} & \tfrac{1}{2} 
+\end{bmatrix} .
+\] 
+Esta cadena es irreducible y aperiódica ya que todos los estados están comunicados en un solo paso. Por tanto, existirá la distribución límite $\pi=(\pi_1,\pi_2)$, la cual será también una distribución estacionaria. Para hallar dicha distribución, hemos de resolver la ecuación matricial \[
+\begin{bmatrix} 
+    \pi_1 & \pi_2 
+\end{bmatrix} \begin{bmatrix} 
+    \tfrac{2}{3} & \tfrac{1}{3} \\
+    \tfrac{1}{2} & \tfrac{1}{2} 
+\end{bmatrix}=\begin{bmatrix} 
+    \pi_1 & \pi_2 
+\end{bmatrix} ,
+\] junto con la condición $\pi_1+\pi_2=1$. Esto nos conduce al sistema de ecuaciones:
+\[
+\begin{cases}
+    \tfrac{1}{3} \pi_1-\tfrac{1}{2} \pi_2&= 0, \\
+    -\tfrac{1}{3} \pi_1+\tfrac{1}{2} \pi_2&=0,\\
+    \pi_1+\pi_2&= 1. \\
+\end{cases}
+\] 
+Resolviendo obtenemos la distribución límite \[
+\pi_1=\dfrac{3}{5}=0.6,\quad\pi_2=\dfrac{2}{5}=0.4.
+\] 
+Dicha distribución límite es posible aproximarla por "fuerza bruta" tomando potencias sucesivas de la matriz de transición. Lo haremos con ayuda de \textbf{\texttt{R}}: 
+
+<<>>=
+P <- rbind(c(2/3, 1/3),
+           c(1/2, 1/2))
+P2 <- P%*%P
+P3 <- P2%*%P
+P4 <- P3%*%P
+P5 <- P4%*%P
+P6 <- P5%*%P
+P7 <- P6%*%P
+P8 <- P7%*%P
+P9 <- P8%*%P
+P10 <- P9%*%P
+P
+P2
+P3
+P4
+P5
+P6
+P7
+P8
+P9
+P10
+@
+Vemos que al tomar sucesivas potencias de la matriz de transición, el valor de la matriz se va estabilizando y sus filas se van aproximando a la distribución estacionaria $\pi$ que hemos obtenido anteriormente. Recordemos que la potencia $n$-ésima de la matriz de transición corresponde a la matriz de transición de $n$ pasos. Luego es lógico que al ir tomando potencias de la matriz de transición, obtengamos valores cada vez más cercanos a la distribución límite. Vemos también que la probabilidad límite no depende del valor inicial de la cadena, ya que todas las filas convergen a los mismos valores.
+\subsection{Algoritmo PageRank}
+Volvamos al ejemplo que vimos al principio del tema donde analizamos la cadena de Markov del algoritmo PageRank de Google. Recordemos que dicha cadena describía a un "surfeador de internet" que pulsaba al azar los links de un conjunto de páginas. El algoritmo PageRank se usa para ordenar la aparición de las páginas en cada búsqueda en Google, dando preferencia a aquellas páginas cuya probabilidad sea mayor en la distribución límite. Es decir, aquellas con mayor probabilidad serán las que sean más visitadas a largo plazo.
+
+En nuestro ejemplo, el "surfeador de la web" navega al azar entre las páginas A, B, C y D, donde:
+\begin{itemize}[label=\textbullet]
+    \item A tiene enlace a B
+    \item B tiene enlaces a A y C
+    \item C tiene enlace a A
+    \item D tiene enlaces a las otras tres páginas.
+\end{itemize}
+De esta manera, el espacio de estados es $\{A,B,C,D\} $, y la matriz de transición será \[
+P=\begin{bmatrix} 
+    0 & 1 & 0 & 0\\
+    \tfrac{1}{2} & 0 & \tfrac{1}{2} & 0\\
+    1 & 0 & 0 & 0\\
+    \tfrac{1}{3} & \tfrac{1}{3} & \tfrac{1}{3} & 0 
+\end{bmatrix} 
+\] 
+COmo hemos dicho, estamos interesados en determinar la distribución de la cadena de Markov definida por el surfeador. El problema es que dicha cadena podría no ser irreducible, por lo que la distribución límite podría no existir. De hecho, en nuestro ejemplo en particular, la cadena no es irreducible ya que, si bien todas las páginas son accesibles desde D, dicha página no es accesible desde el resto de las páginas.
+
+Para solucionar este problema, el algoritmo de PageRank supone que, en cualquier caso, el surfeador de la web se puede "aburrir", y empezar a navegar de nuevo en cualquiera de las páginas del conjunto al azar. La probabilidad con la que, tras cada paso, el surfeador se aburre es un número fijo $p$. A la probabilidad complementaria  $d=1-p$ se le llama factor de amortiguamiento (damping factor). Por regla general se suele tomar factor de amortiguamiento  $d=0.85$.
+
+En nuestro ejemplo particular, si el surfeador se encuentra, por ejemplo, en la página  $B$ podría seguir navegando e ir a cualquiera de las páginas a las que tiene enlace, es decir, A o C, o podría aburrise y salta a cualquiera de las páginas del conjunto A, B, C o D.
+
+La cadena de Markov así obtenida es irreducible ya que desde cada página se puede pasar a cualquier otra página ya que existe la posibilidad de aburrise. Además, será aperiódica ya que dichos saltos pueden darse en un solo paso. Al ser una cadena irreducible y aperiódica tendrá una distribución límite.
+
+Desde un punto de vista más práctico, aádir la posibilidad de que el surfeador se pueda aburrir, hace que éste no pueda quedarse "atrapado" en un grupo de páginas particular conectadas entre sí, pero no a las demás, haciendo que el algoritmo desestime otras páginas que también podrían ser importantes.
+
+En general, supongamos que el surfeador navega al azar entre  $n$ páginas con matriz de transición  $P$. Entonces, al considerar un factor de amortiguación  $d$ obtenemos una nueva matriz de transición la cual viene dada por:
+ \begin{equation}
+    M=d\cdot P+(1-d)\cdot \dfrac{1}{n}J_n,
+\end{equation}
+donde $J_n$ es la matriz cuadrada de tamaño  $n$ con todas sus entradas igual a 1. La ueva matriz de transición  $M$ representa que, en cada paso, con probabilidad  $d$ el surfeador acutará de acuerdo a la cadena con matriz de transición  $P$, y con probabilidad  $1-d$ el  surfeador actuará de acuerdo a la cadena consisten en elegir cualquiera de las $n$ páginas al azar, cuya matriz de transición  es $\dfrac{1}{n}J_n$.
+
+En nuestro ejemplo, tomando $d=0.85$, calculamos con ayuda de  \textbf{\texttt{R}} la matriz de transición:
+
+<<>>=
+P <- rbind(c(0, 1, 0, 0),
+           c(1/2, 0, 1/2, 0),
+           c(1, 0, 0, 0),
+           c(1/3, 1/3, 1/3, 0))
+d <- 0.85
+n <- 4
+M <- d*P + (1-d)*(1/n)*matrix(1, n, n)
+@
+
+Obtenemos
+\[
+M=\begin{bmatrix}
+0.0375 & 0.8875 & 0.0375 & 0.0375\\
+0.4625 & 0.0375 & 0.4625 & 0.0375\\
+0.8875 & 0.0375 & 0.0375 & 0.0375\\
+0.3208333 & 0.3208333 &  0.3208333 &  0.0375\\
+\end{bmatrix}
+\]
+Sabemos que la cadena dada por la anterior matriz de transición posee distribución límite. Podemos calcular su valor exacto resolviendo las ecuaciones correspondientes. Sin embargo, por comodidad aproximaremos la distribución límite mediante el cálculo de potencias de la matriz de transición. Para ello podemos implementar el siguiente método iterativo en \textbf{\texttt{R}}:
+<<>>=
+M_nueva <- M
+
+# Fijamos un error máximo
+error_max <- 10^-15
+
+# Inicializamos la variable de error
+error <- 1
+
+while (error > error_max) {
+  M_nueva <- M_nueva%*%M
+  error <- max(abs(M_nueva - M_nueva%*%M))
+}
+
+# La solución es
+M_nueva[1,]
+@
+Obtenemos:
+\[
+\pi_A=0.3824972,\quad\pi_B= 0.3732476,\quad\pi_C= 0.2067552,\quad\pi_D= 0.0375.
+\] 
+Esto quiere decir que, a largo plazo, el surfeador gastará el $38.25\%$ del tiempo en  la página A;  $37.32\%$ del tiempo en la página B;  $20.68\%$ del tiempo en la página C; y el  $3.75\%$ del tiempo en la página D. Por tanto, el algoritmo PageRank ordenará las páginas en función de estas probabilidades, mostrando las páginas en el orden: A, B, C, D.
 

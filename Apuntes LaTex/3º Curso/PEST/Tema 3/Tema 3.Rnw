@@ -1,0 +1,126 @@
+\section{Procesos de Poisson}
+En este capítulo vamos a ver un tipo de procesos estocásticos que son utilizados para contar la ocurrencia en el tiempo o el espacio de cierto evento aleatorio. Se trata de los procesos de Poisson y, más en general, los procesos de conteo. Este tipo de procesos pueden usarse para contar las llegadas de clientes a una tienda, apariciones de defectos en una línea de producción, las solicitudes individuaes a un servidor de internet, el paso de coches por un tramo de carretera, las llegadas de emails a la bandeja de entrada, las ocurrencias de cierto tipo de delito en un gran ciudad, etc.
+
+\subsection{Procesos de conteo}
+\begin{definition}
+    Un proceso estocástico en tiempo continuo $(N_t)_{t\in [0,\infty)}$ se dice que es un \textbf{proceso de conteo} si se verifica:
+    \begin{enumerate}[label=\arabic*)]
+        \item $N_t\ge 0$.
+        \item $N_t$ toma valores enteros.
+        \item Si  $s<t$ entonces  $N_s\le N_t$.
+    \end{enumerate}
+\end{definition}
+En particular, son procesos estocásticos de tiempo continuo y estado discreto. El valor $N_t$ se interpreta como el número de veces que ocurre el evento aleatorio en estudio durante el intervalo de tiempo  $[0,t]$. En particular, si  $s<t$, entonces  $N_t-N_s$ representa el número de veces que ocurre el evento aleatorio durante el intervalo de tiempo  $(s,t]$. Para fijar ideas, vamos a considerar que estamos contando las llegadas de clientes a un establecimiento. Por ejemplo, si  $N_1=4$ tendremos que han llegado 3 clientes durante el intervalo de tiempo $(1,2]$. El tiempo podría medirse por ejemplo en horas.
+
+\begin{figure}[h]
+\centering
+<<echo=FALSE, fig=TRUE, fig.width=7, fig.height=5, out.width='0.7\\textwidth'>>=
+# Valores para simulación
+lambda <- 2   # tasa (llegadas por unidad de tiempo)
+T <- 10       # Intervalo de tiempo en el que observamos el proceso
+
+# Simulación de los tiempos entre llegadas
+set.seed(123)
+tau <- NULL
+i <- 1
+while (sum(tau) < T) {
+  tau[i] <- rexp(n = 1, rate = lambda)
+  i <- i+1
+}
+
+# Calculamos los valores del proceso de Poisson
+tiempos <- c(0, cumsum(tau))
+N <- 0:length(tau)
+
+# Dibujamos la trayectoria
+plot(tiempos, N, type = "s",
+     xlab = "Tiempo", ylab = "Llegadas", xlim = c(0, 11))
+@
+\label{fig:1}
+\caption{Trayectoria de un proceso de conteo. En cada tiempo $t, N_t$ representa el número de llegadas ocurridas en el intervalo $[0,t]$}
+\end{figure}
+ \begin{definition}
+     Un proceso estocástico $(X_t)_{t\in [0,\infty)}$ se dice que tiene \textbf{incrementos independientes} si para toda sucesión de tiempo $0\le t_1<t_2<\dots<t_n$ las variables aleatorias \[
+     X_{t_2}-X_{t_1},\quad X_{t_3}-X_{t_2},\quad\dots,\quad X_{t_n}-X_{t_{n-1}},
+     \] son independientes.
+\end{definition}
+Un ejemplo de proceso con incrementos independientes es el movimiento Browniano. Para un proceso de conteo $(N_t)_{t\in [0,\infty)}$ con incrementos independientes contado las llegadas de clientes (o cualquier otro evento aleatorio), se tendrá que los números de llegadas en intervalos disjuntos \[
+    (t_1,t_2],\quad(t_2,t_3],\quad\dots,\quad(t_{n-1},t_n]
+\] son independientes.
+
+Supongamos que queremos calcular la probabilidad de que haya 2 llegadas en el intervalo $(1,2]$ y 3 llegadas en el intervalo  $(2,3]$. Como los intervalos  $(1,2]$ y  $(2,3]$ son disjuntos, tendremos  \[
+    \mathbb{P}\left( \text{2 llegadas en $(1,2]$ y 3 llegadas en $(2,3]$} \right) =\mathbb{P}\left( \text{2 llegadas en $(1,2]$} \right)\cdot \mathbb{P}\left( \text{3 llegadas en $(2,3]$} \right)  
+\] 
+\subsection{Proceso de Poisson}
+El proceso de conteo más usado es el proceso de Poisson. En esta sección veremos su definición y principales propiedades. Antes de introducir este concepto, necesitamos recordar la distribución de Poisson.
+\subsubsection{Distribución de Poisson}
+\begin{definition}
+    Una variable aleatoria discreta $X$ se dice que tiene distribución de  \textbf{Poisson} de parámetro $\lambda>0$ si toma valores en  $\{0,1,2,3,\dots\} $ y tiene función puntual de probabilidad \[
+    \mathbb{P}(X=k)=\dfrac{\lambda^ke^{-\lambda} }{k!}\quad\text{ para todo }k\in \{0,1,2,\dots\}.
+    \] 
+    En este caso escribimos $X\sim \mathrm{Poisson}(\lambda)$.
+\end{definition}
+Algunas propiedades de la distribución de Poisson que conviene recordar son las siguientes.
+\begin{proposition}
+    Supongamos que $X\sim \mathrm{Poisson}(\lambda)$. Entonces $\mathbb{E}(X)=\lambda$ y $\mathrm{Var}(X)=\lambda$.
+\end{proposition}
+La suma de variables Poisson independientes es Poisson. Más concretamente, tenemos lo siguiente.
+\begin{proposition}
+    Si $X_1,X_2,\dots,X_n$ son variables independientes tal que $X_i\sim \mathrm{Poisson}(\lambda_i)$. Entonces, \[
+    X_1+X_2+\dots+X_n\sim \mathrm{Poisson}(\lambda_1+\lambda_2+\dots+\lambda_n).
+    \] 
+\end{proposition}
+Las variables Poisson pueden ser interpretadas como el límite en distribución de variables aleatorias binomiales. Más específicamente tenemos lo siguiente.
+\begin{proposition}\label{prop:3}
+    Consideremos una sucesión de variables aleatorias $Y_1,Y_2,\dots$, donde $Y_n\sim \mathrm{Binomial}(n,p_n)$ con $p_n=\dfrac{\lambda}{n}$ para cierto $\lambda>0$. Entonces la función puntual de probabilidad de  $Y_n$ converge a la función puntual de probabilidad de una variable  $\mathrm{Poisson}(\lambda)$, es decir, \[
+    \lim_{n \to \infty} \mathbb{P}(Y_n=k)=\dfrac{\lambda^ke^{-\lambda} }{k!}\quad\text{ para todo }k\in \{0,1,2,\dots\}.
+    \] 
+\end{proposition}
+\textit{Demostración.} Fijado $k\in \{0,1,2,\dots\} $, como $Y_n\sim \mathrm{Binomial}(n,p_n)$, tenemos
+\begin{equation}\label{eq:1}
+	\begin{aligned}
+		\mathbb{P}(Y_n=k)&= \dbinom{n}{k} p_n^k(1-p_n)^{n-k} \\
+		&= \dfrac{n!}{(n-k)!k!}\left( \dfrac{\lambda}{n} \right) ^k\left( 1-\dfrac{\lambda}{n} \right) ^{n-k} \\
+		&= \dfrac{n!}{(n-k)!k!}\left( \dfrac{\lambda}{n} \right) ^{k}\left( 1-\dfrac{\lambda}{n} \right) ^n\left( 1-\dfrac{\lambda}{n} \right)^{-k} \\
+        &= \dfrac{n!}{(n-k)!n^k}\dfrac{\lambda^k}{k!}\left( 1-\dfrac{\lambda}{n} \right) ^n\left( 1-\dfrac{\lambda}{n} \right)^{-k}. \\
+	\end{aligned}
+\end{equation}
+Por otro lado, observamos que \[
+\begin{array}{c}
+    \lim_{n \to \infty} \left( 1-\dfrac{\lambda}{n} \right) ^n=e^{-\lambda},\\
+    \lim_{n \to \infty} \left( 1-\dfrac{\lambda}{n} \right) ^{-k}=1,\\
+    \begin{aligned}
+        \lim_{n \to \infty} \dfrac{n!}{(n-k)!n^k}&= \lim_{n \to \infty} \left( \dfrac{n}{n}\cdot \dfrac{n-1}{n}\cdot \dfrac{n-2}{n}\cdot \dots\cdot \dfrac{n-(k-1)}{n} \right)  \\
+        &= \lim_{n \to \infty} \left( 1\cdot \left( 1-\dfrac{1}{n} \right) \cdot \left( 1-\dfrac{2}{n} \right) \cdot \dots\cdot \left( 1-\dfrac{k-1}{n} \right)  \right) =1, \\
+    \end{aligned}
+\end{array}
+\] donde para calcular el último límites hemos usado que tenemos un número constante $k$ de factores que convergen a 1.
+
+Tomando lómites cuando  $n\to \infty$ en (\ref{eq:1}) teniendo en cuenta las anteriores igualdades, obtenemos el resultado deseado.
+\subsubsection{Definición de proceso de Poisson}
+El proceso de Poisson se usa para contar la ocurrencia de un evento aleatorio cuyas observaciones se dan en el tiempo con una frecuencia promedio constante $\lambda$. Por ejemplo, supongamos que mediante la observación se llega a la conclusión de que a un establecimiento llegan, de media, 5 clientes por hora. Puesto que las llegadas son aleatorias, cada hora llegará un número de clientes que no tiene por qué ser exactamente igual a 5; sin embargo, dicha cifra se verificará en promedio al avanzar el tiempo.
+ \begin{definition}
+     Un proceso de conteo $(N_t)_{t\in [0,\infty)}$ se dice que es un \textbf{proceso de Poisson} con tasa $\lambda>0$ si se verifican las siguientes condiciones:
+     \begin{enumerate}[label=\arabic*)]
+         \item $N_0=0$.
+         \item $N_t$ tiene incrementos independientes.
+         \item Para cada  $t,s\ge 0$ se verifica que $N_{t+s}-N_s\sim \mathrm{Poisson}(\lambda t)$.
+     \end{enumerate}
+\end{definition}
+Para justificar la definición anterior pensemos en los clientes que llegan al establecimiento. Supongamos que llegan de media $\lambda$ clientes por hora. Sea  $N_t$ el número de clientes que han llegadoa a la tienda tras  $t$ horas. Queremos encontrar qué distribución debería seguir la variable aleatoria  $N_t$.
+
+Para simplificar el problema, vamos a suponer en primer lugar que, dado  $n\in \N$, los clientes van llegando en instantes de tiempo equiespaciados \[
+0<\dfrac{t}{n}<\dfrac{2t}{n}<\dfrac{3t}{n}<\dots<t,
+\] de forma que al final de cada intervalo $\left( \dfrac{kt}{n},\dfrac{(k+1)t}{n} \right]$ podrá llegar un solo cliente con probabilidad $p$, o no llegará ninguno con probabilidad  $1-p$. Además, consideramos que la llegada o no de un cliente en cada intervalo ocurre de forma independiente de lo que haya pasado en los intervalos anteriores.
+
+Bajo estos supuestos, tenemos que el número total  $N_t$ de clientes llegados en el intervalo de tiempo  $[0,t]$ sigue una distribución  $\mathrm{Binomial}(n,p)$. En particular, como llegan de media $\lambda$ clientes por hora, tendremos que  \[
+\lambda t=\mathbb{E}(N_t)=np.
+\] 
+Necesariamente, se tiene que verificar que $p=\dfrac{\lambda t}{n}$. De esta manera obtenemos la probabilidad de llegada de un cliente en cada intervalo, la cual depende del número de subdivisiones $n$ en el que dividimos el intervalo de tiempo.
+
+Para pasar a tiempo continuo, tomemos límites cuando $n\to \infty$. De este modo, como consecuencia de la Proposición \ref{prop:3}, obtenemos que \[
+\mathbb{P}(N_t=k)=\dfrac{(t+\lambda)^ke^{-\lambda t} }{k!},\quad k\in \{0,1,2,\dots\} 
+\] 
+Concluimos que $N_t$ sigue una distribución  $\mathrm{Poisson}(\lambda t)$, lo cual justifica el punto 3 de la definición de Proceso de Poisson.
+
+Es lógico considerar que los clientes que llegan en dos intervalos de tiempo disjuntos sean independientes, por lo que el proceso de conteo correspondiente debería tener incrementos independientes. Por lo cual, la condición 2 de la definición anterior es natural.
