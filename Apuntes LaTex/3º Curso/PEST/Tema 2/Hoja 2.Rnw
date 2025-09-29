@@ -1,0 +1,183 @@
+\begin{center}
+    \textbf{\Large Hoja 2: Problemas de Cadenas de Markov} 
+\end{center}
+\begin{enumerate}[label=\color{red}\textbf{\arabic*)}]
+    \item \lb{Considera la cadena $(X_n)_{n=0,1,2,\dots}$ con espacio de estados $\mathcal{S}=\{1,2,3\} $ dada por el grafo}
+        \begin{center}
+            \begin{tikzpicture}[
+                state/.style={circle,draw,font=\sffamily\large\bfseries},
+                >=stealth
+            ]
+                \node[state, lightblue] (1) at (0,0) {1};
+                \node[state, lightblue] (2) at (4,0) {2};
+                \node[state, lightblue] (3) at (2,-2) {3};
+
+                \draw[->, lightblue] (1) to[in=225, out=135, looseness=10] node[midway, left] {$\tfrac{1}{4} $} (1);
+                \draw[->, lightblue] (3) to[in=315, out=225, looseness=10] node[midway, below] {$\tfrac{1}{4} $} (3);
+                \draw[->, lightblue] (2) to[bend right=20] node[midway, above] {$\tfrac{1}{2} $} (1);
+                \draw[->, lightblue] (1) to[bend left=20] node[midway, above] {$\tfrac{3}{4} $} (3);
+                \draw[->, lightblue] (3) to[bend left=20] node[midway, below] {$\tfrac{1}{2} $} (1);
+                \draw[->, lightblue] (2) to[bend left=20] node[midway, below] {$\tfrac{1}{2} $} (3);
+                \draw[->, lightblue] (3) to[bend left=20] node[midway, above] {$\tfrac{1}{4} $} (2);
+            \end{tikzpicture}
+        \end{center}
+        \lb{Supongamos que $\mathbb{P}(X_1=1)=\dfrac{1}{2}$ y que $\mathbb{P}(X_1=2)=\dfrac{1}{4}$.}
+        \begin{enumerate}[label=\color{red}\textbf{\alph*)}]
+            \item \db{Encuentra la matriz de transición.} 
+            \item \db{Determina las clases irreducibles de la cadena y clasifica los estados.} 
+            \item \db{Determina el periodo de cada estado de la cadena.} 
+            \item \db{Calcula $\mathbb{P}(X_1=3,X_2=2,X_3=1)$.} 
+            \item \db{Calcula $\mathbb{P}(X_1=3,X_3=1)$} 
+            \item \db{Supongamos que las probabilidades iniciales de los estados 2 y 3 son iguales, mientras que la del estado 1 es el doble de la del estado 3. Determina cuál será la probabilidad de cada estado en dos pasos, es decir, para $n=2$.} 
+        \end{enumerate}
+    \item \lb{Considera la cadena $(X_n)_{n=0,1,2,\dots}$ con espacio de estados $\mathcal{S}=\{1,2,3\} $ y matriz de transición \[
+    P=\begin{bmatrix} 
+        \tfrac{1}{2} & \tfrac{1}{4} & \tfrac{1}{4} \\
+        \tfrac{1}{3} & 0 & \tfrac{2}{3} \\
+        \tfrac{1}{2} & \tfrac{1}{2} & 0\\ 
+    \end{bmatrix} 
+    \] } 
+    \begin{enumerate}[label=\color{red}\textbf{\alph*)}]
+        \item \db{Dibuja el grafo de dicha cadena.} 
+        \item \db{Determina las clases irreducibles de la cadena, clasifica los estados y calcula su periodo.} 
+        \item \db{Sabiendo que \[
+        \mathbb{P}(X_1=1)=\mathbb{P}(X_1=2)=\dfrac{1}{4}.
+        \] encuentra $\mathbb{P}(X_1=3,X_2=2,X_3=1)$.} 
+        \item \db{Sabiendo que la cadena se inición en el estado 1, determina la probabilidad de que vuelva a ese estado en 3 pasos.} 
+    \end{enumerate}
+    \item \lb{Considera la cadena $(X_n)_{n=0,1,2,\dots}$ con espacio de estados $\mathcal{S}=\{1,2,3,4\} $ y grafo}
+        \begin{center}
+            \begin{tikzpicture}[
+                state/.style={circle,draw,font=\sffamily\large\bfseries},
+                >=stealth
+            ]
+            \node[state, lightblue] (1) at (0,0) {1};    
+            \node[state, lightblue] (2) at (2,0) {2};    
+            \node[state, lightblue] (3) at (4,0) {3};    
+            \node[state, lightblue] (4) at (6,0) {4};    
+                
+            \draw[->, lightblue] (1) to[in=225, out=135, looseness=12] node[midway, left] {$1$} (1);
+            \draw[->, lightblue] (4) to[in=-45, out=45, looseness=12] node[midway, right] {$1$} (4);
+            \draw[->, lightblue] (2) -- node[midway, above] {$\tfrac{1}{2} $} (1);
+            \draw[->, lightblue] (3) -- node[midway, above] {$\tfrac{1}{2} $} (4);
+            \draw[->, lightblue] (2) to[bend left=20] node[midway, above] {$\tfrac{1}{2} $} (3);
+            \draw[->, lightblue] (3) to[bend left=20] node[midway, below] {$\tfrac{1}{2} $} (2);
+            \end{tikzpicture}
+        \end{center}
+        \begin{enumerate}[label=\color{red}\textbf{\alph*)}]
+            \item \db{Encuentra la matriz de transición.} 
+            \item \db{Determina las clases irreducibles de la cadena y clasifica sus estados.} 
+            \item \db{Calcula la probabilidad de ser absorbido por el estado 4 si la cadena se encuentra en el estado 2.} 
+            \item \db{Calcula la probabilidad de ser absorbido por el estado 4 si la cadena se encuentra en el estado 3.} 
+            \item \db{Calcula el número esperado de visitas al estado 2 si la cadena se encuentra en el estado 2.} 
+            \item \db{Calcula el número esperado de visitas al estado 2 si la cadena se encuentra en el estado 3.} 
+        \end{enumerate}
+    \item \lb{Considera la cadena $(X_n)_{n=0,1,2,\dots}$ con espacio de estados $\mathcal{S}=\{1,2,3,4,5,6,7\} $ dada por la matriz de transición \[
+    P=\begin{bmatrix}
+    	\tfrac{1}{2} & \tfrac{1}{2} & 0  & 0 & 0 & 0 & 0 \\
+    	1 & 0 & 0 & 0 & 0 & 0 & 0 \\
+    	\tfrac{1}{2} & 0 & 0 & \tfrac{1}{2} & 0 & 0 & 0 \\
+    	0 & \tfrac{1}{4} & \tfrac{1}{4} & 0 & \tfrac{1}{2} & 0 & 0 \\
+    	0 & 0 & 0 & 0 & 0 & 1 & 0 \\
+    	0 & 0 & 0 & 0 & 0 & 0 & 1 \\
+    	0 & 0 & 0 & 0 & \tfrac{1}{2} & \tfrac{1}{2} & 0
+    \end{bmatrix}
+    \] } 
+    \begin{enumerate}[label=\color{red}\textbf{\alph*)}]
+        \item \db{Dibuja el grafo.} 
+        \item \db{Encuentra las clases irreducibles y clasifica los estados.} 
+        \item \db{Observa que una vez que la cadena alcanza cualquiera de los estados del conjunto $A=\{1,2\} $ la cadena ya no vuelve a salir más de dicho conjunto. Si la cadena se encuentra en el estado 3, encuentra la probabilidad de ser absorbido por el conjunto $A$.} 
+    \end{enumerate}
+    \item \lb{Considera la cadena $(X_n)_{n=0,1,2,\dots}$ con espacio de estados $\mathcal{S}=\{1,2,3,4,5,6,7\} $ dada por la matriz de transición \[
+        P=\begin{bmatrix}
+        	0 & 1 & 0 & 0 & 0 & 0 & 0 \\
+        	\tfrac{1}{2} & \tfrac{1}{2} & 0 & 0 & 0 & 0 & 0 \\
+        	\tfrac{1}{4} & \tfrac{1}{4} & 0 & \tfrac{1}{4} & \tfrac{1}{4} & 0 & 0 \\
+        	0 & \tfrac{1}{4} & \tfrac{1}{4} & 0 & \tfrac{1}{2} & 0 & 0 \\
+        	0 & 0 & 0 & 0 & 0 & 1 & 0 \\
+        	0 & 0 & 0 & 0 & 0 & \tfrac{1}{2} & \tfrac{1}{2} \\
+        	0 & 0 & 0 & 0 & \tfrac{1}{3} & \tfrac{1}{3} & \tfrac{1}{3}
+        \end{bmatrix}
+    \] } 
+    \begin{enumerate}[label=\color{red}\textbf{\alph*)}]
+        \item \db{Dibuja el grafo.} 
+        \item \db{Encuentra las clases irreducibles y clasifica los estados.} 
+        \item \db{Observa que una vez que la cadena alcanza cualquiera de los estados del conjunto $A=\{1,2\} $ la cadena ya no vuelve a salir más de dicho conjunto. Si la cadena se encuentra en el estado 4, encuentra la probabilidad de ser absorbido por el conjunto $A$.} 
+    \end{enumerate}
+    \item \lb{Considera la cadena $(X_n)_{n=0,1,2,\dots}$ con espacio de estados $\mathcal{S}=\{1,2,3,4\} $}
+        \begin{center}
+            \begin{tikzpicture}[
+                state/.style={circle,draw,font=\sffamily\large\bfseries},
+                >=stealth
+            ]
+            \node[state, lightblue] (1) at (0,0) {1};    
+            \node[state, lightblue] (2) at (2,0) {2};    
+            \node[state, lightblue] (3) at (4,0) {3};    
+            \node[state, lightblue] (4) at (6,0) {4};    
+                
+            \draw[->, lightblue] (1) to[in=225, out=135, looseness=10] node[midway, left] {$\tfrac{1}{2} $} (1);
+            \draw[->, lightblue] (4) to[in=-45, out=45, looseness=10] node[midway, right] {$1$} (4);
+            \draw[->, lightblue] (1) to[bend left=20] node[midway, above] {$\tfrac{1}{2} $} (2);
+            \draw[->, lightblue] (2) to[bend left=20] node[midway, above] {$\tfrac{1}{3} $} (1);
+            \draw[->, lightblue] (2) to[bend left=20] node[midway, above] {$\tfrac{2}{3} $} (3);
+            \draw[->, lightblue] (3) to[bend left=20] node[midway, above] {$\tfrac{1}{2} $} (4);
+            \draw[->, lightblue] (3) to[bend left=40] node[midway, below] {$\tfrac{1}{2} $} (1);
+            \end{tikzpicture}
+        \end{center}
+        \begin{enumerate}[label=\color{red}\textbf{\alph*)}]
+            \item \db{Calcula el número esperado de visitas al estado 1 si la cadena se encuentra en el estado 2.} 
+            \item \db{Calcula la probabilidad de ser absorbido por estado 4 si la cadena se encuentra en estado 2.} 
+            \item \db{Suponiendo que la cadena se encuentra en el estado 2, calcula el número esperado de pasos para ser absorbido por el estado 4.} 
+        \end{enumerate}
+    \item \lb{Considera la cadena del problema 5. Las clases irreducibles $A=\{1,2\} $ y $B=\{5,6,7\} $ son cerradas. Recuerda que una clase es cerrada si una vez que la cadena visita uno de sus estados no vuelve a salir más de la clase. Suponiendo que la cadena se ecuentra en el estado 4, calcula el número esperado de pasos hasta que la cadena alcance algún estado de $A$ o $B$.} 
+    \item \lb{Considera la cadena $(X_n)_{n=0,1,2,\dots}$ con espacio de estados $\mathcal{S}=\{1,2,3\} $ y grafo }
+        \begin{center}
+            \begin{tikzpicture}[
+                state/.style={circle,draw,font=\sffamily\large\bfseries},
+                >=stealth
+            ]
+                \node[state, lightblue] (1) at (0,0) {1};
+                \node[state, lightblue] (2) at (4,0) {2};
+                \node[state, lightblue] (3) at (2,-2) {3};
+
+                \draw[->, lightblue] (1) to[in=225, out=135, looseness=10] node[midway, left] {$\tfrac{1}{2} $} (1);
+                \draw[->, lightblue] (2) to[in=45, out=-45, looseness=10] node[midway, right] {$\tfrac{1}{3} $} (2);
+                \draw[->, lightblue] (2) to[bend right=20] node[midway, above] {$\tfrac{1}{2} $} (1);
+                \draw[->, lightblue] (2) to[bend left=20] node[midway, above] {$\tfrac{1}{2} $} (3);
+                \draw[->, lightblue] (3) to[bend left=20] node[midway, below] {$\tfrac{1}{2} $} (1);
+                \draw[->, lightblue] (2) to[bend left=20] node[midway, below] {$\tfrac{2}{3} $} (3);
+                \draw[->, lightblue] (3) to[bend left=20] node[midway, above] {$\tfrac{1}{4} $} (2);
+            \end{tikzpicture}
+        \end{center}
+        \begin{enumerate}[label=\color{red}\textbf{\alph*)}]
+            \item \db{¿Es esta cadena irreducible?} 
+            \item \db{¿Es esta cadena aperiódica?} 
+            \item \db{Encuentra la distribución estacionaria.} 
+            \item \db{¿Es la distribución estacionaria también la distribución límite?} 
+        \end{enumerate}
+    \item \lb{Considera la cadena $(X_n)_{n=0,1,2,\dots}$ con espacio de estados $\mathcal{S}=\{1,2,3\} $ y grafo} 
+        \begin{center}
+            \begin{tikzpicture}[
+                state/.style={circle,draw,font=\sffamily\large\bfseries},
+                >=stealth, scale=1.5
+            ]
+                \node[state, lightblue] (1) at (0,0) {1};
+                \node[state, lightblue] (2) at (4,0) {2};
+                \node[state, lightblue] (3) at (2,-2) {3};
+
+                \draw[->, lightblue] (1) to[in=90, out=180, looseness=5] node[midway, left] {$\tfrac{1}{2} $} (1);
+                \draw[->, lightblue] (2) --  node[midway, above] {$\tfrac{1}{3} $} (1);
+                \draw[->, lightblue] (1) to[bend left=20] node[midway, above] {$\tfrac{1}{2} $} (2);
+                \draw[->, lightblue] (1) to[bend left=20] node[midway, above] {$\tfrac{1}{4} $} (3);
+                \draw[->, lightblue] (3) to[bend left=20] node[midway, below] {$\tfrac{1}{2} $} (1);
+                \draw[->, lightblue] (2) to[bend left=20] node[midway, below] {$\tfrac{2}{3} $} (3);
+                \draw[->, lightblue] (3) to[bend left=20] node[midway, above] {$\tfrac{1}{2} $} (2);
+            \end{tikzpicture}
+        \end{center}
+        \begin{enumerate}[label=\color{red}\textbf{\alph*)}]
+            \item \db{¿Es esta cadena irreducible?} 
+            \item \db{¿Es esta cadena aperiódica?} 
+            \item \db{Encuentra la distribución estacionaria.} 
+            \item \db{¿Es la distribución estacionaria también la distribución límite?} 
+        \end{enumerate}
+\end{enumerate}

@@ -4,6 +4,7 @@
 \newtheorem{theorem}{Teorema}[subsection]
 \newtheorem{corollary}{Corolario}[subsection]
 \newtheorem{proposition}{Proposición}[subsection]
+\newtheorem{lemma}{Lema}[subsection]
 % ==== Soporte knitr para bloques sombreados y \hl... ====
 \usepackage{color}
 \usepackage{fancyvrb}
@@ -13,6 +14,7 @@
 \usepackage{knitr}
 \usepackage{amssymb}
 \usepackage{alltt}
+\usepackage{hyperref}
 \usetikzlibrary{positioning,arrows}
 
 % Fondo gris de los bloques (como RMarkdown)
@@ -48,6 +50,9 @@ knitr::opts_chunk$set(highlight = TRUE, echo = TRUE)
 @
 \newpage
 <<child='Tema 2/Tema 2.Rnw'>>=
+@
+\newpage
+<<child='Tema 2/Hoja 2.Rnw'>>=
 @
 \newpage
 <<child='Tema 3/Tema 3.Rnw'>>=
