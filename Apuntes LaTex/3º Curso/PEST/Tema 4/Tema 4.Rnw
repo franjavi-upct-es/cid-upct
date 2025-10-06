@@ -1,0 +1,80 @@
+\section{Conceptos básicos en series temporales}
+\subsection{Introducción}
+El estudio de series temporales es fundamental para el proceso de predicción (Forecasting), que consiste en anticipar eventos futuros basándose en datos históricos y patrones identificables. Esta disciplina es esencial en diversos campos, desde la economía hasta la ingeniería, y su aplicación es vital para la toma de decisiones informadas en el ámbito empresarial y gubernamental.
+
+\textbf{¿Qué se puede predecir?}
+
+La predicción se utiliza en múltiples situaciones de la vita cotidiana y la industria, como son la gestión de intervalos, la planificación de la producción, la gestión energética o la asignación de personal. La capacidad de predecir con precisión depende de varios factores, entre ellos la comprensión de las causas subyacentes, la disponibilidad de datos históricos, la consistencia del comportamiento pasado y futuro, y el impacto de las predicciones en los propios eventos. Por ejemplo, las predicciones a corto plazo de la demanda eléctrica residencial suelen ser precisas debido a la estabilidad de los factores que la afectan y la abundancia de datos históricos relevantes.
+
+\textbf{Diferencias entre predicciones, objetivos y planificación}
+
+Es crucial diferenciar entre predicciones, objetivos y planificación. Predecir implica anticipar el futuro con la mayor precisión posible mediante el análisis históricos y el conocimiento de eventos futuros. Los objetivos son metas específicas que deben que deben alinearse con las predicciones y servir como guía para la planificación. La planificación involucra diseñar estrategias y acciones basadas en las predicciones para alcanzar los objetivos establecidos.
+
+\textbf{Determinación de qué predecir}
+
+Decidir qué predecir es un paso crucial. Puede involucrar observaciones individuales o datos agregados. Es importante definir el horizonte de predicción, que puede ser a corto plazo (una hora, o unos días), a medio plazo (por ejemplo, un mes) o a largo plazo (por ejemplo, un año). Además, se debe determinar la frecuencia de las predicciones, que puede ser diaria, semanal, mensual o anual, según las necesidades de los usuarios de las predicciones. La recolección y organización de datos relevantes y precisos es esencial para asegurar la calidad de las predicciones.
+
+\textbf{Datos y métodos de predicción}
+
+Los métodos cuantitativos de predicción son útiles cuando hay datos numéricos disponibles y se espera que los patrones pasados continúen en el futuro. Los datos de series temporales, como las ventas trimetrales o la demanda horaria de electricidad, son fundamentales en estos análisis. La descomposición de datos permite estudiar tendencias y patrones estacionales. Entre los métodos más utilizados se encuentran el análisis clásico de series, el suavizamiento exponencial y los modelos ARIMA, efectivos para capturar y predecir patrones en los datos históricos. Los modelos explicativos, que emplean variables predictoras y los modelos mixtos, que combinan características de varios enfoques, pueden mejorar la precisión y la utilidad de las predicciones.
+
+\textbf{Pasos básicos en Forecasting}
+
+Las etapas a tener en cuenta en un problema de predicciones son:
+\begin{enumerate}[label=\arabic*)]
+    \item Definición del problema: Entender el uso y los usuarios de las predicciones para asegurar que se adapten a sus necesidades específicas.
+    \item Recolección de información: Obtener datos estadísticos relevantes y utilizar la experiencia de expertos en el campo.
+    \item Análisis preliminar: Graficar y analizar datos para identificar patrones, tendecias y estacionalidad, lo cual ayuda en la selección del modelo de predicción adecuado.
+    \item Elección y ajuste de modelos: Seleccionar y ajustar el método de predicción más apropiado basado en los datos disponibles y la situación específica.
+    \item Uso de las predicciones: Aplicar los resultados en la planificación y toma de decisiones, alineando las acciones con las expectativas futuras y los objetivos de la organización o empresa.
+\end{enumerate}
+\subsection{Definición de serie temporal. Gráficos.}
+Una de las técnicas para hacer inferencias sobre el futuro con base en lo ocurrido en el pasado, es el análisis de series de tiempo.
+
+Dada una serie temporal, nuestros objetivos principales serán: describir el comportamiento de la serie, investigar el mecanismo generador de la serie temporal y buscar posibles patrones temporales que permitan sobrepasar la incertidumbre del futuro.
+
+Se suele habkar estudio clásico o descriptivo de las series temporales para referirse a la metodología que se ha venido empleando desde la segunda mitad del siglo XIX. A pesar de sus limitaciones, los métodos clásicos se siguen usando por su sencillez y simplificación. En la década de los 60 se plantearon métodos de previsión alternativos a los clásicos que suplen varias de sus limitaciones, como son los métodos de alisado exponencial, y a principios de los 70 aparece un nuevo enfoque, debido a los estadísticos Box y Jenkins, para los modelos univariantes de series temporales.
+\begin{definition}
+    Llamamos \textbf{serie temporal} a un conjunto de mediciones de cierto fenómeno o experimento registradas secuencialmente en el tiempo. Estas observaciones suelen denotarse por: \[
+    \{x_{t_1},x_{t_2},\dots,x_{t_n}\} \text{ con }\{t_1<t_2<\dots<t_n\}=\mathbb{T}\subset \R 
+    \] donde $x_t$, representa el valor, en el instante  $t_i$, de una variable aleatoria que evoluciona con el tiempo.
+\end{definition}
+\begin{observation}
+    Teniendo en cuenta la definición anterior, una serie temporal puede verse también como una realización (o trayectoria) de un proceso estocástico $(X_t)_{t\in \mathbb{T}}$.
+\end{observation}
+En muchas áreas de conocimiento, las observaciones de interés son obtenidas en instantes del tiempo. Por ejemplo, cada hora, cada día, datos mensuales, trimestrales, semetrales o bien registradas por algún aparato de medición en forma continua.
+\begin{itemize}[label=\textbullet]
+    \item De una manera sencilla, podemos decir que si $\mathbb{T}\subset\Z$ es un conjunto contable, se dice que la serie es de \textit{tiempo discreto}, mientras que si $T\subset \R$ es un intervalo real, se dice que la serie es de \textit{tiempo continuo}.
+    \item Cuando $t_{i+1}-t_i=k$, para todo $i=1,\dots,n-1$, se dice que la serie es \textit{equiespaciada}; en caso contrario será no equiespaciada. 
+\end{itemize}
+En adelante, trabajaremos por comodidad con series de tiempo equiespaciadas. Por tanto, se denotarán de la siguiente forma: \[
+\{x_{t_1},x_{t_2},\dots,x_{t_n}\} =\{x_{1},x_2,\dots,x_{n}\} 
+\]
+El primer paso en el análisis de cualquier serie de tiempo consiste en representarla gráficamente (\textbf{gráfico temporal}). En la representación gráfica de las series temporales se utilizan los ejes cartesianos. En el eje de abscisas se representa el tiempo $t$, y en el eje de ordenadas, los valores de la magnitud observada  $x_t$. Se obtiene así una nube de puntos  $(t,x_t)$ que unidos por segmentos, proporcionan una visión dinámica de la evolución de la variable a lo largo del tiempo.
+
+Veamos algunos ejemplos de series de datos incluidos en  \textbf{\texttt{R}}. La primera, LakeHuron, contiene las medidas anuales del nivel del lago Huron (en pies), en el tramos 1875-1972. Observamos una tendencia decreciente que parece estabilizarse en el tramos final. La segunda serie de datos, AirPassengers, contiene los viajeros mensuales en aerolíneas internacionales, en el tramos 1949-1960. Observamos un patrón periódico que se repite a lo largo de la serie, así como tendencia creciente. La tercera, EuStockMarkets, contiene los precios diarios al cierre de 4 índices stock europeos (DAX, SMI, CAC y FTSE), en el tramos 1991-1998. Observamos que las cuatro series presentan un patrón de comportamiento similar, con tendencia creciente y picos de crecimiento en los mismo tramos temporales.
+
+<<fig=TRUE, fig.width=7, fig.height=5, out.width='0.7\\textwidth', fig.align='center'>>=
+par(mfrow=c(1,2))
+ts.plot(LakeHuron,
+        gpars = list(xlab = "Year",
+                     ylab = "Level LakeHuron in feet",
+                     lwd = 1.5))
+ts.plot(AirPassengers,
+        gpars = list(xlab = "Month & Year",
+                     ylab = "Thousand of passengers",
+                     lwd = 1.5))
+@
+
+<<fig=TRUE, fig.width=7, fig.height=5, out.width='0.7\\textwidth', fig.align='center'>>=
+ts.plot(EuStockMarkets,
+        gpars = list(xlab = "Time",
+                     ylab = "Daily closing price",
+                     col = rainbow(4),
+                     lty = c(1:4)))
+@
+
+El gráfico de la serie permitirá:
+\begin{enumerate}[label=\alph*)]
+    \item \textit{Detectar outliers (datos atípicos):} se refiere a puntos de la serie que se escapan de lo "normal".
+\end{enumerate}

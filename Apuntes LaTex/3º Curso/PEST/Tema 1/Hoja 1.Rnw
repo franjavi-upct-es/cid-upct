@@ -54,11 +54,88 @@
     \lb{\textbf{Nota:} El proceso del enunciado es un proceso denominado MA(1) que estudiará en el tema posterior.}   
     \item \lb{Consideremos el proceso estocástico de tiempo discreto $(X_t)_{t=0,1,2,\dots}$, con $X_0=a\in \R$ una constante cualquiera y $X_t=\alpha X_{t-1}+\varepsilon_t$, para todo $t=1,2,\dots$, siendo $(\varepsilon_t)_{t=1,2,\dots}$ ruido blanco (gaussiano) de varianza $\sigma^2$. Suponiendo el proceso $(X_t)_{t=0,1,2,\dots}$ es débilmente estacionario, obtener la función de medias y correlaciones.} 
     
-        \lb{\textbf{Nota:} El proceso del enunciado es un proceso denominado AR(1) que estudiará en el tema posterior.}   
+        \lb{\textbf{Nota:} El proceso del enunciado es un proceso denominado AR(1) que estudiará en el tema posterior.}
+
+        Supongamos que $X_t$ es débilmente estacionario.
+
+        Nos piden función medias, covarianzas y correlaciones.
+         \begin{itemize}[label=\textbullet]
+            \item \textbf{Función de medias} del $(X_t)_{t=0,1,2,\dots}$ \[
+                    \mathbb{E}(X_t)=\mathbb{E}(\alpha X_{t-1}+\varepsilon_t)=\alpha\lbb{\mathbb{E}(X_{t-1})}{\mu}+\tozero{\mathbb{E}(\varepsilon_t)} 
+            \]
+            Esto implica que \[
+            \mu=\alpha\mu \begin{cases}
+                \mu=0\\
+                \alpha=1
+            \end{cases}
+            \] 
+            \item \textbf{Función de varianzas} de $(X_t)_{t=0,1,2,\dots}$ \[
+                    \begin{aligned}
+            \sigma_X^2=\lbb{\mathrm{Var}(X_t)}{C}=\mathrm{Var}(\alpha X_{t-1}+\varepsilon_t)=\alpha^2\lbb{\mathrm{Var}(X_{t-1})}{C}+\lbb{\mathrm{Var}(\varepsilon_t)}{\sigma^2}\\
+            C\longleftrightarrow \alpha^2C+\sigma^2\longleftrightarrow C-\alpha^2C=\sigma^2\longleftrightarrow C=\dfrac{\sigma^2}{1-\alpha^2}
+                    \end{aligned}
+            \]  
+            $C=\mathrm{Var}(X_t)\;\forall t$ constante porque hemos supuesto débilmente estacionario.
+
+            Observar que para que exista la varianza $C$, debe cumplirse que  $|\alpha|<1$.
+            \item \textbf{Función de correlaciones} 
+        \end{itemize}
     \item \lb{Sea $(X_t)_{t=0,1,2,\dots}$ un paseo aleatorio simple. Es decir, $X_0=0$ y $X_t=X_{t-1}+Y_t,(Y_t)_{t=0,1,2,\dots}$ variabls aleatorias i.i.d verificando $P(Y_t=1)=p,P(Y_t=-1)=1-p,p \in (0,1)$.} 
         \begin{enumerate}[label=\color{red}\textbf{(\alph*)}]
             \item \db{Calcular la función de medias, covarianzas y correlaciones del proceso $(X_t)_{t=0,1,2,\dots}$} 
             \item \db{Justificar si el proceso es estacionario en sentido débil.} 
             \item \db{Justificar si el proceso es estacionario (en sentido fuerte).} 
+        \end{enumerate}
+                Vamos a calcular la media y varianza de la variable aleatoria $Y_t$. 
+                 \[
+                     \begin{array}{c}
+                         \mathbb{E}(Y_t)=1\cdot p+(-1)\cdot (1-p)=2p-1\;\forall t=1,2,\dots\\
+                         \mathrm{Var}(Y_t)=\mathbb{E}(Y_t^2)-\left( \mathbb{E}(Y_t) \right) ^2=1-(4p^2-4p+1)=-4p^2+4p=4p(1-p)\;\forall t=1,\dots,n\\
+                         \mathbb{E}(Y_t^2)=1^2\cdot p+(-1)^2\cdot (1-p)=1
+                     \end{array}
+                \] 
+                \begin{itemize}[label=\textbullet]
+                    \item \textbf{Función de medias} del proceso $(X_t)_{t=0,1,2,\dots}$ 
+
+                        $\begin{array}{l}
+                            X_0=0\\
+                            X_1=X_0+Y_1=0+Y_1=Y_1\\
+                            X_2=X_1+Y_2=Y_1+Y_2\\
+                            \vdots\\
+                            X_t=Y_1+Y_2+\dots+Y_t\;\forall t=1,2,\dots\\
+                            \mu_X(t)=\mathbb{E}(X_t)=\mathbb{E}(Y_1+Y_2+\dots+Y_n)=\mathbb{E}(Y_1)+\mathbb{E}(Y_2)+\dots+\mathbb{E}(Y_t)=t\cdot (2p-1)
+                        \end{array}$ 
+
+                        Observar que no es constante $\implies$ el proceso no es estacionario ni débil ni fuerte.
+                    \item \textbf{Función de covarianzas} del proceso. Se $t \in \{0,1,2,\dots\} $ y $h\ge 0$:
+                        \[
+                            \begin{aligned}
+                                C_X(t,t+h)&=\mathrm{Cov}(X_t,X_{t+h})\\
+                                          &=\mathrm{Cov}(Y_1+Y_2+\dots+Y_t, Y_1+Y_2+\dots+Y_{t+h})\\
+                                          &=\mathrm{Cov}(Y_1,Y_1)+\mathrm{Cov}(Y_2,Y_2)+\dots+\mathrm{Cov}(Y_t,Y_t)\\
+                                          &=\mathrm{Var}(Y_1)+\mathrm{Var}(Y_2)+\dots+\mathrm{Var}(Y_t)
+                            \end{aligned}
+                        \] 
+                        Observar que $\mathrm{Cov}(Y_t,Y_s)=0\;\forall s\neq t$ (por independencia)
+                    \item \textbf{Función de varianzas} del proceso:
+                        \[
+                        \mathrm{Var}(X_t)=t\cdot 4p(1-p)\text{ depende del tiempo }t.
+                        \] 
+                    \item \textbf{Función de correlaciones} del proceso $(X_t)_{t=0,1,2,\dots}$ 
+                        \[
+                        \rho_X(t,t+h)=\dfrac{C_X(t,t+h)}{\sigma_X(t)\sigma_X(t+h)}=\dfrac{t\cdot 4p(1-p)}{\sqrt{t4p(1-p)}\sqrt{(t+h)4p(1-p)}}=\dfrac{t}{\sqrt{t}\sqrt{t+h}  }
+                        \] 
+                \end{itemize}
+    \item \lb{Demostrar que si $(X_t)_{t\in [0,\infty)}$ es un movimiento Browniano, entonces es un proceso estocástico gaussiano no estacionario.}
+    \item \lb{Consideremos el proceso estocástico $(X_t)_{t\in [0,\infty)}$ con $X_t=Ae^{\lambda t}+B$, con $A\sim U(0,4)$ y $B\sim \mathrm{Exp}(\lambda)$ siendo $A$ y  $B$ independientes.}
+        \begin{enumerate}[label=\color{red}\textbf{\alph*)}]
+            \item \db{Calcular la función de medias, covarianzas y correlaciones del proceso $(X_t)_{t\in [0,\infty)}$} 
+            \item \db{Justificar si el proceso es estacionario en sentido débil.} 
+            \item \db{Justificar si el proceso es estacionario (en sentido fuerte).} 
+        \end{enumerate}
+    \item \lb{Consideremos el proceso estocástico $(X_t)_{t\in [0,\infty)}$ con $X_t=Y\sin(U+t)$, con $U\sim U(0,2\pi)$ e $Y\sim N(0,1)$ siendo $U$ e  $Y$ independientes.}
+        \begin{enumerate}[label=\color{red}\textbf{\alph*)}]
+            \item \db{Calcular la función de medias, covarianzas y correlaciones del proceso $(X_t)_{t\in [0,\infty)}$.}
+            \item \db{Justificar si el proceso es estacionario en sentido débil.} 
         \end{enumerate}
 \end{enumerate}

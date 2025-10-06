@@ -3,7 +3,7 @@
 \end{center}
 \begin{enumerate}[label=\color{red}\textbf{\arabic*)}]
     \item \lb{Considera la cadena $(X_n)_{n=0,1,2,\dots}$ con espacio de estados $\mathcal{S}=\{1,2,3\} $ dada por el grafo}
-        \begin{center}
+            \begin{center}
             \begin{tikzpicture}[
                 state/.style={circle,draw,font=\sffamily\large\bfseries},
                 >=stealth
@@ -25,6 +25,7 @@
         \begin{enumerate}[label=\color{red}\textbf{\alph*)}]
             \item \db{Encuentra la matriz de transición.} 
             \item \db{Determina las clases irreducibles de la cadena y clasifica los estados.} 
+                
             \item \db{Determina el periodo de cada estado de la cadena.} 
             \item \db{Calcula $\mathbb{P}(X_1=3,X_2=2,X_3=1)$.} 
             \item \db{Calcula $\mathbb{P}(X_1=3,X_3=1)$} 
@@ -66,11 +67,62 @@
         \end{center}
         \begin{enumerate}[label=\color{red}\textbf{\alph*)}]
             \item \db{Encuentra la matriz de transición.} 
+                \[
+                P=\begin{pmatrix} 
+                    1 & 0 & 0 & 0\\
+                    \tfrac{1}{2} & 0 & \tfrac{1}{2} & 0\\
+                    0 & \tfrac{1}{2} & 0 & \tfrac{1}{2} \\
+                    0 & 0 & 0 & 1
+                \end{pmatrix} 
+                \] 
             \item \db{Determina las clases irreducibles de la cadena y clasifica sus estados.} 
+        \begin{center}
+            \begin{tikzpicture}[
+                state/.style={circle,draw,font=\sffamily\large\bfseries},
+                >=stealth
+            ]
+            \node[state] (1) at (0,0) {1};    
+            \node[state] (2) at (2,0) {2};    
+            \node[state] (3) at (4,0) {3};    
+            \node[state] (4) at (6,0) {4};    
+                
+            \draw[->] (1) to[in=225, out=135, looseness=12] node[midway, left] {$1$} (1);
+            \draw[->] (4) to[in=-45, out=45, looseness=12] node[midway, right] {$1$} (4);
+            \draw[->] (2) -- node[midway, above] {$\tfrac{1}{2} $} (1);
+            \draw[->] (3) -- node[midway, above] {$\tfrac{1}{2} $} (4);
+            \draw[->] (2) to[bend left=20] node[midway, above] {$\tfrac{1}{2} $} (3);
+            \draw[->] (3) to[bend left=20] node[midway, below] {$\tfrac{1}{2} $} (2);
+            \fill[rounded corners=5pt, fill=magenta,  fill opacity=.5] (-0.5,0.5) rectangle (0.5,-0.5);
+            \fill[rounded corners=5pt, fill=cyan,  fill opacity=.5] (1.5,0.5) rectangle (4.5,-0.5);
+            \fill[rounded corners=5pt, fill=green,  fill opacity=.5] (5.5,0.5) rectangle (6.5,-0.5);
+            \end{tikzpicture}
+        \end{center}
+                
+                $\lbb{C_1=\{1\}}{\text{absorvente}},\lbb{C_2=\{2,3\}}{\text{transitorios}},\lbb{C_3=\{4\}}{\text{absorvente}}  $
+
             \item \db{Calcula la probabilidad de ser absorbido por el estado 4 si la cadena se encuentra en el estado 2.} 
+
+                $\begin{rcases}
+                    r_{2,4}=\dfrac{1}{2}r_{3,4}\\
+                    r_{3,4}=\dfrac{1}{2}+\dfrac{1}{2}r_{2,4}
+                \end{rcases}\longrightarrow r_{3,4}=\dfrac{1}{2}+\dfrac{1}{2}\left( \dfrac{1}{2}r_{3,4} \right) \longleftrightarrow r_{3,4}=\dfrac{1}{2}+\dfrac{1}{4}r_{3,4}\longleftrightarrow \dfrac{3}{4}r_{3,4}=\dfrac{1}{2}\longleftrightarrow r_{3,4}=\dfrac{2}{3}$ 
+
+                $r_{2,4}=\dfrac{1}{2}\cdot \dfrac{2}{3}=\dfrac{1}{3}$
             \item \db{Calcula la probabilidad de ser absorbido por el estado 4 si la cadena se encuentra en el estado 3.} 
+                    
+                $r_{3,4}=\dfrac{1}{2}+\dfrac{1}{2}r_{2,4}=\dfrac{2}{3}$
             \item \db{Calcula el número esperado de visitas al estado 2 si la cadena se encuentra en el estado 2.} 
+
+                Me piden $\mathbb{E}(\text{"Nº visitas a '2'"}|X_0=2)=\dfrac{r_{2,2}}{1-r_{2,2}}=\dfrac{\tfrac{1}{4} }{1-\tfrac{1}{4} }=\dfrac{1}{3}$ 
+                \[
+                \begin{array}{l}
+                    r_{2,2}=p_{2,1}\cdot r_{1,2}+p_{2,3}\cdot r_{3,2}=\dfrac{1}{2}\cdot 0+\dfrac{1}{2}\cdot r_{3,2}=\dfrac{1}{2}r_{3,2}=\dfrac{1}{4}\\
+                    r_{3,2}=p_{3,2}+p_{3,4}\cdot r_{4,2}=\dfrac{1}{2}
+                \end{array}
+                \] 
             \item \db{Calcula el número esperado de visitas al estado 2 si la cadena se encuentra en el estado 3.} 
+
+                Me piden $\mathbb{E}(\text{"Nº visitas a '2'"}|X_0=3)=\dfrac{r_{3,2}}{1-r_{2,2}}=\dfrac{\tfrac{1}{2} }{1-\tfrac{1}{4} }=\dfrac{2}{3}$ 
         \end{enumerate}
     \item \lb{Considera la cadena $(X_n)_{n=0,1,2,\dots}$ con espacio de estados $\mathcal{S}=\{1,2,3,4,5,6,7\} $ dada por la matriz de transición \[
     P=\begin{bmatrix}
@@ -124,6 +176,14 @@
             \draw[->, lightblue] (3) to[bend left=40] node[midway, below] {$\tfrac{1}{2} $} (1);
             \end{tikzpicture}
         \end{center}
+        \[
+        P=\begin{pmatrix} 
+            \tfrac{1}{2} & \tfrac{1}{2} & 0 & 0\\
+            \tfrac{1}{3} & 0 & \tfrac{2}{3} & 0\\
+            \tfrac{1}{2} & 0 & 0 & \tfrac{1}{2}\\
+            0 & 0 & 0 & 1
+        \end{pmatrix} 
+        \] 
         \begin{enumerate}[label=\color{red}\textbf{\alph*)}]
             \item \db{Calcula el número esperado de visitas al estado 1 si la cadena se encuentra en el estado 2.} 
             \item \db{Calcula la probabilidad de ser absorbido por estado 4 si la cadena se encuentra en estado 2.} 
@@ -151,9 +211,44 @@
         \end{center}
         \begin{enumerate}[label=\color{red}\textbf{\alph*)}]
             \item \db{¿Es esta cadena irreducible?} 
+
+                Si. Desde cualquier estado se puede llegar a cualquier otro (p.ej, $2\to 3\to 1,1\to 2\to 3$, etc.)
             \item \db{¿Es esta cadena aperiódica?} 
+
+                Si. La cadena es irreducible y existe $P_{11}>0$ (también $P_{22}>0$), por lo que todos los estados tienen periodo 1.
             \item \db{Encuentra la distribución estacionaria.} 
+
+                \begin{enumerate}[label=\arabic*)]
+                    \item $\pi=\pi\cdot P$
+                    \item $\sum_{j=1}^{N} \pi_j=1$
+                \end{enumerate}
+                \[
+                P=\begin{pmatrix} 
+                    \tfrac{1}{2} & \tfrac{1}{2} & 0\\
+                    0 & \tfrac{1}{3} & \tfrac{2}{3} \\
+                    \tfrac{1}{2} & \tfrac{1}{2} & 0
+                \end{pmatrix} 
+                \] 
+                $\pi=(\pi_1,\pi_2,\pi_3)=(\pi_1,\pi_2,\pi_3)\cdot\begin{pmatrix} 
+                    \tfrac{1}{2} & \tfrac{1}{2} & 0\\
+                    0 & \tfrac{1}{3} & \tfrac{2}{3} \\
+                    \tfrac{1}{2} & \tfrac{1}{2} & 0
+                \end{pmatrix}\longleftrightarrow\pi= \left( \dfrac{2}{7},\dfrac{3}{7},\dfrac{2}{7} \right) $
+
+                $\begin{cases}
+                    \pi_1=\dfrac{1}{2}\pi_1+\dfrac{1}{2}\pi_3\\
+                    \pi_2=\dfrac{1}{2}\pi_1+\dfrac{1}{3}\pi_2+\dfrac{1}{2}\pi_3\\
+                    \pi_3=\dfrac{2}{3}\pi_2\\
+                    \pi_1+\pi_2+\pi_3=1
+                \end{cases}\longrightarrow \begin{cases}
+                    \pi_1-\dfrac{1}{2\pi_1}=\dfrac{1}{2}\pi_3\implies \dfrac{1}{2}\pi_1=\dfrac{1}{2}\pi_3\implies\pi_1=\pi_3\\
+                    \pi_3=\dfrac{2}{3}\pi_2=\dfrac{2}{3}\cdot \dfrac{3}{7}=\dfrac{2}{7}\\
+                    \pi_1+\pi_2+\pi_3=1\to \dfrac{2}{3}\pi_2+\pi_2+\dfrac{2}{3}\pi_2=\dfrac{7}{3}\pi_2=1\to \pi_2=\dfrac{3}{7}
+                \end{cases} $
+
             \item \db{¿Es la distribución estacionaria también la distribución límite?} 
+
+                Si. Al ser finita, irreducible y aperiódica, existe distribución límite única y coincide con $\pi$, independientemente de la distribución inicial.
         \end{enumerate}
     \item \lb{Considera la cadena $(X_n)_{n=0,1,2,\dots}$ con espacio de estados $\mathcal{S}=\{1,2,3\} $ y grafo} 
         \begin{center}
@@ -176,7 +271,9 @@
         \end{center}
         \begin{enumerate}[label=\color{red}\textbf{\alph*)}]
             \item \db{¿Es esta cadena irreducible?} 
+
             \item \db{¿Es esta cadena aperiódica?} 
+
             \item \db{Encuentra la distribución estacionaria.} 
             \item \db{¿Es la distribución estacionaria también la distribución límite?} 
         \end{enumerate}

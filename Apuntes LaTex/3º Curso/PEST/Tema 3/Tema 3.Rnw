@@ -662,9 +662,41 @@ El tiempo medio de cada ciclo es $\mathbb{E}(\tau_i)=\mathbb{E}(\alpha_i)+\mathb
 \dfrac{N_t}{t}\to \dfrac{4}{5}\text{ cuando }t \to \infty.
 \] 
 Vamos a comprobar dicho resultado simulando una trayectoria a un plazo elevado de tiempo (por ejemplo, $T=1000$), y dibujando la gráfica del cociente $\dfrac{N_t}{t}$.
+
+<<eval=FALSE>>=
+# Dijemos los valores de los parámetros
+lambda_1 <- 1   # tasa de fallo
+lambda_2 <- 4   # tasa de reparación
+T <- 1000       # Intervalo de tiempo en el que observamos el proceso
+
+# Simulación de los tiempos entre llegadas
+set.seed(13)
+tau <- NULL
+i <- 1
+while (sum(tau) < T) {
+  alpha <- rexp(n = 1, rate = lambda_1)
+  beta <- rexp(n = 1, rate = lambda_2)
+  tau[i] <- alpha + beta
+  i <- i + 1
+}
+
+# Calculamos los valores del proceso de renovación
+tiempos <- c(0, cumsum(tau))
+N <- 0:length(tau)
+cociente <- N / tiempos
+
+# Dibujamos la trayectoria 
+plot(tiempos, cociente, type = "S",
+     xlab = "Tiempo", ylab = "N_t/t", xlim = c(0, 1000))
+
+# Dibujamos una línea horizontal a la altura de la inversa de la media
+abline(h=4/5, col="blue")
+@
+
+
 \begin{figure}[h]
 \centering
-<<fig=TRUE, fig.width=7, fig.height=5, out.width='0.7\\textwidth'>>=
+<<echo=FALSE,fig=TRUE, fig.width=7, fig.height=5, out.width='0.7\\textwidth'>>=
 # Dijemos los valores de los parámetros
 lambda_1 <- 1   # tasa de fallo
 lambda_2 <- 4   # tasa de reparación

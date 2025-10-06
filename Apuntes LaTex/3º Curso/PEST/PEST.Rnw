@@ -5,6 +5,7 @@
 \newtheorem{corollary}{Corolario}[subsection]
 \newtheorem{proposition}{Proposición}[subsection]
 \newtheorem{lemma}{Lema}[subsection]
+\newtheorem{observation}{Observación}[subsection]
 % ==== Soporte knitr para bloques sombreados y \hl... ====
 \usepackage{color}
 \usepackage{fancyvrb}
@@ -56,6 +57,9 @@ knitr::opts_chunk$set(highlight = TRUE, echo = TRUE)
 @
 \newpage
 <<child='Tema 3/Tema 3.Rnw'>>=
+@
+\newpage
+<<child='Tema 4/Tema 4.Rnw'>>=
 @
 
 \end{document}

@@ -1,0 +1,115 @@
+\input{../../../Macros.tex}
+\title{Machine Learning II\\Problemas Tema 1}
+
+\begin{document}
+\maketitle
+\begin{center}
+\begin{tikzpicture}[
+		state/.style={circle,draw,font=\sffamily\large\bfseries},
+		>=stealth
+		]
+        \node[state] (A) at (0,0) {A};
+        \node[state] (B) at (3,0) {B};
+        \node[state] (C) at (6,0) {C};
+        \node[state] (D) at (1,-1) {D};
+        \node[state] (E) at (4,-1) {E};
+        \node[state] (F) at (-2,-2) {F};
+        \node[state] (G) at (2,-2) {G};
+        \node[state] (H) at (6,-2) {H};
+    
+        \draw[->] (A) -- (D);
+        \draw[->] (A) -- (F);
+        \draw[->] (D) -- (G);
+        \draw[->] (B) -- (E);
+        \draw[->] (E) -- (G);
+        \draw[->] (E) -- (H);
+        \draw[->] (C) -- (H);
+\end{tikzpicture}
+\end{center}
+\begin{itemize}[label=\textbullet]
+    \item Nodo A:
+        \begin{itemize}[label=\textbullet]
+            \item Independiente de B, C, H, E
+            \item Dado D, F: independiente de B, E, C, H, G
+        \end{itemize}
+    \item Nodo G:
+        \begin{itemize}[label=\textbullet]
+            \item Dados D, E: independiente de A, F, B, C, H
+        \end{itemize}
+    \item Nodo E:
+        \begin{itemize}[label=\textbullet]
+            \item Dado B: independiente de A, D, F, C
+            \item Dados B, G, H, D, C: independiente de A, F
+        \end{itemize}
+\end{itemize}
+\vspace{1em}
+\hline
+\begin{center}
+\begin{tikzpicture}[
+		state/.style={circle,draw,font=\sffamily\large\bfseries},
+		>=stealth
+		]
+        \node[state] (F) at (0,0) {F};
+        \node[state] (C) at (3,0) {C};
+        \draw[->] (F) -- (C);
+\end{tikzpicture}
+\end{center}
+$\begin{array}{l}
+    P(F)=0.1\to P(\neg F)=0.9\\
+    P(C|F)=0.8\to P(\neg C|F)=0.2\\
+    P(C|\neg F)=0.3\to P(\neg C|\neg F)=0.7\\
+    \text{¿}P(F|C)?
+\end{array}$
+\[
+P(F|C)=\dfrac{P(F,C)}{P(C)}=\dfrac{0.08}{0.35}=0.2286
+\] 
+$P(F,C)=P(F)\cdot P(C|F)=0.1\cdot 0.8=0.08$
+
+$P(C)=\sum_{f} P(F,C)=\lbb{P(F,C)}{0.08} +P(\neg F,C)=0.35 $ 
+
+$P(\neg F,C)=P(\neg F)\cdot P(C|\neg F)=0.9\cdot 0.3=0.27$
+
+\vspace{1em}
+\hline
+
+\begin{center}
+    \begin{tikzpicture}[
+		state/.style={circle,draw,font=\sffamily\large\bfseries},
+		>=stealth
+		]
+        \node[state] (A) at (0,0) {A}; 
+        \node[state] (B) at (-2,-2) {B}; 
+        \node[state] (C) at (2,-2) {C}; 
+        \node[state] (D) at (0,-4) {D}; 
+        
+        \draw[->] (A) -- (B);
+        \draw[->] (A) -- (C);
+        \draw[->] (B) -- (D);
+        \draw[->] (C) -- (D);
+    \end{tikzpicture}
+\end{center}
+$\begin{array}{ll}
+    P(A)=0.75 & P(\neg A)=0.25\\
+    P(B|A)=0.2 & P(\neg B|A)=0.8\\
+    P(B|\neg A)=0.5 & P(\neg B|\neg A)=0.5\\
+    P(C|A)=0.7 & P(\neg C|A)=0.3\\
+    P(C|\neg A)=0.25 & P(\neg C|\neg A)=0.75\\
+    P(D|B,C)=0.3 & P(\neg D|B,C)=0.7\\
+    P(D|\neg B, C)=0.1 & P(\neg D|\neg B,C)=0.9\\
+    P(D|B,\neg C)=0.25 & P(\neg D|B,\neg C)=0.75\\
+    P(D|\neg B, \neg C)=0.35 & P(\neg D|\neg B,\neg C)=0.65
+\end{array}$
+
+$\begin{array}{l}
+    P(A,B,C,D)=P(A)P(B|A)P(C|A)P(D|B,C)\\
+    P(A,D)=\sum_b\sum_c P(A,B,C,D)=\sum_b\sum_c P(A)P(B|A)P(C|A)P(D|B,C)\\
+    \begin{aligned}
+        P(D|A)=\sum_b\sum_cP(B|A)P(C|A)P(D|B,C)&=\sum_b P(B|A)\lbb{\sum_c P(C|A)P(D|B,C)}{f_c(A,B,D)}\\
+        &= \sum_bP(B|A)f_c(A,B,D) \\
+        &= P(B|A)f_c(A,B,D)+P(\neg B|A)f_c(A,\neg B,D) \\
+        &= 0.197 \\
+    \end{aligned}\\
+    f_c(A,B,D)=P(C|A)P(D|B,C)+P(\neg C|A)P(D|B,\neg C)=0.285\\
+    f_c(A,\neg B,D)=P(C|A)P(D|\neg B,C)+P(\neg C|A)P(D|\neg B,\neg C)=0.175\\
+\end{array}$
+\end{document}
