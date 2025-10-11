@@ -289,9 +289,33 @@ Simular proceso de Poisson es sencillo usando los tiempos entre llegadas. Para e
 
 Veamos un ejemplo en \textbf{\texttt{R}}: 
 
+<<eval=FALSE>>=
+# Valores para simulación
+lambda <- 2   # tasa (llegadas por unidad de tiempo)
+T <- 10       # Intervalo de tiempo en el que observamos el proceso
+
+# Simulación de los tiempos entre llegadas
+set.seed(123)
+tau <- NULL
+i <- 1
+while (sum(tau) < T) {
+  tau[i] <- rexp(n = 1, rate = lambda)
+  i <- i+1
+}
+
+# Calculamos los valores del proceso de Poisson
+tiempos <- c(0, cumsum(tau))
+N <- 0:length(tau)
+
+# Dibujamos la trayectoria
+plot(tiempos, N, type = "s",
+     xlab = "Tiempo", ylab = "Llegadas", xlim = c(0, 10))
+@
+
+
 \begin{figure}[h]
 \centering
-<<fig=TRUE, fig.width=7, fig.height=5, out.width='0.7\\textwidth'>>=
+<<echo=FALSE, fig=TRUE, fig.width=7, fig.height=5, out.width='0.7\\textwidth'>>=
 # Valores para simulación
 lambda <- 2   # tasa (llegadas por unidad de tiempo)
 T <- 10       # Intervalo de tiempo en el que observamos el proceso

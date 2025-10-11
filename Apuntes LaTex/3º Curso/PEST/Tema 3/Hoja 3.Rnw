@@ -1,0 +1,77 @@
+\begin{center}
+    \textbf{\Large Hoja 3: Problemas de Procesos de Poisson y de conteo} 
+\end{center}
+\begin{enumerate}[label=\color{red}\textbf{\arabic*)}]
+    \item \lb{Sea $(N_t)_{t\in [0,\infty)}$ un proceso de Poisson con tasa $\lambda=2$, y sean  $\tau_1,\tau_2,\tau_3,\dots$ los tiempos entre llegadas.}
+        \begin{enumerate}[label=\color{red}\textbf{\alph*)}]
+            \item \db{Encuentra la probabilidad de que la primera llegada ocurra después después de $t=0.5$.}
+            \item \db{Encuentra la probabilidad de que la primera llegada ocurra antes de $t=3$ si no ha habido ninguna llegada antes de $t=1$.} 
+            \item \db{Encuentra la probabilidad de que haya cuatro llegadas después de $t=4$ si la tercera llegada ocurrió exactamente en $t=2$.}
+            \item \db{Supongamos que empezamos observando el proceso en tiempo $t=10$. Sea  $T$ el tiempo que tardo en ver la primera llegada. Encuentra $\mathbb{E}(T)$ y $\mathrm{Var}(T)$.}
+        \end{enumerate}
+    \item \lb{Sea $(N_t)_{t\in [0,\infty)}$ un proceso de Poisson con tasa $\lambda=1$.} 
+        \begin{enumerate}[label=\color{red}\textbf{\alph*)}]
+            \item \db{Calcula la probabilidad de que haya dos llegadas en $(0,2]$ y tres llegadas en  $(2,4]$.} 
+            \item \db{Encuentra la probabilidad de que haya dos llegadas en $(0,2]$ y tres llegadas en  $(1,4]$.} 
+        \end{enumerate}
+    \item \lb{Sea $(N_t)_{t\in [0,\infty)}$ un proceso de Poisson con tasa $\lambda$.} 
+        \begin{enumerate}[label=\color{red}\textbf{\alph*)}]
+            \item \db{Calcula la función de medias, covarianzas y correlaciones para el proceso $(N_t)_{t\in [0,\infty)}$.} 
+            \item \db{¿Es un proceso débilmente estacionario?} 
+            \item \db{¿Es un proceso estacionario (en sentido fuerte)?} 
+        \end{enumerate}
+    \item \lb{Sea $(N_t)_{t\in [0,\infty)}$ un proceso de Poisson con tasa $\lambda$.} 
+        \begin{enumerate}[label=\color{red}\textbf{\alph*)}]
+            \item \db{Considera $0<s<t$. Prueba que si $N_t=n$, entonces  $N_s$ sigue una distribución binomial  $\mathcal{B}\left( n,\tfrac{s}{t}  \right) $, es decir, \[
+            P(N_s=k|N_t=n)=\dbinom{n}{k} \left( \dfrac{s}{t} \right) ^k\left( 1-\dfrac{s}{t} \right) ^{n-k}\text{ para }k\in \{0,1,2,\dots,n\}.
+            \] } 
+            \item \db{Sea $\tau_1$ el tiempo de la primera llegada. Prueba que si $N_t=1$, entonces  $\tau_1$ sigue una distribución uniforme en $(0,t)$, es decir,  \[
+            P(\tau_1\le x|N_t=1)=\dfrac{x}{t}\text{ para }0\le x\le t.
+            \] } 
+        \end{enumerate}
+    \item \lb{En un aeropuerto los aviones llegan a la pista de aterrizaje siguiendo un proceso de Poisson $\{N_t\}_{t\ge 0} $. Sabiendo que llegan de media $\lambda=\dfrac{1}{2}$ aviones por hora. Si empezamos a observar los aviones que llegan a partir de las 8 de la mañana, calcule:} 
+        \begin{enumerate}[label=\color{red}\textbf{\alph*)}]
+            \item \db{La probabilidad de que no lleguen aviones entre las 8 y las 10 de la mañana.} 
+            \item \db{La probabilidad de que el primer, segundo, tercer y cuarto avión lleguen respectivamente entre las 8 y las 9, entre las 9 y las 10, entre las 11 y las 12, y entre las 12 y las 13.} 
+            \item \db{El cuarto avión de la mañana aterrice más de dos horas más tarde que el tercero.} 
+            \item \db{El quinto avión de la mañana aterrice más de tres horas más tarde que el tercero.} 
+        \end{enumerate}
+    \item \lb{A la pista de aterrizaje de otro aeropuerto llegan vuelos nacionales e internacionales. Cada hora llegan de media 4 vuelos nacionales y 2 internacionales. Suponemos que ambos tipos de vuelos llegan a la pista de aterrizaje siguiendo procesos de Poisson independientes, y que empezamos a observar los aviones a las 8.00 de la mañana.} 
+        \begin{enumerate}[label=\color{red}\textbf{\alph*)}]
+            \item \db{Calcula la probabilidad de que el sexto avión del día aterrice más de media hora más tarde que el quinto avión del día.} 
+            \item \db{Calcula la probabilidad de que no llegue ningún avión durante la primera media hora y que el primer vuelo interancional del día llegue antes de una hora.} 
+            \item \db{Calcula la probabilidad de que durante la primera hora hayan aterrizado exactamente 3 internacionales si han aterrizado un total de 7 aviones durante el mismo periodo de una hora.} 
+        \end{enumerate}
+    \item \lb{A una cafetería en la frontera entre Suiza y Alemania llegan de media 3 clientes cada hora, siguiendo un proceso de Poisson. Se sabe que $\dfrac{2}{3}$ de los clientes que llegan son suizos y $\dfrac{1}{3}$ son alemanes, no habiendo nunca clientes de otras nacionalidades.} 
+        \begin{enumerate}[label=\color{red}\textbf{\alph*)}]
+            \item \db{Calcular la probabilidad de que en una hora hayan llegado exactamente dos clientes y en dos horas exactamente 5 clientes.} 
+            \item \db{Supongamos que en una hora llegan dos clientes. Calcular la probabilidad de que exactamente uno de ellos sea suizo.} 
+        \end{enumerate}
+    \item \lb{Dos equipos, A y B, juegan un partido de fútbol. El número de goles anotados por el Equipo A sigue un proceso de Poisson $N_t^1$ con tasa  $\lambda_1=0.02$ goles por minuto, y el número de goles anotados por el Equipo B sigue un proceso de Poisson $N_t^2$ con tasa $\lambda_2=0.03$ goles por minuto. Se asume que los dos procesos son independientes. Sea $N_t$ el número total de goles hasta el instante  $t$, incluyendo dicho instante. El partido dura 90 minutos.} 
+        \begin{enumerate}[label=\color{red}\textbf{\alph*)}]
+            \item \db{Probabilidad de que el partido acabe en 0-0.} 
+            \item \db{Probabilidad de que al menos haya un total de dos goles en el partido.} 
+            \item \db{Probabilidad de que el partido acabe en 1-2.} 
+            \item \db{Probabilidad de que el partido acabe en empate.} 
+        \end{enumerate}
+    \item \lb{Sean $(N_t^1)$ y  $(N_t^2)$ dos procesos de Poisson independientes con tasas $\lambda_1$ y $\lambda_2$, respectivamente. Consideremos el proceso $(N_t)_t$ donde  $N_t=N_t^1+N_t^2$. Demuestra que si $N_t=n$, entonces  $N_t^1$ sigue una distribución binomial  $\mathcal{B}\left( n,\dfrac{\lambda_1}{\lambda_1+\lambda_2} \right) $, es decir, \[
+    P(N_t^1=k|N_t=n)=\dbinom{n}{k} \left( \dfrac{\lambda_1}{\lambda_1+\lambda_2} \right) ^k\left( 1-\dfrac{\lambda_1}{\lambda_1+\lambda_2} \right) ^{n-k}\text{ para }k\in \{0,1,2,\dots,n\}. 
+    \] } 
+    \item \lb{En el problema 8, encuentra la probabilidad de que el equipo B meta gol el primero. Esto es, encuentra la probabilidad de que al menos se anote un gol en el partido y que el primero en marcar sea el equipo B.} 
+    \item \lb{Una fábrica opera con una máquina que falla de manera recurrente y se repara inmediatamente. El tiempo (en horas) de funcionamiento de la máquina hasta el fallo sigue una distribución $\mathrm{Exp}\left( \dfrac{1}{5} \right) $. Cada vez que la máquina falla, se repara. El tiempo de reparación sigue una distribución exponencial de media 10 minutos.} 
+        \begin{enumerate}[label=\color{red}\textbf{\alph*)}]
+            \item \db{Calcula la tasa de fallos por hora en el largo plazo.} 
+            \item \db{Simula 10 trayectorias de dicho proceso en \textbf{\texttt{R}}. } 
+        \end{enumerate}
+    \item \lb{En una carrera de Fórmula 1 un coche entra en boxes de manera recurrente. El tiempo (en horas) que circula hasta entrar en boxes sigue una distribución $\mathrm{Exp}(0.5)$. El proceso de puesta a punto consta de las siguientes fases:}
+        \begin{itemize}[label=\color{lightblue}\textbullet]
+            \item \lb{Repostaje de combustible: Esta fase toma un tiempo fijo de 2 minutos.} 
+            \item \lb{Cambio de neumáticos: El tiempo empleado en esta fase sigue una distribución exponencial con media de 3 minutos.} 
+            \item \lb{Ajustes mecánicos: El tiempo (en minutos) empleado en esta sigue una distribución uniforme en $(0,8)$.} 
+        \end{itemize}
+        \lb{Responde a las siguientes preguntas:} 
+        \begin{enumerate}[label=\color{red}\textbf{\alph*)}]
+            \item \db{Calcula la tasa de entradas a boxes por hora en el largo plazo.} 
+            \item \db{Simula 10 trayectorias de dicho proceso en \textbf{\texttt{R}}.} 
+        \end{enumerate}
+\end{enumerate}
