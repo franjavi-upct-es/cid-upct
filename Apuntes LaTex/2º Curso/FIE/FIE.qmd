@@ -27,34 +27,39 @@ execute:
 
 ::: callout-note
 ## El contexto
-- Tenemos una pregunta acerca de un fenómeno aleatorio.
-- Formulamos un modelo para la variable de interés $X$.
-- Traducimos la pregunta de interés en términos de uno o varios parámetros del modelo.
-- Repetimos el experimento varias veces, apuntamos los valores de $X$.
-- ¿Cómo usar estos valores para extraer información sobre el parámetro?
+
+-   Tenemos una pregunta acerca de un fenómeno aleatorio.
+-   Formulamos un modelo para la variable de interés $X$.
+-   Traducimos la pregunta de interés en términos de uno o varios parámetros del modelo.
+-   Repetimos el experimento varias veces, apuntamos los valores de $X$.
+-   ¿Cómo usar estos valores para extraer información sobre el parámetro?
 :::
 
 ## Ejemplos
+
 ::: callout-note
 ## ¿Está la moneda truncada?
-- Experimento: tirar la moneda. $X=$resultado obtenido.
 
-  $P(X=+)=p,P(X=c)=1-p$ $$\text{¿}p=\frac{1}{2}?$$
+-   Experimento: tirar la moneda. $X=$resultado obtenido.
+
+    $P(X=+)=p,P(X=c)=1-p$ $$\text{¿}p=\frac{1}{2}?$$
 :::
+
 ::: callout-note
 ## Sondeo sobre intención de participación en unas elecciones
-- Queremos estimar la tasa de participación antes de unas elecciones generales.
-- Formulamos un modelo:
-  - Experimento: "escoger una persona al azar en el censo"
-  - $X$: participación, variable dicotómica ("Sí" o "No"). $p=P(X=\text{"Si"})$.
-- ¿Cúanto vale $p$?
-- Censo: aproximadamente 37 000 000. Escogemos aproximadamente 3000 personas.
+
+-   Queremos estimar la tasa de participación antes de unas elecciones generales.
+-   Formulamos un modelo:
+    -   Experimento: "escoger una persona al azar en el censo"
+    -   $X$: participación, variable dicotómica ("Sí" o "No"). $p=P(X=\text{"Si"})$.
+-   ¿Cúanto vale $p$?
+-   Censo: aproximadamente 37 000 000. Escogemos aproximadamente 3000 personas.
 :::
 
 ::: callout-note
-- Quiero determinar la concentración de un producto.
-- Formulo el modelo:
-  - Experimento: "llevar a cabo una medición".
-  - $X$: "valor proporcionado por el aparato".
-  - $X$:
+-   Quiero determinar la concentración de un producto.
+-   Formulo el modelo:
+    -   Experimento: "llevar a cabo una medición".
+    -   $X$: "valor proporcionado por el aparato".
+    -   $X$:
 :::
