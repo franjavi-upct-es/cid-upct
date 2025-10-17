@@ -5,10 +5,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="cb3e1152-4c03-4efb-aecf-6750f30e83e5" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/cid-upct.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/cid-upct.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Prácticas/3º Curso/1º Cuatrimestre/PEST/Practica_1.rmd" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/rGraphicsSettings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/rGraphicsSettings.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/rSettings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/rSettings.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Prácticas/3º Curso/1º Cuatrimestre/ML II/Práctica 2/P2_S2_stu.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/Prácticas/3º Curso/1º Cuatrimestre/ML II/Práctica 2/P2_S2_stu.ipynb" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -25,6 +26,7 @@
       <list>
         <option value="Python Script" />
         <option value="SQL File" />
+        <option value="RMarkdown.notebook" />
       </list>
     </option>
   </component>
@@ -79,6 +81,7 @@
     "Database Script.MercaderFranciscoJavier_AlarconPedro-p3ej1-insert.sql.executor": "Run",
     "Database Script.bd-tt1-esquema-clientes.sql.executor": "Run",
     "Docker.Dockerfile.executor": "Run",
+    "JavaScript Debug.Practica_1.html.executor": "Run",
     "LaTeX.Ejercicios Tema 3.executor": "Run",
     "LaTeX.Ejercicios Tema 4.executor": "Run",
     "LaTeX.Ejercicios Tema 5.executor": "Run",
@@ -107,6 +110,7 @@
     "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
     "RunOnceActivity.git.unshallow": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "com.intellij.ml.llm.matterhorn.ej.ui.settings.DefaultModelSelectionForGA.v1": "true",
     "database.data.extractors.current.export.id": "SQL Inserts",
     "database.data.extractors.current.id": "SQL Inserts",
     "full.screen.before.presentation.mode": "true",
@@ -119,7 +123,7 @@
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable",
+    "settings.editor.selected.configurable": "preferences.pluginManager",
     "to.speed.mode.migration.done": "true",
     "vue.rearranger.settings.migration": "true"
   },
@@ -142,7 +146,7 @@
       </console-settings>
     </option>
   </component>
-  <component name="RunManager" selected="Python.OpenWeather">
+  <component name="RunManager" selected="JavaScript Debug.Practica_1.html">
     <configuration name="MER.sql" type="DatabaseScript" editBeforeRun="true" nameIsGenerated="true">
       <script-file value="$PROJECT_DIR$/Prácticas/2º Curso/1º Cuatrimestre/BD I/Práctica 1 Sesión 3/MER.sql" />
       <script-mode>FILE</script-mode>
@@ -153,6 +157,9 @@
       <script-file value="$PROJECT_DIR$/Prácticas/2º Curso/1º Cuatrimestre/BD I/Práctica 3/Sesión 1/MercaderFranciscoJavier_AlarconPedro-p3ej0-esquema.sql" />
       <script-mode>FILE</script-mode>
       <data-source id="91a326d1-698b-4950-a6a3-db83645b8cdb" namespace="schema/&quot;SYSTEM&quot;" />
+      <method v="2" />
+    </configuration>
+    <configuration name="Practica_1.html" type="JavascriptDebugType" temporary="true" nameIsGenerated="true" uri="http://localhost:63342/ML-II_P1_Cuestionario.ipynb/Prácticas/3º Curso/1º Cuatrimestre/PEST/Practica_1.html" useBuiltInWebServerPort="true">
       <method v="2" />
     </configuration>
     <configuration name="Problemas Unidad 1" type="LATEX_RUN_CONFIGURATION" factoryName="LaTeX configuration factory" temporary="true">
@@ -193,29 +200,6 @@
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
       <option name="SCRIPT_NAME" value="$USER_HOME$/Descargas/OpenWeather.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
-    <configuration name="prueba_SQL" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
-      <module name="cid-upct" />
-      <option name="ENV_FILES" value="" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/prueba_SQL.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -278,11 +262,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="JavaScript Debug.Practica_1.html" />
         <item itemvalue="Python.OpenWeather" />
         <item itemvalue="LaTeX.Problemas Unidad 1" />
         <item itemvalue="Python.prueba_oracle" />
         <item itemvalue="Python.prueba_grafica_interactiva" />
-        <item itemvalue="Python.prueba_SQL" />
       </list>
     </recent_temporary>
   </component>
@@ -427,6 +411,10 @@
       <workItem from="1759137166632" duration="18000" />
       <workItem from="1759915723178" duration="184000" />
       <workItem from="1760520464544" duration="174000" />
+      <workItem from="1760529537689" duration="33000" />
+      <workItem from="1760606967247" duration="3830000" />
+      <workItem from="1760626307160" duration="28000" />
+      <workItem from="1760717694143" duration="2579000" />
     </task>
     <task id="LOCAL-00001" summary="Tarea 5 FRD terminado">
       <option name="closed" value="true" />
