@@ -221,4 +221,111 @@ cat("La duración media del juego, comenzando con 4 bolas rojas, es de aproximad
 \end{tikzpicture}
 ```
 
+```{r, message = FALSE}
+library(igraph)
 
+# nodos en el mismo orden del grafo
+edges <- c("A B","A G","B A","B C","C D","D E","F A","F E")
+g <- graph_from_edgelist(do.call(rbind, strsplit(edges, " ")), directed = TRUE)
+d <- 0.85
+pr <- page_rank(g, algo = "prpack", directed = TRUE, damping = d)$vector
+round(pr, 6)
+```
+
+**Problema 5.** Resolver el apartado 11 b) de la Hoja 3 de problemas.
+```{r, message = FALSE}
+library(ggplot2)
+
+set.seed(123)   # reproducibilidad
+
+simulate_trajectory <- function(T = 100,
+                                lambda_fail = 1/5,  # tasa de fallo (1/mean uptime)
+                                mu_repair = 6) {    # tasa de reparación (1/mean repair time in hours)
+  times <- c(0)          # instantes donde cambia el estado (inicio de intervalos)
+  states <- c(1)         # 1 = funcionando, 0 = en reparación
+  t_cur <- 0
+  state_cur <- 1
+
+  while (t_cur < T) {
+    if (state_cur == 1) {
+      # tiempo hasta el siguiente fallo
+      dur <- rexp(1, rate = lambda_fail)
+      next_state <- 0
+    } else {
+      # tiempo de reparación
+      dur <- rexp(1, rate = mu_repair)
+      next_state <- 1
+    }
+    t_next <- t_cur + dur
+    # si el siguiente evento supera T, acortamos para terminar en T
+    if (t_next >= T) {
+      # añadimos el punto final T (estado permanece igual desde t_cur hasta T)
+      times <- c(times, T)
+      states <- c(states, state_cur)
+      break
+    } else {
+      # evento dentro del horizonte
+      times <- c(times, t_next)
+      states <- c(states, state_cur)  # el estado en el instante t_next representa el valor hasta ese tiempo
+      # actualizamos
+      t_cur <- t_next
+      state_cur <- next_state
+    }
+  }
+  # Construir data.frame con los instantes donde definimos el valor (para geom_step)
+  # Queremos que en cada tiempo almacenemos el estado *a la derecha* del punto (step)
+  data.frame(time = times, state = states)
+}
+
+# parámetros
+n_trajectories <- 10
+T <- 100
+
+# simular todas las trayectorias
+trajectories <- lapply(seq_len(n_trajectories), function(i) {
+  df <- simulate_trajectory(T = T)
+  df$id <- paste0("traj_", i)
+  # calcular fracción de tiempo UP (aprox, suma de intervalos)
+  df
+})
+
+# Convertir a data.frame tipo "largo" y asegurar que cada trayectoria tenga punto inicial y final T
+library(dplyr)
+all_traj <- bind_rows(trajectories)
+
+# Para seguridad: si alguna trayectoria no tiene punto final exactamente en T, forzarlo
+all_traj <- all_traj %>%
+  group_by(id) %>%
+  do({
+    d <- .
+    if (tail(d$time, 1) < T) {
+      d <- rbind(d, data.frame(time = T, state = tail(d$state,1), id = unique(d$id)))
+    }
+    d
+  }) %>%
+  ungroup()
+
+# calcular fracción de tiempo UP para cada trayectoria (exacta a partir de los nodos)
+uptime_summary <- all_traj %>%
+  group_by(id) %>%
+  arrange(time) %>%
+  mutate(time_next = lead(time, default = T),
+         interval = time_next - time) %>%
+  summarise(uptime_fraction = sum(interval[state == 1]) / T,
+            uptime_hours = sum(interval[state == 1]),
+            downtime_hours = sum(interval[state == 0])) %>%
+  arrange(desc(uptime_fraction))
+
+print(uptime_summary)
+
+# Preparar datos para geom_step: geom_step dibuja el valor en cada time y lo mantiene hasta el siguiente punto
+# (ya tenemos puntos en los cambios y el final T)
+p <- ggplot(all_traj, aes(x = time, y = state, group = id)) +
+  geom_step(direction = "hv") +
+  facet_wrap(~ id, ncol = 2) +
+  scale_y_continuous(breaks = c(0,1), labels = c("DOWN","UP")) +
+  labs(x = "Tiempo (horas)", y = "Estado", title = paste("Simulación de", n_trajectories, "trayectorias (T =", T, "h)")) +
+  theme_minimal()
+
+print(p)
+```
