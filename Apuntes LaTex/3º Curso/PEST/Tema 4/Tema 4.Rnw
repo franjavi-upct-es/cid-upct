@@ -291,3 +291,183 @@ Esta variante de las medias móviles se puede usar para realizar predicciones en
 \hat{x}_{T+1}=\dfrac{x_{T-p+1}+\dots+x_{T-1}+x_T}{p}
 \] 
 En esta expresión se aprecia que todas las observaciones que intervienen en la media tienen el mismo peso. En el tema siguiente veremos que los métodos de alisado exponencial suelen dar mejores resultados porque se les da más peso a las observaciones más recientes que a las más antiguas.
+
+\subsection{Descomposición clásica de series temporales}
+
+El objetivo de esta sección es mostrar las técnicas clásicas para descomponer una serie temporal en sus 3 componentes fundamentales (Tendencia-Cielo, Estacional e Irregular). Para ello, es necesario determinar previamente si el esquema de integración de dichas componentes se considera aditivo, o multiplicativo.
+
+Comenzamos con el \textbf{enfoque clásico} para extraer las componentes en un esquema aditivo, conocido como el método de la diferencia a la media móvil.
+\subsubsection{Método de la diferencia a la media móvil}
+El método de la diferencia a la media móvil es el método que se usa para desestacionalizar una serie que presenta un esquema aditivo: \[
+x_t=T_t+S_t+I_t
+\] 
+Consideramos una serie temporal con el esquema anterior, presentando componente estacional, y llamaremos $L$ al periodo de la componentes estacional. En muchas ocasiones $L$ será un número par, por ejemplo  $L=12$ para datos mensuales,  $L=4$ para datos trimestrales, etc.
+
+La idea fundamental para intentar eliminar la componentes estacional consiste en tomar medias móviles de orden  $L$ (periodo de la componente estacional). Realizamos los siguientes pasos:
+ \begin{enumerate}[label=\arabic*)]
+    \item \textit{Calcular la media móvil centrada de orden $L$ para la serie y determinar la componente Tendencia-Ciclo.}
+
+        Calculando la media móvil centrada de orden $L$, donde  $L$ representa el periodo de la componente estacional, se consigue eliminar en gran parte el efecto de la componente estacional así como de la componente irregular.
+
+        Por tanto, la serie obtenida por medias móviles servirá como estimación de la componente Tendencia-Ciclo  $(T_t)$:  \[
+        T_t=MM(L)_t
+        \] 
+        Recordar que si $L$ es par, la media móvil centrada se obtiene realizando el promedio de dos series de medias móviles. Además, si  $L$ es par, la serie obtenida por medias móviles tiene  $L$ datos menos que la serie original. Por ejemplo, si la serie original se refiere a datos mensuales, tendremos un datos menos cada mes. Y si  $L$ es impar, la serie obtenida por medias móviles tiene  $L-1$ datos menos que la serie original.
+    \item  \textit{Obtener los índices brutos de variación estacional (IBVE).}
+
+        Como el esquema es aditivo: \[
+        x_t=T_t+S_t+I_t
+        \] una estimación de las componentes Estacional e Irregular conjuntamente viene dada por: \[
+        \widehat{S_t+I_t}=x_t-T_t=x_t-MM(L)_t
+        \] es decir, hay que restar a la serie original la serie obtenida mediante medias móviles de orden $L$ (de ahí el nombre de método de la diferencia a la media móvil).
+
+        Cada uno de los valores obtenidos mediante la diferencia anterior se denomina índice bruto de variación estacional en el instante  $t$:  \[
+            (IBVE)_t=\widehat{S_t+I_t}=x_t-MM(L)_t
+        \] donde el valificativo de "bruto" se debe a que el índice estacional está contaminado por la componente irregular.
+
+    \item \textit{Obtener los índices de variación estacional no normalizados (IVENN).}
+
+        Con el fin de eliminar la componente irregular de los índices anteriores, calcularemos la media de los índices para cada estación. Si disponemos de información correspondiente a $K$ periodos completos y un total de  $N$ observaciones, entonces se cumple que:  \[
+        N=L\cdot K
+        \] 
+        Por ejemplo, pensemos en datos mensuales y un total de 5 años completos, es decir, $12\cdot 5=60$ datos. Como ya hemos indicado, al realizar medias móviles se pierden $L$ datos (uno por cada estación, si $L$ es par), de manera que para cada estación dispondríamos de exactamente $K-1$ datos (en lugar de $K$).
+
+        Llamaremos índice de variación estacional no normalizado al promedio de los IBVE para cada estación $h$:  \[
+        (IVENN)_h=\dfrac{\sum_{\{t:h(t)=h\}} (IBVE)_t}{K-1}\quad h=h_1,h_2,\dots,h_L
+        \] donde $\{t:h(t)=h\} $ denota el conjunto de instantes de tiempo que se corresponden con la estación $h$. Si  $K$ no es muy pequeño, con el promedio conseguimos atenuar enormemente el efecto de la componente irregular, de manera que estos nuevos índices contienen información de la componente estacional pero no de la componente irregular.
+
+        Podemos poner una expresión más general para obtener los índices de variación estacional no normalizados, que contemple la posibilidad de que la serie tenga periodos incompletos o bien que  $L$ sea impar, en cuyo caso, el número de datos $(IBVE)_t$ disponible para cada estación puede ser diferente. Denotemos por  $K_h$ al número de datos  $(IBVE)_t$ disponible para cada estación  $h$, entonces:  \[
+            (IVENN)_h=\dfrac{\sum_{\{t:h(t)=h\}}(IBVE)_t }{K_h}\quad h=h_1,h_2,\dots,h_L
+        \] 
+    \item \textit{Obtener los índices de variación estacional normalizados (IVE) y determinar la componente Estacional}
+
+        Si una serie no tiene componente estacional, en un modelo aditivo se tendría que $S_t\equiv 0$. Por otra parte, es razonable suponer que la componente estacional no debe afectar al nivel de la serie, de manera que en el modelo aditivo la media de la componente estacional debería ser 0.
+
+        Por tanto, definimos los índices de variación estacional normalizados para cada estación $h$ como  \[
+            (IVE)_h=(IVENN)_h=\dfrac{\sum_{h\in \{h_1,\dots,h_L\} }(IVENN)_h}{L}
+        \] aunque existen otras formas de normalizar los índices de variación estacional.
+
+        Estos índices suponen una \textbf{estimación de la componente estacional} de la serie para cada estación $h$. Es decir, en este paso determinamos la componente estacional para cada instante de tiempo  $t$, haciéndola coincidir con el índice de variación estacional para la estación,  $h(t)$, correpondiente al instante $t$:  \[
+        S_t=(IVE)_{h(t)}
+        \] 
+
+    \item \textit{Desestacionalizar la serie.} 
+
+        En el modelo aditivo, la desestacionalización de la serie se consigue restando a la serie original los índices de variación estacional: \[
+        D_t=x_t-S_t=x_t-(IVE)_{h(t)}\quad\text{(serie desestacionalizada)}
+        \] 
+    \item \textit{Determinar la componente Irregular.}
+
+        Una vez extraidas la componente Estacional $(S_t)$ y la Tendencia-Ciclo  $(T_t)$, la componente Irregular  $(I_t)$ se obtiene de forma inmediata mediante:  \[
+        I-t=x_t-T_t-S_t
+        \] 
+        La situación ideal sería que dicha componente irregular se comportara como un ruido blanco.
+\end{enumerate}
+A continuación, mostramos el \textbf{enfoque clásico} para extraer las componentes de una serie temporal si el esquema es multiplicativo.
+
+\subsubsection{Método de la razón a la media móvil}
+
+El método de la razón a la media móvil es el método que se usa para desestacionalizar una serie que presenta un esquema multiplicativo: \[
+x_t=T_t\times S_t\times I_t
+\] 
+Los pasos para desestacionalizar la serie y extraer las componentes son similares al caso aditivo, pero realizando cocientes en lugar de diferencias:
+\begin{enumerate}[label=\arabic*)]
+    \item \textit{Calcular la media móvil centrada de orden $L$ para la serie y determinar la componente Tendencia-Ciclo.}
+        \[
+        T_t=MM(L)_t
+        \] 
+    \item \textit{Obtener los índices brutos de variación estacional (IBVE).}
+
+        Como el esquema es multiplicativo, una estimación de las componentes Estacional e Irregular conjuntamente viene dada por: \[
+        \widehat{S_t\times I_t}=\dfrac{x_t}{\hat{T}_t}=\dfrac{x_t}{MM(L)_t}.
+        \] 
+    \item \textit{Obtener los índices de variación estacional no normalizados (IVENN).}
+
+        Llamaremos índice de variación estacional no normalizado al promedio de los $IBVE$ para cada estación  $h$. Denotemos por  $K_h$ al número de datos  $(IBVE)_t$ disponible para cada estación  $h$, entonces: \[
+            (IVENN)_h=\dfrac{\sum_{\{t:h(t)=h\} }(IBVE)_t}{K_h}\quad h=h_1,h_2,\dots,h_L
+        \] 
+    \item \textit{Obtener los índices de variación estacional normalizados (IVE) y determinar la componente Estacional}
+
+        Si una serie no tiene componente estacional, en un modelo multiplicativo se tendría que $S_t\equiv 1$. Por otra parte, es razonable suponer que la componente estacional no debe afectar al nivel de la serie, de manera que en el modelo multiplicativo la media de la componente estacional debería ser 1.
+
+        Sin embargo, los índices calculados en el apartado anterior pueden no tener media uno. Por tanto, definimos los índices de variación estacional normalizados para cada estación  $h$ como:  \[
+            (IVE)_h=\dfrac{(IVENN)_h}{\dfrac{\sum_{h\in \{h_1,\dots,h_L\} }(IVENN)_h}{L}}
+        \] los cuales suponen una \textbf{estimación de la componente estacional} de la serie para cada estación $h$. Es decir, en este paso determinamos la componente estacional para cada instante de tiempo  $t$, haciéndola coincidir con el índice de variación estacional para la estación, $h(t)$, correspondiente al instante $t$:  \[
+        S_t=(IVE)_{h(t)}
+        \]  
+    \item \textit{Desestacionalizar la serie.}
+
+        En el modelo multiplicativo, la desestacionalización de la serie se consigue dividiendo la serie por los índices de variación estacional: \[
+        D_t=\dfrac{x_t}{(IVE)_{h(t)}}
+        \] 
+    \item \textit{Determinar la componente Irregular.}
+
+        Una vez extraidas la componente estacional $S_t$, y la Tendencia  $T_t$, la componente Irregular o restante se obtiene de forma inmediata mediante:  \[
+        I_t=\dfrac{x_t}{T_t\times S_t}
+        \] 
+        La situación ideal sería que dicha componente se comportara como un ruido gaussiano de media 1, o bien como la exponencial de un ruido gaussiano de media cero.
+\end{enumerate}
+A modo de ejemplo, a continuación mostramos una serie temporal y las componentes que resultan con la \textbf{descomposición clásica:}
+
+
+<<fig=TRUE, fig.width=7, fig.height=5, out.width='0.7\\textwidth', fig.align='center', message=FALSE>>=
+plot(decompose(AirPassengers, type = 'multiplicative'))
+@
+
+\textbf{Nota:} Podemos comprobar que la componente estacional se mantiene estable a lo largo del tiempo. Es decir, todos los meses de enero toman el mismo valor independientemente del año. Lo mismo sucede con los febreros, marzos, ..., diciembres. Esta situación es característica para la descomposición clásica.
+
+\subsection{Predicciones con Análisis Clásico y limitaciones}
+
+En el enfoque clásico, la forma de realizar predicciones se basa en la descomposición de la serie en sus componentes fundamentales (tendencia, estacionalidad e irregular). Extraídas las componentes, se predice cada una de ellas y la predicción de la serie original se obtiene combinando dichas predicciones según se trate de un esquema aditivo o multiplicativo.
+
+\textbf{¿Cómo realizar predicciones de la componente irregular $I_t$?}
+
+Como se trata de la parte aleatoria de la serie, las predicciones de la componente irregular valdrán cero en el esquema aditivo y uno en el multiplicativo.
+
+Es decir, para todo instante $t$, tendremos que la predicción de la componente irregular en dicho instante es:  \[
+\hat{I}_t=0\text{ (esquema aditivo), }\hat{I}_t=1\text{ (esquema multiplicativo) }
+\] 
+¿Cómo realizar predicciones de la Componente Estacional $S_t$?
+
+Bastará con repetir el valor obtenido para cada estación. Por ejemplo, si tenemos datos mensuales y la componente estacional extraída asigna un valor de 50 a los eneros, entonces la predicción de la componente estacional será siempre de 50 para los futuros eneros. De la misma forma se realizaría la predicción para el resto de meses, pues el enfoque clásico considera componente estacional estable.
+
+Si la serie original tiene periodo $L$ y disponemos de observaciones hasta el instante  $T$, entonces la predicción de la componente estacional en el instante  $T+m$ es:  \[
+\hat{S}_{T+m}=S_{T+m-L}\quad m=1,2,\dots,L
+\] donde $S_{T+m-L}$ representa el valor de la componente estacional en el instante $T+m-L$, es decir, el valor del  $IVE$ en la estación que corresponde a dicho instante.
+
+ \textbf{¿Cómo realizar predicciones de la componente Tendencia-Ciclo $T_t$?}
+
+ La componente tendencia puede modelizarse con cualquier método para serie sin estacionalidad. Por ejemplo, realizando un ajuste por mínimos cuadrados como predicto (predictores) el tiempo o potencias del mismo. El modelo obtenido para la tendencia usando mínimos cuadrados es adecuado para representar el comportamiento de la serie y captar los aspectos más permanentes del fenómeno estudiado (predicciones a medio o largo plazo). Sin embargo, no es aconsejable para las predicciones a corto plazo.
+
+ Por ejemplo, si la Tendencia es lineal respecto al tiempo: \[
+ T_t=b_0+b_1\cdot t,
+ \] podemos estimar la ecuación de dicha recta usando regresión lineal simple. Por tanto, en este caso las predicciones de la tendencia en cualquier instante $t$, se obtendrán mediante:  \[
+ \hat{T}_t=\hat{b}_0+\hat{b}_1\cdot t
+ \] 
+ Y si la Tendencia es polinómica: \[
+ \hat{T}_t=\hat{b}_0+\hat{b}_1\cdot t+\hat{b}_2\cdot t^2+\dots+\hat{b}_k\cdot t^k
+ \] también podemos estimar los coeficientes del modelo usando regresión lineal simple.
+
+ Obsérvese que se trata de un \textit{enfoque global} del análisis de la tendencia, el cual permite obtener un modelo matemático que modeliza la tendencia de la serie usando \underline{todas} las observaciones de la serie, y además todas con el \underline{mismo peso}.   
+
+ Los procedimientos adecuados para obtener la tendencia desde un \textit{enfoque local} que permita realizar predicciones adecuadas a corto plazo son, por ejemplo, el método de las medias móviles asimétricas o los métodos de alisado exponencial, que veremos en un tema posterior.
+
+ \textbf{¿Cómo realizar predicciones de la serie original?} 
+
+ Si disponemos de $T$ observaciones de la serie y queremos realizar predicciones para los  $L$ instantes siguiente ($L$ es el periodo), en el caso de esquema aditivo tendremos: \[
+ \hat{x}_{T+m}=\hat{T}_{T+m}+\hat{S}_{T+m}\quad m=1,2,\dots,L
+ \] y en el caso de esquema multiplicativo tendremos: \[
+ \hat{x}_{T+m}=\hat{T}_{T+m}\times \hat{S}_{T+m}\quad m=1,2,\dots,L
+ \] 
+ \textbf{Limitaciones del Análisis Clásico}
+
+ El análisis clásico de series temporales tiene dos usos principalmente:
+ \begin{itemize}[label=\textbullet]
+     \item \textit{Describir el comportamiento de la serie temporal} (análisis descriptivo), haciendo uso por ejemplo de la descomposición de la serie en las componentes Tendencia, Estacionalidad e Irregular.
+     \item \textit{Realizar predicciones a medio o largo plazo}. 
+ \end{itemize}
+ Como método descriptivo sigue siendo interesante su uso gracias a la sencillez de los métodos expuestos. Del mismo modo, cuando sólo nos interesa estudiar el comportamiento futuro de la serie a largo plazo, es decir, estudiar cómo evolucionaría la serie a grandes rasgos, también interesa emplear un análisis clásico.
+
+ Sin embargo, el enfoque global de los métodos clásicos impide realizar predicciones adecuadas a corto plazo, siendo ésta la principal limitación de un análisis clásico. Además, los métodos clásicos proporcionan demasiada rigidez al modelo, perdiendo en ocasiones información relevante.
+
+ Para suplir las carencias del método clásico, se propusieron nuevos métodos como la descomposición STL, que veremos a continuación, o los métodos de alisado exponencial, que veremos en el tema posterior.
