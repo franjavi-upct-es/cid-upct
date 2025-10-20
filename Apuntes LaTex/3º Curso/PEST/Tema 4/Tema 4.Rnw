@@ -471,3 +471,95 @@ Si la serie original tiene periodo $L$ y disponemos de observaciones hasta el in
  Sin embargo, el enfoque global de los métodos clásicos impide realizar predicciones adecuadas a corto plazo, siendo ésta la principal limitación de un análisis clásico. Además, los métodos clásicos proporcionan demasiada rigidez al modelo, perdiendo en ocasiones información relevante.
 
  Para suplir las carencias del método clásico, se propusieron nuevos métodos como la descomposición STL, que veremos a continuación, o los métodos de alisado exponencial, que veremos en el tema posterior.
+
+\subsection{La descomposición STL}
+
+El método STL (\textit{Seasonal and Trend decomposition using LOESS}) es una técnica alternativa a la descomposición clásica utilizada para descomponer una serie temporal en sus componentes básicas: tendencia, estacionalidad e irregular. Se basa en el suavizado de datos mediante LOESS (\textit{locally estimated scatterplot smoothing}), que permite la obtención de las componentes forma más versátil y flexible.
+
+Mientras que la descomposición clásica considera que la componente estacional es completamente estable, la descomposición STL permite que la componente estacional varíe a lo largo del tiempo. La diferencia fundamental radica en el proceso de desestacionalización de la serie: mientras que el enfoque clásico usa medias móviles, el STL usa el suavizado local LOESS.
+
+\textbf{Importante:} El método STL considera que las componentes de la serie se combinan siguiendo un \textbf{esquema aditivo}. En el caso de esquema multiplicativo, primero debe realizarse una transformación logarítmica para convertirlo en esquema aditivo.
+
+\textbf{¿En qué consiste el método LOESS?}
+
+LOESS realiza agresiones locales a lo largo de los datos. En cada punto $x_{i}$ de la serie, se ajusta un polinomio (generalmente de primer o segundo grado) utilizando solo los datos cercanos a ese punto. Los puntos cercanos se definen por una ventana de vecindad, cuyo tamaño está determinado por un parámetro de suavizado. Este parámetro puede ser una proporción del total de puntos (ancho de banda o bandwitdth). Los puntos dentro de la ventana de vecindad se ponderan de acuerdo con su distancia al punto $x_i$. Los puntos más cercanos tienen mayor peso en la estimación del polinomio local que los puntos más lejanos. Para cada punto  $x_{i}$ de la serie, se calcula un valor ajustado $\hat{x}$ mediante la regresión local ponderada. Este proceso se repite para cada punto de la serie, resultando en una curva suavizada.
+
+LOESS es una técnica eficaz para suavizar los datos y detectar tendencias locales sin imponer una estructura global rígida. Es especialmente útil para datos que no siguen una forma predefinida y permite capturar patrones locales mediante ajustes flexibles y ponderados.
+
+A continuación mostramos un ejemplo del método LOESS, así como el efecto del parámetro de suavizado. Para ello usaremos el conjunto de datos "economics" del paquete \textbf{\texttt{ggplot2}}, y suavizaremos la serie correspondiente al tiempo de desempleo (variable \textbf{\texttt{uempmed}}, que representa la mediana del número de días sin empleo). Observamos que la serie original (en negro) contiene numerosas irregularidades, que se suavizan al aplicar LOESS con parámetros de suavizado 10\% (en azul), 30\% (en verde) y 50\% (en rojo). Indicar que si la serie original tiene por ejemplo 100 observaciones y se usa un suavizado del 50\% (parámetro \textbf{\texttt{span=0.5}} ), entonces para cada punto $x_{i}$ de la serie, la ventana de vecindad se construye con 25 datos a la izquierda de $x_{i}$ y otros 25 datos a la derecha de $x_{i}$.
+
+<<fig=TRUE, fig.width=7, fig.height=5, out.width='0.7\\textwidth', fig.align='center', message=FALSE>>=
+library(ggplot2)
+datos <- economics
+datos$index <- 1:nrow(datos)
+loess10 <- loess(uempmed ~ index, data=datos, span = 0.10)
+loess30 <- loess(uempmed ~ index, data=datos, span = 0.30)
+loess50 <- loess(uempmed ~ index, data=datos, span = 0.50)
+
+plot(datos$uempmed, x=datos$date, type="l", main="Loess Smoothing",
+     xlab="Date", ylab="Unemployment (Median)", lwd = 2)
+lines(predict(loess10), x=datos$date, col="blue", lwd = 2)
+lines(predict(loess30), x=datos$date, col="green", lwd = 2)
+lines(predict(loess50), x=datos$date, col="red", lwd = 2)
+@
+
+Y para valores altos del parámetro de suavizado tendremos un suavizado global en lugar de local (obsérvese que la curva marrón  se corresponde con la ecuación de una parábola que ajusta globalmente los datos de la serie):
+
+<<fig=TRUE, fig.width=7, fig.height=5, out.width='0.7\\textwidth', fig.align='center'>>=
+loess100 <- loess(uempmed ~ index, data = datos, span = 1)
+loess200 <- loess(uempmed ~ index, data = datos, span = 2)
+plot(datos$uempmed, x=datos$date, type="l", main="Loess Smoothing",
+     xlab="Date", ylab="Unemployment (Median)", lwd = 2)
+lines(predict(loess100), x=datos$date, col="orange", lwd = 2)
+lines(predict(loess200), x=datos$date, col="brown", lwd = 2)
+@
+
+\textbf{Resumen de las etapas en la descomposición STL}
+\begin{enumerate}[label=\arabic*)]
+    \item Realizar un suavizado de la serie original mediante LOESS con un acho de banda grande, con el fin de captar las variaciones a largo plazo (eliminando así las fluctuaciones debidas a la componente estacional). El resultado de este suavizado nos dará una primera estimación de la Tendencia-Ciclo $(T_{t})$.
+\end{enumerate}
+En \textbf{\texttt{R}}, se puede fijar el parámetro de ancho de banda correspondiente a la tendencia (\textbf{\texttt{t.window}} ) o dejar que tome un valor por defecto. En \textbf{\texttt{R}}, dicho parámetro además debe tomar un valor impar y representa el número de observaciones consecutivas usadas para estimar la tendencia. Valores pequeños permiten cambios más rápidos.
+\begin{enumerate}[label=\arabic*), start=2]
+    \item Restar a la serie original la Tendencia obtenida en la etapa anterior. Es decir, hacemos $x_t-T_t$, para conseguir una serie temporal con tendencia constante.
+    \item Dividir la serie de la etapa anterior (sin tendencia) en subseries: Supongamos que la serie original tiene estacionalidad de periodo  $L$, entonces hay que dividir la serie de la etapa anterior en  $L$ subseries, una para cada estación. Por ejemplo, para datos mensuales durante varios años, tendremos que  $L=12$. Esta etapa implica considerar una serie para cada estación, es decir, una serie con los datos de enero, otra con los datos de febrero, ..., y otra con los datos de diciembre.
+    \item Obtener una estimación de la componente Estacional  $(S_t)$ mediante suavizado LOESS: En esta etapa se fija el valor del parámetro  \textbf{\texttt{s.window}} correspondiente al ancho de banda del suavizado para la estacionalidad. En \textbf{\texttt{R}}, dicho parámetro debe tomar un valor impar y no tiene valor por defecto. Para cada subserie de la etapa anterior, se aplica el suavizado LOESS y \textbf{\texttt{s.window}} representa el número de periodos (años) consecutivos usados en la estimación de cada valor de la componentes estacional. Valores pequeños permiten cambios más rápidos. Y en el caso de usar todos los periodos se considera estacionalidad estable (igual que en un enfoque clásico). Al igual que en la descomposición clásica, las estimaciones resultantes se normalizan para conseguir que la media de cada periodo (año) completo sea cero (recordar que se supone esquema aditivo).
+    \item Obtener la componente Irregular: Para ello bastará restar a la serie original, las estimaciones obtenidas para la estacionalidad y la tendencia $(I_t=x_t-T_t-S_t)$.
+\end{enumerate}
+\textbf{Nota:} La extracción de las componentes puede ser mejorada siguiendo un ciclo iterativo como el siguiente.
+
+Con la tendencia inicial $T_t$ y la estacionalidad inicial  $S_t$ estimadas, se sigue un ciclo iterativo para ajustar y mejorar las estimaciones:
+ \begin{enumerate}[label=\alph*)]
+    \item Ajuste de la Tendencia: eliminar el efecto de la estacionalidad de la serie original (serie desestacionalizada) \[
+    x_t-S_t
+    \] y obtener una nueva estimación de la componente Tendencia-Ciclo (nueva $T_t$) mediante un nuevo suavizado LOESS sobre la serie desestacionalizada. En este proceso se requiere nuevamente del parámetro \textbf{\texttt{t.window}} correspondiente al ancho de banda del suavizado para capturar la tendencia subyacente.
+    \item Ajuste de la Estacionalidad: Se elimina la tendencia ajustada de la serie $$x_t-T_t$$ 
+        Las subseries estacionales se suavizan de nuevo para recalcular $S_t$, teniendo en cuenta nuevamente un parámetro del ancho de banda para la estacionalidad (\textbf{\texttt{s.window}}).
+    \item Ajuste de la componente Irregular: Se recalcula como \[
+    I_t=x_t-T_t-S_t
+    \] 
+\end{enumerate}
+Este ciclo se repite varias veces para mejorar la precisión de las componentes.
+
+Veamos como ejemplo la descomposición STL sobre la serie \textbf{\texttt{AirPassengers}}  incluida en \textbf{\texttt{R}}.
+
+<<fig=TRUE, fig.width=7, fig.height=5, out.width='0.7\\textwidth', fig.align='center'>>=
+serie_pasajeros <- AirPassengers
+ts.plot(serie_pasajeros, lwd = 2)
+@
+
+Observamos esquema multiplicativo, así que transformamos los datos para conseguir esquema aditivo, necesario para descomposición STL.
+
+<<fig=TRUE, fig.width=7, fig.height=5, out.width='0.7\\textwidth', fig.align='center'>>=
+serie_aditiva <- log(serie_pasajeros)
+ts.plot(serie_aditiva, lwd = 2)
+@
+
+Realizando ahora la descomposición STL sobre la serie aditiva, fijando \textbf{\texttt{s.window}} (ancho de banda de la estacionalidad):
+
+<<fig=TRUE, fig.width=7, fig.height=5, out.width='0.7\\textwidth', fig.align='center'>>=
+modelo_STL <- stl(serie_aditiva, s.window = 7)
+
+plot(modelo_STL)
+@
+
+\textbf{Nota:} Obsérvese que el aspecto de la componente estacional varía a lo largo del tiempo, a diferencia de lo que sucede en el enfoque clásico.
