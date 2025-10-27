@@ -1,0 +1,105 @@
+\input{../../Macros.tex}
+\title{Fundamentos de Inferencia Estadística}
+
+% --- INICIO DE LA CONFIGURACIÓN DE CALLOUTS ESTILO QUARTO (Corregido V3) ---
+% Basado en el archivo FIE.tex proporcionado
+
+% 1. Paquetes necesarios
+% Asegúrate de que estos paquetes están cargados en tu preámbulo
+\usepackage[dvipsnames,svgnames,x11names]{xcolor}
+\usepackage{fontawesome5}
+\usepackage{parskip} % Para espaciado entre párrafos en los ejemplos
+
+% 2. Definición de Colores (directamente de tu archivo FIE.tex) 
+\makeatletter
+\definecolor{quarto-callout-color}{HTML}{909090}
+\definecolor{quarto-callout-note-color}{HTML}{0758E5}
+\definecolor{quarto-callout-important-color}{HTML}{CC1914}
+\definecolor{quarto-callout-warning-color}{HTML}{EB9113}
+\definecolor{quarto-callout-tip-color}{HTML}{00A047}
+\definecolor{quarto-callout-caution-color}{HTML}{FC5300}
+\definecolor{quarto-callout-color-frame}{HTML}{acacac}
+\definecolor{quarto-callout-note-color-frame}{HTML}{4582ec}
+\definecolor{quarto-callout-important-color-frame}{HTML}{d9534f}
+\definecolor{quarto-callout-warning-color-frame}{HTML}{f0ad4e}
+\definecolor{quarto-callout-tip-color-frame}{HTML}{02b875}
+\definecolor{quarto-callout-caution-color-frame}{HTML}{fd7e14}
+\makeatother
+
+% 3. Definición de los nuevos entornos
+% Estas definiciones replican el estilo encontrado en FIE.tex 
+
+% Estilo base común (extraído de las opciones de tcolorbox)
+\tcbset{
+  quarto-callout-base/.style={
+    enhanced jigsaw, 
+    breakable,
+    left=2mm, 
+    arc=.35mm,
+    colback=white,
+    opacityback=0, 
+    leftrule=.75mm,
+    rightrule=.15mm,
+    toprule=.15mm,
+    bottomrule=.15mm,
+    toptitle=1mm, 
+    bottomtitle=1mm,
+    opacitybacktitle=0.6, 
+    titlerule=0mm,
+    coltitle=black,
+  }
+}
+
+% Entorno para "Note"
+\newtcolorbox{qnote}[1][Nota]{
+  quarto-callout-base,
+  colframe=quarto-callout-note-color-frame,
+  colbacktitle=quarto-callout-note-color!10!white, 
+  title=\textcolor{quarto-callout-note-color}{\faInfo}\hspace{0.5em}{#1}
+}
+
+% Entorno para "Tip"
+\newtcolorbox{qtip}[1][Consejo]{
+  quarto-callout-base,
+  colframe=quarto-callout-tip-color-frame,
+  colbacktitle=quarto-callout-tip-color!10!white, 
+  title=\textcolor{quarto-callout-tip-color}{\faLightbulb}\hspace{0.5em}{#1}
+}
+
+% Entorno para "Warning"
+\newtcolorbox{qwarning}[1][Advertencia]{
+  quarto-callout-base,
+  colframe=quarto-callout-warning-color-frame,
+  colbacktitle=quarto-callout-warning-color!10!white, 
+  title=\textcolor{quarto-callout-warning-color}{\faExclamationTriangle}\hspace{0.5em}{#1}
+}
+
+% Entorno para "Caution"
+\newtcolorbox{qcaution}[1][Precaución]{
+  quarto-callout-base,
+  colframe=quarto-callout-caution-color-frame,
+  colbacktitle=quarto-callout-caution-color!10!white, 
+  title=\textcolor{quarto-callout-caution-color}{\faExclamationCircle}\hspace{0.5em}{#1}
+}
+
+% Entorno para "Important"
+\newtcolorbox{qimportant}[1][Importante]{
+  quarto-callout-base,
+  colframe=quarto-callout-important-color-frame,
+  colbacktitle=quarto-callout-important-color!10!white, 
+  title=\textcolor{quarto-callout-important-color}{\faExclamation}\hspace{0.5em}{#1}
+}
+
+% --- FIN DE LA CONFIGURACIÓN ---
+
+<<setup, include=FALSE>>=
+knitr::opts_chunk$set(highlight = TRUE, echo = TRUE, message = FALSE, warning = FALSE)
+@
+
+\begin{document}
+\maketitle
+\tableofcontents
+\newpage
+<<child='Tema 1/Tema 1.Rnw'>>=
+@
+\end{document}
