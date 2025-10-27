@@ -1,0 +1,95 @@
+\section{Métodos de Alisado Exponencial}
+\subsection{Introducción}
+Una de las críticas que se les hace a estos métodos clásicos es que no se adaptan a lo largo del tiempo de forma natural: en los métodos clásicos, la tendencia y la estacionalidad se estiman una sola vez, usando todas las observaciones y todas con el mismo peso. Sin embargo, parece más lógico que las observaciones más recientes tengan un mayor peso en las predicciones futuras y que las estimaciones de la tendencia y estacionalidad se actualicen conforme se obtienen nuevas observaciones.
+
+Una familia de modelos que aparecen en la década de los años 60, intenta solucionar este problema. Se les conoce como \textbf{técnicas de alisado exponencial}, y se trata de técnicas bastante sencillas. Por este motivo, y a pesar de los años transcurridos, siguen siendo utilizadas en ciertas actividadtes de pronóstico, principalmente para realizar \textbf{predicciones a corto plazo}. Aplicar técnicas más sofisticadas no siempre es justa.
+
+El estudio de una serie temporal viene marcado por las diferentes metodologías empleadas en su tratamiento. La metodología que presentamos en este tema trata de explicar la trayectoria de una serie observada a través de la información contenida en los datos históricos, es decir, intenta capturar el comportamiento sistemático que muestra el pasado de la serie y en base a ello realizar predicciones respecto al futuro.
+
+Los métodos de alisado exponencial se clasifican dependiendo de si la serie en estudio presenta o no estacionalidad. En este tema veremos los siguientes:
+\begin{enumerate}[label=\arabic*)]
+    \item \textbf{Si la serie no presenta estacionalidad:}
+        \begin{enumerate}[label=\alph*)]
+            \item Método de alisado exponencial simple: se usa cuando la tendencia se considera constante (localmente).
+            \item Método de alisado exponencial doble: se usa cuando la tendencia se considera lineal (localmente).
+            \item Método de Holt: se usa cuando la tendencia se considera lineal (localmente).
+        \end{enumerate}
+    \item \textbf{Si la serie presenta estacionalidad:}
+        \begin{enumerate}[label=\alph*)]
+            \item Método de Holt-Winters para modelos multiplicativos: se usa cuando la serie presenta estacionalidad, la tendencia se considera lineal localmente y ambas componentes se integran con esquema multiplicativo.
+            \item Método de Holt-Winters para modelos aditivos: se usa cuando la serie presenta estacionalidad, la tendencia se considera lineal localmente y ambas componentes se integran con esquema aditivo.
+        \end{enumerate}
+\end{enumerate}
+\subsection{Alisado Exponencial Simple}
+Es el método más sencillo de alisado exponencial. Se aplica cuando la serie en estudio no presenta estacionalidad y la tendencia de la serie se considera constante (localmente). Es decir, no se advierte un patrón claro de tendencia ni estacionalidad.
+
+Un ejemplo ilustrativo sería la serie con el siguiente gráfico:
+
+<<fig=TRUE, fig.width=7, fig.height=5, out.width='0.7\\textwidth', fig.align='center'>>=
+ts.plot(LakeHuron,
+        gpars = list(xlab = "Year",
+                     ylab = "Level LakeHuron in feet",
+                     lwd = 1.5))
+@
+
+En este caso suponemos que la serie en estudio se expresa de la siguiente forma en cada instante: \[
+\begin{cases}
+    x_t=T_t+I_t=a_t+I_t & \text{modelo aditivo}\\
+    x_t=T_t\times I_t=a_t\times I_t & \text{modelo multiplicativo}
+\end{cases}
+\] donde hemos considerado que la componente de tendencia es constante en cada instante $t$ (constante localmente):  $T_t=a_t$, con  $a_t\in \R$.
+
+Obsérvese que $a_t$ representa la  \textit{altura} de la serie en cada instante $t$ cuando realizamos su representación gráfica. Por este motivo se dice que  $a_t$ representa el  \textbf{nivel de la serie}.
+
+Al no disponer de componente estacional y suponer tendencia constante, nuestro objetivo se reduce a estimar el nivel de la serie en cada instante.
+
+Como el resto de componente estacional y suponer tendencia constante, nuestro objetivo se reduce a estimar el nivel de la serie en cada instante.
+
+Como el resto de métodos de alisado exponencial, el alisado exponencial simple se caracteriza por dar más peso a las observaciones más recientes que a las observaciones más antiguas a la hora de realizar predicciones.
+
+\textbf{Dada una serie de observaciones, $\{x_t\}_{t=1,2,\dots,n} $, en el alisado exponencial simple se obtiene otra serie denominada serie alisada (smoothing series), que denotaremos por $\{A_t\}_{t=1,2,\dots,n} $, y que representa la estimación del nivel de la serie ($a_t$) en cada instante.}
+
+La serie alisada en cada instante $t$ se obtiene a partir de la serie original mediante la siguiente expresión:
+\begin{equation}\label{eq:5:1}
+    A_t=\hat{a}_t=\alpha x_t+\alpha(1-\alpha)x_{t-1}+\alpha(1-\alpha)^2x_{t-2}+\dots+\alpha(1-\alpha)^{t-1}x_1
+\end{equation}
+donde $\alpha\in (0,1)$ se conoce como \textit{parámetro de alisado}. 
+
+Es decir, la serie alisada se obtiene, en cada instante, como una media ponderada de las observaciones acutal y anteriores de la serie original, donde las observaciones más recientes poseen más peso  que las observaciones más antiguas. De hecho, el nombre de alisado exponencial se debe a que el peso de las observaciones decrece exponencialmente a medida que nos separamos del último instante observado (los valores de los pesos $\alpha, \alpha(1-\alpha),\alpha(1-\alpha)^2,\dots,\alpha(1-\alpha)^{t-1}$ decrecen exponencialmente al ser $\alpha\in (0,1)$).
+
+Otra de las características de los métodos de alisado exponencial es que las series alisadas se pueden obtener de manera recurrente, pudiendo actualizarse cada vez que disponemos de una nueva observación.
+
+Teniendo en cuenta la expresión (\ref{eq:5:1}), la serie alisada en el instante $t-1$, viene dada por: \[
+A_{t-1}=\alpha x_{t-1}+\alpha(1-\alpha)x_{t-2}+\alpha(1-\alpha)^2x_{t-3}+\dots+\alpha(1-\alpha)^{t-2}x_1
+\] de manera que: \[
+(1-\alpha)A_{t-1}=\alpha(1-\alpha)+\alpha(1-\alpha)^2x_{t-2}+\alpha(1-\alpha)^3x_{t-3}+\dots+\alpha(1-\alpha)^{t-1}x_1
+\] y teniendo en cuenta nuevamente (\ref{eq:5:1}), se obtiene la siguiente expresión que permite calcular la serie alisada de forma recurrente:
+\begin{equation}\label{eq:5:2}
+    \boxed{A-t=\alpha x_t+(1-\alpha)A_{t-1}\quad\forall t,\text{ con }\alpha\in [0,1]}
+\end{equation}
+Es decir, la estimación del nivel en cada instante se puede obtener de forma recurrente: \[
+    \boxed{a_t=\alpha x_t+(1-\alpha)a_{t-1}\quad \forall t,\text{ con }\alpha[0,1]}
+\] 
+\textbf{Nota:} haciendo abuso de la notación, hemos usado $a_t$ en la serie alisada para denotar a la estimación del nivel. Además, consideramos $\alpha\in [0,1]$, permitiendo que $\alpha$ tome los valroes 0 y 1 en las fórmulas recurrentes para facilitar la interpretación del parámetro de alisado.
+
+Para aplicar la fórmula recursiva anterior necesitamos disponer, por una parte, del valor del parámetro de alisado $\alpha$, y por otra parte, del valor inicial de la serie alisada $A_0$ (nivel inicial de la serie $a_0$).
+
+Como valor inicial del nivel se suele usar el primer valor de la serie original, es decir: \[
+a_0=A_0=x_1
+\] o bien la media de las primeras observaciones, es decir: \[
+a_0=A_0=\dfrac{x_1+\dots+x_k}{k}\text{ con $k$ pequeño}
+\]
+Con respecto al parámetro de alisado $\alpha$, comentar que si se utiliza un valor próximo a uno $(\alpha\simeq 1)$ se da mucho peso a la última observación de la serie y muy poco peso a las pasadas. Por el contrario, si se utiliza un parámetro de alisado próximo a cero $(\alpha \simeq 0)$, se le da mucho peso al conjunto de las observaciones pasadas y poco a la última observación (véase (\ref{eq:5:2})).
+
+Se ha comprobado empíricamente que un valor de $\alpha=0.2$ suele dar buenos resultados. Sin embargo, la mayoría del software permite seleccionar el valor de $alpha$ que minimiza la suma de cuadrados de los errores de estimación. En \textbf{\texttt{R}} podremos seleccionar como parámetro de suavizado el valor de $\alpha$ óptimo según dicho criterio (minimiza la suma de cuadrados de los errores de predicción para el instante siguiente).
+
+Nuestro fin último es realizar predicciones de la serie para instantes futuros. Si disponemos de información de la serie hasta el instante $T,\,\{x_t\} _{t=1,2,\dots,T}$, las predicciones de la serie usando el método de alisado exponencial simple vienen dadas por: \[
+    \boxed{
+        \begin{array}{ll}
+            \hat{x}_{T+1 / T}=a_T=A_T & \\
+            \hat{x}_{T+2 / T}=a_T=A_T & \\
+            \vdots & \\
+            \hat{x}_{T+m / T}=a_T=A_T & \forall m=1,2,3,\dots\\
+        \end{array}
+    }
+\] 

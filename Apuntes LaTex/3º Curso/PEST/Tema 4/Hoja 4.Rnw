@@ -1,0 +1,44 @@
+\begin{center}
+    \Large Hoja 4: Conceptos Básicos de Series Temporales
+\end{center}
+\begin{enumerate}[label=\color{red}\textbf{\arabic*)}]
+    \item \lb{Los siguientes datos se corresponden  con las ventas cuatrimetrales (en miles de unidades) de una empresa que elabora latas de conserva.}
+        \begin{center}
+            \color{lightblue}
+            \begin{tabular}{|l|c|c|c|c|c|c|c|c|c|}
+                \hline
+                Año: & 2021 & 2021 & 2021 & 2022 & 2022 & 2022 & 2023 & 2023 & 2023 \\ \hline
+                Cuatrimestre: & C1 & C2 & C3 & C1 & C2 & C3 & C1 & C2 & C3\\ \hline
+                Ventas (miles): & 23 & 30 & 14 & 31 & 37 & 20 & 34 & 41 & 26\\ \hline
+            \end{tabular}
+        \end{center}
+
+        \lb{Se pretende realizar una descomposición clásica de la serie y se pide:}
+        \begin{enumerate}[label=\color{red}\textbf{\arabic*.}]
+            \item \db{Representar la serie en estudio y describir sus aspectos más relevantes. ¿Presenta componente estacional? ¿Cuál es el periodo $L$?}
+            \item \db{Justificar si, para la serie en estudio, es más adecuado un esquema aditivo o bien uno multiplicativo.}
+            \item \db{Completar la siguiente tabla para obtener las componentes Tendencia, Estacionalidad e Irregular por el método de la diferencia a la media móvil o por el método de la razón a la media móvil, según se considere.} 
+
+        \begin{center}
+            \color{blue}
+            \begin{tabular}{|p{6cm}|c|c|c|c|c|c|c|c|c|}
+                \hline
+                Año: & 2021 & 2021 & 2021 & 2022 & 2022 & 2022 & 2023 & 2023 & 2023 \\ \hline
+                Cuatrimestre: & C1 & C2 & C3 & C1 & C2 & C3 & C1 & C2 & C3\\ \hline
+                Ventas (miles): & 23 & 30 & 14 & 31 & 37 & 20 & 34 & 41 & 26\\ \hline
+                Tendencia ($T_t$):\linebreak Medias Móviles Orden = ¿ ? & & & & & & & & & \\ \hline
+                \linebreak IBVE:& & & & & & & & & \\ \hline 
+                \linebreak IVE no normalizados:& & & & & & & & & \\ \hline 
+                Comp. Estacional:\linebreak $S_h=\mathrm{IVE}_h$ & & & & & & & & & \\ \hline 
+                Serie Desestacionalizada $(D_t)$: & & & & & & & & & \\ \hline 
+                Comp. Irregular $(I_t)$: & & & & & & & & & \\ \hline 
+            \end{tabular}
+        \end{center}
+            \item \db{Explica cómo podrías predecir las ventas futuras. Supongamos que la tendencia se ajusta mediante la ecuación de la recta siguiente: $T(t)=19.5+1.8t,\, t=1,2,\dots$} 
+                \begin{enumerate}[label=\color{red}\textbf{\alph*)}]
+                    \item \db{Obtener las predicciones de los cuatrimestres C1, C2 y C3 del año 2024.}
+                    \item \db{Obtener los valores ajustados de la serie, es decir, los valores predichos en el rango de datos observado.} 
+                \end{enumerate}
+            \item \db{Olvidemos la descomposición estacional realizada y consideremos el Método Ingenuo I. Calcula las predicciones que se obtendrían con dicho método sólo para los datos del 2023, así como las medidas de error MAE y RMSE correspondientes.} 
+        \end{enumerate}
+\end{enumerate}
