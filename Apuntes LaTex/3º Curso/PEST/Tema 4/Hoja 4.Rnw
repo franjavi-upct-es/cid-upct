@@ -21,15 +21,15 @@
 
         \begin{center}
             \color{blue}
-            \begin{tabular}{|p{6cm}|c|c|c|c|c|c|c|c|c|}
+            \begin{tabular}{|p{5cm}|c|c|c|c|c|c|c|c|c|}
                 \hline
                 Año: & 2021 & 2021 & 2021 & 2022 & 2022 & 2022 & 2023 & 2023 & 2023 \\ \hline
                 Cuatrimestre: & C1 & C2 & C3 & C1 & C2 & C3 & C1 & C2 & C3\\ \hline
                 Ventas (miles): & 23 & 30 & 14 & 31 & 37 & 20 & 34 & 41 & 26\\ \hline
-                Tendencia ($T_t$):\linebreak Medias Móviles Orden = ¿ ? & & & & & & & & & \\ \hline
-                \linebreak IBVE:& & & & & & & & & \\ \hline 
-                \linebreak IVE no normalizados:& & & & & & & & & \\ \hline 
-                Comp. Estacional:\linebreak $S_h=\mathrm{IVE}_h$ & & & & & & & & & \\ \hline 
+                Tendencia ($T_t$):\newline Medias Móviles Orden = ¿ ? & & & & & & & & & \\ \hline
+                ~\newline IBVE:& & & & & & & & & \\ \hline 
+                ~\newline IVE no normalizados:& & & & & & & & & \\ \hline 
+                Comp. Estacional:\newline $S_h=\mathrm{IVE}_h$ & & & & & & & & & \\ \hline 
                 Serie Desestacionalizada $(D_t)$: & & & & & & & & & \\ \hline 
                 Comp. Irregular $(I_t)$: & & & & & & & & & \\ \hline 
             \end{tabular}

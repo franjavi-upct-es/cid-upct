@@ -6,6 +6,7 @@
 \newtheorem{proposition}{Proposición}[subsection]
 \newtheorem{lemma}{Lema}[subsection]
 \newtheorem{observation}{Observación}[subsection]
+\newcolumntype{C}[1]{>{\centering\arraybackslash}p{#1}}
 % ==== Soporte knitr para bloques sombreados y \hl... ====
 \usepackage{color}
 \usepackage{fancyvrb}
@@ -16,7 +17,9 @@
 \usepackage{amssymb}
 \usepackage{alltt}
 \usepackage{hyperref}
+\usepackage{booktabs}
 \usetikzlibrary{positioning,arrows}
+\usepackage{adjustbox}
 
 % Fondo gris de los bloques (como RMarkdown)
 \newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
@@ -36,7 +39,7 @@
 \newcommand{\hlsng}[1]{\hlstr{#1}}
 
 <<setup, include=FALSE>>=
-knitr::opts_chunk$set(highlight = TRUE, echo = TRUE)
+knitr::opts_chunk$set(highlight = TRUE, echo = TRUE, message = FALSE, warning = FALSE)
 @
 
 

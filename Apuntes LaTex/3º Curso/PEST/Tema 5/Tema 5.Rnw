@@ -92,4 +92,667 @@ Nuestro fin último es realizar predicciones de la serie para instantes futuros.
             \hat{x}_{T+m / T}=a_T=A_T & \forall m=1,2,3,\dots\\
         \end{array}
     }
+\] donde $\hat{x}_{T+m / T}$ de nota el valor de la predicción en el instante $T+m$ cuando disponemos de observaciones de la serie hasta el instante  $T$. Es decir, la predicción de la serie en el instante siguiente viene dada por la estimación del nivel en el último instante observado, o lo que es lo mismo, el valor de la serie alisada en el último instante observado. Y ésta también sería la predicción para instantes posteriores.
+
+Sin embargo, a medida que disponemos de información nueva (nuevas observaciones), se calculan los valores de la serie alisada para los nuevos instantes y por lo tanto se revisan las predicciones de manera automática.
+
+Podemos decir que el alisado exponencial simple estima en cada instante $t$ el  \textit{nivel de la serie} (altura de la serie), y al suponer tendencia constante las predicciones vienen dadas por el último nivel estimado. En el siguiente gráfico se muestra la serie original (negro), la serie ajustada (azul) usando Alisado Exponencial Simple y las predicciones (rojo) para futuros instantes.
+
+<<fig=TRUE, fig.width=7, fig.height=5, out.width='0.7\\textwidth', fig.align='center'>>=
+SES <- HoltWinters(LakeHuron, beta = FALSE, gamma = FALSE)
+
+ts.plot(LakeHuron, xlim = c(1875, 2000),
+        gpars = list(xlab = "Year",
+                     ylab = "Level LakeHuron in feet",
+                     lwd = 1.5))
+
+lines(SES$fitted[ , 1], col = "blue", lwd = 1.2)
+lines(predict(SES, n.ahead = 20), col = "red", lwd = 1.2)
+@
+
+\subsection{Alisado Exponencial Doble o método de Brown}
+
+Este método de alisado se aplica cuando la serie en estudio no presenta estacionalidad y la tendencia de la serie se considera linea (localmente).
+
+Un ejemplo ilustrativo sería la serie con siguiente gráfico:
+
+<<fig=TRUE, fig.width=7, fig.height=5, out.width='0.7\\textwidth', fig.align='center'>>=
+library(ggplot2)
+ts.plot(economics$uempmed, lwd = 1.5)
+@
+
+Esto es, suponemos que la serie en estudio se expresa de la siguiente forma en cada instante:
+\[
+\begin{cases}
+    x_t=T_t+I_t=(a_t+b_t\cdot t)+I_t & \text{modelo aditivo}\\
+    x_t=T_t\times I_t=(a_t+b_t\cdot t)\times I_t & \text{modelo multiplicativo}\\
+\end{cases}
+\] donde hemos considerado que la componente de tendencia es linea en cada instante $t$ (lineal localmente): $T_t=a_t+b_t\cdot t$, con $a_t,b_t\in \R$.
+
+Obsérvese que $a_t$ representa el  \textbf{nivel} de la serie en cada instante $t$, mientras que  $b_t$ representa la  \textbf{pendiente} de la tendencia lineal en dicho instante.
+
+Al no disponer de componente estacional y suponer tendencia localmente lineal, nuestro objetivo se reduce a estimar el nivel de la serie y la pendiente de la tendencia en cada instante.
+
+El alisado exponencial doble consiste en realizar dos veces el proceso de alisado sobre la serie observada. Es decir, primero se aplica el proceso de alisado simple a la serie original y luego se aplica el proceso de alisado simple sobre la serie alisada previamente. Además, se utiliza el mismo parámetro de alisado en las dos etapas.
+
+Dada una serie de observaciones, $\{x_t\}_{t=1,2,\dots,n}$, en el alisado exponencial doble se obtienen de forma recursiva las dos series alisadas siguientes: \[
+    \boxed{
+        \begin{array}{l}
+            A_t=\alpha x_t+(1-\alpha)A_{t-1}\\
+            A_t^{(2)}=\alpha A_t+(1-\alpha)A_{t-1}^{(2)}
+        \end{array}
+    }
+\] donde $\alpha\in [0,1]$ es el \textit{parámetro de alisado}.
+
+Las dos series obtenidas por alisado exponencial doble sirven para estimar, en cada instante $t$, el nivel de la serie  $(a_t)$ y la pendiente de la tendencia  $(b_t)$. Se puede comprobar, con un desarrollo bastante laborioso, que estimaciones del nivel y de la pendiente vienen dadas por:  \[
+    \boxed{
+        \begin{array}{l}
+            a_t=2 A_t-A_t^{(2)}\\
+            b_t=\dfrac{\alpha}{(1-\alpha)}\left( A_t-A_t^{(2)} \right) 
+        \end{array}
+    }
 \] 
+\textbf{Nota:} haciendo abuso de la notación, hemos usado $a_t$ y  $b_t$ en las series alisadas para denotar a las estimaciones del nivel y de la tendencia.
+
+Para aplicar la fórmula recursiva anterior necesitamos disponer, por una parte, del valor del parámetro de alisado  $\alpha$, y por otra parte, de los valores iniciales de las series alisadas $A_0$ y $A_0^{(2)}$ (o equivalentemente de los valores iniciales del nivel $a_0$ y pendiente $b_0$). Como valores iniciales se suelen tomar la ordenada en el origen $(a_0=cte)$ y la pendiente $(b_0=pendiente)$ de la recta que ajusta a la serie por mínimos cuadrados usando todos los datos.
+
+Con respecto al parámetro de alisado $\alpha$, nuevamente podemos seleccionar aquel que minimice la suma de cuadrados de los errores de estimación.
+
+Nuestro fin último es realizar predicciones de la serie para instantes futuros. Si disponemos de información de la serie hasta el instante $T,\, \{c_t\}_{t=1,2,\dots,T}$, las predicciones de la serie usando el método de alisado exponencial doble vienen dadas por: \[
+    \boxed{
+        \begin{array}{ll}
+            \hat{x}_{t+1 / T}=a_T+b_T\cdot 1 & \\
+            \hat{x}_{t+2 / T}=a_T+b_T\cdot 2 & \\
+            \vdots & \\
+            \hat{x}_{t+m / T}=a_T+b_T\cdot m & \forall m=1,2,3,\dots\\
+        \end{array}
+    }
+\] 
+Es decir, la predicción de la serie en el instante siguiente viene dada por la estimación del nivel en el último instante observado más la estimación de la pendiente en el último instante observado.
+
+Igual que en el alisado simple, a medida que disponemos de información nueva (nuevas observaciones), se calculan los valores de las series alisadas para los nuevos instantes y por tanto se revisan las predicciones de manera automática.
+
+\subsection{Método de Holt}
+
+Este método de alisado se aplica en las mismas situaciones que el alisado exponencial doble, es decir, cuando la serie en estudio no presenta estacionalidad y la tendencia de la serie se considera lineal localmente.
+
+Nuevamente, la serie en estudio se expresa de la siguiente forma en cada instante: \[
+\begin{cases}
+    x_t=T_t+I_t=(a_t+b_t\cdot t) + I_t & \text{modelo aditivo}\\
+    x_t=T_t\times I_t=(a_t+b_t\cdot t)\times I_t & \text{modelo multiplicativo}
+\end{cases}
+\] donde $a_t$ representa el  \textbf{nivel} de la serie en cada instante $t$, mientras que  $b_t$ represente la  \textbf{pendiente} de la tendencia lineal en dicho instante.  
+
+La ideal del método de Holt es similar al alisado exponencial doble: en cada instante $t$, queremos estimar el nivel de la serie ($a_t$) y la pendiente de la tendencia $(b_t)$. A diferencia del alisado exponencial doble, en el método de Holt se usan dos parámetros de alisado que denotaremos por  $\alpha \in [0,1]$ y $\beta\in [0,1]$.
+
+\textbf{En el método de Holt, la estimación del nivel en el instante $t$ viene dada por la siguiente serie alisada:} \[
+a_t=\alpha x_t+(1-\alpha)(a_{t-1}+b_{t-1})
+\] es decir, se obtiene como media ponderada de la última observación y (nivel+pendiente) en el instante anterior.
+ 
+Por otra parte, \textbf{la estimación de la pendiente en el instante $t$ viene dada por la siguiente serie alisada:} \[
+b_t=\beta(a_t-a_{t-1})+(1-\beta)b_{t-1}
+\]  es decir, se obtiene como media ponderada del último incremento de nivel y la pendiente en el instante anterior.
+
+Para aplicar la fórmula recursiva anterior necesitamos disponer de los parámetros de alisado $\alpha\in[0,1]$ y $\beta\in[0,1]$, y de los valores iniciales del nivel $(a_0)$ y pendiente $(b_0)$. Como valores iniciales se suelen tomar la ordenada en el origen $(a_0=cte)$ y la pendiente $(b_0=pendiente)$ de la recta que ajusta a la serie por mínimos cuadrados usando todos los datos.
+
+Con respecto a los parámetros de alisado, podemos seleccionar aquellos que minimicen la suma de cuadrados de los errores de estimación.
+
+Las predicciones con el método de Holt se obtienen de forma análoga al alisado doble: si disponemos de información de la serie hasta el instante $T,\,\{x_t\}_{t=1,2,\dots,T}$, las predicciones vienen dadas por \[
+    \boxed{
+        \begin{array}{ll}
+            \hat{x}_{t+1 / T}=a_T+b_T\cdot 1 & \\
+            \hat{x}_{t+2 / T}=a_T+b_T\cdot 2 & \\
+            \vdots & \\
+            \hat{x}_{t+m / T}=a_T+b_T\cdot m & \forall m=1,2,3,\dots\\
+        \end{array}
+    }
+\]
+
+Como siempre, a medida que disponemos de nuevas observaciones, se calculan los valores de las series alisadas para los nuevos instantes y por tanto se revisan las predicciones de manera automática.
+
+En el siguiente gráfico se muestra la serie original (negro), la serie ajustada (azul) usando el método de Holt y las predicciones (rojo) para futuros instantes.
+
+<<fig=TRUE, fig.width=7, fig.height=5, out.width='0.7\\textwidth', fig.align='center'>>=
+Holt <- HoltWinters(economics$uempmed, gamma = FALSE)
+ts.plot(economics$uempmed, lwd = 1.5)
+lines(Holt$fitted[ , 1], col = "blue", lwd = 1.2)
+lines(predict(Holt, n.ahead = 20), col = "red", lwd = 1.2)
+@
+
+\subsection{Método de Holt-Winters multiplicativo}
+
+Este método de alisado es una variación del método de Holt que sirve para realizar predicciones en series que presentan estacionalida. Además de la estacionalidad, se supone tendencia linea (localmente) y que ambas componentes (tendencia y estacionalidad) se integran en la serie de forma multiplicativa.
+
+Por tanto, la serie en estudio se expresa de la siguiente forma en cada instante: \[
+\begin{array}{c}
+    x_t=T_t\times S_t\times I_t=(a_t+b_t\cdot t)\times S_t\times I_t\qquad \text{modelo multiplicativo}\\
+    x_t=T_t\times S_t+I_t=(a_t+b_t\cdot t)\times S_t+I_t\qquad \text{modelo multiplicativo (mixto)}
+\end{array}
+\] donde $a_t$ representa el  \textbf{nivel} de la serie en cada instante $t,\, b_t$ representa la  \textbf{pendiente} de la tendencia lineal en dicho instante y $S_t$ la componente  \textbf{estacional} de la serie que supondremos de período $L$.
+
+Siguiendo la idea del método de Holt, en cada instante  $t$ necesitamos estimar el nivel de la serie  $(a_t)$, la pendiente de la tendencia  $(b_t)$ y el factor estacional  $(S_t)$. En este caso se usarán tres series aisladas y tres parámetros de alisado que denotaremos por  $\alpha\in [0,1],\,\beta\in [0,1]$ y $\gamma\in [0,1]$.
+
+\textbf{En el método de Holt-Winters multiplicativo, la estimación del nivel en el instante $t$ viene dada por la siguiente serie alisada:} \[
+    \boxed{a_t=\alpha \dfrac{x_t}{S_{t-L}}+(1-\alpha)(a_{t-1}+b_{t-1})}
+\]  es decir, se obtiene como media ponderada de la última observación "desestacionalizada" y (nivel+pendiente) en el instante anterior.
+
+Por otra parte, \textbf{la estimación de la pendiente en el instante $t$ viene dada por la siguiente serie alisada:} \[
+    \boxed{b_t=\beta(a_t-a_{t-1})+(1-\beta)b_{t-1}}
+\]  es decir, se obtiene como media ponderada del último incremento de nivel y la pendiente en el instante anterior.
+
+Finalmente, \textbf{la estimación del factor estacional en el instante $t$ viene dada por la siguiente serie aislada:} \[
+S_t=\gamma\cdot \dfrac{x_t}{a_t}+(1-\gamma)S_{t-L}
+\]  
+Para aplicar la fórmula recursiva anterior necesitamos disponer de los parámetros de alisado $\alpha \in [0,1],\,\beta\in [0,1]$ y $\gamma\in [0,1]$, y de los valores iniciales de nivel $(a_0)$, pendiente $(b_0)$, y factores estacionales $(S_0,S_{-1},\dots,S_{-L+1})$. Como valores iniciales para el nivel y la pendiente ($a_0$ y $b_0$) se suelen tomar la ordenada en el origen $(a_0=cte)$ y la pendiente $(b_0=pendiente)$ de la recta que ajusta a la serie desestacionalizada por mínimos cuadrados usando todos los datos, y como valores iniciales de los factores estacionales se suelen tomar los índices de variación estacional (IVE) obtenidos al desestacionalizar la serie (visto en análisis clásico).
+
+Con respecto a los parámetros de alisado, podemos seleccionar aquellos que minimicen la suma de cuadrados de los errores de estimación.
+
+Las predicciones con el método de Holt-Winters multiplicativo se obtienen de la siguiente forma: si disponemos de información de la serie hasta el instante $T,\,\{x_t\}_{t=1,2,\dots,T} $, las predicciones vienen dadas por \[
+\begin{array}{ll}
+    \hat{x}_{T+1 / T}=(a_T+b_T\cdot 1)\times S_{T+1-L} & \\
+    \hat{x}_{T+2 / T}=(a_T+b_T\cdot 2)\times S_{T+2-L} & \\
+    \vdots & \\
+    \hat{x}_{T+m / T}=(a_T+b_T\cdot m)\times S_{T+m-L} & \forall m=1,2,\dots,L\\
+\end{array}
+\] 
+
+Como siempre, a medida que disponemos de nuevas observaciones, se calculan los valores de las series alisadas para los nuevos instantes y por tanto se revisan las predicciones de manera automática.
+
+En el siguiente gráfico se muestra la serie original (negro), la serie ajustada (azul) usando Holt-Winters multiplicativo y las predicciones (rojo) para futuros instantes.
+
+<<fig=TRUE, fig.width=7, fig.height=5, out.width='0.7\\textwidth', fig.align='center'>>=
+library(forecast)
+HWm <- HoltWinters(AirPassengers, seasonal = "multiplicative")
+pred_HWm <- predict(HWm, n.ahead = 24)
+pred_HWm.ts <- ts(pred_HWm,
+                  start = c(1961, 1), frequency = 12)
+
+serie_ampliada <- ts(c(AirPassengers, rep("NA", 24)),
+                     start = start(AirPassengers),
+                     frequency = frequency(AirPassengers))
+
+ts.plot(serie_ampliada, lwd = 1.5, ylim = c(100, 800))
+lines(HWm$fitted[ , 1], col = "blue", lwd = 1.5)
+lines(pred_HWm.ts, col = "red", lwd = 1.5)
+@
+\subsection{Método de Holt-Winters aditivo}
+
+Este método de alisado se aplica en los mismo casos que el método anterior, salvo que los componentes de estacionalidad y tendencia se integran de forma aditiva. Por tanto, la serie en estudio se expresa de la siguiente forma en cada instante: \[
+x_t=T_t+S_t+I_t=(a_t+b_t\cdot t)+S_t+I_t\quad\text{modelo aditivo}
+\] donde $a_t$ representa el  \textbf{nivel} de la serie en cada instante $t,\,b_t$ representa la  \textbf{pendiente} de la tendencia lineal en dicho instante y $S_t$ la componente  \textbf{estacional} de la serie que supondremos de período $L$.
+
+Siguiendo la idea del método anterior, en cada instante $t$ necesitamos estimar el nivel de la serie  $(a_t)$, la pendiente de la tendencia  $(b_t)$ y el factor estacional  $(S_t)$. En este caso se usarán tres series alisadas y tres parámetros de alisado que denotaremos por  $\alpha\in [0,1],\beta\in [0,1]$ y $\gamma\in [0,1]$.
+
+\textbf{En el método de Holt-Winters aditivo, la estimación del nivel en el instante $t$ viene dada por la siguiente serie alisada:} \[
+    \boxed{a_t=\alpha(x_t-S_{t-L})+(1-\alpha)(a_{t-1}+b_{t-1})}
+\]  es decir, se obtiene como media ponderada de la última observación "desestacionalizada" y (nivel+pendiente) en el instante anterior.
+
+Por otra parte, \textbf{la estimación de la pendiente en el instante $t$ viene dada por la siguiente serie alisada:} \[
+    \boxed{b_t=\beta(a_t-a_{t-1}+(1-\beta)b_-t-1}
+\] es decir, se obtiene como media ponderada del último incremento de nivel y la pendiente en el instante anterior.
+
+Finalmente, \textbf{la estimación del factor estacional en el instante $t$ viene dada por la siguiente serie alisada:} \[
+\boxed{S_t=\gamma\cdot (x_t-a_t)+(1-\gamma)S_{t-L}}
+\]  
+Para aplicar la fórmula recursiva anterior necesitamos disponer de los parámetros de alisado $\alpha\in [0,1],\beta\in [0,1]$ y $\gamma\in [0,1]$, y de los valores iniciales de nivel $(a_0)$, pendiente $(b_0)$, y factores estacionales $(s_0,S_{-1},\dots,S_{-L+1})$. Como valores iniciales para el nivel y la pendiente ($a_0$ y $b_0$) se suelen tomar la ordenada en el origen $(a_0=cte)$ y la pendiente $(b_0=pendiente)$ de la recta que ajusta a la serie desestacionalizada por mínimos cuadrados usando todos los datos, y como valores iniciales de los factores estacionales se suelen tomar los índices de variación estándar (IVE) obtenidos al desestacionalizar la serie (visto en análisis clásico).
+
+Con respecto a los parámetros de alisado, podemos seleccionar aquellos que minimicen la suma de cuadrados de los errores de estimación.
+
+Las predicciones con el método de Holt-Winters aditivo se obtienen de la siguiente forma: si disponemos de información de la serie hasta el instante $T,\,\{x_t\}_{t=1,2,\dots,T} $, las predicciones vienen dadas por \[
+\boxed{
+  \begin{array}{ll}
+      \hat{x}_{T+1 / T}=(a_T+b_T\cdot 1)+ S_{T+1-L} & \\
+      \hat{x}_{T+2 / T}=(a_T+b_T\cdot 2)+ S_{T+2-L} & \\
+      \vdots & \\
+      \hat{x}_{T+m / T}=(a_T+b_T\cdot m)+ S_{T+m-L} & \forall m=1,2,\dots,L\\
+  \end{array}
+}
+\] 
+Como siempre, a medida que disponemos de nuevas observaciones, se calculan los valores de las series alisadas para los nuevos instantes y por tanto se revisan las predicciones de manera automática.
+
+En el siguiente gráfico se muestra la serie original (negro), la serie ajustada (azul) usando Holt-Winters y las predicciones (rojo) para futuros instantes.
+
+<<fig=TRUE, fig.width=7, fig.height=5, out.width='0.7\\textwidth', fig.align='center'>>=
+data <- log(AirPassengers)
+Holt_Winters_aditivo <- HoltWinters(data, seasonal = "additive")
+forecasted_values <- predict(Holt_Winters_aditivo, n.ahead = 24)
+extended_data <- ts(c(data, forecasted_values), start = start(data), frequency = frequency(data))
+
+ts.plot(extended_data, col = "red")
+lines(log(AirPassengers), lwd = 1.5)
+lines(Holt_Winters_aditivo$fitted[ , 1], col = "blue", lwd = 1.2)
+lines(predict(Holt_Winters_aditivo, n.ahead = 24), col = "red", lwd = 1.2)
+@
+
+\subsection{Interpretación de los parámetros de alisado}
+
+Para clarificar un poco el papel que tiene cada uno de los parámetros de alisado en los métodos vistos, podemos proporcionar la siguiente interpretación aproximada de los parámetros de alisado $\alpha,\beta$ y $\gamma$:
+ \begin{itemize}[label=\textbullet]
+    \item Alfa $(\alpha)$: Parámetro de suavizado exponencial que controla el peso relativo dado a las observaciones más recientes a la hora de estimar el nivel de la serie, en contraposición a la media global de la serie. Cuando alfa toma el valor 1, se utilzia exclusivamente la única observación más reciente; cuando alfa toma el valor 0, las observaciones antiguas cuentan tanto peso como las recientes. ALfa se utiliza en todos los métodos de alisado.
+    \item Beta $(\beta)$: Parámetro de suavizado exponencial que controla el peso relativo dado a las observaciones recientes a la hora de estiamr la tendencia de la serie en el presente. Toma valores de 0 a 1. Los valores próximos a 1 indican un mayor peso para los valores más recientes. Beta se utiliza sólo en los métodos de suavizado exponencial con una tendencia lineal localmente. No se utiliza en el alisado exponencial simple ni doble.
+    \item Gamma  $(\gamma)$: Parámetro de suavizado exponencial que controla el peso relativo dado a las observaciones recientes al estiamr la estacionalidad del presente. Toma valores de 0 a 1. Los valores próximos a 1 corresponden a un mayor peso para las observaciones recientes. La gamma se utiliza en todos los métodos de suavizado exponencial con componente estacional. No se utiliza en los métodos de alisado simple, doble y de Holt.
+\end{itemize}
+\subsection{Taxonomía de los métodos de alisado exponencial}
+Los métodos de alisado desarrolados en las secciones anteriores suponen una parte del total de métodos disponibles con ese mismo enfoque.
+
+Las formas más usuales de variar y combinar las componentes de tendencia y estacionalidad se muestran en la siguiente tabla, dando lugar a un total de 9 métodos de alisado exponencial (fuente: Hyndman, R.J. and Athanasopoulos, G., 2021):
+
+\pagebreak
+
+\begin{table}[h]
+    \centering
+    \arrayrulecolor{gray}
+    \begin{tabular}{p{5cm}lll}
+        \hline
+        \rowcolor{gray!50}\textbf{Trend Component}  & \multicolumn{3}{|l|}{\textbf{Seasonal Componentes} }\\
+        \rowcolor{lightgray!50} & \textbf{N} & \textbf{A} & \textbf{M} \\
+        \rowcolor{lightgray!50} & \textbf{(None)} & \textbf{(Additive)} & \textbf{(Multiplicative)} \\
+        \cellcolor{lightgray!50}\textbf{N (None)} & \cellcolor{lightgray!20}(N,N) & \cellcolor{lightgray!20}(N, A) & \cellcolor{lightgray!20}(N, M) \\
+        \cellcolor{lightgray!50}\textbf{A (Additive)} & \cellcolor{lightgray!20}(A, N) & \cellcolor{lightgray!20}(A, A) & \cellcolor{lightgray!20}(A, M)\\
+        \cellcolor{lightgray!50}\textbf{A$_d$ (Additive damped)} & \cellcolor{lightgray!20}(A$_d$, N) & \cellcolor{lightgray!20}(A$_d$, A) & \cellcolor{lightgray!20}(A$_d$, M)\\
+    \end{tabular}
+    \caption{Tabla 8.5 extraída de Hyndman and Athanasopoulos (2021)}
+\end{table}
+
+La mayoría de dichos métodos son los desarrollados anteriormente en este tema, incluyendo como novedad los casos de tendencia amortiguada (con parámetro de alisado adicional denotado por $\phi$), en los que la pendiente de la tendencia se ve amortiguada conforme aumenta el horizonte de predicción ($h$):
+
+\begin{table}[h]
+    \centering
+    \rowcolors{2}{white}{lightgray!20}
+    \begin{tabular}{p{6cm}p{\textwidth-8cm}}
+        \rowcolor{gray!50} \textbf{Short hand} & \textbf{Method} \\
+        (N,N) & Simple exponencial smoothing\\
+        (A,N) & Holt's linear method\\
+        (A$_d$,N) & Additive damped trend method\\
+        (A,A) & Additive Holt-Winter's method\\
+        (A,M) & Multiplicative Holt-Winter's method\\
+        (A$_d$,M) & Holt-Winter's damped method\\
+    \end{tabular}
+    \caption{Tabla extraída de Hyndman and Athanasopoulos (2021)}
+\end{table}
+
+La siguiente tabla muestra las fórmulas recurrentes para aplicar cada uno de los nueve métodos de alisado mencionados arriba, así como la expresión para obtener las \textbf{predicciones puntuales} con horizonte $h$ (fuente Hyndman, R.J. and Athanasopoulos, G., 2021). Indicar que la notación empleada para dicha tabla difiere de la usada en nuestro caso.
+
+Cabe destacar, a modo resumen, que los métodos de alisado exponencial permiten obtener  \textbf{predicciones puntuales} de la serie para instantes futuros. Aunque no se establece ninguna regla para el horizonte de predicción permitido, estos métodos tienen sentido para \textbf{predicciones a corto plazo}, siendo recomendable actualizar las fórmulas recurrentes conforme se dispone de nuevas observaciones de la serie.
+
+En la próxima sección se introducen los modelos ETS, que suponen una extensión de los métodos de alisado exponencial.
+
+\begin{table}[h]
+    \begin{adjustbox}{width=\columnwidth,center}
+    \begin{tabular}{clll}
+        \toprule
+        \textbf{Trend} & \multicolumn{3}{c}{\textbf{Seasonal} } \\ 
+                       & \multicolumn{1}{c}{\textbf{N} } & \multicolumn{1}{c}{\textbf{A} } & \multicolumn{1}{c}{\textbf{M} } \\ \cmidrule{2-4}
+        \textbf{N} & $\begin{array}{l}
+            \hat{y}_{t+h|t}=\ell_{t}\\
+            \ell_t=\alpha y_t+(1-\alpha)\ell_{t-1} 
+        \end{array}$ & $\begin{array}{l}
+            \hat{y}_{t+h|t}=\ell_t+s_{t+h-m(k+1)}\\
+            \ell_t=\alpha(y_t-s_{t-m})+(1-\alpha)\ell_{t-1}\\
+            s_t=\gamma(y_t-\ell_{t-1})+(1-\gamma)s_{t-m}
+        \end{array}$ & $\begin{array}{l}
+            \hat{y}_{t+h|t}=\ell_t+s_{t+h-m(k+1)}\\
+            \ell_t=\alpha(y_t/s_{t-m})+(1-\alpha)\ell_{t-1}\\
+            s_t=\gamma(y_t / \ell_{t-1})+(1-\gamma)s_{t-m}
+        \end{array}$ \\ \hline
+            \textbf{A} & $\begin{array}{l}
+                \hat{y}_{t+h|t}=\ell_t+hb_t\\
+                \ell_t=\alpha y_t+(1-\alpha)(\ell_{t-1}+b_{t-1})\\
+                b_t=\beta^*(\ell_t-\ell_{t-1})+(1-\beta^*)b_{t-1}
+            \end{array}$ & $\begin{array}{l}
+                \hat{y}_{t+h|t}=\ell_t+hb_t+s_{t+h-m(k+1)}\\
+                \ell_t=\alpha(y_t-s_{t-m})+(1-\alpha)(\ell_{t-1}+b_{t-1})\\
+                b_t=\beta^*(\ell_t-\ell_{t-1})+(1-\beta^*)b_{t-1}\\
+                s_t=\gamma(y_t-\ell_{t-1}-b_{t-1})+(1-\gamma)s_{t-m}
+            \end{array}$ & $\begin{array}{l}
+                \hat{y}_{t+h|t}=\ell_t+hb_t+s_{t+h-m(k+1)}\\
+                \ell_t=\alpha(y_t / s_{t-m})+(1-\alpha)(\ell_{t-1}+b_{t-1})\\
+                b_t=\beta^*(\ell_t-\ell_{t-1})+(1-\beta^*)b_{t-1}\\
+                s_t=\gamma(y_t / (\ell_{t-1}-b_{t-1}))+(1-\gamma)s_{t-m}
+            \end{array}$ \\
+            \textbf{A$_d$} & $\begin{array}{l}
+                \hat{y}_{t+h|t}=\ell_t+\phi_hb_t\\
+                \ell_t=\alpha y_t+(1-\alpha)(\ell_{t-1}+\phi b_{t-1})\\
+                b_t=\beta^*(\ell_t-\ell_{t-1})+(1-\beta^*)\phi b_{t-1}
+            \end{array}$& $\begin{array}{l}
+                \hat{y}_{t+h|t}=\ell_t+\phi_hb_t+s_{t+h-m(k+1)}\\
+                \ell_t=\alpha(y_t-s_{t-m})+(1-\alpha)(\ell_{t-1}+\phi b_{t-1})\\
+                b_t=\beta^*(\ell_t-\ell_{t-1})+(1-\beta^*)\phi b_{t-1}\\
+                s_t=\gamma(y_t-\ell_{t-1}-\phi b_{t-1})+(1-\gamma)s_{t-m}
+            \end{array}$& $\begin{array}{l}
+                \hat{y}_{t+h|t}=\ell_t+\phi_hb_t+s_{t+h-m(k+1)}\\
+                \ell_t=\alpha(y_t / s_{t-m})+(1-\alpha)(\ell_{t-1}+\phi b_{t-1})\\
+                b_t=\beta^*(\ell_t-\ell_{t-1})+(1-\beta^*)\phi b_{t-1}\\
+                s_t=\gamma(y_t / (\ell_{t-1}-\phi b_{t-1}))+(1-\gamma)s_{t-m}
+            \end{array}$\\
+        \bottomrule
+    \end{tabular}
+    \end{adjustbox}
+    \caption{Tabla 8.6 extraída de Hyndman and Athanasopoulos (2021)}
+\end{table}
+\subsection{Los modelos ETS}
+
+Los modelos ETS, cuyas siglas se corresponden con (Error, Trend, Seasonal), representan los modelos estadísticos que subyacen bajo los métodos de alisado exponencial, dando lugar a las mismas estimaciones puntuales y permitiendo la obtención de intervalos de predicción.
+
+Cada modelo ETS consiste en una ecuación que describe al proceso estocástico generador de la serie observada y, por otro lado, una o varias ecuaciones que describen cómo varían con el tiempo los \textit{estados} (nivel, pendiente de la tendencia y estacionalidad). Por eso estos modelos se conocen como \textbf{modelos de espacio de estados} (state space models).
+
+Por facilitar la distinción, hablaremos de \textit{métodos} de alisado exponencial y \textit{modelos} de espacio de estados. Para cada método de alisado existen dos modelos: uno con errores aditivos y otro con errores multiplicativos. Ambos proporcionan las mismas predicciones puntuales pero diferentes intervalos de predicción.
+
+\textbf{Notación:} Usaremos la nomenclatura \textbf{ETS (Error, Trend, Seasonal)}, donde:
+\begin{itemize}[label=\textbullet]
+    \item $Error=\{A,M\} $ según sean errores aditivos (A) o multiplicativos (M).
+    \item $Trend=\{N,A,A_d\} $ según sea tendencia (lineal localmente) aditiva (A), amortiguada ($A_d$), o bien no haya tendencia (N).
+    \item $Seasonal=\{N,A,M\} $ según sea esquema aditivo (A) o multiplicativo (M) para combinar la estacionalidad con la tendencia, o bien no se contemple componente estacional (N).
+\end{itemize}
+Por ejemplo, ETS(A,N,N) representaría el modelo de espacio de estados del alisado exponencial simple con errores aditivos.
+
+Veremos a continuación alguno de estos modelos en detalle.
+
+\subsubsection{ETS(A,N,N): Modelo de espacio de estados del alisado exponencial simple con errores aditivos}
+
+Recordemos las ecuaciones vistas para el método de alisado simple: \[
+\begin{array}{c}
+    a_t=\alpha x_t+(1-\alpha)a_{t-1}\qquad \text{(ecuación suavizado)}\\
+    \hat{x}_{t+1 / t}=a_t \qquad \text{(ecuación predicción)}
+\end{array}
+\] 
+Obsérvese que la ecuación del suavizado también puede reescribirse como sigue: \[
+\begin{aligned}
+    a_t&= a_{t-1+\alpha(x_t-a_{t-1})} \\
+    &= a_{t-1}+\alpha(x_{t}-\hat{x}_t / t-1) \\
+    &= a_{t-1}+\alpha e_t \\
+\end{aligned}
+\] donde $e_t=x_t-\hat{x}_{t / t-1} =x_t-a_{t-1}$ es el residuo o error de predicción en el instante $t$.
+
+Por encanto, tendremos las dos siguientes ecuaciones. La primera describe a la serie observada y la segunda cómo varían con el tiempo los estados (en este caso, el nivel de la serie):  \[
+\begin{array}{c}
+    x_t=a_{t-1}+e_t\\
+    a_t=a_{t-1}+\alpha e_t
+\end{array}
+\] 
+A partir de las ecuaciones anteriores, el modelo estadístico ETS(A,N,N) se construye considerando una distribución probabilística para los errores. En este caso, y por analogía con otras metodologías estadísticas, supondremos que los residuos provienen de distribuciones $N(0,\sigma^2)$ independientes.
+
+Por tanto, el modelo ETS(A,N,N) viene dado por las ecuaciones: \[
+\begin{array}{c}
+    X_t=a_{t-1}+\epsilon_t\\
+    a_t=a_{t-1}+\alpha \epsilon_t
+\end{array}
+\] con $(\epsilon_t)$ un ruido blanco gaussiano, es decir $\epsilon_t\sim N(0,\sigma^2)$ independientes para todo $t$, donde  $X_t$ denota el proceso estocástico generador de la serie.
+
+La interpretación del parámetro de alisado  $\alpha$ es el mismo que vimos. Es decir, si $\alpha=0$, el nivel de la serie no cambia con el tiempo, y el modelo se reduce a: \[
+X_t=a_0+\epsilon_t
+\] 
+Y si $\alpha=1$, para cada instante $t$ se tiene que  $X_t=a_t$, y el modelo se reduce a un paseo aleatorio:  \[
+X_t=a_t=a_{t-1}+\epsilon_t=X_{t-1}+\epsilon_t
+\] 
+Podemos simular varias trayectorias de este proceso en \textbf{\texttt{R}} mediante: 
+
+<<fig=TRUE, fig.width=7, fig.height=5, out.width='0.7\\textwidth', fig.align='center'>>=
+set.seed(123)
+
+# parámetros
+a0 <- 0
+alpha <- 0.2
+x0 <- a0
+
+nsim <- 10
+n <- 1000
+
+# Proceso
+e <- rnorm(n)
+a <- a0 + c(0, cumsum(alpha * e))
+x <- c(x0, a[1:n]+e)
+
+dt <- 1/n
+tiempos <- seq(from=0, to=1, by=dt)
+colores <- rainbow(nsim)
+plot(tiempos, x, ylim = c(-10, 10), type = "l", lty = 1, col = colores[1])
+for (i in 2:nsim) {
+  e <- rnorm(n)
+  a <- a0 + c(0, cumsum(alpha * e))
+  x <- c(x0, a[1:n]+e)
+  lines(tiempos, x, col = colores[i])
+}
+@
+
+Para $\alpha=0$, obtenemos un ruido blanco gaussiano:
+
+<<echo=FALSE, fig=TRUE, fig.width=7, fig.height=5, out.width='0.7\\textwidth', fig.align='center'>>=
+set.seed(123)
+
+# parámetros
+a0 <- 0
+alpha <- 0
+x0 <- a0
+nsim <- 10
+n <- 1000
+
+# Proceso
+e <- rnorm(n)
+a <- a0 + c(0, cumsum(alpha * e))
+x <- c(x0, a[1:n]+e)
+
+dt <- 1/n
+tiempos <- seq(from=0, to=1, by=dt)
+colores <- rainbow(nsim)
+plot(tiempos, x, ylim = c(-10, 10), type = "l", lty = 1, col = colores[1])
+for (i in 2:nsim) {
+  e <- rnorm(n)
+  a <- a0 + c(0, cumsum(alpha * e))
+  x <- c(x0, a[1:n]+e)
+  lines(tiempos, x, col = colores[i])
+}
+@
+
+\subsubsection{ETS(M,N,N): Modelo de espacio de estados del alisado exponencial simple con errores multiplicativos}
+
+De forma análoga a lo visto anteriormente, podemos considerar el modelo con errores multiplicativos, definiendo los errores en términos relativos: \[
+e_t^*=\dfrac{x_t-\hat{x}_{t / t-1}}{\hat{x}_{t / t-1}}
+\] 
+Y sustituyendo $\hat{x}_{t / t-1}=a_{t-1}$ en la expresión anterior, tenemos: \[
+x_t=a_{t-1}+a_{t-1}e_t^*=a_{t-1}(1+e_{t}^*)
+\] 
+Obsérvese que los residuos usuales $(e_t=x_t-\hat{x}_{t / t-1})$ y los relativos $(e_t^*)$, se relacionan mediante:  \[
+e_t=\hat{x}_{t / t-1}e_t^{*} =a_{t-1}e_t^*
+\] 
+Por tanto, la ecuación de suavizado se reescribe: \[
+a_t=a_{t-1}+\alpha e_t=a_{t-1}+\alpha a_{t-1}e_t^*=a_{t-1}(1+\alpha e_t^*)
+\] 
+A partir de las ecuaciones anteriores, el modelo estadístico ETS(M,N,N) se construye considerando una distribución probabilística para los errores relativos. En este caso, supondremos que provienen de distribuciones $N(0,\sigma^2)$ independientes.
+
+Por tanto, el modelo ETS(M,N,N) viene dado por las ecuaciones: \[
+X_t=a_{t-1}(1+\epsilon_t)\\
+a_t=a_{t-1}(1+\alpha \epsilon_t)
+\] con $(\epsilon_t)$ un ruido blanco gaussiano, es decir, $\epsilon_t\sim N(0,\sigma^2)$ independientes para todo $t$, donde  $X_t$ denota el proceso estocástico generador de la serie. Podemos simular varias trayectorias de este proceso en  \textbf{\texttt{R}} mediante: 
+
+<<fig=TRUE, fig.width=7, fig.height=5, out.width='0.7\\textwidth', fig.align='center'>>=
+set.seed(123)
+
+# parámetros
+a0 <- 1
+alpha <- 0.2
+x0 <- a0
+
+nsim <- 10
+n <- 1000
+
+# Proceso
+e <- rnorm(n, mean=0, sd=0.1)
+a <- a0*c(1, cumprod(1 + alpha*e))
+x <- c(x0, a[1:n]*(1+e))
+
+dt <- 1/n
+tiempos <- seq(from=0, to=1, by=dt)
+colores <- rainbow(nsim)
+plot(tiempos, x, ylim=c(0, 2), type = "l", lty = 1, col=colores[1])
+for(i in 2:nsim){
+  e <- rnorm(n, mean=0, sd=0.1)
+  a <- c(a0, a0*cumprod(1 + alpha*e))
+  x <- c(x0, a[1:n]*(1+e))
+  lines(tiempos, x, col=colores[i])
+}
+@
+
+\subsubsection{Otros modelos ETS}
+
+De forma análoga, se pueden desarrollar las ecuaciones que definen los diferentes modelos ETS según variemos el tipo de error, la tendencia y estacionalidad. Los resultados aparecen recogidos en las siguientes tablas (fuente: Hyndman, R.J. and Athanasopoulos, G., 2021):
+
+\begin{table}[h]
+	\begin{adjustbox}{width=\columnwidth,center}
+		\begin{tabular}{clll}
+			\toprule
+			\textbf{Trend} & \multicolumn{3}{c}{\textbf{Seasonal} } \\ 
+			& \multicolumn{1}{c}{\textbf{N} } & \multicolumn{1}{c}{\textbf{A} } & \multicolumn{1}{c}{\textbf{M} } \\ \cmidrule{2-4}
+			\textbf{N} & $\begin{array}{l}
+				y_{t}=\ell_{t}+\varepsilon_t\\
+				\ell_t=\ell_{t-1}+\alpha\varepsilon_t 
+			\end{array}$ & $\begin{array}{l}
+				y_t=\ell_{t-1}+s_{t-m}+\varepsilon_t\\
+				\ell_t=\ell_{t-1}+\alpha\varepsilon_t \\
+				s_t=s_{t-m}+\gamma\varepsilon_t
+			\end{array}$ & $\begin{array}{l}
+				y_t=\ell_{t-1}s_{t-m}+\varepsilon_t\\
+				\ell_t=\ell_{t-1}+\alpha\varepsilon_t/s_{t-m}\\
+				s_t=s_{t-m}+\gamma\varepsilon_t/\ell_{t-1}
+			\end{array}$ \\ \hline
+			\textbf{A} & $\begin{array}{l}
+				y_{t}=\ell_{t-1}+b_{t-1}+\varepsilon_t\\
+				\ell_t=\ell_{t-1}+b_{t-1}+\alpha\varepsilon_t\\
+				b_t=b_{t-1}+\beta\varepsilon_t
+			\end{array}$ & $\begin{array}{l}
+				y_t=\ell_{t-1}+b_{t-1}+s_{t-m}+\varepsilon_t\\
+				\ell_t=\ell_{t-1}+b_{t-1}+\alpha\varepsilon_t \\
+				b_t=b_{t-1}+\beta\varepsilon_t\\
+				s_t=s_{t-m}+\gamma\varepsilon_t
+			\end{array}$ & $\begin{array}{l}
+				y_t=(\ell_{t-1}+b_{t-1})s_{t-m}+\varepsilon_t\\
+				\ell_t=\ell_{t-1}+b_{t-1}+\alpha\varepsilon_t/s_{t-m} \\
+				b_t=b_{t-1}+\beta\varepsilon_t/s_{t-m}\\
+				s_t=s_{t-m}+\gamma\varepsilon_t/(\ell_{t-1}+b_{t-1})
+			\end{array}$ \\ \hline
+			\textbf{A$_d$} & $\begin{array}{l}
+				y_{t}=\ell_{t-1}+\phi b_{t-1}+\varepsilon_t\\
+				\ell_t=\ell_{t-1}+\phi b_{t-1}+\alpha\varepsilon_t\\
+				b_t=\phi b_{t-1}+\beta\varepsilon_t
+			\end{array}$ & $\begin{array}{l}
+				y_t=\ell_{t-1}+\phi b_{t-1}+s_{t-m}+\varepsilon_t\\
+				\ell_t=\ell_{t-1}+\phi b_{t-1}+\alpha\varepsilon_t \\
+				b_t=\phi b_{t-1}+\beta\varepsilon_t\\
+				s_t=s_{t-m}+\gamma\varepsilon_t
+			\end{array}$ & $\begin{array}{l}
+				y_t=(\ell_{t-1}+\phi b_{t-1})s_{t-m}+\varepsilon_t\\
+				\ell_t=\ell_{t-1}+\phi b_{t-1}+\alpha\varepsilon_t/s_{t-m} \\
+				b_t=\phi b_{t-1}+\beta\varepsilon_t/s_{t-m}\\
+				s_t=s_{t-m}+\gamma\varepsilon_t/(\ell_{t-1}+\phi b_{t-1})
+			\end{array}$ \\
+			\bottomrule
+		\end{tabular}
+	\end{adjustbox}
+    \caption{Tabla 8.7 extraída de Hyndman and Athanasopoulos (2021)}
+\end{table}
+
+\pagebreak
+
+\begin{table}
+    \begin{adjustbox}{width=\columnwidth,center}
+		\begin{tabular}{clll}
+			\toprule
+			\textbf{Trend} & \multicolumn{3}{c}{\textbf{Seasonal} } \\ 
+			& \multicolumn{1}{c}{\textbf{N} } & \multicolumn{1}{c}{\textbf{A} } & \multicolumn{1}{c}{\textbf{M} } \\ \cmidrule{2-4}
+			\textbf{N} & $\begin{array}{l}
+				y_{t}=\ell_{t}(1+\varepsilon_t)\\
+				\ell_t=\ell_{t-1}(1+\alpha\varepsilon_t )
+			\end{array}$ & $\begin{array}{l}
+				y_t=(\ell_{t-1}+s_{t-m})(1+\varepsilon_t)\\
+				\ell_t=\ell_{t-1}+\alpha(\ell_{t-1}+s_{t-m})\varepsilon_t \\
+				s_t=s_{t-m}+\gamma(\ell_{t-1}+s_{t-m})\varepsilon_t
+			\end{array}$ & $\begin{array}{l}
+				y_t=\ell_{t-1}s_{t-m}(1+\varepsilon_t)\\
+				\ell_t=\ell_{t-1}(1+\alpha\varepsilon_t)\\
+				s_t=s_{t-m}(1+\gamma\varepsilon_t)
+			\end{array}$ \\ \hline
+			\textbf{A} & $\begin{array}{l}
+				y_{t}=(\ell_{t-1}+b_{t-1})(1+\varepsilon_t)\\
+				\ell_t=(\ell_{t-1}+b_{t-1})(1+\alpha\varepsilon_t)\\
+				b_t=b_{t-1}+\beta(\ell_{t-1}+b_{t-1})\varepsilon_t
+			\end{array}$ & $\begin{array}{l}
+				y_t=(\ell_{t-1}+b_{t-1}+s_{t-m})(1+\varepsilon_t)\\
+				\ell_t=\ell_{t-1}+b_{t-1}+\alpha(\ell_{t-1}+b_{t-1}+s_{t-m})\varepsilon_t \\
+				b_t=b_{t-1}+\beta(\ell_{t-1}+b_{t-1}+s_{t-m})\varepsilon_t\\
+				s_t=s_{t-m}+\gamma(\ell_{t-1}+b_{t-1}+s_{t-m})\varepsilon_t
+			\end{array}$ & $\begin{array}{l}
+				y_t=(\ell_{t-1}+b_{t-1})s_{t-m}(1+\varepsilon_t)\\
+				\ell_t=(\ell_{t-1}+b_{t-1})(1+\alpha\varepsilon_t)\\
+				b_t=b_{t-1}+\beta(\ell_{t-1}+b_{t-1})\varepsilon_t\\
+				s_t=s_{t-m}((1+\gamma\varepsilon_t)
+			\end{array}$ \\ \hline
+			\textbf{A$_d$} & $\begin{array}{l}
+				y_{t}=(\ell_{t-1}+\phi b_{t-1})(1+\varepsilon_t)\\
+				\ell_t=(\ell_{t-1}+\phi b_{t-1})(1+\alpha\varepsilon_t)\\
+				b_t=\phi b_{t-1}+\beta(\ell_{t-1}+\phi b_{t-1})\varepsilon_t
+			\end{array}$ & $\begin{array}{l}
+				y_t=(\ell_{t-1}+\phi b_{t-1}+s_{t-m})(1+\varepsilon_t)\\
+				\ell_t=\ell_{t-1}+\phi b_{t-1}+\alpha(\ell_{t-1}+\phi b_{t-1}+s_{t-m})\varepsilon_t \\
+				b_t=\phi b_{t-1}+\beta(\ell_{t-1}+\phi b_{t-1}+s_{t-m})\varepsilon_t\\
+				s_t=s_{t-m}+\gamma(\ell_{t-1}+\phi b_{t-1}+s_{t-m})\varepsilon_t
+			\end{array}$ & $\begin{array}{l}
+				y_t=(\ell_{t-1}+\phi b_{t-1})s_{t-m}(1+\varepsilon_t)\\
+				\ell_t=(\ell_{t-1}+\phi b_{t-1})(1+\alpha\varepsilon_t)\\
+				b_t=\phi b_{t-1}+\beta(\ell_{t-1}+\phi b_{t-1})\varepsilon_t\\
+				s_t=s_{t-m}(1+\gamma\varepsilon_t)
+			\end{array}$ \\
+			\bottomrule
+		\end{tabular}
+	\end{adjustbox}
+    \caption{Tabla 8.7 extraída de Hyndman and Athanasopoulos (2021)}
+\end{table}
+
+\subsubsection{Estimación, selección del modelo ETS y predicciones}
+
+Para la \textbf{estimación de los parámetros} (parámetros de suavizado y estados iniciales) en los modelos ETS, se utiliza el método de máxima verosimilitud en lugar de minimizar la suma de los errores al cuadrado. Recordemos que la verosimilitud representa la probabilidad de que los datos se generen a partir del modelo especificado, y una verosimilitud alta indica un buen ajuste del modelo.
+
+Destacar que, en el caso de modelos con errores aditivos y asumiendo distribución Normal para los errores, el método de máxima verosimilitud proporciona los mismos resultados que minimicen la suma de cuadrados de los errores. Sin embargo, para modelos con errores multiplicativos no es cierto.
+
+El empleo de la estimación máximo-verosímil en los modelos ETS, permite el uso de criterios de información para la \textbf{selección del modelo}, como el AIC (Criterio de Información de Akaike) y el BIC (Criterio de Información Bayesiano). Estos criterios ayudan a determinar qué modelo ETS es el más apropiado para una serie temporal dada. Recordemos las definiciones  del AIC y BIC: \[
+AIC=2\cdot k-2\cdot \ln(Lik)\qquad BIC=k\cdot \ln(n)-2\cdot \ln(Lik)
+\] donde $Lik$ es la verosimilitud del modelo,  $k$ es el número de parámetros estimados y  $n$ el número de datos. El modelo con el menor valor de AIC o BIC se considera el mejor ajuste.
+
+Si disponemos de una serie  $\{x_t\}_{t=1,2,\dots,T} $, las \textbf{predicciones} con modelos ETS se obtienen iterando las ecuaciones del modelo para los instantes $t=T+1,\dots,T+h$, siendo $h$ el horizonte de predicción deseado, y asumiendo que  $\epsilon_t=0$ para $t>T$.
+
+\textbf{Nota:} Las predicciones puntuales obtenidas con los métodos de alisado exponencial coinciden con las obtenidas mediante el correspondiente modelo ETS (tanto en el caso de modelo con errores aditivos como multiplicativos), siempre que se usen los mismos parámetros de alisado. Además, la predicción puntual coincide con la media de la distribución para las predicciones, excepto en el caso de modelos con estacionalidad multiplicativa. 
+
+La ventaja principal de los modelos ETS frente a los métodos de alisado exponencial es que permiten la obtención de intervalos de predicción, puesto que se dispone de una expresión para las variables del proceso estocástico, $\{X_t\}_{t=1,2,\dots,T} $, y se asume distribución Normal para los errores.
+
+De forma resumida, para la mayoría de los modelos ETS, un intervalo de predicción tendrá la siguiente forma: \[
+    (\text{Estimación puntual}\pm\text{Error de predicción})=(\hat{x}_{T+h / T}\pm c\cdot \sigma_h)
+\]  donde $c$ es el cuantil  de la distribución $N(0,1)$ necesario según el nivel de confianza prefijado y  $\sigma_h^2$ es la varianza de la predicción con horizonte $h$. Indicar que la expresión analítica de  $\sigma_h^2$ es complicada de obtener para algunos modelos ETS.
+
+Veamos un ejemplo de aplicación de los modelos ETS para la serie "AirPassengers".
+
+En el siguiente gráfico se muestra la serie original (negro), la serie ajustada (azul oscuro) usando el modelo ETS(M,A,M) y los intervalos de predicción para los dos años siguientes (sombras grises). En azul claro se muestra la media de la distribución para las predicciones, es decir, el punto medio del intervalo de predicción.
+
+<<fig=TRUE, fig.width=7, fig.height=5, out.width='0.7\\textwidth', fig.align='center'>>=
+library(forecast)
+ETS_model <- ets(AirPassengers, model = "MAM")
+plot(forecast(ETS_model, h = 24), lwd = 2)
+lines(ETS_model$fitted, col = "blue", lwd = 1.5)
+@
+
+\textbf{Nota:} En este caso la predicción puntual no coincide con la media de la distribución para las predicciones, pues se trata de un modelo ETS con estacionalidad multiplicativa.
+
+Podemos ver la diferencia entre la predicción puntual (en rojo) con la media de la distribución para las predicciones (en azul claro):
+
+<<fig=TRUE, fig.width=7, fig.height=5, out.width='0.7\\textwidth', fig.align='center'>>=
+library(forecast)
+HWm <- HoltWinters(AirPassengers, seasonal = "multiplicative")
+pred_HWm <- predict(HWm, n.ahead = 24)
+pred_HWm.ts <- ts(pred_HWm,
+                  start = c(1961, 1), frequency = 12)
+
+ETS_model <- ets(AirPassengers, model = "MAM")
+predicciones <- forecast(ETS_model, h = 24)
+plot(forecast(ETS_model, h = 24), lwd = 2.5)
+lines(predicciones$fitted, col = "blue", lwd = 1.5)
+lines(pred_HWm.ts, col = "red", lwd = 1.5)
+@
+
