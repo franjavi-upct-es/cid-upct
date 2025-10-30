@@ -9,6 +9,12 @@
 \usepackage[dvipsnames,svgnames,x11names]{xcolor}
 \usepackage{fontawesome5}
 \usepackage{parskip} % Para espaciado entre párrafos en los ejemplos
+\newtheorem{definition}{Definición}[subsection]
+\newtheorem{theorem}{Teorema}[subsection]
+\newtheorem{corollary}{Corolario}[subsection]
+\newtheorem{proposition}{Proposición}[subsection]
+\newtheorem{lemma}{Lema}[subsection]
+\newtheorem{observation}{Observación}[subsection]
 
 % 2. Definición de Colores (directamente de tu archivo FIE.tex) 
 \makeatletter
@@ -54,31 +60,31 @@
 \newtcolorbox{qnote}[1][Nota]{
   quarto-callout-base,
   colframe=quarto-callout-note-color-frame,
-  colbacktitle=quarto-callout-note-color!10!white, 
-  title=\textcolor{quarto-callout-note-color}{\faInfo}\hspace{0.5em}{#1}
+  colbacktitle=quarto-callout-note-color!20!white, 
+  title=\textcolor{quarto-callout-note-color}{\faInfo}\hspace{0.5em}{\textbf{#1}}
 }
 
 % Entorno para "Tip"
 \newtcolorbox{qtip}[1][Consejo]{
   quarto-callout-base,
   colframe=quarto-callout-tip-color-frame,
-  colbacktitle=quarto-callout-tip-color!10!white, 
-  title=\textcolor{quarto-callout-tip-color}{\faLightbulb}\hspace{0.5em}{#1}
+  colbacktitle=quarto-callout-tip-color!20!white, 
+  title=\textcolor{quarto-callout-tip-color}{\faLightbulb}\hspace{0.5em}{\textbf{#1}}
 }
 
 % Entorno para "Warning"
 \newtcolorbox{qwarning}[1][Advertencia]{
   quarto-callout-base,
   colframe=quarto-callout-warning-color-frame,
-  colbacktitle=quarto-callout-warning-color!10!white, 
-  title=\textcolor{quarto-callout-warning-color}{\faExclamationTriangle}\hspace{0.5em}{#1}
+  colbacktitle=quarto-callout-warning-color!20!white, 
+  title=\textcolor{quarto-callout-warning-color}{\faExclamationTriangle}\hspace{0.5em}{\textbf{#1}}
 }
 
 % Entorno para "Caution"
 \newtcolorbox{qcaution}[1][Precaución]{
   quarto-callout-base,
   colframe=quarto-callout-caution-color-frame,
-  colbacktitle=quarto-callout-caution-color!10!white, 
+  colbacktitle=quarto-callout-caution-color!20!white, 
   title=\textcolor{quarto-callout-caution-color}{\faExclamationCircle}\hspace{0.5em}{#1}
 }
 
@@ -87,14 +93,43 @@
   quarto-callout-base,
   colframe=quarto-callout-important-color-frame,
   colbacktitle=quarto-callout-important-color!10!white, 
-  title=\textcolor{quarto-callout-important-color}{\faExclamation}\hspace{0.5em}{#1}
+  title=\textcolor{quarto-callout-important-color}{\faExclamation}\hspace{0.5em}{\textbf{#1}}
 }
 
 % --- FIN DE LA CONFIGURACIÓN ---
 
 <<setup, include=FALSE>>=
-knitr::opts_chunk$set(highlight = TRUE, echo = TRUE, message = FALSE, warning = FALSE)
+knitr::opts_chunk$set(highlight = TRUE, echo = FALSE, message = FALSE, warning = FALSE, fig=TRUE, fig.width=10, fig.height=5, out.width='0.8\\textwidth', fig.align='center')
 @
+
+% ==== Soporte knitr para bloques sombreados y \hl... ====
+\usepackage{color}
+\usepackage{fancyvrb}
+\usepackage{framed}
+\definecolor{shadecolor}{RGB}{248,248,248}
+\definecolor{fgcolor}{rgb}{0.345,0.345,0.345}
+\usepackage{knitr}
+\usepackage{amssymb}
+\usepackage{alltt}
+\usepackage{hyperref}
+\usetikzlibrary{positioning,arrows}
+
+% Fondo gris de los bloques (como RMarkdown)
+\newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+
+% Paleta de macros \hl... que usa knitr
+\newcommand{\hlnum}[1]{\textcolor[rgb]{0,0,1}{#1}}          % azul
+\newcommand{\hlstr}[1]{\textcolor[rgb]{0.9,0,0}{#1}}        % rojo
+\newcommand{\hlcom}[1]{\textcolor[rgb]{0,0.9,0}{\textit{#1}}} % verde
+\newcommand{\hlopt}[1]{#1}
+\newcommand{\hlstd}[1]{\textcolor[rgb]{0,0,0}{#1}}    % gris oscuro
+\newcommand{\hlkwa}[1]{\textcolor[rgb]{0,0,0.6}{\textbf{#1}}} % azul marino
+\newcommand{\hlkwb}[1]{\textcolor[rgb]{0.58,0,0.83}{#1}}    % púrpura
+\newcommand{\hlkwc}[1]{\textcolor[rgb]{0.133,0.545,0.133}{#1}} % verde bosque
+\newcommand{\hlkwd}[1]{\textcolor[rgb]{0.58,0,0.83}{\textbf{#1}}}
+\newcommand{\hldef}[1]{\hlstd{#1}}
+\newcommand{\hlsng}[1]{\hlstr{#1}}
 
 \begin{document}
 \maketitle
