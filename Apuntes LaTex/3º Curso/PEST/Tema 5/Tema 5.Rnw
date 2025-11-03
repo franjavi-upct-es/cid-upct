@@ -409,7 +409,7 @@ En la próxima sección se introducen los modelos ETS, que suponen una extensió
                 \ell_t=\alpha(y_t / s_{t-m})+(1-\alpha)(\ell_{t-1}+b_{t-1})\\
                 b_t=\beta^*(\ell_t-\ell_{t-1})+(1-\beta^*)b_{t-1}\\
                 s_t=\gamma(y_t / (\ell_{t-1}-b_{t-1}))+(1-\gamma)s_{t-m}
-            \end{array}$ \\
+            \end{array}$ \\ \hline
             \textbf{A$_d$} & $\begin{array}{l}
                 \hat{y}_{t+h|t}=\ell_t+\phi_hb_t\\
                 \ell_t=\alpha y_t+(1-\alpha)(\ell_{t-1}+\phi b_{t-1})\\

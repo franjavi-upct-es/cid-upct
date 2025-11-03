@@ -1,0 +1,118 @@
+\section{Modelos ARIMA}
+\subsection{Introducción}
+Tanto en los métodos de análisis clásico de series como en los métodos de alisado exponencial, partimos de un esquema establecido a priori: descomposición de la serie en las componentes tendencia-ciclo, estacionalidad e irregular. Sin embargo, a principios de 1970 aparece un nuevo enfoque en el estudio de series temporales univariantes (debido a los estadísticos Box y Jenkins) y se basa en estudiar la correlación de los datos. \textit{Este nuevo enfoque consiste en considerar que la serie temporal en estudio ha sido generada por un proceso estocástico. El objetivo en este caso es identificar el proceso estocástico que ha generado la serie, para posteriormente poder realizar predicciones.} 
+
+Por tanto, se pretende construir un modelo que nos permita explicar la estructura y preveer la evolución, a corto y medio plazo, de una serie temporal. La variable observada puede ser económica (I.P.C., demanda de un producto, existencias en un determinado almacén, etc.), física (temperatura de un proceso, velocidad del viento en una central eólica, concentración en la atmósfera de un contaminante, etc.) o social (número de nacimientos, votos de un determinado partido, etc.).
+
+Recordemos que la definición de serie temporal (una sucesión de valores de una variable obtenidos de manera secuencial en el tiempo) coincide con el concepto de realización de un proceso estocástico. Es decir, los datos $x_1,x_2,\dots,x_n$ de una serie temporal observados en $n$ instantes de tiempo pueden interpretarse como una trayectoria o realización de particular de un proceso estocástico  $(X_t)_{t=1,2,\dots,n}$. Teniendo en cuenta esta interpretación, la teoría de los procesos estocásticos será aplicable al estudio de series temporales.
+
+Si dispusiéramos de muchas realizaciones de un mismo proceso estocástico, es decir, de muchas series temporales generadas por un mismo proceso, podríamos intentar obtener la función de distribución de cada variable $X_i$ del proceso, aunque no sería sencillo. En general hay que contentarse con concoer algunas características del proceso como la función de medias, la función de varianzas, etc. Supongamos, por ejemplo, que disponemos de las siguientes series qye han sido generadas por un mismo proceso:  \[
+\begin{array}{c}
+    \text{Serie 1: }\{x_{11},x_{12},\dots,x_{1n}\} \\
+    \vdots\\
+    \text{Serie k: }\{x_{k1},x_{k 2},\dots,x_{kn}\} 
+\end{array}
+\] entonces podemos estimar la media de cada variable $X_i$ del proceso mediante:  \[
+\begin{array}{c}
+    \hat{\mu}_1=\dfrac{x_{11}+x_{21}+\dots+x_{k 1}}{k}\\
+    \vdots\\
+    \hat{\mu}_n=\dfrac{x_{1n}+x_{2n}+\dots+x_{kn}}{k}\\
+\end{array}
+\] 
+No obstante, nos encontraremos con una importante restricción al trabajar con series temporales: en muchos casos, la serie observada es la única realización accesible del proceso estocástico que la ha generado. Por ejemplo, en la serie de turistas que visitan España mes a mes o en la cantidad de unidades producidas diariamente en una fábrica, solo disponemos de una única trayectoria concreta del fenómeno, sin acceso a múltiples realizaciones independientes del mismo proceso.
+
+Este problema, que a simple vista parece insalvable, requiere que apliquemos ciertas restricciones e hipótesis al tipo de proceso estocástico que genera la serie en estudio. Específicamente, necesitaremos que el proceso estocástico sea \textit{estacionario} (al menos en sentido débil) y \textit{ergódico}. Estas condiciones garantizarán que los datos observados a los largo de un período de tiempo suficientemente amplio sean representativos del comportamiento probabilístico del proceso subyacente, y que el conocimiento obtenido de los datos actuales sea útil para comprender su comportamiento en momentos futuros.  
+
+\subsubsection{Procesos débilmente estacionarios. El correlograma.}
+
+Tal como estudiamos en el Tema 1, un proceso estocástico $\{X_t\}_{t=1,2,\dots} $ se dice \textbf{estacionario en sentido débil} (o débilmente estacionario) si cumple que su función de medias es constante, y su función de covarianzas sólo depende del retardo o salto temporal, es decir:
+\begin{itemize}[label=\textbullet]
+    \item $\mu_X(t)=\mu$ para cierta constante $\mu$.
+    \item $C_X(t,t+k)=\gamma_k$, para cierta cantidad  $\gamma_k$ que sólo depende de  $k$ (y no del instante $t$).
+\end{itemize}
+Cuando el proceso sea débilmente estacionario, se cumplirá además que la función de varianzas es constante en el tiempo, y que la función de correlaciones sólo depende del retardo o salto temporal, es decir:
+\begin{itemize}[label=\textbullet]
+    \item $\sigma_X(t)=\sigma$ para cierta constante  $\sigma$.
+    \item  $C_X(t,t+k)=\rho_k$, para cierta cantidad  $\rho_k$ que sólo depende de  $k$ (y no del instante $t$).
+\end{itemize}
+
+\begin{observation}
+    La estacionariedad en sentido débil no garantiza la estacionariedad en sentido estricto, excepto en el caso de normalidad de las variables del proceso. No obstante, la estacionariedad en sentido débil garantizará que algunas características del proceso estocástico tenga un comportamiento estable a lo largo del tiempo.
+\end{observation}
+En el estudio de procesos estocásticos estacionarios, la función de correlaciones (o autocorrelaciones), denotada como $\rho_X$, es de especial importancia. Como mencionamos, cuando el proceso es débilmente estacionario, esta función depende únicamente del retardo  $k$, tomando un valor  $\rho_k$ que varía sólo en función de este desfase temporal y no del instante específico. La representación gráfica de la función  $\rho_k$ en relación con el retardo  $k$ se denomina correlograma (o autocorrelograma).
+
+\begin{figure}[h]
+
+<<fig=TRUE, fig.width=7, fig.height=5, out.width='0.7\\textwidth', fig.align='center', echo=FALSE>>=
+# Generar serie temporal (ejemplo AR(2) para obtener oscilaciones + signos negativos)
+set.seed(123)
+ts_data <- arima.sim(model = list(ar = c(0.7, -0.3)), n = 100)
+
+# Correlograma (ACF)
+acf(
+  ts_data,
+  lag.max = 20,        # mostrar hasta lag 20
+  main = "",           # sin título (como en la imagen)
+  xlab = "Lag",
+  ylab = "ACF",
+  ylim = c(-0.25, 1.05),
+  ci.col = "blue",     # color de las bandas de confianza
+  ci.lty = 2           # línea punteada para las bandas
+)
+
+@
+    \caption{Ejemplo de correlograma}
+\end{figure}
+
+Observar que el correlograma, tal y como se ha definido, sólo tiene sentido para procesos débilmente estacionarios.
+
+En el contexto de procesos estocásticos débilmente estacionarios, aunque dispongamos de una única realización (una única serie temporal), podemos obtener una estimación de las características del proceso del siguiente modo. Si denotamos por $\{x_1,x_2,\dots,x_n\} $ a la única serie temporal observada del proceso, se tiene:
+\begin{itemize}[label=\textbullet]
+    \item Estimación de la función de medias constante: \[
+            \hat{\mu}=\bar{x}=\dfrac{x_1+x_2+\dots+x_n}{n}
+        \] 
+    \item Estimación de la función de varianzas constante: \[
+            \widehat{\sigma^2}=s_x^2=\dfrac{\sum_{t=1}^{n} (x_t-\bar{x})^2}{n}
+        \] 
+    \item Estimación de la función de covarianzas: \[
+            \hat{\gamma}_k=\dfrac{\sum_{t=1}^{n-k} (x_t-\bar{x})(x_{t+k}-\bar{x})}{n}
+        \] 
+    \item Estimación de la función de correlaciones: \[
+    \hat{\rho}_k=\dfrac{\sum_{t=1}^{n-k}(x_t-\bar{x})(x_{t+k}-\bar{x}) }{\sum_{t=1}^{n} (x_t-\bar{x})^2}
+    \] 
+\end{itemize}
+Si buscamos el comportamiento de estacionariedad para las series temporales, necesitaremos ver gráficas que se mantienen en un nivel constante con unas pautas estables de oscilación. En la figura se muestra un ejemplo de serie estacionaria, realización de un proceso estocástico estacionario.
+
+\begin{figure}[h]
+
+<<fig=TRUE, fig.width=7, fig.height=5, out.width='0.7\\textwidth', fig.align='center', echo=FALSE>>=
+# Generar y graficar una serie estacionaria (ejemplo)
+set.seed(2025)
+
+# Simular una serie AR(2) con comportamiento oscilatorio y picos
+serie_ts <- arima.sim(
+  model = list(ar = c(0.6, -0.35)), # coef. AR que producen oscilaciones
+  n = 100
+)
+
+# Ajustes gráficos (márgenes para dejar sitio al subtítulo)
+op <- par(no.readonly = TRUE)
+par(mar = c(5, 4, 2, 2) + 0.1)  # abajo, izquierda, arriba, derecha
+
+# Dibujo
+plot(
+  serie_ts,
+  type = "l",         # línea continua
+  lwd = 1,            # grosor de línea
+  col = "black",
+  xlab = "Time",
+  ylab = "",
+  main = ""           # sin título principal
+)
+
+# Restaurar parámetros gráficos
+par(op)
+@
+    \caption{Ejemplo de serie estacionaria (en sentido débil)}
+\end{figure}
+En la práctica del análisis de series encontraremos  series con problemas de estacionariedad que afectan a cualquiera de sus parámetros básicos, siendo los más frecuentes las inconstancias en media y varianza. En la figura se muestran dos ejemplos de series no estacionarias, la primera en media y la segunda en varianza.
