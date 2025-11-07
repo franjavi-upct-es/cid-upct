@@ -1,0 +1,99 @@
+---
+title: "Procesos Estocásticos y Series Temporales"
+subtitle: "Práctica 2: Descomposición de series temporales"
+output: 
+  pdf_document:
+    latex_engine: xelatex
+geometry: margin=1.5cm, a4paper
+header-includes:
+- \renewcommand{\and}{\\}
+- \usepackage{fvextra}
+- \usepackage{hyperref}
+- \DefineVerbatimEnvironment{Highlighting}{Verbatim}{breaklines, commandchars=\\\{\}}
+---
+
+# Problema 1
+
+En el fichero **consumo_leche.txt** se encuentran los datos correspondientes al consumo de leche mensual (en miles de litros) por los habitantes de una determinada ciudad. Se dispone de datos sobre el consumo desde noviembre de 1992 hasta octubre de 2006.
+
+1)  Representa los datos del consumo de lecha en un gráfico temporal y comenta los aspectos más relevantes. ¿La serie presenta Estacionalidad? ¿cómo dírias que es la tendencia?
+
+```{r}
+# Cargar los datos
+datos_leche <- read.table("consumo_leche.txt", header = TRUE)
+
+# Verificar la estructura de los datos
+head(datos_leche)
+str(datos_leche)
+
+# Convertir a serie temporal
+# Datos mensuales desde noviembre de 1992 hasta octubre de 2006
+# Frecuencia = 12 (datos mensuales)
+# start = c(1992, 11) indica que comienza en noviembre de 1992
+leche_ts <- ts(datos_leche$leche, frequency = 12, start = c(1992, 11))
+
+# Representación gráfica
+plot(leche_ts,
+     main = "Consumo mensual de leche (Nov 1992 - Oct 2006)",
+     xlab = "Tiempo",
+     ylab = "Consumo (miles de litros)",
+     col = "blue",
+     lwd = 2)
+```
+
+La serie presenta una clara estacionalidad, con picos de consumo en ciertos meses del año. La tendencia parece ser creciente a lo largo del tiempo, indicando un aumento en el consumo de leche.
+
+2)  Determina si se trata de un modelo aditivo o multiplicativo (realiza un gráfico de desviaciones típicas frente a medias para cada año).
+
+```{r}
+# Análisis de la relación entre media y desviación típica por año
+medias_anuales <- as.vector(aggregate(leche_ts, FUN = mean))
+desviaciones_anuales <- as.vector(aggregate(leche_ts, FUN = sd))
+
+plot(medias_anuales, desviaciones_anuales,
+     main = "Relación Media vs Desviación Típica",
+     xlab = "Media anual",
+     ylab = "Desviación típica anual",
+     pch = 19,
+     col = "blue")
+# Añadimos una línea de regresión para visualizar la relación
+abline(lm(desviaciones_anuales ~ medias_anuales), col = "red", lty = 2)
+```
+
+La relación entre la media y la desviación típica sugiere que la serie es aditiva, ya que no se observa un aumento proporcional de la desviación típica con la media.
+
+3)  **Mediante Análisis Clásico** (método de la diferencia o de la razón a la media móvil), extrae las componentes de la serie (Tendencia-Ciclo, Estacionalidad e Irregular) y comenta los resultados.
+
+```{r}
+# Realizar la descomposición clásica aditiva
+descomposicion_clasica <- decompose(leche_ts, type = "additive")
+
+# Representación conjunta de todas las componentes
+plot(descomposicion_clasica)
+```
+
+4)  Obtén un modelo determinista que nos permita realizar predicciones para la serie original.
+
+```{r}
+tiempo <- 1:length(leche_ts)
+tendencia.lm <- lm(descomposicion_clasica$trend ~ tiempo)
+tendencia.lm
+```
+
+5)  Con el modelo del apartado anterior, calcula los valores ajustados de la serie para los meses observados (168 meses) y realiza la predicción para los meses restantes de 2006 (noviembre y diciembre) y los dos años siguientes al completo (2007 y 2008). ¿Cuánto será el consumo de leche en noviembre de 2008?
+```{r}
+tiempo_pred <- 1:(length(leche_ts) + 2 + 24)  # 2 meses restantes de 2006 + 24 meses de 2007 y 2008
+estacional_pred <- c(descomposicion_clasica$seasonal,
+                     descomposicion_clasica$seasonal[1:26])  # Repetir estacionalidad para los meses adicionales
+tendencia_pred <- predict(tendencia.lm, data.frame(tiempo = tiempo_pred))
+
+datos_pred <- tendencia_pred * estacional_pred
+plot(tiempo_pred, datos_pred, type = "l", col = 'red')
+lines(tiempo, leche_ts, type = "l")
+```
+
+6)  Representa en un mismo gráfico la secuencia de la serie observada (en negro), la serie ajustada (en azul) y de la serie predicha (en rojo) con el modelo determinista.
+
+# Problema 2
+
+Con los datos de **consumo_leche.txt**, responder a los apartados del problema anterior pero usando la **descomposición STL**. Seleeciona un ancho de banda para estimar la componente estacional de 5 años. Comparar las medidas de error MAE y RMSE en el tramo observado para ambos métodos (Análisis Clásico y STL). Comentar los resultados.

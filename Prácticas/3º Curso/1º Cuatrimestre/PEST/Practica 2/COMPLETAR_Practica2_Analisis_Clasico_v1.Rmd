@@ -1,0 +1,317 @@
+---
+title: "Procesos Estocásticos y Series Temporales"
+subtitle: "Práctica 2: Análisis Exploratorio y Descomposición de Series Temporales"
+author: "Francisco Javier Mercader Martínez"
+output:
+  pdf_document: default
+  html_document: default
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+**PRÁCTICA 2 PARA COMPLETAR**
+
+PROCESOS ESTOCÁSTICOS Y SERIES TEMPORALES
+
+GRADO EN CIENCIA E INGENIERÍA DE DATOS
+
+# 1. Definición y representación gráfica de series temporales
+
+Comenzaremos importando los datos de pasajeros contenidos en el fichero "Pasajeros.csv". 
+
+```{r}
+datos_df <- read.csv2(file = "Pasajeros.csv")
+class(datos_df)
+class(datos_df$pasajeros)
+```
+
+La función *ts()* de R convierte un objeto a serie temporal.  
+
+```{r}
+datos_ts <- ts(datos_df$pasajeros, frequency = 12, start = c(1949,1))
+datos_ts
+class(datos_ts)
+```
+
+
+Cargamos los datos del dataset AirPassengers directamente de R
+
+```{r}
+datos <- AirPassengers
+class(datos)
+
+datos
+frequency(datos)
+start(datos)
+end(datos)
+```
+
+Regresentación gráfica de series: 
+
+```{r}
+ts.plot(datos)
+ts.plot(datos_df$pasajeros)
+```
+
+¿Serie con esquema aditivo o multiplicativo?
+
+```{r}
+medias <- as.vector(aggregate(datos, FUN = mean))
+desviaciones <- as.vector(aggregate(datos, FUN = sd))
+plot(medias, desviaciones)
+```
+
+Concluimos por tanto que se trata de un esquema multiplicativo. 
+
+
+# 2. Algunas operaciones con series temporales
+
+## Combinación de series temporales
+
+Unión e intersección de series temporales:
+
+```{r}
+set.seed(135)
+serie1=ts(rnorm(8), freq = 4, start = c(2020,1))
+serie2=ts(rnorm(10), freq = 4, start = c(2020,4))
+print("Unión")
+#Completar esta línea
+ts.union(serie1, serie2)
+print("Intersección")
+#Completar esta línea
+ts.intersect(serie1, serie2)
+```
+## Extracción de un tramo temporal
+
+Extrae los valores de la serie temporal comprendidos entre una fecha de inicio y otra final. 
+
+```{r}
+window(serie1, start = c(2021,1),end = c(2021,4))
+```
+## Serie retardada o adelantada en el tiempo
+
+
+```{r}
+serie1
+print("serie retardada dos instantes:")
+#Completar esta línea
+lag(serie1, -2)
+print("serie adelantada tres instantes:")
+#Completar esta línea
+lag(serie1, 3)
+```
+
+## Diferenciación de una serie
+
+
+
+```{r}
+serie1
+print("serie diferenciada una vez y desfase 1:")
+diff(serie1, lag = 1, differences = 1)
+
+print("serie diferenciada dos veces y desfase 1:")
+#Completar esta línea
+diff(serie1, lag = 1, differences = 2)
+
+print("serie diferenciada una vez y desfase 4:")
+#Completar esta línea
+diff(serie1, lag = 4, differences = 1)
+
+```
+
+## Medias móviles de una serie
+
+
+```{r}
+library(zoo)
+
+serie1
+print("media móvil centrada de orden 3:")
+rollmean(serie1,  k = 3, fill = NA, align = "center")
+
+```
+
+
+# 3. Descomposición clásica de series temporales
+
+## 3.1. Extracción de las componentes
+
+Realizar la descomposición clásica del objeto "datos":
+
+```{r}
+descomposicion_clasica <- decompose(datos, type = "multiplicative")
+summary(descomposicion_clasica)
+```
+
+Representar las componentes extraídas:
+
+```{r}
+plot(descomposicion_clasica)
+```
+
+## 3.2. Predicciones: obtención de un modelo determinista
+
+Ajuste lineal de la tendencia respecto al tiempo:
+```{r}
+tiempo <- 1:length(datos)
+tendencia.lm <- lm(descomposicion_clasica$trend ~ tiempo)
+tendencia.lm
+```
+
+**¿Cómo obtener los valores ajustados en el tramo observado y realizar predicciones en instantes futuros?**
+
+
+
+```{r}
+tiempo_pred <- 1:(length(datos) + 12)
+
+estacional_pred <- c(descomposicion_clasica$seasonal,
+                     descomposicion_clasica$seasonal[1:12])
+
+tendencia_pred <- predict(tendencia.lm, data.frame(tiempo = tiempo_pred))
+```
+
+Las predicciones se obtienen de la siguiente forma: 
+
+```{r}
+datos_pred <- tendencia_pred * estacional_pred
+plot(tiempo_pred, datos_pred, type="l", col = "red")
+lines(tiempo,datos_df$pasajeros,type="l")
+```
+
+
+**Residuos y medidas de error (bondad del ajuste)**
+
+Calculamos los residuos y medidas de error asociadas:
+
+```{r}
+residuos <- datos - datos_pred[1:length(datos)]
+MAE <- mean(abs(residuos))
+RMSE <- sqrt(mean(residuos^2))
+MAE
+RMSE
+```
+
+
+# 4. Descomposición STL de series temporales
+
+## 4.1. Extracción de las componentes con STL
+
+Transformamos los datos de AirPassengers para tener esquema aditivo:
+
+```{r}
+datos_aditivo <- log(AirPassengers)
+ts.plot(datos_aditivo)
+```
+
+Descomposicón STL:
+
+```{r}
+STL <- stl(datos_aditivo, s.window = 7)
+#str(STL)
+summary(STL)
+```
+
+Guardamos las 3 componentes extraídas:
+
+```{r}
+estacional_STL <- STL$time.series[, 1]
+tendencia_STL <- STL$time.series[, 2]
+irregular_STL <- STL$time.series[, 3]
+
+```
+
+Otra forma usando el paquete *forecast*.
+
+```{r}
+library(forecast)
+Estacional_STL <- seasonal(STL)
+Tendencia_STL <- trendcycle(STL)
+Irregular_STL <- remainder(STL)
+```
+
+
+Representamos las componentes extraídas:
+```{r}
+plot(STL)
+```
+
+Representemos ahora la serie de datos aditiva junto con la tendencia extraída por STL:
+
+```{r}
+plot(datos_aditivo)
+lines(tendencia_STL, col = "red")
+```
+
+
+Recordemos que el método STL ha extraido las componentes del esquema aditivo. Si queremos las componentes de la serie original (esquema multiplicativo), tendremos que deshacer el cambio tomando exponenciales.
+
+```{r}
+estacional_multiplicativo <- exp(estacional_STL)
+tendencia_multiplicativo <- exp(tendencia_STL)
+irregular_multiplicativo <- exp(irregular_STL)
+```
+
+Representemos la serie original (esquema multiplicativo) y sus componentes. 
+
+```{r}
+plot(AirPassengers)
+lines(tendencia_multiplicativo, col = "red")
+ts.plot(estacional_multiplicativo)
+ts.plot(irregular_multiplicativo)
+```
+
+
+## 4.2. Predicciones con descomposición STL
+
+Primero realizamos ajuste lineal de la tendencia respecto al tiempo:
+```{r}
+tiempo2 <- 1:length(datos_aditivo)
+tendencia_aditivo.lm <- lm(tendencia_STL ~ tiempo2)
+tendencia_aditivo.lm
+```
+
+
+
+**¿Cómo obtener los valores ajustados en el tramo observado y realizar predicciones en instantes futuros?**
+
+
+```{r}
+tiempo_pred2 <- 1:(length(datos_aditivo) + 12)
+  
+estacional_STL_pred <- c(estacional_STL, estacional_STL[133:144])
+
+tendencia_STL_pred <-  predict(tendencia_aditivo.lm,
+                               data.frame(tiempo2 = tiempo_pred2))
+```
+
+Las predicciones del esquema aditivo se obtienen de la siguiente forma:
+
+```{r}
+datos_aditivo_pred <- tendencia_STL_pred + estacional_STL_pred
+plot(tiempo_pred2, datos_aditivo_pred, type="l", col = "red")
+lines(tiempo2, datos_aditivo, type="l")
+```
+
+Por tanto, las predicciones de la serie original de pasajeros (esquema multpilicativo) se obtienen tomando exponenciales.
+
+```{r}
+datos_multiplicativo_pred <- exp(datos_aditivo_pred)
+plot(tiempo_pred2, datos_multiplicativo_pred, type="l", col = "red")
+lines(tiempo2, AirPassengers, type="l")
+```
+
+
+**Residuos y medidas de error (bondad del ajuste)**
+
+```{r}
+residuos_multiplicativo <- AirPassengers - datos_multiplicativo_pred[1:length(AirPassengers)]
+MAE_multiplicativo <- mean(abs(residuos_multiplicativo))
+RMSE_multiplicativo <- sqrt(mean(residuos_multiplicativo ^ 2))
+MAE_multiplicativo
+RMSE_multiplicativo
+```
