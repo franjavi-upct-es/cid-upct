@@ -1,0 +1,398 @@
+---
+title: "Estimación no paramétrica"
+author:
+  - name: Félix Belzunce
+    affiliations: Universidad de Murcia
+  - name:  María del Carmen Bueso, Pilar Sanmartín
+    affiliations: Universidad Politécnica de Cartagena
+format: html
+editor: visual
+title-block-banner: true
+self-contained: true
+---
+
+# Introducción
+
+El objetivo de esta práctica es presentar en `R` las herramientas estadísticas para la estimación de la función de distribución y la función de densidad. Como hemos comentado en clase, la estimación de la función puntual de probabilidad se realiza a través de las correspondientes proporciones muestrales. Recordamos que la estimación de la función de distribución se realiza a través de la función de distribución empírica y la estimación de la función de densidad a través de los estimadores tipo núcleo.
+
+# Función de distribución empírica
+
+Dada una variable aleatoria $X$ con función de distribución $F(x)=P(X\le x)$, tenemos que el estimador de $F$ es la *función de distribución empírica* que viene dada por $$
+F_n(x)=\frac{\sum_{i=1}^n I_{(-\infty,x]}(X_i)}{n} \text{ para todo }x\in \mathbb R,
+$$ dada un m.a.s., $X_1,\ldots,X_n$, de $X$.
+
+Veamos como está implementado su cálculo en `R`. La función que utilizaremos es la función `ecdf`.
+
+```{r, warning=FALSE}
+# Completar aquí
+
+# Cargar librería necesaria
+library(ggplot2)
+
+# Generar una muestra aleatoria (ejemplo: n=100 de N(5, 1))
+set.seed(314159)  # Para reproducibilidad
+n <- 100
+datos <- rnorm(n, mean = 5, sd = 1)
+
+# Calcular la función de distribución empírica (FDE)
+fde <- ecdf(datos)
+
+# Crear un vector de puntos x donde evaluar la FDE y la teórica
+x_vals <- seq(min(datos), max(datos), length.out = 1000)
+
+# Evaluar la FDE en esos puntos
+y_fde <- fde(x_vals)
+
+# Evaluar la función de distribución teórica (normal con media y desv. est. muestrales)
+y_teorica <- pnorm(x_vals, mean = mean(datos), sd = sd(datos))
+
+# Crear un data frame para ggplot2
+df_plot <- data.frame(
+  x = x_vals,
+  fde = y_fde,
+  teorica = y_teorica
+)
+
+# Graficar
+ggplot(df_plot, aes(x = x)) +
+  geom_step(aes(y = fde), color = "black", linetype = "solid") +  # Escalera (step function)
+  geom_line(aes(y = teorica), color = "blue")
+# Fin Completar aquí
+```
+
+Podemos ver en este caso la buena aproximación de la distribución teórica a través de la función de distribución empírica.
+
+# Estimación tipo núcleo
+
+Siguiendo la notación anterior, en este caso se trata de estimar la función de densidad, $f(x)=F'(x)$, de la variable $X$.
+
+Los estimadores de la función de densidad vistos en clase se conocen como *estimadores tipo núcleo* y su expresión general viene dada por $$
+\hat f_n(x)=\frac{1}{2nh_n}\sum_{i=1}^n K\left(\frac{x-X_i}{h_n}\right), 
+$$ donde $K$ es una función núcleo y $h_n$ es lo que se conoce como el ancho de banda.
+
+Veamos como obtener este estimador con `R` para diferentes núcleos y diferentes anchos de banda. La función que nos permite obtener la estimación tipo núcleo es `density`.
+
+Recordamos que los núcleos vistos en teoría:
+
+-   **Núcleo rectangular:** $K$ es la función de densidad de una distribución uniforme.
+
+-   **Núcleo normal:** $K$ es la función de densidad de una distribución normal estándar. Suele ser el núcleo que más se utiliza.
+
+-   **Núcleo de Epanechnikov:** $K(z)=(1-z^2)I_{(-1,1)}$. Se considera que es el núcleo más eficiente.
+
+donde estos dos últimos son los más utilizados.
+
+Veamos un ejemplo con cada núcleo.
+
+-   Núcleo rectangular:
+
+```{r }
+# Completar aquí
+
+# Estimar densidad con núcleo rectangular
+dens_rect <- density(datos, kernel = "rectangular", bw = "nrd0")
+
+# Crear un data frame para ggplot2
+df_dens <- data.frame(
+  x = dens_rect$x,
+  y_rect = dens_rect$y
+)
+
+# Calcular la densidad teórica (normal con media y desv. est. muestrales)
+df_dens$y_teorica <- dnorm(df_dens$x, mean = mean(datos), sd = sd(datos))
+
+# Graficar
+ggplot(df_dens, aes(x = x)) +
+  geom_line(aes(y = y_rect)) +
+  geom_line(aes(y = y_teorica), color = "blue") + 
+  labs(x = "x", y = "y")
+# Fin Completar aquí
+```
+
+-   Núcleo normal:
+
+```{r }
+# Completar aquí
+
+# Estimar densidad con núcleo normal
+dens_gauss <- density(datos, kernel = "gaussian", bw = "nrd0")
+
+# Crear un data frame para ggplot2
+df_dens <- data.frame(
+  x = dens_gauss$x,
+  y_gauss = dens_gauss$y
+)
+
+# Calcular la densidad teórica (normal con media y desv. est. muestrales)
+df_dens$y_teorica <- dnorm(df_dens$x, mean = mean(datos), sd = sd(datos))
+
+# Graficar
+ggplot(df_dens, aes(x = x)) +
+  geom_line(aes(y = y_gauss), color = "black", linetype = "solid") +
+  geom_line(aes(y = y_teorica), color = "blue") +
+  labs(x = "x", y = "y")
+
+# Fin Completar aquí
+```
+
+-   Para el caso del núcleo de Epanechnikov tendríamos:
+
+```{r }
+# Completar aquí
+ # Estimar densidad con núcleo Epanechnikov
+dens_epan <- density(datos, kernel = "epanechnikov", bw = "nrd0")
+
+# Crear un data frame para ggplot2
+df_dens <- data.frame(
+  x = dens_epan$x,
+  y_epan = dens_epan$y
+)
+
+# Calcular la densidad teórica (normal con media y desv. est. muestrales)
+df_dens$y_teorica <- dnorm(df_dens$x, mean = mean(datos), sd = sd(datos))
+
+# Graficar
+ggplot(df_dens, aes(x = x)) +
+  geom_line(aes(y = y_epan), color = "black", linetype = "solid") +
+  geom_line(aes(y = y_teorica), color = "blue") +
+  labs(x = "x", y = "y")
+# Fin Completar aquí
+```
+
+Como vemos, sobre todo en los dos tipos últimos casos, hay una aproximación bastante buena entre el valor real y la aproximación mediante el estimador tipo núcleo. Nos vamos a centrar en el estudio del núcleo normal y el de Epanechnikov.
+
+La elección del ancho de banda se basa en la fórmula general: $$
+h_n=\left( \frac{R(K)}{\mu_2^2(K)R(f'')n} \right)^{\frac{1}{5}},
+$$ donde los valores $R(K)$ y $\mu_2(K)$ dependen del núcleo $K$ y $R(f'')$ depende de la función de densidad de la variable (ver los detalles en los apuntes del tema). Esto último presenta un problema ya que el término $R(f'')$ depende de la función de densidad que es desconocida y por tanto no se pude calcular su valor exacto.
+
+Bajo ciertas condiciones, variable con distribución normal y núcleo normal, la expresión anterior queda como $$
+\hat h_{n,RP}=\left( \frac{4}{3n}\right)^{1/5}S,
+$$ y se conoce como "regla del pulgar". Es el valor usado en los ejemplos anteriores, y se especifica en el argumento `bw` como `"nrd"`.
+
+La forma más complicada de evaluar es dando una estimación no paramétrica de $R(f'')$. La metodología va más allá de los contenidos de esta asignatura y no veremos los detalles, solo indicar que podemos seleccionarla en el argumento `bw` como `"SJ"`.
+
+Vamos a reproducir las gráficas de antes con esta elección del ancho de banda.
+
+Caso con núcleo normal:
+
+```{r }
+# Completar aquí
+# Estimar densidad con núcleo normal y ancho de banda SJ
+dens_gauss_sj <- density(datos, kernel = "gaussian", bw = "SJ")
+
+# Crear un data frame para ggplot2
+df_dens <- data.frame(
+  x = dens_gauss_sj$x,
+  y_gauss_sj = dens_gauss_sj$y
+)
+
+# Calcular la densidad teórica (normal con media y desv. est. muestrales)
+df_dens$y_teorica <- dnorm(df_dens$x, mean = mean(datos), sd = sd(datos))
+
+# Graficar
+ggplot(df_dens, aes(x = x)) +
+  geom_line(aes(y = y_gauss_sj), color = "black", linetype = "solid") +
+  geom_line(aes(y = y_teorica), color = "blue") +
+  labs(x = "x", y = "y")
+
+# Fin Completar aquí
+```
+
+Caso con núcleo Epanechnivok:
+
+```{r }
+# Completar aquí
+# Estimar densidad con núcleo Epanechnikov y ancho de banda SJ
+dens_epan_sj <- density(datos, kernel = "epanechnikov", bw = "SJ")
+
+# Crear un data frame para ggplot2
+df_dens <- data.frame(
+  x = dens_epan_sj$x,
+  y_epan_sj = dens_epan_sj$y
+)
+
+# Calcular la densidad teórica (normal con media y desv. est. muestrales)
+df_dens$y_teorica <- dnorm(df_dens$x, mean = mean(datos), sd = sd(datos))
+
+# Graficar
+ggplot(df_dens, aes(x = x)) +
+  geom_line(aes(y = y_epan_sj), color = "black", linetype = "solid") +
+  geom_line(aes(y = y_teorica), color = "blue") +
+  labs(x = "x", y = "y")
+
+# Fin Completar aquí
+```
+
+# Ejercicio
+
+Vamos a analizar datos del contexto de empresas. Para ello, vamos a considerar los datos que aparecen en el fichero `salarios.sav` donde tenemos 935 observaciones aleatorias de variables que se corresponden con datos de empleados de una gran corporación (Uriel,R y Aldás,J. "Análisis Multivariante aplicado con R". Ed. Paraninfo). en particular nos vamos a centrar en la variable salario.
+
+Obten el gráfico de la función de distribución empírica de la variable y superponla con la correspondiente gráfica de una la distribución normal con media y varianza las estimadaa partir de los datos. A partir de la gráfica anterior comenta si parece razonable considerar que los datos provienen de una distribución normal.
+
+```{r}
+library(haven)
+DATA_DIRECTORY <- "../../data/"
+empresa <- read_sav(paste0(DATA_DIRECTORY, "salarios.sav"))
+```
+
+```{r }
+# Completar aquí
+salario <- empresa$salario  # Extraer la variable salario
+
+# Calcular la función de distribución empírica
+fde_salario <- ecdf(salario)
+
+# Crear un vector de puntos x donde evaluar ambas funciones
+x_vals <- seq(min(salario), max(salario), length.out = 1000)
+
+# Evaluar la FDE en esos puntos
+y_fde <- fde_salario(x_vals)
+
+# Evaluar la CDF teórica normal (media y desv. est. muestrales)
+y_normal <- pnorm(x_vals, mean = mean(salario), sd = sd(salario))
+
+# Crear data frame para ggplot2
+df_plot <- data.frame(
+  x = x_vals,
+  fde = y_fde,
+  normal = y_normal
+)
+
+# Graficar
+ggplot(df_plot, aes(x = x)) +
+  geom_step(aes(y = fde), color = "black", linetype = "solid") +  # Escalera (step function)
+  geom_line(aes(y = normal), color = "blue") +
+  labs(
+    x = "x", 
+    y = "fde", 
+    title = "Función de distribución empírica de la variable salario"
+    )
+# Fin Completar aquí
+```
+
+Obtener la estimaciones tipo núcleo de la función de densidad de la variable anterior, utilizando los núcleos normal y Epanechnikov. Comenta la forma que se obtiene de la función de densidad en cada caso.
+
+```{r, warning=FALSE, message=FALSE}
+# Completar aquí
+library(tidyr)
+library(dplyr)
+library(stringr)
+
+# Estimar densidades con núcleos normal y Epanechnikov (usando ancho de banda por defecto: 'nrd0')
+dens_normal <- density(salario, kernel = "gaussian", bw = "nrd0")
+dens_epan <- density(salario, kernel = "epanechnikov", bw = "nrd0")
+
+# Crear data frame con ambos resultados
+df_dens <- data.frame(
+  x = dens_normal$x,
+  normal = dens_normal$y,
+  epanechnikov = dens_epan$y
+)
+
+# Convertir a formato largo para ggplot2
+df_long <- tidyr::pivot_longer(
+  df_dens,
+  cols = c(normal, epanechnikov),
+  names_to = "Núcleo",
+  values_to = "Densidad"
+) |>
+  mutate(
+    Núcleo = case_when(
+      Núcleo == "normal" ~ "Normal",
+      Núcleo == "epanechnikov" ~ "Epanechnikov",
+      TRUE ~ Núcleo
+    ),
+    Núcleo = factor(Núcleo, levels = c("Epanechnikov", "Normal")) # controla orden en la leyenda
+  )
+
+# Graficar
+ggplot(df_long, aes(x = x, y = Densidad, color = Núcleo)) +
+  geom_line() +
+  labs(
+    title = "Variable: salario",
+    x = "x",
+    y = "y",
+    color = "Núcleo empleado"
+  ) +
+  theme(legend.position = "right")
+
+# Fin Completar aquí
+```
+
+Realiza el mismo análisis pero con los datos transformados por el logaritmo neperiano.
+
+```{r}
+# Completar aquí
+salario_pos <- salario[!is.na(salario) & salario > 0]
+if (length(salario_pos) == 0) stop("No hay valores positivos en 'salario' para transformar con log().")
+
+log_salario <- log(salario_pos)  # logaritmo neperiano
+
+# Función de distribución empírica
+fde_log <- ecdf(log_salario)
+
+# Vector de puntos x donde evaluar ambas funciones
+x_vals <- seq(min(log_salario), max(log_salario), length.out = 1000)
+
+# Evaluar FDE y CDF normal teórica (usando media y sd de ln(salario))
+y_fde <- fde_log(x_vals)
+y_normal <- pnorm(x_vals, mean = mean(log_salario), sd = sd(log_salario))
+
+# Crear data frame para ggplot2
+df_plot <- data.frame(
+  x = x_vals,
+  fde = y_fde,
+  normal = y_normal
+)
+
+# Graficar
+ggplot(df_plot, aes(x = x)) +
+  geom_step(aes(y = fde), color = "black", linetype = "solid") +
+  geom_line(aes(y = normal), color = "blue") +
+  labs(
+    x = "x", 
+    y = "fde", 
+    title = "Función de distribución empírica de la variable ln(salario)"
+    )
+```
+
+```{r}
+# Estimar densidades sobre ln(salario) con núcleos normal y Epanechnikov (bw = "nrd0")
+dens_normal <- density(log_salario, kernel = "gaussian", bw = "nrd0")
+dens_epan <- density(log_salario, kernel = "epanechnikov", bw = "nrd0")
+
+# Crear data frame con ambos resultados
+df_dens <- data.frame(
+  x = dens_normal$x,
+  normal = dens_normal$y,
+  epanechnikov = dens_epan$y
+)
+
+# Convertir a formato largo y normalizar nombres para que coincidan con scale_color_manual
+df_long <- tidyr::pivot_longer(
+  df_dens,
+  cols = c(normal, epanechnikov),
+  names_to = "Núcleo",
+  values_to = "Densidad"
+) %>%
+  mutate(
+    Núcleo = dplyr::case_when(
+      Núcleo == "normal" ~ "Normal",
+      Núcleo == "epanechnikov" ~ "Epanechnikov",
+      TRUE ~ Núcleo
+    ),
+    Núcleo = factor(Núcleo, levels = c("Epanechnikov", "Normal"))
+  )
+
+# Graficar densidades sobre ln(salario)
+ggplot(df_long, aes(x = x, y = Densidad, color = Núcleo)) +
+  geom_line() +
+  labs(
+    title = "Variable: ln(salario)",
+    x = "x",
+    y = "y",
+    color = "Núcleo empleado"
+  ) +
+  theme(legend.position = "right")
+# Fin Completar aquí
+```
