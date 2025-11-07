@@ -446,4 +446,69 @@ ggplot() +
     Si queremos centrarnos en $\mu$ es natural sustituir en ella $\sigma$ por $S_n$.
 \end{qnote}
 
+\begin{proposition}
+    Sea $(X_1,\dots,X_n)$ una muestra aleatoria simple de una población $\mathcal{N}(\mu,\sigma^2)$, \[
+    T=\dfrac{\bar{X}-\mu}{S / \sqrt{n} }
+    \] tiene por densidad
+    \begin{equation}
+        f_{n-1}(t)\propto \dfrac{1}{\left( \dfrac{1+t^2}{n-1} \right)^{n / 2} },\quad-\infty<t<\infty,
+    \end{equation}
+    La distribución que admite esta densidad se llama \lb{distribución t-Student} con $n-1$ grados de libertad. Escribimos  $T\sim t_{n-1}$. 
+\end{proposition}
 
+\begin{qwarning}[Su densidad]
+    La función de densidad de una t de Student con $k$ grados de libertad:  \[
+    f_k(t)=\dfrac{\Gamma\left( \tfrac{k+1}{2}  \right) }{\Gamma\left( \tfrac{k}{2}  \right) }\dfrac{1}{\sqrt{k\pi} }\dfrac{1}{(1+t^2 / k)^{\frac{k+1}{2}}},\quad-\infty<t<\infty,
+    \] donde $\Gamma$ denota la función Gamma.
+\end{qwarning}
+\begin{qnote}[Caracterización de la t de Student como cociente]
+    Si $Z$ e  $Y$ son dos variables aleatorias independientes, con  $Z\sim \mathcal{N}(0,1)$ e $Y\sim \chi_p^2$, el cociente \[
+    T=\dfrac{Z}{\sqrt{Y / p} }\sim t_p,
+    \] donde $t_p$ denota la t de Student con  $p$ grados de libertad.
+\end{qnote}
+\subsubsection{¿Cuál es la forma de la densidad de una t-Student?}
+\begin{qtip}[Tiene colas más pesadas que una normal]
+<<>>=
+# Cargar librería
+library(ggplot2)
+library(dplyr)
+library(tidyr)
+
+# Secuencia de valores t
+t_vals <- seq(-6, 6, length.out = 500)
+
+# Grados de libertad
+g_vals <- c(1, 3, 10, 30, 150)
+
+# Calcular las densidades para cada g
+df_t <- expand.grid(t = t_vals, g = g_vals) %>%
+  mutate(f_t = dt(t, df = g))
+
+# Graficar con ggplot2
+ggplot(df_t, aes(x = t, y = f_t, color = factor(g))) +
+  geom_line(size = 0.8) +
+  labs(
+    x = "t",
+    y = expression(f[g](t)),
+    color = "Grados de libertad (g)"
+  ) +
+  theme_minimal(base_size = 14) +
+  theme(
+    legend.position = "right",
+    legend.title = element_text(face = "bold")
+  )
+
+@
+   \begin{center}
+       Densidad de la distribución t de Student para varios valores de los grados de libertad
+   \end{center} 
+\end{qtip}
+\subsection{Función F de Snedecor para el cociente de varianzas}
+\begin{proposition}
+    Consideremos $U_1$ y $U_2$ dos variables aleatorias independientes distribución $\chi^2$ con $p_1$ y $p_2$ grados de libertad, respectivamente.
+
+    El cociente $F=\dfrac{U_1 / p_1}{U_2 / p_2}$ admite la densidad \[
+    f_F(x)=\dfrac{\Gamma\left( \frac{p_1+p_2}{2} \right) }{\Gamma(p_1)\Gamma(p_2)}\left( \dfrac{p_1}{p_2} \right) ^{p_1}\dfrac{x^{p_1 / 2-1}}{\left( 1+\frac{p_1}{p_2} x \right)^{\frac{p_1+p_2}{2} } }.
+    \] 
+    Esta distribución se llama F de Snedecor 
+\end{proposition}

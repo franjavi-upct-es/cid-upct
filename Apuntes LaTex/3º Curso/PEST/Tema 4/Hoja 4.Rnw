@@ -41,4 +41,98 @@
                 \end{enumerate}
             \item \db{Olvidemos la descomposición estacional realizada y consideremos el Método Ingenuo I. Calcula las predicciones que se obtendrían con dicho método sólo para los datos del 2023, así como las medidas de error MAE y RMSE correspondientes.} 
         \end{enumerate}
+    \item \lb{Repetir el problema anterior suponiendo que los datos de ventas fueron los siguientes:} 
+        \begin{center}
+            \color{lightblue}
+            \begin{tabular}{|l|c|c|c|c|c|c|c|c|c|}
+                \hline
+                Año: & 2021 & 2021 & 2021 & 2022 & 2022 & 2022 & 2023 & 2023 & 2023 \\ \hline
+                Cuatrimestre: & C1 & C2 & C3 & C1 & C2 & C3 & C1 & C2 & C3\\ \hline
+                Ventas (miles): & 10 & 21 & 4 & 21 & 39 & 8 & 30 & 61 & 12\\ \hline
+            \end{tabular}
+        \end{center}
+
+        \lb{Y para el apartado (4), supondremos que la tendencia se ajusta mediante la ecuación de la recta siguiente: $T(t)=4.2+3.85\cdot t,\,t=1,2,\dots$} 
+        \begin{center}
+            \color{lightblue}
+            \begin{tabular}{|p{5cm}|c|c|c|c|c|c|c|c|c|}
+                \hline
+                Año: & 2021 & 2021 & 2021 & 2022 & 2022 & 2022 & 2023 & 2023 & 2023 \\ \hline
+                Cuatrimestre: & C1 & C2 & C3 & C1 & C2 & C3 & C1 & C2 & C3\\ \hline
+                Ventas (miles): & 10 & 21 & 4 & 21 & 39 & 8 & 30 & 61 & 12\\ \hline
+                Tendencia ($T_t$):\newline Medias Móviles Orden = ¿ ? & & & & & & & & & \\ \hline
+                ~\newline IBVE:& & & & & & & & & \\ \hline 
+                ~\newline IVE no normalizados:& & & & & & & & & \\ \hline 
+                Comp. Estacional:\newline $S_h=\mathrm{IVE}_h$ & & & & & & & & & \\ \hline 
+                Serie Desestacionalizada $(D_t)$: & & & & & & & & & \\ \hline 
+                Comp. Irregular $(I_t)$: & & & & & & & & & \\ \hline 
+            \end{tabular}
+        \end{center}
+    \item \lb{Los siguientes datos se corresponden con las pernoctaciones trimestrales (en miles de personas) de una ciudad turística.}
+        \begin{center}
+            \color{lightblue}
+            \begin{tabular}{|p{4.5cm}|c|c|c|c|c|c|c|c|c|c|c|c|}
+                \hline
+                Año & 2021 & 2021 & 2021 & 2021 & 2022 & 2022 & 2022 & 2022 & 2023 & 2023 & 2023 & 2023 \\ \hline
+                Trimestre: & T1 & T2 & T3 & T4 & T1 & T2 & T3 & T4 & T1 & T2 & T3 & T4\\ \hline
+                Pernoctaciones (miles): & 10 & 21 & 4 & 25 & 21 & 39 & 8 & 51 & 30 & 61 & 12 & 73\\ \hline
+            \end{tabular}
+        \end{center}
+        \lb{Se pretende realizar una descomposición clásica de la serie y se pide:}
+        \begin{enumerate}[label=\color{red}\textbf{\arabic*)}]
+            \item \db{Representar la serie en estudio y describir sus aspectos más relevantes. ¿Presenta componente estacional? ¿Cuál sería el periodo $L$?} 
+            \item \db{Justificar si, para la serie en estudio, es más adecuado un esquema aditivo o bien uno multiplicativo.}
+            \item \db{Completar la siguiente tabla para obtener las componentes Tendencia, Estacionalidad e Irregular por el método de la diferencia a la media móvil o por el método de la razón a la media móvil, según se considere.} 
+        \end{enumerate}
+        \begin{center}
+            \color{blue}
+            \begin{tabular}{|p{4.5cm}|c|c|c|c|c|c|c|c|c|c|c|c|}
+                \hline
+                Año & 2021 & 2021 & 2021 & 2021 & 2022 & 2022 & 2022 & 2022 & 2023 & 2023 & 2023 & 2023 \\ \hline
+                Trimestre: & T1 & T2 & T3 & T4 & T1 & T2 & T3 & T4 & T1 & T2 & T3 & T4\\ \hline
+                Pernoctaciones (miles): & 10 & 21 & 4 & 25 & 21 & 39 & 8 & 51 & 30 & 61 & 12 & 73\\ \hline
+                ~\newline IBVE: & & & & & & & & & & & & \\ \hline 
+                ~\newline IVE no normalizados:& & & & & & & & & & & & \\ \hline 
+                Comp. Estacional:\newline $S_h=\mathrm{IVE}_h$ & & & & & & & & & & & & \\ \hline 
+                Serie Desestacionalizada $(D_t)$: & & & & & & & & & & & & \\ \hline 
+                Comp. Irregular $(I_t)$: & & & & & & & & & & & & \\ \hline 
+            \end{tabular}
+        \end{center}
+        \begin{enumerate}[label=\color{red}\textbf{\arabic*)}, start=4]
+            \item \db{Explica cómo podrías predecir las ventas de los trimestre T1, T2, T3 y T4 del año 2024.} 
+        \end{enumerate}
+    \item \lb{Repetir el problema anterior suponiendo que los datos de pernoctaciones fueron los siguientes:} 
+        \begin{center}
+            \color{lightblue}
+            \begin{tabular}{|p{4.5cm}|c|c|c|c|c|c|c|c|c|c|c|c|}
+                \hline
+                Año & 2021 & 2021 & 2021 & 2021 & 2022 & 2022 & 2022 & 2022 & 2023 & 2023 & 2023 & 2023 \\ \hline
+                Trimestre: & T1 & T2 & T3 & T4 & T1 & T2 & T3 & T4 & T1 & T2 & T3 & T4\\ \hline
+                Pernoctaciones (miles): & 23 & 30 & 14 & 32 & 31 & 37 & 20 & 39 & 34 & 41 & 26 & 43\\ \hline
+            \end{tabular}
+        \end{center}
+        \begin{center}
+            \color{lightblue}
+            \begin{tabular}{|p{4.5cm}|c|c|c|c|c|c|c|c|c|c|c|c|}
+                \hline
+                Año & 2021 & 2021 & 2021 & 2021 & 2022 & 2022 & 2022 & 2022 & 2023 & 2023 & 2023 & 2023 \\ \hline
+                Trimestre: & T1 & T2 & T3 & T4 & T1 & T2 & T3 & T4 & T1 & T2 & T3 & T4\\ \hline
+                Pernoctaciones (miles): & 23 & 30 & 14 & 32 & 31 & 37 & 20 & 39 & 34 & 41 & 26 & 43\\ \hline
+                ~\newline IBVE: & & & & & & & & & & & & \\ \hline 
+                ~\newline IVE no normalizados:& & & & & & & & & & & & \\ \hline 
+                Comp. Estacional:\newline $S_h=\mathrm{IVE}_h$ & & & & & & & & & & & & \\ \hline 
+                Serie Desestacionalizada $(D_t)$: & & & & & & & & & & & & \\ \hline 
+                Comp. Irregular $(I_t)$: & & & & & & & & & & & & \\ \hline 
+            \end{tabular}
+        \end{center}
+    \item \lb{Resolver los problemas anteriores usando \textbf{\texttt{R}} para comprobar si los resultados obtenidos a mano son correctos. Obsérvese que, en lugar de usar la función "\textbf{\texttt{decompose()}}" de \textbf{\texttt{R}}, la descomposición estacional debe implementarse paso a paso para poder completar las tablas. Posteriormente puede usarse la función "\textbf{\texttt{decompose()}}" de \textbf{\texttt{R}} para comprobar resultados.}
+    \item \lb{Responder a las siguientes cuestiones:}
+        \begin{enumerate}[label=\color{red}\textbf{\alph*)}]
+            \item \db{¿Qué es una serie temporal? ¿Cuál es su relación con los procesos estocásticos?}
+            \item \db{Explicar en qué consiste el proceso de diferenciación (tomar diferencias) en una serie temporal y para qué sirve.}
+            \item \db{Explicar en qué consiste el proceso de reaizar medias móviles en una serie temporal y para qué sirve.}
+            \item \db{¿Cuáles son las componentes de una serie temporal según el enfoque clásico? ¿Cómo suelen combinarse las componentes para dar lugar a la serie? Es decir, ¿qué esquemas son los habituales en el enfoque clásico?} 
+            \item \db{Utilidad y limitaciones del análisis clásico de series temporales.}
+            \item \db{Similitudes y diferencias entre la descomposición clásica de series y la descomposición STL.} 
+        \end{enumerate}
 \end{enumerate}

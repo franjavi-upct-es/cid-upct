@@ -116,3 +116,648 @@ par(op)
     \caption{Ejemplo de serie estacionaria (en sentido débil)}
 \end{figure}
 En la práctica del análisis de series encontraremos  series con problemas de estacionariedad que afectan a cualquiera de sus parámetros básicos, siendo los más frecuentes las inconstancias en media y varianza. En la figura se muestran dos ejemplos de series no estacionarias, la primera en media y la segunda en varianza.
+
+\pagebreak
+
+\begin{figure}[h]
+<<fig=TRUE, fig.width=12, fig.height=5, out.width='0.7\\textwidth', fig.align='center', echo=FALSE>>=
+# ----------------------------
+# Series: no estacionaria en media vs en varianza
+# ----------------------------
+set.seed(2025)
+
+# parámetros
+n <- 150
+
+# 1) No estacionaria en la media: caminata aleatoria con deriva (random walk)
+drift <- -0.03
+rw_increments <- rnorm(n, mean = drift, sd = 0.4)
+series_mean_ns <- cumsum(rw_increments)
+
+# 2) No estacionaria en la varianza: sigma alta al inicio y disminuye
+sigma <- seq(from = 2.0, to = 0.2, length.out = n)   # varianza decreciente
+series_var_ns <- rnorm(n, mean = 0, sd = sigma)
+
+# Guardar parámetros gráficos y preparar layout 1x2
+op <- par(no.readonly = TRUE)
+par(mfrow = c(1, 2), mar = c(4.5, 4, 1.5, 1), oma = c(0, 0, 0, 0))
+
+# Función auxiliar: dibuja fondo gris y luego la serie en línea
+plot_with_grey_bg <- function(x, y, xlab = "Time", ylab = "", sub_caption = "") {
+  plot(x, y, type = "n", xlab = xlab, ylab = ylab, xaxt = "n")
+  # dibujar eje x con ticks automáticos
+  axis(1)
+  # dibujar fondo gris claro en el panel de trazado
+  usr <- par("usr")   # (x1, x2, y1, y2)
+  rect(usr[1], usr[3], usr[2], usr[4], col = "#f5f5f5", border = NA)
+  # volver a dibujar ejes por encima del rect
+  box()
+  axis(1)
+  axis(2)
+  # trazar la serie encima
+  lines(x, y, col = "black", lwd = 1)
+  # subtítulo (tipo pie de figura)
+  title(sub = sub_caption, line = 2.2, cex.sub = 1.2, font.sub = 2)
+}
+
+# Panel izquierdo: no estacionaria en la media
+plot_with_grey_bg(
+  x = 1:n,
+  y = series_mean_ns,
+  xlab = "",
+  ylab = "",
+  sub_caption = "Serie no estacionaria en media"
+)
+
+# Panel derecho: no estacionaria en la varianza
+plot_with_grey_bg(
+  x = 1:n,
+  y = series_var_ns,
+  xlab = "",
+  ylab = "",
+  sub_caption = "Serie no estacionaria en varianza"
+)
+
+# Restaurar parámetros originales
+par(op)
+
+@
+\caption{Ejemplo de series no estacionarias}
+\end{figure}
+
+Además de ser estacionario, el proceso estocástico ha der ser \textit{ergódico}. Este concepto es algo más complejo y sólo indicaremos que una condición necesaria para que un proceso sea ergódico es que $\lim_{k \to \infty} \rho_k=0$, es decir, que las autocorrelaciones sean nulas para retardos altos. Esto quiere decir, que para valores altos del retardo habrá poca dependencia entre las observaciones. En caso contrario los valores de la serie alejados en el tiempo estarían altamente correlados y por tanto no se podrían obtener estimaciones consistentes de la función de medias, varianzas, etc.
+
+En adelante, supondremos siempre que trabajamos con procesos ergódicos y nos centramos en estudiar si el proceso que ha generado la serie es o no estacionario. Llegados a este punto, cabría preguntarse si la estacionariedad resulta una condición muy restrictiva, es decir, si en la práctica existen muchas series que proceden de procesos estocásticos no estacionarios. En este sentido podemos decir que, aunque trabajemos con series no estacionarias, en general se podrá conseguir la estacionariedad mediante una transformación sencilla en los datos.
+
+De hecho, las dos transformaciones más usuales para conseguir la estacionariedad de una serie son:
+\begin{itemize}[label=\textbullet]
+    \item Realizar una transformación de Box-Cox (cuando la serie no es constante en varianza), siendo la más frecuente el tomar logaritmos neperianos en los datos.
+    \item Tomar diferencias en la serie (cuando la serie no es constante en media): si la tendencia es lineal se tomarán diferencias de orden 1, si la tendencia es cuadrática se tomarán diferencias de orden 2, etc. Los procesos que no son estacionarios, pero que se convierten en estacionarios al tomar diferencias, se denominan \textit{procesos integrados}. 
+\end{itemize}
+Finalizamos la sección indicando una propiedad para procesos estacionarios fácil de demostrar.
+\begin{proposition}
+    Si $\{X_t\}_t $ es un proceso estacionario, entonces el proceso primera diferencia \[
+    Z_t=X_t-X_{t-1}
+    \] también sigue siendo estacionario.
+\end{proposition}
+\subsubsection{Procesos lineales}
+Los procesos lineales son una clase particular de procesos estocásticos que incluyen a los siguientes tipos de procesos, que estudiaremos con más detalle en las próximas secciones:
+\begin{itemize}[label=\textbullet]
+    \item Proceso puramente aleatorios o ruido blanco gaussiano (también suele denominarse simplemente ruido blanco).
+    \item Procesos autorregresivos, $AR(p)$.
+    \item Procesos de medias móviles, $MA(q)$.
+    \item Procesos autorregresivos y de medias móviles, $ARMA(p,q)$.
+    \item Procesos autorregresivos y de medias móviles no estacionarios, $ARIM(p,d,q)$.
+\end{itemize}
+\subsection{Proceso de ruido blanco gaussiano}
+Recordemos que un ruido blanco gaussiano es un proceso estocástico $(\varepsilon_t)_{t=1,2,\dots,n}$ verificando que $\varepsilon_t\sim N(0,\sigma^2)$ para todo $t=1,2,\dots,n$ e independientes entre sí.
+
+Podemos interpretar un ruido blanco gaussiano como una sucesión de valores sin relación alguna entre ellos, oscilando en torno al cero dentro de un margen constante. En este tipo de procesos, conocer valores pasados no proporciona ninguna información sobre el futuro ya que el proceso es "puramente aleatorio".
+
+En el caso del proceso de ruido blanco gaussiano, los correlogramas simple y parcial no presentarán ninguna correlación significativa (salvo para el retardo 0, donde la correlación es de 1). A continuación se muestra un ejemplo de ruido blanco gaussiano y su correlograma simple.
+
+\begin{figure}[h]
+<<fig=TRUE, fig.width=12, fig.height=5, out.width='0.7\\textwidth', fig.align='center', echo=FALSE>>=
+# ----------------------------
+# Ejemplo de ruido blanco gaussiano y su correlograma
+# ----------------------------
+set.seed(2025)
+
+# Generar ruido blanco gaussiano (media 0, varianza 1)
+n <- 100
+ruido_blanco <- rnorm(n, mean = 0, sd = 1)
+
+# Configurar layout 1x2
+op <- par(no.readonly = TRUE)
+par(mfrow = c(1, 2), mar = c(4.5, 4, 2, 1))
+
+# --- Panel 1: Serie temporal ---
+plot(
+  ruido_blanco,
+  type = "l",
+  xlab = "Time",
+  ylab = "",
+  main = "",
+  ylim = c(-2, 2)
+)
+
+# --- Panel 2: Correlograma (ACF) ---
+acf(
+  ruido_blanco,
+  lag.max = 20,
+  main = "",
+  xlab = "Lag",
+  ylab = "ACF",
+  ylim = c(-0.2, 1),
+  ci.col = "blue",
+  ci.lty = 2
+)
+
+# Restaurar parámetros gráficos
+par(op)
+
+@
+
+    \caption{Ejemplo de ruido blanco gaussiano y su correlograma}
+\end{figure}
+
+\subsection{Modelos Autorregresivos de orden $p,\, AR(p)$}
+
+Al representar la influencia de hecos pasados sobre el presente (y en consecuencia sobre el futuro) de un proceso estocástico, podemos considerar diferentes expresiones. Una de ellas consiste en colocar el valor actual del proceso dependiente linealmente de valores pasados del propio proceso, más una perturbación aleatoria que se comporta como un ruido blanco gaussiano:
+\begin{equation}\label{eq:6:1}
+    X_t=\delta+a_1X_{t-1}+a_2X_{t-2}+\dots+a_pX_{t-p}+\varepsilon_t
+\end{equation}
+donde $\delta$ representa una constante y $\varepsilon_t$ es un ruido blanco, es decir, las variables $\varepsilon_t$ son i.i.d. y todas ellas tienen distribución $N(0,\sigma^2)$.
+
+Esta formulación se denomina autorregresiva porque en cierto modo es un modelo de regresión del proceso sobre sí mismo.
+
+Observando el modelo propuesto en (\ref{eq:6:1}), si lo consideramos estacionario, con $E(X_t)=\mu$, se tiene que: \[
+\mu=\delta+a_1\mu+a_2\mu+\dots+a_p\mu\implies\mu=\dfrac{\delta}{1-a_1-a_2-\dots-a_p}
+\] por consiguiente, para que exista la media, necesitamos que: \[
+a_1+a_2+\dots+a_p\neq 1
+\] 
+Sin perder generalidad, en el desarrollo del apartado supondremos que el proceso está centrado, esto es, $\mu=\delta=0$.
+
+Un elemento que se suele utilizar para expresar la formulación de los procesos lineales es el llamado operador de retardo $B$. Tal operador actúa sobre un término de un proceso estocástico reduciendo el índice temporal en una unidad:  \[
+B\,X_t=X_{t-1}\implies B^k\,X_t=X_{t-k}
+\] y por tanto, un proceso autorregresivo de orden $p$ puede expresarse en la forma:  \[
+(1-a_1B-a_2B^2-\dots-a_pB^p)X_t=\varepsilon_t
+\] o equivalentemente: \[
+[a_p(B)]X_t=\varepsilon_t
+\] donde \[
+a_p(x)=1-a_1\cdot x-a_2\cdot x^2-\dots-a_p\cdot x^p
+\] se denomina \textit{polinomio característico} del proceso autorregresivo.
+
+Como propiedad, destacaremos que la condición necesaria y suficiente para que un proceso $AR(p)$ sea estacionario es que las raíces de su polinomio característico estén fuera del círculo unidad del plano complejo.
+
+Los dos problemas fundamentales que nos presentan los procesos autorregresivos son:
+ \begin{itemize}[label=\textbullet]
+    \item Determinación del orden $p$ del modelo autorregresivo.
+    \item Una vez fijado éste, determinar los parámetros  $a_i$ del modelo.
+\end{itemize}
+\subsubsection{Determinación del orden de la autorregresión}
+Determinar el orden de un proceso autorregresivo a partir de su función de autocorrelación es difícil. En general esta función es una mezcla de decrecimientos exponenciales y sinusoidales, que se amortiguan al avanzar el retardo, y no presenta rasgos fácilmente identificables con el orden del proceso. Para resolver este problema se introduce la función de autocorrelación parcial.
+
+Si comprobamos un $AR(1)$ con un  $AR(2)$ vemos que aunque en ambos modelos cada observación está relacionada con las anteriores, el tipo de relación entre observaciones separadas dos períodos, es distinto. En el  $AR(1)$ el efecto de  $X_{t-2}$ sobre $X_t$, es siempre a través de  $X_{t-1}$, y no existe efecto directo entre ambas. Conocido $X_{t-1}$, el valor de $X_{t-2}$ es irrelevante para prever $X_t$, es decir, tendremos que  \[
+\rho(X_t,X_{t-2}|X_{t-1})=0,
+\] donde la notación anterior se interpreta como la correlación entre las variables $X_t$ y  $X_{t-2}$ eliminando el efecto de $X_{t-1}$.
+
+Esta dependencia puede ilustrarse con el esquema siguiente: \[
+AR(1):X_{t-3}\to X_{t-2}\to X_{t-1}\to X_t
+\] donde las flechas muestras una relación de dependencia directa.
+
+Sin embargo, en un $AR(2)$ además del efecto de  $X_{t-2}$ que se transmite a $X_t$ a través de  $X_{t-1}$, existe un efecto directo de $X_{t-2}$ sobre $X_t$, por lo que, en general,  \[
+\rho(X_t,X_{t-2}|X_{t-1})\neq 0.
+\] 
+Por otro lado, conocidos $X_{t-1}$ y $X_{t-2}$, el valor de $X_{t-3}$ es irrelevante para predecir $X_t$, es decir,  \[
+\rho(X_t,X_{t-3}|X_{t-1},X_{t-2})=0.
+\] 
+En este caso, podemos escribir: \[
+AR(2): \begin{array}{cccc}
+    \Rsh & -\longrightarrow - & \downarrow & \\
+    X_{t-3} & \to X_{t-2} & \to X_{t-1} & \to X_t\\
+            & \downarrow & -\longrightarrow- & \uparrow
+\end{array}
+\] 
+
+La función de autocorrelación simple tiene sólo en cuenta que $X_t$ y  $X_{t-2}$ están relacionadas en ambos casos, pero si medimos la relación directa entre $X_t$ y  $X_{t-2}$, esto es, eliminando el efecto debido a $X_{t-1}$, encontraremos que para un $AR(1)$ este efecto es nulo y para un  $AR(2)$ no.
+
+En general, un  $AR(p)$ presenta efectos directos de observaciones separadas por  $1,2,\dots,p$ retardos y los efectos directos para retardos superiores son nulos, es decir, \[
+\begin{array}{ll}
+    \rho(X_t,X_{t-k}|X_{t-1},X_{t-2},\dots,X_{t-k+1})\neq 0 & \text{si }k\le p,\\
+    \rho(X_t,X_{t-k}|X_{t-1},X_{t-2},\dots,X_{t-k+1})= 0 & \text{si }k> p.
+\end{array}
+\] 
+Esta idea es la clave para la utilización de la función de autocorrelación parcial, entendiendo el coeficiente de autocorrelación parcial de orden $k$ como una medida de la relación lineal entre observaciones separadas  $k$ períodos con independencia de los valores intermedios. De este concepto se deduce que un proceso  $AR(p)$ tendrá los  $p$ primeros coeficientes de autocorrelación parcial distintos de cero. Llamaremos autocorrelograma parcial a la representación de los coeficientes de correlación parcial en función del retardo.  \textit{Por tanto, para determinar el orden de un modelo autorregresivo nos fijaremos en el correlograma parcial: el número de coeficientes que sean 'significativamente' distintos de cero indica el orden del proceso de $AR$.}
+
+A continuación mostramos cómo serían los autocorrelogramas simples y parciales \textbf{teóricos} de modelos $AR(1)$ y $AR(2)$. 
+\begin{enumerate}[label=\arabic*)]
+    \item \textbf{Modelos AR(1):}
+        \begin{enumerate}[label=\alph*)]
+            \item \textit{Con el parámetro $a_1>0$:}
+                \begin{figure}[h]
+                    \centering
+<<fig=TRUE, fig.width=12, fig.height=5, out.width='0.7\\textwidth', fig.align='center', echo=FALSE>>=
+# ACF y PACF teóricas para AR(1)
+# phi = coeficiente AR(1) (a1). Si phi>0 se obtiene decaimiento positivo.
+phi <- 0.7
+max_lag <- 20
+
+# ACF teórica usando ARMAacf (incluye lag 0); quitamos lag 0
+acf_theo <- stats::ARMAacf(ar = phi, lag.max = max_lag)[-1]  # lags 1..max_lag
+
+# PACF teórica para AR(1): phi en lag 1, 0 para lags > 1
+pacf_theo <- c(phi, rep(0, max_lag - 1))
+
+# Preparar layout lado a lado
+op <- par(no.readonly = TRUE)
+par(mfrow = c(1, 2), mar = c(4, 4, 2, 1))
+
+# --- ACF teórica ---
+plot(1:max_lag, acf_theo,
+     type = "n",
+     xlab = "Lag",
+     ylab = "Autocorrel.",
+     ylim = c(-1, 1),
+     xaxt = "n",
+     main = "Autocorrel. simple teórico de AR(1)")
+axis(1, at = 1:max_lag)
+abline(h = 0, col = "gray60")
+# barras verticales estilo correlograma
+for (i in 1:max_lag) {
+  segments(x0 = i, y0 = 0, x1 = i, y1 = acf_theo[i], lwd = 2)
+  points(i, acf_theo[i], pch = 19, cex = 0.8)
+}
+# anotar phi>0
+text(x = max_lag * 0.6, y = 0.9, labels = expression(a[1] > 0))
+
+# --- PACF teórica ---
+plot(1:max_lag, pacf_theo,
+     type = "n",
+     xlab = "Lag",
+     ylab = "Autocorrel. parcial",
+     ylim = c(-1, 1),
+     xaxt = "n",
+     main = "Autocorrel. parcial teórico de AR(1)")
+axis(1, at = 1:max_lag)
+abline(h = 0, col = "gray60")
+for (i in 1:max_lag) {
+  segments(x0 = i, y0 = 0, x1 = i, y1 = pacf_theo[i], lwd = 2)
+  points(i, pacf_theo[i], pch = 19, cex = 0.8)
+}
+text(x = max_lag * 0.6, y = 0.9, labels = expression(a[1] > 0))
+
+# Restaurar parámetros gráficos
+par(op)
+
+@
+
+                    \caption{Correlogramas teóricos AR(1)}
+                \end{figure}
+            \item \textit{Con el parámetro $a_1<0$:}
+                \begin{figure}[h]
+                    \centering
+<<fig=TRUE, fig.width=12, fig.height=5, out.width='0.7\\textwidth', fig.align='center', echo=FALSE>>=
+# ACF y PACF teóricas para AR(1)
+# phi = coeficiente AR(1) (a1). Si phi>0 se obtiene decaimiento positivo.
+phi <- -0.7
+max_lag <- 20
+
+# ACF teórica usando ARMAacf (incluye lag 0); quitamos lag 0
+acf_theo <- stats::ARMAacf(ar = phi, lag.max = max_lag)[-1]  # lags 1..max_lag
+
+# PACF teórica para AR(1): phi en lag 1, 0 para lags > 1
+pacf_theo <- c(phi, rep(0, max_lag - 1))
+
+# Preparar layout lado a lado
+op <- par(no.readonly = TRUE)
+par(mfrow = c(1, 2), mar = c(4, 4, 2, 1))
+
+# --- ACF teórica ---
+plot(1:max_lag, acf_theo,
+     type = "n",
+     xlab = "Lag",
+     ylab = "Autocorrel.",
+     ylim = c(-1, 1),
+     xaxt = "n",
+     main = "Autocorrel. simple teórico de AR(1)")
+axis(1, at = 1:max_lag)
+abline(h = 0, col = "gray60")
+# barras verticales estilo correlograma
+for (i in 1:max_lag) {
+  segments(x0 = i, y0 = 0, x1 = i, y1 = acf_theo[i], lwd = 2)
+  points(i, acf_theo[i], pch = 19, cex = 0.8)
+}
+# anotar phi>0
+text(x = max_lag * 0.6, y = 0.9, labels = expression(a[1] < 0))
+
+# --- PACF teórica ---
+plot(1:max_lag, pacf_theo,
+     type = "n",
+     xlab = "Lag",
+     ylab = "Autocorrel. parcial",
+     ylim = c(-1, 1),
+     xaxt = "n",
+     main = "Autocorrel. parcial teórico de AR(1)")
+axis(1, at = 1:max_lag)
+abline(h = 0, col = "gray60")
+for (i in 1:max_lag) {
+  segments(x0 = i, y0 = 0, x1 = i, y1 = pacf_theo[i], lwd = 2)
+  points(i, pacf_theo[i], pch = 19, cex = 0.8)
+}
+text(x = max_lag * 0.6, y = 0.9, labels = expression(a[1] < 0))
+
+# Restaurar parámetros gráficos
+par(op)
+
+@
+
+                    \caption{Correlogramas teóricos AR(1)}
+                \end{figure}
+        \end{enumerate}
+    \item \textbf{Modelos AR(2):}
+        \begin{enumerate}[label=\alph*)]
+            \item \textit{Con los parámetros $a_1>0,\,a_2>0$:} 
+            
+                \begin{figure}[h]
+<<fig=TRUE, fig.width=12, fig.height=5, out.width='0.7\\textwidth', fig.align='center', echo=FALSE>>=
+# ACF y PACF teóricas para AR(2)
+# R Wizard style: nombres en snake_case y comentarios útiles
+
+phi1 <- 0.6   # a1 > 0
+phi2 <- 0.2   # a2 > 0
+max_lag <- 20
+
+# 1) Obtener la ACF teórica (incluye lag 0 en la posición 1)
+acf_all <- stats::ARMAacf(ar = c(phi1, phi2), lag.max = max_lag)
+# acf_all[1] = rho_0 = 1, acf_all[2] = rho_1, ..., acf_all[max_lag+1] = rho_max_lag
+
+# 2) Calcular la PACF teórica resolviendo Yule-Walker hasta max_lag
+pacf_theo <- numeric(max_lag)
+for (k in 1:max_lag) {
+  # matriz Toeplitz de autocorrelaciones: rho_0, rho_1, ..., rho_{k-1}
+  toeplitz_mat <- toeplitz(acf_all[1:k])
+  # vector RHS: rho_1, rho_2, ..., rho_k
+  rhs_vec <- acf_all[2:(k+1)]
+  # resolver para coeficientes phi^(k)
+  phi_k <- solve(toeplitz_mat, rhs_vec)
+  # la PACF en lag k es el último coeficiente de phi^(k)
+  pacf_theo[k] <- phi_k[k]
+}
+
+# 3) Graficar lado a lado (ACF teórica y PACF teórica)
+op <- par(no.readonly = TRUE)
+par(mfrow = c(1, 2), mar = c(4, 4, 2, 1))
+
+# ACF teórica (barras verticales)
+plot(1:max_lag, acf_all[-1], type = "n",
+     xlab = "Lag", ylab = "Autocorrel.",
+     ylim = c(-1, 1), xaxt = "n",
+     main = "Autocorrel. simple teórico de AR(2)")
+axis(1, at = 1:max_lag)
+abline(h = 0, col = "gray70")
+for (i in 1:max_lag) {
+  segments(x0 = i, y0 = 0, x1 = i, y1 = acf_all[i+1], lwd = 2)
+  points(i, acf_all[i+1], pch = 19, cex = 0.7)
+}
+text(x = max_lag * 0.5, y = 0.9, labels = expression(a[1] > 0 ~~ a[2] > 0))
+
+# PACF teórica (esperamos picos en lags 1 y 2, luego ~0)
+plot(1:max_lag, pacf_theo, type = "n",
+     xlab = "Lag", ylab = "Autocorrel. parcial",
+     ylim = c(-1, 1), xaxt = "n",
+     main = "Autocorrel. parcial teórico de AR(2)")
+axis(1, at = 1:max_lag)
+abline(h = 0, col = "gray70")
+for (i in 1:max_lag) {
+  segments(x0 = i, y0 = 0, x1 = i, y1 = pacf_theo[i], lwd = 2)
+  points(i, pacf_theo[i], pch = 19, cex = 0.7)
+}
+text(x = max_lag * 0.5, y = 0.9, labels = expression(a[1] > 0 ~~ a[2] > 0))
+
+par(op)  # restaurar parámetros gráficos
+
+@
+                    \caption{Correlogramas teóricos AR(2)}
+                \end{figure}
+            \item \textit{Con los parámetros $a_1<0,\,a_2>0$:} 
+            
+                \begin{figure}[h]
+<<fig=TRUE, fig.width=12, fig.height=5, out.width='0.7\\textwidth', fig.align='center', echo=FALSE>>=
+# ACF y PACF teóricas para AR(2)
+# R Wizard style: nombres en snake_case y comentarios útiles
+
+phi1 <- -0.6   # a1 > 0
+phi2 <- 0.2   # a2 > 0
+max_lag <- 20
+
+# 1) Obtener la ACF teórica (incluye lag 0 en la posición 1)
+acf_all <- stats::ARMAacf(ar = c(phi1, phi2), lag.max = max_lag)
+# acf_all[1] = rho_0 = 1, acf_all[2] = rho_1, ..., acf_all[max_lag+1] = rho_max_lag
+
+# 2) Calcular la PACF teórica resolviendo Yule-Walker hasta max_lag
+pacf_theo <- numeric(max_lag)
+for (k in 1:max_lag) {
+  # matriz Toeplitz de autocorrelaciones: rho_0, rho_1, ..., rho_{k-1}
+  toeplitz_mat <- toeplitz(acf_all[1:k])
+  # vector RHS: rho_1, rho_2, ..., rho_k
+  rhs_vec <- acf_all[2:(k+1)]
+  # resolver para coeficientes phi^(k)
+  phi_k <- solve(toeplitz_mat, rhs_vec)
+  # la PACF en lag k es el último coeficiente de phi^(k)
+  pacf_theo[k] <- phi_k[k]
+}
+
+# 3) Graficar lado a lado (ACF teórica y PACF teórica)
+op <- par(no.readonly = TRUE)
+par(mfrow = c(1, 2), mar = c(4, 4, 2, 1))
+
+# ACF teórica (barras verticales)
+plot(1:max_lag, acf_all[-1], type = "n",
+     xlab = "Lag", ylab = "Autocorrel.",
+     ylim = c(-1, 1), xaxt = "n",
+     main = "Autocorrel. simple teórico de AR(2)")
+axis(1, at = 1:max_lag)
+abline(h = 0, col = "gray70")
+for (i in 1:max_lag) {
+  segments(x0 = i, y0 = 0, x1 = i, y1 = acf_all[i+1], lwd = 2)
+  points(i, acf_all[i+1], pch = 19, cex = 0.7)
+}
+text(x = max_lag * 0.5, y = 0.9, labels = expression(a[1] < 0 ~~ a[2] > 0))
+
+# PACF teórica (esperamos picos en lags 1 y 2, luego ~0)
+plot(1:max_lag, pacf_theo, type = "n",
+     xlab = "Lag", ylab = "Autocorrel. parcial",
+     ylim = c(-1, 1), xaxt = "n",
+     main = "Autocorrel. parcial teórico de AR(2)")
+axis(1, at = 1:max_lag)
+abline(h = 0, col = "gray70")
+for (i in 1:max_lag) {
+  segments(x0 = i, y0 = 0, x1 = i, y1 = pacf_theo[i], lwd = 2)
+  points(i, pacf_theo[i], pch = 19, cex = 0.7)
+}
+text(x = max_lag * 0.5, y = 0.9, labels = expression(a[1] < 0 ~~ a[2] > 0))
+
+par(op)  # restaurar parámetros gráficos
+
+@
+                    \caption{Correlogramas teóricos AR(2)}
+                \end{figure}
+            \item \textit{Con los parámetros $a_1>0,\,a_2<0$:} 
+            
+                \begin{figure}[h]
+<<fig=TRUE, fig.width=12, fig.height=5, out.width='0.7\\textwidth', fig.align='center', echo=FALSE>>=
+# ACF y PACF teóricas para AR(2)
+# R Wizard style: nombres en snake_case y comentarios útiles
+
+phi1 <- 0.6   # a1 > 0
+phi2 <- -0.2   # a2 > 0
+max_lag <- 20
+
+# 1) Obtener la ACF teórica (incluye lag 0 en la posición 1)
+acf_all <- stats::ARMAacf(ar = c(phi1, phi2), lag.max = max_lag)
+# acf_all[1] = rho_0 = 1, acf_all[2] = rho_1, ..., acf_all[max_lag+1] = rho_max_lag
+
+# 2) Calcular la PACF teórica resolviendo Yule-Walker hasta max_lag
+pacf_theo <- numeric(max_lag)
+for (k in 1:max_lag) {
+  # matriz Toeplitz de autocorrelaciones: rho_0, rho_1, ..., rho_{k-1}
+  toeplitz_mat <- toeplitz(acf_all[1:k])
+  # vector RHS: rho_1, rho_2, ..., rho_k
+  rhs_vec <- acf_all[2:(k+1)]
+  # resolver para coeficientes phi^(k)
+  phi_k <- solve(toeplitz_mat, rhs_vec)
+  # la PACF en lag k es el último coeficiente de phi^(k)
+  pacf_theo[k] <- phi_k[k]
+}
+
+# 3) Graficar lado a lado (ACF teórica y PACF teórica)
+op <- par(no.readonly = TRUE)
+par(mfrow = c(1, 2), mar = c(4, 4, 2, 1))
+
+# ACF teórica (barras verticales)
+plot(1:max_lag, acf_all[-1], type = "n",
+     xlab = "Lag", ylab = "Autocorrel.",
+     ylim = c(-1, 1), xaxt = "n",
+     main = "Autocorrel. simple teórico de AR(2)")
+axis(1, at = 1:max_lag)
+abline(h = 0, col = "gray70")
+for (i in 1:max_lag) {
+  segments(x0 = i, y0 = 0, x1 = i, y1 = acf_all[i+1], lwd = 2)
+  points(i, acf_all[i+1], pch = 19, cex = 0.7)
+}
+text(x = max_lag * 0.5, y = 0.9, labels = expression(a[1] > 0 ~~ a[2] < 0))
+
+# PACF teórica (esperamos picos en lags 1 y 2, luego ~0)
+plot(1:max_lag, pacf_theo, type = "n",
+     xlab = "Lag", ylab = "Autocorrel. parcial",
+     ylim = c(-1, 1), xaxt = "n",
+     main = "Autocorrel. parcial teórico de AR(2)")
+axis(1, at = 1:max_lag)
+abline(h = 0, col = "gray70")
+for (i in 1:max_lag) {
+  segments(x0 = i, y0 = 0, x1 = i, y1 = pacf_theo[i], lwd = 2)
+  points(i, pacf_theo[i], pch = 19, cex = 0.7)
+}
+text(x = max_lag * 0.5, y = 0.9, labels = expression(a[1] > 0 ~~ a[2] < 0))
+
+par(op)  # restaurar parámetros gráficos
+
+@
+                    \caption{Correlogramas teóricos AR(2)}
+                \end{figure}
+            \item \textit{Con los parámetros $a_1<0,\,a_2<0$:} 
+            
+                \begin{figure}[h]
+<<fig=TRUE, fig.width=12, fig.height=5, out.width='0.7\\textwidth', fig.align='center', echo=FALSE>>=
+# ACF y PACF teóricas para AR(2)
+# R Wizard style: nombres en snake_case y comentarios útiles
+
+phi1 <- -0.6   # a1 > 0
+phi2 <- -0.2   # a2 > 0
+max_lag <- 20
+
+# 1) Obtener la ACF teórica (incluye lag 0 en la posición 1)
+acf_all <- stats::ARMAacf(ar = c(phi1, phi2), lag.max = max_lag)
+# acf_all[1] = rho_0 = 1, acf_all[2] = rho_1, ..., acf_all[max_lag+1] = rho_max_lag
+
+# 2) Calcular la PACF teórica resolviendo Yule-Walker hasta max_lag
+pacf_theo <- numeric(max_lag)
+for (k in 1:max_lag) {
+  # matriz Toeplitz de autocorrelaciones: rho_0, rho_1, ..., rho_{k-1}
+  toeplitz_mat <- toeplitz(acf_all[1:k])
+  # vector RHS: rho_1, rho_2, ..., rho_k
+  rhs_vec <- acf_all[2:(k+1)]
+  # resolver para coeficientes phi^(k)
+  phi_k <- solve(toeplitz_mat, rhs_vec)
+  # la PACF en lag k es el último coeficiente de phi^(k)
+  pacf_theo[k] <- phi_k[k]
+}
+
+# 3) Graficar lado a lado (ACF teórica y PACF teórica)
+op <- par(no.readonly = TRUE)
+par(mfrow = c(1, 2), mar = c(4, 4, 2, 1))
+
+# ACF teórica (barras verticales)
+plot(1:max_lag, acf_all[-1], type = "n",
+     xlab = "Lag", ylab = "Autocorrel.",
+     ylim = c(-1, 1), xaxt = "n",
+     main = "Autocorrel. simple teórico de AR(2)")
+axis(1, at = 1:max_lag)
+abline(h = 0, col = "gray70")
+for (i in 1:max_lag) {
+  segments(x0 = i, y0 = 0, x1 = i, y1 = acf_all[i+1], lwd = 2)
+  points(i, acf_all[i+1], pch = 19, cex = 0.7)
+}
+text(x = max_lag * 0.5, y = 0.9, labels = expression(a[1] < 0 ~~ a[2] < 0))
+
+# PACF teórica (esperamos picos en lags 1 y 2, luego ~0)
+plot(1:max_lag, pacf_theo, type = "n",
+     xlab = "Lag", ylab = "Autocorrel. parcial",
+     ylim = c(-1, 1), xaxt = "n",
+     main = "Autocorrel. parcial teórico de AR(2)")
+axis(1, at = 1:max_lag)
+abline(h = 0, col = "gray70")
+for (i in 1:max_lag) {
+  segments(x0 = i, y0 = 0, x1 = i, y1 = pacf_theo[i], lwd = 2)
+  points(i, pacf_theo[i], pch = 19, cex = 0.7)
+}
+text(x = max_lag * 0.5, y = 0.9, labels = expression(a[1] < 0 ~~ a[2] < 0))
+
+par(op)  # restaurar parámetros gráficos
+
+@
+                    \caption{Correlogramas teóricos AR(2)}
+                \end{figure}
+        \end{enumerate}
+\end{enumerate}
+
+\subsubsection{Estimación de los parámetros del modelo}
+
+En esta sección nos centraremos en la segunda de las cuestiones: estimar los parámetros del modelo. Así, si consideramos un proceso $AR(p)$ centrado:
+\begin{equation}\label{eq:6:2}
+    X_t=a_1X_{t-1}+a_2X_{t-2}+\dots+a_pX_{t-p}+E(\varepsilon_tX_{t-j})
+\end{equation} multiplicando por $X_{t-j}$ y tomando esperanzas
+\begin{equation}\label{eq:6:3}
+    E(X_tX_{t-1})=a_1E(X_{t-1}X_{t-j})+a_2E(X_{t-2}X_{t-j})+\dots+a_pE(X_{t-p}X_{t-j})+E(\varepsilon_tX_{t-j})
+\end{equation}
+Obsérvese que al ser $E(\varepsilon_t\varepsilon_{t-j})=0$ para $j>0$, se tiene que  $E(\varepsilon_tX_{t-j})=0$ para $j>0$ y  $E(\varepsilon_tX_t)=\sigma_\varepsilon^2$, donde $\sigma_\varepsilon^2$ denota la varianza común de las pertubaciones $\varepsilon_t$. Por tanto, reescribiendo (\ref{eq:6:3}) en términos de covarianzas (hemos supuesto proceso de media cero), tendremos las  \textbf{ecuaciones de Yule-Walker} para el proceso $AR(p)$  \textbf{usando covarianzas}: \[
+\begin{array}{l}
+    \gamma_0=a_1\gamma_1+a_2\gamma_2+\dots+a_p\gamma_p+\sigma_\varepsilon^2\\
+    \gamma_j=a_1\gamma_{j-1}+a_2\gamma_{j-2}+\dots+a_p\gamma_{j-p}\quad j>0
+\end{array}
+\]
+Por otro lado, dividiendo en las ecuaciones anteriores por $\gamma_0$ (varianza común del proceso), tendremos las \textbf{ecuaciones de Yule-Walker} para un proceso $AR(p)$  \textbf{usando correlaciones:}
+\[
+\begin{array}{l}
+    \rho_0=1\\
+    \rho_j=a_1\rho_{j-1}+a_2\rho_{j-2}+\dots+a_p\rho_{j-p}\quad j>0
+\end{array}
+\] 
+Particularizando para $j=1,2,\dots,p$, se obtiene un sistema de ecuaciones que relaciona las $p$ primeras autocorrelaciones con los parámetros del proceso. Alternativamente, se denominan ecuaciones de Yule-Walker al sistema:
+ \[
+\begin{array}{l}
+    \rho_1=a_1+a_2\rho_1+\dots+a_p\rho_{p-1}\\
+    \rho_2=a_1\rho_1+a_2+\dots+a_p\rho_{p-2}\\
+    \\
+    \rho_p=a_1\rho_{p-1}+a_2\rho_{p-2}+\dots+a_p
+\end{array}
+\] 
+Llamando: \[
+\begin{array}{c}
+    \mathbf{a'}=(a_1,a_2,\dots,a_p)\qquad \rho'=(\rho_1,\rho_2,\dots,\rho_p)\\
+    \mathbf{R}=\begin{pmatrix} 
+        1 & \rho_1 & \cdots & \rho_{p-1}\\
+        \vdots & \vdots & & \vdots\\
+        \rho_{p-1} & \rho_{p-2} & \cdots & 1
+    \end{pmatrix} 
+\end{array}
+\] el sistema anterior se escribe matricialmente: \[
+\rho=\mathbf{R\cdot a\implies a=R^{-1}}\cdot \rho
+\] por consiguiente, los valores de los parámetros $\mathbf{a}$ se pueden obtener una vez estimada la matriz de autocorrelaciones de orden $p$.
+
+Además, las ecuaciones de Yule-Walker coinciden con el criterio de mínimos cuadrados para los residuos. Así, si consideramos un proceso  $AR(p)$:  \[
+X_t=a_1X_{t-1}+a_2X_{t-2}+\dots+a_pX_{t-p}+\varepsilon_t
+\] a partir de $n$ valores observados de la serie, $x_1,x_2,\dots,x_n$, los residuos $e_t$ vendrán dados por:  \[
+e_t=x_t-(a_1x_{t-1}+a_2x_{t-2}+\dots+a_px_{t-p})=x_t-\hat{x}_t
+\] donde $\hat{x}_t$ denotamos el valor estimado de la serie. Los parámetros $a_1,a_2,\dots,a_p$ que minimizan la suma de cuadrados de los residuos coinciden con la solución a las ecuaciones de Yule-Walker.

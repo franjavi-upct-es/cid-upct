@@ -1,0 +1,180 @@
+\begin{center}
+    \textbf{\Large Hoja 5: Métodos de Alisado Exponencial} 
+\end{center}
+\begin{enumerate}[label=\color{red}\textbf{\arabic*)}]
+    \item \lb{Responder a las siguientes preguntas}
+        \begin{enumerate}[label=\color{red}\textbf{\alph*)}]
+            \item \db{¿Qué son los métodos de alisado exponencial y para qué sirven?} 
+            \item \db{Clasificación de los métodos de alisado exponencial.} 
+            \item \db{¿Qué son los parámetros de alisado y dónde intervienen? ¿Cuántos parámetros de alisado deben emplearse?} 
+            \item \db{¿Cómo se obtiene los parámetros de alisado óptimos?} 
+            \item \db{Supongamos que se está analizando una serie temporal que no tiene estacionalidad y cuyas observaciones se recopilan cada minuto. El analista ha decidido emplear el método de Holt para predecir los próximos 30 minutos, y transcurrido ese tiempo, volverá a aplicar el método de Holt con las nuevas observaciones reales para predecir los siguientes 30 minutos. ¿Te parece adecuado?} 
+            \item \db{Explica cómo se interpretaría que en el método de Holt-Winters (aditivo o multiplicativo), se obtuviera un parámetro de alisado óptimo gamma=0.} 
+            \item \db{Los métodos de alisado exponencial, ¿permiten obtener intervalos de predicción o sólo predicciones puntuales?} 
+            \item \db{¿Qué son los modelos ETS y qué significan sus siglas? ¿Qué relación tiene con los métodos de alisado exponencial?} 
+            \item \db{¿Los modelos ETS, ¿permiten obtener intervalos de predicción o sólo predicciones puntuales? ¿Se necesita algún supuesto en términos de distribuciones probabilísticas?} 
+            \item \db{¿Qué relación existe entre las predicciones puntuales de los métodos de alisado exponencial y las obtenidas con modelos ETS?} 
+        \end{enumerate}
+    \item \lb{Responder a las siguientes cuestiones:}
+        \begin{enumerate}[label=\color{red}\textbf{\alph*)}]
+            \item \db{Para analizar una serie temporal con 100 observaciones, se usó alisado exponencial simple (AES). Se sabe que la última observación vale $x(100)=28$, que el parámetro de alisado óptimo fue  $\alpha=0.8$ y que la estimación del nivel de la serie en el instante 99 fue $a(99)=35$. Calcular las predicciones para los próximos 5 instantes.} 
+                
+                $a_t=\alpha x_t+(1-\alpha)a_{t-1}\implies a_{100}=0.8\cdot x_{100}+(1-0.8)\cdot a_{99}=0.8\cdot 28+0.2\cdot 35=\bboxed{29.4} $ 
+
+                $\hat{x}_{101|100}=\dots=\hat{x}_{105|100}=a_{100}=29.4$
+            \item \db{Repetir el apartado (a) suponiendo que se usó el método de Holt y que se tienen los siguientes datos: $x(100)=28,\alpha=0.8,\beta=0.7,a(99)=35,b(99)=1$.} 
+                \begin{itemize}[label=\textbullet]
+                    \item $a_{100}=\alpha x_{100}+(1-\alpha)(a_{99}+b_{99})=0.8\cdot 28+0.2\cdot (35+1)=19.6$ 
+                    \item $b_{100}=\beta(a_{100}-a_{99})+(1-\beta)b_{99}=0.7\cdot (29.6-35)+0.3\cdot 1=-3.48$
+                \end{itemize}
+                $\hat{x}_{100+h|100}=a_{100}+h\cdot b_{100}=29.6+h\cdot (-3.48)\quad h=1,2,3,4,5.$
+
+                $\begin{array}{l}
+                    h=1\implies \hat{x}_{101|100}=26.12\\
+                    h=2\implies \hat{x}_{102|100}=22.64\\
+                    h=3\implies \hat{x}_{103|100}=19.16\\
+                    h=4\implies \hat{x}_{104|100}=15.68\\
+                    h=5\implies \hat{x}_{105|100}=12.20\\
+                \end{array}$
+        \end{enumerate}
+    \item \lb{Para una serie de datos con 30 observaciones recopiladas por cuatrimestres, comenzando en el primer cuatrimestre de 2014, se observó componente estacional y se aplicó Holt-Winters aditivo. Se pide calcular las predicciones para los años 2024 y 2025 sabiendo que se obtivieron los siguientes datos: \[
+    \begin{array}{l}
+        x(30)=250,\,\alpha=0.8,\,\beta=0.9,\,\gamma=0,\,a(29)=200,\\
+        b(29)=-2,\,S(1)=25,\,S(2)=-15,\,S(3)=-10
+    \end{array}
+    \] } 
+
+    Observar que $\gamma=0$, por tanto:
+    \[
+        \begin{aligned}
+            S_t=S_{t-L}\,\forall t\implies & S_{28}=S_{31}=S_1=25\\
+                                           & S_{29}=S_{32}=S_2=-15\\
+                                           & S_{30}=S_{33}=S_3=-10
+        \end{aligned}
+    \] 
+    Como la serie empieza en el $1^{\text{er}}$ cuatrimestre de 2014 $(t=1)$ entonces termina en $3^{\text{er}}$ cuatrimestre de 2023 $(t=30)$. Me piden predicciones para los cuatrimestre de 2024 y 2025, es decir, predicciones en horizontes  $h=1,2,3,4,5,6$.
+
+     $a_{30}=\alpha(x_{30}-S_{30-L})+(1-\alpha)(a_{29}+b_{29})=0.8\cdot (250-(-10))+0.2\cdot (200+(-2))=247.6$
+
+     $b_{30}=\beta(a_{30}-a_{29})+(1-\beta)b_{29}=0.9\cdot (247.6-250)+0.1\cdot (-2)=42.64$
+
+     $S_{30}=S_3=-10$
+
+     $
+     \begin{array}{l}
+     \bboxed{h=1}\quad \hat{x}_{31|30}=(a_{30}+1\cdot b_{30})+S_{28}=247.6-42.64+25=\bboxed{315.24}\\
+     \bboxed{h=2}\quad \hat{x}_{32|30}=(a_{30}+2\cdot b_{30})+S_{29}=247.6+2\cdot 42.64-15=\bboxed{317.88} \\
+     \bboxed{h=3}\quad \hat{x}_{33|30}=(a_{30}+3\cdot b_{30})+S_{30}=\\
+     \bboxed{h=4}\quad \hat{x}_{34|30}=(a_{30}+4\cdot b_{30})+S_{31}=\\
+     \bboxed{h=5}\quad \hat{x}_{35|30}=(a_{30}+5\cdot b_{30})+S_{32}=\\
+     \bboxed{h=6}\quad \hat{x}_{36|30}=(a_{30}+6\cdot b_{30})+S_{33}=\\
+     \end{array}
+     $
+    \item \lb{Repetir el Problema 3 suponiendo esquema multiplicativo y que \[
+    S(1)=15,\,S(2)=0.6,\,S(3)=0.9
+    \] } 
+    \item \lb{En la siguiente tabla se muestra una serie temporal con datos trimestrales a la que se le ha aplicado el método de Holt-Winters. Responde a las siguientes cuestiones.}
+        \begin{enumerate}[label=\color{red}\textbf{\arabic*)}]
+            \item \db{Representar la serie, y justificar si, para la serie en estudio, es más adecuado un esquema aditivo o bien uno multiplicativo.}
+            \item \db{De acuerdo al apartado anterior, completa los huecos de la tabla, sabiendo que: \[
+            \begin{array}{l}
+                \alpha=0.2,\,\beta=0.3,\,\gamma=0.5,\\
+                a(0)=619.31,\,b(0)=4.06,\\
+                S(-3)=21.09,\,S(-2)=80.22,\,S(-1)=-55.66,\,S(0)=-45.66
+            \end{array}
+            \] } 
+            Para $t=1$: Datos trimestrales,  $L=4$
+
+            $\begin{array}{l}
+                a_1=\alpha(x_1-S_{1-4})+(1-\alpha)(a_0+b_0)=0.2\cdot (653-21.09)+(1-0.2)\cdot (619.31+4.06)=625.078\\
+                b_1=\beta(a_1-a_0)+(1-\beta)b_0=0.3\cdot (625.078)+(1-0.3)\cdot 4.06=4.5724\\
+                S_1=\gamma(x_1-a_1)+(1-\gamma)S_{1-L}=0.5\cdot (653-625.078)+0.5\cdot 21.09=24.506\\
+            \end{array}$
+
+            Para $t=4$:
+
+            $\begin{array}{l}
+                a_4=\alpha(x_4-S_{4-4})+(1-\alpha)(a_3+b_3)=0.2\cdot (598-(-45.66))+0.8\cdot (636.39+5.11)=641.932\\
+                b_4=\beta(a_4-a_3)+(1-\beta)b_3=0.3\cdot (641.932-636.39)+0.7\cdot 5.11=5.2396\\
+                S_4=\gamma(x_4-a_4)+(1-\gamma)S_{4-L}=0.5\cdot (598-641.932)+0.5\cdot (-45.66)=-44.796\\
+                \hat{X}_{4|3}=(a_3+1\cdot b_3)+S_{0}=(636.391+5.11)+(-45.66)=595.84
+            \end{array}$
+        \item \db{Calcular las predicciones para el año 2024.} 
+        \end{enumerate}
+        \begin{center}
+            \color{blue}
+            \begin{tabular}{|c|c|c|c|c|c|c|}
+                \hline
+                Año & Trimestre & Serie & a & b & S & Serie ajustada \\
+                \hline
+                2021 & T1 & 653 &  &  &  & 644.47 \\
+                \hline
+                2021 & T2 & 716 & 630.88 & 4.94 & 82.67 & 709.87 \\
+                \hline
+                2021 & T3 & 583 & 636.39 & 5.11 & -54.52 & 580.17 \\
+                \hline
+                2021 & T4 & 598 &  &  &  &  \\
+                \hline
+                2022 & T1 & 688 & 650.44 & 6.22 & 31.03 & 671.68 \\
+                \hline
+                2022 & T2 & 736 & 655.99 & 6.02 & 81.34 & 739.33 \\
+                \hline
+                2022 & T3 & 604 & 661.32 & 5.81 & -55.92 & 607.49 \\
+                \hline
+                2022 & T4 & 634 & 669.46 & 6.51 & -40.13 & 622.33 \\
+                \hline
+                2023 & T1 & 709 & 676.37 & 6.63 & 31.83 & 707.01 \\
+                \hline
+                2023 & T2 & 756 &  &  &  &  \\
+                \hline
+                2023 & T3 & 615 & 684.16 & 5.14 & -62.54 & 631.55 \\
+                \hline
+                2023 & T4 & 635 & 686.46 & 4.29 & -45.79 & 649.17 \\
+                \hline
+            \end{tabular}
+        \end{center}
+    \item \lb{En la siguiente tabla se muestra una serie de temporal con datos trimestrales a la que se le ha aplicado el método de Holt-Winters. Responde a las siguientes cuestiones:}
+        \begin{enumerate}[label=\color{red}\textbf{\arabic*)}]
+            \item \db{Representar la serie, y justificar si, para la serie en estudio, es más adecuado un esquema aditivo o bien uno multiplicativo.}
+            \item \db{De acuerdo al apartado anterior, completa los huecos de la tabla, sabiendo que: \[
+            \begin{array}{l}
+                \alpha=0.2,\,\beta=0.3,\,\gamma=0.5,\\
+                a(0)=560.94,\,b(0)=28.96\\
+                S(-3)=1.04,\,S(-2)=1.92,\,S(-1)=0.50,\,S(0)=0.54
+            \end{array}
+            \] } 
+            \item \db{Calcular las predicciones para el año 2024.} 
+        \end{enumerate}
+        \begin{center}
+            \color{blue}
+            \begin{tabular}{|c|c|c|c|c|c|c|}
+                \hline
+                Año & Trimestre & Serie & a & b & S & Serie ajustada \\
+                \hline
+                2021 & T1 & 685.40 &  &  &  & 614.66 \\
+                \hline
+                2021 & T2 & 1286.91 & 643.42 & 35.11 & 1.96 & 1220.67 \\
+                \hline
+                2021 & T3 & 340.36 &  & & &  \\
+                \hline
+                2021 & T4 & 395.44 & 717.74 & 36.30 & 0.55 & 385.66 \\
+                \hline
+                2022 & T1 & 972.63 & 781.88 & 44.66 & 1.17 & 821.04 \\
+                \hline
+                2022 & T2 & 1571.84 & 821.71 & 43.21 & 1.94 & 1619.13 \\
+                \hline
+                2022 & T3 & 419.89 & 859.63 & 41.62 & 0.49 & 433.15 \\
+                \hline
+                2022 & T4 & 566.80 & 928.81 & 49.89 & 0.58 & 491.63 \\
+                \hline
+                2023 & T1 & 1199.91 &  &  &  &  \\
+                \hline
+                2023 & T2 & 1919.85 & 1031.61 & 49.90 & 1.90 & 2016.41 \\
+                \hline
+                2023 & T3 & 468.72 & 1054.73 & 41.86 & 0.47 & 534.94 \\
+                \hline
+                2023 & T4 & 572.49 & 1075.41 & 35.51 & 0.56 & 633.69 \\
+                \hline
+            \end{tabular}
+        \end{center}
+\end{enumerate}

@@ -5,8 +5,24 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="cb3e1152-4c03-4efb-aecf-6750f30e83e5" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/Apuntes LaTex/2º Curso/FIE/FIE.Rnw" beforeDir="false" afterPath="$PROJECT_DIR$/Apuntes LaTex/2º Curso/FIE/FIE.Rnw" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Prácticas/3º Curso/1º Cuatrimestre/PEST/Practica 2/analizar_modelo.R" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/rGraphicsSettings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/rGraphicsSettings.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Apuntes LaTex/2º Curso/FIE/FIE.pdf" beforeDir="false" afterPath="$PROJECT_DIR$/Apuntes LaTex/2º Curso/FIE/FIE.pdf" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Apuntes LaTex/2º Curso/FIE/Tema 1/Tema 1.Rnw" beforeDir="false" afterPath="$PROJECT_DIR$/Apuntes LaTex/2º Curso/FIE/Tema 1/Tema 1.Rnw" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Apuntes LaTex/3º Curso/PEST/PEST.Rnw" beforeDir="false" afterPath="$PROJECT_DIR$/Apuntes LaTex/3º Curso/PEST/PEST.Rnw" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Apuntes LaTex/3º Curso/PEST/PEST.pdf" beforeDir="false" afterPath="$PROJECT_DIR$/Apuntes LaTex/3º Curso/PEST/PEST.pdf" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Apuntes LaTex/3º Curso/PEST/Tema 4/Hoja 4.Rnw" beforeDir="false" afterPath="$PROJECT_DIR$/Apuntes LaTex/3º Curso/PEST/Tema 4/Hoja 4.Rnw" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Apuntes LaTex/3º Curso/PEST/Tema 5/Hoja 5.aux" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Apuntes LaTex/3º Curso/PEST/Tema 5/Hoja 5.tex" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Apuntes LaTex/3º Curso/PEST/Tema 6/Tema 6.Rnw" beforeDir="false" afterPath="$PROJECT_DIR$/Apuntes LaTex/3º Curso/PEST/Tema 6/Tema 6.Rnw" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Prácticas/3º Curso/1º Cuatrimestre/PEST/Entregables/Entregable Práctica 1.Rmd" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Prácticas/3º Curso/1º Cuatrimestre/PEST/Entregables/Entregable-Práctica-1.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Prácticas/3º Curso/1º Cuatrimestre/PEST/Practica_1.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Prácticas/3º Curso/1º Cuatrimestre/PEST/Practica_1.rmd" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Prácticas/3º Curso/1º Cuatrimestre/PEST/Practica_1_v3.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Prácticas/3º Curso/1º Cuatrimestre/PEST/Propuestos_Practica1_v3.pdf" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -24,6 +40,7 @@
         <option value="Python Script" />
         <option value="SQL File" />
         <option value="RMarkdown.notebook" />
+        <option value="R Script" />
       </list>
     </option>
   </component>
@@ -70,72 +87,72 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Database Script.Local OracleXE.sql.executor": "Run",
-    "Database Script.MER.sql.executor": "Run",
-    "Database Script.MercaderFranciscoJavier_AlarconPedro-p3ej0-esquema.sql.executor": "Run",
-    "Database Script.MercaderFranciscoJavier_AlarconPedro-p3ej1-insert.sql.executor": "Run",
-    "Database Script.bd-tt1-esquema-clientes.sql.executor": "Run",
-    "Docker.Dockerfile.executor": "Run",
-    "JavaScript Debug.Practica_1.html.executor": "Run",
-    "LaTeX.Ejercicios Tema 3.executor": "Run",
-    "LaTeX.Ejercicios Tema 4.executor": "Run",
-    "LaTeX.Ejercicios Tema 5.executor": "Run",
-    "LaTeX.Examen Diciembre 2023.executor": "Run",
-    "LaTeX.Examen Enero 2024.executor": "Run",
-    "LaTeX.Problemas Unidad 1.executor": "Run",
-    "LaTeX.Untitled.executor": "Run",
-    "Python.Dashboard-Entregable 4.executor": "Run",
-    "Python.Ejercicio 1.executor": "Run",
-    "Python.Ejercicio 2 (1).executor": "Run",
-    "Python.Ejercicio 2.executor": "Run",
-    "Python.Ejercicio 3 (1).executor": "Run",
-    "Python.Ejercicio 3.executor": "Run",
-    "Python.Ejercicio 4.executor": "Run",
-    "Python.Ejercicio 6.executor": "Run",
-    "Python.OpenWeather.executor": "Run",
-    "Python.Prueba.executor": "Run",
-    "Python.app-FJMM-RGM.executor": "Run",
-    "Python.codigo.executor": "Run",
-    "Python.extract_reddit.executor": "Run",
-    "Python.prueba.executor": "Run",
-    "Python.prueba_SQL.executor": "Run",
-    "Python.prueba_grafica_interactiva.executor": "Run",
-    "Python.prueba_oracle.executor": "Run",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "com.intellij.ml.llm.matterhorn.ej.ui.settings.DefaultAutoModeForALLUsers.v1": "true",
-    "com.intellij.ml.llm.matterhorn.ej.ui.settings.DefaultModelSelectionForGA.v1": "true",
-    "database.data.extractors.current.export.id": "SQL Inserts",
-    "database.data.extractors.current.id": "SQL Inserts",
-    "full.screen.before.presentation.mode": "true",
-    "git-widget-placeholder": "main",
-    "ignore.virus.scanning.warn.message": "true",
-    "junie.onboarding.icon.badge.shown": "true",
-    "last_opened_file_path": "/home/pyros05/Escritorio/Proyecto-rtv7",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "preferences.pluginManager",
-    "to.speed.mode.migration.done": "true",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Database Script.Local OracleXE.sql.executor&quot;: &quot;Run&quot;,
+    &quot;Database Script.MER.sql.executor&quot;: &quot;Run&quot;,
+    &quot;Database Script.MercaderFranciscoJavier_AlarconPedro-p3ej0-esquema.sql.executor&quot;: &quot;Run&quot;,
+    &quot;Database Script.MercaderFranciscoJavier_AlarconPedro-p3ej1-insert.sql.executor&quot;: &quot;Run&quot;,
+    &quot;Database Script.bd-tt1-esquema-clientes.sql.executor&quot;: &quot;Run&quot;,
+    &quot;Docker.Dockerfile.executor&quot;: &quot;Run&quot;,
+    &quot;JavaScript Debug.Practica_1.html.executor&quot;: &quot;Run&quot;,
+    &quot;LaTeX.Ejercicios Tema 3.executor&quot;: &quot;Run&quot;,
+    &quot;LaTeX.Ejercicios Tema 4.executor&quot;: &quot;Run&quot;,
+    &quot;LaTeX.Ejercicios Tema 5.executor&quot;: &quot;Run&quot;,
+    &quot;LaTeX.Examen Diciembre 2023.executor&quot;: &quot;Run&quot;,
+    &quot;LaTeX.Examen Enero 2024.executor&quot;: &quot;Run&quot;,
+    &quot;LaTeX.Problemas Unidad 1.executor&quot;: &quot;Run&quot;,
+    &quot;LaTeX.Untitled.executor&quot;: &quot;Run&quot;,
+    &quot;Python.Dashboard-Entregable 4.executor&quot;: &quot;Run&quot;,
+    &quot;Python.Ejercicio 1.executor&quot;: &quot;Run&quot;,
+    &quot;Python.Ejercicio 2 (1).executor&quot;: &quot;Run&quot;,
+    &quot;Python.Ejercicio 2.executor&quot;: &quot;Run&quot;,
+    &quot;Python.Ejercicio 3 (1).executor&quot;: &quot;Run&quot;,
+    &quot;Python.Ejercicio 3.executor&quot;: &quot;Run&quot;,
+    &quot;Python.Ejercicio 4.executor&quot;: &quot;Run&quot;,
+    &quot;Python.Ejercicio 6.executor&quot;: &quot;Run&quot;,
+    &quot;Python.OpenWeather.executor&quot;: &quot;Run&quot;,
+    &quot;Python.Prueba.executor&quot;: &quot;Run&quot;,
+    &quot;Python.app-FJMM-RGM.executor&quot;: &quot;Run&quot;,
+    &quot;Python.codigo.executor&quot;: &quot;Run&quot;,
+    &quot;Python.extract_reddit.executor&quot;: &quot;Run&quot;,
+    &quot;Python.prueba.executor&quot;: &quot;Run&quot;,
+    &quot;Python.prueba_SQL.executor&quot;: &quot;Run&quot;,
+    &quot;Python.prueba_grafica_interactiva.executor&quot;: &quot;Run&quot;,
+    &quot;Python.prueba_oracle.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;com.intellij.ml.llm.matterhorn.ej.ui.settings.DefaultAutoModeForALLUsers.v1&quot;: &quot;true&quot;,
+    &quot;com.intellij.ml.llm.matterhorn.ej.ui.settings.DefaultModelSelectionForGA.v1&quot;: &quot;true&quot;,
+    &quot;database.data.extractors.current.export.id&quot;: &quot;SQL Inserts&quot;,
+    &quot;database.data.extractors.current.id&quot;: &quot;SQL Inserts&quot;,
+    &quot;full.screen.before.presentation.mode&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
+    &quot;junie.onboarding.icon.badge.shown&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/home/pyros05/Escritorio/Proyecto-rtv7&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;editor.preferences.appearance&quot;,
+    &quot;to.speed.mode.migration.done&quot;: &quot;true&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   },
-  "keyToStringList": {
-    "DatabaseDriversLRU": [
-      "oracle"
+  &quot;keyToStringList&quot;: {
+    &quot;DatabaseDriversLRU&quot;: [
+      &quot;oracle&quot;
     ],
-    "RunConfigurationTargetLRU": [
-      "e8bcb332-1eed-4343-a913-a113970ac5d1",
-      "91a326d1-698b-4950-a6a3-db83645b8cdb",
-      "91a326d1-698b-4950-a6a3-db83645b8cdb/schema/\"SYSTEM\""
+    &quot;RunConfigurationTargetLRU&quot;: [
+      &quot;e8bcb332-1eed-4343-a913-a113970ac5d1&quot;,
+      &quot;91a326d1-698b-4950-a6a3-db83645b8cdb&quot;,
+      &quot;91a326d1-698b-4950-a6a3-db83645b8cdb/schema/\&quot;SYSTEM\&quot;&quot;
     ]
   }
-}]]></component>
+}</component>
   <component name="PyConsoleOptionsProvider">
     <option name="myPythonConsoleState">
       <console-settings module-name="cid-upct" is-module-sdk="true">
@@ -424,6 +441,9 @@
       <workItem from="1761297370227" duration="4000" />
       <workItem from="1761560262171" duration="242000" />
       <workItem from="1761687166629" duration="19000" />
+      <workItem from="1762347248050" duration="308000" />
+      <workItem from="1762427582211" duration="1972000" />
+      <workItem from="1762430397474" duration="2842000" />
     </task>
     <task id="LOCAL-00001" summary="Tarea 5 FRD terminado">
       <option name="closed" value="true" />
