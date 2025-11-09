@@ -761,3 +761,239 @@ X_t=a_1X_{t-1}+a_2X_{t-2}+\dots+a_pX_{t-p}+\varepsilon_t
 \] a partir de $n$ valores observados de la serie, $x_1,x_2,\dots,x_n$, los residuos $e_t$ vendrán dados por:  \[
 e_t=x_t-(a_1x_{t-1}+a_2x_{t-2}+\dots+a_px_{t-p})=x_t-\hat{x}_t
 \] donde $\hat{x}_t$ denotamos el valor estimado de la serie. Los parámetros $a_1,a_2,\dots,a_p$ que minimizan la suma de cuadrados de los residuos coinciden con la solución a las ecuaciones de Yule-Walker.
+
+Con el fin de obtener los estimadores óptimos de los parámetros según mínimos cuadrados, calcularemos las derivadas parciales respecto a $a_k$. Igualando estas parciales a cero, obtenemos las llamadas ecuaciones normales del modelo  \[
+\sum_{k=1}^{p} a_k \sum_{i=1}^{n} x_{i-k}x_{i-j}=\sum_{i=1}^{n} x_ix_{i-j}\qquad j=1,2,\dots,p
+\] 
+Si suponemos que la nedia del proceso es cero y su varianza es constante igual a la unidad, denotando por: \[
+\hat{\rho}_{k-j}=\hat{\rho}_{j-k}=\sum_{i=1}^{n} x_{i-k}x_{i-j}
+\] el sistema anterior se transforma en: \[
+\sum_{k=1}^{p} a_k\cdot \hat{\rho}_{k-j}=\hat{\rho}_j\qquad j=1,2,\dots,p
+\] sistema que se corresponde con las llamadas ecuaciones de Yule-Walker donde se ha sustituido las correlaciones teóricas por sus estimaciones.
+\subsubsection{Ejemplo de modelo $AR(1)$}
+Consideremos el modelo Autorregresivo de orden 1 expresado mediante: \[
+X_t=0.9X_{t-1}+\varepsilon_t
+\] 
+Una serie temporal generada por el proceso anterior, viene dada en el gráfico de la siguiente figura.
+\begin{figure}[h]
+<<fig=TRUE, fig.width=12, fig.height=5, out.width='0.7\\textwidth', fig.align='center', echo=FALSE>>=
+set.seed(2025)
+
+# Parámetros del modelo
+phi <- 0.9     # coeficiente AR(1)
+n <- 100       # longitud de la serie
+
+# Simulación de la serie AR(1)
+serie_ar1 <- arima.sim(model = list(ar = phi), n = n)
+
+# --- Figura 11: Serie temporal AR(1) ---
+op <- par(no.readonly = TRUE)
+par(mfrow = c(1, 1), mar = c(4.5, 4, 2, 1))
+
+plot(
+  serie_ar1,
+  type = "l",
+  xlab = "Time",
+  ylab = "",
+  main = ""
+)
+@
+
+    \caption{Ejemplo de serie AR(1)}
+\end{figure}
+
+A continuación se muestran las correlaciones simples y parciales estimadas a partir de la serie AR(1) simulada.
+
+\begin{figure}[h]
+<<fig=TRUE, fig.width=12, fig.height=5, out.width='0.7\\textwidth', fig.align='center', echo=FALSE>>=
+par(mfrow = c(1, 2), mar = c(4.5, 4, 2, 1))
+
+# Correlograma simple (ACF)
+acf(
+  serie_ar1,
+  lag.max = 20,
+  main = "",
+  xlab = "Lag",
+  ylab = "ACF",
+  ylim = c(-0.2, 1),
+  ci.col = "blue",
+  ci.lty = 2
+)
+
+# Correlograma parcial (PACF)
+pacf(
+  serie_ar1,
+  lag.max = 20,
+  main = "",
+  xlab = "Lag",
+  ylab = "Parcial ACF",
+  ylim = c(-0.2, 1),
+  ci.col = "blue",
+  ci.lty = 2
+)
+@
+
+\caption{Correlogramas simple y parcial serie AR(1)}
+\end{figure}
+
+Como se observa, el correlograma simple representa varias correlaciones significativas decreciendo de forma sinuisoidal, pero sólo es significativa la correlación parcial correspondiente al retardo 1, lo que indica que se trata de un modelo AR(1).
+
+\subsection{Modelos de medias móviles, $MA(q)$}
+
+Otra alternativa de representación de la dependencia respecto al pasado consiste en considerar el valor actual como el resultado de la combinación de $q$ factores aleatorios independientes entre si más una perturbación aleatoria contemporánea al modelo:  \[
+    X_t=\varepsilon_t+b_1\varepsilon_{t-1}+b_2\varepsilon_{t-2}+\dots+b_q\varepsilon_{t-q}
+\] donde $\varepsilon_t$ es un ruido blanco gaussiano. Al modelo anterior se le denomina proceso de medias móviles.
+
+ \textbf{Nota:} Dependiendo del software usado, la notación usada para representar los modelos $MA(q)$ puede variar considerando los coeficientes $b_j$ cambiados de signo. En nuestro caso, usaremos la notación usual del software  \textbf{\texttt{R}}.
+
+ Obviamente, se tiene: \[
+ \begin{aligned}
+     E(X_t)&= 0 \\
+     \mathrm{Var}(X_t)&= \sigma_\varepsilon^2(1+b_1^2+b_2^2+\dots+b_q^2) \\
+ \end{aligned}
+ \] 
+ Usando el operador de retardos tendremos: \[
+ X_t=(1+b_1B+b_2B^2+\dots+b_qB^q)\varepsilon_t
+ \] o equivalentemente: \[
+ X_t=[b_q(B)]\varepsilon_t
+ \] donde el polinomio $b_q(x)=(1+b_1x+b_2x^2+\dots+b_qx^q)$ recibe el nombre del polinomio característico del proceso de medias móviles.
+
+ Estos procesos siempre son estacionarios (no necesitan condición sobre los parámetros $b_i$). Además, un proceso $MA(q)$ se puede ver como un  $AR(\infty)$ siempre y cuando el proceso sea invertible (las raíces del polinomio característico deben estar fuera del círculo unidad). \[
+     X_t=[b_q(B)]\varepsilon_t\implies[b_q(B)]^{-1}X_t=\varepsilon_t
+ \] 
+ \subsubsection{Determinación del orden del modelo}
+
+ Consideremos el proceso $MA(q)$ de media nula: \[
+ X_t=\varepsilon_t+b_1\varepsilon_{t-1}+b_2\varepsilon_{t-2}+\dots+b_q\varepsilon_{t-q}
+ \] 
+ Recordemos que la función de covarianzas viene dada por: \[
+ \gamma_k=\mathrm{Cov}(X_t,X_{t-k})=E(X_tX_{t-k})-E(X_t)E(X_{t-k})
+ \] 
+ Entonces, teniendo en cuenta que la función de medias es nula y que $(\varepsilon_t)_t$ es un proceso de ruido blanco gaussiano, la función de covarianzas para los proceso  $MA(q)$ quedaría:  \[
+\gamma_k=\begin{cases}
+     \sigma_\varepsilon^2b_k+\sigma_\varepsilon^2 \sum_{j=k+1}^{q} b_{j-k}b_j & \text{ si } k=1,2,\dots,q\\
+     0 & \text{si }k>q
+ \end{cases}
+ \] de manera que las correlaciones serán nulas para retardos mayores de $q$:  \[
+ \rho_k=0\text{ si }k>q
+ \] 
+
+Este último resultado tendrá una gran importancia práctica porque nos permitirá identificar el orden del proceso $MA$ al que se ajusta una serie temporal dada.  \textit{Para ello, observaremos el autocorrelograma de la serie: el número de coeficientes que sean 'significativamente' distintos de cero indican el orden del proceso $MA$.} 
+
+Veamos en la siguiente tabla un resumen de las características básicas de los procesos $AR$ y  $MA$ 
+
+\begin{center}
+    \begin{tabular}{|c|C{6cm}|C{6cm}|}
+\hline
+                     & \textbf{AR(p)}                                               & \textbf{MA(q)}                                               \\ \hline
+Expresión            & $\varepsilon_t=(1-a_1B-\dots-a_pB^p)X_t$ & $X_t=(1+b_1B+\dots+b_qB^q)\varepsilon_t$ \\ \hline
+Estacionario         & Raíces del polinomio característico fuera del círculo unidad & Siempre                                                      \\ \hline
+Correlograma         & Infinitos valores no nulos decreciendo de manera amortiguada & Valores no nulos hasta un retardo $q$, el resto nulos          \\ \hline
+Correlograma parcial & Valores no nulos hasta un retardo $p$, el resto nulos          & Infinitos valores no nulos decreciendo de manera amortiguada \\ \hline
+\end{tabular}
+\end{center}
+\subsubsection{Estimación de los parámetros del modelo}
+
+La estimación de los parámetros en modelos $MA$ resulta más complicada que en modelos  $AR$ puesto que las ecuaciones son no lineales en los parámetros y para resolverlas es necesario recurrir a procedimientos iterativos.
+
+Además, rara vez se trabaja en la práctica con un sistema  $MA$ puro, sino que se utiliza una combinación de modelo  $AR$ y  $MA$ dando lugar a los llamados modelos  $ARMA$ que trataremos en la siguiente sección.
+\subsubsection{Ejemplo de modelo $MA(1)$} 
+Consideremos el modelo de Medias Móviles de orden 1 expresado mediante: \[
+X_t=\varepsilon_t+0.8\varepsilon_{t-1}
+\] 
+Una serie temporal generada por el proceso anterior, viene dada en el gráfico de la siguiente figura.
+
+\pagebreak
+
+\begin{figure}[h]
+<<fig=TRUE, fig.width=12, fig.height=5, out.width='0.7\\textwidth', fig.align='center', echo=FALSE>>=
+set.seed(2025)
+
+# Parámetros del modelo
+phi <- 0.8     # coeficiente AR(1)
+n <- 300       # longitud de la serie
+
+# Simulación de la serie AR(1)
+serie_ar1 <- arima.sim(model = list(ar = phi), n = n)
+
+# --- Figura 11: Serie temporal AR(1) ---
+op <- par(no.readonly = TRUE)
+par(mfrow = c(1, 1), mar = c(4.5, 4, 2, 1))
+
+plot(
+  serie_ar1,
+  type = "l",
+  xlab = "Time",
+  ylab = "",
+  main = "",
+  ylim = c(min(serie_ar1) - 0.5, max(serie_ar1) + 0.5)
+)
+@
+    \caption{Ejemplo de serie MA(1)}
+\end{figure}
+
+A continuación se muestran las correlaciones simples y parciales estimadas a partir de la serie $MA(1)$ simulada.
+
+\begin{figure}[h]
+<<fig=TRUE, fig.width=12, fig.height=5, out.width='0.7\\textwidth', fig.align='center', echo=FALSE>>=
+par(mfrow = c(1, 2), mar = c(4.5, 4, 2, 1))
+
+# Correlograma simple (ACF)
+acf(
+  serie_ar1,
+  lag.max = 20,
+  main = "",
+  xlab = "Lag",
+  ylab = "ACF",
+  ylim = c(-0.2, 1),
+  ci.col = "blue",
+  ci.lty = 2
+)
+
+# Correlograma parcial (PACF)
+pacf(
+  serie_ar1,
+  lag.max = 20,
+  main = "",
+  xlab = "Lag",
+  ylab = "Parcial ACF",
+  ylim = c(-0.2, 1),
+  ci.col = "blue",
+  ci.lty = 2
+)
+@
+    \caption{Correlogramas simple y parcial serie $MA(1)$}
+\end{figure}
+Como se observa, el correlograma simple presenta sólo una correlación significativa, mientras que el correlograma parcial presenta varias correlaciones parciales significativas, lo que indica que se podría tratar de un modelo $MA(1)$. 
+\subsection{Modelos $ARMA(p,q)$}
+
+Existen procesos que encuentra su representación óptima mediante una combinación de los dos modelos anteriores. Tales modelos reciben el nombre de procesos autorrgresivos de medias móviles ($ARMA$). Su expresión vendrá dada por: \[
+X_t-a_1X_{t-1}-a_2X_{t-2}-\dots-a_pX_{t-p}=\varepsilon_t+b_1\varepsilon_{t-1}+b_2\varepsilon_{t-2}+\dots+b_q\varepsilon_{t-q}
+\] y usando el operador de retardos: \[
+(1-a_1B-a_2B^2-\dots-a_pB^p)X_t=(1+b_1B+b_2B^2+\dots+b_qB^q)\varepsilon_t
+\] o equivalentemente: \[
+[a_p(B)]X_t=[b_q(B)]\varepsilon_t
+\] donde $a_p(x)$ y  $b_q(x)$ son los polinomios característicos.
+
+El proceso  $ARMA$ es estacionario si las raíces del polinomio $a_p(x)$ están fuera del círculo unidad, y será invertible si las raíces del polinomio  $b_q(x)$ están fuera del círculo unidad.
+
+Como se observa, el modelo contiene  $p$ retardos del autorregresivo y  $q$ medias móviles, por consiguiente se representará por  $ARMA(p,q)$, es decir, el primer índice indicará el orden de la autorregresión y el segundo el de las medias móviles. 
+
+\begin{observation}
+    Los modelos $AR$ y  $MA$ se pueden obtener como caso particular del modelo  $ARMA$ haciendo  $q=0$ o bien  $p=0$.
+\end{observation}
+Si se cumplen las condiciones para que el modelo sea considerado estacionario, todo modelo $ARMA(p,q)$ se puede considerar como un  $MA(\infty)$ de la forma:  \[
+X_t=\dfrac{(1+b_1B+b_2B^2+\dots+b_qB^q)}{(1-a_1B-a_2B^2-\dots-a_pB^p)}\varepsilon_t
+\]
+\subsubsection{Estimación de los parámetros del modelo}
+El problema de estimación de los parámetros $ARMA$ a partir de  $n$ valores observados de la serie, $x_1,x_2,\dots,x_n$, resulta mucho más complicado que en modelos $AR$ puesto que como veremos seguidamente las ecuaciones del sistema que se obtienen al aplicar mínimos cuadrados no son lineales. Veamos el caso más sencillo, un proceso  $ARMA(1,1)$. Este proceso viene caracterizado por:  \[
+X_t=a_1X_{t-1}+b_1\varepsilon_{t-1}+\varepsilon_t
+\] los residuos $\varepsilon_t$ vendrán dados por:  \[
+  \begin{array}{rcl}
+      e_1 &= & x_1-\hat{x}_1=x_1\\
+      e_2 &= & x_2-\hat{x}_2=x_2-a_1x_1-b_1e_1\\
+       & & \cdots \\
+      e_n &= & x_n-\hat{x}_n=x_n-a_1x_{n-1}-b_1e_{n-1}\\
+  \end{array}
+\] 
+Obviamente $e_3$ depende de  $e_2$ y este a su vez depende de $e_1$. En general, los residuos contendrán potencias y productos cruzados de los parámetros $a_1$ y $b_1$ y por tanto no se tratará de un sistema lineal.
