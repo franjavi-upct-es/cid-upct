@@ -79,4 +79,10 @@ knitr::opts_chunk$set(highlight = TRUE, echo = TRUE, message = FALSE, warning = 
 \newpage
 <<child='Tema 6/Tema 6.Rnw'>>=
 @
+\newpage
+<<child='Tema 6/Hoja 6.Rnw'>>=
+@
+\newpage
+<<child='Tema 7/Tema 7.Rnw'>>=
+@
 \end{document}

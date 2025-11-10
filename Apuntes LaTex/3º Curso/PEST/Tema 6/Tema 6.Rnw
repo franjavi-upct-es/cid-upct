@@ -997,3 +997,100 @@ X_t=a_1X_{t-1}+b_1\varepsilon_{t-1}+\varepsilon_t
   \end{array}
 \] 
 Obviamente $e_3$ depende de  $e_2$ y este a su vez depende de $e_1$. En general, los residuos contendrán potencias y productos cruzados de los parámetros $a_1$ y $b_1$ y por tanto no se tratará de un sistema lineal.
+\subsection{Procesos lineales no estacionarios: modelo ARIMA}
+\subsubsection{Paseo aleatorio}
+Hemos visto en las secciones anteriores que los procesos $MA$ finitos son siempre estacionarios y que los  $AR$ lo son si las raíces del polinomio característico están fuera del círculo unidad. Consideremos un proceso  $AR(1)$:  \[
+X_t=a_1X_{t-1}+\varepsilon_t
+\] 
+Si $|a_1|>1$, el proceso resulta "explosivo" (crece rápidamente), si $|a_1|<1$, el proceso es estacionario, mientras que si $|a_1|=1$, no es ni explosivo ni estacionario. Recordemos que este tipo de procesos reciben el nombre de \textbf{paseos aleatorios}. Como veremos en el siguiente apartado, se trata de un proceso integrado de orden 1 (puesto que su primera diferencia $X_t-X_{t-1}=\varepsilon_t$ es estacionaria). 
+
+Observar que si denotamos al operador diferencia mediante: \[
+\nabla X_t=X_{t}-X_{t-1}
+\] el paseo aleatorio se escribe como: \[
+\nabla X_t=\varepsilon_t
+\] 
+\subsubsection{Procesos ARIMA}
+Como acabamos de mostrar, un paseo aleatorio es un proceso $AR(1)$ que no es estacionario, pues la raíz de su polinomio característico es unitaria. Pero si tomamos diferencias de orden 1, conseguimos que el proceso resultante sea estacionario. Esta idea puede generalizarse para cualquier proceso  $ARMA$, dando lugar a lo que se conocen como  \textit{procesos autorregresivos de medias móviles (ARIMA)}.
+
+En el ejemplo del paseo antes mencionado se ha obtenido un proceso estacionario aplicando el operador diferencia una vez.
+\begin{definition}
+    Diremos que un proceso sigue un modelo $ARIMA(p,d,q)$ si al aplicar  $d$ veces el operador diferencia se obtiene un proceso estacionario  $ARMA(p,q)$.
+\end{definition}
+Así, si denotamos por: \[
+Y_t=\nabla ^dX_t=(1-B)^dX_t
+\] a la serie obtenida al aplicar $d$ veces el operador diferencia, si la serie originak  $X_t$ seguía un modelo  $ARIMA(p,d,q)$ se puede expresar mediante:  \[
+(1-a_1B-a_2B^2-\dots-a_pB^p)(1-B)^dX_t=(1+b_1B+b_2B^2+\dots+b_qB^q)\varepsilon_t
+\] 
+\begin{observation}
+    Los modelos AR, MA y ARIMA se obtienen como caso particular de los modelos ARIMA, tomando como parámetro $d=0$.
+\end{observation}
+\subsection{Identificación del modelo, validación y predicciones}
+Una vez descritas algunas de las propiedades más importantes de los modelos $AR,MA,ARMA$ y  $ARIMA$, vamos a estudiar cómo identificar el proceso estocástico del que procede la serie en estudio.
+
+Podemos decir que el objetivo concreto perseguido a lo largo de este tema es intentar identificar el proceso  $ARIMA(p,d,q)$ que probablemente haya generado nuestra serie.Como es habitual, debemos comenzar realizando un análisis descriptivo previo de la serie que incluya detección de outliers. En el proceso de identificación del proceso generador de la serie seguiremos las siguientes etapas:
+ \begin{enumerate}
+    \item Analizar la estacionalidad de la serie y determinar el parámetro $d$.
+    \item Determinar el orden de la parte autorregresiva (parámetro $p$) y de la parte media móvil (parámetro $q$).
+    \item Estimar los coeficientes del modelo: parámetros $a_i,b_j$ y  $cte$.
+    \item Determinar los residuos  $e_t=\hat{\varepsilon}_t$ y validar el modelo.
+    \item Realizar predicciones.
+\end{enumerate}
+\subsubsection{Análisis de la estacionariedad de la serie}
+
+La primera etapa en la identificación del proceso generador de la serie consiste en determinar si la serie (proceso generador) es estacionaria. Como ya adelantamos en un apartado anterior, los incumplimientos de la estacionariedad suelen deberse a que la función de medias o la función de varianzas no resulten constantes.
+
+Como herramienta para verificar la estacionalidad en varianza, podemos usar la representación gráfica de la serie: si observamos que las fluctuaciones de la serie se amplifican con el tiempo o con el nivel de la serie, será indicativo de que la función de varianzas no permanece constante.
+
+En el caso de que la serie no sea estacionaria en varianza, se suele realziar una transformación de Box-Cox, siendo la más frecuente tomar logaritmos neperianos en los datos para conseguir varianza constante.
+
+Una vez conseguida la estacionariedad en varianza, analizaremos si es estacionaria en media. Como herramienta para verificar la estacionariedad en media, podemos usar la representación gráfica de la serie: si la trayectoria de la serie oscila aleatoriamente alrededor de un valor constante, será indicativo de que la función de medias es constante, pero si observamos que el nivel de la serie varía a lo largo del tiempo, será indicativo de no estacionariedad en media.
+
+En el caso de que la serie no sea estacionaria en media, en general se conseguirá que se convierta en estacionaria tomando diferencias de orden $d$. Por ejemplo, si observamos tendencia lineal en la serie, tomando diferencias de orden 1 conseguiremos un nivel constante de la serie, y si observamos tendencia cuadrática, tomando diferencias de orden 2 se conseguirá la estacionariedad en media.
+
+Por otra parte, también podemos observar el autocorrelograma de la serie: si las correlaciones estimadas no decrecen rápidamente con el retardo, podría indicarnos que el proceso generador tiene una raíz del polinomio característico igual a uno (paseo aleatorio) y por tanto no es estacionario. En estos casos se suelen tomar diferencias de orden uno y se vuelve a observar el autocorrelograma. En general basta con tomar diferencias de orden uno o dos para lograr la estacionariedad.
+\subsubsection{Determinación del orden de la parte $AR$ y de la parte  $MA$} 
+Como herramientas básicas para determinar los órdenes $p$ y  $q$ del modelo  $ARMA$ se suelen utilziar tanto el correlograma simple de la serie como el correlograma parcial.
+
+Para establecer algunas pautas a la hora de determinar los valores de  $p$ y  $q$, debemos recordar las propiedades de los modelo  $AR$ y  $MA$ estudiadas en apartados anteriores.
+ \begin{itemize}[label=\textbullet]
+    \item En un modelo $AR(p)$, las correlaciones parciales teóricas son nulas para retardos mayores de  $p$. Sin embargo, las correlaciones teóricas nunca se hacen cero, pero decaen rápidamente a partir del retardo  $p$.
+
+        Por tanto, si se trata de un modelo autorregresivo, el orden $p$ se puede determinar a partir del correlograma parcial identificando los valores significativos del mismo.
+
+    \item En un modelo $MA(q)$, las correlaciones teóricas son nulas para retardos mayores de  $q$. Sin embargo, las correlaciones parciales teóricas nunca se hacen cero, pero decaen rápidamente a partir del retardo  $q$.
+
+         Por tanto, si se trata de un modelo de medias móviles, el orden $q$ se puede determinar a partir del correlograma simple identificando los valores significativos del mismo.
+     \item En un modelo  $ARMA(p,q)$ tanto las correlaciones como las correlaciones parciales teóricas nunca se hacen cero.
+
+         Por tanto, si se trata de un modelo $ARMA$, será difícil identificar los órdenes $p$ y $q$, puesto que no se produce un corte ni en el autocorrelograma simple ni en el parcial. Podremos al menos proponer algunos modelos como candidatos de partida y posteriormente valorar si son reducibles.
+ \end{itemize}
+ Evidentemente, si trabajáramos con las \textit{correlaciones y correlaciones parciales teóricas} el proceso de identificación se simplificaría bastante. Sin embargo, en la práctica siempre trabajaremos con las \textit{correlaciones y correlaciones parciales estimadas} a partir de la serie en estudio, de manera que el problema de identificación del modelo resulta todavía más complejo. De hecho, en muchas ocasiones el autocorrelograma estimado a partir de la serie suele presentar ciertas oscilaciones que no se corresponden con el modelo teórico.
+
+Otro factor importante a la hora de determinar los órdenes de la parte autorregresiva y de medias móviles es el \textit{tamaño de la serie}. La identificación será más fácil cuanto mayor sea el tamaño de la serie. En este sentido se han realizado simulaciones que muestran una gran diferencia entre las correlaciones (parciales) teóricas y las estimadas para series de tamaño pequeño (inferior a 60 observaciones).
+
+\subsubsection{Estimación de los coeficientes del modelo}
+
+Una vez determinados los órdenes $p$ y  $q$ del modelo  $ARMA$, necesitamos estimar los coeficientes  $a_i$ y  $b_j$ del modelo:  \[
+X_t-a_1X_{t-1}-a_2X_{t-2}-\dots-a_pX_{t-p}=\varepsilon_t+b_1\varepsilon_{t-1}+b_2\varepsilon_{t-2}+\dots+b_q\varepsilon_{t-q}
+\] 
+Además, debemos estimar la constante del modelo, en caso de que éste la incluya.
+
+La estimación de los parámetros se puede realizar minimizando la suma de cuadrados residual o bien maximizando la verosimilitud, dando ambos procedimientos resultados similares (aunque no iguales). Como hemos comentado en secciones anteriores, si el modelo contempla parte $MA$ será necesario resolver sistemas de ecuaciones no lineales. Por ese motivo, diferentes softwares pueden mostrar soluciones distintas para una misma serie dependiendo del algoritmo de resolución empleado.
+
+En nuestro caso, realizaremos la estimación de los coeficientes del modelo haciendo uso del software  \textbf{\texttt{R}}, que además suele incluir (como en el caso de la regresión lineal múltiple) contrastes sobre la significación de cada uno de los parámetros $a_i,b_j$, así como de la constante. Estos contrastes nos será de gran utilidad a la hora de identificar el modelo generador de la serie. En este contexto también haremos uso del  \textit{principio de parsimonia}, según el cual debemos seleccionar como modelo óptimo aquel que contenga menor número de parámetros entre todos los modelos considerados adecuados.
+
+\subsubsection{Validación del modelo: análisis de los residuos}
+
+Para que el modelo propuesto en la etapa anterior sea adecuado, es necesario que los residuos (diferencia entre los valores observados de la serie y los ajustados por el modelo propuesto) se comporten como un ruido blanco gaussiano. Por tanto, la validez del modelo propuesto para por verificar las siguientes hipótesis sobre los residuos:
+\begin{itemize}[label=\textbullet]
+    \item Los residuos se comporan como una distribución normal (hipótesis de normalidad).
+    \item Los residuos tienen varianza constante (hipóteiss de homocedasticidad).
+    \item Los residuos son independientes (hipótesis de independencia).
+\end{itemize}
+Esta validación coincide con la realizada en el caso de los modelso de regresión, por lo que se pueden usar procedimientos similares.
+
+Por ejemplo, la \textit{normalidad} se puede verificar mediante contrastes no paramétricos como los de Kolmogorov-Smirnov ode Shapiro-Wilks, o bien a través de métodos gráficos.
+
+Por otra parte, podemos contrastar la \textit{homocedasticidad} observando el gráfico de dispersión de residuos frente a los valores ajustados o bien mediante el gráfico de los residuos frente al tiempo: estos gráficos deben mostrar que los residuos se situan aleatoriamente alrededor del cero, dentro de una banda de amplitud constante.
+
+Con respecto a la \textit{independencia} de los residuos, haremos uso del autocorrelograma: éste no debe presentar ninguna correlación significativa, han de ser todas prácticamente nulas para que los residuos se supongan independientes.
