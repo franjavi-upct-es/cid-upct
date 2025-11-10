@@ -1,6 +1,7 @@
 ---
 title: "Procesos Estocásticos y Series Temporales"
 subtitle: "Práctica 2: Descomposición de series temporales"
+author: "Francisco Javier Mercader Martínez"
 output: 
   pdf_document:
     latex_engine: xelatex
@@ -87,13 +88,108 @@ estacional_pred <- c(descomposicion_clasica$seasonal,
                      descomposicion_clasica$seasonal[1:26])  # Repetir estacionalidad para los meses adicionales
 tendencia_pred <- predict(tendencia.lm, data.frame(tiempo = tiempo_pred))
 
-datos_pred <- tendencia_pred * estacional_pred
-plot(tiempo_pred, datos_pred, type = "l", col = 'red')
+datos_pred <- tendencia_pred + estacional_pred
+plot(tiempo_pred, datos_pred, type = "l", col = 'red',
+     xlab = "Tiempo", ylab = "Consumo (miles de litros)")
 lines(tiempo, leche_ts, type = "l")
+
+consumo_nov_2008 <- datos_pred[length(leche_ts) + 26 - 1]
+cat("Consumo predicho en noviembre de 2008:", consumo_nov_2008, "(miles de litros)")
 ```
 
 6)  Representa en un mismo gráfico la secuencia de la serie observada (en negro), la serie ajustada (en azul) y de la serie predicha (en rojo) con el modelo determinista.
 
+```{r}
+# Gráfico con serie observada, ajustada y predicha
+plot(tiempo_pred, datos_pred, type = "l", col = "red", lwd = 2,
+     main = "Serie observada, ajustada y predicha",
+     xlab = "Tiempo",
+     ylab = "Consumo (miles de litros)",
+     xlim = c(1, length(tiempo_pred)),
+     ylim = range(c(leche_ts, datos_pred), na.rm = TRUE))
+
+# Serie observada (negro)
+lines(tiempo, leche_ts, type = "l", col = "black", lwd = 2)
+
+# Serie ajustada (azul) - solo para los datos observados
+lines(tiempo, datos_pred[1:length(leche_ts)], type = "l", col = "blue", lwd = 2)
+
+# Añadir línea vertical para separar observado de predicho
+abline(v = length(leche_ts), lty = 2, col = "gray")
+
+# Leyenda
+legend("topleft",
+       legend = c("Observado", "Ajustado", "Predicho"),
+       col = c("black", "blue", "red"),
+       lwd = 2,
+       bty = "n")
+```
+
 # Problema 2
 
 Con los datos de **consumo_leche.txt**, responder a los apartados del problema anterior pero usando la **descomposición STL**. Seleeciona un ancho de banda para estimar la componente estacional de 5 años. Comparar las medidas de error MAE y RMSE en el tramo observado para ambos métodos (Análisis Clásico y STL). Comentar los resultados.
+```{r}
+# 1) Descomposición STL con acho de banda de 5 años
+# s.window debe ser impar: 5 años * 12 meses = 60, usamos 61
+STL_leche <- stl(leche_ts, s.window = 61)
+
+# Representación de las componentes
+plot(STL_leche, main = "Descomposición STL del consumo de leche")
+
+# 2) Extraer componentes
+estacional_STL <- STL_leche$time.series[, 1]
+tendencia_STL <- STL_leche$time.series[, 2]
+irregular_STL <- STL_leche$time.series[, 3]
+
+# 3) Modelo determinista con STL
+tiempo_STL <- 1:length(leche_ts)
+tendencia_STL.lm <- lm(tendencia_STL ~ tiempo_STL)
+
+# 4) Predicciones con STL
+tiempo_pred_STL <- 1:(length(leche_ts) + 26)
+estacional_STL_pred <- c(estacional_STL, estacional_STL[1:26])
+tendencia_STL_pred <- predict(tendencia_STL.lm, data.frame(tiempo_STL = tiempo_pred_STL))
+
+datos_STL_pred <- tendencia_STL_pred + estacional_STL_pred
+
+# Consumo en noviembre de 2008
+consumo_nov_2008_STL <- datos_STL_pred[length(leche_ts) + 26 - 1]
+cat("Consumo predicho en noviembre de 2008 (STL):", consumo_nov_2008_STL, "(miles de litros)")
+
+# 5) Gráfico con serie observada, ajustada y predicha (STL)
+plot(tiempo_pred_STL, datos_STL_pred, type = "l", col = "red", lwd = 2,
+     main = "Serie observada, ajustada y predicha (STL)",
+     xlab = "Tiempo", ylab = "Consumo (miles de litros)",
+     xlim = c(1, length(tiempo_pred_STL)),
+     ylim = range(c(leche_ts, datos_STL_pred), na.rm = TRUE))
+
+lines(tiempo, leche_ts, type = "l", col = "black", lwd = 2)
+lines(tiempo, datos_STL_pred[1:length(leche_ts)], type = "l", col = "blue", lwd = 2)
+abline(v = length(leche_ts), lty = 2, col = "gray")
+
+legend("topleft",
+       legend = c("Observado", "Ajustado STL", "Predicho STL"),
+       col = c("black", "blue", "red"),
+       lwd = 2, bty = "n")
+
+# 6) Comparación de errores: Análisis Clásico vs STL
+# Residuos Análisis Clásico
+residuos_clasico <- leche_ts - datos_pred[1:length(leche_ts)]
+MAE_clasico <- mean(abs(residuos_clasico), na.rm = TRUE)
+RMSE_clasico <- sqrt(mean(residuos_clasico^2, na.rm = TRUE))
+
+# Residuos STL
+residuos_STL <- leche_ts - datos_STL_pred[1:length(leche_ts)]
+MAE_STL <- mean(abs(residuos_STL), na.rm = TRUE)
+RMSE_STL <- sqrt(mean(residuos_STL^2, na.rm = TRUE))
+
+# Mostrar resultados
+cat("\n=== COMPARACIÓN DE MÉTODOS ===\n")
+cat("Análisis Claśico:\n")
+cat("   MAE:", round(MAE_clasico, 4), "\n")
+cat("   RMSE:", round(RMSE_clasico, 4), "\n\n")
+cat("Descomposición STL:\n")
+cat("   MAE:", round(MAE_STL, 4), "\n")
+cat("   RMSE:", round(RMSE_STL, 4), "\n")
+```
+La diferencia entre los métodos puede observarse en las medidas de error MAE y RMSE. Debido a que numéricamente hablando obtenemos resultados muy similares, podemos concluir que ambos métodos son adecuados para este conjunto de datos, aunque la descomposición STL puede ofrecer una mayor flexibilidad en la modelización de la estacionalidad.

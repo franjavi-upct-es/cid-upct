@@ -1107,10 +1107,13 @@ Es importante destacar que estos criterios de información no son adecuados para
 
 La  \textbf{selección del modelo} se puede realizar de manera "manual" (realizando los pasos indicados al principio de la sección), o bien utilizando funciones que realizan la selección de forma automática. En la siguiente figura, extraída de Hyndman and Athanasopoulos (2021), se muestran los pasos a seguir en las dos alternativas:
 
+\pagebreak
+
 \begin{figure}[h]
     \centering
 
-    \begin{tikzpicture}[node distance=2cm]
+    \resizebox{0.7\textwidth}{!}{
+    \begin{tikzpicture}[node distance=2cm,]
     \tikzstyle{startstop} = [rectangle, rounded corners, 
     minimum width=3cm, 
     minimum height=1cm,
@@ -1163,6 +1166,7 @@ La  \textbf{selección del modelo} se puede realizar de manera "manual" (realiza
     \node[below left=0.2mm of decision.west] {no};
     \draw[arrow] (decision) node[below right=2mm of decision.south] {yes} -- (7);
     \end{tikzpicture}
+}
     \caption{Pasos en metodología ARIMA} 
 \end{figure}
 \subsubsection{Predicciones}

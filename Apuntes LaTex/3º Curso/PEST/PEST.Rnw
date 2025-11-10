@@ -6,6 +6,7 @@
 \newtheorem{proposition}{Proposición}[subsection]
 \newtheorem{lemma}{Lema}[subsection]
 \newtheorem{observation}{Observación}[subsection]
+\newtheorem{example}{Ejemplo}[subsection]
 \newcolumntype{C}[1]{>{\centering\arraybackslash}p{#1}}
 % ==== Soporte knitr para bloques sombreados y \hl... ====
 \usepackage{color}
@@ -18,7 +19,7 @@
 \usepackage{alltt}
 \usepackage{hyperref}
 \usepackage{booktabs}
-\usetikzlibrary{positioning,arrows}
+\usetikzlibrary{positioning,arrows,shapes.geometric}
 \usepackage{adjustbox}
 
 % Fondo gris de los bloques (como RMarkdown)
