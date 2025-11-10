@@ -1094,3 +1094,117 @@ Por ejemplo, la \textit{normalidad} se puede verificar mediante contrastes no pa
 Por otra parte, podemos contrastar la \textit{homocedasticidad} observando el gráfico de dispersión de residuos frente a los valores ajustados o bien mediante el gráfico de los residuos frente al tiempo: estos gráficos deben mostrar que los residuos se situan aleatoriamente alrededor del cero, dentro de una banda de amplitud constante.
 
 Con respecto a la \textit{independencia} de los residuos, haremos uso del autocorrelograma: éste no debe presentar ninguna correlación significativa, han de ser todas prácticamente nulas para que los residuos se supongan independientes.
+
+\subsubsection{Bondad del ajuste y selección del mejor modelo}
+
+Una medida usual para cuantificar la bondad de un ajuste consiste en calcular la suma de cuadrados residual del modelo ajustado. Por ejemplo, en análisis de regresión múltiple, se puede utilizar esta medida para determinar lo "bueno" que es el ajuste realizado.
+
+Por tanto, un primer criterio para determinar el "mejor" modelo consistirá en seleccionar, dentro de los modelos considerados válidos por verificar las hipótesis de los residuos, aquel modelo que presente una menor suma de cuadrados residual. Sin embargo, este criterio no tiene en cuenta ni el número de parámetros del modelo (órdenes $p$ y  $q$), ni la magnitud de las observaciones. Es decir, si realizamos transformaciones en los datos, el modelo resultante no es comparable con el original a través de los residuos (por ejemplo, una transformación logarítmica siempre proporcionará residuos de menor magnitud que para los datos originales).
+
+Existen otros criterios para la selección de modelos, entre los que destacaremos los criterios de información AIC, AIC corregido y BIC, basados en la verosimilitud y que tienen en cuenta el número de parámetros a estimar.
+
+Es importante destacar que estos criterios de información no son adecuados para seleccionar el orden la diferenciación (parámetro $d$), pues los valores de la verosimilitud no son comparables para modelos con diferentes órdenes de diferenciación. Por tanto, es conveniente que la selección del orden $d$ se realice de otra forma (por ejemplo, manualmente), y posteriormente se pueden usar los criterios AIC y BIC para determinar los órdenes  $p$ y  $q$.
+
+La  \textbf{selección del modelo} se puede realizar de manera "manual" (realizando los pasos indicados al principio de la sección), o bien utilizando funciones que realizan la selección de forma automática. En la siguiente figura, extraída de Hyndman and Athanasopoulos (2021), se muestran los pasos a seguir en las dos alternativas:
+
+\begin{figure}[h]
+    \centering
+
+    \begin{tikzpicture}[node distance=2cm]
+    \tikzstyle{startstop} = [rectangle, rounded corners, 
+    minimum width=3cm, 
+    minimum height=1cm,
+    text centered, 
+    text width=4cm, 
+    draw=black, 
+    fill=blue!30]
+
+    \tikzstyle{decision} = [diamond, rounded corners,
+    minimum width=3cm, 
+    minimum height=1cm,
+    text centered, 
+    draw=black, 
+    text width=3cm,
+    fill=blue!30]
+
+    \tikzstyle{option} = [ellipse, 
+    minimum width=3cm, 
+    minimum height=1cm, 
+    text width=3cm,
+    text centered, 
+    draw=black, 
+    fill=red!30]
+
+    \tikzstyle{arrow} = [thick,->,>=stealth]
+
+    \node (1) [startstop] {1. Plot the data. Identify unusual observations. Undestand patterns};
+    \node (2) [startstop, below of=1] {2. If neccessary, use a Box-Cox transformation to stabilise the variance};
+    \node (opt1) [option, left=1cm of 2] {Select model order yourself.};
+    \node (opt2) [option, right=1cm of 2] {Use automated algorithm.};
+    \node (3) [startstop, below=1cm of opt1] {3. If necessary, difference the data until it appears stationary. Use unit-root tests if you are unsure.};
+    \node (ARIMA) [startstop, below=1cm of opt2] {Use \textbf{\texttt{ARIMA()}} to automatically find the best ARIMA model for your time series.};
+    \node (4) [startstop, below=1cm of 3] {4. Plot the ACF/PACF of the differenced data and try to determine possible candidate models.};
+    \node (5) [startstop, below=1cm of 4] {5. Try your chose model(s) and use the AICc to search for a better model.};
+    \node (6) [startstop, below=11cm of 1] {6. Check the residuals from your chosen model by plotting the ACF of the residuals, and doung a portmanteau test of the residuals.};
+    \node (decision) [decision, below=1cm of 6] {Do the residuals look like white noise?};
+    \node (7) [startstop, below=1cm of decision] {7. Calculate forecasts.};
+
+    \draw[arrow] (1) -- (2);
+    \draw[arrow] (2) -- (opt2);
+    \draw[arrow] (2) -- (opt1);
+    \draw[arrow] (opt1) -- (3);
+    \draw[arrow] (opt2) -- (ARIMA);
+    \draw[arrow] (3) -- (4);
+    \draw[arrow] (4) -- (5);
+    \draw[arrow] (5) |- (6);
+    \draw[arrow] (ARIMA) |- (6);
+    \draw[arrow] (6) -- (decision);
+    \draw[arrow] (decision.west) |- ++(-6cm, 0) coordinate (aux_point) |- (4.west); 
+    \node[below left=0.2mm of decision.west] {no};
+    \draw[arrow] (decision) node[below right=2mm of decision.south] {yes} -- (7);
+    \end{tikzpicture}
+    \caption{Pasos en metodología ARIMA} 
+\end{figure}
+\subsubsection{Predicciones}
+
+Una vez validado el modelo, el siguiente paso y fin último de nuestro estudio es realizar predicciones para valores futuros de la variable. Para obtener esas previsiones haremos uso del modelo teórico que se ha identificado como adecuado, proyectándolo hacia el futuro.
+
+Además, las predicciones sirven para contrastar la adecuación de nuestro modelo: las discrepancias sistemáticas entre predicciones y valores observados cuestionarán la validez de nuestro modelo.
+
+Supongamos que hemos observado la serie hasta un instante $T$, y denotemos por  $\hat{x}_{T+h}$ a la predicción de la serie en el instante $T+h$ a partir del modelo ajustado. La forma de proceder será la siguiente:
+ \begin{itemize}[label=\textbullet]
+    \item La estimación del término (ruido) para instantes anteriores a $T$ se corresponde con el error de previsión a un periodo vista, es decir:  \[
+    \hat{\varepsilon}_t=x_t-\hat{x}_t\quad t\le T
+    \] 
+    \item Los términos de ruido posteriores al instante $T$ se considerarán nulos:  \[
+   \hat{\varepsilon}_t=0\quad t>T 
+    \] 
+    \item Los valores de la serie para instantes posteriores a $T$ que se requieran en el cálculo de nuevas predicciones, se sustituyen por sus propias predicciones:  \[
+    x_{T+h}=\hat{x}_{T+h}\quad h=1,2,\dots
+    \] donde el parámetro $h$ representa el  \textit{horizonte de predicción}. 
+\end{itemize}
+Veámos a modo de ejemplo cómo proceder a la hora de realizar predicciones con dos modelos concretos:
+\begin{example}
+   Consideremos el modelo ARIMA (1,1,0): \[
+       (1-0.6B)(1-B)X_t=\varepsilon_t
+   \]  
+   Supongamos que conocemos el valor de la serie hasta un instante $t_0$ y pretendemos realizar previsiones más allá de ese instante. A partir del modelo teórico, tenemos que la expresión explícita del modelo de previsión será: \[
+   \hat{x}_{t_0+h}=1.6\hat{x}_{t_{0}+h-1}-0.6\hat{x}_{t_0+h-2}+\hat{\varepsilon}_{t_0+h}-0.3\hat{\varepsilon}_{t_0+h-1}-0.3\hat{\varepsilon}_{t_0+h-2}\text{ para }h=1,2,3,\dots
+   \] y por consiguiente: \[
+   \begin{array}{rcl}
+       \hat{x}_{t_0+1} & = & 1.6x_{t_0}-0.6x_{t_0-1}-0.5\hat{\varepsilon}_{t_0}-0.3\hat{\varepsilon}_{t_0-1}\\ 
+       \hat{x}_{t_0+2} & = & 1.6\hat{x}_{t_0+1}-0.6x_{t_0}-0.3\hat{\varepsilon}_{t_0}\\ 
+       \hat{x}_{t_0+3} & = & 1.6\hat{x}_{t_0+2}-0.6\hat{x}_{t_0+1}\\ 
+        & & \vdots \\
+       \hat{x}_{t_0+h} & = & 1.6\hat{x}_{t_0+h-1}-0.6\hat{x}_{t_0+h-2}.\\ 
+   \end{array}
+   \] 
+   Observa que para obtener las predicciones $\hat{x}_{t_0+1}$ y $\hat{x}_{t_0+1}$ necesitamos $\hat{\varepsilon}_{t_0-1}$ y $\hat{\varepsilon}_{t_0}$.
+
+   Dichos valores los podemos sacar de la fórmula recurrente: \[
+   \hat{\varepsilon}_{t_0-h}=\hat{x}_{t_0-h}-1.6\hat{x}_{t_0-h-1}+0.6\hat{x}_{t_0-h-2}+0.5\hat{\varepsilon}_{t_0-h-1}+0.3\hat{\varepsilon}_{t_0-h-2}\text{ para }h=0,1,2,\dots
+   \] la cual permite obtener, a partir de los valores observados de la serie, todos los residuos de los tiempos observados $\hat{\varepsilon}_{t_0},\hat{\varepsilon}_{t_0-1},\hat{\varepsilon}_{t_0-2}, \dots$
+\end{example}
+Como se observa, si una serie incorpora medias móviles, la influencia directa del ruido se transmite tantos periodos hacia adelante como orden del proceso $MA$. A partir de este instante, la influencia de estos términos es indirecta a través de los valores obtenidos.
+
+ \textbf{Nota:} Las expresiones para obtener las predicciones puntuales permiten observar que, al aumentar el horizonte de predicción, se recurre a valores estimados en lugar de datos reales, lo que se traduce en mayores errores de predicción. La metodología ARIMA permite, además de obtener predicciones puntuales como hemos descrito arriba, obtener intervalos de predicción para instantes futuros. 
