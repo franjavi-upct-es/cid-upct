@@ -1,0 +1,225 @@
+---
+title: "Procesos Estocásticos y Series Temporales"
+subtitle: "Entregable Práctica 2 y 3 (Modelo B)"
+author: "Francisco Javier Mercader Martínez"
+output: 
+  pdf_document:
+    latex_engine: xelatex
+geometry: margin=1.5cm, a4paper
+header-includes:
+- \renewcommand{\and}{\\}
+- \usepackage{fvextra}
+- \usepackage{hyperref}
+- \DefineVerbatimEnvironment{Highlighting}{Verbatim}{breaklines, commandchars=\\\{\}}
+---
+
+```{r}
+set.seed(1234)
+```
+
+En el fichero **Consumo_gas_modelo_B.csv** se encuentran los datos correspondientes al consumo de gas natural mensual en España (en gigavatios hora), desde enero de 2004 hasta diciembre de 2014.
+
+1.  **DIvide la serie temporal en datos de entrenamiento** (hasta diciembre de 2013) **y datos de test** (desde enero a diciembre de 2014). Representa los **datos de entrenamiento** del consumo de gas en un gráfico temporal. ¿La serie presenta Estacionalidad? Justifica si se trata de un esquema aditivo o multiplicativo realizando un gráfico de desviaciones típicas frente a medias.
+
+```{r}
+data <- read.csv("Consumo_gas_modelo_B.csv", sep = "\t", dec = ",")
+
+# Convertir los datos a una serie temporal
+datos_ts <- ts(data$consumo, frequency = 12, start = c(2004, 1))
+datos_ts
+
+# Dividir la serie en datos de entrenamiento y datos de test
+training_data <- window(datos_ts, start = c(2004, 1), end = c(2013, 12))
+test_data <- window(datos_ts, start = c(2014, 1))
+
+ts.plot(training_data)
+```
+
+Al representar los datos del conjunto de entrenamiento podemos observar analíticamente que la serie temporal presenta componente estacional ya que muestra un comportamiento que se ha repetido su comportamiento con un periodo de 12 meses.
+
+```{r}
+medias <- as.vector(aggregate(training_data, FUN = mean))
+desviaciones <- as.vector(aggregate(training_data, FUN = sd))
+plot(medias, desviaciones)
+abline(lm(desviaciones ~ medias), col = "blue", lty = 2)
+```
+
+Observando el gráfico resultanto vemos que la desviación típica es relativamente constante por lo que podemos afirmar que se trata de un **modelo aditivo**
+
+2.  ¿Qué modelo de alisado exponencial te parece más adecuado? Razona tu respuesta. Aplica dicho método de alisado exponencial a la serie, **indica los parámetros de alisado óptimos e interprétalos**.
+
+El método de alisado más adecuado sería el método de Holt-Winters aditivo ya que la serie temporal presenta todas las componentes, es decir, tenemos componente Tendencia-Ciclo, componente Estacionalidad y componente Irregular.
+
+```{r}
+HW_aditivo <- HoltWinters(training_data, seasonal = "additive")
+HW_aditivo
+```
+
+Los parámetros de alisado óptimos que nos marca el modelo mediante ajuste por mínimos cuadrados son:
+
+$$
+\alpha=0.566104,\quad\beta=0.01523691,\quad\gamma=0.1791379
+$$
+
+Podemos observar que $\alpha$ toma un valor más cercano a 1 que ha cero por lo que tiene algo de importancia para la observación anterior $(X_t/S_{t-L})$ y toma menos peso en la suma del nivel de la serie y la pendiente de la tendencia. En cuanto a $\beta$ podemos observar que es casi cero, esto quiere decir que toman mayor peso los valores anteriores de la pendiente de la tendencia $(b_t)$ y como es un proceso iterativo
+
+3.  Determina las predicciones mensuales del consumo de gas para 2014, usando el **método de alisado exponencial** seleccionado. ¿Cuántos gigavatios hora estaba previsto consumir en \underline{junio de 2014}?
+
+```{r}
+predict(HW_aditivo, n.ahead = 12)
+```
+
+Para el mes de junio de 2014 estaba previsto consumir $\approx 29501$ gigavatios hora.
+
+4.  Determina los **valores finales** que estimó **`R`** para nivel, pendiente de la tendencia y factores estacionales (\underline{indica sólo el factor estacional de junio}). Calcula usando dichos valores finales las predicciones mensuales del consumo de gas para 2014. ¿Se obtiene lo mismo que en el apartado anterior?
+
+```{r}
+print("Valores finales de R")
+cat("- Nivel: ", HW_aditivo$coefficients[1], "\n")
+cat("- Pendiente de la tendencia: ", HW_aditivo$coefficients[2], "\n")
+cat("- Factor estacional (junio): ", HW_aditivo$coefficients["s6"], "\n")
+
+print("Predicciones manuales")
+horizonte <- 1:12
+valores_estacionales <- HW_aditivo$coefficients[3:14]
+a <- HW_aditivo$coefficients[1]
+b <- HW_aditivo$coefficients[2]
+(a + b * horizonte) + valores_estacionales
+```
+
+Si se obtienen los mismos valores que en el apartado anterior.
+
+5.  **Usando sólo los datos reales disponibles para 2014**, calcula las medidas de error MAE y RMSE que se botienen con el método de alisado.
+
+```{r}
+prediccion_2014 <- predict(HW_aditivo, n.ahead=12)
+residuos <- test_data - prediccion_2014
+MAE <- mean(abs(residuos))
+RMSE <- sqrt(mean(residuos^2))
+MAE
+RMSE
+```
+
+6.  Para los resultados obtenidos con el método de alisado, representa en un missmo gráfico la serie original (en negro) y la serie ajustada con predicciones a un año (en azul). ¿A qué se debe el error tan grande en la zona test?
+
+```{r}
+ts.plot(training_data, col = "black")
+lines(HW_aditivo$fitted[ , 1], col = "blue")
+```
+
+7.  Atendiendo al método de alisado propuesto en el apartado (8), ¿qué **modelo(s) ETS** sería más adecuado para la serie en estudio? Realiza la selección del modelo ETS de forma automática con **`R`** y comprueba si coincide con tu respuesta.
+
+Ya que en el problema anterior se ha determinado que la serie presenta un comportamiento aditivo, un modelo ETS(A,A,A) podría ser adecuado para capturar tanto la tendencia como la estacionalidad de manera aditiva.
+
+```{r, message=FALSE}
+library(forecast)
+
+# Modelo determinado manualmente
+modelo_ets <- ets(training_data, model = "AAA")
+
+# Modelo obtenido automáticamente
+modelo_ets_auto <- ets(datos_ts)
+
+# Comprobación de que mi elección es correcta
+modelo_ets_auto$method == modelo_ets$method
+```
+
+8.  Usando el modelo automático de **`R`**, calcula los intervalos de predicción para el consumo de gas en 2014. Usa nivel de confianza del 99% e \underline{indica el intervalo obtenido para junio de 2014}. ¿Podemos decir que el consumo de gas será inferior a los 20000 gigavatios hora?
+
+```{r}
+forecast(modelo_ets, h = 12, level = 99)
+```
+El intervalo de junio de 2014 es de $x\in(17144.26,\,35415.19)$, por lo que no podemos asegurar con certeza que le consumo vaya a ser menor de 20000 gigavatios hora.
+
+9.  Extrae, usando **Análisis Clásico**, las componentes de la **serie de entrenamiento** (Tendencia-Ciclo, Estacionalidad e Irregular). Indica el \underline{valor de cada componente para junio de 2013} e **interpreta** el valor de la componente estacional en dicho mes.
+
+```{r, message=FALSE}
+library(zoo)
+descomposicion_clasica <- decompose(training_data, type = "additive")
+plot(descomposicion_clasica)
+```
+
+
+10. Proporciona un modelo determinisna que nos permita realizar predicciones, **ajustado un modelo adecuado para representar la tendencia en función del tiempo**. Expresa el modelo determinista de la forma:
+
+$$
+Consumo(t)=32859.91-5.425\cdot t
+$$
+
+```{r}
+tiempo <- 1:length(training_data)
+tendencia.lm <- lm(descomposicion_clasica$trend ~ tiempo)
+tendencia.lm
+```
+
+
+11. Determina las **predicciones mensuales** del consumo de gas para 2014. ¿Cuántos gigavatios hora estaba previsto consumir en \underline{junio de 2014}?
+
+```{r}
+tiempo_pred <- 1:(length(training_data) + 12)
+estacional_pred <- c(descomposicion_clasica$seasonal, 
+                     descomposicion_clasica$seasonal[1:12])
+
+tendencia_pred <- predict(tendencia.lm, data.frame(tiempo = tiempo_pred))
+
+datos_pred <- tendencia_pred + estacional_pred
+
+cat("Consumo predicho para junio de 2014:", datos_pred[length(training_data) + 6 - 1], "gigavatios hora")
+```
+
+
+12. Determina las predicciones mensuales del consumo de gas para 2014, pero usando el **método de descomposición STL** (selecciona un ancho de banda para estimar la componente estacional de 3 años, dejando el ancho de banda para la tendencia de forma automática). Indica el valor de la \underline{predicción para junio de 2014}.
+
+```{r}
+datos_STL <- stl(training_data, s.window = 37) # 3 años * 12 meses = 36 -> usamos 37
+
+# Extrare componentes
+estacional_STL <- datos_STL$time.series[, 1]
+tendencia_STL <- datos_STL$time.series[, 2]
+irregular_STL <- datos_STL$time.series[, 3]
+
+# Modelo determinista STL
+tiempo_STL <- 1:length(training_data)
+tendencia_STL.lm <- lm(tendencia_STL ~ tiempo_STL)
+
+# Predicciones con STL
+tiempo_pred_STL <- 1:(length(training_data) + 12)
+estacional_STL_pred <- c(estacional_STL, estacional_STL[1:12])
+tendencia_STL_pred <- predict(tendencia_STL.lm, data.frame(tiempo_STL = tiempo_pred_STL))
+
+datos_STL_pred <- tendencia_STL_pred + estacional_STL_pred
+cat("Consumo predicho para junio de 2014 (STL):", datos_STL_pred[length(training_data) + 6 - 1], "gigavatios hora")
+```
+
+
+13. **Representa en un mismo gráfico** la serie completa observada (en negro, incluye tanto tramo de entrenamiento como test), la serie ajustada (en azul) y la serie predicha para 2014 (en rojo), que resultan de la **descomposición STL.**
+
+```{r}
+plot(tiempo_pred_STL, datos_STL_pred, type = "l", col = "red", lwd = 2)
+lines(tiempo, training_data, type = "l", col = "black", lwd = 2)
+lines(tiempo, datos_STL_pred[1:length(training_data)], type = "l", col = "blue", lwd = 2)
+```
+
+
+14. **Usando** **sólo los datos reales disponibles para 2014**, calcula las medidas de error MAE y RMSE que se obtienen con Análisis Clásico y con STL. Compáralas y comenta los resultados.
+
+
+```{r}
+# Residuos análisis clásico
+residuos_clasico <- datos_ts - datos_pred[1:length(datos_ts)]
+MAE_clasico <- mean(abs(residuos_clasico))
+RMSE_clasico <- sqrt(mean(residuos_clasico^2))
+print("Análisis Clásico")
+cat("MAE:", MAE_clasico)
+cat("RMSE:", RMSE_clasico)
+
+# Residuos STL
+residuos_STL <- datos_ts - datos_STL_pred[1:length(datos_ts)]
+MAE_STL <- mean(abs(residuos_STL))
+RMSE_STL <- sqrt(mean(residuos_STL^2))
+print("STL")
+cat("MAE:", MAE_STL)
+cat("RMSE:", RMSE_STL)
+```
+
+La diferencia entre los métodos puede observarse en las medidas de error MAE y RMSE. Debido a que numéricamente hablando obtenemos resultados muy similares, podemos concluir que ambos métodos son adecuados para este conjunto de datos, aunque la descomposición STL puede ofrecer una mayor flexibilidad en la modelización de la estacionalidad.
