@@ -1,0 +1,20 @@
+\section{Modelos de series temporales con variables exógenas}
+\subsection{Introducción}
+En los temas anteriores, hemos visto técnicas para analizar series temporales donde se extrae información exclusivamente de la propia serie en estudio, ya sea descomponiendo la serie en varias componentes, o bien identificando el modelo generador a partir de las autocorrelaciones de los datos.
+
+En este tema consideraremos el uso de otras variables diferentes a la variable interés para explicar y predecir la serie en estudio. Por ejemplo, consideremos el consumo eléctrico horario de un hogar. Por una parte, presenta varias estacionalidades: periodo 24 horas (estacionalidad diaria) y periodo 168 horas (estacionalidad semanal). Además, presenta correlación significativa para el retardo de 1 hora. Por tanto, podríamos plantear un modelo SARIMA para este tipo de series. Sin embargo, también parece claro que existen otros factores un modelo SARIMA para este tipo de series. Sin embargo, también parece claro que existen otros factores externos que influyen en el consumo eléctrico horario de un hogar, como son la temperatura (debido al uso de climatización eléctrica), el tipo de día (diferenciando entre laborables y festivos) o el precio de la energía (si el usuario tiene contrato indexado al precio de mercado). A estas otras variables, distintas a la variable objeto de estudio y con influencia sobre ésta, se les denominan \textbf{variables exógenas}, que actuarán como predictores.
+
+\textbf{Notación:} En adelante, usaremos la notación $y_t$ para referirnos al valor de la serie en estudio en el instante  $t$, y usaremos  $x_{i,t}$ con $i=1,2,\dots,k$ para referirnos a la variable exógena predictora $x_i$ en el instante  $t$. Esto supone un cambio respecto a la notación usada en los temas anteriores (donde la serie en estudio se denotaba por $x_t$), siendo ahora necesario distinguir entre variable de interés a predecir y variables predictoras.
+
+\subsection{El modelo de Regresión Múltiple para series temporales}
+Por analogía al modelo de Regresión Lineal Múltiple (RLM) visto en asignaturas anteriores, en el contexto de series temporales el modelo RLM se suele expresar de la siguiente forma: \[
+Y_t=\beta_0+\beta_1x_{1,t}+\beta_2x_{2,t}+\dots+\beta_kx_{k,t}+\varepsilon_t\text{ con }\varepsilon_t\sim N(0,\sigma^2)\text{ independientes, }t\in \mathbb{T}.
+\] 
+En este caso, $Y_t$ representa el proceso estocástico generador de la serie en estudio  $y_t$, y asumimos que los predictores  $x_i$ no son variables aleatorias sino que son controlables, o al menos serán variables observables.
+
+Recordemos que los errores deben tener media nula para proporcionar predicciones sesgadas. Además deben estar incorrelados entre sí y con los predictores, para garantizar que se ha extraído toda la información posible de los datos (parte determinista). La hipótesis de Normalidad y varianza constante (Homocedasticidad) se utiliza para la obtención de intervalos de predicción.
+
+A continuación comentamos algunas etapas habituales en los análisis RLM (visto en asignaturas anteriores) que son de aplicación a los modelos de regresión de series temporales.
+ \begin{itemize}[label=\textbullet]
+    \item La estimación de los coeficientes $\beta_j$, se puede realizar mediante el criterio de mínimos cuadrados o mediante estimación máximo verosímil. Recordemos que la función  \textbf{\texttt{lm()}} de \textbf{\texttt{R}} permite la estimación de los coeficientes en un modelo RLM, pero también se pueden usar otras funciones más específicas para series temporales como \textbf{\texttt{tslm()}} del paquete \textbf{\texttt{forecast}} o la función \textbf{\texttt{TSLM()}} del paquete \textbf{\texttt{fable}}.
+\end{itemize}

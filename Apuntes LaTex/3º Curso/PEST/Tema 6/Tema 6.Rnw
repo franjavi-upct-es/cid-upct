@@ -1211,4 +1211,92 @@ Veámos a modo de ejemplo cómo proceder a la hora de realizar predicciones con 
 \end{example}
 Como se observa, si una serie incorpora medias móviles, la influencia directa del ruido se transmite tantos periodos hacia adelante como orden del proceso $MA$. A partir de este instante, la influencia de estos términos es indirecta a través de los valores obtenidos.
 
- \textbf{Nota:} Las expresiones para obtener las predicciones puntuales permiten observar que, al aumentar el horizonte de predicción, se recurre a valores estimados en lugar de datos reales, lo que se traduce en mayores errores de predicción. La metodología ARIMA permite, además de obtener predicciones puntuales como hemos descrito arriba, obtener intervalos de predicción para instantes futuros. 
+\textbf{Nota:} Las expresiones para obtener las predicciones puntuales permiten observar que, al aumentar el horizonte de predicción, se recurre a valores estimados en lugar de datos reales, lo que se traduce en mayores errores de predicción. La metodología ARIMA permite, además de obtener predicciones puntuales como hemos descrito arriba, obtener intervalos de predicción para instantes futuros. 
+
+\subsubsection{Un ejemplo de modelo $ARMA$ con \textbf{\texttt{R}}}
+
+Para ilustrar algunos de los conceptos vistos en este tema, primero vamos a generar una serie temporal a partir de un modelo $ARMA$, proporcionando nosotros mismo tanto los órdenes $p$ y  $q$, como el valor de los coeficientes del modelo. Posteriormente, analizaremos la serie simulada para determinar el modelo generador comprobando que se asemeja al modelo $ARMA$ fijado en la simulación. Evidentemente, cuanto mayor sea el tamaño de la serie simulada, los resultados del ajuste serán más próximos al modelo generador real.
+
+Concretamente, vamos a generar una serie a partir del siguiente modelo $ARMA(p=2,q=1)$:  \[
+X_t=0.9X_{t-1}-0.5X_{t-2}+0.7\varepsilon_{t-1}+\varepsilon_t
+\] donde $\varepsilon_t$ representa un ruido blanco gaussiano.
+
+<<>>=
+set.seed(1234)
+serie_simulada <- arima.sim(n = 1000,
+                            list(ar = c(0.9, -0.5), ma = c(0.7)),
+                            sd = 1)
+@
+
+\begin{figure}[h]
+<<fig=TRUE, fig.width=12, fig.height=5, out.width='0.7\\textwidth', fig.align='center'>>=
+ts.plot(serie_simulada)
+@
+\caption{Serie simulada}
+\end{figure}
+
+<<eval=FALSE>>=
+acf(serie_simulada)
+pacf(serie_simulada)
+@
+
+\begin{figure}[h]
+<<fig=TRUE, fig.width=12, fig.height=5, out.width='0.7\\textwidth', fig.align='center', echo=FALSE>>=
+par(mfrow = c(1, 2))
+acf(serie_simulada)
+pacf(serie_simulada)
+@
+\caption{Correlogramas simple y parcial}
+\end{figure}
+
+Observamos que la serie es estacionaria (en media y varianza), además centrada (media cero). En los correlogramas vemos bastantes correlaciones simples y parciales significativas, lo que nos sugiere que el proceso generadr probablemente contenga tanto parte $AR$ (autorregresiva) como parte $MA$ (medias móviles). Nótese que es especialmente significativo el retardo 1 en el correlograma simple y los retaros 1 y 2 en el correlograma parcial, lo que nos sugiere un modelo $ARMA(2,1)$, es decir, un $ARIMA(2,0,1)$.
+
+<<>>=
+modelo_ARIMA201 <- arima(serie_simulada,
+                         order = c(2, 0, 1),
+                         include.mean = FALSE)
+
+modelo_ARIMA201
+@
+
+Obtenemos estimaciones de los coeficientes muy parecidos a los coeficientes reales usados en la simulación.
+
+Podemos probar cómo sería el ajuste si consideramos algún orden superior en la parte $AR$ y/o en la $MA$.
+
+<<>>=
+modelo_ARIMA301 <- arima(serie_simulada,
+                         order = c(3, 0, 1),
+                         include.mean = FALSE)
+modelo_ARIMA301
+@
+
+<<>>=
+modelo_ARIMA202 <- arima(serie_simulada,
+                         order = c(2, 0, 2),
+                         include.mean = FALSE)
+modelo_ARIMA202
+@
+
+<<>>=
+modelo_ARIMA302 <- arima(serie_simulada,
+                         order = c(3, 0, 2),
+                         include.mean = FALSE)
+modelo_ARIMA302
+@
+
+Obsérvese que al aumentar el orden de la parte  $AR$ y/o la  $MA$, obtenemos valores de AIC mayores (peores modelos), indicativo de que el modelo óptimo es el  $ARMA(2,1)$.
+
+\subsection{Modelos ARIMA estacionales, SARIMA} 
+El modelo SARIMA (Seasonal Autoregressive Integrated Moving Average) es una extensión de los modelos ARIMA que incorpora componente estacional. Es decir, variaciones que se repiten en intervalos regulares de tiempo (por ejemplo, mensuales, trimestrales o anuales).
+
+El modelo se denota mediante $SARIMA(p,d,q)(P,D,Q)_L$, donde $(p,d,q)$ representan los órdenes de la parte ARIMA no estacional y  $(P,D,Q)$ representan los mismos conceptos pero para la parte estacional. El parámetro  $L$ representa la periodicidad estacional (por ejemplo, 12 para datos mensuales con un patrón anual). El modelo completo combina tanto los componentes estacionales como no estacionales para capturar la estructura completa de la serie temporal.
+
+La estimación de un modelo SARIMA sigue los mismos principios que los modelos ARIMA, pero con la adición de los componentes estacionales. Los pasos típicos incluyen:
+\begin{itemize}[label=\textbullet]
+    \item Utilizar gráficos de la serie temporal, de las funciones de autocorrelación (ACF) y autocorrelación parcial (PACF), para determinar los posibles vaores de los órdenes $(p,d,q)$ y $(P,D,Q)$.
+    \item Estimar los parámetros del modelo utilizando métodos como la máxima verosimilitud.
+    \item Analizar los residuos del modelo asegurarse de que no presentan autocorrelación significativa y que son aproximadamente normales.
+\end{itemize}
+Como es habitual, para seleccionar el modelo SARIMA más adecuado, se pueden utilizar criterios de información como el AIC, el AIC corregido y el BIC. Una vez estimado y validado el modelo SARIMA, se pueden realizar predicciones futuras.
+
+\textbf{Nota:} La comparación entre modelos ARIMA (o bien SARIMA) y ETS no debe realizarse usando los criterios de información AIC o BIC, porque son modelos de distinta clase y la verosimilitud se calcula de forma diferente en cada caso. En su lugar, conviene compararlos realizando validación cruzada y calculando medias de bondad de ajuste como RMSE, MAE o MAPE.
