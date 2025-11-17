@@ -3,15 +3,203 @@
 \end{center}
 \begin{enumerate}[label=\color{red}\textbf{\arabic*)}]
     \item \lb{¿Qué es un proceso estocástico y cómo se define formalmente?}
+
+        Un \textbf{proceso estocástico} es una colección de variables aleatorias que representan la evolución en el tiempo de un fenómeno aleatorio.
+
+        \begin{itemize}[label=\textbullet, leftmargin=*]
+            \item \textbf{Definición formal:}
+
+                Un proceso estocático $(X_t)_{t\in T}$ es una colección de variables aleatorias reales $X_t$, cada una definida sobre un espacio de probabilidad  $(\Omega,\mathcal{F},P)$, donde el índice $t$ representa el tiempo.
+        \end{itemize}
     \item \lb{¿Cuáles son los tipos principales de procesos estocásticos en función del tiempo?}
+        \begin{enumerate}[label=\arabic*)]
+            \item \textbf{Procesos de tiempo discreto:} Son aquellos en los que el conjunto de tiempos $T$ es contable, por ejemplo:  \[
+            T=\{0,1,2,\dots\} 
+            \]
+            En este caso, el proceso se observa en instantes separados.
+            \item \textbf{Procesos de tiempo continuo:} Son aquellos en los que el conjunto de tiempos $T$ es un intervalo de la recta real, por ejemplo:  \[
+                    T=[0,T]\text{ ó }T=[0,\infty)
+            \]
+            Aquí el proceso se observa en todos los instantes del intervalo.
+        \end{enumerate}
     \item \lb{¿Cómo se clasifica un proceso estocástico según los estados que puede formar?} 
+        \begin{enumerate}[label=\arabic*)]
+            \item \textbf{Proceso de estado discreto}
+
+                Un proceso estocástico $(X_t)$ es de estado discreto cuando cada variable aleatoria  $X_t$ toma valores en un conjunto discreto (finito o numerable).
+
+            \item \textbf{Proceso de estado continuo}
+
+                Un proceso etocástico $(X_t)$ es de estado continuo cuando cada  $X_t$ toma valores en un intervalo continuo de $\R$.
+        \end{enumerate}
     \item \lb{¿Qué es una trayectoria en el contexto de un proceso estocástico?} 
-    \item \lb{¿Qué es un pasea aleatorio y cómo se define en términos de variables aleatorias? Simular, usando  \textbf{\texttt{R}}, 4 trayectorias de un paseo aleatorio con variables aleatorias i.i.d. dadas por la distribución $N(0,1)$.} 
+
+        Dado un proceso estocástico $(X_t)_{t\in T}$, para cada realización $\omega\in \Omega$, la colección de valores: $$(X_t(\omega))_{t\in T}$$ se llama trayectoria del proceso. Es decir, una trayectoria es una observación concreta de cómo evoluciona el proceso a lo largo del tiempo.
+        \begin{itemize}[label=\textbullet]
+            \item Si el timepo es discreto, una trayectoria es una sucesión $(x_t)_{t=0,1,2,\dots}$.
+            \item Si el tiempo es continuo, una trayectoria es una función real $t\mapsto x(t)$.
+        \end{itemize}
+    \item \lb{¿Qué es un paseo aleatorio y cómo se define en términos de variables aleatorias? Simular, usando  \textbf{\texttt{R}}, 4 trayectorias de un paseo aleatorio con variables aleatorias i.i.d. dadas por la distribución $N(0,1)$.} 
+
+        Un \textbf{paseo aleatorio} es un proceso estocástico $(X_t)_{t=0,1,2,\dots}$ definido por:
+        \begin{itemize}[label=\textbullet]
+            \item $X_0=0$
+            \item $X_t=X_{t-1}+Y_t$ para $t=1,2,3,\dots$
+        \end{itemize}
+        donde $(Y_t)$ es una sucesión de  \textbf{variables aleatorias i.i.d.}
+
+        \textbf{Paseo aleatorio con $Y_t\sim N(0,1)$} 
+
+        Aquí $Y_t$ ya no solo toma valores  $\pm 1$ como en el paseo aleatorio simple; ahora viene de una \textbf{Normal estándar}, también permitido por la definición general.
+        
+<<fig=TRUE, fig.width=8, fig.height=5, out.width='0.7\\textwidth', fig.align='center'>>=
+set.seed(123)
+
+nsim <- 4         # número de trayectorias
+n <- 200          # número de pasos por trayectoria
+tiempo <- 0:n
+
+# colores para las curvas
+colores <- rainbow(nsim)
+
+# Simular primera trayectoria
+Y <- rnorm(n, mean = 0, sd = 1)       # variables i.i.d N(0,1)
+X <- c(0, cumsum(Y))                  # paseo aleatorio
+
+plot(tiempo, X, type = "l", col = colores[1],
+     lty = 1, ylim = c(-20, 20),
+     xlab = "t", ylab = "X_t")
+
+# Simular las otras trayectorias
+for (i in 2:nsim) {
+  Y <- rnorm(n, mean = 0, sd = 1)
+  X <- c(0, cumsum(Y))
+  lines(tiempo, X, col = colores[i])
+}
+@
+        
     \item \lb{¿Qué características tiene un paseo aleatorio simple y en qué se diferencia del paseo aleatorio simétrico? Simular, usando \textbf{\texttt{R}}, 6 trayectorias de un paseo aleatorio simple $p=\dfrac{1}{3}$.}
+
+        \begin{itemize}[label=\textbullet]
+            \item \textbf{Paseo aleatorio simple}
+
+                Un \textbf{paseo aleatorio simple} es una paseo aleatorio en el que las variables i.i.d. $Y_t$ solo pueden tomar los valores: $$Y_t\in \{1,-1\} $$ con probabilidades: $$P(Y_t=1)=p,\quad P(Y_t=-1)=1-p.$$
+
+            \item \textbf{Paseo aleatorio simétrico}
+
+                Es un caso particular del paseo aleatorio simple en el que: $$p=\dfrac{1}{2}.$$ Es decir, cara o cruz (subida o bajada) tienen la \textbf{misma probabilidad}.
+
+            \item \textbf{Simulación en \texttt{R} de 6 trayectorias del paseo aleatorio simple con $p=\dfrac{1}{3}$:}
+
+                Esto significa:
+                \begin{itemize}[label=\textbullet]
+                    \item $P(Y_t=1)=\dfrac{1}{3}$ 
+                    \item $P(Y_t=-1)=1-\dfrac{1}{3}=\dfrac{2}{3}$
+                \end{itemize}
+
+<<fig=TRUE, fig.width=8, fig.height=5, out.width='0.7\\textwidth', fig.align='center'>>=
+set.seed(123)
+
+nsim <- 6        # número de trayectorias
+n <- 200         # pasos por trayectoria
+tiempo <- 0:n
+p <- 1/3         # parámetro del paseo aleatorio simple
+
+colores <- rainbow(nsim)
+
+# Primera trayectoria
+Y <- sample(c(-1, 1), size = n, replace = TRUE,
+            prob = c(1 - p, p))
+X <- c(0, cumsum(Y))
+
+plot(tiempo, X, type = "l", lty = 1,
+     col = colores[1], ylim = c(-80, 80),
+     xlab = "t", ylab = "X_t")
+
+# Otras trayectorias
+for (i in 2:nsim) {
+  Y <- sample(c(-1, 1), size = n, replace = TRUE,
+              prob = c(1 - p, p))
+  X <- c(0, cumsum(Y))
+  lines(tiempo, X, col = colores[i])
+}
+@
+        \end{itemize}
     \item \lb{¿Qué es una función de distribuión finito dimensional en un proceso estocástico?} 
+
+        En un proceso estocástico, la \textbf{función de distribución finito dimensional} describe la \textbf{distribución conjunta} del proceso en varios instantes de tiempo.
+
+        Sea $(X_t)_{t\in T}$ un proceso estocástico y toma una sucesión finita de tiempos: \[
+        t_1<t_2<\cdots<t_n.
+        \] 
+        La \textbf{función de distribución finito dimensional} del proceso es: \[
+        F_{t_1,t_2,\dots,t_n}(x_1,x_2,\dots,x_n)=P(X_{t_1}\le x_1,X_{t_2}\le x_2,\dots,X_{t_n}\le x_n).
+        \]  
     \item \lb{¿Cómo se define la función de medias de un proceso estocástico? ¿Y la de covarianzas y correlaciones?} 
+
+        \begin{enumerate}[label=\arabic*)]
+            \item \textbf{Función de medias}
+
+                La \textbf{función media} o \textbf{función de medias} de un proceso estocástico $(X_t)$ es: $$\mu_X(t)=E(X_t).$$ 
+                \begin{itemize}[label=\textbullet]
+                    \item En tiempo discreto: define una sucesión $(\mu_X(t))_{t=0,1,2,\dots}$.
+                    \item En tiempo discreto: define una función $t\mapsto \mu_X(t)$.
+                \end{itemize}
+            \item \textbf{Función de covarianzas}
+
+                La \textbf{función de covarianzas} del proceso se define como: \[
+                C_X(s,t)=\mathrm{Cov}(X_s,X_t)=E\left[ (X_s-\mu_X(s))(X_t-\mu_X(t)) \right] =E(X_sX_t)-\mu_X(s)\mu_X(t).
+                \]  
+            \item \textbf{Función de varianza}
+
+                La función de varianza es un caso particular de la covarianza: \[
+                \sigma_X^2(t)=\mathrm{Var}(X_t)=C_X(t,t).
+                \] 
+            \item \textbf{Función de correlaciones}
+
+                La función de correlación entre los tiempos $s$ y  $t$ es:  \[
+                \theta_X(s,t)=\dfrac{C_X(s,t)}{\sigma_X(s)\sigma_X(t)}.
+                \] 
+        \end{enumerate}
     \item \lb{¿Qué relación existe entre la función de varianza y la función de covarianza en un proceso estocástico?} 
+
+        La \textbf{varianza} es un \textbf{caso particular} de la \textbf{covarianza}.
+
+        En concreto, para cualquier proceso estocástico $(X_t)_{t\in T}$: \[
+        \sigma_X^2(t)=\mathrm{Var}(X_t)=C_X(t,t).
+        \] 
+        Es decir: \textbf{La varianza en un instante $t$ es simplemente la covarianza del proceso consigo mismo en ese mismo instante.} 
     \item \lb{¿Qué condiciones deben cumplirse para que un proceso sea estacionario y en qué se diferencia de la estacionariedad débil?} 
+        \begin{enumerate}[label=\arabic*)]
+            \item \textbf{Condiciones para que un proceso sea estacionario (en sentido estricto)}
+
+                Un proceso estocástico $(X_t)_{t\in T}$ es \textbf{estacionario} si:
+
+                Para toda sucesión finita de tiempos \(t_1,t_2,\dots,t_n\) y para todo esplazamiento temporal $s>0$: \(X_{t_1},X_{t_2},\dots,X_{t_n}\text{ y }(X_{t_1+s},X_{t_2+s},\dots,X_{t_n+s})\) tienen \textbf{la misma función de distribución conjunta}.
+
+                \textbf{Implica que:}
+                \begin{itemize}[label=\textbullet]
+                    \item Todas las variables $X_t$ tiene  \textbf{la misma distribución}.
+                    \item El comportamiento probabilístico completo del proceso \textbf{no cambia con el tiempo.}
+                    \item Se converva toda la estructura de dependencias, no solo momentos con medias o covarianzas.
+                \end{itemize}
+            \item \textbf{Condiciones para que un proceso sea débilmente estacionario}
+
+                Un proceso es \textbf{débilmente estacionario} si cumple solo dos condiciones:
+                \begin{enumerate}[label=(\arabic*)]
+                    \item \textbf{Media constante} \[
+                        \mu_X(t)=\mu_X(0)\text{, para todo $t$.}
+                    \]  
+                    \item \textbf{La covarianza depende solo del salto temporal} \[
+                    C_X(s,t)=C_X(0,t-s)\text{, si $s\le t$.}
+                    \]  
+                \end{enumerate}
+                \textbf{Consecuencia importante:}
+
+                La varianza es constante, porque \[
+                \mathrm{Var}(X_t)=C_X(t,t)
+                \] depende solo de $t-t=0$, que es constante.
+        \end{enumerate}
     \item \lb{¿Qué diferencias hay entre un proceso estocástico gaussiano y un ruido blanco gaussiano? Simular, usando \textbf{\texttt{R}}, 2 trayectorias de un ruido blanco gaussiano con varianza $\sigma^2$.} 
     \item \lb{¿Cuál es la definición de un proceso de Wiener o movimiento Browniano? Simular, usando \textbf{\texttt{R}}, 3 trayectorias de un movimiento Browniano.} 
     \item \lb{¿Cuál de las siguientes es una condición necesaria para que un proceso estocástico sea débilmente estacionario?}
