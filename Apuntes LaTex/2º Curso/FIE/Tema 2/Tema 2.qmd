@@ -1,0 +1,126 @@
+# Estimación
+
+## Introducción
+
+-   Hemos modelizado un experimento con una variable aleatoria $X$.
+-   La \textcolor[HTML]{007aff}{estimación} hace referencia al proceso de conseguir información sobre la distribución de $X$ a partir de los valores de una muestra, aproximando valores asociados a la distribución mediante el valor de un estadístico en un muestra concreta.
+
+::: callout-important
+# Dos situaciones
+
+-   Nuestro modelo supone que la distribución de $X$ pertenece a una familia paramétrica de distribuciones: tienen una determinada forma con unos parámetros variables.
+    -   Buscamos información sobre el valor de los parámetro. \textcolor[HTML]{007aff}{Estimación paramétrica}.
+-   No limitamos la familia de distribuciones a la que pertenece nuestro modelo.
+    -   Buscamos información sobre la distribución en sí (función de distribución, de densidad o función de probabilidad). \textcolor[HTML]{007aff}{Estimación no paramétrica}.
+-   A lo largo de las prácticas veremos también la estimación de parámetros que no necesitan de una familia paramétrica, como es el caso de la mediana.
+:::
+
+## Ejemplos de estimación paramétrica
+
+::: callout-note
+# Sondeo sobre intención de participación en unas elecciones
+
+-   Queremos estimar la tasa de participación antes de unas elecciones generales.
+-   Formulamos un modelo: experimento: "escoger una persona al azar en el censo". $X$: variable dicotómica ("Sí" o "No"). $p=P(X=\text{Si})$.
+-   El modelo pertenece a la familia paramétrica de Bernoulli.
+:::
+
+::: callout-note
+# Determinación de la concrentación de un producto
+
+-   Quiero determinar la concentración.
+-   Formulo el modelo: experimento$=$"llevar a cabo una medición". $X$: "valor proporcionado por el aparato". $X\sim \mathcal{N}(\mu,\sigma^2)$.
+-   El modelo pertenece a la familia paramétrica de las distribuciones normales.
+:::
+
+## Estimación paramétrica: estimación puntual
+
+::: callout-note
+# Ingredientes del modelo
+
+-   Experimento aleatorio
+-   Variable aleatoria $X$ con una distribución $f$ que pertenece a una familia paramétrica $\{f_\theta,\theta\in \Theta\}.$
+-   Disponemos de una muestra de la distribución de $X$.
+:::
+
+\begin{definition}
+    Cualquier estadístico diseñado para aproximar el valor de un parámetro $\theta$ del modelo, se llama \textcolor[HTML]{007aff}{estimador puntual} del parámetro $\theta$.
+\end{definition}
+
+::: callout-note
+# Ejemplos de estimadores paramétricos
+
+\begin{center}
+    \begin{tabular}{cc}
+        $\theta$ & \textbf{Estimador} \\ \hline
+        $\mu$ & $\bar{X}$, media muestral\\ \hline
+        $\sigma^2$ & $S^2$, varianza muestral\\ \hline
+        $p$ &  $\hat{p}$, proporción muestral\\ 
+    \end{tabular}
+\end{center}
+:::
+
+::: callout-tip
+# A tener en cuenta:
+
+-   Un estimador es un variable aleatoria, su valor depende de la muestra concreta escogida.
+-   Para controlar bondad de nuestra estimación, nos basaremos en el estudio de la distribución del estimador.
+:::
+
+## Métodos de contrucción de estimadores
+
+Para $\mu,\sigma^2$ o $p$, es fácil pensar en estimadores naturales, pero para modelos o parámetros más sofisticados, vamos a ver métodos generales.
+
+**Veremos dos métodos en este tema:**
+
+-   El método de los momentos.
+-   El método de la máxima verosimilitud.
+
+## Método de los momentos
+
+::: callout-note
+# Contexto
+-   Experimento con una variable aleatoria $X$, suponemos $f_X\in \{x\mapsto f_{\theta}(x),\theta\in \Theta\}$.
+-   El parámetro $\theta$ tiene dimensión $p$.
+-   Consideramos una muestra aleatoria simple $X_1,X_2,\dots,X_n$ de $X$.
+:::
+Si $\theta$ tiene dimensión $p$, igualamos los  $p$ primeros momentos de  $f_\theta$ con los equivalentes muestrales.
+
+Sea $\mu_k(\theta)$ el momento de orden $k$ de la distribución  $f_{\theta,\mu_k}=E[X^k]$. Resolvemos:
+
+$$
+\begin{array}{r}
+    \mu_1(\theta)=\overline{X},\\
+    \mu_2(\theta)=\overline{X^2},\\
+    \vdots\\
+    \mu_p(\theta)=\overline{X^p}.
+\end{array}
+$$
+
+#### Ejemplos #### {.unnumbered}
+
+:::{.callout-important}
+# Calculad los estimadores usando el método de los momentos en los dos casos:
+- Modelo normal: $X\sim \mathcal{N}(\mu,\sigma^2)$, donde $\theta=(\mu,\sigma^2)$.
+
+
+$$
+\begin{array}{ll}
+X\leadsto \mathcal{N}(\mu,\sigma^2) & \mu=E[X]\\
+\theta=(\mu,\sigma^2),\quad p=2 & \sigma^2=\mathrm{Var}[X]=E[X^2]-(E[X])^2\rightarrow E[X^2]=\sigma^2+\mu^2\\
+\mu_1(\theta)=E[X]=\overline{x} & \hat{\mu}=\overline{x}\\
+\mu_2(\theta)=E[X^2]=\overline{x^2} & \hat{\sigma}^2=\overline{x^2}-(\overline{x})^2
+\end{array}
+$$
+
+- Modelo de Bernoulli: $X\sim \text{Bernoulli}(p)$, donde desconocemos $p$.
+ 
+$$
+\begin{array}{l}
+X\leadsto \text{Bernoulli}(p),\quad 0<p<1\\
+\theta=p\\
+\mu(\theta)=E[X]=\bar{x}=p\\
+\hat{p}=\bar{x} \text{ \textcolor[HTML]{007aff}{(proporción muestral)}  }
+\end{array}
+$$
+:::

@@ -1,0 +1,947 @@
+# Muestreo y distribuciones muestrales #
+## Introducción ##
+
+:::{.callout-note}
+# El contexto
+- Tenemos una pregunta acerca de un fenómeno aleatorio.
+- Formulamos un modelo para la variable de interés $X$.
+- Traducimos la pregunta de interés en términos de uno o varios parámetros del modelo.
+- Repetimos el experimento varias veces, apuntamos los valores de $X$.
+- ¿Cómo usar estos valores para extraer información sobre el parámetro?
+:::
+
+## Ejemplos ##
+
+:::{.callout-note}
+# ¿Está la moneda trucada?
+- Experimento: tirar una moneda. $X=$ resultado obtenido:
+
+$$
+\begin{array}{c}
+    P(X=+)=p,\,P(X=c)=1-p\\
+    \text{¿}p=\dfrac{1}{2}?
+\end{array}
+$$
+:::
+
+:::{.callout-note}
+# Sondeo sobre intención de participación en unas elecciones
+- Queremos estimar la tasa de participación antes de unas elecciones generales.
+- Formulamos un modelo:
+  - Experimento: "escoger una persona al azar en el censo".
+  - $X$: participación, variable dicotómica ("Sí" o "No").  $p=P(X=\text{"Sí"})$.
+- ¿Cuánto vale $p$?
+- Censo: aprox. 37 000 000. Escogemos aprox. 3000 personas.
+:::
+
+:::{.callout-note}
+# Determinación de la concentración de un producto
+- Quiero determinar la concentración de un producto.
+- Formulo el modelo:
+  - Experimento: "llevar a cabo una mediación".
+  - $X$: "valor proporcionado por el aparato". 
+  - $X\sim \mathcal{N}(\mu,\sigma^2)$.
+- ¿Qué vale $\mu$? 
+:::
+
+## Surge una pregunta ##
+En todas estas situaciones donde nos basamos en la repetición de un experimento simple...
+- ¿Cómo sabemos que nuestra situación es fiable?
+- ¿Qué confianza tenemos al extrapolar los resultados de una muestra de 3000 personas a una población de 37 millones de personas?
+
+## Esbozo de respuesta: tasa de participación ##
+:::{.callout-note}
+# Para convencernos, un experimento de simulación
+- Voy a simular el proceso de extracción de una muestra de 3000 personas en una población de 37 millones de personas.
+- Construyo a mi antojo los distintos componentes:
+  - **La población:** defino en mi ordenador de 37 000 000 de ceros y unos ($\Longleftrightarrow$ el censo electoral).
+    - "1" $\Longleftrightarrow$ "la persona piensa ir a votar".
+    - "0" $\Longleftrightarrow$ "la persona no piensa ir a votar".
+  - **La tasa de participación "real":** Decido que en mi población el 70% piensa en ir a votar $\to$ 25 900 000 "1"s.
+  - **La extración de una muestra:** construyo un pequeño programa que extrae al azar una muestra de 3000 números dentro del conjunto grande.
+:::
+
+```{r}
+poblacion <- c(rep(1, 25900000), rep(0, 11100000))
+set.seed(314159)
+p_muestra <- mean(sample(poblacion, 3000, replace = FALSE))
+p_muestra
+```
+
+Queremos descartar que haya sido suerte. Vamos a repetir muchas veces (1000 veces por ejemplo), la extracción de una muestra de 3000 personas en la población.
+
+```{r, echo = TRUE}
+library(tidyverse)
+lista_muestras <- replicate(
+    10000,
+    sample(poblacion, 3000, replace = FALSE),
+    simplify = FALSE
+)
+p_muestras <- map_dbl(lista_muestras, mean)
+head(p_muestras)
+```
+
+```{r, echo = TRUE}
+library(tidyverse)
+p_muestras <- replicate(
+    10000,
+    sample(poblacion, 3000, replace = FALSE),
+    simplify = FALSE
+) |>
+    map_dbl(mean)
+head(p_muestras)
+```
+
+Recogemos los valores obtenidos en un histograma.
+
+```{r}
+tibble(p = p_muestras) |> 
+    ggplot(aes(x = p)) +
+    geom_histogram(
+        aes(y = after_stat(density)),
+        alpha = 0.8,
+        fill = "lightblue"
+    ) +
+    labs(title = expression(paste("Distribución de ", hat(p), ", 10000 muestras"))) +
+  theme_bw()
+```
+
+## Realizacción del experimento: conclusiones ##
+- La enorme mayoría de las muestras de 300 individuos proporcionan una tasa de participación muy próxima a la de la población.
+  - **El riesgo** de cometer un error superior a $\pm 2$ puntos, al coger **una** muestra de 3000 individuos es muy pequeño (y asumible...)
+- Si nos limitamos a muestras de 300 individuos, ¿qué esperáis?
+
+```{r}
+phat_df <- map_dfr(
+    c(3000, 300),
+    \(n) tibble(
+           p = map_dbl(
+                 replicate(
+                   100000,
+                   sample( poblacion, n, replace = FALSE),
+                   simplify = FALSE
+                 ),
+               mean
+           )
+         ) |> transform(n_muestra = factor(n))
+)
+phat_df|> 
+    ggplot(aes(x = p, fill = n_muestra)) +
+    geom_density(alpha = 0.5) +
+    geom_histogram(aes(y = after_stat(density)), alpha=0.5) +
+    scale_fill_discrete(name = "Tamaño muestral") +
+  theme_bw()
+```
+
+## En la práctica ##
+:::{.callout-note}
+# Usamos las distribuciones muestrales
+- Las empresas de sondeos no se basan en simulaciones sino en cálculos teóricos.
+- Experimento aleatorio: escoger al azar una muestra de 3000 personas dentro de una población de 37 000 000, con una tasa de participación $p$.
+- Llamamos a  $\hat{p}$ la variable aleatoria: proporción de "1"s en la muestra escogida.
+- ¿Cuál es la distribución de valores de $\hat{p}$?
+
+$$
+\hat{p}\sim\mathcal{N}\left(p,\dfrac{p(1-p)}{n}\right) 
+$$
+
+Es lo que llamamos la \textcolor[HTML]{007aff}{distribución muestral} de $\hat{p}$.
+:::
+
+## Uso de la distribución muestral ##
+:::{.callout-note}
+# La distribución muestral de $\hat{p}$:
+Es la distribución esperada de los valores de $\hat{p}$ respecto a todas las muestras de ese tamaño que podría extraer
+:::
+
+```{r}
+p <- 0.7
+n <- 3000
+muphat <- p
+sigmaphat <- sqrt( (p * (1 - p) / n))
+x <- seq(qnorm(0.01, muphat, sigmaphat), qnorm(0.99, muphat, sigmaphat), length = 200)
+y <- dnorm(x, muphat, sigmaphat)
+tibble(x = x, y = y) |>
+    ggplot(aes(x = x, y = y)) +
+    geom_line() +
+  theme_bw()
+```
+
+## Antes de extraer una muestra: ##
+- ¿Es suficiente el tamaño para el riesgo asumible y la predicción requerida?
+- Una vez la muestra:
+  - ¿Puedo dar un margen de error?
+  - ¿Puedo decidir si $p$ poblacional es, por ejemplo, mayor que un valor dado?
+
+## Otro ejemplo: valores muestrales de una distribución normal ##
+
+```{r}
+par(mfrow=c(1,2))
+curve(dnorm(x, 0, 1), from = -3, to = 3,      xlab = "Distribución normal", ylab = " ", ylim = c(-0.1, 0.5))
+abline(0, 0)
+xsim <- rnorm(100, 0, 1)
+y = 0
+for(i in 1:100){
+  points(xsim[i], y, col="blue")
+  Sys.sleep(0.15)
+}
+
+hist(xsim, xlim = c(-3, 3), breaks = "Sturges", main = "", xlab = "Valores muestrales", ylab = "", col = "lightgreen")
+```
+
+```{r}
+par(mfrow=c(1,2))
+
+curve(dgamma(x, 2, 3), from = 0, to = 3, xlab = "Distribución gamma", ylab = " ", ylim = c(-0.1, 1.5))
+abline(0, 0)
+xsim <- rgamma(100, 2, 3)
+y = 0
+for(i in 1:100){
+  points(xsim[i], y, col = "blue")
+  Sys.sleep(0.15)
+}
+
+hist(xsim, xlim = c(0, 3), breaks = "Sturges", main = "", xlab = "Valores muestrales", ylab = "", col = "lightblue")
+```
+
+## Un resultado importante ##
+:::{.callout-note}
+# Ley (débil) de los grandes números
+Sea $X$ una variable aleatoria y  $q(X)$ una variable aleatoria transformada de  $X$, con esperanza y momento de orden 2 finitos. Supongamos  $X_1,X_2,\dots,X_n,\dots$ una sucesión de variables (vv.aa) independientes con la distribución que $X$, entonces  
+$$
+\lim_{n \to \infty} P\left[ \left| \dfrac{\sum_{i=1}^{n} g(X_i)}{n}-E[g(x)] \right| <\varepsilon \right] =1,\text{ para todo }\varepsilon>0.
+$$
+
+:::
+
+## Algunos términos ##
+
+
+\begin{definition}
+    \begin{itemize}
+        \item Sea una variable aleatoria $X$. Consideramos  $n$ variables aleatorias independientes e idénticamente distribuidas  $X_1,X_2,\dots,X_n$, que se distribuyen como $X$. La variable aleatoria multidimensional  $(X_1,X_2,\dots,X_n)$ es una \textcolor[HTML]{007aff}{muestra aleatoria simple} (m.a.s.) de $X$.
+        \item Cualquier cantidad calculada a partir de las observaciones de una muestra: \textcolor[HTML]{007aff}{estadístico}.
+        \item Experimento aleatorio: extraer una muestra. Consideramos un estadístico como una variable aleatoria. Nos interesa conocer la distribución del estadístico: \textcolor[HTML]{007aff}{distribución muestral}.
+    \end{itemize}
+\end{definition}
+
+## Ejemplos de estadísticos ##
+
+- Proporción muestral: $\hat{p}$.
+- Media muestral: $\bar{X}=\dfrac{1}{n}\sum_{i=1}^{n} X_i$.
+- Desviación típica muestral: $S_X=\sqrt{\dfrac{1}{n+1}\sum_{i=1}^{n} (X_i-\bar{X})^2}$
+
+## La media muestral ##
+:::{.callout-note}
+# Contexto
+Estudiamos una variable $X$ cuantitativa.
+- Estamos interesados en  $\mu$, el centro de la distribución de $X$.
+- Extraemos una muestra de tamaño  $n$: 
+   
+  $$
+  x_1,x_2,\dots,x_n.
+  $$
+  
+- Calculamos su media $\bar{x}$ para aproximar $\mu$.
+- ¿Cuál es la distribución muestral de $\bar{X}$?
+:::
+
+\textcolor[HTML]{007aff}{\underline{Ejemplo:}}
+
+- Quiero medir una cantidad. Hay variabilidad en las mediciones.
+- Introduzco una variable aleatoria $X=$ "valor proporcionado por el aparato".
+-  $\mu$ representa el centro de los valores.
+- Extraigo una muestra de tamaño 5 del valor de $X$
+
+### Esperanza y varianza de la media muestral ###
+Llamamos $\mu=E[X]$ y $\sigma^2=\mathrm{Var}(X)$.
+
+- Tenemos 
+$$
+\bboxed{E[\bar{X}]=\mu.}
+$$
+
+- Es decir que el centro de la distribución muestral de $\bar{X}$ coincide con el centro de la distribución $X$.
+- Tenemos  $\mathrm{Var}(\bar{X})=\dfrac{\sigma^2}{n}$, es decir, la dispersión de la distribución muestral de $\bar{X}$ es $\sqrt{n}$ veces más pequeña que la dispersión inicial de $X$.
+
+**Ilustración: $X$ inicial,  $\bar{X}$ con $n=3,\,\bar{X}$ con $n=10$**
+
+```{r}
+mu <- 5 
+sigma <- 2
+muxbar <- mu
+sigmaxbar <- function(n, sigma){
+    sigma / sqrt(n)
+}
+construct_xy <- function(mu, sigma, label){
+    x <- seq(0, 10, by = 0.01)
+    y <- dnorm(x, mu, sigma)
+    tibble(x = x, y = y, label = label)
+}
+map_dfr(
+    c(1, 3, 10),
+    \(n) construct_xy(mu, sigmaxbar(n, sigma), paste("n = ", n))
+) |>
+    transform(label = factor(label, levels = unique(label))) |>
+    ggplot(aes(x, y, col = label)) +
+    geom_line() + xlim(0, 10) + ylim(0, 0.65) +
+    scale_color_discrete(name = "Tamaño muestral") +
+  theme_bw()
+```
+
+## Consecuencia práctica ##
+:::{.callout-note}
+# Aparato de medición
+- Experimento: llevar a cabo una medición con un aparato.
+- Variable aleatoria $X$: "valor proporcionado por el aparato".
+- $E[X]$: centro de la distribución de los valores proporcionados por el aparato.
+  - Lo deseable: $E[X]=$ valor exacto de la cantidad que buscamos medir.
+  - En este caso, decimos: el aparato es  \textcolor[HTML]{007aff}{exacto}.
+- $\sigma_X$: dispersión de la distribución de los valores proporcionados por el aparato.
+  - Lo deseable: $\sigma_X$ pequeño.
+  - En este caso, decimos: el aparato es \textcolor[HTML]{007aff}{preciso}. 
+:::
+
+### Analogía con una diana ###
+
+```{r}
+library(ggplot2)
+library(dplyr)
+library(ggforce)
+library(gridExtra)
+
+# Función para crear una diana
+crear_diana <- function(puntos, titulo) {
+  # Crear círculos concéntricos
+  circulos <- data.frame(
+    x0 = 0, y0 = 0, r = seq(1, 5)
+  )
+  
+  ggplot() +
+    geom_circle(data = circulos, aes(x0 = x0, y0 = y0, r = r), color = "black", size = 0.4) +
+    geom_point(data = puntos, aes(x, y), size = 2) +
+    coord_fixed() +
+    theme_void() +
+    ggtitle(titulo) +
+    theme(plot.title = element_text(hjust = 0.5, size = 10))
+}
+
+# 1️⃣ Preciso pero no exacto (agrupados pero lejos del centro)
+p1 <- data.frame(x = rnorm(8, 3, 0.2), y = rnorm(8, 3, 0.2))
+g1 <- crear_diana(p1, "Preciso pero no exacto")
+
+# 2️⃣ Exacto pero no preciso (dispersos pero centrados)
+p2 <- data.frame(x = rnorm(8, 0, 1.5), y = rnorm(8, 0, 1.5))
+g2 <- crear_diana(p2, "Exacto pero no preciso")
+
+# 3️⃣ Preciso y exacto (agrupados y centrados)
+p3 <- data.frame(x = rnorm(8, 0, 0.2), y = rnorm(8, 0, 0.2))
+g3 <- crear_diana(p3, "Preciso y exacto")
+
+# 4️⃣ Ni exacto ni preciso (dispersos y lejos del centro)
+p4 <- data.frame(x = rnorm(8, 3, 1), y = rnorm(8, 3, 1))
+g4 <- crear_diana(p4, "Ni exacto ni preciso")
+
+# Mostrar los cuatro gráficos juntos
+grid.arrange(g1, g2, g3, g4, ncol = 4)
+```
+
+## Varianza muestral ##
+Si $(X_1,X_2,\dots,X_n)$ es una muestra aleatoria simple de $X$, definimos la  \textcolor[HTML]{007aff}{varianza muestral} $S_n^2$ como 
+
+$$
+S_n^2=\dfrac{1}{n-1}\sum_{i=1}^{n} (X_i-\bar{X})^2.
+$$
+
+:::{.callout-note}
+# Fórmula alternativa para $S_n^2$:
+
+$$
+S_n^2=\dfrac{n}{n-1}\left( \overline{X^2}_n-(\bar{X}_n)^2 \right) ,
+$$
+
+donde $\overline{X^2}_n=\dfrac{1}{n}\sum_{i=1}^{n} X_i^2$.
+:::
+
+### Dos apuntes ###
+:::{.callout-note}
+# En algunos textos en castellano
+
+Se suele llamar $S_n^2$ \textcolor[HTML]{007aff}{cuasi-varianza muestral}, reservando el término varianza muestral para la cantidad $\dfrac{1}{n}\sum_{i=1}^{n} (X_i-\bar{X}_n)^2$. 
+:::
+
+:::{.callout-note}
+# En estas fórmulas
+Omitimos, si no hay confusión posible, el subíndice $n$, escribiendo  $S^2,\,\bar{X}=\sum_{i=1}^{n} X_i$ y $\overline{X^2}=\dfrac{1}{n}\sum_{i=1}^{n} X_i^2$.
+:::
+
+## Esperanza de la varianza muestral ##
+\begin{proposition}
+    Si $(X_1,X_2,\dots,X_n)$ es una muestra aleatoria simple de $X$ con varianza  $\sigma_X^2$, 
+    
+    $$
+    E[S_n^2]=\sigma_X^2.
+    $$
+    
+    
+\end{proposition}
+
+## Distribuciones muestrales de $\bar{X}$ y $S^2$ ##
+
+:::{.callout-warning}
+# Tened en cuenta
+- Los resultados anteriores sobre $E[\bar{X}]$ y $\sigma_{\bar{X}}$ son válidos sea cual sea el modelo escogido para la distribución de $X$.
+- Si queremos decir algo más preciso sobre la distribución de $\bar{X}$ (densidad, etc.) necesitamos especificar la distribución de $X$.
+- En el caso en que la variable  $X$ siga una distribución normla, el  **teorema de Fisher** analiza cómo se comportan los estadísticos anteriores y nos permiten establecer una serie de consecuencias que serán utilizadas posteriormente en los temas de intervalos de confianza y de contraste de hipótesis.
+:::
+
+## Distribución de $\bar{X}$ y $S^2$ para una m.a.s. de una distribución normal ##
+:::{.callout-note}
+# Teorema de Fisher
+Consideramos una muestra aleatoria simple de una variable aleatoria $X$ con distribución normal  $\mathcal{N}(\mu,\sigma^2)$, entonces se verifica:
+1) $\bar{X}_n$ y $S_n^2$ son dos variables aleatorias independientes.
+2) $\dfrac{\bar{X}_n-\mu}{\sigma / \sqrt{n}}\sim \mathcal{N}(0,1)$.
+3) $\dfrac{(n-1)S_n^2}{\sigma^2}\sim \chi_{n-1}^2$.
+:::
+
+## Recordatorio: distribución $\chi^2$ con $p$ grados de libertad ##
+:::{.callout-note}
+# La distribución $\chi^2$.
+Para $p \in \mathbb{N}^+$, la función de densidad de la distribución $\xi^2$ es igual a 
+$$
+\dfrac{1}{\Gamma\left( \frac{p}{2} \right) 2^{\frac{p}{2}}}\cdot x^{\frac{p}{2} -1}e^{\frac{x}{2} },\text{ si }x>0,
+$$
+
+donde $\Gamma$ denota la función Gamma (Nota: para cualquier real $\alpha>0,\,\Gamma(\alpha)=\int_{0}^{\infty} t^{\alpha-1}e^{-t}\:\mathrm{d}t$).
+:::
+
+:::{.callout-note}
+# Caracterización de la $\chi^2$
+
+Si $Z_1,\dots,Z_p$ son $p$ variables aleatorias independientes, con  $Z_i\sim \mathcal{N}(0,1)$, entonces la variable aleatoria $X$ definida como
+ 
+$$
+X=Z_1^2+\cdots+Z_p^2=\sum_{i=1}^{p} Z_i^2
+$$
+
+tiene un distribución $\chi^2$ con $p$ grados de libertad.
+:::
+
+:::{.callout-tip}
+# ¿Cómo es su función de desidad?
+Depende de los grados de libertad.
+:::
+
+```{r}
+ggplot() +
+    geom_function(
+        aes(colour = "grados libertad: 1"),
+        fun = dchisq, args=list(df = 1)
+    ) +
+    geom_function(
+        aes(colour = "grados libertad: 5"),
+        fun = dchisq, args=list(df = 5)
+    ) +  
+    geom_function(
+        aes(colour = "grados libertad: 10"),
+        fun = dchisq, args=list(df = 10)
+    ) +  
+    geom_function(
+        aes(colour = "grados libertad: 20"),
+        fun = dchisq, args=list(df = 20)
+    ) + 
+    xlim(0, 25) + 
+    scale_color_discrete(guide = guide_legend(title =  NULL)) + 
+    theme_bw()
+```
+
+## Distribución t-Student ##
+:::{.callout-note}
+# Hemos visto, si $X$ es Normal:
+ 
+$$
+\dfrac{\bar{X}-\mu}{\sigma / \sqrt{n} }\sim \mathcal{N}(0,1)
+$$
+
+So queremos centrarnos en $\mu$ natural sustituir en ella $\sigma$ por $S_n$.
+:::
+\begin{proposition}
+    Sea $(X_1,\dots,X_n)$ una muestra aleatoria simple de una población $\mathcal{N}(\mu,\sigma^2)$,
+    
+    $$
+    T=\dfrac{\bar{X}-\mu}{S / \sqrt{n} }
+    $$
+    
+    tiene por densidad
+    
+    \begin{equation}
+        f_{n-1}(t)\propto \dfrac{1}{\left( \dfrac{1+t^2}{n-1} \right)^{n / 2}},\quad-\infty<t<\infty,
+    \end{equation}
+    
+    La distribución que admit esta densidad se llama \textcolor[HTML]{007aff}{distribución t-Student}  con $n-1$ grados de libertad. Escribimos  $T\sim t_{n-1}$.
+\end{proposition}
+
+:::{.callout-important}
+# Su densidad
+La función de densidad de una t de Student con $k$ grados de libertad:
+ 
+$$
+f_k(t)=\dfrac{\Gamma\left( \frac{k+1}{2}  \right) }{\Gamma\left( \frac{k}{2}  \right) }\dfrac{1}{\sqrt{k \pi} }\dfrac{1}{(1+t^2 / k)^{\frac{k+1}{2} }},\quad-\infty<t<\infty,
+$$
+
+donde $\Gamma$ dentoa la función Gamma.
+:::
+
+:::{.callout-note}
+# Caracterización de la t de Student como cociente
+
+Si $Z$ e $Y$ son dos variables aleatorias independientes, con  $Z\sim \mathcal{N}(0,1)$ e $Y\sim \chi_p^2$, el cociente
+
+$$
+T=\dfrac{Z}{\sqrt{Y / p} }\sim t_p,
+$$
+
+donde $t_p$ denota la t de Student con $p$ grados de libertad.
+:::
+
+### ¿Cuál es la forma de la densidad de una t-Student? ###
+
+:::{.callout-tip}
+# Tiene colas más pesadas que una normal
+```{r}
+#| fig-cap: Densidad de la ditribución t de Student para varios valores de los grados de libertad
+# Cargar librería
+library(ggplot2)
+library(dplyr)
+library(tidyr)
+
+# Secuencia de valores t
+t_vals <- seq(-6, 6, length.out = 500)
+
+# Grados de libertad
+g_vals <- c(1, 3, 10, 30, 150)
+
+# Calcular las densidades para cada g
+df_t <- expand.grid(t = t_vals, g = g_vals) %>%
+  mutate(f_t = dt(t, df = g))
+
+# Graficar con ggplot2
+ggplot(df_t, aes(x = t, y = f_t, color = factor(g))) +
+  geom_line(size = 0.8) +
+  labs(
+    x = "t",
+    y = expression(f[g](t)),
+    color = "Grados de libertad (g)"
+  ) +
+  theme_minimal(base_size = 14) +
+  theme(
+    legend.position = "right",
+    legend.title = element_text(face = "bold")
+  )
+```
+:::
+
+## Distribución F de Snedecor para el cociente de varianzas ##
+\begin{proposition}
+    Consideremos $U_1$ y $U_2$ dos variables aleatorias independientes con distribución $\chi^2$ con $p_1$ y $p_2$ grados de libertad, respectivamente.
+
+    El cociente $F=\dfrac{U_1 / p_1}{U_2 / p_2}$ admite la densidad
+    
+    $$
+    f_F(x)=\dfrac{\Gamma\left( \frac{p_1+p_2}{2}  \right) }{\Gamma(p_1)\Gamma(p_2)}\left( \dfrac{p_1}{p_2} \right) ^{p_1}\dfrac{x^{p_1 / 2-1}}{\left( 1+\frac{p_1}{p_2} x \right) ^{\frac{p_1+p_2}{2} }}.
+    $$
+    
+    Esta distribución se llama F de Snedecor con $p_1$ y $p_2$ grados de libertad y escribimos $F\sim F_{p_1,p_2}$.
+\end{proposition}
+
+:::{.callout-note}
+# Consecuencia
+
+Consideremos $X$ e  $Y$ vv.aa. normales independientes con varianzas  $\sigma_X^2$ y $\sigma_Y^2$, así como $X_1,\dots,X_{n_X}$ y $Y_1,\dots,Y_{n_Y}$ dos m.a.s. de $X$ y  $Y$, respectivamente. Deducimos que
+ 
+$$
+\dfrac{S_X^2 / \sigma_X^2}{S_Y^2 / \sigma_Y^2}\sim F_{n_X-1,n_Y-1}.
+$$
+:::
+
+### ¿Cuál es la forma de la densidad de una F de Snedecor? ###
+
+:::{.callout-tip}
+# Depende mucho de los grados de libertad
+:::
+```{r}
+#| fig-cap: Densidad de la distribución F de Snedecor para varios valores de los grados de libertad
+# Reproducir gráfico: densidad de la distribución F (Snedecor)
+# Requiere: tidyverse (ggplot2, dplyr, tidyr, purrr)
+library(tidyverse)
+
+# Definir pares de grados de libertad (df1, df2) y etiquetas
+df_list <- list(
+  c(df1 = 1,   df2 = 1),
+  c(df1 = 2,   df2 = 1),
+  c(df1 = 5,   df2 = 2),
+  c(df1 = 10,  df2 = 1),
+  c(df1 = 100, df2 = 100)
+)
+
+labels <- c(
+  "df1: 1 , df2: 1",
+  "df1: 2 , df2: 1",
+  "df1: 5 , df2: 2",
+  "df1: 10 , df2: 1",
+  "df1: 100 , df2: 100"
+)
+
+# Colores aproximados para asemejar el gráfico original
+colores <- c("#E64B35", "#B7B13B", "#00A087", "#3C84C6", "#E754C7")
+
+# Crear data frame con valores de x y densidades para cada par (formato largo)
+x_vals <- seq(0, 5, length.out = 2000)
+
+df_data <- map_dfr(
+  seq_along(df_list),
+  \(i) {
+    df1 <- df_list[[i]]["df1"]
+    df2 <- df_list[[i]]["df2"]
+    tibble(
+      x = x_vals,
+      density = df(x_vals, df1 = df1, df2 = df2),
+      group = labels[i]
+    )
+  }
+)
+
+# Plot con ggplot2
+p <- ggplot(df_data, aes(x = x, y = density, color = group)) +
+  geom_line(size = 0.9) +
+  scale_color_manual(
+    name = "Grados de libertad",
+    values = set_names(colores, labels)
+  ) +
+  labs(
+    x = "x",
+    y = expression(F[df1,df2](x)),
+    title = NULL
+  ) +
+  scale_x_continuous(limits = c(0, 5), expand = c(0, 0)) +
+  theme_minimal(base_size = 14) +
+  theme(
+    panel.grid.major = element_line(color = "gray90", size = 0.4),
+    panel.grid.minor = element_blank(),
+    axis.title = element_text(face = "bold"),
+    legend.position = "right",
+    legend.title = element_text(size = 12),
+    legend.text = element_text(size = 10)
+  )
+
+# Mostrar el gráfico
+print(p)
+```
+
+## Si la distribución de $X$ no es Normal ##
+No podemos decir nada en general, \textcolor[HTML]{007aff}{excepto} si $n$ es grande...
+
+:::{.callout-note}
+# Teorema Central del Límite
+Si $n$ es *"suficientemente"* grande, se puede aproximar la distribución de $\bar{X}$ por una Normal con media $\mu$ y varianza $\dfrac{\sigma^2}{n}$:
+
+$$
+\bar{X}\sim \mathcal{N}\left( \mu,\dfrac{\sigma^2}{n} \right) \text{ aproximadamente. }
+$$
+:::
+
+:::{.callout-note}
+# Fomulación matemática
+El resultado anterior se traduce por una convergencia de la sucesión de las variables aleatorias $(\bar{X}_n)_n$ en distribución cuando $n\to \infty$.
+:::
+
+:::{.callout-note}
+# Teorema Centro del Límite
+¿Cuándo considerar que $n$ es grande?
+
+- Depende de la forma de la distribución de $X$:
+  - Si  $X$ casi Normal:  $n$ pequeño es suficiente.
+  - Si  $X$ muy asimétrico:  $n$ mucho más grande necesario.
+- En general, se suele considerar  $n\ge 30$ suficiente...
+:::
+
+**Ilustración, $X$ inicial  $\sim \mathrm{Exp}(\lambda=0.5),\,\bar{X}$ con $n=3,10$ y  $n=30$**
+
+```{r}
+lambda_parameter <- 0.5 
+construct_xy <- function(alpha, beta, label){
+    x <- seq(0, qgamma(0.999, shape = alpha, rate = beta), length = 200)
+    y <- dgamma(x, shape = alpha, rate = beta)
+    tibble(x = x, y = y, label = label)
+}
+map_dfr(
+    c(1, 3, 10, 30),
+    \(n) construct_xy(alpha = n, beta = n * lambda_parameter, paste("n = ", n))
+) |>
+    ggplot(aes(x, y, col = label)) +
+    geom_line() + xlim(0, 10) + ylim(0, 1.25) +
+    scale_color_discrete(name = "Tamaño muestral") +
+  theme_bw()
+```
+
+## Distribución muestral de la proporción muestral ##
+:::{.callout-note}
+# Contexto
+- Hay situaciones donde $X$ toma el valor 0 o 1, con probabilidades  $1-p$ y  $p$, respectivamente.
+- Por ejemplo, el siguiente experimento: escoger una pieza en la producción.  $X=1$ si es defectuosa,  $X=0$ si es correcta.
+- Repetimos  $n$ veces el experimento. Obtenemos
+ 
+$$
+x_1=1,x_2=0,x_3=0,x_4=1,x_5=0,\dots,x_n
+$$
+
+- La proporción muestral es: $$\hat{p}=\dfrac{N}{n}.$$
+:::
+
+:::{.callout-note}
+# Distribución exacta de $\hat{p}$
+
+¿Cuál es la distribución de $N$?
+
+- Experimento simple con situación dicotómica, repetimos $n$ veces... $$N=\mathcal{B}(n,p).$$ 
+- Podemos usar esta distribución para hacer cálculos exactos...
+:::
+
+:::{.callout-note}
+# Distribución aproximada de $\hat{p}$
+Tenemos que $N=X_1+X_2+\cdots+X_n$, por lo tanto $$\hat{p}=\dfrac{N}{n}=\dfrac{X_1+X_2+\cdots+X_n}{n}=\bar{X}.$$
+Por el Teorema Central del Límite: $$\hat{p}=\mathcal{N}\left( p, \dfrac{p(1-p)}{n}\right)\text{ aproximadamente. }$$
+Podemos usar esta distribución para hacer cálculos aproximados.
+:::
+
+## Simulación y método de Monte-Carlo ##
+
+:::{.callout-note}
+# Motivación
+En muchas situaciones, la capacidad de simular valores de las distribuciones de interés puede resultar útil calcular o estimar cantidades relevantes para la inferencia sobre la distribución de $X_1,X_2,\dots,X_n$.
+:::
+
+:::{.callout-note}
+# ¿Qué es ser capaz de simular valores de una distribución $f$?
+- Se refiere a la posibilidad de producir, para cualquier tamaño $k$, conjuntos de valores  $u_1,u_2,\dots,u_k$, cuyo comportamiento imita el de $k$ realizaciones aleatorias independientes de la distribución  $f$.
+- Quiere decir que las propiedades del conjunto generado lo hace indistinguible, si le aplicamos tests de independencia o de bondad de ajuste, de  $k$ realizaciones independientes de  $f$.
+:::
+
+:::{.callout-note}
+# Simulación y método de Monte-Carlo
+- Como hemos visto en los primeros ejemplos, gráficos como el histograma de frecuencias se comportan como la función de densidad de la variable de la que provienen las observaciones. También se pueden utilziar gráficos como la función de distribución empírica que veremos más adelante.
+- Como consecuencia, dado un estadístico, si podemos obtener un número grande de observaciones del mismo podemos a través de algunos gráficos obtener información sobre su distribución.
+- Podemos generar esas observaciones a través de lo que se conoce como simulaciones, observaciones generadas mediante algún algoritmo.
+- Esta metodología que se puede aplicar en muchas otras situaciones se conoce como el \textcolor[HTML]{007aff}{método de Monte-Carlo}. 
+:::
+
+### Muestreo de Monte-Carlo para aproximar esperanzas ###
+:::{.callout-note}
+# Ley de los grandes números
+Consideremos una muestra aleatoria simple $X_1,X_2,\dots,X_n$ de una distribución $X$. Para cualquier función  $g$ que cumple  $E[g^2(X)]<+\infty$, tenemos que, con probabilidad 1, $$\lim_{n \to \infty} \dfrac{1}{n}\sum_{i=1}^{n} g(X_i)=E[g(X)].$$
+:::
+
+#### Ejemplos ####
+- $g(x)=x:\lim_{n \to \infty} \dfrac{1}{n}\sum_{i=1}^{n} X_i=E[X]$, es decir $\bar{X}_n\longrightarrow E[X]=\mu_X$.
+- $g(x)=(x-\mu_X)^2:\lim_{n \to \infty} \dfrac{1}{n}\sum_{i=1}^{n} (X_i-\mu_X)^2=E[(X-\mu_X)^2]=\mathrm{Var}(X)$.
+- Si combinamos las dos convergencias anteriores: $\lim_{n \to \infty} \dfrac{1}{n}(X_i-\bar{X}_n)^2=\mathrm{Var}(X)$, es decir, $S_n^2\longrightarrow \mathrm{Var}(X)$.
+- $g(x)=1_{x\le q}:\lim_{n \to \infty} \dfrac{1}{n}\sum_{i=1}^{n} 1_{X_i\le q}=P(X\le q)$, es decir, que las frecuencias acumuladas relativas convergen hacia la probabilidad asociada.
+
+#### Aplicaciones ####
+:::{.callout-note}
+# Ejemplo: el movimiento Browniano
+- Es proceso muy usado en la predicción de precios (opciones) en matemáticas financieras.
+- Una caracterízación simplificada: es la suma infinitesimal de pequeñas contribuciones normales independientes.
+- Para cualquier $t,\,W_t\sim \sum_{i=1}^{\frac{t}{h} } \sqrt{h} \cdot Z_i$, donde $h$ es el paso infinitesimal y  $Z_i$ son normales estándares independientes e idénticamente distribuidos.
+:::
+
+## Movimiento Browniano ##
+```{r}
+library(tidyverse)
+set.seed(314159)
+
+simular_browniano <- function(inicio, T, h){
+  n_pasos <- round(T / h)
+  pasos <- rnorm(n_pasos, sd = sqrt(h))  
+  browniano <- inicio + cumsum(pasos)
+  tibble(t  = (1:length(browniano)) * h , y =  browniano) 
+}
+browniano <- simular_browniano(0, 10, 0.001)
+browniano %>%
+  ggplot(aes(x = t, y = y)) +
+  geom_step()
+```
+## En finanzas, el modelo de Black-Scholes ##
+:::{.callout-note}
+# El movimiento Browniano Geométrico:
+Lo propusieron Merton, Scholes y Black como modelo teórico para precios de acciones: $$S_t=S_0\exp\left( \left( y-\dfrac{1}{2}\sigma^2 \right) t+\sigma W_t \right).$$
+
+- $S_0$: precio inicial de la acción.
+- $\mu$: el drift.
+- $\sigma^2$: la volatilidad.
+:::
+
+```{r}
+calcular_geometrico <- function(inicio, mu, sigma, W){
+    geometrico <- W |>
+        mutate(y = inicio * exp((mu - sigma^2/2) * t + sigma * y)) 
+  geometrico
+}
+# Parameters for the GBM
+mu <- 0.05  # drift coefficient
+sigma <- 0.20  # volatility coefficient
+S0 <- 100  # initial stock price
+T <- 1  # time span in years
+h <- 1/(252 * 4) # time increment in trading days
+set.seed(31416)
+browniano <- simular_browniano(0, T, h)
+S <- calcular_geometrico(S0, mu, sigma, browniano)
+p <- S |>
+  ggplot(aes(x = t, y = y)) +
+  geom_step() +
+  labs(
+    title = "Movimiento Browniano Geométrico",
+    x = "Tiempo en años",
+    y = "Precio de la acción S(t)"
+) + ylim(70, 120)
+p
+```
+
+#### ¿Cuándo observamos $S(t)\ge 100$€? #### {.unnumbered}
+```{r}
+p + geom_hline(yintercept = 110, lwd = 1.1, lty = 2, color = "red")
+```
+
+- Podemos simular muchas trayectorias del Movimiento Browniano Geométrico y observa qué pasa con el tiempo en el que supera el umbral 110.
+- Esto es Monte-Carlo.
+- Luego podremos obtener indicadores de la distribución de este tiempo.
+
+:::{.callout-tip}
+Representamos las 8 primeras
+:::
+
+```{r}
+set.seed(31416)
+N <- 8
+replicate(
+  N,
+  calcular_geometrico(S0, mu, sigma,simular_browniano(0, T, h)),
+  simplify = FALSE
+) |>
+  bind_rows(.id = "trayectoria") |>
+  ggplot(aes(x = t, y = y, colour = trayectoria)) +
+  geom_step() +
+  labs(
+    title = "Movimiento Browniano Geométrico",
+    x = "Tiempo en años",
+    y = "Precio de la acción S(t)"
+  ) +
+  geom_hline(yintercept = 110, lwd = 1.1, lty = 2, color = "red")
+```
+
+## Simulación y método de Monte-Carlo ##
+:::{.callout-note}
+# Simulación de variables aleatorias
+- Lo que nos planteamos ahora es qué algoritmo podemos utilziar para generar observaciones (simulaciones) de una variable aleatoria.
+- Para un gran número de variables aleatorias y modelos probabilísticos, estas simulaciones ya están incorporadas en los paquetes y lenguajes de programación con enfoque matemático y estadístico, como **`R`**.
+- Aquí describiremos uno de los métodos más básicos, basado en la inversa de la función de distribución.
+- El \textcolor[HTML]{007aff}{método de la función inversa} es uno de los principales métodos de simulación de variables aleatorias.
+- Está basado en la inversa de la función de distribución de una variable aleatoria.
+- No todas las funciones de distribución admiten inversa, como la conoceremos usualmente. Para ello es necesario que sea continua y estrictamente creciente.
+:::
+
+:::{.callout-note}
+# Inversa generalizada de la función de distribución o función cuantil
+Dada una función de distribución F, su \textcolor[HTML]{007aff}{función cuantil (inversa generalizada)} se define como $$F^{-1}(p)=\mathrm{inf}\{x|F(x)\ge p\}\text{, para todo }p \in (0,1).$$
+:::
+
+:::{.callout-note}
+# Propiedades de la función cuantil
+1) $F(F^{-1}(p))\ge p$, para todo $p \in (0,1)$.
+2) $F^{-1}(F(x))\le x$, para todo $x$ donde  $F(x)>0$.
+3) Si  $U\sim U(0,1)$ entonces $F^{-1}(U)$ tiene como distribución $F$.
+4) Dada una variable aleatoria  $X$, con media finita y función de distribución  $F$ se verifica que $$E[X]=\int_{0}^{1} F^{-1}(u)\:\mathrm{d}u.$$
+:::
+
+:::{.callout-note}
+# Método de la función inversa
+- Dada una variable aleatoria $X$ con función de distribución  $F$, si generamos observaciones independientes  $U\sim U(0,1),\,u_1,u_2,\dots,u_n$, entonces los valores $$x_1=F^{-1}(u_1),x_2=F^{-1}(u_2),\dots,x_n=F^{-1}(u_n)$$ constituyen una observación de la muestra aleatoria simple de tamaño $n$ de la variable aleatoria  $X$.
+:::
+
+#### Generación de valores de una distribución uniforme #### {.unnumbered}
+```{r}
+curve(dunif(x, 0, 1), from = 0, to = 1, xlab = "Distribución uniforme", 
+      ylab = " ",  ylim=c(-0.1, 1.5))
+abline(0, 0)
+usim <- runif(20, 0, 1)
+y = 0
+for(i in 1:20){
+  points(usim[i], y, col = "blue")
+  Sys.sleep(0.15)
+}
+```
+
+#### Generación de valores de una distribución gamma #### {.unnumbered}
+```{r}
+curve(dgamma(x, 2, 3), from = 0, to = 2, xlab = "Distribución gamma", ylab = " ", ylim = c(-0.1, 1.5))
+abline(0, 0)
+xsim <- qgamma(usim, 2, 3)
+y = 0
+for(i in 1:20){
+  points(xsim[i], y, col = "blue")
+  Sys.sleep(0.15)
+}
+```
+
+#### Transformación de una variable aleatoria #### {.unnumbered}
+:::{.callout-note}
+# Planteamiento del problema 
+En muchas ocasiones, tenemos una variable aleatoria continua $X$, de la que conocemos la función de densidad, pero nos interesa concoer cómo se comporta una transformación de  $X,\,Y=\varphi(X)$.
+:::
+
+\begin{theorem}
+Sea $X$ una variable aleatoria con función de densidad  $f_X$ definida en un intervalo abierto  $(a,b)\subseteq \mathbb{R}$. Sea $\varphi:(a,b)\to \mathbb{R}$ tal que:
+
+\begin{itemize}
+\item Es continua.
+\item Es estrictamente creciente o decreciente.
+\item $\varphi^{-1}$ es diferenciable.
+\end{itemize}
+
+Entonces, la variable aleatoria $Y=\varphi(X)$ tiene función de densidad
+$$
+f_Y(y)=\begin{cases}
+    f_X(\varphi^{-1}(y))\left| \dfrac{\mathrm{d}}{\mathrm{d}x}(\varphi^{-1}(y)) \right|, & \text{si }y\in \varphi(a,b)\\
+    0, & \text{en otro caso}
+\end{cases}
+$$
+\end{theorem}
+
+#### Función características #### {.unnumbered}
+
+\begin{definition}
+    Sea $X$ una variable aleatoria cualquiera. La \textcolor[HTML]{007aff}{función característica} de $X$ se define como $$\phi(t)=E[e^{itX} ]=\int_{-\infty}^{\infty} e^{itx}\mathrm{d}F(x)$$ en donde $i=\sqrt{-1}$.
+\end{definition}
+
+:::{.callout-tip}
+Nota: $\phi(t)=\int_{-\infty}^{\infty} \cos(tx)\mathrm{d}F(x)+i \int_{-\infty}^{\infty} \sin(tx)\mathrm{d}F(x).$
+:::
+
+:::{.callout-note}
+# Propiedades
+- \textcolor[HTML]{007aff}{Existencia:} $|\phi(t)|\le 1$, para todo $t\in \mathbb{R}$.
+- Si $X$ e $Y$ son variables aleatorias \textcolor[HTML]{007aff}{independientes}, entonces $$\phi_{X+Y}(t)=\phi_X(t)\phi_Y(t),$$ para todo $t\in \mathbb{R}$.
+:::
+
+#### Desigualdades #### {.unnumbered}
+:::{.callout-note}
+# Desigualdad de Markov
+Si $Z$ es una variable aleatoria no negativa con media finita $E[Z]$ y  $\varepsilon>0$, entonces $$\varepsilon\mathrm{Pr}[Z\ge \varepsilon]=\varepsilon \int_{[\varepsilon,\infty)}\mathrm{d}F_Z(x)\le \int_{[\varepsilon,\infty)}x\mathrm{d}F_Z(x)\le \int_{[0,\infty)}x\mathrm{d}F_Z(x)=E(Z)$$ (donde $F_Z(x)=\mathrm{Pr}[Z\le x]$ es su función de distribución), es decir $$\mathrm{Pr}[Z\ge \varepsilon]\le \dfrac{E[Z]}{\varepsilon}.$$
+:::
+
+:::{.callout-note}
+# Desigualdad de Chebyshev
+Si $X$ es una variable aleatoria con media finita  $\mu=E[X]$ y varianza  $\sigma^2=\mathrm{Var}(X)>0$, entonces tomando  $Z=\dfrac{(X-\mu)^2}{\sigma^2}\ge 0$ y aplicando la desigualdad de Markov, tenemos $$\mathrm{Pr}\left[\dfrac{(X-\mu)^2}{\sigma^2}\ge \varepsilon\right]\le \dfrac{1}{\varepsilon}$$ para todo $\varepsilon>0$.
+
+También se puede escribir como $$\mathrm{Pr}[(X-\mu)^2<\varepsilon\sigma^2]\ge 1-\dfrac{1}{\varepsilon}$$ o como $$\mathrm{Pr}[|X-\mu|<r]\ge 1-\dfrac{\sigma^2}{r^2},$$ para todo $r>0$.
+:::
