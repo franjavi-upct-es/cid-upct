@@ -1,0 +1,125 @@
+\begin{center}
+    \textbf{\Large Hoja 6: Modelos ARIMA} 
+\end{center}
+\textbf{\large Cuestiones Teóricas}
+\begin{enumerate}[label=\color{red}\textbf{\arabic*)}]
+    \item \lb{¿Qué es la estacionaeridad en una serie temporal?}
+    \item \lb{¿Por qué es importante que una serie sea estacionaria para la modelización ARIMA?} 
+    \item \lb{¿Qué es la diferencia en el contexto de las series temporales y cómo ayuda a estabilidar una serie?} 
+    \item \lb{Explica la diferencia entre diferenciación de primer orden, diferenciación de segundo orden y diferencia estacional.} 
+    \item \lb{¿Cuál es la expresión formal para un modelo $AR(p)$?} 
+    \item \lb{¿Qué diferencia hay entre correlaciones imples y correlaciones parciales?} 
+    \item \lb{¿Cómo se identifica un ruido blanco gaussiano?} 
+    \item \lb{¿Cómo se identifica un modelo $AR(p)$?} 
+    \item \lb{Para un modelo $AR(p)$, ¿cuándo tendremos que se trata de un proceso estacionario?} 
+    \item \lb{¿Qué es un modelo de media móvil $MA(q)$?} 
+    \item \lb{¿Cómo se identifica un modelo $MA(q)$? Demostrar que en un $MA(q)$ las correlaciones simples son nulas para retardos superiores a $q$.} 
+    \item \lb{Para un modelo $MA(q)$, ¿cuándo tendremos que se trata de un proceso estacionario?} 
+    \item \lb{Define formalmente un modelo $ARMA(p,q)$.}
+    \item \lb{¿Cómo se seleccionan los órdenes $p$ y  $q$ en un modelo  $ARMA$?} 
+    \item \lb{Indica la fórmula general de un modelo $ARIMA(p,d,q)$ usando el operador de retardo.} 
+    \item \lb{¿Cómo se estiman los coeficientes de un modelo $ARIMA$? Deducir las ecuaciones de Yule-Walker en términos de correlaciones para un proceso $AR(p)$} 
+    \item \lb{¿Cuál es la utilidad de los criterios de información de Akaike (AIC) y de Bayes (BIC) en el contexto de metodología $ARIMA$?} 
+    \item \lb{¿Cuál es la importancia de verificar que los residuos de un modelo $ARIMA$ se asemejen a ruido blanco?} 
+    \item \lb{Resume los pasos para analizar una serie temporal usando modelos $ARIMA$.} 
+    \item \lb{¿Qué efectos tiene la transformación logarítmica en una serie temporal y cuándo se utiliza?} 
+\end{enumerate}
+\textbf{\large Problemas} 
+\begin{enumerate}[label=\color{red}\textbf{\arabic*)}, start=21]
+    \item \lb{En la siguiente tabla se muestra una serie temporal con datos trimestrales. Para modelar dicha serie se propuso el modelo $ARMA$ dado por  \[
+                (1-0.9B+0.5B^2)X_t=(1+0.7B+B^2)\varepsilon_t
+    \] } 
+    \begin{enumerate}[label=\color{red}\textbf{\alph*)}]
+        \item \db{Escribe órdenes y polinomios característicos}
+        \item \db{Prueba que el modelo es estacionario} 
+        \item \db{Completa los huecos de la tabla tomando como valores iniciales $X(-1)=0.2,\,X(0)=0.5,\,e(-1)=0,\,e(0)=0$.}
+        \item \db{Calcula las predicciones para el año 2024.} 
+    \end{enumerate}
+    \begin{center}
+        \color{blue}
+    	\begin{tabular}{|c|c|c|c|c|}
+    		\hline
+    		t & Año & Trimestre & Serie & residuos \\
+    		\hline
+    		1 & 2020 & T1 & 2.45 & 2.10 \\
+    		\hline
+    		2 & 2020 & T2 & 4.01 &  \\
+    		\hline
+    		3 & 2020 & T3 &  & -0.18 \\
+    		\hline
+    		4 & 2020 & T4 & 2.73 & 0.04 \\
+    		\hline
+    		5 & 2021 & T1 & -1.03 & -0.98 \\
+    		\hline
+    		6 & 2021 & T2 & -1.74 & 1.20 \\
+    		\hline
+    		7 & 2021 & T3 & -2.45 & -1.26 \\
+    		\hline
+    		8 & 2021 & T4 & 0.03 & 1.05 \\
+    		\hline
+    		9 & 2022 & T1 &  & -0.62 \\
+    		\hline
+    		10 & 2022 & T2 & 0.20 & -0.50 \\
+    		\hline
+    		11 & 2022 & T3 & -1.01 & -0.16 \\
+    		\hline
+    		12 & 2022 & T4 & -2.51 & -0.89 \\
+    		\hline
+    		13 & 2023 & T1 & -3.33 & -0.79 \\
+    		\hline
+    		14 & 2023 & T2 & -2.88 & 0.30 \\
+    		\hline
+    		15 & 2023 & T3 & -0.85 &  \\
+    		\hline
+    		16 & 2023 & T4 & 1.22 &  \\
+    		\hline
+    	\end{tabular}
+    \end{center}
+    \item \lb{En la siguiente tabla se muestra una serie temporal con datos trimestrales. Para modelar dicha serie se propuso el modelo $ARIMA$ dado por \[ \left(1-\dfrac{1}{2}B+\dfrac{1}{8}B^2\right)(1-B)X_t=(1+0.4B-0.2B^2+0.1B^3)\varepsilon_t \]} 
+        \begin{enumerate}[label=\color{red}\textbf{\alph*)}]
+            \item \db{Escribe órdenes y polinomios característicos.} 
+            \item \db{Comprueba que la serie obtenida al aplicar el operador diferencia es estacionaria.} 
+            \item \db{Completa los huecos de la tabla tomando como valores iniciales $X(-2)=0.1,\,X(-1)=0.2,\,X(0)=0.5,\,e(-2)=0,\,e(-1)=0,\,e(0)=0$.} 
+            \item \db{Calcula las predicciones para el año 2024.} 
+        \end{enumerate}
+        \begin{center}
+            \color{blue}
+            \begin{tabular}{|c|c|c|c|c|}
+                \hline
+                t & Año & Trimestre & Serie & residuos \\
+                \hline
+                1 & 2020 & T1 & 0.99 & 0.35 \\
+                \hline
+                2 & 2020 & T2 &  & 0.56 \\
+                \hline
+                3 & 2020 & T3 & 0.17 &  \\
+                \hline
+                4 & 2020 & T4 & -1.84 & -0.05 \\
+                \hline
+                5 & 2021 & T1 & -2.84 & -0.70 \\
+                \hline
+                6 & 2021 & T2 & -3.68 &  \\
+                \hline
+                7 & 2021 & T3 & -3.95 & -0.08 \\
+                \hline
+                8 & 2021 & T4 & -4.21 & -0.14 \\
+                \hline
+                9 & 2022 & T1 & -4.03 & 0.32 \\
+                \hline
+                10 & 2022 & T2 &-3.94  & -0.18 \\
+                \hline
+                11 & 2022 & T3 & -3.94 & 0.13 \\
+                \hline
+                12 & 2022 & T4 & -2.60 & 1.23 \\
+                \hline
+                13 & 2023 & T1 & -1.71 & -0.23 \\
+                \hline
+                14 & 2023 & T2 &  -1.17 & 0.59 \\
+                \hline
+                15 & 2023 & T3 &-0.59 & 0.01 \\
+                \hline
+                16 & 2023 & T4 &  & -0.70 \\
+                \hline
+            \end{tabular}
+        \end{center}
+\end{enumerate}
