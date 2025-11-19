@@ -97,7 +97,7 @@ $$
 \end{array}
 $$
 
-#### Ejemplos #### {.unnumbered}
+#### Ejemplos #### {.unnumbered .unlisted}
 
 :::{.callout-important}
 # Calculad los estimadores usando el método de los momentos en los dos casos:
@@ -124,3 +124,84 @@ X\leadsto \text{Bernoulli}(p),\quad 0<p<1\\
 \end{array}
 $$
 :::
+
+## Método de máxima verosimilitud ##
+- El método más utilziado de construcción de un estimador puntual.
+- Se basa en lo que se conoce como \textcolor[HTML]{007aff}{función de verosimilitud}.
+
+\begin{definition}
+    \begin{itemize}
+    \item Sea $X$ una variable aleatoria, con distribución  $x\mapsto f_X(x;\theta)$ (función de densidad o función puntual de probabilidad), donde $\theta$ es de dimensión $p:\theta\in \Theta\subset\mathbb{R}^p$.
+    \item Para un valor concreto de una muestra aleatoria simple $(X_1,\dots,X_n)$, que denotamos por $(x_1,\dots,x_n)$, consideramos la función de $\theta$: $$L_n:\begin{cases}\Theta\subset\mathbb{R}^p\rightarrow \mathbb{R}^+\\ \theta\mapsto L_n(\theta)=f_{X_1,\dots,X_n}(x_1,\dots,x_{n};\theta)=\prod_{i=1}^{n} f_X(x_i;\theta). \end{cases}$$ 
+    \item La función $L_n$ es la  \textcolor[HTML]{007aff}{función de verosimilitud}. Nos dice lo creíbles (verosímiles) que son las observaciones para ese valor del parámetro. 
+    \end{itemize}
+\end{definition}
+
+#### Ejemplo de cálculo de la verosimilitud #### {.unnumbered .unlisted}
+- Tiramos 10 veces una moneda (1 es cara, 0 es cruz), y obtenemos: 0,0,1,0,1,1,1,1,1,1.
+- La verosimilitud asocia a cada $p$ el valor de  $$\mathrm{Pr}(X_1=0,X_2=0,X_3=1,X_4=0,X_5=1,X_6=1,X_7=1,X_8=1,X_9=1,X_{10}=1),$$ por lo que $$L_n(p)=(1-p)(1-p)p(1-p)p^{6}=(1-p)^3\cdot p^7.$$ 
+
+```{r}
+library(tidyverse)
+p <- seq(0, 1, by = 0.001)
+n <- 10
+n1 <- 7
+l <- (1 - p)^(n - n1) * p^n1
+tibble(p = p, l = l) |>
+  ggplot(aes(p, l)) +
+  geom_line() +
+  labs(y= "Verosimilitud")
+```
+
+## Estimador de máxima verosimilitud ##
+\begin{definition}
+    El \textcolor[HTML]{007aff}{estimador de máxima verosimilitud} $\hat{\theta}$ de $\theta$ es cualquier valor de $\theta$ que maximiza $\theta\mapsto L_n(\theta)$, es decir, $$\hat{\theta}\mathrm{argmax}_{\theta\in \Theta}L_n(\theta).$$
+\end{definition}
+
+:::{.callout-important}
+# Nota
+- La maximización se realiza sobre todos los valores admisibles para el parámetro $\theta$.
+- Podría haber de un máximo.
+:::
+
+### Estimación de la proporción ### {.unnumbered .unlisted}
+Retomamos el ejemplo de las 10 monedas:
+
+$$
+p\mapsto L_n(p)=(1-p)(1-p)p(1-p)p^{6}=(1-p)^3\cdot p^7.
+$$
+
+```{r}
+#| fig-cap: "Verosimilitud correspondiente al ejemplo de 10 tiradas de una moneda."
+tibble(p = p, l = l) |>
+    ggplot(aes(p, l)) +
+    geom_line() +
+    geom_vline(xintercept = n1 / n, col="red") +
+    labs(y = "Verosimilitud")
+```
+
+#### Ejemplos #### {.unnumbered .unlisted}
+:::{.callout-important}
+# Ejemplos de estimación por máxima verosimilitud
+Calculad los estimadores usando el método de máxima verosimilitud en los dos casos:
+
+- $X\sim \mathrm{Bernoulli}(p)$, donde desconocemos $p$.
+- $X\sim \mathcal{N}(\mu,\sigma^2)$, donde desconocemos $\theta=(\mu,\sigma^2)$.
+:::
+
+\quad \textcolor{red}{\textbullet}\quad \textcolor[HTML]{007aff}{En el primer caso anterior, calcular la distribución de Bernoulli, donde desconocemos $p$.}
+
+$X\leadsto \mathrm{Bernoulli}(p),\quad 0<p<1$
+
+$(X_1,\dots,X_N)$ m.a.s. de tamaño $n$
+
+$L_n(\theta)=f_{X_1,\dots,X_n}(x_1,\dots,x_n;\theta)=\prod_{i=1}^{n} f_X(x_i;\theta)$
+
+$L_n(p)=\prod_{i=1}^{n}f_X(x_i;p)=\prod_{i=1}^{n}p^{x_i}(1-p)^{1-x_i}$ 
+
+$\ell(p)=\log L_n(p)=\log p^{\sum_i x_i}+\log(1-p)^{n-\sum_{i=1}^{n} x_i}=\left( \sum_i x_i \right)\cdot \log p+\left( n-\sum_{i=1}^{n} x_i \right)\cdot \log(1-p)$ 
+
+$\begin{aligned}\frac{\partial \ell(p)}{\partial p} &=\left( \sum_{i=1}^{n} x_i \right)\cdot \dfrac{1}{p}+\left( n-\sum_{i=1}^{n} x_i \right)\cdot \left( -\dfrac{1}{1-p} \right)=(1-p)\cdot \sum_{i=1}^{n} x_i-\left( n-\sum_{i=1}^{n} x_i \right) \cdot p\\ &= \sum_{i=1}^{n} x_i-\cancel{p\cdot \sum_{i=1}^{n} x_i} -np+\cancel{p\cdot \sum_{i=1}^{n} x_{i}} =0\implies\bboxed{\hat{p}=\dfrac{1}{n}\sum_{i=1}^{n} x_i=\bar{x}} \\\end{aligned}$
+
+\quad \textcolor{red}{\textbullet}\quad \textcolor[HTML]{007aff}{En el segundo caso anterior, calculad la esperanza del estimador de máxima verosimilitud de $\sigma^2$.}
+
