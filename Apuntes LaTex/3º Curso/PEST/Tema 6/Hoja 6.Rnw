@@ -4,10 +4,95 @@
 \textbf{\large Cuestiones Teóricas}
 \begin{enumerate}[label=\color{red}\textbf{\arabic*)}]
     \item \lb{¿Qué es la estacionaeridad en una serie temporal?}
+
+        La \textbf{estacionariedad} es una propiedad fundamental que se exige al proceso estocástico que genera una serie temporal para poder modelizarla y realizar predicciones.
+
+        Se define mediante las siguientes características principales:
+        \begin{enumerate}[label=\textbf{\arabic*)}]
+            \item \textbf{Definición Formal (Estacionariedad Débil)}
+
+                Un proceso estocástico $\{X_t\}_{t=1,2,\dots}$ es estacionario en sentido débil si cumple dos condiciones matemáticas:
+                \begin{itemize}[label=\textbullet]
+                    \item \textbf{Media constante:} La función de medias es invariable a lo largo del tiempo. $$\mu_X(t)=\mu\text{ (para cierta constante $\mu$). }$$ 
+                    \item \textbf{Convarianza estable:} La función de covarianzas entre dos momentos del tiempo no depende del instante específico $t$, sino únicamente de la distancia temporal (retardo o \textit{lag}) entre ellos. \[
+                    C_X(t,t+k)=\gamma_k\text{ (donde $\gamma_k$ solo depende de $k$). }
+                    \]  
+                \end{itemize}
+            \item \textbf{Implicaciones Prácticas}
+
+                Cuando un proceso cumple lo anterior, se derivan dos consecuencias clave para el análisis de datos:
+                \begin{itemize}[label=\textbullet]
+                    \item \textbf{Varianza constante:} La dispersión de los datos se mantiene estable en el tiempo $(\sigma_X(t)=\sigma)$.
+                    \item \textbf{Correlación dependiente del retardo:} La correlación entre variables solo varía en función del desfase temporal $k$, lo que permite el uso del  \textbf{correlograma} para su análisis. 
+                \end{itemize}
+        \end{enumerate}
     \item \lb{¿Por qué es importante que una serie sea estacionaria para la modelización ARIMA?} 
+
+        La importancia de la estacionaeridad en la modelización ARIMA radica fundamentalmente en la necesidad de poder \textbf{inferir el comportamiento futuro a partir de los datos pasados}, dado que habitualmente trabajamos con una única muestra de datos. 
+        \begin{enumerate}[label=\arabic*)]
+            \item \textbf{El problema de la "Única Realización":} En la práctica, solemos tener una limitación importante: la serie observada es la \textbf{única realización accesible} del proceso (por ejemplo, solo hay una historia real del PIB o de las ventas de una empresa). No disponemos de múltiples universos paralelos (múltiples realizaciones) para calcular promedios y distribuciones en cada instante de tiempo.
+            \item \textbf{Estabilidad para la Predicción:} Al asumir que el proceso es estacionario (y ergódico), garantizamos dos cosas esenciales para que el modelo matemático funciones:
+                \begin{itemize}[label=\textbullet]
+                    \item \textbf{Representatividad:} Los datos observados en un periodo de tiempo son representativos del comportamiento probabilístico general del proceso.
+                    \item \textbf{Validez Futura:} El conocimiento obtenido de los datos actuales sigue siendo útil para comprender el comportamiento en el futuro. Si la media o la varianza cambiaran aleatoriamente con el tiempo si un patrón estable, lo aprendido en el pasado no serviría para predecir el futuro. 
+                \end{itemize}
+            \item \textbf{Posibilidad de Estimación Estadística:} La estacionariedad implica que parámetros clave como la media $(\mu)$ y la varianza $(\sigma^2)$ son constantes. Esto permite utilizar la totalidad de los datos de la serie para estimar estos valores únicos. Si no fuera estacionaria, la media y la varianza serían distintas en cada instante $t$, y sería imposible estimarlas con una sola observación por instante temporal.
+        \end{enumerate}
     \item \lb{¿Qué es la diferencia en el contexto de las series temporales y cómo ayuda a estabilidar una serie?} 
+
+        Es una transformación matemática aplicada a una serie temporal no estacionaria para convertirla en estacionaria, estabilizando principalmente su \textbf{media}.
+
+        La operación consite en restar a cada valor de la serie su valor inmediatamente anterior. Matemáticamente, el proceso de "primera diferencia" se define como: \[
+        Z_t=X_tX_{t-1}
+        \] 
+        Esta operación se denota habitualmente con el operador nabla $(\nabla)$, tal que $\nabla X_t=X_t-X_{t-1}$.
+
+        El objetivo de tomar diferencias es corregir la \textbf{no estacionariedad en media}, es decir, eliminar tendencias para conseguir que la serie oscile alrededor de un nivel constante.
+
+        Según el tipo de tendencia observada se aplicará el siguiente órden de diferencia:
+        \begin{itemize}[label=\textbullet]
+            \item \textbf{Diferencia de orden 1 $(d=1)$:} Se utiliza cuando la serie presenta una \textbf{tendencia lineal}. Al aplicar una vez el operador diferencia, se consigue un nivel constante. Un ejemplo clásico es el \textit{paseo aleatorio}, que no es estacionario, pero su primera diferencia $(\epsilon_t)$ sí lo es.
+            \item \textbf{Diferencia de orden 2 $(d=2)$:} Se aplcia si la tendencia es \textbf{cuadrática}. 
+        \end{itemize}
     \item \lb{Explica la diferencia entre diferenciación de primer orden, diferenciación de segundo orden y diferencia estacional.} 
+
+        \begin{enumerate}[label=\arabic*)]
+            \item \textbf{Diferenciación de Primer Orden $(d=1)$} 
+
+                Es la transformación más común y consiste en restar a cada valor de la serie el valor del instante inmediatamente anterior.
+                \begin{itemize}[label=\textbullet]
+                    \item \textbf{Objetivo:} Se utiliza para eliminar \textbf{tendencias lineales} (cuando la serie crece o decrece a un ritmo constante) y estabilizar a nivel de la serie.
+                    \item \textbf{Fórmula:} $\nabla X_t=X_t-X_{t-1}$.
+                \end{itemize}
+            \item \textbf{Diferenciación de Segundo Orden $(d=2)$} 
+
+                Consiste en aplicar el operador diferencia dos veces consecutivas. Es decir, se calcula la diferencia de la serie que ya ha sido diferenciada una vez.
+                \begin{itemize}[label=\textbullet]
+                    \item \textbf{Objetivo:} Se aplica cuando la tendencia de la serie es \textbf{cuadrática} (la serie crece o decrece de forma acelerada o curva, no lineal).
+                    \item \textbf{Fórmula:} Matemáticamente equivale a $(1-B)^2X_t$. 
+                \end{itemize}
+            \item \textbf{Diferencia Estacional $(D)$} 
+
+                Esta diferencia se utiliza en el contexto de los modelos \textbf{SARIMA} (ARIMA estacional).
+                \begin{itemize}[label=\textbullet]
+                    \item \textbf{Objetivo:} Eliminar patrones que se repiten en intervalos regulares de tiempo (ciclos estacionales), como variaciones mensuales, trimestrales o anuales.
+                    \item \textbf{Funcionamiento:} En lugar de restar el valor inmediatamente anterior $(t-1)$, se resta el valor correspondiente al mismo periodo de la temporada anterior  $(t-L)$.
+                    \item \textbf{Parámetros:} Se denota con la letra $D$ en la notación  $SARIMA(p,d,q)(P,D,Q)_L$, donde $K$ es la periodicidad (por ejemplo, $L=12$ para datos mensuales).
+                \end{itemize}
+        \end{enumerate}
     \item \lb{¿Cuál es la expresión formal para un modelo $AR(p)$?} 
+
+        La expresión formal que define un modelo Autorregresivo de orden $p$, denotado como  $AR(p)$, es la siguiente:  \[
+        X_t=\delta+a_1X_{t-1}+a_2X_{t-2}+\dots+a_pX_{t-p}+\epsilon_t
+        \] 
+        Donde los componentes se definen de la siguiente manera:
+        \begin{itemize}[label=\textbullet]
+            \item $X_t$: Es el valor actual del proceso en el instante  $t$.
+            \item $X_{t-1},\dots,X_{t-p}$: Son los valores pasados del propio proceso (retardos).
+            \item $a_1,\dots,a_p$: Son los coeficientes o parámetros del modelo que ponderan la influencia del pasado.
+            \item $\delta$: Representa una constante (término independiente).
+            \item $\epsilon_t$: Es la perturbación aleatoria, que se comporta como un \textbf{ruido blanco gaussiano}; es decir, variables independientes idénticamente distribuidas (i.i.d.) con distribución Normal $\mathcal{N}(0,\sigma^2)$. 
+        \end{itemize}
     \item \lb{¿Qué diferencia hay entre correlaciones imples y correlaciones parciales?} 
     \item \lb{¿Cómo se identifica un ruido blanco gaussiano?} 
     \item \lb{¿Cómo se identifica un modelo $AR(p)$?} 
@@ -16,7 +101,9 @@
     \item \lb{¿Cómo se identifica un modelo $MA(q)$? Demostrar que en un $MA(q)$ las correlaciones simples son nulas para retardos superiores a $q$.} 
     \item \lb{Para un modelo $MA(q)$, ¿cuándo tendremos que se trata de un proceso estacionario?} 
     \item \lb{Define formalmente un modelo $ARMA(p,q)$.}
-    \item \lb{¿Cómo se seleccionan los órdenes $p$ y  $q$ en un modelo  $ARMA$?} 
+    \item \lb{¿Cómo se seleccionan los órdenes $p$ y  $q$ en un modelo  $ARMA$?}
+
+        $p$ y  $q$ se seleccionan representando correlación simple y parcial, y proponiendo unos valores de  $p$ y  $q$ de partida que tengan sentido. Posteriormente se estudia si son reducibles a través de los  $p$-valores de los contrastes individuales de significación.
     \item \lb{Indica la fórmula general de un modelo $ARIMA(p,d,q)$ usando el operador de retardo.} 
     \item \lb{¿Cómo se estiman los coeficientes de un modelo $ARIMA$? Deducir las ecuaciones de Yule-Walker en términos de correlaciones para un proceso $AR(p)$} 
     \item \lb{¿Cuál es la utilidad de los criterios de información de Akaike (AIC) y de Bayes (BIC) en el contexto de metodología $ARIMA$?} 
@@ -31,9 +118,56 @@
     \] } 
     \begin{enumerate}[label=\color{red}\textbf{\alph*)}]
         \item \db{Escribe órdenes y polinomios característicos}
+
+            Observando la ecuación dada, podemos identificar la estructura de un modelo $ARMA(p,q)$:
+             \begin{itemize}[label=\textbullet]
+                \item \textbf{Parte AR (Autorregresiva):} El lado izquierdo tiene términos hasta $B^2$, por lo que el orden es $p=2$.
+                \item \textbf{Parte MA (Medias Móviles):} El lado derecho tiene términos hasta $B^2$, por lo que el orden es $q=2$. 
+            \end{itemize}
+            Por lo tanto, se trata de un modelo $ARMA(2,2)$.
         \item \db{Prueba que el modelo es estacionario} 
+
+            La condición necesaria y suficiente para que un proceso AR sea estacionario es que las raíces de su polinomio característico estén \textbf{fuera del círculo unidad} del plano complejo (su módulo debe ser mayor que 1).
+
+            El polinomio característico es: $1-0.9z+0.5z^2=0$. Por lo tanto:
+            \[
+            \begin{array}{c}
+                z=\dfrac{-b\pm\sqrt{b^2-4ac} }{2a}=\dfrac{0.9\pm\sqrt{(-0.9)^2-4\cdot 0.5\cdot 1} }{2\cdot 0.5}\\
+                z=\dfrac{0.9\pm\sqrt{0.81-2} }{1}=0.9\pm\sqrt{-1.19}\\
+                z=0.9\pm i\sqrt{1.19} 
+            \end{array}
+            \] 
+            Calculamos el módulo de las raíces complejas($|z|=\sqrt{a^2+b^2} $): \[
+            |z|=\sqrt{0.9^2+(\sqrt{1.19} )^2}=\sqrt{0.81+1.19}=\sqrt{2}\approx 1.414   
+            \] 
+            Como el módulo $|z|=1.414>1$, las raíces están fuera del círculo unidad. Por tanto,  \textbf{el modelo es estacionario}. 
         \item \db{Completa los huecos de la tabla tomando como valores iniciales $X(-1)=0.2,\,X(0)=0.5,\,e(-1)=0,\,e(0)=0$.}
+
+            Para completar la tabla, necesitamos despejar $X_t$ o  $\varepsilon_t$ de la ecuación en diferencias según lo que necesitemos calcular. La ecuación explicita es: \[
+            X_t-0.9X_{t-1}+0.5X_{t-2}=\varepsilon_t+0.7\varepsilon_{t-1}+\varepsilon_{t-2}
+            \] 
+            \begin{itemize}[label=\textbullet]
+                \item Fórmula para hallar residuos ($\varepsilon_t$): $\varepsilon_t=X_t-0.9X_{t-1}+0.5X_{t-2}+0.7\varepsilon_{t-1}-\varepsilon_{t-2}$ 
+                \item Fórmula para hallar valores de la serie ($X_t$):  $X_t=0.9X_{t-1}-0.5X_{t-2}+\varepsilon_t+0.7\varepsilon_{t-1}+\varepsilon_{t-2}$.
+            \end{itemize}
+
+            $\begin{array}{l}
+                \varepsilon_2=X_2-0.9X_1+0.5X_0-0.7\varepsilon_1-\varepsilon_0=4.01-0.9\cdot 2.45+0.5\cdot 0.5-0.7\cdot 2.10-0=\bboxed{0.585}\\
+                X_3=0.9X_2-0.5X_1+\varepsilon_3+0.7\varepsilon_2+\varepsilon_1=0.9\cdot 4.01-0.5\cdot 2.45-0.18+0.7\cdot 0.585+2.10=\bboxed{4.7135}\\
+                X_9=0.9X_8-0.5X_7+\varepsilon_9+0.7\varepsilon_8+\varepsilon_7=0.9\cdot 0.03-0.5\cdot (-2.45)-0.62+0.7\cdot 1.05-1.26=\bboxed{0.107}\\
+                \varepsilon_{15}=X_{15}-0.9X_{14}+0.5X_{13}-0.7\varepsilon_{14}-\varepsilon_{13}=-0.85-0.9\cdot (-2.88)+0.5\cdot (-3.33)-0.7\cdot 0.3+0.79=\bboxed{0.657}\\
+                \varepsilon_{16}=X_{16}-0.9X_{15}+0.5X_{14}-0.7\varepsilon_{15}-\varepsilon_{14}=1.22-0.9\cdot (-0.85)+0.5\cdot (-2.88)-0.7\cdot 0.657-0.3=\bboxed{-0.215} 
+            \end{array}$
         \item \db{Calcula las predicciones para el año 2024.} 
+
+            Para $h\ge 1$, el término de error esperado $\hat{\varepsilon}_{T+h}$ es 0.
+
+            $\begin{array}{l}
+                \hat{X}_{17}=0.9X_{16}-0.5\cdot X_{15}+0.7\varepsilon_{16}+\varepsilon_{15}=0.9\cdot 1.22-0.5\cdot (-0.85)+0.7\cdot (-0.215)+0.657=\bboxed{2.0295}\\
+                \hat{X}_{18}=0.9\hat{X}_{17}-0.5X_{16}+\tozero{0.7 \hat{\varepsilon}_{17}}+\varepsilon_{16}=0.9\cdot 2.0295-0.5\cdot 1.22+0-0.215=\bboxed{1.00155}\\
+                \hat{X}_{19}=0.9\hat{X}_{18}-0.5\hat{X}_{17}+\tozero{0.7\hat{\varepsilon}_{18}}+\tozero{\hat{\varepsilon}_{17}}=0.9\cdot 1.00155-0.5\cdot 2.0295=\bboxed{-0.11335}\\
+                \hat{X}_{20}=0.9\hat{X}_{19}-0.5\hat{X}_{18}=0.9\cdot (-0.11335)-0.5\cdot 1.00155=\bboxed{-0.6028} 
+            \end{array}$
     \end{enumerate}
     \begin{center}
         \color{blue}
@@ -43,9 +177,9 @@
     		\hline
     		1 & 2020 & T1 & 2.45 & 2.10 \\
     		\hline
-    		2 & 2020 & T2 & 4.01 &  \\
+            2 & 2020 & T2 & 4.01 & \textcolor{black}{0.585} \\
     		\hline
-    		3 & 2020 & T3 &  & -0.18 \\
+    		3 & 2020 & T3 & \textcolor{black}{4.7135} & -0.18 \\
     		\hline
     		4 & 2020 & T4 & 2.73 & 0.04 \\
     		\hline
@@ -57,7 +191,7 @@
     		\hline
     		8 & 2021 & T4 & 0.03 & 1.05 \\
     		\hline
-    		9 & 2022 & T1 &  & -0.62 \\
+    		9 & 2022 & T1 & \textcolor{black}{0.107} & -0.62 \\
     		\hline
     		10 & 2022 & T2 & 0.20 & -0.50 \\
     		\hline
@@ -69,9 +203,9 @@
     		\hline
     		14 & 2023 & T2 & -2.88 & 0.30 \\
     		\hline
-    		15 & 2023 & T3 & -0.85 &  \\
+    		15 & 2023 & T3 & -0.85 & \textcolor{black}{0.657} \\
     		\hline
-    		16 & 2023 & T4 & 1.22 &  \\
+    		16 & 2023 & T4 & 1.22 & \textcolor{black}{-0.215} \\
     		\hline
     	\end{tabular}
     \end{center}
