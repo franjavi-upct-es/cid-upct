@@ -205,3 +205,22 @@ $\begin{aligned}\frac{\partial \ell(p)}{\partial p} &=\left( \sum_{i=1}^{n} x_i 
 
 \quad \textcolor{red}{\textbullet}\quad \textcolor[HTML]{007aff}{En el segundo caso anterior, calculad la esperanza del estimador de máxima verosimilitud de $\sigma^2$.}
 
+La función de denisdad de una variable aleatoria $X$ con distribución normal es:
+ 
+$$
+f(x|\mu,\sigma^2)=\dfrac{1}{\sqrt{2\pi \sigma^2}}\exp\left( -\dfrac{(x-\mu)^2}{2\sigma^2} \right) 
+$$
+
+Si tenemos una muestra de tamaño $n$, es decir,  $X_1,X_2,\dots,X_n$ que son observaciones independientes y distribuidas como $\mathcal{N}(\mu,\sigma^2)$, entonces la función de verosimilitud $L(\mu,\sigma^2)$ es el producto de las funciones de densidad de cada observación 
+$$
+L(\mu,\sigma^2)=\prod_{i=1}^{n} f(x_i|\mu,\sigma^2)=\prod_{i=1}^{n} \dfrac{1}{\sqrt{2\pi \sigma^2}}\exp\left( -\dfrac{(x_i-\mu)^2}{2\sigma^2} \right)
+$$
+Para simplificar los cálculos, se toma el logaritmo de la función de verosimilitud, lo que da la función de log-verosimilitud $\ell(\mu,\sigma^2)$:
+$$
+\begin{aligned}
+    \ell(\mu,\sigma^2)=\log L(\mu,\sigma^2)&= \sum_{i=1}^{n} \log\left( \dfrac{1}{\sqrt{2\pi \sigma^2} } \right) +\sum_{i=1}^{n} \log\left( \exp \left( -\dfrac{(x_i-\mu)^2}{2\sigma^2} \right)  \right)  \\
+    &= \sum_{i=1}^{n} \log\left( (2\pi \sigma^2)^{-\frac{1}{2} } \right) +\sum_{i=1}^{n} -\dfrac{(x_i-\mu)^2}{2\sigma^2}=\sum_{i=1}^{n}-\dfrac{1}{2}\log(2\pi \sigma^2)-\dfrac{1}{2\sigma^2}\sum_{i=1}^{n} (x_i-\mu)^2 \\
+    &= -\dfrac{n}{2}\cdot \log(2\pi)-\dfrac{n}{2}\cdot \log(\sigma^2)-\dfrac{1}{2\sigma^2}\sum_{i=1}^{n} (x_i-\mu)^2 \\
+\end{aligned}
+$$
+Para encontrar los estimadores de máxima verosimilitud, derivamos 
