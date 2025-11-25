@@ -1,0 +1,154 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Description: Infraestructura de red para Practica 4 ICAP
+
+Parameters:
+  KeyName:
+    Description: Nombre del archivo de claves (.pem) sin la extension.
+    Type: AWS::EC2::KeyPair::KeyName
+    Default: Entregable-Prac4
+  
+  LabInstanceProfileName:
+    Description: Nombre del perfil de instancia IAM. En tu caso solicitado como LabRole.
+    Type: String
+    Default: LabRole
+
+Resources:
+  # 1. VPC: prac4-vpc con CIDR 192.168.0.0/16
+  Prac4VPC:
+    Type: AWS::EC2::VPC
+    Properties:
+      CidrBlock: 192.168.0.0/16
+      EnableDnsSupport: true
+      EnableDnsHostnames: true
+      Tags:
+        - Key: Name
+          Value: prac4-vpc
+  
+  InternetGateway:
+    Type: AWS::EC2::InternetGateway
+
+  AttachGateway:
+    Type: AWS::EC2::VPCGatewayAttachment
+    Properties:
+      VpcId: !Ref Prac4VPC
+      InternetGatewayId: !Ref InternetGateway
+
+  PublicRouteTable:
+    Type: AWS::EC2::RouteTable
+    Properties:
+      VpcId: !Ref Prac4VPC
+
+  PublicRoute:
+    Type: AWS::EC2::Route
+    DependsOn: AttachGateway
+    Properties:
+      RouteTableId: !Ref PublicRouteTable
+      DestinationCidrBlock: 0.0.0.0/0
+      GatewayId: !Ref InternetGateway
+
+  # 2. Subredes Públicas
+  PublicSubnet1:
+    Type: AWS::EC2::Subnet
+    Properties:
+      VpcId: !Ref Prac4VPC
+      CidrBlock: 192.168.1.0/24
+      AvailabilityZone: us-east-1a
+      MapPublicIpOnLaunch: true
+      Tags:
+        - Key: Name
+          Value: prac4-public-subnet-1
+
+  Subnet1RouteTableAssociation:
+    Type: AWS::EC2::SubnetRouteTableAssociation
+    Properties:
+      SubnetId: !Ref PublicSubnet1
+      RouteTableId: !Ref PublicRouteTable
+
+  PublicSubnet2:
+    Type: AWS::EC2::Subnet
+    Properties:
+      VpcId: !Ref Prac4VPC
+      CidrBlock: 192.168.2.0/24
+      AvailabilityZone: us-east-1b
+      MapPublicIpOnLaunch: true
+      Tags:
+        - Key: Name
+          Value: prac4-public-subnet-2
+
+  Subnet1RouteTableAssociation:
+    Type: AWS::EC2::SubnetRouteTableAssociation
+    Properties:
+      SubnetId: !Ref PublicSubnet2
+      RouteTableId: !Ref PublicRouteTable
+
+  # 3. Seguridad
+  BalanceadorSecurityGroup:
+    Type: AWS::EC2::SecurityGroup
+    GroupName: BalanceadorSecurityGroup
+    GroupDescription: Acceso HTTP puerto 80
+    VpcId: !Ref Prac4VPC
+    SecurityGroupIngress:
+      - IpProtocol: tcp
+        FromPort: 80
+        ToPort: 80
+        CidrIp: 0.0.0.0/0
+
+  TaskSecurityGroup:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupName: TaskSecurityGroup
+      GroupDescription: Acceso contenedor desde ALB
+      VpcId: !Ref Prac4VPC
+      SecurityGroupIngress:
+        - IpProtocol: tcp
+          FromPort: 5000
+          ToPort: 5000
+          SourceSecurityGroupId: !Ref BalanceadorSecurityGroup
+
+  DockerInstanceSG:
+    Type: AWS::EC2::SecurityGroup
+    Properties: 
+      GroupDescription: SSH y Testeo
+      VpcId: !Ref Prac4VPC
+      SecurityGroupIngress:
+        - IpProtocol: tcp
+          FromPort: 22
+          ToPort: 22
+          CidrBlock: 0.0.0.0/0
+        - IpProtocol: tcp
+          FromPort: 5000
+          ToPort: 5000
+          CidrBlock: 0.0.0.0/0
+
+  # 4. Instancia
+  DockerInstance:
+    Type: AWS::EC2::Instance
+    Properties:
+      InstanceType: t2.micro
+      ImageId: !Sub '{{resolve:ssm:/aws/service/ami-amazon-linux-latest/amzn2-ami-hvm-x86_64-gp2}}'
+      KeyName: !Ref KeyName
+      IamInstanceProfile: !Ref LabInstanceProfileName
+      SubnetId: !Ref PublicSubnet1
+      SecurityGroupIds:
+        - !Ref DockerInstanceSG
+      Tags:
+        - Key: Name
+          Value: DockerInstance
+      UserData:
+        Fn::Base64: !Sub |
+          #!/bin/bash
+          yum update -y
+          amazon-linux-extras install docker -y
+          service docker start
+          usermod -a -G docker ec2-user
+          
+          mkdir -p /home/ec2-user/icap-practica4
+          cd /home/ec2-user/icap-practica4
+          
+          # Ejemplo con wget (usando las URLs "Raw" de GitHub)
+          wget https://raw.githubusercontent.com/TU_USUARIO/REPO/main/app.py
+          wget https://raw.githubusercontent.com/TU_USUARIO/REPO/main/Dockerfile
+          wget https://raw.githubusercontent.com/TU_USUARIO/REPO/main/requirements.txt
+          
+          chown -R ec2-user:ec2-user /home/ec2-user/icap-practica4
+
