@@ -7,6 +7,7 @@
 \newtheorem{lemma}{Lema}[subsection]
 \newtheorem{observation}{Observación}[subsection]
 \newtheorem{example}{Ejemplo}[subsection]
+\renewcommand{\figurename}{Figura}
 \newcolumntype{C}[1]{>{\centering\arraybackslash}p{#1}}
 % ==== Soporte knitr para bloques sombreados y \hl... ====
 \usepackage{color}

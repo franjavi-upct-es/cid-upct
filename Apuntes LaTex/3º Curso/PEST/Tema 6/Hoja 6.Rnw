@@ -93,7 +93,25 @@
             \item $\delta$: Representa una constante (término independiente).
             \item $\epsilon_t$: Es la perturbación aleatoria, que se comporta como un \textbf{ruido blanco gaussiano}; es decir, variables independientes idénticamente distribuidas (i.i.d.) con distribución Normal $\mathcal{N}(0,\sigma^2)$. 
         \end{itemize}
-    \item \lb{¿Qué diferencia hay entre correlaciones imples y correlaciones parciales?} 
+    \item \lb{¿Qué diferencia hay entre correlaciones simples y correlaciones parciales?} 
+
+        La diferencia radica en cómo miden la dependencia entre observaciones separadas por un tiempo determinado (retardo $k$).
+        \begin{enumerate}[label=\arabic*)]
+            \item \textbf{Correlación Simple (ACF)} 
+
+                La función de autocorrelación simple (o simplemente correlograma) mide la \textbf{relación total} entre dos observaciones separadas por $k$ periodos ($X_t$ y  $X_{t-k}$), sin importar qué sucede en medio.
+                \begin{itemize}[label=\textbullet]
+                    \item \textbf{Qué captura:} Incluye tanto la influencia directa como la indirecta que se transmite a través de los periodos intermedios.
+                    \item \textbf{Comportamiento:} En procesos autorregresivos, muestra una mezcla de decrecimientos exponenciales y sinusoidales que no se cortan abruptamente, lo que dificulta identificar el orden del modelo solo con esta gráfica. 
+                \end{itemize}
+            \item \textbf{Correlación Parcial (PACF)}
+
+                La función de autocorrelación parcial mide la \textbf{relación directa} o "pura" entre dos observaciones separadas por $k$ periodos,  \textbf{eliminando el efecto} de los valores intermedios $(X_{t-1},\dots,X_{t-k+1})$.
+                \begin{itemize}[label=\textbullet]
+                    \item \textbf{El concepto clave:} Se interpreta como la correlación entre $X_t$ y  $X_{t-k}$ una vez que se ha limpiado la influencia de los retardos que están entre ellos.
+                    \item \textbf{Utilidad:} Es fundamental para identificar el orden $p$ de un proceso autorregresivo  $AR(p)$, ya que los coeficientes serán significativos hasta el retardo $p$ y nulos después.
+                \end{itemize}
+        \end{enumerate}
     \item \lb{¿Cómo se identifica un ruido blanco gaussiano?} 
     \item \lb{¿Cómo se identifica un modelo $AR(p)$?} 
     \item \lb{Para un modelo $AR(p)$, ¿cuándo tendremos que se trata de un proceso estacionario?} 
@@ -212,9 +230,76 @@
     \item \lb{En la siguiente tabla se muestra una serie temporal con datos trimestrales. Para modelar dicha serie se propuso el modelo $ARIMA$ dado por \[ \left(1-\dfrac{1}{2}B+\dfrac{1}{8}B^2\right)(1-B)X_t=(1+0.4B-0.2B^2+0.1B^3)\varepsilon_t \]} 
         \begin{enumerate}[label=\color{red}\textbf{\alph*)}]
             \item \db{Escribe órdenes y polinomios característicos.} 
+
+                Para identificar el modelo $ARIMA(p,d,q)$, observamos los polinomios en el operador de retardos $B$:
+                 \begin{enumerate}[label=\arabic*)]
+                    \item \textbf{Parte Autorregresiva (AR) y Diferenciador (I):}
+                        \begin{itemize}[label=\textbullet]
+                            \item El término $(1-B)$ indica una diferenciación de orden 1, por lo que  $d=1$.
+                            \item El polinomio  $\left( 1-\dfrac{1}{2}B+\dfrac{1}{8}B^2 \right) $ corresponde a la parte AR. Al ser de grado 2, tenemos $p=2$.
+                        \end{itemize}
+                    \item \textbf{Parte de Medias Móviles (MA):}
+                        \begin{itemize}[label=\textbullet]
+                            \item El polinomio del lado derecho $(1+0.4B-0.2B^2+0.1B^3)$ es de grado 3, por lo que $q=3$.
+                        \end{itemize}
+                \end{enumerate}
+                \textbf{Identificación:} Modelo $ARIMA(2,1,3)$.
             \item \db{Comprueba que la serie obtenida al aplicar el operador diferencia es estacionaria.} 
+
+                La condición necesaria y suficiente para que un proceso AR sea estacionario es que las raíces de su polinomio característico estén \textbf{fuera del círculo unidad} del plano complejo (su módulo debe ser mayor que 1).
+
+                Tomamos el polinomio AR: $1-0.5z+0.125z^2=0$. Para hallar las raíces, resolvemos la ecuación de segundo grafo (multiplicamos por 8 para simplificar: $z^2-4z+8=0$):
+                \[
+                \begin{array}{c}
+                    z=\dfrac{-(-4)\pm\sqrt{(-4)^2-4\cdot 1\cdot 8} }{2\cdot 1}=\dfrac{4\pm\sqrt{16-32} }{2}=\dfrac{4\pm\sqrt{-16} }{2}\\
+                    z=\frac{4\pm 4i}{2}=2\pm 2i
+                \end{array}
+                \] 
+
+                Calculamos el módulo de las raíces complejas ($|z|=\sqrt{a^2+b^2} $):
+                \[
+                |z|=\sqrt{2^2+2^2}=\sqrt{4+4}=\sqrt{8}\approx 2.83   
+                \] 
+                Como el módulo $|z|=2.83>1$, las raíces caen fuera del círculo unidad. Por lo tanto,  \textbf{la serie obtenida tras diferenciar es estacionaria}. 
             \item \db{Completa los huecos de la tabla tomando como valores iniciales $X(-2)=0.1,\,X(-1)=0.2,\,X(0)=0.5,\,e(-2)=0,\,e(-1)=0,\,e(0)=0$.} 
+
+                Para calcular los valores, expandimos la ecuación del modelo para dejar $X_t$ (para predecir valores de la serie) o  $\varepsilon_t$ (para calcular residuos).
+
+                Expandimos la parte izquierda:  $(1-0.5B+0.125B^2)(1-B)X_t=(1-1.5B+0.625B^2-0.125B^3)X_t$. La ecuación en diferencias es:
+                \[
+                X_t-1.5X_{t-1}+0.625X_{t-2}-0.125X_{t-3}=\varepsilon_t+0.4\varepsilon_{t-1}-0.2\varepsilon_{t-2}+0.1\varepsilon_{t-3}
+                \] 
+                Despejamos $X_t$ para cálculos recursivos:
+                 \[
+                X_t=1.5X_{t-1}-0.625X_{t-2}+0.125X_{t-3}+\varepsilon_t+0.4\varepsilon_{t-1}-0.2\varepsilon_{t-2}+0.1\varepsilon_{t-3}
+                \] 
+
+                $\begin{array}{l}
+                	\begin{aligned}
+                    X_2&=1.5X_1-0.625X_0+0.125X_{-1}+\varepsilon_2+0.4\varepsilon_1-\tozero{0.2\varepsilon_0}+\tozero{0.1\varepsilon_{-1}}\\
+                        &=1.5\cdot 0.99-0.625\cdot 0.5+0.125\cdot 0.2+0.56+0.4\cdot 0.35=\bboxed{1.90}\\
+                    \end{aligned}\\
+                    \begin{aligned}
+                    \varepsilon_3&=X_3-[1.5X_2-0.625X_1+0.125X_0+0.4\varepsilon_2-0.2\varepsilon_1+\tozero{0.1\varepsilon_0}]\\
+                                 &=0.17-[1.5\cdot 1.9-0.25\cdot 0.99+0.125\cdot 0.5+0.4\cdot 0.56-0.2\cdot 0.35]=\bboxed{-2.28}\\
+                    \end{aligned}\\
+                    \begin{aligned}
+                    \varepsilon_6&=X_6-[1.5X_5-0.625X_4+0.125X_3+0.4\varepsilon_5-0.2\varepsilon_4+0.1\varepsilon_3]\\
+                                 &=-3.68-[1.5\cdot (-2.84)-0.625\cdot (-1.84)+0.125\cdot 0.17+0.4\cdot (-0.7)-0.2\cdot (-0.05)+0.1\cdot (-2.28)]=\bboxed{-0.09}\\
+                    \end{aligned}\\
+                   \begin{aligned}
+                       X_{16}&= 1.5\cdot X_{15}-0.625X_{14}+0.125X_{13}+\varepsilon_{16}+0.4\varepsilon_{15}0.2\varepsilon_{14}+0.1\varepsilon_{13}\\
+                       &= 1.5\cdot (-0.59)-0.625\cdot (-1.17)+0.125\cdot (-1.71)-0.7+0.4\cdot 0.01-0.2\cdot 0.59+0.1\cdot (-0.23)=\bboxed{-1.20}  \\
+                   \end{aligned} 
+                \end{array}$
             \item \db{Calcula las predicciones para el año 2024.} 
+
+                $\begin{array}{l}
+                    \hat{X}_{17}=1.5\cdot (-1.2)-0.625\cdot (-0.59)+0.125\cdot (-1.17)+\tozero{\hat{\varepsilon}_{17}}+0.4\cdot (-0.7)-0.2\cdot 0.01+0.1\cdot 0.59=\bboxed{-1.8}\\
+                    \hat{X}_{18}=1.5\cdot (-1.8)-0.625\cdot (-1.2)+0.125\cdot (-0.59)+\tozero{\hat{\varepsilon}_{18}}+\tozero{0.4\cdot \hat{\varepsilon}_{17}}-0.2\cdot (-0.7)+0.1\cdot 0.01=\bboxed{-1.88}\\
+                    \hat{X}_{19}=1.5\cdot (-1.88)-0.625\cdot (-1.8)+0.125\cdot (-1.2)+\tozero{\hat{\varepsilon}_{19}}+\tozero{0.4\cdot \hat{\varepsilon}_{18}}-\tozero{0.2\cdot \hat{\varepsilon}_{17}}+0.1\cdot 0.01=\bboxed{-1.92}\\
+                    \hat{X}_{20}=1.5\cdot (-1.92)-0.625\cdot (-1.88)+0.125\cdot (-1.8)=\bboxed{-1.93}\\ 
+                \end{array}$
         \end{enumerate}
         \begin{center}
             \color{blue}
@@ -224,15 +309,15 @@
                 \hline
                 1 & 2020 & T1 & 0.99 & 0.35 \\
                 \hline
-                2 & 2020 & T2 &  & 0.56 \\
+                2 & 2020 & T2 & \textcolor{black}{1.9} & 0.56 \\
                 \hline
-                3 & 2020 & T3 & 0.17 &  \\
+                3 & 2020 & T3 & 0.17 & \textcolor{black}{-2.28} \\
                 \hline
                 4 & 2020 & T4 & -1.84 & -0.05 \\
                 \hline
                 5 & 2021 & T1 & -2.84 & -0.70 \\
                 \hline
-                6 & 2021 & T2 & -3.68 &  \\
+                6 & 2021 & T2 & -3.68 & \textcolor{black}{-0.09} \\
                 \hline
                 7 & 2021 & T3 & -3.95 & -0.08 \\
                 \hline
@@ -248,11 +333,11 @@
                 \hline
                 13 & 2023 & T1 & -1.71 & -0.23 \\
                 \hline
-                14 & 2023 & T2 &  -1.17 & 0.59 \\
+                14 & 2023 & T2 & -1.17 & 0.59 \\
                 \hline
-                15 & 2023 & T3 &-0.59 & 0.01 \\
+                15 & 2023 & T3 & -0.59 & 0.01 \\
                 \hline
-                16 & 2023 & T4 &  & -0.70 \\
+                16 & 2023 & T4 & \textcolor{black}{-1.20} & -0.70 \\
                 \hline
             \end{tabular}
         \end{center}
