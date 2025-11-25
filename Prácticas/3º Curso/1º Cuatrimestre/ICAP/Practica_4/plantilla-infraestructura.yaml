@@ -145,10 +145,9 @@ Resources:
           mkdir -p /home/ec2-user/icap-practica4
           cd /home/ec2-user/icap-practica4
           
-          # Ejemplo con wget (usando las URLs "Raw" de GitHub)
-          wget https://raw.githubusercontent.com/TU_USUARIO/REPO/main/app.py
-          wget https://raw.githubusercontent.com/TU_USUARIO/REPO/main/Dockerfile
-          wget https://raw.githubusercontent.com/TU_USUARIO/REPO/main/requirements.txt
+          wget https://raw.githubusercontent.com/franjavi-upct-es/cid-upct/refs/heads/main/Pr%C3%A1cticas/3%C2%BA%20Curso/1%C2%BA%20Cuatrimestre/ICAP/Practica_4/app.py
+          wget https://raw.githubusercontent.com/franjavi-upct-es/cid-upct/refs/heads/main/Pr%C3%A1cticas/3%C2%BA%20Curso/1%C2%BA%20Cuatrimestre/ICAP/Practica_4/Dockerfile
+          wget https://raw.githubusercontent.com/franjavi-upct-es/cid-upct/refs/heads/main/Pr%C3%A1cticas/3%C2%BA%20Curso/1%C2%BA%20Cuatrimestre/ICAP/Practica_4/requirements.txt
           
           chown -R ec2-user:ec2-user /home/ec2-user/icap-practica4
 
