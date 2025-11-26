@@ -111,6 +111,7 @@ Resources:
     Properties:
       ImageId: !Sub '{{resolve:ssm:/aws/service/ecs/optimized-ami/amazon-linux-2/recommended/image_id}}'
       InstanceType: t3.micro
+      # CORRECCIÓN: Se usa el parámetro LabInstanceProfileName
       IamInstanceProfile: !Ref LabInstanceProfileName
       KeyName: !Ref KeyName
       SecurityGroups: [!Ref ECSHostSecurityGroup]
@@ -180,6 +181,7 @@ Resources:
       InstanceType: t2.micro
       ImageId: !Sub '{{resolve:ssm:/aws/service/ami-amazon-linux-latest/amzn2-ami-hvm-x86_64-gp2}}'
       KeyName: !Ref KeyName
+      # CORRECCIÓN: Se usa el parámetro LabInstanceProfileName
       IamInstanceProfile: !Ref LabInstanceProfileName
       SubnetId: !Ref PublicSubnet1
       SecurityGroupIds: [!Ref ECSHostSecurityGroup]
@@ -201,46 +203,13 @@ Resources:
           wget https://raw.githubusercontent.com/franjavi-upct-es/cid-upct/refs/heads/main/Pr%C3%A1cticas/3%C2%BA%20Curso/1%C2%BA%20Cuatrimestre/ICAP/Practica_4/requirements.txt
           
           chown -R ec2-user:ec2-user /home/ec2-user/icap-practica4
-          
-          # Usamos las variables de CloudFormation directamente aquí
-          REGION="us-east-1"
-          REPO_URI="${ECRRepository.RepositoryUri}"
-          CLUSTER="${ECSCluster}"
-          TG_ARN="${TargetGroup}"
-          
-          # Construir
-          docker build -t icap-practica4 .
-          
-          # Subir
-          aws ecr get-login-password --region $REGION | docker login --username AWS --password-stdin $REPO_URI
-          docker tag icap-practica4:latest $REPO_URI:latest
-          docker push $REPO_URI:latest
-          
-          # Obtenemos Account ID dinámicamente
-          ACCOUNT_ID=$(aws sts get-caller-identity --query Account --output text)
-          
-          # Registrar Tarea (Modo HOST para metadatos)
-          aws ecs register-task-definition \
-            --family icap-task \
-            --network-mode host \
-            --requires-compatibilities EC2 \
-            --cpu 256 \
-            --memory 256 \
-            --execution-role-arn "arn:aws:iam::$ACCOUNT_ID:role/LabRole" \
-            --container-definitions "[{\"name\":\"icap-container\",\"image\":\"$REPO_URI:latest\",\"cpu\":256,\"memory\":256,\"portMappings\":[{\"containerPort\":5000,\"hostPort\":5000,\"protocol\":\"tcp\"}],\"essential\":true}]" \
-            --region $REGION
-
-          # Crear Servicio
-          aws ecs create-service \
-            --cluster $CLUSTER \
-            --service-name icap-service \
-            --task-definition icap-task \
-            --desired-count 4 \
-            --launch-type EC2 \
-            --load-balancers "targetGroupArn=$TG_ARN,containerName=icap-container,containerPort=5000" \
-            --region $REGION
 
 Outputs:
   ALBDNS:
-    Description: URL de la aplicación (Espera unos minutos tras la creación)
     Value: !GetAtt LoadBalancer.DNSName
+  TargetGroupArn:
+    Value: !Ref TargetGroup
+  ClusterName:
+    Value: !Ref ECSCluster
+  RepositoryUri:
+    Value: !GetAtt ECRRepository.RepositoryUri
