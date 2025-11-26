@@ -6,7 +6,7 @@ Parameters:
     Description: Nombre del par de claves (.pem).
     Type: AWS::EC2::KeyPair::KeyName
   LabInstanceProfileName:
-    Description: Nombre del Perfil de Instancia IAM (En Academy es LabInstanceProfile).
+    Description: Nombre del Perfil de Instancia IAM.
     Type: String
     Default: LabInstanceProfile
 
@@ -84,17 +84,17 @@ Resources:
           ToPort: 80
           CidrIp: 0.0.0.0/0
 
-  ECSHostSecurityGroup: # Seguridad para las instancias del cluster y DockerInstance
+  ECSHostSecurityGroup:
     Type: AWS::EC2::SecurityGroup
     Properties:
       GroupDescription: Seguridad para hosts ECS y Docker
       VpcId: !Ref Prac4VPC
       SecurityGroupIngress:
-        - IpProtocol: tcp # SSH
+        - IpProtocol: tcp
           FromPort: 22
           ToPort: 22
           CidrIp: 0.0.0.0/0
-        - IpProtocol: tcp # Trafico desde el ALB
+        - IpProtocol: tcp
           FromPort: 0
           ToPort: 65535
           SourceSecurityGroupId: !Ref ALBSecurityGroup
@@ -105,13 +105,11 @@ Resources:
     Properties:
       ClusterName: icap-cluster
 
-  # Launch Configuration para las instancias del cluster (Workers)
   ECSLaunchConfiguration:
     Type: AWS::AutoScaling::LaunchConfiguration
     Properties:
       ImageId: !Sub '{{resolve:ssm:/aws/service/ecs/optimized-ami/amazon-linux-2/recommended/image_id}}'
       InstanceType: t3.micro
-      # CORRECCIÓN: Se usa el parámetro LabInstanceProfileName
       IamInstanceProfile: !Ref LabInstanceProfileName
       KeyName: !Ref KeyName
       SecurityGroups: [!Ref ECSHostSecurityGroup]
@@ -120,7 +118,6 @@ Resources:
           #!/bin/bash
           echo ECS_CLUSTER=${ECSCluster} >> /etc/ecs/ecs.config
 
-  # Grupo de Autoescalado (Crea las 4 instancias requeridas)
   ECSAutoScalingGroup:
     Type: AWS::AutoScaling::AutoScalingGroup
     Properties:
@@ -134,7 +131,7 @@ Resources:
           Value: ECS-Worker-Node
           PropagateAtLaunch: true
 
-  # --- 4. BALANCEADOR DE CARGA (ALB) ---
+  # --- 4. BALANCEADOR (ALB) ---
   LoadBalancer:
     Type: AWS::ElasticLoadBalancingV2::LoadBalancer
     Properties:
@@ -165,7 +162,7 @@ Resources:
         - Type: forward
           TargetGroupArn: !Ref TargetGroup
 
-  # --- 5. REPOSITORIO ECR ---
+  # --- 5. ECR ---
   ECRRepository:
     Type: AWS::ECR::Repository
     Properties:
@@ -174,14 +171,13 @@ Resources:
         LifecyclePolicyText: |
           {"rules":[{"rulePriority":1,"description":"Expire untagged","selection":{"tagStatus":"untagged","countType":"sinceImagePushed","countUnit":"days","countNumber":1},"action":{"type":"expire"}}]}
 
-  # --- 6. INSTANCIA DE GESTIÓN (BUILDER) ---
+  # --- 6. INSTANCIA DE GESTI?N (AUTOMATIZADA) ---
   DockerInstance:
     Type: AWS::EC2::Instance
     Properties:
       InstanceType: t2.micro
       ImageId: !Sub '{{resolve:ssm:/aws/service/ami-amazon-linux-latest/amzn2-ami-hvm-x86_64-gp2}}'
       KeyName: !Ref KeyName
-      # CORRECCIÓN: Se usa el parámetro LabInstanceProfileName
       IamInstanceProfile: !Ref LabInstanceProfileName
       SubnetId: !Ref PublicSubnet1
       SecurityGroupIds: [!Ref ECSHostSecurityGroup]
@@ -189,20 +185,59 @@ Resources:
       UserData:
         Fn::Base64: !Sub |
           #!/bin/bash
+          # 1. Instalaci?n Docker
           yum update -y
           amazon-linux-extras install docker -y
           service docker start
           usermod -a -G docker ec2-user
           
+          # 2. Preparar APP (Versi?n corregida doble llave CSS + try/except)
           mkdir -p /home/ec2-user/icap-practica4
           cd /home/ec2-user/icap-practica4
-          
-          # Descarga de archivos desde GitHub
+
           wget https://raw.githubusercontent.com/franjavi-upct-es/cid-upct/refs/heads/main/Pr%C3%A1cticas/3%C2%BA%20Curso/1%C2%BA%20Cuatrimestre/ICAP/Practica_4/app.py
           wget https://raw.githubusercontent.com/franjavi-upct-es/cid-upct/refs/heads/main/Pr%C3%A1cticas/3%C2%BA%20Curso/1%C2%BA%20Cuatrimestre/ICAP/Practica_4/Dockerfile
           wget https://raw.githubusercontent.com/franjavi-upct-es/cid-upct/refs/heads/main/Pr%C3%A1cticas/3%C2%BA%20Curso/1%C2%BA%20Cuatrimestre/ICAP/Practica_4/requirements.txt
+
           
           chown -R ec2-user:ec2-user /home/ec2-user/icap-practica4
+
+          # 3. BUILD & PUSH
+          REGION="us-east-1"
+          REPO_URI="${ECRRepository.RepositoryUri}"
+          CLUSTER="${ECSCluster}"
+          TG_ARN="${TargetGroup}"
+          
+          docker build -t icap-practica4 .
+          aws ecr get-login-password --region $REGION | docker login --username AWS --password-stdin $REPO_URI
+          docker tag icap-practica4:latest $REPO_URI:latest
+          docker push $REPO_URI:latest
+          
+          # 4. DESPLIEGUE EN ECS (Modo HOST)
+          # Esperamos unos segundos para asegurar consistencia
+          sleep 10
+          ACCOUNT_ID=$(aws sts get-caller-identity --query Account --output text)
+          
+          # Registramos la tarea con NETWORK MODE: HOST
+          aws ecs register-task-definition \
+            --family icap-task \
+            --network-mode host \
+            --requires-compatibilities EC2 \
+            --cpu 256 \
+            --memory 256 \
+            --execution-role-arn "arn:aws:iam::$ACCOUNT_ID:role/LabRole" \
+            --container-definitions "[{\"name\":\"icap-container\",\"image\":\"$REPO_URI:latest\",\"cpu\":256,\"memory\":256,\"portMappings\":[{\"containerPort\":5000,\"hostPort\":5000,\"protocol\":\"tcp\"}],\"essential\":true}]" \
+            --region $REGION
+
+          # Creamos el servicio
+          aws ecs create-service \
+            --cluster $CLUSTER \
+            --service-name icap-service \
+            --task-definition icap-task \
+            --desired-count 4 \
+            --launch-type EC2 \
+            --load-balancers "targetGroupArn=$TG_ARN,containerName=icap-container,containerPort=5000" \
+            --region $REGION
 
 Outputs:
   ALBDNS:
