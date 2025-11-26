@@ -1,29 +1,25 @@
 AWSTemplateFormatVersion: '2010-09-09'
-Description: Infraestructura de red para Practica 4 ICAP
+Description: Infraestructura Completa Practica 4 (Red + ALB + ECS Cluster + ASG)
 
 Parameters:
   KeyName:
-    Description: Nombre del archivo de claves (.pem) sin la extension.
+    Description: Nombre del par de claves (.pem).
     Type: AWS::EC2::KeyPair::KeyName
-    Default: Entregable-Prac4
-  
   LabInstanceProfileName:
-    Description: Nombre del perfil de instancia IAM. En tu caso solicitado como LabRole.
+    Description: Nombre del Perfil de Instancia IAM (En Academy es LabInstanceProfile).
     Type: String
-    Default: LabRole
+    Default: LabInstanceProfile
 
 Resources:
-  # 1. VPC: prac4-vpc con CIDR 192.168.0.0/16
+  # --- 1. RED ---
   Prac4VPC:
     Type: AWS::EC2::VPC
     Properties:
       CidrBlock: 192.168.0.0/16
       EnableDnsSupport: true
       EnableDnsHostnames: true
-      Tags:
-        - Key: Name
-          Value: prac4-vpc
-  
+      Tags: [{Key: Name, Value: prac4-vpc}]
+
   InternetGateway:
     Type: AWS::EC2::InternetGateway
 
@@ -46,7 +42,6 @@ Resources:
       DestinationCidrBlock: 0.0.0.0/0
       GatewayId: !Ref InternetGateway
 
-  # 2. Subredes Públicas
   PublicSubnet1:
     Type: AWS::EC2::Subnet
     Properties:
@@ -54,11 +49,9 @@ Resources:
       CidrBlock: 192.168.1.0/24
       AvailabilityZone: us-east-1a
       MapPublicIpOnLaunch: true
-      Tags:
-        - Key: Name
-          Value: prac4-public-subnet-1
+      Tags: [{Key: Name, Value: prac4-public-subnet-1}]
 
-  Subnet1RouteTableAssociation:
+  Subnet1Route:
     Type: AWS::EC2::SubnetRouteTableAssociation
     Properties:
       SubnetId: !Ref PublicSubnet1
@@ -71,69 +64,128 @@ Resources:
       CidrBlock: 192.168.2.0/24
       AvailabilityZone: us-east-1b
       MapPublicIpOnLaunch: true
-      Tags:
-        - Key: Name
-          Value: prac4-public-subnet-2
+      Tags: [{Key: Name, Value: prac4-public-subnet-2}]
 
-  Subnet1RouteTableAssociation:
+  Subnet2Route:
     Type: AWS::EC2::SubnetRouteTableAssociation
     Properties:
       SubnetId: !Ref PublicSubnet2
       RouteTableId: !Ref PublicRouteTable
 
-  # 3. Seguridad
-  BalanceadorSecurityGroup:
-    Type: AWS::EC2::SecurityGroup
-    GroupName: BalanceadorSecurityGroup
-    GroupDescription: Acceso HTTP puerto 80
-    VpcId: !Ref Prac4VPC
-    SecurityGroupIngress:
-      - IpProtocol: tcp
-        FromPort: 80
-        ToPort: 80
-        CidrIp: 0.0.0.0/0
-
-  TaskSecurityGroup:
+  # --- 2. SEGURIDAD ---
+  ALBSecurityGroup:
     Type: AWS::EC2::SecurityGroup
     Properties:
-      GroupName: TaskSecurityGroup
-      GroupDescription: Acceso contenedor desde ALB
+      GroupDescription: Permite HTTP al balanceador
       VpcId: !Ref Prac4VPC
       SecurityGroupIngress:
         - IpProtocol: tcp
-          FromPort: 5000
-          ToPort: 5000
-          SourceSecurityGroupId: !Ref BalanceadorSecurityGroup
+          FromPort: 80
+          ToPort: 80
+          CidrIp: 0.0.0.0/0
 
-  DockerInstanceSG:
+  ECSHostSecurityGroup: # Seguridad para las instancias del cluster y DockerInstance
     Type: AWS::EC2::SecurityGroup
-    Properties: 
-      GroupDescription: SSH y Testeo
+    Properties:
+      GroupDescription: Seguridad para hosts ECS y Docker
       VpcId: !Ref Prac4VPC
       SecurityGroupIngress:
-        - IpProtocol: tcp
+        - IpProtocol: tcp # SSH
           FromPort: 22
           ToPort: 22
-          CidrBlock: 0.0.0.0/0
-        - IpProtocol: tcp
-          FromPort: 5000
-          ToPort: 5000
-          CidrBlock: 0.0.0.0/0
+          CidrIp: 0.0.0.0/0
+        - IpProtocol: tcp # Trafico desde el ALB
+          FromPort: 0
+          ToPort: 65535
+          SourceSecurityGroupId: !Ref ALBSecurityGroup
 
-  # 4. Instancia
+  # --- 3. ECS CLUSTER & WORKERS ---
+  ECSCluster:
+    Type: AWS::ECS::Cluster
+    Properties:
+      ClusterName: icap-cluster
+
+  # Launch Configuration para las instancias del cluster (Workers)
+  ECSLaunchConfiguration:
+    Type: AWS::AutoScaling::LaunchConfiguration
+    Properties:
+      ImageId: !Sub '{{resolve:ssm:/aws/service/ecs/optimized-ami/amazon-linux-2/recommended/image_id}}'
+      InstanceType: t3.micro
+      # CORRECCIÓN: Se usa el parámetro LabInstanceProfileName
+      IamInstanceProfile: !Ref LabInstanceProfileName
+      KeyName: !Ref KeyName
+      SecurityGroups: [!Ref ECSHostSecurityGroup]
+      UserData:
+        Fn::Base64: !Sub |
+          #!/bin/bash
+          echo ECS_CLUSTER=${ECSCluster} >> /etc/ecs/ecs.config
+
+  # Grupo de Autoescalado (Crea las 4 instancias requeridas)
+  ECSAutoScalingGroup:
+    Type: AWS::AutoScaling::AutoScalingGroup
+    Properties:
+      VPCZoneIdentifier: [!Ref PublicSubnet1, !Ref PublicSubnet2]
+      LaunchConfigurationName: !Ref ECSLaunchConfiguration
+      MinSize: '4'
+      MaxSize: '4'
+      DesiredCapacity: '4'
+      Tags:
+        - Key: Name
+          Value: ECS-Worker-Node
+          PropagateAtLaunch: true
+
+  # --- 4. BALANCEADOR DE CARGA (ALB) ---
+  LoadBalancer:
+    Type: AWS::ElasticLoadBalancingV2::LoadBalancer
+    Properties:
+      Name: icap-alb
+      Subnets: [!Ref PublicSubnet1, !Ref PublicSubnet2]
+      SecurityGroups: [!Ref ALBSecurityGroup]
+      Scheme: internet-facing
+
+  TargetGroup:
+    Type: AWS::ElasticLoadBalancingV2::TargetGroup
+    Properties:
+      Name: icap-tg
+      VpcId: !Ref Prac4VPC
+      Port: 80
+      Protocol: HTTP
+      TargetType: instance
+      HealthCheckPath: /
+      Matcher:
+        HttpCode: '200'
+
+  ALBListener:
+    Type: AWS::ElasticLoadBalancingV2::Listener
+    Properties:
+      LoadBalancerArn: !Ref LoadBalancer
+      Port: 80
+      Protocol: HTTP
+      DefaultActions:
+        - Type: forward
+          TargetGroupArn: !Ref TargetGroup
+
+  # --- 5. REPOSITORIO ECR ---
+  ECRRepository:
+    Type: AWS::ECR::Repository
+    Properties:
+      RepositoryName: icap-practica4
+      LifecyclePolicy:
+        LifecyclePolicyText: |
+          {"rules":[{"rulePriority":1,"description":"Expire untagged","selection":{"tagStatus":"untagged","countType":"sinceImagePushed","countUnit":"days","countNumber":1},"action":{"type":"expire"}}]}
+
+  # --- 6. INSTANCIA DE GESTIÓN (BUILDER) ---
   DockerInstance:
     Type: AWS::EC2::Instance
     Properties:
       InstanceType: t2.micro
       ImageId: !Sub '{{resolve:ssm:/aws/service/ami-amazon-linux-latest/amzn2-ami-hvm-x86_64-gp2}}'
       KeyName: !Ref KeyName
+      # CORRECCIÓN: Se usa el parámetro LabInstanceProfileName
       IamInstanceProfile: !Ref LabInstanceProfileName
       SubnetId: !Ref PublicSubnet1
-      SecurityGroupIds:
-        - !Ref DockerInstanceSG
-      Tags:
-        - Key: Name
-          Value: DockerInstance
+      SecurityGroupIds: [!Ref ECSHostSecurityGroup]
+      Tags: [{Key: Name, Value: DockerInstance}]
       UserData:
         Fn::Base64: !Sub |
           #!/bin/bash
@@ -145,9 +197,19 @@ Resources:
           mkdir -p /home/ec2-user/icap-practica4
           cd /home/ec2-user/icap-practica4
           
+          # Descarga de archivos desde GitHub
           wget https://raw.githubusercontent.com/franjavi-upct-es/cid-upct/refs/heads/main/Pr%C3%A1cticas/3%C2%BA%20Curso/1%C2%BA%20Cuatrimestre/ICAP/Practica_4/app.py
           wget https://raw.githubusercontent.com/franjavi-upct-es/cid-upct/refs/heads/main/Pr%C3%A1cticas/3%C2%BA%20Curso/1%C2%BA%20Cuatrimestre/ICAP/Practica_4/Dockerfile
           wget https://raw.githubusercontent.com/franjavi-upct-es/cid-upct/refs/heads/main/Pr%C3%A1cticas/3%C2%BA%20Curso/1%C2%BA%20Cuatrimestre/ICAP/Practica_4/requirements.txt
           
           chown -R ec2-user:ec2-user /home/ec2-user/icap-practica4
 
+Outputs:
+  ALBDNS:
+    Value: !GetAtt LoadBalancer.DNSName
+  TargetGroupArn:
+    Value: !Ref TargetGroup
+  ClusterName:
+    Value: !Ref ECSCluster
+  RepositoryUri:
+    Value: !GetAtt ECRRepository.RepositoryUri

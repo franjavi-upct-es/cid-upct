@@ -1,0 +1,54 @@
+# =============================================================================
+# PRÁCTICA 4 ICAP - COMANDOS DOCKER
+# Alumno: Francisco Javier Mercader Martínez
+# =============================================================================
+
+# Para que funcione se debe estar conectado por SSH a la instancia EC2 de 
+# gestión (DockerInstance) y estar situado en el directorio donde se encuentran
+# el Dockerfile y app.py.
+
+# -----------------------------------------------------------------------------
+# 1. CONSTRUCCIÓN DE LA IMAGEN (BUILD)
+# -----------------------------------------------------------------------------
+# Crea la imagen localmente con el tag 'icap-practica4'.
+# El punto final indica que se usa el Dockerfile del directorio actual.
+docker build -t icap-practica4 .
+
+
+# -----------------------------------------------------------------------------
+# 2. COMPROBACIÓN LOCAL (OPCIONAL/TESTEO)
+# -----------------------------------------------------------------------------
+# Ejecución del contenedor en segundo plano mapeando el puerto 5000.
+# Esto sirve para verificar que la aplicación Flask arranca correctamente
+# antes de subirla a la nube.
+docker run -d -p 5000:5000 --name test-local icap-practica4
+
+# Verificación de que el contenedor está corriendo.
+docker ps
+
+# Una vez comprobado (curl localhost:5000), paramos y borramos el contenedor de prueba.
+docker stop test-local
+docker rm test-local
+
+
+# -----------------------------------------------------------------------------
+# 3. AUTENTICACIÓN EN AMAZON ECR (LOGIN)
+# -----------------------------------------------------------------------------
+# Obtiene el token de autenticación de AWS y se lo pasa al comando docker login.
+# IMPORTANTE: Reemplazar <TU_ID_DE_CUENTA> por el ID real de AWS (ej. 123456789012).
+aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin <TU_ID_DE_CUENTA>.dkr.ecr.us-east-1.amazonaws.com
+
+
+# -----------------------------------------------------------------------------
+# 4. ETIQUETADO DE LA IMAGEN (TAG)
+# -----------------------------------------------------------------------------
+# Para subir una imagen a ECR, debe tener un tag que coincida con la URI del repositorio.
+# Formato: <account-id>.dkr.ecr.<region>.amazonaws.com/<repo-name>
+docker tag icap-practica4:latest <TU_ID_DE_CUENTA>.dkr.ecr.us-east-1.amazonaws.com/icap-practica4:latest
+
+
+# -----------------------------------------------------------------------------
+# 5. SUBIDA DE LA IMAGEN AL REPOSITORIO (PUSH)
+# -----------------------------------------------------------------------------
+# Sube las capas de la imagen al repositorio remoto en AWS ECR.
+docker push <TU_ID_DE_CUENTA>.dkr.ecr.us-east-1.amazonaws.com/icap-practica4:latest
