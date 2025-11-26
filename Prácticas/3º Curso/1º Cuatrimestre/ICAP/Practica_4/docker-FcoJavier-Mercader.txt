@@ -35,8 +35,7 @@ docker rm test-local
 # 3. AUTENTICACIÓN EN AMAZON ECR (LOGIN)
 # -----------------------------------------------------------------------------
 # Obtiene el token de autenticación de AWS y se lo pasa al comando docker login.
-# IMPORTANTE: Reemplazar <TU_ID_DE_CUENTA> por el ID real de AWS (ej. 123456789012).
-aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin <TU_ID_DE_CUENTA>.dkr.ecr.us-east-1.amazonaws.com
+aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 992382394177.dkr.ecr.us-east-1.amazonaws.com
 
 
 # -----------------------------------------------------------------------------
@@ -44,11 +43,11 @@ aws ecr get-login-password --region us-east-1 | docker login --username AWS --pa
 # -----------------------------------------------------------------------------
 # Para subir una imagen a ECR, debe tener un tag que coincida con la URI del repositorio.
 # Formato: <account-id>.dkr.ecr.<region>.amazonaws.com/<repo-name>
-docker tag icap-practica4:latest <TU_ID_DE_CUENTA>.dkr.ecr.us-east-1.amazonaws.com/icap-practica4:latest
+docker tag icap-practica4:latest 992382394177.dkr.ecr.us-east-1.amazonaws.com/icap-practica4:latest
 
 
 # -----------------------------------------------------------------------------
 # 5. SUBIDA DE LA IMAGEN AL REPOSITORIO (PUSH)
 # -----------------------------------------------------------------------------
 # Sube las capas de la imagen al repositorio remoto en AWS ECR.
-docker push <TU_ID_DE_CUENTA>.dkr.ecr.us-east-1.amazonaws.com/icap-practica4:latest
+docker push 992382394177.dkr.ecr.us-east-1.amazonaws.com/icap-practica4:latest
