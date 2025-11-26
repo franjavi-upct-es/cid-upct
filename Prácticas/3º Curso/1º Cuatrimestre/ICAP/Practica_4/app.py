@@ -14,7 +14,7 @@ def home():
 
     try:
         iid = ec2_metadata.instance_id
-        z = ec2_metadata.availability_zone
+        az = ec2_metadata.availability_zone
         ipv4 = ec2_metadata.private_ipv4
         mac = ec2_metadata.mac
         subnet = ec2_metadata.network_interfaces[mac].subnet_id
@@ -84,7 +84,7 @@ def home():
             
             <div class="info-item">
                 <span class="label">Zona de disponibilidad:</span><br>
-                <span class="value">{z}</span>
+                <span class="value">{az}</span>
             </div>
             
             <div class="info-item">
