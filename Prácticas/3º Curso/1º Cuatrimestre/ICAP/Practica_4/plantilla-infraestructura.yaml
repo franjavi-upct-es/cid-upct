@@ -202,7 +202,6 @@ Resources:
           
           chown -R ec2-user:ec2-user /home/ec2-user/icap-practica4
           
-          # 3. BUILD & PUSH AUTOMÁTICO
           # Usamos las variables de CloudFormation directamente aquí
           REGION="us-east-1"
           REPO_URI="${ECRRepository.RepositoryUri}"
@@ -217,7 +216,6 @@ Resources:
           docker tag icap-practica4:latest $REPO_URI:latest
           docker push $REPO_URI:latest
           
-          # 4. DESPLIEGUE EN ECS (CLI dentro de la instancia)
           # Obtenemos Account ID dinámicamente
           ACCOUNT_ID=$(aws sts get-caller-identity --query Account --output text)
           
