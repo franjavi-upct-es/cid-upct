@@ -5,7 +5,7 @@
 
 # Para que funcione se debe estar conectado por SSH a la instancia EC2 de 
 # gestión (DockerInstance) y estar situado en el directorio donde se encuentran
-# el Dockerfile y app.py.
+# el Dockerfile y app.py (icap-practica4).
 
 # -----------------------------------------------------------------------------
 # 1. CONSTRUCCIÓN DE LA IMAGEN (BUILD)
