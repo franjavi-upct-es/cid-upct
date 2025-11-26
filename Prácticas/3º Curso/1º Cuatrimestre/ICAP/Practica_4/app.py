@@ -25,80 +25,40 @@ def home():
             
     # HTML con el formato solicitado
     html = f"""
-    <!DOCTYPE html>
-    <html lang="es">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>ICAP - Práctica 4</title>
-        <style>
-            body {{
-                font-family: Arial, sans-serif;
-                margin: 40px;
-                background-color: #f5f5f5;
-            }}
-            .container {{
-                background-color: white;
-                padding: 30px;
-                border-radius: 8px;
-                box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-                max-width: 800px;
-                margin: 0 auto;
-            }}
-            h1 {{
-                color: #333;
-                border-bottom: 2px solid #0066cc;
-                padding-bottom: 10px;
-            }}
-            h2 {{
-                color: #666;
-                font-size: 18px;
-                margin-top: 20px;
-            }}
-            .info-item {{
-                margin: 15px 0;
-                padding: 10px;
-                background-color: #f9f9f9;
-                border-left: 4px solid #0066cc;
-            }}
-            .label {{
-                font-weight: bold;
-                color: #333;
-            }}
-            .value {{
-                color: #0066cc;
-                font-family: monospace;
-                font-size: 14px;
-            }}
-        </style>
-    </head>
-    <body>
-        <div class="container">
-            <h1>ICAP: Instancia contenedor de Práctica 4</h1>
-            <h2>Francisco Javier Mercader Martínez</h2>
-            
-            <div class="info-item">
-                <span class="label">Id de instancia:</span><br>
-                <span class="value">{iid}</span>
-            </div>
-            
-            <div class="info-item">
-                <span class="label">Zona de disponibilidad:</span><br>
-                <span class="value">{az}</span>
-            </div>
-            
-            <div class="info-item">
-                <span class="label">Dirección IPv4 privada:</span><br>
-                <span class="value">{ipv4}</span>
-            </div>
-            
-            <div class="info-item">
-                <span class="label">Id de subred:</span><br>
-                <span class="value">{subnet}</span>
-            </div>
-        </div>
-    </body>
-    </html>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>ICAP: Instancia contenedor de Práctica 4</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            line-height: 1.6;
+        }
+        .highlight {
+            color: red;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <h2>ICAP: Instancia contenedor de Práctica 4</h2>
+    <p><span class="highlight">Francisco Javier Mercader Martínez</span></p>
+
+    <h3>Id de instancia:</h3>
+    <p><span class="highlight">{iid}</span></p>
+
+    <h3>Zona de disponibilidad:</h3>
+    <p><span class="highlight">{az}</span></p>
+
+    <h3>Dirección IPv4 privada:</h3>
+    <p><span class="highlight">{ipv4}</span></p>
+
+    <h3>Id de subred:</h3>
+    <p><span class="highlight">{subnet}</span></p>
+</body>
+</html>
     """
 
     return html
