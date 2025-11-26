@@ -31,15 +31,15 @@ def home():
     <meta charset="UTF-8">
     <title>ICAP: Instancia contenedor de Práctica 4</title>
     <style>
-        body {
+        body {{
             font-family: Arial, sans-serif;
             margin: 20px;
             line-height: 1.6;
-        }
-        .highlight {
+        }}
+        .highlight {{
             color: red;
             font-weight: bold;
-        }
+        }}
     </style>
 </head>
 <body>
