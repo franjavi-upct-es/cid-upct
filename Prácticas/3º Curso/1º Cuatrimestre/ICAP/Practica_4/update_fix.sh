@@ -1,3 +1,36 @@
+#!/bin/bash
+
+# === CONFIGURACIÓN ===
+KEY_NAME="Entregable-Prac4"
+KEY_FILE="./${KEY_NAME}.pem"
+STACK_NAME="stack-entregable-prac4"
+REGION="us-east-1"
+# =====================
+
+# 1. Aseguramos permisos de clave
+chmod 400 "$KEY_FILE"
+
+echo ">>> [1/4] Recuperando configuración de la infraestructura..."
+# Obtenemos las variables necesarias consultando al Stack ya creado
+INSTANCE_IP=$(aws ec2 describe-instances --filters "Name=tag:Name,Values=DockerInstance" "Name=instance-state-name,Values=running" --query "Reservations[*].Instances[*].PublicIpAddress" --output text --region $REGION)
+REPO_URI=$(aws cloudformation describe-stacks --stack-name $STACK_NAME --query "Stacks[0].Outputs[?OutputKey=='RepositoryUri'].OutputValue" --output text --region $REGION)
+CLUSTER_NAME=$(aws cloudformation describe-stacks --stack-name $STACK_NAME --query "Stacks[0].Outputs[?OutputKey=='ClusterName'].OutputValue" --output text --region $REGION)
+ALB_DNS=$(aws cloudformation describe-stacks --stack-name $STACK_NAME --query "Stacks[0].Outputs[?OutputKey=='ALBDNS'].OutputValue" --output text --region $REGION)
+
+echo "    Builder IP: $INSTANCE_IP"
+echo "    Repo URI: $REPO_URI"
+echo "    Cluster: $CLUSTER_NAME"
+
+echo ">>> [2/4] Parcheando app.py y actualizando imagen..."
+# Conectamos por SSH para sobrescribir app.py y reconstruir
+ssh -o StrictHostKeyChecking=no -i "$KEY_FILE" ec2-user@$INSTANCE_IP <<EOF
+  set -e
+  cd /home/ec2-user/icap-practica4
+  
+  # --- CORRECCIÓN DEL CÓDIGO ---
+  # Sobrescribimos app.py con una versión corregida.
+  # El error probable era usar la variable 'z' en el try y 'az' en el except.
+  cat <<PY > app.py
 from flask import Flask
 from ec2_metadata import ec2_metadata
 
@@ -106,3 +139,27 @@ def home():
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=5000)
+PY
+
+  echo ">> Reconstruyendo imagen (Docker Build)..."
+  sudo docker build -t icap-practica4 .
+  
+  echo ">> Subiendo imagen corregida (Docker Push)..."
+  aws ecr get-login-password --region $REGION | sudo docker login --username AWS --password-stdin $REPO_URI
+  sudo docker push $REPO_URI:latest
+EOF
+
+echo ">>> [3/4] Forzando despliegue en ECS (Rolling Update)..."
+# Este comando fuerza a ECS a bajar la nueva imagen y reemplazar los contenedores
+aws ecs update-service \
+    --cluster $CLUSTER_NAME \
+    --service icap-service \
+    --force-new-deployment \
+    --region $REGION > /dev/null
+
+echo "=========================================================="
+echo ">>> [4/4] ¡ACTUALIZACIÓN LANZADA! <<<"
+echo "ECS está reemplazando los contenedores ahora mismo."
+echo "Espera unos 2-3 minutos y recarga esta URL:"
+echo "http://$ALB_DNS"
+echo "=========================================================="
