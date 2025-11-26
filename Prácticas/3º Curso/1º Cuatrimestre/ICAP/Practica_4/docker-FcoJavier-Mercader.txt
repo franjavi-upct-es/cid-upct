@@ -8,6 +8,21 @@
 # el Dockerfile y app.py (icap-practica4).
 
 # -----------------------------------------------------------------------------
+# 0. CONFIGURACIÓN DE VARIABLES (GENERALIZACIÓN)
+# -----------------------------------------------------------------------------
+# Obtener el Account ID dinámicamente
+ACCOUNT_ID=$(aws sts get-caller-identity --query Account --output text)
+REGION="us-east-1"
+REPO_NAME="icap-practica4"
+REPO_URI="$ACCOUNT_ID.dkr.ecr.$REGION.amazonaws.com/$REPO_NAME"
+
+# Verificar las variables
+echo "Account ID: $ACCOUNT_ID"
+echo "Region: $REGION"
+echo "Repository URI: $REPO_URI"
+
+
+# -----------------------------------------------------------------------------
 # 1. CONSTRUCCIÓN DE LA IMAGEN (BUILD)
 # -----------------------------------------------------------------------------
 # Crea la imagen localmente con el tag 'icap-practica4'.
@@ -26,7 +41,10 @@ docker run -d -p 5000:5000 --name test-local icap-practica4
 # Verificación de que el contenedor está corriendo.
 docker ps
 
-# Una vez comprobado (curl localhost:5000), paramos y borramos el contenedor de prueba.
+# Probar la aplicación localmente
+curl localhost:5000
+
+# Una vez comprobado, paramos y borramos el contenedor de prueba.
 docker stop test-local
 docker rm test-local
 
@@ -35,7 +53,7 @@ docker rm test-local
 # 3. AUTENTICACIÓN EN AMAZON ECR (LOGIN)
 # -----------------------------------------------------------------------------
 # Obtiene el token de autenticación de AWS y se lo pasa al comando docker login.
-aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 992382394177.dkr.ecr.us-east-1.amazonaws.com
+aws ecr get-login-password --region $REGION | docker login --username AWS --password-stdin $REPO_URI
 
 
 # -----------------------------------------------------------------------------
@@ -43,11 +61,72 @@ aws ecr get-login-password --region us-east-1 | docker login --username AWS --pa
 # -----------------------------------------------------------------------------
 # Para subir una imagen a ECR, debe tener un tag que coincida con la URI del repositorio.
 # Formato: <account-id>.dkr.ecr.<region>.amazonaws.com/<repo-name>
-docker tag icap-practica4:latest 992382394177.dkr.ecr.us-east-1.amazonaws.com/icap-practica4:latest
+docker tag icap-practica4:latest $REPO_URI:latest
 
 
 # -----------------------------------------------------------------------------
 # 5. SUBIDA DE LA IMAGEN AL REPOSITORIO (PUSH)
 # -----------------------------------------------------------------------------
 # Sube las capas de la imagen al repositorio remoto en AWS ECR.
-docker push 992382394177.dkr.ecr.us-east-1.amazonaws.com/icap-practica4:latest
+docker push $REPO_URI:latest
+
+
+# -----------------------------------------------------------------------------
+# 6. COMANDOS DE VERIFICACIÓN Y DEBUGGING
+# -----------------------------------------------------------------------------
+
+# Listar todas las imágenes locales
+docker images
+
+# Ver logs de un contenedor en ejecución (reemplazar <container_id>)
+docker logs <container_id>
+
+# Inspeccionar detalles de una imagen
+docker inspect icap-practica4
+
+# Verificar imágenes en el repositorio ECR
+aws ecr describe-images --repository-name $REPO_NAME --region $REGION
+
+# Listar repositorios ECR
+aws ecr describe-repositories --region $REGION
+
+# Ver estado del cluster ECS
+aws ecs describe-clusters --clusters icap-cluster --region $REGION
+
+# Listar tareas en ejecución en el cluster
+aws ecs list-tasks --cluster icap-cluster --region $REGION
+
+# Ver detalles de una tarea específica (reemplazar <task-arn>)
+aws ecs describe-tasks --cluster icap-cluster --tasks <task-arn> --region $REGION
+
+# Ver los servicios del cluster
+aws ecs list-services --cluster icap-cluster --region $REGION
+
+# Ver detalles del servicio
+aws ecs describe-services --cluster icap-cluster --services icap-service --region $REGION
+
+# Ver instancias EC2 registradas en el cluster
+aws ecs list-container-instances --cluster icap-cluster --region $REGION
+
+
+# -----------------------------------------------------------------------------
+# 7. COMANDOS ADICIONALES ÚTILES
+# -----------------------------------------------------------------------------
+
+# Eliminar una imagen local
+docker rmi icap-practica4
+
+# Eliminar un contenedor detenido
+docker rm <container_name_or_id>
+
+# Ver contenedores en ejecución (detallado)
+docker ps -a
+
+# Limpiar recursos Docker no utilizados
+docker system prune -a
+
+# Descargar una imagen desde ECR
+docker pull $REPO_URI:latest
+
+# Ejecutar bash dentro de un contenedor en ejecución
+docker exec -it <container_id> /bin/bash
