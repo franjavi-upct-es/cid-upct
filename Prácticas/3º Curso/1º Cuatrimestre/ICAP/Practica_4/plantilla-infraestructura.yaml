@@ -222,7 +222,7 @@ Resources:
           docker push $REPO_URI:latest
           
           # 4. DESPLIEGUE EN ECS (Modo HOST)
-          sleep 10
+          sleep 30
           ACCOUNT_ID=$(aws sts get-caller-identity --query Account --output text)
           
           # Registramos la tarea con NETWORK MODE: HOST
