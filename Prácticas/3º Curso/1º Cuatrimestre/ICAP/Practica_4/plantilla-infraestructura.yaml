@@ -182,6 +182,7 @@ Resources:
   # --- 6. INSTANCIA DE GESTIÓN (AUTOMATIZADA) ---
   DockerInstance:
     Type: AWS::EC2::Instance
+    DependsOn: ALBListener
     Properties:
       InstanceType: t2.micro
       ImageId: !Sub '{{resolve:ssm:/aws/service/ami-amazon-linux-latest/amzn2-ami-hvm-x86_64-gp2}}'
