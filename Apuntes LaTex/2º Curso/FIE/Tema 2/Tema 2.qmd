@@ -223,4 +223,61 @@ $$
     &= -\dfrac{n}{2}\cdot \log(2\pi)-\dfrac{n}{2}\cdot \log(\sigma^2)-\dfrac{1}{2\sigma^2}\sum_{i=1}^{n} (x_i-\mu)^2 \\
 \end{aligned}
 $$
-Para encontrar los estimadores de máxima verosimilitud, derivamos 
+Para encontrar los estimadores de máxima verosimilitud, derivamos $\ell(\mu,\sigma^2)$ con respecto a $\mu$ y $\sigma^2$, e igualamos a cero:
+
+$$
+\begin{array}{l}
+    \frac{\partial \ell(\mu,\sigma^2)}{\partial \mu} =\dfrac{\cancel{2} }{\cancel{2} \sigma^2}\sum_{i=1}^{n} (x_i-\mu)=0\rightarrow \sum_{i=1}^{n} (x_i-\mu)=0\rightarrow \bboxed{\hat{\mu}=\dfrac{1}{n}\sum_{i=1}^{n} x_i=\bar{x}}\\
+    \frac{\partial \ell(\mu,\sigma^2)}{\partial \sigma^2}=-\dfrac{n}{2\sigma^2}+\dfrac{1}{2\sigma^4}\sum_{i=1}^{n} (x_i-\mu)^2=0\rightarrow -n \sigma^2+\sum_{i=1}^{n} (x_i-\mu)^2=0\rightarrow \bboxed{\hat{\sigma}^2=\dfrac{1}{n}\sum_{i=1}^{n} (x_i-\hat{\mu})^2} 
+\end{array}
+$$
+
+## Métodos para evaluar un estimador ##
+
+:::{.callout-tip}
+# Recordar
+- Un estimador es una variable aleatoria.
+- Es valioso disponer de conocimiento sobre la distribución del estimador (su \textcolor[HTML]{007aff}{distribución en el muestreo}) $\implies$ permite manejar el riesgo y el error que podemos cometer al aproxima $\theta$ por $\hat{\theta}$ asociado.
+:::
+
+**Consideramos dos aspectos de la distribución muestral de $\hat{\theta}$**
+
+- Su localización: \textcolor[HTML]{007aff}{sesgo}.
+- Su variabilidad: \textcolor[HTML]{007aff}{error cuadrático medio}.
+- Mencionaremos su comportamiento cuando $n\to \infty$.
+
+## Sesgo ##
+\begin{definition}
+Consideramos para un estimador $\hat{\theta}$ de un parámetro $\theta:\,E_\theta[\hat{\theta}]-\theta$.
+
+Esta diferencia se llama el \textcolor[HTML]{007aff}{sesgo}. 
+\end{definition}
+
+:::{.callout-tip}
+# Una propiedad deseable para un estimador
+Si el sesgo de un estimador es nulo para todo valor de $\theta$, decimos que el estimador es **insesgado**.
+:::
+
+## Error cuadrático medio ##
+Para medir la variabilidad en el muestreo de un estimador.
+\begin{definition}
+    El \textcolor[HTML]{007aff}{error cuadrático medio del estimador} $\hat{\theta}$ es la función de $\theta$ definida por
+    
+    $$
+    \theta\mapsto E_\theta[(\hat{\theta}-\theta)^2]
+    $$
+    
+\end{definition}
+
+:::{.callout-tip}
+# Para practicar
+Calculad el error cuadrático medio del estimador de máxima verosimilitud (e.m.v.) de $\mu$ para una muestra aleatoria simple de $X\sim \mathcal{N}(\mu,\sigma^2)$.
+:::
+
+$X\leadsto \lbb{\mathcal{N}(\mu,\sigma^2)}{\text{desconocidos}}$
+
+$\hat{\mu}=\bar{x}$ \textcolor[HTML]{007aff}{(estimador basado en los movimientos)} 
+
+$E[\bar{X}]=\mu\rightarrow \hat{\mu}=\bar{X}$ es un estimador insesgado para $\mu$
+
+$\begin{rcases}\mathrm{Var}[\bar{X}]=\dfrac{\sigma^2}{n}\\ \mathrm{Var}[\bar{X}]=E[(\bar{X}-\mu)^2]\end{rcases}\rightarrow E[(\bar{X}-\mu)^2]=\dfrac{\sigma^2}{n}$ \textcolor[HTML]{007aff}{(E.C.M.)} 
