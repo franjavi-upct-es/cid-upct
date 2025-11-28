@@ -1,0 +1,110 @@
+---
+title: "Procesos Estocásticos y Series Temporales"
+subtitle: "Práctica 4: Modelo ARIMA y SARIMA"
+author: "Francisco Javier Mercader Martínez"
+output:
+  pdf_document:
+    latex_engine: xelatex
+geometry: margin=1.5cm, a4paper
+fontisize: 12
+header-includes:
+- \renewcommand{\and}{\\}
+- \usepackage{fvextra}
+- \usepackage{hyperref}
+- \DefineVerbatimEnvironment{Highlighting}{Verbatim}{breaklines, commandchars=\\\{\}}
+---
+# Problema 1
+Usando los datos del fichero **ARIMA_P1.txt**, resuelve las siguientes cuestiones:
+
+1) Representa la serie de datos en un gráfico temporal. ¿La serie presenta estacionalidad? ¿Crees que la serie proviene de un proceso estocástico estacionario? Justifica tu respuesta.
+
+```{r}
+
+```
+
+2) En el caso de que la serie no sea estacionaria, realiza las transformaciones que estimes oportunas para convertirla en estacionaria, comentando por qué las realizas.
+
+```{r}
+
+```
+
+3) Obtén el correlograma simple y parcial de la serie estacionaria. En función de los resultados, ¿qué modelo(s) ARIMA propondrías como generador de la serie en estudio? Justifica tu respuesta.
+
+```{r}
+
+```
+
+4) Para cada uno de los modelos teóricos propuestos en el apartado anterior, reponde a las siguientes cuestiones:
+
+    a) Determina si el modelo es reducible, es decir, si existen coeficientes del modelo no significativos. En caso afirmativo, simplifica el modelo.
+
+    ```{r}
+
+    ```
+
+    b) Determina valores indicativos de la bondad del ajuste de los modelos que resultan del apartado anterior.
+
+    ```{r}
+
+    ```
+
+    c) Analiza la validez de los modelos resultantes, es decir, comprueba que se verifican las hipótesis sobre los residuos.
+
+    ```{r}
+
+    ```
+
+    d) Tras el análisis realizado, indica cuál sería la expresión del modelo ARIMA estimado que propones como generador de la serie en estudio.
+
+    ```{r}
+
+    ```
+
+5) Representa, en un mismo gráfico, los valores observados de la serie (en negro) y las predicciones para los 30 instantes de tiempo siguientes (incluyendo las bandas de confianza). ¿Las 30 predicciones contienen el mismo error?
+
+```{r}
+
+```
+
+6) Repite el análisis anterior pero usando una función de **`R`** para obtener el modelo ARIMA de manera automática. Comenta los resultados.
+
+```{r}
+
+```
+
+# Problema 2
+
+Usando los datos del fichero **ARIMA_P2.txt**, resuelve las mismas cuestiones planteadas en el Problema 1.
+
+```{r}
+
+```
+
+# Problema 3
+
+En el fichero **consumo_leche.txt** se encuentran los datos correspondientes al consumo de leche mensual (en miles de litros) por los habitantes de una determinada ciudad. Se dispone de datos sobre el consumo desde noviembre de 1992 hasta octubre de 2006.
+
+1) Representa los datos del consumo de leche en un gráfico temproal y comenta los aspectos más relevantes.
+
+```{r}
+
+```
+
+2) Proporciona un modelo ARIMA estacional (SARIMA) como generador de la serie en estudio. Utiliza una función de **`R`** para obtener el modelo de forma sencilla.
+
+```{r}
+
+```
+
+3) Representa en un mismo gráfico la secuencia de la serie observada (en negro), la serie ajustada (en azul) y de la serie predicha para los próximos 3 años (en rojo). A priori, ¿te parece que se trata de "buenas" predicciones? ¿Qué sucedería si se analizaran sólo los 5 últimos años de la serie?
+
+```{r}
+
+```
+
+4) Separemos ahora los datos del ficher completo en entrenamiento y test, dejando para test sólo los últimos 12 meses observados. En esta situación, compara las medidas de error (MAE y RMSE) del conjunto test que se obtendrían con los diferentes métodos (descomposición clásica, STL, alisado exponencial y ARIMA).
+
+```{r}
+
+```
+
