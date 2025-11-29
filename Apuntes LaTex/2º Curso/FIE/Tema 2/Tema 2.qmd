@@ -274,7 +274,7 @@ Para medir la variabilidad en el muestreo de un estimador.
 Calculad el error cuadrático medio del estimador de máxima verosimilitud (e.m.v.) de $\mu$ para una muestra aleatoria simple de $X\sim \mathcal{N}(\mu,\sigma^2)$.
 :::
 
-$X\leadsto \lbb{\mathcal{N}(\mu,\sigma^2)}{\text{desconocidos}}$
+$X\leadsto \underbrace{\mathcal{N}(\mu,\sigma^2)}_{\text{desconocidos}}$
 
 $\hat{\mu}=\bar{x}$ \textcolor[HTML]{007aff}{(estimador basado en los movimientos)} 
 
