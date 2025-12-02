@@ -113,10 +113,124 @@
                 \end{itemize}
         \end{enumerate}
     \item \lb{¿Cómo se identifica un ruido blanco gaussiano?} 
+
+        Un \textbf{ruido blanco gaussiano} es el bloque básico de construcción de los modelos estocásticos y representa un proceso "puramente aleatorio".
+
+        Para identificarlo, se debe verificar que cumple las tres condiciones fundamentales, las cuales se pueden comprobar visual y estadísticamente:
+        \begin{itemize}[label=\textbullet]
+            \item \textbf{Definición Estadística Formal}
+
+                Un proceso $(\epsilon_t)_{t=1,2,\dots,n}$ es ruido blanco gaussiano si cumple rigurosamente con:
+                \begin{itemize}[label=\textbullet]
+                    \item \textbf{Media Cero:} $E(\epsilon_t)=0$.
+                    \item \textbf{Varianza Constante:} $\mathrm{Var}(\epsilon)=\sigma^2$ (Homocedasticidad).
+                    \item \textbf{Independencia:} Las variables son independientes entre sí. Conocer el pasado no ayuda a predecir el futuro.
+                    \item \textbf{Normalidad:} Sigue una distribución Normal $N(0,\sigma^2)$.
+                \end{itemize}
+        \end{itemize}
     \item \lb{¿Cómo se identifica un modelo $AR(p)$?} 
+
+        La identificación del orden $p$ de un modelo autorregresivo  $AR(p)$ se basa fundamentalmente en el análisis del \textbf{correlograma parcial} (PACF), aunque el comportamiento del correlograma simple (ACF) también proporciona información complementaria.
+
+        Pautas específicas para su identificación:
+        \begin{enumerate}[label=\arabic*)]
+            \item \textbf{El Indicador Clave: Correlograma Parcial (PACF)}
+
+                Es la herramienta principal para determinar el orden $p$.
+                 \begin{itemize}[label=\textbullet]
+                    \item \textbf{Regla de corte:} En un proceso $AR(p)$, los primeros $p$ coeficientes de autocorrelación parcial son distintos de cero, y para retardos superiores a  $p(k>p)$ se vuelven nulos.
+                    \item \textbf{Identificación visual:} Se debe observar el gráfico de autocorrelación parcial y contar cuántas barras (lags) sobresalen significativamente de las bandas de confianza (son distintas de cero) antes de que la función se "corte" o caiga a cero. Ese número de barras significativas indica el orden $p$. 
+                \end{itemize}
+            \item \textbf{El comportamiento Complementario: Correlograma Simple (ACF)} 
+
+                El correlograma simple \textbf{no sirve} para identificar el orden exacto directamente, porque no se corta abruptamente.
+                \begin{itemize}[label=\textbullet]
+                    \item \textbf{Comportamiento:} Muestra una estructura de \textbf{decrecimiento infinito}. Las correlaciones se amortiguan o decaen gradualmente a medida que aumenta el retardo.
+                    \item \textbf{Forma:} Generalmente se observa como una mezcla de decrecimientos exponenciales y/o sinusoidales (ondas) que van desapareciendo poco a poco. 
+                \end{itemize}
+        \end{enumerate}
     \item \lb{Para un modelo $AR(p)$, ¿cuándo tendremos que se trata de un proceso estacionario?} 
+        Para que un modelo autorregresivo de orden $p$, denotado como  $AR(p)$, sea estacionario, debe cumplirse una \textbf{condición necesaria y suficiente} relacionada con su ecuación matemática.
+
+        La condición es la siguiente:
+
+        \textbf{Las raíces del polinomio característico deben estar fuera del círculo unidad del plano complejo.}
+
+        \textbf{Desglose de la condición:}
+        \begin{enumerate}[label=\arabic*)]
+            \item \textbf{El Polinomio Característico:} Si expresamos el proceso $AR(p)$ utilizando el operador de retardos $B$:  \[
+                    (1-a_1B-a_2B^2-\dots-a_pb^p)X_t=\epsilon_t
+            \]  
+            El polinomio característico asociado es la ecuación algebraica: \[
+            a_p(x)=1-a_1x-a_2x^2-\dots-a_px^p=0
+            \] 
+        \item \textbf{"Fuera del Círculo Unidad":} Al resolver la ecuación anterior para encontrar los valores de $x$ (las raíces), el  \textbf{módulo} (valor absoluto si son reales, o magnitud si son complejas) de todas las soluciones debe ser estrictamente \textbf{mayor que 1} $(|x|>1)$.   
+        \end{enumerate}
     \item \lb{¿Qué es un modelo de media móvil $MA(q)$?} 
+
+        Un modelo de medias móviles de orden $q$, denotado como  $MA(q)$, es un proceso estocástico donde el valor actual de la serie se representa como una combinación lineal de perturbaciones aleatorias (ruido blanco) presente y pasadas.
+
+        Características principales:
+         \begin{enumerate}[label=\arabic*)]
+            \item \textbf{Expresión Matemática}
+
+                El valor actual $X_t$ es el resultado de una perturbación aleatoria actual más una suma ponderada de  $q$ perturbaciones aleatorias. Su ecuación es:  \[
+                X_t=\epsilon_t+b_1\epsilon_{t-1}+b_2\epsilon_{t-2}+\dots+b_q\epsilon_{t-q}
+                \] 
+                Donde:
+                \begin{itemize}[label=\textbullet]
+                    \item $\epsilon_t$ es un ruido blanco gaussiano (sucesión de valores independientes e idénticamente distribuidos).
+                    \item $b_1,\dots,b_q$ son los coeficientes o parámetros del modelo.
+                \end{itemize}
+                También se puede expresar utilizando el \textbf{operador de retardos} $B$ y su polinomio característico  $b_q(B)$:  \[
+                    X_t=(1+b_1B+b_2B^2+\dots+b_qB^q)\epsilon_t=[b_q(B)]\epsilon_t.
+                \]  
+            \item \textbf{Propiedades Fundamentales}
+                \begin{itemize}[label=\textbullet]
+                    \item \textbf{Estacionariedad:} A diferencia de los modelos AR, los procesos $MA(q)$ \textbf{son siempre estacionarios}, independientemente de los valores de sus coeficientes $b_i$.
+                    \item \textbf{Invertibilidad:} Un proceso $MA(q)$ se dice invertible si se puede reescribir como un proceso autorregresivo de orden infinito  $(AR(\infty))$. Para que esto ocurra, las raíces de su polinomio característico deben estar  \textbf{fuera del círculo unidad}.  
+                \end{itemize}
+            \item \textbf{Identificación}
+
+                La clave para identificar un modelo $MA(q)$ reside en su  \textbf{correlograma simple (ACF):}
+                \begin{itemize}[label=\textbullet]
+                    \item \textbf{Correlograma Simple (ACF):} Las correlaciones son distintas de cero hasta el retardo $q$ y se vuelven  \textbf{nulas para retardos mayores que} $q$ ($\rho_k=0$ si  $k>q$). Es decir, el gráfico se "corta" después del retardo $q$.
+                    \item \textbf{Correlograma Parcial (PACF):} Muestra infinitos valores no nulos que decrecen de manera amortiguada (exponencial o sinusoidal), sin un corte abrupto. 
+                \end{itemize}
+        \end{enumerate}
     \item \lb{¿Cómo se identifica un modelo $MA(q)$? Demostrar que en un $MA(q)$ las correlaciones simples son nulas para retardos superiores a $q$.} 
+
+        \begin{enumerate}[label=\arabic*)]
+            \item \textbf{Identificación de un modelo $MA(q)$}
+
+                La herramienta fundamental para identificar el orden $q$ de un proceso de medias móviles es el  \textbf{correlograma simple (ACF).}
+                \begin{itemize}[label=\textbullet]
+                    \item \textbf{Regla de identificación:} El número de coeficientes de autocorrelación simple que sean "significativamente" distintos de cero indica el orden del proceso $MA$. Es decir, las correlaciones son significativas hasta el retardo  $q$ y se vuelven nulas para retardos mayores.
+                    \item \textbf{Comportamiento visual:} En el gráfico de autocorrelación simple, se observa un "corte" abrupto después del retardo $q$. Por el contrario, en el correlograma parcial (PACF), los valores decrecen de manera amortiguada (exponencial o sinusoidal) sin anularse de golpe.
+                \end{itemize}
+            \item \textbf{Demostración: $\rho_k=0$ para  $k>q$}
+                
+                Para demostrar que las correlaciones simples se anula, debemos analizar la función de autocovarianza $\gamma_k$.
+                \begin{enumerate}[label=\textbf{Paso \arabic*:}]
+                    \item \textbf{Definición del proceso}
+
+                        Consideremos un proceso $MA(q)$ centrado (media nula):  \[
+                        X_t=\epsilon+b_1\epsilon_{t-1}+b_2\epsilon_{t-2}+\dots+b_q\epsilon_{t-q}
+                        \] 
+                        Donde $\epsilon_t$ es un ruido blanco gaussiano, lo que implica que $E(\epsilon_t)=0$ y que las perturbaciones son independientes entre sí $(E(\epsilon_t\epsilon_{t-k})=0\text{ si }k\neq 0)$.
+                    \item \textbf{Definición de la covarianza}
+
+                        La autocovarianza para un retardo $k$ se define como:  \[
+                            \gamma_k=\mathrm{Cov}(X_t,X_{t-k})=E[(X_t-\mu)(X_{t-k}-\mu)]
+                        \] 
+                        Como la media es cero, esto se simplifica a: \[
+                        \gamma_k=E(X_tX_{t-1}).
+                        \] 
+                    \item \textbf{Análisis de la covarianza para $k>q$}
+
+
+                \end{enumerate}
+        \end{enumerate}
     \item \lb{Para un modelo $MA(q)$, ¿cuándo tendremos que se trata de un proceso estacionario?} 
     \item \lb{Define formalmente un modelo $ARMA(p,q)$.}
     \item \lb{¿Cómo se seleccionan los órdenes $p$ y  $q$ en un modelo  $ARMA$?}
