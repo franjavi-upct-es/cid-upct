@@ -1,0 +1,356 @@
+---
+title: 'Entregable 3: Modelos ARIMA y Modelos con V.Exógenas Modelo A'
+author: "Rubén Gil Martínez"
+date: "2024-12-11"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+library(forecast)
+library(tidyverse)
+
+```
+
+# PROBLEMA 1:
+
+
+Podemos observar en la ST ciertas tendencias por lo que habrá que aplicar diferencias para estabilizar la media.
+
+```{r}
+datos <- read.table("../data/ARIMA_modeloA.txt", header = TRUE, dec = ".")
+datos.ts <- ts(datos$cotizacion, frequency = 1) # Frecuencia 1 ya que la ST no presenta estacionalidad
+ts.plot(datos.ts)
+
+
+```
+### Ejercicio 1:
+Aplicamos diferencias de orden 1 para estabilizar la media, con esto ya conseguimos la serie estacionaria ya que esta ya presenta una varianza estable.
+```{r}
+datos_estacionaria <- diff(datos.ts, differences = 1)
+ts.plot(datos_estacionaria)
+```
+
+
+```{r}
+Acf(datos_estacionaria)
+
+Pacf(datos_estacionaria)
+
+```
+En el correlograma simple observamos un decaimiento muy lento, tenemos correlaciones hasta retardo 9 más o menos, por otro lado, tenemos que en el autocorrelograma parcial observamos 1 única correlación significativa.
+
+Al observar un decaimiento tan lento en el correlograma simple, no vamos a poder extraer mucha información modelizando la parte de medias móviles pero al observar claramente nuestro correlograma parcial vemos que podemos proponer un AR(1)
+
+Por lo tanto, vamos a proponer un modelo inicial(con estos datos diferenciados) ARMA(p=1), y en función de la interpretación de los p-valores y de la validación de los residuos plantearemos otros modelos o nos quedaremos con este
+
+```{r}
+pvalores <- function(modelo) {
+# Extract coefficients
+coefs <- coef(modelo)
+# Extract standard errors
+se <- sqrt(diag(vcov(modelo)))
+# Calculate the t-values
+t_values <- coefs/ se
+# Calculate the p-values
+p_values <- 2 * (1 - pnorm(abs(t_values)))
+# Create a data frame with coefficients, standard errors, t-values, and p-values
+results_pvalues <- data.frame(
+Coefficients = coefs,
+Std_Errors = se,
+T_Values = t_values,
+P_Values = p_values
+)
+print(results_pvalues)
+}
+
+
+```
+
+```{r}
+# 1º modelo propuesto:
+Arima.model_1 <- Arima(datos_estacionaria, c(1, 0, 0))
+Arima.model_1
+
+```
+
+```{r}
+pvalores(Arima.model_1)
+
+
+
+```
+Observamos que el intercept del modelo pueden ser obviado y el modelo reducido ya que tienen el p-valor mayor a 0.05:
+
+
+Propongamos un modelo sin tener en cuenta el intercept:
+```{r}
+Arima.model_without_mean <- Arima(datos_estacionaria, c(1, 0, 0), include.mean = FALSE)
+Arima.model_without_mean
+```
+
+```{r}
+pvalores(Arima.model_without_mean)
+```
+Propongamos ahora otro modelo modelizando también la parte de medias móviles con un orden q=2 y observemos si podemos mejorar nuestro modelo:
+
+```{r}
+Arima.model_2 <- Arima(datos_estacionaria, c(1, 0, 2))
+Arima.model_2
+```
+```{r}
+pvalores(Arima.model_2)
+
+```
+
+Observando los p-valores de los modelos planteados, se puede obviar el uso del intercept y modelizar la parte de medias móviles ya que su p-valor es mayor que 0.05 y eso indica que el modelo es reducible.
+
+
+
+Modelo final escogido:
+
+```{r}
+modelo_final_ARIMA <- Arima(datos_estacionaria, c(1, 0, 0), include.mean = FALSE)
+```
+
+Pasemos a validar el modelo
+
+El modelo ARIMA ajustado será válido si se cumplen las hipótesis:
+
+1) Normalidad de los residuos.
+2) Homocedasticidad: residuos con varianza constante.
+3) Independencia de los residuos.
+
+
+
+```{r}
+shapiro.test(modelo_final_ARIMA$residuals)
+
+```
+No podemos garantizar que los residuos siguen una normal.
+
+```{r}
+plot(modelo_final_ARIMA$fitted, modelo_final_ARIMA$residuals)
+
+```
+ Podemos observar que se cumple la hipótesis de homocedasticidad, es decir, los residuos presentan una varianza cte ya que muestran una distribución homogénea.
+
+```{r}
+Acf(modelo_final_ARIMA$residuals)
+Pacf(modelo_final_ARIMA$residuals)
+```
+
+Observando la ACF y PACF de los residuos, hay alguna correlación significativa, podemos suponer una muy pequeña dependencia en los residuos.
+
+
+Los residuos del modelo no pasan las hipótesis de normalidad ni de independencia por lo que el modelo no puede ser validado.
+
+
+
+## Ejercicio 2
+```{r}
+auto_model <- auto.arima(datos.ts)
+summary(auto_model)
+
+
+```
+La obtención automática del modelo nos indica que el modelo correcto para modelizar nuestra serie en estudio sería un ARIMA(1, 1, 0), el mismo que planteamos nosotros manualmente pero teniendo en cuenta la deriva, nosotros planteamos un AR(1) con los datos diferenciados, que a la hora de trabajar con la serie en estudio es un ARIMA(1, 1, 0).
+
+
+Predicciones para los siguientes 3 días:
+```{r}
+pred <- forecast(auto_model, h = 3)  # Predicciones para los días 401, 402, 403
+pred$mean
+```
+
+
+
+
+
+
+
+
+# PROBLEMA 2:
+```{r}
+datos <- read.csv2("../data/Consumo_Electrico_ModeloA.csv", header = TRUE, sep = ';')
+sum(is.na(datos))
+str(datos)
+
+summary(datos)
+```
+
+### EJERCICIO 1:
+```{r}
+ts.plot(datos$Consumo)
+
+```
+No hay presente una tendencia ya que la media se mantiene constante a lo largo de la serie observada pero si se observa una componente estacional, al ser datos horarios, se toman en cada hora, la serie presenta estacionalidad diaria y semanal, es decir, el periodo de la diaria sería L = 24 y el de la semanal sería periodo L = 168.
+
+
+
+
+
+
+
+
+## EJERCICIO 2:
+```{r}
+inicio_test <- which(datos$Fecha == "29/06/2009")
+
+indices_train <- 1:(inicio_test - 1)
+indices_test <- inicio_test:nrow(datos)
+
+
+datos_train <- datos[indices_train, ]
+datos_test <- datos[indices_test, ]
+```
+
+
+Generamos la serie temporal mediante los valores de la Variable Objetivo Consumo y también la dividimos en entrenamiento y test para, primero, ajustar el modelo, y segundo, realizar predicciones.
+
+
+Comentar que vamos a tener en cuenta la compenente estacional diaria es decir, la repetición del patrón periódico cada 24 horas(cada 24 datos)
+```{r}
+consumo.ts <- ts(datos$Consumo, start = c(1,1), frequency = 24)
+
+ts.plot(consumo.ts)
+
+consumo.ts_train <- window(consumo.ts, end= c(45, 24)) # Día 45 hora 24
+
+consumo.ts_test <- window(consumo.ts, start = c(46,1)) # Día 46 hora 1
+
+```
+## EJERCICIO 3:
+
+```{r}
+# Eliminamos la variable Fecha y Consumo del dataframe para poder construir el modelo mediante las variables restantes( FH1, Temperatura):
+p1 <- datos %>%
+            select(- Fecha, - Consumo)
+
+
+p1.train <- p1[indices_train, ]
+p1.test <- p1[indices_test, ]
+```
+
+
+
+```{r}
+train_data_matrix <- as.matrix(p1.train)
+
+RLM_k4 <- tslm(consumo.ts_train ~ train_data_matrix + fourier(consumo.ts_train, K=4) )
+
+summary(RLM_k4)
+```
+Modelizamos la estacionalidad usando series de Fourier, podremos utilizar un K hasta L/2, es decir K=12 pero se nos pide estimar la estacionalidad con K = 4
+
+
+Coeficiente de regresión de Temperatura: 41.895 
+
+
+## EJERCICIO 4:
+
+Gráfica de los residuos:
+```{r}
+ts.plot(RLM_k4$residuals)
+
+```
+
+Correlograma Normal:
+```{r}
+Acf(RLM_k4$residuals)
+
+
+```
+
+Correlograma Parcial:
+```{r}
+Pacf(RLM_k4$residuals)
+
+```
+Hipótesis de Normalidad:
+```{r}
+shapiro.test(RLM_k4$residuals)
+
+```
+Hipótesis de Homocedasticidad(Visualizar si los residuos presentan una varianza cte)
+
+```{r}
+plot(RLM_k4$residuals, RLM_k4$fitted)
+
+```
+Se puede observar que los residuos superan la hipótesis de normalidad y la de homocedasticidad por poco pero se puede observar que no tienen un comportamiento como el que tendría un ruido blanco gaussiano y , además, si interpretamos los correlogramas normal y parcial de estos residuos, podemos observar cierta correlación entre ellos, es decir, que no son Independientes. Esto se puede estar dando porque no se está captando toda la información de la ST objetivo y esta información se ha ido a los residuos.
+
+Para corregir esto podemos llegar a plantear realizar una Regresión Dinámica para así modelizar los residuos con un modelo ARIMA y poder explicar la información restante no explicada por los regresores previamente empleados.
+
+
+## EJERCICIO 5:
+```{r}
+p1_test_fourierk4 <- data.frame(p1.test, fourier(consumo.ts_train, K=4, h = 48)) # Generamos el dataframe con los valores reales de los regresores a utilizar en la predicción(Predicció ex-post) y los términos de Fourier para esta ventana de predicción
+
+predict1_fourierK4 <- forecast(RLM_k4, newdata = p1_test_fourierk4)
+
+forecast(RLM_k4, newdata = p1_test_fourierk4, level = 0.90)
+
+```
+predicción puntual del 30 de junio a las 13h es 4341.024 y no podemos asegurar que el consumo sea infesrior a 5000 en esa hora.
+
+## EJERCICIO 6:
+```{r}
+
+RMSE_train <- sqrt(mean((consumo.ts_train - RLM_k4$fitted.values)^2))
+
+RMSE_test <- sqrt(mean((consumo.ts_test - predict1_fourierK4$mean)^2))
+
+# Mostrar resultados
+cat("RMSE training:", RMSE_train, "\n")
+cat("RMSE test:", RMSE_test, "\n")
+
+```
+
+```{r}
+
+p1_train_confourier <- data.frame(p1.train, fourier(consumo.ts_train, K=4))
+p1_train_confourier.matrix <- as.matrix(p1_train_confourier)
+
+
+model.auto.arima2 <- auto.arima(consumo.ts_train, xreg = p1_train_confourier.matrix)
+summary(model.auto.arima2)
+
+```
+
+Se obtiene un modelo ARIMA(3,0,2)(0,0,2) para modelizar los residuos, sería un modelo SARIMA por lo que los residuos contienen info sobre la estacionalidad, esto se debe a que deberíamos de incrementar el valor de K de los términos de fourier para poder captar y estimar toda la información de la estacionalidad.
+
+
+El coeficiente de regresión de la temperatura vale 42.7795, no coincide exactamente, esto se debe a que los coeficientes óptimos se calculan en conjunto, es decir, tanto los coeficientes de los regresores como los coeficientes que se ajustan para modelizar los residuos 
+
+```{r}
+# Generación/Preparación de los valores de los regresores para realizar las predicciones de la siguiente ventana de predicción correspondiente a test
+p1_test_confourier <- data.frame(p1.test, fourier(consumo.ts_test, K=4))
+p1_test_confourier.matrix <- as.matrix(p1_test_confourier)
+
+```
+
+```{r}
+# Estamos realizando predicciones ex-post porque no estamos prediciendo los valores de los regresores sino que utilizamos los valores reales de estos, una sola fuente de incertidumbre ya que solamente tenemos que buscar predecir el consumo para los 2 siguientes días, sin embargo, este tipo de predicción no es del todo realista ya que estamos suponiendo que se pueden predecir los regresores de manera perfecta:
+
+predic_reg_dinamica2 <- forecast(model.auto.arima2, xreg = p1_test_confourier.matrix)
+
+```
+
+```{r}
+predic_reg_dinamica2
+
+```
+
+
+Predicción Puntual del consumo para el 30 de junio a las 13h es 4166.030	.
+```{r}
+ts.plot(consumo.ts_test, predict1_fourierK4$mean, predic_reg_dinamica2$mean,col = c("black", "green", "blue") )
+
+
+```
+
+Podemos ver que las predicciones con el modelo de regresión dinámica son mucho mejores porque consiguen modelizar los residuos y se corrigen así mismo por lo que consigue hacer mejores predicciones.

@@ -1,7 +1,27 @@
 analizar_modelo <- function(serie_temporal) {
-  # Calcular medias y desviaciones típicas anuales
-  medias_anuales <- as.vector(aggregate(serie_temporal, FUN = mean))
-  desviaciones_anuales <- as.vector(aggregate(serie_temporal, FUN = sd))
+  # Obtener frecuencia de la serie
+  freq <- frequency(serie_temporal)
+
+  # Calcular medias y desviaciones típicas
+  if (freq == 1) {
+    # Para series sin estacionalidad, usar ventanas móviles
+    window_size <- min(12, floor(length(serie_temporal) / 4))
+    n_windows <- floor(length(serie_temporal) / window_size)
+    medias_anuales <- numeric(n_windows)
+    desviaciones_anuales <- numeric(n_windows)
+
+    for (i in 1:n_windows) {
+      start_idx <- (i - 1) * window_size + 1
+      end_idx <- min(i * window_size, length(serie_temporal))
+      ventana <- serie_temporal[start_idx:end_idx]
+      medias_anuales[i] <- mean(ventana)
+      desviaciones_anuales[i] <- sd(ventana)
+    }
+  } else {
+    # Para series estacionales, usar aggregate
+    medias_anuales <- as.vector(aggregate(serie_temporal, FUN = mean))
+    desviaciones_anuales <- as.vector(aggregate(serie_temporal, FUN = sd))
+  }
 
   # Realizar regresión lineal
   modelo_regresion <- lm(desviaciones_anuales ~ medias_anuales)
@@ -23,7 +43,6 @@ analizar_modelo <- function(serie_temporal) {
   cat("COMPONENTES DETECTADAS:\n")
 
   # Componente estacional
-  freq <- frequency(serie_temporal)
   if (freq > 1) {
     cat("✓ Componente ESTACIONAL: SÍ (frecuencia =", freq, ")\n")
   } else {
@@ -31,8 +50,20 @@ analizar_modelo <- function(serie_temporal) {
   }
 
   # Componente tendencia-ciclo
-  descomposicion <- decompose(serie_temporal, type = ifelse(tipo_modelo == "MULTIPLICATIVO", "multiplicative", "additive"))
-  tendencia <- descomposicion$trend
+  if (freq > 1) {
+    # Para series estacionales, usar decompose
+    descomposicion <- decompose(serie_temporal,
+      type = ifelse(tipo_modelo == "MULTIPLICATIVO", "multiplicative", "additive")
+    )
+    tendencia <- descomposicion$trend
+  } else {
+    # Para series no estacionales, usar suavizado loess
+    tiempo <- 1:length(serie_temporal)
+    suavizado <- loess(as.vector(serie_temporal) ~ tiempo, span = 0.3)
+    tendencia <- suavizado$fitted
+    descomposicion <- NULL
+  }
+
   rango_tendencia <- diff(range(tendencia, na.rm = TRUE))
   rango_serie <- diff(range(serie_temporal, na.rm = TRUE))
 
@@ -43,8 +74,14 @@ analizar_modelo <- function(serie_temporal) {
   }
 
   # Componente irregular
-  irregular <- descomposicion$random
-  cv_irregular <- sd(irregular, na.rm = TRUE) / mean(serie_temporal, na.rm = TRUE)
+  if (freq > 1) {
+    irregular <- descomposicion$random
+    cv_irregular <- sd(irregular, na.rm = TRUE) / mean(serie_temporal, na.rm = TRUE)
+  } else {
+    # Para series no estacionales, calcular residuos del suavizado
+    irregular <- serie_temporal - tendencia
+    cv_irregular <- sd(irregular, na.rm = TRUE) / mean(serie_temporal, na.rm = TRUE)
+  }
 
   if (cv_irregular > 0.05) {
     cat("✓ Componente IRREGULAR: SÍ (CV =", round(cv_irregular, 4), ")\n")

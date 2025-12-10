@@ -13,63 +13,174 @@ header-includes:
 - \usepackage{hyperref}
 - \DefineVerbatimEnvironment{Highlighting}{Verbatim}{breaklines, commandchars=\\\{\}}
 ---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, warning = FALSE)
+```
+
 # Problema 1
+
 Usando los datos del fichero **ARIMA_P1.txt**, resuelve las siguientes cuestiones:
 
-1) Representa la serie de datos en un gráfico temporal. ¿La serie presenta estacionalidad? ¿Crees que la serie proviene de un proceso estocástico estacionario? Justifica tu respuesta.
+1)  Representa la serie de datos en un gráfico temporal. ¿La serie presenta estacionalidad? ¿Crees que la serie proviene de un proceso estocástico estacionario? Justifica tu respuesta.
 
 ```{r}
-
+library(forecast)
+library(tseries)
+datos1 <- read.csv2("ARIMA_P1.txt", header = FALSE)
+datos.ts1 <- ts(datos1$V1, frequency = 1)
+ts.plot(datos.ts1)
 ```
 
-2) En el caso de que la serie no sea estacionaria, realiza las transformaciones que estimes oportunas para convertirla en estacionaria, comentando por qué las realizas.
+-   La serie **no** presenta estacionalidad (no hay patrón periódico).
+-   La serie oscila alrededor de la media.
+-   La varianza parece constante
+
+2)  En el caso de que la serie no sea estacionaria, realiza las transformaciones que estimes oportunas para convertirla en estacionaria, comentando por qué las realizas.
+
+Dado que la serie es estacionaria, **no** son necesarias transformaciones. Trabajaremos directamente con la serie original
+
+3)  Obtén el correlograma simple y parcial de la serie estacionaria. En función de los resultados, ¿qué modelo(s) ARIMA propondrías como generador de la serie en estudio? Justifica tu respuesta.
 
 ```{r}
-
+par(mfrow = c(1, 2))
+Acf(datos.ts1, main = "Correlograma Simple (ACF)")
+Pacf(datos.ts1, main = "Correlograma Parcial (PACF)")
 ```
 
-3) Obtén el correlograma simple y parcial de la serie estacionaria. En función de los resultados, ¿qué modelo(s) ARIMA propondrías como generador de la serie en estudio? Justifica tu respuesta.
+Propondría un $AR(3)$ o un $ARMA(3, 5)$.
 
 ```{r}
-
+arima.model300 <- Arima(datos.ts1, order = c(3, 0, 0))
+arima.model305 <- Arima(datos.ts1, order = c(3, 0, 5))
 ```
 
-4) Para cada uno de los modelos teóricos propuestos en el apartado anterior, reponde a las siguientes cuestiones:
-
-    a) Determina si el modelo es reducible, es decir, si existen coeficientes del modelo no significativos. En caso afirmativo, simplifica el modelo.
-
-    ```{r}
-
-    ```
-
-    b) Determina valores indicativos de la bondad del ajuste de los modelos que resultan del apartado anterior.
-
-    ```{r}
-
-    ```
-
-    c) Analiza la validez de los modelos resultantes, es decir, comprueba que se verifican las hipótesis sobre los residuos.
-
-    ```{r}
-
-    ```
-
-    d) Tras el análisis realizado, indica cuál sería la expresión del modelo ARIMA estimado que propones como generador de la serie en estudio.
-
-    ```{r}
-
-    ```
-
-5) Representa, en un mismo gráfico, los valores observados de la serie (en negro) y las predicciones para los 30 instantes de tiempo siguientes (incluyendo las bandas de confianza). ¿Las 30 predicciones contienen el mismo error?
+4)  Para cada uno de los modelos teóricos propuestos en el apartado anterior, reponde a las siguientes cuestiones:
 
 ```{r}
-
+pvalores <- function(modelo) {
+  # Extract coefficients
+  coefs <- coef(modelo)
+  # Extract standard errores
+  se <- sqrt(diag(vcov(modelo)))
+  # Calculate the t-values
+  t_values <- coefs / se
+  # Calculate the p-values
+  p_values <- 2 * (1 - pnorm(abs(t_values)))
+  # Create a data frame with coefficients, standard errors, t-values, and p-values
+  results_pvalues <- data.frame(
+    Coefficients = coefs,
+    Std_Errors = se,
+    T_values = t_values,
+    P_values = p_values
+  )
+  print(results_pvalues)
+}
 ```
 
-6) Repite el análisis anterior pero usando una función de **`R`** para obtener el modelo ARIMA de manera automática. Comenta los resultados.
+  a)  Determina si el modelo es reducible, es decir, si existen coeficientes del modelo no significativos. En caso afirmativo, simplifica el modelo.
 
 ```{r}
+pvalores(arima.model300)
+```
 
+Irreducible
+
+```{r}
+arima.model304 <- Arima(datos.ts1, order = c(3, 0, 4))
+pvalores(arima.model304)
+```
+
+```{r}
+arima.model303 <- Arima(datos.ts1, order = c(3, 0, 3))
+pvalores(arima.model303)
+```
+
+```{r}
+arima.model302 <- Arima(datos.ts1, order = c(3, 0, 2))
+pvalores(arima.model302)
+```
+
+```{r}
+arima.model202 <- Arima(datos.ts1, order = c(2, 0, 2))
+pvalores(arima.model202)
+```
+
+```{r}
+arima.model201 <- Arima(datos.ts1, order = c(2, 0, 1))
+pvalores(arima.model201)
+```
+
+  b)  Determina valores indicativos de la bondad del ajuste de los modelos que resultan del apartado anterior.
+
+```{r}
+arima.model201
+paste("AIC =", arima.model201$aic)
+```
+
+  c)  Analiza la validez de los modelos resultantes, es decir, comprueba que se verifican las hipótesis sobre los residuos.
+
+```{r}
+res <- arima.model201$residuals
+fit <- arima.model201$fitted
+
+# Normlidad de los residuos: Si p-values > 0.05 -> se acepta normalidad
+shapiro.test(res)
+
+# Homecedasticidad: Si no hay ningún patrón evidente no diferencias de dispersión se acepta la homecedasticidad
+plot(fit, res)
+
+# Independencia: Si residuos normales y correlograma con valores no significativos, se acpeta independencia
+Acf(res)
+```
+
+  d)  Tras el análisis realizado, indica cuál sería la expresión del modelo ARIMA estimado que propones como generador de la serie en estudio.
+
+```{r}
+arima.model201$coef
+```
+
+$$
+(1 - 1.184512005B + 0.624314433B^2)X_t=(1+0.704949382B)\varepsilon_t
+$$
+
+5)  Representa, en un mismo gráfico, los valores observados de la serie (en negro) y las predicciones para los 30 instantes de tiempo siguientes (incluyendo las bandas de confianza). ¿Las 30 predicciones contienen el mismo error?
+
+```{r}
+plot(forecast(arima.model201, h = 30, level = 0.9))
+```
+
+6)  Repite el análisis anterior pero usando una función de **`R`** para obtener el modelo ARIMA de manera automática. Comenta los resultados.
+
+```{r}
+modelo_auto <- auto.arima(datos.ts1)
+modelo_auto
+```
+
+```{r}
+res <- arima.model201$residuals
+fit <- arima.model201$fitted
+
+# Normlidad de los residuos: Si p-values > 0.05 -> se acepta normalidad
+shapiro.test(res)
+
+# Homecedasticidad: Si no hay ningún patrón evidente no diferencias de dispersión se acepta la homecedasticidad
+plot(fit, res)
+
+# Independencia: Si residuos normales y correlograma con valores no significativos, se acpeta independencia
+Acf(res)
+```
+
+```{r}
+modelo_auto$coef
+```
+
+$$
+(1 - 1.184512005B + 0.624314433B^2)X_t=(1+0.704949382B)\varepsilon_t
+$$
+
+```{r}
+plot(forecast(modelo_auto, h = 30))
 ```
 
 # Problema 2
@@ -77,34 +188,262 @@ Usando los datos del fichero **ARIMA_P1.txt**, resuelve las siguientes cuestione
 Usando los datos del fichero **ARIMA_P2.txt**, resuelve las mismas cuestiones planteadas en el Problema 1.
 
 ```{r}
+datos2 <- read.csv2("ARIMA_P2.txt", header = TRUE, dec = ".")
+datos.ts2 <- ts(datos2$x, frequency = 1)
+ts.plot(datos.ts2)
+```
 
+-   La serie presenta estacionalidad (hay un patrón periódico descendente).
+
+2)  En el caso de que la serie no sea estacionaria, realiza las transformaciones que estimes oportunas para convertirla en estacionaria, comentando por qué las realizas.
+
+```{r}
+datos_estacionaria2 <- diff(datos.ts2, differences = 1)
+ts.plot(datos_estacionaria2)
+```
+
+3)  Obtén el correlograma simple y parcial de la serie estacionaria. En función de los resultados, ¿qué modelo(s) ARIMA propondrías como generador de la serie en estudio? Justifica tu respuesta.
+
+```{r}
+par(mfrow = c(1, 2))
+Acf(datos_estacionaria2, main = "Correlograma Simple (ACF)")
+Pacf(datos_estacionaria2, main = "Correlograma Parcial (PACF)")
+```
+
+Propondría un $ARMA(1,1)$.
+
+```{r}
+arima.model101 <- Arima(datos_estacionaria2, order = c(1, 0, 1))
+```
+
+4)  Para cada uno de los modelos teóricos propuestos en el apartado anterior, reponde a las siguientes cuestiones:
+
+```{r}
+pvalores <- function(modelo) {
+  # Extract coefficients
+  coefs <- coef(modelo)
+  # Extract standard errores
+  se <- sqrt(diag(vcov(modelo)))
+  # Calculate the t-values
+  t_values <- coefs / se
+  # Calculate the p-values
+  p_values <- 2 * (1 - pnorm(abs(t_values)))
+  # Create a data frame with coefficients, standard errors, t-values, and p-values
+  results_pvalues <- data.frame(
+    Coefficients = coefs,
+    Std_Errors = se,
+    T_values = t_values,
+    P_values = p_values
+  )
+  print(results_pvalues)
+}
+```
+
+  a)  Determina si el modelo es reducible, es decir, si existen coeficientes del modelo no significativos. En caso afirmativo, simplifica el modelo.
+
+```{r}
+pvalores(arima.model101)
+```
+
+```{r}
+arima.model001 <- Arima(datos_estacionaria2, order = c(0, 0, 1))
+pvalores(arima.model001)
+```
+
+
+  b)  Determina valores indicativos de la bondad del ajuste de los modelos que resultan del apartado anterior.
+
+```{r}
+arima.model001
+paste("AIC =", arima.model001$aic, ", BIC =", arima.model001$bic)
+```
+
+  c)  Analiza la validez de los modelos resultantes, es decir, comprueba que se verifican las hipótesis sobre los residuos.
+
+```{r}
+res <- arima.model001$residuals
+fit <- arima.model001$fitted
+
+# Normlidad de los residuos: Si p-values > 0.05 -> se acepta normalidad
+shapiro.test(res)
+
+# Homecedasticidad: Si no hay ningún patrón evidente no diferencias de dispersión se acepta la homecedasticidad
+plot(fit, res)
+
+# Independencia: Si residuos normales y correlograma con valores no significativos, se acpeta independencia
+Acf(res)
+```
+
+  d)  Tras el análisis realizado, indica cuál sería la expresión del modelo ARIMA estimado que propones como generador de la serie en estudio.
+
+```{r}
+arima.model001$coef
+```
+
+$$
+X_t=(1+0.36342812B)\varepsilon_t
+$$
+
+5)  Representa, en un mismo gráfico, los valores observados de la serie (en negro) y las predicciones para los 30 instantes de tiempo siguientes (incluyendo las bandas de confianza). ¿Las 30 predicciones contienen el mismo error?
+
+```{r}
+plot(forecast(arima.model001, h = 30, level = 0.9))
+```
+
+6)  Repite el análisis anterior pero usando una función de **`R`** para obtener el modelo ARIMA de manera automática. Comenta los resultados.
+
+```{r}
+modelo_auto2 <- auto.arima(datos_estacionaria2)
+modelo_auto2
+```
+
+```{r}
+res <- modelo_auto2$residuals
+fit <- modelo_auto2$fitted
+
+# Normlidad de los residuos: Si p-values > 0.05 -> se acepta normalidad
+shapiro.test(res)
+
+# Homecedasticidad: Si no hay ningún patrón evidente no diferencias de dispersión se acepta la homecedasticidad
+plot(fit, res)
+
+# Independencia: Si residuos normales y correlograma con valores no significativos, se acpeta independencia
+Acf(res)
+```
+
+```{r}
+modelo_auto2$coef
+```
+
+$$
+(1 + 1.0730041B + 0.5727073B^2)X_t=(1+1.4561844B+0.9106881B^2)\varepsilon_t
+$$
+
+```{r}
+plot(forecast(modelo_auto2, h = 30))
 ```
 
 # Problema 3
 
 En el fichero **consumo_leche.txt** se encuentran los datos correspondientes al consumo de leche mensual (en miles de litros) por los habitantes de una determinada ciudad. Se dispone de datos sobre el consumo desde noviembre de 1992 hasta octubre de 2006.
 
-1) Representa los datos del consumo de leche en un gráfico temproal y comenta los aspectos más relevantes.
+1)  Representa los datos del consumo de leche en un gráfico temproal y comenta los aspectos más relevantes.
 
 ```{r}
-
+datos_leche <- read.table("consumo_leche.txt", header = TRUE, dec = ",")
+leche.ts <- ts(datos_leche[, 1], start = c(1992, 11), frequency = 12)
+ts.plot(leche.ts)
 ```
 
-2) Proporciona un modelo ARIMA estacional (SARIMA) como generador de la serie en estudio. Utiliza una función de **`R`** para obtener el modelo de forma sencilla.
+2)  Proporciona un modelo ARIMA estacional (SARIMA) como generador de la serie en estudio. Utiliza una función de **`R`** para obtener el modelo de forma sencilla.
 
 ```{r}
-
+model_leche <- auto.arima(leche.ts)
+model_leche
 ```
 
-3) Representa en un mismo gráfico la secuencia de la serie observada (en negro), la serie ajustada (en azul) y de la serie predicha para los próximos 3 años (en rojo). A priori, ¿te parece que se trata de "buenas" predicciones? ¿Qué sucedería si se analizaran sólo los 5 últimos años de la serie?
+3)  Representa en un mismo gráfico la secuencia de la serie observada (en negro), la serie ajustada (en azul) y de la serie predicha para los próximos 3 años (en rojo). A priori, ¿te parece que se trata de "buenas" predicciones? ¿Qué sucedería si se analizaran sólo los 5 últimos años de la serie?
 
 ```{r}
+pred_leche <- forecast(model_leche, h = 36)
+ts.plot(leche.ts, xlim = c(1993, 2009), lwd = 2) # Línea más gruesa para mejor visión
 
+tiempo_leche <- 1:(length(datos_leche) + 36)
+lines(model_leche$fitted, col = "blue")
+lines(pred_leche$mean, col = "red")
 ```
 
-4) Separemos ahora los datos del ficher completo en entrenamiento y test, dejando para test sólo los últimos 12 meses observados. En esta situación, compara las medidas de error (MAE y RMSE) del conjunto test que se obtendrían con los diferentes métodos (descomposición clásica, STL, alisado exponencial y ARIMA).
+4)  Separemos ahora los datos del fichero completo en entrenamiento y test, dejando para test sólo los últimos 12 meses observados. En esta situación, compara las medidas de error (MAE y RMSE) del conjunto test que se obtendrían con los diferentes métodos (descomposición clásica, STL, alisado exponencial y ARIMA).
 
 ```{r}
+n_total <- length(leche.ts)
+n_train <- n_total - 12
+n_test <- 12
 
+# Crear series de entrenamiento y test
+leche_train <- window(leche.ts, end = c(2005, 10))
+leche_test <- window(leche.ts, start = c(2005, 11))
+
+cat("Tamaño conjunto entrenamiento:", length(leche_train))
+cat("Tamaño conjunto test:", length(leche_test))
+
+# Método 1: Descomposición Clásica
+# Descomponer la serie de entrenamiento
+decomp_clasica <- decompose(leche_train, type = "multiplicative")
+
+# Obtener último valor de tendencia no-NA
+tendencia <- decomp_clasica$trend
+tendencia_final <- tail(na.omit(tendencia), 1)
+
+# Obtener índices estacionales (un ciclo completo)
+estacional <- decomp_clasica$seasonal
+indices_estacionales <- as.numeric(window(estacional, start = c(1993, 1), end = c(1993, 12)))
+
+# Crear predicción para los meses de test (nov 2005 - oct 2006)
+# Noviembre = mes 11, diciembre = mes 12, enero = mes 1, ..., octubre = mes 10
+meses_test <- c(11, 12, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10)
+pred_clasica <- as.numeric(tendencia_final) * indices_estacionales[meses_test]
+
+# Calcular errores
+mae_clasica <- mean(abs(as.numeric(leche_test) - pred_clasica))
+rmse_clasica <- sqrt(mean((as.numeric(leche_test) - pred_clasica)^2))
+
+cat("MAE  =", round(mae_clasica, 4))
+cat("RMSE =", round(rmse_clasica, 4))
+
+# Método 2: STL
+stl_decomp <- stl(leche_train, s.window = "periodic")
+
+# Extraer componentes
+tendencia_stl <- stl_decomp$time.series[, "trend"]
+estacional_stl <- stl_decomp$time.series[, "seasonal"]
+
+# Último valor de tendencia
+tendencia_final_stl <- as.numeric(tail(tendencia_stl, 1))
+
+# Índices estacionales (primer año completo)
+indices_stl <- as.numeric(window(estacional_stl, start = c(1993, 1), end = c(1993, 12)))
+
+# Predicción
+pred_stl <- tendencia_final_stl + indices_stl[meses_test]
+
+mae_stl <- mean(abs(as.numeric(leche_test) - pred_stl))
+rmse_stl <- sqrt(mean((as.numeric(leche_test) - pred_stl)^2))
+
+cat("MAE  =", round(mae_stl, 4))
+cat("RMSE =", round(rmse_stl, 4))
+
+# Método 3: Alisado Exponencial (ETS)
+modelo_ets <- ets(leche_train)
+cat("Modelo ETS ajustado:", modelo_ets$method)
+pred_ets <- forecast(modelo_ets, h = 12)
+
+mae_ets <- mean(abs(as.numeric(leche_test) - as.numeric(pred_ets$mean)))
+rmse_ets <- sqrt(mean((as.numeric(leche_test) - as.numeric(pred_ets$mean))^2))
+
+cat("MAE  =", round(mae_ets, 4))
+cat("RMSE =", round(rmse_ets, 4))
+
+# Método 4: ARIMA/SARIMA
+modelo_arima <- auto.arima(leche_train, seasonal = TRUE)
+paste("Modelo:", modelo_arima)
+pred_arima <- forecast(modelo_arima, h = 12)
+
+mae_arima <- mean(abs(as.numeric(leche_test) - as.numeric(pred_arima$mean)))
+rmse_arima <- sqrt(mean((as.numeric(leche_test) - as.numeric(pred_arima$mean))^2))
+
+cat("MAE  =", round(mae_arima, 4))
+cat("RMSE =", round(rmse_arima, 4))
+
+# Comparación de Métodos
+resultados <- data.frame(
+  Método = c("Decomp. Clásica", "STL", "ETS", "SARIMA"),
+  MAE = round(c(mae_clasica, mae_stl, mae_ets, mae_arima), 4),
+  RMSE = round(c(rmse_clasica, rmse_stl, rmse_ets, rmse_arima), 4)
+)
+resultados <- resultados[order(resultados$MAE), ]
+resultados$Ranking <- 1:4
+
+print(resultados, row.names = FALSE)
+cat("Mejor método:", resultados$Método[1])
 ```
-

@@ -1,0 +1,291 @@
+---
+title: "Procesos Estocásticos y Series Temporales"
+subtitle: "Práctica 5: Series con variables exógenas"
+author: "Francisco Javier Mercader Martínez"
+output:
+  pdf_document:
+    latex_engine: xelatex
+geometry: margin=1.5cm, a4paper
+fontisize: 12
+header-includes:
+- \renewcommand{\and}{\\}
+- \usepackage{fvextra}
+- \usepackage{hyperref}
+- \DefineVerbatimEnvironment{Highlighting}{Verbatim}{breaklines, commandchars=\\\{\}}
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE)
+```
+
+# Problema 1
+
+En el fichero **Consumo_Electrico_Sim1.csv**, se encuentran los datos horarios del consumo eléctrico (en kW) de los habitantes de una población (datos simulados), entre el 01/01/2009 y el 15/03/2009. También se muestran los registros de Temperatura ambiente (en ºKelvin), Humedad relativa, variables dummy del día de la semana (WH2 a WH7) y la variable indicadora de festividad FH1.
+
+**El objetivo es modelizar la serie de consumo eléctrico horario usando como predictores las variables climáticas, las dummy calendario proporcionadas, así como predictores que representen la tendencia y estacionalidad de la serie (si fueran necesarios).** Responder a las siguientes cuestiones:
+
+1)  Representa la serie de Consumo en un gráfico temporal. ¿Cómo es la tendencia? ¿La serie presenta estacionalidad? ¿Cuál sería el periodo?
+
+```{r}
+datos <- read.csv2("./Consumo_Electrico_Sim1.csv")
+ts.plot(datos$Consumo)
+```
+
+-   La serie **no** presenta estacionalidad (no hay patrón periódico).
+-   La serie oscila alrededor de la media.
+-   La varianza parece constante
+
+2)  Dividir los datos en entrenamiento y test, dejando para test los datos de marzo. Pasar la variable Consumo a serie temporal teniendo en cuenta la periodicidad diaria (periodo = 24 horas). Llámala **`consumo.ts`** y sepárala también en entrenamiento (**`consumo.ts_train`**) y test (**`consumo.ts_test`**). Usaremos **`consumo.ts_train`** para ajustar los modelos y usaremos **`consumo.ts_test`** para testeo.
+
+```{r}
+inicio_test <- which(datos$Fecha == "01/03/2009 0:00")
+indices_train <- 1:(inicio_test - 1)
+indices_test <- inicio_test:nrow(datos)
+datos_train <- datos[indices_train, ]
+datos_test <- datos[indices_test, ]
+
+consumo.ts <- ts(datos$Consumo, start = c(1, 1), frequency = 24)
+consumo.ts_train <- window(consumo.ts, end = c(59, 24))
+consumo.ts_test <- window(consumo.ts, start = c(60, 1))
+```
+
+
+3)  Usando la función **`tslm()`** del paquete **`forecast`**, ajusta un modelo de regresión lineal múltiple a la serie **`consumo.ts_train`**. Usa los predictores indicados en el enunciado y variables dummy para la estacionalidad diaria. ¿Debemos contemplar una recta para la tendencia?
+
+```{r}
+library(forecast)
+library(tidyverse)
+```
+
+```{r}
+tslm(
+  consumo.ts_train ~ season + datos_train$Temperatura +
+    datos_train$Humedad_rel + datos_train$WH2 + datos_train$WH4 +
+    datos_train$WH5 + datos_train$WH6 + datos_train$WH7 +
+    datos_train$FH1
+)
+```
+
+```{r}
+p1 <- datos |>
+  select(-Fecha, -Consumo)
+
+p1_train <- p1[indices_train, ]
+p1_test <- p1[indices_test, ]
+
+p1_train_matrix <- as.matrix(p1_train)
+
+modelo_season <- tslm(consumo.ts_train ~ season + p1_train_matrix)
+
+modelo_season
+```
+
+4)  Repite el apartado anterior pero modelizando la estacionalidad con series de Fourier.
+
+```{r}
+tslm(
+  consumo.ts_train ~ fourier(consumo.ts_train, K = 12) +
+    datos_train$Temperatura +
+    datos_train$Humedad_rel + datos_train$WH2 + datos_train$WH4 +
+    datos_train$WH5 + datos_train$WH6 + datos_train$WH7 +
+    datos_train$FH1
+)
+```
+
+```{r}
+modelo_fourier <- tslm(
+  consumo.ts_train ~ fourier(consumo.ts_train, K = 12) +
+    p1_train_matrix
+)
+modelo_fourier
+```
+
+5)  ¿Los residuos de los modelos de los apartados (3) y (4) se comportan como un ruido blanco?
+
+```{r}
+plot(modelo_season$residuals)
+shapiro.test(modelo_season$residuals)
+plot(as.vector(modelo_season$fitted), as.vector(modelo_season$residuals))
+par(mfrow = c(1, 2))
+Acf(modelo_season$residuals)
+Pacf(modelo_season$residuals)
+```
+
+```{r}
+plot(modelo_fourier$residuals)
+shapiro.test(modelo_fourier$residuals)
+plot(as.vector(modelo_fourier$fitted), as.vector(modelo_fourier$residuals))
+par(mfrow = c(1, 2))
+Acf(modelo_fourier$residuals)
+Pacf(modelo_fourier$residuals)
+```
+
+6)  Con los modelos resultantes en los apartados (3) y (4), realiza las predicciones de la zona test (primera quincena de marzo).
+
+```{r}
+pred_season <- forecast(modelo_season, newdata = p1_test) # Datos futuros
+plot(pred_season, main = "pred_season")
+```
+
+```{r}
+p1_test_fourier_k_12 <- data.frame(p1_test, fourier(consumo.ts_train, K = 12, h = 24 * 15))
+pred_fourier <- forecast(modelo_fourier, newdata = p1_test_fourier_k_12)
+plot(pred_fourier, main = "pred_fourier")
+```
+
+7)  Representa los datos reales (negro) junto a valores ajustados (azul) y predicciones puntuales (rojo).
+
+```{r}
+ts.plot(consumo.ts,
+  modelo_fourier$fitted.values,
+  pred_fourier$mean,
+  col = c("black", "blue", "red")
+)
+```
+
+**Ahora vamos a contruir un modelo de regresión dinámica para la serie `consumo.ts_train`.**
+
+
+8)  Crea una matriz con los predictores del conjunto de datos, incluyendo la estacionalidad diaria con dummies.
+
+```{r}
+xreg_train <- cbind(seasonaldummy(consumo.ts_train), as.matrix(p1_train))
+```
+
+9)  Obtén el modelo de regresión dinámica usando la función **`auto.arima()`**. ¿Qué modelo ARIMA se obtiene para los residuos del modelo de regresión?
+
+```{r}
+dyreg_consumo <- auto.arima(
+  consumo.ts_train,
+  xreg = xreg_train
+)
+```
+
+10) Comprueba si ahora los residuos son ruido blanco gaussiano.
+
+```{r}
+# Gráfico de los residuos
+plot(dyreg_consumo$residuals,
+  main = "Residuos del Modelo de Regresión Dinámica"
+)
+# Test de normalidad
+shapiro.test(dyreg_consumo$residuals)
+
+# Gráfico de residuos vs ajustados
+plot(as.vector(fitted(dyreg_consumo)), as.vector(dyreg_consumo$residuals),
+  xlab = "Valores ajustados", ylab = "Residuos"
+)
+abline(h = 0, col = "red", lwd = 2)
+
+# ACF y PACF de los residuos
+par(mfrow = c(1, 2))
+Acf(dyreg_consumo$residuals, main = "ACF Residuos")
+Pacf(dyreg_consumo$residuals, main = "PACF Residuos")
+
+# Test de Ljung-Box para autocorrelación
+checkresiduals(dyreg_consumo)
+```
+
+- **Shapiro Test:** $p-value=0.3701\gg 0.05\implies$ los residuos son normales.
+- **Ljung-Box:** $p-value=0.9597\gg 0.05\implies$ los residuos son ruido blanco.
+
+**Conclusión:** Los residuos del modelo de regresión dinámica se comportan como **ruido blanco gaussiano**, lo cual indica que el modelo ARIMA captura correctamente la estructura de dependendecia temporal que quedaba en los residuos del modelo de regresión lineal simple.
+
+11) Realiza las predicciones de la zona test (primera quincena de marzo). ¿Se trata de predicciones ex-ante o predicciones ex-post?
+
+```{r}
+xreg_test <- cbind(seasonaldummy(consumo.ts_test), as.matrix(p1_test))
+pred_dyreg <- forecast(dyreg_consumo, xreg = xreg_test)
+plot(pred_dyreg, main = "Predicciones Regresión Dinámica")
+```
+
+12) Representamos los datos reales (negro) junto a valores (azul) y predicciones puntuales (rojo).
+
+```{r}
+ts.plot(consumo.ts, fitted(dyreg_consumo), pred_dyreg$mean,
+  col = c("black", "blue", "red")
+)
+```
+
+13) Compara los valores reales (negro) en la zona entrenamiento, con los ajustados usando sólo el ajuste RLM (verde) y los ajustados usando Regresión Dinámica (azul).
+
+```{r}
+ts.plot(consumo.ts_train, modelo_season$fitted.values, fitted(dyreg_consumo),
+  col = c("black", "green", "blue")
+)
+```
+
+14) ¿Qué sucede con las predicciones para marzo usando modelo RLM frente a Regresión Dinámica?
+
+```{r}
+ts.plot(consumo.ts_test, pred_season$mean, pred_dyreg$mean,
+  col = c("black", "green", "blue")
+)
+
+accuracy(pred_season$mean, consumo.ts_test)
+accuracy(pred_dyreg$mean, consumo.ts_test)
+```
+
+15) Repite los apartados (8) a (14) usando series de Fourier para modelar la estacionalidad diaria.
+
+```{r}
+fourier_train <- fourier(consumo.ts_train, K = 12)
+x_reg_train_fourier <- cbind(fourier_train, as.matrix(p1_train))
+```
+
+```{r}
+dyreg_fourier <- auto.arima(consumo.ts_train, xreg = x_reg_train_fourier)
+dyreg_fourier
+```
+
+```{r}
+# Grafico de residuos
+plot(dyreg_fourier$residuals, main = "Residuos Regresión Dinámica (Fourier)")
+
+# Test de normalidad
+shapiro.test(dyreg_fourier$residuals)
+
+# Residuos vs ajustados
+plot(as.vector(fitted(dyreg_fourier)), as.vector(dyreg_fourier$residuals),
+  xlab = "Valores ajustados", ylab = "Residuos"
+)
+abline(h = 0, col = "red", lwd = 2)
+
+# ACF y PACF de los residuos
+par(mfrow = c(1, 2))
+Acf(dyreg_fourier$residuals, main = "ACF Residuos")
+Pacf(dyreg_fourier$residuals, main = "PACF Residuos")
+
+# Test de Ljung-Box para autocorrelación
+checkresiduals(dyreg_fourier)
+```
+
+- **Shapiro Test:** $p-value=0.3701\gg 0.05\implies$ los residuos son normales.
+- **Ljung-Box:** $p-value=0.9597\gg 0.05\implies$ los residuos son ruido blanco.
+
+**Conclusión:** Los residuos del modelo de regresión dinámica se comportan como **ruido blanco gaussiano**, lo cual indica que el modelo ARIMA captura correctamente la estructura de dependendecia temporal que quedaba en los residuos del modelo de regresión lineal simple.
+
+```{r}
+fourier_test <- fourier(consumo.ts_train, K = 12, h = length(consumo.ts_test))
+xreg_test_fourier <- cbind(fourier_test, as.matrix(p1_test))
+pred_dyreg_fourier <- forecast(dyreg_fourier, xreg = xreg_test_fourier)
+plot(pred_dyreg_fourier, main = "Predicciones Regresión Dinámica (Fourier)")
+```
+
+```{r}
+ts.plot(consumo.ts, fitted(dyreg_fourier), pred_dyreg_fourier$mean,
+  col = c("black", "blue", "red")
+)
+```
+
+```{r}
+ts.plot(consumo.ts_train, modelo_fourier$fitted.values, fitted(dyreg_fourier),
+  col = c("black", "green", "blue")
+)
+```
+
+```{r}
+ts.plot(consumo.ts_test, pred_fourier$mean, pred_dyreg_fourier$mean,
+  col = c("black", "green", "blue")
+)
+```
