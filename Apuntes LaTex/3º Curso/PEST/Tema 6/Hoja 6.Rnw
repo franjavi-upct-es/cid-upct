@@ -29,7 +29,7 @@
     \item \lb{¿Por qué es importante que una serie sea estacionaria para la modelización ARIMA?} 
 
         La importancia de la estacionaeridad en la modelización ARIMA radica fundamentalmente en la necesidad de poder \textbf{inferir el comportamiento futuro a partir de los datos pasados}, dado que habitualmente trabajamos con una única muestra de datos. 
-        \begin{enumerate}[label=\arabic*)]
+        \begin{enumerate}
             \item \textbf{El problema de la "Única Realización":} En la práctica, solemos tener una limitación importante: la serie observada es la \textbf{única realización accesible} del proceso (por ejemplo, solo hay una historia real del PIB o de las ventas de una empresa). No disponemos de múltiples universos paralelos (múltiples realizaciones) para calcular promedios y distribuciones en cada instante de tiempo.
             \item \textbf{Estabilidad para la Predicción:} Al asumir que el proceso es estacionario (y ergódico), garantizamos dos cosas esenciales para que el modelo matemático funciones:
                 \begin{itemize}[label=\textbullet]
@@ -56,7 +56,7 @@
         \end{itemize}
     \item \lb{Explica la diferencia entre diferenciación de primer orden, diferenciación de segundo orden y diferencia estacional.} 
 
-        \begin{enumerate}[label=\arabic*)]
+        \begin{enumerate}
             \item \textbf{Diferenciación de Primer Orden $(d=1)$} 
 
                 Es la transformación más común y consiste en restar a cada valor de la serie el valor del instante inmediatamente anterior.
@@ -96,7 +96,7 @@
     \item \lb{¿Qué diferencia hay entre correlaciones simples y correlaciones parciales?} 
 
         La diferencia radica en cómo miden la dependencia entre observaciones separadas por un tiempo determinado (retardo $k$).
-        \begin{enumerate}[label=\arabic*)]
+        \begin{enumerate}
             \item \textbf{Correlación Simple (ACF)} 
 
                 La función de autocorrelación simple (o simplemente correlograma) mide la \textbf{relación total} entre dos observaciones separadas por $k$ periodos ($X_t$ y  $X_{t-k}$), sin importar qué sucede en medio.
@@ -133,7 +133,7 @@
         La identificación del orden $p$ de un modelo autorregresivo  $AR(p)$ se basa fundamentalmente en el análisis del \textbf{correlograma parcial} (PACF), aunque el comportamiento del correlograma simple (ACF) también proporciona información complementaria.
 
         Pautas específicas para su identificación:
-        \begin{enumerate}[label=\arabic*)]
+        \begin{enumerate}
             \item \textbf{El Indicador Clave: Correlograma Parcial (PACF)}
 
                 Es la herramienta principal para determinar el orden $p$.
@@ -157,7 +157,7 @@
         \textbf{Las raíces del polinomio característico deben estar fuera del círculo unidad del plano complejo.}
 
         \textbf{Desglose de la condición:}
-        \begin{enumerate}[label=\arabic*)]
+        \begin{enumerate}
             \item \textbf{El Polinomio Característico:} Si expresamos el proceso $AR(p)$ utilizando el operador de retardos $B$:  \[
                     (1-a_1B-a_2B^2-\dots-a_pb^p)X_t=\epsilon_t
             \]  
@@ -171,7 +171,7 @@
         Un modelo de medias móviles de orden $q$, denotado como  $MA(q)$, es un proceso estocástico donde el valor actual de la serie se representa como una combinación lineal de perturbaciones aleatorias (ruido blanco) presente y pasadas.
 
         Características principales:
-         \begin{enumerate}[label=\arabic*)]
+         \begin{enumerate}
             \item \textbf{Expresión Matemática}
 
                 El valor actual $X_t$ es el resultado de una perturbación aleatoria actual más una suma ponderada de  $q$ perturbaciones aleatorias. Su ecuación es:  \[
@@ -200,7 +200,7 @@
         \end{enumerate}
     \item \lb{¿Cómo se identifica un modelo $MA(q)$? Demostrar que en un $MA(q)$ las correlaciones simples son nulas para retardos superiores a $q$.} 
 
-        \begin{enumerate}[label=\arabic*)]
+        \begin{enumerate}
             \item \textbf{Identificación de un modelo $MA(q)$}
 
                 La herramienta fundamental para identificar el orden $q$ de un proceso de medias móviles es el  \textbf{correlograma simple (ACF).}
@@ -228,16 +228,142 @@
                         \] 
                     \item \textbf{Análisis de la covarianza para $k>q$}
 
+                        Al multiplicar $X_t$ por $X_{t-k}$ y calcular la esperanza, buscamos términos de error común $(\epsilon)$ entre ambos instantes.
+                        \begin{itemize}[label=\textbullet]
+                            \item $X_t$ depende de las perturbaciones desde el instante  $t$ hasta  $t-q$.
+                            \item  $X_{t-k}$ depende de las perturbaciones desde el instante $t-k$ hasta  $t-k-q$.
+                        \end{itemize}
+                        Si el retardo $k$ es mayor que el orden  $q\,(k>q)$, no existe solapamiento temporal entre las perturbaciones que componen  $X_t$ y las que componen  $X_{t-k}$. Debido a la propiedad de independencia del ruido blanco, el valor esperado del producto de perturbaciones en distintos instantes es cero.
 
+                        Por tanto, la función de covarianzas es: \[
+                        \gamma_k=0\text{ si }k>q.
+                        \] 
                 \end{enumerate}
+                \textbf{Conclusión:} Dado que el coeficiente de autocorrelación simple $\rho_k$ es el cociente entre la autocovarianza  $\gamma_k$ y la varianza  $\gamma_0$: \[
+                \rho_k=\dfrac{\gamma_k}{\gamma_0}
+                \]  
+                Si $\gamma_k=0$ para  $k>q$, entonces necesariamente:  \[
+                \rho_k=0\text{ si }k>q.
+                \] 
+                Esto confirma que las correlaciones son nulas para retardos superiores al orden del modelo.
         \end{enumerate}
     \item \lb{Para un modelo $MA(q)$, ¿cuándo tendremos que se trata de un proceso estacionario?} 
+
+        La repuesta es redundante: un proceso de medias móviles $MA(q)$  \textbf{es siempre estacionario.}
+
+        A diferencia de los modelos autorregresivos, los modelos $MA(q)$ tienen las siguientes características respecto a su estabilidad:
+         \begin{itemize}[label=\textbullet]
+            \item \textbf{Sin condiciones sobre los parámetros:} No es necesario que los coeficientes $b_1,b_2,\dots,b_q$ cumplan ninguna condición específica para garantizar la estacionariedad.
+        \end{itemize}
     \item \lb{Define formalmente un modelo $ARMA(p,q)$.}
+
+        Un modelo $ARMA(p,q)$ (AutoRegressive Moving Average) se define formalmente como un proceso estocástico que combina una parte autorregresiva de orden  $p$ y una parte de medias móviles de orden  $q$.
+
+        Su expresión matemática se representa mediante la siguiente igualdad:  \[
+        X_t-a_1X_{t-1}-\dots-a_pX_{t-p}=\epsilon_t+b_1\epsilon_{t-1}+\dots+b_q\epsilon_{t-q}
+        \] 
+        Donde:
+        \begin{itemize}[label=\textbullet]
+            \item $X_t$: Es la variable de la serie temporal en el instante  $t$.
+            \item  $p$: Indica el orden de la parte autorregresiva (número de retardos de $X$).
+            \item $q$: Indica el orden de la parte de medias móviles (número de retardos del error).
+            \item $\epsilon_t$: Representa un ruido blanco gaussiano (perturbación aleatoria).
+        \end{itemize}
+
+        \textbf{Notación con Operador de Retardos}
+
+        El modelo se expresa de manera más compacta utilizando el operador de retardos $B$ (donde $B^kX_t=X_{t-k}$): \[
+            (1-a_1B-a_2B^2-\dots-a_pB^p)X_t=(1+b_1B+b_2B^2+\dots+b_qB^q)\epsilon_t
+        \]
+        O de forma abreviada utilizando los polinomios característicos: \[
+            [a_p(B)]X_t=[b_q(B)]\epsilon_t
+        \] 
+        Donde $a_p(B)$ es el polinomio autorregresivo y  $b_q(B)$ es el polinomio característico de medias móviles.
     \item \lb{¿Cómo se seleccionan los órdenes $p$ y  $q$ en un modelo  $ARMA$?}
 
         $p$ y  $q$ se seleccionan representando correlación simple y parcial, y proponiendo unos valores de  $p$ y  $q$ de partida que tengan sentido. Posteriormente se estudia si son reducibles a través de los  $p$-valores de los contrastes individuales de significación.
     \item \lb{Indica la fórmula general de un modelo $ARIMA(p,d,q)$ usando el operador de retardo.} 
+
+        La fórmula general de un modelo $ARIMA(p,d,q)$ expresada mediante el operador de retardo  $B$ es la siguiente:  \[
+            (1-a_1B-a_2B^2-\dots-a_pB^p)(1-B)^dX_t=(1+b_1B+b_2B^2+\dots+b_qB^q)\epsilon_t
+        \] 
+        \textbf{Desglose de los componentes de la fórmula:}
+        \begin{enumerate}
+            \item \textbf{Parte Autorregresiva (AR):} El primer polinomio representa la estructura autorregresiva de orden $p$:  \[
+                a_p(B)=(1-a_1B-a_2B^2-\dots-a_pB^p)
+            \]  
+            Sus raíces determinan la estacionariedad una vez diferenciada la serie.
+            \item \textbf{Parte Integrada (I):} El término central representa la  diferenciación necesaria para convertir la serie no estacionaria $X_t$ en estacionaria. El parámetro $d$ indica cuántas veces se aplica el operador diferencia  $\Delta=(1-B)$:  \[
+                \Delta^pX_t=(1-B)^dX_t
+            \]  
+            \item \textbf{Parte de medias móviles (MA):} El polinomio del lado derecho representa la estructura de medias móviles de orden $q$:  \[
+            b_q(B)=(1+b_1B+b_2B^2+\dots+b_qB^q)
+            \]  
+            De forma compacta, si consideramos $Y_t$ como al serie ya diferenciada  $(Y_t=(1-B)^dX_t)$, el problema modelo se reduce a un  $ARMA(p,q)$ sobre dicha serie diferenciada:  \[
+                [a_p(B)]Y_t=[b_q(B)]\epsilon_t
+            \] 
+        \end{enumerate}
     \item \lb{¿Cómo se estiman los coeficientes de un modelo $ARIMA$? Deducir las ecuaciones de Yule-Walker en términos de correlaciones para un proceso $AR(p)$} 
+        \begin{enumerate}
+            \item \textbf{Estimación de Coeficientes en modelos ARIMA}
+
+                La estimación de los parámetros de un modelo ARIMA (coeficietnes, $a_i$ de la parte autorregresiva,  $b_j$ de la media móvil y la constante) se realiza una vez determinados los órdenes $p,d,q$.
+
+                Existen dos métodos principales para realizar esta estimación:
+                 \begin{itemize}[label=\textbullet]
+                    \item \textbf{Minimización de la Suma de Cuadrados Residual:} Se buscan los parámetros que minimizan la suma de los errores al cuadrado.
+                    \item \textbf{Maximización de la Verosimilitud:} Se buscan los parámetros que hacen más probable la muestra observada. 
+                \end{itemize}
+                \textbf{Dificultad según el tipo de modelo:}
+                \begin{itemize}[label=\textbullet]
+                    \item \textbf{Modelos AR puros:} La estimación es más sencilla, ya que el criterio de mínimos cuadrados coincide con las ecuaciones lineales de Yule-Walker.
+                    \item \textbf{Modelos con componente MA (MA o ARMA):} La estimación es mucho más compleja porque las ecuaciones resultantes \textbf{no son lineales} en los parámetros. Por ello, es necesario recurrir a \textbf{procedimientos iterativos} (algoritmos numéricos) para resolverlos.   
+                \end{itemize}
+            \item \textbf{Deducción de las Ecuaciones de Yule-Walker para un proceso $AR(p)$}
+
+                Las ecuaciones de Yule-Walker relacionan las autocorrelaciones teóricas con los parámetros del modelo, permitiendo estimar los coeficientes $a_i$ a partir de las correlaciones observadas.
+
+                \begin{enumerate}[label=\textbf{Paso \arabic*:}]
+                    \item \textbf{Definición del proceso}
+
+                        Consideramos un proceso $AR(p)$ centrado (media cero) para simplificar la notación:  \[
+                        X_t=a_1X_{t-1}+a_2X_{t-2}+\dots+a_pX_{t-p}+\epsilon_t
+                        \] 
+                    \item \textbf{Multiplicación por un retardo}
+
+                        Multiplicamos ambos lados de la ecuación por $X_{t-j}$ (donde $j>0$): \[
+                        X_tX_{t-j}=a_1X_{t-1}X_{t-j}+a_2X_{t-2}X_{t-j}+\dots+a_pX_{t-p}X_{t-j}+\epsilon_tX_{t-j}
+                        \] 
+                    \item \textbf{Aplicación de Esperanzas} 
+
+                        Tomamos la esperanza matemática $E[\cdot ]$ en toda la expresión. Dado que los coeficientes $a_i$ son constantes, salen fuera de la esperanza:  \[
+                        E(X_tX_{t-j})=a_1E(X_{t-1}X_{t-j})+\dots+a_pE(X_{t-p}X_{t-j})+E(\epsilon_tX_{t-j})
+                        \] 
+                    \item \textbf{Simplificación del término de error}
+
+                        Analizamos el término $E(\epsilon_tX_{t-j})$. Como $X_{t-j}$ ( con $j>0$) es un valor pasado, solo depende de errores pasados $(\epsilon_{t-j},\epsilon_{t-j-1},\dots)$. Dado que $\epsilon_t$ es ruido blanco (independiente del pasado), la esperanza del producto es cero: \[
+                        E(\epsilon_tX_{t-j})=0\text{ para }j>0
+                        \] 
+                    \item \textbf{Expresión en Covarianzas ($\gamma$)}
+
+                        Sustituimos las esperanzas por la función de autocovarianza $\gamma_k=E(X_tX_{t-k})$: \[
+                        \gamma_j=a_1\gamma_{j-1}+a_2\gamma_{j-2}+\dots+a_p\gamma_{j-p}
+                        \] 
+                    \item \textbf{Expresión en Correlaciones ($\rho$)}
+
+                        Dividimos toda la ecuación por la varianza del proceso, $\gamma_0$, sabiendo que $\rho_k=\dfrac{\gamma_k}{\gamma_0}$: \[
+                        \dfrac{\gamma_j}{\gamma_0}=a_1\dfrac{\gamma_{j-1}}{\gamma_0}+a_2 \dfrac{\gamma_{j-2}}{\gamma_0}+\dots+a_p \dfrac{\gamma_{j-p}}{\gamma_0}
+                        \] 
+                        Esto nos da las \textbf{Ecuaciones de Yule-Walker en términos de correlaciones:}\[
+                        \rho_j=a_1\rho_{j-1}+a_2\rho_{j-2}+\dots+a_p\rho_{j-p}\text{ para }j>0
+                        \]  
+                \end{enumerate}
+                \textbf{Resultado Final (Sistema Matricial)} 
+
+                Particularizando para $j=1,2,\dots,p$, obtenemos un sistema de ecuaciones lineales que permite despejar los parámetros $a$ si conocemos las correlaciones  $\rho$:  \[
+                \rho=R\cdot a\implies a=R^{-1}\cdot \rho
+                \] 
+        \end{enumerate}
     \item \lb{¿Cuál es la utilidad de los criterios de información de Akaike (AIC) y de Bayes (BIC) en el contexto de metodología $ARIMA$?} 
     \item \lb{¿Cuál es la importancia de verificar que los residuos de un modelo $ARIMA$ se asemejen a ruido blanco?} 
     \item \lb{Resume los pasos para analizar una serie temporal usando modelos $ARIMA$.} 
@@ -346,7 +472,7 @@
             \item \db{Escribe órdenes y polinomios característicos.} 
 
                 Para identificar el modelo $ARIMA(p,d,q)$, observamos los polinomios en el operador de retardos $B$:
-                 \begin{enumerate}[label=\arabic*)]
+                 \begin{enumerate}
                     \item \textbf{Parte Autorregresiva (AR) y Diferenciador (I):}
                         \begin{itemize}[label=\textbullet]
                             \item El término $(1-B)$ indica una diferenciación de orden 1, por lo que  $d=1$.
