@@ -10,6 +10,7 @@ linestrectch: 1.5
 fontisize: 10
 papersize: a4
 geometry: margin=1.5cm
+jupyter: python3
 ---
 
 **Actividad 1.** Realizar las siguientes operaciones con Python:
@@ -47,7 +48,7 @@ $(2+3^2+5^3)^{\frac{1}{3}}=$ `{python} round((2+3**2+5**3)**(1/3), 4)`
 
 $\left(1+2^3\dfrac{5}{2^4+1}\right)^{\frac{1}{2}}=$ `{python} round((1+2**3*5/(2**4+1))**(1/2), 4)`
 
-**Activadad 2.** Obtener el resto y el cociente de las siguientes divisiones enteras:
+**Actividad 2.** Obtener el resto y el cociente de las siguientes divisiones enteras:
 
 \begin{multicols}{2}
 \begin{enumerate}[label=(\alph*)]
@@ -85,45 +86,45 @@ B = list((i+1)*3 for i in range(5))
 
 1.  Hacer la unión de $A$ y $B$. Llamar $C$ a esta nueva lista
 
-    ```{python}
-    C = list(set(A) | set(B))
-    print(f"C = {C}")
-    ```
+```{python}
+C = list(set(A) | set(B))
+print(f"C = {C}")
+```
 
 2.  Eliminar los elementos repetidos de $C$ eliminado el elemento repetido que aparece en primer lugar.
 
-    ```{python}
-    C = list(dict.fromkeys(C))
-    print(f"C sin repetidos (primer lugar): {C}")
-    ```
+```{python}
+C = list(dict.fromkeys(C))
+print(f"C sin repetidos (primer lugar): {C}")
+```
 
 3.  Añadir a la lista resultante los número 5 y 7 al final de la lista.
 
-    ```{python}
-    C.extend([5, 7])
-    print(f"C con 5 y 7 añadidos: {C}")
-    ```
+```{python}
+C.extend([5, 7])
+print(f"C con 5 y 7 añadidos: {C}")
+```
 
 4.  Añadir a la lista resultante los números 3, 4 y 5 al principio de la lista.
 
-    ```{python}
-    C = [3,4,5] + C
-    print(f"C on 3, 4 y 5 al principio: {C}")
-    ```
+```{python}
+C = [3,4,5] + C
+print(f"C on 3, 4 y 5 al principio: {C}")
+```
 
 5.  Eliminar los elementos repetidos de $C$ eliminado el elemento repetido que aparece en último lugar.
 
-    ```{python}
-    C = list(dict.fromkeys(C[::-1]))[::-1]
-    print(f"C sin elementos repetidos (último lugar): {C}")
-    ```
+```{python}
+C = list(dict.fromkeys(C[::-1]))[::-1]
+print(f"C sin elementos repetidos (último lugar): {C}")
+```
 
 6.  Crear una nueva lista $D$ con los elementos pares de $C$, sin escribir el número en cuestión, sino seleccionándolo de la lista $C$.
 
-    ```{python}
-    D = [i for i in C if i % 2 == 0]
-    print(f"D = {D}")
-    ```
+```{python}
+D = [i for i in C if i % 2 == 0]
+print(f"D = {D}")
+```
 
 **Actividad 4.** Dada la función $f(x)=3.95x(1-x)$ y $x_0=0.5$, obtener los 100 primeros elementos de la recursión 
 $$
