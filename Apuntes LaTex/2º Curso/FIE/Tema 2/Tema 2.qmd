@@ -150,7 +150,7 @@ l <- (1 - p)^(n - n1) * p^n1
 tibble(p = p, l = l) |>
   ggplot(aes(p, l)) +
   geom_line() +
-  labs(y= "Verosimilitud")
+  labs(y = "Verosimilitud")
 ```
 
 ## Estimador de máxima verosimilitud ##
@@ -174,10 +174,10 @@ $$
 ```{r}
 #| fig-cap: "Verosimilitud correspondiente al ejemplo de 10 tiradas de una moneda."
 tibble(p = p, l = l) |>
-    ggplot(aes(p, l)) +
-    geom_line() +
-    geom_vline(xintercept = n1 / n, col="red") +
-    labs(y = "Verosimilitud")
+  ggplot(aes(p, l)) +
+  geom_line() +
+  geom_vline(xintercept = n1 / n, col="red") +
+  labs(y = "Verosimilitud")
 ```
 
 #### Ejemplos #### {.unnumbered .unlisted}

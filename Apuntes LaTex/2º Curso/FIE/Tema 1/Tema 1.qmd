@@ -73,9 +73,9 @@ Queremos descartar que haya sido suerte. Vamos a repetir muchas veces (1000 vece
 ```{r, echo = TRUE}
 library(tidyverse)
 lista_muestras <- replicate(
-    10000,
-    sample(poblacion, 3000, replace = FALSE),
-    simplify = FALSE
+  10000,
+  sample(poblacion, 3000, replace = FALSE),
+  simplify = FALSE
 )
 p_muestras <- map_dbl(lista_muestras, mean)
 head(p_muestras)
@@ -84,25 +84,26 @@ head(p_muestras)
 ```{r, echo = TRUE}
 library(tidyverse)
 p_muestras <- replicate(
-    10000,
-    sample(poblacion, 3000, replace = FALSE),
-    simplify = FALSE
+  10000,
+  sample(poblacion, 3000, replace = FALSE),
+  simplify = FALSE
 ) |>
-    map_dbl(mean)
+  map_dbl(mean)
 head(p_muestras)
 ```
 
 Recogemos los valores obtenidos en un histograma.
 
 ```{r}
-tibble(p = p_muestras) |> 
-    ggplot(aes(x = p)) +
-    geom_histogram(
-        aes(y = after_stat(density)),
-        alpha = 0.8,
-        fill = "lightblue"
-    ) +
-    labs(title = expression(paste("Distribución de ", hat(p), ", 10000 muestras"))) +
+tibble(p = p_muestras) |>
+  ggplot(aes(x = p)) +
+  geom_histogram(
+    aes(y = after_stat(density)),
+    alpha = 0.8,
+    fill = "lightblue"
+  ) +
+  labs(title = expression(paste("Distribución de ", hat(p),
+                                ", 10000 muestras"))) +
   theme_bw()
 ```
 
@@ -113,23 +114,24 @@ tibble(p = p_muestras) |>
 
 ```{r}
 phat_df <- map_dfr(
-    c(3000, 300),
-    \(n) tibble(
-           p = map_dbl(
-                 replicate(
-                   100000,
-                   sample( poblacion, n, replace = FALSE),
-                   simplify = FALSE
-                 ),
-               mean
-           )
-         ) |> transform(n_muestra = factor(n))
+  c(3000, 300),
+  \(n) tibble(
+    p = map_dbl(
+      replicate(
+        100000,
+        sample(poblacion, n, replace = FALSE),
+        simplify = FALSE
+      ),
+      mean
+    )
+  ) |> transform(n_muestra = factor(n))
 )
-phat_df|> 
-    ggplot(aes(x = p, fill = n_muestra)) +
-    geom_density(alpha = 0.5) +
-    geom_histogram(aes(y = after_stat(density)), alpha=0.5) +
-    scale_fill_discrete(name = "Tamaño muestral") +
+
+phat_df |>
+  ggplot(aes(x = p, fill = n_muestra)) +
+  geom_density(alpha = 0.5) +
+  geom_histogram(aes(y = after_stat(density)), alpha = 0.5) +
+  scale_fill_discrete(name = "Tamaño muestral") +
   theme_bw()
 ```
 
@@ -158,12 +160,13 @@ Es la distribución esperada de los valores de $\hat{p}$ respecto a todas las mu
 p <- 0.7
 n <- 3000
 muphat <- p
-sigmaphat <- sqrt( (p * (1 - p) / n))
-x <- seq(qnorm(0.01, muphat, sigmaphat), qnorm(0.99, muphat, sigmaphat), length = 200)
+sigmaphat <- sqrt((p * (1 - p) / n))
+x <- seq(qnorm(0.01, muphat, sigmaphat),
+         qnorm(0.99, muphat, sigmaphat), length = 200)
 y <- dnorm(x, muphat, sigmaphat)
 tibble(x = x, y = y) |>
-    ggplot(aes(x = x, y = y)) +
-    geom_line() +
+  ggplot(aes(x = x, y = y)) +
+  geom_line() +
   theme_bw()
 ```
 
@@ -176,32 +179,39 @@ tibble(x = x, y = y) |>
 ## Otro ejemplo: valores muestrales de una distribución normal ##
 
 ```{r}
-par(mfrow=c(1,2))
-curve(dnorm(x, 0, 1), from = -3, to = 3,      xlab = "Distribución normal", ylab = " ", ylim = c(-0.1, 0.5))
+par(mfrow = c(1, 2))
+curve(dnorm(x, 0, 1), from = -3, to = 3,
+      xlab = "Distribución normal",
+      ylab = " ", ylim = c(-0.1, 0.5))
 abline(0, 0)
 xsim <- rnorm(100, 0, 1)
-y = 0
-for(i in 1:100){
-  points(xsim[i], y, col="blue")
-  Sys.sleep(0.15)
-}
-
-hist(xsim, xlim = c(-3, 3), breaks = "Sturges", main = "", xlab = "Valores muestrales", ylab = "", col = "lightgreen")
-```
-
-```{r}
-par(mfrow=c(1,2))
-
-curve(dgamma(x, 2, 3), from = 0, to = 3, xlab = "Distribución gamma", ylab = " ", ylim = c(-0.1, 1.5))
-abline(0, 0)
-xsim <- rgamma(100, 2, 3)
-y = 0
-for(i in 1:100){
+y <- 0
+for (i in 1:100){
   points(xsim[i], y, col = "blue")
   Sys.sleep(0.15)
 }
 
-hist(xsim, xlim = c(0, 3), breaks = "Sturges", main = "", xlab = "Valores muestrales", ylab = "", col = "lightblue")
+hist(xsim, xlim = c(-3, 3),
+     breaks = "Sturges", main = "",
+     xlab = "Valores muestrales",
+     ylab = "", col = "lightgreen")
+```
+
+```{r}
+par(mfrow = c(1, 2))
+
+curve(dgamma(x, 2, 3), from = 0, to = 3,
+      xlab = "Distribución gamma", ylab = " ", ylim = c(-0.1, 1.5))
+abline(0, 0)
+xsim <- rgamma(100, 2, 3)
+y <- 0
+for (i in 1:100){
+  points(xsim[i], y, col = "blue")
+  Sys.sleep(0.15)
+}
+
+hist(xsim, xlim = c(0, 3), breaks = "Sturges", main = "",
+     xlab = "Valores muestrales", ylab = "", col = "lightblue")
 ```
 
 ## Un resultado importante ##
@@ -267,25 +277,25 @@ $$
 **Ilustración: $X$ inicial,  $\bar{X}$ con $n=3,\,\bar{X}$ con $n=10$**
 
 ```{r}
-mu <- 5 
+mu <- 5
 sigma <- 2
 muxbar <- mu
-sigmaxbar <- function(n, sigma){
-    sigma / sqrt(n)
+sigmaxbar <- function(n, sigma) {
+  sigma / sqrt(n)
 }
-construct_xy <- function(mu, sigma, label){
-    x <- seq(0, 10, by = 0.01)
-    y <- dnorm(x, mu, sigma)
-    tibble(x = x, y = y, label = label)
+construct_xy <- function(mu, sigma, label) {
+  x <- seq(0, 10, by = 0.01)
+  y <- dnorm(x, mu, sigma)
+  tibble(x = x, y = y, label = label)
 }
 map_dfr(
-    c(1, 3, 10),
-    \(n) construct_xy(mu, sigmaxbar(n, sigma), paste("n = ", n))
+  c(1, 3, 10),
+  \(n) construct_xy(mu, sigmaxbar(n, sigma), paste("n = ", n))
 ) |>
-    transform(label = factor(label, levels = unique(label))) |>
-    ggplot(aes(x, y, col = label)) +
-    geom_line() + xlim(0, 10) + ylim(0, 0.65) +
-    scale_color_discrete(name = "Tamaño muestral") +
+  transform(label = factor(label, levels = unique(label))) |>
+  ggplot(aes(x, y, col = label)) +
+  geom_line() + xlim(0, 10) + ylim(0, 0.65) +
+  scale_color_discrete(name = "Tamaño muestral") +
   theme_bw()
 ```
 
@@ -316,9 +326,9 @@ crear_diana <- function(puntos, titulo) {
   circulos <- data.frame(
     x0 = 0, y0 = 0, r = seq(1, 5)
   )
-  
+
   ggplot() +
-    geom_circle(data = circulos, aes(x0 = x0, y0 = y0, r = r), color = "black", size = 0.4) +
+    geom_circle(data = circulos, aes(x0 = x0, y0 = y0, r = r), color = "black", linewidth = 0.4) +
     geom_point(data = puntos, aes(x, y), size = 2) +
     coord_fixed() +
     theme_void() +
@@ -434,25 +444,25 @@ Depende de los grados de libertad.
 
 ```{r}
 ggplot() +
-    geom_function(
-        aes(colour = "grados libertad: 1"),
-        fun = dchisq, args=list(df = 1)
-    ) +
-    geom_function(
-        aes(colour = "grados libertad: 5"),
-        fun = dchisq, args=list(df = 5)
-    ) +  
-    geom_function(
-        aes(colour = "grados libertad: 10"),
-        fun = dchisq, args=list(df = 10)
-    ) +  
-    geom_function(
-        aes(colour = "grados libertad: 20"),
-        fun = dchisq, args=list(df = 20)
-    ) + 
-    xlim(0, 25) + 
-    scale_color_discrete(guide = guide_legend(title =  NULL)) + 
-    theme_bw()
+  geom_function(
+    aes(colour = "grados libertad: 1"),
+    fun = dchisq, args = list(df = 1)
+  ) +
+  geom_function(
+    aes(colour = "grados libertad: 5"),
+    fun = dchisq, args = list(df = 5)
+  ) +
+  geom_function(
+    aes(colour = "grados libertad: 10"),
+    fun = dchisq, args = list(df = 10)
+  ) +
+  geom_function(
+    aes(colour = "grados libertad: 20"),
+    fun = dchisq, args = list(df = 20)
+  ) +
+  xlim(0, 25) +
+  scale_color_discrete(guide = guide_legend(title =  NULL)) +
+  theme_bw()
 ```
 
 ## Distribución t-Student ##
@@ -668,19 +678,19 @@ El resultado anterior se traduce por una convergencia de la sucesión de las var
 **Ilustración, $X$ inicial  $\sim \mathrm{Exp}(\lambda=0.5),\,\bar{X}$ con $n=3,10$ y  $n=30$**
 
 ```{r}
-lambda_parameter <- 0.5 
-construct_xy <- function(alpha, beta, label){
-    x <- seq(0, qgamma(0.999, shape = alpha, rate = beta), length = 200)
-    y <- dgamma(x, shape = alpha, rate = beta)
-    tibble(x = x, y = y, label = label)
+lambda_parameter <- 0.5
+construct_xy <- function(alpha, beta, label) {
+  x <- seq(0, qgamma(0.999, shape = alpha, rate = beta), length = 200)
+  y <- dgamma(x, shape = alpha, rate = beta)
+  tibble(x = x, y = y, label = label)
 }
 map_dfr(
-    c(1, 3, 10, 30),
-    \(n) construct_xy(alpha = n, beta = n * lambda_parameter, paste("n = ", n))
+  c(1, 3, 10, 30),
+  \(n) construct_xy(alpha = n, beta = n * lambda_parameter, paste("n = ", n))
 ) |>
-    ggplot(aes(x, y, col = label)) +
-    geom_line() + xlim(0, 10) + ylim(0, 1.25) +
-    scale_color_discrete(name = "Tamaño muestral") +
+  ggplot(aes(x, y, col = label)) +
+  geom_line() + xlim(0, 10) + ylim(0, 1.25) +
+  scale_color_discrete(name = "Tamaño muestral") +
   theme_bw()
 ```
 
