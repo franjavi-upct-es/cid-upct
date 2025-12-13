@@ -14,5 +14,5 @@ sentence-transformers
 
 # Transformers & datasets (para pipelines HF & fine-tuning)
 torch
-transformers
+transformers[torch]
 datasets

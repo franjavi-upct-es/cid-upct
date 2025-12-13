@@ -469,41 +469,41 @@ def deteccion_inapropiado_fsl(corpus):
                 }
     return results
 
-"""# 8. Ejecución del código"""
+if __name__ == "__main__":
+    """# 8. Ejecución del código"""
 
-# 1) Extracción
-corpus = extraer_y_guardar_corpus()
+    # 1) Extracción
+    corpus = extraer_y_guardar_corpus()
 
-# 2) Clasificación
-import wandb
-wandb.require("legacy-service")
-X_train, y_train, X_val, y_val = split_by_thread(corpus)
-train_baselines(X_train, y_train, X_val, y_val)
-# Wandb API_KEY: 2d75120400b77d01fafd28db25130420fb4cac8f
-train_transformer(X_train, y_train, X_val, y_val)
+    # 2) Clasificación
+    import wandb
+    X_train, y_train, X_val, y_val = split_by_thread(corpus)
+    train_baselines(X_train, y_train, X_val, y_val)
+    # Wandb API_KEY: 2d75120400b77d01fafd28db25130420fb4cac8f
+    train_transformer(X_train, y_train, X_val, y_val)
 
-# 3) Similitud
-sims_ft = buscar_hilos_similares_fasttext(corpus)
-sims_sbert = buscar_hilos_similares_sbert(corpus)
+    # 3) Similitud
+    sims_ft = buscar_hilos_similares_fasttext(corpus)
+    sims_sbert = buscar_hilos_similares_sbert(corpus)
 
-# 4) Sentimiento y emoción
-corpus = analisis_sentimiento(corpus)
+    # 4) Sentimiento y emoción
+    corpus = analisis_sentimiento(corpus)
 
-# 5) Resúmenes
-corpus = resumen_preentrenado(corpus)
-corpus = resumen_zero_shot(corpus)
+    # 5) Resúmenes
+    corpus = resumen_preentrenado(corpus)
+    corpus = resumen_zero_shot(corpus)
 
-# 6) Detección inapropiado
-corpus = deteccion_inapropiado(corpus)
-inap_fsl = deteccion_inapropiado_fsl(corpus)
+    # 6) Detección inapropiado
+    corpus = deteccion_inapropiado(corpus)
+    inap_fsl = deteccion_inapropiado_fsl(corpus)
 
-# Guardar análisis extra
-with open(os.path.join(JSON_DIR,'analysis_extras.json'),
-          'w', encoding='utf-8') as f:
-    sims_ft_str_keys = {str(key): value for key, value in sims_ft.items()}
-    sims_sbert_str_keys = {str(key): value for key, value in sims_sbert.items()}
-    json.dump({
-        'sims_ft': sims_ft_str_keys,
-        'sims_sbert': sims_sbert_str_keys,
-        'inap_fsl': inap_fsl
-    }, f, ensure_ascii=False, indent=4)
+    # Guardar análisis extra
+    with open(os.path.join(JSON_DIR,'analysis_extras.json'),
+            'w', encoding='utf-8') as f:
+        sims_ft_str_keys = {str(key): value for key, value in sims_ft.items()}
+        sims_sbert_str_keys = {str(key): value for key, value in sims_sbert.items()}
+        json.dump({
+            'sims_ft': sims_ft_str_keys,
+            'sims_sbert': sims_sbert_str_keys,
+            'inap_fsl': inap_fsl
+        }, f, ensure_ascii=False, indent=4)

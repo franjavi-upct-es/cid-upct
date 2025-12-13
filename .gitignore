@@ -7,6 +7,9 @@
 .vscode
 .ipython
 data
+finetune
+tmp_trainer
+wandb
 tests
 Apuntes LaTex/2º Curso/FIE/figure/*
 Apuntes LaTex/3º Curso/PEST/*.tex
@@ -30,11 +33,4 @@ Prácticas/3º Curso/1º Cuatrimestre/RI/pa3-data/pa3.signal.dev
 Prácticas/3º Curso/1º Cuatrimestre/RI/pa3-data/pa3.signal.train
 Prácticas/3º Curso/1º Cuatrimestre/RI/pa3-data/terms.dict
 Prácticas/3º Curso/1º Cuatrimestre/RI/pa3-data.zip
-Prácticas/3º Curso/1º Cuatrimestre/RI/Práctica 2/pa3-data/.DS_Store
-Prácticas/3º Curso/1º Cuatrimestre/RI/Práctica 2/pa3-data/BSBI.dict
-Prácticas/3º Curso/1º Cuatrimestre/RI/Práctica 2/pa3-data/docs.dict
-Prácticas/3º Curso/1º Cuatrimestre/RI/Práctica 2/pa3-data/pa3.rel.dev
-Prácticas/3º Curso/1º Cuatrimestre/RI/Práctica 2/pa3-data/pa3.rel.train
-Prácticas/3º Curso/1º Cuatrimestre/RI/Práctica 2/pa3-data/pa3.signal.dev
-Prácticas/3º Curso/1º Cuatrimestre/RI/Práctica 2/pa3-data/pa3.signal.train
-Prácticas/3º Curso/1º Cuatrimestre/RI/Práctica 2/pa3-data/terms.dict
+Prácticas/3º Curso/1º Cuatrimestre/RI/Práctica 2/pa3-data/*
