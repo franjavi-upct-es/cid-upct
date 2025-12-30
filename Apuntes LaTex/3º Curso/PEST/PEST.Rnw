@@ -82,9 +82,10 @@ knitr::opts_chunk$set(highlight = TRUE, echo = TRUE, message = FALSE, warning = 
 <<child='Tema 6/Tema 6.Rnw'>>=
 @
 \newpage
-<<child='Tema 6/Hoja 6.Rnw'>>=
-@
+\input{Tema 6/Hoja 6.tex}
 \newpage
 <<child='Tema 7/Tema 7.Rnw'>>=
 @
+\newpage
+\input{Tema 7/Hoja 7.tex}
 \end{document}

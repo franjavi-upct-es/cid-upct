@@ -1,5 +1,5 @@
 \begin{center}
-    \Large Hoja 4: Conceptos Básicos de Series Temporales
+    \textbf{\Large Hoja 4: Conceptos Básicos de Series Temporales}
 \end{center}
 \begin{enumerate}[label=\color{red}\textbf{\arabic*)}]
     \item \lb{Los siguientes datos se corresponden  con las ventas cuatrimetrales (en miles de unidades) de una empresa que elabora latas de conserva.}
@@ -16,9 +16,85 @@
         \lb{Se pretende realizar una descomposición clásica de la serie y se pide:}
         \begin{enumerate}[label=\color{red}\textbf{\arabic*.}]
             \item \db{Representar la serie en estudio y describir sus aspectos más relevantes. ¿Presenta componente estacional? ¿Cuál es el periodo $L$?}
+
+<<fig=TRUE, fig.width=8, fig.height=5, out.width='0.7\\textwidth', fig.align='center', echo=FALSE>>=
+ventas_ts <- ts(
+  c(23, 30, 14, 31, 37, 20, 34, 41, 26),
+  start = c(2021, 1),
+  frequency = 3
+)
+
+plot(
+  ventas_ts,
+  col = "#007aff",
+  lwd = 2,
+  xlab = "Año",
+  ylab = "Ventas (miles)",
+)
+@
+
+La serie sí presenta componente estacional con un patrón recurrente:
+\begin{itemize}[label=\textbullet]
+    \item \textbf{C2}\textrightarrow siempre el valor más alto del año.
+    \item \textbf{C1}\textrightarrow valor intermedio.
+    \item \textbf{C3}\textrightarrow siempre el valor más bajo.
+\end{itemize}
+Este comportamiento se repite en los 3 años, lo que confirma una \textbf{componente estacional sistemática}.
+
+El periodo estacionar $L$ es el número de observaciones tra el cual el patrón se repite, por lo tanto: \[
+    \boxed{L=3}
+\] 
             \item \db{Justificar si, para la serie en estudio, es más adecuado un esquema aditivo o bien uno multiplicativo.}
+
+                Aquí, la amplitud anual (máximo-mínimo) aumenta mucho con el nivel:
+                \begin{itemize}[label=\textbullet]
+                    \item 2021: $30-14=16$.
+                    \item 2022: $37-20=17$.
+                    \item 2023: $41-16=15$
+                \end{itemize}
+                Como la amplitud es \textbf{aproximadamente constante}, es más coherente un \textbf{esquema aditivo}: \[
+                x_t=T_t+S_t+I_t
+                \]
             \item \db{Completar la siguiente tabla para obtener las componentes Tendencia, Estacionalidad e Irregular por el método de la diferencia a la media móvil o por el método de la razón a la media móvil, según se considere.} 
 
+                Como $L=3$, usamos \textbf{media móvil centrada de orden 3: $MM(3)$}. (Se pierde el primer y último valor al ser centrada; por eso no hay $T_t$ en  $t=1$ y  $t=9$).
+
+                Tendencia $T_t=MM(3)_t$ (solo $t=2,\dots,8$):
+                \begin{itemize}[label=\textbullet]
+                    \item $T_2=\dfrac{23+30+14}{3}=22.33$ 
+                    \item $T_3=\dfrac{30+14+31}{3}=25.00$
+                    \item $T_4=\dfrac{14+31+37}{3}=27.33$ 
+                    \item $T_5=\dfrac{31+37+20}{3}=29.33$ 
+                    \item $T_6=\dfrac{37+20+34}{3}=30.33$
+                    \item $T_7=\dfrac{20+24+41}{3}=31.67$
+                    \item $T_8=\dfrac{34+41+26}{3}=33.67$
+                \end{itemize}
+
+                IBVE $(IBVE_t=x_t-T_t)$:
+                 \[
+                \begin{array}{ll}
+                    IBVE_2=30-22.33=7.67 & IBVE_6=20-30.33=-10.33\\
+                    IBVE_3=14-25=-11 & IBVE_7=34-31.67=2.33\\
+                    IBVE_4=31-27.33=3.67 & IBVE_8=41-33.67=7.33\\
+                    IBVE_5=37-29.33=7.67 & \\
+                \end{array}
+                \] 
+                IVENN por estación (promedio de IBVE disponibles):
+                \begin{itemize}[label=\textbullet]
+                    \item C1: $\dfrac{3.67+2.33}{2}=3$
+                    \item C2: $\dfrac{7.67+7.67+7.33}{3}=7.56$
+                    \item C3: $\dfrac{-11-10.33}{2}=-10.67$
+                \end{itemize}
+                IVE (normalizados, media 0):
+                \[
+                \sum_{i=1}^{n} \dfrac{IVENN_{Ci}}{n}=\dfrac{3+7.56-10.67}{3}=-0.037
+                \] 
+                Entonces $IVE_h=IVEN N_h-(-0.037)=IVEN N_h+0.037$:
+                 \begin{itemize}[label=\textbullet]
+                    \item $S_{C 1}=3.04$ 
+                    \item $S_{C 2}=7.59$ 
+                    \item $S_{C 3}=-10.63$
+                \end{itemize}
         \begin{center}
             \color{blue}
             \begin{tabular}{|p{5cm}|c|c|c|c|c|c|c|c|c|}
@@ -26,20 +102,76 @@
                 Año: & 2021 & 2021 & 2021 & 2022 & 2022 & 2022 & 2023 & 2023 & 2023 \\ \hline
                 Cuatrimestre: & C1 & C2 & C3 & C1 & C2 & C3 & C1 & C2 & C3\\ \hline
                 Ventas (miles): & 23 & 30 & 14 & 31 & 37 & 20 & 34 & 41 & 26\\ \hline
-                Tendencia ($T_t$):\newline Medias Móviles Orden = ¿ ? & & & & & & & & & \\ \hline
-                ~\newline IBVE:& & & & & & & & & \\ \hline 
-                ~\newline IVE no normalizados:& & & & & & & & & \\ \hline 
-                Comp. Estacional:\newline $S_h=\mathrm{IVE}_h$ & & & & & & & & & \\ \hline 
-                Serie Desestacionalizada $(D_t)$: & & & & & & & & & \\ \hline 
-                Comp. Irregular $(I_t)$: & & & & & & & & & \\ \hline 
+                Tendencia ($T_t$):\newline Medias Móviles Orden = \textcolor{black}{3} & \textcolor{black}{-} & \textcolor{black}{22.33} & \textcolor{black}{25.00} & \textcolor{black}{27.33} & \textcolor{black}{29.33} & \textcolor{black}{30.33} & \textcolor{black}{31.67} & \textcolor{black}{33.67} & \textcolor{black}{-} \\ \hline
+                ~\newline IBVE:& \textcolor{black}{-} & \textcolor{black}{7.67} & \textcolor{black}{-11.00} & \textcolor{black}{3.67} & \textcolor{black}{7.67} & \textcolor{black}{-10.33} & \textcolor{black}{2.33} & \textcolor{black}{7.33} & \textcolor{black}{-} \\ \hline 
+                ~\newline IVE no normalizados:& \textcolor{black}{3.00} & \textcolor{black}{7.56} & \textcolor{black}{-10.67} & \textcolor{black}{3.00} & \textcolor{black}{7.56} & \textcolor{black}{-10.67}& \textcolor{black}{3.00} & \textcolor{black}{7.56} & \textcolor{black}{-10.67}\\ \hline 
+                Comp. Estacional:\newline $S_h=\mathrm{IVE}_h$ & \textcolor{black}{3.04} & \textcolor{black}{7.59} & \textcolor{black}{-10.63} & \textcolor{black}{3.04} & \textcolor{black}{7.59} & \textcolor{black}{-10.63} & \textcolor{black}{3.04} & \textcolor{black}{7.59} & \textcolor{black}{-10.63} \\ \hline 
+                Serie Desestacionalizada $(D_t)$: & \textcolor{black}{19.96} & \textcolor{black}{22.41} & \textcolor{black}{24.63} & \textcolor{black}{27.96} & \textcolor{black}{29.41} & \textcolor{black}{20.63} & \textcolor{black}{30.96} & \textcolor{black}{33.41} & \textcolor{black}{36.63} \\ \hline 
+                Comp. Irregular $(I_t)$: & \textcolor{black}{-} & \textcolor{black}{0.07} & \textcolor{black}{-0.37} & \textcolor{black}{0.63} & \textcolor{black}{0.07} & \textcolor{black}{0.30} & \textcolor{black}{-0.70} & \textcolor{black}{-0.26} & \textcolor{black}{-} \\ \hline 
             \end{tabular}
         \end{center}
             \item \db{Explica cómo podrías predecir las ventas futuras. Supongamos que la tendencia se ajusta mediante la ecuación de la recta siguiente: $T(t)=19.5+1.8t,\, t=1,2,\dots$} 
+                
+                En el enfoque clásico, se predice cada componente y se combina según el esquema.
+                \begin{itemize}[label=\textbullet]
+                    \item \textbf{Irregular}: en aditivo, $\hat{I}_t=0$.
+                    \item \textbf{Estacional:} se repite el valor por estación (estacionalidad estable).
+                    \item \textbf{Serie} (aditivo): $\hat{x}_{T+m}=\hat{T}_{T+m}+\hat{S}_{T+m}$ 
+                \end{itemize}
                 \begin{enumerate}[label=\color{red}\textbf{\alph*)}]
                     \item \db{Obtener las predicciones de los cuatrimestres C1, C2 y C3 del año 2024.}
+
+                        Tomando $t=1$ en 2021-C1, entonces 2024-C1/C2/C3 son  $t=10,11,12$.  
+
+                        $\hat{x}_t=T(t)+S_{\text{cuatrimestre}}$.
+                        \begin{itemize}[label=\textbullet]
+                            \item 2024-C1 $(t=10):T=37.50\implies \hat{x}=37.50+3.04=40.54$
+                            \item 2024-C2 $(t=11):T=39.30\implies\hat{x}=39.30+7.59=46.89$
+                            \item 2024-C3 $(t=12):T=41.10\implies\hat{x}=41.10-10.63=30.47$
+                        \end{itemize}
                     \item \db{Obtener los valores ajustados de la serie, es decir, los valores predichos en el rango de datos observado.} 
+
+                       \begin{itemize}[label=\textbullet]
+                           \item 2021:
+                               \begin{itemize}[label=\textbullet]
+                                   \item C1: $T=21.3\implies\hat{x}=21.3+3.04=24.34$
+                                   \item C2: $T=23.1\implies\hat{x}=23.1+7.59=30.69$
+                                   \item C3: $T=24.9\implies\hat{x}=24.9-10.63=14.27$
+                               \end{itemize}
+                           \item 2022:
+                               \begin{itemize}[label=\textbullet]
+                                   \item C1: $T=26.7\implies\hat{x}=26.7+3.04=29.74$
+                                   \item C2: $T=28.5\implies\hat{x}=28.5+7.59=36.09$
+                                   \item C3: $T=30.3\implies\hat{x}=30.3-10.63=19.67$
+                               \end{itemize}
+                           \item 2023:
+                               \begin{itemize}[label=\textbullet]
+                                   \item C1: $T=32.1\implies\hat{x}=32.1+3.04=35.14$
+                                   \item C2: $T=33.9\implies\hat{x}=33.9+7.59=41.49$
+                                   \item C3: $T=35.7\implies\hat{x}=35.7-10.63=25.07$
+                               \end{itemize}
+                       \end{itemize} 
                 \end{enumerate}
             \item \db{Olvidemos la descomposición estacional realizada y consideremos el Método Ingenuo I. Calcula las predicciones que se obtendrían con dicho método sólo para los datos del 2023, así como las medidas de error MAE y RMSE correspondientes.} 
+
+                El \textbf{Método Ingenuo I} es: \[
+                \hat{x}_{t+1}=x_t
+                \]  
+                y el error $e_t=x_t-\hat{x}_t$, con \[
+                MAE=\dfrac{1}{T}\sum|e_t|,\quad RMSE=\sqrt{\dfrac{1}{T}\sum e_t^2}. 
+                \] 
+
+                Usando \textbf{solo 2023} $(t=7,8,9)$, las predicciones ingenuas se obtenienen con el valor inmediatamente anterior:
+                \begin{itemize}[label=\textbullet]
+                    \item Para 2023-C1 $(t=7):\hat{x}_7=x_6=20\implies e_7=34-20=14$
+                    \item Para 2023-C2 $(t=8):\hat{x}_8=x_7=34\implies e_8=41-34=7$
+                    \item Para 2023-C3 $(t=9):\hat{x}_9=x_8=41\implies e_9=26-41=-15$
+                \end{itemize}
+                Métricas (sobre estos 3 errores):
+                \begin{itemize}[label=\textbullet]
+                    \item $MAE=\dfrac{|14|+|7|+|-15|}{3}=\dfrac{36}{3}=12$ 
+                    \item $RMSE=\sqrt{\dfrac{14^2+7^2+(-15)^2}{3}}=\sqrt{\dfrac{470}{3}} =12.52$
+                \end{itemize}
         \end{enumerate}
     \item \lb{Repetir el problema anterior suponiendo que los datos de ventas fueron los siguientes:} 
         \begin{center}
@@ -68,6 +200,127 @@
                 Comp. Irregular $(I_t)$: & & & & & & & & & \\ \hline 
             \end{tabular}
         \end{center}
+
+<<fig=TRUE, fig.width=8, fig.height=5, out.width='0.7\\textwidth', fig.align='center', echo=FALSE>>=
+ventas_ts <- ts(
+  c(10, 21, 4, 21, 39, 8, 30, 61, 12),
+  start = c(2021, 1),
+  frequency = 3
+)
+
+plot(
+  ventas_ts,
+  col = "#007aff",
+  lwd = 2,
+  xlab = "Año",
+  ylab = "Ventas (miles)",
+)
+@
+
+\begin{itemize}[label=\textbullet]
+    \item \textbf{Tendencia}: crecimiento claro del nivel (de 2021 a 2023).
+    \item \textbf{Estacionalidad}: patrón repetido por cuatrimestre: C2 es sistemáticamente el mayor y C3 el menor.
+    \item Al ser datos \textbf{cuatrimestrales}, hay 3 "estaciones" por año $\implies L=3$. 
+\end{itemize}
+
+Aquí, la amplitud anual (máximo-mínimo) aumenta mucho con el nivel:
+\begin{itemize}[label=\textbullet]
+    \item 2021: $21-4=17$
+    \item 2022: $39-8=31$ 
+    \item 2023: $61-12=49$
+\end{itemize}
+Por tanto, es más adecuado un \textbf{esquema multiplicativo}: \[
+x_t=T_t\cdot S_t\cdot I_t
+\]  
+
+Tendencia $T_t=MM(3)_t$ (solo $t=2,\dots,8$) 
+\begin{itemize}[label=\textbullet]
+    \item $T_2=11.667$
+    \item $T_3=15.333$
+    \item $T_4=21.333$
+    \item $T_5=22.667$
+    \item $T_6=25.667$
+    \item $T_7=33$
+    \item $T_8=34.333$
+\end{itemize}
+IBVE $(x_t / T_t)$:  \[
+\begin{array}{ll}
+    IBVE_2=1.8 & IBVE_6=0.312\\
+    IBVE_3=0.261 & IBVE_7=0.909\\
+    IBVE_4=0.984 & IBVE_8=1.777\\
+    IBVE_5=1.721 & \\
+\end{array}
+\] 
+IVENN por estación:
+\begin{itemize}[label=\textbullet]
+    \item C1: $IVEN N_{C 1}=0.947$ 
+    \item C2: $IVEN N_{C 2}=1.766$ 
+    \item C3: $IVEN N_{C 3}=0.286$
+\end{itemize}
+IVE (normalizados, media 1): \[
+IVE_h=\dfrac{IVENN_h}{(\sum_h IVEN N_h) / L}.
+\] 
+\begin{itemize}[label=\textbullet]
+    \item $IVE_{C 1}=0.947$ 
+    \item $IVE_{C 2}=1.766$ 
+    \item $IVE_{C 3}=0.286$
+\end{itemize}
+        \begin{center}
+            \begin{tabular}{|p{5cm}|c|c|c|c|c|c|c|c|c|}
+                \hline
+                Año: & 2021 & 2021 & 2021 & 2022 & 2022 & 2022 & 2023 & 2023 & 2023 \\ \hline
+                Cuatrimestre: & C1 & C2 & C3 & C1 & C2 & C3 & C1 & C2 & C3\\ \hline
+                Ventas (miles): & 10 & 21 & 4 & 21 & 39 & 8 & 30 & 61 & 12\\ \hline
+                Tendencia ($T_t$):\newline Medias Móviles Orden = 3 & - & 11.667 & 15.333 &21.333 &22.667 &25.667 &33 &34.333 &- \\ \hline
+                ~\newline IBVE:&- &1.8 &0.261 & 0.984 & 1.721 & 0.312 & 0.909 & 1.777 & - \\ \hline 
+                ~\newline IVE no normalizados:& 0.947 & 1.766 & 0.286 & 0.947 & 1.766 & 0.286 & 0.947 & 1.766 & 0.286 \\ \hline 
+                Comp. Estacional:\newline $S_h=\mathrm{IVE}_h$ & 0.947 & 1.766 & 0.286& 0.947 & 1.766 & 0.286& 0.947 & 1.766 & 0.286 \\ \hline 
+                Serie Desestacionalizada $(D_t)$: &10.558 &11.888 &13.967 &22.172 &22.078 &27.933 &31.675 &34.532 & 41.9 \\ \hline 
+                Comp. Irregular $(I_t)$: & - & 1.019 &0.911 &1.039 & 0.974 & 1.088 & 0.96 & 1.006 & - \\ \hline 
+            \end{tabular}
+        \end{center}
+
+        Predicciones para 2024
+        \begin{itemize}[label=\textbullet]
+            \item 2024-C1 $(t=10):T(10)=42.7\implies\hat{x}=42.7\cdot 0.947=40.442$
+            \item 2024-C2 $(t=11):T(11)=46.55\implies\hat{x}=46.55\cdot 1.766=82.23$
+            \item 2024-C3 $(t=12):T(12)=50.4\implies\hat{x}=50.4\cdot 0.286=14.434$
+        \end{itemize}
+        Valores ajustados (predichos dentro de 2021-2023):
+        \begin{itemize}[label=\textbullet]
+            \item 2021:
+                \begin{itemize}[label=\textbullet]
+                    \item C1: 7.624
+                    \item C2: 21.021
+                    \item C3: 4.511
+                \end{itemize}
+            \item 2022:
+                \begin{itemize}[label=\textbullet]
+                    \item C1: 18.564
+                    \item C2: 41.424
+                    \item C3: 7.819
+                \end{itemize}
+            \item 2023:
+                \begin{itemize}[label=\textbullet]
+                    \item C1: 29.503
+                    \item C2: 61.827
+                    \item C3: 11.126
+                \end{itemize}
+        \end{itemize}
+
+        Método Ingenuo I para 2023 + MAE y RMSE
+
+        Para 2023, usando el valor inmediatamente anterior:
+        \begin{itemize}[label=\textbullet]
+            \item 2023-C1: $\hat{x}_7=x_6=8\implies e_7=30-8=22$
+            \item 2023-C2: $\hat{x}_8=x_7=20\implies e_8=61-30=31$
+            \item 2023-C3: $\hat{x}_9=x_8=61\implies e_9=12-61=-49$
+        \end{itemize}
+        Métricas:
+        \begin{itemize}[label=\textbullet]
+            \item $MAE=\dfrac{22+31+49}{3}=34$
+            \item $RMSE=\sqrt{\dfrac{22^2+31^2+(-49)^2}{3}} =\sqrt{1282}=35.805 $
+        \end{itemize}
     \item \lb{Los siguientes datos se corresponden con las pernoctaciones trimestrales (en miles de personas) de una ciudad turística.}
         \begin{center}
             \color{lightblue}
@@ -81,6 +334,22 @@
         \lb{Se pretende realizar una descomposición clásica de la serie y se pide:}
         \begin{enumerate}[label=\color{red}\textbf{\arabic*)}]
             \item \db{Representar la serie en estudio y describir sus aspectos más relevantes. ¿Presenta componente estacional? ¿Cuál sería el periodo $L$?} 
+
+<<fig=TRUE, fig.width=8, fig.height=5, out.width='0.7\\textwidth', fig.align='center', echo=FALSE>>=
+ventas_ts <- ts(
+  c(10, 21, 4, 25, 21, 39, 8, 51, 30, 61, 12, 73),
+  start = c(2021, 1),
+  frequency = 4
+)
+
+plot(
+  ventas_ts,
+  col = "#007aff",
+  lwd = 2,
+  xlab = "Año",
+  ylab = "Ventas (miles)",
+)
+@
             \item \db{Justificar si, para la serie en estudio, es más adecuado un esquema aditivo o bien uno multiplicativo.}
             \item \db{Completar la siguiente tabla para obtener las componentes Tendencia, Estacionalidad e Irregular por el método de la diferencia a la media móvil o por el método de la razón a la media móvil, según se considere.} 
         \end{enumerate}
@@ -126,13 +395,343 @@
             \end{tabular}
         \end{center}
     \item \lb{Resolver los problemas anteriores usando \textbf{\texttt{R}} para comprobar si los resultados obtenidos a mano son correctos. Obsérvese que, en lugar de usar la función "\textbf{\texttt{decompose()}}" de \textbf{\texttt{R}}, la descomposición estacional debe implementarse paso a paso para poder completar las tablas. Posteriormente puede usarse la función "\textbf{\texttt{decompose()}}" de \textbf{\texttt{R}} para comprobar resultados.}
+    
+<<echo=FALSE>>=
+library(stats)
+@
+
+    
+<<>>=
+## =========================================================
+## 0) FUNCIONES AUXILIARES (descomposición clásica paso a paso)
+## =========================================================
+
+centered_ma <- function(x, L) {
+  # Media móvil centrada de orden L:
+  # - L impar: MA simple centrada.
+  # - L par: promedio de dos MA(L) consecutivas (centrado).
+  n <- length(x)
+  T <- rep(NA_real_, n)
+
+  if (L %% 2 == 1) {
+    # L impar: el valor queda centrado en i + floor(L/2)
+    for (i in 1:(n - L + 1)) {
+      m <- mean(x[i:(i + L - 1)])
+      t_idx <- i + (L %/% 2)
+      T[t_idx] <- m
+    }
+  } else {
+    # L par: MA cruda y luego promedio de dos consecutivas
+    mraw <- sapply(1:(n - L + 1), function(i) mean(x[i:(i + L - 1)]))
+    for (i in 1:(length(mraw) - 1)) {
+      t_idx <- i + (L / 2)
+      T[t_idx] <- (mraw[i] + mraw[i + 1]) / 2
+    }
+  }
+  T
+}
+
+classical_decomp_stepwise <- function(x, L, scheme = c("additive","multiplicative"),
+                                      season_names = NULL,
+                                      start_year = 2021) {
+  scheme <- match.arg(scheme)
+  x <- as.numeric(x)
+  n <- length(x)
+  if (is.null(season_names)) season_names <- paste0("S", 1:L)
+  stopifnot(length(season_names) == L)
+
+  t <- 1:n
+  year <- start_year + (t - 1) %/% L
+  season <- season_names[(t - 1) %% L + 1]
+
+  # 1) Tendencia por media móvil centrada
+  Tt <- centered_ma(x, L)
+
+  # 2) IBVE
+  if (scheme == "additive") {
+    IBVE <- x - Tt
+  } else {
+    IBVE <- x / Tt
+  }
+
+  # 3) IVENN: promedio de IBVE por estación (ignorando NA)
+  ok <- !is.na(IBVE)
+  IVENN <- tapply(IBVE[ok], season[ok], mean)
+  IVENN <- IVENN[season_names]  # asegurar orden
+
+  # 4) Normalización a IVE (media 0 o 1)
+  if (scheme == "additive") {
+    IVE <- IVENN - mean(IVENN)
+  } else {
+    IVE <- IVENN / mean(IVENN)
+  }
+
+  # 5) Serie estacional S_t y desestacionalizada D_t
+  S_t <- as.numeric(IVE[match(season, names(IVE))])
+
+  if (scheme == "additive") {
+    D_t <- x - S_t
+    I_t <- x - Tt - S_t
+  } else {
+    D_t <- x / S_t
+    I_t <- x / (Tt * S_t)
+  }
+
+  # 6) Repetición IVENN por t para completar la tabla
+  IVENN_rep <- as.numeric(IVENN[match(season, names(IVENN))])
+
+  tab <- data.frame(
+    t = t,
+    Year = year,
+    Season = season,
+    x = x,
+    T = Tt,
+    IBVE = IBVE,
+    IVENN = IVENN_rep,
+    IVE = S_t,
+    D = D_t,
+    I = I_t
+  )
+
+  list(
+    scheme = scheme,
+    L = L,
+    season_names = season_names,
+    indices = data.frame(Season = season_names, IVENN = as.numeric(IVENN), IVE = as.numeric(IVE)),
+    table = tab
+  )
+}
+
+## Método Ingenuo I (una pasada) + MAE/RMSE
+naive1_metrics <- function(x, positions) {
+  x <- as.numeric(x)
+  # pred[t] = x[t-1]
+  pred <- c(NA_real_, x[-length(x)])
+  err <- x[positions] - pred[positions]
+  MAE <- mean(abs(err), na.rm = TRUE)
+  RMSE <- sqrt(mean(err^2, na.rm = TRUE))
+  list(pred = pred[positions], err = err, MAE = MAE, RMSE = RMSE)
+}
+
+## Comparación con decompose(): extrae índices estacionales medios por estación
+seasonal_means_from_decompose <- function(dec_obj, ts_obj) {
+  # dec_obj$seasonal es serie; promediamos por ciclo
+  s <- as.numeric(dec_obj$seasonal)
+  cyc <- cycle(ts_obj)
+  tapply(s, cyc, mean, na.rm = TRUE)
+}
+@
+
+Problema 1
+
+<<>>=
+x1 <- c(23, 30, 14, 31, 37, 20, 34, 41, 26)
+
+res1 <- classical_decomp_stepwise(
+  x = x1, L = 3, scheme = "additive",
+  season_names = c("C1","C2","C3"),
+  start_year = 2021
+)
+
+# Tabla para completar (redondeo sugerido)
+print(within(res1$table, {
+  T <- round(T, 3); IBVE <- round(IBVE, 3); IVENN <- round(IVENN, 3); IVE <- round(IVE, 3)
+  D <- round(D, 3); I <- round(I, 3)
+}), row.names = FALSE)
+
+# Índices estacionales (IVE) por estación
+print(res1$indices)
+
+## 4) Predicciones 2024 con T(t) = 19.5 + 1.8 t (t=10,11,12)
+T1 <- function(t) 19.5 + 1.8*t
+S1 <- setNames(res1$indices$IVE, res1$indices$Season)
+
+t_2024 <- 10:12
+season_2024 <- c("C1","C2","C3")
+xhat_2024 <- T1(t_2024) + S1[season_2024]
+
+data.frame(t = t_2024, Season = season_2024, That = T1(t_2024), Shat = S1[season_2024],
+           xhat = round(as.numeric(xhat_2024), 3))
+
+## 5) Ingenuo I solo 2023 (posiciones 7:9)
+met1 <- naive1_metrics(x1, positions = 7:9)
+met1$pred
+met1$err
+met1$MAE
+met1$RMSE
+@
+
+Contraste con \texttt{\textbf{decompose()}}
+
+<<>>=
+ts1 <- ts(x1, start = c(2021, 1), frequency = 3)
+dec1 <- stats::decompose(ts1, type = "additive")
+
+# Comparar tendencia (ignorando NA en extremos)
+cbind(our_T = res1$table$T, decompose_T = as.numeric(dec1$trend))
+
+# Índices estacionales medios (decompose)
+seasonal_decomp1 <- seasonal_means_from_decompose(dec1, ts1)
+seasonal_decomp1
+
+# Comparar con IVE (puede haber diferencias solo por redondeo)
+S1
+@
+
+Problema 2
+
+<<>>=
+x2 <- c(10, 21, 4, 21, 39, 8, 30, 61, 12)
+
+res2 <- classical_decomp_stepwise(
+  x = x2, L = 3, scheme = "multiplicative",
+  season_names = c("C1","C2","C3"),
+  start_year = 2021
+)
+
+print(within(res2$table, {
+  T <- round(T, 3); IBVE <- round(IBVE, 3); IVENN <- round(IVENN, 3); IVE <- round(IVE, 3)
+  D <- round(D, 3); I <- round(I, 3)
+}), row.names = FALSE)
+
+print(res2$indices)
+
+## 4) Predicciones 2024 con T(t) = 4.2 + 3.85 t (t=10,11,12)
+T2 <- function(t) 4.2 + 3.85*t
+S2 <- setNames(res2$indices$IVE, res2$indices$Season)
+
+t_2024 <- 10:12
+season_2024 <- c("C1","C2","C3")
+xhat_2024 <- T2(t_2024) * S2[season_2024]
+
+data.frame(t = t_2024, Season = season_2024, That = T2(t_2024), Shat = S2[season_2024],
+           xhat = round(as.numeric(xhat_2024), 3))
+
+## 5) Ingenuo I solo 2023 (posiciones 7:9)
+met2 <- naive1_metrics(x2, positions = 7:9)
+met2$MAE
+met2$RMSE
+@
+
+Contraste con \texttt{\textbf{decompose()}}
+
+<<>>=
+ts2 <- ts(x2, start = c(2021, 1), frequency = 3)
+dec2 <- stats::decompose(ts2, type = "multiplicative")
+
+cbind(our_T = res2$table$T, decompose_T = as.numeric(dec2$trend))
+seasonal_decomp2 <- seasonal_means_from_decompose(dec2, ts2)
+seasonal_decomp2
+S2
+@
+
+Problema 3
+
+<<>>=
+x3 <- c(10, 21, 4, 25, 21, 39, 8, 51, 30, 61, 12, 73)
+
+res3 <- classical_decomp_stepwise(
+  x = x3, L = 4, scheme = "multiplicative",
+  season_names = c("T1","T2","T3","T4"),
+  start_year = 2021
+)
+
+print(within(res3$table, {
+  T <- round(T, 3); IBVE <- round(IBVE, 3); IVENN <- round(IVENN, 3); IVE <- round(IVE, 3)
+  D <- round(D, 3); I <- round(I, 3)
+}), row.names = FALSE)
+
+print(res3$indices)
+
+## 4) Predicción 2024 (T1..T4):
+## Tema 4: tendencia por mínimos cuadrados (aquí ajusto una recta sobre T_t=MM(4)_t)
+tab3 <- res3$table
+fit <- lm(T ~ t, data = tab3, subset = !is.na(T))
+coef(fit)
+
+S3 <- setNames(res3$indices$IVE, res3$indices$Season)
+
+t_2024 <- 13:16
+season_2024 <- c("T1","T2","T3","T4")
+That_2024 <- predict(fit, newdata = data.frame(t = t_2024))
+xhat_2024 <- That_2024 * S3[season_2024]
+
+data.frame(t = t_2024, Season = season_2024,
+           That = round(as.numeric(That_2024), 3),
+           Shat = round(as.numeric(S3[season_2024]), 3),
+           xhat = round(as.numeric(xhat_2024), 3))
+
+@
+
+Contraste con \texttt{\textbf{decompose()}}
+
+<<>>=
+ts3 <- ts(x3, start = c(2021, 1), frequency = 4)
+dec3 <- stats::decompose(ts3, type = "multiplicative")
+
+cbind(our_T = res3$table$T, decompose_T = as.numeric(dec3$trend))
+seasonal_decomp3 <- seasonal_means_from_decompose(dec3, ts3)
+seasonal_decomp3
+S3
+@
+
     \item \lb{Responder a las siguientes cuestiones:}
         \begin{enumerate}[label=\color{red}\textbf{\alph*)}]
             \item \db{¿Qué es una serie temporal? ¿Cuál es su relación con los procesos estocásticos?}
+
+                Una \textbf{serie temporal} es un conjunto de mediciones de un fenómeno registradas \textbf{secuencialmente en el tiempo}, que puede representarse como $\{x_{t_1},x_{t_2},\dots,x_{t_n}\} $, donde $x_{t_i}$ es el valor observado en el instante $t_i$ de una  \textbf{variable aleatoria} que evoluciona con el tiempo.
+
+                En ese sentido, una serie temporal puede verse como una \textbf{realización (trayectoria) de un proceso estocástico} $(X_t)_{t\in T}:$ el proceso define la variable aleatoria en cada instante, y la serie es una trayectoria observada de ese proceso. 
             \item \db{Explicar en qué consiste el proceso de diferenciación (tomar diferencias) en una serie temporal y para qué sirve.}
+
+                La \textbf{diferencia de primer orden} de una serie $\{x_t\} $ se define como: \[
+                \Delta x_t=x_t-x_{t-1}.
+                \] 
+                Análogamente se definen diferencias de orden 2 y, en general, de orden $k$. Al tomar diferencias se pierden datos: con orden 1 se pierde 1 dato, con orden 2 se pierden 2, y con orden  $k$,  $k$ datos. Su utilidad principal es  \textbf{ayudar a determinar el tipo de tendencia y eliminarla:} si la tendencia es lineal, se elimina con diferencias de orden 1; si es polinómica de orden $k$, con diferencias de orden $k$; y si es exponencial, puede eliminarse tomando diferencias sobre $\ln(X_t)$ (lo que además se interpreta como tasa de variación relativa).
             \item \db{Explicar en qué consiste el proceso de reaizar medias móviles en una serie temporal y para qué sirve.}
+
+                El método de \textbf{medias móviles} consiste en calcular, para cada instante $t$, la \textbf{media de un conjunto de observaciones} de la serie (según su orden o longitud elegidos). Su objetivo es \textbf{suavizar} la serie: elimina o atenúa irregularidades (componente irregular) para identificar mejor la trayectoria de la tendencia, con el riesgo de perder información sobre cambios si el orden es demasiado grande (o de no eliminar irregularidades si es demasiado pequeño).
+
+                Distiguimos entre \textbf{medias móviles centradas} (para describir tendencia de forma flexible; en orden par se requiere el "doble paso" para centrar) y \textbf{medias móviles asimétricas}, que pueden usarse para \textbf{predicción a corto plazo} cuando la tendencia es aproximadamente constante localmente (predicción del siguiente valor como media de las $p$ últimas observaciones).   
             \item \db{¿Cuáles son las componentes de una serie temporal según el enfoque clásico? ¿Cómo suelen combinarse las componentes para dar lugar a la serie? Es decir, ¿qué esquemas son los habituales en el enfoque clásico?} 
+
+                En el \textbf{análisis clásico}, una serie puede descomponerse (cuando procede) en tres componentes fundamentales:
+                \begin{itemize}[label=\textbullet]
+                    \item \textbf{Tendencia-Ciclo} (habitualmente tratadas juntas por la dificultad de separarlas).
+                    \item \textbf{Estacionalidad} (comportamiento periódico/repetitivo asociado al "calendario").
+                    \item \textbf{Irregular} (parte no recogida por las otras componentes; idealmente ruido blanco). 
+                \end{itemize}
+                Se supone que el valor observado se expresa como una función de las componentes: \[
+                x_t=f(T_t,S_t,I_t),
+                \] y los equemas más habituales para combinar componentes son:
+                \begin{itemize}[label=\textbullet]
+                    \item \textbf{Aditivo:} $x_t=T_t+S_t+I_t$
+                    \item \textbf{Multiplicativo:} $x_t=T_t\cdot S_t\cdot I_t$ 
+
+                        También se mencionan \textbf{esquemas mixtos} (combinaciones de suma y producto). Además, al tomar logaritmos, el esquema multiplicativo se transforma en aditivo.
+                \end{itemize}
             \item \db{Utilidad y limitaciones del análisis clásico de series temporales.}
+
+                \textbf{Usos principales} del análisis clásico:
+                \begin{enumerate}[label=\arabic*.]
+                    \item \textbf{Describir} el comportamiento de la serie (e.g., descomponer en tendencia, estacionalidad e irregular).
+                    \item \textbf{Realizar predicciones a medio o largo plazo}, especialmente cuando interesa la evolución "a grandes rasgos". 
+                \end{enumerate}
+                \textbf{Limitaciones} destacadas:
+                \begin{itemize}[label=\textbullet]
+                    \item Su enfoque es \textbf{global} y esto impide obtener \textbf{buenas predicciones a corto plazo} (principal limitación).
+                    \item Puede imponer \textbf{rigidez} y perder información relevante.
+                    \item En el enfoque clásico se considera que la \textbf{componente estacional es estable y fija} a lo largo del tiempo (se repite igual por estación).
+                \end{itemize}
             \item \db{Similitudes y diferencias entre la descomposición clásica de series y la descomposición STL.} 
+
+                \textbf{Similitudes:} ambas descomponen la serie en \textbf{tendencia, estacionalidad e irregular}.
+
+                \textbf{Diferencias clave:}
+                \begin{itemize}[label=\textbullet]
+                    \item \textbf{Clásica:} asume estacionalidad \textbf{completamente estable} (misma estación = mismo valor siempre) y desestacionaliza usando \textbf{medias móviles}.
+                    \item \textbf{STL:} Utiliza suavizado local \textbf{LOESS} (regresiones locales) y permite que la \textbf{estacionalidad varíe a lo largo del tiempo,} lo que lo hace más \textbf{flexible}.
+                    \item \textbf{Esquema:} STL trabaja en \textbf{aditivo;} si la serie es multiplicativa, primero se aplica \textbf{transformación logarítmica} para convertirla a aditiva.  
+                \end{itemize}
         \end{enumerate}
 \end{enumerate}

@@ -175,7 +175,7 @@ for (i in 2:nsim) {
 
                 Un proceso estocástico $(X_t)_{t\in T}$ es \textbf{estacionario} si:
 
-                Para toda sucesión finita de tiempos \(t_1,t_2,\dots,t_n\) y para todo esplazamiento temporal $s>0$: \(X_{t_1},X_{t_2},\dots,X_{t_n}\text{ y }(X_{t_1+s},X_{t_2+s},\dots,X_{t_n+s})\) tienen \textbf{la misma función de distribución conjunta}.
+                Para toda sucesión finita de tiempos \(t_1,t_2,\dots,t_n\) y para todo esplazamiento temporal $s>0$: \(X_{t_1},X_{t_2},\dots,X_{t_n}$ y $(X_{t_1+s},X_{t_2+s},\dots,X_{t_n+s})\) tienen \textbf{la misma función de distribución conjunta}.
 
                 \textbf{Implica que:}
                 \begin{itemize}[label=\textbullet]
@@ -201,12 +201,124 @@ for (i in 2:nsim) {
                 \] depende solo de $t-t=0$, que es constante.
         \end{enumerate}
     \item \lb{¿Qué diferencias hay entre un proceso estocástico gaussiano y un ruido blanco gaussiano? Simular, usando \textbf{\texttt{R}}, 2 trayectorias de un ruido blanco gaussiano con varianza $\sigma^2$.} 
+        \begin{enumerate}[label=\arabic*)]
+            \item \textbf{Proceso estocástico gaussiano:}
+                \begin{itemize}[label=\textbullet]
+                    \item Un proceso $(X_t)_{t\in \mathbb{T}}$ es \textbf{gaussiano} si para cualquier colección finita de tiempos $t_1,t_2,\dots,t_n\in \mathbb{T}$, el vector aleatorio $(X_{t_1},X_{t_2},\dots,X_{t_n})$ sigue una distribución \textbf{Normal multivariante}.
+                    \item Sus distribuciones están completamente determinadas por la \textbf{función media} $\mu_X(t)$ y la \textbf{función de covarianza} $C_X(s,t)$.
+                    \item Ejemplos: movimiento Browniano, procesos gaussianos estacionarios isotrópicos, etc.
+                \end{itemize}
+            \item \textbf{Ruido blanco gaussiano:}
+                \begin{itemize}[label=\textbullet]
+                    \item En un \textbf{caso particular de proceso gaussiano.}
+                    \item Se define como un proceso $(X_t)_{t\in \mathbb{T}}$ donde:
+                        \begin{itemize}[label=\textbullet]
+                            \item Las variables aleatorias $X_t$ son  \textbf{independientes}.
+                            \item Cada $X_t\sim N(0,\sigma^2)$ (media 0, varianza constante $\sigma^2$).
+                        \end{itemize}
+                    \item Su función de covarianza es: \[
+                    C_X(t,s)=\begin{cases}
+                        \sigma^2 & \text{si }t=s,\\
+                        0 & \text{si }t\neq s.
+                    \end{cases}
+                    \] 
+                    \item Es \textbf{estacionario} (en sentido estricto).
+                    \item Sus trayectorias son \textbf{extremadamente irregulares}. 
+                \end{itemize}
+        \end{enumerate}
+        \textbf{Diferencias clave:}
+        \begin{itemize}[label=\textbullet]
+            \item El \textbf{ruido blanco gaussiano} es un \textbf{tipo específico} de proceso gaussiano con \textbf{independencia} entre las variables en diferentes tiempos y \textbf{varianza constante}.
+            \item El \textbf{proceso gaussiano general} puede tener \textbf{dependencia} entre $X_s$ y $X_t$ (covarianza no nula) y no necesariamente es estacionario (ejemplo: movimiento Browniano).
+        \end{itemize}
+
+<<echo=FALSE>>=
+library(latex2exp)
+@
+
+
+<<fig=TRUE, fig.width=8, fig.height=5, out.width='0.7\\textwidth', fig.align='center'>>=
+set.seed(123)  # Para reproducibilidad
+sigma2 <- 1    # Varianza (puedes cambiar este valor)
+sigma <- sqrt(sigma2)
+
+# Tiempo discreto o continuo (usaremos tiempo discreto en [0,1] con 1000 puntos)
+n <- 1000
+tiempos <- seq(from = 0, to = 1, length.out = n)
+
+# Simular 2 trayectorias independientes
+trayectoria1 <- rnorm(n, mean = 0, sd = sigma)
+trayectoria2 <- rnorm(n, mean = 0, sd = sigma)
+
+# Graficar
+plot(tiempos, trayectoria1, type = "l", col = "blue", 
+     ylim = range(c(trayectoria1, trayectoria2)),
+     xlab = "Tiempo", ylab = "X_t", 
+     main = TeX(paste("Ruido blanco gaussiano ($$\\sigma^2$$ =", sigma2, ")")))
+lines(tiempos, trayectoria2, col = "red")
+legend("topright", legend = c("Trayectoria 1", "Trayectoria 2"), 
+       col = c("blue", "red"), lty = 1)
+@
     \item \lb{¿Cuál es la definición de un proceso de Wiener o movimiento Browniano? Simular, usando \textbf{\texttt{R}}, 3 trayectorias de un movimiento Browniano.} 
+
+        Un proceso estocástico $(X_t)_{t\in [0,\infty]}$, de \textbf{tiempo continuo}, se dice que es una \textbf{movimiento Browniano} o \textbf{proceso de Wiener} si cumple:
+        \begin{enumerate}[label=\arabic*)]
+            \item \textbf{Condición inicial:} $X_0=0$.
+            \item \textbf{Incrementos independientes y estacionarios:} Para todo par de tiempos $s\le t$, la variable aleatoria $X_t-X_s$ sigue una distribución \textbf{Normal} con media 0 y con varianza $t-s$, es decir: \[
+                    X_t-X_s\sim N(0,t-s).
+                \] 
+            \item \textbf{Incrementos independientes:} Para cualquier sucesión de tiempos $t_1<t_2<\cdots<t_n$, las variables aleatorias:  \[X_{t_2}-X_{t_1},\quad X_{t_3}-X_{t_2},\quad \dots,\quad X_{t_n}-X_{t_{n-1}}\] son \textbf{independientes}.
+            \item \textbf{Trayectorias continuas:} Las trayectorias $t\mapsto X_t(\omega)$ son funciones \textbf{continuas} (aunque no diferenciables).  
+        \end{enumerate}
+
+<<fig=TRUE, fig.width=8, fig.height=5, out.width='0.7\\textwidth', fig.align='center'>>=
+set.seed(123)  # Para reproducibilidad
+n <- 1000      # Número de pasos
+dt <- 1/n      # Incremento de tiempo
+tiempo <- seq(from = 0, to = 1, by = dt)
+
+# Simular 3 trayectorias
+nsim <- 3
+colores <- c("blue", "red", "green")
+
+plot(tiempo, rep(0, length(tiempo)), type = "n",
+     ylim = c(-3, 3), xlab = "Tiempo", ylab = "X_t",
+     main = "3 trayectorias de Movimiento Browniano")
+
+for(i in 1:nsim) {
+  # Generar incrementos normales independientes N(0, dt)
+  incrementos <- rnorm(n, mean = 0, sd = sqrt(dt))
+  # Acumular desde 0
+  x <- c(0, cumsum(incrementos))
+  lines(tiempo, x, col = colores[i], lty = 1)
+}
+
+legend("topleft", legend = paste("Trayectoria", 1:nsim),
+       col = colores, lty = 1, cex = 0.8)
+@
+
     \item \lb{¿Cuál de las siguientes es una condición necesaria para que un proceso estocástico sea débilmente estacionario?}
         \begin{enumerate}[label=\color{red}\textbf{(\alph*)}]
             \item \db{La varianza depende del tiempo.} 
             \item \db{La media es constante en el tiempo.} 
             \item \db{La covarianza es cero para todos los tiempos.} 
+        \end{enumerate}
+
+        La repuesta correcta es \textbf{(b) La media es constante en el tiempo}:
+
+        \textbf{Justificación:}
+
+        Un proceso estocástico $(X_t)_{t\in \mathbb{T}}$ es \textbf{débilmente estacionario}  si cumple:
+        \begin{enumerate}[label=\arabic*)]
+            \item \textbf{La función de medias es constante:} \[
+                \mu_X(t)=\mu_X(0)\text{ para todo }t\in \mathbb{T}. 
+            \]  
+            Es decir, la media no depende del tiempo.
+            \item \textbf{La función de covarianza depende solo de la diferencia entre tiempos:}
+                \[
+                    C_X(s,t)=C_X(0,t-s)\text{ para todo }s\le t. 
+                \] 
+                Esto \textbf{no} implica que la covarianza sea cero para todo $s\neq t$ (solo que es invariante ante desplazamientos temporales).
         \end{enumerate}
     \item \lb{Si $(X_t)_{t\in [0,\infty)}$ es ruido blanco (gaussiano) con varianza $\sigma^2$, ¿cuál de las siguientes afirmaciones es verdadera?}
         \begin{enumerate}[label=\color{red}\textbf{(\alph*)}]
@@ -214,29 +326,188 @@ for (i in 2:nsim) {
             \item \db{$\mathrm{Cov}(X_t,X_{t+h})=\sigma^2$ si $h=0,\,\mathrm{Cov}(X_t,X_{t+h})=0$ si  $h\neq 0$.} 
             \item \db{$\mathrm{Cov}(X_t,X_{t+h})=\dfrac{1}{2}\sigma^2$ para todo $t$ y  $h$.} 
         \end{enumerate}
+        La respuesta correcta es \textbf{(b) $\mathrm{Cov}(X_t,X_{t+h})=\sigma^2$ si $h=0,\,\mathrm{Cov}(X_t,X_{t+h})=0$ si  $h\neq 0$.}
+
+        \textbf{Justificación:}
+        \begin{itemize}[label=\textbullet]
+            \item Un \textbf{ruido blanco gaussiano} es un proceso $(X_t)_{t\in \mathbb{T}}$ donde:
+                \begin{enumerate}[label=\arabic*)]
+                    \item Las variables aleatorias $X_t$ son \textbf{independientes}.
+                    \item Cada $X_t\sim N(0,\sigma^2)$.
+                \end{enumerate}
+            \item Dado que son independientes, la covarianza entre $X_t$ y $X_{t+h}$ para $h\neq 0$ es \textbf{cero}.
+            \item La covarianza para $h=0$ es simplemente la varianza de $X_t$, que es $\sigma^2$.
+        \end{itemize}
     \item \lb{¿Cuál de las siguientes afirmaciones es verdadera para un ruido blanco?}
         \begin{enumerate}[label=\color{red}\textbf{(\alph*)}]
             \item \db{Tiene una función de correlación que decrece exponencialmente.} 
             \item \db{Su media es no nula.} 
             \item \db{Sus valores en diferentes tiempos son independientes.} 
         \end{enumerate}
+
+        La respuesta correcta es \textbf{(c) Sus valores en diferentes tiempos son independientes.}
+
+        \textbf{Justificación:}
+        \begin{itemize}[label=\textbullet]
+            \item El ruido blanco (gaussiano) se define como un proceso donde:
+                \begin{itemize}[label=\textbullet]
+                    \item Las variables aleatorias $X_t$ son  \textbf{independientes}.
+                    \item Cada $X_t\sim N(0,\sigma^2)$ (media cero, varianza constante).
+                \end{itemize}
+        \end{itemize}
+        Por lo tanto, la independencia entre valores en distintos tiempos es una propiedad \textbf{definitoria} del ruido blanco.
     \item \lb{¿Qué describe la función de covarianza de un proceso estocástico?} 
         \begin{enumerate}[label=\color{red}\textbf{(\alph*)}]
             \item \db{La relación lineal en el proceso en dos tiempos diferentes.} 
             \item \db{La suma de todas las realizaciones del proceso.} 
             \item \db{La frecuencia con la que el proceso cruza la media.} 
         \end{enumerate}
+
+        La respuesta correcta es \textbf{(a) La relación lineal en el proceso en dos tiempos diferentes.} 
+
+        \textbf{Justificación:}
+
+        La \textbf{función de covarianza} de un proceso estocástico $(X_t)_{t\in \mathbb{T}}$ se define como: \[
+        C_X(s,t)=\mathrm{Cov}(X_s,X_t)=\mathbb{E}\left[ (X_s-\mu_X(s))(X_t-\mu_X(t)) \right]. 
+        \] 
+        Esta función mide \textbf{la relación (covarianza) entre dos variables del proceso en tiempos distintos} $s$ y  $t$.
+        \begin{itemize}[label=\textbullet]
+            \item Si $C_X(s,t)>0$, hay tendencias a que  $X_s$ y  $X_t$ se desvíen de sus medias en el mismo sentido.
+            \item Si $C_X(s,t)<0$, hay tendencias a que se desvíen en sentidos opuestos.
+            \item Si $C_X(s,t)=0$, no hay correlación lineal (en procesos gaussianos implica independencia, pero no en general).
+        \end{itemize}
     \item \lb{Una condición necesaria para que un proceso estocástico sea débilmente estacionario es que:} 
         \begin{enumerate}[label=\color{red}\textbf{(\alph*)}]
             \item \db{La media debe ser cero.} 
             \item \db{La covarianza depende del tiempo.} 
             \item \db{La función de covarianza depende solo de la diferencia entre los tiempos.} 
         \end{enumerate}
+
+        La respuesta correcta es \textbf{(c) La función de covarianza depende solo de la diferencia entre los tiempos.}
+
+        \textbf{Justificación:}
+
+        Un proceso estocástico $(X_t)_{t\in \mathbb{T}}$ es \textbf{débilmente estacionario} si cumple \textbf{dos condiciones:}
+        \begin{enumerate}[label=\arabic*)]
+            \item \textbf{La función de medias es constante:}
+                \[
+                     \mu_X(t)=\mu_X(0)\text{ para todo }t\in \mathbb{T}. 
+                \] 
+                (Esto \textbf{no} implica que sea cero, solo constante).
+            \item \textbf{La función de covarianza depende solo del salto entre tiempos:}
+                \[
+                   C_X(s,t)=C_X(0,t-s)\text{ para todo }s\le t. 
+                \] 
+                Es decir, la covarianza entre $X_s$ y  $X_t$ solo depende de la diferencia  $t-s$, no de los valores absolutos de  $s$ y  $t$.
+        \end{enumerate}
     \item \lb{Consideremos el proceso estocástico de tiempo discreto $(X_t)_{t=0,1,2,\dots}$, con $X_0=a\in \R$ una constante cualquiera y $X_t=3+\varepsilon_t+2\varepsilon_{t-1}$ para todo $t=1,2,\dots$, siendo $(\varepsilon_t)_{t=0,1,2,\dots}$ ruido blanco (gaussiano) de varianza $\sigma^2$.} 
         \begin{enumerate}[label=\color{red}\textbf{(\alph*)}]
             \item \db{Calcular la función de medias, covarianzas y correlaciones del proceso $(X_t)_{t=0,1,2,\dots}$} 
+
+                \begin{enumerate}[label=\arabic*)]
+                    \item \textbf{Función de medias $\mu_X(t)$}
+                        \begin{itemize}[label=\textbullet]
+                            \item Para $t=0$:  \[
+                                    \mu_X(0)=\mathbb{E}[X_0]=\mathbb{E}[a]=a.
+                            \] 
+                            \item Para $t\ge 1$: \[
+                                    \mu_X(t)=\mathbb{E}[3+\varepsilon_t+2\varepsilon_{t-1}]=3+0+2\cdot 0=3. 
+                            \] 
+                            Por tanto: \[
+                            \mu_X(t)=\begin{cases}
+                                a, & t=0,\\
+                                3, & t\ge 1.
+                            \end{cases}
+                            \] 
+                        \end{itemize}
+                    \item \textbf{Función de covarianza} $C_X(s,t)=\mathrm{Cov}(X_s,X_t)$ 
+                        \begin{enumerate}[label=Caso \arabic*:, leftmargin=2cm]
+                            \item $s=t=0$ \[C_X(0,0)=\mathrm{Var}(X_0)=\mathrm{Var}(a)=0.\] 
+                            \item $s=0,t\ge 1$ \[C_X(0,t)=\mathrm{Cov}(X_0,X_t)=\mathrm{Cov}(a,3+\varepsilon_t+2\varepsilon_{t-1})=0.\] (Porque la covarianza de una constante con cualquier variable aleatoria es 0.)
+                            \item $s\ge 1,t\ge 1$ 
+
+                                Escribimos: \[
+                                   X_s=3+\varepsilon_s+2\varepsilon_{s-1},\quad X_t=3+\varepsilon_t+2\varepsilon_{t-1}. 
+                                \] 
+                                Restamos las medias: \[
+                                   X_s-\mu_X(s)=\varepsilon_s+2\varepsilon_{s-1},\quad X_t-\mu_X(t)=\varepsilon_t+2\varepsilon_{t-1}. 
+                                \] 
+                                Entonces:
+                                \[
+                                   C_X(s,t)=\mathbb{E}\left[ (\varepsilon_s+2\varepsilon_{s-1})(\varepsilon_t+2\varepsilon_{t-1}) \right].
+                                \] 
+                                Desarollamos el producto: los términos cruzados tienen esperanza 0 si los $\varepsilon$ son distintos e independientes.
+
+                                Analizamos según la diferencia $h=|t-s|$:
+                                \begin{itemize}[label=\textbullet]
+                                    \item Si $s=t$:  \[
+                                            C_X(t,t)=\mathbb{E}[\varepsilon_t^2]+4\mathbb{E}[\varepsilon_{t-1}^2]+4\mathbb{E}[\varepsilon_t\varepsilon_{t-1}] 
+                                    \] 
+                                    Como $\varepsilon_t$ y $\varepsilon_{t-1}$ son independientes, $\mathbb{E}[\varepsilon_t\varepsilon_{t-1}]=0$. Además $\mathbb{E}[\varepsilon_{t}^2]=\sigma^2,\,\mathbb{E}[\varepsilon_{t-1}^2]=\sigma^2$. \[
+                                    C_x(t,t)=\sigma^2+4\sigma^2=5\sigma^2.
+                                    \] 
+                                    \item Si $t=s+1$ (es decir, $h=1$): \[
+                                            C_X(s,s+1)=\mathbb{E}[(\varepsilon_s+2\varepsilon_{s-1})(\varepsilon_{s+1}+2\varepsilon_s)].
+                                    \]
+                                    Solo sobrevive el término $2\varepsilon_s\cdot \varepsilon_s$ porque los demás productos tienen índices distintos. \[
+                                        C_X(s,s+1)=2\mathbb{E}[\varepsilon_s^2]=2\sigma^2. 
+                                    \] 
+                                    \item Si $t=s-1$ (también $h=1$):
+
+                                        Por simetría: $C_X(s,s-1)=2\sigma^2$.
+                                    \item Si $|t-s|\ge 2$:
+
+                                        No hay índices coincidentes en $(\varepsilon_s,\varepsilon_{s-1})$ y $(\varepsilon_t,\varepsilon_{t-1})$, por lo que la covarianza es 0.
+                                \end{itemize}
+                        \end{enumerate}
+                        Resumen para $s\ge 1,t\ge 1$: \[
+                        C_X(s,t)=\begin{cases}
+                            5\sigma^2, & s=t,\\
+                            2\sigma^2, & |t-s|=1,\\
+                            0 & |t-s|\ge 2.
+                        \end{cases}
+                        \] 
+
+                    \item \textbf{Función de correlación $\rho_X(s,t)$} 
+
+                        La definición es: \[
+                        \rho_X(s,t)=\dfrac{C_X(s,t)}{\sigma_X(s)\cdot \sigma_X(t)},
+                        \] donde $\sigma_X^2(t)=C_X(t,t)$.
+                        \begin{itemize}[label=\textbullet]
+                            \item Para $t=0:\,\sigma_X(0)=0\to $ la correlación no está definida (o es 0 por conveción si $s=0$, pero cuidado).
+                            \item Para $s\ge 1,t\ge 1$: \[\sigma_X=\sqrt{5}\sigma,\,\sigma_X(t)=\sqrt{5}\sigma.  \]
+                                \begin{itemize}[label=\textbullet]
+                                    \item Si $s=t:\,\rho_X(t,t)=1.$
+                                    \item Si $|t-s|=1:\,\rho_X(s,t)=\dfrac{2\sigma^2}{5\sigma^2}=\dfrac{2}{5}.$ 
+                                    \item Si $|t-s|\ge 2:\,\rho_X(s,t)=0.$
+                                \end{itemize}
+                        \end{itemize}
+                        Para $s=0$ o  $t=0$, la correlación es 0 si la covarianza es 0, pero el denominador para  $t=0$ es 0 (división por cero). En la práctica, se suele considerar que la correlación no está definida o es 0 si ambos son constantes.
+                \end{enumerate}
             \item \db{Justificar si el proceso es estacionario en sentido débil.} 
+
+                Un proceso es débilmente estacionario si:
+                \begin{enumerate}[label=\arabic*)]
+                    \item \textbf{Media constante.}
+                    \item \textbf{Covarianza que depende solo de la diferencia $t-s$.} 
+                \end{enumerate}
+                Aquí:
+                \begin{itemize}[label=\textbullet]
+                    \item Media: $\mu_X(0)=a,\,\mu_X(t)=3$ para $t\ge 1\to $ \textbf{no constante} (a menos que $a=3$).
+                    \item Covarianza para $s,t\ge 1$ sí depende solo de $|t-s|$, pero para  $s=0$ o  $t=0$ no coincide.
+                \end{itemize}
+                \textbf{Conclusión: No es débilmente estacionario} por la \textbf{media no es constante} (a menos que $a=3$).  
             \item \db{Justificar si el proceso es estacionario (en sentido fuerte).} 
+
+                Un proceso es estacionario si para cualquier conjunto de tiempos $t_1,\dots,t_n$ y cualquier $s>0$, los vectores $(X_{t_1}, \dots,X_{t_n})$ y $(X_{t_1+s},\dots,X_{t_n+s})$ tienen la misma distribución.
+
+                Aquí:
+                \begin{itemize}[label=\textbullet]
+                    \item $X_0=a$ es constante, pero $X_1=3+\varepsilon_1+2\varepsilon_0$.
+                    \item Si desplazamos en el tiempo, $X_s$ y  $X_{s+1}$ tiene la misma forma a partir de $s\ge 1$, pero $X_0$ es especial.
+                    \item Además, la media no es constante $\implies$ \textbf{no puede ser estacionario en sentido fuerte.}
+                \end{itemize}
+                \textbf{Conclusión: No es estacionario en sentido fuerte} (ni siquiera dévil, salvo caso $a=3$). 
         \end{enumerate}
 
     \lb{\textbf{Nota:} El proceso del enunciado es un proceso denominado MA(1) que estudiará en el tema posterior.}   
@@ -244,86 +515,441 @@ for (i in 2:nsim) {
     
         \lb{\textbf{Nota:} El proceso del enunciado es un proceso denominado AR(1) que estudiará en el tema posterior.}
 
-        Supongamos que $X_t$ es débilmente estacionario.
+        \begin{enumerate}[label=\arabic*)]
+            \item \textbf{Función de medias $\mu_X(t)$}
 
-        Nos piden función medias, covarianzas y correlaciones.
-         \begin{itemize}[label=\textbullet]
-            \item \textbf{Función de medias} del $(X_t)_{t=0,1,2,\dots}$ \[
-                    \mathbb{E}(X_t)=\mathbb{E}(\alpha X_{t-1}+\varepsilon_t)=\alpha\lbb{\mathbb{E}(X_{t-1})}{\mu}+\tozero{\mathbb{E}(\varepsilon_t)} 
-            \]
-            Esto implica que \[
-            \mu=\alpha\mu \begin{cases}
-                \mu=0\\
-                \alpha=1
-            \end{cases}
-            \] 
-            \item \textbf{Función de varianzas} de $(X_t)_{t=0,1,2,\dots}$ \[
-                    \begin{aligned}
-            \sigma_X^2=\lbb{\mathrm{Var}(X_t)}{C}=\mathrm{Var}(\alpha X_{t-1}+\varepsilon_t)=\alpha^2\lbb{\mathrm{Var}(X_{t-1})}{C}+\lbb{\mathrm{Var}(\varepsilon_t)}{\sigma^2}\\
-            C\longleftrightarrow \alpha^2C+\sigma^2\longleftrightarrow C-\alpha^2C=\sigma^2\longleftrightarrow C=\dfrac{\sigma^2}{1-\alpha^2}
-                    \end{aligned}
+                Un proceso débilmente estacionario tiene \textbf{media constante}: 
+                \[
+                    \mu_X(t)=\mu\text{ para tod }t.
+                \] 
+                Tomamos esperanza en la ecuación $X_t=\alpha X_{t-1}+\varepsilon_t$ para $t\ge 1$: \[
+                    \mathbb{E}[X_t]=\alpha\varepsilon[X_{t-1}]+\mathbb{E}[\varepsilon_t]
+                \] 
+                Como $\mathbb{E}[\varepsilon_t]=0$ y $\mathbb{E}[X_{t-1}]=\mu$ (por estacionariedad débil), queda: \[
+                \mu=\alpha\mu+0\implies\mu(1-\alpha)=0.
+                \] 
+                \textbf{Dos casos:}
+                \begin{itemize}[label=\textbullet]
+                    \item Si $\alpha\neq 1$, entonces $\mu=0$.
+                    \item Si $\alpha=1$, la ecuación es $\mu=\mu\implies\mu$ puede ser cualquier constante, pero debemos ver si es compatible con la estacionariedad débil.
+                \end{itemize}
+                Además, $X_0=a$ implica $\mu_X(0)=a$.
+
+                Como la media es constante en un proceso débilmente estacionario, \textbf{necesariamente} $a=\mu$.
+
+                Así: \[
+                    \mu_X(t)=\mu=\begin{cases}
+                        0, & \text{si }\alpha\neq 1,\\
+                        a, & \text{si }\alpha=1.
+                    \end{cases}
+                \] 
+                Pero si $\alpha=1$, el proceso es un \textbf{paseo aleatorio con deriva constante} $a$ (si $a\neq 0$), el cual \textbf{no es estacionario débil} porque la varianza crece con el tiempo.
+
+                Para que sea débilmente estacionario, necesitamos \textbf{varianza constante}; en un $AR(1)$  con $|\alpha|<1$ se logra estacionariedad débil asintótica ignorando condiciones iniciales, pero aquí nos dicen que \textbf{es débilmente estacionario}, lo que implica que la \textbf{distribución inicial ya es estacionaria}. Esto fuerza $|\alpha|<1$ y $\mu=0$. Además, $X_0=a=0$ para consistencia con la media estacionaria.
+
+                \textbf{Conclusión para media:} Dado que el proceso es débilmente estacionario, la media es constante y debe ser igual para todo $t$, incluso  $t=0$. Por la ecuación  $\mu=\alpha\mu$, si $|\alpha|<1$ entonces $\mu=0$, y si $|\alpha|=$ no es estacionario débil (varianza no constante).
+
+                \textbf{Asumimos} $|\alpha|<1$ (condición usual para estacionariedad débil de $AR(1)$), entonces: \[
+                    \boxed{\mu_X(t)=0\quad \forall t}
+                \]  y $a=0$.
+            \item \textbf{Función de correlación $\rho_X(s,t)$}
+
+                En un proceso débilmente estacionario la covarianza depende solo de la diferencia $h=t-s$ (asumiendo $s\le t$).
+
+                Definimos $C_X(h)=\mathrm{Cov}(X_t,X_{t+h})$ para $h\ge 0$ (y es simétrica: $C_X(-h)=C_X(h)$).
+
+                \textbf{Cálculo de $C_X(h)$} 
+
+                Partimos de $X_t=\alpha X_{t-1}+\varepsilon_t$.
+
+                Para $h\ge 0$: \[
+                    \mathrm{Cov}(X_t,X_{t+h})=\mathrm{Cov}(X_t,\alpha X_{t+h-1}+\varepsilon_{t+h})
+                \] 
+                Como $\varepsilon_{t+h}$ es independientes de $X_t$ para  $h\ge 1$, tenemos: \[
+                C_X(h)=\alpha C_X(h-1),\quad h\ge 1.
+                \] 
+                Esta es una ecuación en diferencias: \[
+                C_X(h)=\alpha^hC_X(0),\quad h\ge 0.
+                \] 
+                \textbf{Cálculo de $C_X(0)=\mathrm{Var}(X_t)$}
+
+                Usamos $X_t=\alpha X_{t-1}+\varepsilon_t$: \[
+                    \mathrm{Var}(X_t)=\alpha^2\mathrm{Var}(X_{t-1})+\mathrm{Var}(\varepsilon_t)+2\alpha\mathrm{Cov}(X_{t-1},\varepsilon_t).
+                \] 
+                Pero $\varepsilon_t$ es independiente de $X_{t-1}$ (por ser ruido blanco y $X_{t-1}$ depende de $\varepsilon_{t-1},\varepsilon_{t-2},\dots$), entonces $\mathrm{Cov}(X_{t-1},\varepsilon_t)=0$.
+
+                Sea $v=\mathrm{Var}(X_t)$ (constante por estacionariedad débil). Entonces:
+                \[
+                v=\alpha^2v+\sigma^2.
+                \] 
+                De aquí: \[
+                v(1-\alpha^2)=\sigma^2\implies v=\dfrac{\sigma^2}{1-\alpha^2},\quad|\alpha|<1.
+                \] 
+                Por tanto: \[
+                C_X(0)=\dfrac{\sigma^2}{1-\alpha^2}
+                \] 
+                \textbf{Fórmula general de covarianza}
+
+                Para $h\ge 0:$ \[
+                C_X(h)=\alpha^{|h|}\dfrac{\sigma^2}{1-\alpha^2}.
+                \] 
+                (Es simétrica en $h$.)
+
+                \textbf{Función de correlación}
+
+                \[
+                \rho_X(s,t)=\dfrac{C_X(s,t)}{\sigma_X(s)\sigma_X(t)}.
+                \] 
+                Como $\sigma_X(s)=\sigma_X(t)=\sqrt{v}=\sqrt{\dfrac{\sigma^2}{1-\alpha^2}},$ entonces: \[
+                \rho_X(s,t)=\dfrac{C_X(s,t)}{v}=\alpha^{|t-s|}.
+                \] 
+        \end{enumerate}
+        \textbf{Respuesta final}
+
+        Suponiendo $|\alpha|<1$ (necesario para estacionariedad débil):
+        \begin{enumerate}[label=\arabic*)]
+            \item \textbf{Función de medias:} \[
+                \mu_X(t)=0\text{ (constante).}
             \]  
-            $C=\mathrm{Var}(X_t)\;\forall t$ constante porque hemos supuesto débilmente estacionario.
-
-            Observar que para que exista la varianza $C$, debe cumplirse que  $|\alpha|<1$.
-            \item \textbf{Función de correlaciones} 
-        \end{itemize}
+            \item \textbf{Función de correlación:} \[
+               \rho_X(s,t)=\alpha^{|t-s|}. 
+            \]  
+        \end{enumerate}
     \item \lb{Sea $(X_t)_{t=0,1,2,\dots}$ un paseo aleatorio simple. Es decir, $X_0=0$ y $X_t=X_{t-1}+Y_t,(Y_t)_{t=0,1,2,\dots}$ variabls aleatorias i.i.d verificando $P(Y_t=1)=p,P(Y_t=-1)=1-p,p \in (0,1)$.} 
         \begin{enumerate}[label=\color{red}\textbf{(\alph*)}]
             \item \db{Calcular la función de medias, covarianzas y correlaciones del proceso $(X_t)_{t=0,1,2,\dots}$} 
+
+                \begin{enumerate}[label=\arabic*)]
+                    \item \textbf{Función de medias $\mu_X(t)$}
+
+                        Media de $Y_t$:  \[
+                            \mathbb{E}[Y_t]=1\cdot p+(-1)\cdot (1-p)=p-(1-p)=2p-1.
+                        \] 
+                        Para $t\ge 1$: \[
+                            \mathbb{E}[X_t]=\sum_{k=1}^{t} \mathbb{E}[Y_k]=t(2p-1).
+                        \] 
+                        Para $t=0:\,\mathbb{E}[X_0]=0$.
+
+                        Por tanto: \[
+                            \boxed{\mu_X(t)=t(2p-1),\quad t\ge 0.}
+                        \] 
+                    \item \textbf{Función de covarianza $C_X(s,t)$ (para $s,t\ge 0$)}
+
+                        Varianza de $Y_t$:  \[
+                        \begin{array}{c}
+                            \mathrm{Var}(Y_t)=\mathbb{E}[Y_t^2]-(\mathbb{E}[Y_t])^2.\\
+                            \mathbb{E}[Y_t^2]=1^2\cdot p+(-1)^2\cdot (1-p)=1.\\
+                            \mathrm{Var}(Y_t)=1-(2p-1)^2=1-(4p^2-4p+1)=4p(1-p)
+                        \end{array}
+                        \] 
+                        Denotemos $q=1-p,\,\mathrm{Var}(Y_t)=4pq$.
+
+                        Covarianza entre $Y_i$ y  $Y_j$ para  $i\neq j:0$ (son independientes).
+
+                        Para $s\le t$: \[
+                        \begin{array}{c}
+                            X_s=\sum_{i=1}^{s} Y_i,\quad X_t=\sum_{j=1}^{t} Y_j.\\
+                            C_X(s,t)=\mathrm{Cov}(X_s,X_t)=\sum_{i=1}^{s} \sum_{j=1}^{t} \mathrm{Cov}(Y_i,Y_j).
+                        \end{array}
+                        \] 
+                        Como $\mathrm{Cov}(Y_i,Y_j)=0$ si $i\neq j$ y $\mathrm{Var}(Y_i)=4pq$ si $i=j$.
+                         \begin{itemize}[label=\textbullet]
+                            \item Los únicos términos no nulos son cuando $i=j$ y  $1\le i\le s$. \[
+                            C_X(s,t)=\sum_{i=1}^{s} 4pq=4pq\cdot s.
+                            \] 
+                        \end{itemize}
+                        Por simetría, para $s\le t$: \[
+                        C_X(s,t)=4pq\cdot\min(s,t).
+                        \] 
+                        Si $s=0$ o  $t=0$, es cero porque  $X_0$ es constante 0.
+                        
+                        \textbf{General:} \[
+                            \boxed{C_X(s,t)=4pq\cdot \min(s,t),\quad s,t\ge 0}
+                        \]
+                    \item \textbf{Función de correlación $\rho_X(s,t)$} 
+
+                        \[
+                        \rho_X(s,t)=\dfrac{C_X(s,t)}{\sigma_X(s)\sigma_X(t)}.
+                        \] 
+                        Varianza de $X_t$:  \[
+                        \sigma_X^2(t)=C_X(t,t)=4pq\cdot t.
+                        \] 
+                        Entonces $\sigma_X(t)=\sqrt{4pqt}$ (para $t>0$).
+
+                        Para $s,t>0$:  \[
+                        \rho_X(s,t)=\dfrac{4pq\cdot \min(s,t)}{\sqrt{4pqs}\sqrt{4pqt}}=\dfrac{\min(s,t)}{\sqrt{st}}.
+                        \] 
+                        Si $s=0$ o  $t=0$ (con el otro $>0$), la correlación es 0 (porque $C_X=0$ y  $\sigma_X(0)=0$).
+
+                        Resumen: \[
+                            \boxed{\rho_X(s,t)=\dfrac{\min(s,t)}{\sqrt{st} },\quad s,t>0}
+                        \] 
+                \end{enumerate}
             \item \db{Justificar si el proceso es estacionario en sentido débil.} 
-            \item \db{Justificar si el proceso es estacionario (en sentido fuerte).} 
-        \end{enumerate}
-                Vamos a calcular la media y varianza de la variable aleatoria $Y_t$. 
-                 \[
-                     \begin{array}{c}
-                         \mathbb{E}(Y_t)=1\cdot p+(-1)\cdot (1-p)=2p-1\;\forall t=1,2,\dots\\
-                         \mathrm{Var}(Y_t)=\mathbb{E}(Y_t^2)-\left( \mathbb{E}(Y_t) \right) ^2=1-(4p^2-4p+1)=-4p^2+4p=4p(1-p)\;\forall t=1,\dots,n\\
-                         \mathbb{E}(Y_t^2)=1^2\cdot p+(-1)^2\cdot (1-p)=1
-                     \end{array}
-                \] 
                 \begin{itemize}[label=\textbullet]
-                    \item \textbf{Función de medias} del proceso $(X_t)_{t=0,1,2,\dots}$ 
-
-                        $\begin{array}{l}
-                            X_0=0\\
-                            X_1=X_0+Y_1=0+Y_1=Y_1\\
-                            X_2=X_1+Y_2=Y_1+Y_2\\
-                            \vdots\\
-                            X_t=Y_1+Y_2+\dots+Y_t\;\forall t=1,2,\dots\\
-                            \mu_X(t)=\mathbb{E}(X_t)=\mathbb{E}(Y_1+Y_2+\dots+Y_n)=\mathbb{E}(Y_1)+\mathbb{E}(Y_2)+\dots+\mathbb{E}(Y_t)=t\cdot (2p-1)
-                        \end{array}$ 
-
-                        Observar que no es constante $\implies$ el proceso no es estacionario ni débil ni fuerte.
-                    \item \textbf{Función de covarianzas} del proceso. Se $t \in \{0,1,2,\dots\} $ y $h\ge 0$:
-                        \[
-                            \begin{aligned}
-                                C_X(t,t+h)&=\mathrm{Cov}(X_t,X_{t+h})\\
-                                          &=\mathrm{Cov}(Y_1+Y_2+\dots+Y_t, Y_1+Y_2+\dots+Y_{t+h})\\
-                                          &=\mathrm{Cov}(Y_1,Y_1)+\mathrm{Cov}(Y_2,Y_2)+\dots+\mathrm{Cov}(Y_t,Y_t)\\
-                                          &=\mathrm{Var}(Y_1)+\mathrm{Var}(Y_2)+\dots+\mathrm{Var}(Y_t)
-                            \end{aligned}
-                        \] 
-                        Observar que $\mathrm{Cov}(Y_t,Y_s)=0\;\forall s\neq t$ (por independencia)
-                    \item \textbf{Función de varianzas} del proceso:
-                        \[
-                        \mathrm{Var}(X_t)=t\cdot 4p(1-p)\text{ depende del tiempo }t.
-                        \] 
-                    \item \textbf{Función de correlaciones} del proceso $(X_t)_{t=0,1,2,\dots}$ 
-                        \[
-                        \rho_X(t,t+h)=\dfrac{C_X(t,t+h)}{\sigma_X(t)\sigma_X(t+h)}=\dfrac{t\cdot 4p(1-p)}{\sqrt{t4p(1-p)}\sqrt{(t+h)4p(1-p)}}=\dfrac{t}{\sqrt{t}\sqrt{t+h}  }
-                        \] 
+                    \item Media: $\mu_X(t)=t(2p-1)\to $ \textbf{depende de $t\to $ no constante} (a menos que $p=\dfrac{1}{2}$ pero aún así la covarianza falla).
+                    \item Covarianza: $C_X(s,t)=4pq\cdot \min(s,t)\to $ depende de $\min(s,t)$, no solo de  $t-s$. Por ejemplo,  $C_X(1,2)=4pq\cdot 1,\,C_X(5,6)=4pq\cdot 5\to $ diferente para mismo salto $h=1$.
                 \end{itemize}
+                \textbf{Conclusión: No es débilmente estacionario.} 
+            \item \db{Justificar si el proceso es estacionario (en sentido fuerte).} 
+
+                Misma distribución para $(X_{t_1},\dots,X_{t_n})$ y $(X_{t_1+s},\dots,X_{t_n+s})$.
+
+                En particular, $X_t$ debe tener la misma distribución para todo  $t$, pero aquí:
+                 \begin{itemize}[label=\textbullet]
+                    \item $X_0$ es constante 0.
+                    \item $X_1$ toma valores $\pm 1$ con probabilidades $p,\,1-p$.
+                    \item Distribuciones diferentes  $\implies$ \textbf{no es estacionario en sentido fuerte}. 
+                \end{itemize}
+                \textbf{Conclusión: No es estacionario en sentido fuerte.} 
+        \end{enumerate}
     \item \lb{Demostrar que si $(X_t)_{t\in [0,\infty)}$ es un movimiento Browniano, entonces es un proceso estocástico gaussiano no estacionario.}
+
+        \begin{enumerate}[label=\arabic*)]
+            \item \textbf{El movimiento Browniano es un proceso gaussiano}
+
+                \textbf{Definiciones relevantes}
+                \begin{itemize}[label=\textbullet]
+                    \item \textbf{Movimiento Browniano:} Proceso $(X_t)_{t\in [0,\infty)}$  que cumple:
+                        \begin{enumerate}[label=\arabic*)]
+                            \item $X_0=0$.
+                            \item Para $s\le t,X_t-X_s\sim N(0,t-s)$.
+                            \item Incrementos independientes sobre intervalos disjuntos.
+                            \item Trayectorias continuas.
+                        \end{enumerate}
+                    \item \textbf{Proceso gaussiano:} Un proceso $(X_t)_{t\in \mathbb{T}}$ es \textbf{gaussiano} si para cualquier conjunto finito de tiempos $t_1,t_2,\dots,t_n$, el vector $(X_{t_1},X_{t_2},\dots,X_{t_n})$ tiene distribución \textbf{normal multivariante}. 
+                \end{itemize}
+                \textbf{Demostración de que es gaussiano:}
+
+                Sea $t_1<t_2<\cdots<t_n$ una colleción de tiempos en $[0,\infty)$.
+
+                Definimos los incrementos:
+                 \[
+                Z_1=X_{t_1}-X_0=X_{t_1},\quad Z_2=X_{t_2}-X_{t_1},\quad\dots,\quad Z_n=X_{t_n}-X_{t_{n-1}}.
+                \] 
+                Según la definición de movimiento Browniano:
+                \begin{itemize}[label=\textbullet]
+                    \item Cada $Z_i\sim N(0,t_i-t_{i-1})$ (con $t_0=0$).
+                    \item Los $Z_1,Z_2,\dots,Z_n$ son \textbf{independientes}. 
+                \end{itemize}
+                El vector $\mathbf{Z}=(Z_1,Z_2,\dots,Z_n)$ es entonces un vector aleatorio \textbf{normal multivariante} (componentes independientes normales $\implies$ conjuntamente normales).
+
+                Ahora, notemos que:
+                \[
+                \begin{pmatrix} 
+                X_{t_1}\\
+                X_{t_2}\\
+                \vdots\\
+                X_{t_n}
+                \end{pmatrix} =\begin{pmatrix} 
+                1 & 0 & \cdots & 0\\
+                1 & 1 & \cdots & 0\\
+                \vdots & \vdots & \ddots & \vdots\\
+                1 & 1 & \cdots & 1
+                \end{pmatrix} \begin{pmatrix} 
+                Z_1\\
+                Z_2\\
+                \vdots\\
+                Z_n
+                \end{pmatrix} 
+                \] 
+                Es decir, $\mathbf{X}=A\mathbf{Z}$ con $A$ matriz constante (triangular inferior de unos).
+
+                Una transformación lineal de un vector normal multivariante también es normal multivariante, por tanto,  $(X_{t_1},\dots,X_{t_n})$ es \textbf{normal multivariante}.
+
+                Esto prueva que $(X_t)$ es un  \textbf{proceso gaussiano}.
+
+            \item \textbf{El movimiento Browniano no es estacionario (ni débilmente)}
+
+                \textbf{¿Es débilmente estacionario?}
+
+                Para ser débilemente estacionario, debería cumplirse $C_X(s,t)=C_X(0,t-s)$
+
+                Probaremos con un contraejemplo:
+                \begin{itemize}[label=\textbullet]
+                    \item Tomemos $s=3,t=4$:  \[
+                            C_X(3,4)=\min(3,4)=3.
+                        \] 
+                    \item Por otro lado, $C_X(0,4-3)=C_X(0,1)=\min(0,1)=0$.
+                \end{itemize}
+                Como $3\neq 0$, \textbf{la covarianza no depende solo de $t-s\implies$ no es débilmente estacionario} 
+
+                \textbf{¿Es estacionario en sentido estricto?}
+
+                Si fuera estacionario en sentido estricto, en particular las distribuciones unidimensionales serían igual: $X_t$, tendría la misma distribución para todo  $t$. Pero  $X_t\sim N(0,t)$, cuya varianza $t$ cambia con  $t\implies$ distribuciones diferentes $\implies$ \textbf{no es estacionario en sentido estricto}. 
+        \end{enumerate}
     \item \lb{Consideremos el proceso estocástico $(X_t)_{t\in [0,\infty)}$ con $X_t=Ae^{\lambda t}+B$, con $A\sim U(0,4)$ y $B\sim \mathrm{Exp}(\lambda)$ siendo $A$ y  $B$ independientes.}
         \begin{enumerate}[label=\color{red}\textbf{\alph*)}]
             \item \db{Calcular la función de medias, covarianzas y correlaciones del proceso $(X_t)_{t\in [0,\infty)}$} 
+                \begin{enumerate}[label=\arabic*)]
+                    \item \textbf{Función de medias $\mu_X(t)$} \[
+                            \mu_X(t)=\mathbb{E}[X_t]=\mathbb{E}[Ae^{\lambda t}+B ]=e^{\lambda t}\mathbb{E}[A]+\mathbb{E}[B]. 
+                    \] 
+                    \begin{itemize}[label=\textbullet]
+                        \item $\mathbb{E}[A]=\dfrac{0+4}{2}=2$.
+                        \item $\mathbb{E}[B]=\dfrac{1}{\lambda}$ (media de $\mathrm{Exp}(\lambda)$).
+                    \end{itemize}
+                    Entonces: \[
+                        \boxed{\mu_X(t)=2e^{\lambda t}+\dfrac{1}{\lambda} }
+                    \] 
+                \item \textbf{Función de covarianza $C_X(s,t)$} 
+
+                    Por definición: \[
+                        C_X(s,t)=\mathrm{Cov}(X_s,X_t)=\mathbb{E}[X_s,X_t]-\mu_X(s)\mu_X(t).
+                    \] 
+                    Primero, $X_s,X_t=(Ae^{\lambda s} +B)(Ae^{\lambda t}+B)$.
+                    
+                    Expandimos: \[
+                    X_sX_t=A^2e^{\lambda(s+t)}+AB(e^{\lambda}+e^{\lambda t})+B^2. 
+                    \] 
+                    Tomamos esperando usando independencia de $A$ y  $B$:  \[
+                        \mathbb{E}[X_sX_t]=e^{\lambda(s+t)}\mathbb{E}[A^2]+(e^{\lambda s+e^{\lambda t} })\mathbb{E}[A]\mathbb{E}[B]+\mathbb{E}[B^2]. 
+                    \] 
+                    \textbf{Momentos necesarios:}
+                    \begin{itemize}[label=\textbullet]
+                        \item $\mathbb{E}[A^2]:$ Para $U(0,4)$, varianza  $=\dfrac{(4-0)^2}{12}=\dfrac{16}{12}=\dfrac{4}{3}$, entonces $\mathbb{E}[A^2]=\mathrm{Var}(a)+(\mathbb{E}[A])^2=\dfrac{4}{3}+4=\dfrac{4+12}{3}=\dfrac{16}{3}$.
+                        \item $\mathbb{E}[B]=\dfrac{1}{\lambda}$ 
+                        \item $\mathbb{E}[B^2]:$ para $B\sim \mathrm{Exp}(\lambda),\mathrm{Var}(B)=\dfrac{1}{\lambda^2},\mathbb{E}[B^2]=\mathrm{Var}(B)+(\mathbb{E}[B])^2=\dfrac{1}{\lambda^2}+\dfrac{1}{\lambda^2}=\dfrac{2}{\lambda^2}$
+                    \end{itemize}
+                    Sustituimos: \[
+                        \mathbb{E}[X_sX_t]=e^{\lambda(s+t)}\cdot \dfrac{16}{3}+(e^{\lambda s}+e^{\lambda t} )\cdot 2\cdot \dfrac{1}{\lambda}+\dfrac{2}{\lambda^2} 
+                    \] 
+
+                    \textbf{Producto de medias:}
+                    \[
+                    \mu_X(s)\mu_X(t)=\left( 2e^{\lambda s}+\dfrac{1}{\lambda}\right)\left( 2e^{\lambda t}+\dfrac{1}{\lambda}  \right) =4e^{\lambda(s+t)}+\dfrac{2}{\lambda}(e^{\lambda s}+e^{\lambda t} )+\dfrac{1}{\lambda^2}.  
+                    \] 
+
+                    \textbf{Covarianza:} \[
+                        C_X(s,t)=\mathbb{E}[X_sX_t]-\mu_X(s)\mu_X(t).
+                    \]  
+                    Término $e^{\lambda(s+t)}$: \[
+                    \dfrac{16}{3}e^{\lambda(s+t)}-4e^{\lambda(s+t)}=\left( \dfrac{16}{3}-4 \right)e^{\lambda(s+t)}=\dfrac{4}{3}e^{\lambda(s+t)}  
+                    \] 
+                    Término $e^{\lambda s}+e^{\lambda t}:$ \[
+                    \dfrac{2}{\lambda}(e^{\lambda s}+e^{\lambda t})-\dfrac{2}{\lambda}(e^{\lambda s} +e^{\lambda t} )=0
+                    \] 
+                    Término constante:
+                    \[
+                    \dfrac{2}{\lambda^2}-\dfrac{1}{\lambda^2}=\dfrac{1}{\lambda^2}.
+                    \] 
+                    Por tanto: \[
+                        \boxed{C_X(s,t)=\dfrac{4}{3}e^{\lambda(s+t)}+\dfrac{1}{\lambda^2}}
+                    \] 
+                \item \textbf{Función de varianza $\sigma_X^2(t)$} \[
+                        \sigma_X^2(t)=C_X(t,t)=\dfrac{4}{3}e^{2\lambda t}+\dfrac{1}{\lambda^2} 
+                    \]  
+                \item \textbf{Función de correlación $\rho_X(s,t)$}
+
+                    Por definición: \[
+                       \rho_X(s,t)=\dfrac{C_X(s,t)}{\sqrt{\sigma_X^2(s)\cdot \sigma_X^2(t)} }.
+                    \] 
+                    Sustituyendo: \[
+                       \rho_X(s,t)=\dfrac{\dfrac{4}{3}e^{\lambda(s+t)} +\dfrac{1}{\lambda^2}}{\sqrt{\left( \dfrac{4}{3}e^{2\lambda s} +\dfrac{1}{\lambda^2} \right)\left( \dfrac{4}{3}e^{2\lambda t}+\dfrac{1}{\lambda^2}  \right)  } } .
+                    \] 
+                \end{enumerate}
             \item \db{Justificar si el proceso es estacionario en sentido débil.} 
+                \begin{itemize}[label=\textbullet]
+                    \item \textbf{Media:} $\mu_X(t)=2e^{\lambda t}+\dfrac{1}{\lambda} \implies$ \textbf{depende de }$t\implies$ no constante (a menos que $\lambda=0$, pero aquí  $\lambda>0$ en  $\mathrm{Exp(\lambda)}$).
+                    \item \textbf{Covarianza:} $C_X(s,t)=\dfrac{4}{3}e^{\lambda(s+t)}+\dfrac{1}{\lambda^2} $  depdende de $s+t$, no de  $t-s\implies$ no cumple
+                \end{itemize}
+                \textbf{Conclusión: No es débilmente estacionario.} 
             \item \db{Justificar si el proceso es estacionario (en sentido fuerte).} 
+
+                La distribución finito-dimensional debe ser invariante ante desplazamientos temporales.
+
+                Consideremos la distribución de $X_t$:  \[
+                X_t=Ae^{\lambda t}+B, 
+                \] donde $A$ y  $B$ tienen distribuciones fijas no degeneradas.
+
+                Si tomamos  $t_1<t_2$ y desplazamos en tiempo $h>0$:
+                 \begin{itemize}[label=\textbullet]
+                     \item $(X_{t_1},X_{t_2})$ y $(X_{t_1+h},X_{t_2+h})$ no tienen la misma distribución porque el coeficiente de $A$ cambia ($e^{\lambda t} $ vs $e^{\lambda(t+h)} $), lo cual altera la distribución conjunta.
+                \end{itemize}
+                En particular, la \textbf{media} depende de $t\implies$ ya no puede ser estacionario ni débil ni fuerte.
+
+                \textbf{Conclusión: No es estacionario en sentido fuerte.} 
         \end{enumerate}
     \item \lb{Consideremos el proceso estocástico $(X_t)_{t\in [0,\infty)}$ con $X_t=Y\sin(U+t)$, con $U\sim U(0,2\pi)$ e $Y\sim N(0,1)$ siendo $U$ e  $Y$ independientes.}
         \begin{enumerate}[label=\color{red}\textbf{\alph*)}]
             \item \db{Calcular la función de medias, covarianzas y correlaciones del proceso $(X_t)_{t\in [0,\infty)}$.}
+                \begin{enumerate}[label=\arabic*)]
+                    \item \textbf{Función de medias $\mu_X(t)$}
+                        \[
+                            \mu_X(t)=\mathbb{E}[X_t]=\mathbb{E}[Y\sin(U+t)].
+                        \] 
+                        Como $Y$ y  $U$ son independientes:  \[
+                            \mu_X(t)=\mathbb{E}[Y]\cdot \mathbb{E}[\sin(U+t)].
+                        \] 
+                        $\mathbb{E}[Y]=0$ (normal estándar) $\implies \mu_X(t)=0$ para todo $t$.  \[
+                            \boxed{\mu_X(t)=0}
+                        \] 
+                    \item \textbf{Función de covarianza $C_X(s,t)$}
+
+                        Por definición: \[
+                            C_X(s,t)=\mathbb{E}[X_sX_t]-\mu_X(s)\mu_X(t)=\mathbb{E}[X_sX_t],
+                        \] ya que las medias son 0.
+                        \[
+                        X_sX_t=Y\sin(U+s)\cdot Y\sin(U+t)=Y^2\sin(U+s)\sin(U+t).
+                        \] 
+                        Como $Y$ es independiente de  $U$:  \[
+                            \mathbb{E}[X_sX_t]=\mathbb{E}[Y^2]\cdot \mathbb{E}[\sin(U+s)\sin(U+t)].
+                        \] 
+                        \begin{itemize}[label=\textbullet]
+                            \item $\mathbb{E}[Y^2]=\mathrm{Var}(Y)+(\mathbb{E}[Y])^2=1+0=1$.
+                        \end{itemize}
+                        \textbf{Cálculo de $\mathbb{E}[\sin(U+s)\sin(U+t)]$:}
+
+                        Identidad trigonométrica: \[
+                            \sin\alpha\sin\beta=\dfrac{1}{2}\cos(\alpha-\beta)-\dfrac{1}{2}\cos(\alpha+\beta).
+                        \] 
+                        Aquí $\alpha=U+s,\beta=U+t$: \[
+                            \begin{aligned}
+                                \sin(U+s)\sin(U+t)&=\dfrac{1}{2}\cos((U+s)-(U+t))-\dfrac{1}{2}\cos((U+s)+(U+t))\\
+                                &= \dfrac{1}{2}\cos(t-s)-\dfrac{1}{2}\cos(2U+s+t) \\
+                            \end{aligned}
+                        \] 
+                        Tomamos esperanza respecto a $U$:
+                        \[
+                            \mathbb{E}_U[\sin(U+s)\sin(U+t)]=\dfrac{1}{2}\cos(t-s)-\dfrac{1}{2}\mathbb{E}_U[\cos(2U+s+t)].
+                        \] 
+                        Calculamos $\mathbb{E}_U[\cos(2U+s+t)]:$ \[
+                            \mathbb{E}_U[\cos(2U+s+t)]=\int_{0}^{2\pi} \cos(2u+s+t)\cdot \dfrac{1}{2\pi}\du . 
+                        \] 
+                        Sea $v=2u$, período  $4\pi$, pero integrando de  $0$ a  $2\pi$:  \[
+                        \int_{0}^{2\pi} \cos(2u+s+t)\du =\dfrac{1}{2}\int_{0}^{4\pi} \cos(v+s+t)\dv =0,  
+                        \] porque la integral del coseno sobre un periodo completo es cero.
+
+                        También podemos hacerlo directamente: \[
+                        \int_{0}^{2\pi} \cos(2u+s+t)\du =\left[ \dfrac{\sin(2u+s+t)}{2} \right]_0^{2\pi}=\dfrac{\sin(4\pi+s+t)-\sin(s+t)}{2}=0, 
+                        \] pues $\sin(4\pi+s+t)=\sin(s+t)$.
+
+                        Por tanto: \[
+                            \mathbb{E}_U[\sin(U+s)\sin(U+t)]=\dfrac{1}{2}\cos(t-s)-0=\dfrac{1}{2}\cos(t-s).
+                        \] 
+                        Entonces: \[
+                            \mathbb{E}[X_sX_t]=1\cdot \dfrac{1}{2}\cos(t-s)=\dfrac{1}{2}\cos(t-s). 
+                        \] 
+                        Así: \[
+                            \boxed{C_X(s,t)=\dfrac{1}{2}\cos(t-s)}
+                        \] 
+                        Notar que depende solo de $t-s$ (y es simétrica, pues $\cos(t-s)=\cos(s-t)$).
+                    \item \textbf{Función de varianza $\sigma_X^2(t)$} \[
+                    \sigma_X^2(t)=C_X(t,t)=\dfrac{1}{2}\cos(0)=\dfrac{1}{2}.
+                    \]
+                    Varianza constante.
+                    \item \textbf{Función de correlación $\rho_X(s,t)$}
+                        \[
+                            \begin{array}{c}
+                                \rho_X(s,t)=\dfrac{C_X(s,t)}{\sqrt{\sigma_X^2(s)\sigma_X^2(t)} }=\dfrac{\dfrac{1}{2}\cos(t-s)}{\sqrt{\dfrac{1}{2}\cdot \dfrac{1}{2}} }=\cos(t-s).\\
+                                \boxed{\rho_X(s,t)=\cos(t-s)}
+                            \end{array}
+                        \] 
+                \end{enumerate}
             \item \db{Justificar si el proceso es estacionario en sentido débil.} 
+                \begin{itemize}[label=\textbullet]
+                    \item Media constante: $\mu_X(t)=0$ constante.
+                    \item Covarianza depende solo de $t-s:\,C_X(s,t)=\dfrac{1}{2}\cos(t-s)$.
+                \end{itemize}
         \end{enumerate}
 \end{enumerate}

@@ -5,63 +5,752 @@
     \item \lb{Sea $(N_t)_{t\in [0,\infty)}$ un proceso de Poisson con tasa $\lambda=2$, y sean  $\tau_1,\tau_2,\tau_3,\dots$ los tiempos entre llegadas.}
         \begin{enumerate}[label=\color{red}\textbf{\alph*)}]
             \item \db{Encuentra la probabilidad de que la primera llegada ocurra después después de $t=0.5$.}
+
+                Si $(N_t)$ es un proceso de Poisson con tasa  $\lambda$, los tiempos entre llegadas $\tau_i$ son independientes y distribuidos exponencialmente con parámetro $\lambda$:  \[
+                \tau_1\sim \mathrm{Exp}(\lambda)
+                \] 
+                Además, se indica: \[
+                \mathbb{P}(\tau>t)=e^{-\lambda t} 
+                \] 
+                Aquí $\tau_1$ es el tiempo hasta la primera llegada, $\lambda=2$ y  $t=0.5$:  \[
+                \mathbb{P}(\tau_1>0.5)=e^{-2\cdot 0.5}=\boxed{e^{-1}}
+                \] 
             \item \db{Encuentra la probabilidad de que la primera llegada ocurra antes de $t=3$ si no ha habido ninguna llegada antes de $t=1$.} 
+
+                Esto es: \[
+                \mathbb{P}(\tau_1\le 3|\tau_1>1)
+                \] 
+                Por la falta de memoria de la exponencial: \[
+                \mathbb{P}(\tau_1>s+t|\tau_1>t)=\mathbb{P}(\tau_1>s)
+                \] 
+                En nuestro caso, condicionando a $\tau_1>1$: \[
+                \begin{array}{c}
+                    \mathbb{P}(\tau_1\le 3|\tau_1>1)=1-\mathbb{P}(\tau_1>3|\tau_1>1)\\
+                    =1-\mathbb{P}(\tau_1>2)\text{ (por falta de memoria: $s=2,t=1$) }\\
+                    =1-e^{-2\cdot 2}=\boxed{1-e^{-4} } 
+                \end{array}
+                \] 
             \item \db{Encuentra la probabilidad de que haya cuatro llegadas después de $t=4$ si la tercera llegada ocurrió exactamente en $t=2$.}
+
+                Sea $T_3=2$ el instante de la tercera llegada.
+
+                Necesitamos: \[
+                \mathbb{P}(N_4\ge 3+4|T_3=2)\quad(??)
+                \] 
+                Cuidado: "cuatro llegadas después de $t=4$" significa: contar las llegadas en $(4,\infty)$.
+
+                Pero mejor: dado que la 3ª llegada fue en $t=2$, las llegadas posteriores son independientes (incrementos independientes del proceso de Poisson). Entonces el proceso reinicia en $t=2$ (falta de memoria).
+
+                Si en  $t=2$ acabamos de tener una llegada, el tiempo hasta la siguiente llegada es  $\mathrm{Exp}(\lambda)$ y el número de llegadas en intervalos futuros depende solo de la longitud del intervalo.
+
+                Nos piden: "cuatro llegadas después de $t=4$" significa $N_{\infty}-N_4\ge 4$? Pero en procesos de Poisson infinito, eso es casi seguro cierto. Eso parece malinterpretado.
+
+                Reinterpreto: "cuatro llegadas después de $t=4$" podría significar: \textbf{en el intervalo $(4,\infty)$ ocurran al menos 4 llegadas}, dado que $T_3=2$.
+
+                Por falta de memoria, el proceso reinicia después de cada llegada. Dado $T_3=2$, el tiempo desde $t=2$ hasta la próxima llegada $(\tau_4)$ es $\mathrm{Exp}(2)$.
+
+                Pero el evento condiciona en un tiempo fijo de llegada (no solo "no llegadas hasta 2", sino llegadas exactamente en 2). En procesos de Poisson, los tiempos de llegada condicionados tienen propiedades uniformes, pero aquí podemos usar la propiedad de \textbf{incrementos independientes:} lo ocurrido después de $t=2$ es independiente de lo ocurrido antes, y es un proceso de Poisson con tasa 2 a partir de  $t=2$.
+
+                Así, el número de llegadas en  $(4,\infty)$ es $\mathrm{Poisson}(\infty)\dots$ esto no tiene sentido. Mejor: número de llegadas en $(4,\infty)$ dado $T_3=2$ es igual en distribución a número de llegadas en $(4-2,\infty)=(2,\infty)$ para un nuevo proceso que empieza en 0. Pero eso es infinito esperado.
+
+                Creo que puede significar: \textbf{"4 llegadas después de $t=4$= la cuarta llegada después de  $t=4$"}
+
+                No.
+
+                Tal vez significa: \textbf{"haya cuatro llegadas después de $t=4$"} = "el cuarto evento después de $t=4$ ocurra", no, eso es lo mismo.
+
+                Otra posibilidad: \textbf{cuatro llegadas después de $t=4$} = que la cuarta llegada ocurra después de $t=4$.
+
+                Pero dado $T_3=2$, el cuarto evento es $T_4=T_3+\tau_4\cdot \tau_4\sim \mathrm{Exp}(2)$.
+
+                Queremos $\mathbb{P}(T_4>4|T_3=2)$. \[
+                \begin{array}{c}
+                    T_4=2+\tau_4>4\iff \tau_4>2\\
+                    \mathbb{P}(\tau_4>2)=e^{-2\cdot 2}=e^{-4}  
+                \end{array}
+                \] 
+
+                Pero "cuatro llegadas después de $t=4$" puede significar también: \textbf{que la séptima llegada (3+4) ocurra después de $t=4$}, pero la séptima llegada es $T_7=T_3+\tau_4+\tau_5+\tau_6+\tau_7$, es suma de 4 exponencial i.i.d. $\mathrm{Exp}(2)\implies\Gamma(4,2)$.
+
+                Dado $T_3=2,T_7=2+S_4$, con $S_4\sim \Gamma(4,2)$.
+
+                Nos piden $\mathbb{P}(T_7>4|T_3=2)=\mathbb{P}(S_4>2)$.
+
+                $\mathbb{P}(S_4\le 2)=F_{\Gamma(4,2)}(2)\implies \mathbb{P}(S_4>2)=1-F_{\Gamma(4,2)}(2)=1-0.5665=\boxed{0.4335}$ 
+
             \item \db{Supongamos que empezamos observando el proceso en tiempo $t=10$. Sea  $T$ el tiempo que tardo en ver la primera llegada. Encuentra $\mathbb{E}(T)$ y $\mathrm{Var}(T)$.}
+
+                Por la falta de memoria, el tiempo desde cualquier instante hasta la próxima llegada en un proceso de Poisson tiene distribución exponencial con parámetro $\lambda$, independientemente del pasado.
+
+                Así,  $T\sim \mathrm{Exp}(\lambda=2)$, donde: \[
+                \mathbb{E}(\lambda)=\dfrac{1}{\lambda},\quad \mathrm{Var}(\tau)=\dfrac{1}{\lambda^2}
+                \] 
+
+                Con $\lambda=2$:  \[
+                \mathbb{E}(T)=\dfrac{1}{2},\quad \mathrm{Var}(T)=\dfrac{1}{4}
+                \] 
         \end{enumerate}
     \item \lb{Sea $(N_t)_{t\in [0,\infty)}$ un proceso de Poisson con tasa $\lambda=1$.} 
         \begin{enumerate}[label=\color{red}\textbf{\alph*)}]
             \item \db{Calcula la probabilidad de que haya dos llegadas en $(0,2]$ y tres llegadas en  $(2,4]$.} 
+
+                Para un proceso de Poisson:
+                \begin{itemize}[label=\textbullet]
+                    \item Los incrementos en intervalos disjuntos son independientes.
+                    \item $N_{t+s}-N_s\sim \mathrm{Poisson}(\lambda t)$ 
+                \end{itemize}
+                Aquí $\lambda=1$.
+
+                Para  $(0,2]$:  \[
+                \begin{array}{c}
+                    X_1=N_2-N_0\sim \mathrm{Poisson}(1\cdot 2)=\mathrm{Poisson}(2)\\
+                    \mathbb{P}(X_1=2)=\dfrac{e^{-2} \cdot 2^2}{2!}=e^{-2} \cdot \dfrac{4}{2}=2e^{-2} 
+                \end{array}
+                \] 
+
+                Para $(2,4]$:  \[
+                \begin{array}{c}
+                    X_2=N_4-N_2\sim \mathrm{Poisson}(1\cdot 2)=\mathrm{Poisson}(2)\\
+                    \mathbb{P}(X_2=3)=\dfrac{e^{-2} \cdot 2^3}{3!}=e^{-2} \cdot \dfrac{8}{6}=\dfrac{4}{3}e^{-2} 
+                \end{array}
+                \] 
+                Por independencia (intervalos disjuntos): \[
+                \begin{aligned}
+                    \mathbb{P}(X_1=2,X_2=3)&= \mathbb{P}(X_1=2)\cdot \mathbb{P}(X_2=3) \\
+                                           &= (2e^{-2} )\cdot \left( \dfrac{4}{3}e^{-2}  \right) =\boxed{\dfrac{8}{3}e^{-4} } \\
+                \end{aligned}
+                \] 
             \item \db{Encuentra la probabilidad de que haya dos llegadas en $(0,2]$ y tres llegadas en  $(1,4]$.} 
+
+                Los intervalos no son disjuntos: $(0,2]$ y  $(1,4]$ se solapan en  $(1,2]$.
+
+                Debemos descomponer en intervalos disjuntos para usar independencia.
+
+                Sea:
+                 \begin{itemize}[label=\textbullet]
+                     \item $A=(0,1]$
+                     \item $B=(1,2]$
+                     \item $C=(2,4]$
+                \end{itemize}
+                Sabemos: \[
+                \begin{array}{c}
+                    N_1-N_0\sim \mathrm{Poisson}(1)\quad\text{(en $A$)}\\
+                    N_2-N_1\sim \mathrm{Poisson}(1)\quad\text{(en $B$)}\\
+                    N_4-N_2\sim \mathrm{Poisson}(2)\quad\text{(en $C$)}\\
+                \end{array}
+                \] 
+                Estos tres incrementos son independientes.
+
+                Queremos:
+                \begin{enumerate}[label=\arabic*)]
+                    \item $N_2-N_0=2$ (dos llegadas en $(0,2]$), es decir: $(N_1-N_0)+(N_2-N_1)=2$.
+                    \item $N_4-N_1=3$ (tres llegadas en $(1,4]$), es decir: $(N_2-N_1)+(N_4-N_2)=3$.
+                \end{enumerate}
+                Sean: \[
+                \begin{array}{c}
+                    X=N_1-N_0\sim \mathrm{Poisson}(1)\\
+                    Y=N_2-N_1\sim \mathrm{Poisson}(1)\\
+                    Z=N_4-N_2\sim \mathrm{Poisson}(2)\\
+                \end{array}
+                \] 
+                Las condiciones son: \[
+                \begin{array}{c}
+                    X+Y=2\\
+                    Y+Z=3
+                \end{array}
+                \] 
+                Como $X,Y,Z$ son independientes:
+
+                Necesitamos sumar sobre valores posibles de  $Y$ que satisfagan ambas ecuaciones.
+
+                De $X+Y=2\implies X=2-Y$ (con $X\ge 0$).
+
+                De $Y+Z=3\implies Z=3-Y$ (con $Z\ge 0$).
+
+                Probabilidad conjunta de $(X,Y,Z)$ para cada  $Y$:
+                 \[
+                \mathbb{P}(X=2-Y,Y=y,Z=3-y)=\mathbb{P}(X=2-y)\cdot \mathbb{P}(Y=y)\cdot \mathbb{P}(Z=3-y)
+                \] 
+                Distribuciones: \[
+                \begin{array}{c}
+                    \mathbb{P}(X=k)=\dfrac{e^{-1} \cdot 1^k}{k!}\\
+                    \mathbb{P}(Y=k)=\dfrac{e^{-1} \cdot 1^k}{k!}\\
+                    \mathbb{P}(Z=k)=\dfrac{e^{-2} \cdot 2^k}{k!}\\
+                \end{array}
+                \] 
+                Suamos para $y=0,1,2$:
+
+                 \textbf{Caso $y=0$:}
+
+                 $X=2,Z=3$ \[
+                 p_0=\dfrac{e^{-1} }{2!}\cdot e^{-1}\cdot \dfrac{e^{-2}\cdot e^3 }{3!} =\dfrac{e^{-4} }{2}\cdot \dfrac{8}{6}=\dfrac{8}{12}e^{-4}=\dfrac{2}{3}e^{-4}   
+                 \] 
+
+                 \textbf{Caso $y=1$:}
+
+                 $X=1,Y=1,Z=2$  \[
+                 p_1=\dfrac{e^{-1} }{1!}\cdot \frac{e^{-1}}{1!}\cdot \dfrac{e^{-2} \cdot 2^2}{2!}=e^{-2} \cdot e^{-2} \cdot \dfrac{4}{2}=e^{-4} \cdot 2=2e^{-4} 
+                 \] 
+
+                 \textbf{Caso $y=2$:}
+
+                 $Y=2,Z=1$ \[
+                 p_2=e^{-1}\cdot \dfrac{e^{-1} }{1!}\cdot \dfrac{e^{-2} \cdot 2^2}{2!}=e^{-2}\cdot \dfrac{1}{2} \cdot 2e^{-2}=e^{-4} 
+                 \] 
+                 Suma total: \[
+                 p=p_0+p_1+p_2=\left( \dfrac{2}{3}+2+1 \right) e^{-4} =\left( \dfrac{2}{3}+3 \right) e^{-4} =\boxed{\dfrac{11}{3}e^{-4}} 
+                 \] 
         \end{enumerate}
     \item \lb{Sea $(N_t)_{t\in [0,\infty)}$ un proceso de Poisson con tasa $\lambda$.} 
         \begin{enumerate}[label=\color{red}\textbf{\alph*)}]
             \item \db{Calcula la función de medias, covarianzas y correlaciones para el proceso $(N_t)_{t\in [0,\infty)}$.} 
+
+                \textbf{Función de medias}
+
+                Para un proceso de Poisson $(N_t)$ con tasa $\lambda$,  \[
+                \mathbb{E}(N_t)=\lambda t
+                \] 
+                Así, la función medias es: \[
+                \mu_N(t)=\mathbb{E}(N_t)=\lambda t
+                \] 
+                \textbf{Covarianza $\mathrm{Cov}(N_s,N_t)$ para $s\le t$}
+
+                Por definición: \[
+                \mathrm{Cov}(N_s,N_t)=\mathbb{E}(N_s,N_t)-\mathbb{E}(N_s)\mathbb{E}(N_t)
+                \] 
+                Sabemos que $N_t=N_s+(N_t-N_s)$ y los incrementos son independientes.
+                 \[
+                \mathbb{E}(N_sN_t)=\mathbb{E}\left[ N_s(N_s+(N_t+N_s)) \right] =\mathbb{E}(N_s^2)+\mathbb{E}\left[ N_s(N_t-N_s) \right] 
+                \] 
+                Por independencia entre $N_s$ y $N_t-N_s$:  \[
+                    \mathbb{E}[N_s(N_t-N_s)]=\mathbb{E}(N_s)\cdot \mathbb{E}(N-t-N_s)
+                \] 
+                Sabemos que si $X\sim \mathrm{Poisson}(\mu)$, entonces $\mathbb{E}(X)=\mu$ y $\mathrm{Var}(X)=\mu$. Entonces:
+                \[
+                \begin{array}{c}
+                    \mathbb{E}(N_s)=\lambda s,\quad \mathbb{E}(N_t-N_s)=\lambda(t-s)\\
+                    \mathbb{E}(N_s^2)=\mathrm{Var}(N_s)+[\mathbb{E}(N_s)]^2=\lambda s+(\lambda s)^2
+                \end{array}
+                \] 
+                Por lo tanto: \[
+                    \mathbb{E}(N_sN_t)=[\lambda s+(\lambda s)^2]+(\lambda s)\cdot [\lambda(t-s)]=\lambda s+\lambda^2 s^2+\lambda^2s(t-s)=\lambda s+\lambda^2st
+                \] 
+                Luego: \[
+                    \mathrm{Cov}(N_s,N_t)=[\lambda s+\lambda^2st]-(\lambda s)(\lambda t)=\lambda s+\lambda^2st-\lambda^2st=\lambda s
+                \] 
+                Si $s>t$, por simetría  $\mathrm{Cov}(N_s,N_t)=\lambda\min(s,t)$.
+
+                Así: \[
+                    \boxed{\mathrm{Cov}(N_s,N_t)=\lambda\min(s,t)}
+                \] 
+                \textbf{Coeficiente de correlación}
+                \[
+                \begin{array}{c}
+                    \rho(s,t)=\dfrac{\mathrm{Cov}(N_s,N_t)}{\sqrt{\mathrm{Var}(N_s)\cdot \mathrm{Var}(N_t)} }\\
+                    \mathrm{Var}(N_u)=\lambda u
+                \end{array}
+                \] 
+                Para $s\le t$: \[
+                \rho(s,t)=\dfrac{\lambda s}{\sqrt{(\lambda s)(\lambda t)} }=\dfrac{\lambda s}{\lambda\sqrt{st} }=\sqrt{\dfrac{s}{t}} 
+                \] 
+                Para $s\ge t$, sería $\sqrt{\dfrac{t}{s}} $.
+
+                En general: \[
+                    \boxed{\rho(s,t)=\sqrt{\dfrac{\min(s,t)}{\max(s,t)}} }
+                \] 
             \item \db{¿Es un proceso débilmente estacionario?} 
+
+                Un proceso es débilmente estacionario si:
+                \begin{itemize}[label=\textbullet]
+                    \item $\mu_N(t)$ constante en $t$.
+                    \item $\mathrm{Cov}(N_{t+h},N_t)$ solo depende de $h$, no de $t$.
+                \end{itemize}
+                Aquí $\mu_N(t)=\lambda t$ \textbf{no es constante} $\implies$ ya no es estacionario en covarianza.
+
+                Además, $\mathrm{Cov}(N_{t+h},N_t)=\lambda t$ para $h\ge 0$ si depende de $t$, no solo de  $h$.
+
+                Por tanto: \fbox{No es débilmente estacionario.}
             \item \db{¿Es un proceso estacionario (en sentido fuerte)?} 
+
+                Estacionariedad fuerte significa que las distribuciones finito-dimensionales son invariantes bajo desplazamientos temporales.
+
+                Para el proceso de Poisson, los incrementos en intervalos de igual longitud tienen la misma distribución $\mathrm{Poisson}(\lambda\cdot \text{longitud})$, pero la posición del intervalo afecta si miramos valores en tiempos fijos, porque $N_t\sim \mathrm{Poisson}(\lambda t)$ depende de $t$.
+
+                Por ejemplo, la distribución de  $N_t$ no es la misma que la de $N_{t+\tau}$ (por la media cambia).
+
+                Entonces, \textbf{no} es estacionario en sentido fuerte.
+                \begin{center}
+                    \fbox{No es estacionario en sentido fuerte.}
+                \end{center}
         \end{enumerate}
     \item \lb{Sea $(N_t)_{t\in [0,\infty)}$ un proceso de Poisson con tasa $\lambda$.} 
         \begin{enumerate}[label=\color{red}\textbf{\alph*)}]
             \item \db{Considera $0<s<t$. Prueba que si $N_t=n$, entonces  $N_s$ sigue una distribución binomial  $\mathcal{B}\left( n,\tfrac{s}{t}  \right) $, es decir, \[
             P(N_s=k|N_t=n)=\dbinom{n}{k} \left( \dfrac{s}{t} \right) ^k\left( 1-\dfrac{s}{t} \right) ^{n-k}\text{ para }k\in \{0,1,2,\dots,n\}.
             \] } 
+
+            El proceso de Poisson tiene incrementos independientes y estacionario, pero no hay una demostración explícita de este resultado en el texto dado. Sin embargo, podemos deducirlo usando las propiedades del proceso de Poisson dadas:
+
+            Sabemos que $N_s\sim \mathrm{Poisson}(\lambda s)$ y $N_t-N_s\sim \mathrm{Poisson}(\lambda(t-s))$, independientes.
+
+            Queremos: \[
+            P(N_s=k|N_t=n)
+            \] 
+            Observamos que: \[
+            \{N_s=k,N_t=n\} \iff \{N_s=k,N_t-N_s=n-k\} 
+            \] 
+            Por independencia de incrementos:
+            \[
+                P(N_s=k,N_t=n)=P(N_s=k)\cdot P(N_t-N_s=n-k)=\dfrac{(\lambda s)^ke^{-\lambda s} }{k!}\cdot \dfrac{[\lambda(t-s)]^{n-k}e^{-\lambda(t-s)} }{(n-k)!}
+            \] 
+            Además \[
+            P(N_t=n)=\dfrac{(\lambda t)^ne^{-\lambda t} }{n!}
+            \] 
+            Entonces: \[
+            P(N_s=k|N_t=n)=\dfrac{\dfrac{(\lambda s)^ke^{-\lambda s} }{k!}\cdot \dfrac{[\lambda(t-s)]^{n-k}e^{-\lambda(t-s)} }{(n-k)!}}{\dfrac{(\lambda t)^ne^{-\lambda t} }{n!}}
+            \] 
+            Simplificamos $e^{-\lambda s}e^{\lambda(t-s)}=e^{\lambda t}$, que cancela con $e^{-\lambda t}$ del denominador. 
+
+            También $\lambda^k\lambda^{n-k}=\lambda^n$, cancela con $\lambda^n$ del denominador.
+
+            Queda:  \[
+            \begin{array}{c}
+                =\dfrac{n!}{k!(n-k)!}\cdot \dfrac{s^k(t-s)^{n-k}}{t^n}\\
+                =\binom{n}{k}\dfrac{s^k(t-s)^{n-k}}{t^n}\\
+                =\binom{n}{k}\left( \dfrac{s}{t} \right) ^k\left( \dfrac{t-s}{t} \right) ^{n-k}\\
+                =\binom{n}{k}\left( \dfrac{s}{t} \right) ^{k}\left( 1-\dfrac{s}{t} \right) ^{n-k}
+            \end{array}
+            \] 
+        Que es exactamente la distribución binomial $\mathcal{B}\left( n,\dfrac{s}{t} \right)$, por lo tanto: \fbox{\textbf{Demostrado}} 
             \item \db{Sea $\tau_1$ el tiempo de la primera llegada. Prueba que si $N_t=1$, entonces  $\tau_1$ sigue una distribución uniforme en $(0,t)$, es decir,  \[
             P(\tau_1\le x|N_t=1)=\dfrac{x}{t}\text{ para }0\le x\le t.
             \] } 
+
+            Si $N_t=1$, significa que hubo  \textbf{exactamente una llegada} en $(0,t]$.
+
+            Por la propiedad de \textbf{ordenación uniforme} de los tiempos de llegada en un proceso de Poisson:
+
+            En general, si $N_t=n$, los $n$ tiempos de llegada se distribuyen como los estadísticos de orden de $n$ variables i.i.d. uniformes en $(0,t)$.
+
+            Aquí $n=1$: si hay exactamente una llegada en  $(0,t]$, su posición es uniforme en  $(0,t]$.
+
+            Podemos demostrarlo usando el inciso (a):
+
+            El evento  $\{\tau_1\le x\}\cap \{N_t=1\}$ signfica: la única llegada ocurrió en $(0,x]$, y no hubo llegadas en  $(x,t]$.
+
+            Sean:
+             \begin{itemize}[label=\textbullet]
+                 \item $A=$ número de llegadas en  $(0,x]$
+                 \item $B=$ número de llegadas en  $(x,t]$
+            \end{itemize}
+            Entonces: \[
+            P(\tau\le x,N_t=1)=P(A=1,B=0)
+            \] 
+            Por independencia de incrementos:
+            \[
+            \begin{array}{c}
+                =P(A=1)\cdot P(B=0)\\
+                =\dfrac{(\lambda x)^1e^{-\lambda x} }{1!}\cdot \dfrac{[\lambda(t-x)]^{0}e^{-\lambda(t-x)} }{0!}\\
+                =\lambda xe^{-\lambda x}\cdot e^{-\lambda(t-x)}\\
+                =\lambda xe^{-\lambda t} 
+            \end{array}
+            \] 
+            Por otro lado: \[
+            P(N_t=1)=\lambda te^{-\lambda t} 
+            \] 
+            Entonces: \[
+            P(\tau_1\le x|N_t=1)=\dfrac{\lambda xe^{-\lambda t}}{\lambda te^{-\lambda t} }=\dfrac{x}{t}
+            \] 
+            Para $0\le x\le t\implies$ \fbox{\textbf{Demostrado}}
         \end{enumerate}
     \item \lb{En un aeropuerto los aviones llegan a la pista de aterrizaje siguiendo un proceso de Poisson $\{N_t\}_{t\ge 0} $. Sabiendo que llegan de media $\lambda=\dfrac{1}{2}$ aviones por hora. Si empezamos a observar los aviones que llegan a partir de las 8 de la mañana, calcule:} 
         \begin{enumerate}[label=\color{red}\textbf{\alph*)}]
             \item \db{La probabilidad de que no lleguen aviones entre las 8 y las 10 de la mañana.} 
+
+                Intervalo: $t=2$ horas.
+
+                El número de llegadas  $N(2)\sim \mathrm{Poisson}(\lambda t)$ : \[
+                    \begin{array}{c}
+                        \lambda t=\dfrac{1}{2}\cdot 2=1\\
+                        P(N(2)=0)=e^{-1}\cdot \dfrac{1^0}{0!}=\boxed{e^{-1}} 
+                    \end{array}
+                \] 
             \item \db{La probabilidad de que el primer, segundo, tercer y cuarto avión lleguen respectivamente entre las 8 y las 9, entre las 9 y las 10, entre las 11 y las 12, y entre las 12 y las 13.} 
+
+                Los intervalos son:
+                \begin{itemize}[label=\textbullet]
+                    \item 1º avión: entre 8 y 9 $\implies$ intervalo de 1 hora.
+                    \item 2º avión: entre 9 y 10 $\implies$ intervalo de 1 hora.
+                    \item 3º avión: entre 11 y 12 $\implies$ intervalo de 1 hora.
+                    \item 4º avión: entre 12 y 13 $\implies$ intervalo de 1 horas.
+                \end{itemize}
+
+                \underline{Nota:} Entre las 10 y las 11 no se especifica llegada del 3º avión (porque el 3º llega entre 11-12), así que entre 10-11 pueden llegar otros aviones (el 5º, etc.), pero los cuatro primeros deben llegar en esos intervalos concretos.
+
+                Esto es complicado porque implica \textbf{tiempos de llegada específicos} $T_1,T_2,T_3,T_4$. 
+
+                Sabemos (por propiedades de proceso de Poisson) que los tiempos entre llegadas $\tau_i$ son exponenciales i.i.d.  $\mathrm{Exp}(\lambda)$, pero aquí condicionamos a que $T_i$ esté en cierto intervalo.
+
+                Debemos pensar:
+
+                Sea  $A$ = evento de que:  \[
+                    T_1\in(0,1],\quad T_2\in(1,2],\quad T_3\in (3,4],\quad T_4\in (4,5]
+                \] 
+                (horas desde las 8:00).
+
+                Y no hya restricción sobre otros aviones (pueden llegar en cualquier momento).
+
+                La densidad conjunto de $(T_1,T_2,T_3,T_4)$ para un proceso de Poisson hasta la cuarta llegada es:
+
+                Para un proceso de Poisson con tasa $\lambda$, la densidad conjunta de $(T_1,\dots,T_n)$ dado que $N_t\ge n$ es $n!\lambda^ne^{-\lambda t_n} $ para $0<t_1<\cdots<t_n$, pero en realidad la densidad no condicionada es: \[
+                F_{T_1,\dots,T_n}(t_1,\dots,t_n)=\lambda^ne^{-\lambda t_n},\quad 0<t_1<\cdots<t_n 
+                \] 
+                Entonces:
+                \[
+                P(T_1\in I_1,T_2\in I_2,T_3\in I_3,T_4\in I_4)=\int_{t_1=0}^{1} \int_{t_2=\max(t_1,1)}^{2} \int_{t_3=\max(t_2,3)}^{4} \int_{t_4=\max(t_3,4)}^{5} \lambda^4e^{-\lambda t_4}\dt_4\dt_3\dt_2\dt_1     
+                \] 
+                Dado el orden, tenemos $t_1\le 1,t_2\le 2,$ pero $t_3\ge 3,t_4\ge 4$, y además $t_3>t_2,t_4>t_3$.
+
+                Esto se puede factorizar por la propiedad de incrementos independientes:
+
+                Pensemos en \textbf{número de llegadas en cada intervalo:}
+
+                Sean intervalos desde 0:
+                \begin{itemize}[label=\textbullet]
+                    \item $I_1=(0,1]$
+                    \item $I_2=(1,2]$
+                    \item $I_3=(2,3]\impliedby$ aquí no hay restricción para los primeros 4.
+                    \item $I_4=(3,4]\impliedby$ aquí debe llegar el 3º avión.
+                    \item $I_5=(4,5]\impliedby$ aquí debe llegar el 4º avión.
+                    \item $I_6=(5,\infty)-$ no importa
+                \end{itemize}
+                Pero los aviones $1º$ y  $2º$ deben ser los únicos en  $I_1$ e $I_2$ respectivamente? No necesariamente, podrían llegar más aviones después en esos intervalos, pero los tiempos $T_1$ y $T_2$ deben estar en $I_1$ e $I_2$, lo que implica que en $I_1$ hay al menos 1 llegada (la primera), y en $I_2$ si $T_3$ también está en $I_2-$ pero eso no puede ser porque $T_3\ge 3$. Así que $I_2$ contiene exactamente 1 llegada: la segunda.
+
+                Así que tenemos:
+                \begin{itemize}[label=\textbullet]
+                    \item En $I_1$: \textbf{exactamente 1 llegada} (la 1ª)
+                    \item En $I_2$: \textbf{exactamente 1 llegada} (la 2ª)
+                    \item En $I_3=(2,3]$: cualquier número de llegadas (pero ninguna puede ser la 3ª ni 4ª)
+                    \item En $I_4$: \textbf{exactamente 1 llegada} (la 3ª)
+                    \item En $I_5$: \textbf{exactamente 1 llegada} (la 4ª)
+                \end{itemize}
+                Esto es más manejable con independencia de llegadas en intervalos disjuntos (Poisson).
+
+                Longitudes: \[
+                |I_1|=1,|I_2|=1,|I_3|=1,|I_4|=1,|I_5|=1
+                \] 
+                Tasa $\lambda=\dfrac{1}{2}$.
+
+                Probabilidad de exactamente 1 llegada en $I_1$ : \[
+                P_1=e^{-\frac{1}{2} \cdot 1} \dfrac{\left( \frac{1}{2}  \right) ^1}{1!}=\dfrac{1}{2}e^{-\frac{1}{2} } 
+                \] 
+                Los mismo para $I_2,I_4,I_5$ (cada uno con probabilidad $\dfrac{1}{2}e^{-\frac{1}{2} }$).
+
+                Para $I_3$: cualquier número (probabilidad total 1) - pero cuidado: el proceso total en $I_3$ es $\mathrm{Poisson}\left( \lambda=\tfrac{1}{2}  \right) $, probabilidad de cualquier número es 1 (sí).
+
+                Entonces, por independecia: \[
+                P=\left( \dfrac{1}{2}e^{-\frac{1}{2} } \right) ^4=\left( \dfrac{1}{2} \right) ^4e^{-2} =\boxed{\dfrac{1}{16}e^{-2} \approx 0.008458}
+                \] 
             \item \db{El cuarto avión de la mañana aterrice más de dos horas más tarde que el tercero.} 
+
+                Esto es $\tau_4>2$, donde $\tau_4$ es el tiempo entre la 3ª y 4ª llegada.
+
+                Por propiedad del proceso de Poisson, $\tau_4\sim \mathrm{Exp}(\lambda)$ e independiente de lo anterior. \[
+                    P(\tau_4>2)=e^{-\lambda\cdot 2}=\boxed{e^{-1}} 
+                \] 
             \item \db{El quinto avión de la mañana aterrice más de tres horas más tarde que el tercero.} 
+
+                Sea $T_3$ el tiempo de la 3ª llegada, $T_5$ el de la 5ª.
+
+                Queremos $T_5-T_3>3$.
+
+                Pero $T_5-T_3=\tau_4+\tau_5$, suma de dos exponenciales i.i.d. $\mathrm{Exp}(\lambda)$.
+
+                La suma de 2 exponenciales i.i.d. $\mathrm{Exp}(\lambda)$ es $\Gamma(2,\lambda)$.
+
+                Densidad: \[
+                \begin{array}{c}
+                    f(s)=\lambda^2se^{-\lambda s},\quad s>0\\
+                    P(\tau_4+\tau_5>3)=\int_{3}^{\infty} \lambda^2se^{-\lambda s}\mathrm{d}s=e^{-3\lambda} (1+3\lambda) 
+                \end{array}
+                \] 
+                Aquí $\lambda=\dfrac{1}{2}$: \[
+                P=e^{-\frac{3}{2} } \left( 1+\dfrac{3}{2} \right)=\dfrac{5}{2}e^{-\frac{3}{2} } 
+                \] 
         \end{enumerate}
     \item \lb{A la pista de aterrizaje de otro aeropuerto llegan vuelos nacionales e internacionales. Cada hora llegan de media 4 vuelos nacionales y 2 internacionales. Suponemos que ambos tipos de vuelos llegan a la pista de aterrizaje siguiendo procesos de Poisson independientes, y que empezamos a observar los aviones a las 8.00 de la mañana.} 
         \begin{enumerate}[label=\color{red}\textbf{\alph*)}]
             \item \db{Calcula la probabilidad de que el sexto avión del día aterrice más de media hora más tarde que el quinto avión del día.} 
+
+                "Más de media hora entre el 5º y el 6º" es exactamente: \[
+                P(\varepsilon_6>0.5),\quad \varepsilon_6\sim \mathrm{Exp}(6).
+                \] 
+                Por tanto, \[
+                    P(\varepsilon_6>0.5)=e^{-6\cdot 0.5}=\boxed{e^{-3}\approx 0.0498}
+                \] 
             \item \db{Calcula la probabilidad de que no llegue ningún avión durante la primera media hora y que el primer vuelo interancional del día llegue antes de una hora.} 
+                \begin{itemize}[label=\textbullet]
+                    \item "No llega ningún avión en la primera media hora", equivale a: \[
+                        N_{0.5}=0 \iff N_{0.5}^{(N)}=0\text{ y }N_{0.5}^{(I)}=0.
+                    \] 
+                \item "El primer internacional llega antes de 1 hora" y además ya sabemos que en $[0,0.5]$ no llegó ninguno, así que necesitamos  \textbf{al menos un internacional} en $(0.5,1]$:  \[
+                        N_1^{(I)}-N_{0.5}^{(I)}\ge 1.
+                \]
+                \end{itemize}
+                Por independencia enrte procesos nacional/internacional y por independencia de incrementos en intervalos disjuntos: \[
+                P=P(N_{0.5}^{(N)}=0)\cdot P(N_{0.5}^{(I)}=0,N_1^{(I)}-N_{0.5}^{(I)}\ge 1)
+                \] y el segundo factor se separa en: \[
+                P(N_{0.5}^{(I)}=0)\cdot P(N_1^{(I)}-N_{0.5}^{(I)}\ge 1).
+                \] 
+                Como $N_t\sim \mathrm{Poisson}(\omega t)$ :
+                \begin{itemize}[label=\textbullet]
+                    \item $N_{0.5}^{(N)}\sim \mathrm{Poisson}(4\cdot 0.5)=\mathrm{Poisson}(2)\implies P(N_{0.5}^{(N)}=0)=e^{-2}$.
+                    \item $N_{0.5}^{(I)}\sim \mathrm{Poisson}(2\cdot 0.5)=\mathrm{Poisson}(1)\implies P(N_{0.5}^{(I)}=0)=e^{-1}$.
+                    \item $N_1^{(I)}-N_{0.5}^{(I)}\sim \mathrm{Poisson}(1)\implies P(\ge 1)=1-P(0)=1-e^{-1} $
+                \end{itemize}
+                Luego:
+                \[
+                P=e^{-2}\cdot e^{-1}\cdot (1-e^{-1} )=e^{-3}(1-e^{-1} )\approx 0.03147.   
+                \] 
+
             \item \db{Calcula la probabilidad de que durante la primera hora hayan aterrizado exactamente 3 internacionales si han aterrizado un total de 7 aviones durante el mismo periodo de una hora.} 
+
+                En 1 hora: \[
+                N_1^{(I)}\sim \mathrm{Poisson}(2),\quad N_1^{(N)}\sim \mathrm{Poisson}(4),
+                \] independientes, y $N_1=N_1^{(I)}+N_1^{(N)}\sim \mathrm{Poisson}(6)$ (superposición / suma de Poisson).
+
+                Entonces: \[
+                P(N_1^{I}=3|N_1=7)=\dfrac{P(N_1^{(I)}=3,N_1^{(N)}=4)}{P(N_1=7)}=\dfrac{P(N_1^{(I)}=3)P(N_1^{(N)}=4)}{P(N_1=7)},
+                \] usando independencia y la fórmula de la Poisson $P(X=k)=\dfrac{\omega^ke^{-\omega} }{k!}$.
+
+                Cálculo: \[
+                \dfrac{\left( e^{-2} \frac{2^3}{3!}  \right) \left( e^{-4} \frac{4^4}{4!}  \right) }{e^{-6} \frac{6^7}{7!} }=\left( \dfrac{2^3}{3!} \right) \left( \dfrac{4^4}{3!} \right) \left( \dfrac{7!}{6^7} \right) =\dfrac{560}{2187}\approx 0.2561.
+                \] 
         \end{enumerate}
     \item \lb{A una cafetería en la frontera entre Suiza y Alemania llegan de media 3 clientes cada hora, siguiendo un proceso de Poisson. Se sabe que $\dfrac{2}{3}$ de los clientes que llegan son suizos y $\dfrac{1}{3}$ son alemanes, no habiendo nunca clientes de otras nacionalidades.} 
         \begin{enumerate}[label=\color{red}\textbf{\alph*)}]
             \item \db{Calcular la probabilidad de que en una hora hayan llegado exactamente dos clientes y en dos horas exactamente 5 clientes.} 
+
+                El suceso "en 1 hora llegan 2" y "en 2 horas llegan 5" equivale a: \[
+                N_1=2\text{ y }(N_2-N_1)=3.
+                \]
+                Como $(1,2]$ y  $[0,1]$ son intervalos disjuntos,  $N_1$ y $N_2-N_1$ son independientes.
+
+                Además \[
+                N_1\sim \mathrm{Poisson}(3),\quad N_2-N_1\sim \mathrm{Poisson}(3).
+                \] 
+                Luego, usando $P(X=k)=\dfrac{\omega^ke^{-\omega} }{k!}:$ \[
+                    P(N_1=2,N_2=5)=P(N_1=2)P(N_2-N_1=3)=\left( e^{-3} \dfrac{3^2}{2!} \right) \left( e^{-3} \dfrac{3^3}{3!} \right) =e^{-6} \dfrac{3^5}{2!3!}.
+                \] 
+                Numéricamente: \[
+                e^{-6} \dfrac{3^5}{12}=\dfrac{81}{4}e^{-6} \approx 0.05019.
+                \] 
             \item \db{Supongamos que en una hora llegan dos clientes. Calcular la probabilidad de que exactamente uno de ellos sea suizo.} 
+
+                Por separación \textbf{(thinning)}: si cada llegada es suiza con probabilidad $p=\dfrac{2}{3}$ y alemana con probabilidad $1-p=\dfrac{1}{3}$, entonces los procesos de suizos y alemanes son Poisson independientes con tasas $\omega p$ y $\omega(1-p)$.
+
+                Aquí: \[
+                \omega_S=3\cdot \dfrac{2}{3}=2,\quad \omega_A=3\cdot \dfrac{1}{3}=1,
+                \] 
+                y en una hora: \[
+                N_1^{(S)}\sim \mathrm{Poisson}(2), \quad N_1^{(A)}\sim \mathrm{Poisson}(1),
+                \]independientes.
+
+                Además $N_1=N_1^{(S)}+N_1^{(4)}$.
+
+                Buscamos: \[
+                P(N_1^{(S)}=1|N_1=2)=\dfrac{P(N_1^{(S)}=1,N_1^{(A)}=1)}{P(N_1=2)}=\dfrac{P(N_1^{(S)}=1)P(N_1^{(A)}=1)}{P(N_1=2)}.
+                \] 
+                Usando la fórmula de Poisson: \[
+                   \begin{array}{c}
+                   P(N_1^{(S)}=1)=e^{-2} \dfrac{2^1}{1!}=2e^{-2} ,\quad P(N_1^{(A)}=1)=e^{-1} \dfrac{1^1}{1!}=e^{-1} ,\\
+                   P(N_1=2)=e^{-3} \dfrac{3^2}{2!}=e^{-3} \dfrac{9}{2}.
+                   \end{array} 
+                \] 
+                Entonces: \[
+                P(N_1^{(S)}=1|N_1=2)=\dfrac{(2e^{-2} )(e^{-1} )}{e^{-3} \left( \frac{9}{2}  \right) }=\dfrac{2}{\frac{9}{2} }=\dfrac{4}{9}
+                \] 
         \end{enumerate}
     \item \lb{Dos equipos, A y B, juegan un partido de fútbol. El número de goles anotados por el Equipo A sigue un proceso de Poisson $N_t^1$ con tasa  $\lambda_1=0.02$ goles por minuto, y el número de goles anotados por el Equipo B sigue un proceso de Poisson $N_t^2$ con tasa $\lambda_2=0.03$ goles por minuto. Se asume que los dos procesos son independientes. Sea $N_t$ el número total de goles hasta el instante  $t$, incluyendo dicho instante. El partido dura 90 minutos.} 
+
+        Sea $N_t^1$ el nº de goles de  $A$ y  $N_t^2$ el nº de goles de $B$ hasta el minuto  $t$. Por hipótesis son procesos de Poisson independientes con tasas  $\lambda_1=0.02$ y $\lambda_2=0.03$ (goles/min). En un proceso de Poisson, $N_t\sim \mathrm{Poisson}(\omega t)$ y \[
+        P(N_t=k)=\dfrac{(\omega t)^ke^{-\omega t} }{k!}.
+        \] 
+        Además, por \textbf{superposición}, el total $N_t=N_t^1+N_t^2$ es un proceso de Poisson con tasa $\lambda_1+\lambda_2$.
+
+        En 90 minutos:
+        \[
+        \begin{array}{c}
+            N_{90}^1\sim \mathrm{Poisson}(0.02\cdot 90)=\mathrm{Poisson}(1.8),\quad N_{90}^2\sim \mathrm{Poisson}(0.03\cdot 90)=\mathrm{Poisson}(2.7),\\
+            N_{90}\sim \mathrm{Poisson}((0.02+0.03)\cdot 90)=\mathrm{Poisson}(4.5).
+        \end{array}
+        \] 
+
         \begin{enumerate}[label=\color{red}\textbf{\alph*)}]
             \item \db{Probabilidad de que el partido acabe en 0-0.} 
+
+                $$P(N_{90}^1=0,N_{90}^2=0)=P(N_{90}^1=0)P(N_{90}^2=0)=e^{-1.8}e^{-2.7}=e^{-4.5}\approx 0.01111.$$
+
+                (Usamos independencia y la fórmula de Poisson).
             \item \db{Probabilidad de que al menos haya un total de dos goles en el partido.} 
+
+                Con $N_{90}\sim \mathrm{Poisson}(4.5)$ : \[
+                P(N_{90}\ge 2)=1-P(N_{90}=0)-P(N_{90}=1)=1-e^{-4.5}-4.5e^{-4.5}=1-e^{-4.5}(1+4.5)\approx 0.9389.   
+                \] 
             \item \db{Probabilidad de que el partido acabe en 1-2.} 
+
+                \[
+                P(N_{90}^1=1,N_{90}^2=2)=P(N_{90}^1=1)P(N_{90}^2=2)=\left( e^{-1.8} \dfrac{1.8^1}{1!} \right) \left( e^{-2.7} \dfrac{2.7^2}{2!} \right) \approx 0.07289.
+                \] 
             \item \db{Probabilidad de que el partido acabe en empate.} 
+
+                Empate $\iff N_{90}^1=N_{90}^2$. Por independencia:
+                \[
+                \begin{aligned}
+                    P(\text{empate})&= \sum_{k=0}^{\infty} P(N_{90}^1=k)P(N_{90}^2=k)=\sum_{k=0}^{\infty} \left( e^{-1.8} \dfrac{1.8^k}{k!} \right) \left( e^{-2.7}\dfrac{2.7^k}{k!}  \right)  \\
+                    &= e^{-4.5} \sum_{k=0}^{\infty} \dfrac{(1.8\cdot 2.7)^k}{(k!)^2}=e^{-4.5}\sum_{k=0}^{\infty} \dfrac{(4.86)^k}{(k!)^2}\approx 0.17928.\\
+                \end{aligned}
+                \] 
         \end{enumerate}
     \item \lb{Sean $(N_t^1)$ y  $(N_t^2)$ dos procesos de Poisson independientes con tasas $\lambda_1$ y $\lambda_2$, respectivamente. Consideremos el proceso $(N_t)_t$ donde  $N_t=N_t^1+N_t^2$. Demuestra que si $N_t=n$, entonces  $N_t^1$ sigue una distribución binomial  $\mathcal{B}\left( n,\dfrac{\lambda_1}{\lambda_1+\lambda_2} \right) $, es decir, \[
     P(N_t^1=k|N_t=n)=\dbinom{n}{k} \left( \dfrac{\lambda_1}{\lambda_1+\lambda_2} \right) ^k\left( 1-\dfrac{\lambda_1}{\lambda_1+\lambda_2} \right) ^{n-k}\text{ para }k\in \{0,1,2,\dots,n\}. 
     \] } 
+
+    Como $(N_1^1)$ y $(N_t^2)$ son procesos de Poisson con tasas $\lambda_1$ y $\lambda_2$, para cada $t>0$ se tiene  \[
+    N_t^1\sim \mathrm{Poisson}(\lambda_1 t),\quad N_t^2\sim \mathrm{Poisson}(\lambda_2 t),
+    \] y además son independientes.
+
+    Definimos $N_t=N_t^1+N_t^2$. Por \textbf{superposición} (suma de procesos de Poisson independientes), $(N_t)$ es un proceso de Poisson con tasa  $\lambda_1+\lambda_2$, y en particular \[
+    N_t\sim \mathrm{Poisson}\left( (\lambda_1+\lambda_2)t \right).
+    \]
+    Ahora, para $n\in \{0,1,2,\dots\} $ y $k\in \{0,1,\dots,n\} $, \[
+    P(N_t^1=k|N_t=n)=\dfrac{P(N_t^1=k,N_t=n)}{P(N_t=n)}=\dfrac{P(N_t^1=k,N_t^2=n-k)}{P(N_t=n)}.
+    \] 
+    Por independencia de $N_t^1$ y $N_t^2$, \[
+    P(N_t^1=k,N_t^2=n-k)=P(N_t^1=k)P(N_t^2=n-k).
+    \] 
+    Usando la función puntual de la Poisson $P(X=k)=\dfrac{\omega^ke^{-\omega} }{k!}$: \[
+    P(N_t^1=k)=e^{-\lambda_1t}\dfrac{(\lambda_1t)^k}{k!}, \quad P(N_t^2=n-k)=e^{-\lambda_2t}\dfrac{(\lambda_2t)^{n-k}}{(n-k)!}. 
+    \] 
+    Por tanto, \[
+    P(N_t^1=k,N_t^2=n-k)=e^{-(\lambda_1+\lambda_2)t}\dfrac{(\lambda_1t)^k}{k!}\dfrac{(\lambda_2t)^{n-k}}{(n-k)!} 
+    \] 
+    Además, como $N_t\sim \mathrm{Poisson}((\lambda_1+\lambda_2)t)$, \[
+    P(N_t=n)=e^{-(\lambda_1+\lambda_2)t}\dfrac{((\lambda_1+\lambda_2)t)^n}{n!}. 
+    \] 
+    Sustituyendo en la probabilidad condicional y simplificando: \[
+    P(N_t^1=k|N_t=n)=\dfrac{e^{-(\lambda_1+\lambda_2)t}\frac{(\lambda_1t)^k}{k!} \frac{(\lambda_2t)^{n-k}}{(n-k)!}  }{e^{-(\lambda_1+\lambda_2)t}\frac{\left( (\lambda_1+\lambda_2)t \right) ^n}{n!}  }=\dfrac{n!}{k!(n-k)!}\dfrac{\lambda_1^k\lambda_2^{n-k}}{(\lambda_1+\lambda_2)^n}.
+    \] 
+    Es decir, \[
+    P(N_t^1=k|N_t=n)=\dbinom{n}{k} \left( \dfrac{\lambda_1}{\lambda_1+\lambda_2} \right) ^k\left( \dfrac{\lambda_2}{\lambda_1+\lambda_2} \right) ^{n-k}=\dbinom{n}{k} \left( \dfrac{\lambda_1}{\lambda_1+\lambda_2} \right) ^k\left( 1-\dfrac{\lambda_1}{\lambda_1+\lambda_2} \right) ^{n-k}.
+    \] 
+    Concluimos que, condicionado a $N_t=n$, la variable $N_t^1$ sigue una binomial  \[
+    N_t^1|(N_t=n)\sim \mathcal{B}\left( n,\dfrac{\lambda_1}{\lambda_1+\lambda_2} \right) ,
+    \] tal como se quería demostrar.
+
     \item \lb{En el problema 8, encuentra la probabilidad de que el equipo B meta gol el primero. Esto es, encuentra la probabilidad de que al menos se anote un gol en el partido y que el primero en marcar sea el equipo B.} 
+
+        Sea $\varepsilon_1^{(A)}$ el tiempo (en minutos) hasta el primer gol de $A$ y  $\varepsilon_1^{(B)}$ el tiempo hasta el primer gol de $B$.
+
+        Por la caracterización de los procesos de Poisson mediante tiempos entre llegadas, el tiempo hsata la primera llegada (primer gol) en un proceso de Poisson con tasa $\omega$ es exponencial $\mathrm{Exp}(\omega)$, y estos tiempos son independientes si los procesos lo son.
+
+        Así, \[
+        \varepsilon_1^{(A)}\sim \mathrm{Exp}(\lambda_1=0.02),\quad \varepsilon_1^{(B)}\sim \mathrm{Exp}(\lambda_2=0.03),
+        \] independientes.
+
+        El evento pedido es: \[
+        \{\text{$B$ marca primero y hay al menos un gol en el partido}\}=\{\varepsilon_1^{B}<\varepsilon_1^{(A)},\varepsilon_1^{(B)}\le 90\}.  
+        \] 
+        Usamos que para $\varepsilon\sim \mathrm{Exp}(\omega)$ :
+        \begin{itemize}[label=\textbullet]
+            \item $P(\varepsilon>t)=e^{-\omega t}$ 
+            \item densidad $f(t)=\omega e^{-\omega t},\,t>0$.
+        \end{itemize}
+        Entonces, por independencia:
+        \[
+        \begin{aligned}
+            P(\varepsilon_1^{(B)}<\varepsilon_1^{(A)},\varepsilon_1^{(B)}\le 90)&= \int_{0}^{90} P(\varepsilon_1^{(A)}>t)f_{\varepsilon_1^{(B)}}(t)\dt\\
+            &= \int_{0}^{90} e^{-\lambda_1 t}(\lambda_2e^{-\lambda_2t} )\dt=\lambda_2\int_{0}^{90}e^{-(\lambda_1+\lambda_2)t} \dt=\dfrac{\lambda_2}{\lambda_1+\lambda_2}\left( 1-e^{-(\lambda_1+\lambda_2)90}  \right) . \\
+        \end{aligned}
+        \] 
+        Sustituyendo $\lambda_1=0.02,\lambda_2=0.03,\lambda_1+\lambda_2=0.05$: \[
+        P=\dfrac{0.03}{0.05}\left( 1-e^{-0.05\cdot 90}  \right) =\boxed{0.6(1-e^{-4.5} )\approx 0.59333}
+        \] 
     \item \lb{Una fábrica opera con una máquina que falla de manera recurrente y se repara inmediatamente. El tiempo (en horas) de funcionamiento de la máquina hasta el fallo sigue una distribución $\mathrm{Exp}\left( \dfrac{1}{5} \right) $. Cada vez que la máquina falla, se repara. El tiempo de reparación sigue una distribución exponencial de media 10 minutos.} 
         \begin{enumerate}[label=\color{red}\textbf{\alph*)}]
             \item \db{Calcula la tasa de fallos por hora en el largo plazo.} 
+
+                La máquina funciona un tiempo $\vartheta$, falla y tarda un tiempo  $\varpi$ en repararse; el tiempo de ciclo es  \[
+                \varepsilon=\vartheta+\varpi,
+                \] y el proceso $(N_t)$ cuenta el número de ciclos completos (equivalente al número de fallos, uno por ciclo) hasta el tiempo  $t$.
+
+                Si  $(N_t)$ es un proceso de renovación con tiempos entre llegadas $\varepsilon_i$ i.i.d. y $E(\varepsilon_i)=\mu$, entonces \[
+                    \dfrac{N_t}{t}\longrightarrow \dfrac{1}{\mu}\text{ cuando }t\to \infty,
+                \] es decir, en el largo plazo producen $\dfrac{1}{\mu}$ ciclos (fallos) por hora.
+
+                Aquí:
+                \begin{itemize}[label=\textbullet]
+                    \item $\vartheta\sim \mathrm{Exp}\left( \dfrac{1}{5} \right) $ (por hora), luego $E(\vartheta)=\dfrac{1}{\frac{1}{5} }=5$ horas.
+                    \item La reparación tiene media 10 minutos $=\dfrac{10}{60}=\dfrac{1}{6}$ horas. Para una exponencial $\mathrm{Exp}(\omega),E(\varepsilon)=\dfrac{1}{\omega}$.
+                \end{itemize}
+
+                Por tanto, el tiempo medio de ciclo es \[
+                \mu=E(\varepsilon)=E(\vartheta)+E(\varpi)=5+\dfrac{1}{6}=\dfrac{31}{6}\text{ horas. }
+                \] 
+
+                Luego, la tasa de fallos por hora en el largo plazo es \[
+                \dfrac{1}{\mu}=\dfrac{1}{\frac{31}{6} }=\dfrac{6}{31}\approx 0.19355\text{ fallos/hora. }
+                \] 
             \item \db{Simula 10 trayectorias de dicho proceso en \textbf{\texttt{R}}. } 
+
+<<fig=TRUE, fig.width=8, fig.height=5, out.width='0.7\\textwidth', fig.align='center'>>=
+                
+# Simulación de 10 trayectorias del proceso de renovación:
+# ciclo = tiempo hasta fallo + tiempo de reparación
+
+# Parámetros del problema (unidades: horas)
+lambda_fallo  <- 1/5   # tasa de fallo (por hora); media 5 horas
+lambda_repar  <- 6     # tasa de reparación (por hora); media 1/6 horas = 10 minutos
+Tmax          <- 200   # horizonte de observación (horas)
+n_tray        <- 10    # número de trayectorias
+
+# Función para simular una trayectoria del proceso N_t
+sim_trayectoria <- function(Tmax, lambda_fallo, lambda_repar) {
+  tau <- NULL
+  i <- 1
+  while (sum(tau) < Tmax) {
+    alpha <- rexp(n = 1, rate = lambda_fallo)  # tiempo de funcionamiento
+    beta  <- rexp(n = 1, rate = lambda_repar)  # tiempo de reparación
+    tau[i] <- alpha + beta                     # tiempo de ciclo
+    i <- i + 1
+  }
+  tiempos <- c(0, cumsum(tau))
+  N <- 0:length(tau)
+  list(tiempos = tiempos, N = N)
+}
+
+set.seed(123)
+
+# Simulamos las 10 trayectorias
+tray <- vector("list", n_tray)
+for (j in 1:n_tray) {
+  tray[[j]] <- sim_trayectoria(Tmax, lambda_fallo, lambda_repar)
+}
+
+# Dibujamos las 10 trayectorias (funciones escalonadas)
+plot(0, 0, type = "n",
+     xlim = c(0, Tmax),
+     ylim = c(0, max(sapply(tray, function(z) max(z$N)))),
+     xlab = "Tiempo (horas)",
+     ylab = "N_t (nº de fallos / ciclos)",
+     main = "10 trayectorias del proceso de fallos-reparación")
+
+for (j in 1:n_tray) {
+  lines(tray[[j]]$tiempos, tray[[j]]$N, type = "s", col = j)
+}
+
+legend("topleft", legend = paste("Tray", 1:n_tray), col = 1:n_tray, lty = 1, cex = 0.8)
+@
         \end{enumerate}
     \item \lb{En una carrera de Fórmula 1 un coche entra en boxes de manera recurrente. El tiempo (en horas) que circula hasta entrar en boxes sigue una distribución $\mathrm{Exp}(0.5)$. El proceso de puesta a punto consta de las siguientes fases:}
         \begin{itemize}[label=\color{lightblue}\textbullet]
@@ -72,6 +761,84 @@
         \lb{Responde a las siguientes preguntas:} 
         \begin{enumerate}[label=\color{red}\textbf{\alph*)}]
             \item \db{Calcula la tasa de entradas a boxes por hora en el largo plazo.} 
+
+                Modelos las \textbf{entradas a boxes} como un \textbf{proceso de renovación}: cada "ciclo" es \[
+                    \varepsilon_i=\underbrace{\text{tiempo circulando hasta entrada en boxes}}_{X_i}+\underbrace{\text{tiempo total en boxes}}_{S_i},
+                \]  
+                y $N_t$ cuenta cuántos ciclos (entradas) han ocurrido hasta el tiempo $t$.
+
+                Por la  \textbf{ley de los grandes números para procesos de renovación}, si $\mu=E(\varepsilon_i)$, entonces \[
+                \dfrac{N_t}{t}\longrightarrow \dfrac{1}{\mu}\qquad (t \to \infty),
+                \]es decir, la \textbf{tasa de entradas por hora en el largo plazo} es $\dfrac{1}{\mu}$.
+
+                Calculamos $\mu$:
+                \begin{itemize}[label=\textbullet]
+                    \item $X_i\sim \mathrm{Exp}(0.5)$ (en horas) $\implies E(X_i)=\dfrac{1}{0.5}=2$ horas.
+                    \item Tiempo en boxes $S_i$ (pasamos todo a horas):
+                         \begin{itemize}[label=\textbullet]
+                            \item Repostaje: 2 min = 2/60 h.
+                            \item Neumáticos: exponencial con  \textbf{media 3 min} = 3/60 h.
+                            \item Ajustes: uniforme $(0,8)$ min $\implies$ media $\dfrac{0+8}{2}=4\text{ min }=\dfrac{4}{60}\text{ h. }$
+                        \end{itemize}
+                \end{itemize}
+                Así, \[
+                E(S_i)=\dfrac{2+3+4}{60}=\dfrac{9}{60}=0.15\text{ h,}\qquad \mu=E(\varepsilon_i)=E(X_i)+E(S_i)=2+0.15=2.15=\dfrac{43}{20}\text{ h.}
+                \] 
+                Por tanto, la tasa límite es \[
+                    \boxed{\dfrac{1}{\mu}=\dfrac{1}{43 / 20}=\dfrac{20}{43}\approx 0.4651\text{ entradas/hora}}
+                \] 
             \item \db{Simula 10 trayectorias de dicho proceso en \textbf{\texttt{R}}.} 
+
+<<fig=TRUE, fig.width=8, fig.height=5, out.width='0.7\\textwidth', fig.align='center'>>=
+# 10 trayectorias de un proceso de renovación (entradas a boxes)
+
+# Parámetros (horas)
+lambda_drive <- 0.5        # Exp(0.5) para el tiempo circulando (por hora)
+refuel_fixed <- 2/60       # 2 minutos en horas
+
+# Cambio de neumáticos: media 3 minutos = 3/60 horas -> tasa = 1/media = 20 por hora
+lambda_tires <- 20
+
+# Ajustes mecánicos: Uniforme(0,8) minutos -> en horas
+mech_min <- 0/60
+mech_max <- 8/60
+
+Tmax   <- 50    # horizonte (horas)
+n_tray <- 10    # nº trayectorias
+
+sim_trayectoria <- function(Tmax) {
+  tau <- NULL
+  i <- 1
+  while (sum(tau) < Tmax) {
+    drive <- rexp(1, rate = lambda_drive)      # horas
+    tires <- rexp(1, rate = lambda_tires)      # horas
+    mech  <- runif(1, min = mech_min, max = mech_max)  # horas
+    tau[i] <- drive + refuel_fixed + tires + mech
+    i <- i + 1
+  }
+  tiempos <- c(0, cumsum(tau))
+  N <- 0:length(tau)
+  list(tiempos = tiempos, N = N)
+}
+
+set.seed(123)
+
+tray <- vector("list", n_tray)
+for (j in 1:n_tray) tray[[j]] <- sim_trayectoria(Tmax)
+
+# Límite superior del eje Y
+ymax <- max(sapply(tray, function(z) max(z$N)))
+
+# Plot conjunto
+plot(0, 0, type = "n",
+     xlim = c(0, Tmax), ylim = c(0, ymax),
+     xlab = "Tiempo (horas)", ylab = "N_t (entradas a boxes)",
+     main = "10 trayectorias del proceso de entradas a boxes")
+
+for (j in 1:n_tray) {
+  lines(tray[[j]]$tiempos, tray[[j]]$N, type = "s", col = j)
+}
+legend("topleft", legend = paste("Tray", 1:n_tray), col = 1:n_tray, lty = 1, cex = 0.8)
+@
         \end{enumerate}
 \end{enumerate}

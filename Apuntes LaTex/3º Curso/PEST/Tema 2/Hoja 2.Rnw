@@ -24,12 +24,102 @@
         \lb{Supongamos que $\mathbb{P}(X_1=1)=\dfrac{1}{2}$ y que $\mathbb{P}(X_1=2)=\dfrac{1}{4}$.}
         \begin{enumerate}[label=\color{red}\textbf{\alph*)}]
             \item \db{Encuentra la matriz de transición.} 
+
+                \[
+                P=\begin{bmatrix} 
+                    \tfrac{1}{4} & \tfrac{3}{4} & 0\\
+                    \tfrac{1}{2} & 0 & \tfrac{1}{2} \\
+                    \tfrac{1}{2} & \tfrac{1}{4} & \tfrac{1}{4} \\
+                \end{bmatrix} 
+                \] 
             \item \db{Determina las clases irreducibles de la cadena y clasifica los estados.} 
-                
+                \begin{itemize}[label=\textbullet]
+                    \item \textbf{Accesibilidad y comunicación:}
+                        \begin{itemize}[label=\textbullet]
+                            \item Desde el estado 1: puede ir a 2 directamente, y a 3 vía 2.
+                            \item Desde el estado 2: puede ir a 1 y a 3 directamente.
+                            \item Desde el estado 3: puede ir a 1 y a 2 directamente.
+
+                                Todos los estados se comunican entre sí $(1\leftrightarrow 2, 2\leftrightarrow 3, 1\leftrightarrow 3)$.
+                        \end{itemize}
+                    \item \textbf{Clase irreducible:}
+
+                        Hay una única clase: $C=\{1,2,3\}$. La cadena es \textbf{irreducible}.
+                    \item \textbf{Clasificación:}
+
+                        En una cadena finita e irreducible, todos los estados son \textbf{recurrentes}. Ningún estado es absorvente (puesto que $p_{ii}\neq 1$ para todo $i$). 
+                \end{itemize}
             \item \db{Determina el periodo de cada estado de la cadena.} 
+
+                \begin{itemize}[label=\textbullet]
+                    \item Dado que la cadena es irreducible, todos los estados tienen el mismo periodo.
+                    \item El estado 1 tiene $p_{1,1}=\dfrac{1}{4}>0$, por lo que puede regresar a sí mismo en un paso. El máximo común divisor de los tiempos de retorno posibles es 1.
+                    \item \textbf{Conclusión:} Todos los estados tienen periodo 1. La cadena es \textbf{aperiódica}.  
+                \end{itemize}
             \item \db{Calcula $\mathbb{P}(X_1=3,X_2=2,X_3=1)$.} 
+                \[
+                \mathbb{P}(X_1=3,X_2=2,X_3=1)=\mathbb{P}(X_1=3)\cdot p_{3,2}\cdot p_{2,1}=\dfrac{1}{4}\cdot \dfrac{1}{4}\cdot \dfrac{1}{2}=\dfrac{1}{32}
+                \] 
+                \begin{itemize}[label=\textbullet]
+                    \item $\mathbb{P}(X_1=3)=1-\mathbb{P}(X_1=1)-\mathbb{P}(X_1=2)=1-\dfrac{1}{2}-\dfrac{1}{4}=\dfrac{1}{4}$ 
+                    \item $p_{3,2}=\dfrac{1}{4}$ (de la matriz, fila 3, columna 2)
+                    \item $p_{2,1}=\dfrac{1}{2}$ (de la matriz, fila 2, columna 1)
+                \end{itemize}
             \item \db{Calcula $\mathbb{P}(X_1=3,X_3=1)$} 
+
+                Aquí aplicamos la \textbf{probabilidad de transición de $n$ pasos}: \[
+                p_{i,j}^{(n)}=\mathbb{P}(X_n=j|X_0=i)
+                \]  
+            En este caso, estamos condicionando a $X_1=3$, no a $X_0$. Sin embargo, por la \textbf{propiedad de Markov y la homogeneidad}, podemos desplazar el tiempo: \[
+            \mathbb{P}(X_3=1|X_1=3)=\mathbb{P}(X_2=1|X_0=3)=p_{3,1}^{(2)}
+            \] 
+            Por tanto: \[
+                \begin{array}{c}
+                    \mathbb{P}(X_1=3,X_3=1)=\mathbb{P}(X_1=3)\cdot P(X_3=1|X_1=3)=\mathbb{P}(X_1=3)\cdot p_{3,1}^{(2)}=\dfrac{1}{4}\cdot \dfrac{3}{8}=\dfrac{3}{32}\\
+                    P^2=P\cdot P=\begin{bmatrix} 
+                    \tfrac{1}{4} & \tfrac{3}{4} & 0\\
+                    \tfrac{1}{2} & 0 & \tfrac{1}{2} \\
+                    \tfrac{1}{2} & \tfrac{1}{4} & \tfrac{1}{4} \\
+                \end{bmatrix}\cdot \begin{bmatrix} 
+                    \tfrac{1}{4} & \tfrac{3}{4} & 0\\
+                    \tfrac{1}{2} & 0 & \tfrac{1}{2} \\
+                    \tfrac{1}{2} & \tfrac{1}{4} & \tfrac{1}{4} \\
+                \end{bmatrix}=\begin{bmatrix} 
+                    \tfrac{7}{16} & \tfrac{3}{16} & \tfrac{3}{8}\\
+                    \tfrac{3}{8} & \tfrac{1}{2} & \tfrac{1}{8} \\
+                    \tfrac{3}{8} & \tfrac{7}{16} & \tfrac{3}{16} \\ 
+                \end{bmatrix} 
+                \end{array}
+            \] 
             \item \db{Supongamos que las probabilidades iniciales de los estados 2 y 3 son iguales, mientras que la del estado 1 es el doble de la del estado 3. Determina cuál será la probabilidad de cada estado en dos pasos, es decir, para $n=2$.} 
+
+                Sean:
+                \begin{itemize}[label=\textbullet]
+                    \item $a=\mathbb{P}(X_0=2)=\mathbb{P}(X_0=3)$ 
+                    \item $\mathbb{P}(X_0=1)=2a$
+                \end{itemize}
+                Entonces: \[
+                2a+a+a=4a=1\implies a=\dfrac{1}{4}
+                \] 
+                Vector de probabilidades iniciales: \[
+                \pi^{(0)}=\left( \dfrac{1}{2},\dfrac{1}{4},\dfrac{1}{4} \right) 
+                \] 
+                Para $n=2$:  \[
+                \pi^{(2)}=\pi^{(0)}\cdot P^2
+                \] 
+                Con $P^2=\begin{bmatrix} 
+                    \tfrac{7}{16} & \tfrac{3}{16} & \tfrac{3}{8}\\
+                    \tfrac{3}{8} & \tfrac{1}{2} & \tfrac{1}{8} \\
+                    \tfrac{3}{8} & \tfrac{7}{16} & \tfrac{3}{16} \\ 
+                \end{bmatrix}$, se obtiene:
+                \begin{itemize}[label=\textbullet]
+                    \item $\pi_1^{(2)}=\dfrac{1}{2}\cdot \dfrac{7}{16}+\dfrac{1}{4}\cdot \dfrac{3}{8}\cdot \dfrac{1}{4}\cdot \dfrac{3}{8}=\dfrac{13}{32}$ 
+                    \item $\pi_2^{(2)}=\dfrac{1}{2}\cdot \dfrac{3}{16}+\dfrac{1}{4}\cdot \dfrac{1}{2}+\dfrac{1}{4}\cdot \dfrac{7}{16}=\dfrac{32}{64}$ 
+                    \item $\pi_3^{(2)}=\dfrac{1}{2}\cdot \dfrac{3}{8}+\dfrac{1}{4}\cdot \dfrac{1}{8}+\dfrac{1}{4}\cdot \dfrac{3}{16}=\dfrac{17}{64}$
+                \end{itemize}
+                Por lo tanto: \[
+                \pi^{(2)}=\left( \dfrac{13}{32},\dfrac{21}{64},\dfrac{17}{64} \right) 
+                \] 
         \end{enumerate}
     \item \lb{Considera la cadena $(X_n)_{n=0,1,2,\dots}$ con espacio de estados $\mathcal{S}=\{1,2,3\} $ y matriz de transición \[
     P=\begin{bmatrix} 
@@ -40,11 +130,106 @@
     \] } 
     \begin{enumerate}[label=\color{red}\textbf{\alph*)}]
         \item \db{Dibuja el grafo de dicha cadena.} 
+            \begin{center}
+            \begin{tikzpicture}[
+                state/.style={circle,draw,font=\sffamily\large\bfseries},
+                >=stealth
+            ]
+                \node[state] (1) at (0,0) {1};
+                \node[state] (2) at (4,0) {2};
+                \node[state] (3) at (2,-2) {3};
+                \draw[->] (1) to[in=225, out=135, looseness=10] node[midway, left] {$\tfrac{1}{2} $} (1);
+                \draw[->] (1) to[bend left=20] node[midway, above] {$\tfrac{1}{4} $} (2);
+                \draw[->] (1) to[bend right=20] node[midway, below] {$\tfrac{1}{4} $} (3);
+                \draw[->] (2) to[bend left=20] node[midway, above] {$\tfrac{1}{3} $} (1);
+                \draw[->] (2) to[bend left=20] node[midway, below] {$\tfrac{2}{3} $} (3);
+                \draw[->] (3) to[bend right=20] node[midway, below] {$\tfrac{1}{2} $} (1);
+                \draw[->] (3) to[bend left=20] node[midway, below] {$\tfrac{1}{2} $} (2);
+            \end{tikzpicture}
+        \end{center}
         \item \db{Determina las clases irreducibles de la cadena, clasifica los estados y calcula su periodo.} 
+
+            \textbf{Accesibilidad:}
+            \begin{itemize}[label=\textbullet]
+                \item Desde $1\to 2$ y $1\to 3$.
+                \item Desde $2\to 1$ y $2\to 3$.
+                \item Desde $3\to 1$ y $3\to 2$.
+
+                    Además, todos pueden volver a sí mismos (excepto 2, que no tiene lazo directo, pero puede volver a 2 pasando por otros estados).
+            \end{itemize}
+            \textbf{Comunicación:}
+
+            Se puede ver que:
+            \begin{itemize}[label=\textbullet]
+                \item $1\to 2$ (directo), $2\to 1$ (directo) $\implies 1\leftrightarrow 2$.
+                \item $1\to 3$ (directo), $3\to 1$ (directo) $\implies 1\leftrightarrow 3$.
+                \item $2\to 3$ (directo), $3\to 2$ (directo) $\implies 2\leftrightarrow 3$.
+            \end{itemize}
+            Todo se comunican entre sí: \textbf{una única clase irreducible $C=\{1,2,3\}. $} 
+
+            \textbf{Clasificación:}
+
+            En una cadena finita e irreducible, todos los estados son \textbf{recurrentes}.
+
+            \textbf{Periodo:}
+            \begin{itemize}[label=\textbullet]
+                \item Estado 1: $p_{1,1}=\dfrac{1}{2}>0$, puede volver en 1 paso $\implies$ máximo común divisor de los tiempos de retorno posibles es 1.
+                \item Como la cadena es irreducible, todos tienen el mismo periodo $\implies$ Periodo $=1$ (cadena \textbf{aperiódica}).
+            \end{itemize}
         \item \db{Sabiendo que \[
         \mathbb{P}(X_1=1)=\mathbb{P}(X_1=2)=\dfrac{1}{4}.
         \] encuentra $\mathbb{P}(X_1=3,X_2=2,X_3=1)$.} 
+        
+        Sabemos que $\mathbb{P}(X_1=1)=\mathbb{P}(X_1=2)=\dfrac{1}{4}.$
+
+        Entonces: \[
+        \mathbb{P}(X_1=3)=1-\dfrac{1}{4}-\dfrac{1}{4}=\dfrac{1}{2}.
+        \] 
+        Usando la propiedad de Markov: \[
+        \mathbb{P}(X_1=3,X_2=2,X_3=1)=\mathbb{P}(X_1=3)\cdot p_{3,2}\cdot p_{2,1}=\dfrac{1}{2}\cdot \dfrac{1}{2}\cdot \dfrac{1}{3}=\dfrac{1}{12}.
+        \] 
         \item \db{Sabiendo que la cadena se inición en el estado 1, determina la probabilidad de que vuelva a ese estado en 3 pasos.} 
+
+            Nos piden:  \[
+                \mathbb{P}(X_3=1|X_0=1)=p_{1,1}^{(3)}=(P^3)_{1,1}.
+            \] 
+            Primero calculamos $P^2$ y luego $P^3$:
+
+            \textbf{Paso 1:} $P^2$ \[
+                P=\begin{bmatrix} 
+                    \tfrac{1}{2} & \tfrac{1}{4} & \tfrac{1}{4} \\
+                    \tfrac{1}{3} & 0 & \tfrac{2}{3} \\
+                    \tfrac{1}{2} & \tfrac{1}{2} & 0\\ 
+                \end{bmatrix} 
+            \]  
+            Multiplicamos $P\times P$:
+            \[
+            \begin{array}{l}
+                F_1\times C_1:\dfrac{1}{2}\cdot \dfrac{1}{2}+\dfrac{1}{4}\cdot \dfrac{1}{3}+\dfrac{1}{4}\cdot \dfrac{1}{2}=\dfrac{6}{24}+\dfrac{2}{24}+\dfrac{3}{24}=\dfrac{11}{24}\\
+                F_1\cdot C_2:\dfrac{1}{2}\cdot \dfrac{1}{4}+\dfrac{1}{4}\cdot 0+\dfrac{1}{4}\cdot \dfrac{1}{2}=\dfrac{1}{8}+\dfrac{1}{8}=\dfrac{1}{4}\\
+                F_1\cdot C_3:\dfrac{1}{2}\cdot \dfrac{1}{4}+\dfrac{1}{4}\cdot \dfrac{2}{3}+\dfrac{1}{4}\cdot 0=\dfrac{1}{8}+\dfrac{2}{12}=\dfrac{7}{24}\\ \\
+                F_2\cdot C_1:\dfrac{1}{3}\cdot \dfrac{1}{2}+0\cdot \dfrac{1}{3}+\dfrac{2}{3}\cdot \dfrac{1}{2}=\dfrac{1}{6}+0+\dfrac{1}{3}=\dfrac{1}{2}\\
+                F_2\cdot C_2:\dfrac{1}{3}\cdot \dfrac{1}{4}+0\cdot 0+\dfrac{2}{3}\cdot \dfrac{1}{2}=\dfrac{1}{12}+0+\dfrac{1}{3}=\dfrac{5}{12}\\
+                F_2\cdot C_3:\dfrac{1}{3}\cdot \dfrac{1}{4}+0\cdot \dfrac{2}{3}+\dfrac{2}{3}\cdot 0=\dfrac{1}{12}\\ \\
+                F_3\cdot C_1:\dfrac{1}{2}\cdot \dfrac{1}{2}+\dfrac{1}{2}\cdot \dfrac{1}{3}+ 0\cdot \dfrac{1}{2}=\dfrac{1}{4}+\dfrac{1}{6}=\dfrac{5}{12}\\
+                F_3\cdot C_2:\dfrac{1}{2}\cdot \dfrac{1}{4}+\dfrac{1}{2}\cdot 0+ 0\cdot \dfrac{1}{2}=\dfrac{1}{8}\\
+                F_3\cdot C_3:\dfrac{1}{2}\cdot \dfrac{1}{4}+\dfrac{1}{2}\cdot \dfrac{2}{3}+ 0\cdot 0=\dfrac{1}{8}+\dfrac{1}{3}=\dfrac{11}{24}
+            \end{array}
+            \] 
+            Por tanto: \[
+            P^2=\begin{bmatrix} 
+                \tfrac{11}{24} & \tfrac{1}{4} & \tfrac{17}{24} \\
+                \tfrac{1}{2} & \tfrac{5}{12} & \tfrac{1}{12} \\
+                \tfrac{5}{12} & \tfrac{3}{24} & \tfrac{11}{24} 
+            \end{bmatrix} 
+            \] 
+            \textbf{Paso 2:} $P^3=P^2\cdot P$ 
+
+            Calculamos solo la entrada $(1,1)$ de  $P^3$:
+
+            Fila 1 de $P^2\times C_1$ de $P$: \[
+            \dfrac{11}{24}\cdot \dfrac{1}{2}+\dfrac{1}{4}\cdot \dfrac{1}{3}+\dfrac{7}{24}\cdot \dfrac{1}{2}=\dfrac{11}{48}+\dfrac{1}{12}+\dfrac{7}{48}=\dfrac{11}{24}\implies p_{1,1}^{(3)}=\dfrac{11}{24}.
+            \] 
     \end{enumerate}
     \item \lb{Considera la cadena $(X_n)_{n=0,1,2,\dots}$ con espacio de estados $\mathcal{S}=\{1,2,3,4\} $ y grafo}
         \begin{center}
@@ -137,8 +322,111 @@
     \] } 
     \begin{enumerate}[label=\color{red}\textbf{\alph*)}]
         \item \db{Dibuja el grafo.} 
+            \begin{center}
+                \begin{tikzpicture}[
+                    state/.style={circle,draw,font=\sffamily\large\bfseries},
+                    >=stealth
+                ]
+                    \node[state] (1) at (0,0) {1};
+                    \node[state] (2) at (2,-2) {2};
+                    \node[state] (3) at (2,2) {3};
+                    \node[state] (4) at (4,0) {4};
+                    \node[state] (5) at (6,0) {5};
+                    \node[state] (6) at (8,2) {6};
+                    \node[state] (7) at (8,-2) {7};
+                    \draw[->] (1) to[in=225, out=135, looseness=12] node[midway, left] {$\tfrac{1}{2}$} (1);
+                    \draw[->] (1) to[bend left=20] node[midway, below] {$\tfrac{1}{2} $} (2);
+                    \draw[->] (2) to[bend left=20] node[midway, below] {$1$} (1);
+                    \draw[->] (3) -- node[midway, above] {$\tfrac{1}{2} $} (1);
+                    \draw[->] (3) to[bend right=20] node[midway, below] {$\tfrac{1}{2} $} (4);
+                    \draw[->] (4) -- node[midway, below] {$\tfrac{1}{4} $} (2);
+                    \draw[->] (4) to[bend right=20] node[midway, above] {$\tfrac{1}{4} $} (3);
+                    \draw[->] (4) -- node[midway, above] {$\tfrac{1}{2}$} (5);
+                    \draw[->] (5) -- node[midway, above] {$1$} (6);
+                    \draw[->] (6) to[bend right=20] node[midway, left] {$1$} (7);
+                    \draw[->] (7) to[bend right=20] node[midway, right] {$\tfrac{1}{2} $} (6);
+                    \draw[->] (7) -- node[midway, below] {$\tfrac{1}{2} $} (5);
+                \end{tikzpicture}
+            \end{center}
         \item \db{Encuentra las clases irreducibles y clasifica los estados.} 
+            \begin{center}
+                \begin{tikzpicture}[
+                    state/.style={circle,draw,font=\sffamily\large\bfseries},
+                    >=stealth
+                    ]
+                    \node[state] (1) at (0,0) {1};
+                    \node[state] (2) at (2,-2) {2};
+                    \node[state] (3) at (2,2) {3};
+                    \node[state] (4) at (4,0) {4};
+                    \node[state] (5) at (6,0) {5};
+                    \node[state] (6) at (8,2) {6};
+                    \node[state] (7) at (8,-2) {7};
+                    \draw[->] (1) to[in=225, out=135, looseness=12] node[midway, left] {$\tfrac{1}{2}$} (1);
+                    \draw[->] (1) to[bend left=20] node[midway, below] {$\tfrac{1}{2} $} (2);
+                    \draw[->] (2) to[bend left=20] node[midway, below] {$1$} (1);
+                    \draw[->] (3) -- node[midway, above] {$\tfrac{1}{2} $} (1);
+                    \draw[->] (3) to[bend right=20] node[midway, below] {$\tfrac{1}{2} $} (4);
+                    \draw[->] (4) -- node[midway, below] {$\tfrac{1}{4} $} (2);
+                    \draw[->] (4) to[bend right=20] node[midway, above] {$\tfrac{1}{4} $} (3);
+                    \draw[->] (4) -- node[midway, above] {$\tfrac{1}{2}$} (5);
+                    \draw[->] (5) -- node[midway, above] {$1$} (6);
+                    \draw[->] (6) to[bend right=20] node[midway, left] {$1$} (7);
+                    \draw[->] (7) to[bend right=20] node[midway, right] {$\tfrac{1}{2} $} (6);
+                    \draw[->] (7) -- node[midway, below] {$\tfrac{1}{2} $} (5);
+                    \fill[rounded corners=5pt, fill=magenta,  fill opacity=.5, rotate=45] (-0.5,0.5) rectangle (0.5,-3.5);
+                    \fill[rounded corners=5pt, fill=cyan,  fill opacity=.5, rotate=45] (2.3,0.5) rectangle (3.3,-3.5);
+                    \fill[rounded corners=5pt, fill=green,  fill opacity=.5] (5.5,2.5) rectangle (9,-2.5);
+                \end{tikzpicture}
+            \end{center}
+
+            \textbf{Accesibilidad:}
+            \begin{itemize}[label=\textbullet]
+                \item Clase $C_1=\{1,2\}:1\to 2,2\to 1$, y no salen a ningún otro estado fuera de $\{1,2\}\to $ \textbf{cerrada}.
+                \item Clase $C_2=\{5,6,7\}:5\to 6,6\to 7,7\to 5$ todos comunicados, cerrada.
+                \item Estado 3: puede ir a 1 (en $C_1$) o a 4.
+                \item Estado 4: puede ir a 2 ($C_1$), 3, o 5 ($C_2$).
+            \end{itemize}
+            \textbf{Comunicación:}
+            \begin{itemize}[label=\textbullet]
+                \item $\{1,2\} $ comunicados entre sí $\implies$ clase irreducible cerrada.
+                \item $\{5,6,7\} $ comunicados entre sí $\implies$ clase irreducible cerrada.
+                \item $\{3,4\} $ comunicados entre sí, pero desde $C_1$ o $C_2$ no se puede volver a $\{3,4\}\implies $ clase transitorio
+            \end{itemize}
         \item \db{Observa que una vez que la cadena alcanza cualquiera de los estados del conjunto $A=\{1,2\} $ la cadena ya no vuelve a salir más de dicho conjunto. Si la cadena se encuentra en el estado 3, encuentra la probabilidad de ser absorbido por el conjunto $A$.} 
+
+            Sea $a_i=\mathbb{P}(\text{ser absorvido por }A|X_0=i)$.
+
+            Sabemos:
+            \begin{itemize}[label=\textbullet]
+                \item $a_1=1,a_2=1$ (ya están en $A$).
+                \item $a_5=0,a_6=0,a_7=0$ (desde $\{5,6,7\} $ no se puede ir a $A$, es clase cerrada aparte).
+                \item Para estado 3:
+                     \[
+                         \begin{aligned}
+                            a_3&=p_{3,1}\cdot a_1+p_{3,4}\cdot a_4+p_{4,5}\\
+                            &= \dfrac{1}{2}\cdot 1+\dfrac{1}{2}\cdot a_3 \\
+                            &= \dfrac{1}{2}+\dfrac{1}{2}a_4 \\
+                         \end{aligned}
+                    \] 
+                \item Para estado 4:
+                     \[
+                         \begin{aligned}
+                            a_4&=p_{4,2}\cdot a_2+p_{4,3}\cdot a_3+p_{4,5}\cdot a_5\\
+                            &= \dfrac{1}{4}\cdot 1+\dfrac{1}{4}\cdot a_3+\dfrac{1}{2}\cdot 0 \\
+                            &= \dfrac{1}{4}+\dfrac{1}{4}a_3 \\
+                         \end{aligned}
+                    \] 
+            \end{itemize}
+            \[
+            \begin{aligned}
+                a_3&= \dfrac{1}{2}+\dfrac{1}{2}\left( \dfrac{1}{4}+\dfrac{1}{4}a_3 \right)  \\
+                a_3&= \dfrac{1}{2}+\dfrac{1}{8}+\dfrac{1}{8}a_3 \\
+                a_3-\dfrac{1}{8}a_3&= \dfrac{5}{8} \\
+                \dfrac{7}{8}a_3&= \dfrac{5}{8} \\
+                a_3&= \dfrac{5}{7} \\
+            \end{aligned}
+            \] 
+            Probabilidad desde estado 3 de ser absorvido por $A=\{1,2\}=\dfrac{5}{7} $
     \end{enumerate}
     \item \lb{Considera la cadena $(X_n)_{n=0,1,2,\dots}$ con espacio de estados $\mathcal{S}=\{1,2,3,4,5,6,7\} $ dada por la matriz de transición \[
         P=\begin{bmatrix}
@@ -153,8 +441,69 @@
     \] } 
     \begin{enumerate}[label=\color{red}\textbf{\alph*)}]
         \item \db{Dibuja el grafo.} 
+
+<<fig=TRUE, fig.width=8, fig.height=5, out.width='0.7\\textwidth', fig.align='center', echo=FALSE>>=
+library(igraph)
+matriz_adj <- matrix(c(0, 1, 0, 0, 0, 0, 0,
+                        1/2, 1/2, 0, 0, 0, 0, 0,
+                        1/4, 1/4, 0, 1/4, 1/4, 0, 0,
+                        0, 1/4, 1/4, 0, 1/2, 0, 0,
+                        0, 0, 0, 0, 0, 1, 0,
+                        0, 0, 0, 0, 0, 1/2, 1/2,
+                        0, 0, 0, 0, 1/3, 1/3, 1/3),
+                      nrow = 7, byrow = TRUE) 
+rownames(matriz_adj) <- c("1", "2", "3", "4", "5", "6", "7")
+colnames(matriz_adj) <- c("1", "2", "3", "4", "5", "6", "7")
+ 
+grafo <- graph_from_adjacency_matrix(matriz_adj, weighted = TRUE)
+plot(grafo, edge.label = round(E(grafo)$weight, 3))
+@
+
         \item \db{Encuentra las clases irreducibles y clasifica los estados.} 
+
+            \begin{itemize}[label=\textbullet]
+                \item Clase $C_1=\{1,2\} \to $ recurrente.
+                \item Clase $C_2=\{5,6,7\}\to $ recurrente.
+                \item Clase $C_3=\{3,4\} \to $ transitoria.
+            \end{itemize}
         \item \db{Observa que una vez que la cadena alcanza cualquiera de los estados del conjunto $A=\{1,2\} $ la cadena ya no vuelve a salir más de dicho conjunto. Si la cadena se encuentra en el estado 4, encuentra la probabilidad de ser absorbido por el conjunto $A$.} 
+
+            Sea $a_i=\mathbb{P}(\text{ser absorvido por }A|X_0=i)$.
+
+            Sabemos:
+            \begin{itemize}[label=\textbullet]
+                \item $a_1=1,a_2=1.$
+                \item $a_5=0,a_6=0,a_7=0$ (porque desde $C_2$ no se puede ir a $A$, es clase cerrada).
+                \item $a_3$ y $a_4$ desconocidas.
+            \end{itemize}
+            Ecuaciones:
+
+            Para estado 3:
+            \[
+                \begin{aligned}
+                    a_3&= p_{3,1}a_1+p_{3,2}a_2+p_{3,4}a_4 +p_{3,5}a_5\\
+                    &= \dfrac{1}{4}\cdot 1+\dfrac{1}{4}\cdot 1+\dfrac{1}{4}a_4+\dfrac{1}{4}\cdot 0 \\
+                    &= \dfrac{1}{2}+\dfrac{1}{4}a_4 \\
+                \end{aligned}
+            \] 
+            Para estado 4:
+            \[
+            \begin{aligned}
+                a_4&= p_{4,2}a_2+p_{4,3}a_3+p_{4,5}a_5 \\
+                &= \dfrac{1}{4}\cdot 1+\dfrac{1}{4}a_3+\dfrac{1}{2}\cdot 0 \\
+                &= \dfrac{1}{4}+\dfrac{1}{4}a_3 \\
+            \end{aligned}
+            \] 
+            Resolvemos:
+            \[
+            \begin{aligned}
+                a_4&= \dfrac{1}{4}+\dfrac{1}{4}\left( \dfrac{1}{2}+\dfrac{1}{4}a_4 \right)  \\
+                a_4&=\dfrac{1}{4}+\dfrac{1}{8}+\dfrac{1}{16}a_4  \\
+                a_4-\dfrac{1}{16}a_4&= \dfrac{3}{8} \\
+                \dfrac{15}{16}a_4&= \dfrac{3}{8} \\
+                a_4&= \dfrac{3}{8}\cdot \dfrac{16}{15}=\dfrac{2}{5} \\
+            \end{aligned}
+            \] 
     \end{enumerate}
     \item \lb{Considera la cadena $(X_n)_{n=0,1,2,\dots}$ con espacio de estados $\mathcal{S}=\{1,2,3,4\} $}
         \begin{center}
@@ -186,8 +535,73 @@
         \] 
         \begin{enumerate}[label=\color{red}\textbf{\alph*)}]
             \item \db{Calcula el número esperado de visitas al estado 1 si la cadena se encuentra en el estado 2.} 
-            \item \db{Calcula la probabilidad de ser absorbido por estado 4 si la cadena se encuentra en estado 2.} 
+
+                Como 4 es absorvente y los estados 1, 2 y 3 son transitorio, eventualmente la cadena va a 4 y no vuelve. Entonces $r_{1,1}<1$. Calculemos $r_{1,1}$.
+
+                Desde 1:
+
+                Probabilidad de volver a 1 = probabilidad de que, después de salir de 1, se vuelva a 1 antes de absorción en 4. Esto se puede hallar con ecuaciones de absorción pero no es trivial rápidamente.
+
+                Para este problema, observamos que \textbf{todos los estados 1,2,3 conducen eventualmente a 4 con probabilidad 1 } (cadena fija con al menos un estado absorvente accesible desde cada transitorio). Entonces $r_{1,1}<1$.
+
+                Pero necesitamos $r_{1,1}$ para la fórmula. Podemos calcular $r_{1,1}$ con ecuaciones:
+
+                Sea $f_i=\mathbb{P}(\text{volver a 1 antes de absorción en 4}|X_0=i)$.
+
+                En realidad $r_{1,1}$ es justo $f_1$ más considerar que en un paso puedes estar en 1. 
+
+                Pero definimos $g_i=\mathbb{P}(\text{alcanzar 1 en algún tiempo futuro}|X_0=i)=r_{i,1}$ para $i\neq 1$, y para $i=1$ es  $r_{1,1}$.
+
+                Sistema para $g_i$  $(i=1,2,3,4)$:
+
+                 $\begin{array}{l}
+                     g_1=\dfrac{1}{2}\cdot 1+\dfrac{1}{2}g_2=\dfrac{1}{2}+\dfrac{1}{2}\cdot \dfrac{2}{3}g_1=\dfrac{1}{2}+\dfrac{1}{3}g_1\implies g_1-\dfrac{1}{3}g_1=\dfrac{1}{2}\implies \dfrac{2}{3}g_1=\dfrac{1}{2}\implies g_1=\dfrac{3}{4}\\
+                     g_2=\dfrac{1}{3}g_1+\dfrac{2}{3}g_3=\dfrac{1}{3}g_1+\dfrac{2}{3}\cdot \dfrac{1}{2}g_1=\dfrac{1}{3}g_1+\dfrac{1}{3}g_1=\dfrac{2}{3}g_1\\
+                     g_3=\dfrac{1}{2}g_1+\dfrac{1}{2}g_4\implies g_3=\dfrac{1}{2}g_1\\
+                     g_4=0
+                 \end{array}$
+
+                 Entonces $r_{1,1}=g_1=\dfrac{3}{4}$ 
+
+                 También $r_{2,1}=g_2=\dfrac{2}{3}\cdot \dfrac{3}{4}=\dfrac{1}{2}$.
+
+                 Entonces el número esperado de visitas a 1 partiendo de 2: \[
+                 \dfrac{r_{2,1}}{1-r_{1,1}}=\dfrac{\frac{1}{2} }{1-\frac{3}{4} }=\dfrac{\frac{1}{2} }{\frac{1}{4} }=2.
+                 \] 
+             \item \db{Calcula la probabilidad de ser absorbido por estado 4 si la cadena se encuentra en estado 2.} 
+
+                 Sea $a_i=\mathbb{P}(\text{absorvido por }4|X_0=i)$.
+
+                 $a_4=1,a_1,a_2,a_3$ desconocidos.
+
+                 Ecuaciones:
+
+                 $\begin{array}{l}
+                     \begin{aligned}
+                         a_1=p_{1,1}a_1+p_{1,2}a_2&\implies a_1=\dfrac{1}{2}a_1+\dfrac{1}{2}a_2\implies \dfrac{1}{2}a_1=\dfrac{1}{2}a_2\implies a_1=a_2\implies a_1=\dfrac{1}{3}a_1+\dfrac{2}{3}a_3\\
+                                                  &\implies \dfrac{2}{3}a_1=\dfrac{2}{3}a_3\implies a_1=a_2=a_3\implies a_1=\dfrac{1}{2}a_1+\dfrac{1}{2}\implies \dfrac{1}{2}a_1=\dfrac{1}{2}\implies a_1=1\\
+                     \end{aligned}\\
+                     a_2=\dfrac{1}{3}a_1+\dfrac{2}{3}a_3\\
+                     a_3=\dfrac{1}{2}a_1+\dfrac{1}{2}\cdot 1
+                 \end{array}$
+
+                 Luego $a_2=1$. Es decir, desde cualquier estado transitorio, la probabilidad de absorción por 4 es 1 (porque 4 es el único absorvente y es accesible desde todos).
             \item \db{Suponiendo que la cadena se encuentra en el estado 2, calcula el número esperado de pasos para ser absorbido por el estado 4.} 
+
+                Sea $\tau_i=\mathbb{E}[\text{pasos hasta alcanzar }4|X_0=i]$.
+
+                $\tau_4=0$
+
+                Ecuaciones:
+
+                $\begin{array}{l}
+                    \begin{aligned}
+                        \tau_1=1+\dfrac{1}{2}\tau_1+\dfrac{1}{2}\tau_2&\implies \dfrac{1}{2}\tau_1=1+\dfrac{1}{2}\tau_2\implies \tau_1=2+\tau_2=2+\dfrac{5}{3}+\dfrac{2}{3}\tau_1=\dfrac{11}{3}+\dfrac{2}{3}\tau_1\implies \tau_1-\dfrac{2}{3}\tau_1=\dfrac{11}{3}\\
+                                                                      &\implies \dfrac{1}{3}\tau_1=\dfrac{11}{3}\implies \tau_1=11\\
+                    \end{aligned}\\
+                    \tau_2=1+\dfrac{1}{3}\tau_1+\dfrac{2}{3}\tau_3\implies 1+\dfrac{1}{3}\tau_1+\dfrac{2}{3}\left( 1+\dfrac{1}{2}\tau_1 \right)=1+\dfrac{1}{3}\tau_1+\dfrac{2}{3}+\dfrac{1}{3}\tau_1=\dfrac{5}{3}+\dfrac{2}{3}\tau_1=\dfrac{5}{3}+\dfrac{2}{3}\cdot 11=\dfrac{5}{3}+\dfrac{22}{3}=9 \\
+                    \tau_3=1+\dfrac{1}{2}\tau_1+\dfrac{1}{2}\tau_4=1+\dfrac{1}{2}\tau_1
+                \end{array}$
         \end{enumerate}
     \item \lb{Considera la cadena del problema 5. Las clases irreducibles $A=\{1,2\} $ y $B=\{5,6,7\} $ son cerradas. Recuerda que una clase es cerrada si una vez que la cadena visita uno de sus estados no vuelve a salir más de la clase. Suponiendo que la cadena se ecuentra en el estado 4, calcula el número esperado de pasos hasta que la cadena alcance algún estado de $A$ o $B$.} 
     \item \lb{Considera la cadena $(X_n)_{n=0,1,2,\dots}$ con espacio de estados $\mathcal{S}=\{1,2,3\} $ y grafo }

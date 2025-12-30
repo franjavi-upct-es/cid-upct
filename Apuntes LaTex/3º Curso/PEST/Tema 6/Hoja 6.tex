@@ -365,9 +365,117 @@
                 \] 
         \end{enumerate}
     \item \lb{¿Cuál es la utilidad de los criterios de información de Akaike (AIC) y de Bayes (BIC) en el contexto de metodología $ARIMA$?} 
+
+        \textbf{Utilidad de AIC y BIC}
+        \begin{enumerate}[label=\arabic*)]
+            \item \textbf{Selección del mejor modelo ARIMA} entre varios candidadtos que han superado la validación de residuos.
+            \item \textbf{Tienen en cuenta el número de parámetros estimados} (órdenes $p$ y  $q$), a diferencia de la simple suma de cuadrados residual, que no penaliza la complejidad del modelo.
+            \item Se basan en la \textbf{verosimilitud} del modelo ajustado.
+            \item Ayudan a determina los órdenes $p$ y  $q$  \textbf{una vez fijado el orden de diferenciación} $d$. 
+        \end{enumerate}
+        \textbf{Limitaciones importantes}
+        \begin{itemize}[label=\textbullet]
+            \item \textbf{No son adecuados para seleccionar el orden de diferenciación} $d$, porque los valores de verosimilitud no son comparable entre modelos con diferente  $d$.
+            \item La selección de $d$ debe hacer  \textbf{manualmente} (por ejemplo, mediante análisis gráfico, ACF, o pruebas de raíces unitarias).
+            \item \textbf{No deben usarse para comparar modelos ARIMA con modelos de otra clase} (por ejemplo, modelos ETS), ya que la verosimilitud se calcula de forma distinta. 
+        \end{itemize}
     \item \lb{¿Cuál es la importancia de verificar que los residuos de un modelo $ARIMA$ se asemejen a ruido blanco?} 
+        \begin{enumerate}[label=\arabic*)]
+            \item \textbf{Condición de validez del modelo}
+
+                Para que el modelo ARIMA propuesto sea adecuado, los residuos deben comportarse como un \textbf{ruido blanco gaussiano}. Esto implica:
+                \begin{itemize}[label=\textbullet]
+                    \item Distribución normal (normalidad).
+                    \item Varianza constante (homocedasticidad).
+                    \item Independencia (no autocorrelación).
+                \end{itemize}
+            \item \textbf{Verificación de hipótesis básicas}
+
+                El modelo ARIMA asume que la parte sistemática de la serie ha sido captura por la estructura ARIMA, dejando solo el \textbf{componente aleatorio no correlacionado} (ruido blanco). Si los residuos muestran autocorrelación significativa, significa que el modelo \textbf{no ha capturado toda la estructura temporal} y podría mejorarse.
+            \item \textbf{Uso del correlograma de residuos}
+
+                El autocorrelograma de los residuos no debe presentar \textbf{ninguna correlación significativa}; todas deben ser prácticamente nulas para aceptar la independencia.
+            \item \textbf{Garantía para predicciones}
+
+                Si los residuos son ruido blanco, las predicciones futuras serán óptimas en el sentido de que no quedan patrones explotables en los errores pasados. Si hay autocorrelación residual, las predicciones serán \textbf{menos eficientes y potencialmente sesgadas}. 
+        \end{enumerate}
     \item \lb{Resume los pasos para analizar una serie temporal usando modelos $ARIMA$.} 
+
+        \begin{enumerate}[label=\arabic*)]
+            \item \textbf{Análisis descriptivo y preparación}
+                \begin{itemize}[label=\textbullet]
+                    \item Graficar la serie.
+                    \item Identificar observaciones atípicas (\textit{outliers}).
+                    \item Detectar patrones visibles (tendencia, estacionalidad).
+                \end{itemize}
+            \item \textbf{Estacionariedad}
+                \begin{itemize}[label=\textbullet]
+                    \item \textbf{En varianza:} Si la varianza cambia, aplicar \textbf{transformación de Box-Cox} (usualmente logaritmos).
+                    \item \textbf{En media:} Si hay tendencia, tomar \textbf{diferencias} (orden $d$).
+                        \begin{itemize}[label=\textbullet]
+                            \item Tendencia lineal $\to d=1$.
+                            \item Tendencia cuadrática $\to d=2$.
+                        \end{itemize}
+                    \item Verificar estacionariedad con gráficos y ACF (si las autocorrelaciones decrecen lentamente, puede necesitar más diferencias). 
+                \end{itemize}
+            \item \textbf{Identificación de órdenes $p$ y  $q$}
+                \begin{itemize}[label=\textbullet]
+                    \item Usar \textbf{ACF (correlograma simple)} y  \textbf{PACF (correlograma parcial)} de la serie estacionaria.
+                        \begin{itemize}[label=\textbullet]
+                            \item $AR(p):$ PACF corta en retardo  $p$; PACF decae gradualmente.
+                            \item  $MA(q):$ ACF corta en retardo  $q$; PACF decae gradualmente.
+                            \item $ARMA(p,q):$ Ambas decaen, sin corte claro  $\implies$ probar varios $(p,q)$.
+                        \end{itemize}
+                \end{itemize}
+            \item \textbf{Estimación de parámetros}
+                \begin{itemize}[label=\textbullet]
+                    \item Estiamr coeficientes $a_i\, (AR),\, b_j\,(MA)$ y constante (si se incluye).
+                    \item Se puede usar  \textbf{mínimos cuadrados} o \textbf{máxima verosimilitud} (en \textbf{\texttt{R}}: función \textbf{\texttt{arima()}}).
+                \end{itemize}
+            \item \textbf{Selección del mejor modelo}
+                \begin{itemize}[label=\textbullet]
+                    \item Entre modelos válidos, usar \textbf{criterios de información} (AIC, BIC) eligiendo el de menor valor.
+                    \item \textbf{No usar AIC/BIC para elegir $d$} (solo para $p$ y  $q$). 
+                \end{itemize}
+            \item \textbf{Predicción}
+                \begin{itemize}[label=\textbullet]
+                    \item Usar el modelo estimado para proyectar valores futuros.
+                    \item Tener en cuenta que a mayor horizonte, mayor error (se usan predicciones anteriores para predecir siguientes).
+                    \item Pueden calcularse \textbf{intervalos de predicción}. 
+                \end{itemize}
+        \end{enumerate}
     \item \lb{¿Qué efectos tiene la transformación logarítmica en una serie temporal y cuándo se utiliza?} 
+
+        \textbf{Efectos de la transformación logarítmica:}
+        \begin{enumerate}[label=\arabic*)]
+            \item \textbf{Estabiliza la varianza}
+                \begin{itemize}[label=\textbullet]
+                    \item Cuando la serie presenta \textbf{heterocedasticidad} (variabilidad que crece con el nivel de la serie), el logaritmo ayuda a que la varianza se mantenga más constante a lo largo del tiempo.
+                \end{itemize}
+            \item \textbf{Reduce la magnitud de las fluctuaciones}
+                \begin{itemize}[label=\textbullet]
+                    \item Comprime los valores grandes y expande los pequeños, haciendo la serie más "suave" y facilitando el modelado cuando hay crecimientos exponenciales o multiplicativos.
+                \end{itemize}
+            \item \textbf{Lienaliza tendencia multiplicativas}
+                \begin{itemize}[label=\textbullet]
+                    \item Si la serie tiene una tendencia que crece en proporción a su nivel (crecimiento exponencial), el logaritmo la convierte en una tendencia aproximadamente lineal.
+                \end{itemize}
+        \end{enumerate}
+        \textbf{Cuándo se utiliza:}
+        \begin{enumerate}[label=\arabic*)]
+            \item \textbf{Cuando la serie no es estacionaria en varianza}
+                \begin{itemize}[label=\textbullet]
+                    \item Se usa como parte de una \textbf{transformación de Box-Cox} (siendo el logaritmo neperiano un caso especial) para lograr \textbf{estacionariedad en varianza} antes de modelar.
+                \end{itemize}
+            \item \textbf{Cuando las fluctuaciones aumentan con el nivel de la serie}
+                \begin{itemize}[label=\textbullet]
+                    \item Por ejemplo, en series económicas como el IPC, demanda de productos, o producción industrial, donde la variabilidad suele crecer con el valor de la serie.
+                \end{itemize}
+            \item \textbf{Antes de tomar diferencias para eliminar tendencia en media}
+                \begin{itemize}[label=\textbullet]
+                    \item En el flujo ARIMA, primero se estabiliza la varianza (con logaritmo si es necesario) y luego se diferencian para eliminar la tendencia en media.
+                \end{itemize}
+        \end{enumerate}
 \end{enumerate}
 \textbf{\large Problemas} 
 \begin{enumerate}[label=\color{red}\textbf{\arabic*)}, start=21]
