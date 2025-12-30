@@ -281,3 +281,273 @@ $\hat{\mu}=\bar{x}$ \textcolor[HTML]{007aff}{(estimador basado en los movimiento
 $E[\bar{X}]=\mu\rightarrow \hat{\mu}=\bar{X}$ es un estimador insesgado para $\mu$
 
 $\begin{rcases}\mathrm{Var}[\bar{X}]=\dfrac{\sigma^2}{n}\\ \mathrm{Var}[\bar{X}]=E[(\bar{X}-\mu)^2]\end{rcases}\rightarrow E[(\bar{X}-\mu)^2]=\dfrac{\sigma^2}{n}$ \textcolor[HTML]{007aff}{(E.C.M.)} 
+
+## Balance entre sesgo y varianza ##
+
+:::{.callout-tip}
+# Sesgo y varianza
+
+El error cuadrático medio se puede descomponer
+
+$$
+E_\theta[(\hat{\theta}-\theta)^2]=\mathrm{Var}(\hat{\theta})+[\text{sesgo}(\hat{\theta})]^2
+$$
+:::
+
+En ocasiones, se consigue un menor error cuadrático medio con un estimador sesgado y estamos dispuestos a sacrificar el sesgo, por conseguir una menor varianza.
+
+\begin{demostration}
+   
+   $$
+   \begin{aligned}
+       E_\theta[(\hat{\theta}-\theta)^2]&= E_\theta[(\hat{\theta}-E_\theta[\hat{\theta}] + E_\theta[\hat{\theta}-\theta])^2] \\
+       &= E_\theta[(\hat{\theta})-E_\theta[\hat{\theta}] + (E_\theta[\hat{\theta}]-\theta)^2+2(\hat{\theta}-E_\theta[\hat{\theta}])(E_\theta[\hat{\theta}]-\theta)] \\
+       &= \mathrm{Var}[\hat{\theta}]+[\text{sesgo}(\hat{\theta})]^2 \\
+   \end{aligned}
+   $$ 
+\end{demostration}
+
+## Comportamiento asintótico de un estimador ##
+
+:::{.callout-note}
+# Cuando el tamaño muestral crece #
+Muchos de los resultados en inferencia se obtienen en un contexto asintótico: nos interesa comprobar el comportamiento de nuestro estimador cuando crece el número de observaciones.
+:::
+
+- ¿Converge $\hat{\theta}$ hacia el verdadero valor del parámetro?
+- ¿Cómo se comporta el error $\hat{\theta}-\theta$?
+
+## Consistencia ##
+
+\begin{definition}
+    Una sucesión de estimadores $(\hat{\theta}_n)_n$ es consistente si converge hacia $\theta$ en probabilidad, para todo $\theta$. 
+
+    Es decir: 
+    
+    $$
+    \forall \varepsilon>0,\quad P_\theta\left[ |\hat{\theta}_n-\theta|>\varepsilon \right] \xrightarrow[n\to \infty]{}0
+    $$
+\end{definition}
+
+:::{.callout-note}
+Si el error cuadrático medio de una sucesión de estimadores tiende a cero, esta sucesión es consistente.
+:::
+
+## Normalidad asintótica ##
+
+- Cuando un estimador es consistente, $(\hat{\theta}_n-\theta)$ converge hacia cero en probabilidad.
+- Se busca entonces la velocidad de convergencia hacia cero.
+
+:::{.callout-note}
+# Un resultado que se puede demostrar para muchos modelos, para el e.m.v: #
+
+$$
+\sqrt{n} \left( \hat{\theta}-\theta \right) \xrightarrow[n\to \infty]{\mathcal{L}}\mathcal{N}(0,\Alpha)
+$$
+
+(la distribución de $\sqrt{n}(\hat{\theta}_n-\theta)$ se aproxima a la distribución $\mathcal{N}(0,\Alpha)$).
+:::
+
+### Ejemplo: distribución $\text{gamma}(\alpha,\beta)$ ### {.unnumbered .unlisted}
+
+
+En práctica, veremos que los estimadores de los momentos para $(\alpha,\beta)$ son
+
+$$
+\begin{array}{c}
+    \hat{\alpha}=\dfrac{(\hat{X})^2}{\overline{X^2}-(\bar{X})^2}\\
+    \hat{\beta}=\dfrac{\overline{X^2}-(\bar{X})^2}{\bar{X}}
+\end{array}
+$$
+
+Simulamos 10000 muestras de tamaño 10 y 10000 muestras de tamaño 10000.
+
+```{r}
+# Estimador por momentos de alpha (Pareto tipo I con xm = 1)
+# E[X] = alpha / (alpha - 1)  =>  alpha_hat = xbar / (xbar - 1)
+
+library(ggplot2)
+library(dplyr)
+library(tidyr)
+
+set.seed(123)
+
+rpareto1 <- function(n, alpha, xm = 1) {
+  # Inversa: X = xm / U^(1/alpha), U ~ Unif(0,1)
+  u <- runif(n)
+  xm / (u^(1 / alpha))
+}
+
+alpha_true <- 3
+xm <- 1
+
+n_sims <- 20000
+ns <- c(10, 10000)
+
+sim_df <- tidyr::crossing(n = ns, sim = seq_len(n_sims)) |>
+  dplyr::mutate(
+    xbar = purrr::map_dbl(n, \(nn) mean(rpareto1(nn, alpha = alpha_true, xm = xm))),
+    alpha_hat = xbar / (xbar - xm),
+    z = sqrt(n) * (alpha_hat - alpha_true),
+    n_lab = paste("Número de observaciones:", n)
+  )
+
+ggplot(sim_df, aes(x = z)) +
+  geom_histogram(aes(y = after_stat(density)),
+                 bins = 30, fill = "lightblue", alpha = 0.5, color = NA) +
+  geom_density(color = "red", linewidth = 0.7) +
+  facet_wrap(~ n_lab, nrow = 1) +
+  labs(
+    title = expression("Estimador momentos de " * alpha),
+    x = expression(sqrt(n) * (hat(theta) - theta)),
+    y = "Densidad"
+  ) +
+  coord_cartesian(xlim = c(-10, 120)) +
+  theme_gray(base_size = 14)
+```
+
+## Estimación no paramétrica ##
+
+:::{.callout-note}
+# Estimación de funciones asociadas a una variable aleatoria
+
+En muchas ocasiones no interesa suponer un modelo específico para la variable aleatoria, y por lo tanto, no necesitamos conocer el valor de los parámetros que los caracterizan, sino que nos interesa aproximar el valor de alguna función asociada a la variable. Estas funciones suelen ser:
+
+- Función de distribución: $F(x)=P(X\le x)$ para todo $x\in \mathbb{R}$.
+- Función puntual de probabilidad: $p(x)=P(X=x)$, para todo  $x$ en el soporte de  $X$ (en el caso discreto).
+- Función de densidad:  $f(x)=F'(x)$, para todo  $x$ en el soporte de  $X$ (en el caso continuo).
+- En estas situaciones es posible considerar lo que se conoce como  \textcolor[HTML]{007aff}{estimadores no paramétricas} de las funciones anteriores en un valor concreto de $x$.
+- En los dos primeros casos, puesto que se trata de estimar probabilidades, podremos usar la proporción muestral para hacer aproximaciones (lo veremos a continuación).
+- En el caso de la función de densidad recurriremos a lo que se conoce como  \textcolor[HTML]{007aff}{estimadores tipo núcleo}. 
+:::
+
+:::{.callout-note}
+# Estimación de la función de distribución #
+Dado que la función de distribución en un punto $x$ es una probabilidad,  $F(x)=P(X\le x)$, tenemos como estimador la correspondiente proporción muestral que vendrá dada por 
+$$
+F_n(x)=\dfrac{1}{n}\sum_{i=1}^{n} I_{(\infty,x]}(X_i),
+$$
+
+que se conoce como la \textcolor[HTML]{007aff}{función de distribución empírica}. 
+:::
+
+:::{.callout-note}
+# Estimación de la función puntual de probabilidad #
+De la misma forma que antes el estimador $p(x)=P(X=x)$ vendrá dado por
+ 
+$$
+\hat{p}(x)=\dfrac{\text{número de veces que aparece el valor $x$ en la muestra}}{n}
+$$
+:::
+
+Primera opción: nos basamos en frecuencias relativas
+
+- La estimación de la función de densidad no es tan sencilla.
+- A partir de la expresión de la función de densidad como derivada de la función de distribución, y dada una muestra aleatoria simple $X_1,\dots,X_n$ de una variable aleatoria $X$, para cada  $x$, estimaciones  $F_X(x)$ por la frecuencia relativa de un vencidario de  $x$: $$\hat{f}_n(x)=\dfrac{1}{2nh}\sum_{i=1}^{n} I_{(x-h,x+h)}(x_i),$$ $h$ es la mitad del ancho del vecindario, "suficientemente pequeño".
+
+Es una especie de histograma con ventana móvil, que se va deslizando.
+
+```{r}
+set.seed(314159)
+h <- 0.5
+bw <- 2 * h / sqrt(12)
+## h <- bw * sqrt(12) / 2 
+values <- tibble(x = rnorm(100, 5, 1), y = 0)
+estimacion <- density(
+    x = values$x,
+    kernel = "rectangular",
+    bw = bw
+    )
+points <- tibble(x = estimacion$x, y = estimacion$y)
+values |>
+    ggplot(aes(x = x)) +
+    geom_point(aes(y = y)) +
+    geom_density(alpha = 0.5, col = "red", fill = "lightblue", kernel = "rectangular", bw = bw) +
+    labs(
+        title = "100 valores observados, ventana móvil con h = 0.5",
+        y = "Frecuencia relativa"
+    ) +
+    geom_area(
+        data = points |>
+            filter(
+                between(x, 5 - h , 5 + h)  
+            ),
+        aes(x = x, y = y),
+        alpha = 0.1,
+        fill = "red"
+    )
+```
+
+## Estimación tipo núcleo ##
+
+Podemos escribir $$\hat{f}_n(x)=\dfrac{1}{2nh}\sum_{i=1}^{n} I_{(x-h,x+h)}(x_i),$$ como $$\begin{array}{c}\hat{f}_n(x)=\dfrac{1}{nh}\sum_{i=1}^{n} K\left( \dfrac{x-x_i}{h} \right) ,\text{ con }K(z)=\dfrac{1}{2}I_{(-1,1)}(z).\\ \hat{f}_n(x)=\dfrac{1}{n}\sum_{i=1}^{n} K_h(x-x-i),\text{ con }K_h(z)\dfrac{1}{h}K\left( \dfrac{z}{h} \right) =\dfrac{1}{2h}I_{(-h,h)}(z)\end{array}$$
+
+- En la expresión anterior hay dos elementos principales, la función $K$, que en el ejemplo es la función de densidad de una distribución uniforme, y el parámetro  $h$, que he dejado en  $0.5$ en el ejemplo, y en función de su valor tiene en cuenta valores de la muestra cercanos o alejados al valor $x$.
+- En el primer caso hablamos sobre la  \textcolor[HTML]{007aff}{función núcleo (kernel)} y en el segundo caso del \textcolor[HTML]{007aff}{ancho de banda (bandwith)}.
+- La principal característica de la función $K$ es que al ser la densidad de una distribución uniforme da el mismo peso a todos los puntos de la muestra que se encuentran en un entorno de valor  $x$ donde estimamos la densidad.
+- Podríamos pensar en otra función  $K$ con la propiedad de ser simétrica y unimodal en el 0, como en el caso anterior,  pero con distintos pesos para las observaciones.
+
+## Podemos variar el núcleo ##
+
+:::{.callout-note}
+# Función núcleo
+
+- En la literatura hay distintas propuestas de la función $K$,  \textcolor[HTML]{007aff}{función núcleo}.
+- Cualquier estimador de la densidad en la forma anterior, con una función núcleo $K$, recibe el nombre de  \textcolor[HTML]{007aff}{estimador tipo núcleo}.
+- Los casos más usados de función núcleo son los siguientes:
+  - \textcolor[HTML]{007aff}{Núcleo normal:} $K$ es la función de densidad de una distribución normal estándar. Suele ser el núcleo que más se utiliza.
+  - \textcolor[HTML]{007aff}{Núcleo de Epanechnikov:} $K(z)=(1-z^2)I_{(-1,1)}$. Se considera que es el núcleo más eficiente.
+- El caso considerado en la introducción se conoce como el \textcolor[HTML]{007aff}{núcleo rectangular}. 
+:::
+
+Por ejemplo que tenga más peso cuando el valor muestral esté cerca del valor $x$. Este argumento parece bastante razonable, es decir, que en la estimación tengan más influencia los valores muestrales cercanos al valor  $x$ en el intervalo  $x\pm h$.
+
+```{r}
+K_Epa <- function(z, h = 1) 3 / (4 * h) * (1 - (z / h)^2) * (abs(z) < h)
+mu2_K_Epa <- integrate(function(z) z^2 * K_Epa(z), lower = -1, upper = 1)$value
+sigma <- sqrt(mu2_K_Epa) / (2/sqrt(12))
+ggplot() +
+    geom_function(fun = \(x) dunif(x, -1, 1)) +
+    geom_function(fun = \(x) dnorm(x, sd=2/sqrt(12)))+
+    geom_function(fun = \(x) K_Epa(sigma * x) * sigma ) +
+    xlim(-2.5, 2.5) + ylim(0, 1)
+```
+
+- $K$ uniforme.
+- $K$ gaussiano.
+- $K$ Kernel Epanechnikov: $$K(z)=\dfrac{3}{4}(1-z^2)I_{(-1,1)}(z)$$ 
+
+```{r}
+colors <- c(
+    "rectangular" = "red",
+    "gaussiano" = "blue",
+    "epanechnikov" = "green")
+values |>
+    ggplot(aes(x = x)) +
+    geom_point(aes(y = y)) +
+    geom_density(aes(color = "rectangular"), alpha = 0.5, kernel = "rectangular", bw = bw) +
+    geom_density(aes(color = "gaussiano"), alpha = 0.5, kernel = "gaussian", bw = bw) +
+    geom_density(aes(color = "epanechnikov"), alpha = 0.5, kernel = "epanechnikov", bw = bw) +
+    labs(
+        title = "100 valores observados, estimación núcleo",
+        y = "Densidad"
+    ) +
+    scale_color_manual(
+        name = "Núcleo",
+        breaks = c("rectangular", "gaussiano", "epanechnikov"),
+        values = colors
+    )
+```
+
+### Se pueden demostrar resultados asintóticos ###
+:::{.callout-note}
+# Función núcleo
+
+Vamos a justificar, mediante el comportamiento asintótico, que los valores del estimador tipo núcleo dan buenas aproximaciones de la función de densidad.
+
+Para el principal resultado se supondrán las siguientes condiciones sobre la función de densidad, la función núcleo y el ancho de banda:
+
+- La densidad al cuadrado es integrable, admite derivada continua de segundo orden y esta al cuadrado es integrable. Seguiremos la notación $R(f'')=\int (f''(x))^2\:\mathrm{d}x$.
+- El núcleo es una función de densidad simétrica y acotada, con momento de orden dos finito y al cuadrado es integrable. Seguiremos en este caso la notación $R(K)=\int (K(x))^2\:\mathrm{d}x$, y por $\mu_2(K)=\int x^2K(x)\:\mathrm{d}x$ el valor del momento de orden 2 asociado a la densidad $K$.
+- Conforme aumentamos el tamaño de muestra el ancho de banda,  $h_n$, es una secuencia de valores positivos con límite 0 y  $nh_n$ tiende a  $+\infty$.
+:::
