@@ -411,7 +411,7 @@ A modo de ejemplo, a continuación mostramos una serie temporal y las componente
 
 
 <<fig=TRUE, fig.width=7, fig.height=5, out.width='0.7\\textwidth', fig.align='center', message=FALSE>>=
-plot(decompose(AirPassengers, type = 'multiplicative'))
+plot(stats::decompose(AirPassengers, type = 'multiplicative'))
 @
 
 \textbf{Nota:} Podemos comprobar que la componente estacional se mantiene estable a lo largo del tiempo. Es decir, todos los meses de enero toman el mismo valor independientemente del año. Lo mismo sucede con los febreros, marzos, ..., diciembres. Esta situación es característica para la descomposición clásica.

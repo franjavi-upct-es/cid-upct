@@ -213,7 +213,7 @@ Recordermos que $\lambda$ era el promedio de llegadas por unidad de tiempo. Por 
 
 \textbf{Ejemplo.} A la bandeja de entrada de mi email llegan de media 2 emails por hora (o un email cada media hora). Supongamos que abro el correo a las 8:00 am. Calcula:
 \begin{enumerate}[label=\arabic*)]
-    \item La probabilidad de que el primer email llegue más tarde de las 8:40.
+    \item La probabilidad de que el primer email llegue más tarde de las 8:30.
     \item La probabilidad de que el primer email llegue más tarde de las 11:00 si no ha llegado ningún correo hasta las 9:00.
 \end{enumerate}
 \textbf{Solución:} Consideremos los tiempos $\tau_1,\tau_2,\tau_3,\dots$ entre llegadas de emails, medidos en horas.

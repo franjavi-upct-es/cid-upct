@@ -7,6 +7,9 @@
 \newtheorem{lemma}{Lema}[subsection]
 \newtheorem{observation}{Observación}[subsection]
 \newtheorem{example}{Ejemplo}[subsection]
+\counterwithin{equation}{section} % Numeración de ecuaciones por sección
+\counterwithin{figure}{section}   % Numeración de figuras por sección
+\counterwithin{table}{section}    % Opcional: Numeración de tablas por sección
 \renewcommand{\figurename}{Figura}
 \newcolumntype{C}[1]{>{\centering\arraybackslash}p{#1}}
 % ==== Soporte knitr para bloques sombreados y \hl... ====

@@ -130,6 +130,8 @@ $$
 - Se basa en lo que se conoce como \textcolor[HTML]{007aff}{función de verosimilitud}.
 
 \begin{definition}
+$~$
+
     \begin{itemize}
     \item Sea $X$ una variable aleatoria, con distribución  $x\mapsto f_X(x;\theta)$ (función de densidad o función puntual de probabilidad), donde $\theta$ es de dimensión $p:\theta\in \Theta\subset\mathbb{R}^p$.
     \item Para un valor concreto de una muestra aleatoria simple $(X_1,\dots,X_n)$, que denotamos por $(x_1,\dots,x_n)$, consideramos la función de $\theta$: $$L_n:\begin{cases}\Theta\subset\mathbb{R}^p\rightarrow \mathbb{R}^+\\ \theta\mapsto L_n(\theta)=f_{X_1,\dots,X_n}(x_1,\dots,x_{n};\theta)=\prod_{i=1}^{n} f_X(x_i;\theta). \end{cases}$$ 
@@ -487,7 +489,7 @@ Podemos escribir $$\hat{f}_n(x)=\dfrac{1}{2nh}\sum_{i=1}^{n} I_{(x-h,x+h)}(x_i),
 - La principal característica de la función $K$ es que al ser la densidad de una distribución uniforme da el mismo peso a todos los puntos de la muestra que se encuentran en un entorno de valor  $x$ donde estimamos la densidad.
 - Podríamos pensar en otra función  $K$ con la propiedad de ser simétrica y unimodal en el 0, como en el caso anterior,  pero con distintos pesos para las observaciones.
 
-## Podemos variar el núcleo ##
+### Podemos variar el núcleo ###
 
 :::{.callout-note}
 # Función núcleo
@@ -551,3 +553,187 @@ Para el principal resultado se supondrán las siguientes condiciones sobre la fu
 - El núcleo es una función de densidad simétrica y acotada, con momento de orden dos finito y al cuadrado es integrable. Seguiremos en este caso la notación $R(K)=\int (K(x))^2\:\mathrm{d}x$, y por $\mu_2(K)=\int x^2K(x)\:\mathrm{d}x$ el valor del momento de orden 2 asociado a la densidad $K$.
 - Conforme aumentamos el tamaño de muestra el ancho de banda,  $h_n$, es una secuencia de valores positivos con límite 0 y  $nh_n$ tiende a  $+\infty$.
 :::
+
+Si suponemos:
+
+- $f_X$ es  $L^2$, es derivable dos veces y $f_X''$ es  $L^2$.
+- $K$ es simétrica, acotada,  $K$ es  $L^2$ y admite momento de orden 2.
+- Consideramos $h_n\to 0$ cuando $n\to \infty$, y además $nh_n\to \infty$.
+
+:::{.callout-note}
+# Resultado #
+Para todo $x$, $$E\left[ \hat{f}_n(x)-f(x) \right] =\dfrac{1}{2}\mu_2(K)f''(x)h_n^2+o(h_n^2)\text{ y }\mathrm{Var}\left[ \hat{f}_n(x) \right] =\dfrac{R(K)}{nh_n}f(x)+o((nh_n)^{-1}).$$ 
+
+- Este resultado junto con las suposiciones que hemos hecho anteriormente nos lleva a concluir que se producen buenas aproximaciones en términos del sesgo y la varianza, pues ambos tienden a 0 cuando aumentamos el tamaño de muestra.
+:::
+
+## Ancho de banda ##
+
+:::{.callout-note}
+# Si variamos el ancho de banda: #
+- Cuánto mayor es la ventana o vecindario, la curva estimada es más suavizada.
+- Si la ventana es pequeña, la curva estimada es *"wiggly"*.
+- Puesto que el ancho de banda se puede hacer tan grande como queramos nos planteamos cómo elegir un ancho de banda que sea óptimo en algún sneitdo.
+- En general el problema de la selección del ancho de banda no es sencillo.
+- Se han propuesto elecciones óptimas del ancho de banda, que minimicen la distancia entre la función de densidad $f_X$ y el estimador  $\hat{f}_X$.
+:::
+
+:::{.callout-important}
+# Elección óptima del ancho de banda #
+
+$$
+h_n=\left( \dfrac{R(K)}{\mu_2^2(K)R(f'')n} \right) ^{\frac{1}{5} }.
+$$
+:::
+
+### Elección óptima del ancho de banda ###
+
+En la fórmula $$h_n=\left( \dfrac{R(K)}{\mu_2^2(K)R(f'')n} \right) ^{\frac{1}{5} }$$ aparece $R(f'')$ que es desconocida.
+
+:::{.callout-important}
+# Veremos dos maneras de aproximar $R(f'')$ #
+- Aproximación Gaussiana de $f_X$.
+- Estimar  $f_X$ de manera no paramétrica.
+:::
+
+#### Aproximación gaussiana para el cálculo de $R(f'')$ ####
+
+:::{.callout-note}
+# Suponemos que $f$ es la función de densidad de una distribución normal con desviación típica $\sigma$: #
+
+$$
+h_n=\left( \dfrac{8\pi^{\frac{1}{2} }R(K)}{3\mu_2^2(K)n} \right) ^{\frac{1}{5} }\sigma
+$$
+
+En la práctica, si la desviación típica $\sigma$ es desconocida la aproximamos por la cuasi-desviación típica muestra $S$: 
+
+$$
+\hat{h}_n=\left( \dfrac{8\pi^{\frac{1}{2} }R(K)}{3\mu_2^2(K)n} \right) ^{\frac{1}{5} }S.\text{ Normal scales bandwidth selector }
+$$
+:::
+
+:::{.callout-note}
+# Si además consideramos que el núcleo $K$ es gaussiano: #
+
+$$
+\hat{h}_{n,RP}=\left( \dfrac{4}{3n} \right) ^{\frac{1}{5} }S.
+$$
+
+Se llama la *"rule of thumb"* (la regla del pulgar).
+:::
+
+La forma más complicada es dar una estimación no paramétrica de $R(f'')$. La metodología va más alla de los contenidos de esta asignatura y no veremos los detalles, solo indica que podemos seleccionar con **`R`** y lo veremos en prácticas.
+
+#### Implementación en **`R`** #### {.unnumbered .unlisted}
+
+```{r}
+#| echo: TRUE
+# más de una distribución normal de tamaño 100
+set.seed(314159)
+muestra <- rnorm(100, 0, 1)
+# valor del ancho de banda segun la regla del pulgar
+bw.nrd(x = muestra)
+# gráfica del estimador de la función de densidad
+tibble(x = muestra) |>
+    ggplot(aes(x = x)) +
+    geom_density(kernel = "gaussian", bw = "nrd") +
+    geom_function(fun = dnorm, col = "red") +
+    xlim(-5, 4) + ylim(0, 0.5)
+```
+
+#### Aproximación no paramétrica para el cálculo de $R(f'')$, implementación en **`R`**  ####
+
+Se usa la especificación "SJ" (Sheather & Jones, 1991) para el bandwidth.
+
+```{r}
+#| echo: TRUE
+# valor del ancho de banda con estimación no paramétrica
+bw.SJ(x = muestra)
+# grafica del estimador de la función de densidad
+tibble(x = muestra) |>
+    ggplot(aes(x = x)) +
+    geom_density(kernel = "gaussian", bw = "SJ") +
+    geom_function(fun = dnorm, col = "red") +
+    xlim(-5, 4) + ylim(0, 0.5)
+```
+
+## Introducción al Bootstrap ##
+:::{.callout-note}
+# Bootstrap: una manera de evaluar la incertidumbre asociada a un estimador #
+Permite obtener información acerca de la distribución muestral de un estadístico relevante, usando remuestreo de la muestra disponible, es decir, submuestra de la muestra original.
+
+- Permite estimar la distribución de un estimador (como la media, mediana, varianza, etc.) a partir de muestras obtenidas de los datos disponibles.
+- Se utiliza espcialmente cuando la distribución poblacional es desconocida o cuando el tamaño de la muestra es pequeño.
+- Es muy útil para hacer inferencias estadísticas sin hacer suposiciones sobre la distribución subyacente de los datos.
+- Se aplica incluso cuando el modelo no permite obtener la distribución muestral.
+- Nos permite aproximar el error estándar al estimador, lo que nos da una idea de su precisión.
+::: 
+
+:::{.callout-tip}
+# ¿De dónde viene el nombre? #
+Está asociado a la expresión: *"To pull oneself up by one's bootstrap"*, que hace referencia a situaciones en las que uno cuenta con sus propios medios para salir de una dificultad, sin contar con ayuda externa.
+:::
+
+- Se basa en la aproximación de la función de distribución mediante la función de distribución empírica y los métodos de simulación.
+- Para utilizar el método de simulación necesitamos conocer la distribución $F$. Como en muchas situaciones no conocemos  $F$, lo que vamos a hacer es generar muestras a partir de  $F_n$.
+
+:::{.callout-note}
+# Determinación del error muestral de un estadístico #
+- Recordamos que el error estándar asociado a un estadístico es su desviación típica muestral.
+- Para un estimador, nos indica la variabilidad de los valores que toma respecto a todas las muestras posibles. Es, por lo tanto, un indicador valioso de su precisión.
+- Por ejemplo, para una población normal, $\sigma$ desconocida, el error estándar de $\bar{X}$ es $\dfrac{\sigma}{\sqrt{n} }.$
+- En general, dado un parámetro $\theta$ y un estadístico $\hat{\theta}$ que aproxima (estima) el valor de $\theta$, su error muestral viene dado por $$E[(\hat{\theta}-\theta)^2].$$
+- La idea es simular muestras de $F_n$ para obtener en cada una de ellas el valor del estadístico.
+- Con cada una de ellas calculamos el equivalente empírico de  $E[(\hat{\theta}-\theta)^2]$, mediante el promedio de las desviaciones al cuadrado de los valores del estadístico respecto del promedio de todas las estimaciones.
+:::
+:::{.callout-note}
+# La distribución empírica asociada a una muestra #
+- Consideramos una muestra concreta $\mathbf{x}=(x_1,\dots,x_n)$, asociada a una distribución $F$ en una población.
+- La distribución empírica $\hat{F}$ se construye únicamente a partir de esos valores observados y es la distribución que asigna una probabilidad $\dfrac{1}{n}$ a cada valor $x_i,i=1,2,\dots,n$.
+- Es por lo tanto una distribución discreta, sus valores posibles son los de $x_1,\dots,x_n$.
+- Es decir $\hat{F}$ asocia a cualquier evento $A$, la probabilidad  *empírica*: $$\widehat{\mathrm{Prob}(A)}=\dfrac{\#\{x_{i}\in A\} }{n}.$$
+:::
+
+:::{.callout-important}
+# Tened en cuenta #
+Se pueden repetir los valores en la muestra $\mathbf{x}=(x_1,\dots,x_n)$.
+:::
+
+:::{.callout-note}
+# La distribución empírica asociada a una muestra #
+- Es una distribución discreta, sus valores posibles son los de $x_1,\dots,x_n$.
+- Es decir $\hat{F}$ asociado cualquier evento $A$, la probabilidad *empírica*:  $\widehat{\mathrm{Prob}(A)}=\dfrac{\#\{x_{i}\in A\} }{n}.$
+- Podemos calcular la esperanza de cualquier función $g$: $$\hat{E}[g]=\dfrac{1}{n}\sum_{i=}^{n} g(x_{i}).$$ 
+- Por ejemplo: 
+
+$$
+\begin{array}{c}
+    \text{La esperanza de }\hat{F}=\dfrac{1}{n}\sum_{i=1}^{n} x_{i}=\bar{x},\\
+    \text{La esperanza de }\hat{F}=\dfrac{(n-1)}{n}s^2.
+\end{array}
+$$
+:::
+
+:::{.callout-note}
+# El principio de plug-in #
+- Es un método simple para estimar parámetros a partir de una muestra.
+- Estimamos un parámetro $\theta$ que se puede calcular como una función $t(F)$ de la distribución  $F$, a través de su equivalente empírico: $$\hat{\theta}=t(\hat{F}).$$
+:::
+
+:::{.callout-important}
+# Nota #
+- Por ejemplo, estimamos $\mu_F$ usando la esperanza de $\hat{F}$, que es $\bar{x}$.
+- Es la idea que usamos en el método de los momentos también.
+:::
+
+:::{.callout-note}
+# Muestra Bootstrap #
+Extraer una muestra Bootstrap es extraer una muestra de la distribución empírica $\hat{F}$.
+
+- Consiste en extraer al azar, de manera equiprobable y con reemplazo, $n$ elementos del vector $\mathbf{x}=(x_1,\dots,x_n)$.
+- Denotamos la muestra extraída por $\mathbf{x}^*=(x_1^*,\dots,x_{n}^*)$.
+- Al ser con reemplazo, algunos elementos de $\mathbf{x}$ pueden aparecer repetidos y otros pueden no aparecer.
+:::
+
+### El error estándar Bootstrap ###
+

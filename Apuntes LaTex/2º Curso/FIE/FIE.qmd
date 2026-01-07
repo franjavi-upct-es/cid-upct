@@ -12,9 +12,6 @@ format:
       number-sections: true
       number-depth: 4
       include-in-header: enviroments.tex
-      fig-align: center
-      fig-width: 10
-      fig-height: 5
 linestrectch: 1.5
 fontisize: 12
 papersize: a4
@@ -23,7 +20,8 @@ geometry: margin=1.5cm
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(highlight = TRUE, echo = FALSE,
-                      message = FALSE, warning = FALSE)
+                      message = FALSE, warning = FALSE,
+                      out.width = "70%", fig.align = "center")
 ```
 
 \newpage

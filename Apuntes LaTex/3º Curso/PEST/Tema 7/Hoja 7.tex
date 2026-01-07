@@ -6,7 +6,7 @@
 
         En el contexto de series temporales, el modelo de \textbf{regresión lineal múltiple} se escribe como: \[
         Y_t=\omega_0+\omega_1 x_{1,t}+\cdots+\omega_k\omega_{k,t}+\varepsilon_t,\quad \varepsilon\sim N(0,\vartheta^2)\text{ independientes, }
-        \] donde $Y_t$ es la observación en el instante  $t$ y $x_{i,t}$ son varaibles explicativas (exógenas observadas en $t$).
+        \] donde $Y_t$ es la observación en el instante  $t$ y $x_{i,t}$ son variables explicativas (exógenas observadas en $t$).
 
         \textbf{Diferencia respecto a la regresión lineal "tradicional"}
 
@@ -18,7 +18,7 @@
             Y_t=\omega_0+\omega_1x_{1,t}+\cdots+\omega_kx_{k,t}+\varsigma_t,\quad\text{ con }\varsigma_t \mathrm{ARIMA}.
             \] 
         \end{enumerate}
-    \item \lb{¿Por qué es últil el tiempo como predictor en un modelo de regresión para series temporales?} 
+    \item \lb{¿Por qué es útil el tiempo como predictor en un modelo de regresión para series temporales?} 
 
         Es útil porque el \textbf{tiempo} $t$ actúa como una variable explicativa que \textbf{captura la tendencia} (cambios sistemáticos a largo plazo) de la serie. En un modelo de regresión para series temporales, incluir $t$ permite modelar explícitamente un crecimiento o decrecimiento medio a lo largo del tiempo (tendencia lineal) y, si procede, una curvatura mediante términos como $t^2$ (tendencia cuadrática), aunque no conviene usar potencias alta, en lugar usar tendencia lineal a trozos.
     \item \lb{¿Cómo se incluye la estacionalidad en un modelo de regresión para series temporales?}
@@ -159,8 +159,8 @@
 
                 Si predecir los predictores futuros es difícil, puede usarse una alternativa: \textbf{emplear predictores retardados} para que las predicciones futuras de $Y$ se puedan hacer \textbf{sin necesidad de pronosticar} $x$. Para un horizonte  $h$, se plantea el modelo:  \[
                 Y_{t+h}=\omega_0+\omega_1x_{1,t}+\cdots+\omega_kx_{k,t}+\varepsilon_t,
-                \] lo que haceel modelo \textbf{operativo en un escenario realista.}
-            \item \textbf{Cuando se espera un efecto retardado del predictor sobre la variable de intereś}
+                \] lo que hace el modelo \textbf{operativo en un escenario realista.}
+            \item \textbf{Cuando se espera un efecto retardado del predictor sobre la variable de interés}
 
                 Además, destacamos que esta formulación permite capturar \textbf{efectos con retraso} de algunas variables sobre $Y$. 
         \end{enumerate}
@@ -194,7 +194,7 @@
         \begin{enumerate}[label=\textbf{Forma \arabic*:}, leftmargin=2cm]
             \item \textbf{estimación conjunta (regresión + ARIMA a la vez)}
 
-                \textbf{Qué hace:} ajusta simultaneamente $\omega$ y los parámetros ARIMA buscando que las innovaciones $\varepsilon_t$ cumplan el modelo (min SSE de $\varepsilon_t$ o MV).
+                \textbf{Qué hace:} ajusta simultáneamente $\omega$ y los parámetros ARIMA buscando que las innovaciones $\varepsilon_t$ cumplan el modelo (min SSE de $\varepsilon_t$ o MV).
 
                 \textbf{Ventajas}
                 \begin{itemize}[label=\textbullet]
@@ -211,7 +211,7 @@
 
                 \textbf{Ventajas}
                 \begin{itemize}[label=\textbullet]
-                    \item \textbf{Simplicidad y diagnóstico:} es últil como procedimiento exploratorio para detectar autocorrelación en residuos (ACF/PACF) y motivar la necesidad de una regresión dinámica.
+                    \item \textbf{Simplicidad y diagnóstico:} es útil como procedimiento exploratorio para detectar autocorrelación en residuos (ACF/PACF) y motivar la necesidad de una regresión dinámica.
                 \end{itemize}
                 \textbf{Inconvenientes} 
                 \begin{itemize}[label=\textbullet]

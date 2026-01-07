@@ -14,7 +14,7 @@
                 Un proceso estocástico $\{X_t\}_{t=1,2,\dots}$ es estacionario en sentido débil si cumple dos condiciones matemáticas:
                 \begin{itemize}[label=\textbullet]
                     \item \textbf{Media constante:} La función de medias es invariable a lo largo del tiempo. $$\mu_X(t)=\mu\text{ (para cierta constante $\mu$). }$$ 
-                    \item \textbf{Convarianza estable:} La función de covarianzas entre dos momentos del tiempo no depende del instante específico $t$, sino únicamente de la distancia temporal (retardo o \textit{lag}) entre ellos. \[
+                    \item \textbf{Covarianza estable:} La función de covarianzas entre dos momentos del tiempo no depende del instante específico $t$, sino únicamente de la distancia temporal (retardo o \textit{lag}) entre ellos. \[
                     C_X(t,t+k)=\gamma_k\text{ (donde $\gamma_k$ solo depende de $k$). }
                     \]  
                 \end{itemize}
@@ -28,7 +28,7 @@
         \end{enumerate}
     \item \lb{¿Por qué es importante que una serie sea estacionaria para la modelización ARIMA?} 
 
-        La importancia de la estacionaeridad en la modelización ARIMA radica fundamentalmente en la necesidad de poder \textbf{inferir el comportamiento futuro a partir de los datos pasados}, dado que habitualmente trabajamos con una única muestra de datos. 
+        La importancia de la estacionariedad en la modelización ARIMA radica fundamentalmente en la necesidad de poder \textbf{inferir el comportamiento futuro a partir de los datos pasados}, dado que habitualmente trabajamos con una única muestra de datos. 
         \begin{enumerate}
             \item \textbf{El problema de la "Única Realización":} En la práctica, solemos tener una limitación importante: la serie observada es la \textbf{única realización accesible} del proceso (por ejemplo, solo hay una historia real del PIB o de las ventas de una empresa). No disponemos de múltiples universos paralelos (múltiples realizaciones) para calcular promedios y distribuciones en cada instante de tiempo.
             \item \textbf{Estabilidad para la Predicción:} Al asumir que el proceso es estacionario (y ergódico), garantizamos dos cosas esenciales para que el modelo matemático funciones:
@@ -38,21 +38,21 @@
                 \end{itemize}
             \item \textbf{Posibilidad de Estimación Estadística:} La estacionariedad implica que parámetros clave como la media $(\mu)$ y la varianza $(\sigma^2)$ son constantes. Esto permite utilizar la totalidad de los datos de la serie para estimar estos valores únicos. Si no fuera estacionaria, la media y la varianza serían distintas en cada instante $t$, y sería imposible estimarlas con una sola observación por instante temporal.
         \end{enumerate}
-    \item \lb{¿Qué es la diferencia en el contexto de las series temporales y cómo ayuda a estabilidar una serie?} 
+    \item \lb{¿Qué es la diferencia en el contexto de las series temporales y cómo ayuda a estabilizar una serie?} 
 
         Es una transformación matemática aplicada a una serie temporal no estacionaria para convertirla en estacionaria, estabilizando principalmente su \textbf{media}.
 
-        La operación consite en restar a cada valor de la serie su valor inmediatamente anterior. Matemáticamente, el proceso de "primera diferencia" se define como: \[
+        La operación consiste en restar a cada valor de la serie su valor inmediatamente anterior. Matemáticamente, el proceso de "primera diferencia" se define como: \[
         Z_t=X_tX_{t-1}
         \] 
         Esta operación se denota habitualmente con el operador nabla $(\nabla)$, tal que $\nabla X_t=X_t-X_{t-1}$.
 
         El objetivo de tomar diferencias es corregir la \textbf{no estacionariedad en media}, es decir, eliminar tendencias para conseguir que la serie oscile alrededor de un nivel constante.
 
-        Según el tipo de tendencia observada se aplicará el siguiente órden de diferencia:
+        Según el tipo de tendencia observada se aplicará el siguiente orden de diferencia:
         \begin{itemize}[label=\textbullet]
             \item \textbf{Diferencia de orden 1 $(d=1)$:} Se utiliza cuando la serie presenta una \textbf{tendencia lineal}. Al aplicar una vez el operador diferencia, se consigue un nivel constante. Un ejemplo clásico es el \textit{paseo aleatorio}, que no es estacionario, pero su primera diferencia $(\epsilon_t)$ sí lo es.
-            \item \textbf{Diferencia de orden 2 $(d=2)$:} Se aplcia si la tendencia es \textbf{cuadrática}. 
+            \item \textbf{Diferencia de orden 2 $(d=2)$:} Se aplica si la tendencia es \textbf{cuadrática}. 
         \end{itemize}
     \item \lb{Explica la diferencia entre diferenciación de primer orden, diferenciación de segundo orden y diferencia estacional.} 
 
@@ -307,7 +307,7 @@
         \begin{enumerate}
             \item \textbf{Estimación de Coeficientes en modelos ARIMA}
 
-                La estimación de los parámetros de un modelo ARIMA (coeficietnes, $a_i$ de la parte autorregresiva,  $b_j$ de la media móvil y la constante) se realiza una vez determinados los órdenes $p,d,q$.
+                La estimación de los parámetros de un modelo ARIMA (coeficientes, $a_i$ de la parte autorregresiva,  $b_j$ de la media móvil y la constante) se realiza una vez determinados los órdenes $p,d,q$.
 
                 Existen dos métodos principales para realizar esta estimación:
                  \begin{itemize}[label=\textbullet]
@@ -368,7 +368,7 @@
 
         \textbf{Utilidad de AIC y BIC}
         \begin{enumerate}[label=\arabic*)]
-            \item \textbf{Selección del mejor modelo ARIMA} entre varios candidadtos que han superado la validación de residuos.
+            \item \textbf{Selección del mejor modelo ARIMA} entre varios candidatos que han superado la validación de residuos.
             \item \textbf{Tienen en cuenta el número de parámetros estimados} (órdenes $p$ y  $q$), a diferencia de la simple suma de cuadrados residual, que no penaliza la complejidad del modelo.
             \item Se basan en la \textbf{verosimilitud} del modelo ajustado.
             \item Ayudan a determina los órdenes $p$ y  $q$  \textbf{una vez fijado el orden de diferenciación} $d$. 
@@ -429,7 +429,7 @@
                 \end{itemize}
             \item \textbf{Estimación de parámetros}
                 \begin{itemize}[label=\textbullet]
-                    \item Estiamr coeficientes $a_i\, (AR),\, b_j\,(MA)$ y constante (si se incluye).
+                    \item Estimar coeficientes $a_i\, (AR),\, b_j\,(MA)$ y constante (si se incluye).
                     \item Se puede usar  \textbf{mínimos cuadrados} o \textbf{máxima verosimilitud} (en \textbf{\texttt{R}}: función \textbf{\texttt{arima()}}).
                 \end{itemize}
             \item \textbf{Selección del mejor modelo}
@@ -456,7 +456,7 @@
                 \begin{itemize}[label=\textbullet]
                     \item Comprime los valores grandes y expande los pequeños, haciendo la serie más "suave" y facilitando el modelado cuando hay crecimientos exponenciales o multiplicativos.
                 \end{itemize}
-            \item \textbf{Lienaliza tendencia multiplicativas}
+            \item \textbf{Linealiza tendencia multiplicativas}
                 \begin{itemize}[label=\textbullet]
                     \item Si la serie tiene una tendencia que crece en proporción a su nivel (crecimiento exponencial), el logaritmo la convierte en una tendencia aproximadamente lineal.
                 \end{itemize}

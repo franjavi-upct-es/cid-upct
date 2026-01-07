@@ -491,7 +491,7 @@ Obviante $\tau_{3,3}=0$. Para calcular $\tau_{1,3}$, tenemos que tener en cuenta
 \tau_{1,3}=1+p_{1,1}\tau_{1,3}+p_{1,2}\tau_{2,3}=1+\dfrac{1}{2}\tau_{1,3}+\dfrac{1}{2}\tau_{2,3}.
 \] 
 Si estamos en el estado 2, daremos el primer paso o bien a 1, o bien a 3. Luego, \[
-\tau_{2,3}=1+p_{2,1}\tau_{1,3}+p_{2,3}\tau_{3,3}=1+\dfrac{1}{3}\tau_{1,3}+\dfrac{2}{3}\tau_{3,3}.
+\tau_{2,3}=1+p_{2,1}\tau_{1,3}+p_{2,3}\tau_{2,3}=1+\dfrac{1}{3}\tau_{1,3}+\dfrac{2}{3}\tau_{2,3}.
 \] 
 Poniendo todo junto, obtenemos el siguiente sistema de ecuaciones \[
 \begin{cases}

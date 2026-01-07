@@ -507,7 +507,7 @@ legend("topleft", legend = paste("Trayectoria", 1:nsim),
                     \item Si desplazamos en el tiempo, $X_s$ y  $X_{s+1}$ tiene la misma forma a partir de $s\ge 1$, pero $X_0$ es especial.
                     \item Además, la media no es constante $\implies$ \textbf{no puede ser estacionario en sentido fuerte.}
                 \end{itemize}
-                \textbf{Conclusión: No es estacionario en sentido fuerte} (ni siquiera dévil, salvo caso $a=3$). 
+                \textbf{Conclusión: No es estacionario en sentido fuerte} (ni siquiera débil, salvo caso $a=3$). 
         \end{enumerate}
 
     \lb{\textbf{Nota:} El proceso del enunciado es un proceso denominado MA(1) que estudiará en el tema posterior.}   

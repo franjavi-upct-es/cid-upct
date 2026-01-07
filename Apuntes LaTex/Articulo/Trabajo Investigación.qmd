@@ -97,7 +97,7 @@ Los determinados algebraicos, creados mediante procesos algebraicos no lineales 
 ```{python}
 #| fig-align: center
 #| fig-cap: "Tres áreas de atracción del mismo proceso iterativo"
-#| width: 80%
+#| out-width: 80%
 import numpy as np
 import matplotlib.pyplot as plt
 
