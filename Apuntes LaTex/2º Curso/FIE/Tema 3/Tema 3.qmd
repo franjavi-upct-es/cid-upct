@@ -1,0 +1,91 @@
+# Estimación por intervalos
+## Introducción
+:::{.callout-note}
+# Estimación paramétrica
+En el contexto de la estimación paramétrica, queremos aprovechar nuestro conocimiento sobre la distribución muestral del estimador, para proporcionar margen de error y riesgo.
+:::
+
+:::{.callout-note}
+# Boostrap
+También construiremos intervalos de confianza en percentiles Bootstrap
+:::
+
+:::{.callout-important}
+# Idea básica
+Supongamos:
+
+- $X \sim \mathcal{N}(\mu, 4)$.
+- Consideramos una muestra aleatoria simple $X_1,\dots,X_4$, estimaciones $\mu$ con $\bar{X}$.
+
+Deducimos:
+
+- Sabemos que $\bar{X}\sim \mathcal{N}(\mu,1)$.
+- Implica: el 95% de los valores de $\bar{X}$ está aproximadamente entre $\mu \pm 2$.
+- Si sé donde está $\mu$, sé que, con probabilidad 0.95, $\bar{X}$ se encuentre a menos de 2 unidades.
+- Ahora al revés: si he observado un valor de $\bar{X}$, ¿dónde está $\mu$? la probabilidad de que $\mu$ se encuentre a menos de 2 unidades de $\bar{X}$ es $0.95$.
+:::
+
+La probabilidad de que, habiendo observado un valor de $\bar{X},\mu$ se encuentre a menos de 2 unidades es $0.95$. $$\mu \in \bar{X}\pm 2,\quad \text{con probabilidad } 0.95$$
+- $\bar{X}\pm 2$ es un intervalo aleatorio.
+- Para una muestra concreta que extraigamos, será $\bar{x}\pm 2$.
+- $\pm 2$ expresa el margen de error.
+- "con probabilidad $0.95$" expresa la confianza que tenemos en que nuestra información sea cierta.
+- Corremos un riesgo de error de 0.05 al afirmar, $\mu \in \bar{X}\pm2$.
+
+\begin{definition}
+  $~$
+  \begin{itemize}
+    \item $(X_1,\dots,X_n)$ una muestra asociada a $f_{\theta}$.
+    \item Un \textcolor[HTML]{007aff}{intervalo de estimación} está ascoiado por dos estadísticos $I(X_1,\dots,X_n)$ (extremo inferior) y $D(X_1,\dots,X_n)$ (extremo superior) y persigue capturar el valor del parámetro $\theta$.
+  \end{itemize}
+\end{definition}
+
+:::{.callout-important}
+# Un intervalo de estimación es aleatorio
+- Sus extremos dependen de la muestra concreta escogida.
+- $\theta \in[I(X_1,\dots,X_n),D(X_1,\dots,X_n)]$ define un suceso aleatorio.
+- La probabilidad de este suceso $\mathbb{P}_{\theta}[\theta \in[I(X_1,\dots,X_n),D(X_1,\dots,X_n)]]$ se llama **nivel de cobertura** del intervalo para este valor de $\theta$.
+- El nivel de cobertura depende de $\theta$.
+:::
+
+## Nivel de confianza
+### Nivel de cobertura
+$$
+\theta \mapsto \mathbb{P}_{\theta}[\theta \in[I(X_1,\dots,X_n),D(X_1,\dots,X_n)]]
+$$
+El \textcolor[HTML]{007aff}{nivel de confianza} es el valor mínimo del nivel de cobertura calculado cuando varía $\theta$.
+
+:::{.callout-tip}
+# Confianza vs Precisión
+Deberemos buscar una alta confianza pero sin sacrificar en exceso la precisión.
+:::
+
+## Un procedimiento general de construcción
+Se aplica en muchas situaciones de modelización.
+
+:::{.callout-note}
+# Procedimiento
+- Nos fijamos en el "nivel de riesgo", $0<\alpha <1,$ por ejemplo, $0.1,0.5,$ o $0.01$.
+- Buscamos $T(X_1,\dots,X_n)$ que se \textcolor[HTML]{007aff}{pivota}, es decir, que su distribución no depende de $\theta$.
+- Escogemos dos cotas $a$ y $b$: $$\mathbb{P}_{\theta}[a \leq T(X_1,\dots,X_n)\leq b]=1-\alpha ,\quad \forall \theta \in\Theta.$$
+- Procuramos despejar $\theta$: $$\mathbb{P}_{\theta} [I(X_1,\dots,X_n)\leq\theta \leq D(X_1,\dots,X_n)]=1-\alpha.$$
+:::
+
+:::{.callout-tip}
+# Nota
+- $T$ es pivotal $\implies$ el nivel de cobertura $1-\alpha$ de $[I(X_1,...,X_n)]$ no depende de $\theta$.
+- $1-\alpha$ es el nivel de confianza.
+:::
+
+## Intervalo de confianza para la media $\mu$ de $X\sim \mathcal{N}(\mu,\sigma^2),\,\sigma$ conocida ##
+
+\textcolor[HTML]{007aff}{Consideramos una muestra aleatoria simple de una distribución $X\sim \mathcal{N}(\mu,\sigma^2)$. El valor de $\sigma^2$ es conocido}
+
+- Usaremos $\bar{X}$ para estimar $\mu$.
+
+  Estadístico pivotal: $$T(X_1,\dots,X_n;\theta)=\dfrac{\bar{X}-\mu}{\sigma / \sqrt{n} }\sim \mathcal{N}(0,1).$$ 
+
+- Dibujamos en la densidad del estadístico pivotal $\dfrac{\bar{X}-\mu}{\sigma / \sqrt{n} }$, una región central que represente el $100(1-\alpha)\%$ del área total.
+
+
+
