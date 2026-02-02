@@ -60,7 +60,7 @@
 \end{center}
 :::
 
-::: callout-tip
+::: callout-warning
 # A tener en cuenta:
 
 -   Un estimador es un variable aleatoria, su valor depende de la muestra concreta escogida.
@@ -735,5 +735,36 @@ Extraer una muestra Bootstrap es extraer una muestra de la distribución empíri
 - Al ser con reemplazo, algunos elementos de $\mathbf{x}$ pueden aparecer repetidos y otros pueden no aparecer.
 :::
 
+:::{.callout-tip}
+# Con **`R`** #
+```{r, echo=TRUE}
+x <- c(5.3, 4.8, 5.4, 5.0, 4.8)
+set.seed(3.14159)
+(x_bootstrap <- sample(x, replace = TRUE))
+```
+
+:::
+
 ### El error estándar Bootstrap ###
 
+:::{.callout-note}
+# Recordad #
+- El error estándar asociado a un estadístico es su desviación típica muestral.
+- Para un estimador, nos indica la variabilidad de los valores que toma respecto a todas las muestras posibles, es por lo tanto un indicador valioso de su precisión.
+- Por ejemplo, para una población normal, $\sigma$ desconocida, el error estándar de $\bar{X}$ es $S / \sqrt{n}$.
+:::
+
+:::{.callout-note}
+# Idea del error estándar Bootstrap #
+- Consideramos un estimador $\hat{\theta}$ que se expresa como $T(\mathbf{x})$.
+- Vamos a aplicar el principio plug-in para aproximar el error estándar de $\hat{\theta}$, usando $\hat{F}$.
+- El principio plug-in en este caso se describe como:
+  - Consideramos el proceso de extraer una muestra de $\hat{F}:\mathbf{x}^*$.
+  - Consideramos el estimador $T(\mathbf{x}^*)$.
+  - Calculamos la desviación típica de la distribución muestral del estimador anterior, respecto a todas las muestras de  $\hat{F}$ que podría extraer.
+- Consideramos una variable aleatoria $X$ y una muestra $x_1,\dots,x_{n}$ de $X$.
+- Hemos observado $\mathbf{x}$, hemos calculado el estadístico $\hat{\theta}=T(\mathbf{x})$. Procederemos de la manera siguiente:
+  - Extraemos $B$ muestras Bootstrap  $\mathbf{x}^{*1},\dots,\mathbf{x}^{*n}$. Estas muestras independientes con reemplazamiento (pueden aparecer valores repetidos) de tamaño $n$ de  $x_1,\dots,x_n$.
+  - Para cada muestra Bootstrap, calculamos el valor del estadístico y lo denotamos por $\hat{\theta}^{*b}=T(\mathbf{x}^{*b})$, para $b=1,\dots,B$.
+- Aproximamos el error estándar de $\hat{\theta}$, que denotamos por $\hat{se}$, como la desviación típica muestral de $\hat{\theta}^{*1},\dots,\hat{\theta}^{*B}$, esto es, como $$\hat{se}=\sqrt{\sum_{b=1}^{B} \dfrac{\left( \hat{\theta}^{*b}-\sum_{i=1}^{B} \frac{\hat{\theta}^{*b}}{B}  \right) }{B-1}}$$
+:::

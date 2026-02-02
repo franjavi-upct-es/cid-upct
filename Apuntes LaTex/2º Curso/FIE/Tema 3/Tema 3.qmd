@@ -87,5 +87,28 @@ Se aplica en muchas situaciones de modelización.
 
 - Dibujamos en la densidad del estadístico pivotal $\dfrac{\bar{X}-\mu}{\sigma / \sqrt{n} }$, una región central que represente el $100(1-\alpha)\%$ del área total.
 
+```{r}
+#| echo: FALSE
+library(ggplot2)
 
+x_vals <- seq(-3.5, 3.5, length.out = 1000)
+df <- data.frame(x = x_vals, y = dnorm(x_vals))
 
+z_scrit <- 1.96
+
+ggplot(df, aes(x = x, y = y)) +
+  geom_area(data = subset(df, x >= -z_scrit & x <= z_scrit),
+            fill = "gray50", alpha = 0.9) +
+  geom_line(size=0.8) +
+  scale_x_continuous(
+    breaks = c(-z_scrit, 0, z_scrit),
+    labels = c(expression(-z[1-alpha/2]),
+               "",
+               expression(z[1-alpha/2]))
+  ) +
+  theme_grey() +
+  theme(
+    axis.text.x = element_text(size = 14, color = "black"),
+    axis.title.y = element_text(size = 14, color = "black")
+  )
+```
