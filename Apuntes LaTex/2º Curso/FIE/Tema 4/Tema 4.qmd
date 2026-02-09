@@ -1,0 +1,146 @@
+# Constrastes de hipótesis #
+## Introducción ##
+Basándonos en una muestra, queremos decidir entre dos opciones o hipótesis acerca de la distribución de interés en la población.
+
+Las hipótesis pueden verter sobre:
+
+- La forma de la distribución: ¿Es una Poisson? ¿Es una Normal? \textcolor[HTML]{007aff}{Constrastes no paramétricos}.
+- Los paramétricos de la distribución, si suponemos dada la familia paramétrica. \textcolor[HTML]{007aff}{Constrastes paramétricos}.
+- Si consideramos dos variables, ¿existe una relación de dependencia? \textcolor[HTML]{007aff}{Constrastes no paramétricos}.
+
+## Constrastes de hipótesis paramétricos ##
+### Elementos principales ###
+
+:::{.callout-important}
+# Idea básica #
+Un **test de hipótesis** es una regla que nos lleva a decidir si lo observado en la muestra es compatible con una hipótesis planteada sobre los parámetros del modelo.
+:::
+
+:::{.callout-note}
+# Ejemplo #
+Un nuevo medicamento pretende mejorar un medicamento en el mercado, que tiene probabilidad $\theta_0=0.7$ de curar un paciente.
+
+- Planteamos $X\sim \mathrm{Bernoulli}(\theta),X=1\leftrightarrow$ el paciente se cura con el medicamento nuevo.
+- Lanzamos el nuevo medicamento si $\theta>\theta_0+0.15$, es decir, que debemos decidir entre
+
+$$
+\begin{array}{l}
+H_0:\theta\le \theta_0+0.15\\
+H_1:\theta>\theta_0+0.15
+\end{array}
+$$
+
+- Consideramos una muestra aleatoria simple de tamaño $100$, el estadístico $T(X_1,\dots,X_{100})=\sum_{i=1}^{100} X_i$, resumen de la información muestral.
+- Posible test:
+  - Aceptamos $H_0$ si $\sum_{i=1}^{100} X_i\le 85$.
+  - Rechazamos $H_0$ si $\sum_{i=1}^{100} X_i>85$.
+:::
+
+Si queremos ser más conservadores: aceptamos $H_0$ si $\sum_{i=1}^{100} X_i\le 90$, y rechazamos $H_0$ si $\sum_{i=1}^{100} X_i>90$.
+
+:::{.callout-note}
+# Podemos cometer dos tipos de errores: #
+- Rechazar una hipótesis verdadera.
+- Aceptar una hipótesis falsa.
+:::
+
+\pagebreak
+### Formulación general del contraste de hipótesis ###
+:::{.callout-note}
+# Contexto #
+- $X\sim F(x,\theta)$, con $\theta\in \Theta\subseteq \mathbb{R}^p$.
+- $\mathbf{X}=(X_1,X_2,\dots,X_n)$ una muestra aleatoria simple de $X$.
+- $\Theta_0$ y $\Theta_1$ dos subcojuntos del espacio paramétrico $\Theta$ tales que: $\Theta=\Theta_0\cup \Theta_1$ y $\Theta_0\cap \Theta_1=\varnothing$.
+:::
+
+::: {layout-ncol=2}
+
+:::{.callout-note}
+# Definición #
+Un \textcolor[HTML]{007aff}{test} o \textcolor[HTML]{007aff}{contraste} es una regla basada en $\mathbf{X}$ para decidir entre las dos hipótesis: $$H_0:\theta\in \Theta_0\text{ vs }H_1:\theta\in \Theta_1.$$
+:::
+
+:::{.callout-tip}
+# Llamamos #
+- $H_0$: hipótesis nula.
+- $H_1$: hipótesis alternativa.
+:::
+:::
+
+:::{.callout-note}
+# Definición #
+Se llama \textcolor[HTML]{007aff}{test (no aleatorio)} a una función: $\delta:sop(\mathbf{X})\to \{0,1\}$ tal que:
+
+- si $\delta(\mathbf{x})=0$ se acepta la hipótesis nula $H_0$,
+- si $\delta(\mathbf{x})=1$ se rechaza la hipótesis $H_0$.
+:::
+
+:::{.callout-note}
+# Notación #
+- $sop(\mathbf{X})$ es el soporte de $\mathbf{X}$, que es el conjunto donde $f(x)$, la función puntual de probabilidad (caso discreto) o la función densidad (caso continuo) de $\mathbf{X}$ es $>0$.
+- Denotaremos por  $T$ el conjunto de tests definidos sobre el $sop(\mathbf{X})$.
+:::
+
+Dado un test $\delta\in T$ se definen los siguientes conjuntos:
+
+:::{.callout-note}
+# Definición #
+- \textcolor[HTML]{007aff}{Región de aceptación:} $$S_0=\{\mathbf{x}\in sop(\mathbf{X}):\delta(\mathbf{x})=0\}.$$ 
+- \textcolor[HTML]{007aff}{Región de rechazo:} $$S_1=\{\mathbf{x}\in sop(\mathbf{X}):\delta(\mathbf{x})=1\}.$$
+:::
+
+#### Errores ####
+:::{.callout-note}
+# Definimos los errores asociados: #
+- Error de tipo I: rechazar $H_0$ cuando es cierta.
+- Error de tipo II: aceptar $H_0$ cuando es falsa.
+:::
+
+:::{.callout-note}
+# Resumen #
+
+| | $\mathbf{X}\in S_1$ | $\mathbf{X}\in S_0$ |
+| :---: | :---: | :---: |
+| $\theta\in \Theta_0$ | Error tipo I | Correcto |
+| $\theta\in \Theta_1$ | Correcto | Error tipo II |
+:::
+
+Recordad, $S_0$ región de aceptación, $S_1$ región de rechazo.
+
+:::{.callout-note}
+# Definimos las probabilidades asociadas, para un test $\delta$ dado, #
+- La probabilidad de cometer un error de tipo I, si el valor del parámetro es $\theta$, se denota por: $$\text{Si }\theta\in \Theta_0:\quad P_{I,\delta}(\theta)=P_{\theta}(\mathbf{X}\in S_1).$$ 
+- La probabilidad de cometer un error de tipo II, si el valor del parámetro es $\theta$, se denota por: $$\text{Si }\theta\in \Theta_1:\quad P_{II,\delta}(\theta)=P_\theta(\mathbf{X}\in S_0).$$
+:::
+
+:::{.callout-note}
+# ¿Qué buscamos? #
+Queremos encontrar un test $\delta$ con $P_{I,\delta}(\theta)$ y $P_{II,\delta}(\theta)$ lo más pequeñas posibles \textcolor[HTML]{007aff}{simultáneamente}. 
+:::
+
+#### Ejemplo de test: control de calidad #### {.unnumbered .unlisted}
+
+:::{.callout-note}
+# Contexto #
+- En la producción de un artículo electrónico, se cuida que la tensión que circula por un componente es 10mV. Hay variabilidad en la tensión conseguida en los artículos producidos, que pensamos modelizar por una Normal con desviación típica $0.05$.
+- Para controlar la calidad de los artículos producidos, se escogen al azar cada día 20 artículos y se mida su tensión.
+- ¿Qué regla podríamos fijar que describa cuándo debe saltar una alarma si parece que la tensión se aleja de 10mV?
+:::
+
+:::{.callout-note}
+# Traducimos el contexto #
+- $X$: tensión medida en un artículo escogido al azar en la producción. $X\sim \mathcal{N}(\mu,0.025)$.
+- $\mathbf{X}=(X_1,X_2,\dots,x_{20})$ una muestra aleatoria simple de $X$ de tamaño 20.
+- Queremos controlar si $\mu=10$.
+:::
+
+- Planteamos las hipótesis:
+  
+  $$
+  H_0:\mu=10\\
+  H_1:\mu\neq 10\\
+  $$
+  
+- Nuestra regla, es decir nuestro test $\delta$, se basará en $\bar{\mathbf{X}}$:
+  - si $\bar{\mathbf{X}}$ está "alejado" de 10, rechazaremos $H_0$.
+  - si $\bar{\mathbf{X}}$ está "cerca" de 10, aceptaremos  $H_0$.

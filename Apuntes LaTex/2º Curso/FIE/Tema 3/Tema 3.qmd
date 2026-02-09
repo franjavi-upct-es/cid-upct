@@ -98,17 +98,521 @@ z_scrit <- 1.96
 
 ggplot(df, aes(x = x, y = y)) +
   geom_area(data = subset(df, x >= -z_scrit & x <= z_scrit),
-            fill = "gray50", alpha = 0.9) +
-  geom_line(size=0.8) +
+            fill = "gray50", alpha = 0.6) +
+  geom_line(linewidth = 0.5) +
   scale_x_continuous(
     breaks = c(-z_scrit, 0, z_scrit),
-    labels = c(expression(-z[1-alpha/2]),
+    labels = c(expression(-z[1 - alpha / 2]),
                "",
-               expression(z[1-alpha/2]))
+               expression(z[1 - alpha / 2]))
   ) +
-  theme_grey() +
+  labs(y = "Densidad", x = "") +
+  theme_grey()
+```
+
+:::{.callout-tip}
+# Cuantil #
+Para $0\le u\le 1,\,z_u$ es el **cuantil** $u$ de una $\mathcal{N}(0,1)$, es decir, el valor que cumple $\mathbb{P}(Z\le z_u)=u$.
+:::
+
+
+$$
+\mathbb{P}\left[ -z_{1-\alpha / 2}\le \dfrac{\bar{X}-\mu}{\sigma / \sqrt{n} } \right] =1-\alpha.
+$$
+
+Despejamos $\mu$:
+
+- $\mathbb{P}\left[ \bar{X}-z_{1-\alpha / 2}\dfrac{\sigma}{\sqrt{n} }\le \mu\le \bar{X}+z_{1-\alpha / 2}\dfrac{\sigma}{\sqrt{n} } \right]=1-\alpha$
+- El \textcolor[HTML]{007aff}{intervalo de confianza} al $100(1-\alpha)\%$ para $\mu$ es: $$\mu \in \left( \bar{X}-z_{1-\alpha / 2}\dfrac{\sigma}{\sqrt{n} };\bar{X}+z_{1-\alpha / 2}\dfrac{\sigma}{\sqrt{n} } \right).$$
+- De forma equivalente: $\mu \in \bar{X}\pm z_{1-\alpha / 2}\dfrac{\sigma}{\sqrt{n} }$.
+
+:::{.callout-tip}
+# Margen de error #
+$z_{1-\alpha / 2}\dfrac{\sigma}{\sqrt{n} }$ se llama **término de error.**
+:::
+
+### Interpretación ###
+
+:::{.callout-important}
+# Importante #
+- El intervalo de confianza $\left[ \bar{X}-z_{1-\alpha / 2}\dfrac{\sigma}{\sqrt{n} };\bar{X}+z_{1-\alpha / 2}\dfrac{\sigma}{\sqrt{n} } \right]$ es un intervalo **aleatorio.**
+- Al extraer una muestra, tengo una probabilidad $\alpha$ de que, al afirmar que $\mu$ se encuentra en $\left[ \bar{X}-z_{1-\alpha/2}\dfrac{\sigma}{\sqrt{n} };\bar{X}-z_{1-\alpha / 2}\dfrac{\sigma}{\sqrt{n} } \right]$, me equivique.
+:::
+
+```{r}
+#| fig-width: 12
+#| fig-height: 5
+library(ggplot2)
+
+set.seed(123)
+n <- 20
+mu_real <- 2
+
+df <- data.frame(
+  Muestra = 1:n,
+  Media = rnorm(n, mean = mu_real, sd = 0.3)
+)
+
+margen_error <- 0.45
+df$ymin <- df$Media - margen_error
+df$ymax <- df$Media + margen_error
+
+ggplot(df, aes(x = Muestra, y = Media)) +
+  geom_hline(yintercept = mu_real, color = "black") +
+  geom_errorbar(aes(ymin = ymin, ymax = ymax),
+                width = 0.2,
+                color = "black") +
+  geom_point(size = 3) +
+  scale_y_continuous(limits = c(0, 4)) +
+  scale_x_continuous(breaks = c(0, 5, 10, 15, 20)) +
+  labs(x = "Muestra", y = "Valores") +
+  theme_grey()
+```
+
+\textcolor[HTML]{007aff}{\underline{Ejemplo:}}
+
+- Queremos estimar la longitud media de un artículo producido por una máquina.
+- Por experiencia, sabemos que es razonable modelizar la distribución de los valores de la longitud de los artículos producidos por una distribución Normal con media $\mu$ y desviación típica a $0.05$.
+- Para estimar $\mu$ extraemos una muestra de 5 artículos: $$20.1,\,20.05,\,19.95,\,19.99$$
+- Construir un intervalo de confianza al 90%.
+
+$$\begin{array}{l}\bar{x} = 20.02\\1-\alpha=0.90\\\alpha=0.1\\\dfrac{\alpha}{2}=0.05\\\left( 20.2\mp 1.645 \dfrac{0.05}{\sqrt{5} } \right)=(20.02\mp 0.0367)=(19.9833,20.0588)\end{array}$$
+
+```{r}
+library(ggplot2)
+
+x_vals <- seq(-3.5, 3.5, length.out = 1000)
+df <- data.frame(x = x_vals, y = dnorm(x_vals))
+z_crit <- 1.645
+
+ggplot(df, aes(x, y)) +
+  geom_area(data = subset(df, x <= -z_crit),
+            fill = "cyan", color = "blue", alpha = 0.5) +
+  geom_area(data = subset(df, x >= z_crit),
+            fill = "cyan", color = "blue", alpha = 0.5) +
+  geom_segment(aes(x = -z_crit, xend = -z_crit, y = 0,
+                   yend = dnorm(-z_crit)), color = "blue") +
+  geom_segment(aes(x = z_crit, xend = z_crit, y = 0,
+                   yend = dnorm(z_crit)), color = "blue") +
+  geom_line(color = "blue", size = 0.8) +
+  annotate("text", x = 0, y = 0.42, label = "N(0,1)",
+           color = "blue", size = 4, fontface = "italic") +
+  annotate("text", x = 0, y = 0.2, label = "1 - alpha == 0.90",
+           parse = TRUE, color = "blue", size = 4) +
+  annotate("text", x = -2.5, y = 0.1,
+           label = expression(-frac(alpha, 2) == -0.05),
+           color = "blue", size = 4) +
+  annotate("text", x = 2.5, y = 0.1, label = expression(frac(alpha, 2) == 0.05),
+           color = "blue", size = 4) +
+  annotate("text", x = -z_crit, y = -0.01, label = "-z[0.95] == -1.645",
+           parse = TRUE, color = "blue", size = 4) +
+  annotate("text", x = z_crit, y = -0.01, label = "z[0.95] == 1.645",
+           parse = TRUE, color = "blue", size = 4) +
+  scale_x_continuous(
+    breaks = c(-z_crit, z_crit),
+    limits = c(-3.5, 3.5)
+  ) +
+  geom_hline(yintercept = 0, color = "black") +
+  theme_void()
+```
+
+## Comentarios importantes ##
+
+:::{.callout-tip}
+# Si $X$ no es Normal #
+- Hemos trabajado con la hipótesis de que $X$ es Normal para encontrar el estadístico pivotal $\dfrac{\bar{X}-\mu}{\sigma / \sqrt{n} }\sim \mathcal{N}(0,1)$.
+- Si $X$ no es Normal, no podemos garantizar la confianza especificada.
+- Sin embargo, si  $n$ es grande, tenemos por el Teorema Central del Límite $$\dfrac{\bar{X}-\mu}{\sigma / \sqrt{n} }\sim \mathcal{N}(0,1),\text{ aproximadamente, }$$ entonces la confianza especificada no será exacta pero casi...
+:::
+
+### Factores que afectan a la precisión de la estimación ###
+
+:::{.callout-tip}
+# El margen de error es $z_{1-\alpha / 2}\dfrac{\sigma}{\sqrt{n} }$ #
+- $n\uparrow \rightarrow$ precisión $\uparrow$
+- $\sigma\uparrow\rightarrow$ precisión $\downarrow$
+- Confianza $\uparrow\rightarrow$ precisión $\downarrow$
+:::
+
+### Determinación del tamaño muestral ###
+
+:::{.callout-note}
+# Contexto #
+Antes de extraer la muestra:
+
+- Tenemos decidido el valor de $\sigma$.
+- Tenemos decidido la confianza con la que trabajamos.
+- Tenemos decidido el margen de error máximo $max$ que estamos dispuestos a cometer. 
+
+¿Qué tamaño de la muestra debemos escoger?
+:::
+
+Margen de error: $z_{1-\alpha / 2}\dfrac{\sigma}{\sqrt{n} }\le max\rightarrow$ Despejamos $n$
+
+### Otros modelos ###
+
+:::{.callout-note}
+# $X\sim \mathcal{N}(\mu,\sigma^2)$, estimamos $\mu,\sigma$ desconocida
+Estadístico pivotal: $$T=\dfrac{\bar{X}-\mu}{S / \sqrt{n} }\sim t_{n-1}$$
+:::
+
+Debemos encontrar valores $a$ y $b$ tales que:
+ 
+$$
+\begin{array}{l}
+    P\left[ a\le \dfrac{\bar{X}-\mu}{S / \sqrt{n} }\le b \right]\\
+    P\left[ -t_{n-1,1-\frac{\alpha}{2} }\le \dfrac{\bar{X}-\mu}{S / \sqrt{n} }\le t_{n-1,1-\frac{\alpha}{2} } \right]\\
+    P\left[ X-t_{n-1,1-\frac{\alpha}{2}} \dfrac{S}{\sqrt{n} }\le \dfrac{\bar{X}-\mu}{S / \sqrt{n} }\le X+t_{n-1,1-\frac{\alpha}{2} }\dfrac{S}{\sqrt{n} } \right]=1-\alpha
+\end{array}
+$$
+
+```{r}
+library(ggplot2)
+library(grid) # Necesario para la flecha
+
+# 1. Datos
+limit <- 3.5
+x_vals <- seq(-limit, limit, length.out = 1000)
+df <- data.frame(x = x_vals, y = dnorm(x_vals))
+z_crit <- 1.645 # Valor crítico aproximado para el dibujo
+
+# 2. Gráfico
+ggplot(df, aes(x, y)) +
+  
+  # A. Área sombreada CENTRAL (Cyan)
+  # Nota: Usamos una sola geom_area filtrando entre -z y z
+  geom_area(data = subset(df, x >= -z_crit & x <= z_crit),
+            fill = "cyan", alpha = 0.5) +
+  
+  # B. Líneas verticales y superior discontinua
+  geom_segment(aes(x = -z_crit, xend = -z_crit, y = 0, yend = dnorm(-z_crit)), color = "blue") +
+  geom_segment(aes(x = z_crit, xend = z_crit, y = 0, yend = dnorm(z_crit)), color = "blue") +
+  # Línea superior discontinua
+  geom_segment(aes(x = -z_crit, xend = z_crit, y = dnorm(z_crit), yend = dnorm(z_crit)), 
+               linetype = "dashed", color = "blue") +
+  
+  # C. Curva Principal
+  geom_line(color = "blue", size = 0.8) +
+  
+  # D. Textos y Fórmulas
+  # Centro
+  annotate("text", x = 0, y = 0.2, label = "1 - alpha", parse = TRUE, color = "blue", size = 5) +
+  
+  # Colas (Izquierda y Derecha)
+  annotate("text", x = -2.8, y = 0.08, label = "-frac(alpha, 2)", parse = TRUE, color = "blue", size = 4) +
+  annotate("text", x = 2.8, y = 0.08, label = "frac(alpha, 2)", parse = TRUE, color = "blue", size = 4) +
+  
+  # E. Etiquetas del Eje X (Las fórmulas largas)
+  # Las bajamos un poco (y < 0) para que no choquen con la línea
+  annotate("text", x = -z_crit, y = -0.02, label = "a == t[n-1 * \",\" ~ 1-frac(alpha,2)]", 
+           parse = TRUE, color = "blue", size = 3.5) +
+  annotate("text", x = z_crit, y = -0.02, label = "b == t[n-1 * \",\" ~ 1-frac(alpha,2)]", 
+           parse = TRUE, color = "blue", size = 3.5) +
+
+  # F. Flecha inferior doble
+  geom_segment(aes(x = -limit, xend = limit, y = -0.05, yend = -0.05), 
+               arrow = arrow(length = unit(0.2, "cm"), ends = "both")) +
+  annotate("text", x = 0, y = -0.1, label = "1 - frac(alpha, 2)", parse = TRUE, size = 4) +
+  
+  # G. Configuración de Ejes y Tema
+  scale_x_continuous(limits = c(-limit, limit)) +
+  scale_y_continuous(limits = c(-0.15, 0.45)) + # Ampliamos el eje Y por abajo para que quepa la flecha
+  theme_void() + # Quitamos fondo y ejes automáticos
+  geom_hline(yintercept = 0, color = "black")
+```
+
+Obteniendo como I.C aleatoria a nivel  $100(1-\alpha)\%$ $$X-t_{n-1,1-\frac{\alpha}{2}}\dfrac{S}{\sqrt{n} }$$ 
+
+:::{.callout-note}
+# $X\sim \mathcal{N}(\mu,\sigma^2)$, estimamos $\sigma^2$ #
+Estadístico pivotal: 
+
+$$
+\dfrac{(n-1)S^2}{\sigma^2}\sim \chi_{n-1}^2
+$$
+:::
+
+I.C para $\sigma^2$ al nivel de confianza $(1-\alpha)100\%$ $$T=\dfrac{(n-1)S^2}{\sigma^2}\leadsto \chi_{n-1}^2$$ 
+
+Debemos encontrar valores $a$ y $b$ tales que:  $P\left[ a\le \dfrac{(n-1)S^2}{\sigma^2}\le b \right]=1-\alpha$
+
+$$
+\begin{array}{l}
+    P\left[ -\chi_{n-1,1-\frac{\alpha}{2} }^2\le \dfrac{(n-1)S^2}{\sigma^2}\le \chi_{n-1,1-\frac{\alpha}{2} }^2\right] =1-\alpha\\
+    P\left[ -\dfrac{1}{\chi_{n-1,1-\frac{\alpha}{2} }^2}\le \dfrac{\sigma^2}{(n-1)S^2}\le \dfrac{1}{\chi_{n-1,1-\frac{\alpha}{2} }^2}\right] =1-\alpha\\
+    P\left[ -\dfrac{(n-1)S^2}{\chi_{n-1,1-\frac{\alpha}{2} }^2}\le \sigma^2\le \dfrac{(n-1)S^2}{\chi_{n-1,1-\frac{\alpha}{2} }^2}\right] =1-\alpha\\
+\end{array}
+$$
+
+```{r}
+library(ggplot2)
+
+# --- CONFIGURACIÓN ---
+df_chi <- 8
+alpha <- 0.10
+limit_x <- 25
+
+# --- CÁLCULOS ---
+x_low <- qchisq(alpha / 2, df = df_chi)
+x_high <- qchisq(1 - alpha / 2, df = df_chi)
+
+x_vals <- seq(0, limit_x, length.out = 1000)
+df_plot <- data.frame(x = x_vals, y = dchisq(x_vals, df = df_chi))
+
+# --- GRÁFICO ---
+ggplot(df_plot, aes(x, y)) +
+
+  # 1. Área sombreada central (Cyan)
+  geom_area(data = subset(df_plot, x >= x_low & x <= x_high),
+            fill = "cyan", alpha = 0.5) +
+
+  # 2. Líneas verticales - CORREGIDO: usar annotate() en lugar de geom_segment()
+  geom_vline(xintercept = 0, color = "black", linewidth = 1) +
+
+  annotate("segment", x = x_low, xend = x_low, y = 0,
+           yend = dchisq(x_low, df_chi),
+           linetype = "dashed", color = "blue", linewidth = 0.7) +
+  annotate("segment", x = x_high, xend = x_high, y = 0,
+           yend = dchisq(x_high, df_chi),
+           linetype = "dashed", color = "blue", linewidth = 0.7) +
+
+  # 3. La curva principal (Azul) - CORREGIDO: size -> linewidth
+  geom_line(color = "blue", linewidth = 1) +
+
+  # 4. Anotaciones Matemáticas
+  annotate("text", x = (x_low + x_high) / 2 + 1.5, y = max(df_plot$y) * 0.9,
+           label = "1 - alpha", parse = TRUE, color = "blue", size = 5) +
+
+  annotate("text", x = x_low - 2, y = 0.08, label = "-frac(alpha, 2)",
+           parse = TRUE, color = "blue", size = 4) +
+
+  annotate("text", x = x_high + 4, y = 0.08, label = "frac(alpha, 2)",
+           parse = TRUE, color = "blue", size = 4) +
+
+  annotate("text", x = x_low, y = -0.005,
+           label = "-chi[n-1 * \",\" ~ 1-frac(alpha,2)]^2",
+           parse = TRUE, color = "blue", size = 4) +
+
+  annotate("text", x = x_high + 1, y = -0.005,
+           label = "chi[n-1 * \",\" ~ 1-frac(alpha,2)]^2",
+           parse = TRUE, color = "blue", size = 4) +
+
+  # 5. Configuración del tema y ejes
+  scale_x_continuous(limits = c(0, limit_x), expand = c(0, 0)) +
+  scale_y_continuous(expand = c(0, 0),
+                     limits = c(-0.03, max(df_plot$y) * 1.05)) +
+
+  theme_void() +
+  geom_hline(yintercept = 0, color = "black")
+```
+
+:::{.callout-note}
+# $X\sim \mathrm{Bernoulli},$ estimamos $p$ #
+Estadístico pivotal aproximado: $$\dfrac{\hat{p}-p}{\sqrt{\hat{p}(1-\hat{p}) / n} }\sim \mathcal{N}(0,1)\quad\text{aprox.}$$
+:::
+
+:::{.callout-note}
+# Diferencias de dos variables aleatorias normales #
+Contexto:
+
+- $X\sim \mathcal{N}(\mu_X,\sigma_X^2)$ y $Y\sim \mathcal{N}(\mu_Y,\sigma_Y^2)$, independientes.
+- Dos muestras aleatorias simples  $X_1,\dots,X_{n_X}$ e $Y_1,\dots,Y_{n_Y}$, de $Y$. 
+- Suponemos que conocemos $\sigma_X^2$ y $\sigma_Y^2$.
+
+Estadístico pivotal: $$\dfrac{\bar{X}-\bar{Y}-(\mu_X-\mu_Y)}{\sqrt{\dfrac{\sigma_X^2}{n_X}+\dfrac{\sigma_Y^2}{n_Y}} }\sim \mathcal{N}(0,1).$$
+:::
+
+:::{.callout-note}
+# Diferencias de dos variables aleatorias normales #
+Contexto:
+
+- $X\sim \mathcal{N}(\mu_X,\sigma_X^2)$ y $Y\sim \mathcal{N}(\mu_Y,\sigma_Y^2)$, independientes.
+- Dos muestras aleatorias simples  $X_1,\dots,X_{n_X}$ e $Y_1,\dots,Y_{n_Y}$, de $Y$. 
+- Desconocemos $\sigma_X^2$ y $\sigma_Y^2$, pero las suponemos iguales, $\sigma_X^2=\sigma_Y^2$.
+
+Estadístico pivotal: $$\dfrac{\bar{X}-\bar{Y}-(\mu_X-\mu_Y)}{\sqrt{\dfrac{(n_X-1)S_X^2+(n_Y-1)S_Y^2}{n_X+n_Y-2}} \sqrt{\dfrac{1}{n_X}+\dfrac{1}{n_Y}} }\sim t_{n_X+n_Y-2}.$$
+:::
+
+:::{.callout-note}
+# Diferencias de dos variables aleatorias normales #
+Contexto:
+
+- $X\sim \mathcal{N}(\mu_X,\sigma_X^2)$ y $Y\sim \mathcal{N}(\mu_Y,\sigma_Y^2)$, independientes.
+- Dos muestras aleatorias simples  $X_1,\dots,X_{n_X}$ e $Y_1,\dots,Y_{n_Y}$, de $Y$. 
+
+Estadístico pivotal: $$\dfrac{S_X^2 / \sigma_X^2}{S_Y^2 / \sigma_Y^2}\sim F_{n_X-1,n_Y-1}.$$
+:::
+
+$$
+\begin{array}{l}
+    P\left[ a\le \dfrac{S_X^2 / \sigma_X^2}{S_Y^2 / \sigma_Y^2}\le b \right] =1-\alpha\\
+    P\left[ F_{n_X-1,n_{Y}-1,\frac{\alpha}{2}}\le \dfrac{S_X^2 / \sigma_X^2}{S_Y^2 / \sigma_Y^2}\le F_{n_X-1,n_{Y}-1,1-\frac{\alpha}{2} } \right] 
+\end{array}
+$$
+
+```{r}
+library(ggplot2)
+
+# --- CONFIGURACIÓN ---
+# Grados de libertad (n_X - 1 y n_Y - 1)
+df1 <- 10  # Numerador
+df2 <- 20  # Denominador
+alpha <- 0.10
+limit_x <- 4 # Ajustar según se quiera ver la cola
+
+# Puntos críticos (Cola izquierda y derecha)
+# La F no es simétrica, así que calculamos ambos con qf()
+x_low <- qf(alpha / 2, df1, df2)
+x_high <- qf(1 - alpha / 2, df1, df2)
+
+# Generar datos
+x_vals <- seq(0, limit_x, length.out = 1000)
+df_plot <- data.frame(x = x_vals, y = df(x_vals, df1, df2))
+
+# --- GRÁFICO ---
+ggplot(df_plot, aes(x, y)) +
+  
+  # 1. Área sombreada central (Cyan)
+  geom_area(data = subset(df_plot, x >= x_low & x <= x_high),
+            fill = "cyan", alpha = 0.5) +
+  
+  # 2. Líneas verticales
+  # Eje Y fuerte
+  geom_vline(xintercept = 0, color = "black", size = 1) +
+  
+  # Líneas discontinuas azules
+  geom_segment(aes(x = x_low, xend = x_low, y = 0, yend = df(x_low, df1, df2)),
+               linetype = "dashed", color = "blue", size = 0.7) +
+  geom_segment(aes(x = x_high, xend = x_high, y = 0, yend = df(x_high, df1, df2)),
+               linetype = "dashed", color = "blue", size = 0.7) +
+  
+  # 3. Curva (Azul)
+  geom_line(color = "blue", size = 1) +
+  
+  # 4. Anotaciones de Texto
+  # Título flotante: F con grados de libertad
+  annotate("text", x = 1.5, y = max(df_plot$y), 
+           label = "F[n[X]-1 * \",\" ~ n[Y]-1]", 
+           parse = TRUE, color = "blue", size = 5) +
+  
+  # Texto central: 1 - alpha
+  annotate("text", x = 1, y = 0.15, 
+           label = "1 - alpha", 
+           parse = TRUE, color = "blue", size = 5) +
+  
+  # 5. Etiquetas del Eje X (Lo más complejo)
+  # Izquierda: F_{n_X-1, n_Y, alpha/2}
+  annotate("text", x = x_low, y = -0.04, 
+           label = "F[n[X]-1 * \",\" ~ n[Y] * \",\" ~ frac(alpha, 2)]", 
+           parse = TRUE, color = "blue", size = 3.5) +
+  
+  # Derecha: F_{n_X-1, n_Y, 1-alpha/2}
+  annotate("text", x = x_high + 0.5, y = -0.04, 
+           label = "F[n[X]-1 * \",\" ~ n[Y] * \",\" ~ 1 - frac(alpha, 2)]", 
+           parse = TRUE, color = "blue", size = 3.5) +
+  
+  # 6. Estilo
+  scale_x_continuous(limits = c(0, limit_x), expand = c(0,0)) +
+  scale_y_continuous(expand = c(0,0), limits = c(-0.08, max(df_plot$y)*1.1)) +
+  theme_void() +
+  geom_hline(yintercept = 0, color = "black") +
   theme(
-    axis.text.x = element_text(size = 14, color = "black"),
-    axis.title.y = element_text(size = 14, color = "black")
+    plot.margin = margin(20, 20, 20, 20)
   )
 ```
+
+$$
+\bboxed{P\left[ \dfrac{S_Y^2}{S_X^2}F_{n_X-1,n_Y-1,\frac{\alpha}{2} }\le \dfrac{\sigma_Y^2}{\sigma_X^2}F_{n_X-1,n_Y-1,1-\frac{\alpha}{2} } \right] =1-\alpha}
+$$
+
+```{r}
+#| echo: TRUE
+ingresos <- c(22010, 43950, 31416, 134200, 19298, 21521, 60025, 24320, 18221, 29528)
+```
+
+```{r}
+#| echo: TRUE
+library(tidyverse)
+B <- 200
+lista_boot_muestras <- replicate(
+    B,
+    sample(ingresos, size = length(ingresos), replace = TRUE),
+    simplify = FALSE
+)
+valores_medianas <- map_dbl(lista_boot_muestras, median)
+error_estandar_estimacion <- sd(valores_medianas)
+```
+
+En el ejemplo de los ingresos, obtenemos para la mediana: $26924\pm 12311$.
+
+:::{.callout-tip}
+# La construcción anterior es una aproximación #
+- Es posible, en particular si $n$ no es grande o si la distribución es asimétrica, que el nivel de confianza no sea correcto.
+- Siempre produce intervalos simétricos, lo que puede ser una limitación.
+- Para mejorar la veracidad del intervalo construido, vamos a ver el intervalo de confianza basado en percentiles Bootstrap.
+:::
+
+:::{.callout-note}
+# Procedimiento #
+- Habiendo observado una muestra $\mathbf{x}$, queremos estimar $\theta$, usando un estimador $\hat{\theta}=T(\mathbf{x})$.
+- Simulamos un gran número $B$ de muestras Boostrap a partir de $\mathbf{x}$, obteniendo $\mathbf{x}^{*1},\dots,\mathbf{x}^{*n}$.
+- Calculamos para cada muestra Boostrap, $\hat{\theta}^{*b}=T(\mathbf{x}^{*b})$.
+- Si $1-\alpha$ es el nivel de confianza, consideramos el conjunto $\hat{\theta}^{*1},\dots,\hat{\theta}^{*B}$ y calculamos:
+  - $\hat{\theta}^{(\alpha / 2)}$ el percentile $100\cdot \dfrac{\alpha}{2}$.
+  - $\hat{\theta}^{(1-\alpha / 2)}$ el percentile $100\cdot \left( 1-\dfrac{\alpha}{2} \right)$.
+- Nuestro intervalo al $100(1-\alpha)$ es $[\hat{\theta}^{(\alpha / 2)},\hat{\theta}^{(1-\alpha / 2)}]$.
+:::
+
+:::{.callout-tip}
+# ¿Cómo se calcula el percentile $100\cdot p$? #
+Si tenemos un conjunto $\hat{\theta}^{*1},\dots,\hat{\theta}^{*B}$,  $B$ grande, para calcular el percentil  $100\cdot p$ para $0\le p\le 1$, podemos seguir estos pasos:
+
+- Ordenamos los datos de menos a mayor.
+- Calculamos un índice como $u=p\times (B+1)$, donde $B$ es el número de observaciones.
+- Si $i$ es un número entero, podemos interpolar entre los puntos de datos adyacentes.
+  - Existen distintas posibilidades para la interpolación.
+  - En **`R`**: Usamos la función **`quantile`**, que admite hasta 9 tipos de interpolación con el argumento  **`type`**.
+:::
+
+### Aplicación con el ejemplo de los ingresos ###
+
+Simulamos $B=10000$ muestras Boostrap, calculamos las 10000 medianas $\hat{\theta}^{*1},\dots,\hat{\theta}^{*10000}$ y hacemos un histograma.
+
+```{r}
+set.seed(314159)
+B <- 10000
+lista_boot_muestras <- replicate(
+  B,
+  sample(ingresos, size = length(ingresos), replace = TRUE),
+  simplify = FALSE
+)
+valores_medianas <- map_dbl(lista_boot_muestras, median)
+tibble(mediana = valores_medianas) |>
+    ggplot(aes(x = mediana)) +
+    geom_histogram(col = "blue", fill = "blue", alpha = 0.2) +
+    geom_density()
+```
+
+```{r}
+library(stringr)
+```
+
+:::{.callout-note}
+# Calculamos los percentiles 2.5% y 97.5% #
+```{r}
+#| echo: TRUE
+str_glue("El intervalo basado en percentiles Bootstrap para la mediana es: 
+         [{formatC(quantile(valores_medianas, 0.025), format = 'd')},
+          {formatC(quantile(valores_medianas, 0.975), format = 'd')}]") 
+```
+:::
+
+:::{.callout-note}
+# Recordad que, con la aproximación $\hat{\theta}_n+1-96\cdot \hat{se}$, #
+ habíamos obtenido $[14612,39235]$.
+:::
+
+```{r}
+ingresos
+```
+

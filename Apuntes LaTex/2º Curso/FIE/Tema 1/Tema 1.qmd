@@ -817,7 +817,7 @@ p <- S |>
 p
 ```
 
-#### ¿Cuándo observamos $S(t)\ge 100$€? #### {.unnumbered}
+#### ¿Cuándo observamos $S(t)\ge 100$€? #### {.unnumbered .unlisted}
 ```{r}
 p + geom_hline(yintercept = 110, lwd = 1.1, lty = 2, color = "red")
 ```
@@ -878,7 +878,7 @@ Dada una función de distribución F, su \textcolor[HTML]{007aff}{función cuant
 - Dada una variable aleatoria $X$ con función de distribución  $F$, si generamos observaciones independientes  $U\sim U(0,1),\,u_1,u_2,\dots,u_n$, entonces los valores $$x_1=F^{-1}(u_1),x_2=F^{-1}(u_2),\dots,x_n=F^{-1}(u_n)$$ constituyen una observación de la muestra aleatoria simple de tamaño $n$ de la variable aleatoria  $X$.
 :::
 
-#### Generación de valores de una distribución uniforme #### {.unnumbered}
+#### Generación de valores de una distribución uniforme #### {.unnumbered .unlisted}
 ```{r}
 curve(dunif(x, 0, 1), from = 0, to = 1, xlab = "Distribución uniforme", 
       ylab = " ",  ylim=c(-0.1, 1.5))
@@ -891,7 +891,7 @@ for(i in 1:20){
 }
 ```
 
-#### Generación de valores de una distribución gamma #### {.unnumbered}
+#### Generación de valores de una distribución gamma #### {.unnumbered .unlisted}
 ```{r}
 curve(dgamma(x, 2, 3), from = 0, to = 2, xlab = "Distribución gamma", ylab = " ", ylim = c(-0.1, 1.5))
 abline(0, 0)
@@ -903,7 +903,7 @@ for(i in 1:20){
 }
 ```
 
-#### Transformación de una variable aleatoria #### {.unnumbered}
+#### Transformación de una variable aleatoria #### {.unnumbered .unlisted}
 :::{.callout-note}
 # Planteamiento del problema 
 En muchas ocasiones, tenemos una variable aleatoria continua $X$, de la que conocemos la función de densidad, pero nos interesa concoer cómo se comporta una transformación de  $X,\,Y=\varphi(X)$.
@@ -927,7 +927,7 @@ f_Y(y)=\begin{cases}
 $$
 \end{theorem}
 
-#### Función características #### {.unnumbered}
+#### Función características #### {.unnumbered .unlisted}
 
 \begin{definition}
     Sea $X$ una variable aleatoria cualquiera. La \textcolor[HTML]{007aff}{función característica} de $X$ se define como $$\phi(t)=E[e^{itX} ]=\int_{-\infty}^{\infty} e^{itx}\mathrm{d}F(x)$$ en donde $i=\sqrt{-1}$.
@@ -943,7 +943,7 @@ Nota: $\phi(t)=\int_{-\infty}^{\infty} \cos(tx)\mathrm{d}F(x)+i \int_{-\infty}^{
 - Si $X$ e $Y$ son variables aleatorias \textcolor[HTML]{007aff}{independientes}, entonces $$\phi_{X+Y}(t)=\phi_X(t)\phi_Y(t),$$ para todo $t\in \mathbb{R}$.
 :::
 
-#### Desigualdades #### {.unnumbered}
+#### Desigualdades #### {.unnumbered .unlisted}
 :::{.callout-note}
 # Desigualdad de Markov
 Si $Z$ es una variable aleatoria no negativa con media finita $E[Z]$ y  $\varepsilon>0$, entonces $$\varepsilon\mathrm{Pr}[Z\ge \varepsilon]=\varepsilon \int_{[\varepsilon,\infty)}\mathrm{d}F_Z(x)\le \int_{[\varepsilon,\infty)}x\mathrm{d}F_Z(x)\le \int_{[0,\infty)}x\mathrm{d}F_Z(x)=E(Z)$$ (donde $F_Z(x)=\mathrm{Pr}[Z\le x]$ es su función de distribución), es decir $$\mathrm{Pr}[Z\ge \varepsilon]\le \dfrac{E[Z]}{\varepsilon}.$$
