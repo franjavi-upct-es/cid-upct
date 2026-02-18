@@ -1,17 +1,19 @@
-<module> (profiling_script.py:56);main (profiling_script.py:42);read_file (profiling_script.py:7) 19
-<module> (profiling_script.py:56);main (profiling_script.py:49);count_words_fast (profiling_script.py:29) 61
-<module> (profiling_script.py:56);main (profiling_script.py:46);count_words_slow (profiling_script.py:20) 6
-<module> (profiling_script.py:56);main (profiling_script.py:46);count_words_slow (profiling_script.py:21) 57
-<module> (profiling_script.py:56) 1
-<module> (profiling_script.py:56);main (profiling_script.py:42);read_file (profiling_script.py:7);decode (<frozen codecs>:322) 9
-<module> (profiling_script.py:56);main (profiling_script.py:43);clean_text (profiling_script.py:12) 35
+<module> (profiling_script.py:56);main (profiling_script.py:43);clean_text (profiling_script.py:13);sub (re/__init__.py:186) 281
+<module> (profiling_script.py:56);main (profiling_script.py:46) 32
+<module> (profiling_script.py:56);main (profiling_script.py:49);count_words_fast (profiling_script.py:31) 11
+<module> (profiling_script.py:56);main (profiling_script.py:43);clean_text (profiling_script.py:13);sub (re/__init__.py:186);_compile (re/__init__.py:300) 1
+<module> (profiling_script.py:56);main (profiling_script.py:46);count_words_slow (profiling_script.py:22) 95
+ 1
 <module> (profiling_script.py:56);main (profiling_script.py:43);clean_text (profiling_script.py:13) 1
-<module> (profiling_script.py:56);main (profiling_script.py:49);count_words_fast (profiling_script.py:32) 114
-<module> (profiling_script.py:56);main (profiling_script.py:49);count_words_fast (profiling_script.py:31) 4
-<module> (profiling_script.py:56);main (profiling_script.py:43);clean_text (profiling_script.py:13);sub (re/__init__.py:186);_compile (re/__init__.py:297) 1
-<module> (profiling_script.py:56);main (profiling_script.py:49) 15
-<module> (profiling_script.py:56);main (profiling_script.py:46);count_words_slow (profiling_script.py:18) 63
-<module> (profiling_script.py:1);_find_and_load (<frozen importlib._bootstrap>:1360);_find_and_load_unlocked (<frozen importlib._bootstrap>:1331);_load_unlocked (<frozen importlib._bootstrap>:935);exec_module (<frozen importlib._bootstrap_external>:995);_call_with_frames_removed (<frozen importlib._bootstrap>:488);<module> (re/__init__.py:125);_handle_fromlist (<frozen importlib._bootstrap>:1415);_call_with_frames_removed (<frozen importlib._bootstrap>:488) 1
-<module> (profiling_script.py:56);main (profiling_script.py:43);clean_text (profiling_script.py:13);sub (re/__init__.py:186) 106
-<module> (profiling_script.py:56);main (profiling_script.py:46) 16
-<module> (profiling_script.py:56);main (profiling_script.py:46);count_words_slow (profiling_script.py:22) 51
+<module> (profiling_script.py:56);main (profiling_script.py:43);clean_text (profiling_script.py:13);sub (re/__init__.py:186);_compile (re/__init__.py:300);__and__ (enum.py:1567) 1
+<module> (profiling_script.py:56);main (profiling_script.py:42);read_file (profiling_script.py:7) 47
+<module> (profiling_script.py:56);main (profiling_script.py:42);read_file (profiling_script.py:7);decode (<frozen codecs>:322) 17
+<module> (profiling_script.py:56);main (profiling_script.py:49) 45
+<module> (profiling_script.py:56);main (profiling_script.py:43);clean_text (profiling_script.py:12) 66
+<module> (profiling_script.py:56);main (profiling_script.py:42) 1
+<module> (profiling_script.py:56);main (profiling_script.py:46);count_words_slow (profiling_script.py:20) 11
+<module> (profiling_script.py:56);main (profiling_script.py:46);count_words_slow (profiling_script.py:18) 140
+<module> (profiling_script.py:56) 8
+<module> (profiling_script.py:56);main (profiling_script.py:46);count_words_slow (profiling_script.py:21) 154
+<module> (profiling_script.py:56);main (profiling_script.py:49);count_words_fast (profiling_script.py:32) 244
+<module> (profiling_script.py:56);main (profiling_script.py:49);count_words_fast (profiling_script.py:29) 122
