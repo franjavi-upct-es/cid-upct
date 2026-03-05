@@ -1,70 +1,138 @@
 ---
 title: "Procesamiento Paralelo de Datos"
-subtitle: "TAREA 1: Análisis del rendimiento y paralelización del conjunto de Mandelbrot"
+subtitle: "Tarea 1: Análisis del rendimiento y paralelización del conjunto de Mandelbrot"
 author: "Francisco Javier Mercader Martínez"
 lang: es
-format:
-    pdf:
-        documentclass: article
-        listings: true
-        include-in-header: ../../../../../../custom-listings.tex
+format: 
+  pdf:
+    documentclass: article
+    listings: true
+    toc: true
+    toc-title: "Índice"
+    number-sections: true
+    colorlinks: true
+    include-in-header:
+      text: | 
+        \usepackage[table]{xcolor}
+        \usepackage{listings}
+        \usepackage{enumitem}
+        \usepackage{multicol}
+        \usepackage{graphicx}
+        \usepackage{float}
+        \usepackage{tikz} 
+        \lstset{
+          language=Python,
+          basicstyle=\ttfamily\small,
+          numberstyle=\tiny,
+          keywordstyle=\color{blue},
+          commentstyle=\color{olive},
+          stringstyle=\color{red},
+          breakatwhitespace=false, 
+          breaklines=true,
+          showspaces=false,
+          showstringspaces=false,
+          showtabs=false, 
+          tabsize=2,
+          literate={á}{{\'a}}1 {é}{{\'e}}1 {í}{{\'i}}1 {ó}{{\'o}}1 {ú}{{\'u}}1{ñ}{{\~n}}1 {Á}{{\'A}}1 {Í}{{\'I}}1 {Ú}{{\'U}}1 {¿}{{\textexclamdown}}1,
+          mathescape=false,
+          backgroundcolor=\color{lightgray!10}
+        }
+        \usepackage{fancyhdr}
+        \pagestyle{fancy}
+        \fancyhf{}
+        \fancyhead[L]{\textit{Procesamiento Paralelo de Datos}}
+        \fancyhead[R]{\textit{Conjunto de Mandelbrot}}
+        \fancyfoot[C]{\thepage}
 linestrectch: 1.5
 fontisize: 10
 papersize: a4
 geometry: margin=1.5cm
-jupyter: python3
 execute:
-  echo: true
+  echo: false
   warning: false
-  message: false
 ---
-```{python}
-#| echo: false
-import time, numpy as np, matplotlib.pyplot as plt, multiprocessing, os
+\newpage
+
+# Descripción del caso de uso
+
+El conjunto de Mandelbrot es un fractal definido en el plano complejo. Para cada punto $c=x+yi$, se itera la fórmula $z_{n+1}=z_n^2+c$ partiendo de $z_0=0$. Si tras un número máximo de iteraciones necesarias para "escapar" determina el color del píxel en la representación visual.
+
+Este problema es especialmente adecuado para el análisis de rendimiento y la paralelización por varias razones:
+
+- El cómpute es **completamente independiente píxel a píxel** (*embarrassingly parallel*): cada punto del pano complejo puede calcularse sin conocer el resultado de ningún otro.
+- Los bucles anidados en Python puro constituyen un cuello de botella muy claro, con hasta $480.000$ llamadas individuales para una imagen de $800\times 600$ píxeles.
+- La imagen puede dividirse en franjas horizontales y distribuirse entre procesos de forma natural.
+- Las librerías optimizadas como `NumPy` o `Numba` permiten comparar diferentes estrategias de optimización.
+
+Los parámetros utilizados a lo largo de toda la tarea son:
+
+```python
+WIDTH, HEIGHT = 800, 600  # Resolución de la imagen en píxeles
+MAX_ITER = 200            # Número máximo de iteraciones por píxel
+X_MIN, X_MAX = -2.5, 1.0  # Ventana del plano complejo (eje real)
+Y_MIN, Y_MAX = -1.5, 1.25 # Ventana del plano complejo (eje imaginario)
 ```
 
 ---
 
-# PASO 1: Localización de las funciones que más tiempo de ejecución consumen mediante profiling
+# Paso 1: Localización de las funciones que más tiempo consumen mediante *profiling* 
 
-Utilizaremos las herramientas `timeit` y `scalene` para realizar un profiling efectivo e informativo del programa.
+El primer paso antes de cualquier optimización es identificar con precisión dónde se gasta el tiempo de ejecución. Para ello se emplean dos herramientas complementarias: `cProfile`, que realiza un *profiling* a nivel de función, y `line_profiler`, que desciende al nivel de línea individual.
 
-## Medición con `timeit`
+## Profiling con `cProfile`
 
-Con `timeit` obtenemos el tiempo de ejecución de *wall clock*. Podemos observar que la función que consume más tiempo es `mandelbrot_sequential`, ya que la inicialización de la malla de puntos complejos es prácticamente instantánea. Concluimos que será la parte del código que deberemos modificar para paralelizar los procesos y reducir el tiempo de ejecución.
-```{python}
-#| eval: false
-# Cálculo del conjunto: costoso
-%timeit mandelbrot_sequential(WIDTH, HEIGHT, X_MIN, X_MAX, Y_MIN, Y_MAX, MAX_ITER)
-# → 9.55 s ± 25.2 ms per loop (mean ± std. dev. of 7 runs, 1 loop each)
+`cProfile` instrumenta cada llamada a función y registra el número de llamadas (`ncalls`), el tiempo total dentro de la función sin contar sus llamadas a otras funciones, como `tottime`, y el tiempo acumulado incluyendo todas las llamadas a subfunciones, como `cumtime`.
+
+```python
+profiler = cProfile.Profile()
+profiler.enable()
+mandelbrot_sequential(400, 300, X_MIN, X_MAX, Y_MIN, Y_MAX, MAX_ITER)
+profiler.disable()
+
+stats = pstats.Stats(profiler)
+stats.sort_stats("cumulative")
+stats.print_stats(10)
 ```
 
-## Profiling detallado con `scalene`
+Los resultados obtenidos revelan el patrón esperado: `mandelbrot_pixel` acumula el mayor `tottime` del programa ya que invoca exactamente `WIDTH` $\times$ `HEIGHT` veces (120.000 llamadas en resolución reducida $400\times 300$, 480.000 en la resolución estándar). La función `mandelbrot_sequential` tiene un `cumtime` elevado porque engloba todas esas llamadas, pero su propio `tottime` es despreciable. El 95-99% del tiempo total de ejecución se concentra en `mandelbrot_pixel`.
 
-`scalene` mide uso de CPU (código nativo vs. Python puro), memoria y GPU, y nos ayuda a detectar cuellos de botella para determinar si vale la pena paralelizar y qué zona del código es la candidata.
-```{python}
-#| eval: false
-!scalene --cli tarea_mandelbrot.py
+## Profiling línea a línea con `line_profiler`
+
+`line_profiler` desciende hasta el nivel de cada línea de código, mostrando para cada una el número de ejecuciones, el tiempo total y el porcentaje sobre el tiempo total de la función.
+
+```python
+lp = LineProfiler()
+lp.add_function(mandelbrot_pixel)
+lp.add_function(mandelbrot_sequential)
+lp(mandelbrot_sequential)(400, 300, X_MIN, X_MAX, Y_MIN, Y_MAX, MAX_ITER)
+lp.print_stats()
 ```
 
-![Salida del profiler scalene](scalene_output.png)
+El análisis línea a línea confirma que las operaciones aritméticas del bucle interno (`z_real_sq`, `z_imag_sq`, la condición de escape y las actualizaciones de `z_real` y `z_imag`) son las responsables del coste computacional. Cada una de esas líneas se ejecuta potencialmente `MAX_ITER × WIDTH × HEIGHT` veces en el peor caso.
 
-Se observa un uso ascendente de memoria a medida que avanza la ejecución, culminando en la función más costosa computacionalmente: `mandelbrot_pixel`. La métrica clave es el **73% de tiempo de código Python puro** en esta función, lo que indica una alta capacidad de paralelización.
+## Conclusión del Paso 1 {.unlisted .unnumbered}
 
-Las funciones que conforman `mandelbrot_sequential` acumulan casi la mitad del tiempo total de ejecución del programa.
+| Métrica | Valor |
+|---|---|
+| Función cuello de botella | `mandelbrot_pixel` |
+| Número de llamadas (800×600) | 480.000 |
+| Operación más costosa | Bucle `for n in range(max_iter)` con aritmética de punto flotante |
+| Porcentaje del tiempo total | ~95–99 % |
 
-Por tanto, decidimos paralelizar `mandelbrot_sequential` dividiendo el espacio complejo en franjas horizontales independientes, aplicando el cálculo de iteraciones de manera simultánea y reensamblando la imagen resultante.
+La estrategia de paralelización queda clara: como cada píxel es completamente independiente, podemos dividir las filas de la imagen entre varios procesos, de modo que cada uno calcule su franja de forma autónoma y simultánea.
 
 ---
 
-# PASO 2: Paralelización mediante la librería `multiprocessing`
+# Paso 2: Paralelización mediante `multiprocessing` 
 
-Definimos una nueva función de generación del conjunto de Mandelbrot para poder tratar cada franja del espacio complejo de forma paralela. Esta librería necesita trabajar con una lista de resultados donde los procesos van adjuntando su tarea completada una vez finalizada, teniendo en cuenta su índice.
-```{python}
-#| eval: false
+## Estrategia de división del trabajo
+
+La independencia entre píxeles hace que el problema sea *embarrassingly parallel*: basta con dividir la imagen en $N$ franjas horizontales y asignar cada franja a un proceso distinto. Cada *worker* calcula únicamente las filas que le corresponden y devuelve su resultado parcial junto con su índice de inicio para permitir el reensamblaje ordenado.
+
+```python
 def mandelbrot_worker(args):
-    """Worker que calcula una franja horizontal del conjunto."""
-    row_start, row_end, width, height, x_min, x_max, y_min, y_max, max_iter = args
+    row_start, row_end, width, height, \
+    x_min, x_max, y_min, y_max, max_iter = args
     chunk = []
     for row in range(row_start, row_end):
         c_imag = y_max - row * (y_max - y_min) / (height - 1)
@@ -74,103 +142,159 @@ def mandelbrot_worker(args):
         chunk.append(row_data)
     return (row_start, chunk)
 
-# Ejecución con Pool
-mandelbrot_parallel(WIDTH, HEIGHT, X_MIN, X_MAX, Y_MIN, Y_MAX, MAX_ITER)
-%timeit mandelbrot_parallel(WIDTH, HEIGHT, X_MIN, X_MAX, Y_MIN, Y_MAX, MAX_ITER)
-# → 5.47 s ± 330 ms per loop (mean ± std. dev. of 7 runs, 1 loop each)
+with multiprocessing.Pool(processes=num_cores) as pool:
+    results = pool.map(mandelbrot_worker, tasks)
 ```
 
-![Resultado visual de la versión paralela con multiprocessing](mandelbrot_parallel.png)
+Una vez recogidos todos los resultados, se ordenan por `row_start` y se concatenan para reconstruir la imagen completa.
 
-A diferencia de la detección de bordes mediante convolución 2D, el cálculo del conjunto de Mandelbrot **no presenta el problema de solapamiento entre particiones**, ya que cada punto del plano complejo es completamente independiente de sus vecinos.
+## Diferencias respecto a la convolución 2D
 
-Sin embargo, sí aparecen otros inconvenientes típicos de `multiprocessing`:
+A diferencia de la paralelización de una convolución 2D, el conjunto de Mandelbrot **no presenta el problema de solapamiento entre particiones**: en la convolución, las filas del borde de cada franja necesitarían píxeles de la franja adyacente; aquí, cada píxel es completamente independiente, por lo que las franjas pueden dividirse sin ningún solapamiento ni comunicación entre *workers*.
 
-- **Overhead de creación de procesos**: el coste de inicializar cada proceso puede superar el beneficio si las particiones son demasiado pequeñas.
-- **Coste de serialización (pickle)**: el paso de datos entre procesos mediante IPC introduce latencia.
-- **Gestión manual de procesos**: es necesario crear, iniciar (`.start()`), esperar (`.join()`) y recoger resultados explícitamente.
+Sin embargo, sí aparecen otros inconvenientes propios de `multiprocessing`:
 
-Con la paralelización se consigue reducir considerablemente el tiempo de ejecución respecto a la versión secuencial:
-```{python}
-#| eval: false
-# Versión secuencial como referencia
-%timeit mandelbrot_sequential(WIDTH, HEIGHT, X_MIN, X_MAX, Y_MIN, Y_MAX, MAX_ITER)
-# → 9.44 s ± 40.7 ms per loop (mean ± std. dev. of 7 runs, 1 loop each)
-```
+- **Overhead de creación de procesos**: el coste de inicializar cada proceso puede ser significativo si las particiones son demasiado pequeñas.
+- **Coste de serialización**: el paso de datos entre procesos mediante IPC (*Inter-Process Communication*) requiere serializar y deserializar los objetos con *pickle*, lo que introduce latencia.
+- **Gestión manual del ciclo de vida**: es necesario crear el `Pool`, distribuir las tareas, esperar los resultados y reensamblar la imagen de forma explícita.
+
+## Resultados {.unnumbered .unlisted}
+
+Con 20 procesos disponibles en el sistema, la versión paralela reduce el tiempo de ejecución de **0.903 s** (secuencial) a **0.280 s**, obteniendo un *speedup* de **3.2×** y una eficiencia del **16 %**.
+
+![Conjunto de Mandelbrot calculado con la versión paralela (multiprocessing, 20 procesos). El resultado visual es idéntico al de la versión secuencial.](imgs/mandelbrot_secuencial.png){width=85%}
 
 ---
 
-# PASO 3: Optimización mediante NumPy vectorizado
+# Paso 3: Optimización con NumPy vectorizado
 
-En lugar de usar una librería especializada externa, optimizamos el cálculo reescribiendo los bucles de Python puro como operaciones vectorizadas de NumPy.
-```{python}
-#| eval: false
+En lugar de añadir más paralelismo a nivel de proceso, este paso adopta un enfoque diferente: eliminar el bucle de Python puro sustituyéndolo por operaciones vectorizadas de NumPy.
+
+## Por qué NumPy es más rápido
+
+NumPy almacena sus arrays en memoria contigua y delega el cómputo a rutinas compiladas en C/Fortran. Esto le permite aprovechar tres fuentes de rendimiento que Python puro no puede utilizar:
+
+- **Instrucciones SIMD** (SSE/AVX): operaciones vectoriales que procesan múltiples elementos de forma simultánea a nivel de hardware.
+- **Eliminación del overhead del intérprete**: Python interpreta cada iteración del bucle; NumPy lo hace una sola vez para todo el array.
+- **Gestión eficiente de caché**: los arrays contiguos minimizan los *cache misses*.
+
+## Implementación
+
+La clave de la implementación vectorizada es construir el array de números complejos $c$ completo de una sola vez y aplicar la iteración de Mandelbrot sobre todos los píxeles simultáneamente, utilizando una máscara booleana para dejar de actualizar los puntos que ya han escapado:
+
+```python
 def mandelbrot_numpy(width, height, x_min, x_max, y_min, y_max, max_iter):
     c = (np.linspace(x_min, x_max, width)[np.newaxis, :] +
          1j * np.linspace(y_max, y_min, height)[:, np.newaxis])
-    z          = np.zeros_like(c)
+    z = np.zeros_like(c)
     iterations = np.full(c.shape, max_iter, dtype=np.int32)
-    active     = np.ones(c.shape, dtype=bool)
+    active = np.ones(c.shape, dtype=bool)
     for n in range(max_iter):
-        z[active]           = z[active] ** 2 + c[active]
-        escaped             = active & (np.abs(z) > 2.0)
+        z[active] = z[active] ** 2 + c[active]
+        escaped = active & (np.abs(z) > 2.0)
         iterations[escaped] = n
-        active[escaped]     = False
-        if not np.any(active): break
+        active[escaped] = False
+        if not np.any(active):
+            break
     return iterations
-
-%timeit mandelbrot_numpy(WIDTH, HEIGHT, X_MIN, X_MAX, Y_MIN, Y_MAX, MAX_ITER)
-# → 14.1 ms ± 578 µs per loop (mean ± std. dev. of 7 runs, 100 loops each)
 ```
 
-![Resultado visual con NumPy vectorizado](mandelbrot_numpy.png)
+## Resultados {.unnumbered .unlisted}
 
-NumPy consigue una ejecución **ultrarrápida** porque usa código compilado en C/Fortran, aplica **procesamiento vectorizado** (instrucciones SIMD: SSE/AVX) y **paralelización automática** a nivel de instrucción, logrando un rendimiento muy superior a Python puro sin necesidad de gestionar procesos manualmente.
+La versión NumPy reduce el tiempo de ejecución a **0.279 s**, un *speedup* de **3.2×** respecto a la versión secuencial, comparable al obtenido con 20 procesos en paralelo pero **sin gestión manual de procesos ni overhead de comunicación**.
+
+![Conjunto de Mandelbrot calculado con NumPy vectorizado. El resultado es matemáticamente idéntico a las versiones anteriores.](imgs/mandelbrot_numpy.png){width=85%}
 
 ---
 
-# PASO 4: Uso de la librería `joblib` para paralelizar las funciones más pesadas
-```{python}
-#| eval: false
-from joblib import Parallel, delayed
+# Paso 4: Actividades opcionales
 
-def mandelbrot_rows_joblib(row_start, row_end, width, height, x_min, x_max, y_min, y_max, max_iter):
-    """Calcula un bloque de filas del conjunto de Mandelbrot."""
-    chunk = []
-    for row in range(row_start, row_end):
-        c_imag = y_max - row * (y_max - y_min) / (height - 1)
-        row_data = []
-        for col in range(width):
-            c_real = x_min + col * (x_max - x_min) / (width - 1)
-            row_data.append(mandelbrot_pixel(c_real, c_imag, max_iter))
-        chunk.append(row_data)
-    return (row_start, chunk)
+## OP1: Análisis de escalabilidad y Ley de Amdahl
 
-# Ejecutar en paralelo usando todos los núcleos disponibles
-results = Parallel(n_jobs=-1, backend='loky')(
-    delayed(mandelbrot_rows_joblib)(
-        rs, re, WIDTH, HEIGHT, X_MIN, X_MAX, Y_MIN, Y_MAX, MAX_ITER
-    )
-    for rs, re in tasks_params
-)
+Para evaluar si la paralelización con `multiprocessing` escala bien, se ejecutó la versión paralela con un número creciente de procesos (de 1 a 20) y se midió el *speedup* obtenido en cada caso. Los resultados se comparan con la predicción teórica de la **Ley de Amdahl**:
 
-# Reconstruir la imagen
-results.sort(key=lambda x: x[0])
-image_joblib = []
-for _, chunk in results:
-    image_joblib.extend(chunk)
+$$S(N) = \frac{1}{\,(1-P) + \dfrac{P}{N}\,}$$
 
-plt.imshow(image_joblib, cmap='inferno')
-plt.axis(False)
-plt.show()
+donde $P$ es la fracción del código que puede paralelizarse. Invirtiendo la fórmula con el *speedup* máximo medido ($S_{20} \approx 4.7$) se estima $P = 0.811$, lo que implica que aproximadamente el **18.9 % del tiempo total** corresponde a código inherentemente secuencial (creación del `Pool`, serialización, reensamblaje).
+
+![Izquierda: speedup medido vs. predicción de Amdahl (P = 0.811) y speedup lineal ideal. Derecha: eficiencia paralela por número de procesos.](imgs/escalabilidad.png){width=100%}
+
+Los resultados muestran que:
+
+- El *speedup* crece rápidamente hasta 2–3 procesos y luego se aplana progresivamente, siguiendo la curvatura característica de Amdahl.
+- La eficiencia cae de un **93 %** con 1 proceso a aproximadamente un **22 %** con 20 procesos, evidenciando rendimientos decrecientes.
+- La curva real queda por debajo de la predicción de Amdahl a partir de ~8 procesos, lo que indica *overhead* adicional no capturado por el modelo teórico (contención de caché, latencia de IPC).
+- El techo teórico absoluto con $P = 0.811$ es $S_{\max} = 1/(1-0.811) \approx 5.3\times$, independientemente del número de procesos.
+
+## OP2: Numba + Multiprocessing
+
+**Numba** es un compilador JIT (*Just-In-Time*) que traduce funciones Python a código máquina nativo en tiempo de ejecución mediante decoradores como `@njit`. Combinado con `multiprocessing`, permite explotar simultáneamente la optimización a nivel de instrucción y el paralelismo a nivel de proceso.
+
+```python
+from numba import njit
+
+@njit
+def mandelbrot_pixel_jit(c_real, c_imag, max_iter):
+    z_real = z_imag = 0.0
+    for n in range(max_iter):
+        zr2, zi2 = z_real * z_real, z_imag * z_imag
+        if zr2 + zi2 > 4.0:
+            return n
+        z_imag = 2.0 * z_real * z_imag + c_imag
+        z_real = zr2 - zi2 + c_real
+    return max_iter
 ```
 
-La librería `joblib` introduce varias mejoras respecto a `multiprocessing`, principalmente en simplicidad y eficiencia:
+El decorador `@njit` hace que Numba compile la función a código nativo la primera vez que se llama (*warm-up*). Las llamadas posteriores son directamente código máquina, sin pasar por el intérprete Python. El resultado es un tiempo de **0.033 s** solo con Numba en modo secuencial (**27.1×** de *speedup*), y de **0.080 s** combinado con 20 procesos (**11.2×**).
 
-**No se necesita un `Manager` ni una lista compartida.** En `multiprocessing` es obligatorio usar `Manager().list()` para compartir datos entre procesos, lo que introduce sobrecarga adicional. Con `joblib`, los resultados se devuelven automáticamente en una lista normal de Python.
+La aparente paradoja de que Numba secuencial sea más rápido que Numba + multiprocessing se debe al *overhead* de IPC y serialización: para este tamaño de problema, el coste de distribuir el trabajo entre 20 procesos supera el beneficio del paralelismo adicional cuando el código base ya es extremadamente rápido.
 
-**Código más limpio y directo.** En `multiprocessing` hay que crear procesos manualmente, iniciarlos (`.start()`), esperar su finalización (`.join()`) y almacenar los resultados. `joblib.Parallel()` simplifica todo esto, gestionando automáticamente la creación, ejecución y sincronización de los procesos.
+## OP3: Alternativas a `multiprocessing`: `joblib`
 
-**Mejor escalabilidad y gestión de recursos.** `joblib` optimiza el uso de la CPU ajustando dinámicamente el número de procesos: definiendo `n_jobs=-1` se usan todos los núcleos disponibles sin gestión manual.
+`joblib` es una librería de alto nivel para paralelización en Python. Su API simplifica considerablemente el código respecto a `multiprocessing`:
 
-**Menos sobrecarga en la comunicación entre procesos.** En `multiprocessing`, cada proceso tiene su propia memoria y requiere IPC (*Inter-Process Communication*) para compartir datos. `joblib` minimiza este problema manejando automáticamente la transferencia de datos entre procesos.
+```python
+from joblib import Parallel, delayed
+
+result_list = Parallel(n_jobs=-1)(
+    delayed(mandelbrot_rows)(rs, re, WIDTH, HEIGHT,
+                             X_MIN, X_MAX, Y_MIN, Y_MAX, MAX_ITER)
+    for rs, re in slices
+)
+imagen_final = np.vstack(result_list)
+```
+
+Las ventajas principales de `joblib` frente a `multiprocessing` son:
+
+**Sin `Manager` ni estructuras compartidas.** `multiprocessing` requiere `Manager().list()` para compartir datos entre procesos, lo que introduce sobrecarga adicional. `joblib` devuelve los resultados directamente como una lista estándar de Python.
+
+**Código más limpio.** `Parallel` + `delayed` automatiza la creación, ejecución y sincronización de procesos, eliminando las llamadas manuales a `.start()` y `.join()` y el reensamblaje manual de resultados.
+
+**Mejor gestión de recursos.** Con `n_jobs=-1` se utilizan todos los núcleos disponibles sin necesidad de especificar el número de procesos. El *backend* `loky` (predeterminado) es más robusto ante errores de serialización que `multiprocessing` estándar.
+
+En este caso `joblib` obtiene **0.375 s** (2.4×), ligeramente inferior a `multiprocessing` puro (0.280 s / 3.2×), lo que sugiere que su *overhead* de inicialización es algo mayor para este problema específico.
+
+## OP4: Comparativa final de todos los enfoques
+
+![Comparativa de speedup de todos los enfoques evaluados sobre una imagen de 800×600 píxeles con 200 iteraciones máximas.](imgs/comparativa_final.png){width=100%}
+
+| Método | Tiempo (s) | Speedup |
+|---|---:|---:|
+| Secuencial (Python puro) | 0.903 | 1.0× |
+| Multiprocessing (20 proc.) | 0.280 | 3.2× |
+| NumPy vectorizado | 0.279 | 3.2× |
+| Numba JIT (secuencial) | 0.033 | 27.1× |
+| Numba + multiprocessing (20 proc.) | 0.080 | 11.2× |
+| Joblib (20 proc.) | 0.375 | 2.4× |
+
+Los resultados revelan una jerarquía clara de estrategias de optimización:
+
+$$\text{Python puro} < \text{joblib} < \text{multiprocessing} \approx \text{NumPy} \ll \text{Numba + MP} < \text{Numba JIT}$$
+
+La conclusión más relevante es que **la calidad del código base importa más que el número de procesos**: Numba secuencial (27.1×) supera ampliamente a cualquier estrategia de paralelización aplicada sobre código Python puro (~3×). La vectorización con NumPy alcanza el mismo rendimiento que 20 procesos con una fracción de la complejidad de implementación.
+
+Para este problema concreto, la estrategia óptima sería combinar Numba con paralelismo a mayor escala (más núcleos o máquinas), pero teniendo en cuenta que el *overhead* de comunicación limita el beneficio cuando el código base es ya muy rápido.
+
+---
+
+[Trabajo de referencia para esta tarea](https://upct-my.sharepoint.com/:b:/g/personal/franciscojavier_mercader_edu_upct_es/IQDvyCINRcbPT4oW4-M2Uh1wARCiKIMqFriEgHuhlcwYvMw?e=8cVUv5)
