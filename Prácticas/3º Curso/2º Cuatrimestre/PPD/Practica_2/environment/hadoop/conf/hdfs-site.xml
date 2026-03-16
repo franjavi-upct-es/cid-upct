@@ -1,0 +1,55 @@
+<configuration>
+  <!-- Replicación y bloque como en la práctica  -->
+  <property>
+    <name>dfs.replication</name>
+    <value>3</value>
+  </property>
+  <property>
+    <name>dfs.blocksize</name>
+    <value>64m</value>
+  </property>
+
+  <property>
+    <name>dfs.namenode.name.dir</name>
+    <value>file:///data/hdfs/namenode</value>
+  </property>
+  <property>
+    <name>dfs.datanode.data.dir</name>
+    <value>file:///data/hdfs/datanode</value>
+  </property>
+
+  <property>
+    <name>dfs.webhdfs.enabled</name>
+    <value>true</value>
+  </property>
+
+  <!-- ===== NFS Gateway ===== -->
+  <!-- Exportamos una "carpeta" de HDFS como NFS para el host.  -->
+  <property>
+    <name>nfs.export.point</name>
+    <value>/user/luser</value>
+  </property>
+  <property>
+    <name>nfs.exports.allowed.hosts</name>
+    <value>* rw</value>
+  </property>
+  <property>
+    <name>nfs.allow.insecure.ports</name>
+    <value>true</value>
+  </property>
+
+  <!-- Puertos fijos para que funcione bien con Docker (mountd=4242, nfs=2049).  -->
+  <property>
+    <name>nfs.mountd.port</name>
+    <value>4242</value>
+  </property>
+  <property>
+    <name>nfs.server.port</name>
+    <value>2049</value>
+  </property>
+
+  <property>
+    <name>nfs.dump.dir</name>
+    <value>/tmp/.hdfs-nfs</value>
+  </property>
+</configuration>

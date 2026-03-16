@@ -1,0 +1,22 @@
+<configuration>
+  <!-- Nombre del filesystem por defecto (la práctica usa hdfs://namenode:9000/)  -->
+  <property>
+    <name>fs.defaultFS</name>
+    <value>hdfs://namenode:9000</value>
+  </property>
+
+  <property>
+    <name>hadoop.tmp.dir</name>
+    <value>/data/tmp/hadoop-${user.name}</value>
+  </property>
+
+  <!-- NFS Gateway usa un usuario proxy (en nuestro caso: hdadmin)  -->
+  <property>
+    <name>hadoop.proxyuser.hdadmin.hosts</name>
+    <value>*</value>
+  </property>
+  <property>
+    <name>hadoop.proxyuser.hdadmin.groups</name>
+    <value>*</value>
+  </property>
+</configuration>
