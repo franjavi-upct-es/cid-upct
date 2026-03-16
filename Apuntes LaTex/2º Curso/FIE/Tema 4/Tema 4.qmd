@@ -1,27 +1,32 @@
-# Constrastes de hipótesis #
-## Introducción ##
+# Constrastes de hipótesis
+
+## Introducción
+
 Basándonos en una muestra, queremos decidir entre dos opciones o hipótesis acerca de la distribución de interés en la población.
 
 Las hipótesis pueden verter sobre:
 
-- La forma de la distribución: ¿Es una Poisson? ¿Es una Normal? \textcolor[HTML]{007aff}{Constrastes no paramétricos}.
-- Los paramétricos de la distribución, si suponemos dada la familia paramétrica. \textcolor[HTML]{007aff}{Constrastes paramétricos}.
-- Si consideramos dos variables, ¿existe una relación de dependencia? \textcolor[HTML]{007aff}{Constrastes no paramétricos}.
+-   La forma de la distribución: ¿Es una Poisson? ¿Es una Normal? \textcolor[HTML]{007aff}{Constrastes no paramétricos}.
+-   Los paramétricos de la distribución, si suponemos dada la familia paramétrica. \textcolor[HTML]{007aff}{Constrastes paramétricos}.
+-   Si consideramos dos variables, ¿existe una relación de dependencia? \textcolor[HTML]{007aff}{Constrastes no paramétricos}.
 
-## Constrastes de hipótesis paramétricos ##
-### Elementos principales ###
+## Constrastes de hipótesis paramétricos
 
-:::{.callout-important}
-# Idea básica #
+### Elementos principales
+
+::: callout-important
+# Idea básica
+
 Un **test de hipótesis** es una regla que nos lleva a decidir si lo observado en la muestra es compatible con una hipótesis planteada sobre los parámetros del modelo.
 :::
 
-:::{.callout-note}
-# Ejemplo #
+::: callout-note
+# Ejemplo
+
 Un nuevo medicamento pretende mejorar un medicamento en el mercado, que tiene probabilidad $\theta_0=0.7$ de curar un paciente.
 
-- Planteamos $X\sim \mathrm{Bernoulli}(\theta),X=1\leftrightarrow$ el paciente se cura con el medicamento nuevo.
-- Lanzamos el nuevo medicamento si $\theta>\theta_0+0.15$, es decir, que debemos decidir entre
+-   Planteamos $X\sim \mathrm{Bernoulli}(\theta),X=1\leftrightarrow$ el paciente se cura con el medicamento nuevo.
+-   Lanzamos el nuevo medicamento si $\theta>\theta_0+0.15$, es decir, que debemos decidir entre
 
 $$
 \begin{array}{l}
@@ -30,117 +35,852 @@ H_1:\theta>\theta_0+0.15
 \end{array}
 $$
 
-- Consideramos una muestra aleatoria simple de tamaño $100$, el estadístico $T(X_1,\dots,X_{100})=\sum_{i=1}^{100} X_i$, resumen de la información muestral.
-- Posible test:
-  - Aceptamos $H_0$ si $\sum_{i=1}^{100} X_i\le 85$.
-  - Rechazamos $H_0$ si $\sum_{i=1}^{100} X_i>85$.
+-   Consideramos una muestra aleatoria simple de tamaño $100$, el estadístico $T(X_1,\dots,X_{100})=\sum_{i=1}^{100} X_i$, resumen de la información muestral.
+-   Posible test:
+    -   Aceptamos $H_0$ si $\sum_{i=1}^{100} X_i\le 85$.
+    -   Rechazamos $H_0$ si $\sum_{i=1}^{100} X_i>85$.
 :::
 
 Si queremos ser más conservadores: aceptamos $H_0$ si $\sum_{i=1}^{100} X_i\le 90$, y rechazamos $H_0$ si $\sum_{i=1}^{100} X_i>90$.
 
-:::{.callout-note}
-# Podemos cometer dos tipos de errores: #
-- Rechazar una hipótesis verdadera.
-- Aceptar una hipótesis falsa.
+::: callout-note
+# Podemos cometer dos tipos de errores:
+
+-   Rechazar una hipótesis verdadera.
+-   Aceptar una hipótesis falsa.
 :::
 
 \pagebreak
-### Formulación general del contraste de hipótesis ###
-:::{.callout-note}
-# Contexto #
-- $X\sim F(x,\theta)$, con $\theta\in \Theta\subseteq \mathbb{R}^p$.
-- $\mathbf{X}=(X_1,X_2,\dots,X_n)$ una muestra aleatoria simple de $X$.
-- $\Theta_0$ y $\Theta_1$ dos subcojuntos del espacio paramétrico $\Theta$ tales que: $\Theta=\Theta_0\cup \Theta_1$ y $\Theta_0\cap \Theta_1=\varnothing$.
+
+### Formulación general del contraste de hipótesis
+
+::: callout-note
+# Contexto
+
+-   $X\sim F(x,\theta)$, con $\theta\in \Theta\subseteq \mathbb{R}^p$.
+-   $\mathbf{X}=(X_1,X_2,\dots,X_n)$ una muestra aleatoria simple de $X$.
+-   $\Theta_0$ y $\Theta_1$ dos subcojuntos del espacio paramétrico $\Theta$ tales que: $\Theta=\Theta_0\cup \Theta_1$ y $\Theta_0\cap \Theta_1=\varnothing$.
 :::
 
-::: {layout-ncol=2}
+::::: {layout-ncol="2"}
+::: callout-note
+# Definición
 
-:::{.callout-note}
-# Definición #
 Un \textcolor[HTML]{007aff}{test} o \textcolor[HTML]{007aff}{contraste} es una regla basada en $\mathbf{X}$ para decidir entre las dos hipótesis: $$H_0:\theta\in \Theta_0\text{ vs }H_1:\theta\in \Theta_1.$$
 :::
 
-:::{.callout-tip}
-# Llamamos #
-- $H_0$: hipótesis nula.
-- $H_1$: hipótesis alternativa.
-:::
-:::
+::: callout-tip
+# Llamamos
 
-:::{.callout-note}
-# Definición #
+-   $H_0$: hipótesis nula.
+-   $H_1$: hipótesis alternativa.
+:::
+:::::
+
+::: callout-note
+# Definición
+
 Se llama \textcolor[HTML]{007aff}{test (no aleatorio)} a una función: $\delta:sop(\mathbf{X})\to \{0,1\}$ tal que:
 
-- si $\delta(\mathbf{x})=0$ se acepta la hipótesis nula $H_0$,
-- si $\delta(\mathbf{x})=1$ se rechaza la hipótesis $H_0$.
+-   si $\delta(\mathbf{x})=0$ se acepta la hipótesis nula $H_0$,
+-   si $\delta(\mathbf{x})=1$ se rechaza la hipótesis $H_0$.
 :::
 
-:::{.callout-note}
-# Notación #
-- $sop(\mathbf{X})$ es el soporte de $\mathbf{X}$, que es el conjunto donde $f(x)$, la función puntual de probabilidad (caso discreto) o la función densidad (caso continuo) de $\mathbf{X}$ es $>0$.
-- Denotaremos por  $T$ el conjunto de tests definidos sobre el $sop(\mathbf{X})$.
+::: callout-note
+# Notación
+
+-   $sop(\mathbf{X})$ es el soporte de $\mathbf{X}$, que es el conjunto donde $f(x)$, la función puntual de probabilidad (caso discreto) o la función densidad (caso continuo) de $\mathbf{X}$ es $>0$.
+-   Denotaremos por $T$ el conjunto de tests definidos sobre el $sop(\mathbf{X})$.
 :::
 
 Dado un test $\delta\in T$ se definen los siguientes conjuntos:
 
-:::{.callout-note}
-# Definición #
-- \textcolor[HTML]{007aff}{Región de aceptación:} $$S_0=\{\mathbf{x}\in sop(\mathbf{X}):\delta(\mathbf{x})=0\}.$$ 
-- \textcolor[HTML]{007aff}{Región de rechazo:} $$S_1=\{\mathbf{x}\in sop(\mathbf{X}):\delta(\mathbf{x})=1\}.$$
+::: callout-note
+# Definición
+
+-   \textcolor[HTML]{007aff}{Región de aceptación:} $$S_0=\{\mathbf{x}\in sop(\mathbf{X}):\delta(\mathbf{x})=0\}.$$
+-   \textcolor[HTML]{007aff}{Región de rechazo:} $$S_1=\{\mathbf{x}\in sop(\mathbf{X}):\delta(\mathbf{x})=1\}.$$
 :::
 
-#### Errores ####
-:::{.callout-note}
-# Definimos los errores asociados: #
-- Error de tipo I: rechazar $H_0$ cuando es cierta.
-- Error de tipo II: aceptar $H_0$ cuando es falsa.
+#### Errores
+
+::: callout-note
+# Definimos los errores asociados:
+
+-   Error de tipo I: rechazar $H_0$ cuando es cierta.
+-   Error de tipo II: aceptar $H_0$ cuando es falsa.
 :::
 
-:::{.callout-note}
-# Resumen #
+::: callout-note
+# Resumen
 
-| | $\mathbf{X}\in S_1$ | $\mathbf{X}\in S_0$ |
-| :---: | :---: | :---: |
-| $\theta\in \Theta_0$ | Error tipo I | Correcto |
-| $\theta\in \Theta_1$ | Correcto | Error tipo II |
+|                      | $\mathbf{X}\in S_1$ | $\mathbf{X}\in S_0$ |
+|:--------------------:|:-------------------:|:-------------------:|
+| $\theta\in \Theta_0$ |    Error tipo I     |      Correcto       |
+| $\theta\in \Theta_1$ |      Correcto       |    Error tipo II    |
 :::
 
 Recordad, $S_0$ región de aceptación, $S_1$ región de rechazo.
 
-:::{.callout-note}
-# Definimos las probabilidades asociadas, para un test $\delta$ dado, #
-- La probabilidad de cometer un error de tipo I, si el valor del parámetro es $\theta$, se denota por: $$\text{Si }\theta\in \Theta_0:\quad P_{I,\delta}(\theta)=P_{\theta}(\mathbf{X}\in S_1).$$ 
-- La probabilidad de cometer un error de tipo II, si el valor del parámetro es $\theta$, se denota por: $$\text{Si }\theta\in \Theta_1:\quad P_{II,\delta}(\theta)=P_\theta(\mathbf{X}\in S_0).$$
+::: callout-note
+# Definimos las probabilidades asociadas, para un test $\delta$ dado,
+
+-   La probabilidad de cometer un error de tipo I, si el valor del parámetro es $\theta$, se denota por: $$\text{Si }\theta\in \Theta_0:\quad P_{I,\delta}(\theta)=P_{\theta}(\mathbf{X}\in S_1).$$
+-   La probabilidad de cometer un error de tipo II, si el valor del parámetro es $\theta$, se denota por: $$\text{Si }\theta\in \Theta_1:\quad P_{II,\delta}(\theta)=P_\theta(\mathbf{X}\in S_0).$$
 :::
 
-:::{.callout-note}
-# ¿Qué buscamos? #
-Queremos encontrar un test $\delta$ con $P_{I,\delta}(\theta)$ y $P_{II,\delta}(\theta)$ lo más pequeñas posibles \textcolor[HTML]{007aff}{simultáneamente}. 
+::: callout-note
+# ¿Qué buscamos?
+
+Queremos encontrar un test $\delta$ con $P_{I,\delta}(\theta)$ y $P_{II,\delta}(\theta)$ lo más pequeñas posibles \textcolor[HTML]{007aff}{simultáneamente}.
 :::
 
-#### Ejemplo de test: control de calidad #### {.unnumbered .unlisted}
+#### Ejemplo de test: control de calidad {.unnumbered .unlisted}
 
-:::{.callout-note}
-# Contexto #
-- En la producción de un artículo electrónico, se cuida que la tensión que circula por un componente es 10mV. Hay variabilidad en la tensión conseguida en los artículos producidos, que pensamos modelizar por una Normal con desviación típica $0.05$.
-- Para controlar la calidad de los artículos producidos, se escogen al azar cada día 20 artículos y se mida su tensión.
-- ¿Qué regla podríamos fijar que describa cuándo debe saltar una alarma si parece que la tensión se aleja de 10mV?
+::: callout-note
+# Contexto
+
+-   En la producción de un artículo electrónico, se cuida que la tensión que circula por un componente es 10mV. Hay variabilidad en la tensión conseguida en los artículos producidos, que pensamos modelizar por una Normal con desviación típica $0.05$.
+-   Para controlar la calidad de los artículos producidos, se escogen al azar cada día 20 artículos y se mida su tensión.
+-   ¿Qué regla podríamos fijar que describa cuándo debe saltar una alarma si parece que la tensión se aleja de 10mV?
 :::
 
-:::{.callout-note}
-# Traducimos el contexto #
-- $X$: tensión medida en un artículo escogido al azar en la producción. $X\sim \mathcal{N}(\mu,0.025)$.
-- $\mathbf{X}=(X_1,X_2,\dots,x_{20})$ una muestra aleatoria simple de $X$ de tamaño 20.
-- Queremos controlar si $\mu=10$.
+::: callout-note
+# Traducimos el contexto
+
+-   $X$: tensión medida en un artículo escogido al azar en la producción. $X\sim \mathcal{N}(\mu,0.025)$.
+-   $\mathbf{X}=(X_1,X_2,\dots,x_{20})$ una muestra aleatoria simple de $X$ de tamaño 20.
+-   Queremos controlar si $\mu=10$.
 :::
 
-- Planteamos las hipótesis:
-  
+-   Planteamos las hipótesis:
+
+    $$
+    H_0:\mu=10\\
+    H_1:\mu\neq 10\\
+    $$
+
+-   Nuestra regla, es decir nuestro test $\delta$, se basará en $\bar{\mathbf{X}}$:
+
+    -   si $\bar{\mathbf{X}}$ está "alejado" de 10, rechazaremos $H_0$.
+    -   si $\bar{\mathbf{X}}$ está "cerca" de 10, aceptaremos $H_0$.
+
+::: callout-note
+# Nuestra regla
+
+Nos fijamos un umbral $u$,
+
+-   si $\bar{X}<10-u$ ó $\bar{X}>10+u$, rechazaremos $H_0$.
+-   si $10-u\le \bar{X}\le 10+u$, aceptaremos $H_0$.
+-   $\delta(\mathbf{x})=1$, si $|\bar{X}-10|>u$.
+-   $\delta(\mathbf{x})=0$, si $|\bar{X}-10|\le u$.
+:::
+
+::: callout-note
+# Calculamos las probabilidades de error
+
+Si $\mu=10$, $$P_{\mu}(\text{rechazar }H_0)=P_{\mu}(|\bar{X}-10|>u)=1P\left( Z> \dfrac{u}{0.05 / \sqrt{20} } \right)$$
+
+Si $\mu\neq 10$, $$P_{\mu}(\text{aceptar }H_0)=P_{\mu}(|\bar{X}-10|\le u)=P\left( \dfrac{10-u-\mu}{0.05 / \sqrt{20} }\le Z\le \dfrac{10+u-\mu}{0.05 / \sqrt{20} }\right)$$
+:::
+
+Por ejemplo, si fijamos $u=0.025,\,P_{\mu}(\text{rechazar }H_0)=0.03$
+
+Podemos variar $u$:
+
+```{r}
+library(tidyverse)
+proba_I <- function(u, sigma, n){
+    2 * (1 - pnorm(u / (sigma/sqrt(n))))
+    }
+proba_II <- function(u, mu, sigma, n){
+    pnorm((10 + u - mu) / (sigma/sqrt(n))) - (pnorm((10 - u - mu) / (sigma/sqrt(n))))
+    }
+sigma <- 0.05
+n <- 20
+xmax <- sigma / sqrt(n) * qnorm(0.999) * 1.05
+ggplot() +
+    geom_function(fun = proba_I, args = list(sigma = sigma, n = n), xlim=c(0.01, xmax)) +
+    labs(title ="Probabilidad de error de tipo I", x = "umbral u")
+```
+
+Si fijamos $u=0.02$, tenemos una probabilidad de error de tipo I de 0.05.
+
+¿Qué pasa con la probabilidad de error de tipo II?
+
+```{r}
+xrange <- seq(9, 11, length.out = 500)
+y <- proba_II(u = 0.02, sigma = sigma, n = n, mu = xrange)
+xlim <- range(xrange[y > 10 ^ (-5)])
+ggplot() +
+    geom_function(fun = proba_II, args = list(u = 0.02, sigma = sigma, n = n), xlim = xlim) +
+    labs(title = "Probabilidad de error de tipo II", x = expression(mu))
+```
+
+Queremos detectar $\mu=10.05$ con un probabilidad suficiente pero a la vez, no queremos rechazar $H_0$ erróneamente con demasiada facilidad.
+
+```{r}
+mu_detect <- 10.05
+colores <- c("error_I" = "red", "error_II" = "blue")
+ggplot() +
+    geom_function(
+        fun = proba_I,
+        args = list(sigma = sigma, n = n), 
+        xlim = c(0.01, 0.05), aes( color = "error_I")
+    ) +
+    geom_function(
+        fun = proba_II,
+        args = list(mu = mu_detect, sigma = sigma, n = n),
+        xlim = c(0.01, 0.05),
+        aes(color = "error_II")
+    ) +
+    labs(title = "Probabilidades de los dos tipos de error", x ="umbral u") +
+    scale_colour_manual(
+        values = colores,
+        name = "Probabilidades",
+        labels = c("error tipo ?", "error tipo ?"),
+        breaks = c("error_I", "error_II")
+    ) 
+```
+
+## Métodos útiles para construir tests
+
+### Un primer procedimiento general
+
+::: callout-note
+# Para llevar a cabo un contraste de hipótesis, podemos
+
+-   Formular las hipótesis $H_0$ y $H_1$.
+-   Fijarnos la probabilidad de error de tipo I, $\alpha$.
+-   Para construir nuestra regla $\delta$, escogemos el estadístico de prueba $T(X_1,\dots,X_n)$ basado generalmente en un estimador del parámetro. Consideramos su distribución muestral suponiendo $H_0$ cierta.
+-   Determinamos la región de rechazo $S_1$, teniendo en cuenta la probabilidad de error I, es decir, $$P_{H_0}(T(X_1,\dots,X_n)\in S_1)=\alpha.$$
+-   Para nuestra muestra, calculamos $T(x_1,\dots,x_n)$ y decidimos si aceptamos o rechazamos $H_0$, según si su valor está en $S_0$ o en $S_1$.
+:::
+
+## Constraste de hipótesis para la media $\mu$
+
+::: callout-warning
+# Primer paso
+
+Empezamos por considerar la construcción de un contraste para la media $\mu$ de una población Normal con varianza conocida.
+:::
+
+::: callout-note
+# Contexto
+
+-   Consideramos una variable aleatoria $X$.
+
+-   Hemos decidido modelar: $X\sim \mathcal{N}(\mu,\sigma^2)$.
+
+    Tenemos fijado el valor de $\sigma$ (valor poblacional, por ejemplo gracias a datos históricos).
+
+-   Queremos llevar a cabo un contraste sobre $\mu$.
+
+-   Para ello, extraeremos una muestra de tamaño $n$ de la distribución de $X$.
+:::
+
+## Procedimiento, hipótesis bilateral
+
+-   Formulamos las hipótesis: $$\begin{cases}H_0:\mu=\mu_0,\\H_1:\mu\neq \mu_0,\end{cases}$$ donde $\mu_0$ representa el valor concre\to  con el que queremos comparar $\mu$.
+-   Dijamos el valor de $\alpha$.
+-   El estadístico de prueba es la versión tipificada de $\bar{X}$: $$Z=\dfrac{\bar{X}-\mu}{\sigma / \sqrt{n}}\sim \mathcal{N}(0,1).$$
+-   \textcolor[HTML]{007aff}{Si $H_0$ es cierto, $\mu=\mu_0$} $$Z_0=\dfrac{\bar{X}-\textcolor[HTML]{007aff}{\mu_0} }{\sigma / \sqrt{n} }\sim \mathcal{N}(0,1).$$
+-   Establecemos la región de rechazo:
+
+```{r}
+#| echo: FALSE
+library(ggplot2)
+
+x_vals <- seq(-3.5, 3.5, length.out = 1000)
+df <- data.frame(x = x_vals, y = dnorm(x_vals))
+
+z_scrit <- 1.96
+
+ggplot(df, aes(x = x, y = y)) +
+  geom_area(data = subset(df, x <= -z_scrit),
+            fill = "gray50", alpha = 0.6) +
+  geom_area(data = subset(df, x >= z_scrit),
+            fill = "gray50", alpha = 0.6) +
+  geom_line(linewidth = 0.5) +
+  scale_x_continuous(
+    breaks = c(-z_scrit, 0, z_scrit),
+    labels = c(expression(-z[1 - alpha / 2]),
+               "",
+               expression(z[1 - alpha / 2]))
+  ) +
+  labs(y = "Densidad", x = "") +
+  theme_grey()
+```
+
+La región $S_1$ está formada por los valores menores que $-z_{1-\frac{\alpha}{2} }$ o mayores que $z_{1-\frac{\alpha}{2} }$.
+
+-   Nos queda calcular, para nuestra muestra, el valor concreto del estadístico de prueba $z_0$:
+    -   Si pertenece a $S_1$, rechazaremos $H_0$ y afirmaremos $H_1$.
+    -   Si no pertence a $S_1$, admitiremos $H_0$.
+
+### Ejemplo {.unnumbered .unlisted}
+
+::: callout-note
+# En un proceso de producción
+
+-   La longitud de los artículos producidos se modeliza a través de una distribución Normal con media $\mu$.
+-   Por experiencia acerca del proceso, se cuantifica su desviación típica en $\sigma=1mm$.
+-   En condiciones de funcionamiento correcto, se espera que la longitud media de los artículos sea de 50 mm.
+-   Para comprobar la calidad se decide tomar una muestra de 10 artículos que resultan tener la longitud media $\bar{x}$ igual a 51 mm.
+-   Basándonos en esta muestra, ¿qué podemos decir acerca del funcionamiento del proceso?
+:::
+
+## Procedimiento, hipótesis unilateral
+
+Todo igual, excepto $S_1$:
+
+-   Si la hipótesis es $H_1:\mu>\mu_0$, la región de rechazo será
+
+```{r}
+#| echo: FALSE
+library(ggplot2)
+
+x_vals <- seq(-3.5, 3.5, length.out = 1000)
+df <- data.frame(x = x_vals, y = dnorm(x_vals))
+
+z_scrit <- 1.96
+
+ggplot(df, aes(x = x, y = y)) +
+  geom_area(data = subset(df, x >= z_scrit),
+            fill = "gray50", alpha = 0.6) +
+  geom_line(linewidth = 0.5) +
+  scale_x_continuous(
+    breaks = c(-z_scrit, 0, z_scrit),
+    labels = c(expression(-z[1 - alpha / 2]),
+               "",
+               expression(z[1 - alpha / 2]))
+  ) +
+  labs(y = "Densidad", x = "") +
+  theme_grey()
+```
+
+-   Si la hipótesis es $H_1:\mu>\mu_0$, la región de rechazo será
+
+```{r}
+#| echo: FALSE
+library(ggplot2)
+
+x_vals <- seq(-3.5, 3.5, length.out = 1000)
+df <- data.frame(x = x_vals, y = dnorm(x_vals))
+
+z_scrit <- 1.96
+
+ggplot(df, aes(x = x, y = y)) +
+  geom_area(data = subset(df, x <= -z_scrit),
+            fill = "gray50", alpha = 0.6) +
+  geom_line(linewidth = 0.5) +
+  scale_x_continuous(
+    breaks = c(-z_scrit, 0, z_scrit),
+    labels = c(expression(-z[1 - alpha / 2]),
+               "",
+               expression(z[1 - alpha / 2]))
+  ) +
+  labs(y = "Densidad", x = "") +
+  theme_grey()
+```
+
+## El $p$-valor
+
+\begin{definition}
+    Consideramos un contraste, un test, y hemos observado una muestra concreta $\mathbf{x}$.
+    \begin{itemize}
+        \item El \textcolor[HTML]{007aff}{$p$-valor} es el nivel de significación más pequeño que nos lleve, para esa muestra $\mathbf{x}$, a rechazar la hipótesis nula.
+        \item El $p$-valor está asociado a la región $S_1$ más pequeñas que nos lleve, para esa muestra, a rechazar $H_0$.
+    \end{itemize}
+\end{definition}
+
+::: callout-note
+# Ejemplo
+
+Volvamos al ejemplo de la longitud de los artículos producidos. Para el contraste
+
+$$
+\begin{array}{l}
+H_0:\mu=50,\\
+H_1:\mu\neq 50.
+\end{array}
+$$
+
+Supongamos que hemos encontrado un estadístico de prueba $z_0=1.75$ y rechazamos $H_0$ al 95% confianza. ¿Cuál habría sido nuestra decisión al 90%? ¿Y al 99% de confianza?
+:::
+
+::: callout-important
+# Importante
+
+Si rechazamos $H_0$ a un nivel de confianza dado, también la rechazamos a cualquier nivel de confianza menor.
+:::
+
+::: callout-note
+# Para calcularlo:
+
+-   Dibujamos la densidad de la distribución muestral del estadístico de prueba.
+-   Colocamos el valor de $z_0$ calculado para mi muestra concreta.
+-   Dibujamos una región de rechazo de manera que $z_0$ coincida con una de las fronteras.
+-   El $p$-valor $\alpha_0$ es el valor de $\alpha$ correspondiente a esta regiónde rechazo.
+:::
+
+Para el ejemplo de las longitudes, sabemos $z_0=1.75$, lo colocamos:
+
+```{r}
+#| echo: FALSE
+library(ggplot2)
+
+x_vals <- seq(-3.5, 3.5, length.out = 1000)
+df <- data.frame(x = x_vals, y = dnorm(x_vals))
+
+z_scrit <- 1.96
+
+ggplot(df, aes(x = x, y = y)) +
+  geom_area(data = subset(df, x <= -z_scrit),
+            fill = "gray50", alpha = 0.6) +
+  geom_area(data = subset(df, x >= z_scrit),
+            fill = "gray50", alpha = 0.6) +
+  geom_line(linewidth = 0.5) +
+  scale_x_continuous(
+    breaks = c(-z_scrit, 0, z_scrit),
+    labels = c(expression(-z[1 - alpha / 2]),
+               "",
+               expression(z[1 - alpha / 2]))
+  ) +
+  labs(y = "Densidad", x = "") +
+  theme_grey()
+```
+
+Por lo que $\dfrac{\alpha_0}{2}=\mathbb{P}(Z\ge 1.75)$, es decir que $\alpha_0=2(1-\phi(1.75))$, lo que lleva a $\alpha_0\simeq 0.08$.
+
+::: callout-tip
+# Para nuestro ejemplo
+
+-   Ejemplo un $p$-valor igual a 0.08, por lo que deducimos que la confianza máxima con la que podríamos haber rechazado $H_0$ es del 92%.
+-   Deducimos que habríamos en particular rechazado $H_0$ al 90% de confianza, pero, por ejemplo, no al 95% de confianza.
+:::
+
+::: callout-warning
+# Cuidado con la interpretación del $p$-valor
+
+El $p$-valor se puede interpretar como una medida de compatibilidad de los datos con la hipótesis nula.
+
+-   No debemos usarlo como el única criterio para basar nuestra decisión.
+-   Es bueno hacer gráficas, considerar el contexto, ver si el efecto es relevante y no solamente significativo.
+-   Se debe evitar considerar $p-valor<0.05$ como un valor mágico que es sinómino de efecto significativo.
+:::
+
+## Test óptimo
+
+::: callout-note
+# Empezamos por considerar los tests con probabilidad de error tipo I menor o igual que $\alpha$:
+
+-   Dado $\alpha$, sea $$T_\alpha=\{\delta\in T|P_{i,\delta}(\theta)\le \alpha \text{ para todo }\theta\in \Theta_0\},$$llamaremos $\alpha$ el \textcolor[HTML]{007aff}{nivel de significación del test}.
+-   Para un test $\delta$, se llama \textcolor[HTML]{007aff}{tamaño} o \textcolor[HTML]{007aff}{extensión} de $\lambda$ a: $\mathrm{sup}_{\theta\in \Theta_0}P_{I,\delta}(\theta)$.
+:::
+
+\begin{definition}
+    Dado $\delta^*\in T_{\alpha}$ decimos que es \textcolor[HTML]{007aff}{óptimo} si $$P_{II,\delta^*}(\theta)\text{ para todo }\delta\in T_\alpha\text{ y para todo }\theta\in \Theta_1.$$
+\end{definition}
+
+## Potencia de un test
+
+\begin{definition}
+La \textcolor[HTML]{007aff}{función potencia} de un test $\delta$ asocia a cada $\theta$ la probabilidad de rechazar la hipótesis nula: $$\theta\mapsto \pi_{\delta}(\theta)=P_{\theta}(X\in S_1),\quad\text{con }\theta\in \Theta.$$
+\end{definition}
+
+::: callout-warning
+# Relación de la potencia con los errores
+
+-   Si $\theta\in \Theta_0$ entonces $\pi_{\delta}(\theta)=P_{I,\delta}(\theta)$.
+-   Si $\theta\in \Theta_1$ entonces $$\pi_\delta(\theta)=P_\theta(X\in S_1)=1-P_\theta(X\in S_0)=1-P_{II,\delta}(\theta).$$
+:::
+
+## Test óptimo como el de máxima potencia
+
+Sea $\delta^*\in T_\alpha$ diremos que es el \textcolor[HTML]{007aff}{test uniforme de máxima potencia} para el contraste $$H_0:\theta\in \Theta$$frente a $$H_1:\theta\in \Theta_1$$si se verifica $$\pi_{\delta^*}(\theta)\ge \pi_\delta(\theta)\text{ para todo }\delta\in T_\alpha\text{ y para todo }\theta\in \Theta_1.$$
+
+::: callout-warning
+# Nuestro deseo
+
+Encontrar el test uniforme de máxima potencia.
+:::
+
+## Procedimientos basados en la verosimilitud
+
+::: callout-tip
+# Un procedimiento natural
+
+Puesto que la verosimilitud expresa la compatibilidad de los datos con el modelo considerado, es natural construir un test basado en la comparación de la verosimilitud para los valores de $\Theta_0$ y para los valores de $\Theta_1$.
+:::
+
+::: callout-tip
+# Constrastes de hipótesis simples
+
+En este tipo de contraste los subconjuntos del espacio paramétrico solo tienen un elemento, es decir $\Theta_0=\{\theta_0\}$ y $\Theta_1=\{\theta_1\}$ y por lo tanto los errores de ambos tipos son cantidades fijas. Implícitamente, estamos asumiendo que el parámetro es unidimensional.
+:::
+
+## Contrastes de hipótesis simples
+
+::: callout-note
+# Lema de Neyman-Pearson
+
+Sea $X\sim F(x,\theta),\Theta=\{\theta_0,\theta_1\},\mathbf{X}=(X_1,X_2,\dots,X_n)$, una muestra aleatoria simple de la población $X,\alpha$ fijo con $0<\alpha<1$. Para contrastar la hipótesis nula $H_0:\theta=\theta_0$ frente a la hipótesis alternativa $H_1:\theta=\theta_1$, el test de región de rechazo: $$S_1=\left\{ \mathbf{x}\in \mathrm{Sop}(\mathbf{X}) \bigg| \dfrac{L(\mathbf{x},\theta_1)}{L(\mathbf{x},\theta_0)}\ge k\right\}$$ con $k>0$, que además tenga tamaño $\alpha$, es decir $\alpha=P(\mathbf{X}\in S_1\mid \theta=\theta_0)$, que cumple que es el test de máxima potencia en la clase de los tests $T_{\alpha}$.
+:::
+
+::: callout-tip
+# Observaciones
+
+-   Si la ditribución es de tipo continuo siempre se cumple que el test alcanza el tamaño obteniéndose el test de extensión de $\alpha$.
+-   Si la distribución es de tipo discreto, en general, el test de máxima potencia será de extensión menor que $\alpha$.
+:::
+
+::: callout-tip
+# Demostración
+
+Sea $\delta^*$ el test definido anteriormente.
+
+-   La condición $$\alpha=P(\mathbf{X}\in S_1\mid \theta=\theta_0)$$ nos asegura que $\delta^*\in T_\alpha$. Sea ahora $\delta\in T_\alpha$ cualquiera. Tenemos que probar que: $$\pi_{\delta^*}(\theta_1)\ge \pi_{\delta}(\theta_1)$$ supondremos $X$ variable aleatoria continua (en el caso discreto se razonará de forma análoga).
+-   Sea $\mathbf{X}\in \mathrm{sop}(X)$ se verifica que: $$(\delta^*(\mathbf{X})-\delta(\mathbf{X}))(L(\mathbf{x},\theta_1)-kL(\mathbf{x},\theta_0))\ge 0.$$
+-   Sea $\delta(\mathbf{X})^*=1$ entonces: $$\dfrac{L(\mathbf{x},\theta_1)}{L(\mathbf{x},\theta_0)}\ge k\leftrightarrow L(\mathbf{x},\theta_1)-kL(\mathbf{x},\theta_0)\ge 0$$ y $\delta^*(\mathbf{X})-\delta(\mathbf{X})\ge 0$ ($\delta(\mathbf{X})$ sólo puede ser 0 o 1) y el producto es no negativo.
+-   Si $\delta(\mathbf{X})^*=0$ entonces: $$\dfrac{L(\mathbf{x},\theta_1)}{L(\mathbf{x},\theta_0)}<k\leftrightarrow L(\mathbf{x},\theta_1)-kL(\mathbf{x},\theta_0)<0$$ y $\delta^*(\mathbf{X})-\delta(\mathbf{X})\le 0$ ($\delta(\mathbf{X})$ sólo puede ser 0 o 1) y el producto es no negativo.
+-   La integral de la expresió anterior sobre el $\mathrm{sop}(\mathbf{X})$ será no negativa: $$\begin{array}{c}\int_{\mathrm{sop}(\mathbf{X})}(\delta^*(\mathbf{X})-\delta(\mathbf{X}))(L(\mathbf{x},\theta_1)-kL(\mathbf{x},\theta_0))\:\mathrm{d}x \ge 0\\ \int_{\mathrm{sop}(\mathbf{X})}\delta^*(\mathbf{X})L(\mathbf{x},\theta_1)\:\mathrm{d}\mathbf{x}-\int_{\mathrm{sop}(\mathbf{X})}\delta(\mathbf{X})L(\mathbf{x},\theta_1)\:\mathrm{d}\mathbf{x} - k\int_{\mathrm{sop}(\mathbf{X})}\delta^*(\mathbf{X})L(\mathbf{x},\theta_0)\:\mathrm{d}\mathbf{x}-\int_{\mathrm{sop}(\mathbf{X})}\delta(\mathbf{X})L(\mathbf{x},\theta_0)\:\mathrm{d}\mathbf{x} \end{array}$$notar que ambos contrastes solo toman el valor 1 en sus respectivas regiones de rechazo (y cero en las regiones de aceptación) con lo que al desarrollar los términos de la integral tenemos: $$\pi_{\delta^*}-\pi_{\delta}(\theta_1)-k(\pi_{\delta^*}(\theta_0)-\pi_{\delta}(\theta_0))\ge 0.$$
+-   Como $\delta\in T_\alpha$ tenemos que $\pi_{\delta}(\theta_0)\le \alpha$ con lo que: $$0\le \alpha-\pi_{\delta}(\delta_0)=\pi_{\delta^*}(\theta_0)-\pi_\delta(\theta_0)$$y por lo tanto:$$k(\pi_{\delta^*}(\theta_0)-\pi_\delta(\theta_0))\ge 0$$con lo que: $$0\le \pi_{\delta^*}(\theta_1)-\pi_\delta(\theta_1)-k(\pi_{\delta^*}(\theta_0)-\pi_\delta(\theta_0))\le \pi_{\delta^*}(\theta_1)-\pi_\delta(\theta_1)$$ de donde se deduce:$$\pi_{\delta^*}(\theta_1)\ge \pi_\delta(\theta_1)$$ que era lo que queríamos probar.
+:::
+
+## Hipótesis compuestas
+
+::: callout-tip
+# Planteamiento
+
+En las aplicaciones a problemas reales no suelen plantearse, en general, contrastes de hipótesis simple y alternativa simple, pues las hipótesis alternativas no suelen ser tan precisas para que estén definidas por un único valor del parámetro. Consideremos ahora contrastes de hipótesis donde al menos una de ellas es compuesta.
+:::
+
+::: callout-note
+# Casos
+
+```{=latex}
+\begin{center}
+    \begin{multicols}{2}
+        \begin{enumerate}[label=\alph*)]
+            \item $\begin{array}{l}H_0:\theta=\theta_0\\H_1:\theta>\theta_0\end{array}$
+            \item $\begin{array}{l}H_0:\theta=\theta_0\\H_1:\theta<\theta_0\end{array}$
+            \item $\begin{array}{l}H_0:\theta\le\theta_0\\H_1:\theta>\theta_0\end{array}$
+            \item $\begin{array}{l}H_0:\theta\ge\theta_0\\H_1:\theta<\theta_0\end{array}$
+            \item $\begin{array}{l}H_0:\theta=\theta_0\\H_1:\theta\neq \theta_0\end{array}$
+            \item $\begin{array}{l}H_0:\theta\in [\theta_1,\theta_2]\\H_1:\theta\notin[\theta_1,\theta_2]\end{array}$
+        \end{enumerate}
+    \end{multicols}
+\end{center}
+```
+
+En los casos a)-d) anteriores es posible obtener tests uniformes de máxima potencia para casos en los que la variable pertenece a la familia exponencial uniparamétrica.
+:::
+
+## Cociente de verosimilitudes monótono
+
+::: callout-note
+# Resultado
+
+Sea $X\sim F(x,\theta),\theta\in \Theta \subset \mathbb{R}$ y $X_1,\dots,X_n$ una muestra aleatoria simple de $X$. Decimos que $X$ o $F$ tienen la propiedad de cociente de verosimilitud monótono en el estadístico $R=R(X_1,\dots,X_n)$, si para todo $\theta_0,\theta_1\in \Theta$ con $\theta_0<\theta_1$ se verifica que el cociente de verosimilitudes $\dfrac{L(\mathbf{x},\theta_1)}{L(\mathbf{x},\theta)}$, es una función monótona creciente de $R(\mathbf{x})$.
+:::
+
+::: callout-note
+# Nota
+
+A los efectos de la definición si $L(\mathbf{x},\theta_0)=0$ y $L(\mathbf{x},\theta_1)>0$, el cociente anterior se considerará igual a infinito.
+:::
+
+::: callout-note
+# Familia exponencial uniparamétrica
+
+Se dice que la variable $X\sim F(x,\theta)$ pertenece a la familia exponencial uniparamétrica si su función de verosimilitud se puede escribir en la forma: $$L(\mathbf{x},\theta)=\exp\left\{ A(\theta)T(\mathbf{x})+B(\theta)+h(\mathbf{x})\right\}$$ para toda muestra $\mathbf{x}$.
+
+Si $A(\theta)$ es monótona creciente (decreciente) en $\theta$, entonces $X$ tiene cociente de verosimilitud monótono en el estadístico $T(X_1,\dots,X_n)(-T(X_1,\dots,X_n))$.
+:::
+
+::: callout-note
+# Cociente de verosimilitudes monótono
+
+Sea $X\sim F(x,\theta),\theta\in \Theta\subseteq \mathbb{R}$ y $X_1,\dots,X_n$ una m.a.s. de $X$. Supongamos que $X$ tiene cociente de verosimilitud monótono en el estadístico $R=R(X_1,\dots,X_n)$ para contrastar $H_0:\theta=\theta_0$ frente a $H_1:\theta>\theta_0$, se sigue que el test $$\delta_1(\mathbf{x})\begin{cases}0&\text{si }R(\mathbf{x})<c\\1 & \text{si }R(\mathbf{x})\ge c\end{cases}$$ que cumpla $P_{I,\delta_1}(\theta_0)=\alpha$, es el test uniforme de máxima potencia en la clase de tests $T_{\alpha}=\{\delta\in T|P_{I,\delta}(\theta_0)\le \alpha\}$, con $0<\alpha<1$.
+:::
+
+::: callout-tip
+El teorema anterior se extiende al contraste $H_0:\theta\le \theta_0$ frente a $H_1:\theta>\theta_0$.
+:::
+
+::: callout-note
+# Cociente de verosimilitudes monótono
+
+Sea $X\sim F(x,\theta),\theta\in \Theta\subseteq \mathbb{R}$ y $X_1,\dots,X_n$ una m.a.s. de $X$. Supongamos que $X$ tiene cociente de verosimilitud monótono en el estadístico $R=R(X_1,\dots,X_n)$ para contrastar $H_0:\theta=\theta_0$ frente a $H_1:\theta<\theta_0$, se sigue que el test $$\delta_1(\mathbf{x})\begin{cases}0&\text{si }R(\mathbf{x})>c\\1 & \text{si }R(\mathbf{x})\le c\end{cases}$$ que cumpla $P_{I,\delta_1}(\theta_0)=\alpha$, es el test uniforme de máxima potencia en la clase de tests $T_{\alpha}=\{\delta\in T|P_{I,\delta}(\theta_0)\le \alpha\}$, con $0<\alpha<1$.
+:::
+
+::: callout-tip
+El teorema anterior se extiende al contraste $H_0:\theta\ge \theta_0$ frente a $H_1:\theta<\theta_0$.
+:::
+
+## Contrastes de hipótesis compuestas
+
+La metodología anterior no se puede aplicar en los casos e) y f) y en los casos de parámetros que no sean unidimensionales. Por tanto, es importante para muchos problemas prácticos, disponer de métodos de contrucción de contrastes, basados en principios razonables y que permitan diseñar el test según el problema planteado. El método más importante lo constituye el **test de la razón de verosimilitudes generalizado**.
+
+::: callout-note
+# Razón de verosimilitudes Generalizada (RVG)
+
+Se llama \textcolor[HTML]{007aff}{razón de verosimilitudes generalizada} para contrastar la hipótesis $H_0:\theta\in \Theta_0$ frente $H_1:\theta\in \Theta_1$ al cociente $$\lambda(\mathbf{x})=\dfrac{\sup_{\theta\in \Theta_0}L(\mathbf{x};\theta)}{\sup_{\theta\in \Theta}L(\mathbf{x};\theta)}.$$
+:::
+
+## Procedimiento basado en la verosimilitud
+
+::: callout-note
+# Test de razón de verosimilitud generalizada
+
+Un test de razón de verosimilitud generalizada (RVG) para las hipótesis anteriores es aquel que tiene región crítica de la forma
+
+$$
+S_1=\left\{ \mathbf{x}\in \mathrm{Sop}(X_1,\dots,X_n)|\lambda(\mathbf{x})=\dfrac{\sup_{\theta\in \Theta_0}L(\mathbf{x};\theta)}{\sup_{\theta\in \Theta}L(\mathbf{x};\theta)}<k \right\} 
+$$
+
+Determinamos la constante $k$, imponiendo que el test tenga extensión $\alpha$, es decir:
+
+$$
+\sup_{\theta\in \Theta_0}P((X_1,\dots,X_n)\in S_1|\theta)=\alpha.
+$$
+:::
+
+## Test RVG para la media de una población normal con varianza conocida
+
+::: callout-note
+# Ejercicio
+
+-   $X\sim \mathcal{N}(\mu,\sigma^2)$, suponemos $\sigma$ conocida.
+-   M.a.s $X_1,\dots,X_n$ de $X$.
+-   Formulamos las hipótesis $$\begin{array}{l}H_0:\mu=\mu_0\\ H_1:\mu\neq \mu_0\end{array}$$
+
+1)  Demostrar que el test que rechaza $H_0$ si $\left| \dfrac{\bar{\mathbf{X}}-\mu_0}{\sigma / \sqrt{n}} \right|>z_{1-\frac{\alpha}{2}}$ es de extensión $\alpha$.
+2)  Demostrar que el test anterior es el test de RVG.
+:::
+
+**¿Es de extensión** $\alpha$?
+
+-   Hemos de comprobar que: $\sup_{\theta\in \Theta_0}P_{i,\delta}(\theta)=\alpha$.
+-   En este caso $H_0$ es simple, si $\mu=\mu_0$ se cumple que $\dfrac{\bar{\mathbf{X}}-\mu_0}{\sigma / \sqrt{n} }\sim \mathcal{N}(0,1)$.
+
+$$
+P\left( \left| \dfrac{\bar{\mathbf{X}}-\mu_0}{\sigma / \sqrt{n} } \right| > z_{1-\frac{\alpha}{2}}|\mu_0 \right)=\alpha.
+$$
+
+```{r}
+#| echo: FALSE
+library(ggplot2)
+
+x_vals <- seq(-3.5, 3.5, length.out = 1000)
+df <- data.frame(x = x_vals, y = dnorm(x_vals))
+
+z_scrit <- 1.96
+
+ggplot(df, aes(x = x, y = y)) +
+  geom_area(data = subset(df, x <= -z_scrit),
+            fill = "gray50", alpha = 0.6) +
+  geom_area(data = subset(df, x >= z_scrit),
+            fill = "gray50", alpha = 0.6) +
+  geom_line(linewidth = 0.5) +
+  scale_x_continuous(
+    breaks = c(-z_scrit, 0, z_scrit),
+    labels = c(expression(-z[1 - alpha / 2]),
+               "",
+               expression(z[1 - alpha / 2]))
+  ) +
+  labs(y = "Densidad", x = "") +
+  theme_grey()
+```
+
+**¿Es el test de RVG?**
+
+$$
+\lambda(\mathbf{x})=\dfrac{\sup_{\mu=\mu_0}L(\mathbf{x};\mu)}{\sup_{\mu\in R}L(\mathbf{x};\mu)}.
+$$
+
+-   Numerador: $$L(\mathbf{X};\mu_0)=\dfrac{1}{\sigma^{\frac{n}{2}}(2\pi)^{\frac{\alpha}{2} }}\exp\left( -\dfrac{1}{2\sigma^2}\sum_{i=1}^{n}(x_i-\mu_0)^2 \right)$$
+-   El supremo en el denominador se alcanza en el EMV $\hat{\mu}=\bar{x}_n$. $$\lambda(\mathbf{x})=\exp\left( -\dfrac{n}{2\sigma^2}\sum_{i=1}^{n} (\bar{x}_n-\mu_0)^2 \right)$$
+
+**¿Es el test de RVG?**
+
+-   Determinamos la constante $k$, imponiendo que el test tenga extensión $\alpha$, es decir,
+
+    $$
+    \begin{array}{c}
+        P(\lambda(\mathbf{x})<k|\mu_0)=\alpha\\
+        \begin{aligned}
+            \alpha&= P\left( 0<\exp\left( -\dfrac{n}{2\sigma^2}\sum_{i=1}^{n} (\bar{x}_n-\mu_0)^2 \right)<k|\mu_0 \right) \\
+            &=P(-\infty<-\dfrac{n}{2\sigma^2}\sum_{i=1}^{n} (\bar{x}_n-\mu_0)^2<\log(k)|\mu \\
+            &= P\left( \left( \dfrac{\bar{x}_n-\mu_0}{\sigma/\sqrt{n} } \right)^2>-2\log(k)|\mu_0 \right)  \\
+            &= P\left( \left| \dfrac{\bar{x}_n-\mu_0}{\sigma / \sqrt{n} } \right| >\sqrt{-2\log(k)} |\mu_0 \right) =P\left( \left| \dfrac{\bar{x}_n-\mu_0}{\sigma / \sqrt{n} } \right| >c|\mu_0 \right)  \\
+        \end{aligned}
+    \end{array}
+    $$
+
+    tomamos $c=z_{1-\frac{\alpha}{2}}$.
+
+## Test de razón de verosimilitudes generalizada
+
+::: callout-warning
+# Lo más dificil
+
+Aunque el test RVG sea un test que suele tener buenas propiedades en cuanto a errores, para muchos modelos, no es sencillo deducir su distribución muestral.
+:::
+
+::: callout-note
+# Aproximación asintótica de la distribución muestral para el test RVG
+
+Para el contraste $$H_0:\theta\in \Theta_0$$frente a la alternativa $$H_1:\theta\in \Theta_1$$si $\mathrm{dim}(\Theta)=q$ y $\mathrm{dim}(\Theta_0)=q'$ se verifica, bajo ciertas condiciones, que el estadístico $-2\log \lambda(\mathbf{X})$ converge en distribución a una ji-cuadrado con $q-q'$ grados de libertad.
+:::
+
+## Test de bondad de ajuste
+
+::: callout-note
+# Es un constraste no paramétrico
+
+-   Su objetivo es comprobar hasta qué punto los datos observados parecen haber sido generados por una distribución de probabilidad dada.
+-   Se conoce como "contraste chi-cuadrado", porque es la distribución que usamos para construir nuestra regla de decisión.
+:::
+
+::: callout-note
+# Primer ejemplo, el caso más sencillo:
+
+-   Tenemos $k$ clases posibles asociadas a un experimento aleatorio: $A_1,\dots,A_k$.
+-   Tenemos unos valores esperados para sus probabilidades $$p_1=P(A_1),\dots,p_k=P(A_k).$$
+-   Observamos $n$ realizaciones del experimento y queremos decidir si lo observado es compatible con los valores esperados.
+:::
+
+### Caso sencillo bondad de ajuste {.unnumbered .unlisted}
+
+::: callout-note
+# El caso más sencillo:
+
+- Planteamos
+
   $$
-  H_0:\mu=10\\
-  H_1:\mu\neq 10\\
+  \begin{array}{l}
+    H_0:P(A_1)=p_i,\, i=1,\dots,k\\
+    H_1:\text{Existe $i$ tal que  $P(A_i)\neq p_i$.}
+  \end{array}
   $$
-  
-- Nuestra regla, es decir nuestro test $\delta$, se basará en $\bar{\mathbf{X}}$:
-  - si $\bar{\mathbf{X}}$ está "alejado" de 10, rechazaremos $H_0$.
-  - si $\bar{\mathbf{X}}$ está "cerca" de 10, aceptaremos  $H_0$.
+
+- Tenemos $k$ clases posibles asociadas a un experimento aleatorio: $A_1,\dots,A_k$.
+
+- Tenemos unos valores esperados para sus probabilidades $$p_1=P(A_1),\dots,p_k=P(A_k).$$
+
+- Observamos $n$ realizaciones del experimento y queremos decidir si lo observado es compatible con los valores esperados.
+:::
+
+### Caso sencillo bondad de ajuste: grupo sanguíneo {.unnumbered .unlisted}
+
+::: callout-note
+# Cuatro grupos sanguíneos
+
+Experimento: escoger una persona
+
+-   $A_1=$"Su grupo es O", $A_2=$"Su grupo es A", $A_3=$"Su grupo es B", $A_4=$"Su grupo es AB".
+
+-   Los valores esperados para sus probabilidades son $$p_1=43\%,p_2=40\%,p_3=12\%,p_4=5\%.$$
+
+-   En un grupo de 250 personas, observamos $f_1=100$"O", $f_2=100$"A", $f_3=30$"B", $f_4=10$"AB".
+
+-   En el grupo de 250, esperamos $\hat{f}_1=250\times 43\%\simeq 107.5$"O", $\hat{f}_2=2500\times 40\%\simeq 100$"A", $\hat{f}_3=250\times 12\%\simeq 30$"B", $\hat{f}_4=250\times 5\%\simeq 12.5$"AB".
+
+-   Escribimos los datos en una tabla
+
+    $$
+    \begin{array}{cllll}
+    \text{\textbf{Clases}} & A_1 & A_2 & A_3 & A_4\\ \hline
+    \begin{aligned}\text{Frecuencia}\\ \text{observada}\end{aligned} & f_1=110 & f_2=100 & f_3=30 & f_4=10\\ \hline
+    \begin{aligned}\text{Frecuencia}\\ \text{esperada}\end{aligned} & \hat{f}_1=107.5 & \hat{f}_2=100 & \hat{f}_3=30 & \hat{f}_4=12.5\\
+    \end{array}
+    $$
+:::
+
+#### Construimos el estadístico para el contraste {.unnumbered .unlisted}
+
+::: callout-note
+# El estadístico chi-cuadrado de Pearson
+
+Para constrastar
+
+$$
+H_0:P(A_i)=p_i,\,i=1,\dots,k\\
+H_1:\text{Existe $i$ tal que  $P(A_i)\neq p_i$.}
+$$
+
+Karl Pearson propuso el estadístico $$\chi^2=\sum_{i=1}^{k} \dfrac{\left( f_i-\hat{f}_i \right) ^2}{\hat{f}_i}.$$ Si $n$ es suficientemente grande, $$\chi^2=\sum_{i=1}^{k} \dfrac{\left( f_i-\hat{f}_i \right) ^2}{\hat{f}_i}\text{ es aprox. }\chi_{k-1}^2.$$
+:::
+
+$$
+\chi^2=\sum_{i=1}^{k} \dfrac{\left( f_i-\hat{f}_i \right) ^2}{\hat{f}_i}=\dfrac{(100-107.5)^2}{107.5}+\dfrac{0^2}{100}+\dfrac{0^2}{30}+\dfrac{(10-12.5)^2}{12.5}=1.02
+$$
+
+Para calcular el $p$-valor, lo comparamos con los cuantiles de una $\chi_3^2$, valores extremos positivos nos llevan a rechazar $H_0$.
+
+::: callout-note
+# $p$-valor:
+
+Encontramos $p$-valor$=0.79$, lo que nos lleva a afirmar que los datos apoyan la hipótesis nula, y son compatibles con los valores esperado $p_1=43\%$"O", $p_2=40\%$"A", $p_3=12\%$"B", $p_4=5\%$"AB".
+:::
+
+::: callout-warning
+# Validez de la aproximación de la distribución de estadístico de Pearson por un $\chi_{k-1}^2.$
+
+$n$ debe ser "suficientemente" grande. 
+
+- Se suele considerar que todas las frecuencias esperadas deben ser al menos 5, excepto una, y que sea mayor que $0.5$. 
+- Si dos de ellas son pequeñas, entonces esas no deben ser menor que 1, y el resto debe ser al menos 5. 
+- Si no cumple, se agrupan clases.
+:::
+
+#### Segundo caso: debemos estimar parámetros para calcular las frecuencias esperadas. {.unnumbered .unlisted}
+
+::: callout-note
+# Segundo ejemplo, un caso común:
+
+-   Tenemos $k$ clases posibles asociadas a un experimento aleatorio $A_1,\dots,A_k$.
+-   Los valores esperados para las probabilidades $p_1=P(A_1),\dots,p_k=P(A_k)$ dependen de unos parámetros desconocidos.
+-   Observamos $n$ realizaciones del experimento y queremos decidir si lo observado es compatible con los valores esperados.
+-   Planteamos $H_0:P(A_i)=p_i,\,i=1,\dots,k$ frente a $H_1:$Existe $i$ tal que $P(A_i)\neq p_i$.
+:::
+
+::: callout-tip
+# Procederemos igual que antes, pero:
+
+-   Estimaremos los parámetros desconocidos a partir de las observaciones.
+-   El estadístico de Pearson tendrá como distribución aproximada $\chi_{k-d-1}^2$, donde $d$ es el número de parámetros que debemos estimar para aproximar las frecuencias esperadas.
+:::
+
+#### Ejemplo: daltonismo {.unnumbered .unlisted}
+
+::: callout-note
+# La incidencia del daltonismo depende del sexo:
+
+-   Los genes responsables del daltonismo se encuentran en el cromosoma $X$.
+-   Los hombres tienen un solo cromosoma $X \implies$ una copia del gen defectuoso en su cromosoma $X$ es suficiente para ser daltónico.
+-   Las mujeres tienen dos cromosomas $X\implies$ dos copias del gen defectuoso son necesarias para ser daltónicas.
+:::
+
+::: callout-note
+# Si llamamos $q$ a la probabilidad de que el cromosoma $X$ tenga el gen defectuoso y $p=1-q$
+
+Tenemos:
+
+|            | **Masculino**  |    **Femenino**     |
+|:----------:|:--------------:|:-------------------:|
+|  Normales  | $\dfrac{p}{2}$ | $\dfrac{p^2}{2}+pq$ |
+| Daltónicos | $\dfrac{q}{2}$ |  $\dfrac{q^2}{2}$   |
+:::
+
+## Datos observados ## {.unnumbered .unlisted}
+:::{.callout-note}
+# Para una muestra de 1000 personas: #
+
+|            | **Masculino** | **Femenino** |
+|:----------:|:-------------:|:------------:|
+|  Normales  |     $442$     |     $514$    |
+| Daltónicos |     $38$      |      $6$     |
+:::

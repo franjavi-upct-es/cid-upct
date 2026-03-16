@@ -30,7 +30,15 @@ knitr::opts_chunk$set(highlight = TRUE, echo = FALSE,
 
 \newpage
 
+\input{"Tema 1/Hoja 1.tex"}
+
+\newpage
+
 {{< include "Tema 2/Tema 2.qmd" >}}
+
+\newpage
+
+\input{"Tema 2/Hoja 2.tex"}
 
 \newpage
 
@@ -38,4 +46,20 @@ knitr::opts_chunk$set(highlight = TRUE, echo = FALSE,
 
 \newpage
 
+\input{"Tema 3/Hoja 3.tex"}
+
+\newpage
+
 {{< include "Tema 4/Tema 4.qmd" >}}
+
+\newpage
+
+\input{"Tema 4/Hoja 4.tex"}
+
+\newpage
+
+{{< include "Tema 5/Tema 5.qmd" >}}
+
+\newpage
+
+\input{"Tema 5/Hoja 5.tex"}

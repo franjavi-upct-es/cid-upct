@@ -1,0 +1,216 @@
+# Inferencia Bayesiana #
+## Introducción ##
+:::{.callout-note}
+# Lo que hemos visto hasta el momento: #
+
+- Se llama al enfoque frecuentista, o clásico de la inferencia.
+- Hay otro enfoque, llamado la **inferencia bayesiana.**
+:::
+
+:::{.callout-note}
+# La inferencia bayesiana #
+- Asume que modelizamos la información que podemos tener sobre el parámetro a través de una distribución de probabilidad.
+- Formulamos como parte del modelo una **distribución a priori** sobre $\theta$. Su f.p.p. o función de densidad se denota como $\pi(\theta).$
+- La inferencia bayesiana actualiza la información a priori, usando para ello la muestra $\mathbf{x}$ observada, para poder obtener la **distribución a posteriori** $\pi(\theta|\mathbf{x})$.
+:::
+
+## La inferencia bayesiana ##
+
+![](Tema 5/inferencia_bayesiana.jpeg){width="80%" fig-align="center"}
+
+:::{.callout-tip}
+# Fórmula de Bayes #
+
+$$
+P(B|A)=\dfrac{P(A|B)P(B)}{P(A)}
+$$
+:::
+
+:::{.callout-note}
+# Para distribuciones condicionadas: #
+
+$$
+\pi(\theta|\mathbf{x})=\dfrac{f(\mathbf{x}|\theta)\pi(\theta)}{m(\mathbf{x})}
+$$
+
+- $m(\mathbf{x})$ es la margina de $\mathbf{x}$.
+- Si $\pi$ es uan distribución continua: $m(\mathbf{x})=\int f(\mathbf{x}|u)\pi(i)\:\mathrm{d}u$, la densidad margina de $\mathbf{x}$ calculada a partir de la conjunta.
+- Esta integral se realiza sobre el conjunto de valores posibles de $\theta$.
+:::
+
+## La distribución a posteriori ##
+En la expresión $$\pi(\theta|\mathbf{x})=\dfrac{f(\mathbf{x}|\theta)\pi(\theta)}{m(\mathbf{x})},$$ $\mathbf{x}$ es el input, una constante. Nos interesa la variable $\theta$, y el denominador solo depende de $\mathbf{x}$. Escribimos $$\pi(\theta|\mathbf{x})\propto f(\mathbf{x}|\theta)\pi(\theta),$$donde $\propto$ quiere decir "es proporcional a".
+
+:::{.callout-tip}
+# Consejo #
+A veces, será suficiente reconocer el modelo de distribución que sigue $\pi(\theta|\mathbf{x})$ sin tener que calcular el denominador.
+:::
+
+## Ejemplo ## {.unnumbered .unlisted}
+
+:::{.callout-note}
+# Ingredientes #
+Lanzamos un dado $n$ veces y apuntamos en cada tirada si ha salido par o impar.
+
+- $X\sim \mathrm{Bernoulli}(p),X=1$ si el resultado es par.
+- muestra: $(x_1,\dots,x_n)$, tenemos que $$f(x_1,\dots,x_n|p)=p^{n\bar{x}}(1-p)^{n(1-\bar{x})}.$$ 
+- Información a priori sobre $p$: puede tomar cualquier valor en  $(0,1)$ con igual probabilidad:  
+
+  $$
+  \pi(p)=\begin{cases}
+      1 & \text{si }p\in (0,1)\\
+      0 & \text{en otro caso}
+  \end{cases}
+  $$
+:::
+
+$$
+\pi(p|\mathbf{x})\propto p^{n\bar{x}}(1-p)^{n(1-\bar{x})}.
+$$
+
+:::{.callout-note}
+# Reconocemos una distribución beta #
+Sean dos parámetros positivos $a$ y $b,\,X\sim \mathrm{Be}(a,b)$, si $$f(x)=\dfrac{\Gamma(a+b)}{\Gamma(a)\Gamma(b)}x^{a-1}(1-x)^{b-1}\text{, para todo }x\in (0,1),$$ siendo $\Gamma$ la función gamma.
+
+- Su esperanza: $E[X]=\dfrac{a}{a+b}$ 
+- Su varianza: $\mathrm{Var}[X]=\dfrac{ab}{(a+b)^2(a+b+1)}.$ 
+- Incluye la distribución uniforme en $(0,1)$, si $a=1$ y  $b=1$.
+- En  **`R`**, **`dbeta`**, **`pbeta`**, **`qbeta`**.   
+:::
+
+:::{.callout-note}
+# Tiramos 10 veces el dado, obtenemos 6 veces un número par #
+
+$$
+\begin{array}{c}
+    \pi(p|\mathbf{x})\propto p^{n\bar{x}}(1-p)^{n(1-\bar{x})}.\\
+    \pi(p|\mathbf{x})\sim \mathrm{Be}(1+n\bar{x},1+n(1-\bar{x}))
+\end{array}
+$$
+
+¿Qué vale $n\bar{x}$?
+
+$$
+\pi(p|\mathbf{x})\sim \mathrm{Be}(7, 5)
+$$
+:::
+
+```{r}
+library(tidyverse)
+colores <- c("posteriori" = "red", "priori" = "blue")
+tibble(x = seq(0, 1, length.out = 1000), y = dbeta(x, 7, 5), y_priori = 1) |>
+  ggplot(aes(x = x, y = y)) + xlim(0, 1) +
+    geom_line(aes(color = "posteriori")) +
+    geom_line(aes(y = y_priori, color = "priori")) +
+    labs(title= "Distribución a posteriori", y = "Densidad") +
+    scale_color_manual(
+      name = "Distribución",
+      breaks = c("priori", "posteriori"),
+      values = colores,
+      labels = c("a priori", "a posteriori")
+    )
+```
+
+Seguimos tirando el dado, hasta 50 veces, obtenemos otras 18 veces un número par, en total 24 veces: $\pi(p)=1,\pi(p|\mathbf{x})\sim \mathrm{Be}(25, 27)$ 
+
+```{r}
+#| fig-width: 10
+#| fig-height: 5
+colores <- c("posteriori10" = "red","posteriori50" = "green", "priori" = "blue")
+tibble(x = seq(0, 1, length.out = 1000), y10 = dbeta(x, 7, 5), y50 = dbeta(x, 25, 27), y_priori = 1) |>
+  ggplot(aes(x = x)) + xlim(0, 1) +
+    geom_line(aes(y = y10, color = "posteriori10")) +
+    geom_line(aes(y = y50, color = "posteriori50")) +
+    geom_line(aes(y = y_priori, color = "priori")) +
+    labs(title= "Distribución a posteriori", y = "Densidad") +
+    scale_color_manual(
+      name = "Distribución",
+      breaks = c("priori", "posteriori10", "posteriori50"),
+      values = colores,
+      labels = c("a priori", "a posteriori con 10 observaciones", "a posteriori con 50 observaciones")
+    )
+```
+
+## Distribución a posteriori ##
+
+Con el enfoque bayesiano, el resultado de la inferencia, una vez observada una muestra, es una distribución entera, la distribución a posteriori.
+
+- Podemos representarla, contiene toda la información que hemos inferido sobre $\theta$, a partir de la muestra y nuestra especificación de la distribución a priori.
+- Podemos resumirla, por ejemplo con la media, la mediana.
+- Podemos incluso dar un intervalo que contiene el 95% de los valores de $\theta$. (*"intervalo de credibilidad al 95%"*).
+
+:::{.callout-note}
+# Estimador Bayes #
+Si consideramos una función de pérdida $L(\theta,a)$ asociada a estimar $\theta$ por $a$, la pérdida esperada a partir de la distribución a posteriori sería:  $$E[L(\theta,a)][\mathbf{x}]=\int_\Omega L(\theta,a)\pi(\theta|\mathbf{x})\:\mathrm{d}\theta$$ para cada valor posible $\mathbf{x}$ del vector aleatorio $\mathbf{X}$, sea $\delta^*(\mathbf{x})$ un valor de a cuya pérdida esperada, dada por la expresión anterior sea mínima. La función $\delta^*(\mathbf{X})$ define un estimado llamado estimador Bayes: $$\delta^*(\mathbf{X})=\min_{a\in \Theta}E[L(\theta,a)|\mathbf{x}]$$ 
+
+- Si $L(\theta,a)=(\theta-a)^2\rightarrow  \delta^*(\mathbf{X})=E(\theta|\mathbf{X})$.
+- Si $L(\theta,a)=|\theta-a|\rightarrow \delta^*(\mathbf{X})=$ mediana.
+:::
+
+## En el ejemplo de las tiradas de dados ##
+
+![](Tema 5/tirada_dados.png){width=80% fig-align="center"}
+
+:::{.callout-note}
+# Cuando usamos las 10 primeras observaciones #
+- $E[p|\mathbf{x}]=\dfrac{7}{12}=0.58$ 
+- Intervalo credibilidad al 95%:
+
+  **`(qbeta(0.025,7,5),qbeta(0.975,7,5))=(0.31,0.83)`** 
+:::
+
+:::{.callout-note}
+# Cuando usamos las 50 primeras observaciones #
+- $E[p|\mathbf{x}]=\dfrac{25}{52}=0.48$
+- Intervalo credibilidad al 95%:
+
+  **`(qbeta(0.025,25,27),qbeta(0.975,25,27))=(0.35,0.62)`**
+:::
+
+## Cambiamos la distribución a priori ##
+Si $\pi(p)\sim \mathrm{Be}(a_0,b_0)$, y $X|p\sim \mathrm{Bernoulli}(p)$ entonces $$\pi(p|\mathbf{x})\sim \mathrm{Be}(a'+n\bar{x},b_0+n(1-\bar{x})).$$
+
+:::{.callout-tip}
+# Clases conjugadas #
+Decimos que las clases Bernoulli (para $X$) y Beta (para la priori) son **conjugables:** la posteriori se queda en la misma clase de distribuciones que la a priori.
+:::
+
+### La distribución $\mathrm{Be}(a,b)$ es bastante flexible como a priori ###
+
+![](Tema 5/distribucion_beta.png)
+
+## Aplicaciones de la inferencia Bayesiana ##
+
+:::{.callout-note}
+# La inferencia bayesiana se utiliza en varias áreas del aprendizaje máquina #
+- **Redes Bayesianas** (Belief Networks): Modelos gráficos que permiten representar las dependencias condicionales entre variables aleatorias de forma compacta.
+- **Optimización Bayesiana:** Se utiliza para optimizar funciones objetivas que son costosas de evaluar, útil en el ajuste de hiperparámetros para modelos de aprendizaje máquina.
+- **Procesamiento de Lenguaje Natural** (PLN): Por ejemplo para la clasificación de texto y el análisis de sentimientos.
+- **Sistemas de Recomendación:** Los modelos bayesianos se pueden utilizar para predecir la preferencias de los usuarios y hacer recomendaciones.
+:::
+
+### Ilustración para un ejemplo simpel de sistema de recomendación: ###
+
+:::{.callout-note}
+# Contexto: #
+- Queremos predecir la probabilidad de que un usuario aprecie una nueva pelicula, para incluirla en las recomendaciones. Sabemos que, entre las 10 películas de este mismo tipo que ha visto, siete le han gustado.
+- $X\sim \mathrm{Bernoulli}(p):X=1\leftrightarrow$ "el usuario aprecia una película de este tipo".
+- Observamos $x_1,x_2,\dots,x_{10}$.
+- Usamos una a priori no informativa para $p:\pi(p)=\begin{cases}1 & \text{si }p\in (0,1)\\0 & \text{en caso contrario}\end{cases}$
+:::
+
+$$\pi(p|\mathbf{x})\sim \mathrm{Be}(1+n\bar{x},1+n(1-\bar{x}))\sim \mathrm{Be}(8,4).$$ 
+
+:::{.callout-note}
+# Inferencia bayesiana predictiva: #
+- Tenemos la posteriori $\pi(p|\mathbf{x})$.
+- Nos interesa $P(X=1|\mathbf{x})$, que es la llamada probabilidad predictiva.
+:::
+
+Para calcularla la obtenemos como margina usando la posteriori: 
+
+$$
+P(X=1|\mathbf{x})=\int P(X=1|p)\pi(p|\mathbf{x})\mathrm{d} p=\int p\pi(p|\mathbf{x})\mathrm{d} p.
+$$
+
+En este caso: $P(X_1|\mathbf{x})=E[p|\mathbf{x}]=\dfrac{8}{12}=\dfrac{2}{3}$.
