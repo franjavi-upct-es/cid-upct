@@ -1,0 +1,164 @@
+name: hadoop-lab
+
+services:
+  namenode:
+    build:
+      context: ./hadoop
+      args:
+        HADOOP_VERSION: ${HADOOP_VERSION:-3.3.6}
+    image: hadoop-lab:${HADOOP_VERSION:-3.3.6}
+    container_name: namenode
+    hostname: namenode
+    networks:
+      default:
+        aliases:
+          - resourcemanager
+    environment:
+      ROLE: namenode
+      CLUSTER_NAME: ${CLUSTER_NAME:-hadoop-lab}
+      HOST_UID: ${HOST_UID:-1000}
+      HOST_GID: ${HOST_GID:-1000}
+      HDFS_MOUNT_USER: ${HDFS_MOUNT_USER:-luser}
+    ports:
+      - "9870:9870"   # NameNode web
+      - "9000:9000"   # HDFS RPC
+      - "8088:8088"   # YARN RM web
+    volumes:
+      - namenode_data:/data/hdfs/namenode
+      - hadoop_tmp:/data/tmp
+    healthcheck:
+      test: ["CMD-SHELL", "curl -sf http://localhost:9870/ >/dev/null || exit 1"]
+      interval: 10s
+      timeout: 5s
+      retries: 30
+
+  datanode1:
+    build:
+      context: ./hadoop
+      args:
+        HADOOP_VERSION: ${HADOOP_VERSION:-3.3.6}
+    image: hadoop-lab:${HADOOP_VERSION:-3.3.6}
+    container_name: datanode1
+    hostname: datanode1
+    environment:
+      ROLE: datanode
+      HOST_UID: ${HOST_UID:-1000}
+      HOST_GID: ${HOST_GID:-1000}
+    depends_on:
+      namenode:
+        condition: service_healthy
+    volumes:
+      - datanode1_data:/data/hdfs/datanode
+      - yarn_local1:/data/yarn/local
+      - yarn_log1:/data/yarn/log
+
+  datanode2:
+    build:
+      context: ./hadoop
+      args:
+        HADOOP_VERSION: ${HADOOP_VERSION:-3.3.6}
+    image: hadoop-lab:${HADOOP_VERSION:-3.3.6}
+    container_name: datanode2
+    hostname: datanode2
+    environment:
+      ROLE: datanode
+      HOST_UID: ${HOST_UID:-1000}
+      HOST_GID: ${HOST_GID:-1000}
+    depends_on:
+      namenode:
+        condition: service_healthy
+    volumes:
+      - datanode2_data:/data/hdfs/datanode
+      - yarn_local2:/data/yarn/local
+      - yarn_log2:/data/yarn/log
+
+  datanode3:
+    build:
+      context: ./hadoop
+      args:
+        HADOOP_VERSION: ${HADOOP_VERSION:-3.3.6}
+    image: hadoop-lab:${HADOOP_VERSION:-3.3.6}
+    container_name: datanode3
+    hostname: datanode3
+    environment:
+      ROLE: datanode
+      HOST_UID: ${HOST_UID:-1000}
+      HOST_GID: ${HOST_GID:-1000}
+    depends_on:
+      namenode:
+        condition: service_healthy
+    volumes:
+      - datanode3_data:/data/hdfs/datanode
+      - yarn_local3:/data/yarn/local
+      - yarn_log3:/data/yarn/log
+
+  historyserver:
+    build:
+      context: ./hadoop
+      args:
+        HADOOP_VERSION: ${HADOOP_VERSION:-3.3.6}
+    image: hadoop-lab:${HADOOP_VERSION:-3.3.6}
+    container_name: historyserver
+    hostname: historyserver
+    environment:
+      ROLE: historyserver
+    depends_on:
+      namenode:
+        condition: service_healthy
+    ports:
+      - "19888:19888"  # JobHistory web
+
+  nfsgateway:
+    build:
+      context: ./hadoop
+      args:
+        HADOOP_VERSION: ${HADOOP_VERSION:-3.3.6}
+    image: hadoop-lab:${HADOOP_VERSION:-3.3.6}
+    container_name: nfsgateway
+    hostname: nfsgateway
+    environment:
+      ROLE: nfsgateway
+      HOST_UID: ${HOST_UID:-1000}
+      HOST_GID: ${HOST_GID:-1000}
+      HDFS_MOUNT_USER: ${HDFS_MOUNT_USER:-luser}
+    depends_on:
+      namenode:
+        condition: service_healthy
+    ports:
+      - "2049:2049"
+      - "2049:2049/udp"
+      - "4242:4242"
+      - "4242:4242/udp"
+
+  workbench:
+    build:
+      context: ./hadoop
+      args:
+        HADOOP_VERSION: ${HADOOP_VERSION:-3.3.6}
+    image: hadoop-lab:${HADOOP_VERSION:-3.3.6}
+    container_name: workbench
+    hostname: workbench
+    environment:
+      ROLE: workbench
+      HOST_UID: ${HOST_UID:-1000}
+      HOST_GID: ${HOST_GID:-1000}
+      HADOOP_USER_NAME: ${HDFS_MOUNT_USER:-luser}
+    depends_on:
+      namenode:
+        condition: service_healthy
+    volumes:
+      - ./workspace:/workspace
+    tty: true
+
+volumes:
+  namenode_data:
+  datanode1_data:
+  datanode2_data:
+  datanode3_data:
+  yarn_local1:
+  yarn_log1:
+  yarn_local2:
+  yarn_log2:
+  yarn_local3:
+  yarn_log3:
+  hadoop_tmp:
