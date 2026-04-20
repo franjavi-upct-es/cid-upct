@@ -1,0 +1,341 @@
+---
+title: "Distribución en el muestreo"
+author:
+  - name: Félix Belzunce
+    affiliations: Universidad de Murcia
+  - name:  María del Carmen Bueso, Pilar Sanmartín
+    affiliations: Universidad Politécnica de Cartagena
+format: html
+editor: visual
+title-block-banner: true
+self-contained: true
+---
+
+## Introducción
+
+El objetivo de esta práctica es afianzar la comprensión de los conceptos de distribución en el muestreo. Consideraremos una muestra aleatoria simple, y un estadístico asociado, es decir, una v.a que se calcula como función de los valores de la muestra. Queremos estudiar la distribución de los valores que puede tomar este estadístico, si repetimos la extracción de una muestra aleatoria simple. Ésta es la llamada distribución muestral del estadístico.
+
+En clase, usamos resultados matemáticos para caracterizar la distribución muestral de algunos estadísticos como la media o la varianza muestral. En esta práctica, procederemos a simular un gran número de veces la extracción de una muestra aleatoria, calcularemos los valores del estadístico asociado y comprobaremos cómo se distribuyen los valores obtenidos.
+
+## Simulando números "aleatorios" con R
+
+En el [apéndice](https://fundamentos-inferencia.netlify.app/simulaciones.html) de los apuntes, encontraréis más información sobre la generación de números seudo aleatorios con un ordenador. Estos números son producidos por algoritmos, y NO SON ALEATORIOS. Se dice que son seudo aleatorios, si para una aplicación práctica, son indistinguibles de una secuencia de números generados de forma realmente aleatoria (por ejemplo, pasan tests de aleatoriedad).
+
+El algoritmo que usa `R` por defecto para generar números seudo aleatorios es el de "Mersenne-Twister", que tiene una periodicidad de $2^{19937} −1$.
+
+Aparte de ser capaz de generar números seudo-aleatorios, también es clave saber simular muestras de una distribución normal. Existen varios algoritmos que permiten simular muestras de una normal a partir de números seudo-aleatorios. `R` tiene varios de estos algoritmos implementados. Por defecto, utiliza el método "Inversion", que se basa en la transformada inversa de la función de distribución acumulada.
+
+Finalmente, otro aspecto importante de la generación de números aleatorios, es la capacidad de escoger al azar números enteros en un intervalo dado. Se realiza en `R`, con la función `sample`. También existen varias maneras de generar, partiendo de secuencias de números seudo-aleatorios, números enteros escogidos de manera uniforme y aleatoria en un intervalo. `R`, desde la versión 3.6, usa un método basado en aceptación rechazo.
+
+Para comprobar o modificar los distintos algoritmos que usa R para la generación, usamos la función `RNGkind`:
+
+```{r}
+RNGkind()
+```
+
+Nos indica los tres algoritmos que usa para generar números seudo-aleatorios, muestras de una normal y números enteros en un intervalo, respectivamente.
+
+## Simulando muchas realizaciones de dos tiradas de un dado
+
+### Distribución muestral exacta
+
+Consideramos el experimento consiste en tirar dos dados y apuntar la suma $S$ de las dos puntuaciones obtenidos.
+
+::: callout-note
+## M.a.s
+
+Plantead el contexto en términos de muestra aleatoria simple y estadístico asociado. Obtened la distribución muestral exacta del estadístico considerado.
+:::
+
+### Exploración con simulaciones
+
+Vamos ahora a explorar esta misma distribución muestral utilizando simulaciones. Para ello, vamos a empezar por simular una tirada de los dos dados simultaneamente. Usamos `sample` que permite la extracción al azar de elementos de un vector. Podemos consultar la ayuda con `?sample` en la terminal de R, o usando la pestaña de ayuda en Rstudio. Si queréis reproducir los resultados obtenidos en este documento, tened en cuenta que se fijó la semilla a 31415 al principio de la sesión de `R` con la instrucción `set.seed`.
+
+```{r}
+# Completar aquí
+set.seed(31415)
+tirada_doble <- sample(1:6, size = 2, replace = TRUE)
+tirada_doble
+# Fin Completar aquí
+```
+
+Queremos repetir este experimento de tirada dos dados 10 veces, por ejemplo. Usamos para ello, el comando `replicate`, apropiado para experimentos con simulaciones. Fijaremos el valor del parámetro `simplify` a `FALSE`, para que el resultado sea una lista. El defecto es que `simplify` es `TRUE`, lo que hace que el resultado sea una matriz. Guardaremos el resultado en un objeto que llamaremos `lista_10_tiradas_dobles`.
+
+```{r}
+# Completar aquí
+lista_10_tiradas_dobles <- replicate(
+  n = 10,
+  expr = sample(1:6, size = 2, replace = TRUE),
+  simplify = FALSE
+)
+# Fin Completar aquí
+lista_10_tiradas_dobles
+```
+
+Nos queda ahora calcular la suma $S$ de cada uno de los resultados del experimento. Usaremos para ello la librería `purrr`, incluida en el `tidyverse`, que está diseñada para facilitar la manipulación de vectores y funciones, usando el enfoque de "Functional programming". Podéis encontrar más información en su página web y en particular en sus cheat sheets [aquí](https://purrr.tidyverse.org/index.html).\
+La familia de funciones `map_` permite aplicar una función a los distintos elementos de una lista. En nuestro caso, queremos calcular la suma de los dos valores de cada uno de los elementos de la lista `lista_10_tiradas_dobles`. Puesto que el resultado es un entero, usamos la función `map_int`.
+
+```{r}
+#| warning: false
+# Completar aquí
+library(tidyverse)
+
+sumas_10_tiradas <- purrr::map_int(lista_10_tiradas_dobles, sum)
+sumas_10_tiradas
+# Fin Completar aquí
+```
+
+Recogemos los distintos pasos en una función que llamaremos `obtener_mas_S`, que admita el parámetro `n`, el tamaño de la muestra que queremos extraer de la distribución de $S$, y que devuelva un vector de tamaño `n`.
+
+```{r}
+# Completar aquí
+obtener_mas_S <- function(n) {
+  tiradas <- replicate(
+    n = n,
+    expr = sample(1:6, size = 2, replace = TRUE),
+    simplify = FALSE
+  )
+  purrr::map_int(tiradas, sum)
+}
+# Fin Completar aquí
+obtener_mas_S(5)
+```
+
+### Comparación gráfica
+
+Nos queda finalmente realizar una comparación gráfica de las frecuencias relativas obtenidas para los valores de $S$ obtenidos a partir de, por ejemplo, 1000 simulaciones, y de los valores teóricos de su función puntual de probabilidad.
+
+-   Definir un dataframe llamado `fpp_S` que contenga dos columnas, una llamada $s$, con los valores que puede tomar $S$¸ y otra llamada $p$, con los valores asociados de la función de la probabilidad puntual calculados en el primer apartado de esta práctica.
+
+```{r}
+# Completar aquí
+fpp_S <- tibble::tibble(
+  s = 2:12,
+  p = c(1, 2, 3, 4, 5, 6, 5, 4, 3, 2, 1) / 36
+)
+# Fin Completar aquí
+fpp_S
+```
+
+-   Representad gráficamente la fpp, usando el geom `geom_bar`. Tendremos que usar el argumento `stat = "identity"`, porque proporcionamos en el dataframe una columna con las alturas de las barras que queremos representar.
+
+```{r}
+# Completar aquí
+ggplot(fpp_S, aes(x = factor(s), y = p)) +
+  geom_bar(stat = "identity", fill = "#9ecae1", color = "#08519c") +
+  labs(
+    title = "FPP teorica de S (suma de dos dados)",
+    x = "s",
+    y = "P(S = s)"
+  )
+# Fin Completar aquí
+```
+
+-   Definir un dataframe llamado `simulaciones_S`, que contenga una columna llamada `s` con 1000 valores simulados de $S$.
+
+```{r}
+# Completar aquí
+simulaciones_S <- tibble::tibble(
+  s = obtener_mas_S(1000)
+)
+# Fin Completar aquí
+simulaciones_S
+```
+
+-   Añadid a la gráfica anterior, las frecuencias relativas de los valores de `simulaciones_S`. Para ello, podréis usar `geom_bar`, especificando los datos con `data`, así como su propio `aes`. Además, para que `geom_bar` haga el recuento de proporciones, incluimos en `aes`, `y = after_stat(prop)`, más información en este [enlace](https://ggplot2.tidyverse.org/reference/aes_eval.html).
+
+```{r}
+# Completar aquí
+ggplot(fpp_S, aes(x = factor(s), y = p)) +
+  geom_bar(stat = "identity", fill = "grey80", color = "grey30") +
+  geom_bar(
+    data = simulaciones_S,
+    aes(x = factor(s), y = after_stat(prop), group = 1),
+    stat = "count",
+    fill = "#e34a33",
+    alpha = 0.45
+  ) +
+  labs(
+    title = "FPP teorica vs frecuencias relativas (n = 1000)",
+    x = "s",
+    y = "Probabilidad / frecuencia relativa"
+  )
+# Fin Completar aquí
+```
+
+-   Repetir la gráfica anterior, pero con una muestra de $100000$ valores de S.
+
+```{r}
+# Completar aquí
+simulaciones_S_100000 <- tibble::tibble(
+  s = obtener_mas_S(100000)
+)
+
+ggplot(fpp_S, aes(x = factor(s), y = p)) +
+  geom_bar(stat = "identity", fill = "grey80", color = "grey30") +
+  geom_bar(
+    data = simulaciones_S_100000,
+    aes(x = factor(s), y = after_stat(prop), group = 1),
+    stat = "count",
+    fill = "#2ca25f",
+    alpha = 0.45
+  ) +
+  labs(
+    title = "FPP teorica vs frecuencias relativas (n = 100000)",
+    x = "s",
+    y = "Probabilidad / frecuencia relativa"
+  )
+# Fin Completar aquí
+```
+
+## Simulación de la distribución asociada a la media muestral de una población normal
+
+Consideramos una población con una variable $X$, que sigue una distribución normal con media $\mu$ y varianza $\sigma^2$.
+
+### Ejercicio
+
+Consideramos el experimento que consiste en extraer una muestra aleatoria simple de tamaño $n$, y calculamos la media muestral $\bar{X}$ y la desviación típica muestral $S$. Vamos a considerar las tres distribuciones muestrales de estadísticos asociados a $\bar{X}$ y $S$:
+
+\begin{align*}
+Z &= \frac {\bar X - \mu}{\sigma /\sqrt{n}} \sim \mathcal{N}(0, 1),\\
+T &= \frac {\bar X - \mu}{S /\sqrt{n}} \sim t_{n-1},\\
+Y &= \frac{(n-1) S^2}{\sigma^2} \sim \chi^2_{n-1}.
+\end{align*}
+
+1.  Siguiendo un procedimiento parecido al de la sección anterior, representad en tres gráficas, la densidad muestral teórica de cada uno de los tres estadísticos de la pregunta anterior, junto con el histograma construido a partir de 100000 muestras simuladas de $n = 30$ valores cada una. Podréis usar para las simulaciones $\mu = 10$ y $\sigma = 3$.
+2.  Probad a sustituir en las gráficas anteriores, los histogramas por una estimación de la densidad empírica, calculada a partir de las simulaciones.
+
+::: callout-note
+## Enlaces útiles
+
+-   Para la simulación, o el cálculo de cantidades asociadas a distributiones en `R`, podéis consultar la documentación en el [enlace](https://stat.ethz.ch/R-manual/R-devel/library/stats/html/Distributions.html)
+-   Ver el [enlace sobre geom_function](https://ggplot2.tidyverse.org/reference/geom_function.html)
+-   Ver el [enlace sobre geom_hist](https://ggplot2.tidyverse.org/reference/geom_histogram.html)
+-   Ver el [enlace sobre geom_density](https://ggplot2.tidyverse.org/reference/geom_density.html)
+:::
+
+```{r}
+#| warning: false
+# Completar aquí
+set.seed(31415)
+
+n <- 30
+mu <- 10
+sigma <- 3
+B <- 100000
+
+muestras_normales <- matrix(
+  rnorm(B * n, mean = mu, sd = sigma),
+  nrow = B,
+  ncol = n
+)
+
+x_barra <- rowMeans(muestras_normales)
+S_muestral <- apply(muestras_normales, 1, sd)
+
+Z <- (x_barra - mu) / (sigma / sqrt(n))
+T <- (x_barra - mu) / (S_muestral / sqrt(n))
+Y <- (n - 1) * (S_muestral^2) / (sigma^2)
+
+g_Z_hist <- ggplot(tibble::tibble(valor = Z), aes(x = valor)) +
+  geom_histogram(aes(y = after_stat(density)), bins = 70, fill = "grey80", color = "white") +
+  geom_function(fun = dnorm, args = list(mean = 0, sd = 1), color = "#1b9e77", linewidth = 1.1) +
+  labs(title = "Estadistico Z", x = "z", y = "Densidad")
+
+g_T_hist <- ggplot(tibble::tibble(valor = T), aes(x = valor)) +
+  geom_histogram(aes(y = after_stat(density)), bins = 70, fill = "grey80", color = "white") +
+  geom_function(fun = dt, args = list(df = n - 1), color = "#d95f02", linewidth = 1.1) +
+  labs(title = "Estadistico T", x = "t", y = "Densidad")
+
+g_Y_hist <- ggplot(tibble::tibble(valor = Y), aes(x = valor)) +
+  geom_histogram(aes(y = after_stat(density)), bins = 70, fill = "grey80", color = "white") +
+  geom_function(fun = dchisq, args = list(df = n - 1), color = "#7570b3", linewidth = 1.1) +
+  labs(title = "Estadistico Y", x = "y", y = "Densidad")
+
+g_Z_hist
+g_T_hist
+g_Y_hist
+
+g_Z_dens <- ggplot(tibble::tibble(valor = Z), aes(x = valor)) +
+  geom_density(fill = "grey80", alpha = 0.6) +
+  geom_function(fun = dnorm, args = list(mean = 0, sd = 1), color = "#1b9e77", linewidth = 1.1) +
+  labs(title = "Z: densidad empirica vs teorica", x = "z", y = "Densidad")
+
+g_T_dens <- ggplot(tibble::tibble(valor = T), aes(x = valor)) +
+  geom_density(fill = "grey80", alpha = 0.6) +
+  geom_function(fun = dt, args = list(df = n - 1), color = "#d95f02", linewidth = 1.1) +
+  labs(title = "T: densidad empirica vs teorica", x = "t", y = "Densidad")
+
+g_Y_dens <- ggplot(tibble::tibble(valor = Y), aes(x = valor)) +
+  geom_density(fill = "grey80", alpha = 0.6) +
+  geom_function(fun = dchisq, args = list(df = n - 1), color = "#7570b3", linewidth = 1.1) +
+  labs(title = "Y: densidad empirica vs teorica", x = "y", y = "Densidad")
+
+g_Z_dens
+g_T_dens
+g_Y_dens
+# Fin Completar aquí
+```
+
+## Simulación de la distribución asociada a la media muestral de una población exponencial
+
+Consideramos una población con una variable $X$, que sigue una distribución exponencial con parámetro $\lambda.$
+
+### Ejercicio
+
+Se trata de analizar y comparar la distribución en el muestreo del estadístico media muestral desde tres puntos de vista: distribución exacta, aproximada mediante el teorema central del límite y simulación.
+
+-   En este caso dada una m.a.s., $X_1, \dots, X_n$, de una distribución exponencial de parámetro $\lambda$, $X \sim Exp(\lambda)$, tenemos que el estadístico media muestral sigue una distribución gamma, $\overline X \sim \gamma(nλ, n)$ (o parametrización alternativa $gamma(n, 1/(n \lambda))$).
+
+-   Por el teormea central del límite sabemos también que para $n$ suficientemente grande la distribución de $\overline X$ se puede aproximar a una distribución normal $N(1/\lambda, 1/(n \lambda^2))$.
+
+-   Siguiendo un procedimiento similar al ejercicio anterior, generar una gráfica con la densidad muestral teórica, la densidad téorica que nos da el teorema central del límite y un histograma construido a partir de 50000 muestras de tamaño $n = 50$ cada una. Usaréis para la simulación el valor de $\lambda = 0.2$.
+
+::: callout-note
+## Observación
+
+Prestad atención a cómo hay que especificar los parámetros de la distribución. Consultar la documentación de R y comparar la función de densidad que considera con la que hemos especificado en la tabla de modelos de distribuciones.
+:::
+
+```{r}
+#| warning: false
+# Completar aquí
+set.seed(31415)
+
+lambda <- 0.2
+n <- 50
+B <- 50000
+
+muestras_exp <- matrix(
+  rexp(B * n, rate = lambda),
+  nrow = B,
+  ncol = n
+)
+
+x_barra_exp <- rowMeans(muestras_exp)
+
+simulaciones_exp <- tibble::tibble(x_barra = x_barra_exp)
+
+ggplot(simulaciones_exp, aes(x = x_barra)) +
+  geom_histogram(aes(y = after_stat(density)), bins = 80, fill = "grey80", color = "white") +
+  geom_function(
+    fun = dgamma,
+    args = list(shape = n, rate = n * lambda),
+    color = "#1b9e77",
+    linewidth = 1.2
+  ) +
+  geom_function(
+    fun = dnorm,
+    args = list(mean = 1 / lambda, sd = 1 / (lambda * sqrt(n))),
+    color = "#d95f02",
+    linetype = "dashed",
+    linewidth = 1.2
+  ) +
+  labs(
+    title = "Media muestral de una exponencial",
+    subtitle = "Histograma simulado + gamma exacta + aproximacion normal (TCL)",
+    x = "x_barra",
+    y = "Densidad"
+  )
+# Fin Completar aquí
+```

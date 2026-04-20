@@ -1,0 +1,389 @@
+---
+title: "Estimación no paramétrica"
+author:
+  - name: Félix Belzunce
+    affiliations: Universidad de Murcia
+  - name:  María del Carmen Bueso, Pilar Sanmartín
+    affiliations: Universidad Politécnica de Cartagena
+format: html
+editor: visual
+title-block-banner: true
+self-contained: true
+---
+
+# Introducción
+
+El objetivo de esta práctica es presentar en `R` las herramientas estadísticas para la estimación de la función de distribución y la función de densidad. Como hemos comentado en clase, la estimación de la función puntual de probabilidad se realiza a través de las correspondientes proporciones muestrales. Recordamos que la estimación de la función de distribución se realiza a través de la función de distribución empírica y la estimación de la función de densidad a través de los estimadores tipo núcleo.
+
+# Función de distribución empírica
+
+Dada una variable aleatoria $X$ con función de distribución $F(x)=P(X\le x)$, tenemos que el estimador de $F$ es la *función de distribución empírica* que viene dada por $$
+F_n(x)=\frac{\sum_{i=1}^n I_{(-\infty,x]}(X_i)}{n} \text{ para todo }x\in \mathbb R,
+$$ dada un m.a.s., $X_1,\ldots,X_n$, de $X$.
+
+Veamos como está implementado su cálculo en `R`. La función que utilizaremos es la función `ecdf`.
+
+```{r }
+#| warning: false
+# Completar aquí
+library(tidyverse)
+
+set.seed(314159)
+x <- rgamma(1000, shape = 3, scale = 2)
+
+Fn <- ecdf(x)
+
+plot(
+  Fn,
+  verticals = TRUE,
+  do.points = FALSE,
+  col = "blue",
+  lwd = 2,
+  main = "Función de distribución empírica vs teórica",
+  xlab = "x",
+  ylab = "F(x)",
+)
+curve(
+  pgamma(x, shape = 3, scale = 2),
+  add = TRUE,
+  col = "red",
+  lwd = 2,
+)
+legend(
+  "bottomright",
+  legend = c("Empírica", "Gamma teórica"),
+  col = c("blue", "red"),
+  lwd = "2",
+  bty = "n"
+)
+# Fin Completar aquí
+```
+
+Podemos ver en este caso la buena aproximación de la distribución teórica a través de la función de distribución empírica.
+
+# Estimación tipo núcleo
+
+Siguiendo la notación anterior, en este caso se trata de estimar la función de densidad, $f(x)=F'(x)$, de la variable $X$.
+
+Los estimadores de la función de densidad vistos en clase se conocen como *estimadores tipo núcleo* y su expresión general viene dada por $$
+\hat f_n(x)=\frac{1}{2nh_n}\sum_{i=1}^n K\left(\frac{x-X_i}{h_n}\right), 
+$$ donde $K$ es una función núcleo y $h_n$ es lo que se conoce como el ancho de banda.
+
+Veamos como obtener este estimador con `R` para diferentes núcleos y diferentes anchos de banda. La función que nos permite obtener la estimación tipo núcleo es `density`.
+
+Recordamos que los núcleos vistos en teoría:
+
+-   **Núcleo rectangular:** $K$ es la función de densidad de una distribución uniforme.
+
+-   **Núcleo normal:** $K$ es la función de densidad de una distribución normal estándar. Suele ser el núcleo que más se utiliza.
+
+-   **Núcleo de Epanechnikov:** $K(z)=(1-z^2)I_{(-1,1)}$. Se considera que es el núcleo más eficiente.
+
+donde estos dos últimos son los más utilizados.
+
+Veamos un ejemplo con cada núcleo.
+
+-   Núcleo rectangular:
+
+```{r }
+# Completar aquí
+dens_rect <- density(x, kernel = "rectangular", bw = "nrd")
+
+plot(
+  dens_rect,
+  col = "blue",
+  lwd = 2,
+  main = "Estimación núcleo rectangular",
+  xlab = "x",
+  ylab = "Densidad",
+)
+curve(
+  dgamma(x, shape = 3, scale = 2),
+  add = TRUE,
+  col = "red",
+  lwd = 2,
+)
+legend(
+  "topright",
+  legend = c("Estimación núcleo", "Densidad teórica"),
+  col = c("blue", "red"),
+  lwd = 2,
+  bty = "n"
+)
+# Fin Completar aquí
+```
+
+-   Núcleo normal:
+
+```{r }
+# Completar aquí
+dens_norm <- density(x, kernel = "gaussian", bw = "nrd")
+
+plot(
+  dens_norm,
+  col = "blue",
+  lwd = 2,
+  main = "Estimación núcleo normal",
+  xlab = "x",
+  ylab = "Densidad"
+)
+curve(
+  dgamma(x, shape = 3, scale = 2),
+  add = TRUE,
+  col = "red",
+  lwd = 2
+)
+legend(
+  "topright",
+  legend = c("Estimación núcleo", "Densidad teórica"),
+  col = c("blue", "red"),
+  lwd = 2,
+  bty = "n"
+)
+# Fin Completar aquí
+```
+
+-   Para el caso del núcleo de Epanechnikov tendríamos:
+
+```{r }
+# Completar aquí
+dens_epan <- density(x, kernel = "epanechnikov", bw = "nrd")
+
+plot(
+  dens_epan,
+  col = "blue",
+  lwd = 2,
+  main = "Estimación núcleo Epanechnikov",
+  xlab = "x",
+  ylab = "Densidad"
+)
+curve(
+  dgamma(x, shape = 3, scale = 2),
+  add = TRUE,
+  col = "red",
+  lwd = 2,
+)
+legend(
+  "topright",
+  legend = c("Estimación núcleo", "Densidad teórica"),
+  col = c("blue", "red"),
+  lwd = 2,
+  bty = "n"
+)
+# Fin Completar aquí
+```
+
+Como vemos, sobre todo en los dos tipos últimos casos, hay una aproximación bastante buena entre el valor real y la aproximación mediante el estimador tipo núcleo. Nos vamos a centrar en el estudio del núcleo normal y el de Epanechnikov.
+
+La elección del ancho de banda se basa en la fórmula general: $$
+h_n=\left( \frac{R(K)}{\mu_2^2(K)R(f'')n} \right)^{\frac{1}{5}},
+$$ donde los valores $R(K)$ y $\mu_2(K)$ dependen del núcleo $K$ y $R(f'')$ depende de la función de densidad de la variable (ver los detalles en los apuntes del tema). Esto último presenta un problema ya que el término $R(f'')$ depende de la función de densidad que es desconocida y por tanto no se pude calcular su valor exacto.
+
+Bajo ciertas condiciones, variable con distribución normal y núcleo normal, la expresión anterior queda como $$
+\hat h_{n,RP}=\left( \frac{4}{3n}\right)^{1/5}S,
+$$ y se conoce como "regla del pulgar". Es el valor usado en los ejemplos anteriores, y se especifica en el argumento `bw` como `"nrd"`.
+
+La forma más complicada de evaluar es dando una estimación no paramétrica de $R(f'')$. La metodología va más allá de los contenidos de esta asignatura y no veremos los detalles, solo indicar que podemos seleccionarla en el argumento `bw` como `"SJ"`.
+
+Vamos a reproducir las gráficas de antes con esta elección del ancho de banda.
+
+Caso con núcleo normal:
+
+```{r }
+# Completar aquí
+dens_norm_sj <- density(x, kernel = "gaussian", bw = "SJ")
+
+plot(
+  dens_norm_sj,
+  col = "blue",
+  lwd = 2,
+  main = "Núcleo normal con bw = SJ",
+  xlab = "x",
+  ylab = "Densidad"
+)
+curve(
+  dgamma(x, shape = 3, scale = 2),
+  add = TRUE,
+  col = "red",
+  lwd = 2
+)
+legend(
+  "topright",
+  legend = c("Estimación núcleo", "Densidad teórica"),
+  col = c("blue", "red"),
+  lwd = 2,
+  bty = "n"
+)
+# Fin Completar aquí
+```
+
+Caso con núcleo Epanechnivok:
+
+```{r }
+# Completar aquí
+dens_epan_sj <- density(x, kernel = "epanechnikov", bw = "SJ")
+
+plot(
+  dens_epan_sj,
+  col = "blue",
+  lwd = 2,
+  main = "Núcleo Epanechnikov con bw = SJ",
+  xlab = "x",
+  ylab = "Densidad"
+)
+curve(
+  dgamma(x, shape = 3, scale = 2),
+  add = TRUE,
+  col = "red",
+  lwd = 2
+)
+legend(
+  "topright",
+  legend = c("Estimación núcleo", "Densidad teórica"),
+  col = c("blue", "red"),
+  lwd = 2,
+  bty = "n"
+)
+# Fin Completar aquí
+```
+
+# Ejercicio
+
+Vamos a analizar datos del contexto de empresas. Para ello, vamos a considerar los datos que aparecen en el fichero `salarios.sav` donde tenemos 935 observaciones aleatorias de  variables que se corresponden con datos de empleados de una gran corporación (Uriel,R y Aldás,J. "Análisis Multivariante aplicado con R". Ed. Paraninfo). en particular nos vamos a centrar en la variable salario.
+
+Obten el gráfico de la función de distribución empírica de la variable y superponla con la correspondiente gráfica de una la distribución normal con media y varianza las estimadaa partir de los datos. A partir de la gráfica anterior comenta si parece razonable considerar que los datos provienen de una distribución normal.
+
+```{r }
+# Completar aquí
+library(haven)
+
+datos <- read_sav("../data/salarios.sav")
+
+nombre_salario <- names(datos)[str_detect(tolower(names(datos)), "sal")]
+if (length(nombre_salario) == 0) {
+  nombre_salario <- names(datos)[map_lgl(datos, is.numeric)][1]
+}
+
+salario <- as.numeric(datos[[nombre_salario[1]]])
+salario <- salario[is.finite(salario)]
+
+mu_hat <- mean(salario)
+sd_hat <- sd(salario)
+
+Fn_sal <- ecdf(salario)
+
+plot(
+  Fn_sal,
+  verticals = TRUE,
+  do.points = FALSE,
+  col = "blue",
+  lwd = 2,
+  main = "FDE de salario y normal ajustada",
+  xlab = "salario",
+  ylab = "F(x)",
+)
+curve(
+  pnorm(x, mean = mu_hat, sd = sd_hat),
+  add = TRUE,
+  col = "red",
+  lwd = 2,
+)
+legend(
+  "bottomright",
+  legend = c("FDE salario", "Normal ajustada"),
+  col = c("blue", "red"),
+  lwd = 2,
+  bty = "n"
+)
+# Fin Completar aquí
+```
+
+Obtener la estimaciones tipo núcleo de la función de densidad de la variable anterior, utilizando los núcleos normal y Epanechnikov. Comenta la forma que se obtiene de la función de densidad en cada caso.
+
+```{r}
+# Completar aquí
+dens_sal_norm <- density(salario, kernel = "gaussian", bw = "SJ")
+dens_sal_epan <- density(salario, kernel = "epanechnikov", bw = "SJ")
+
+plot(
+  dens_sal_norm,
+  col = "blue",
+  lwd = 2,
+  main = "Densidad núcleo para salario",
+  xlab = "salario",
+  ylab = "Densidad"
+)
+lines(dens_sal_epan, col = "darkgreen", lwd = 2, lty = 2)
+rug(salario, col = "#00000033")
+legend(
+  "topright",
+  legend = c("Núcleo normal", "Núcleo Epanechnikov"),
+  col = c("blue", "darkgreen"),
+  lwd = 2,
+  lty = c(1, 2),
+  bty = "n"
+)
+# Fin Completar aquí
+```
+
+Realiza el mismo análisis pero con los datos transformados por el logaritmo neperiano.
+
+```{r}
+# Completar aquí
+log_salario <- log(salario[salario > 0])
+
+mu_log <- mean(log_salario)
+sd_log <- sd(log_salario)
+
+op <- par(mfrow = c(1, 2))
+
+Fn_log <- ecdf(log_salario)
+plot(
+  Fn_log,
+  verticals = TRUE,
+  do.points = FALSE,
+  col = "blue",
+  lwd = 2,
+  main = "FDE de log(salario) y normal ajustada",
+  xlab = "log(salario)",
+  ylab = "F(x)"
+)
+curve(
+  pnorm(x, mean = mu_log, sd = sd_log),
+  add = TRUE,
+  col = "red",
+  lwd = 2
+)
+legend(
+  "bottomright",
+  legend = c("FDE log(salario)", "Normal ajustada"),
+  col = c("blue", "red"),
+  lwd = 2,
+  bty = "n"
+)
+
+dens_log_norm <- density(log_salario, kernel = "gaussian", bw = "SJ")
+dens_log_epan <- density(log_salario, kernel = "epanechnikov", bw = "SJ")
+
+plot(
+  dens_log_norm,
+  col = "blue",
+  lwd = 2,
+  main = "Densidad núcleo de log(salario)",
+  xlab = "log(salario)",
+  ylab = "Densidad"
+)
+lines(dens_log_epan, col = "darkgreen", lwd = 2, lty = 2)
+rug(log_salario, col = "#00000033")
+legend(
+  "topright",
+  legend = c("Núcleo normal", "Núcleo Epanechnikov"),
+  col = c("blue", "darkgreen"),
+  lwd = 2,
+  lty = c(1, 2),
+  bty = "n"
+)
+
+par(op)
+# Fin Completar aquí
+```
