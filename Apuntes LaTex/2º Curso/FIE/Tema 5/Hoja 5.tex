@@ -1,0 +1,136 @@
+\begin{center}
+	\Large \textbf{Hoja 5: Inferencia Bayesiana}
+\end{center}
+
+\begin{enumerate}[label=\color{red}\textbf{\arabic*)}]
+	\item \lb{Consideramos el caso en que $X\sim P(\lambda)$ y $\pi(\lambda)$ sigue una distribución gamma con densidad $\pi(\lambda)\propto \lambda^{\alpha-1}\exp(- \lambda / \beta)$Observamos una m.a.s. de $X$, estudiar la distribución a posteriori de  $\lambda$.}
+
+	      Para obtener la distribución a posteriori de $\lambda$, aplicaremos el Teorema de Bayes omitiendo la constante de normalización (el denominador), tal como indica la regla de proporcionalidad: \[
+		      \pi(\lambda|x)\propto f(x|\lambda)\cdot \pi(\lambda)
+	      \]
+	      \begin{enumerate}[label=\arabic*)]
+		      \item Función de Verosimilitud
+
+		            Dado que tenemos una muestra aleatoria simple (m.a.s.) de tamaño $n$, donde cada variable sigue una distribución de Poisson $X_i\sim P(\lambda)$, la verosimilitud conjunta (descartando las constantes de los factoriales que no dependen de $\lambda$) es: \[
+			            f(x_1,\dots,x_n|\lambda)=\prod_{i=1}^{n} \dfrac{e^{-\lambda}\lambda^{x_{i}} }{x_{i}!}\propto e^{-n\lambda}\lambda^{\sum_{i=1}^{n} x_{i}}
+		            \]
+		            Si definimos la suma de la muestra como $n\bar{x}$, tenemos: \[
+			            f(x|\lambda)\propto e^{-n\lambda} \lambda^{n\bar{x}}
+		            \]
+		      \item Distribución a Priori
+
+		            El enunciado define la distribución a priori como una Gamma con la siguiente densidad proporcional: \[
+			            \pi(\lambda)\propto \lambda^{\alpha-1}e^{-\lambda / \beta}
+		            \]
+		      \item Distribución a Posteriori
+
+		            Multiplicamos la verosimilitud por la priori: \[
+			            \pi(\lambda|x)\propto \left( e^{-n\lambda}\lambda^{n \bar{x}}\right) \cdot  \left( \lambda^{\alpha-1}e^{-\lambda / \beta}  \right)
+		            \]
+		            Agrupamos los términos con la misma base para $\lambda$, y factorizamos los exponentes de $e$: \[
+			            \pi(\lambda|x)\propto \lambda^{(n\bar{x}-\alpha)-1}e^{-\lambda \left( n+\frac{1}{\beta}\right)}
+		            \]
+	      \end{enumerate}
+	      \textbf{Conclusión}
+
+	      Reconocemos en la expresión resultante el núcleo de la nueva \textbf{distribución Gamma}. Al comparar con la forma general $\lambda^{k-1}e^{-\lambda / \theta} $ (donde $k$ es la forma y $\theta$ es la escala), identificamos los nuevos parámetros:
+	      \begin{itemize}[label=\textbullet]
+		      \item \textbf{Parámetro de forma actualizado:} $\alpha'=\alpha+n\bar{x}=\alpha+\sum_{i=1}^{n} x_{i}$
+		      \item \textbf{Parámetro de escala actualizado:} $\beta'=\dfrac{1}{n+1 / \beta}=\dfrac{\beta}{n\beta+1}$
+	      \end{itemize}
+	      Por lo tanto, la distribución a posteriori es: \[
+		      \lambda|x\sim \mathrm{Gamma}\left( \alpha+\sum_{i=1}^{n} x_{i},\dfrac{\beta}{n\beta+1} \right)
+	      \]
+	\item \lb{Consideramos una m.a.s. de $X\sim N(\mu,\sigma^2)$, con $\sigma^2$ conocida y escogemos como distribución a priori $\pi(\mu)$, una distribución normal con densidad $$\pi(\mu)\propto\exp\left( -\dfrac{1}{2\tau^2}(\mu-\mu_0)^2 \right) $$Demostrar que la distribución a posteriori de $\mu$ es Normal con media y varianza: \[
+			      \begin{array}{l}
+				      E[\mu|x]=\mu_0 \dfrac{\sigma^2 / n}{\tau^2+\sigma^2 / n}+\bar{x} \dfrac{\tau^2}{\tau^2+\sigma^2 / n} \\
+				      \mathrm{Var}[\mu|x]=\kappa^2=\dfrac{\tau^2\sigma^2 / n}{\tau^2+\sigma^2 / n}
+			      \end{array}
+		      \] }
+	      Para resolver esta demostración aplicaremos el Teorema de Bayes omitiendo el cálculo del denominador, ya que este solo depende de la muestra $x$. Escribiremos la relación de proporcionalidad y luego reconoceremos el modelo de distribución resultante.
+
+	      \begin{enumerate}[label=\arabic*)]
+		      \item Función de Verosimilitud
+
+		            Para una muestra $x_1,\dots,x_n$ de una distribución $\mathcal{N}(\mu,\sigma^2)$, la verosimilitud conjunta (descartando los términos que no dependen de $\mu$) es proporcional a: \[
+			            f(x|\mu)\propto \exp \left( -\dfrac{1}{2\sigma^2}\sum_{i=1}^{n} (x_{i}-\mu)^2 \right)
+		            \]
+		            Utilizando la propiedad $\sum(x_{i}-\mu)^2=\sum(x_{i}-\bar{x})^2+n(\bar{x}-\mu)^2$ y omitiendo el primer término por no depender del parámetro $\mu$, obtenemos: \[
+			            f(x|\mu)\propto \exp \left( -\dfrac{n}{2\sigma^2}(\mu-\bar{x})^2 \right)
+		            \]
+		      \item Distribución a Priori
+
+		            El enunciado define la densidad a priori como: \[
+			            \pi(\mu)\propto \left( -\dfrac{1}{2\tau^2}(\mu-\mu_0)^2 \right)
+		            \]
+		            Agrupamos los términos en el exponente: \[
+			            \pi(\mu|x)\propto \exp \left( -\dfrac{1}{2}\left[ \dfrac{n}{\sigma^2}(\mu^2-2 \mu\bar{x}+\bar{x}^2)+\dfrac{1}{\tau^2}(\mu^2-2 \mu \mu_0+\mu_0^2) \right]  \right)
+		            \]
+		            Nos centramos exclusivamente en los términos que contienen $\mu$, ya que el resto pasará a formar parte de la constante de proporcionalidad: \[
+			            \pi(\mu|x)\propto \exp \left( -\dfrac{1}{2}\left[ \mu^2 \left( \dfrac{n}{\sigma^2}+\dfrac{1}{\tau^2} \right) -2 \mu \left( \dfrac{n\bar{x}}{\sigma^2}+\dfrac{\mu_0}{\tau^2} \right)  \right]  \right)
+		            \]
+		            Esta expresión tiene la estructura del núcleo de una distribución Normal, que se define completando el cuadrado como $A \mu^2-2B \mu=A \left( \mu-\dfrac{B}{A} \right) ^2+C$.
+		      \item Reconocimiento de los Parámetros (Media y Varianza)
+
+		            identificamos la distribución a posteriori reconociendo el modelo sin tener que calcular el denominador exacto.
+
+		            Sea el término cuadrático (inversa de la varianza $1 / \kappa^2$): \[
+			            \dfrac{1}{\kappa^2}=\dfrac{n}{\sigma^2}+\dfrac{1}{\tau^2}=\dfrac{n\tau^2+\sigma^2}{\sigma^2\tau^2}
+		            \]
+		            Despejando la varianza a posteriori y dividiendo numerador y denominador entre $n$: \[
+			            \mathrm{Var}[\mu|x]=\kappa^2=\dfrac{\sigma^2\tau^2}{n\tau^2+\sigma^2}=\dfrac{\tau^2(\sigma^2 / n)}{\tau^2+\sigma^2 /n}
+		            \]
+		            Sea la media a posteriori $E[\mu|x]$ el término lineal dividido por el cuadrático $(B / A)$: \[
+			            E[\mu|x]=\kappa^2\left( \dfrac{n\bar{x}}{\sigma^2}+\dfrac{\mu_0}{\tau^2} \right)
+		            \]
+		            Sustituimos el valor de $\kappa^2$ que acabamos de hallar, pero lo expresamos como $\dfrac{\tau^2(\sigma^2 / n)}{\tau^2+\sigma^2 /n}$, y reescribimos el término entre paréntesis adaptando el primer sumando: \[
+			            E[\mu|x]=\left( \dfrac{\tau^2(\sigma^2 / n)}{\tau^2+\sigma^2 /n} \right) \left( \dfrac{\bar{x}}{\sigma^2 / n}+\dfrac{\mu_0}{\tau^2} \right)
+		            \]
+		            Al multiplicar distribuyendo el primer factor sobre los dos términos del paréntesis, se simplifican los denominadores cruzados: \[
+			            E[\mu|x]=\bar{x} \dfrac{\tau^2}{\tau^2+\sigma^2 / n}+\mu_0 \dfrac{\sigma^2 / n}{\tau^2+\sigma^2 / n}
+		            \]
+	      \end{enumerate}
+	\item \lb{Consideramos una m.a.s. de $X\sim \mathrm{Exp}(1 / \kappa)$. \underline{Nota:} $\kappa$ es la esperanza de  $X$, consideramos a priori  $\pi(\kappa)\propto 1 / \kappa$, que se considera una a priori no informativa y es la usual en este caso.}
+	      \begin{enumerate}[label=\color{red}\textbf{\alph*)}]
+		      \item \db{Demostrar que la densidad a posteriori de $\kappa|\mathbf{x}$ es proporcional a $\kappa^{-n-1}\exp\left( -\sum_{i} \dfrac{x_i}{\kappa}  \right)$}
+
+		            Partimos de la función de verosimilitud para una muestra $x_1,\dots,x_{n}$ de una distribución exponencial con esperanza $\kappa$ (tasa $1 / \kappa$). La función de densidad es $f(x)=\dfrac{1}{\kappa}\exp(-x / \kappa)$.
+
+		            La verosimilitud conjunta de la muestra es: \[
+			            f(\mathbf{x}|\kappa)=\prod_{i=1}^{n} \dfrac{1}{\kappa}\exp \left( -\dfrac{x_{i}}{\kappa} \right) =\kappa^{-n}\exp \left( -\dfrac{1}{\kappa}\sum_{i=1}^{n} x_{i} \right)
+		            \]
+		            Se nos da una distribución a priori no informativa: \[
+			            \pi(\kappa)\propto \kappa^{-1}
+		            \]
+		            Aplicamos el Teorema de Bayes en su forma proporcional: \[
+			            \pi(\kappa|\mathbf{x})\propto f(\mathbf{x}|\kappa)\pi(\kappa)
+		            \]
+		            Multiplicamos ambas expresiones: \[
+			            \pi(\kappa|\mathbf{x})\propto \left[ \kappa^{-n} \exp \left( -\dfrac{1}{\kappa}\sum_{i=1}^{n} x_{i} \right)  \right] \kappa^{-1}
+		            \]
+		            Agrupando los términos de $\kappa$, obtenemos la expresión final solicita: \[
+			            \pi(\kappa|\mathbf{x})\propto \kappa^{-n-1}\exp \left( -\dfrac{1}{\kappa}\sum_{i=1}^{n} x_{i} \right)
+		            \]
+		      \item \db{Demostrar que, si transformamos $\kappa$, considerando  $\lambda=\dfrac{1}{\kappa},\lambda|\mathbf{x}$ admite una densidad gamma con parámetris $n$ y  $1 / \sum_i x_i$.}
+
+		            Definimos el cambio de variable $\lambda=1 /\kappa$, lo que implica que $\kappa=1 / \lambda$. Para hallar la distribución $\lambda|\mathbf{x}$, aplicamos el teorema del cambio de variable, que requiere multiplicar por el valor absoluto del Jacobiano $J=\dfrac{\mathrm{d}\kappa}{\mathrm{d}\lambda}$: \[
+			            |J|=\left| -\dfrac{1}{\lambda^2} \right| =\lambda^{-2}
+		            \]
+		            Sustituimos $\kappa$ por $1 / \lambda$ en la distribución a posteriori obtenida en el apartado anterior y multiplicamos por el Jacobiano: \[
+			            \pi(\lambda|\mathbf{x})\propto \left( \dfrac{1}{\lambda} \right) ^{-n-1}\exp \left( -\dfrac{1}{1 / \lambda}\sum_{i=1}^{n} x_{i} \right) \cdot \lambda^{-2}
+		            \]
+		            Simplificamos los exponentes algebraicamente: \[
+			            \begin{array}{c}
+				            \pi(\lambda|\mathbf{x})\propto \lambda^{n+1}\exp \left( -\lambda \sum_{i=1}^{n} x_{i} \right) \lambda^{-2} \\
+				            \pi(\lambda|\mathbf{x})\propto \lambda^{n-1}\exp \left( -\lambda \sum_{i=1}^{n} x_{i} \right)
+			            \end{array}
+		            \]
+		            Reconocemos la estructura (el núcleo) de una distribución de probabilidad conocida. La expresión corresponde al núcleo de una \textbf{distribución Gamma}:
+		            \begin{itemize}[label=\textbullet]
+			            \item Parámetro de forma (shape): $\alpha=n$.
+			            \item Parámetro de tasa (rate): $\beta=\sum_{i=1}^{n} x_{i}$.
+		            \end{itemize}
+
+		      \item \db{En un experimento sobre duración de dispositivo, obtenemos los siguientes valores en horas: 6562, 2280, 50, 989, 1797. Obtener un intervalo de credibilidad al 90\% para la inversa de $k$. Obtener el mismo intervalo para $\kappa$.}
+	      \end{enumerate}
+\end{enumerate}

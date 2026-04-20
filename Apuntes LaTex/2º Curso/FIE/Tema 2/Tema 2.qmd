@@ -178,7 +178,7 @@ $$
 tibble(p = p, l = l) |>
   ggplot(aes(p, l)) +
   geom_line() +
-  geom_vline(xintercept = n1 / n, col="red") +
+  geom_vline(xintercept = n1 / n, col = "red") +
   labs(y = "Verosimilitud")
 ```
 
@@ -344,10 +344,10 @@ Si el error cuadrático medio de una sucesión de estimadores tiende a cero, est
 # Un resultado que se puede demostrar para muchos modelos, para el e.m.v: #
 
 $$
-\sqrt{n} \left( \hat{\theta}-\theta \right) \xrightarrow[n\to \infty]{\mathcal{L}}\mathcal{N}(0,\Alpha)
+\sqrt{n} \left( \hat{\theta}-\theta \right) \xrightarrow[n\to \infty]{\mathcal{L}}\mathcal{N}(0,\Lambda)
 $$
 
-(la distribución de $\sqrt{n}(\hat{\theta}_n-\theta)$ se aproxima a la distribución $\mathcal{N}(0,\Alpha)$).
+(la distribución de $\sqrt{n}(\hat{\theta}_n-\theta)$ se aproxima a la distribución $\mathcal{N}(0,\Lambda)$).
 :::
 
 ### Ejemplo: distribución $\text{gamma}(\alpha,\beta)$ ### {.unnumbered .unlisted}
@@ -396,9 +396,10 @@ sim_df <- tidyr::crossing(n = ns, sim = seq_len(n_sims)) |>
 
 ggplot(sim_df, aes(x = z)) +
   geom_histogram(aes(y = after_stat(density)),
-                 bins = 30, fill = "lightblue", alpha = 0.5, color = NA) +
+    bins = 30, fill = "lightblue", alpha = 0.5, color = NA
+  ) +
   geom_density(color = "red", linewidth = 0.7) +
-  facet_wrap(~ n_lab, nrow = 1) +
+  facet_wrap(~n_lab, nrow = 1) +
   labs(
     title = expression("Estimador momentos de " * alpha),
     x = expression(sqrt(n) * (hat(theta) - theta)),
@@ -453,31 +454,31 @@ Es una especie de histograma con ventana móvil, que se va deslizando.
 set.seed(314159)
 h <- 0.5
 bw <- 2 * h / sqrt(12)
-## h <- bw * sqrt(12) / 2 
+## h <- bw * sqrt(12) / 2
 values <- tibble(x = rnorm(100, 5, 1), y = 0)
 estimacion <- density(
-    x = values$x,
-    kernel = "rectangular",
-    bw = bw
-    )
+  x = values$x,
+  kernel = "rectangular",
+  bw = bw
+)
 points <- tibble(x = estimacion$x, y = estimacion$y)
 values |>
-    ggplot(aes(x = x)) +
-    geom_point(aes(y = y)) +
-    geom_density(alpha = 0.5, col = "red", fill = "lightblue", kernel = "rectangular", bw = bw) +
-    labs(
-        title = "100 valores observados, ventana móvil con h = 0.5",
-        y = "Frecuencia relativa"
-    ) +
-    geom_area(
-        data = points |>
-            filter(
-                between(x, 5 - h , 5 + h)  
-            ),
-        aes(x = x, y = y),
-        alpha = 0.1,
-        fill = "red"
-    )
+  ggplot(aes(x = x)) +
+  geom_point(aes(y = y)) +
+  geom_density(alpha = 0.5, col = "red", fill = "lightblue", kernel = "rectangular", bw = bw) +
+  labs(
+    title = "100 valores observados, ventana móvil con h = 0.5",
+    y = "Frecuencia relativa"
+  ) +
+  geom_area(
+    data = points |>
+      filter(
+        between(x, 5 - h, 5 + h)
+      ),
+    aes(x = x, y = y),
+    alpha = 0.1,
+    fill = "red"
+  )
 ```
 
 ## Estimación tipo núcleo ##
@@ -507,12 +508,13 @@ Por ejemplo que tenga más peso cuando el valor muestral esté cerca del valor $
 ```{r}
 K_Epa <- function(z, h = 1) 3 / (4 * h) * (1 - (z / h)^2) * (abs(z) < h)
 mu2_K_Epa <- integrate(function(z) z^2 * K_Epa(z), lower = -1, upper = 1)$value
-sigma <- sqrt(mu2_K_Epa) / (2/sqrt(12))
+sigma <- sqrt(mu2_K_Epa) / (2 / sqrt(12))
 ggplot() +
-    geom_function(fun = \(x) dunif(x, -1, 1)) +
-    geom_function(fun = \(x) dnorm(x, sd=2/sqrt(12)))+
-    geom_function(fun = \(x) K_Epa(sigma * x) * sigma ) +
-    xlim(-2.5, 2.5) + ylim(0, 1)
+  geom_function(fun = \(x) dunif(x, -1, 1)) +
+  geom_function(fun = \(x) dnorm(x, sd = 2 / sqrt(12))) +
+  geom_function(fun = \(x) K_Epa(sigma * x) * sigma) +
+  xlim(-2.5, 2.5) +
+  ylim(0, 1)
 ```
 
 - $K$ uniforme.
@@ -521,24 +523,25 @@ ggplot() +
 
 ```{r}
 colors <- c(
-    "rectangular" = "red",
-    "gaussiano" = "blue",
-    "epanechnikov" = "green")
+  "rectangular" = "red",
+  "gaussiano" = "blue",
+  "epanechnikov" = "green"
+)
 values |>
-    ggplot(aes(x = x)) +
-    geom_point(aes(y = y)) +
-    geom_density(aes(color = "rectangular"), alpha = 0.5, kernel = "rectangular", bw = bw) +
-    geom_density(aes(color = "gaussiano"), alpha = 0.5, kernel = "gaussian", bw = bw) +
-    geom_density(aes(color = "epanechnikov"), alpha = 0.5, kernel = "epanechnikov", bw = bw) +
-    labs(
-        title = "100 valores observados, estimación núcleo",
-        y = "Densidad"
-    ) +
-    scale_color_manual(
-        name = "Núcleo",
-        breaks = c("rectangular", "gaussiano", "epanechnikov"),
-        values = colors
-    )
+  ggplot(aes(x = x)) +
+  geom_point(aes(y = y)) +
+  geom_density(aes(color = "rectangular"), alpha = 0.5, kernel = "rectangular", bw = bw) +
+  geom_density(aes(color = "gaussiano"), alpha = 0.5, kernel = "gaussian", bw = bw) +
+  geom_density(aes(color = "epanechnikov"), alpha = 0.5, kernel = "epanechnikov", bw = bw) +
+  labs(
+    title = "100 valores observados, estimación núcleo",
+    y = "Densidad"
+  ) +
+  scale_color_manual(
+    name = "Núcleo",
+    breaks = c("rectangular", "gaussiano", "epanechnikov"),
+    values = colors
+  )
 ```
 
 ### Se pueden demostrar resultados asintóticos ###
@@ -635,10 +638,11 @@ muestra <- rnorm(100, 0, 1)
 bw.nrd(x = muestra)
 # gráfica del estimador de la función de densidad
 tibble(x = muestra) |>
-    ggplot(aes(x = x)) +
-    geom_density(kernel = "gaussian", bw = "nrd") +
-    geom_function(fun = dnorm, col = "red") +
-    xlim(-5, 4) + ylim(0, 0.5)
+  ggplot(aes(x = x)) +
+  geom_density(kernel = "gaussian", bw = "nrd") +
+  geom_function(fun = dnorm, col = "red") +
+  xlim(-5, 4) +
+  ylim(0, 0.5)
 ```
 
 #### Aproximación no paramétrica para el cálculo de $R(f'')$, implementación en **`R`**  ####
@@ -651,10 +655,11 @@ Se usa la especificación "SJ" (Sheather & Jones, 1991) para el bandwidth.
 bw.SJ(x = muestra)
 # grafica del estimador de la función de densidad
 tibble(x = muestra) |>
-    ggplot(aes(x = x)) +
-    geom_density(kernel = "gaussian", bw = "SJ") +
-    geom_function(fun = dnorm, col = "red") +
-    xlim(-5, 4) + ylim(0, 0.5)
+  ggplot(aes(x = x)) +
+  geom_density(kernel = "gaussian", bw = "SJ") +
+  geom_function(fun = dnorm, col = "red") +
+  xlim(-5, 4) +
+  ylim(0, 0.5)
 ```
 
 ## Introducción al Bootstrap ##

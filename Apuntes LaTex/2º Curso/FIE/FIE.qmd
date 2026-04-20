@@ -19,9 +19,11 @@ geometry: margin=1.5cm
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(highlight = TRUE, echo = FALSE,
-                      message = FALSE, warning = FALSE,
-                      out.width = "70%", fig.align = "center")
+knitr::opts_chunk$set(
+  highlight = TRUE, echo = FALSE,
+  message = FALSE, warning = FALSE,
+  out.width = "70%", fig.align = "center"
+)
 ```
 
 \newpage

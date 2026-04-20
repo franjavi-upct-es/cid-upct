@@ -1,22 +1,732 @@
 \begin{center}
-    \Large \textbf{Hoja 4: Contrastes de hipótesis} 
+	\Large \textbf{Hoja 4: Contrastes de hipótesis}
 \end{center}
 
 \begin{enumerate}[label=\color{red}\textbf{\arabic*)}]
-    \item \lb{Sea $X\sim N(\mu,\sigma^2)$ y se considera una m.a.s. de tamaño $n$ de $X$, donde  $\sigma^2$ es conocida.}
-        \begin{enumerate}[label=\color{red}\textbf{\alph*)}]
-            \item \db{Consideremos las hipótesis $H_0:\mu=\mu_0$ y $H_1:\mu>\mu_0$. Demostrar que el test con región de rechazo $S_1=\{m\mathbf{x}\in m\mathbf{X}|(\bar{m\mathbf{x}}-\mu_0) / (\sigma / \sqrt{n} )>z_{1-\alpha}\}$ es de extensión $\alpha$ para las hipótesis anteriores.} 
-            \item \db{Consideremos las hipótesis $H_0:\mu\le \mu_0$ y $H_1:\mu>\mu_0$. Demostrar que el test con región de rechazo $S_1=\{m\mathbf{x}\in m\mathbf{X}|(\bar{m\mathbf{x}}-\mu_0) / (\sigma / \sqrt{n} )>z_{1-\alpha}\}$ es de extensión $\alpha$ para las hipótesis anteriores.} 
-        \end{enumerate}
-    \item \lb{Sea $X\sim N(\mu,\sigma^2)$ con $\sigma^2$ conocida. Se considera una muestra aleatoria simple de tamaño $n$ de $X$.}
-        \begin{enumerate}[label=\color{red}\textbf{\alph*)}]
-            \item \db{Obtener el test de máxima potencia y extensión $\alpha$ para el test (contraste): $H_0:\mu=\mu_0$ frente a $H_1:\mu=\mu_1$, con $\mu_1>\mu_0$.}
-            \item \db{Si $X\sim N(\mu,\sigma^2=4)$ representa la duración en días de una determinada enfermedad y se considera la duración de una muestra de 9 enfermos resultando en días: 5,3,4,2,6,4,5,3,4, aplicar los resultados del ejemplo anterior, para decidir entre: $H_0:\mu=3$ frente a $H_1:\mu=4$, con un nivel de significación $\alpha=0.05$.} 
-        \end{enumerate}
-    \item \lb{Sean $X\sim N(\mu_X,\sigma_X^2)$ e $Y\sim N(\mu_Y,\sigma_Y^2)$ independientes. Se considera una m.a.s. de tamaño $n_X$ de $X$ y una m.a.s. de tamaño $n_Y$ de $Y$.}
-        \begin{enumerate}[label=\color{red}\textbf{\alph*)}]
-            \item \db{Suponiendo $\sigma_X^2$ y $\sigma_Y^2$ conocidas, obtener un procedimiento para contrastar $H_0:\mu_X=\mu_Y$ frente a $H_1:\mu_X\neq \mu_Y$.}
-            \item \db{Suponiendo $\sigma_X^2$ y $\sigma_Y^2$ desconocidas pero iguales, obtener un procedimiento para contrastar $H_0:\mu_X\le \mu_Y$ frente a $H_1:\mu_X>\mu_Y$.} 
-        \end{enumerate}
-    \item \lb{Consideremos una m.a.s. $X_1,\dots,X_n$ de una población tiene una densidad $f(x;\theta)=e^{-(x-\theta)}\xi_{(\theta,+\infty)}$. Obtener el test RVG para $H_0:\theta\le \theta_0$ frente a $H_1:\theta>\theta_0$.} 
+	\item \lb{Sea $X\sim N(\mu,\sigma^2)$ y se considera una m.a.s. de tamaño $n$ de $X$, donde  $\sigma^2$ es conocida.}
+	      \begin{enumerate}[label=\color{red}\textbf{\alph*)}]
+		      \item \db{Consideremos las hipótesis $H_0:\mu=\mu_0$ y $H_1:\mu>\mu_0$. Demostrar que el test con región de rechazo $S_1=\{m\mathbf{x}\in m\mathbf{X}|(\bar{m\mathbf{x}}-\mu_0) / (\sigma / \sqrt{n} )>z_{1-\alpha}\}$ es de extensión $\alpha$ para las hipótesis anteriores.}
+
+		            Para demostrar que un test es de \textbf{extensión $\alpha$}, debemos veriifcar que el supremo de la probabilidad de cometer un error de tipo I sea igual a $\alpha$.
+		            \begin{enumerate}[label=\arabic*)]
+			            \item Definición de Extensión: \[
+				                  \text{extensión}=\sup_{\theta\in \Theta_0}P_{I,\delta}(\theta)=\sup_{\theta\in \Theta_0}P(\mathbf{x}\in S_1|\theta)
+			                  \]
+			            \item Cálculo para la hipótesis nula simple $(H_0:\mu=\mu_0)$:
+
+			                  Como $\Theta_0$ solo contiene el valor $\mu_0$, el supremo es simplemente la probabilidad evaluada en ese punto: \[
+				                  P(\mathbf{x}\in S_1|\mu=\mu_0)=P \left( \dfrac{\bar{X}-\mu_0}{\sigma / \sqrt{n} }>z_{1-\alpha}|\mu=\mu_0 \right)
+			                  \]
+			            \item Distribución
+
+			                  Sabemos que si $H_0$ es cierta $(\mu=\mu_0)$, el estadístico tipificado sigue una distribución normal estándar: \[
+				                  Z=\dfrac{\bar{X}-\mu_0}{\sigma / \sqrt{n} }\sim \mathcal{N}(0,1)
+			                  \]
+			            \item Resultado final:
+
+			                  Por definición del cuantil $z_{1-\alpha}$ en una distribución normal: \[
+				                  P(Z>z_{1-\alpha})=\alpha
+			                  \]
+			                  Por lo tanto, el test es de \textbf{extensión $\alpha$.}
+		            \end{enumerate}
+		      \item \db{Consideremos las hipótesis $H_0:\mu\le \mu_0$ y $H_1:\mu>\mu_0$. Demostrar que el test con región de rechazo $S_1=\{m\mathbf{x}\in m\mathbf{X}|(\bar{m\mathbf{x}}-\mu_0) / (\sigma / \sqrt{n} )>z_{1-\alpha}\}$ es de extensión $\alpha$ para las hipótesis anteriores.}
+
+		            En este caso, la hipótesis nula es compuesta $(\Theta_0=\{\mu:\mu\le \mu_0\})$. Debemos encontrar el máximo de la función de potencia en dicha región.
+		            \begin{enumerate}[label=\arabic*)]
+			            \item Función de Probabilidad de Error Tipo I:
+
+			                  Para cualquier $\mu\le \mu_0$, definimos la probabilidad de rechazar $H_0$ como: \[
+				                  P_{\mu}(\mathbf{x}\in S_1)=P_{\mu}\left( \dfrac{\bar{X}-\mu_0}{\sigma / \sqrt{n} } >z_{1-\alpha}\right)
+			                  \]
+			            \item Tipificación general:
+
+			                  Para una $\mu$ cualquiera, el estadístico que sigue una $\mathcal{N}(0,1)$ es $\dfrac{\bar{X}-\mu}{\sigma / \sqrt{n} }$. Operamos en la desigualdad: \[
+				                  P_{\mu}\left( \dfrac{\bar{X}-\mu+\mu-\mu_0}{\sigma / \sqrt{n} }>z_{1-\alpha} \right) =P \left( Z>z_{1-\alpha}+\dfrac{\mu_0-\mu}{\sigma / \sqrt{n} } \right)
+			                  \]
+			            \item Análisis de la función:
+
+			                  La probabilidad $P(Z>\text{valor})$ es una función decreciente respecto al "valor":
+			                  \begin{itemize}[label=\textbullet]
+				                  \item Si $\mu<\mu_0$, entonces $\dfrac{\mu_0-\mu}{\sigma / \sqrt{n} }>0$, lo que implica que el valor de la probabilidad es menor que $\alpha$.
+				                  \item El valor máximo de esta probabilidad en la región $\Theta_0$ se alcanza cuando $\mu$ es lo más grande posible, es decir, en el límite $\mu=\mu_0$.
+			                  \end{itemize}
+			            \item Conclusión por definición de extensión: \[
+				                  \sup_{\mu\le \mu_0}P_{\mu}(\mathbf{X}\in S_1)=P_{\mu_0}(\mathbf{x}\in S_1)=\alpha
+			                  \]
+			                  Al ser el supremo exactamente $\alpha$, el test es de \textbf{extensión $\alpha$.}
+		            \end{enumerate}
+	      \end{enumerate}
+	\item \lb{Sea $X\sim N(\mu,\sigma^2)$ con $\sigma^2$ conocida. Se considera una muestra aleatoria simple de tamaño $n$ de $X$.}
+	      \begin{enumerate}[label=\color{red}\textbf{\alph*)}]
+		      \item \db{Obtener el test de máxima potencia y extensión $\alpha$ para el test (contraste): $H_0:\mu=\mu_0$ frente a $H_1:\mu=\mu_1$, con $\mu_1>\mu_0$.}
+
+		            Al ser un contraste de hipótesis simple frente simple, aplicamos el \textbf{Lema de Neyman-Pearson} para obtener el test uniforme de máxima potencia.
+		            \begin{enumerate}[label=\arabic*)]
+			            \item Definición de la región de rechazo $(S_1)$:
+
+			                  El lema establece que la región crítica es: \[
+				                  S_1=\left\{ \mathbf{x}\in \mathrm{Sop}(X)\bigg| \dfrac{L(\mathbf{x},\mu_1)}{L(\mathbf{x},\mu_0)}\ge k\right\}
+			                  \]
+			            \item Función de verosimilitud:
+
+			                  Para una m.a.s. de la distribución Normal, la verosimilitud: \[
+				                  L(\mathbf{x};\mu)=\dfrac{1}{\sigma^{n / 2}(2\pi)^{n / 2}}\exp \left( \dfrac{-1}{2\sigma^2}\sum_{i=1}^{n} (x_{i}-\mu)^2 \right)
+			                  \]
+
+			            \item Cociente de verosimilitudes: \[
+				                  \dfrac{L(\mathbf{x},\mu_1)}{L(\mathbf{x},\mu_0)}=\dfrac{\exp \left( -\frac{1}{2\sigma^2} \sum (x_{i}-\mu_1)^2 \right) }{-\frac{1}{\sigma^2} \sum (x_{i}-\mu_0)^2}=\exp \left( \dfrac{1}{2\sigma^2} \left[ \sum (x_{i}-\mu_0)^2-\sum (x_{i}-\mu_1)^2 \right]  \right)
+			                  \]
+			                  Desarrollando los términos en la suma del exponente: \[
+				                  \sum(x_{i}-\mu_0)^2-\sum(x_{i}-\mu_1)^2=2(\mu_1-\mu_0)\sum x_{i}+n(\mu_0^2-\mu_1^2)
+			                  \]
+			                  Sustituyendo $\sum x_{i}=n\bar{X}$ e insertando en la inecuación de Neyman-Pearson:
+			                  \[
+				                  \exp \left( \dfrac{1}{2\sigma^2} [2n(\mu_1-\mu_{0})\bar{X}+n(\mu_0^2-\mu_1^2)]\right) \ge k
+			                  \]
+			                  Tomando logaritmo neperiano a ambos lados y despejando $\bar{X}$: \[
+				                  \bar{X}\ge \dfrac{2\sigma^2 \ln(k)-n(\mu_0^2-\mu_1^2)}{2n(\mu_1-\mu_0)}=c
+			                  \]
+			            \item Imponer la extensión $\alpha$: \[
+				                  \begin{array}{c}
+					                  P(\mathbf{x}\in S_1|\mu=\mu_0)=\alpha \\
+					                  P(\bar{X}\ge c|\mu_0)=\alpha
+				                  \end{array}
+			                  \]
+			                  Tipificamos el estadístico bajo $H_0$ sabiendo que $Z=\dfrac{\bar{X}-\mu_0}{\sigma / \sqrt{n} }\sim \mathcal{N}(0,1)$: \[
+				                  P \left( \dfrac{\bar{X}-\mu_0}{\sigma / \sqrt{n} }\ge \dfrac{c-\mu_0}{\sigma / \sqrt{n} } \right) = \alpha \implies \dfrac{c-\mu_0}{\sigma / \sqrt{n} }=z_{1-\alpha}
+			                  \]
+			                  Por lo tanto, la región de rechazo de máxima potencia queda matemáticamente definida como: \[
+				                  S_1=\left\{ \mathbf{x}\bigg| \dfrac{\bar{X}-\mu_0}{\sigma / \sqrt{n} }\ge z_{1-\alpha} \right\}
+			                  \]
+		            \end{enumerate}
+		      \item \db{Si $X\sim N(\mu,\sigma^2=4)$ representa la duración en días de una determinada enfermedad y se considera la duración de una muestra de 9 enfermos resultando en días: 5,3,4,2,6,4,5,3,4, aplicar los resultados del ejemplo anterior, para decidir entre: $H_0:\mu=3$ frente a $H_1:\mu=4$, con un nivel de significación $\alpha=0.05$.}
+
+		            Recopilamos los datos del enunciado:
+		            \begin{itemize}[label=\textbullet]
+			            \item $\mu_0=3,\mu_1=4$
+			            \item Varianza $\sigma^2=4\implies\sigma=2$
+			            \item Tamaño de muestra $n=9$
+			            \item Nivel de significación $\alpha=0.05\implies z_{1-\alpha}=z_{0.95}=1.645$
+			            \item Muestra: $x=(5,3,4,2,6,4,5,3,4)$
+		            \end{itemize}
+		            \begin{enumerate}[label=\arabic*)]
+			            \item Cálculo del estadístico de prueba: \[
+				                  \bar{x}=\dfrac{\sum x_{i}}{n}=\dfrac{5+3+4+2+6+4+5+3+4}{9}=\dfrac{36}{9}=4
+			                  \]
+			            \item Cálculo del estadístico de prueba:
+
+			                  Sustituyendo en la fórmula del estadístico tipificado obtenida en el apartado anterior: \[
+				                  Z_{obs}=\dfrac{\bar{x}-\mu_0}{\sigma / \sqrt{n} }=\dfrac{4-3}{2 / \sqrt{9} }=\dfrac{1}{2 / 3}=\dfrac{3}{2}=1.5
+			                  \]
+			            \item Decisión:
+
+			                  La regla de rechazo obtenida para $\mu_1>\mu_0$ es rechazar si el estadístico es $>z_{1-\alpha}$. Comparamos: \[
+				                  1.5<1.645
+			                  \]
+			                  Dado que $1.5$ no pertenece a la región de rechazo $S_1$, \textbf{aceptamos la hipótesis nula $H_0$.} Los datos no proporcionan evidencia estadísticamente significativa para rechazar que $\mu=3$ en favor de $\mu=4$ con un $\alpha=0.05$.
+		            \end{enumerate}
+	      \end{enumerate}
+	\item \lb{Sean $X\sim N(\mu_X,\sigma_X^2)$ e $Y\sim N(\mu_Y,\sigma_Y^2)$ independientes. Se considera una m.a.s. de tamaño $n_X$ de $X$ y una m.a.s. de tamaño $n_Y$ de $Y$.}
+	      \begin{enumerate}[label=\color{red}\textbf{\alph*)}]
+		      \item \db{Suponiendo $\sigma_X^2$ y $\sigma_Y^2$ conocidas, obtener un procedimiento para contrastar $H_0:\mu_X=\mu_Y$ frente a $H_1:\mu_X\neq \mu_Y$.}
+
+		            \begin{enumerate}[label=\arabic*)]
+			            \item Formulación de hipótesis:
+
+			                  Podemos reescribir el contraste planteado en función de la diferencia de medias, equivalente a comparar con un $\mu_0=0$: \[
+				                  \begin{array}{l}
+					                  H_0:\mu_X-\mu_Y=0 \\
+					                  H_1:\mu_X-\mu_Y\neq 0
+				                  \end{array}
+			                  \]
+			            \item Estadístico de prueba:
+
+			                  Para construir nuestra regla $\delta$, escogemos un estadístico basado en los estimadores de los parámetros. Definimos la variable de diferencia $D=\bar{X}-\bar{Y}$. Por ser variables normales e independientes: \[
+				                  D\sim \mathcal{N}\left( \mu_X-\mu_Y,\dfrac{\sigma_X^2}{n_X}+\dfrac{\sigma_Y^2}{n_Y}\right)
+			                  \]
+			            \item Distribución bajo la hipótesis nula $(H_0)$:
+
+			                  Consideramos su distribución muestral suponiendo $H_0$ cierta $(\mu_X-\mu_Y=0)$. Siguiendo el mismo procedimiento de tipificación que en el caso de una sola media, el estadístico de prueba es: \[
+				                  Z=\dfrac{(\bar{X}-\bar{Y})-0}{\sqrt{\frac{\sigma_X^2}{n_X}+\frac{\sigma_Y^2}{n_Y}} }\sim \mathcal{N}(0,1)
+			                  \]
+			            \item Región de rechazo $(S_1)$:
+
+			                  Al tratarse de una hipótesis alternativa bilateral $(H_1:\neq)$, fijamos el valor del error tipo I, $\alpha$. La región de rechazo estará formada por los valores extremos (las dos colas) de la distribución Normal estándar: \[
+				                  S_1=\{(\mathbf{x},\mathbf{y})\mid |Z|>z_{1-\alpha / 2}\} \text{ o equivalente }S_1=\{(\mathbf{x},\mathbf{y})\mid Z<-z_{1-\alpha / 2}\text{ ó }Z>z_{1-\alpha / 2}\}
+			                  \]
+		            \end{enumerate}
+		      \item \db{Suponiendo $\sigma_X^2$ y $\sigma_Y^2$ desconocidas pero iguales, obtener un procedimiento para contrastar $H_0:\mu_X\le \mu_Y$ frente a $H_1:\mu_X>\mu_Y$.}
+		            \begin{enumerate}[label=\arabic*)]
+			            \item Formulación de hipótesis:
+
+			                  Reescribimos el contraste compuesto: \[
+				                  \begin{array}{l}
+					                  H_0:\mu_X-\mu_Y\le 0 \\
+					                  H_1:\mu_X-\mu_Y>0
+				                  \end{array}
+			                  \]
+			            \item Planteamiento del procedimiento:
+
+			                  Como la varianza común $\sigma^2$ es desconocida, no podemos usar directamente la variable tipificada $Z$ con varianza teórica como en el caso anterior.
+
+			                  Según el principio del \textbf{Test de la Razón de Verosimilitudes Generalizada (RVG),} cuando hay parámetros desconocidos en las hipótesis compuestas, estos deben estimarse a partir de la muestra (como se hace con el Estimador Máximo Verosímil).
+
+			                  Por lo tanto, la varianza común $\sigma^2$ debe ser reemplazada por su correspondiente estimador muestral (varianza combinada, que denotaremos genéricamente como $\hat{\sigma}^2$ o $S_p^2$).
+			            \item Estadístico de prueba conceptual:
+			                  \[
+				                  T=\dfrac{\bar{X}-\bar{Y}}{\sqrt{\hat{\sigma}^2\left( \frac{1}{n_X} +\frac{1}{n_Y} \right)  } }
+			                  \]
+			            \item Región de rechazo $(S_1)$:
+
+			                  Determinamos la región de rechazo $S_1$, teniendo en cuenta la probabilidad de error I, es decir: $P_{H_0}(T\in S_1)=\alpha$. Al ser una hipótesis alternativa unilateral (tipo $>$), la región de rechazo se sitúa en la cola superior de la distribución de $T$. El test general queda definido como: \[
+				                  S_1=\{(\mathbf{x},\mathbf{y}\mid T>c_{1-\alpha})\}
+			                  \]
+			                  Donde $c_{1-\alpha}$ representa el cuantil correspondiente al nivel $\alpha$ de la distribución muestral del estadístico $T$ bajo $H_0$ evaluado en el supremo $\mu_X=\mu_Y$.
+		            \end{enumerate}
+	      \end{enumerate}
+	\item \lb{Consideremos una m.a.s. $X_1,\dots,X_n$ de una población tiene una densidad $f(x;\theta)=e^{-(x-\theta)}\xi_{(\theta,+\infty)}$. Obtener el test RVG para $H_0:\theta\le \theta_0$ frente a $H_1:\theta>\theta_0$.}
+
+	      \begin{enumerate}[label=\arabic*)]
+		      \item Definición del cociente RVG:
+
+		            El estadístico de la razón de verosimilitud generalizada se define como: \[
+			            \lambda(\mathbf{x})=\dfrac{\sup_{\theta\in \Theta_0}L(\mathbf{x};\theta)}{\sup_{\theta \in \Theta}L(\mathbf{x};\theta)}
+		            \]
+		      \item Función de Verosimilitud:
+
+		            Dada la muestra aleatoria simple de tamaño $n$ de $f(x;\theta)=e^{-(x-\theta)}I_{(\theta,+\infty)}(x)$, la función de verosimilitud conjunta es: \[
+			            L(\mathbf{x};\theta)=\prod_{i=1}^{n} e^{-(x_i-\theta)}I_{(\theta,+\infty)}(x_i)=e^{-\sum x_i+n\theta}I_{(\theta,+\infty)}(x_{(1)})
+		            \]
+		            donde $x_{(1)}=\min(x_1,\dots,x_n)$ es el mínimo muestral.
+
+		            Esto significa que $L(\mathbf{x};\theta)>0$ si y sólo si $\theta\le x_{(1)}$.
+		      \item Denominador (Supremo global en $\Theta$):
+
+		            Debemos maximizar $e^{-\sum x_i+n\theta}$ sujeto a la restricción $\theta\le x_{(1)}$.
+
+		            Como $e^{n\theta}$ es una función estrictamente creciente de $\theta$, el máximo se alcanza en el valor más grande posible de $\theta$, que es el Estimador de Máxima Verosimilitud (EMV): $\hat{\theta}=x_{(1)}$. \[
+			            \sup_{\theta\in \Theta}L(\mathbf{x};\theta)=e^{-\sum x_{i}nx_{(1)}}
+		            \]
+		      \item Numerador (Supremo bajo $H_0$):
+
+		            Debemos maximizar $L(\mathbf{x};\theta)$ sujeto a $\theta\le x_{(1)}$ y, además, a la restricción de la hipótesis nula $\theta\le \theta_0$.
+
+		            Por tanto, debemos maximizar en $\theta\le \min(x_{(1)},\theta_0)$. De nuevo, por ser creciente en $\theta$, se maximiza en el límite superior. Tenemos dos casos:
+		            \begin{itemize}[label=\textbullet]
+			            \item \textbf{Caso A:} Si $x_{(1)}\le \theta_0\implies$ el máximo es $\theta=x_{(1)}$. \[
+				                  \sup_{\theta\in \Theta_0}L(\mathbf{x};\theta)=e^{-\sum x_{i}+nx_{(1)}}
+			                  \]
+			            \item \textbf{Caso B:} Si $x_{(1)}>\theta_0\implies$ el máximo es $\theta=\theta_0$. \[
+				                  \sup_{\theta\in \Theta_0}L(\mathbf{x};\theta)=e^{-\sum x_{i}-n\theta_0}
+			                  \]
+		            \end{itemize}
+		      \item Cálculo de $\lambda(\mathbf{x})$:
+
+		            Sustituyendo el numerador y el denominador en la definición del RVG: \[
+			            \lambda(\mathbf{x})=\begin{cases}
+				            \dfrac{e^{-\sum x_i+nx_{(1)}} }{e^{-\sum x_i+nx_{(1)}} }=1                        & \text{si }x_{(1)}\le \theta_0 \\
+				            \dfrac{e^{-\sum x_i+n\theta_0} }{e^{-\sum x_i+nx_{(1)}} }=e^{n(\theta_0-x_{(1)})} & \text{si } x_{(1)}>\theta_0
+			            \end{cases}
+		            \]
+		      \item Región de rechazo $(S_1)$:
+
+		            El test RVG tiene como región crítica los valores donde $\lambda(\mathbf{x})<k$.
+
+		            Dado que rechazamos para valores pequeños de $\lambda$, esto ocurre cuando $e^{n(\theta_0-x_{(1)})}<k$. Operando con logaritmos: \[
+			            n(\theta_0-x_{(1)})<\ln k\implies x_{(1)}>\theta_0-\dfrac{\ln k}{n}=c
+		            \]
+		            Por tanto, la forma de la región de rechazo es: \[
+			            S_1=\{\mathbf{x}\in Sop(X_1,\dots,X_n)\mid x_{(1)}>c\}
+		            \]
+		      \item Determinación de la constante $c$ (Extesión $\alpha$):
+
+		            Para que el test tenga extensión $\alpha$, imponiendo que el supremo de la probabilidad de error tipo I sea $\alpha$: \[
+			            \sup_{\theta\le \theta_0}P_\theta(X_{(1)}>c)=\alpha
+		            \]
+		            Como $P_{\theta}(X_{(1)}>c)$ es máxima en la frontera, evaluamos  en $\theta=\theta_0$: \[
+			            P_{\theta_0}(X_{(1)}>c)=\alpha
+		            \]
+		            Sabiendo que $P(X_{(1)}>c)=[P(X_1>c)]^n$ y que $P(X_1>c)=\int_{c}^{\infty} e^{-(x-\theta)}\dx=e^{-(x-\theta_0)}$: \[
+			            \left[ e^{-(c-\theta_0)}  \right] ^n=e^{-n(c-\theta_0)}=\alpha
+		            \]
+		            Aplicamo logaritmo neperiano: \[
+			            -n(c-\theta_0)=\ln \alpha\implies c=\theta_0-\dfrac{\ln \alpha}{n}
+		            \]
+	      \end{enumerate}
+	      \textbf{Conclusión final:}
+
+	      El test de RVG para este contraste es: \textbf{Rechazar $H_0$ si $x_{(1)}>\theta_0-\dfrac{\ln\alpha}{n}$}
+	\item \lb{Sea $X\sim N(\mu,\sigma^2)$ y se considera una m.a.s. de tamaño $n$ de $X$. Consideramos las hipótesis  $H_0:\mu=\mu_0$ frente a $H_1:\mu>\mu_0$. Demostrar que el test que rechaza $H_0$ si $\dfrac{\bar{X}-\mu_0}{S / \sqrt{n} }>t_{n-1,1-\alpha}$ es de extensión $\alpha$.}
+	      \begin{enumerate}[label=\arabic*)]
+		      \item Definición de Extensión (Tamaño del test):
+
+		            La extensión de un test $\delta$ se define como el supremo de la probabilidad de error tipo I en la región nula: \[
+			            \text{extensión}=\sup_{\theta\in \Theta_0}P_{I,\delta}(\theta)=\sup_{\mu=\mu_0}P(\mathbf{x}\in S_1|\mu)
+		            \]
+		      \item Evaluación bajo la Hipótesis Nula $(H_0)$:
+
+		            Dado que la hipótesis nula es simple $(H_0:\mu=\mu_0)$, el conjuunto $\Theta_0$ solo contiene un elemento. Por lo tanto, el supremo es simplemente la probabilidad evaluada en $\mu=\mu_0$: \[
+			            P(\mathbf{x}\in S_1|\mu_0)=P \left( \dfrac{\bar{X}-\mu_0}{S / \sqrt{n} }>t_{n-1,1-\alpha}\bigg| \mu=\mu_0 \right)
+		            \]
+		      \item Distribución del estadístico de prueba:
+
+		            Si $H_0$ es cierta, sabemos por la teoría estadística subyacente a poblaciones normales con varianza poblacional desconocida que el estadístico, al usar la desviación típica muestral $S$, sigue una distribución t de Student con $n-1$ grados de libertad:
+		            \[
+			            T=\dfrac{\bar{X}-\mu_0}{S / \sqrt{n} }\sim t_{n-1}
+		            \]
+		      \item Resultado final:
+
+		            Sustituyendo el estadístico $T$ en la probabilidad calculada en el paso 2: \[
+			            P(T>t_{n-1,1-\alpha})
+		            \]
+		            Por la definición del cuantil $t_{n-1,1-\alpha}$, que deja a su derecha un área igual a $\alpha$, tenemos que: \[
+			            P(T>t_{n-1,1-\alpha})=1-(1-\alpha)=\alpha
+		            \]
+		            Por lo tanto, la extensión del test es, efectivamente, $\alpha$.
+	      \end{enumerate}
+	\item \lb{A continuación indicamos para distintas situaciones las hipótesis sobre la media poblacional de una variable normal para $\sigma$ conocida que se plantearon, así como el valor del estadístico de prueba $z_0=\dfrac{\bar{X}-\mu_0}{\sigma / \sqrt{n} }$, que se obtuvo. Determinar los $p$-valores correspondientes e indicar cuál es la decisión acerca de  $H_0$.}
+	      \begin{enumerate}[label=\color{red}\textbf{\alph*)}]
+		      \item \db{$H_0:\mu=120;H_1:\mu\neq 120$, estadístico de prueba: $z_0=2.32$.}
+		            \begin{enumerate}[label=\arabic*)]
+			            \item \textbf{Planteamiento:} Al ser la hipótesis alternativa de distinto $(\neq)$, la región de rechazo se divide en dos colas.
+			            \item \textbf{Cálculo del $p$-valor:} El $p$-valor se calcula sumando la probabilidad de las dos colas a partir del valor absoluto del estadístico. \[
+				                  p=P(Z\ge |z_0|)+P(Z\le -|z_0|)=2\cdot P(Z\ge 2.32)=2\cdot (1-0.9898)=0.0204
+			                  \]
+			            \item \textbf{Decisión:} Un $p$-valor de $0.0204$ indica que \textbf{rechazaríamos $H_0$} a un nivel de significación del $5\%\,(\alpha=0.05)$, pero la aceptaríamos si exigiéramos un nivel más estricto del $1\%\,(\alpha=0.01)$.
+		            \end{enumerate}
+		      \item \db{$H_0:\mu=120;H_1:\mu\neq 120$, estadístico de prueba: $z_0=-1.88$.}
+		            \begin{enumerate}[label=\arabic*)]
+			            \item \textbf{Planteamiento:} Igual que en el caso anterior, tenemos un contraste de dos colas.
+			            \item \textbf{Cálculo del $p$-valor:} \[
+				                  p=2\cdot P(Z\ge |-1.88|)=2\cdot P(Z\ge 1.88)=2\cdot (1-0.9699)=2\cdot 0.0301=0.0602
+			                  \]
+			            \item \textbf{Decisión:} Un $p$-valor de $0.0602$ es mayor que $0.05$. Por lo tanto, bajo el nivel de significación estándar del $5\%$, \textbf{no rechazaríamos $H_0$}  (aceptamos que $\mu=120$).
+		            \end{enumerate}
+		      \item \db{$H_0:\mu=1000;H_1:\mu>1000$, estadístico de prueba: $z_0=1.6$.}
+		            \begin{enumerate}[label=\arabic*)]
+			            \item \textbf{Planteamiento:} Al ser la hipótesis alternativa de mayor $(>)$, la región de rechazo se concentra únicamente en la cola superior.
+			            \item \textbf{Cálculo del $p$-valor:} \[
+				                  p=P(Z\ge z_0)=P(Z\ge 1.6)=1-0.9452=0.0548
+			                  \]
+			            \item \textbf{Decisión:} El $p$-valor es $0.0548$. Puesto que es ligeramente superior a $0.05$, estadísticamente \textbf{no hay evidencia suficiente para rechazar $H_0$} al nivel de confianza del $95\%$.
+		            \end{enumerate}
+		      \item \db{$H_0:\mu=1000;H_1:\mu<1000$, estadístico de prueba: $z_0=-1.24$}
+		            \begin{enumerate}[label=\arabic*)]
+			            \item \textbf{Planteamiento:} Al ser la hipótesis alternativa de menor $(<)$, la región de rechazo se concentra únicamente en la cola inferior.
+			            \item \textbf{Cálculo del $p$-valor:} \[
+				                  p=P(Z\le z_0)=P(Z\le -1.24)
+			                  \]
+			                  Por simetría de la distribución Normal estándar, $P(Z<-1.24)=P(Z\ge 1.24)$: \[
+				                  p=(1-P(Z\ge 1.24))=1-0.8925=0.1075
+			                  \]
+			            \item \textbf{Decisión:} Un $p$-valor de $0.1075$ es notablemente alto, indicando gran compatibilidad de los datos con la hipótesis nula. Por tanto, \textbf{se acepta $H_0$} a cualquier nivel de significación habitual $(1\%,5\%,10\%)$.
+		            \end{enumerate}
+	      \end{enumerate}
+	\item \lb{En un laboratorio, se estudia la velocidad de combustión de dos tipos de combustibles sólidos A y B. Se pretende determinar qué combustibles presentan una velocidad de combustión en promedio mayor de 50 cm/s. Los resultados obtenidos fueron:}
+
+	      {
+		      \color{lightblue}
+		      \begin{center}
+			      \begin{tabular}{llll}
+				      \hline
+				      Combustible & tamaño muestral & Media muestral & Varianza muestral \\ \hline
+				      A           & 25              & 51.3           & 3.9               \\
+				      B           & 30              & 51.5           & 3.6               \\ \hline
+			      \end{tabular}
+		      \end{center}
+	      }
+
+	      \lb{Suponiendo que la distribución de las variables es normal, plantear un test para contrastar si la varianza en la población de la velocidad de combustión para A es superior a la de B.}
+
+	      \begin{enumerate}[label=\arabic*)]
+		      \item Extracción de datos muestrales:
+		            \begin{itemize}[label=\textbullet]
+			            \item \textbf{Combustible A:} $n_A=25,\bar{x}_A=51.4,S_A^2=3.9$
+			            \item \textbf{Combustible B:} $n_B=30,\bar{x}_B=51.5,S_B^2=3.6$
+		            \end{itemize}
+		      \item Formulación de la hipótesis:
+
+		            Queremos contrastar si la varianza de A es superior a la de B: \[
+			            \begin{array}{l}
+				            H_0:\sigma_A^2\le \sigma_B^2 \\
+				            H_1:\sigma_A^2>\sigma_B^2
+			            \end{array}
+		            \]
+		      \item Estadístico de prueba y distribución muestral:
+
+		            Bajo la suposición de que $H_0$ es cierta en su frontera $(\sigma_A^2=\sigma_B^2)$, el estadístico natural basado en los estimadores de las varianzas es el cociente de las varianzas muestrales, el cual sigue una distribución $F$ de Snedecor con $n_A-1$ y $n_B-1$ grados de libertad: \[
+			            F=\dfrac{S_A^2}{S_B^2}\sim F_{n_A-1,n_B-1}
+		            \]
+		      \item Cálculo del valor observado del estadístico:
+
+		            Sustituyendo los datos de la tabla: \[
+			            F_{obs}=\dfrac{3.9}{3.6}=1.0833
+		            \]
+		      \item Determinación de la región de rechazo $(S_1)$:
+
+		            Dado que la hipótesis alternativa postula un valor "mayor que" $(H_1:>)$, se trata de un contraste unilateral derecho. La región de rechazo estará formada por los valores en al cola superior de la distribución: \[
+			            S_1=\{(\mathbf{x}_A,\mathbf{x}_B)\mid F>\mathcal{F}_{n_A-1,n_B-1,1-\alpha}\}
+		            \]
+		            Sustituyendo los grados de libertad: \[
+			            S_1=\{(\mathbf{x}_A,\mathbf{x}_B)\mid F>\mathcal{F}_{24,29,1-\alpha}\}
+		            \]
+		      \item Regla de Decisión:
+
+		            Fijado un nivel de significación $\alpha$, la regla deductiva exacta será:
+		            \begin{itemize}[label=\textbullet]
+			            \item \textbf{Rechazar} $H_0$ si $1.0833>\mathcal{F}_{24,29,1-\alpha}$
+			            \item \textbf{Aceptar} $H_0$ si $1.0833<\mathcal{F}_{24,29,1-\alpha}$
+		            \end{itemize}
+	      \end{enumerate}
+	\item \lb{Sea $X$ una población con función de densidad gamma:  \[
+			      f(x;\theta)=\theta^2x \exp(-\theta x),
+		      \]con $x>0,\theta>0$. Se considera una muestra de tamaño  $n$ de  $X$.}
+	      \begin{enumerate}[label=\color{red}\textbf{\alph*)}]
+		      \item \db{Estudiar el modelo anterior tiene cociente de verosimilitudes monótono en algún estadístico.}
+		            \begin{enumerate}[label=\arabic*)]
+			            \item Verosimilitud de la muestra:
+
+			                  Dada la m.a.s. de tamaño $n$ para la densidad $f(x;\theta)=\theta^2x \exp \left( -\theta x \right)$, la función de verosimilitud conjunta es: \[
+				                  L(\mathbf{x};\theta)=\prod_{i=1}^{n} \theta^2x_i \exp(-\theta x_{i})=\theta^{2n}\left( \prod_{i=1}^{n} x_{i}  \right) \exp \left( -\theta \sum_{i=1}^{n} x_{i} \right)
+			                  \]
+			            \item Verificación del CVM:
+
+			                  Para dos valores del parámetro tales que $\theta_0<\theta_1$, calculamos el cociente de verosimilitudes:
+			                  \[
+				                  \dfrac{L(\mathbf{x};\theta_1)}{L(\mathbf{x};\theta_0)}=\dfrac{\theta_1^{2n}(\prod x_{i})\exp(-\theta_1\sum x_{i})}{\theta_0^{2n}(\prod x_{i})\exp(-\theta_0\sum x_{i})}=\left( \dfrac{\theta_1}{\theta_0} \right)^{2n}\exp \left( -(\theta_1-\theta_0)\sum_{i=1}^{n} x_{i} \right)
+			                  \]
+			                  Dado que $\theta_1>\theta_0$, el término $(\theta_1-\theta_0)$ es positivo. Por lo tanto, el exponente $-(\theta_1-\theta_0)\sum x_{i}$ es una función estrictamente \textbf{decreciente} respecto al estadístico $T(\mathbf{x})=\sum_{i=1}^{n} x_{i}$. Esto es matemáticamente equivalente a decir que el cociente es una función \textbf{creciente} (monótona) respecto al estadístico opuesto: \[
+				                  R(\mathbf{x})=-\sum_{i=1}^{n} x_{i}
+			                  \]
+			                  \textit{Alternativamente, usando la familia exponencial uniparamétrica:} \[
+				                  L(\mathbf{x};\theta)=\exp \left\{ -\theta\sum x_{i}+2n \ln\theta+ \ln \left( \prod x_{i} \right)  \right\}
+			                  \]
+			                  Aquí $A(\theta)=-\theta$. Como $A(\theta)$ es decreciente en $\theta$, el modelo tiene CVM en el estadístico $-T(\mathbf{x})=-\sum x_{i}$.
+		            \end{enumerate}
+		      \item \db{En caso afirmativo, obtener el test uniforme de máxima potencia y extensión $\alpha$ para el contraste $H_0:\theta=\theta_0$ frente a $H_1:\theta>\theta_0$.}
+
+		            \begin{enumerate}[label=\arabic*)]
+			            \item Región de rechazo:
+
+			                  Sabiendo que el modelo tiene CVM en $R(\mathbf{x})=-\sum x_{i}$, el teorema establece que el test UMP tiene una región de rechazo de la forma: \[
+				                  S_1=\{\mathbf{x}\mid R(\mathbf{x})\ge c'\} \implies - \sum_{i=1}^{n} x_{i}\ge c'\implies \sum_{i=1}^{n} \le c
+			                  \]
+			                  \textit{Rechazamos para valores pequeños de la suma muestral, o equivalentemente de la media muestral $\bar{X}\le c^*$}.
+			            \item Extesión $\alpha$:
+			                  La constante $c$ se determina imponiendo la condición de tamaño: \[
+				                  P_{I,\delta}(\theta_0)=P_{\theta_0}\left( \sum_{i=1}^{n} X_i\le c \right)=\alpha
+			                  \]
+		            \end{enumerate}
+		      \item \db{Si $n=20,\alpha=0.05,\theta_0=1$ y $\bar{X}=1.2$, ¿qué criterio de decisión se tomaría? Obtener el $p$-valor para dicha muestra.}
+
+		            \begin{enumerate}[label=\arabic*)]
+			            \item Momentos bajo $H_0$:
+
+			                  Si $\theta_0=1$, la distribución es una $Gamma(2, 1)$. Sus momentos teóricos son: \[
+				                  \mu=\dfrac{2}{\theta}=2\text{ y }\sigma^2=\dfrac{2}{\theta^2}=2
+			                  \]
+			            \item Tipificación del estadístico:
+
+			                  Usando el Teorema Central del Límite (para $n=20$), la distribución muestral de $\bar{X}$ se aproxima a $\mathcal{N}(\mu,\sigma^2 / n)=\mathcal{N}(2, 2 / 20)=\mathcal{N}(2,0.1)$.
+
+			                  El valor tipificado observado es: \[
+				                  z_{obs}=\dfrac{\bar{X}-\mu}{\sigma / \sqrt{n} }=\dfrac{1.2-2}{\sqrt{0.1} }=\dfrac{-0.8}{0.3162}\approx -2.53
+			                  \]
+			            \item Cálculo del $p$-valor:
+
+			                  Como la región de rechazo demostrada en \lb{(b)} se encuentra en la cola inferior $(\bar{X}\le c^*)$, el $p$-valor se calcula como: \[
+				                  p\text{-valor}=P(Z\le -2.53)=1-P(Z\ge 2.53)\approx 1-0.9943=0.0057
+			                  \]
+		            \end{enumerate}
+		      \item \db{Obtener el test de razón de verosimilitudes generalizado y extensión $\alpha$, para el contraste $H_0:\theta=2$ frente a la hipótesis $H_1:\theta\neq 2$.}
+		            \begin{enumerate}[label=\arabic*)]
+			            \item Estimador de Máxima Verosimilitud (EMV):
+
+			                  Para el denominador de RVG, necesitamos el supremo global. Derivando el log-verosimilitud: \[
+				                  \begin{array}{c}
+					                  \ln L(\mathbf{x};\theta)=2n \ln\theta-\theta \sum x_{i}+\ln \left( \prod x_{i} \right) \\
+					                  \frac{\partial \ln L}{\partial \theta} =\dfrac{2n}{\theta}-\sum x_{i}=0\implies\hat{\theta}=\dfrac{2n}{\sum x_{i}}=\dfrac{2}{\bar{x}}
+				                  \end{array}
+			                  \]
+			                  El supremo global es: $L(\mathbf{x},\hat{\theta})=\left( \dfrac{2}{\bar{x}} \right) ^2 \left( \prod x_{i} \right) \exp(-2n)$.
+			            \item RVG ($\lambda(\mathbf{x})$):
+
+			                  El numerador bajo $H_0$ es evaluando $\theta=2:\,L(\mathbf{x},2)=2^{2n}\left( \prod x_{i} \right) \exp \left( -2\sum x_{i} \right).$ \[
+				                  \lambda(\mathbf{x})=\dfrac{L(\mathbf{x};2)}{L(\mathbf{x};\hat{\theta})}=\dfrac{2^{2n}\exp(-2n\bar{x})}{\left( \frac{2}{\bar{x}}  \right) ^{2n}\exp(-2n)}=\bar{x}^{2n}\exp(-2n(\bar{x}-1))
+			                  \]
+			            \item Región de rechazo y extensión
+
+			                  El test rechaza si $\lambda(\mathbf{x})<k$. La constante $k$ se determina por: \[
+				                  P_{\theta=2}(\lambda(\mathbf{x})<k)=\alpha
+			                  \]
+		            \end{enumerate}
+	      \end{enumerate}
+	\item \lb{Sea $X$ una población con función de densidad  $$f(x;\theta)=\dfrac{2\theta}{1-\theta}x^{\frac{3\theta-1}{1-\theta} }\,0<x<1$$donde $\theta\in (0,1)$ es un parámetro desconocido. Sea $X_1,X_2,\dots,X_n$ una muestra aleatoria simple de $X$, se pide:}
+	      \begin{enumerate}[label=\color{red}\textbf{\alph*)}]
+		      \item \db{Obtener el test uniforme de máxima potencia y extensión $\alpha$ para el contraste $H_0:\theta=\theta_0$ frente a $H_1:\theta=\theta_1$, con $\theta_0>\theta_1$.}
+
+		            Por el Lema de Neyman-Pearson, la región de rechazo de máxima potencia es: \[
+			            S_1=\left\{ \mathbf{x}\bigg| \dfrac{L(\mathbf{x},\theta_1)}{L(\mathbf{x},\theta_0)} \ge k\right\}
+		            \]
+		            Sustituyendo verosimilitudes: \[
+			            \exp \left( [A(\theta_1)-A(\theta_0)]\sum_{i=1}^{n} \log(x_{i}) \right) \ge k'
+		            \]
+		            Como $\theta_1<\theta_0$ y $A(\theta)$ es creciente, $A(\theta_1)-A(\theta_0)<0$. Al aplicar logaritmos y despejar, la desigualdad se invierte: \[
+			            S_1=\left\{ \mathbf{x}\bigg| \sum_{i=1}^{n} \log(x_{i})\le c \right\}
+		            \]
+		            Donde $c$ se determina imponiendo la extensión $\alpha:\, P_{\theta_0}\left( \sum \log(X_i)\le c \right)=\alpha$.
+		      \item \db{Si $n=20, \alpha=0.05,\theta_0=\dfrac{1}{2}$ y $\sum_{i=1}^{20} \log(x_i)=-6.21$, obtener el $p$-valor para dicha muestra. ¿Qué criterio de decisión se tomaría?}
+
+		            Para $\theta_0=\dfrac{1}{2}$, la densidad es $f(x;1 / 2)=2x$.
+
+		            Haciendo la transformación $Y=-\log(X)$, se obtiene que $Y\sim Exp(\lambda=2)$.
+
+		            El estadístico $W=-\sum_{i=1}^{20}\log(X_i)=\sum_{i=1}^{20} Y_i$ sigue una distribución $Gamma(20,2)$, por lo que $2W\sim \chi_{40}^2$.
+		            \begin{enumerate}[label=\arabic*)]
+			            \item \textbf{Valor observado:} $\sum \log(x_{i})=-6.21\implies W_{obs}=6.21 \implies 2W_{obs}=12.42$.
+			            \item \textbf{$p$-valor:} Como la región de rechazo es $\sum \log(x_{i})\le c$ (equivalentemente $2W\ge c'$), el $p$-valor es la probabilidad de observar un valor máx extremo hacia la región de rechazo: \[
+				                  p\text{-valor}=P_{H_0}\left( \sum \log(X_i)\le -6.21 \right) =P(\chi_{40}^2\ge 12.42)
+			                  \]
+			            \item \textbf{Decisión:} En una $\chi_{40}^2$, la media es 40. Un valor de 12.42 deja casi toda el área a su derecha $(p\approx 0.999)$. Al ser $p$-valor $>\alpha$, \textbf{se acepta $H_0$}.
+
+		            \end{enumerate}
+		      \item \db{Si para el contraste anterior, $\theta_0=\dfrac{1}{2},\theta_1=\dfrac{1}{4}$ y las probabilidades de error de primer y segundo tipo son iguales a 0.05, obtener el tamaño muestral y la región crítica de dicho test.}
+
+		            Bajo $H_0(\theta_0=1 / 2)$, demostramos que $2W\sim \chi_{2n}^2$.
+
+		            Bajo $H_1(\theta_1=1 / 4)$, la densidad de $f(x;1 / 4)=\dfrac{2}{3}x^{-\frac{1}{3} }$. Haciendo $Y=-\log(X),Y\sim Exp(\lambda=2 / 3)$. Por tanto, $\dfrac{4}{3}W\sim \chi_{2n}^2$.
+
+		            Con las probabilidades de error $\alpha$ y $\beta$ definimos el sistema de ecuaciones para el límite $c^*$ del estadístico $W$:
+		            \begin{enumerate}[label=\arabic*)]
+			            \item $P_{H_0}(W\ge c^*)=0.05\implies P(\chi_{2n}^2\ge 2c^*)=0.05\implies 2c^*=\chi_{2n,0.05}^2$
+			            \item $P_{H_1}(W<c^*)=0.05\implies P_{H_1}(W\ge c^*)=0.95\implies P\left(\chi_{2n}^2\ge \dfrac{4}{3}c^*\right)=0.95\implies \dfrac{4}{3}c^*=\chi_{2n,0.95}^2$
+		            \end{enumerate}
+		            El tamaño muestral $n$ obtiene resolviendo la relación entre los cuantiles:  \[
+			            \dfrac{\chi_{2n,0.05}^2}{\chi_{2n,0.95}^2}=\dfrac{2c^*}{\frac{4}{3} c^*}=1.5
+		            \]
+		            Una vez hallado $n$, la región crítica exacta queda como $S_1=\left\{\mathbf{x}\bigg| -\sum \log(x_{i})\ge \dfrac{1}{2}\chi_{2n,0.05}^2\right\} $
+		      \item \db{Obtener el test uniforme de máxima potencia y extensión $\alpha$ para el contraste $H_0:\theta=\theta_0$ frente a $H_1:\theta<\theta_0$.}
+
+		            Puesto que el modelo posee Cociente de Verosimilitud Monótono en $T(\mathbf{x})=\sum \log(x_{i})$, el test uniforme de máxima potencia para alternativas unilaterales mantiene exactamente la misma estructura que en el apartado \lb{(a)}: \[
+			            S_1=\left\{ \mathbf{x}\bigg| \sum_{i=1}^{n} \log(x_{i})\le c\right\}
+		            \]
+		            Con extensión $\alpha=P_{\theta_0}\left( \sum \log(X_i)\le c \right)$.
+		      \item \db{¿Se puede extender el contraste anterior $H_0:\theta\ge \theta_0$ frente a $H_1:\theta<\theta_0$?}
+
+		            \textbf{Sí, se puede extender.} La construcción fundamentada en el CVM "se extiende al contraste $H_0:\theta\ge \theta_0$ frente a $H_1:\theta<\theta_0$". El estadístico, la región de rechazo y la obtención de la constante de extensión $\alpha$ calculada en el límite $(\theta=\theta_0)$ permanecen idénticos.
+	      \end{enumerate}
+	\item \lb{Sea $X$ una población con función de densidad  $$f(x;\theta)=\dfrac{1}{\theta(1-x)^2}\exp\left( -\dfrac{x}{\theta(1-x)} \right)\chi_{(0,1)}(x),$$ donde $\theta$ es un parámetro desconocido estrictamente positivo. Sea  $X_1,\dots,X_n$ una muestra aleatoria simple de $X$.}
+	      \begin{enumerate}[label=\color{red}\textbf{\alph*)}]
+		      \item \db{Estudiar si $X$ tiene un cociente de verosimilitud monótono en algún estadístico.}
+		            \begin{enumerate}[label=\arabic*)]
+			            \item Verosimilitud de la muestra:
+
+			                  Dada una muestra aleatoria simple de tamaño $n$, la función de verosimilitud conjunta es:  \[
+				                  \begin{array}{c}
+					                  L(\mathbf{x},\theta)=\prod_{i=1}^{n} \dfrac{1}{\theta(1-x_{i})^2}\exp \left( -\dfrac{x_{i}}{\theta(1-x_{i})} \right) \\
+					                  L(\mathbf{x};\theta)=\theta^{-n}\left( \prod_{i=1}^{n} \dfrac{1}{(1-x_{i})^2}  \right) \exp\left( -\dfrac{1}{\theta}\sum_{i=1}^{n} \dfrac{x_{i}}{1-x_{i}} \right)
+				                  \end{array}
+			                  \]
+			            \item Pertenencia a la familia exponencial:
+
+			                  Reescribimos la función para identificar si pertenece a la familia exponencial uniparamétrica: \[
+				                  L(\mathbf{x};\theta)=\exp\left\{ -\dfrac{1}{\theta}\sum_{i=1}^{n} \dfrac{x_{i}}{1-x_{i}}-n\ln(\theta)-2 \sum_{i=1}^{n} \ln(1-x_{i}) \right\}
+			                  \]
+			                  Esta expresión tiene la forma $L(\mathbf{x};\theta)=\exp \{A(\theta)T(\mathbf{x})+B(\theta)+h(\mathbf{x})\} $, donde:
+			                  \begin{itemize}[label=\textbullet]
+				                  \item $A(\theta)=-\dfrac{1}{\theta}$
+				                  \item $T(\mathbf{x})=\sum_{i=1}^{n} \dfrac{x_{i}}{1-x_{i}}$
+			                  \end{itemize}
+			            \item Condición de Monotonía:
+
+			                  Calculamos la derivada de $A(\theta)$:  \[
+				                  A'(\theta)=\dfrac{1}{\theta^2}>0\text{ para todo }\theta>0
+			                  \]
+			                  Dado que $A(\theta)$ es una función estrictamente creciente, la variable  $X$ tiene un  \textbf{Cociente de Verosimilitud Monótono} en el estadístico $T(\mathbf{x})=\sum_{i=1}^{n} \dfrac{x_{i}}{1-x_{i}}$.
+		            \end{enumerate}
+		      \item \db{Si $X$ tiene un cociente de verosimilitud monótono, obtener el test uniforme de máxima potencia y extensión  $\alpha$, para el contraste $H_0:\theta>\theta_0$ frente a la hipótesis $H_1:\theta<\theta_0$.}
+
+		            Para constrastar $H_0:\theta\ge \theta_0$ frente a $H_1:\theta<\theta_0$:
+
+		            Al cumplirse que el modelo tiene CVM en el estadístico $T(\mathbf{x})=\sum \dfrac{x_{i}}{1-x_{i}}$, el teorema establece que para la alternativa menor $(<)$, el test UMP tiene una región de rechazo de la forma:  \[
+			            S_1=\left\{ \mathbf{x}\in \mathrm{Sop}(X)\bigg| T(\mathbf{x})=\sum_{i=1}^{n} \dfrac{x_{i}}{1-x_{i}}\le c \right\}
+		            \]
+		            La constante $c$ queda unívocamente determinada al imponer la condición de que la expresión sea  $\alpha$ evaluada en el límite $\theta=\theta_0$: \[
+			            P_{I,\delta}(\theta_0)=P_{\theta_0}\left( \sum_{i=1}^{n} \dfrac{X_i}{1-X_i}\le c \right) =\alpha
+		            \]
+		      \item \db{Si consideramos una muestra de tamaño $n=25$ y  $\theta_0=0.2,\alpha=0.05$ y $\sum_{i=1}^{25} \dfrac{x_i}{1-x_i}=6.23$, obtener el $p$-valor de dicha muestra. Explicar de dos formas diferentesqué criterio de decisión se tomaría en este caso.}
+
+		            para obtener la distribución del estadístico $T(\mathbf{X})$, analizamos la variable transformada $Y_i=\dfrac{X_i}{1-X_i}$. Aplicando el teorema de cambio de variable, se demuestra que $Y_i\sim Exp(\theta)$. Consecuentemente, la suma de exponenciales independientes da lugar a una distribución Gamma, y tras el oportuno escalado: \[
+			            \dfrac{2}{\theta}\sum_{i=1}^{n} \dfrac{X_i}{1-X_i}\sim \chi_{2n}^2
+		            \]
+		            \begin{enumerate}[label=\arabic*)]
+			            \item Evaluación bajo $H_0$:
+
+			                  Sustituimos $n=25$ y  $\theta_0=0.2$: \[
+				                  \dfrac{2}{0.2}T=10\cdot T\sim \chi_{50}^2
+			                  \]
+			            \item Valor observado y $p$-valor:
+
+			                  Dado  $T_{obs}=6.23$, el valor estadístico tipificado es $10\cdot 6.23=62.3$.
+
+			                  Como la región de rechazo demostrada en el apartado  \lb{(b)} está en la cola inferior $(T\le c)$, el $p$-valor se calcula como el área a la izquierda del valor observado:  \[
+				                  p \text{-valor}=P(\chi_{50}^2\le 62.3)>0.5
+			                  \]
+			            \item Dos criterios de decisión:
+			                  \begin{itemize}[label=\textbullet]
+				                  \item \textbf{Criterio 1 (Vía $p$-valor):} Dado que el $p$-valor  $>0.5$ es estrictamente mayor que el nivel de significación  $\alpha=0.05$, la decisión es \textbf{aceptar la hipótesis nula $H_0$}.
+				                  \item \textbf{Criterio 2 (Vía Región Crítica):} La frontera de la región crítica se obtiene buscando el cuantil $\chi_{50,0.05}^2$ (que deja un 5\% a su izquierda). Rechazaríamos $H_0$ si $10\cdot T_{obs}\le \chi_{50,0.05}^2$. Como $62.3$ no es menor que el valor crítico de la cola inferior, el estadístico no cae en  $S_1$, decidiendo  \textbf{aceptar $H_0$.}
+			                  \end{itemize}
+		            \end{enumerate}
+		      \item \db{Utilizando el test de la razón de verosimilitudes generalizado, obtener la región crítica del contraste $H_0:\theta=\dfrac{1}{2}$ frente a la hipótesis $H_1:\theta\neq \dfrac{1}{2}$.}
+
+		            Para constrastar $H_0:\theta=\dfrac{1}{2}$ frente a $H_1:\theta\neq \dfrac{1}{2}$.
+
+		            \begin{enumerate}[label=\arabic*)]
+			            \item Estimador de Máxima Verosimilitud (EMV):
+
+			                  Para el denominador de $\lambda(\mathbf{x})$, hallamos el supremo maximizando $\ln L(\mathbf{x};\theta)$: \[
+				                  \frac{\partial \ln L}{\partial \theta} =-\dfrac{n}{\theta}+\dfrac{1}{\theta^2}T(\mathbf{x})=0\implies \hat{\theta}_{EMV}=\dfrac{T(\mathbf{x})}{n}
+			                  \]
+			            \item Construcción del estadístico $\lambda(\mathbf{x})$:
+
+			                  Sustituyendo $\theta=\dfrac{1}{2}$ (numerador) y $\theta=\dfrac{T}{n}$ (denominador) en la función de verosimilitud: \[
+				                  \lambda(\mathbf{x})=\dfrac{L(\mathbf{x};1 / 2)}{L(\mathbf{x};T /n)}=\dfrac{2^n\exp(-2T)}{(n / T)^n\exp(-n)}=\left( \dfrac{2T}{n} \right) ^{n}\exp(n-2T)
+			                  \]
+			            \item Región Crítica $(S_1)$:
+
+			                  El test RVG rechza $H_0$ cuando $\lambda(\mathbf{x})<k$: \[
+				                  S_1=\left\{ \mathbf{x}\in \mathrm{Sop}(\mathbf{X})\bigg|\left( \dfrac{2T(\mathbf{x})}{n} \right) ^n\exp(n-2T(\mathbf{x})) <k\right\}
+			                  \]
+			                  Al estudiar la función $g(T)=\left(\dfrac{2T}{n}\right)^n\exp(n-2T)$, observamos que alcanza su máximo en $T=\dfrac{n}{2}$ y decrece al alejarse de este valor central. Por tanto, la desigualdad $g(T)<k$ se traduce en dos colas para el estadístico suficiente. La región crítica resultante es de la forma:  \[
+				                  S_1=\left\{ \mathbf{x}\bigg| \sum_{i=1}^{n} \dfrac{x_{i}}{1-x_{i}}<c_1 \cup \sum_{i=1}^{n} \dfrac{x_{i}}{1-x_{i}}>c_2 \right\}
+			                  \]
+			                  \textit{(Donde $c_1$ y $c_2$ garantizan la extensión $\alpha$ exigida al test).}
+		            \end{enumerate}
+	      \end{enumerate}
+	\item \lb{Sea $X$ una población con función de densidad:  $$f(x;\theta)=\dfrac{\theta}{(1+x)^{\theta+1}}\chi_{(0,\infty)}(x),$$ con $\theta>0$. Se considera una muestra aleatoria simple de $X$ de tamaño $n$.}
+	      \begin{enumerate}[label=\color{red}\textbf{\alph*)}]
+		      \item \db{Obtener el test de máxima potencia y extensión $\alpha$ para el contraste $H_0:\theta=\theta_0$ frente a la hipótesis $H_1:\theta=\theta_1$ con $\theta_0<\theta_1$.}
+
+		            Por el Lema de Neyman-Pearson, el test de región de rechazo de máxima potencia es: \[
+			            S_1=\left\{ \mathbf{x}\bigg|\dfrac{L(\mathbf{x},\theta_1)}{L(\mathbf{x},\theta_0)}\ge k \right\}
+		            \]
+		            Sustituimos la verosimilitud en el cociente: \[
+			            \dfrac{\theta_1^n\exp(-(\theta_1+1)T(\mathbf{x}))}{\theta_0^n\exp(-(\theta_0+1)T(\mathbf{x}))}=\left( \dfrac{\theta_1}{\theta_0} \right)^n\exp(-(\theta_1-\theta_0)T(\mathbf{x}))\ge k
+		            \]
+		            Tomando logaritmos y operando: \[
+			            n\ln\left( \dfrac{\theta_1}{\theta_0} \right) -(\theta_1-\theta_0)T(\mathbf{x})\ge \ln(k)
+		            \]
+		            Dado que la condición del enunciado establece $\theta_0<\theta_1$, el término $(\theta_1-\theta_0)$ es positivo. Al despejar $T(\mathbf{x})$, el signo de la inecuación se invierte: \[
+			            T(\mathbf{x})\le \dfrac{n\ln(\theta_1 / \theta_0)-\ln(k)}{\theta_1-\theta_0}=c
+		            \]
+		            Por tanto, la región crítica queda expresada matemáticamente como: \[
+			            S_1=\left\{ \mathbf{x}\bigg|\sum_{i=1}^{n} \ln(1+x_{i})\le c \right\}
+		            \]
+		            Con extensión $\alpha:\,P_{\theta_0}\left( \sum_{i=1}^{n} \ln(1+X_i)\le c \right)=\alpha$.
+		      \item \db{Si $\alpha=0.05$ y la probabilidad del error de tipo $II$ es  $0.2$, obtener el diseño del test.}
+
+		            Para calcular las probabilidades, necesitamos la distribución de $T$. Efectuando el cambio de variable  $Y_i=\ln(1+X_i)$, se demuestra analíticamente que $Y_i\sim Exp(\theta)$. Por propiedad de adición de exponenciales, la suma $T=\sum Y_i\sim \mathrm{Gamma}(n,\theta)$, lo que implica que la variable escaladasigue una chi-cuadrado: \[
+			            2\theta T\sim \chi_{2n}^2
+		            \]
+		            Se plantean dos ecuaciones para determinar el diseño (tamaño muestral $n$ y frontera  $c$):
+		            \begin{enumerate}[label=\arabic*)]
+			            \item \textbf{Error tipo I ($\alpha=0.05$):} $P_{\theta_0}(T\le c)=0.05\implies P(2\theta_0T\le 2\theta_0c)=0.05$. \[
+				                  2\theta_0c=\chi_{2n,0.95}^2\text{ (cuantil inferior 5\%)}
+			                  \]
+			            \item \textbf{Error tipo II ($\beta=0.2$):} $P_{\theta_1}(T>c)=0.2\implies P_{\theta_1}(T\le c)=0.8\implies P(2\theta_1 T\le 2\theta_1c)=0.8$. \[
+				                  2\theta_1c=\chi_{2n,0.20}^2\text{ (cuantil inferior 80\%) }
+			                  \]
+		            \end{enumerate}
+		            El diseño se obtiene resolviendo el sistema. Dividiendo ambas ecuaciones, se despeja $n$ independiente de $c$:  \[
+			            \dfrac{\chi_{2n,0.20}^2}{\chi_{2n,0.95}^2}=\dfrac{\theta_1}{\theta_0}
+		            \]
+		      \item \db{Obtener el test uniforme de máxima potencia y extensión $\alpha$, para el contraste $H_{0}:\theta\ge \theta_0$ frente a $H_1:\theta<\theta_0$.}
+
+		            Reescribiendo la verosimilitud como $L(\theta)\propto \exp \{A(\theta)T(\mathbf{x})\}$, tenemos que $A(\theta)=-(\theta+1)$.
+
+		            La derivada $A'(\theta)=-1<0$ indica que $A(\theta)$ es estrictamente decreciente. Por tanto, la familia posee Cociente de Verosimilitud Monótono (CVM) inverso respecto al estadístico $T(\mathbf{x})$, o directo respecto a $-T(\mathbf{x})$.
+
+		            Para la alternativa $H_1:\theta<\theta_0$, el teorema de CVM estipula que la región de rechazo se opone al comportamiento de la función $A(\theta)$. Puesto que al derivada es negativa, el test rechaza para valores \textbf{grandes} del estadístico: \[
+			            S_1=\left\{ \mathbf{x}\bigg| \sum_{i=1}^{n} \ln(1+x_{i})\ge c \right\}
+		            \]
+		            Con extensión impuesta en la frontera: $P_{\theta_0}\left( \sum_{i=1}^{n} \ln(1+X_i)\ge c \right)=\alpha$.
+		      \item \db{Si consideramos una muestra de tamaño $n=20$ y $\theta_0=2,\alpha=0.05$ y $\sum_{i=1}^{20} \ln(1+x_i)=37.3$, obtener el $p$-valor de dicha muestra. Explicar de dos formas diferentes qué criterio de decisión se tomaría en este caso.}
+
+		            Aplicamos el test del apartado \lb{(c)} $(H_0:\theta\ge 2\text{ frente a }H_1:\theta<2)$. Rechazamos si $T\ge c$.
+
+		            Bajo la frontera nula $\theta_0=2$, sabemos que: \[
+			            2\theta_0T\sim \chi_{2n}^2\implies 4T\sim \chi_{40}^2
+		            \]
+		            \begin{enumerate}[label=\arabic*)]
+			            \item Valor observado tipificado: \[
+				                  4\cdot T_{obs}=4\cdot 37.3=149.2
+			                  \]
+			            \item Cálculo del $p$-valor:
+
+			                  Dado que la región de rechazo está en la cola superior: \[
+				                  p\text{-valor}=P_{\theta=2}(T\ge 37.3)=P(\chi_{40}^2\ge 149.2)
+			                  \]
+			                  \textit{(Sabiendo que la media de una $\chi_{40}^2$ es 40, el valor 149.2 está extremandamente alejado en la cola derecha, por lo que $p$-valor $\approx 0$).}
+			            \item Dos criterio de decisión:
+			                  \begin{itemize}[label=\textbullet]
+				                  \item \textbf{Via $p$-valor:} Como $p$-valor $\approx 0<\alpha=0.05$, existe evidencia abrumadora para \textbf{rechazar la hipótesis nula $H_0$} en favor de la alternativa.
+				                  \item \textbf{Via Región Crítica:} Calculamos la región de rechazo buscando el cuantil superior $\chi_{40,0.05}^2$ (aproximadamente $55.76$). Puesto que el estadístico $149.2\ge 55.76$, cae plenamente dentro de la región de rechazo $S_1$, decidiendo \textbf{rechazar $H_0$}.
+			                  \end{itemize}
+		            \end{enumerate}
+	      \end{enumerate}
+	\item \lb{Sea $X\sim N(\mu,\sigma^2)$ con $\mu$ conocida y $\sigma^2\in \Theta=\R^+$. Dada una m.a.s. de tamaño $n$, obtener el test de máxima potencia y extensión  $\alpha$ para el test (contraste) $H_0:\sigma^2=\sigma_0^2$ frente a $H_1:\sigma^2:\sigma_1^2$, con $(\delta_1^2>\sigma_0^2)$.}
+
+	      \begin{enumerate}[label=\arabic*)]
+		      \item Función de verosimilitud:
+
+		            Dado que $X\sim \mathcal{N}(\mu,\sigma^2)$ con $\mu$ conocida, la función de verosimilitud para una muestra aleatoria simple de tamaño $n$ es: \[
+			            L(\mathbf{x};\sigma^2)=\prod_{i=1}^{n} \dfrac{1}{\sqrt{2\pi\sigma^2} }\exp \left( -\dfrac{(x_{i}-\mu)^2}{2\sigma^2} \right) =(2\pi\sigma^2)^{-n / 2}\exp \left( -\dfrac{1}{2\sigma^2} \sum_{i=1}^{n} (x_{i}-\mu)^2\right)
+		            \]
+		      \item Cociente de Neyman-Pearson:
+
+		            El lema establece que la región de rechazo $S_1$ del test de máxima potencia cumple la condición: \[
+			            \dfrac{L(\mathbf{x};\sigma_1^2)}{L(\mathbf{x};\sigma_0^2)}\ge k
+		            \]
+		            Sustituyendo las verosimilitudes: \[
+			            \dfrac{(2\pi\sigma_1^2)^{-n / 2}\exp \left( -\frac{1}{2\sigma_1^2} \sum_{i=1}^{n} (x_{i}-\mu)^2 \right) }{(2\pi\sigma_0^2)^{-n / 2}\exp \left( -\frac{1}{2\sigma_0^2}\sum_{i=1}^{n} (x_{i}-\mu)^2  \right) }\ge k
+		            \]
+		            Simplificando los términos constantes: \[
+			            \left( \dfrac{\sigma_0^2}{\sigma_1^2} \right) ^{n / 2}\exp \left( -\dfrac{1}{2}\left( \dfrac{1}{\sigma_1^2}-\dfrac{1}{\sigma_0^2} \right) \sum_{i=1}^{n} (x_{i}-\mu)^2 \right) \ge k
+		            \]
+		      \item Aislamiento del estadístico:
+
+		            Tomamos logaritmos neperianos a ambos lados de la desigualdad para despejar el estadístico de los datos: \[
+			            \dfrac{n}{2} \ln \left( \dfrac{\sigma_0^2}{\sigma_1^2} \right) -\dfrac{1}{2}\left( \dfrac{1}{\sigma_1^2}-\dfrac{1}{\sigma_0^2} \right) \sum_{i=1}^{n} (x_{i}-\mu)^2\ge \ln(k)
+		            \]
+		            Operamos la fracción dentro del paréntesis: \[
+			            \begin{array}{c}
+				            -\dfrac{1}{2}\left( \dfrac{\sigma_0^2-\sigma_1^2}{\sigma_1^2\sigma_0^2} \right) \sum_{i=1}^{n} (x_{i}-\mu)^2\ge \ln(k)-\dfrac{n}{2}\ln \left( \dfrac{\sigma_0^2}{\sigma_1^2} \right) \\
+				            \left( \dfrac{\sigma_1^2-\sigma_0^2}{2\sigma_1^2\sigma_0^2} \right) \sum_{i=1}^{n} (x_{i}-\mu)^2\ge k'
+			            \end{array}
+		            \]
+		            Dado que en la hipótesis alternativa $\sigma_1^2>\sigma_0^2$, el factor multiplicativo $\left( \dfrac{\sigma_1^2-\sigma_0^2}{2\sigma_1^2\sigma_0^2} \right)$ es estrictamente positivo. Al dividir por él, la inecuación mantiene su sentido original, definiendo la región de rechazo de la forma: \[
+			            S_1=\left\{ \mathbf{x}\bigg| \sum_{i=1}^{n} (x_{i}-\mu)^2\ge c \right\}
+		            \]
+		      \item Determinación de la constante $c$ (Extensión $\alpha$):
+
+		            Para que el test tenga extensión $\alpha$, debe cumplirse que la probabilidad de error de tipo I sea igual a $\alpha$: \[
+			            P_{\sigma_0^2}\left( \sum_{i=1}^{n} (X_i-\mu)^2\ge c \right) =\alpha
+		            \]
+		            Sabiendo que, bajo la hipótesis nula $H_0$, la variable tipificada sigue una distribución ji-cuadrado con $n$ grados de libertad: \[
+			            \dfrac{\sum_{i=1}^{n} (X_i-\mu)^2}{\sigma_0^2}\sim \chi_n^2
+		            \]
+		            Dividimos ambos lados de la desigualdad de la probabilidad por $\sigma_0^2$: \[
+			            P \left( \dfrac{\sum_{i=1}^{n} (X_i-\mu)^2}{\sigma_0^2}\ge \dfrac{c}{\sigma_0^2} \right) =\alpha\implies P \left( \chi_n^2\ge \dfrac{c}{\sigma_0^2} \right)=\alpha
+		            \]
+		            Por lo tanto, el valor $\dfrac{c}{\sigma_0^2}$ se corresponde con el cuantil superior de la distribución $\chi_n^2$ que deja una probabilidad $\alpha$ a su derecha (denotado como $\chi_{n,\alpha}^2$): \[
+			            \dfrac{c}{\sigma_0^2}=\chi_{n,\alpha}^2\implies c=\sigma_0^2\cdot \chi_{n,\alpha}^2
+		            \]
+	      \end{enumerate}
+	      \textbf{Conclusión final:}
+
+	      El test de máxima potencia y extensión $\alpha$ queda definido por la región de rechazo:
+	      \begin{center}
+		      \textbf{Rechazar $H_0$ si $\sum_{i=1}^{n} (x_{i}-\mu^2)\ge \sigma_0^2\cdot \chi_{n,\alpha}^2$}.
+	      \end{center}
 \end{enumerate}

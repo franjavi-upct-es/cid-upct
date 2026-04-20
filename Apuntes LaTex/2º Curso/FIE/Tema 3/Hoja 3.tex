@@ -1,38 +1,312 @@
 \begin{center}
-    \Large \textbf{Hoja 3: Intervalos de confianza} 
+	\Large \textbf{Hoja 3: Intervalos de confianza}
 \end{center}
 
 \begin{enumerate}[label=\color{red}\textbf{\arabic*)}]
-    \item \lb{Sea $X\sim N(\mu,\sigma^2)$ y se considera una m.a.s. de tamaño de $X$.}
-        \begin{enumerate}[label=\color{red}\textbf{\alph*)}]
-            \item \db{Suponiendo $\sigma^2$ conocida obtener un intervalo de confianza para $\mu$ con nivel de confianza $1-\alpha$. Determinar el tamaño de muestra necesario para estimar $\mu$ con una precisión $\pm\delta$.}
-            \item \db{Suponiendo $\sigma^2$ desconocida, obtener un intervalo de confianza óptimo para $\mu$ con nivel de confianza $1-\alpha$. Determinar el tamaño de muestra necesario para estimar $\mu$ con una precisión $\pm\delta$.} 
-        \end{enumerate}
-    \item \lb{Sea $X\sim N(\mu_1,\sigma_1^2)$ e $Y\sim N(\mu_2,\sigma_{2}^2)$ independientes. Se considera una m.a.s. de tamaño $n_1$ de $X$ y una m.a.s. de tamaño $n_2$ de $Y$.}
-        \begin{enumerate}[label=\color{red}\textbf{\alph*)}]
-            \item \db{Suponiendo $\sigma_1^2$ y $\sigma_2^2$ conocidas obtener un intervalo de confianza para $\mu_1-\mu_2$ con nivel de confianza $1-\alpha$.}
-            \item \db{Suponiendo $\sigma_1^2$ y $\sigma_2^2$ desconocidas pero iguales, obtener un intervalo de confianza para $\mu_1-\mu_2$ con nivel de confianza $1-\alpha$.}
-        \end{enumerate}
-    \item \lb{Sea $X\sim N(\mu,\sigma^2)$. Se considera una muestra aleatoria simple de tamaño $n$ de $X$. Suponiendo  $\mu$ desconocida obtener un intervalo de confianza para $\sigma^2$ con nivel de confianza $1-\alpha$.}
-    \item \lb{Sea $X$ una población con función de densidad $$f(x,\theta)=\dfrac{2x}{\theta^2}\text{ para }x\in (0,\theta),$$ siendo $\theta$ un parámetro positivo desconocido. Se considera una muestra aleatoria simple de tamaño $n$ de $X$. Obtener el intervalo de confianza óptima para  $\theta$ con nivel de confianza $1-\alpha$.}
-    \item \lb{Sea $X$ una población con función de densidad $$f(x,\theta)=\exp(-(x-\theta)),\text{ para }x\in (\theta,+\infty),$$ siendo $\theta$ un parámetro positivo desconocido. Se considera una muestra aleatoria simple de tamaño $n$ de $X$. Obtener el intervalo de confianza óptima para  $\theta$ con nivel de confianza $1-\alpha$.}
-    \item \lb{En un laboratorio, se estudia la velocidad de combustión de dos tipos de combustibles sólidos A y B. Se pretende determinar qué combustibles presentan una velocidad de combustión en promedio mayor de 50 cm/s. Los resultados obtenidos fueron:}
+	\item \lb{Sea $X\sim N(\mu,\sigma^2)$ y se considera una m.a.s. de tamaño de $X$.}
+	      \begin{enumerate}[label=\color{red}\textbf{\alph*)}]
+		      \item \db{Suponiendo $\sigma^2$ conocida obtener un intervalo de confianza para $\mu$ con nivel de confianza $1-\alpha$. Determinar el tamaño de muestra necesario para estimar $\mu$ con una precisión $\pm\delta$.}
+		            \begin{enumerate}[label=\arabic*)]
+			            \item Construcción del Intervalo de Confianza
 
-        {
-            \color{lightblue}
-            \begin{center}
-                \begin{tabular}{cccc}
-                    \hline
-                    Combustible & Tamaño muestral & Media muestral & Varianza muestral \\ \hline
-                    A & 25 & 51.3 & 3.9\\
-                    B & 30 & 51.5 & 3.6\\ \hline
-                \end{tabular}
-            \end{center}
-        }
+			                  Partimos de una muestra aleatoria simple de $X\sim \mathcal{N}(\mu,\sigma^2)$ con $\sigma$ conocida.
 
-        \lb{Suponiendo que la distribución de las variables es normal, se pide:}
-        \begin{enumerate}[label=\color{red}\textbf{\alph*)}]
-            \item \db{Obtener un intervalo de confianza al 95\% para la velocidad esperada para el combustible A y otro para el combustible B.} 
-            \item \db{Obtener un intervalo de confianza al 95\% para la varianza de la velocidad de combustión del combustible A y la velocidad esperada para el combustible B.} 
-        \end{enumerate}
+			                  El estadístico pivotal a utilizar es: \[
+				                  T=\dfrac{\bar{X}-\mu}{\sigma / \sqrt{n} }\sim \mathcal{N}(0,1)
+			                  \]
+			                  Fijamos el nivel de confianza $1-\alpha$ y escogemos las cotas centrales en la distribución normal estándar: \[
+				                  \mathbb{P}\left[ -z_{1-\alpha / 2}\le \dfrac{\bar{X}-\mu}{\sigma /\sqrt{n} } \le z_{1-\alpha / 2} \right]=1-\alpha
+			                  \]
+			                  Dejamos el parámetro $\mu$: \[
+				                  \mathbb{P}\left[ -z_{1-\alpha / 2} \dfrac{\sigma}{\sqrt{n}}\le \bar{X}-\mu\le z_{1-\alpha / 2} \dfrac{\sigma}{\sqrt{n} } \right] =1-\alpha
+			                  \]
+			                  Multiplicando por $-1$ e invirtiendo las desigualdades: \[
+				                  \mathbb{P}\left[ \bar{X}-z_{1-\alpha / 2} \dfrac{\sigma}{\sqrt{n} }\le \mu\le \bar{X}+z_{1-\alpha / 2} \dfrac{\sigma}{\sqrt{n} }\right] =1-\alpha
+			                  \]
+			                  El intervalo de confianza al $100(1-\alpha)\%$ es: \[
+				                  IC_{1-\alpha}(\mu)=\left( \bar{X}-z_{1-\alpha / 2} \dfrac{\sigma}{\sqrt{n} }, \bar{X}+z_{1-\alpha / 2} \dfrac{\sigma}{\sqrt{n} }\right)
+			                  \]
+			            \item Determinación del tamaño de muestra $(n)$ para precisión $\delta$
+
+			                  El margen de error (o precisión) del intervalo es el término $z_{1-\alpha / 2} \dfrac{\sigma}{\sqrt{n} }$.
+
+			                  Establecemos la inecuación donde el margen de error debe ser menor o igual a la precisión máxima $\delta$: \[
+				                  z_{1-\alpha / 2} \dfrac{\sigma}{\sqrt{n} }\le \delta
+			                  \]
+			                  Despejamos $n$: \[
+				                  \begin{array}{c}
+					                  \sqrt{n}\ge \dfrac{z_{1-\alpha / 2}\sigma}{\delta} \\
+					                  n\ge \left( \dfrac{z_{1-\alpha / 2}\sigma}{\delta} \right)^2
+				                  \end{array}
+			                  \]
+		            \end{enumerate}
+		      \item \db{Suponiendo $\sigma^2$ desconocida, obtener un intervalo de confianza óptimo para $\mu$ con nivel de confianza $1-\alpha$. Determinar el tamaño de muestra necesario para estimar $\mu$ con una precisión $\pm\delta$.}
+		            \begin{enumerate}[label=\arabic*)]
+			            \item Construcción del Intervalo de Confianza
+
+			                  Para $X\sim \mathcal{N}(\mu,\sigma^2)$ estimamos $\mu$ con $\sigma^2$ desconocida.
+
+			                  El estadístico pivotal cambia, utilizando la desviación típica muestral $S$: \[
+				                  T=\dfrac{\bar{X}-\mu}{S / \sqrt{n} }\sim t_{n-1}
+			                  \]
+			                  Aplicando el procedimiento general, fijamos las cotas usando los cuantiles de la distribución t de Student con $n-1$ grados de libertad: \[
+				                  \mathbb{P}\left[ -t_{n-1,1-\alpha / 2}\le \dfrac{\bar{X}-\mu}{S / \sqrt{n} }\le t_{n-1,1-\alpha / 2} \right] =1-\alpha
+			                  \]
+			                  Despejando $\mu$ de forma análoga al caso anterior: \[
+				                  \begin{array}{c}
+					                  \mathbb{P}\left[ -t_{n-1,1-\alpha / 2} \dfrac{S}{\sqrt{n} } \le \bar{X} -\mu\le t_{n-1,1-\alpha / 2} \dfrac{S}{\sqrt{n} }\right] =1-\alpha \\
+					                  \mathbb{P}\left[ \bar{X}-t_{n-1,1-\alpha / 2} \dfrac{S}{\sqrt{n} }\le \mu\le \bar{X}+t_{n-1,1-\alpha / 2} \dfrac{S}{\sqrt{n} } \right] =1-\alpha
+				                  \end{array}
+			                  \]
+			                  El intervalo de confianza óptimo es: \[
+				                  IC_{1-\alpha}(\mu)=\left( \bar{X}-t_{n-1,1-\alpha / 2} \dfrac{S}{\sqrt{n} },\bar{X}+t_{n-1,1-\alpha / 2} \dfrac{S}{\sqrt{n} } \right)
+			                  \]
+			            \item Determinación del tamaño de muestra $(n)$ para precisión $\delta$
+
+			                  El margen de error ahora depende de $S$ y de la distribución t de Student. Igualamos a la precisión deseada $\delta$: \[
+				                  t_{n-1,1-\alpha / 2} \dfrac{S}{\sqrt{n} }\le \delta
+			                  \]
+			                  Despejamos $n$: \[
+				                  \begin{array}{c}
+					                  \sqrt{n}\ge \dfrac{t_{n-1,1-\alpha / 2}S}{\delta} \\
+					                  n\ge \left( \dfrac{t_{n-1,1-\alpha / 2}S}{\delta} \right) ^2
+				                  \end{array}
+			                  \]
+		            \end{enumerate}
+	      \end{enumerate}
+	\item \lb{Sea $X\sim N(\mu_1,\sigma_1^2)$ e $Y\sim N(\mu_2,\sigma_{2}^2)$ independientes. Se considera una m.a.s. de tamaño $n_1$ de $X$ y una m.a.s. de tamaño $n_2$ de $Y$.}
+	      \begin{enumerate}[label=\color{red}\textbf{\alph*)}]
+		      \item \db{Suponiendo $\sigma_1^2$ y $\sigma_2^2$ conocidas obtener un intervalo de confianza para $\mu_1-\mu_2$ con nivel de confianza $1-\alpha$.}
+		            \begin{enumerate}[label=\arabic*)]
+			            \item Estadístico pivotal:
+
+			                  Para diferencias de dos variables aleatorias normales independientes con varianzas conocidas, el estadístico pivotal es: \[
+				                  T=\dfrac{(\bar{X}-\bar{Y})-(\mu_1-\mu_2)}{\sqrt{\frac{\sigma_1^2}{n_1} +\frac{\sigma_2^2}{n_2} } }\sim \mathcal{N}(0,1)
+			                  \]
+			            \item Procedimiento general de construcción:
+
+			                  Fijamos el nivel de riesgo $\alpha$ y establecemos las cotas usando los cuantiles de la distribución normal estándar: \[
+				                  \mathbb{P}\left[ -z_{1-\alpha / 2}\le \dfrac{(\bar{X}-\bar{Y})-(\mu_1-\mu_2)}{\sqrt{\frac{\sigma_1^2}{n_1} +\frac{\sigma_2^2}{n_2} } }\le z_{1-\alpha / 2} \right] =1-\alpha
+			                  \]
+			            \item Despeje del parámetro $(\mu_1-\mu_2)$:
+
+			                  Multiplicamos por el denominador: \[
+				                  \mathbb{P}\left[ -z_{1-\alpha / 2}\sqrt{ \dfrac{\sigma_1^2}{n_1}+\dfrac{\sigma_2^2}{n_2} } \le (\bar{X}-\bar{Y})-(\mu_1-\mu_2)\le z_{1-\alpha / 2} \sqrt{ \dfrac{\sigma_1^2}{n}+\dfrac{\sigma_2^2}{n_2} }  \right] =1-\alpha
+			                  \]
+			                  Multiplicamos por $-1$ e invertimos las desigualdades, sumando $(\bar{X}-\bar{Y})$ a todos los términos: \[
+				                  \mathbb{P}\left[ (\bar{X}-\bar{Y})-z_{1-\alpha / 2}\sqrt{ \dfrac{\sigma_1^2}{n_1}+\dfrac{\sigma_2^2}{n_2} }\le \mu_1-\mu_2\le (\bar{X}-\bar{Y})+z_{1-\alpha / 2}\sqrt{ \dfrac{\sigma_1^2}{n_1}+\dfrac{\sigma_2^2}{n_2} } \right] =1-\alpha
+			                  \]
+			            \item Intervalo de confianza final: \[
+				                  IC_{1-\alpha}(\mu_1-\mu_2)=\left( (\bar{X}-\bar{Y})-z_{1-\alpha / 2}\sqrt{ \dfrac{\sigma_1^2}{n_1}+\dfrac{\sigma_2^2}{n_2} }, (\bar{X}-\bar{Y})+z_{1-\alpha / 2}\sqrt{ \dfrac{\sigma_1^2}{n_1}+\dfrac{\sigma_2^2}{n_2} } \right)
+			                  \]
+		            \end{enumerate}
+		      \item \db{Suponiendo $\sigma_1^2$ y $\sigma_2^2$ desconocidas pero iguales, obtener un intervalo de confianza para $\mu_1-\mu_2$ con nivel de confianza $1-\alpha$.}
+		            \begin{enumerate}[label=\arabic*)]
+			            \item Estadístico pivotal:
+
+			                  Bajo la asunción de varianzas iguales per desconocidas, se utiliza un estimador combinado para la varianza y el estadístico se distribuye como una t de Student con $n_1+n_2-2$ grados de libertad: \[
+				                  T=\dfrac{(\bar{X}-\bar{Y})-(\mu_1-\mu_2)}{\sqrt{\frac{(n_1-1)S_1^2+(n_2-1)S_2^2}{n_1+n_2-2} }\sqrt{\frac{1}{n_1}+\frac{1}{n_2}}}\sim t_{n_1+n_2-2}
+			                  \]
+			                  Sea $S_p=\sqrt{\frac{(n_1-1)S_1^2+(n_2-1)S_2^2}{n_1+n_2-2} }$. Podemos reescribir: \[
+				                  T=\dfrac{(\bar{X}-\bar{Y})-(\mu_1-\mu_2)}{S_p\sqrt{\frac{1}{n_1} +\frac{1}{n_2} } }\sim t_{n_1+n_2-2}
+			                  \]
+			            \item Procedimiento general de construcción:
+
+			                  Fijamos las cotas usando los cuantiles correspondientes a la distribución t: \[
+				                  \mathbb{P}\left[ -t_{n_1+n_2-2,1-\alpha / 2}\le \dfrac{(\bar{X}-\bar{Y})-(\mu_1-\mu_2)}{S_p\sqrt{\frac{1}{n_1} +\frac{1}{n_2} } }\le t_{n_1+n_2-2,1-\alpha / 2} \right] =1-\alpha
+			                  \]
+			            \item Despeje del parámetro $(\mu_1-\mu_2)$: \[
+				                  \begin{array}{c}
+					                  \mathbb{P}\left[ -t_{n_1+n_2-2,1-\alpha / 2} S_p\sqrt{\frac{1}{n_1} +\frac{1}{n_2} }\le (\bar{X}-\bar{Y})-(\mu_1-\mu_2)\le t_{n_1+n_2-2,1-\alpha / 2} S_p\sqrt{\frac{1}{n_1} +\frac{1}{n_2} } \right] \\
+					                  \mathbb{P}\left[ (\bar{X}-\bar{Y})-t_{n_1+n_2-2,1-\alpha / 2} S_p\sqrt{\frac{1}{n_1} +\frac{1}{n_2} }\le \mu_1-\mu_2\le (\bar{X}-\bar{Y})+t_{n_1+n_2-2,1-\alpha / 2} S_p\sqrt{\frac{1}{n_1} +\frac{1}{n_2} } \right]
+				                  \end{array}
+			                  \]
+			            \item Intervalo de confianza final:
+
+			                  Sustituyendo $S_p$ por su valor completo:  \[
+				                  IC_{1-\alpha}(\mu_1-\mu_2)=\left( (\bar{X}-\bar{Y})\pm t_{n_1+n_2-2,1-\alpha / 2}\sqrt{\frac{(n_1-1)S_1^2+(n_2-1)S_2^2}{n_1+n_2-2} }\sqrt{\frac{1}{n_1}+\frac{1}{n_2}} \right)
+			                  \]
+		            \end{enumerate}
+	      \end{enumerate}
+	\item \lb{Sea $X\sim \mathcal{N}(\mu,\sigma^2)$. Se considera una muestra aleatoria simple de tamaño $n$ de $X$. Suponiendo  $\mu$ desconocida obtener un intervalo de confianza para $\sigma^2$ con nivel de confianza $1-\alpha$.}
+	      \begin{enumerate}[label=\arabic*)]
+		      \item Estadístico pivotal:
+
+		            Para una muestra de $X\sim \mathcal{N}(\mu,\sigma^2)$ donde estimamos $\sigma^2$, el estadístico pivotal se distribuye según una Chi-cuadrado con $n-1$ grados de libertad: \[
+			            T=\dfrac{(n-1)S_n^2}{\sigma^2}\sim \chi_{n-1}^2
+		            \]
+		      \item Procedimiento general de construcción:
+
+		            Fijamos el nivel de confianza $1-\alpha$ y establecemos las cotas de probabilidad usando los cuantiles de la distribución $\chi_{n-1}^2$: \[
+			            \mathbb{P}\left[ \chi_{n-1,\alpha /2}^2\le \dfrac{(n-1)S_n^2}{\sigma^2}\le \chi_{n-1,1-\alpha /2}^2 \right] =1-\alpha
+		            \]
+		      \item Despeje del parámetro $\sigma^2$:
+
+		            Para despejar $\sigma^2$, primero invertimos las fracciones, lo cual invierte el sentido de las desigualdades matemáticas: \[
+			            \mathbb{P}\left[ \dfrac{1}{\chi_{n-1,1-\alpha /2}^2}\le \dfrac{\sigma^2}{(n-1)S_n^2}\le \dfrac{1}{\chi_{n-1,\alpha /2}^2} \right] =1-\alpha
+		            \]
+		            A continuación, multiplicamos todos los términos de la inecuación por el numerador $(n-1)S_n^2$ para aislar el parámetro: \[
+			            \mathbb{P}\left[ \dfrac{(n-1)S_n^2}{\chi_{n-1,1-\alpha /2}^2}\le \sigma^2\le \dfrac{(n-1)S_n^2}{\chi_{n-1,\alpha /2}^2} \right] =1-\alpha
+		            \]
+		      \item Intervalo de confianza:
+
+		            Expresado en forma de intervalo: \[
+			            IC_{1-\alpha}(\sigma^2)=\left( \dfrac{(n-1)S_n^2}{\chi_{n-1,1-\alpha /2}^2},\dfrac{(n-1)S_n^2}{\chi_{n-1,\alpha /2}^2} \right)
+		            \]
+	      \end{enumerate}
+	\item \lb{Sea $X$ una población con función de densidad $$f(x,\theta)=\dfrac{2x}{\theta^2}\text{ para }x\in (0,\theta),$$ siendo $\theta$ un parámetro positivo desconocido. Se considera una muestra aleatoria simple de tamaño $n$ de $X$. Obtener el intervalo de confianza óptima para  $\theta$ con nivel de confianza $1-\alpha$.}
+
+	      \begin{enumerate}[label=\arabic*)]
+		      \item Distribución del estadístico suficiente
+
+		            Dado que el dominio de la variable depende del parámetro $\theta$, el estimador natural es el máximo muestral $X_{(n)}=\max(X_1,\dots,X_n)$.
+
+		            Primero calculamos la función de distribución de $X$: \[
+			            F_X(x)=\int_{0}^{x} \dfrac{2t}{\theta^2}\dt=\dfrac{x^2}{\theta^2}
+		            \]
+		            La función de distribución del máximo $X_{(n)}$ es: \[
+			            F_{X_{(n)}}=[F_X(t)]^n=\left( \dfrac{t^2}{\theta^2} \right)^n=\dfrac{t^{2n}}{\theta^{2n}},\quad \text{ para }0<t<\theta
+		            \]
+		      \item Estadístico pivotal
+
+		            Definimos el estadístico $T=\dfrac{X_{(n)}}{\theta}$. Buscamos su función de distribución: \[
+			            F_T(t)=\mathbb{P}\left[ \dfrac{X_{(n)}}{\theta}\le t \right]=\mathbb{P}[X_{(n)}\le t\theta]=\dfrac{(t\theta)^{2n}}{\theta^{2n}}=t^{2n},\quad \text{ para }0<t<1
+		            \]
+		            Derivando, obtenemos su función de densidad: \[
+			            f_T(t)=2nt^{2n-1},\quad \text{para }0<t<1
+		            \]
+		            Como esta distribución no depende de $\theta,\,T$ es un estadístico pivotal válido.
+		      \item Procedimiento de construcción óptima
+
+		            Notamos que la densidad $f_T(t)=2nt^{2n-1}$ es una función estrictamente creciente en $(0,1)$. Para obtener un intervalo óptimo (de longitud mínima para $\theta$), debemos concentrar la probabilidad en la región de mayor densidad, que es el extremo derecho. Por tanto, fijamos la cota superior en $b=1$ y buscamos la cota inferior $a$: \[
+			            \mathbb{P}\left[ a\le \dfrac{X_{(n)}}{\theta}\le 1\right]=1-\alpha
+		            \]
+		            Resolvemos la integral para encontrar $a$: \[
+			            \begin{array}{c}
+				            \int_{a}^{1} 2nt^{2n-1}\dt=1-\alpha  \\
+				            \left[t^{2n}\right]_{a}^{1}=1-\alpha \\
+				            1-a^{2n}=1-\alpha                    \\
+				            a^{2n}=\alpha\implies a=\alpha^{\frac{1}{2n} }
+			            \end{array}
+		            \]
+		      \item Despeje del parámetro $\theta$
+
+		            Sustituimos la cota $a$ en la expresión de probabilidad: \[
+			            \mathbb{P}\left[ \alpha^{\frac{1}{2n} }\le \dfrac{X_{(n)}}{\theta}\le 1 \right] =1-\alpha
+		            \]
+		            Invertimos las fracciones (lo que invierte el sentido de las desigualdades): \[
+			            \mathbb{P}\left[ 1\le \dfrac{\theta}{X_{(n)}}\le \dfrac{1}{\alpha^{\frac{1}{2n} }} \right] =1-\alpha
+		            \]
+		            Multiplicamos todo por $X_{(n)}$: \[
+			            \mathbb{P}\left[ X_{(n)}\le \theta\le X_{(n)}\alpha^{-\frac{1}{2n} } \right] =1-\alpha
+		            \]
+		      \item Intervalo de confianza final \[
+			            IC_{1-\alpha}(\theta)=\left[ X_{n},\dfrac{X_{(n)}}{\alpha^{\frac{1}{2n} }} \right]
+		            \]
+	      \end{enumerate}
+	\item \lb{Sea $X$ una población con función de densidad $$f(x,\theta)=\exp(-(x-\theta)),\text{ para }x\in (\theta,+\infty),$$ siendo $\theta$ un parámetro positivo desconocido. Se considera una muestra aleatoria simple de tamaño $n$ de $X$. Obtener el intervalo de confianza óptima para  $\theta$ con nivel de confianza $1-\alpha$.}
+	      \begin{enumerate}[label=\arabic*)]
+		      \item Distribución del estadístico suficiente
+
+		            Dado que el dominio de la variable depende del parámetro $\theta\,(x>\theta)$, el estimador natural es el mínimo muestral $X_{(1)}=\min(X_1,\dots,X_n)$.
+
+		            Primero calculamos la función de distribución de $X$: \[
+			            F_X(x)=\int_{\theta}^{x} e^{-(t-\theta)} \dt=[-e^{-(t-\theta)} ]_\theta^x=1-e^{-(x-\theta)}
+		            \]
+		            La función de distribución del mínimo $X_{(1)}$ se obtiene como: \[
+			            F_{X_{(1)}}(t)=1-[1-F_X(t)]^n=1-[e^{-(t-\theta)} ]^n=1-e^{-n(t-\theta)}=1-e^{-nt},\quad\text{para }t>\theta
+		            \]
+		      \item Estadístico pivotal
+
+		            Definimos el estadístico $T=X_{(1)}-\theta$. Buscamos su función de distribución: \[
+			            F_T(t)=\mathbb{P}[X_{(1)}-\theta\le t]=\mathbb{P}[X_{(1)}\le t+\theta]=1-e^{-n(t+\theta-\theta)}=1-e^{-nt},\quad \text{para }t>0
+		            \]
+		            Derivando, obtenemos su función de densidad: \[
+			            f_T(t)=ne^{-nt},\quad \text{para }t>0
+		            \]
+		            Dado que esta distribución (Exponencial de parámetro $n$) no depende de $\theta,\,T$ es un estadístico pivotal válido.
+		      \item Procedimiento de construcción óptima
+
+		            La longitud del intervalo de confianza para $\theta$ dependerá de la diferencia entre las cotas $b$ y $a$. Para que el intervalo sea óptimo (de longitud mínima), debemos concentrar la probabilidad en la región donde la densidad del estadístico es mayor.
+
+		            Como la función $f_T(t)=ne^{-nt}$ es estrictamente decreciente en su dominio, la mayor densidad se encuentra pegada al origen. Por lo tanto, fijamos la cota inferior en $a=0$ y calculamos la cota superior $b$: \[
+			            \mathbb{P}[0\le X_{(1)}-\theta\le b]=1-\alpha
+		            \]
+		            Resolvemos la integral para encontrar $b$: \[
+			            \begin{array}{c}
+				            \int_{0}^{b} ne^{-nt}\dt=1-\alpha       \\
+				            \left[-e^{-nt} \right]_{0}^{b}=1-\alpha \\
+				            1-e^{-nb}=1-\alpha                      \\
+				            e^{-nb}=\alpha\implies -nb=\ln(\alpha)\implies b=\dfrac{-\ln(\alpha)}{n}
+			            \end{array}
+		            \]
+		      \item Despeje del parámetro $\theta$
+
+		            Sustituimos los valores de $a$ y $b$ en la expresión inicial: \[
+			            \mathbb{P}\left[ 0\le X_{(1)}-\theta\le \dfrac{-\ln(\alpha)}{n} \right] =1-\alpha
+		            \]
+		            Restamos $X_{(1)}$ a todos los términos de la inecuación: \[
+			            \mathbb{P}\left[ -X_{(1)}\le -\theta\le -X_{(1)}-\dfrac{\ln(\alpha)}{n} \right] =1-\alpha
+		            \]
+		            Multiplicamos por $-1$, lo que invierte el sentido de las desigualdades: \[
+			            \mathbb{P}\left[ X_{(1)}+\dfrac{\ln(\alpha)}{n}\le \theta\le X_{(1)} \right] =1-\alpha
+		            \]
+		      \item Intervalo de confianza final \[
+			            IC_{1-\alpha}(\theta)=\left[ X_{(1)}+\dfrac{\ln(\alpha)}{n},X_{(1)} \right]
+		            \]
+	      \end{enumerate}
+	\item \lb{En un laboratorio, se estudia la velocidad de combustión de dos tipos de combustibles sólidos A y B. Se pretende determinar qué combustibles presentan una velocidad de combustión en promedio mayor de 50 cm/s. Los resultados obtenidos fueron:}
+
+	      {
+		      \color{lightblue}
+		      \begin{center}
+			      \begin{tabular}{cccc}
+				      \hline
+				      Combustible & Tamaño muestral & Media muestral & Varianza muestral \\ \hline
+				      A           & 25              & 51.3           & 3.9               \\
+				      B           & 30              & 51.5           & 3.6               \\ \hline
+			      \end{tabular}
+		      \end{center}
+	      }
+
+	      \lb{Suponiendo que la distribución de las variables es normal, se pide:}
+	      \begin{enumerate}[label=\color{red}\textbf{\alph*)}]
+		      \item \db{Obtener un intervalo de confianza al 95\% para la velocidad esperada para el combustible A y otro para el combustible B.}
+
+		            Dado que las varianzas poblacionales $(\sigma^2)$ son desconocidas, utilizamos el siguiente estadístico pivotal:
+		            \[
+			            T=\dfrac{\bar{X}-\mu}{S / \sqrt{n} }\sim t_{n-1}
+		            \]
+		            Despejando $\mu$, la estructura general del intervalo es: \[
+			            IC_{1-\alpha}(\mu)=\left( \bar{x}-t_{n-1,1-\alpha/2} \dfrac{S}{\sqrt{n} },\bar{x}-t_{n-1,1-\alpha / 2} \dfrac{S}{\sqrt{n} } \right)
+		            \]
+		            \textbf{Para el combustible A:}
+
+		            Sustituimos los datos y el cuantil de la distribución t de Student con $n_A-1=24$ grados de libertad: \[
+			            IC_{0.95}(\mu_A)=\left( 51.3-t_{24,0.975}\sqrt{\dfrac{3.9}{25} },51.3+t_{24,0.975}\sqrt{\dfrac{3.9}{25} } \right)
+		            \]
+		            \textbf{Para el combustible B:}
+
+		            Sustituimos los datos y el cuantil de la distribución t de Student con $n_B-1=29$ grados de libertad: \[
+			            IC_{0.95}(\mu_B)=\left( 51.5-t_{29,0.975}\sqrt{\dfrac{3.6}{30} },51.5+t_{29,0.975}\sqrt{\dfrac{3.6}{30} } \right)
+		            \]
+		      \item \db{Obtener un intervalo de confianza al 95\% para la varianza de la velocidad de combustión del combustible A y la velocidad esperada para el combustible B.}
+
+		            \textbf{Para la varianza del combustible A $(\sigma_A^2)$:}
+
+		            El estadístico pivotal para la varianza de una población normal con media desconocida es: \[
+			            T=\dfrac{(n-1)S^2}{\sigma^2}\sim \chi_{n-1}^2
+		            \]
+		            Despejando $\sigma^2$, obtenemos el intervalo: \[
+			            IC_{1-\alpha}(\sigma^2)=\left( \dfrac{(n-1)S^2}{\chi_{n-1,1-\alpha / 2}^2}, \dfrac{(n-1)S^2}{\chi_{n-1,\alpha / 2}^2} \right)
+		            \]
+		            Sustituyendo los datos para el combustible A (con 24 grados de libertad):
+		            $$IC_{0.95}(\sigma_A^2) = \left( \frac{(25-1) \cdot 3.9}{\chi_{24, 0.975}^2} , \frac{(25-1) \cdot 3.9}{\chi_{24, 0.025}^2} \right) = \left( \frac{93.6}{\chi_{24, 0.975}^2} , \frac{93.6}{\chi_{24, 0.025}^2} \right)$$
+
+		            Para la velocidad esperada del combustible B ($\mu_B$):
+
+		            Dado que el enunciado vuelve a solicitar la velocidad esperada para el combustible B, el intervalo es exactamente el mismo que el calculado en el apartado anterior:
+
+		            $$IC_{0.95}(\mu_B) = \left( 51.5 - t_{29, 0.975}\sqrt{\frac{3.6}{30}} , 51.5 + t_{29, 0.975}\sqrt{\frac{3.6}{30}} \right)$$
+	      \end{enumerate}
 \end{enumerate}

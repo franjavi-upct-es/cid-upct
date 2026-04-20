@@ -1,42 +1,582 @@
 \begin{center}
-    \Large \textbf{Hoja 1: Muestreo y distribuciones muestrales} 
+	\Large \textbf{Hoja 1: Muestreo y distribuciones muestrales}
 \end{center}
 
 
 \begin{enumerate}[label=\color{red}\textbf{\arabic*)}]
-    \item \lb{Sea $X$ variable aleatoria con distribución Bernoulli, de parámetro  $p(X\sim b(p))$ y sea $X_1,X_2,X_3$ una muestra aleatoria simple (m.a.s) de $X$. Se pide:}
-        \begin{enumerate}[label=\color{red}\textbf{\alph*)}]
-            \item \db{Estudiar la distribución del vector $(X_1,X_2,X_3)$.}
-            \item \db{Estudiar la distribución en el muestreo del estadístico $\dfrac{X_1+X_2+X_3}{3}$.}
-        \end{enumerate}
-    \item \lb{Sea $X$ variable aleatoria con distribución  $Exp(\lambda)$. Sea  $(X_1,\dots,X_n)$ una m.a.s. de $X$, estudiar la distribución en el muestreo de  $S=\sum_{j=1}^{n} X_j$.}
-    \item \lb{Sea $X$ variable aleatoria con distribución  $N(\mu,\sigma^2)$. Sea $(X_1,\dots,X_n)$ una m.a.s. de $X$, estudiar la distribución en el muestreo de  $S=\sum_{j=1}^{n} X_j$.}
-    \item \lb{Sea $X$ una variable aleatoria con función de densidad:  \[
-        f(x,\theta)=\dfrac{2x}{\theta}\exp\left( -\dfrac{x^2}{\theta} \right) \xi_{(0,+\infty)}(x).
-        \]Obtener la distribución en el muestreo del estadístico: $$T(X_1,X_2,\dots,X_n)=\sum_{j=1}^{n} X_j^2.$$ Obtener su media y su varianza.}
-    \item \lb{Su $X$ una variable aleatoria con función de densidad:  $$f(x,\theta)=\dfrac{\theta}{(1+x)^{1+\theta}}\xi_{(0,+\infty)}(x).$$Obtener la distribución en el muestreo del estadístico: $$T(X_1,X_2,\dots,X_n)=\dfrac{\sum_{j=1}^{n}\ln(1+X_j)}{n}.$$Obtener su media y su varianza.}
-    \item \lb{Sea $X$ una variable aleatoria con función de densidad en todo $\R$: $$f(x,\theta)=\exp(-(x-\theta))\exp(-\exp(-(x-\theta))).$$ Obtener la distribución en el muestreo del estadístico: $$T(X_1,X_2,\dots,X_n)=\dfrac{\sum_{j=1}^{n} \exp(-X_j)}{n}.$$ Obtener su media y su varianza.}
-    \item \lb{Sea $X_1,X_2,\dots,X_n$ una m.a.s. de una variable $X$ con distribución  $N(\mu,\sigma^2)$. Sean $\bar{X}$ y $S^2$ su media y cuasi-varianzas muestrales, respectivamente. Sea $X_{n+1}$ una nueva observación de $X$ independiente de  $X_1,X_2,\dots,X_n$. Obtener la distribución en el muestreo del estadístico: \[
-        \dfrac{X_{n+1}-\bar{X}}{S}\sqrt{\dfrac{n}{n+1}}.
-    \] }
-    \item \lb{Sean $X_1,X_2,\dots,X_{n_1}$ e $Y_1,Y_2,\dots,Y_{n_2}$ muestrales aleatorias simples independientes de dos poblaciones $X\sim N(\mu_1,\sigma^2)$ e $Y\sim N(\mu_2,\sigma^2)$, respectivamente. Obtener la distribución en el muestreo del estadístico: \[
-    \dfrac{\alpha(\bar{X}-\mu_1)+\beta(\bar{Y}-\mu_2)}{\sqrt{\frac{(n_1-1)S_1^2+(n_2-1)S_2^2}{n_1+n_2-2}} \sqrt{\frac{\alpha^2}{n_1} +\frac{\beta^2}{n_2}}},
-    \]siendo $\alpha$ y $\beta$ dos números reales fijos.}
-    \item \lb{Una empresa de agua produce botellas que deberían contener 300ml pero que presentan en la práctica una variabilidad modelada por una distribución Normal con media $\mu=298ml$ y desviación típica $\sigma=3ml$.} 
-        \begin{enumerate}[label=\color{red}\textbf{\alph*)}]
-            \item \db{¿Cuál es la probabilidad de que una botella elegida al azar de la producción contenga menos de 295 ml?} 
-            \item \db{¿Cuál es la probabilidad de que el contenido medio de un paquete de seis botellassea inferior a 295 ml?} 
-        \end{enumerate}
-    \item \lb{Se realiza una medición de peso en un laboratorio, sabiendo que la desviación típica de las mediciones es $\sigma=10mg$. La medición se repite 3 veces, se calcula la media  $\bar{x}$, y este es el resultado proporcionado como estimación del peso.}
-        \begin{enumerate}[label=\color{red}\textbf{\alph*)}]
-            \item \db{¿Cuál es la desviación típica del resultado calculado?} 
-            \item \db{¿Cuántas veces se debe repetir la medición para que la desviación típica del valor medio se reduzca a 5?}
-        \end{enumerate}
-    \item \lb{El resultado de una encuesta fue que el 59\% de la población opina que el contexto económico es bueno o muy bueno. Supongamos que, extrapolando al conjunto de la población, efectivamente la proporción de todos los españoles que piensan que la situación es buena o muy buena es del $0.59$.}
-        \begin{enumerate}[label=\color{red}\textbf{\alph*)}]
-            \item \db{Sabemos que las encuestas incluyen márgenes de error que son aproximadamente $\pm 3$ puntos. ¿Cuál es la probabilidad de que una muestra aleatoria de 300 españoles presente una proporción muestral que caiga dentro del intervalo de $0.59\pm 0.03$?} 
-            \item \db{Contesta a la pregunta anterior en el caso en que la muestra consta de 600 personas y cuando la muestra consta de 1200 personas. ¿Cuál es el efecto de aumentar el tamaño de la muestra?}
-        \end{enumerate}
-    \item \lb{Un aparato de medición es exacto (el valor proporcionado medio es el valor auténtico de la señal) y la desviación típica del valor medido es 0.1 unidades. La distribución del valor medido es aproximadamente normal. ¿Cuál es la probabilidad de que el valor de una medición se aleje de la señal auténtica en más de 0.1 unidades? ¿Y si se repite la medición 5 veces y se toma la media de los 5 valores obtenidos?} 
-    \item \lb{En condiciones normales, una máquina produce piezas con una tasa de defectuosas del 1\%. Para controlar que la máquina sigue bien ajustada, se escogen al azar cada día 100 piezas en la producción y se le somete a un test. ¿Cuál es la probabilidad de que, si la máquina está bien ajustadam haya, en una de esas muestras, más del 2\% de piezas defectuosas? Si un día, 3 piezas resultan defectuosas, ¿cuáles son las conclusiones que sacaríamos sobre el funcionamiento de la máquina?}
+	\item \lb{Sea $X$ variable aleatoria con distribución Bernoulli, de parámetro  $p(X\sim b(p))$ y sea $X_1,X_2,X_3$ una muestra aleatoria simple (m.a.s) de $X$. Se pide:}
+	      \begin{enumerate}[label=\color{red}\textbf{\alph*)}]
+		      \item \db{Estudiar la distribución del vector $(X_1,X_2,X_3)$.}
+
+		            El enunciado nos indica que el vector $(X_1,X_2,X_3)$ forma una muestra aleatoria simple (m.a.s.) de la variable $X$. Si consideramos  $n$ variables aleatorias que conforman una m.a.s. de  $X$, estas variables son  \textbf{independientes e idénticamente distribuidas (i.i.d.)}, y se distribuyen igual que la variable original $X$.
+
+		            Por lo tanto, la distribución del vector multidimensional $(X_1,X_2,X_3)$ está caracterizada por esta compuesta de 3 variables independientes entre sí, donde cada componente $X_i$ sigue una misma distribución Bernoulli con parámetro  $p:X_i\sim b(p)$ para $i=1,2,3$.
+
+		            Debido a su independencia, la probabilidad conjunta del vector para unos valores concretos  $(x_1,x_2,x_3)$ (donde cada $x_i$ solo puede tomar los valores 0 o 1) es el producto de las probabilidades marginales de cada componente:
+		            \[
+			            P(X_1=x_1,X_2=x_2,X_3=x_3)=P(X_1=x_1)\cdot P(X_2=x_2)\cdot P(X_3=x_3)
+		            \]
+		      \item \db{Estudiar la distribución en el muestreo del estadístico $\dfrac{X_1+X_2+X_3}{3}$.}
+
+		            Cualquier cantidad calculada a partir de las observaciones de una muestra se denomina estadístico. En este caso particular, la expresión $\frac{X_1+X_2+X_3}{3}$ corresponde a la \textbf{media muestral} $\bar{X}$, que en el contexto de las variables dicotómicas (como la distribución de Bernoulli que solo toma valores 0 o 1) se conoce como la \textbf{proporción muestral}, denotada como $\hat{p}$.
+
+		            Para encontrar la distribución de este estadístico, debemos observar la suma del numerador, $N=X_1+X_2+X_3$. Al repetir un experimento con una situación dicotómica $n$ veces, el número de "éxitos"  $N$ sigue una distribución binomial  $\mathcal{B}(n,p)$. Como el tamaño de muestra es $n=3$, tenemos que:  $$N\sim \mathcal{B}(3,p).$$
+		            Poder usar esta distribución para hacer cálculos exactos sobre $\hat{p}=\dfrac{N}{n}$. Dado que $\hat{p}=\dfrac{N}{3}$, el estadístico solo puede tomar los valores correspondientes a los posibles resultados de $N$ divididos entre 3  $(0,\tfrac{1}{3} ,\tfrac{2}{3} ,1)$. Su distribución exacta en el muestreo viene dada por las probabilidades de la distribución binomial:
+		            \begin{itemize}[label=\textbullet]
+			            \item $P(\hat{p}=0)=P(N=0)=\binom{3}{0}p^0(1-p)^3=(1-p)^3$
+			            \item $P(\hat{p}=\frac{1}{3})=P(N=1)=\binom{3}{1}p^1(1-p)^2=3p(1-p)^2$
+			            \item $P(\hat{p}=\frac{2}{3})=P(N=2)=\dbinom{3}{2} p^2(1-p)^1=3p^2(1-p)$
+			            \item $P(\hat{p}=1)=P(N=3)=\dbinom{3}{3} p^3(1-p)^0=p^3$
+		            \end{itemize}
+	      \end{enumerate}
+	\item \lb{Sea $X$ variable aleatoria con distribución  $Exp(\lambda)$. Sea  $(X_1,\dots,X_n)$ una m.a.s. de $X$, estudiar la distribución en el muestreo de  $S=\sum_{j=1}^{n} X_j$.}
+
+	      \begin{enumerate}[label=\arabic*)]
+		      \item Distribución Exacta (Función Característica)
+
+		            La función característica de la variable original $X$ se define como:  \[
+			            \phi_X(t)=E[e^{itX} ]=\int_{-\infty}^{\infty} e^{itx}\mathrm{d}F_X(x)
+		            \]
+		            Dado que las variables de las m.a.s. son independientes, aplicamos la propiedad de la función característica para sumas de variables aleatorias independientes: \[
+			            \phi_{X+Y}(t)=\phi_X(t)\phi_Y(t)
+		            \]
+		            Extendiendo esto a la suma $S$ de  $n$ variables i.i.d.:  \[
+			            \phi_S(t)=\prod_{j=1}^{n} \phi_{X_j}(t)=[\phi_X(t)]^n
+		            \]
+		      \item Distribución Aproximada (Teorema Central del Límite)
+
+		            Expresamos $S$ en función de la media muestral  $\bar{X}$: \[
+			            \bar{X}=\dfrac{1}{n}\sum_{j=1}^{n} X_j\implies S=n\bar{X}
+		            \]
+		            Sea $\mu=E[X]$ y $\sigma^2=\mathrm{Var}(X)$, sabemos que: \[
+			            \begin{array}{c}
+				            E[\bar{X}]=\mu \\
+				            \mathrm{Var}(\bar{X})=\dfrac{\sigma^2}{n}
+			            \end{array}
+		            \]
+		            Si el tamaño muestral es "suficientemente" grande ($n\ge 30$), aplicamos el Teorema Central de Límite: \[
+			            \bar{X}\sim \mathcal{N}\left( \mu,\dfrac{\sigma^2}{n} \right) \text{ aproximadamente }
+		            \]
+		            Aplicando la transformación lineal $S=n\bar{X}$, la distribución asintótica de la suma es: \[
+			            S\sim \mathcal{N}(n\mu,n\sigma^2)\text{ aproximadamente }
+		            \]
+	      \end{enumerate}
+	\item \lb{Sea $X$ variable aleatoria con distribución  $N(\mu,\sigma^2)$. Sea $(X_1,\dots,X_n)$ una m.a.s. de $X$, estudiar la distribución en el muestreo de  $S=\sum_{j=1}^{n} X_j$.}
+
+	      \begin{enumerate}[label=\arabic*)]
+		      \item Relación con la media muestral
+
+		            La media muestral se define como: \[
+			            \bar{X}_n=\dfrac{1}{n}\sum_{j=1}^{n} X_j
+		            \]
+		            Despejando, podemos expresar el estadístico $S$ en función de la media muestral:  $$S=n\bar{X}_n$$
+		      \item Distribución de la media muestral
+
+		            Al provenir la muestra de una distribución normal, aplicamos el Teorema de Fisher, el cual establece que: \[
+			            \dfrac{\bar{X}_n-\mu}{\sigma / \sqrt{n} }\sim \mathcal{N}(0,1)
+		            \]
+		            Deshaciendo la estandarización, deducimos que la distribución exacta de la media muestral es una distribución normal con los parámetros de esperanza y varianza teóricos: \[
+			            \bar{X}_n\sim \mathcal{N}\left( \mu,\dfrac{\sigma^2}{n} \right)
+		            \]
+		      \item Esperanza y varianza del estadístico $S$
+
+		            Sabiendo que  $\mathbb{E}[X]=\mu$ y $\mathrm{Var}(X)=\sigma^2$, calculamos los momentos de $S$.
+
+		            Por la linealidad de la esperanza:  \[
+			            \mathbb{E}[S]=\mathbb{E}\left[ \sum_{j=1}^{n} X_j \right] =\sum_{j=1}^{n} \mathbb{E}[X_j]=n\mu
+		            \]
+		            Dado que las variables de una m.a.s. son independientes entre sí, la varianza de la suma es igual a la suma de las varianzas: \[
+			            \mathrm{Var}(S)=\mathrm{Var}\left( \sum_{j=1}^{n} X_j \right) =\sum_{j=1}^{n} \mathrm{Var}(X_j)=n\sigma^2
+		            \]
+		      \item Distribución en el muestreo de $S$
+
+		            Puesto que  $S$ es una transformación lineal de  $\bar{X}_n$ ($S=n\bar{X}_n$), y la media muestral sigue una distribución normal exacta según el Teorema de Fisher, la variable suma $S$ también se distribuye exactamente como una normal.
+
+		            Sustituyendo los momentos calculados, concluimos que la distribución en el muestreo es:  $$S\sim \mathcal{N}(n\mu,n\sigma^2)$$
+	      \end{enumerate}
+	\item \lb{Sea $X$ una variable aleatoria con función de densidad:  \[
+			      f(x,\theta)=\dfrac{2x}{\theta}\exp\left( -\dfrac{x^2}{\theta} \right) \xi_{(0,+\infty)}(x).
+		      \]Obtener la distribución en el muestreo del estadístico: $$T(X_1,X_2,\dots,X_n)=\sum_{j=1}^{n} X_j^2.$$ Obtener su media y su varianza.}
+
+	      \begin{enumerate}[label=\arabic*)]
+		      \item Distribución de $Y_j=X_j^2$
+
+		            Para encontrar la distribución en el muestreo, primero aplicamos el \textbf{Teorema de transformación de una variable aleatoria.}
+
+		            Sea $Y=\varphi(X)=X^2$. La transformación inversa y su derivada son:
+		            \[
+			            \begin{array}{c}
+				            \varphi^{-1}(y)=\sqrt{y} \\
+				            \dfrac{\mathrm{d}}{\mathrm{d}y}(\varphi^{-1}(y))=\dfrac{1}{2\sqrt{y}}
+			            \end{array}
+		            \]
+		            La función de densidad de la variable transformada $Y_j$ es:  \[
+			            \begin{array}{c}
+				            f_Y(y)=f_X(\varphi^{-1}(y))\left| \dfrac{\mathrm{d}}{\mathrm{d}y}(\varphi^{-1}(y)) \right| \\
+				            f_Y(y)=\dfrac{2\sqrt{y} }{\theta}\exp\left( -\dfrac{y}{\theta} \right) \dfrac{1}{2\sqrt{y} }=\dfrac{1}{\theta}\exp\left( -\dfrac{y}{\theta} \right) ,\quad y>0
+			            \end{array}
+		            \]
+		      \item Relación con la distribución $\chi^2$
+
+		            Aplicamos una segunda transformación $W_j=\dfrac{2}{\theta}Y_j$: \[
+			            \begin{array}{c}
+				            \varphi^{-1}(w)=\dfrac{\theta}{2}w\implies \dfrac{\mathrm{d}}{\mathrm{d}w}(\varphi^{-1}(w))=\dfrac{\theta}{2} \\
+				            f_W(w)=\dfrac{1}{\theta}\exp\left( -\dfrac{\theta w / 2}{\theta} \right)\dfrac{\theta}{2}=\dfrac{1}{2}\exp\left( -\dfrac{w}{2} \right) ,\quad w>0
+			            \end{array}
+		            \]
+		            La función de densidad de una distribución $\chi^2$ con $p$ grados de libertad es: \[
+			            f(x)=\dfrac{1}{\Gamma(p / 2)2^{p / 2}}x^{p / 2-1}e^{-x / 2}
+		            \]
+		            Sustituyendo $p=2$ y sabiendo que $\Gamma(1)=1$ (donde $\Gamma(\alpha)=\int_{0}^{\infty} t^{\alpha-1}e^{-t}\dt$), obtenemos exactamente $\dfrac{1}{2}e^{-w / 2}$.
+
+		            Por lo tanto: \[
+			            W_j=\dfrac{2X_j^2}{\theta}\sim \chi_2^2
+		            \]
+		      \item Distribución en el muestreo del estadístico $T$
+
+		            El estadístico dado es  $T=\sum_{j=1}^{n} X_j^2$. Transformamos esto usando nuestra variable $W_j$:  \[
+			            \sum_{j=1}^{n} W_j=\dfrac{2}{\theta}\sum_{j=1}^{n} X_j^2=\dfrac{2}{\theta}T
+		            \]
+		            Como $W_j\sim \chi_2^2$ (suma de 2 normales al cuadrado) y tenemos una m.a.s. de $n$ variables independientes, la suma total se compone de $2n$ variables normales al cuadrado.
+
+		            Por consiguiente:  \[
+			            \begin{array}{c}
+				            \dfrac{2}{\theta}T\sim \chi_2^2 \\
+				            T\sim \dfrac{\theta}{2}\chi_{2n}^2
+			            \end{array}
+		            \]
+		      \item Media y Varianza de $T$
+
+		            Podemos obtener los momentos de $T$ calculando primero los momentos de  $X_j^2$ mediante la definición de esperanza y haciendo uso de la función Gamma $\Gamma(\alpha)=\int_{0}^{\infty}  t^{\alpha-1}e^{-t}\dt.$
+
+		            \textbf{Esperanza de $X_j^2$:} \[
+			            \mathbb{E}[X_j^2]=\int_{0}^{\infty} x^2 \dfrac{2x}{\theta}\exp\left( -\dfrac{x^2}{\theta} \right) \dx
+		            \]
+		            Haciendo el cambio de variable $t=\dfrac{x^2}{\theta}\implies \dt=\dfrac{2x}{\theta}\dx $ y $x^2=\theta t$: \[
+			            \mathbb{E}[X_j^2]=\int_{0}^{\infty} \theta te^{-t}\dt=\theta\Gamma(2)=\theta
+		            \]
+		            \textbf{Esperanza de $X_j^4$:} \[
+			            \mathbb{E}[X_j^4]=\int_{0}^{\infty} x^4 \dfrac{2x}{\theta}\exp\left( -\dfrac{x^2}{\theta} \right) \dx =\int_{0}^{\infty} (\theta t)^2e^{-t}\dt=\theta^2\Gamma(3)=2\theta^2
+		            \]
+		            \textbf{Varianza de $X_j^2$:} \[
+			            \mathrm{Var}(X_j^2)=\mathbb{E}[X_j^4]-(\mathbb{E}[X_j^2])^2=2\theta^2-\theta^2=\theta^2
+		            \]
+		            \textbf{Momentos del estadístico $T$:}
+
+		            Dado que $T$ es una suma de variables independientes e idénticamente distribuidas, aplicamos la linealidad de la esperanza y de la varianza:  \[
+			            \begin{array}{c}
+				            \mathbb{E}[T]=\mathbb{E}\left[ \sum_{j=1}^{n} X_j^2 \right] =\sum_{j=1}^{n} \mathbb{E}[X_j^2]=n\theta \\
+				            \mathrm{Var}(T)=\mathrm{Var}\left( \sum_{j=1}^{n} X_j^2 \right) =\sum_{j=1}^{n} \mathrm{Var}(X_j^2)=n\theta^2
+			            \end{array}
+		            \]
+	      \end{enumerate}
+	\item \lb{Su $X$ una variable aleatoria con función de densidad:  $$f(x,\theta)=\dfrac{\theta}{(1+x)^{1+\theta}}\xi_{(0,+\infty)}(x).$$Obtener la distribución en el muestreo del estadístico: $$T(X_1,X_2,\dots,X_n)=\dfrac{\sum_{j=1}^{n}\ln(1+X_j)}{n}.$$Obtener su media y su varianza.}
+
+	      \begin{enumerate}[label=\arabic*)]
+		      \item Transformación de la variable $X_j$
+
+		            Definimos una nueva variable aleatoria aplicando la transformación sobre  $X_j$:  $$Y_j=\ln(1+X_j)$$ Aplicamos el \textbf{Teorema de transformación de una variable aleatoria:} \[
+			            \begin{array}{c}
+				            y=\varphi(x)=\ln(1+x)   \\
+				            \varphi^{-1}(y)=e^{y}-1 \\
+				            \dfrac{\mathrm{d}}{\mathrm{d}y}(\varphi^{-1}(y))=e^{y}
+			            \end{array}
+		            \]
+		            Calculamos la función de densidad de la nueva variable $Y_j$:  \[
+			            \begin{array}{c}
+				            f_Y(y)=f_X(\varphi^{-1}(y))\left| \dfrac{\mathrm{d}}{\mathrm{d}y}(\varphi^{-1}(y)) \right| \\
+				            f_Y(y)=\dfrac{\theta}{(1+(e^{y}-1))^{1+\theta}}\cdot e^{y}=\dfrac{\theta}{e^{y(1+\theta)} }\cdot e^{y} =\theta e^{-y\theta},\quad y>0
+			            \end{array}
+		            \]
+		      \item Media y varianza de la variable transformada $Y_j$
+
+		            Utilizamos la definición de la función Gamma  $\Gamma(\alpha)=\int_{0}^{\infty}  t^{\alpha-1}e^{-t}\dt $ para resolver los momentos.
+
+		            \textbf{Esperanza de $Y_j$:} $$\mathbb{E}[Y_j]=\int_{0}^{\infty} y\theta e^{-\theta}\dy$$
+		            Aplicando el cambio de variable $t=\theta y\implies\dt=\theta\dy$ y $y=\dfrac{t}{\theta}$: \[
+			            \mathbb{E}[Y_j]=\int_{0}^{\infty} \dfrac{t}{\theta}e^{-t}\dt=\dfrac{1}{\theta}\Gamma(2)=\dfrac{1}{\theta}
+		            \]
+		            \textbf{Esperanza de $Y_j^2$:} \[
+			            \mathbb{E}[Y_j^2]=\int_{0}^{\infty} y^2\theta e^{-\theta y}\dy =\int_{0}^{\infty} \left( \dfrac{t}{\theta} \right) ^2 e^{-t}\dt=\dfrac{1}{\theta^2}\Gamma(3)=\dfrac{2}{\theta^2}
+		            \]
+		            \textbf{Varianza de $Y_j$:} \[
+			            \mathrm{Var}(Y_j)=\mathbb{E}[Y_j^2]-(\mathbb{E}[Y_j])^2=\dfrac{2}{\theta^2}-\dfrac{1}{\theta^2}=\dfrac{1}{\theta^2}
+		            \]
+		      \item Media y varianza del estadístico $T$
+
+		            El estadístico  $T$ corresponde exactamente a la media muestral de las variables transformadas  $Y_j$:  \[
+			            T=\dfrac{1}{n}\sum_{j=1}^{n} \ln(1+X_j)=\dfrac{1}{n}\sum_{j=1}^{n} Y_j=\bar{Y}_n
+		            \]
+		            Aplicamos las propiedades de la esperanza y varianza de la media muestral: \[
+			            \begin{array}{c}
+				            \mathbb{E}[T]=\mathbb{E}[\bar{Y}_n]=\mathbb{E}[Y_j]=\dfrac{1}{\theta} \\
+				            \mathrm{Var}(T)=\mathrm{Var}(\bar{Y}_n)=\dfrac{\mathrm{Var}(Y_j)}{n}=\dfrac{1}{n\theta^2}
+			            \end{array}
+		            \]
+		      \item Distribución en el muestreo del estadístico $T$
+
+		            \textbf{Distribución Exacta:}
+
+		            Aplicamos una segunda transformación $W_j=2\theta Y_j$:  \[
+			            \begin{array}{c}
+				            \varphi^{-1}(w)=\dfrac{w}{2\theta}\implies \dfrac{\mathrm{d}}{\mathrm{d}w}(\varphi^{-1}(w))=\dfrac{1}{2\theta} \\
+				            f_W(w)=\theta e^{-\theta(w / (2\theta))}\left| \dfrac{1}{2\theta} \right|=\dfrac{1}{2}e^{-w / 2},\quad w>0
+			            \end{array}
+		            \]
+		            Esta función de densidad se corresponde con la de una distribución $\chi^2$ con $p=2$ grados de libertad. Por lo tanto:  \[
+			            W_j\sim \chi_2^2
+		            \]
+		            Dado que la suma de $n$ variables independientes $\chi_2^2$ resulta en una distribución $\chi_{2n}^2$: \[
+			            \begin{array}{c}
+				            \sum_{j=1}^{n} W_j=\sum_{j=1}^{n} 2\theta Y_j=2\theta n\left( \dfrac{\sum_{j=1}^{n} Y_j}{n} \right) =2n\theta T \\
+				            2n\theta T\sim \chi_{2n}^2
+			            \end{array}
+		            \]
+		            \textbf{Distribución Aproximada (Teorema Central del Límite):}
+
+		            Si el tamño de la muestra es suficientemente grande $(n\ge 30)$, podemos aproximar la distribución de la media muestral $T=\bar{Y}_n$: \[
+			            T\sim \mathcal{N}\left( \dfrac{1}{\theta},\dfrac{1}{n\theta^2} \right) \text{ aproximadamente.}
+		            \]
+	      \end{enumerate}
+	\item \lb{Sea $X$ una variable aleatoria con función de densidad en todo $\R$: $$f(x,\theta)=\exp(-(x-\theta))\exp(-\exp(-(x-\theta))).$$ Obtener la distribución en el muestreo del estadístico: $$T(X_1,X_2,\dots,X_n)=\dfrac{\sum_{j=1}^{n} \exp(-X_j)}{n}.$$ Obtener su media y su varianza.}
+
+	      \begin{enumerate}[label=\arabic*)]
+		      \item Transformación de la variable $X_j$
+
+		            Definimos una nueva variable aleatoria aplicando la transformación sobre  $X_j$ presente en el estadístico: \[
+			            Y_j=\exp(-X_j)
+		            \]
+		            Aplicamos el \textbf{Teorema de transformación de una variable aleatoria}: \[
+			            \begin{array}{c}
+				            y=\varphi(x)=\exp(-x)                                          \\
+				            \varphi^{-1}(y)=-\ln(y)                                        \\
+				            \dfrac{\mathrm{d}}{\mathrm{d}y}(\varphi^{-1}(y))=-\dfrac{1}{y} \\
+			            \end{array}
+		            \]
+		            Calculamos la función de densidad de la nueva variable $Y_j$:  \[
+			            \begin{array}{c}
+				            f_Y(y)=f_X(\varphi^{-1}(y))\left| \dfrac{\mathrm{d}}{\mathrm{d}y}(\varphi^{-1}(y)) \right| \\
+				            f_Y(y)=\exp(-(-\ln(y)-\theta))\exp(-\exp(-(-\ln(y)-\theta)))\left| -\dfrac{1}{y} \right|
+			            \end{array}
+		            \]
+		            Simplificando los exponentes: \[
+			            \begin{array}{c}
+				            -(-\ln(y)-\theta)=\ln(y)+\theta                                      \\
+				            \exp(\ln(y)+\theta)=\exp(\ln(y))\cdot \exp(\theta)=y\cdot e^{\theta} \\
+			            \end{array}
+		            \]
+		            Sustituyendo en la densidad:
+		            \[
+			            f_Y(y)=(ye^{\theta} )\exp(-ye^{\theta} )\cdot \dfrac{1}{y}=e^{\theta}\exp(-ye^{\theta} ),\quad y>0
+		            \]
+		      \item Media y varianza de la variable transformada $Y_j$
+
+		            La densidad  $f_Y(y)$ corresponde a una distribución Exponencial con parámetro  $\lambda=e^{\theta} $. Calculamos sus momentos usando la función Gamma $\Gamma(\alpha)=\int_{0}^{\infty} t^{\alpha-1}e^{-t}\dt.$
+
+		            \textbf{Esperanza de $Y_j$:} \[
+			            \mathbb{E}[Y_j]=\int_{0}^{\infty} ye^{\theta}\exp(-ye^{\theta} )\dy
+		            \]
+		            Cambio de variable $t=ye^{\theta}\implies \dt=e^{\theta}\dy$ y $y=\dfrac{t}{e^{\theta} }$: \[
+			            \mathbb{E}[Y_j]=\int_{0}^{\infty} \dfrac{t}{e^{\theta} }e^{-t}\dt=\dfrac{1}{e^{\theta} }\Gamma(2)=e^{-\theta}
+		            \]
+		            \textbf{Esperanza de $Y_j^2$:} \[
+			            \mathbb{E}[Y_j^2]=\int_{0}^{\infty} y^2e^{\theta}\exp(-ye^{\theta} )  \dy =\int_{0}^{\infty} \left( \dfrac{t}{e^{\theta} } \right)^2e^{-t}\dt=\dfrac{1}{e^{2\theta}}\Gamma(3)=2e^{-2\theta}
+		            \]
+		            \textbf{Varianza de $Y_j$:} \[
+			            \mathrm{Var}(Y_j)=\mathbb{E}[Y_j^2]-(\mathbb{E}[Y_j])^2=2e^{-2\theta}-(e^{-\theta})^2=e^{-2\theta}
+		            \]
+		      \item Media y varianza del estadístico $T$
+
+		            El estadístico  $T$ es la media muestral de las variables transformadas  $Y_j$:  \[
+			            T=\dfrac{1}{n}\sum_{j=1}^{n} \exp(-X_j)=\dfrac{1}{n}\sum_{j=1}^{n} Y_j=\bar{Y}_n\\
+		            \]
+		            Aplicamos las propiedades de la media muestral para la esperanza y la varianza: \[
+			            \begin{array}{c}
+				            \mathbb{E}[T]=\mathbb{E}[\bar{Y}_n]=\mathbb{E}[Y_j]=e^{-\theta} \\
+				            \mathrm{Var}(T)=\mathrm{Var}(\bar{Y}_n)=\dfrac{\mathrm{Var}(Y_j)}{n}=\dfrac{e^{-2\theta}}{n}
+			            \end{array}
+		            \]
+		      \item Distribución en el muestreo del estadístico $T$
+
+		            \textbf{Distribución Exacta:}
+
+		            Aplicamos un nueva transformación lineal $W_j=2e^{\theta}Y_j$: \[
+			            \begin{array}{c}
+				            \varphi^{-1}(w)=\dfrac{w}{2e^{\theta} }\implies \dfrac{\mathrm{d}}{\mathrm{d}w}(\varphi^{-1}(w))=\dfrac{1}{2e^{\theta} } \\
+				            f_W(w)=e^{\theta}\exp\left( -\dfrac{w}{2e^{\theta}e^{\theta}  } \right) \left| \dfrac{1}{2e^{\theta}} \right| =\dfrac{1}{2}\exp\left( -\dfrac{w}{2} \right) ,\quad w>0
+			            \end{array}
+		            \]
+		            Esta función coincide con la densidad de una $\chi^2$ con $p=2$ grados de libertad. Así: \[
+			            W_j\sim \chi_2^2
+		            \]
+		            Por la caracterización de la $\chi^2$, la suma de $n$ variables $\chi_2^2$ independientes sigue una distribución $\chi_{2n}^2$:
+		            \[
+			            \begin{array}{c}
+				            \sum_{j=1}^{n} W_j=\sum_{j=1}^{n} 2e^{\theta} Y_j=2ne^{\theta}\left( \dfrac{\sum_{j=1}^{n} Y_j}{n} \right)=2ne^{\theta}T \\
+				            2ne^{\theta}T\sim \chi_{2n}^2
+			            \end{array}
+		            \]
+		            \textbf{Distribución Aproximada (Teorema Central del Límite):}
+
+		            Para muestras suficientemente grandes $(n\ge 30)$, la distribución del estadístico $T=\bar{Y}_n$ se aproxima mediante una Normal: \[
+			            T\sim \mathcal{N}\left( e^{-\theta} ,\dfrac{e^{-2\theta} }{n} \right) \text{ aproximadamente. }
+		            \]
+	      \end{enumerate}
+	\item \lb{Sea $X_1,X_2,\dots,X_n$ una m.a.s. de una variable $X$ con distribución  $N(\mu,\sigma^2)$. Sean $\bar{X}$ y $S^2$ su media y cuasi-varianzas muestrales, respectivamente. Sea $X_{n+1}$ una nueva observación de $X$ independiente de  $X_1,X_2,\dots,X_n$. Obtener la distribución en el muestreo del estadístico: \[
+			      \dfrac{X_{n+1}-\bar{X}}{S}\sqrt{\dfrac{n}{n+1}}.
+		      \] }
+	      \begin{enumerate}[label=\arabic*)]
+		      \item Distribución del numerador
+
+		            Sabemos que una observación individual $X_{n+1}$ y la media muestral $\bar{X}$ siguen distribuciones normales:
+		            \[
+			            \begin{array}{c}
+				            X_{n+1}\sim\mathcal{N}(\mu,\sigma^2)                        \\
+				            \bar{X}\sim\mathcal{N}\left(\mu, \dfrac{\sigma^2}{n}\right) \\
+			            \end{array}
+		            \]
+		            Dado que $X_{n+1}$ es una nueva observación independiente de la muestra $(X_1,\dots,X_n)$, es independente de $\bar{X}$. La diferencia de dos variables normales independientes también es normal. Calculamos su esperanza y varianza: \[
+			            \begin{array}{c}
+				            \mathbb{E}[X_{n+1}-\bar{X}]=\mathbb{E}[X_{n+1}]-\mathbb{E}[\bar{X}]=\mu-\mu=0 \\
+				            \mathrm{Var}\left(X_{n-1}-\bar{X}\right)=\mathrm{Var}(X_{n+1})+\mathrm{Var}(\bar{X})\sigma^2+\dfrac{\sigma^2}{n}=\sigma^2\left( 1+\dfrac{1}{n} \right) =\sigma^2\left( \dfrac{n+1}{n} \right)
+			            \end{array}
+		            \]
+		            Por tanto, la distribución de la diferencia es: \[
+			            X_{n+1}-\bar{X}\sim \mathcal{N}\left( 0,\sigma^2 \dfrac{n+1}{n} \right)
+		            \]
+		            Estandarizando esta variable, obtenemos una normal estándar $Z$: \[
+			            Z=\dfrac{X_{n+1}-\bar{X}}{\sigma \sqrt{\frac{n+1}{n}}}\sim \mathcal{N}(0,1)
+		            \]
+		      \item Distribución del denominador
+
+		            Por el \textbf{Teorema de Fisher}, sabemos que para una m.a.s. de una distribución normal, la cuasi-varianza muestral $S^2$ multiplicada por sus grados de libertad y dividida por la varianza poblacional sigue una distribución $\chi^2$: \[
+			            U=\dfrac{(n-1)S^2}{\sigma^2}\sim \chi_{n-1}^2
+		            \]
+		            Además, el Teorema de Fisher garantiza que $\bar{X}$ y $S^2$ son independientes. Como $X_{n+1}$ también es independiente de la muestra original, garantizamos que las variables $Z$ y $U$ son totalmente independientes.
+		      \item Caracterización del estadístico
+
+		            El documento define la \textbf{caracterización de la t de Student como cociente:} Si $Z\sim \mathcal{N}(0,1$ y $U\sim \chi_p^2$ son independientes, el cociente $$T=\dfrac{Z}{\sqrt{U / p} }\sim t_p$$
+		            Aplicamos esta definición sustituyendo nuestra $Z$ y nuestra $U$ (con $p=n-1$ grados de libertad): $$T=\dfrac{\frac{X_{n+1}}{\sigma \sqrt{\frac{n+1}{n} } } }{\sqrt{\frac{\frac{(n-1)S^2}{\sigma^2} }{n-1} } }$$
+		            Simplificando el denominador cancelando los grados de libertad $(n-1)$: \[T=\dfrac{\frac{X_{n+1}-\bar{X}}{\sigma \sqrt{\frac{n+1}{n} } } }{\sqrt{\frac{S^2}{\sigma^2} } }=\dfrac{\frac{X_{n+1}-\bar{X}}{\sigma \sqrt{\frac{n+1}{n} } }}{\frac{S}{\sigma} }\]
+		            Cancelamos la desviación típica poblacional $\sigma$: $$T=\dfrac{X_{n+1}-\bar{X}}{S \sqrt{\frac{n+1}{n} } }=\dfrac{X_{n+1}-\bar{X}}{S} \sqrt{\dfrac{n}{n+1} }$$
+	      \end{enumerate}
+	      \textbf{Conclusión}
+
+	      A través de la definición matemática del cociente, hemos llegado exactamente a la expresión del estadístico planteado en el problema. Por lo tanto, la distribución en el muestreo de este estadístico es una \textbf{distribución t de Student con $n-1$ grados de libertad:} $$\dfrac{X_{n+1}-\bar{X}}{S} \sqrt{\dfrac{n}{n++1} } \sim t_{n-1}$$
+	\item \lb{Sean $X_1,X_2,\dots,X_{n_1}$ e $Y_1,Y_2,\dots,Y_{n_2}$ muestrales aleatorias simples independientes de dos poblaciones $X\sim N(\mu_1,\sigma^2)$ e $Y\sim N(\mu_2,\sigma^2)$, respectivamente. Obtener la distribución en el muestreo del estadístico: \[
+		      \dfrac{\alpha(\bar{X}-\mu_1)+\beta(\bar{Y}-\mu_2)}{\sqrt{\frac{(n_1-1)S_1^2+(n_2-1)S_2^2}{n_1+n_2-2}} \sqrt{\frac{\alpha^2}{n_1} +\frac{\beta^2}{n_2}}},
+	      \]siendo $\alpha$ y $\beta$ dos números reales fijos.}
+
+	      \begin{enumerate}[label=\arabic*)]
+		      \item Distribución del Numerador
+
+		            Sea la combinación lineal $W=\alpha(\bar{X}-\mu_1)+\beta(\bar{Y}-\mu_2)$.
+
+		            Por el \textbf{Teorema de Fisher}, sabemos que $\bar{X}\sim \mathcal{N}(\mu_1,\sigma^2 / n_1)$ y $\bar{Y}\sim \mathcal{N}(\mu_2,\sigma^2 / n_2)$. Al provenir de muestras aleatorias independientes, $\bar{X}$ e $\bar{Y}$ son variables normales independientes. Calculamos los momentos de $W$:
+		            \[
+			            \begin{array}{c}
+				            \mathbb{E}[W]=\alpha(\mathbb{E}[\bar{X}]-\mu_1)+\beta(\mathbb{E}[\bar{Y}]-\mu_2)=\alpha(\mu_1-\mu_1)+\beta(\mu_2-\mu_2)=0 \\
+				            \mathrm{Var}(W)=\alpha^2\mathrm{Var}(\bar{X})+\beta^2\mathrm{Var}(\bar{Y})=\alpha^2\left( \dfrac{\sigma^2}{n_1} \right) +\beta^2\left( \dfrac{\sigma^2}{n_2} \right) =\sigma^2\left( \dfrac{\alpha^2}{n_1}+\dfrac{\beta^2}{n_2} \right)
+			            \end{array}
+		            \]
+
+		            Al ser una combinación lineal de normales, $W$ sigue una distribución normal. Si la estandarizamos, obtenemos una variable normal estándar $Z$: \[
+			            Z=\dfrac{W}{\sqrt{\mathrm{Var}(W)} }=\dfrac{\alpha(\bar{X}-\mu_1)+\beta(\bar{Y}-\mu_2)}{\sigma \sqrt{\frac{\alpha^2}{n_1} +\frac{\beta^2}{n_2} } }\sim \mathcal{N}(0,1)
+		            \]
+		      \item Distribución del Denominador
+
+		            Aplicamos nuevamente el Teorema de Fisher, el cual define la distribución de las varianzas muestrales de poblaciones normales: \[
+			            \begin{array}{c}
+				            U_1=\dfrac{(n_1-1)S_1^2}{\sigma^2}\sim \chi_{n_1-1}^2 \\
+				            U_2=\dfrac{(n_2-1)S_2^2}{\sigma^2}\sim \chi_{n_2-1}^2
+			            \end{array}
+		            \]
+		            Dado que las dos muestras son independientes, las variables $U_1$ y $U_2$ también lo son. Basándonos en la caracterización de la $\chi^2$ como una suma de variables normales estándar independientes al cuadrado, la suma de dos distribuciones $\chi^2$ independientes genera una nueva distribución $\chi^2$ con la suma de sus grados de libertad:
+		            \[
+			            U=U_1+U_2=\dfrac{(n_1-1)S_1^2+(n_2-1)S_2^2}{\sigma^2}\sim \chi_{n_1+n_2-2}^2
+		            \]
+		            Adicionalmente, el Teorema de Fisher establece que las medias muestrales ($\bar{X},\bar{Y}$) y las varianzas muestrales ($S_1^2,S_2^2$) son mutuamente independientes, asegurando que nuestra variable $Z$ y nuestra variable $U$ sean independientes.
+		      \item Caracterización del Estadístico Final
+
+		            El documento define la caracterización de la \textbf{distribución t de Student como cociente:} Si $Z\sim \mathcal{N}(0,1)$ y $U\sim \chi_p^2$ son independientes, entonces: \[
+			            T=\dfrac{Z}{\sqrt{U / p} }\sim t_p
+		            \]
+		            Sustituyendo nuestras variables calculadas $Z,U$ y tomando $p=n_1+n_2-2$ grados de libertad: \[
+			            T=\dfrac{\frac{\alpha(\bar{X}-\mu_1)+\beta(\bar{Y}-\mu_2)}{\sigma \sqrt{\frac{\alpha^2}{n_1} +\frac{\beta^2}{n_2} } } }{\sqrt{\frac{\frac{(n_1-1)S_1^2+(n_2-1)S_2^2}{\sigma^2} }{n_1+n_2-2} } }
+		            \]
+		            El término $\sigma$ en el denominador de la fracción superior se cancela matemáticamente con la constante $\sqrt{1 / \sigma^2} =1 / \sigma$ que se factoriza del denominador inferior: \[
+			            T=\dfrac{\alpha(\bar{X}-\mu_1)+\beta(\bar{Y}-\mu_2)}{\sqrt{\frac{\alpha^2}{n_1} +\frac{\beta^2}{n_2} } \sqrt{\frac{(n_1-1)S_1^2+(n_2-1)S_2^2}{n_1+n_2-2} } }
+		            \]
+		            Agrupando el denominador para que coincida con el enunciado original, demostramos formalmente que la distribución en el muestreo de este estadístico es una \textbf{t de Student con $n_1+n_2-2$ grados de libertad:} \[
+			            \dfrac{\alpha(\bar{X}-\mu_1)+\beta(\bar{Y}-\mu_2)}{\sqrt{\frac{(n_1-1)S_1^2+(n_2-1)S_2^2}{n_1+n_2-2} }\sqrt{\frac{\alpha^2}{n_1} +\frac{\beta^2}{n_2} }  }\sim t_{n_1+n_2-2}
+		            \]
+	      \end{enumerate}
+	\item \lb{Una empresa de agua produce botellas que deberían contener 300ml pero que presentan en la práctica una variabilidad modelada por una distribución Normal con media $\mu=298ml$ y desviación típica $\sigma=3ml$.}
+	      \begin{enumerate}[label=\color{red}\textbf{\alph*)}]
+		      \item \db{¿Cuál es la probabilidad de que una botella elegida al azar de la producción contenga menos de 295 ml?}
+
+		            Buscamos calcular $P(X<295)$. Aplicamos la transformación de estandarización para convertir la variable a una Normal Estándar $Z\sim \mathcal{N}(0,1)$:
+		            \[
+			            Z=\dfrac{X-\mu}{\sigma}
+		            \]
+		            Sustituyendo los valores: \[
+			            Z=\dfrac{295-298}{3}=\dfrac{-3}{3}=-1
+		            \]
+		            Por lo tanto, la probabilidad pedida es: \[
+			            P(X<295)=P(Z<-1)\approx 0.1587
+		            \]
+		      \item \db{¿Cuál es la probabilidad de que el contenido medio de un paquete de seis botellassea inferior a 295 ml?}
+
+		            Sea una muestra aleatoria simple de tamaño $n=6$. Buscamos calcular la probabilidad sobre la media muestra: $P(\bar{X}_6<295)$.
+
+		            Por el \textbf{Teorema de Fisher}, dado que la población original es Normal, la distribución exacta de la media muestral viene dada por: \[
+			            \begin{array}{c}
+				            \bar{X}_n\sim \mathcal{N}\left( \mu,\dfrac{\sigma^2}{n} \right) \\
+				            \bar{X}_6\sim \mathcal{N}\left( 298, \dfrac{9}{6} \right) \implies \bar{X}_6\sim \mathcal{N}(298,1.5)
+			            \end{array}
+		            \]
+		            Aplicamos la estandarización del estadístico media muestral definida en el mismo teorema: \[
+			            Z=\dfrac{\bar{X}-\mu}{\sigma / \sqrt{n} }\sim \mathcal{N}(0,1)
+		            \]
+		            Sustituyendo para nuestro umbral de 295 ml: \[
+			            Z=\dfrac{295-298}{3 / \sqrt{6} }=\dfrac{-3}{3 / \sqrt{6} }=-\sqrt{6}\approx -2.449
+		            \]
+		            Por lo tanto, la probabilidad de la media muestral es: \[
+			            P(\bar{X}_6<295)=P(Z<-2.449)\approx 0.0071
+		            \]
+	      \end{enumerate}
+	\item \lb{Se realiza una medición de peso en un laboratorio, sabiendo que la desviación típica de las mediciones es $\sigma=10mg$. La medición se repite 3 veces, se calcula la media  $\bar{x}$, y este es el resultado proporcionado como estimación del peso.}
+	      \begin{enumerate}[label=\color{red}\textbf{\alph*)}]
+		      \item \db{¿Cuál es la desviación típica del resultado calculado?}
+
+		            El "resultado calculado" corresponde a la media muestral $\bar{X}$. La varianza muestral es $\mathrm{Var}(\bar{X})=\dfrac{\sigma^2}{n}. $
+
+		            Por lo tanto, la desviación típica de la media muestral (dispersión de la distribución muestral) se expresa como: \[
+			            \sigma_{\bar{X}}=\dfrac{\sigma}{\sqrt{n} }\implies \sigma_{\bar{X}}=\dfrac{10}{\sqrt{3} }\approx 5.77\mathrm{mg}
+		            \]
+		      \item \db{¿Cuántas veces se debe repetir la medición para que la desviación típica del valor medio se reduzca a 5?}
+
+		            Se nos pide encontrar el tamaño de muestra $n$ que garantice una desviación típica de la media muestra $\sigma_{\bar{X}}=5$.
+
+		            Utilizando la misma ecuación matemática: \[
+			            \sigma_{\bar{X}}=\dfrac{\sigma}{\sqrt{n} }
+		            \]
+		            Sustituimos la nueva condición ($\sigma_{\bar{X}}=5$) y la desviación típica población conocida como ($\sigma=10$): \[
+			            5=\dfrac{10}{\sqrt{n} }\implies \sqrt{n}=\dfrac{10}{5}=2\implies n=2^2=4
+		            \]
+		            Se debe repetir la medición \textbf{4 veces}.
+	      \end{enumerate}
+	\item \lb{El resultado de una encuesta fue que el 59\% de la población opina que el contexto económico es bueno o muy bueno. Supongamos que, extrapolando al conjunto de la población, efectivamente la proporción de todos los españoles que piensan que la situación es buena o muy buena es del $0.59$.}
+	      \begin{enumerate}[label=\color{red}\textbf{\alph*)}]
+		      \item \db{Sabemos que las encuestas incluyen márgenes de error que son aproximadamente $\pm 3$ puntos. ¿Cuál es la probabilidad de que una muestra aleatoria de 300 españoles presente una proporción muestral que caiga dentro del intervalo de $0.59\pm 0.03$?}
+
+		            Calculamos la desviación típica del estadístico para $n=300$: \[
+			            \sigma_{\hat{p}}=\sqrt{\dfrac{p(1-p)}{n} }=\sqrt{ \dfrac{0.59(1-0.59)}{300} } =\sqrt{\frac{0.2419}{300}} \approx 0.0284
+		            \]
+		            Se nos pide la probabilidad de que $\hat{p}$ caiga en el intervalo $0.59\pm 0.03$, es decir, buscamos $P(0.56\le \hat{p}\le 0.62)$ o de forma equivalente $P(-0.03\le \hat{p}-p\le 0.03)$.
+
+		            Estandarizando: \[
+			            P\left( \dfrac{-0.03}{0.0284}\le Z\le \dfrac{0.03}{0.0284} \right) \approx P(-1.056\le Z\le 1.056) = P(Z\le 1.056) - (1 - P(Z\le 1.056))\approx 0.8545-(1-0.8545)\approx 0.709
+		            \]
+		      \item \db{Contesta a la pregunta anterior en el caso en que la muestra consta de 600 personas y cuando la muestra consta de 1200 personas. ¿Cuál es el efecto de aumentar el tamaño de la muestra?}
+
+		            Cálculo para $n=600$:
+		            \[
+			            \begin{array}{c}
+				            \sigma_{\hat{p}}=\sqrt{\dfrac{0.2419}{600} } \approx 0.02008                                         \\
+				            P\left( \dfrac{-0.03}{0.02008}\le Z\le \dfrac{0.03}{0.02008} \right) \approx P(-1.494\le Z\le 1.494) \\
+				            P(-1.494\le Z\le 1.494) \approx 0.9324-(1-0.9324)\approx 0.865
+			            \end{array}
+		            \]
+		            Cálculo para $n=1200$:
+		            \[
+			            \begin{array}{c}
+				            \sigma_{\hat{p}}=\sqrt{\dfrac{0.2419}{1200} } \approx 0.0142                                         \\
+				            P \left( \dfrac{-0.03}{0.0142} \le Z\le \dfrac{0.03}{0.0142} \right) \approx P(-2.113\le Z\le 2.113) \\
+				            P(-2.113\le Z\le 2.113)\approx 0.9827-(1-0.9827)\approx 0.965
+			            \end{array}
+		            \]
+		            \textbf{Efecto de aumentar el tamaño de la muestra:}
+
+		            Matemáticamente, la varianza de la media/proporción muestral es inversamente proporcional al tamaño de la muestra $n$, siendo $\mathrm{Var}(\hat{p})=\dfrac{p(1-p)}{n}$. La dispersión de la distribución muestral se reduce en un factor de $\sqrt{n} $. Al hacer $n$ cada vez más grande, la campana de Gauss de la distribución se hace mucho más estrecha y concentrada alrededor del verdadero valor $p=0.59$.
+
+		            Por lo tanto, el efecto directo de aumentar el tamaño muestral es que \textbf{incrementa significativamente la probabilidad (la confianza)} de que nuestra estimación caiga dentro de un mismo margen de error de $\pm 3$ puntos (pasando del $\approx 71\%$ con 300 personas, al $\approx 96.5\%$ con 1200 personas).
+	      \end{enumerate}
+
+	\item \lb{Un aparato de medición es exacto (el valor proporcionado medio es el valor auténtico de la señal) y la desviación típica del valor medido es 0.1 unidades. La distribución del valor medido es aproximadamente normal. ¿Cuál es la probabilidad de que el valor de una medición se aleje de la señal auténtica en más de 0.1 unidades? ¿Y si se repite la medición 5 veces y se toma la media de los 5 valores obtenidos?}
+	      \begin{enumerate}[label=\arabic*)]
+		      \item Probabilidad para una única medición
+
+		            Se pide calcular la probabilidad de que una medición se aleje del valor auténtico en más de $0.1$ unidades: \[
+			            P(|X-\mu|>0.1)
+		            \]
+		            Aplicamos la estandarización para convertir $X$ en una variable Normal Estándar $Z\sim \mathcal{N}(0,1)$: \[
+			            Z=\dfrac{X-\mu}{\sigma}
+		            \]
+		            Sustituyendo $\sigma=0.1$: \[
+			            P\left( \left| \dfrac{X-\mu}{0.1} \right| > \dfrac{0.1}{0.1} \right) =P(|Z|>1)
+		            \]
+		            Desarrollando el valor absoluto por la simetría de la distribución Normal: \[
+			            P(|Z|>1)=P(Z<-1)+P(Z>1)= 2\cdot P(Z<-1) \approx 2\cdot 0.1587=0.3174
+		            \]
+		      \item Probabilidad para la media de 5 mediciones
+
+		            Ahora consideramos una muestra aleatoria simple de tamaño $n=5$. El estadístico es la media muestral $\bar{X}$.
+
+		            Dado que la población original es Normal, aplicamos el \textbf{Teorema de Fisher}, el cual establece que la media muestral se distribuye exactamente como: \[
+			            \bar{X}\sim \mathcal{N}\left( \mu,\dfrac{\sigma^2}{n} \right)
+		            \]
+		            La nueva desviación típica de la media muestral será: \[
+			            \sigma_{\bar{X}}=\dfrac{0.1}{\sqrt{5} }\approx 0.0447
+		            \]
+		            Se pide calcular la probabilidad de que le media se aleje del valor auténtico es más de $0.1$ unidades: \[
+			            P(|\bar{X}-\mu|>0.1)
+		            \]
+		            Estandarizando el estadístico $\bar{X}$ según el Teorema de Fisher: \[
+			            Z=\dfrac{\bar{X}-\mu}{\sigma / \sqrt{n} }\sim \mathcal{N}(0,1)
+		            \]
+		            Sustituyendo los valores: \[
+			            P\left( \left| \dfrac{\bar{X}-\mu}{0.1 / \sqrt{5} } \right| > \dfrac{0.1}{0.1 / \sqrt{5} }  \right) =P(|Z|>\sqrt{5} )=P(|Z|>2.236)=2\cdot P(Z<-2.236)\approx 2\cdot 0.0127=0.0254
+		            \]
+	      \end{enumerate}
+	\item \lb{En condiciones normales, una máquina produce piezas con una tasa de defectuosas del 1\%. Para controlar que la máquina sigue bien ajustada, se escogen al azar cada día 100 piezas en la producción y se le somete a un test. ¿Cuál es la probabilidad de que, si la máquina está bien ajustadam haya, en una de esas muestras, más del 2\% de piezas defectuosas? Si un día, 3 piezas resultan defectuosas, ¿cuáles son las conclusiones que sacaríamos sobre el funcionamiento de la máquina?}
+	      \begin{enumerate}[label=\alph*)]
+		      \item ¿Cuál es la probabilidad de que haya más del 2\% de piezas defectuosas?
+
+		            Buscamos la probabilidad $P(\hat{p}>0.02)$.
+
+		            Dado que $n=100$, esto equivale a tener más de 2 piezas defectuosas en la muestra: \[
+			            P(\hat{p}>0.02)=P \left( \dfrac{N}{100}>0.02 \right) =P(N>2)
+		            \]
+		            Para un experimento simple dicotómico repetido $n$ veces, la distribución de $N$ es exactamente una distribución Binomical: $N\sim \mathcal{B}(n,p)$.
+
+		            Calculamos la probabilidad exacta: \[
+			            P(N>2)=1-P(N\le 2)=1-[P(N=0)+P(N=1)+P(N=2)]
+		            \]
+		            Sabiendo que $P(N=k)=\dbinom{n}{k} p^k(1-p)^{n-k}$, sustituimos $n=100$ y $p=0.01$:
+		            \begin{itemize}[label=\textbullet]
+			            \item $P(N=0)=\dbinom{100}{0} (0.01)^0(0.99)^{100}\approx 0.366$
+			            \item $P(N=1)=\dbinom{100}{1} (0.01)^1(0.99)^{99}\approx 0.3697$
+			            \item $P(N=2)=\dbinom{100}{2} (0.01)^2(0.99)^{98}\approx 0.1847$
+		            \end{itemize}
+		            Sumamos las probabilidades acumuladas:
+		            \[
+			            P(N\le 2)\approx 0.3360+0.3697+0.1847=0.9204
+		            \]
+		            Por lo tanto, la probabilidad de encontrar más del $2\%$ de piezas defectuosas es: \[
+			            P(\hat{p}>0.02)=1-0.9204=0.0796
+		            \]
+		      \item Si un día 3 piezas resultan defectuosas, ¿qué concluimos?
+
+		            Observar 3 piezas defectuosas en una muestra de 100 corresponde a una proporción muestral observada $\hat{p}=0.03$.
+
+		            Matemáticamente, la probabilidad de observar un resultado de 3 piezas defectuosas o más extremo $(N\ge 3)$, asumiendo que la máquina sigue bien ajustada $(p=0.01)$, es el valor calculado en el apartado anterior: \[
+			            P(N\ge 3)=P(N>2)\approx 0.0796
+		            \]
+	      \end{enumerate}
+	      \textbf{Conclusión analítica:}
+
+	      La probabilidad de que ocurra este evento puramente por la aleatoriedad del muestreo es de aproximadamente un $7.96\%$. En inferencia estadística, este valor no suele ser suficientemente pequeño (usualmente no está por dejado de los niveles de riesgo habituales del $5\%$ o $1\%$) como para representar una anomalía extrema.
+
+	      Por tanto, aunque la tasa observada triplica la teórica, \textbf{no hay evidencia estadística concluyente} para descartar que se deba a la propia variabilidad de la muestra. Basándonos estrictamente en este cálculo probabilístico, no rechazaríamos la premisa de que la máquina sigue ajustada bajo sus parámetros normales.
 \end{enumerate}
