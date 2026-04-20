@@ -3,8 +3,8 @@ from mrjob.step import MRStep
 
 TOP_N = 10
 
-class MRTopViewedProducts(MRJob):
 
+class MRTopViewedProducts(MRJob):
     def mapper(self, _, line):
         """
         Mapper:
@@ -18,7 +18,7 @@ class MRTopViewedProducts(MRJob):
         # Ignorar cabecera y líneas corruptas (mínimo 8 campos)
         if len(fields) < 8 or fields[0] == "event_time":
             return
-        
+
         event_type = fields[1].strip()
         product_id = fields[2].strip()
         category_code = fields[4].strip()
@@ -27,7 +27,6 @@ class MRTopViewedProducts(MRJob):
         # Solo nos interesan los eventos de tipo "view"
         if event_type == "view" and product_id:
             yield product_id, (1, category_code, brand)
-
 
     def reducer_count(self, product_id, values):
         """
@@ -50,8 +49,7 @@ class MRTopViewedProducts(MRJob):
 
         # Clave None ⟶ todo va al mismo reducer_top_n
         yield None, (total, product_id, category_code, brand)
-        
- 
+
     def reducer_top_n(self, _, values):
         """
         Reducer:
@@ -62,20 +60,15 @@ class MRTopViewedProducts(MRJob):
 
         for total_views, product_id, category_code, brand in top:
             yield product_id, [total_views, category_code, brand]
-       
-    
+
     # -------------------------
     def steps(self):
         return [
-            MRStep(
-                mapper=self.mapper,
-                reducer=self.reducer_count
-            ),
-            MRStep(
-                reducer=self.reducer_top_n
-            )
+            MRStep(mapper=self.mapper, reducer=self.reducer_count),
+            MRStep(reducer=self.reducer_top_n),
         ]
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     MRTopViewedProducts.run()
+

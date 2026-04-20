@@ -1,7 +1,8 @@
+import sys
+
 from pyspark.sql import SparkSession
 from pyspark.sql.dataframe import DataFrame
-from pyspark.sql.functions import col, sum, avg, max, count
-import sys
+from pyspark.sql.functions import avg, col, count, max, sum
 
 
 def main():
