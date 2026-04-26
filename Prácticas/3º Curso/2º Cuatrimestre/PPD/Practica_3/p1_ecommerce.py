@@ -26,7 +26,7 @@ def main():
 
     spark.sparkContext.setLogLevel("FATAL")
 
-    df_ecommerce = load_data(spark, "2019-Oct_10k.txt")
+    df_ecommerce = load_data(spark, "2019-Oct_600k.txt")
 
     # a) Contador de interacciones por producto
     # Agrupamos por product_id, contamos y renombramos la columna resultante "count"
@@ -43,6 +43,7 @@ def main():
 
     # Guardamos en formato Parquet
     (df_interacciones.write.mode("overwrite").parquet("dfInteracciones.parquet"))
+    df_interacciones.show()
 
     #  b) Información normalizada de los productos
     # Seleccionamos columnas, eliminamos duplicados por product_id y renombramos
@@ -54,6 +55,7 @@ def main():
 
     # Guardamos en formato Parquet
     (df_info_productos.write.mode("overwrite").parquet("dfInfoProductos.parquet"))
+    df_info_productos.show()
 
 
 if __name__ == "__main__":
