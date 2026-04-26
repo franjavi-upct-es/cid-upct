@@ -1,5 +1,7 @@
-from mrjob.job import MRJob
 import csv
+
+from mrjob.job import MRJob
+
 
 class MRCountEvents(MRJob):
 
