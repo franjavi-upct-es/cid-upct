@@ -1,0 +1,437 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Validador UPCT</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,400;0,600;1,400&family=Syne:wght@400;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --bg: #0d1117;
+        --surface: #161b22;
+        --border: #30363d;
+        --muted: #8b949e;
+        --text: #e6edf3;
+        --accent: #00d4ff;
+        --accent2: #7ee787;
+        --danger: #f85149;
+        --warning: #d29922;
+        --mono: "JetBrains Mono", monospace;
+        --sans: "Syne", sans-serif;
+      }
+
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      body {
+        background: var(--bg);
+        color: var(--text);
+        font-family: var(--sans);
+        min-height: 100vh;
+        overflow-x: hidden;
+      }
+
+      /*  Grid de fondo  */
+      body::before {
+        content: "";
+        position: fixed;
+        inset: 0;
+        background-image:
+          linear-gradient(rgba(0, 212, 255, 0.03) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(0, 212, 255, 0.03) 1px, transparent 1px);
+        background-size: 40px 40px;
+        pointer-events: none;
+        z-index: 0;
+      }
+
+      /*  Header  */
+      header {
+        position: relative;
+        z-index: 1;
+        padding: 1.5rem 2.5rem;
+        border-bottom: 1px solid var(--border);
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+      }
+
+      .logo-dot {
+        width: 10px;
+        height: 10px;
+        background: var(--accent);
+        border-radius: 50%;
+        box-shadow: 0 0 12px var(--accent);
+        animation: pulse 2s ease-in-out infinite;
+      }
+      @keyframes pulse {
+        0%,
+        100% {
+          opacity: 1;
+          transform: scale(1);
+        }
+        50% {
+          opacity: 0.5;
+          transform: scale(1.4);
+        }
+      }
+
+      .logo-text {
+        font-family: var(--mono);
+        font-size: 0.85rem;
+        color: var(--muted);
+        letter-spacing: 0.05em;
+      }
+      .logo-text span {
+        color: var(--accent);
+      }
+
+      /*  Main layout  */
+      main {
+        position: relative;
+        z-index: 1;
+        max-width: 960px;
+        margin: 0 auto;
+        padding: 4rem 2rem;
+      }
+
+      /*  Hero  */
+      .hero {
+        margin-bottom: 3.5rem;
+      }
+
+      .tag {
+        display: inline-block;
+        font-family: var(--mono);
+        font-size: 0.7rem;
+        color: var(--accent);
+        border: 1px solid rgba(0, 212, 255, 0.3);
+        border-radius: 100px;
+        padding: 0.25rem 0.75rem;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        margin-bottom: 1.25rem;
+      }
+
+      h1 {
+        font-size: clamp(2.5rem, 6vw, 4rem);
+        font-weight: 800;
+        line-height: 1.1;
+        letter-spacing: -0.02em;
+        color: var(--text);
+        margin-bottom: 1rem;
+      }
+      h1 em {
+        color: var(--accent);
+        font-style: normal;
+      }
+
+      .subtitle {
+        font-family: var(--mono);
+        font-size: 0.85rem;
+        color: var(--muted);
+        line-height: 1.7;
+        max-width: 520px;
+      }
+
+      /*  Sección de imagen  */
+      .section {
+        margin-bottom: 2rem;
+      }
+
+      .section-label {
+        font-family: var(--mono);
+        font-size: 0.7rem;
+        color: var(--muted);
+        text-transform: uppercase;
+        letter-spacing: 0.15em;
+        margin-bottom: 1rem;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+      }
+      .section-label::before {
+        content: "//";
+        color: var(--accent);
+      }
+
+      .img-card {
+        border: 1px solid var(--border);
+        border-radius: 12px;
+        overflow: hidden;
+        background: var(--surface);
+        display: inline-block;
+        transition: border-color 0.3s;
+      }
+      .img-card:hover {
+        border-color: var(--accent);
+      }
+
+      .img-card img {
+        display: block;
+        width: 320px;
+        max-width: 100%;
+        height: auto;
+      }
+
+      /*  Grid de stats  */
+      .stats-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+        gap: 1px;
+        background: var(--border);
+        border: 1px solid var(--border);
+        border-radius: 12px;
+        overflow: hidden;
+        margin-bottom: 2.5rem;
+      }
+
+      .stat {
+        background: var(--surface);
+        padding: 1.25rem 1.5rem;
+      }
+      .stat-label {
+        font-family: var(--mono);
+        font-size: 0.68rem;
+        color: var(--muted);
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+        margin-bottom: 0.4rem;
+      }
+      .stat-val {
+        font-family: var(--mono);
+        font-size: 1.1rem;
+        font-weight: 600;
+        color: var(--accent2);
+      }
+
+      /*  Formulario  */
+      .form-card {
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: 16px;
+        padding: 2rem 2.5rem;
+        margin-bottom: 2.5rem;
+      }
+
+      h2 {
+        font-size: 1.1rem;
+        font-weight: 700;
+        letter-spacing: -0.01em;
+        margin-bottom: 0.4rem;
+      }
+
+      .form-desc {
+        font-family: var(--mono);
+        font-size: 0.78rem;
+        color: var(--muted);
+        margin-bottom: 1.5rem;
+      }
+
+      .field {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+      }
+
+      label {
+        font-family: var(--mono);
+        font-size: 0.75rem;
+        color: var(--muted);
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+      }
+
+      .input-row {
+        display: flex;
+        gap: 0.75rem;
+      }
+
+      input[type="text"] {
+        flex: 1;
+        background: var(--bg);
+        border: 1px solid var(--border);
+        border-radius: 8px;
+        padding: 0.7rem 1rem;
+        color: var(--text);
+        font-family: var(--mono);
+        font-size: 0.9rem;
+        outline: none;
+        transition:
+          border-color 0.2s,
+          box-shadow 0.2s;
+      }
+      input[type="text"]::placeholder {
+        color: #484f58;
+      }
+      input[type="text"]:focus {
+        border-color: var(--accent);
+        box-shadow: 0 0 0 3px rgba(0, 212, 255, 0.1);
+      }
+
+      button[type="submit"] {
+        background: var(--accent);
+        color: #0d1117;
+        border: none;
+        border-radius: 8px;
+        padding: 0.7rem 1.5rem;
+        font-family: var(--mono);
+        font-size: 0.85rem;
+        font-weight: 600;
+        cursor: pointer;
+        white-space: nowrap;
+        transition:
+          opacity 0.2s,
+          transform 0.1s;
+      }
+      button[type="submit"]:hover {
+        opacity: 0.85;
+      }
+      button[type="submit"]:active {
+        transform: scale(0.97);
+      }
+
+      /*  Cookie banner  */
+      .cookie-info {
+        background: rgba(210, 153, 34, 0.06);
+        border: 1px solid rgba(210, 153, 34, 0.3);
+        border-radius: 10px;
+        padding: 1rem 1.25rem;
+        display: flex;
+        align-items: flex-start;
+        gap: 0.75rem;
+      }
+      .cookie-icon {
+        font-size: 1.1rem;
+        flex-shrink: 0;
+      }
+      .cookie-text {
+        font-family: var(--mono);
+        font-size: 0.78rem;
+        color: var(--muted);
+        line-height: 1.6;
+      }
+      .cookie-text strong {
+        color: var(--warning);
+      }
+
+      /*  Footer  */
+      footer {
+        position: relative;
+        z-index: 1;
+        padding: 1.5rem 2.5rem;
+        border-top: 1px solid var(--border);
+        font-family: var(--mono);
+        font-size: 0.72rem;
+        color: #484f58;
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <div class="logo-dot"></div>
+      <div class="logo-text">
+        <span>puerto 8080</span> &mdash; HTTP/1.1
+      </div>
+    </header>
+
+    <main>
+      <!-- Hero -->
+      <section class="hero">
+        <div class="tag">servidor activo</div>
+        <h1>Validador correo <em>UPCT</em></h1>
+        <p class="subtitle">
+          Servidor HTTP/1.1 en Python con soporte keep-alive, cookies,
+          formularios y servicio de ficheros estáticos.
+        </p>
+      </section>
+
+      <!-- Stats -->
+      <div class="stats-grid">
+        <div class="stat">
+          <div class="stat-label">Protocolo</div>
+          <div class="stat-val">HTTP/1.1</div>
+        </div>
+        <div class="stat">
+          <div class="stat-label">Puerto</div>
+          <div class="stat-val">8080</div>
+        </div>
+        <div class="stat">
+          <div class="stat-label">Max accesos</div>
+          <div class="stat-val">5 / cookie</div>
+        </div>
+        <div class="stat">
+          <div class="stat-label">Keep-Alive</div>
+          <div class="stat-val">200 s</div>
+        </div>
+      </div>
+
+      <!-- Imagen -->
+      <section class="section">
+        <div class="section-label">recurso estático &mdash; imagen.png</div>
+        <div class="img-card">
+          <img
+            src="imagen.png"
+            alt="Imagen del servidor"
+            style="width: 100%; height: auto"
+          />
+        </div>
+      </section>
+
+      <!-- Formulario -->
+      <section class="section">
+        <div class="section-label">endpoint POST &mdash; /accion_form.html</div>
+        <div class="form-card">
+          <h2>Validación de correo UPCT</h2>
+          <p class="form-desc">
+            Comprueba si el correo pertenece al dominio @edu.upct.es
+          </p>
+          <form action="/accion_form.html" method="POST">
+            <div class="field">
+              <label for="email">Correo electrónico</label>
+              <div class="input-row">
+                <input
+                  type="text"
+                  id="email"
+                  name="email"
+                  placeholder="usuario@edu.upct.es"
+                />
+                <button type="submit">Enviar →</button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </section>
+
+      <!-- Cookie info -->
+      <div class="cookie-info">
+        <span class="cookie-icon">🍪</span>
+        <div class="cookie-text">
+          <strong>Control de acceso por cookie</strong><br />
+          Esta página registra tus visitas mediante la cookie
+          <code style="color: #79c0ff">cookie_counter_1234</code>. Después de
+          <strong>5 accesos</strong> se bloqueará el acceso durante 2 minutos.
+        </div>
+      </div>
+    </main>
+
+    <footer>
+      <span>webRD_python &copy; 2026 &mdash; UPCT</span>
+      <span>Redes de Datos</span>
+      <span> Fco. Javier Mercader & Mauro Martínez </span>
+    </footer>
+  </body>
+</html>
+

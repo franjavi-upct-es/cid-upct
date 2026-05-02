@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Apache — Servidor Web</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&family=Syne:wght@400;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header>
+      <div class="logo-row">
+        <div class="logo-feather">🪶</div>
+        <div class="logo-name">
+          Apache HTTP Server
+          <br /><span>httpd 2.4 &mdash; puerto 80</span>
+        </div>
+      </div>
+      <span class="badge">● en línea</span>
+    </header>
+
+    <main>
+      <div class="eyebrow">página principal</div>
+      <h1>Servidor <span class="grad">Apache</span><br />funcionando</h1>
+      <p class="lead">
+        Esta es la página principal servida por Apache HTTP Server. La
+        navegación está protegida por autenticación básica con
+        <code
+          style="
+            font-family: &quot;JetBrains Mono&quot;, monospace;
+            font-size: 0.85em;
+            color: #79c0ff;
+          "
+          >.htaccess</code
+        >.
+      </p>
+
+      <a href="pagina2.html" class="cta">
+        Ir a la página 2
+        <span class="arrow">→</span>
+      </a>
+
+      <hr />
+
+      <div class="cards">
+        <div class="card">
+          <div class="card-icon">🔒</div>
+          <div class="card-title">Auth Básica</div>
+          <div class="card-desc">Protección con .htaccess<br />y .htpasswd</div>
+        </div>
+        <div class="card">
+          <div class="card-icon">📄</div>
+          <div class="card-title">Ficheros estáticos</div>
+          <div class="card-desc">
+            HTML, imágenes y más<br />desde DocumentRoot
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-icon">⚡</div>
+          <div class="card-title">MPM Event</div>
+          <div class="card-desc">Modelo de proceso<br />asíncrono</div>
+        </div>
+      </div>
+    </main>
+
+    <footer>
+      <span>Apache HTTP Server &mdash; UPCT Redes de Datos</span>
+      <span>DocumentRoot: /usr/local/apache2/htdocs</span>
+    </footer>
+  </body>
+</html>
+

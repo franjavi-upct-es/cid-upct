@@ -1,0 +1,10 @@
+# Configuracion de autenticacion HTTP Basic para Apache
+#
+# Protege todo el contenido del DocumentRoot exigiendo autenticacion.
+# Para que este fichero sea efectivo, httpd.conf debe tener
+# 'AllowOverride All' en el bloque <Directory> correspondiente.
+
+AuthType Basic
+AuthName "Zona protegida"
+AuthUserFile /usr/local/apache2/auth/.htpasswd
+Require valid-user

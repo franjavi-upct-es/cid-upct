@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Página 2 — Apache</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&family=Syne:wght@400;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header>
+      <div class="logo-row">
+        <div class="logo-feather">🪶</div>
+        <div class="logo-name">
+          Apache HTTP Server
+          <br /><span>httpd 2.4 &mdash; puerto 80</span>
+        </div>
+      </div>
+      <nav class="breadcrumb">
+        <a href="index.html">inicio</a>
+        <span class="sep">/</span>
+        <span class="current">pagina2.html</span>
+      </nav>
+    </header>
+
+    <main>
+      <div class="page-num">// página 02</div>
+      <h1><span class="grad">Segunda</span><br />Página</h1>
+
+      <div class="content-block">
+        <p>
+          Esta página está enlazada desde
+          <code
+            style="
+              font-family: &quot;JetBrains Mono&quot;, monospace;
+              color: #79c0ff;
+              font-size: 0.85em;
+            "
+            >index.html</code
+          >
+          y es servida directamente por Apache desde el <em>DocumentRoot</em>.
+          La navegación entre páginas demuestra el servicio de ficheros
+          estáticos y el enlazado entre recursos.
+        </p>
+        <div class="path-display">GET /pagina2.html HTTP/1.1</div>
+      </div>
+
+      <a class="back-btn" href="index.html"> ← Volver al inicio </a>
+    </main>
+
+    <footer>
+      <span>Apache HTTP Server &mdash; UPCT Redes de Datos</span>
+      <span>DocumentRoot: /usr/local/apache2/htdocs</span>
+    </footer>
+  </body>
+</html>
+
