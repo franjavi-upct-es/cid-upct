@@ -1,20 +1,22 @@
 ---
 title: "Redes de Datos"
 subtitle: "Práctica 2: Bloque Servicios"
+date: 05-03-2026
+date-format: "D [de] MMMM [de] YYYY"
 author:
-  - name: "Francisco Javier Mercader Martínez | 26649110E | [franciscojavier.mercader@edu.upct.es](mailto:franciscojavier.mercader@edu.upct.es)"
+  - name: "Fco. Javier Mercader Martínez | 26649110E | [franciscojavier.mercader@edu.upct.es](mailto:franciscojavier.mercader@edu.upct.es)"
   - name: "Mauro Martínez Cazaux | 49273021Y | [mauro.martinez@edu.upct.es](mailto:mauro.martinez@edu.upct.es)"
 lang: es
 format:
   pdf:
     documentclass: article
     papersize: a4
-    fontsize: 10pt
+    fontsize: 12pt
     geometry:
-      - top=1.5cm
-      - bottom=1.5cm
-      - left=1.5cm
-      - right=1.5cm
+      - top=2cm
+      - bottom=2cm
+      - left=2cm
+      - right=2cm
     toc: true
     toc-depth: 2
     number-sections: true
@@ -39,769 +41,192 @@ execute:
 
 \newpage
 
-# Servidor HTTP en Python para la página de entrada de la web
-
-Para esta primera parte vamos a programar y desplegar un servicio HTTP como bien describe el enunciado, para ello explicaremos el proceso, es decir, el código programado y la salida de este.
-
-## Servidor HTTP (`webRD_python.py`)
-
-Lo primero de todo sería importar las librerías necesarias para el programa, a continuación, se muestra cada una de ellas:
-
-- `sys`: librería utilizada para leer los argumentos del terminal cuando queramos ejecutar el programa
-- `urllib.parse`: librería utilizada para decodificar las URLs y también para leer los parámetros de la orden POST.
-- `socket`: librería que nos permite trabajar con sockets (crea un servicio TCP que permite escuchar peticiones HTTP).
-- `logging`: librería que nos permite generar un registro de salida para validar desde el terminal el estado del servicio TCP mientras está activo (salud, peticiones, timeouts, etc.).
-- `datetime`: librería utilizada para el formateo de registros en los _headers_ de las consultas HTTP en formato UTC.
-- `os`: librería que nos permite levantar la interfaz visual de `index.html` junto con el propio servicio TCP al acceder al puerto 8080.
-- `argparse`: librería que nos permite ajustar valores del servicio TCP en el shell a la hora de levantarlo sin necesidad de modificar su código fuente.
-- `select`: librería utilizada para obtener las peticiones HTTP realizadas en la conexión TCP donde obtenemos los datos en el socket con timeout.
-
-```python
-import argparse
-import logging
-import os
-import select
-import socket
-import sys
-from datetime import datetime, timezone
-from urllib.parse import unquote_plus
-```
-
-Después definimos los parámetros necesarios para el tiempo de persistencia de HTTP y el nombre de la cookie.
-
-`XX` representa los dos últimos dígitos del DNI de Francisco Javier Mercader Martínez y `YY` representa los dos últimos dígitos del DNI de Mauro Martínez Cazaux. Luego se le da un nombre a la cookie que utilizará el servidor para contar las visitas al archivo `index.html`, el nombre que le hemos dado es _cookie_counter_10_49_; y por último se define la suma del tiempo de espera del servidor HTTP como la suma de las cuatro cifras de `XX` e `YY` más 10 segundos, en nuestro caso son 24 segundos en total.
-
-```python
-# ============================================================
-# CONFIGURACIÓN DE GRUPO
-# ============================================================
-# XX y YY son las dos últimas cigras del DNI de cada miembro
-XX = "10"  # <-- Francisco Javier Mercader Martínez, DNI 26649110E
-YY = "49"  # <-- Mauro Martínez Cazaux, DNI 49273021Y
-
-# Construcción automática de la cookie y del timeout según el enunciado.
-# timeout = X + X + Y + Y + 10 (suma de cada una de las cuatro cifras)
-COOKIE_NAME = f"cookie_counter_{XX}_{YY}"
-TIMEOUT_CONNECTION = sum(int(c) for c in (XX + YY) if c.isdigit()) + 10
-```
-
-A continuación se declaran las constantes generales del servidor. `BUFSIZE` indica el tamaño máximo de cada bloque de datos que se recibe o se envía por el socket. En este caso se usa un valor de 8192 bytes, suficiente para trabajar con peticiones HTTP sencillas y para ir enviando los ficheros por partes.
-
-`MAX_ACCESOS` establece el número máximo de accesos permitidos a la página `index.html` antes de bloquear temporalmente al cliente mediante una respuesta `403 Forbidden`. `COOKIE_MAX_AGE` indica la duración de la cookie de control de accesos, que en este caso es de 120 segundos, es decir, 2 minutos.
-
-También se crea el diccionario `filetypes`, donde se relacionan las extensiones de los ficheros estáticos con su tipo MIME. Esta información es necesaria para rellenar la cabecera `Content-Type`, de forma que el navegador sepa si el recurso recibido debe interpretarse como HTML, CSS, JavaScript o una imagen.
-
-```python
-# ============================================================
-# CONSTANTES
-# ============================================================
-BUFSIZE = 8192  # Tamaño máximo de buffer
-MAX_ACCESOS = 5  # Accesos máximos antes de bloquear
-COOKIE_MAX_AGE = 120  # Caducidad de la cookie (2 minutos)
-
-# Extensiones admitidas (ext, MIME)
-filetypes = {
-    "gif": "image/gif", "jpg": "image/jpg",
-    "jpeg": "image/jpeg", "png": "image/png",
-    "htm": "text/htm", "html": "text/html",
-    "css": "text/css", "js": "text/js",
-}
-```
-
-Después se configura el sistema de registros del servidor. Esta parte permite ver en el terminal qué está ocurriendo mientras el servicio está activo: cuándo se acepta una conexión, qué línea de petición llega, qué valor tiene la cookie, si se alcanza un timeout o si se produce algún error.
-
-El formato elegido muestra la fecha, los milisegundos, el nivel del mensaje y el identificador del proceso. Este último dato es útil porque el servidor atiende clientes con procesos hijo creados mediante `os.fork()`, por lo que pueden aparecer varios procesos escribiendo mensajes al mismo tiempo.
-
-```python
-# ============================================================
-# LOGGING
-# ============================================================
-logging.basicConfig(
-    level=logging.INFO,
-    format="[%(asctime)s.%(msecs)03d] [%(levelname)-7s] "
-    "[pid=%(process)d] %(message)s",
-    datefmt="%Y-%m-%d %H:%M:%S",
-)
-logger = logging.getLogger()
-```
-
-Las primeras funciones auxiliares son las funciones básicas de comunicación con el socket. La función `enviar_mensaje()` utiliza `sendall()` para asegurarse de que todos los bytes de la respuesta se mandan al cliente. Esto es importante porque una llamada normal a `send()` no garantiza que se envíe todo el contenido en una única operación.
-
-La función `recibir_mensaje()` lee datos del cliente usando el tamaño máximo definido en `BUFSIZE`, mientras que `cerrar_conexion()` cierra el socket de forma controlada. En esta última función se usa un bloque `try-except` para evitar que un error al cerrar una conexión ya cerrada detenga el servidor.
-
-```python
-# ============================================================
-# FUNCIONES BASICAS DE SOCKET
-# ============================================================
-def enviar_mensaje(cs, data):
-    """
-    Envia datos a traves del socket cs. Devuelve numero de bytes enviados.
-    """
-    cs.sendall(data)
-    return len(data)
-
-
-def recibir_mensaje(cs):
-    """Recibe datos a traves del socket cs. Devuelve un objeto bytes."""
-    return cs.recv(BUFSIZE)
-
-
-def cerrar_conexion(cs):
-    """Cierra una conexion activa."""
-    try:
-        cs.close()
-    except Exception:
-        pass
-```
-
-La siguiente función auxiliar es `http_date()`. Su objetivo es generar la fecha actual en el formato utilizado por HTTP en la cabecera `Date`. Para ello se toma la hora actual en UTC y se formatea con el patrón habitual de las respuestas HTTP, terminando en `GMT`.
-
-```python
-# ============================================================
-# UTILIDAD: Fecha en formato HTTP (RFC 7231)
-# ============================================================
-def http_date():
-    return datetime.now(timezone.utc).strftime("%a, %d %b %Y %H:%M:%S GMT")
-```
-
-Después aparece la función `enviar_error()`, que centraliza la construcción de respuestas HTTP de error. Esta función recibe el socket del cliente, el código de estado, el texto asociado al código, un mensaje explicativo y un parámetro `keep_alive` que indica si la conexión debe mantenerse abierta.
-
-Primero se construye un pequeño documento HTML con el código de error, el motivo y el mensaje que se quiere mostrar al usuario. Ese cuerpo se codifica en UTF-8 para poder enviarlo por el socket.
-
-```python
-def enviar_error(cs, code, reason, message, keep_alive=False):
-    """Envia una respuesta HTTP de error con una pagina HTML informativa."""
-    body = (
-        f'<html><head><meta charset="UTF-8"><title>{code} {reason}</title></head>'
-        f"<body><h1>{code} {reason}</h1><p>{message}</p>"
-        f"<hr><i>webRD_python</i></body></html>"
-    ).encode("utf-8")
-```
-
-A continuación se decide qué cabecera `Connection` se va a utilizar. Si el cliente puede mantener la conexión abierta, se envía `Connection: keep-alive` junto con la cabecera `Keep-Alive`, donde se indica el timeout calculado anteriormente. Si no, se informa de que la conexión debe cerrarse.
-
-```python
-    if keep_alive:
-        connection_h = (
-            "Connection: keep-alive\r\n"
-            f"Keep-Alive: timeout={TIMEOUT_CONNECTION}\r\n"
-        )
-    else:
-        connection_h = "Connection: close\r\n"
-```
-
-Por último, se construyen las cabeceras completas de la respuesta HTTP. Se incluye la versión y el código de estado, la fecha, el nombre del servidor, la longitud del cuerpo y el tipo de contenido. Después se envían cabeceras y cuerpo en una sola llamada a `enviar_mensaje()`.
-
-```python
-    headers = (
-        f"HTTP/1.1 {code} {reason}\r\n"
-        f"Date: {http_date()}\r\n"
-        "Server: webRD_python\r\n"
-        f"{connection_h}"
-        f"Content-Length: {len(body)}\r\n"
-        "Content-Type: text/html; charset=utf-8\r\n"
-        "\r\n"
-    ).encode("utf-8")
-
-    enviar_mensaje(cs, headers + body)
-```
-
-La función `process_cookies()` se encarga de gestionar la cookie de control de accesos. Recibe la lista de cabeceras de la petición HTTP y busca una cabecera que empiece por `Cookie:`. Como una misma cabecera puede contener varias cookies separadas por punto y coma, se recorre cada una hasta encontrar la que coincide con `COOKIE_NAME`.
-
-Si no existe la cookie, significa que es el primer acceso del cliente y se devuelve el valor `1`. Si la cookie existe y su valor es menor que `MAX_ACCESOS`, se incrementa en uno. Si ya ha llegado al máximo, se devuelve `MAX_ACCESOS` para que el servidor pueda bloquear el acceso a la página principal.
-
-```python
-# ============================================================
-# COOKIES
-# ============================================================
-def process_cookies(headers, cs):
-    """
-    Procesa la cabecera Cookie en busca de la cookie de control de accesos.
-
-    Reglas:
-      * Si no se encuentra cookie_counter_XXYY -> devuelve 1 (primer acceso).
-      * Si esta y vale MAX_ACCESOS -> devuelve MAX_ACCESOS.
-      * Si esta y 1 <= valor < MAX_ACCESOS -> devuelve valor + 1.
-    """
-    for h in headers:
-        if h.lower().startswith("cookie:"):
-            valor_completo = h.split(":", 1)[1].strip()
-            # Pueden coexistir varias cookies separadas por ";"
-            for cookie in valor_completo.split(";"):
-                cookie = cookie.strip()
-                if cookie.startswith(COOKIE_NAME + "="):
-                    try:
-                        n = int(cookie.split("=", 1)[1])
-                    except ValueError:
-                        return 1
-                    if n >= MAX_ACCESOS:
-                        return MAX_ACCESOS
-                    return n + 1
-    return 1
-```
-
-La siguiente función es `procesar_post_form()`, encargada de tratar el formulario enviado mediante el método `POST`. El formulario usa el formato `application/x-www-form-urlencoded`, por lo que el cuerpo de la petición llega como una cadena de pares `clave=valor` separados por `&`.
-
-El servidor busca el campo `email`, decodifica su valor con `unquote_plus()` y comprueba si el correo termina en el dominio `@edu.upct.es`. De este modo se valida si el correo introducido pertenece a la Universidad Politécnica de Cartagena.
-
-```python
-# ============================================================
-# RESPUESTA A POST: validacion del formulario
-# ============================================================
-def procesar_post_form(cs, body_text, keep_alive):
-    """
-    Procesa el formulario enviado via POST con application/x-www-form-urlencoded.
-    Espera un campo 'email'. Valida si el dominio es @edu.upct.es.
-    """
-    email = ""
-    for par in body_text.split("&"):
-        if "=" in par:
-            k, v = par.split("=", 1)
-            if k.lower() == "email":
-                email = unquote_plus(v)
-                break
-
-    correcto = email.lower().endswith("@edu.upct.es")
-```
-
-Si el correo es correcto se genera una página HTML indicando que pertenece al dominio permitido. Si no es correcto, se genera otra página indicando que el correo no pertenece a dicho dominio. En el caso de que no se haya recibido ningún correo, se muestra el texto `(vacio)`.
-
-```python
-    if correcto:
-        body = (
-            '<html><head><meta charset="UTF-8">'
-            "<title>Correo correcto</title></head>"
-            "<body><h1>Correo correcto</h1>"
-            f"<p>El correo <b>{email}</b> pertenece al dominio "
-            "<code>@edu.upct.es</code>.</p>"
-            '<p><a href="/">Volver al inicio</a></p>'
-            "</body></html>"
-        ).encode("utf-8")
-    else:
-        mostrado = email if email else "(vacio)"
-        body = (
-            '<html><head><meta charset="UTF-8">'
-            "<title>Correo incorrecto</title></head>"
-            "<body><h1>Correo incorrecto</h1>"
-            f"<p>El correo <b>{mostrado}</b> NO pertenece al dominio "
-            "<code>@edu.upct.es</code>.</p>"
-            '<p><a href="/">Volver al inicio</a></p>'
-            "</body></html>"
-        ).encode("utf-8")
-```
-
-Al igual que ocurría en las respuestas de error, la función prepara las cabeceras HTTP según se mantenga o no la conexión persistente. En este caso el código de estado siempre es `200 OK`, porque el formulario se ha procesado correctamente aunque el correo no sea válido.
-
-```python
-    if keep_alive:
-        connection_h = (
-            "Connection: keep-alive\r\n"
-            f"Keep-Alive: timeout={TIMEOUT_CONNECTION}\r\n"
-        )
-    else:
-        connection_h = "Connection: close\r\n"
-
-    headers = (
-        "HTTP/1.1 200 OK\r\n"
-        f"Date: {http_date()}\r\n"
-        "Server: webRD_python\r\n"
-        f"{connection_h}"
-        f"Content-Length: {len(body)}\r\n"
-        "Content-Type: text/html; charset=utf-8\r\n"
-        "\r\n"
-    ).encode("utf-8")
-
-    enviar_mensaje(cs, headers + body)
-```
-
-La parte principal del servidor se concentra en la función `process_web_request()`. Esta función recibe el socket de cliente `cs` y el directorio base `files`, desde el que se servirán los ficheros estáticos.
-
-Su funcionamiento se basa en un bucle que permite procesar una o varias peticiones HTTP dentro de la misma conexión TCP. Esto implementa las conexiones persistentes de HTTP/1.1. El bucle termina cuando se alcanza el timeout, cuando el cliente cierra la conexión, cuando se recibe `Connection: close` o cuando aparece un error grave.
-
-```python
-# ============================================================
-# PROCESAMIENTO PRINCIPAL DE LA PETICION
-# ============================================================
-def process_web_request(cs, files):
-    """
-    Procesa una o varias peticiones HTTP en una conexion TCP.
-
-    Bucle Keep-Alive con select() y timeout. Sale del bucle cuando:
-      * Se alcanza TIMEOUT_CONNECTION sin recibir datos
-      * El cliente cierra la conexion
-      * Se recibe Connection: close
-      * Ocurre un error grave
-    """
-    while True:
-```
-
-Lo primero que se hace dentro del bucle es esperar datos usando `select.select()`. La llamada recibe el socket del cliente y el tiempo máximo de espera. Si durante ese tiempo no llega ninguna petición, el servidor escribe un mensaje en el log y cierra la conexión. Esta solución evita que un cliente mantenga una conexión abierta indefinidamente sin enviar datos.
-
-```python
-        # ----------------------------------------------------------
-        # 1) Esperar datos en el socket con timeout (Keep-Alive)
-        # ----------------------------------------------------------
-        rlist, _, _ = select.select([cs], [], [], TIMEOUT_CONNECTION)
-        if not rlist:
-            logger.info("Timeout de conexion alcanzado, cerrando...")
-            break
-```
-
-Después se leen los datos recibidos mediante `recibir_mensaje()`. Si no se recibe nada, significa que el cliente ha cerrado la conexión. En caso contrario, los bytes recibidos se decodifican como UTF-8. Si ocurre algún problema durante la decodificación, el servidor responde con un error `400 Bad Request`.
-
-```python
-        # ----------------------------------------------------------
-        # 2) Leer la peticion
-        # ----------------------------------------------------------
-        raw = recibir_mensaje(cs)
-        if not raw:
-            logger.info("Cliente cerro la conexion (recv vacio).")
-            break
-
-        try:
-            req_text = raw.decode("utf-8", errors="replace")
-        except Exception as e:
-            logger.error(f"Error decodificando peticion: {e}")
-            enviar_error(cs, 400, "Bad Request", "Mensaje no decodificable")
-            break
-```
-
-Una petición HTTP está formada por una zona de cabeceras y, opcionalmente, un cuerpo. Ambas partes se separan mediante la secuencia `\r\n\r\n`. Si dicha secuencia aparece en la petición, se separan cabeceras y cuerpo. Si no aparece, se considera que la petición solo contiene cabeceras.
-
-```python
-        # ----------------------------------------------------------
-        # 3) Separar cabeceras y body
-        # ----------------------------------------------------------
-        if "\r\n\r\n" in req_text:
-            header_text, body_text = req_text.split("\r\n\r\n", 1)
-        else:
-            header_text = req_text
-            body_text = ""
-
-        lines = header_text.split("\r\n")
-        if not lines or not lines[0].strip():
-            enviar_error(cs, 400, "Bad Request", "Peticion vacia")
-            break
-
-        request_line = lines[0]
-        logger.info(f"Request line: {request_line}")
-```
-
-La primera línea de la petición es la línea de solicitud. Debe tener tres partes: método, ruta y versión HTTP. Por ejemplo: `GET /index.html HTTP/1.1`. Si no tiene exactamente tres partes, el servidor devuelve `400 Bad Request`.
-
-Además, este servidor solo acepta HTTP/1.1. Si el cliente usa otra versión, se responde con `505 HTTP Version Not Supported`. Por último, solo se aceptan los métodos `GET` y `POST`; cualquier otro método produce un error `405 Method Not Allowed`.
-
-```python
-        # ----------------------------------------------------------
-        # 4) Parsear linea de solicitud: METHOD PATH VERSION
-        # ----------------------------------------------------------
-        partes = request_line.split()
-        if len(partes) != 3:
-            enviar_error(
-                cs, 400, "Bad Request", "Linea de solicitud mal formada"
-            )
-            break
-        method, path, version = partes
-
-        if version != "HTTP/1.1":
-            enviar_error(
-                cs,
-                505,
-                "HTTP Version Not Supported",
-                f"Solo se soporta HTTP/1.1 (recibido {version})",
-            )
-            break
-
-        if method not in ("GET", "POST"):
-            enviar_error(
-                cs, 405, "Method Not Allowed", f"Metodo {method} no permitido"
-            )
-            break
-```
-
-Después se revisa la cabecera `Connection`. En HTTP/1.1 las conexiones persistentes están activadas por defecto, por eso `keep_alive` comienza con el valor `True`. Si el cliente envía `Connection: close`, la conexión se cerrará al terminar de responder. Si envía `Connection: keep-alive`, se mantiene abierta para aceptar más peticiones dentro del timeout configurado.
-
-```python
-        # ----------------------------------------------------------
-        # 5) Detectar Connection (keep-alive por defecto en HTTP/1.1)
-        # ----------------------------------------------------------
-        keep_alive = True  # Por defecto en HTTP/1.1
-        for h in lines[1:]:
-            if h.lower().startswith("connection:"):
-                valor = h.split(":", 1)[1].strip().lower()
-                if "close" in valor:
-                    keep_alive = False
-                elif "keep-alive" in valor:
-                    keep_alive = True
-
-        # Logging de cabeceras (modo verbose)
-        for h in lines[1:]:
-            if h.strip():
-                logger.debug(f"Header: {h}")
-```
-
-Si el método recibido es `POST`, el servidor busca la cabecera `Content-Length`, ya que indica cuántos bytes ocupa el cuerpo de la petición. Esto permite comprobar si el cuerpo se ha recibido completo. Si todavía faltan datos, el servidor sigue leyendo del socket hasta completar el tamaño esperado o hasta que el cliente cierre la conexión.
-
-Una vez reconstruido el cuerpo completo, se llama a `procesar_post_form()` para validar el correo electrónico. Si la conexión no es persistente, se sale del bucle; si lo es, el servidor continúa esperando nuevas peticiones.
-
-```python
-        # ----------------------------------------------------------
-        # 6) POST: procesar formulario
-        # ----------------------------------------------------------
-        if method == "POST":
-            content_length = 0
-            for h in lines[1:]:
-                if h.lower().startswith("content-length"):
-                    try:
-                        content_length = int(h.split(":", 1)[1].strip())
-                    except ValueError:
-                        content_length = 0
-                    break
-
-            # Asegurar que tenemos todo el body
-            while len(body_text.encode("utf-8")) < content_length:
-                more = recibir_mensaje(cs)
-                if not more:
-                    break
-                body_text += more.decode("utf-8", errors="replace")
-
-            logger.info(f"POST body: {body_text}")
-            procesar_post_form(cs, body_text, keep_alive)
-
-            if not keep_alive:
-                break
-            continue
-```
-
-Si el método recibido es `GET`, el servidor debe localizar y enviar un fichero estático. Primero elimina la parte de parámetros de la URL, es decir, todo lo que aparece a partir de `?`. Después transforma la ruta `/` en `index.html`, para que al entrar en la raíz del servidor se cargue la página principal.
-
-También se añade una comprobación básica de seguridad para evitar accesos fuera del directorio permitido. Si la ruta contiene `..`, empieza por una barra invertida o contiene `:`, se rechaza con `403 Forbidden`. Así se evita, por ejemplo, que un cliente intente leer ficheros del sistema usando rutas relativas maliciosas.
-
-```python
-        # ----------------------------------------------------------
-        # 7) GET: servir fichero estatico
-        # ----------------------------------------------------------
-        # Eliminar query string
-        if "?" in path:
-            path = path.split("?", 1)[0]
-
-        # / -> index.html
-        if path == "/":
-            resource = "index.html"
-        else:
-            resource = path.lstrip("/")
-
-        # Seguridad minima: rechazar path traversal
-        if ".." in resource or resource.startswith("\\") or ":" in resource:
-            enviar_error(
-                cs, 403, "Forbidden", "Acceso al recurso denegado", keep_alive
-            )
-            if not keep_alive:
-                break
-            continue
-```
-
-Con la ruta ya validada, se construye el path final combinando el directorio base `files` con el recurso solicitado. Si el fichero no existe, se responde con `404 Not Found`. En caso de que la conexión sea persistente, el servidor no termina inmediatamente, sino que queda preparado para recibir otra petición del mismo cliente.
-
-```python
-        filepath = os.path.join(files, resource)
-
-        if not os.path.isfile(filepath):
-            enviar_error(
-                cs,
-                404,
-                "Not Found",
-                f"El recurso solicitado no existe: /{resource}",
-                keep_alive,
-            )
-            if not keep_alive:
-                break
-            continue
-```
-
-La gestión de cookies solo se aplica al fichero `index.html`. Cuando el cliente solicita esta página, se llama a `process_cookies()` para obtener el nuevo valor del contador. Este valor se registra por consola para poder comprobar el funcionamiento del servidor.
-
-Si el contador llega a `MAX_ACCESOS`, el servidor no entrega la página principal. En su lugar, genera una respuesta `403 Forbidden` con una página HTML informativa. Además, vuelve a enviar la cookie con el valor máximo y con `Max-Age=120`, de forma que el bloqueo se mantenga durante dos minutos.
-
-```python
-        # ----------------------------------------------------------
-        # 8) Cookies: solo se incrementan al pedir index.html
-        # ----------------------------------------------------------
-        cookie_header = b""
-        if resource == "index.html":
-            n = process_cookies(lines[1:], cs)
-            logger.info(f"{COOKIE_NAME} = {n}")
-
-            if n >= MAX_ACCESOS:
-                # Bloqueo: 403 Forbidden con pagina informativa
-                body = (
-                    '<html><head><meta charset="UTF-8">'
-                    "<title>403 Forbidden</title></head>"
-                    "<body><h1>403 Forbidden</h1>"
-                    f"<p>Has alcanzado el numero maximo de accesos permitidos "
-                    f"(<b>{MAX_ACCESOS}</b>) a esta pagina.</p>"
-                    f"<p>Espera 2 minutos para que expire la cookie.</p>"
-                    "<hr><i>webRD_python</i></body></html>"
-                ).encode("utf-8")
-```
-
-Para la respuesta de bloqueo también se respetan las conexiones persistentes. Se preparan las cabeceras HTTP, se añade `Set-Cookie` con el valor máximo y se envía todo al cliente. Después, si la conexión sigue siendo persistente, el servidor vuelve a esperar nuevas peticiones; en caso contrario, se cierra.
-
-```python
-                if keep_alive:
-                    connection_h = (
-                        "Connection: keep-alive\r\n"
-                        f"Keep-Alive: timeout={TIMEOUT_CONNECTION}\r\n"
-                    )
-                else:
-                    connection_h = "Connection: close\r\n"
-
-                headers = (
-                    "HTTP/1.1 403 Forbidden\r\n"
-                    f"Date: {http_date()}\r\n"
-                    "Server: webRD_python\r\n"
-                    f"{connection_h}"
-                    f"Set-Cookie: {COOKIE_NAME}={MAX_ACCESOS}; "
-                    f"Max-Age={COOKIE_MAX_AGE}\r\n"
-                    f"Content-Length: {len(body)}\r\n"
-                    "Content-Type: text/html; charset=utf-8\r\n"
-                    "\r\n"
-                ).encode("utf-8")
-                enviar_mensaje(cs, headers + body)
-
-                if not keep_alive:
-                    break
-                continue
-```
-
-Si todavía no se ha alcanzado el límite de accesos, se prepara la cabecera `Set-Cookie` con el nuevo contador. Esta cabecera se añadirá a la respuesta `200 OK`, por lo que el navegador almacenará el nuevo valor y lo enviará en peticiones posteriores.
-
-```python
-            cookie_header = (
-                f"Set-Cookie: {COOKIE_NAME}={n}; Max-Age={COOKIE_MAX_AGE}\r\n"
-            ).encode("utf-8")
-```
-
-Una vez superadas todas las comprobaciones, el servidor construye la respuesta correcta. Primero obtiene la extensión del fichero solicitado y busca su tipo MIME en el diccionario `filetypes`. Si la extensión no está registrada, se usa `application/octet-stream`, que indica contenido binario genérico.
-
-También se calcula el tamaño del fichero con `os.path.getsize()`, ya que ese valor se debe enviar en la cabecera `Content-Length`. Si el contenido es de tipo texto, se añade `charset=utf-8` al `Content-Type`.
-
-```python
-        # ----------------------------------------------------------
-        # 9) Construir y enviar respuesta 200 OK
-        # ----------------------------------------------------------
-        ext = filepath.rsplit(".", 1)[-1].lower()
-        content_type = filetypes.get(ext, "application/octet-stream")
-        size = os.path.getsize(filepath)
-
-        if keep_alive:
-            connection_h = (
-                "Connection: keep-alive\r\n"
-                f"Keep-Alive: timeout={TIMEOUT_CONNECTION}\r\n"
-            ).encode("utf-8")
-        else:
-            connection_h = b"Connection: close\r\n"
-
-        # Charset solo para texto
-        ct_header = content_type
-        if content_type.startswith("text/"):
-            ct_header += "; charset=utf-8"
-```
-
-Después se montan las cabeceras de la respuesta `200 OK`. En ellas se incluye la fecha, el servidor, la política de conexión, la longitud del fichero, el tipo de contenido y, si corresponde, la cabecera de cookie preparada anteriormente.
-
-```python
-        headers = (
-            (
-                "HTTP/1.1 200 OK\r\n"
-                f"Date: {http_date()}\r\n"
-                "Server: webRD_python\r\n"
-            ).encode("utf-8")
-            + connection_h
-            + (
-                f"Content-Length: {size}\r\nContent-Type: {ct_header}\r\n"
-            ).encode("utf-8")
-            + cookie_header
-            + b"\r\n"
-        )
-
-        enviar_mensaje(cs, headers)
-```
-
-Finalmente se abre el fichero en modo binario y se envía por bloques de `BUFSIZE` bytes. Esto permite servir tanto ficheros de texto como imágenes sin tener que cargar todo el contenido en memoria de una sola vez.
-
-```python
-        # Enviar cuerpo en bloques de BUFSIZE bytes
-        with open(filepath, "rb") as f:
-            while True:
-                chunk = f.read(BUFSIZE)
-                if not chunk:
-                    break
-                enviar_mensaje(cs, chunk)
-```
-
-Al terminar de enviar la respuesta se comprueba si la conexión debe mantenerse abierta. Si el cliente había pedido `Connection: close`, el bucle se rompe y se cierra el socket. Si no, el servidor vuelve al principio del bucle para esperar otra petición sobre la misma conexión TCP.
-
-```python
-        # ----------------------------------------------------------
-        # 10) Salir si no es keep-alive
-        # ----------------------------------------------------------
-        if not keep_alive:
-            break
-
-    cerrar_conexion(cs)
-```
-
-La última parte del programa es la función `main()`, que arranca el servidor TCP y acepta conexiones de clientes. Primero se crea un parser de argumentos con `argparse`. El servidor necesita recibir el puerto con `-p` o `--port`, la dirección IP con `-ip` o `--host`, y opcionalmente el directorio base de ficheros con `-f` o `--files`. También se incluye la opción `--verbose` o `-v` para mostrar mensajes de depuración.
-
-```python
-# ============================================================
-# MAIN: servidor concurrente con fork
-# ============================================================
-def main():
-    """Servidor web TCP concurrente."""
-    try:
-        parser = argparse.ArgumentParser()
-        parser.add_argument(
-            "-p", "--port", type=int, required=True, help="Puerto del servidor"
-        )
-        parser.add_argument(
-            "-ip",
-            "--host",
-            required=True,
-            help="Direccion IP del servidor o localhost",
-        )
-        parser.add_argument(
-            "-f",
-            "--files",
-            help="Directorio base desde donde se sirven los ficheros",
-        )
-        parser.add_argument(
-            "--verbose",
-            "-v",
-            action="store_true",
-            help="Imprimir mensajes de depuracion",
-        )
-        args = parser.parse_args()
-```
-
-Si se activa el modo `verbose`, el nivel de logging pasa a `DEBUG`, por lo que también se muestran las cabeceras recibidas. Después se imprimen por consola los datos principales de configuración: dirección, puerto, directorio servido, nombre de la cookie y timeout de conexión.
-
-```python
-        if args.verbose:
-            logger.setLevel(logging.DEBUG)
-
-        logger.info(
-            f"Enabling server in address {args.host} and port {args.port}."
-        )
-        logger.info(f"Serving files from {args.files}")
-        logger.info(f"COOKIE_NAME = {COOKIE_NAME}")
-        logger.info(f"TIMEOUT_CONNECTION = {TIMEOUT_CONNECTION}s")
-```
-
-A continuación se crea el socket TCP. Se usa `socket.AF_INET` para trabajar con IPv4 y `socket.SOCK_STREAM` para usar TCP. La opción `SO_REUSEADDR` permite reutilizar la dirección aunque el socket anterior haya quedado temporalmente en estado de espera tras cerrar el servidor. Después se enlaza el socket con la IP y el puerto indicados y se pone en modo escucha con `listen()`.
-
-```python
-        # ----------------------------------------------------------
-        # Crear socket TCP, permitir reuso de direccion, bind y listen
-        # ----------------------------------------------------------
-        sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        sock.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
-        sock.bind((args.host, args.port))
-        sock.listen()
-```
-
-El servidor entra entonces en un bucle infinito en el que acepta conexiones con `accept()`. Cada vez que llega un cliente, se obtiene un nuevo socket conectado `cs` y la dirección del cliente `addr`.
-
-Antes de crear un nuevo proceso hijo, el servidor intenta recoger procesos hijos anteriores que ya hayan terminado. Para ello usa `os.waitpid(-1, os.WNOHANG)`, que permite limpiar procesos finalizados sin bloquear el proceso padre.
-
-```python
-        # ----------------------------------------------------------
-        # Bucle principal: aceptar conexiones y bifurcar el proceso
-        # ----------------------------------------------------------
-        while True:
-            cs, addr = sock.accept()
-            logger.info(f"Accepted connection from {addr}")
-
-            # Recolectar zombies de hijos previos sin bloquear
-            try:
-                while True:
-                    wpid, _ = os.waitpid(-1, os.WNOHANG)
-                    if wpid == 0:
-                        break
-            except (ChildProcessError, OSError):
-                pass
-```
-
-Para atender a varios clientes de forma concurrente se utiliza `os.fork()`. Esta llamada crea un proceso hijo. Si el sistema no soporta `fork()`, por ejemplo en Windows, el programa cae a un modo iterativo donde atiende la conexión sin crear un proceso nuevo.
-
-```python
-            # fork() solo existe en sistemas POSIX (Linux contenedor Docker).
-            # Si se ejecuta en Windows, se cae a modo iterativo.
-            try:
-                pid = os.fork()
-            except (AttributeError, OSError):
-                logger.warning("os.fork() no disponible, modo iterativo.")
-                try:
-                    process_web_request(cs, args.files)
-                except Exception as e:
-                    logger.exception(f"Error procesando peticion: {e}")
-                finally:
-                    cerrar_conexion(cs)
-                continue
-```
-
-Cuando `fork()` devuelve `0`, significa que el código se está ejecutando en el proceso hijo. Este proceso cierra el socket de escucha heredado del padre, atiende la petición mediante `process_web_request()` y termina con `sys.exit(0)`. Así cada hijo se dedica únicamente al cliente que le ha tocado.
-
-Cuando `fork()` devuelve un identificador distinto de cero, el código está en el proceso padre. El padre no atiende directamente al cliente, por lo que cierra su copia del socket conectado y vuelve al bucle para aceptar nuevas conexiones.
-
-```python
-            if pid == 0:
-                # PROCESO HIJO: cierra el socket de escucha del padre,
-                # atiende la peticion y termina.
-                sock.close()
-                try:
-                    process_web_request(cs, args.files)
-                except Exception as e:
-                    logger.exception(f"Error procesando peticion: {e}")
-                finally:
-                    cerrar_conexion(cs)
-                sys.exit(0)
-            else:
-                # PROCESO PADRE: cierra el socket conectado y vuelve a esperar
-                cerrar_conexion(cs)
-```
-
-Por último, `main()` captura dos situaciones generales. Si el usuario detiene el servidor con `Ctrl+C`, se muestra un mensaje indicando que el servicio se ha parado. Si aparece cualquier otro error no controlado, se registra con `logger.exception()`, que además de mostrar el mensaje incluye la traza del fallo.
-
-La última condición hace que `main()` solo se ejecute cuando el archivo se lanza directamente como programa principal.
-
-```python
-    except KeyboardInterrupt:
-        logger.info("Servidor detenido por el usuario.")
-    except Exception as e:
-        logger.exception(f"Error en main: {e}")
-
-
-if __name__ == "__main__":
-    main()
-```
-
-Para ejecutar este servidor desde terminal, se indica el puerto, la IP y el directorio donde se encuentran los ficheros de la web. En nuestro caso, una ejecución típica sería:
+# Introducción
+
+El bloque de servicios de la asignatura de Redes de Datos tiene como objetivo
+estudiar el funcionamiento de servicios de red reales, especialmente aquellos
+basados en el modelo cliente-servidor. En esta práctica se trabaja con HTTP
+sobre TCP desde dos enfoques distintos: primero implementando un servidor web
+básico en Python y después desplegando un servidor Apache configurado con
+autenticación.
+
+La Práctica 5 se centra en el desarrollo de un servidor HTTP propio usando
+sockets TCP. Esta parte permite observar de forma directa cómo se reciben las
+peticiones, cómo se construyen las respuestas, cómo se gestionan cabeceras,
+cookies, errores y conexiones persistentes. La Práctica 6, por otro lado,
+trabaja con Apache como servidor HTTP ya desarrollado, desplegado mediante
+Docker y configurado con ficheros propios del servicio.
+
+Esta memoria final reúne y ordena el trabajo realizado en ambas prácticas.
+Además de describir la implementación y la configuración de los servidores,
+también se reserva un apartado específico para el análisis de tráfico con
+Wireshark, con el objetivo de relacionar el código y la configuración con el
+comportamiento real observado en la red.
+
+# Descripción del servidor HTTP en Python
+
+Para esta primera parte se ha programado y desplegado un servidor HTTP en
+Python siguiendo los requisitos del enunciado. El servidor se encuentra en el
+archivo `webRD_python.py` y se encarga de servir contenido estático, procesar
+formularios mediante `POST`, gestionar cookies, mantener conexiones
+persistentes y atender varios clientes de forma concurrente.
+
+## Arquitectura general
+
+El servidor está construido directamente sobre sockets TCP. Para ello se
+utilizan las librerías `socket`, `select`, `os`, `sys`, `argparse`, `logging`,
+`datetime` y `urllib.parse`. La librería `socket` permite crear el servicio TCP,
+`select` se emplea para esperar datos con timeout, `argparse` permite recibir
+por terminal la IP, el puerto y el directorio de ficheros, y `logging` se usa
+para registrar la actividad del servidor.
+
+El programa define una configuración de grupo formada por los valores `XX` e
+`YY`, correspondientes a las dos últimas cifras del DNI de cada integrante. A
+partir de estos valores se construye el nombre de la cookie:
+`cookie_counter_10_49`. También se calcula el tiempo de espera de la conexión
+persistente como la suma de las cuatro cifras de `XX` e `YY` más 10 segundos,
+que en este caso da un total de 24 segundos.
+
+Además, se definen constantes como `BUFSIZE`, que fija el tamaño máximo de los
+bloques de lectura y escritura; `MAX_ACCESOS`, que limita a 5 los accesos a la
+página principal antes de bloquear al cliente; y `COOKIE_MAX_AGE`, que fija la
+caducidad de la cookie en 120 segundos. El diccionario `filetypes` relaciona
+extensiones de fichero con tipos MIME para construir correctamente la cabecera
+`Content-Type`.
+
+La implementación se organiza en funciones auxiliares para enviar, recibir y
+cerrar conexiones, una función para generar fechas en formato HTTP, funciones
+específicas para errores, cookies y formularios, una función principal de
+procesamiento de peticiones y una función `main()` encargada de arrancar el
+servidor.
+
+## Gestión de peticiones HTTP
+
+La función principal de tratamiento de peticiones es `process_web_request()`.
+Esta función recibe el socket conectado con el cliente y el directorio desde el
+que se sirven los recursos. Dentro de ella se procesa la petición HTTP recibida
+en varias fases: lectura de datos del socket, separación entre cabeceras y
+cuerpo, análisis de la línea de solicitud y selección del tratamiento
+correspondiente según el método utilizado.
+
+La línea inicial de la petición se divide en método, ruta y versión. El servidor
+acepta únicamente HTTP/1.1 y los métodos `GET` y `POST`. Si el método es `GET`,
+se interpreta la ruta solicitada, se elimina la posible cadena de consulta y se
+traduce la ruta `/` al fichero `index.html`. Después se comprueba si el recurso
+existe dentro del directorio configurado y se envía al cliente con su longitud y
+tipo MIME correspondiente.
+
+También se añade una comprobación básica de seguridad para impedir accesos por
+path traversal. Si el recurso solicitado contiene `..`, comienza por una barra
+invertida o incluye `:`, se rechaza la petición con un error `403 Forbidden`.
+Esta decisión evita que el cliente pueda intentar acceder a ficheros situados
+fuera del directorio de la web.
+
+La ejecución normal del servidor se puede realizar desde el directorio
+`WebRD Python Server` con la siguiente orden:
 
 ```bash
 python3 webRD_python.py -p 8080 -ip 0.0.0.0 -f files
 ```
 
-Con esta orden, el servidor queda escuchando peticiones HTTP en el puerto 8080 y sirve los recursos del directorio `files`. Al acceder desde un navegador a la ruta `/`, se entrega `index.html`; al enviar el formulario de correo, se procesa una petición `POST`; y al refrescar varias veces la página principal, la cookie `cookie_counter_10_49` va aumentando hasta bloquear temporalmente el acceso al llegar al máximo configurado.
+Una vez iniciado, el servidor queda escuchando en el puerto 8080 y sirve los
+recursos incluidos en el directorio `files`.
 
-## Salida del programa
+## Gestión de errores
 
-Aquí vamos a mostrar los resultados en la terminal y en la página HTML.
+La gestión de errores se centraliza en la función `enviar_error()`. Esta función
+construye una respuesta HTTP con el código de estado recibido, genera una página
+HTML sencilla para informar al usuario y añade las cabeceras necesarias:
+`Date`, `Server`, `Connection`, `Content-Length` y `Content-Type`.
 
-Como se se puede comprobar si ponemos una mala sintáxis para iniciar el servidor nos devuelve el mensaje "Usage: **webRD_python.py \[-h\] -p PORT -ip HOST \[-f FILES\] \[--verbose\]**".
+El servidor contempla varios errores relevantes:
 
-Una vez puesta la sintáxis correctamente, se muestra por pantalla que el servidor se ha iniciado en la URL <http://localhost:8080>, se ha usado el puerto 8080 ya que está libre.
+- `400 Bad Request`, cuando la petición está vacía, no puede interpretarse o la
+  línea inicial no tiene el formato esperado.
+- `403 Forbidden`, cuando se intenta acceder a un recurso no permitido o cuando
+  se alcanza el límite de accesos definido por la cookie.
+- `404 Not Found`, cuando el fichero solicitado no existe en el directorio
+  servido.
+- `405 Method Not Allowed`, cuando se utiliza un método distinto de `GET` o
+  `POST`.
+- `505 HTTP Version Not Supported`, cuando la petición no usa HTTP/1.1.
+
+El tratamiento de errores mantiene la misma lógica de conexión que las
+respuestas correctas. Si la conexión es persistente, se responde con
+`Connection: keep-alive`; si no, se responde con `Connection: close`.
+
+## Procesamiento de POST
+
+El método `POST` se utiliza para procesar el formulario de validación de correo.
+El cuerpo de la petición se recibe con formato
+`application/x-www-form-urlencoded`, por lo que los campos llegan como pares
+`clave=valor` separados por `&`.
+
+El servidor busca el campo `email`, decodifica su valor mediante
+`unquote_plus()` y comprueba si termina en el dominio `@edu.upct.es`. Si el
+correo pertenece a ese dominio, se genera una página indicando que el correo es
+correcto. Si no pertenece al dominio o el campo está vacío, se devuelve una
+página indicando que el correo no es válido.
+
+El código de estado de esta respuesta es `200 OK`, ya que la petición se ha
+procesado correctamente aunque el dato introducido no cumpla la condición
+establecida. La diferencia entre correo válido e inválido se expresa en el
+cuerpo HTML de la respuesta.
+
+## Gestión de cookies
+
+La cookie se utiliza para controlar el número de accesos a `index.html`. El
+nombre de la cookie se genera con los dos últimos dígitos del DNI de cada
+integrante, por lo que en este trabajo se usa `cookie_counter_10_49`.
+
+La función `process_cookies()` analiza la cabecera `Cookie` de la petición. Si
+no encuentra la cookie esperada, interpreta que se trata del primer acceso y
+devuelve el valor `1`. Si la cookie ya existe, incrementa el contador hasta el
+límite definido por `MAX_ACCESOS`.
+
+Cuando el contador llega a 5 accesos, el servidor deja de entregar la página
+principal y responde con `403 Forbidden`. Además, vuelve a enviar la cookie con
+el valor máximo y con `Max-Age=120`, de forma que el bloqueo se mantiene durante
+dos minutos. Una vez transcurrido ese tiempo, la cookie expira y el cliente
+puede volver a acceder.
+
+## Persistencia de conexiones
+
+El servidor implementa conexiones persistentes de HTTP/1.1. En esta versión del
+protocolo, la conexión se mantiene abierta por defecto salvo que el cliente
+indique explícitamente `Connection: close`.
+
+Para evitar que una conexión quede abierta indefinidamente, se usa
+`select.select()` con el timeout calculado a partir de los DNI del grupo. Si no
+llega ninguna nueva petición durante 24 segundos, el servidor registra el
+timeout y cierra la conexión. Si el cliente solicita mantener la conexión, las
+respuestas incluyen las cabeceras `Connection: keep-alive` y
+`Keep-Alive: timeout=24`.
+
+Esta decisión permite que un mismo cliente pueda realizar varias peticiones
+HTTP dentro de la misma conexión TCP, reduciendo el número de aperturas y
+cierres de conexión.
+
+## Concurrencia
+
+La concurrencia se implementa en la función `main()` mediante `os.fork()`.
+Cuando el servidor acepta una nueva conexión con `accept()`, crea un proceso
+hijo para atender a ese cliente. El proceso hijo cierra el socket de escucha del
+padre, procesa la conexión mediante `process_web_request()` y finaliza. El
+proceso padre, por su parte, cierra su copia del socket conectado y vuelve a
+esperar nuevas conexiones.
+
+Para evitar procesos zombi, el servidor llama a `os.waitpid(-1, os.WNOHANG)`,
+lo que permite recoger procesos hijo ya finalizados sin bloquear la ejecución
+del proceso principal. Si `fork()` no está disponible, el programa cae a un modo
+iterativo en el que atiende la conexión sin crear un proceso nuevo.
+
+## Evidencias de funcionamiento
+
+Al iniciar el servidor con una sintaxis incorrecta, `argparse` muestra el uso
+esperado del programa e indica los argumentos obligatorios. Con la sintaxis
+correcta, el servidor muestra por terminal la dirección, el puerto, el
+directorio de ficheros, el nombre de la cookie y el timeout de conexión.
 
 ```bash
 > python3 webRD_python.py
@@ -815,13 +240,14 @@ webRD_python.py: error: the following arguments are required: -p/--port, -ip/--h
 [2026-05-01 12:01:04.047] [INFO] [pid=238984] TIMEOUT_CONNECTION = 24s
 ```
 
-A continuación mostraremos una pequeña parte de nuestra página, para ellos buscamos en el navegador la URL que nos proporciona la terminal.
+A continuación se muestra la página principal servida desde `index.html`:
 
 ![](image.png){fig-align="center"}
 
-Vamos a mostrar ahora que funcionan correctamente los mensajes de error, así como las cookies.
-
-Si se pone un correo que contiene la destinación `@edu.upct.es` entonces se muestra en la pantalla que es correcto y ha sido verificado. En caso contrario, muestra que es incorrecto y que se vuelva a intentar.
+El formulario permite comprobar si el correo introducido pertenece al dominio
+`@edu.upct.es`. Si el correo es correcto, el servidor devuelve una respuesta de
+validación positiva; si no lo es, devuelve una respuesta indicando que el correo
+es incorrecto.
 
 ::::::: {layout-ncol="2"}
 ::: {#first-layout}
@@ -841,634 +267,306 @@ Si se pone un correo que contiene la destinación `@edu.upct.es` entonces se mue
 :::
 :::::::
 
-Una vez se hayan realizado peticiones habiendo puesto 5 emails, si decidimos volver nos saldrá el error 403, donde devolverá que hay demasiadas peticiones realizadas y que se debe esperar 2 minutos para volver a intentarlo.
+Al superar el límite de accesos, el servidor devuelve el error `403 Forbidden` e
+informa de que se debe esperar dos minutos hasta que expire la cookie.
 
 ![](image-5.png){fig-align="center"}
 
-## Cuerpo del archivo `index.html`
+\newpage
 
-Dentro del archivo `index.html` se encuentra el cuerpo de nuestra página web donde se puede observar el título de esta ("Validador UPCT"), todas las _stats_ correspondientes al servicio TCP, la imágen adjuntada como recursos estático, el campo de entrada del email con las características descritas en los apartados anteriores y un pequeño apartado a pie de página que muestra el nombre del archivo del servidor (`webRD_python`), la universidad (UPCT), la asignatura y los autores.
+# Configuración del servidor Apache
 
-```html
-<body>
-  <header>
-    <div class="logo-dot"></div>
-    <div class="logo-text"><span>puerto 8080</span> &mdash; HTTP/1.1</div>
-  </header>
+En la segunda parte de la práctica se despliega un servidor Apache HTTP con
+Docker. A diferencia del servidor Python, Apache ya incorpora la lógica completa
+del protocolo HTTP, por lo que el trabajo se centra en el despliegue, la
+configuración del sitio web y la activación de la autenticación HTTP Basic.
 
-  <main>
-    <!-- Hero -->
-    <section class="hero">
-      <div class="tag">servidor activo</div>
-      <h1>Validador correo <em>UPCT</em></h1>
-      <p class="subtitle">
-        Servidor HTTP/1.1 en Python con soporte keep-alive, cookies, formularios
-        y servicio de ficheros estáticos.
-      </p>
-    </section>
+## Despliegue con Docker
 
-    <!-- Stats -->
-    <div class="stats-grid">
-      <div class="stat">
-        <div class="stat-label">Protocolo</div>
-        <div class="stat-val">HTTP/1.1</div>
-      </div>
-      <div class="stat">
-        <div class="stat-label">Puerto</div>
-        <div class="stat-val">8080</div>
-      </div>
-      <div class="stat">
-        <div class="stat-label">Max accesos</div>
-        <div class="stat-val">5 / cookie</div>
-      </div>
-      <div class="stat">
-        <div class="stat-label">Keep-Alive</div>
-        <div class="stat-val">200 s</div>
-      </div>
-    </div>
+El despliegue inicial de Apache se realiza con la imagen oficial `httpd`. Para
+publicar el servicio en la máquina local se mapea el puerto 80 del contenedor al
+puerto 80 del equipo anfitrión. Además, se monta el directorio local `site` como
+`DocumentRoot` del servidor:
 
-    <!-- Imagen -->
-    <section class="section">
-      <div class="section-label">recurso estático &mdash; imagen.png</div>
-      <div class="img-card">
-        <img
-          src="imagen.png"
-          alt="Imagen del servidor"
-          style="width: 100%; height: auto"
-        />
-      </div>
-    </section>
-
-    <!-- Formulario -->
-    <section class="section">
-      <div class="section-label">endpoint POST &mdash; /accion_form.html</div>
-      <div class="form-card">
-        <h2>Validación de correo UPCT</h2>
-        <p class="form-desc">
-          Comprueba si el correo pertenece al dominio @edu.upct.es
-        </p>
-        <form action="/accion_form.html" method="POST">
-          <div class="field">
-            <label for="email">Correo electrónico</label>
-            <div class="input-row">
-              <input
-                type="text"
-                id="email"
-                name="email"
-                placeholder="usuario@edu.upct.es"
-              />
-              <button type="submit">Enviar →</button>
-            </div>
-          </div>
-        </form>
-      </div>
-    </section>
-
-    <!-- Cookie info -->
-    <div class="cookie-info">
-      <span class="cookie-icon">🍪</span>
-      <div class="cookie-text">
-        <strong>Control de acceso por cookie</strong><br />
-        Esta página registra tus visitas mediante la cookie
-        <code style="color: #79c0ff">cookie_counter_1234</code>. Después de
-        <strong>5 accesos</strong> se bloqueará el acceso durante 2 minutos.
-      </div>
-    </div>
-  </main>
-
-  <footer>
-    <span>webRD_python &copy; 2026 &mdash; UPCT</span>
-    <span>Redes de Datos</span>
-    <span> Fco. Javier Mercader & Mauro Martínez </span>
-  </footer>
-</body>
+```bash
+docker run -p 80:80 -v "${PWD}/site":/usr/local/apache2/htdocs httpd
 ```
 
-## Análisis de trazas con WireShark
+Una vez añadida la autenticación, el despliegue se realiza montando también el
+directorio de credenciales y el fichero de configuración principal:
 
-En esta parte, se van a mostrar las trazas con WireShark y posteriormente se va a dar una explicación sobre estas.
+```bash
+docker run -p 80:80 \
+  -v "${PWD}/site":/usr/local/apache2/htdocs \
+  -v "${PWD}/auth":/usr/local/apache2/auth \
+  -v "${PWD}/httpd.conf":/usr/local/apache2/conf/httpd.conf \
+  httpd
+```
 
-Vamos a analizar primero las trazas del método **GET** donde se puede observar que hay varias debido a que el método GET se encarga en HTTP de solicitar o recuperar un recurso del servidor. Como hemos dicho antes se puede ver que utiliza la versión HTTP/1.1.
+El uso de volúmenes permite modificar los ficheros en el equipo anfitrión sin
+tener que reconstruir la imagen ni copiar manualmente los recursos dentro del
+contenedor.
 
-En cuanto a las peticiones que hace es, por ejemplo, la primera trama es la petición que se le envía al navegador para cargar la página principal del servidor `localhost:8080`. La segunda trama es la petición de la imagen puesta.
+## Configuración del sitio web
 
-![](image-6.png)
+El sitio web servido por Apache se encuentra en el directorio `site`. Está
+formado por una página principal `index.html`, una segunda página enlazada
+`pagina2.html` y el fichero de estilos `styles.css`.
 
-En esta imagen se muestra un poco más de información sobre la primera trama, se puede ver que se capturan un total de 1664 bytes, utiliza IPv4 y la IP de origen es la misma que la de destino (127.0.0.1 o localhost) ya que las pruebas las estamos realizando en local, entre otras cosas.
+La página principal muestra que Apache está funcionando en el puerto 80 e
+incluye un enlace a `pagina2.html`. La segunda página permite comprobar que el
+servidor entrega correctamente varios recursos estáticos desde el
+`DocumentRoot`. El fichero CSS se encarga únicamente de la presentación visual
+de ambas páginas.
 
-Los puertos que se asignan son, para la IP de origen se asigna el puerto de origen 43500, este puerto es asignado automáticamente por el sistema (puerto dinámico), en cambio, el puerto de destino es el 8080 que es el que le hemos asignado nosotros.
+Para que Apache pueda aplicar la configuración de autenticación incluida en
+`.htaccess`, se modificó el bloque del `DocumentRoot` en `httpd.conf` y se
+estableció `AllowOverride All`:
 
-![](image-7.png)
+```apache
+DocumentRoot "/usr/local/apache2/htdocs"
+<Directory "/usr/local/apache2/htdocs">
+    Options Indexes FollowSymLinks
+    AllowOverride All
+    Require all granted
+</Directory>
+```
 
-Ahora vamos a analizar las tramas del método **POST**. Como se puede observar en la imagen, aparecen un total de 6 tramas; esto se debe a que el servidor se inició 2 veces mientras se realizaba la captura de tráfico. No obstante, el funcionamiento es el esperado: después de 5 consultas introduciendo el correo electrónico, se alcanza el límite y obtenemos el error 403. Estas peticiones tienen un valor de 935 bytes y usan la versión HTTP/1.1. En resumen, el método POST únicamente aparece en el caso en que el usuario introduzca el email.
+Con esta configuración, Apache permite que el fichero `.htaccess` situado dentro
+del sitio web active reglas adicionales, como la autenticación básica.
 
-![](image-8.png)
+## Autenticación HTTP Basic
 
-Vamos a ver ahora el error **403 (“Acceso denegado: Demasiadas peticiones”)**, depende de cuantas veces se reinicie la página hasta que pasen los dos minutos de espera salen más o menos trazas, pero son todas iguales, como se ha visto en la explicación del código el código de error 403 corresponde con **“Forbidden”**, además la traza tiene un tamaño de 598 bytes.
+La autenticación HTTP Basic se configura mediante dos ficheros. El primero es
+`.htpasswd`, situado en el directorio `auth`, donde se almacenan los usuarios y
+sus contraseñas cifradas. Para crearlo se utilizó la utilidad `htpasswd` de la
+propia imagen de Apache:
 
-![](image-9.png)
+```bash
+docker run --rm httpd htpasswd -nb fcojaviermercader FJMM2526 > auth/.htpasswd
+docker run --rm httpd htpasswd -nb mauromartinezcazaux MMC2526 >> auth/.htpasswd
+```
+
+El segundo fichero es `.htaccess`, ubicado en el directorio `site`. Este fichero
+indica a Apache que todo el contenido del sitio requiere autenticación:
+
+```apache
+AuthType Basic
+AuthName "Zona protegida"
+AuthUserFile /usr/local/apache2/auth/.htpasswd
+Require valid-user
+```
+
+Con esta configuración, cualquier petición al sitio web provoca que Apache
+solicite credenciales. La directiva `Require valid-user` permite el acceso a
+cualquier usuario válido definido en `.htpasswd`.
+
+## Funcionamiento del sistema
+
+El funcionamiento de la autenticación se comprobó con `curl` y desde el
+navegador. Sin credenciales, Apache responde con `401 Unauthorized` e incluye la
+cabecera `WWW-Authenticate`, que indica al cliente que debe solicitar usuario y
+contraseña:
+
+```bash
+> curl -i http://localhost
+HTTP/1.1 401 Unauthorized
+Server: Apache/2.4.66 (Unix)
+WWW-Authenticate: Basic realm="Zona protegida"
+Content-Type: text/html; charset=iso-8859-1
+```
+
+Al repetir la petición con un usuario y contraseña válidos, Apache responde con
+`200 OK` y entrega el contenido de la página principal:
+
+```bash
+> curl -i -u mauromartinezcazaux:MMC2526 http://localhost
+HTTP/1.1 200 OK
+Server: Apache/2.4.66 (Unix)
+Content-Length: 2419
+Content-Type: text/html
+```
+
+Desde el navegador, el servidor muestra primero el cuadro de autenticación:
+
+![](image-10.png){fig-align="center"}
+
+Una vez introducidas correctamente las credenciales, se accede al sitio web:
+
+![](image-11.png){fig-align="center"}
 
 \newpage
 
-# Servicio Apache HTTP con el login y portal de desarrollo para los trabajadores de outlier
+# Análisis de tráfico con Wireshark
 
-1. Instalación de Apache
+Este apartado recoge la interpretación del tráfico HTTP observado sobre TCP. Su
+objetivo es relacionar lo visto en las capturas con el comportamiento de los dos
+servidores: el servidor implementado en Python y el servidor Apache.
 
-   ```bash
-   > sudo apt install apache2 -y
-   ```
+## Servidor HTTP en Python
 
-2. Creación página web con los respectivos ficheros de diseño
+En las trazas del método `GET` se observan varias peticiones, ya que el
+navegador solicita tanto la página principal como los recursos estáticos
+asociados. La petición inicial carga `index.html` desde `localhost:8080` y otra
+petición posterior solicita la imagen incluida en la página.
 
-   ```bash
-   > sudo nano styles.css
-   > sudo nano index.html
-   > sudo nano pagina2.html
-   ```
+![](image-6.png)
 
-   **Fichero HTML `index.html` con el código de estilo de la página principal:**
+En el detalle de la primera trama se observa que se capturan 1664 bytes y que
+se utiliza IPv4. La dirección de origen y destino es `127.0.0.1`, ya que las
+pruebas se realizaron en local. El puerto de origen es un puerto dinámico
+asignado automáticamente por el sistema, mientras que el puerto de destino es
+el 8080, configurado manualmente para el servidor Python.
 
-   ```html
-   <!doctype html>
-   <html lang="es">
-     <head>
-       <meta charset="UTF-8" />
-       <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-       <title>Apache — Servidor Web</title>
-       <link rel="preconnect" href="https://fonts.googleapis.com" />
-       <link
-         href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&family=Syne:wght@400;600;700;800&display=swap"
-         rel="stylesheet"
-       />
-       <link rel="stylesheet" href="styles.css" />
-     </head>
-     <body>
-       <header>
-         <div class="logo-row">
-           <div class="logo-feather">🪶</div>
-           <div class="logo-name">
-             Apache HTTP Server
-             <br /><span>httpd 2.4 &mdash; puerto 80</span>
-           </div>
-         </div>
-         <span class="badge">● en línea</span>
-       </header>
+![](image-7.png)
 
-       <main>
-         <div class="eyebrow">página principal</div>
-         <h1>Servidor <span class="grad">Apache</span><br />funcionando</h1>
-         <p class="lead">
-           Esta es la página principal servida por Apache HTTP Server. La
-           navegación está protegida por autenticación básica con
-           <code
-             style='
-            font-family: "JetBrains Mono", monospace;
-            font-size: 0.85em;
-            color: #79c0ff;
-          '
-             >.htaccess</code
-           >.
-         </p>
+En las tramas del método `POST`, el tráfico aparece cuando el usuario introduce
+un correo en el formulario. En la captura se observan varias peticiones porque
+el servidor se inició más de una vez durante la prueba, pero el comportamiento
+relevante es el esperado: tras varias consultas se alcanza el límite de accesos
+y se obtiene la respuesta `403 Forbidden`.
 
-         <a href="pagina2.html" class="cta">
-           Ir a la página 2
-           <span class="arrow">→</span>
-         </a>
+![](image-8.png)
 
-         <hr />
+El error `403 Forbidden` aparece cuando la cookie alcanza el número máximo de
+accesos permitidos. En las trazas se puede identificar esta respuesta HTTP y
+relacionarla con la lógica de control de accesos implementada en el servidor.
 
-         <div class="cards">
-           <div class="card">
-             <div class="card-icon">🔒</div>
-             <div class="card-title">Auth Básica</div>
-             <div class="card-desc">
-               Protección con .htaccess<br />y .htpasswd
-             </div>
-           </div>
-           <div class="card">
-             <div class="card-icon">📄</div>
-             <div class="card-title">Ficheros estáticos</div>
-             <div class="card-desc">
-               HTML, imágenes y más<br />desde DocumentRoot
-             </div>
-           </div>
-           <div class="card">
-             <div class="card-icon">⚡</div>
-             <div class="card-title">MPM Event</div>
-             <div class="card-desc">Modelo de proceso<br />asíncrono</div>
-           </div>
-         </div>
-       </main>
+![](image-9.png)
 
-       <footer>
-         <span>Apache HTTP Server &mdash; UPCT Redes de Datos</span>
-         <span>DocumentRoot: /usr/local/apache2/htdocs</span>
-       </footer>
-     </body>
-   </html>
-   ```
+## Servidor Apache
 
-   **Fichero HTML `pagina2.html` con el código de estilo de la página enlazada:**
+Primero analizamos el tráfico para el servidor Apache de la sesión 1 donde no
+habíamos implementado el sistema de autenticación:
 
-   ```html
-   <!doctype html>
-   <html lang="es">
-     <head>
-       <meta charset="UTF-8" />
-       <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-       <title>Página 2 — Apache</title>
-       <link rel="preconnect" href="https://fonts.googleapis.com" />
-       <link
-         href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600"
-              "&family=Syne:wght@400;600;700;800&display=swap"
-         rel="stylesheet"
-       />
-       <link rel="stylesheet" href="styles.css" />
-     </head>
-     <body>
-       <header>
-         <div class="logo-row">
-           <div class="logo-feather">🪶</div>
-           <div class="logo-name">
-             Apache HTTP Server
-             <br /><span>httpd 2.4 &mdash; puerto 80</span>
-           </div>
-         </div>
-         <nav class="breadcrumb">
-           <a href="index.html">inicio</a>
-           <span class="sep">/</span>
-           <span class="current">pagina2.html</span>
-         </nav>
-       </header>
+```bash
+> docker run -p 80:80 -v "${PWD}/site":/usr/local/apache2/htdocs httpd
+```
 
-       <main>
-         <div class="page-num">// página 02</div>
-         <h1><span class="grad">Segunda</span><br />Página</h1>
+Entramos a Wireshark y utilizando _Adapter for lookback traffic capture_
+obtenemos los registros mientras el servicio ha estado activo. Utilizando el filtro
+`tcp.port == 80` observamos cómo Wireshark ha captado los paquetes.
 
-         <div class="content-block">
-           <p>
-             Esta página está enlazada desde
-             <code
-               style='
-              font-family: "JetBrains Mono", monospace;
-              color: #79c0ff;
-              font-size: 0.85em;
-            '
-               >index.html</code
-             >
-             y es servida directamente por Apache desde el
-             <em>DocumentRoot</em>. La navegación entre páginas demuestra el
-             servicio de ficheros estáticos y el enlazado entre recursos.
-           </p>
-           <div class="path-display">GET /pagina2.html HTTP/1.1</div>
-         </div>
+![](image-12.png)
 
-         <a class="back-btn" href="index.html"> ← Volver al inicio </a>
-       </main>
+En la imagen podemos ver que Wireshark captura:
 
-       <footer>
-         <span>Apache HTTP Server &mdash; UPCT Redes de Datos</span>
-         <span>DocumentRoot: /usr/local/apache2/htdocs</span>
-       </footer>
-     </body>
-   </html>
-   ```
+1. _Three-Way Handshake_ (Establecimiento de la conexión): Con los primeros tres
+   paquetes se establece la conexión, 1) el primero va desde el navegador al servidor para
+   sincronizarse, 2) el servidor responde el mensaje y 3) el host confirma que todo
+   ha llegado correctamente con un ACK.
+2. `GET / HTTP/1.1`: El navegador envía un mensaje HTTP buscando la raíz de la web `(/)`.
+3. `HTTP /1.1 200 OK (text/html)`: Además de los ACK propios de TCP, el servidor
+   devuelve una respuesta HTTP `200 OK`, que indica que la petición se ha
+   procesado bien y que se envía el contenido _html_ de la web.
 
-   **Fichero CSS `styles.css` con el código de estilo de diseño de la página:**
+Ahora analizamos el tráfico para el servidor Apache de la sesión 2 una vez
+implementada la autenticación:
 
-   ```css
-   :root {
-     --bg: #0d1117;
-     --surface: #161b22;
-     --border: #30363d;
-     --muted: #8b949e;
-     --text: #e6edf3;
-     --accent: #ff6e40;
-     --accent2: #ffa040;
-     --mono: "JetBrains Mono", monospace;
-     --sans: "Syne", sans-serif;
-   }
+```bash
+docker run -p 80:80 \
+  -v "${PWD}/site":/usr/local/apache2/htdocs \
+  -v "${PWD}/auth":/usr/local/apache2/auth \
+  -v "${PWD}/httpd.conf":/usr/local/apache2/conf/httpd.conf \
+  httpd
+```
 
-   *,
-   *::before,
-   *::after {
-     box-sizing: border-box;
-     margin: 0;
-     padding: 0;
-   }
+Con Wireshark escuchando, abrimos otra vez [http://localhost](http://localhost) el cuál
+ya nos pide que nos registremos para poder acceder y observamos lo que ocurre en
+Wireshark.
 
-   body {
-     background: var(--bg);
-     color: var(--text);
-     font-family: var(--sans);
-     min-height: 100vh;
-     display: flex;
-     flex-direction: column;
-   }
+![](image-13.png)
 
-   /* Grid de fondo */
-   body::before {
-     content: "";
-     position: fixed;
-     inset: 0;
-     background-image:
-       linear-gradient(rgba(255, 110, 64, 0.025) 1px, transparent 1px),
-       linear-gradient(90deg, rgba(255, 110, 64, 0.025) 1px, transparent 1px);
-     background-size: 40px 40px;
-     pointer-events: none;
-     z-index: 0;
-   }
+Lo que podemos observar ahora es:
 
-   /*  Header  */
-   header {
-     position: relative;
-     z-index: 1;
-     padding: 1.5rem 2.5rem;
-     border-bottom: 1px solid var(--border);
-     display: flex;
-     align-items: center;
-     justify-content: space-between;
-     flex-wrap: wrap;
-     gap: 1rem;
-   }
+1. _Three-Way Handshake_ (Establecimiento de la conexión)
+2. `GET / HTTP/1.1`
+3. `HTTP /1.1 401 Unauthorized (text/html)`: El servidor envía esta respuesta debido a que
+   aún no nos hemos autenticado.
+4. Inicia la conexión desde un puerto diferente.
+5. Cierra la primera conexión debido a que ésta ha fallado.
+6. Vuelve a enviar la petición `GET / HTTP/1.1`.
+7. El servidor envía `HTTP /1.1 200 OK (text/html)`, lo que indica que las
+   credenciales introducidas son correctas y que ya se puede acceder a la web.
 
-   .logo-row {
-     display: flex;
-     align-items: center;
-     gap: 0.75rem;
-   }
-   .logo-feather {
-     width: 32px;
-     height: 32px;
-     background: linear-gradient(135deg, var(--accent), var(--accent2));
-     border-radius: 8px;
-     display: flex;
-     align-items: center;
-     justify-content: center;
-     font-size: 1rem;
-   }
-   .logo-name {
-     font-weight: 700;
-     font-size: 1rem;
-     letter-spacing: -0.01em;
-   }
-   .logo-name span {
-     font-family: var(--mono);
-     font-size: 0.75rem;
-     color: var(--muted);
-     font-weight: 400;
-   }
+## Interpretación global
 
-   .badge {
-     font-family: var(--mono);
-     font-size: 0.7rem;
-     color: var(--accent2);
-     border: 1px solid rgba(255, 160, 64, 0.3);
-     border-radius: 100px;
-     padding: 0.2rem 0.7rem;
-     background: rgba(255, 160, 64, 0.05);
-   }
+Las trazas confirman tres ideas de fondo:
 
-   /* Navigation / Breadcrumb */
-   .breadcrumb {
-     font-family: var(--mono);
-     font-size: 0.75rem;
-     color: var(--muted);
-     display: flex;
-     align-items: center;
-     gap: 0.5rem;
-   }
-   .breadcrumb a {
-     color: var(--muted);
-     text-decoration: none;
-   }
-   .breadcrumb a:hover {
-     color: var(--text);
-   }
-   .breadcrumb .sep {
-     color: #484f58;
-   }
-   .breadcrumb .current {
-     color: var(--accent);
-   }
+1. **HTTP es texto sobre TCP.** Todas las peticiones y respuestas viajan
+   en claro y son legibles directamente desde Wireshark, sin necesidad de
+   ningún disector adicional.
+2. **Keep-Alive ahorra handshakes.** Es notable la diferencia entre las
+   trazas iniciales (un _handshake_ por recurso) y las que reutilizan la
+   conexión (un único handshake para varios recursos).
+3. **HTTP Basic deja ver demasiado si no se usa HTTPS.** En la captura se puede
+   comprobar que las credenciales viajan codificadas, pero no cifradas.
 
-   /*  Main  */
-   main {
-     position: relative;
-     z-index: 1;
-     max-width: 800px;
-     margin: 0 auto;
-     padding: 5rem 2rem;
-     flex: 1;
-   }
+\newpage
 
-   /*  Hero & Typography  */
-   .eyebrow,
-   .page-num {
-     font-family: var(--mono);
-     font-size: 0.72rem;
-     color: var(--accent);
-     text-transform: uppercase;
-     letter-spacing: 0.15em;
-     margin-bottom: 1rem;
-   }
+# Comparativa entre ambos servidores
 
-   .page-num {
-     color: var(--muted);
-     margin-bottom: 0.75rem;
-   }
+Aunque ambos servidores usan HTTP, se nota bastante la diferencia entre
+programar uno desde cero y configurar uno ya preparado como Apache. La siguiente
+tabla resume las diferencias más relevantes:
 
-   h1 {
-     font-size: clamp(2.5rem, 7vw, 5rem);
-     font-weight: 800;
-     line-height: 1.05;
-     letter-spacing: -0.03em;
-     margin-bottom: 1.5rem;
-   }
+| Aspecto                   | Servidor Python (propio)              | Apache HTTP Server                                               |
+| ------------------------- | ------------------------------------- | ---------------------------------------------------------------- |
+| Líneas de código          | ~580 (un único fichero)               | varios cientos de miles (no las tocamos)                         |
+| Nivel de abstracción      | Bajo: maneja el _socket_ directamente | Alto: configurado por directivas                                 |
+| Protocolos                | Solo HTTP/1.1, GET y POST             | HTTP/1.0, 1.1 y 2; todos los métodos                             |
+| Cabeceras automáticas     | Las que programamos a mano            | `Date`, `Server`, `ETag`, `Last-Modified`, `Accept-Ranges`, etc. |
+| Caché del cliente         | No soportada                          | Sí, con `ETag` y `If-Modified-Since`                             |
+| Concurrencia              | `fork()` por conexión                 | MPM (prefork, worker o event), pool de procesos/hilos            |
+| Configurabilidad          | Constantes en el código               | `httpd.conf`, `.htaccess`, módulos                               |
+| Autenticación             | No implementada                       | Basic, Digest, LDAP, certificados, etc. (módulos)                |
+| Logs                      | `logging` de Python al `stdout`       | `access_log` y `error_log` en formatos personalizables           |
+| TLS / HTTPS               | No                                    | Sí (módulo `mod_ssl`)                                            |
+| Curva de aprendizaje      | Más directa al estar todo en un fichero | Requiere aprender directivas y ficheros de configuración       |
+| Idoneidad para producción | Muy limitada (didáctica)              | Excelente (uso real masivo)                                      |
 
-   .grad {
-     background: linear-gradient(90deg, var(--accent), var(--accent2));
-     -webkit-background-clip: text;
-     -webkit-text-fill-color: transparent;
-     background-clip: text;
-   }
+La gran ventaja del servidor Python ha sido que ayuda mucho a aprender.
+Programando cada cabecera a mano hemos entendido mejor por qué
+`Content-Length` es necesario, qué papel juega `Connection`, cómo se envía
+`Set-Cookie` y cuándo TCP puede dividir o reagrupar los datos. Es difícil ver
+estos detalles si desde el principio se usa un servidor que ya lo hace todo
+automáticamente.
 
-   .lead {
-     font-size: 1.05rem;
-     color: var(--muted);
-     line-height: 1.8;
-     margin-bottom: 3rem;
-     max-width: 560px;
-   }
+La ventaja de Apache, por su parte, es que resulta mucho más práctico para un
+uso real. Es un servidor robusto, soporta HTTP/2 y HTTPS, y permite activar
+funciones mediante módulos y directivas. Cosas como la caché, las redirecciones
+o la autenticación avanzada serían mucho más costosas de implementar en nuestro
+servidor Python.
 
-   /*  CTA  */
-   .cta {
-     display: inline-flex;
-     align-items: center;
-     gap: 0.6rem;
-     background: var(--accent);
-     color: #0d1117;
-     padding: 0.85rem 2rem;
-     border-radius: 10px;
-     font-weight: 700;
-     font-size: 0.95rem;
-     text-decoration: none;
-     letter-spacing: -0.01em;
-     transition:
-       opacity 0.2s,
-       transform 0.15s;
-     margin-bottom: 4rem;
-   }
-   .cta:hover {
-     opacity: 0.88;
-   }
-   .cta:active {
-     transform: scale(0.97);
-   }
-   .arrow {
-     font-size: 1.1rem;
-     transition: transform 0.2s;
-   }
-   .cta:hover .arrow {
-     transform: translateX(4px);
-   }
+# Problemas encontrados
 
-   /*  Back Button  */
-   .back-btn {
-     display: inline-flex;
-     align-items: center;
-     gap: 0.5rem;
-     background: var(--surface);
-     border: 1px solid var(--border);
-     color: var(--text);
-     padding: 0.8rem 1.5rem;
-     border-radius: 10px;
-     font-weight: 600;
-     font-size: 0.9rem;
-     text-decoration: none;
-     transition:
-       border-color 0.2s,
-       background 0.2s;
-   }
-   .back-btn:hover {
-     border-color: var(--accent);
-     background: rgba(255, 110, 64, 0.05);
-   }
+**`AllowOverride None` por defecto:** La autenticación de Apache no
+funcionó hasta que reparamos en que el `httpd.conf` por defecto tiene
+`AllowOverride None`, lo que hace que `.htaccess` se ignore por completo.
+Nos dimos cuenta porque las páginas se seguían sirviendo sin pedir
+credenciales y, al revisar el log de Apache, no aparecía ningún error claro.
+Tuvimos que extraer el `httpd.conf` original con
+`docker run --rm httpd cat /usr/local/apache2/conf/httpd.conf > httpd.conf`,
+modificar la directiva y volver a montar el volumen.
 
-   /*  Divider  */
-   hr {
-     border: none;
-     border-top: 1px solid var(--border);
-     margin: 0 0 2.5rem;
-   }
+**Generación incorrecta del `.htpasswd`:** Al añadir el segundo usuario por
+error usamos `>` en lugar de `>>`, lo que sobrescribió el primer usuario.
+El error solo se manifestaba al intentar iniciar sesión con el primer usuario, que
+volvía a fallar como si no existiera.
 
-   /*  Cards  */
-   .cards {
-     display: grid;
-     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-     gap: 1px;
-     background: var(--border);
-     border: 1px solid var(--border);
-     border-radius: 12px;
-     overflow: hidden;
-   }
+# Tiempo de trabajo
 
-   .card {
-     background: var(--surface);
-     padding: 1.25rem 1.5rem;
-   }
+- Francisco Javier Mercader Martínez: 8-8.5 horas
+- Mauro Martínez Cazaux: 7.5-8 horas
 
-   .card-icon {
-     font-size: 1.4rem;
-     margin-bottom: 0.5rem;
-   }
+# Conclusiones
 
-   .card-title {
-     font-size: 0.8rem;
-     font-weight: 600;
-     color: var(--text);
-     margin-bottom: 0.25rem;
-   }
+Esta práctica nos ha servido para entender mucho mejor cómo funciona un servicio web por dentro. En teoría ya habíamos visto conceptos como TCP, HTTP, las cabeceras, las cookies o el cierre de conexiones, pero al tener que programar un servidor en Python y después analizar las trazas con Wireshark se entiende de una forma mucho más clara.
 
-   .card-desc {
-     font-family: var(--mono);
-     font-size: 0.72rem;
-     color: var(--muted);
-     line-height: 1.5;
-   }
+El servidor en Python nos ha parecido la parte más útil para aprender, porque obliga a controlar detalles que normalmente no vemos: leer la petición, separar cabeceras y cuerpo, responder con el código HTTP correcto, gestionar cookies, mantener conexiones abiertas o cerrarlas cuando corresponde. También nos ha ayudado a ver que HTTP no funciona “solo”, sino que todo depende de cómo se envían y reciben los datos sobre TCP.
 
-   /* Content Block (Page 2) */
-   .content-block {
-     background: var(--surface);
-     border: 1px solid var(--border);
-     border-radius: 16px;
-     padding: 2rem;
-     margin-bottom: 2rem;
-   }
+Por otro lado, trabajar con Apache nos ha permitido ver la diferencia entre desarrollar un servidor desde cero y usar una herramienta ya preparada. Con Apache, muchas funciones como servir ficheros, gestionar errores o activar autenticación básica se configuran de forma mucho más sencilla. Esto nos ha hecho valorar la utilidad de los servidores reales, pero también entender mejor todo lo que hacen internamente.
 
-   .content-block p {
-     color: var(--muted);
-     line-height: 1.8;
-     font-size: 0.95rem;
-   }
+El análisis con Wireshark ha sido importante porque nos ha permitido comprobar que lo que programamos y configuramos realmente se refleja en la red: peticiones GET y POST, respuestas 200, 401 o 403, cabeceras HTTP, puertos utilizados y conexiones TCP.
 
-   .path-display {
-     font-family: var(--mono);
-     font-size: 0.78rem;
-     color: #79c0ff;
-     background: var(--bg);
-     border: 1px solid var(--border);
-     border-radius: 8px;
-     padding: 0.75rem 1rem;
-     margin-top: 1rem;
-     display: flex;
-     align-items: center;
-     gap: 0.5rem;
-   }
-   .path-display::before {
-     content: "$";
-     color: #484f58;
-   }
-
-   /*  Footer  */
-   footer {
-     position: relative;
-     z-index: 1;
-     padding: 1.5rem 2.5rem;
-     border-top: 1px solid var(--border);
-     font-family: var(--mono);
-     font-size: 0.72rem;
-     color: #484f58;
-     display: flex;
-     justify-content: space-between;
-     flex-wrap: wrap;
-     gap: 0.5rem;
-   }
-   ```
-
-3. Creación de usuarios y establecimiento de contraseñas para autenticación HTTP
-
-   ```bash
-   > sudo htpasswd -c /etc/apache2/passwords fcojaviermercader
-   New password:
-   Re-type new password:
-   Adding password for user fcojaviermercader
-
-   > sudo htpasswd -c /etc/apache2/passwords mauromartinezcazaux
-   New password:
-   Re-type new password:
-   Adding password for user mauromartinezcazaux
-   ```
-
-   Creación de archivo de contraseñas **passwords**, este archivo con el registro de los usuarios y sus respectivas contraseñas debe ser referenciado en la configuración global del servidor para así activar autenticación.
-
-   **Contraseñas:**
-   - fcojaviermercader: FJMM2526
-   - mauromartinezcazaux: MMC2526
-
-   Comentar que para la creación de los usuarios y guardado de su contraseña de autenticación HTTP se ha empleado el comando:
-
-   ```bash
-   > sudo htpasswd -c /etc/apache2/passwords <nombre_usuario>
-   # NOTA: Para posteriores usuarios quitamos el -c
-   ```
+En conclusión, la práctica nos ha ayudado a relacionar la teoría de la asignatura con un caso práctico real. Hemos aprendido mejor cómo funciona HTTP sobre TCP, qué papel tienen las cookies y la autenticación, y cuáles son las diferencias entre implementar un servidor propio y configurar un servidor profesional como Apache.
